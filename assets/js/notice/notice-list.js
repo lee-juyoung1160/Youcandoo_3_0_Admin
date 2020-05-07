@@ -9,6 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const selSort		= $("#selSort");
 	const topIcon		= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>'
 
 	$(document).ready(function () {
@@ -120,7 +121,7 @@
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"orderby" : "desc"
+			,"orderby" : selSort.val()
 		}
 
 		return JSON.stringify(param);
@@ -128,9 +129,8 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(1);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom = $(nRow).children().eq(1);
+		//let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
 
 		// 제목에 a 태그 추가
 		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');

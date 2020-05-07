@@ -11,4 +11,5 @@
 		,doubleChk : '확인해주세요.'
 		,select : '선택해주세요.'
 		,maxReward : '최대 5개까지 등록 가능합니다.'
+		,createReward : '리워드 조건을 생성해주세요'
 	}

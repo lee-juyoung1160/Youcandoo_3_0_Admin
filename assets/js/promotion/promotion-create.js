@@ -142,7 +142,7 @@
 		rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
 		certCount.val('');
 		maxUcd.val('');
-		$('#frequency').find('li').each(function () {
+		frequency.find('li').each(function () {
 			$(this).removeClass('active');
 		});
 	}
@@ -162,8 +162,9 @@
 
 	function validation()
 	{
-		let bannerFile	= banner[0].files;
+		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
+		let rewardList 		= $('#rewardListArea .enrollment');
 
 		if (isEmpty(bizName.val()))
 		{
@@ -209,6 +210,12 @@
 		if (thumbnailFile.length === 0)
 		{
 			alert('썸내일 이미지는 ' + message.required);
+			return false;
+		}
+
+		if (rewardList.length === 0)
+		{
+			alert(message.createReward);
 			return false;
 		}
 

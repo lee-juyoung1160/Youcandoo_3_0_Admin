@@ -9,7 +9,7 @@
 	const banner		= $("#banner");
 	const thumbnail		= $("#thumbnail");
 	const btnSubmit		= $("#btnSubmit");
-	const frequency		= $('#frequency');
+	const frequency		= $("#frequency");
 
 	/** modal **/
 	const modalReward		= $("#modalReward");
@@ -275,8 +275,6 @@
 
 	function onSubmitPromo()
 	{
-		console.log(promoFrom.val())
-		console.log(promoTo.val())
 		if (validation())
 		{
 			if (confirm(message.create))

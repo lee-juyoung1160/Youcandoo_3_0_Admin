@@ -9,6 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const topIcon		= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>'
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -21,6 +22,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
@@ -44,8 +46,9 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
+				url:"http://api.kakaokids.org/v1.0/admin/notice/list",
 				type:"POST",
+				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
 					{
@@ -58,8 +61,14 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "No "+topIcon, 	data: "idx",    	  	   name: "idx",    	    	   orderable: false,   className: "text-center" }
+				,{title: "제목", 		data: "title",    	  	   name: "title",    		   orderable: false,   className: "text-center" }
+				,{title: "노출여부", 	data: "is_exposure",  	   name: "is_exposure",  	   orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === "Y" ? "노출" : "비노출";
+					}
+				}
+				,{title: "닉네임", 	    data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -106,12 +115,12 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
-			,"search_type" : searchType.val()
+			,"fromDate" :dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"orderby" : "desc"
 		}
 
 		return JSON.stringify(param);

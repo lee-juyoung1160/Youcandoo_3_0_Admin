@@ -1,0 +1,199 @@
+
+<section class="doit-list-page">
+    <div class="inner">
+        <h2 class="main-title">두잇 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <a href="/doit/create"><i class="fas fa-plus"></i>신규 등록</a>
+            <div class="btn-wrap">
+                <button class="reset" type="reset">초기화</button>
+                <button class="search" type="button">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="date_type">등록일</label>
+                    <select id="date_type">
+                        <option value="created">등록일</option>
+                        <option value="created">시작일</option>
+                        <option value="created">종료일</option>
+                        <option value="created">결과발표일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">두잇명</label>
+                    <select id="search_type">
+                        <option value="nickname">두잇명</option>
+                        <option value="nickname">태그</option>
+                        <option value="nickname">개설자</option>
+                        <option value="nickname">두잇ID</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">진행 상태</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="cc" />
+                        <label for="c1"><span></span>모집중</label>
+
+                        <input type="checkbox" id="c2" name="cc" />
+                        <label for="c2"><span></span>진행중</label>
+
+                        <input type="checkbox" id="c3" name="cc" />
+                        <label for="c3"><span></span>결과대기</label>
+
+                        <input type="checkbox" id="c4" name="cc" />
+                        <label for="c4"><span></span>종료</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">카테고리</p>
+                    <div class="select-box list-select-box">
+                        <label for="ex_select3">전체</label>
+                        <select id="ex_select3">
+                            <option selected>전체</option>
+                            <option>태그</option>
+                            <option>개설자</option>
+                            <option>두잇ID</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">사용자 개설</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="rr" />
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="rr" />
+                        <label for="r3"><span></span>Y</label>
+
+                        <input type="radio" id="r4" name="rr" />
+                        <label for="r4"><span></span>N</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num">16</strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="selPageLength">10개씩 보기</label>
+                    <select id="selPageLength">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="30">30개씩 보기</option>
+                    </select>
+                </div>
+                <div class="btn-wrap">
+                    <button class="best-btn" type="button"><i class="fas fa-star"></i>인기두잇 지정</button>
+                    <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:3%;">
+                    <col style="width:7%;">
+                    <col style="width:8%;">
+                    <col style="width:5%;">
+                    <col style="width:18%;">
+                    <col style="width:15%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:9%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>
+                            인기두잇
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">최대 6개까지 등록이 가능합니다.</span>
+                            </i>
+                        </th>
+                        <th>두잇 ID</th>
+                        <th>두잇 유형</th>
+                        <th>두잇명</th>
+                        <th>인증기간</th>
+                        <th>진행 상태</th>
+                        <th>개설자</th>
+                        <th>수정자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td>인기</td>
+                        <td>AA01009</td>
+                        <td>프로모션</td>
+                        <td><a href="#">하루에 한번 책 읽기</a></td>
+                        <td>2019/11/07 ~ 2019/11/21</td>
+                        <td>결과대기</td>
+                        <td>admin01</td>
+                        <td>admin01</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7"><span></span></label>
+                            </div>
+                        </td>
+                        <td>인기</td>
+                        <td>AA01009</td>
+                        <td>프로모션</td>
+                        <td><a href="#">하루에 한번 책 읽기</a></td>
+                        <td>2019/11/07 ~ 2019/11/21</td>
+                        <td>결과대기</td>
+                        <td>admin01</td>
+                        <td>admin01</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/doit/doit-list.js"></script>

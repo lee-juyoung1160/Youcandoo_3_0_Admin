@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="/assets/css/doit-list.css">
+<section class="doit-list-page">
+    <div class="inner">
+        <h2 class="main-title">두잇 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <a href="/doit/create"><i class="fas fa-plus"></i>신규 등록</a>
+            <div class="btn-wrap">
+                <button class="reset">초기화</button>
+                <button class="search">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="ex_select1">등록일</label>
+                    <select id="ex_select1">
+                        <option selected>등록일</option>
+                        <option>시작일</option>
+                        <option>종료일</option>
+                        <option>결과발표일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="date">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="date">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li>오늘</li>
+                    <li>1주일</li>
+                    <li>1개월</li>
+                    <li>3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="ex_select2">두잇명</label>
+                    <select id="ex_select2">
+                        <option selected>두잇명</option>
+                        <option>태그</option>
+                        <option>개설자</option>
+                        <option>두잇ID</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">진행 상태</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="cc" />
+                        <label for="c1"><span></span>모집중</label>
+
+                        <input type="checkbox" id="c2" name="cc" />
+                        <label for="c2"><span></span>진행중</label>
+
+                        <input type="checkbox" id="c3" name="cc" />
+                        <label for="c3"><span></span>결과대기</label>
+
+                        <input type="checkbox" id="c4" name="cc" />
+                        <label for="c4"><span></span>종료</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">카테고리</p>
+                    <div class="select-box list-select-box">
+                        <label for="ex_select3">전체</label>
+                        <select id="ex_select3">
+                            <option selected>전체</option>
+                            <option>태그</option>
+                            <option>개설자</option>
+                            <option>두잇ID</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">사용자 개설</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="rr" />
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="rr" />
+                        <label for="r3"><span></span>Y</label>
+
+                        <input type="radio" id="r4" name="rr" />
+                        <label for="r4"><span></span>N</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>인기두잇</th>
+                <th>두잇 ID</th>
+                <th>두잇 유형</th>
+                <th>두잇명</th>
+                <th>인증기간</th>
+                <th>진행 상태</th>
+                <th>개설자</th>
+                <th>수정자</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Dolor</td>
+                <td>Dolor</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+    // day-btn 클릭시 이벤트
+    var dayBtns = $(".day-btn li");
+
+    dayBtns.click(function(){
+        dayBtns.removeClass("active");
+        $(this).addClass("active");
+    });
+
+</script>

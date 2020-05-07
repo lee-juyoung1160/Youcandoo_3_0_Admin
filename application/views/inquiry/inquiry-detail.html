@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/assets/css/inquiry-create.css">
+<link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
+<section class="inquiry-detail-page">
+    <div class="inner">
+        <h2 class="main-title">1:1 문의 상세</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <a class="list-btn" href="/inquiry/lists">목록</a>
+                <a class="update-btn" href="/inquiry/update">수정</a>
+            </div>
+        </div>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <p class="sub-title important">작성자</p>
+                    <div class="text-box">
+                        berry
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">작성일</p>
+                    <div class="text-box">
+                        2020/02/02
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">제목</p>
+                    <div class="text-box">
+                        두잇인증이 안되요
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">내용</p>
+                    <div class="text-box">
+                        인증 버튼만 누르면 앱이 종료돼요<br>
+                        왜이러는 걸까요…<br>
+                        해당 증상 때문에 오늘 인증 실패하게 생겼어요……
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="enrollment clearfix">
+                <li>
+                    <p class="sub-title important">답변 내용 (*)</p>
+                    <p class="detail-data">
+                        안녕하세요, 문의하신 내용의 답변입니다.<br>
+                        블라블라블라
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title important">메모</p>
+                    <p class="detail-data">
+                        2020/02/02 고객이 블라블라해서 블라블라 안내함
+                    </p>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/summernote-lite.min.js"></script>
+<script>
+    $('#summernote').summernote({
+        placeholder: '내용을 입력해주세요.',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+</script>

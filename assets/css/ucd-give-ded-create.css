@@ -1,0 +1,35 @@
+.ucd-give-ded-page .modal-content .modal-information {
+    height: inherit;
+}
+.ucd-give-ded-page .modal-content .search-box {
+    position: relative;
+}
+.ucd-give-ded-page .modal-content .search-box input[type="search"] {
+    width: 100%;
+}
+.ucd-give-ded-page .modal-content .search-box .search-btn {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    color: #565656;
+    font-size: 20px;
+}
+.modal-content .modal-information li:first-child {
+    border: none;
+}
+.ucd-give-ded-page .modal-content .table-wrap {
+    margin-top: 0;
+}
+.ucd-give-ded-page .modal-content .table-wrap table {
+    border-top: 1px solid #eee;
+}
+.modal-content .modal-information .table-wrap .table-pagination li {
+    border-bottom: none;
+}
+.ucd-give-ded-page .more-infor-btn {
+    width: 80px;
+}

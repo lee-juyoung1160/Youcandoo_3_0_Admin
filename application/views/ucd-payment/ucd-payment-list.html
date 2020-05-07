@@ -1,0 +1,262 @@
+<link rel="stylesheet" href="/assets/css/ucd-payment-list.css">
+<section class="ucd-payment-list-page">
+    <div class="inner">
+        <h2 class="main-title">UCD 출금요청 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="reset">초기화</button>
+                <button class="search">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">출금요청일자</p>
+                <div class="date-wrap">
+                    <input type="date">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="date">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li>오늘</li>
+                    <li>1주일</li>
+                    <li>1개월</li>
+                    <li>3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="ex_select2">예금주</label>
+                    <select id="ex_select2">
+                        <option selected>예금주</option>
+                        <option>닉네임</option>
+                        <option>계좌번호</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">구분</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="cc" />
+                        <label for="c1"><span></span>미확인</label>
+
+                        <input type="checkbox" id="c2" name="cc" />
+                        <label for="c2"><span></span>대기</label>
+
+                        <input type="checkbox" id="c3" name="cc" />
+                        <label for="c3"><span></span>출금 완료</label>
+
+                        <input type="checkbox" id="c4" name="cc" />
+                        <label for="c4"><span></span>반려</label>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num">16</strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="ex_select4">10개씩 보기</label>
+                    <select id="ex_select4">
+                        <option selected>10개씩 보기</option>
+                        <option>10개씩 보기</option>
+                        <option>20개씩 보기</option>
+                        <option>30개씩 보기</option>
+                    </select>
+                </div>
+                <div class="btn-wrap">
+                    <button class="delete-btn more-infor-btn" type="button" data-rel="modal-01"><i class="fas fa-minus-circle"></i>반려</button>
+                    <button class="complete-btn" type="button"><i class="fas fa-check"></i>출금완료</button>
+                    <button class="best-btn" type="button"><i class="fas fa-pause-circle"></i>대기</button>
+                    <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:5%;">
+                    <col style="width:10%;">
+                    <col style="width:5%;">
+                    <col style="width:5%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:5%;">
+                    <col style="width:16%;">
+                    <col style="width:5%;">
+                    <col style="width:5%;">
+                    <col style="width:8%;">
+                    <col style="width:8%;">
+                    <col style="width:8%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>닉네임</th>
+                        <th>UCD(c)</th>
+                        <th>UCD(p)</th>
+                        <th>출금요청금액</th>
+                        <th>제세공과금</th>
+                        <th>은행</th>
+                        <th>계좌번호</th>
+                        <th>예금주</th>
+                        <th>출금상태</th>
+                        <th>출금일자</th>
+                        <th>반려일자</th>
+                        <th>출금요청일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!--
+                    dev:
+                    반려일 경우에만
+                    tr.minus-pay
+                -->
+                <tr class="minus-pay">
+                    <th>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c7" name="cc" />
+                            <label for="c7"><span></span></label>
+                        </div>
+                    </th>
+                    <td>베리베리</td>
+                    <td>2,000</td>
+                    <td>10,000</td>
+                    <td>10,000</td>
+                    <td>-</td>
+                    <td>우리</td>
+                    <td>110345887654</td>
+                    <td>현지윤</td>
+                    <td><button type="button" class="more-infor-btn" data-rel="modal-02">반려</button></td>
+                    <td>2020/04/07</td>
+                    <td>2020/04/07</td>
+                    <td>2020/04/07</td>
+                </tr>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </th>
+                        <td>베리베리</td>
+                        <td>2,000</td>
+                        <td>10,000</td>
+                        <td>10,000</td>
+                        <td><button type="button" class="more-infor-btn" data-rel="modal-03">확인</button></td>
+                        <td>우리</td>
+                        <td>110345887654</td>
+                        <td>현지윤</td>
+                        <td>미확인</td>
+                        <td>2020/04/07</td>
+                        <td>2020/04/07</td>
+                        <td>2020/04/07</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+
+        <div class="modal-wrap">
+            <!-- 반려 버튼 클릭 : 반려 사유 선택 -->
+            <div class="modal-content modal-01">
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">반려 사유 선택</p>
+                    <ul class="modal-information">
+                        <li>
+                            <p class="sub-title">반려 사유</p>
+                            <div class="select-box">
+                                <label for="ex_select">계좌번호 오류</label>
+                                <select id="ex_select">
+                                    <option selected="">계좌번호 오류</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <button class="completion-btn" type="submit">등록 완료</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 반려 사유 확인 -->
+            <div class="modal-content modal-02">
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">반려 사유 확인</p>
+                    <ul class="modal-information">
+                        <li>
+                            <p class="sub-title">반려사유</p>
+                            <p class="data-contents">계좌번호 오류</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 제세공과금 확인 -->
+            <div class="modal-content modal-03">
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">세금 신고 정보 확인</p>
+                    <ul class="modal-information">
+                        <li>
+                            <p class="sub-title">이름</p>
+                            <p class="data-contents">이다혜</p>
+                        </li>
+                        <li>
+                            <p class="sub-title">주민번호</p>
+                            <p class="data-contents">930503-2******</p>
+                        </li>
+                        <li>
+                            <p class="sub-title">주민등록증 사본</p>
+                            <p class="img-contents">
+                                <img src="" alt="">
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-layout"></div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // modal event
+    $('.more-infor-btn').click(function () {
+        var openModal = $(this).attr('data-rel');
+        $('.' + openModal).fadeIn();
+        $('.modal-layout').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+</script>

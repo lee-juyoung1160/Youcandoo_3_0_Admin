@@ -1,0 +1,73 @@
+/* pro-create-page */
+.delete-btn {
+    color: #ec5c5c;
+}
+.pro-reward-list .select-box {
+    margin-bottom: 20px;
+}
+.pro-reward > li {
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+.pro-reward > li:last-child {
+    border-bottom: 0;
+}
+.day-btn li {
+    float: left;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    color: #007aff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    border: 1px solid #007aff;
+    background-color: #fff;
+}
+.day-btn li:last-child {
+    margin-right: 0;
+}
+.day-btn li:hover {
+    color: #ffffff;
+    background-color: #007aff;
+}
+.day-btn li:last-child {
+    margin-right: 0;
+}
+.day-btn li.active{
+    color: #ffffff;
+    background-color: #007aff;
+}
+.pro-reward-list .add-btn {
+    width: 180px;
+    display: block;
+}
+.pro-reward-list .sub-title {
+    display: inline-block;
+    margin-right: 10px;
+}
+.pro-reward-list .question-mark {
+    vertical-align: baseline;
+}
+.doit-open input[type="radio"] + label span {
+    margin-left: 10px;
+}
+.pro-reward-add-list .enrollment {
+    width: 413px;
+    float: left;
+    position: relative;
+    margin-right: 20px;
+}
+.pro-reward-add-list .enrollment:nth-child(4n+0) {
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+.pro-reward-add-list .enrollment .delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    z-index: 1;
+    font-size: 30px;
+    float: right;
+}

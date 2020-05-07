@@ -1,0 +1,25 @@
+.create-radio-wrap input[type="radio"] + label span {
+    margin-left: 10px;
+}
+.thumb-list p.sub-title {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/*푸쉬, UCD 지급차감 - 닉네임 검색 결과 */
+.result_box {
+    width: 100%;
+    font-size: 15px;
+    margin-top: 30px;
+    padding: 20px;
+    color: #545454;
+    border-radius: 5px;
+    border: 1px solid #ebebeb;
+    background-color: #f8f8f8;
+}
+.result_box p {
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #484848;
+}

@@ -1,0 +1,32 @@
+.prohibited-list-page .more-infor-btn {
+    border: none;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    width: 150px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 30px;
+    background-color: #19579a;
+}
+.prohibited-list-page .more-infor-btn i {
+    margin-right: 5px;
+}
+.prohibited-list-page .more-infor-btn:hover {
+    background-color: #19579a;
+}
+.prohibited-list-page .modal-content .modal-information {
+    height: inherit;
+}
+.prohibited-list-page .modal-information .sub-title {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-common .list-wrap:first-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.prohibited-list-page .table-wrap .btn-wrap .delete-btn {
+    background-color: #c90614;
+}

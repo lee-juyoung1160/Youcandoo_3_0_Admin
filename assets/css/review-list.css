@@ -1,0 +1,45 @@
+
+.review-list-page .table-wrap td button {
+    background: none;
+    border-bottom: 1px solid #505050;
+}
+
+.review-list-page .more-infor-btn {
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.review-list-page .line-clamp {
+    overflow: hidden;
+    width: 350px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.review-list-page .modal-content .modal-information {
+    height: inherit;
+}
+.review-list-page .modal-content label {
+    margin-right: 10px;
+}
+.full-left, .full-right {
+    float: left;
+    width: 50%;
+}
+.review-list-page .modal-02 li:nth-child(2) {
+    border-bottom: 5px solid #f1f1f1;
+}
+
+.review-list-page .modal-02 .table-wrap {
+    margin-top: 0;
+}
+.review-list-page .modal-02 .table-wrap table {
+    margin-top: 0;
+}
+.review-list-page .modal-02 .table-wrap .table-pagination li {
+    border-bottom: none;
+}
+
+

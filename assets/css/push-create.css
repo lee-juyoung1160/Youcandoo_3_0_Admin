@@ -1,0 +1,54 @@
+/* 발송유형 */
+.push-create-page .push-send-date {
+    display: none;
+}
+/* 발송대상 */
+.push-create-page .nickname-wrap {
+    display: none;
+}
+.push-create-page .group-wrap {
+    display: none;
+    margin-top: 15px;
+}
+/* 발송대상 - 부분발송 */
+.push-create-page .nickname-wrap {
+    margin-top: 15px;
+}
+.push-create-page .more-infor-btn {
+    width: 80px;
+}
+
+/* modal */
+.push-create-page .modal-content .modal-information {
+    height: inherit;
+}
+.push-create-page .modal-content .search-box {
+    position: relative;
+}
+.push-create-page .modal-content .search-box input[type="search"] {
+    width: 100%;
+}
+.push-create-page .modal-content .search-box .search-btn {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    color: #565656;
+    font-size: 20px;
+}
+.push-create-page .modal-content .modal-information li:first-child {
+    border: none;
+}
+.push-create-page .modal-content .table-wrap {
+    margin-top: 0;
+}
+.push-create-page .modal-content .table-wrap table {
+    border-top: 1px solid #eee;
+}
+.modal-content .modal-information .table-wrap .table-pagination li {
+    border-bottom: none;
+}
+

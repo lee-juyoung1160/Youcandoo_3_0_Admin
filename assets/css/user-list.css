@@ -1,0 +1,10 @@
+.user-list-page .table-wrap .btn-wrap .stop-btn {
+   background-color: #FFA83B ;
+}
+.user-list-page .table-wrap .btn-wrap .out-btn {
+    margin-right: 20px;
+    background-color: #c13030;
+}
+.user-list-page input[type="radio"] + label {
+    margin-right: 10px;
+}

@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/assets/css/push-list.css">
+<section class="push-list-page">
+    <div class="inner">
+        <h2 class="main-title">푸시 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <a href="/push/create"><i class="fas fa-plus"></i>신규 발송</a>
+            <div class="btn-wrap">
+                <button class="reset">초기화</button>
+                <button class="search">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">발송날짜</p>
+                <div class="date-wrap">
+                    <input type="date">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="date">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li>오늘</li>
+                    <li>1주일</li>
+                    <li>1개월</li>
+                    <li>3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="ex_select2">제목/내용</label>
+                    <select id="ex_select2">
+                        <option selected>제목/내용</option>
+                        <option>아이디</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">발송유형</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="ca" />
+                        <label for="c1"><span></span>즉시</label>
+
+                        <input type="checkbox" id="c2" name="ca" />
+                        <label for="c2"><span></span>예약</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">발송대상</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c3" name="cb" />
+                        <label for="c3"><span></span>전체</label>
+
+                        <input type="checkbox" id="c4" name="cb" />
+                        <label for="c4"><span></span>부분</label>
+
+                        <input type="checkbox" id="c5" name="cb" />
+                        <label for="c5"><span></span>그룹</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">구분</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c6" name="cc" />
+                        <label for="c6"><span></span>일반공지</label>
+
+                        <input type="checkbox" id="c7" name="cc" />
+                        <label for="c7"><span></span>긴급공지</label>
+
+                        <input type="checkbox" id="c8" name="cc" />
+                        <label for="c8"><span></span>이벤트공지</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num">16</strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="ex_select2">10개씩 보기</label>
+                    <select id="ex_select2">
+                        <option selected>10개씩 보기</option>
+                        <option>10개씩 보기</option>
+                        <option>20개씩 보기</option>
+                        <option>30개씩 보기</option>
+                    </select>
+                </div>
+                <div class="select-box">
+                    <label for="ex_select3">발송일 순</label>
+                    <select id="ex_select3">
+                        <option selected>발송일 순</option>
+                        <option>발송일 역순</option>
+                    </select>
+                </div>
+                <div class="btn-wrap">
+                    <button class="delete-btn" type="button"><i class="fas fa-times-circle"></i>발송취소</button>
+                </div>
+            </div>
+
+            <table>
+                <colgroup>
+                    <col style="width:5%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:35%;">
+                    <col style="width:20%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c9" name="cc" />
+                                <label for="c9"><span></span></label>
+                            </div>
+                        </th>
+                        <th>발송유형</th>
+                        <th>구분</th>
+                        <th>제목</th>
+                        <th>발송일시</th>
+                        <th>발송대상</th>
+                        <th>발송여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c10" name="cc" />
+                                <label for="c10"><span></span></label>
+                            </div>
+                        </td>
+                        <td>즉시발송</td>
+                        <td>일반공지</td>
+                        <td><a href="/push/detail">일반공지입니다</a></td>
+                        <td>2020/02/02 10:30:30</td>
+                        <td>부분</td>
+                        <td>완료</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>

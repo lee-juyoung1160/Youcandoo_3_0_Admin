@@ -1,0 +1,116 @@
+<section class="biz-list-page">
+    <div class="inner">
+        <h2 class="main-title">비즈 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <a href="/biz/create"><i class="fas fa-plus"></i>비즈계정 등록</a>
+            <div class="btn-wrap">
+                <button class="reset" type="reset">초기화</button>
+                <button class="search" type="button">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="date_type">등록일</label>
+                    <select id="date_type">
+                        <option value="created">등록일</option>
+                        <option value="created">시작일</option>
+                        <option value="created">종료일</option>
+                        <option value="created">결과발표일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">회사명</label>
+                    <select id="search_type">
+                        <option value="nickname">회사명</option>
+                        <option value="nickname">프로모션명</option>
+                        <option value="nickname">두잇명</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num"></strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="selPageLength">10개씩 보기</label>
+                    <select id="selPageLength">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="30">30개씩 보기</option>
+                    </select>
+                </div>
+                <div class="btn-wrap">
+                    <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                </div>
+            </div>
+            <table id="">
+                <colgroup>
+                    <col style="width:4%;">
+                    <col style="width:24.25%;">
+                    <col style="width:24.25%;">
+                    <col style="width:24.25%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>고유ID</th>
+                        <th>회사명</th>
+                        <th>보유 UCD</th>
+                        <th>등록일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td>1231231</td>
+                        <td><a href="/biz/detail">회사라고 합니다.</a></td>
+                        <td>30,000,000UCD</td>
+                        <td>2020-04-08</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/biz/biz-list.js"></script>

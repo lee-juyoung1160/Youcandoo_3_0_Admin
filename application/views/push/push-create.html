@@ -1,0 +1,249 @@
+<link rel="stylesheet" href="/assets/css/create-common-jy.css">
+<link rel="stylesheet" href="/assets/css/push-create.css">
+<section class="push-create-page">
+    <div class="inner">
+        <h2 class="main-title">푸시 발송</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li class="push-type create-radio-wrap">
+                    <p class="sub-title important">발송유형(*)</p>
+                    <div class="checkbox-wrap">
+                        <input type="radio" id="c1" name="rc" class="type-btn" value="typeNow" />
+                        <label for="c1" >즉시발송<span></span></label>
+
+                        <input type="radio" id="c2" name="rc" class="type-btn" value="typeReserv" />
+                        <label for="c2">예약발송<span></span></label>
+
+                    </div>
+                </li>
+                <li class="push-send-date">
+                    <p class="sub-title important">발송일자</p>
+                    <input type="date">
+                    <input type="time">
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">구분 (*)</p>
+                    <div class="select-box">
+                        <label for="ex_select1">일반공지</label>
+                        <select id="ex_select1">
+                            <option selected>일반공지</option>
+                            <option>긴급공지</option>
+                            <option>이벤트공지</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">제목(*)</p>
+                    <input type="text" placeholder="제목을 입력해주세요.">
+                </li>
+                <li>
+                    <p class="sub-title important">내용(*)</p>
+                    <textarea placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">이미지</p>
+                    <div class="filebox preview-image">
+                        <input class="upload-name" value="파일선택" disabled="disabled" >
+                        <label for="input-file3">업로드</label>
+                        <input type="file" id="input-file3" class="upload-hidden">
+                    </div>
+                </li>
+                <li class="create-radio-wrap">
+                    <p class="sub-title important">발송대상(*)</p>
+                    <div class="checkbox-wrap">
+                        <input type="radio" id="c3" name="rd" class="obj-btn" value="objAll" />
+                        <label for="c3">전체<span></span></label>
+
+                        <input type="radio" id="c4" name="rd" class="obj-btn" value="objPart"/>
+                        <label for="c4">부분<span></span></label>
+
+                        <input type="radio" id="c5" name="rd" class="obj-btn" value="objGroup"/>
+                        <label for="c5">그룹<span></span></label>
+                    </div>
+
+                    <div class="nickname-wrap">
+                        <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
+                        <button class="more-infor-btn" type="button">
+                            <span>찾기</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="modal-content">
+                            <div class="wrap">
+                                <i class="close-btn fas fa-times-circle"></i>
+                                <p class="modal-title">닉네임 찾기</p>
+                                <ul class="modal-information">
+                                    <li>
+                                        <p class="sub-title">닉네임</p>
+                                        <div class="search-wrap">
+                                            <div class="search-box">
+                                                <input type="search" placeholder="검색어를 입력해주세요.">
+                                                <i class="search-btn fas fa-search"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="table-wrap">
+                                            <table>
+                                                <colgroup>
+                                                    <col style="width:5%;">
+                                                    <col style="width:95%;">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c5" name="cc" />
+                                                            <label for="c5"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>닉네임</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c6" name="cc" />
+                                                            <label for="c6"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <td>베리모카</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <ul class="table-pagination clearfix">
+                                                <li><i class="fas fa-angle-double-left"></i></li>
+                                                <li class="active">1</li>
+                                                <li>2</li>
+                                                <li>3</li>
+                                                <li><i class="fas fa-angle-double-right"></i></li>
+                                            </ul>
+                                            <div class="result_box">
+                                                <p>선택된 유저 <em>3</em>명</p>
+                                                <div class="container">
+                                                    BERRY, 새콤달콤, 모카베리
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="completion-btn" type="submit">등록 완료</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-layout"></div>
+                        <div class="result_box">
+                            <p>발송대상 <em>3</em>명</p>
+                            <div class="container">
+                                BERRY, 새콤달콤, 모카베리
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-wrap clearfix">
+                        <p class="cap">csv파일 업로드</p>
+                        <div class="filebox preview-image">
+                            <input class="upload-name" value="파일선택" disabled="disabled" accept=".csv">
+                            <label for="input-file3">업로드</label>
+                            <input type="file" id="input-file5" class="upload-hidden" accept=".csv">
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <button class="completion-btn" type="submit">발송</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    // modal event
+    $('.more-infor-btn').click(function () {
+        $('.modal-layout').fadeIn();
+        $('.modal-content').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+    // input flie 변환
+    $(document).ready(function(){
+        var fileTarget = $('.filebox .upload-hidden');
+
+        fileTarget.on('change', function(){
+            if(window.FileReader){
+                var filename = $(this)[0].files[0].name;
+            } else {
+                var filename = $(this).val().split('/').pop().split('\\').pop();
+            }
+            $(this).siblings('.upload-name').val(filename);
+        });
+    });
+
+
+    // input preview image
+    var imgTarget = $('.preview-image .upload-hidden');
+
+    imgTarget.on('change', function(){
+        var parent = $(this).parent();
+        parent.children('.upload-display').remove();
+
+        if(window.FileReader){
+            //image 파일만
+            if (!$(this)[0].files[0].type.match(/image\//)) return;
+
+            var reader = new FileReader();
+            reader.onload = function(e){
+                var src = e.target.result;
+                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+        else {
+            $(this)[0].select();
+            $(this)[0].blur();
+            var imgSrc = document.selection.createRange().text;
+            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+            var img = $(this).siblings('.upload-display').find('img');
+            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
+        }
+    });
+
+    // 발송 유형
+    $('.type-btn').on("click", function () {
+        var valueCheck = $('.type-btn:checked').val();
+
+        if ( valueCheck == 'typeNow' ) {
+            $('.push-send-date').hide();
+        }else if(valueCheck == 'typeReserv') {
+            $('.push-send-date').show();
+        }
+    });
+
+    // 푸시 대상
+    $('.obj-btn').on("click", function () {
+        var valueCheck = $('.obj-btn:checked').val();
+
+        if ( valueCheck == 'objAll' ) {
+            $('.nickname-wrap').hide();
+            $('.group-wrap').hide();
+        }else if(valueCheck == 'objPart') {
+            $('.nickname-wrap').show();
+            $('.group-wrap').hide();
+        }else if(valueCheck == 'objGroup') {
+        $('.nickname-wrap').hide();
+        $('.group-wrap').show();
+        }
+    });
+
+</script>

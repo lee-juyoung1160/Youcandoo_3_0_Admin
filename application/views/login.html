@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:type" content="YCD">
+    <meta property="og:title" content="유캔두 관리자">
+    <meta property="og:url" content="#">
+    <meta property="og:description" content="유캔두 관리자 페이지">
+    <meta property="og:image" content="/assets/images/thumbnail.png">
+    <meta name="format-detection" content="telephone=no" />
+    <title>유캔두 관리자</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/message.js"></script>
+    <script src="/assets/js/utils.js"></script>
+</head>
+
+<body>
+    <section class="login-pg">
+        <div class="login-inner">
+            <div class="top">
+                <div class="top-title">
+                    <div class="fly-wrap clearfix">
+                        <span class="welcome-text">w</span>
+                        <span class="welcome-text">e</span>
+                        <span class="welcome-text">l</span>
+                        <span class="welcome-text">c</span>
+                        <span class="welcome-text">o</span>
+                        <span class="welcome-text">m</span>
+                        <span class="welcome-text">e</span>
+                        <span class="welcome-text">!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap">
+                <h1 class="login-text">LOGIN</h1>
+                <form action="#">
+                    <div class="col user-name-wrap">
+                        <p>Username</p>
+                        <div class="input-wrap">
+                            <i class="fas fa-envelope"></i>
+                            <input id="email" type="email" placeholder="이메일을 입력해주세요.">
+                        </div>
+                    </div>
+                    <div class="col password-wrap">
+                        <p>Password</p>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                    </div>
+                </form>
+                <button id="login-btn" type="submit">LOGIN</button>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+
+    const email     = $("#email");
+    const password  = $("#password");
+    const loginBtn  = $("#login-btn");
+
+    $(document).ready(function () {
+
+        loginBtn    .on("click", function () { onSubmitLogin(); });
+        email       .on("keydown", function (key) { onKeydownEmail(key) });
+        password    .on("keydown", function (key) { onKeydownPassword(key) });
+
+    });
+
+    function onKeydownEmail(key)
+    {
+        if (key.keyCode === 13)
+        {
+            if (isEmpty(email.val()))
+            {
+                alert(message.emptyId);
+                email.focus();
+                return;
+            }
+
+            password.focus();
+        }
+    }
+
+    function onKeydownPassword(key)
+    {
+        if (key.keyCode === 13)
+        {
+            if (isEmpty(password.val()))
+            {
+                alert(message.emptyPassword);
+                password.focus();
+                return;
+            }
+
+            onSubmitLogin();
+        }
+    }
+
+    function onSubmitLogin()
+    {
+        if (validation())
+        {
+            alert("goLoginAction");
+        }
+    }
+
+    function validation()
+    {
+        if (isEmpty(email.val()))
+        {
+            alert(message.emptyId);
+            email.focus();
+            return false;
+        }
+
+        if (isEmpty(password.val()))
+        {
+            alert(message.emptyPassword);
+            password.focus();
+            return false;
+        }
+
+        return true;
+    }
+</script>
+</html>

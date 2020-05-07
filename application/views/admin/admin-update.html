@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="/assets/css/create-common-jy.css">
+<section class="admin-create-page">
+    <div class="inner">
+        <h2 class="main-title">관리자 수정</h2>
+        <form action="#">
+            <div class="wrap">
+                <ul class="enrollment clearfix">
+                    <li class="clearfix">
+                        <p class="sub-title important">권한(*)</p>
+                        <div class="select-box">
+                            <label for="ex_select1">스페셜</label>
+                            <select id="ex_select1">
+                                <option selected>스페셜</option>
+                                <option>슈퍼</option>
+                                <option>운영자</option>
+                                <option>CS</option>
+                                <option>마케팅</option>
+                                <option>정산</option>
+                                <option>모니터링</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="sub-title important">아이디(*)</p>
+                        <input id="id" type="text" placeholder="아이디를 입력해주세요." disabled>
+                    </li>
+                    <li>
+                        <p class="sub-title important">이름(*)</p>
+                        <input id="name" type="text" placeholder="이름을 입력해주세요.">
+                    </li>
+                    <li>
+                        <p class="sub-title important">비밀번호(*)</p>
+                        <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                    </li>
+                    <li>
+                        <p class="sub-title important">비밀번호 확인(*)</p>
+                        <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                    </li>
+                    <li>
+                        <p class="sub-title important">이메일(*)</p>
+                        <input id="email" type="email" placeholder="이메일을 입력해주세요.">
+                    </li>
+                    <li class="create-radio-wrap">
+                        <p class="sub-title important">사용 여부</p>
+                        <div class="checkbox-wrap">
+                            <input type="radio" id="c1" name="rdoUseYn" value="Y"/>
+                            <label for="c1">Y<span></span></label>
+
+                            <input type="radio" id="c2" name="rdoUseYn" value="N"/>
+                            <label for="c2">N<span></span></label>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="completion-btn" type="submit">수정 완료</button>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="/assets/js/admin/admin-enrollment.js"></script>

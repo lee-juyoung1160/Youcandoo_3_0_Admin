@@ -1,0 +1,7 @@
+.admin-list-page .list-common .list-wrap:first-child {
+    border: none;
+    padding-bottom: 0;
+}
+.admin-list-page .table-wrap .btn-wrap .delete-btn {
+    background-color: #c90614;
+}

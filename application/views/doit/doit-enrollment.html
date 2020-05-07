@@ -1,0 +1,420 @@
+<link rel="stylesheet" href="/assets/css/doit-enrollment.css">
+<section class="doit-page">
+    <div class="inner">
+        <h2 class="main-title">두잇 신규 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <p class="sub-title important">두잇명(*)</p>
+                    <input type="text" placeholder="제목을 입력해주세요.">
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">두잇 유형(*)</p>
+                    <div class="select-box">
+                        <label for="ex_select1">일반</label>
+                        <select id="ex_select1">
+                            <option selected>일반</option>
+                            <option>프로모션</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select2">스폰 기업 선택</label>
+                        <select id="ex_select2">
+                            <option selected>스폰 기업 선택</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select3">프로모션 선택</label>
+                        <select id="ex_select3">
+                            <option selected>프로모션 선택</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <button class="more-infor-btn" type="button">
+                        <span>프로모션 상세보기</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="modal-content">
+                        <div class="wrap">
+                            <i class="close-btn fas fa-times-circle"></i>
+                            <p class="modal-title">프로모션 상세정보</p>
+                            <ul class="modal-information">
+                                <li>
+                                    <p class="sub-title">스폰 기업명</p>
+                                    <p class="data-contents">나이키</p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">프로모션 기간</p>
+                                    <p class="data-contents">2020.03.01 ~ 2020.04.01</p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">프로모션 예산</p>
+                                    <p class="data-contents">10,000,000원</p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">1인당 받게되는 UCD</p>
+                                    <p class="data-contents">1,000UCD</p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">프로모션명</p>
+                                    <p class="data-contents">나이키 신발 신고 산책하자!</p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">두잇 개설 유형</p>
+                                    <p class="data-contents">사용자 두잇 개설 허용 두잇 개설 시, 승인 사용
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="sub-title">리워드 시뮬 사용</p>
+                                    <p class="data-contents">
+                                        <strong class="use">사용</strong>
+                                        인원수: 1~10명  |  인증기간: 28일  |  인증회차: 주3일  | 하루인증횟수: 1회  | 목표달성률: 80%
+                                        <strong class="reward-data">수정불가항목 : <span class="value">없음</span></strong>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-layout"></div>
+                </li>
+                <li class="tag-list">
+                    <p class="sub-title important">태그(*)</p>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">최대 3개까지 등록이 가능합니다.</span>
+                    </i>
+                    <div class="tag-input-wrap">
+                        <input class="tag-input" type="text" placeholder="태그를 입력해주세요.">
+                        <button class="add-btn" type="submit">
+                            <i class="fas fa-plus"></i>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                    <ul class="hash-tag-list clearfix">
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                    </ul>
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">두잇 소개 이미지(*)</p>
+                    <div class="filebox preview-image">
+                        <p class="cap">두잇 이미지 및 영상 업로드</p>
+                        <input class="upload-name" value="파일선택" disabled="disabled" >
+                        <label for="input-file1">업로드</label>
+                        <input type="file" id="input-file1" class="upload-hidden">
+                    </div>
+                    <div class="filebox preview-image">
+                        <p class="cap">두잇 소개 영상</p>
+                        <input class="upload-name" value="파일선택" disabled="disabled" >
+                        <label for="input-file2">업로드</label>
+                        <input type="file" id="input-file2" class="upload-hidden">
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">리워드 조건(*)</p>
+                    <div class="select-box">
+                        <label for="ex_select4">인원수</label>
+                        <select id="ex_select4">
+                            <option selected>인원수</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select5">인증기간</label>
+                        <select id="ex_select5">
+                            <option selected>인원기간</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select6">인증회차</label>
+                        <select id="ex_select6">
+                            <option selected>인원회차</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select7">하루인증횟수</label>
+                        <select id="ex_select7">
+                            <option selected>하루인증횟수</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="ex_select8">목표달성률</label>
+                        <select id="ex_select8">
+                            <option selected>목표달성률</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="reward-li">
+                    <p class="sub-title">리워드 설정</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r1" name="rr" />
+                        <label for="r1">리워드로 UCD 지급 <span></span></label>
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">ON: 목표달성률 성공 시, UCD적립 | OFF: 목표달성률 성공 시, UCD 미적립</span>
+                        </i>
+                    </div>
+
+                    <span class="inpout-num-title">1인당 최대 </span>
+                    <input placeholder="UCD" type="number">
+                    <span class="input-num-title">지급,</span>
+
+                    <span class="input-num-title">총</span>
+                    <input placeholder="UCD" type="number">
+                    <span class="input-num-title">사용</span>
+
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="cc" />
+                        <label id="ucd-check-area" for="c1"><span></span>UCD외 추가 리워드 직접 입력</label>
+                        <textarea placeholder="내용을 입력해주세요." name="text" id="ucd-area" cols="30" rows="10"></textarea>
+                    </div>
+                </li>
+                <li class="reward-typ-li clearfix">
+                    <p class="sub-title important">리워드 유형 (*)</p>
+                    <div class="select-box">
+                        <label for="ex_select9">개인 + 단체전</label>
+                        <select id="ex_select9">
+                            <option selected>개인 + 단체전</option>
+                            <option>라라라라라라라라라라</option>
+                        </select>
+                    </div>
+
+                    <span class="input-num-title">개인</span>
+                    <input type="number">
+                    <span class="input-num-title margin-text">:</span>
+
+                    <span class="input-num-title">단체</span>
+                    <input type="number">
+                </li>
+                <li>
+                    <p class="sub-title important">인증 기간 (*)</p>
+                    <input type="date">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="date">
+                </li>
+                <li class="time-li">
+                    <p class="sub-title important">인증 기간/간격 (*)</p>
+                    <input type="time">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="time">
+                    <span class="input-num-title margin-left-text">간격</span>
+                    <input type="number">
+                    <span class="input-num-title">분</span>
+                </li>
+                <li class="doit-option-li">
+                    <p class="sub-title important">두잇옵션 (*)</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c2" name="cc" />
+                        <label class="code-btn" for="c2">참여자 제한<span></span></label>
+                        <div class="code-wrap">
+                            <span class="input-num-title margin-left-text">참가코드</span>
+                            <input class="code-input" type="number" placeholder="숫자 4~6자리">
+                        </div>
+                    </div>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c3" name="cc" />
+                        <label for="c3">두잇 비공개<span></span></label>
+                    </div>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c4" name="cc" />
+                        <label class="doit-option-contents-btn" for="c4">인증 콘텐츠 비공개<span></span></label>
+                    </div>
+                    <div class="radio-wrap doit-option-contents">
+                        <input type="radio" id="r2" name="rr" />
+                        <label for="r2">참여자+개설자만 공개<span></span></label>
+
+                        <input type="radio" id="r3" name="rr" />
+                        <label for="r3">개설자만 공개<span></span></label>
+                    </div>
+                </li>
+                <li class="method-li">
+                    <p class="sub-title important">인증방법 (*)</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r4" name="rr" />
+                        <label for="r4">사진<span></span></label>
+
+                        <input type="checkbox" id="c5" name="cc" />
+                        <label for="c5">사진첩 허용<span></span></label>
+                    </div>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r5" name="rr" />
+                        <label for="r5">동영상<span></span></label>
+                    </div>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r6" name="rr" />
+                        <label for="r6">음성 녹음<span></span></label>
+                    </div>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r7" name="rr" />
+                        <label for="r7">핸드라이팅<span></span></label>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">인증 예시 이미지 (*)</p>
+                    <div class="filebox preview-image">
+                        <input class="upload-name" value="파일선택" disabled="disabled" >
+                        <label for="input-file3">업로드</label>
+                        <input type="file" id="input-file3" class="upload-hidden">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">인증 예시 설명 (*)</p>
+                    <textarea placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                </li>
+                <li>
+                    <p class="sub-title">인증 제외 날짜</p>
+                    <div class="tag-input-wrap">
+                        <input class="tag-input" type="date">
+                        <button class="add-btn" type="submit">
+                            <i class="fas fa-plus"></i>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                    <ul class="hash-tag-list clearfix">
+                        <li>
+                            <span class="tag-name">2020/04/25</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            <span class="tag-name">2020/04/25</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            <span class="tag-name">2020/04/25</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                    </ul>
+                </li>
+                <li class="doit-open">
+                    <p class="sub-title important">두잇 노출 여부</p>
+                    <div class="checkbox-wrap">
+                        <input type="radio" id="c6" name="rc" />
+                        <label for="c6">노출<span></span></label>
+
+                        <input type="radio" id="c7" name="rc" />
+                        <label for="c7">비노출<span></span></label>
+                    </div>
+                </li>
+                <li>
+                    <button class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    // input flie 변환
+    $(document).ready(function(){
+        var fileTarget = $('.filebox .upload-hidden');
+
+        fileTarget.on('change', function(){
+            if(window.FileReader){
+                var filename = $(this)[0].files[0].name;
+            } else {
+                var filename = $(this).val().split('/').pop().split('\\').pop();
+            }
+            $(this).siblings('.upload-name').val(filename);
+        });
+    });
+
+
+    // input preview image
+    var imgTarget = $('.preview-image .upload-hidden');
+
+    imgTarget.on('change', function(){
+        var parent = $(this).parent();
+        parent.children('.upload-display').remove();
+
+        if(window.FileReader){
+            //image 파일만
+            if (!$(this)[0].files[0].type.match(/image\//)) return;
+
+            var reader = new FileReader();
+            reader.onload = function(e){
+                var src = e.target.result;
+                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+        else {
+            $(this)[0].select();
+            $(this)[0].blur();
+            var imgSrc = document.selection.createRange().text;
+            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+            var img = $(this).siblings('.upload-display').find('img');
+            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
+        }
+    });
+
+    // ucd 추가 리워드 직접 입력
+    let checkOn = document.querySelector('#ucd-check-area');
+    let textArea = document.querySelector('#ucd-area');
+
+    checkOn.addEventListener("click", function () {
+        if (!checkOn.classList.contains('active')) {
+            checkOn.classList.add('active');
+            textArea.classList.add('active');
+        } else {
+            checkOn.classList.remove('active');
+            textArea.classList.remove('active');
+        }
+    });
+
+    // modal event
+    $('.more-infor-btn').click(function () {
+        $('.modal-layout').fadeIn();
+        $('.modal-content').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+    // 두잇 옵션 중 참여자 제한
+    let codeBtn = document.querySelector('.code-btn');
+    let codeInput = document.querySelector('.code-wrap');
+
+    codeBtn.addEventListener("click", function () {
+        if (!codeBtn.classList.contains('active')) {
+            codeBtn.classList.add('active');
+            codeInput.classList.add('active');
+        } else {
+            codeBtn.classList.remove('active');
+            codeInput.classList.remove('active');
+        }
+    });
+
+    // 두잇 옵션 중 인증 콘텐츠 비공개 부분
+    let optionBtn = document.querySelector('.doit-option-contents-btn');
+    let optionContents = document.querySelector('.doit-option-contents');
+
+    optionBtn.addEventListener("click", function () {
+        if (!optionBtn.classList.contains('active')) {
+            optionBtn.classList.add('active');
+            optionContents.classList.add('active');
+        } else {
+            optionBtn.classList.remove('active');
+            optionContents.classList.remove('active');
+        }
+    });
+</script>

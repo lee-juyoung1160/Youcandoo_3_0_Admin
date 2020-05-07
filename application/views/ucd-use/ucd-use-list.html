@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/assets/css/ucd-use-list.css">
+<section class="ucd-use-list-page">
+    <div class="inner">
+        <h2 class="main-title">UCD(c/p) 이용 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="reset">초기화</button>
+                <button class="search">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="date-wrap">
+                    <input type="date">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="date">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li>오늘</li>
+                    <li>1주일</li>
+                    <li>1개월</li>
+                    <li>3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="ex_select2">닉네임</label>
+                    <select id="ex_select2">
+                        <option selected>닉네임</option>
+                        <option>두잇명</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">구분</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="cc" />
+                        <label for="c1"><span></span>충전</label>
+
+                        <input type="checkbox" id="c2" name="cc" />
+                        <label for="c2"><span></span>사용</label>
+
+                        <input type="checkbox" id="c3" name="cc" />
+                        <label for="c3"><span></span>리워드</label>
+
+                        <input type="checkbox" id="c4" name="cc" />
+                        <label for="c4"><span></span>취소</label>
+
+                        <input type="checkbox" id="c5" name="cc" />
+                        <label for="c5"><span></span>지급</label>
+
+                        <input type="checkbox" id="c6" name="cc" />
+                        <label for="c6"><span></span>차감</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">유형</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="rr" />
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="rr" />
+                        <label for="r3"><span></span>UCD(c)</label>
+
+                        <input type="radio" id="r4" name="rr" />
+                        <label for="r4"><span></span>UCD(p)</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num">16</strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="ex_select4">10개씩 보기</label>
+                    <select id="ex_select4">
+                        <option selected>10개씩 보기</option>
+                        <option>10개씩 보기</option>
+                        <option>20개씩 보기</option>
+                        <option>30개씩 보기</option>
+                    </select>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:15%;">
+                    <col style="width:5%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:25%;">
+                    <col style="width:20%;">
+                    <col style="width:15%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>닉네임</th>
+                        <th>유형</th>
+                        <th>구분</th>
+                        <th>금액</th>
+                        <th>내용</th>
+                        <th>두잇명</th>
+                        <th>일시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!--
+                    dev:
+                    금액이 - 인 경우(취소,차감),
+                    tr.minus-pay
+                -->
+                    <tr class="minus-pay">
+                        <td><a href="#">베리베리</a></td>
+                        <td>UCD(c)</td>
+                        <td>취소</td>
+                        <td>-10,000원</td>
+                        <td>일반 두잇 개설 취소</td>
+                        <td>댕댕이 산책시키기</td>
+                        <td>2019/11/07 14:32:12</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">베리베리123</a></td>
+                        <td>UCD(c)</td>
+                        <td>리워드</td>
+                        <td>10,000원</td>
+                        <td>두잇 목표 달성 성공 리워드</td>
+                        <td>댕댕이 산책시키기</td>
+                        <td>2019/11/07 14:32:12</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">베리베리</a></td>
+                        <td>UCD(c)</td>
+                        <td>리워드</td>
+                        <td>10,000원</td>
+                        <td>두잇 목표 달성 성공 리워드</td>
+                        <td>댕댕이 산책시키기</td>
+                        <td>2019/11/07 14:32:12</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>

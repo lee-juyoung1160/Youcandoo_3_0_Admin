@@ -1,0 +1,10 @@
+.inquiry-create-page ul.enrollment:first-child,
+.inquiry-detail-page ul.enrollment:first-child {
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+.text-box {
+    color: #545454;
+    font-size: 15px;
+    line-height: 1.5em;
+}

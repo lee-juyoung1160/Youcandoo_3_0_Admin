@@ -1,0 +1,149 @@
+<link rel="stylesheet" href="/assets/css/create-common-jy.css">
+<link rel="stylesheet" href="/assets/css/ucd-give-ded-create.css">
+<section class="ucd-give-ded-page">
+    <div class="inner">
+        <h2 class="main-title">UCD(p) 지급/차감 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <p class="sub-title important">닉네임(*)</p>
+                    <div>
+                        <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
+                        <button class="more-infor-btn" type="button">
+                            <span>찾기</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="modal-content">
+                            <div class="wrap">
+                                <i class="close-btn fas fa-times-circle"></i>
+                                <p class="modal-title">닉네임 찾기</p>
+                                <ul class="modal-information">
+                                    <li>
+                                        <p class="sub-title">닉네임</p>
+                                        <div class="search-wrap">
+                                            <div class="search-box">
+                                                <input type="search" placeholder="검색어를 입력해주세요.">
+                                                <i class="search-btn fas fa-search"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="table-wrap">
+                                            <table>
+                                                <colgroup>
+                                                    <col style="width:10%;">
+                                                    <col style="width:20%;">
+                                                    <col style="width:35%;">
+                                                    <col style="width:35%;">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c5" name="cc" />
+                                                            <label for="c5"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>회원유형</th>
+                                                    <th>닉네임</th>
+                                                    <th>보유UCD</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c6" name="cc" />
+                                                            <label for="c6"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <td>일반</td>
+                                                    <td>베리모카</td>
+                                                    <td>30,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c7" name="cc" />
+                                                            <label for="c7"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <td>일반</td>
+                                                    <td>베리모카</td>
+                                                    <td>30,000</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <ul class="table-pagination clearfix">
+                                                <li><i class="fas fa-angle-double-left"></i></li>
+                                                <li class="active">1</li>
+                                                <li>2</li>
+                                                <li>3</li>
+                                                <li><i class="fas fa-angle-double-right"></i></li>
+                                            </ul>
+                                            <div class="result_box">
+                                                <p>선택된 유저 <em>3</em>명</p>
+                                                <div class="container">
+                                                    BERRY(30,000UCD), 새콤달콤(12,320UCD), 모카베리(83,124UCD)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="completion-btn" type="submit">등록 완료</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-layout"></div>
+                        <div class="result_box">
+                            <p>지급/차감 대상 <em>3</em>명</p>
+                            <div class="container">
+                                BERRY(30,000UCD), 새콤달콤(12,320UCD), 모카베리(83,124UCD)
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="create-radio-wrap">
+                    <p class="sub-title important">구분</p>
+                    <div class="checkbox-wrap">
+                        <input type="radio" id="c1" name="rc" />
+                        <label for="c1">지급<span></span></label>
+
+                        <input type="radio" id="c2" name="rc" />
+                        <label for="c2">차감<span></span></label>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">지급/차감 UCD (*)</p>
+                    <input placeholder="UCD" type="number">
+                </li>
+                <li>
+                    <p class="sub-title important">지급/차감 사유</p>
+                    <textarea placeholder="사유를 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                </li>
+                <li>
+                    <button class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    // modal event
+    $('.more-infor-btn').click(function () {
+        $('.modal-layout').fadeIn();
+        $('.modal-content').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+</script>

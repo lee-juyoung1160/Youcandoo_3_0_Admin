@@ -68,7 +68,7 @@
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "닉네임", 	    data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
+				,{title: "작성일", 	    data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -105,7 +105,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -126,14 +126,14 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
 		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
+		let titleDom = $(tdDom).eq(1);
 		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
 
 		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

@@ -10,7 +10,7 @@
         <div class="list-common-btn-wrap clearfix">
             <div class="btn-wrap">
                 <a class="list-btn" href="#">목록</a>
-                <a class="update-btn" href="/biz/update">수정</a>
+                <a class="update-btn" href="/pro/update">수정</a>
             </div>
         </div>
         <div class="wrap">
@@ -22,23 +22,6 @@
                 <li class="tag-list">
                     <p class="sub-title important">프로모션명 (*)</p>
                     <p class="detail-data">110-250-000000</p>
-                </li>
-                <li class="clearfix">
-                    <p class="sub-title important">태그 (*)</p>
-                    <ul class="hash-tag-list clearfix">
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                    </ul>
                 </li>
                 <li>
                     <p class="sub-title important">프로모션 예산 (*)</p>
@@ -52,14 +35,24 @@
                     <p class="sub-title important">유의사항 (*)</p>
                     <p class="detail-data"></p>
                 </li>
-                <li>
+                <li class="img-list clearfix">
                     <p class="sub-title important">이미지 (*)</p>
-                    <img class="detail-img" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">
-                    <img class="detail-img" src="/assets/images/test.png" alt="리스트 썸네일 이미지입니다.">
+                    <div class="wrap">
+                        <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
+                        <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">
+                    </div>
+                    <div class="wrap">
+                        <p class="cap">리스트 썸네일 (* 이미지 사이즈: 165 x 165)</p>
+                        <img class="detail-img" src="/assets/images/test.png" alt="리스트 썸네일 이미지입니다.">
+                    </div>
                 </li>
                 <li>
                     <p class="sub-title important">두잇 개설 유형 (*)</p>
                     <p class="detail-data">사용자 두잇 개설 허용</p>
+                </li>
+                <li>
+                    <p class="sub-title important">프로모션 메인 슬라이드 배너 노출 여부 (*)</p>
+                    <p class="detail-data">노출</p>
                 </li>
             </ul>
 
@@ -89,7 +82,7 @@
                         </li>
                         <li>
                             <p class="sub-title important">리워드 유형 (*)</p>
-                            <p class="detail-data">개인전</p>
+                            <p class="detail-data">개인 5 : 단체 5</p>
                         </li>
                         <li>
                             <p class="sub-title important">주간빈도 (*)</p>
@@ -123,6 +116,7 @@
                         </select>
                     </div>
                     <div class="btn-wrap">
+                        <a href="/biz/create"><i class="fas fa-plus"></i>신규 등록</a>
                         <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                     </div>
                 </div>

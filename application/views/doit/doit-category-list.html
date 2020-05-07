@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/assets/css/doit-category-list.css">
+<section class="doit-category-list-page">
+    <div class="inner">
+        <h2 class="main-title">카테고리 목록</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <a href="/doit/categoryListsCreate"><i class="fas fa-plus"></i>신규 등록</a>
+            <div class="btn-wrap">
+                <button class="reset" type="reset">초기화</button>
+                <button class="search" type="button">검색</button>
+            </div>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
+                <p class="list-common-title">검색어</p>
+<!--                <div class="select-box">-->
+<!--                    <label for="ex_select2">두잇명</label>-->
+<!--                    <select id="ex_select2">-->
+<!--                        <option selected>두잇명</option>-->
+<!--                        <option>태그</option>-->
+<!--                        <option>개설자</option>-->
+<!--                        <option>두잇ID</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <p>Total <strong class="data-num">16</strong></p>
+            <div class="top clearfix">
+                <div class="select-box">
+                    <label for="ex_select4">10개씩 보기</label>
+                    <select id="ex_select4">
+                        <option selected>10개씩 보기</option>
+                        <option>10개씩 보기</option>
+                        <option>20개씩 보기</option>
+                        <option>30개씩 보기</option>
+                    </select>
+                </div>
+                <div class="btn-wrap">
+                    <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:35%;">
+                    <col style="width:35%;">
+                    <col style="width:5%;">
+                    <col style="width:5%;">
+                    <col style="width:20%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>카테고리명</th>
+                        <th>태그수</th>
+                        <th colspan="2">노출순서</th>
+                        <th>노출여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/doit/categoryListsDetail">영어/외국어</a></td>
+                        <td>100</td>
+                        <td class="border-style"><i class="fas fa-sort-up"></i></td>
+                        <td><i class="fas fa-sort-down"></i></td>
+                        <td>비노출</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script>
+    // day-btn 클릭시 이벤트
+    var dayBtns = $(".day-btn li");
+
+    dayBtns.click(function(){
+        dayBtns.removeClass("active");
+        $(this).addClass("active");
+    });
+
+</script>

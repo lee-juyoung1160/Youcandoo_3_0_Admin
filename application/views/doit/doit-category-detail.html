@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/assets/css/create-common.css">
+
+<section class="doit-category-detail-page">
+    <div class="inner">
+        <h2 class="main-title">카테고리 상세</h2>
+        <div class="list-common-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <a class="list-btn" href="#">목록</a>
+                <a class="update-btn" href="/doit/categoryListsUpdate">수정</a>
+            </div>
+        </div>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <p class="sub-title important">카테고리명 (*)</p>
+                    <p class="detail-data">운동/건강</p>
+                </li>
+                <li>
+                    <p class="sub-title">태그</p>
+                    <ul class="hash-tag-list clearfix">
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                        </li>
+                    </ul>
+                </li>
+                <li class="img-wrap clearfix">
+                    <p class="sub-title important">카테고리 이미지 (*)</p>
+                    <div class="wrap">
+                        <div class="file">
+                            <p class="cap">카테고리 아이콘 (* 이미지 사이즈: 128 x 128)</p>
+                            <img class="detail-img" style="width: 128px; height: 128px;" src="/assets/images/test.png" alt="썸네일 이미지입니다.">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">노출여부</p>
+                    <p class="detail-data">비노출</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script>
+    // modal event
+    $('.more-infor-btn').click(function () {
+        $('.modal-layout').fadeIn();
+        $('.modal-content').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+</script>
+

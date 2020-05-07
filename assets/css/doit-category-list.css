@@ -1,0 +1,24 @@
+/*doit-category-list css*/
+.doit-category-list-page .table-wrap table i {
+    font-size: 30px;
+    font-weight: 600;
+}
+.fa-sort-up {
+    vertical-align: middle;
+}
+.fa-sort-down {
+    vertical-align: super;
+}
+.border-style {
+    position: relative;
+}
+.border-style::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 25%;
+    right: 0;
+    width: 1px;
+    height: 50%;
+    background-color: #e4e4e4;
+}

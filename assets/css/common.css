@@ -103,6 +103,7 @@ i.question-mark:hover {
 }
 i.question-mark:hover .hover-text {
 	display: block;
+	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
 .hover-text {
 	display: none;
@@ -184,6 +185,11 @@ i.question-mark:hover .hover-text {
 	-o-transform: translate(-50%, -50%);
 	background-color: #ffffff;
 }
+.modal-content .completion-btn {
+	width: 100%;
+	margin-top: 20px;
+	font-size: 18px;
+}
 .modal-content .wrap .close-btn {
 	position: absolute;
 	top: 7px;
@@ -201,7 +207,8 @@ i.question-mark:hover .hover-text {
 	margin-bottom: 42px;
 }
 .modal-content .modal-information {
-	height: 656px;
+	height: auto;
+	max-height: 656px;
 	overflow-y: auto;
 }
 .modal-content .modal-information li {
@@ -703,19 +710,19 @@ textarea {
 .table-wrap table tbody a {
 	border-bottom: 1px solid #505050;
 }
-.table-wrap .table-pagination {
+.table--pagination {
 	font-size: 0;
 	text-align: center;
 	margin-top: 20px;
 }
-.table-wrap .table-pagination li {
+.table-pagination li {
 	cursor: pointer;
 	display: inline-block;
 	font-size: 16px;
 	padding: 7px;
 	border-radius: 2px;
 }
-.table-wrap .table-pagination li.active {
+.table-pagination li.active {
 	color: #ffffff;
 	background-color: #007aff;
 }
@@ -752,20 +759,18 @@ textarea {
 }
 .detail-img {
 	display: block;
-	width: 125px;
-	height: 125px;
+	width: 165px;
+	height: 165px;
 }
-.detail-data-img {
-	width: 200px;
-}
-.detail-data-img img {
-	width: 100%;
-	height: auto;
+.main-banner {
+	width: 650px;
+	height: 650px;
 }
 
 /* cert-contents common */
 .cert-contents li {
 	float: left;
+	position: relative;
 	margin-right: 20px;
 	width: 240px;
 	padding: 20px;
@@ -811,4 +816,45 @@ textarea {
 	float: right;
 	cursor: auto;
 	color: #e03030;
+}
+.cert-contents li .top > span {
+	font-weight: 600;
+	color: #007aff;
+}
+.cert-contents li .top .failure-text {
+	color: #e03030;
+}
+.cert-contents li .error {
+	position: absolute;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 45%;
+	background-color: rgba(37,37,37,0.9);
+}
+.cert-contents li .error .error-text {
+	line-height: 1.3;
+	color: #e03030;
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+}
+.cert-contents li .error .error-text i {
+	display: block;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.yellow-card-btn {
+	background-color: #ffc800;
+}
+.red-card-btn {
+	background-color: #900000;
 }

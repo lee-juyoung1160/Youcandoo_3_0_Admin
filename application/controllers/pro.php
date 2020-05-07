@@ -15,4 +15,8 @@ class Pro extends CI_Controller {
         {
             $this->load->layout('pro/pro-detail');
         }
+    public function update()
+        {
+            $this->load->layout('pro/pro-update');
+        }
 }

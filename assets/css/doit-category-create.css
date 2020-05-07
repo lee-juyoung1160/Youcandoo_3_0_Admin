@@ -1,0 +1,17 @@
+/*doit-category-create-page css*/
+.doit-category-create-page .list-common {
+    padding: 0;
+    box-shadow: none;
+}
+.doit-category-create-page .modal-content .modal-information li {
+    border-bottom: 0;
+}
+.doit-category-create-page .modal-content .table-wrap {
+    margin-top: 0;
+}
+.doit-category-create-page .modal-content .list-common-btn-wrap {
+    padding-bottom: 0;
+}
+.completion-btn {
+    margin-top: 50px;
+}

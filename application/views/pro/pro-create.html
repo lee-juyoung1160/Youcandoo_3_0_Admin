@@ -13,33 +13,6 @@
                     <p class="sub-title important">프로모션명 (*)</p>
                     <input id="promoName" type="text" placeholder="프로모션명을 입력해주세요.">
                 </li>
-                <!--<li class="tag-list">
-                    <p class="sub-title important">태그(*)</p>
-                    <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">최대 3개까지 등록이 가능합니다.</span>
-                    </i>
-                    &lt;!&ndash;<div class="tag-input-wrap">
-                        <input class="tag-input" type="text" placeholder="태그를 입력해주세요.">
-                        <button id="btnAddTag" class="add-btn" type="submit">
-                            <i class="fas fa-plus"></i>
-                            <span>ADD</span>
-                        </button>
-                    </div>&ndash;&gt;
-                    <ul class="hash-tag-list clearfix">
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                    </ul>
-                </li>-->
                 <li class="tag-list">
                     <p class="sub-title important">프로모션 예산 (*)</p>
                     <i class="question-mark far fa-question-circle">
@@ -63,13 +36,13 @@
                 <li class="clearfix">
                     <p class="sub-title important">이미지 (*)</p>
                     <div class="filebox preview-image">
-                        <p class="cap">메인 배너 (* 이미지 사이즈: 360 x 400)</p>
+                        <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
                         <input class="upload-name" value="파일선택" disabled="disabled" >
                         <label for="banner">업로드</label>
                         <input type="file" id="banner" class="upload-hidden">
                     </div>
                     <div class="filebox preview-image">
-                        <p class="cap">리스트 썸네일(* 이미지 사이즈: 360 x 100)</p>
+                        <p class="cap">리스트 썸네일(* 이미지 사이즈: 160 x 165)</p>
                         <input class="upload-name" value="파일선택" disabled="disabled" >
                         <label for="thumbnail">업로드</label>
                         <input type="file" id="thumbnail" class="upload-hidden">
@@ -90,16 +63,16 @@
 <!--                        </div>-->
                     </div>
                 </li>
-<!--                <li class="doit-open">-->
-<!--                    <p class="sub-title important">프로모션 노출 여부 (*)</p>-->
-<!--                    <div class="checkbox-wrap">-->
-<!--                        <input type="radio" id="c9" name="rc" />-->
-<!--                        <label for="c9">노출<span></span></label>-->
+                <li class="doit-open">
+                    <p class="sub-title important">프로모션 메인 슬라이드 배너 노출 여부 (*)</p>
+                    <div class="checkbox-wrap">
+                        <input type="radio" id="c9" name="rc" />
+                        <label for="c9">노출<span></span></label>
 
-<!--                        <input type="radio" id="c10" name="rc" />-->
-<!--                        <label for="c10">비노출<span></span></label>-->
-<!--                    </div>-->
-<!--                </li>-->
+                        <input type="radio" id="c10" name="rc" />
+                        <label for="c10">비노출<span></span></label>
+                    </div>
+                </li>
                 <li class="pro-reward-list">
                     <p class="sub-title important">리워드 조건 지정 (*)</p>
                     <i class="question-mark far fa-question-circle">
@@ -115,7 +88,7 @@
                 </li>
             </ul>
 
-            <div id="modalReward" class="modal-content" style="height: 720px; overflow:auto;">
+            <div id="modalReward" class="modal-content" >
                 <div class="wrap">
                     <i class="close-btn fas fa-times-circle"></i>
                     <p class="modal-title">리워드 조건 지정 입력하기</p>
@@ -148,14 +121,6 @@
                         </li>
                         <li class="reward-typ-li clearfix">
                             <p class="sub-title important">리워드 유형 (*)</p>
-                            <!--<div class="select-box">
-                                <label for="rewardType">개인 + 단체전</label>
-                                <select id="rewardType">
-                                    <option value="mix">개인 + 단체전</option>
-                                    <option value="psn">개인</option>
-                                    <option value="grp">단체</option>
-                                </select>
-                            </div>-->
                             <input id="rewardRange" type="range" class="custom-range" readonly>
                             <span class="input-num-title">개인</span>
                             <input id="individualRate" type="number" readonly>

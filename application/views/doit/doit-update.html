@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="/assets/css/doit-enrollment.css">
-<section class="doit-page">
+<link rel="stylesheet" href="/assets/css/create-common.css">
+<section class="doit-create-page">
     <div class="inner">
-        <h2 class="main-title">두잇 신규 등록</h2>
+        <h2 class="main-title">두잇 상세 수정</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
@@ -81,7 +81,7 @@
                 <li class="tag-list">
                     <p class="sub-title important">태그(*)</p>
                     <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">최대 3개까지 등록이 가능합니다.</span>
+                        <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>
                     </i>
                     <div class="tag-input-wrap">
                         <input class="tag-input" type="text" placeholder="태그를 입력해주세요.">
@@ -105,19 +105,35 @@
                         </li>
                     </ul>
                 </li>
-                <li class="clearfix">
-                    <p class="sub-title important">두잇 소개 이미지(*)</p>
-                    <div class="filebox preview-image">
-                        <p class="cap">두잇 이미지 및 영상 업로드</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file1">업로드</label>
-                        <input type="file" id="input-file1" class="upload-hidden">
+                <li class="img-wrap clearfix">
+                    <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
+                    <div class="wrap">
+                        <div class="filebox preview-image">
+                            <p class="cap">썸네일 (* 이미지 사이즈: 165 x 165)</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file2">업로드</label>
+                            <input type="file" id="input-file2" class="upload-hidden">
+                        </div>
+                        <div class="filebox preview-image">
+                            <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file1">업로드</label>
+                            <input type="file" id="input-file1" class="upload-hidden">
+                        </div>
                     </div>
-                    <div class="filebox preview-image">
-                        <p class="cap">두잇 소개 영상</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file2">업로드</label>
-                        <input type="file" id="input-file2" class="upload-hidden">
+                    <div class="wrap">
+                        <div class="filebox preview-image">
+                            <p class="cap">두잇 소개 영상 썸네일 (* 이미지 사이즈: 165 x 165)</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file3">업로드</label>
+                            <input type="file" id="input-file3" class="upload-hidden">
+                        </div>
+                        <div class="filebox preview-image">
+                            <p class="cap">두잇 소개 영상 메인배너 (* 이미지 사이즈: 650 x 650)</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file4">업로드</label>
+                            <input type="file" id="input-file4" class="upload-hidden">
+                        </div>
                     </div>
                 </li>
                 <li class="clearfix">
@@ -184,14 +200,6 @@
                 </li>
                 <li class="reward-typ-li clearfix">
                     <p class="sub-title important">리워드 유형 (*)</p>
-                    <div class="select-box">
-                        <label for="ex_select9">개인 + 단체전</label>
-                        <select id="ex_select9">
-                            <option selected>개인 + 단체전</option>
-                            <option>라라라라라라라라라라</option>
-                        </select>
-                    </div>
-
                     <span class="input-num-title">개인</span>
                     <input type="number">
                     <span class="input-num-title margin-text">:</span>
@@ -206,7 +214,7 @@
                     <input type="date">
                 </li>
                 <li class="time-li">
-                    <p class="sub-title important">인증 기간/간격 (*)</p>
+                    <p class="sub-title important">인증 시간/간격 (*)</p>
                     <input type="time">
                     <span class="date-margin-text"> ~ </span>
                     <input type="time">
@@ -266,8 +274,8 @@
                     <p class="sub-title important">인증 예시 이미지 (*)</p>
                     <div class="filebox preview-image">
                         <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file3">업로드</label>
-                        <input type="file" id="input-file3" class="upload-hidden">
+                        <label for="input-file5">업로드</label>
+                        <input type="file" id="input-file5" class="upload-hidden">
                     </div>
                 </li>
                 <li>
@@ -309,7 +317,7 @@
                     </div>
                 </li>
                 <li>
-                    <button class="completion-btn" type="submit">등록 완료</button>
+                    <button class="completion-btn" type="submit">수정 완료</button>
                 </li>
             </ul>
         </div>
@@ -317,6 +325,15 @@
 </section>
 
 <script>
+    // select click event
+    $(document).ready(function() {
+        var selectTarget = $('.select-box select');
+
+        selectTarget.change(function(){
+            var select_name = $(this).children('option:selected').text();
+            $(this).siblings('label').text(select_name);
+        });
+    });
 
     // input flie 변환
     $(document).ready(function(){

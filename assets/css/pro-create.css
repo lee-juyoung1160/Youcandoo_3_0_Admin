@@ -71,3 +71,22 @@
     font-size: 30px;
     float: right;
 }
+.btn-wrap a {
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    width: 150px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 30px;
+    background-color: #19579a;
+}
+.btn-wrap a i {
+    margin-right: 10px;
+}
+.img-list .wrap {
+    float: left;
+    margin-right: 20px;
+}

@@ -139,6 +139,7 @@ section.login-pg {
 	right: 0;
 	font-size: 16px;
 	border: 0;
+	background-color: #ffffff;
 }
 .login-pg .login-inner .wrap .col input::before {}
 input::placeholder {

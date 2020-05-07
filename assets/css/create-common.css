@@ -48,3 +48,17 @@
 .doit-option-li .doit-option-contents.active {
     display: block;
 }
+.doit-create-page .img-wrap .wrap,
+.doit-detail-page .img-wrap .wrap{
+    float: left;
+}
+.doit-create-page .img-wrap .wrap:last-child,
+.doit-detail-page .img-wrap .wrap:last-child {
+    margin-top: 50px;
+}
+.doit-detail-page .img-wrap .wrap .file {
+    margin-top: 30px;
+}
+.doit-detail-page .img-wrap .wrap .file:first-child {
+    margin-top: 0;
+}

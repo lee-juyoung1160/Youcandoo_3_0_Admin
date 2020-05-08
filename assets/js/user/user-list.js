@@ -50,6 +50,7 @@
 			ajax : {
 				url: api.listUser,
 				type:"POST",
+				async: false,
 				headers: headers,
 				/*dataFilter: function(data) {
 					let jsonData = JSON.parse(data);
@@ -158,7 +159,6 @@
 				setExcelData("회원목록", "회원목록", data);
 			},
 			error: function (request, status) {
-				console.log(request);
 				console.log(status);
 			},
 		});

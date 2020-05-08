@@ -43,6 +43,7 @@
 			ajax : {
 				url: api.listUser,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)

@@ -57,6 +57,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
+					console.log(Number(d.start))
 					return tableParams(d);
 				}
 			},
@@ -80,14 +81,14 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],

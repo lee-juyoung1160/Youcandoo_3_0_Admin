@@ -93,7 +93,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -111,24 +111,6 @@
 				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
 
-				/*dataTable.find('tbody').on( 'click', 'tr', function () {
-					let rowData = table.row(this).data();
-					let isTop	= rowData.is_top;
-					let iconTop = '<i class="fas fas fa-bell"></i>';
-
-					if (isTop === 'Y')
-					{
-						btnTop.removeClass('best-btn');
-						btnTop.addClass('delete-btn');
-						btnTop.html(iconTop +'상단고정 해제');
-					}
-					else
-					{
-						btnTop.removeClass('delete-btn');
-						btnTop.addClass('best-btn');
-						btnTop.html(iconTop +'상단고정');
-					}
-				});*/
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/

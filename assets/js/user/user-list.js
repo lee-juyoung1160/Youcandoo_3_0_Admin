@@ -104,7 +104,7 @@
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				let info = table.page.info();
-				console.log(info);
+				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -153,6 +153,7 @@
 		$.ajax({
 			url: api.listUser,
 			type: "POST",
+			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
@@ -167,14 +168,14 @@
 	function excelParams()
 	{
 		let param = {
-			"limit" : 10000
+			"limit" : 20000
 			,"page" : 1
 			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"member_type" : "active"
 		}
 
 		return JSON.stringify(param);

@@ -6,8 +6,7 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
+	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const selSort		= $("#selSort");
@@ -23,17 +22,13 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -50,6 +45,7 @@
 			ajax : {
 				url: api.listBiz,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -133,5 +129,42 @@
 	function onSubmitSearch()
 	{
 		buildGrid();
+	}
+
+	function onClickExcelBtn()
+	{
+		getList();
+	}
+
+	function getList()
+	{
+		$.ajax({
+			url: api.listBiz,
+			type: "POST",
+			async: false,
+			headers: headers,
+			data: excelParams(),
+			success: function(data) {
+				setExcelData("비즈목록", "비즈목록", data);
+			},
+			error: function (request, status) {
+				console.log(status);
+			},
+		});
+	}
+
+	function excelParams()
+	{
+		let param = {
+			"limit" : 20000
+			,"page" : 1
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
+			,"keyword" : keyword.val()
+			,"dateType" : dateType.val()
+		}
+
+		return JSON.stringify(param);
 	}
 

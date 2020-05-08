@@ -38,7 +38,7 @@
                 <p class="list-common-title">검색어</p>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -46,23 +46,22 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num">16</strong></p>
+            <p>Total <strong class="data-num"></strong></p>
             <div class="top clearfix">
                 <div class="select-box">
-                    <label for="ex_select4">10개씩 보기</label>
-                    <select id="ex_select4">
-                        <option selected>10개씩 보기</option>
-                        <option>10개씩 보기</option>
-                        <option>20개씩 보기</option>
-                        <option>30개씩 보기</option>
+                    <label for="selPageLength">10개씩 보기</label>
+                    <select id="selPageLength">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="30">30개씩 보기</option>
                     </select>
                 </div>
                 <div class="btn-wrap">
                     <button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>금칙어 삭제</button>
                 </div>
             </div>
-            <table>
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:80%;">
                     <col style="width:15%;">
@@ -100,32 +99,17 @@
                     <td>광고</td>
                     <td>2019/11/07</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </section>
-
-<script>
-    // modal event
-    $('.more-infor-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-</script>
+<script src="/assets/js/prohibited/prohibited-list.js"></script>
 

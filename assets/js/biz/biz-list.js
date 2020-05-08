@@ -2,6 +2,7 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
+	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
@@ -62,15 +63,8 @@
 			},
 			columns: [
 				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
-				,{title: "구분", 	data: "event_type",    	name: "event_type",     orderable: false,   className: "text-center" }
-				,{title: "제목", 	data: "title",  		name: "title",    		orderable: false,   className: "text-center" }
-				,{title: "기간", 	data: "start_date",  	name: "start_date",    	orderable: false,   className: "text-center" }
-				,{title: "노출여부", data: "is_exposure",  	name: "is_exposure",  	   orderable: false,   className: "text-center",
-					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
-					}
-				}
-				,{title: "작성일", 	data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
+				,{title: "회사명", 	data: "company_name",   name: "event_type",     orderable: false,   className: "text-center" }
+				,{title: "등록일", 	data: "create_datetime",   name: "create_datetime",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -121,6 +115,7 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
+			,"dateType" : dateType.val()
 		}
 
 		return JSON.stringify(param);
@@ -128,10 +123,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(2);
+		let titleDom = $(nRow).children().eq(1);
 
 		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/event/detail">'+aData.title+'</a>');
+		$(titleDom).html('<a href="/biz/detail">'+aData.company_name+'</a>');
 	}
 
 	function onSubmitSearch()

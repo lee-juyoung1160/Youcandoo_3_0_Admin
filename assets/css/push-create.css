@@ -17,11 +17,7 @@
 .push-create-page .more-infor-btn {
     width: 80px;
 }
-
 /* modal */
-.push-create-page .modal-content .modal-information {
-    height: inherit;
-}
 .push-create-page .modal-content .search-box {
     position: relative;
 }

@@ -12,6 +12,7 @@
 	const selSort		= $("#selSort");
 	const btnTop		= $("#btnTop");
 	const topIcon		= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>'
+	let topCount		= 0;
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -25,6 +26,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnTop			.on("click", function () { toggleTop(); });
 	});
 
 	function initSearchForm()
@@ -103,13 +105,14 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
+				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
 
 				dataTable.find('tbody').on( 'click', 'tr', function () {
 					let rowData = table.row( this ).data();
 					let isTop	= rowData.is_top;
 					let iconTop = '<i class="fas fas fa-bell"></i>';
-					console.log(rowData);
+
 					if (isTop === 'Y')
 					{
 						btnTop.removeClass('best-btn');
@@ -122,13 +125,12 @@
 						btnTop.addClass('best-btn');
 						btnTop.html(iconTop +'상단고정');
 					}
-
-					let selectedCnt = table.rows('.selected').data().length;
-					console.log(selectedCnt);
 				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
+				let isTop = aData.is_top;
+				if (isTop === 'Y') topCount++;
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -171,3 +173,41 @@
 		buildGrid();
 	}
 
+	/** 상단 고정/해제 **/
+	function toggleTop()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+		let isTop 		 = selectedData.is_top;
+		let noticeUuid	 = selectedData.notice_uuid;
+		let topParams = {
+			"is_top" : isTop === 'Y' ? 'N' : 'Y'
+			,"notice_uuid" : noticeUuid
+		};
+
+		if (isTop === 'N' && topCount > 2)
+		{
+			alert(message.overCntTop);
+			return;
+		}
+
+		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
+		{
+			$.ajax({
+				url: "http://api.kakaokids.org/v1.0/admin/notice/changeTop",
+				type: "POST",
+				headers: headers,
+				data: JSON.stringify(topParams),
+				success: function(data) {
+
+					if (getStatusCode(data) === 30000)
+						buildGrid();
+					else
+						alert(data.message);
+				},
+				error: function (request, status) {
+					console.log(status);
+				},
+			});
+		}
+	}

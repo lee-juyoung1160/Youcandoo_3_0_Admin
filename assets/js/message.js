@@ -12,4 +12,7 @@
 		,select : '선택해주세요.'
 		,maxReward : '최대 5개까지 등록 가능합니다.'
 		,createReward : '리워드 조건을 생성해주세요'
+		,deleteTop : '상단고정을 해제하시겠습니까?'
+		,insertTop : '상단고정을 설정하시겠습니까?'
+		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
 	}

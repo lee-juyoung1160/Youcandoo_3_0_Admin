@@ -230,3 +230,15 @@
             ]
         });
     }
+
+    function getStatusCode(data)
+    {
+        let resp = JSON.parse(data);
+        return resp.status;
+    }
+
+    function getStatusMessage(data)
+    {
+        let resp = JSON.parse(data);
+        return resp.msg;
+    }

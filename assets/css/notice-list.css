@@ -9,3 +9,7 @@
 .notice-list-page .table-wrap .btn-wrap .delete-btn {
     background-color: #c90614;
 }
+.notice-list-page .table-wrap .btn-wrap .btn-disabled {
+    background-color: #ddd;
+    cursor: inherit;
+}

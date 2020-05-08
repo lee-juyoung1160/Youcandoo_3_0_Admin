@@ -2,14 +2,14 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
+	const inputRadio	= $("input:radio");
+	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const apiUrl		= "http://api.kakaokids.org/v1.0/admin/user/list";
+	const selSort		= $("#selSort");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -21,14 +21,18 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { getList(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
+		inputRadio.each(function (index) {
+			if (index === 0)
+				$(this).prop("checked", true);
+		});
+		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -42,8 +46,9 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: apiUrl,
-				type: "POST",
+				url:"http://api.kakaokids.org/v1.0/admin/biz/list",
+				type:"POST",
+				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
 					{
@@ -51,14 +56,21 @@
 						d.sort = d.columns[columnIndex].name;
 						d.order = d.order[0].dir;
 					}
-
 				   */
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
+				,{title: "구분", 	data: "event_type",    	name: "event_type",     orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",  		name: "title",    		orderable: false,   className: "text-center" }
+				,{title: "기간", 	data: "start_date",  	name: "start_date",    	orderable: false,   className: "text-center" }
+				,{title: "노출여부", data: "is_exposure",  	name: "is_exposure",  	   orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === "Y" ? "노출" : "비노출";
+					}
+				}
+				,{title: "작성일", 	data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -81,7 +93,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'multi',
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -95,7 +107,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -105,66 +117,25 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
-			,"search_type" : searchType.val()
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom = $(nRow).children().eq(2);
 
 		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		$(titleDom).html('<a href="/event/detail">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
 		buildGrid();
-	}
-
-	function onClickExcelBtn()
-	{
-		getList();
-	}
-
-	function getList()
-	{
-		$.ajax({
-			url: apiUrl,
-			type: "POST",
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("기업목록", "기업목록", data);
-			},
-			error: function (request, status) {
-				console.log(request);
-				console.log(status);
-			},
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
-		}
-
-		return {"data": JSON.stringify(param)};
 	}
 

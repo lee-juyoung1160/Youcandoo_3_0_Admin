@@ -79,7 +79,7 @@
 			language: {
 				emptyTable : "조회된 목록이 없습니다."
 				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				,processing : message.searching
 				,paginate: {
 					previous: "‹‹"
 					,next: "››"

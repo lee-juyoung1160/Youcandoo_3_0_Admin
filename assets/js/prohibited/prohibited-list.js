@@ -1,11 +1,18 @@
 
-	const search 		= $(".search");
-	const reset 		= $(".reset");
-	const dataTable		= $("#dataTable")
-	const keyword		= $("#keyword");
-	const selPageLength = $("#selPageLength");
-	const dataNum		= $(".data-num");
+	const search 			= $(".search");
+	const reset 			= $(".reset");
+	const dataTable			= $("#dataTable")
+	const keyword			= $("#keyword");
+	const selPageLength 	= $("#selPageLength");
+	const dataNum			= $(".data-num");
+	const prohibition		= $("#prohibition");
 	//const btnTop		= $("#btnTop");
+	/** modal **/
+	const btnOpenModal		= $("#btnOpenModal");
+	const btnSubmit			= $("#btnSubmit");
+	const modalCloseBtn 	= $(".close-btn");
+	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
 
 	$(document).ready(function () {
 		/** 상단 검색 폼 초기화 **/
@@ -16,12 +23,21 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		btnOpenModal	.on('click', function () { modalFadein(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmit		.on('click', function () { onSubmitProhibition(); });
 		//btnTop			.on("click", function () { toggleTop(); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
+	}
+
+	function initModal()
+	{
+
 	}
 
 	function buildGrid()
@@ -90,10 +106,10 @@
 	{
 		let param = {
 			"keyword" : keyword.val()
-			/*,"limit" : d.length
+			/*
+			,"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()*/
+			*/
 		}
 
 		return JSON.stringify(param);
@@ -104,16 +120,64 @@
 		buildGrid();
 	}
 
-	/** 상단 고정/해제 **/
+	function onSubmitProhibition()
+	{
+		if (validation())
+		{
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.createProhibition,
+					type: "POST",
+					headers: headers,
+					data: params(),
+					success: function(data) {
+
+						if (getStatusCode(data) === 30000)
+						{
+							modalFadeout();
+							buildGrid();
+						}
+						else
+							alert(data.message);
+					},
+					error: function (request, status) {
+						console.log(status);
+					},
+				});
+			}
+		}
+	}
+
+	function params()
+	{
+		let param = {
+			"word": prohibition.val()
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function validation()
+	{
+		if (isEmpty(prohibition.val()))
+		{
+			alert('금칙어는 '+message.required)
+			prohibition.focus();
+			return false;
+		}
+
+		return true;
+	}
+
+	/** 금칙어 등록 **/
 	function toggleTop()
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
-		let isTop 		 = selectedData.is_top;
-		let noticeUuid	 = selectedData.notice_uuid;
-		let topParams = {
+		let isTop 		 = selectedData.idx;
+		let delParams = {
 			"is_top" : isTop === 'Y' ? 'N' : 'Y'
-			,"notice_uuid" : noticeUuid
 		};
 
 		if (isTop === 'N' && topCount > 2)
@@ -125,10 +189,10 @@
 		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
 		{
 			$.ajax({
-				url: "http://api.kakaokids.org/v1.0/admin/notice/changeTop",
+				url: api.deleteProhibition,
 				type: "POST",
 				headers: headers,
-				data: JSON.stringify(topParams),
+				data: JSON.stringify(delParams),
 				success: function(data) {
 
 					if (getStatusCode(data) === 30000)

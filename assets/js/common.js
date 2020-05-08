@@ -241,3 +241,17 @@
         let resp = JSON.parse(data);
         return resp.msg;
     }
+
+    /** modal 열기,닫기 **/
+    function modalFadein()
+    {
+        modalLayout.fadeIn();
+        modalContent.fadeIn();
+        initModal();
+    }
+
+    function modalFadeout()
+    {
+        modalLayout.fadeOut();
+        modalContent.fadeOut();
+    }

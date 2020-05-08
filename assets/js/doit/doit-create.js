@@ -86,18 +86,6 @@
 		groupRate.val('');
 	}
 
-	function modalFadein()
-	{
-		modalLayout.fadeIn();
-		modalContent.fadeIn();
-	}
-
-	function modalFadeout()
-	{
-		modalLayout.fadeOut();
-		modalContent.fadeOut();
-	}
-
 	function validation()
 	{
 		let bannerFile	= banner[0].files;

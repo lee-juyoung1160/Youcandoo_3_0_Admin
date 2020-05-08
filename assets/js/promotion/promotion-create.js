@@ -147,19 +147,6 @@
 		});
 	}
 
-	function modalFadein()
-	{
-		modalLayout.fadeIn();
-		modalContent.fadeIn();
-		initModal();
-	}
-
-	function modalFadeout()
-	{
-		modalLayout.fadeOut();
-		modalContent.fadeOut();
-	}
-
 	function validation()
 	{
 		let bannerFile		= banner[0].files;

@@ -6,8 +6,7 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
+	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const selSort		= $("#selSort");
@@ -23,17 +22,13 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -50,6 +45,7 @@
 			ajax : {
 				url: api.listBiz,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -63,9 +59,9 @@
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
-				,{title: "회사명", 	data: "company_name",   name: "event_type",     orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "create_datetime",   name: "create_datetime",     orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    			width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "회사명", 	data: "company_name",   	width: "50%",     orderable: false,   className: "text-center" }
+				,{title: "등록일", 	data: "create_datetime",   	width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -126,12 +122,49 @@
 	{
 		let titleDom = $(nRow).children().eq(1);
 
-		// 제목에 a 태그 추가
+		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="/biz/detail">'+aData.company_name+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
 		buildGrid();
+	}
+
+	function onClickExcelBtn()
+	{
+		getList();
+	}
+
+	function getList()
+	{
+		$.ajax({
+			url: api.listBiz,
+			type: "POST",
+			async: false,
+			headers: headers,
+			data: excelParams(),
+			success: function(data) {
+				setExcelData("비즈목록", "비즈목록", data);
+			},
+			error: function (request, status) {
+				console.log(status);
+			},
+		});
+	}
+
+	function excelParams()
+	{
+		let param = {
+			"limit" : 20000
+			,"page" : 1
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
+			,"keyword" : keyword.val()
+			,"dateType" : dateType.val()
+		}
+
+		return JSON.stringify(param);
 	}
 

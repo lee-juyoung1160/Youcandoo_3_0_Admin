@@ -5,14 +5,14 @@
 	const keyword			= $("#keyword");
 	const selPageLength 	= $("#selPageLength");
 	const dataNum			= $(".data-num");
-	const prohibition		= $("#prohibition");
-	//const btnTop		= $("#btnTop");
+	const btnDelete			= $("#btnDelete");
 	/** modal **/
 	const btnOpenModal		= $("#btnOpenModal");
 	const btnSubmit			= $("#btnSubmit");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
+	const prohibition		= $("#prohibition");
 
 	$(document).ready(function () {
 		/** 상단 검색 폼 초기화 **/
@@ -27,7 +27,7 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmit		.on('click', function () { onSubmitProhibition(); });
-		//btnTop			.on("click", function () { toggleTop(); });
+		btnDelete		.on("click", function () { deleteProhibition(); });
 	});
 
 	function initSearchForm()
@@ -46,6 +46,7 @@
 			ajax : {
 				url: api.listProhibition,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -120,6 +121,7 @@
 		buildGrid();
 	}
 
+	/** 금칙어 등록 **/
 	function onSubmitProhibition()
 	{
 		if (validation())
@@ -129,6 +131,7 @@
 				$.ajax({
 					url: api.createProhibition,
 					type: "POST",
+					async: false,
 					headers: headers,
 					data: params(),
 					success: function(data) {
@@ -170,27 +173,29 @@
 		return true;
 	}
 
-	/** 금칙어 등록 **/
-	function toggleTop()
+	/** 금칙어 삭제 **/
+	function deleteProhibition()
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
-		let isTop 		 = selectedData.idx;
-		let delParams = {
-			"is_top" : isTop === 'Y' ? 'N' : 'Y'
-		};
 
-		if (isTop === 'N' && topCount > 2)
+		if (isEmpty(selectedData))
 		{
-			alert(message.overCntTop);
+			alert('삭제할 금칙어를 '+message.select);
 			return;
 		}
 
-		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
+		let idx 		 = selectedData.idx;
+		let delParams = {
+			"idx" : idx
+		};
+
+		if (confirm(message.delete))
 		{
 			$.ajax({
 				url: api.deleteProhibition,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: JSON.stringify(delParams),
 				success: function(data) {

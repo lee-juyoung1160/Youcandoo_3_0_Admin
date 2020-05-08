@@ -47,7 +47,7 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: "http://api.kakaokids.org/v1.0/admin/faq/create",
+					url: api.createFaq,
 					type: "POST",
 					processData: false,
 					contentType: false,

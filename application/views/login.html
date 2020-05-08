@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="/assets/js/message.js"></script>
+    <script src="/assets/js/const.js"></script>
     <script src="/assets/js/utils.js"></script>
 </head>
 
@@ -63,75 +63,5 @@
         </div>
     </section>
 </body>
-<script>
-
-    const email     = $("#email");
-    const password  = $("#password");
-    const loginBtn  = $("#login-btn");
-
-    $(document).ready(function () {
-
-        loginBtn    .on("click", function () { onSubmitLogin(); });
-        email       .on("keydown", function (key) { onKeydownEmail(key) });
-        password    .on("keydown", function (key) { onKeydownPassword(key) });
-
-    });
-
-    function onKeydownEmail(key)
-    {
-        if (key.keyCode === 13)
-        {
-            if (isEmpty(email.val()))
-            {
-                alert(message.emptyId);
-                email.focus();
-                return;
-            }
-
-            password.focus();
-        }
-    }
-
-    function onKeydownPassword(key)
-    {
-        if (key.keyCode === 13)
-        {
-            if (isEmpty(password.val()))
-            {
-                alert(message.emptyPassword);
-                password.focus();
-                return;
-            }
-
-            onSubmitLogin();
-        }
-    }
-
-    function onSubmitLogin()
-    {
-        if (validation())
-        {
-            alert("goLoginAction");
-        }
-    }
-
-    function validation()
-    {
-        if (isEmpty(email.val()))
-        {
-            alert(message.emptyId);
-            email.focus();
-            return false;
-        }
-
-        if (isEmpty(password.val()))
-        {
-            alert(message.emptyPassword);
-            password.focus();
-            return false;
-        }
-
-        return true;
-    }
-</script>
+<script src="/assets/js/login/login.js"></script>
 </html>

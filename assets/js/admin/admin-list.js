@@ -41,8 +41,8 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
-				type:"POST",
+				url: api.listUser,
+				type: "POST",
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)

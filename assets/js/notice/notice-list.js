@@ -50,8 +50,8 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/notice/list",
-				type:"POST",
+				url: api.listNotice,
+				type: "POST",
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -129,8 +129,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
-				let isTop = aData.is_top;
-				if (isTop === 'Y') topCount++;
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -156,13 +154,16 @@
 	{
 		let topDom	 = $(nRow).children().eq(0);
 		let titleDom = $(nRow).children().eq(1);
+		let isTop	 = aData.is_top;
 
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');
 
 		/** 상단고정 **/
-		if (aData.is_top === 'Y')
+		if (isTop === 'Y')
 		{
+			topCount++;
+
 			/** no컬럼에 숫자대신 아이콘 **/
 			$(topDom).html('<i class="fas fas fa-bell"></i>');
 		}
@@ -194,7 +195,7 @@
 		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
 		{
 			$.ajax({
-				url: "http://api.kakaokids.org/v1.0/admin/notice/changeTop",
+				url: api.topNotice,
 				type: "POST",
 				headers: headers,
 				data: JSON.stringify(topParams),

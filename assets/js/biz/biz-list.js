@@ -45,10 +45,11 @@
 
 	function buildGrid()
 	{
+		console.log(api.listBiz)
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/biz/list",
-				type:"POST",
+				url: api.listBiz,
+				type: "POST",
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)

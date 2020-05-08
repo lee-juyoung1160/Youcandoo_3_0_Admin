@@ -11,7 +11,6 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const apiUrl		= "http://api.kakaokids.org/v1.0/admin/user/list";
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -49,10 +48,9 @@
 	{
 		$("#dataTable").DataTable({
 			ajax : {
-				url: apiUrl,
+				url: api.listUser,
 				type:"POST",
 				headers: headers,
-				dataSrc: "data.data",
 				/*dataFilter: function(data) {
 					let jsonData = JSON.parse(data);
 					console.log(jsonData);
@@ -125,19 +123,18 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"member_type" : "active"
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom = $(nRow).children().eq(0);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.idx+'\')';
 
 		// 제목에 a 태그 추가
-		titleDom.html('<a href="'+movePageUrl+'">'+aData.nickname+'</a>');
+		titleDom.html('<a href="/detail/user">'+aData.nickname+'</a>');
 	}
 
 	function onSubmitSearch()
@@ -153,7 +150,7 @@
 	function getList()
 	{
 		$.ajax({
-			url: apiUrl,
+			url: api.listUser,
 			type: "POST",
 			headers: headers,
 			data: excelParams(),
@@ -180,7 +177,7 @@
 			//,type_opt : $('#selType').val()
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
 

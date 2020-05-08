@@ -208,10 +208,10 @@ i.question-mark:hover .hover-text {
 }
 .modal-content .modal-information {
 	height: auto;
-	max-height: 656px;
+	max-height: 400px;
 	overflow-y: auto;
 }
-.modal-content .modal-information li {
+.modal-content .modal-information > li {
 	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }

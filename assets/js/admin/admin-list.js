@@ -41,8 +41,8 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
-				type:"POST",
+				url: api.listUser,
+				type: "POST",
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -65,9 +65,9 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
 					previous: "‹‹"
 					,next: "››"

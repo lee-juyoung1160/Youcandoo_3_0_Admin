@@ -80,7 +80,7 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: "http://api.kakaokids.org/v1.0/admin/event/create",
+					url: api.createEvent,
 					type: "POST",
 					processData: false,
 					contentType: false,

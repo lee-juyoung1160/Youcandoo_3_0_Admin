@@ -29,8 +29,8 @@
                 <div class="select-box">
                     <label for="search_type">제목/내용</label>
                     <select id="search_type">
-                        <option value="nickname">제목/내용</option>
-                        <option value="nickname">작성자</option>
+                        <option value="title">제목/내용</option>
+                        <option value="title">작성자</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -47,13 +47,13 @@
                 <li>
                     <p class="list-common-title">노출여부</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="rr" />
+                        <input type="radio" id="r2" name="radio-exposure" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="rr" />
+                        <input type="radio" id="r3" name="radio-exposure" value="Y"/>
                         <label for="r3"><span></span>Y</label>
 
-                        <input type="radio" id="r4" name="rr" />
+                        <input type="radio" id="r4" name="radio-exposure" value="N"/>
                         <label for="r4"><span></span>N</label>
                     </div>
                 </li>
@@ -72,15 +72,15 @@
                     </select>
                 </div>
                 <div class="select-box">
-                    <label for="ex_select5">작성일 순</label>
-                    <select id="ex_select5">
-                        <option selected>작성일 순</option>
-                        <option>작성일 역 순</option>
+                    <label for="selSort">최신 순</label>
+                    <select id="selSort">
+                        <option value="desc">최신 순</option>
+                        <option value="asc">작성일 순</option>
                     </select>
                 </div>
             </div>
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:35%;">
@@ -110,15 +110,15 @@
                         <td>berry</td>
                         <td>Y </td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </section>

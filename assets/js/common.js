@@ -11,7 +11,6 @@
     const dateFrom           = $(".date_from");
     const dateTo             = $(".date_to");
     const inputNumber        = $(".only-num");
-    const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
 
     menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });
@@ -229,4 +228,30 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+    }
+
+    function getStatusCode(data)
+    {
+        let resp = JSON.parse(data);
+        return resp.status;
+    }
+
+    function getStatusMessage(data)
+    {
+        let resp = JSON.parse(data);
+        return resp.msg;
+    }
+
+    /** modal 열기,닫기 **/
+    function modalFadein()
+    {
+        modalLayout.fadeIn();
+        modalContent.fadeIn();
+        initModal();
+    }
+
+    function modalFadeout()
+    {
+        modalLayout.fadeOut();
+        modalContent.fadeOut();
     }

@@ -6,10 +6,11 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
+	const inputRadio	= $("input:radio");
+	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const apiUrl		= "http://api.kakaokids.org/v1.0/admin/user/list";
+	const selSort		= $("#selSort");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -21,14 +22,18 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { getList(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
+		inputRadio.each(function (index) {
+			if (index === 0)
+				$(this).prop("checked", true);
+		});
+		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -40,10 +45,12 @@
 
 	function buildGrid()
 	{
+		console.log(api.listBiz)
 		dataTable.DataTable({
 			ajax : {
-				url: apiUrl,
+				url: api.listBiz,
 				type: "POST",
+				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
 					{
@@ -51,23 +58,23 @@
 						d.sort = d.columns[columnIndex].name;
 						d.order = d.order[0].dir;
 					}
-
 				   */
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
+				,{title: "회사명", 	data: "company_name",   name: "event_type",     orderable: false,   className: "text-center" }
+				,{title: "등록일", 	data: "create_datetime",   name: "create_datetime",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
 					previous: "‹‹"
 					,next: "››"
@@ -81,7 +88,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'multi',
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -95,7 +102,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -105,66 +112,26 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
-			,"search_type" : searchType.val()
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"dateType" : dateType.val()
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom = $(nRow).children().eq(1);
 
 		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		$(titleDom).html('<a href="/biz/detail">'+aData.company_name+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
 		buildGrid();
-	}
-
-	function onClickExcelBtn()
-	{
-		getList();
-	}
-
-	function getList()
-	{
-		$.ajax({
-			url: apiUrl,
-			type: "POST",
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("기업목록", "기업목록", data);
-			},
-			error: function (request, status) {
-				console.log(request);
-				console.log(status);
-			},
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
-		}
-
-		return {"data": JSON.stringify(param)};
 	}
 

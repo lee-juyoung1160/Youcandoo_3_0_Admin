@@ -147,19 +147,6 @@
 		});
 	}
 
-	function modalFadein()
-	{
-		modalLayout.fadeIn();
-		modalContent.fadeIn();
-		initModal();
-	}
-
-	function modalFadeout()
-	{
-		modalLayout.fadeOut();
-		modalContent.fadeOut();
-	}
-
 	function validation()
 	{
 		let bannerFile		= banner[0].files;
@@ -287,7 +274,7 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: "http://api.kakaokids.org/v1.0/admin/promotion/create",
+					url: api.createPromotion,
 					type: "POST",
 					processData: false,
 					contentType: false,

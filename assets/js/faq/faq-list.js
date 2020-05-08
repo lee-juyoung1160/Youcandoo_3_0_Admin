@@ -9,6 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const selSort		= $("#selSort");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -21,6 +22,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
@@ -44,8 +46,9 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
-				type:"POST",
+				url: api.listFaq,
+				type: "POST",
+				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
 					{
@@ -58,17 +61,24 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",   	 		width: "10%",      	orderable: false,   className: "text-center" }
+				,{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",   		width: "40%",    	orderable: false,   className: "text-center" }
+				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === "Y" ? "노출" : "비노출";
+					}
+				}
+				,{title: "작성일", 	data: "created_datetime",  width: "20%",   	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
 					previous: "‹‹"
 					,next: "››"
@@ -82,7 +92,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'single',
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -96,7 +106,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -106,25 +116,23 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
-			,"search_type" : searchType.val()
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"orderby" : selSort.val()
 		}
 
 		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom = $(nRow).children().eq(2);
 
 		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		$(titleDom).html('<a href="/faq/detail">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

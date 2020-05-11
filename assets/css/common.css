@@ -208,10 +208,10 @@ i.question-mark:hover .hover-text {
 }
 .modal-content .modal-information {
 	height: auto;
-	max-height: 656px;
+	max-height: 400px;
 	overflow-y: auto;
 }
-.modal-content .modal-information li {
+.modal-content .modal-information > li {
 	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
@@ -507,7 +507,7 @@ textarea {
 	margin-left: 10px;
 }
 .list-common-btn-wrap a {
-	float: left;
+	float: right;
 	text-align: center;
 	line-height: 40px;
 	display: block;
@@ -695,6 +695,10 @@ textarea {
 	color: #007aff;
 	font-weight: 500;
 	font-size: 17px;
+}
+.table-wrap table tbody tr:hover {
+	cursor: pointer;
+	box-shadow: -6px -2px 10px 0 rgba(0, 0, 0, 0.05);
 }
 .table-wrap table th,
 .table-wrap table td {

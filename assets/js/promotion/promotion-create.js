@@ -73,8 +73,8 @@
 		$("#rewardRange").ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 10,
-			max: 90,
+			min: 0,
+			max: 100,
 			from: 50,
 			step: 10,
 			onStart: function(data) {

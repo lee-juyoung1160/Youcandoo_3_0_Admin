@@ -18,9 +18,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.review-list-page .modal-content .modal-information {
-    height: inherit;
-}
 .review-list-page .modal-content label {
     margin-right: 10px;
 }

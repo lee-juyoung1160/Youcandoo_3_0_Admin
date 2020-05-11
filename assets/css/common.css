@@ -507,7 +507,7 @@ textarea {
 	margin-left: 10px;
 }
 .list-common-btn-wrap a {
-	float: left;
+	float: right;
 	text-align: center;
 	line-height: 40px;
 	display: block;

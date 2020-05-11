@@ -696,7 +696,7 @@ textarea {
 	font-weight: 500;
 	font-size: 17px;
 }
-.table-wrap table tr:hover {
+.table-wrap table tbody tr:hover {
 	cursor: pointer;
 	box-shadow: -6px -2px 10px 0 rgba(0, 0, 0, 0.05);
 }

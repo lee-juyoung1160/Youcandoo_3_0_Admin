@@ -255,3 +255,19 @@
         modalLayout.fadeOut();
         modalContent.fadeOut();
     }
+
+    /** 테이블 영역 체크박스 **/
+    function tableCheckAllDom()
+    {
+        let chkAll = '<div class="checkbox-wrap">';
+        chkAll +=       '<input type="checkbox" id="checkAll"/>';
+        chkAll +=       '<label for="checkAll"><span></span></label>'
+        chkAll += '</div>';
+
+        return chkAll;
+    }
+
+    function tableCheckBoxDom(idx)
+    {
+        return '<input type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+    }

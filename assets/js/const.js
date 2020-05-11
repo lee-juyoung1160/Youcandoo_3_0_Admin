@@ -52,3 +52,10 @@
 		,updateProhibition : baseApiUrl+''
 		,listProhibition : baseApiUrl+'prohibition/list'
 	}
+
+	const label = {
+		createDoitUser : '사용자 두잇 개설 허용'
+		,createDoitAdmin : '기업만 두잇 개설 허용'
+		,exposure : '노출'
+		,unexpose : '비노출'
+	}

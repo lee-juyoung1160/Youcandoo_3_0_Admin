@@ -17,19 +17,19 @@
             <ul class="enrollment clearfix">
                 <li>
                     <p class="sub-title important">스폰 기업명 (*)</p>
-                    <p class="detail-data">나이키</p>
+                    <p class="detail-data" id="bizName"></p>
                 </li>
                 <li class="tag-list">
                     <p class="sub-title important">프로모션명 (*)</p>
-                    <p class="detail-data">110-250-000000</p>
+                    <p class="detail-data" id="promoName"></p>
                 </li>
                 <li>
                     <p class="sub-title important">프로모션 예산 (*)</p>
-                    <p class="detail-data">100,000</p>
+                    <p class="detail-data" id="budget"></p>
                 </li>
                 <li>
                     <p class="sub-title important">프로모션 기간 (*)</p>
-                    <p class="detail-data">2020.02.02 ~ 2020.03.01</p>
+                    <p class="detail-data" id="period"></p>
                 </li>
                 <li>
                     <p class="sub-title important">유의사항 (*)</p>
@@ -39,25 +39,25 @@
                     <p class="sub-title important">이미지 (*)</p>
                     <div class="wrap">
                         <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
-                        <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">
+                        <img id="banner" class="detail-img main-banner" src="" alt="메인 배너 이미지입니다.">
                     </div>
                     <div class="wrap">
                         <p class="cap">리스트 썸네일 (* 이미지 사이즈: 165 x 165)</p>
-                        <img class="detail-img" src="/assets/images/test.png" alt="리스트 썸네일 이미지입니다.">
+                        <img id="thumbnail" class="detail-img" src="" alt="리스트 썸네일 이미지입니다.">
                     </div>
                 </li>
                 <li>
                     <p class="sub-title important">두잇 개설 유형 (*)</p>
-                    <p class="detail-data">사용자 두잇 개설 허용</p>
+                    <p class="detail-data" id="createType">사용자 두잇 개설 허용</p>
                 </li>
                 <li>
                     <p class="sub-title important">프로모션 메인 슬라이드 배너 노출 여부 (*)</p>
-                    <p class="detail-data">노출</p>
+                    <p class="detail-data" id="isExposure"></p>
                 </li>
             </ul>
 
             <div class="pro-reward-add-list">
-                <div class="inner clearfix">
+                <div id="rewardList" class="inner clearfix">
                     <h2 class="main-title">리워드 조건 생성 목록</h2>
                     <ul class="enrollment clearfix">
                         <li>
@@ -170,4 +170,4 @@
         </div>
     </div>
 </section>
-
+<script src="/assets/js/promotion/promotion-detail.js"></script>

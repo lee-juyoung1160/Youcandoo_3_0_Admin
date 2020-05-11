@@ -1,6 +1,14 @@
 
-	const search 		= $(".search");
-	const reset 		= $(".reset");
+	const bizName 		= $("#bizName");
+	const promoName 	= $("#promoName");
+	const budget 		= $("#budget");
+	const period 		= $("#period");
+	const banner 		= $("#banner");
+	const thumbnail 	= $("#thumbnail");
+	const createType 	= $("#createType");
+	const isExposure 	= $("#isExposure");
+	const rewardList    = $("#rewardList");
+
 	const dataTable		= $("#dataTable")
 	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
@@ -11,19 +19,20 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const pathname 		= window.location.pathname;
+	const idx 			= pathname.split('/').reverse()[0];
+
 
 	$(document).ready(function () {
-		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** 테이블 데이터 로드 **/
-		buildGrid();
 
-		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initComponent(); });
-		selPageLength	.on("change", function () { buildGrid(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		/** 프로모션 상세정보 **/
+		getPromotion();
+		/** 데이트피커 초기화 **/
+		//initSearchDatepicker();
+		/** 상단 검색 폼 초기화 **/
+		//initSearchForm();
+
+		//xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
 
 	function initSearchForm()
@@ -43,7 +52,92 @@
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}
 
-	function buildGrid()
+	function getPromotion()
+	{
+		$.ajax({
+			url: api.detailPromotion,
+			type: "POST",
+			async: false,
+			headers: headers,
+			data: JSON.stringify({"promotion_idx" : idx}),
+			success: function(data) {
+				if (getStatusCode(data) === 30000)
+				{
+					buildPromoDetail(data);
+				}
+				else
+					alert(data.message);
+			},
+			error: function (request, status) {
+				console.log(status);
+			},
+		});
+	}
+
+	function buildPromoDetail(data)
+	{
+		let jsonData   	 = JSON.parse(data);
+		let detailData 	 = jsonData.data;
+		let promoData  	 = detailData.promotion;
+		let doitDataList = detailData.reward;
+
+		bizName.text(promoData.company_name);
+		promoName.text(promoData.promotion_title);
+		budget.text(numberWithCommas(promoData.budget_ucd)+'원');
+		period.text(promoData.start_date + '~' + promoData.end_date);
+		banner.attr('src', promoData.banner_image_url);
+		thumbnail.attr('src', promoData.list_image_url);
+		createType.text(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
+		isExposure.text(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
+
+		let rewardLen = doitDataList.length;
+		let rewardDom = '';
+		for (let i=0; i<rewardLen; i++)
+		{
+			let doitData = doitDataList[i];
+			let actionPeriod = doitData.action_start_date + ' ~ ' + doitData.action_end_date;
+			let persnal = doitData.person_percent;
+			let group = doitData.group_percent;
+
+			if (i === 0)
+				rewardDom += '<h2 class="main-title">리워드 조건 생성 목록</h2>';
+
+			rewardDom += '<ul class="enrollment clearfix">';
+			rewardDom += 	'<li>';
+			rewardDom += 		'<p class="sub-title important">리워드 제목 (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ doitData.title +'</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li class="tag-list">';
+			rewardDom += 		'<p class="sub-title important">인증 기간 (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ actionPeriod +'</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li class="clearfix">';
+			rewardDom += 		'<p class="sub-title important">일일인증 횟수 (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ doitData.action_dailiy_allow +'회</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li>';
+			rewardDom += 		'<p class="sub-title important">목표달성률 (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ doitData.goal_percent +'%</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li>';
+			rewardDom += 		'<p class="sub-title important">1인당 최대 지급할 UCD (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ numberWithCommas(doitData.total_reward) +'원</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li>';
+			rewardDom += 		'<p class="sub-title important">리워드 유형 (*)</p>';
+			rewardDom += 		'<p class="detail-data">개인 '+ persnal + ' : 단체 ' + group +'</p>';
+			rewardDom += 	'</li>';
+			rewardDom += 	'<li>';
+			rewardDom += 		'<p class="sub-title important">주간빈도 (*)</p>';
+			rewardDom += 		'<p class="detail-data">'+ doitData.action_dayofweek +'</p>';
+			rewardDom += 	'</li>';
+			rewardDom += '</ul>';
+		}
+
+		rewardList.html(rewardDom);
+	}
+
+	function getDoit()
 	{
 		$("#dataTable").DataTable({
 			ajax : {

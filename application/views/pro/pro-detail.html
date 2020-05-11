@@ -4,108 +4,109 @@
     <div class="inner">
         <h2 class="main-title">프로모션 상세</h2>
         <div class="table-btn-wrap clearfix">
-            <li class="active">프로모션</li>
-            <li>개설 두잇</li>
+            <li class="active" id="tabPromo">프로모션</li>
+            <li id="tabDoit">개설 두잇</li>
         </div>
         <div class="wrap">
-            <ul class="enrollment clearfix">
-                <li>
-                    <p class="sub-title important">스폰 기업명 (*)</p>
-                    <p class="detail-data" id="bizName"></p>
-                </li>
-                <li class="tag-list">
-                    <p class="sub-title important">프로모션명 (*)</p>
-                    <p class="detail-data" id="promoName"></p>
-                </li>
-                <li>
-                    <p class="sub-title important">프로모션 예산 (*)</p>
-                    <p class="detail-data" id="budget"></p>
-                </li>
-                <li>
-                    <p class="sub-title important">프로모션 기간 (*)</p>
-                    <p class="detail-data" id="period"></p>
-                </li>
-                <li>
-                    <p class="sub-title important">유의사항 (*)</p>
-                    <p class="detail-data"></p>
-                </li>
-                <li class="img-list clearfix">
-                    <p class="sub-title important">이미지 (*)</p>
-                    <div class="wrap">
-                        <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
-                        <img id="banner" class="detail-img main-banner" src="" alt="메인 배너 이미지입니다.">
+            <div id="promoDetail">
+                <ul class="enrollment clearfix">
+                    <li>
+                        <p class="sub-title important">스폰 기업명 (*)</p>
+                        <p class="detail-data" id="bizName"></p>
+                    </li>
+                    <li class="tag-list">
+                        <p class="sub-title important">프로모션명 (*)</p>
+                        <p class="detail-data" id="promoName"></p>
+                    </li>
+                    <li>
+                        <p class="sub-title important">프로모션 예산 (*)</p>
+                        <p class="detail-data" id="budget"></p>
+                    </li>
+                    <li>
+                        <p class="sub-title important">프로모션 기간 (*)</p>
+                        <p class="detail-data" id="period"></p>
+                    </li>
+                    <li>
+                        <p class="sub-title important">유의사항 (*)</p>
+                        <p class="detail-data"></p>
+                    </li>
+                    <li class="img-list clearfix">
+                        <p class="sub-title important">이미지 (*)</p>
+                        <div class="wrap">
+                            <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
+                            <img id="banner" class="detail-img main-banner" src="" alt="메인 배너 이미지입니다.">
+                        </div>
+                        <div class="wrap">
+                            <p class="cap">리스트 썸네일 (* 이미지 사이즈: 165 x 165)</p>
+                            <img id="thumbnail" class="detail-img" src="" alt="리스트 썸네일 이미지입니다.">
+                        </div>
+                    </li>
+                    <li>
+                        <p class="sub-title important">두잇 개설 유형 (*)</p>
+                        <p class="detail-data" id="createType">사용자 두잇 개설 허용</p>
+                    </li>
+                    <li>
+                        <p class="sub-title important">프로모션 메인 슬라이드 배너 노출 여부 (*)</p>
+                        <p class="detail-data" id="isExposure"></p>
+                    </li>
+                </ul>
+                <div class="pro-reward-add-list">
+                    <div id="rewardList" class="inner clearfix">
+                        <h2 class="main-title">리워드 조건 생성 목록</h2>
+                        <ul class="enrollment clearfix">
+                            <li>
+                                <p class="sub-title important">리워드 제목 (*)</p>
+                                <p class="detail-data">일주일동안 주 3회 운동 3시간 하기</p>
+                            </li>
+                            <li class="tag-list">
+                                <p class="sub-title important">인증 기간 (*)</p>
+                                <p class="detail-data">2020.02.02 ~ 2020.03.03</p>
+                            </li>
+                            <li class="clearfix">
+                                <p class="sub-title important">일일인증 횟수 (*)</p>
+                                <p class="detail-data">3회</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">목표달성률 (*)</p>
+                                <p class="detail-data">80%</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
+                                <p class="detail-data">1,000 UCD</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">리워드 유형 (*)</p>
+                                <p class="detail-data">개인 5 : 단체 5</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">주간빈도 (*)</p>
+                                <p class="detail-data">월, 화, 수</p>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="wrap">
-                        <p class="cap">리스트 썸네일 (* 이미지 사이즈: 165 x 165)</p>
-                        <img id="thumbnail" class="detail-img" src="" alt="리스트 썸네일 이미지입니다.">
-                    </div>
-                </li>
-                <li>
-                    <p class="sub-title important">두잇 개설 유형 (*)</p>
-                    <p class="detail-data" id="createType">사용자 두잇 개설 허용</p>
-                </li>
-                <li>
-                    <p class="sub-title important">프로모션 메인 슬라이드 배너 노출 여부 (*)</p>
-                    <p class="detail-data" id="isExposure"></p>
-                </li>
-            </ul>
 
-            <div class="pro-reward-add-list">
-                <div id="rewardList" class="inner clearfix">
-                    <h2 class="main-title">리워드 조건 생성 목록</h2>
-                    <ul class="enrollment clearfix">
-                        <li>
-                            <p class="sub-title important">리워드 제목 (*)</p>
-                            <p class="detail-data">일주일동안 주 3회 운동 3시간 하기</p>
-                        </li>
-                        <li class="tag-list">
-                            <p class="sub-title important">인증 기간 (*)</p>
-                            <p class="detail-data">2020.02.02 ~ 2020.03.03</p>
-                        </li>
-                        <li class="clearfix">
-                            <p class="sub-title important">일일인증 횟수 (*)</p>
-                            <p class="detail-data">3회</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">목표달성률 (*)</p>
-                            <p class="detail-data">80%</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
-                            <p class="detail-data">1,000 UCD</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">리워드 유형 (*)</p>
-                            <p class="detail-data">개인 5 : 단체 5</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">주간빈도 (*)</p>
-                            <p class="detail-data">월, 화, 수</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
-                    <div class="btn-wrap">
-                        <a class="list-btn" href="#">목록</a>
-                        <a class="update-btn" href="/pro/update">수정</a>
+                    <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                        <div class="btn-wrap">
+                            <a class="list-btn" href="/pro/lists">목록</a>
+                            <a class="update-btn" href="/pro/update">수정</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="table-wrap">
-                <p>Total <strong class="data-num">16</strong></p>
+
+            <div id="involveDoit" class="table-wrap" style="display: none;">
+                <p>Total <strong class="data-num"></strong></p>
                 <div class="top clearfix">
                     <div class="select-box">
-                        <label for="ex_select4">10개씩 보기</label>
-                        <select id="ex_select4">
-                            <option selected>10개씩 보기</option>
-                            <option>10개씩 보기</option>
-                            <option>30개씩 보기</option>
-                            <option>50개씩 보기</option>
-                            <option>100개씩 보기</option>
-                            <option>300개씩 보기</option>
-                            <option>500개씩 보기</option>
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                            <option value="50">50개씩 보기</option>
+                            <option value="100">100개씩 보기</option>
+                            <option value="300">300개씩 보기</option>
+                            <option value="500">500개씩 보기</option>
                         </select>
                     </div>
                     <div class="btn-wrap">
@@ -114,8 +115,8 @@
                     </div>
                 </div>
 
-                <table>
-                    <colgroup>
+                <table id="dataTable">
+                    <!--<colgroup>
                         <col style="width:3%;">
                         <col style="width:16.16%;">
                         <col style="width:22.16%;">
@@ -148,16 +149,16 @@
                             <td>미승인</td>
                             <td>admin01</td>
                         </tr>
-                    </tbody>
+                    </tbody>-->
                 </table>
 
-                <ul class="table-pagination clearfix">
+                <!--<ul class="table-pagination clearfix">
                     <li><i class="fas fa-angle-double-left"></i></li>
                     <li class="active">1</li>
                     <li>2</li>
                     <li>3</li>
                     <li><i class="fas fa-angle-double-right"></i></li>
-                </ul>
+                </ul>-->
             </div>
 
         </div>

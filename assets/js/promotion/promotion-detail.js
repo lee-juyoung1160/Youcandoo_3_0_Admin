@@ -1,4 +1,10 @@
 
+	const tabPromo 		= $("#tabPromo");
+	const tabDoit 		= $("#tabDoit");
+	const promoDetail	= $("#promoDetail");
+	const involveDoit	= $("#involveDoit");
+
+	/** 프로모션 탭 **/
 	const bizName 		= $("#bizName");
 	const promoName 	= $("#promoName");
 	const budget 		= $("#budget");
@@ -9,15 +15,10 @@
 	const isExposure 	= $("#isExposure");
 	const rewardList    = $("#rewardList");
 
+	/** 두잇탭 **/
 	const dataTable		= $("#dataTable")
-	const dateType		= $("#date_type");
-	const searchType 	= $("#search_type");
-	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
-	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -27,29 +28,30 @@
 
 		/** 프로모션 상세정보 **/
 		getPromotion();
-		/** 데이트피커 초기화 **/
-		//initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
-		//initSearchForm();
 
-		//xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		tabPromo	.on("click", function () { onClickPromoTab(); });
+		tabDoit		.on("click", function () { onClickDoitTab(); });
+		xlsxExport	.on("click", function () { onClickExcelBtn(); });
 	});
 
-	function initSearchForm()
+	function onClickPromoTab()
 	{
-		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
+		promoDetail.show();
+		involveDoit.hide();
+		tabDoit.removeClass('active');
+		tabPromo.addClass('active');
 
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		getPromotion();
+	}
+
+	function onClickDoitTab()
+	{
+		involveDoit.show();
+		promoDetail.hide();
+		tabPromo.removeClass('active');
+		tabDoit.addClass('active');
+
+		getInvolveDoit();
 	}
 
 	function getPromotion()
@@ -137,12 +139,13 @@
 		rewardList.html(rewardDom);
 	}
 
-	function getDoit()
+	function getInvolveDoit()
 	{
 		$("#dataTable").DataTable({
 			ajax : {
-				url: api.listPromotion,
+				url: api.involveDoitPromotion,
 				type:"POST",
+				headers: headers,
 				data: function (d) {
 					/*
 					if (d.order.length > 0)
@@ -157,12 +160,10 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
+				{title: "No", 		data: "idx",    	   			width: "5%",     orderable: false,   className: "text-center" }
+				,{title: "두잇 ID", 	data: "doit_uuid",    			width: "20%",    orderable: false,   className: "text-center" }
+				,{title: "두잇 명", 	data: "doit_title",    			width: "15%",    orderable: false,   className: "text-center" }
+				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -205,24 +206,19 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"promotion_idx" : idx
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(0);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.idx+'\')';
+		let periodDom = $(nRow).children().eq(3);
+		let period    = aData.action_start_datetime + ' ~ ' + aData.action_end_datetime;
 
-		// 제목에 a 태그 추가
-		titleDom.html('<a href="'+movePageUrl+'">'+aData.nickname+'</a>');
+		/** 인증기간 **/
+		periodDom.text(period);
 	}
 
 	function onSubmitSearch()
@@ -239,11 +235,12 @@
 	function getList()
 	{
 		$.ajax({
-			url: apiUrl,
+			url: api.involveDoitPromotion,
 			type: "POST",
+			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data);
+				setExcelData("개설두잇목록", "개설두잇목록", data);
 			},
 			error: function (request, status) {
 				console.log(status);
@@ -257,15 +254,10 @@
 		let param = {
 			"limit" : 10000
 			,"page" : 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"promotion_idx" : idx
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
 

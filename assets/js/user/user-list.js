@@ -50,6 +50,7 @@
 			ajax : {
 				url: api.listUser,
 				type:"POST",
+				async: false,
 				headers: headers,
 				/*dataFilter: function(data) {
 					let jsonData = JSON.parse(data);
@@ -78,18 +79,18 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -103,7 +104,7 @@
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				let info = table.page.info();
-				console.log(info);
+				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -152,13 +153,13 @@
 		$.ajax({
 			url: api.listUser,
 			type: "POST",
+			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
 				setExcelData("회원목록", "회원목록", data);
 			},
 			error: function (request, status) {
-				console.log(request);
 				console.log(status);
 			},
 		});
@@ -167,14 +168,14 @@
 	function excelParams()
 	{
 		let param = {
-			"limit" : 10000
+			"limit" : 20000
 			,"page" : 1
 			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"member_type" : "active"
 		}
 
 		return JSON.stringify(param);

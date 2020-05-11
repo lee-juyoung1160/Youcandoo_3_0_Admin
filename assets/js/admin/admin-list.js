@@ -43,6 +43,7 @@
 			ajax : {
 				url: api.listUser,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -65,18 +66,18 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],

@@ -15,11 +15,6 @@
 .ucd-payment-list-page .table-wrap .minus-pay td button {
     border-bottom: 1px solid #c90614;
 }
-
-.ucd-payment-list-page .modal-content .modal-information {
-    overflow-scroll-y: hidden;
-    height: inherit;
-}
 .ucd-payment-list-page .modal-content .select-box {
     float: inherit;
     width: 100%;

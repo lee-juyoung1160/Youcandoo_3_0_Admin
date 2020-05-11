@@ -11,7 +11,8 @@
 	const dataNum		= $(".data-num");
 	const selSort		= $("#selSort");
 	const btnTop		= $("#btnTop");
-	const topIcon		= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>'
+	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
+	let iconTop 		= '<i class="fas fas fa-bell"></i>';
 	let topCount		= 0;
 
 	$(document).ready(function () {
@@ -48,10 +49,12 @@
 
 	function buildGrid()
 	{
+		topCount = 0;
 		dataTable.DataTable({
 			ajax : {
 				url: api.listNotice,
 				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
 					/*if (d.order.length > 0)
@@ -65,9 +68,9 @@
 				}
 			},
 			columns: [
-				{title: "No "+topIcon, 	data: "idx",    	  	   width: "10%",    	orderable: false,   className: "text-center" }
-				,{title: "제목", 		data: "title",    	  	   width: "40%",  	orderable: false,   className: "text-center" }
-				,{title: "노출여부", 	data: "is_exposure",  	   width: "10%",  	orderable: false,   className: "text-center",
+				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
+				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
+				,{title: "노출여부", 		data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
@@ -79,18 +82,18 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -108,24 +111,10 @@
 				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
 
-				dataTable.find('tbody').on( 'click', 'tr', function () {
-					let rowData = table.row( this ).data();
-					let isTop	= rowData.is_top;
-					let iconTop = '<i class="fas fas fa-bell"></i>';
-
-					if (isTop === 'Y')
-					{
-						btnTop.removeClass('best-btn');
-						btnTop.addClass('delete-btn');
-						btnTop.html(iconTop +'상단고정 해제');
-					}
-					else
-					{
-						btnTop.removeClass('delete-btn');
-						btnTop.addClass('best-btn');
-						btnTop.html(iconTop +'상단고정');
-					}
-				});
+				/** row select **/
+				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
+				/** row deselect **/
+				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
 				console.log(aData);
@@ -169,6 +158,50 @@
 		}
 	}
 
+	/** row select **/
+	function onSelectRow(dt, indexes)
+	{
+		let selectedData 	= dt.rows(indexes).data()[0];
+		let isTop			= selectedData.is_top;
+
+		if (isTop === 'Y')
+			deleteStatusBtnTop();
+		else
+			bestStatusBtnTop();
+	}
+
+	/** row deselect **/
+	function onDeselectRow(table)
+	{
+		let selectedData = table.rows('.selected').data()[0];
+		if (isEmpty(selectedData))
+			disableStatusBtnTop();
+	}
+
+	function disableStatusBtnTop()
+	{
+		btnTop.removeClass('delete-btn');
+		btnTop.removeClass('best-btn');
+		btnTop.addClass('btn-disabled');
+		btnTop.html(iconTop +'상단고정');
+	}
+
+	function bestStatusBtnTop()
+	{
+		btnTop.removeClass('btn-disabled');
+		btnTop.removeClass('delete-btn');
+		btnTop.addClass('best-btn');
+		btnTop.html(iconTop +'상단고정');
+	}
+
+	function deleteStatusBtnTop()
+	{
+		btnTop.removeClass('btn-disabled');
+		btnTop.removeClass('best-btn');
+		btnTop.addClass('delete-btn');
+		btnTop.html(iconTop +'상단고정 해제');
+	}
+
 	function onSubmitSearch()
 	{
 		buildGrid();
@@ -198,11 +231,15 @@
 				url: api.topNotice,
 				type: "POST",
 				headers: headers,
+				async: false,
 				data: JSON.stringify(topParams),
 				success: function(data) {
 
 					if (getStatusCode(data) === 30000)
+					{
+						disableStatusBtnTop();
 						buildGrid();
+					}
 					else
 						alert(data.message);
 				},

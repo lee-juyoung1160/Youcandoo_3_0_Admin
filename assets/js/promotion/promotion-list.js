@@ -11,7 +11,6 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const apiUrl		= "http://api.kakaokids.org/v1.0/admin/user/list";
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -48,7 +47,7 @@
 	{
 		$("#dataTable").DataTable({
 			ajax : {
-				url: apiUrl,
+				url: api.listPromotion,
 				type:"POST",
 				data: function (d) {
 					/*
@@ -72,18 +71,18 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],

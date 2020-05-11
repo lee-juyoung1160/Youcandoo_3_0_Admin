@@ -57,6 +57,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
+					console.log(Number(d.start))
 					return tableParams(d);
 				}
 			},
@@ -76,18 +77,18 @@
 				}
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
-				/*,paginate: {
-					previous: "‹‹"
-					,next: "››"
-				}*/
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: '<i class="fas fa-angle-double-left"></i>'
+					,next: '<i class="fas fa-angle-double-right"></i>'
+				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],

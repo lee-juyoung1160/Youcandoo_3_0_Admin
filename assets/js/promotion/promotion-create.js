@@ -39,6 +39,8 @@
 		rewardFrom			.on('change', function () { onChangeRewardFrom(); });
 		rewardTo			.on('change', function () { onChangeRewardTo(); });
 		promoFrom			.on('change', function () { onChangePromoFrom(); });
+		bizName				.on('keyup', function () { onKeyupBizName(); });
+		bizName				.autocomplete({ delay: 500 });
 
 		initInputDatepicker();
 		initComponent();
@@ -145,19 +147,6 @@
 		frequency.find('li').each(function () {
 			$(this).removeClass('active');
 		});
-	}
-
-	function modalFadein()
-	{
-		modalLayout.fadeIn();
-		modalContent.fadeIn();
-		initModal();
-	}
-
-	function modalFadeout()
-	{
-		modalLayout.fadeOut();
-		modalContent.fadeOut();
 	}
 
 	function validation()
@@ -457,4 +446,40 @@
 		let target = $(obj).parent();
 
 		$(target).remove();
+	}
+
+	function onKeyupBizName()
+	{
+		bizName.autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					url: api.listBizName,
+					type: "POST",
+					async: false,
+					headers: headers,
+					data: JSON.stringify({"keyword" : bizName.val()}),
+					success: function(data) {
+						console.log(JSON.parse(data));
+						response($.map(JSON.parse(data), function(item) {
+							console.log(item);
+							return {
+								//data는 반환한 배열, data[i].USER_INFO 및 아래 선언된 KEY값이 들어가있다.
+								label: item.value,
+								value: item.value,
+							}
+						}));
+					},
+					error: function (xhr, status, error) {
+						console.log(error)
+					}
+				});
+			},
+			minLength: 2
+		});
+		/*bizName.autocomplete({
+			source: function (request, response) {
+				return ["야나두", "카카오키즈"];
+			},
+			minLength: 1
+		});*/
 	}

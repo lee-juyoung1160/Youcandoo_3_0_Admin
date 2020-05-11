@@ -2,6 +2,8 @@
 	const message = {
 		emptyId : '아이디를 입력해주세요.'
 		,emptyPassword : '비밀번호를 입력해주세요.'
+		,emptyList : '조회된 목록이 없습니다.'
+		,searching : '검색 중..'
 		,create : '등록하시겠습니까?'
 		,modify : '수정하시겠습니까?'
 		,delete : '삭제하시겠습니까?'
@@ -20,7 +22,8 @@
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
 	const baseApiUrl = 'http://api.kakaokids.org/v1.0/admin/';
 	const api = {
-		createAdmin : baseApiUrl+''
+		listBizName : baseApiUrl+'keyword/getCompanyName'
+		,createAdmin : baseApiUrl+''
 		,deleteAdmin : ''
 		,updateAdmin : ''
 		,listAdmin : ''

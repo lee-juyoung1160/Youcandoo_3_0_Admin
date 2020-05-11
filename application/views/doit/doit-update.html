@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
 <link rel="stylesheet" href="/assets/css/pro-create.css">
-<section class="doit-create-page">
+<section class="doit-update-page">
     <div class="inner">
         <h2 class="main-title">두잇 상세 수정</h2>
         <div class="wrap">
@@ -31,7 +31,6 @@
                             <option>라라라라라라라라라라</option>
                         </select>
                     </div>
-
                     <button class="more-infor-btn" type="button" style="float: left;">
                         <span>프로모션 상세보기</span>
                         <i class="fas fa-chevron-right"></i>
@@ -169,34 +168,30 @@
                         <input type="radio" id="r11" name="rr" />
                         <label for="r11">영상 <span></span></label>
                     </div>
-                    <div class="wrap">
-                        <div class="filebox preview-image">
-                            <p class="cap">썸네일 (* 이미지 사이즈: 165 x 165)</p>
-                            <input class="upload-name" value="파일선택" disabled="disabled" >
-                            <label for="input-file2">업로드</label>
-                            <input type="file" id="input-file2" class="upload-hidden">
-                        </div>
-                        <div class="filebox preview-image">
-                            <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
-                            <input class="upload-name" value="파일선택" disabled="disabled" >
-                            <label for="input-file1">업로드</label>
-                            <input type="file" id="input-file1" class="upload-hidden">
-                        </div>
-                    </div>
                     <!--                    <div class="wrap">-->
+                    <!--                        <p class="cap important">두잇 소개 방법 중 <span>이미지</span>을 선택하셨습니다. <span>이미지</span>를 업로드 해주세요!</p>-->
                     <!--                        <div class="filebox preview-image">-->
-                    <!--                            <p class="cap">두잇 소개 영상 썸네일 (* 이미지 사이즈: 165 x 165)</p>-->
+                    <!--                            <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
                     <!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
-                    <!--                            <label for="input-file3">업로드</label>-->
-                    <!--                            <input type="file" id="input-file3" class="upload-hidden">-->
-                    <!--                        </div>-->
-                    <!--                        <div class="filebox preview-image">-->
-                    <!--                            <p class="cap">두잇 소개 영상 메인배너 (* 이미지 사이즈: 650 x 650)</p>-->
-                    <!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
-                    <!--                            <label for="input-file4">업로드</label>-->
-                    <!--                            <input type="file" id="input-file4" class="upload-hidden">-->
+                    <!--                            <label for="input-file2">업로드</label>-->
+                    <!--                            <input type="file" id="input-file2" class="upload-hidden">-->
                     <!--                        </div>-->
                     <!--                    </div>-->
+                    <div class="wrap">
+                        <p class="cap important">두잇 소개 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>
+                        <div class="filebox preview-image">
+                            <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file3">업로드</label>
+                            <input type="file" id="input-file3" class="upload-hidden">
+                        </div>
+                        <div class="filebox preview-image">
+                            <p class="cap">영상</p>
+                            <input class="upload-name" value="파일선택" disabled="disabled" >
+                            <label for="input-file20">업로드</label>
+                            <input type="file" id="input-file20" class="upload-hidden">
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <p class="sub-title important">인증 기간 (*)</p>
@@ -255,11 +250,37 @@
                 <li class="clearfix">
                     <p class="sub-title important">인증 예시 이미지 (*)</p>
                     <div class="filebox preview-image">
-                        <p class="cap">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
+                        <p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
+                        <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
                         <input class="upload-name" value="파일선택" disabled="disabled" >
                         <label for="input-file6">업로드</label>
                         <input type="file" id="input-file6" class="upload-hidden">
                     </div>
+
+                    <!--                     인증 방법 중 동영상을 선택할 경우 display block-->
+                    <!--                    <div class="wrap">-->
+                    <!--                        <p class="cap important">두잇 소개 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>-->
+                    <!--                        <div class="filebox preview-image">-->
+                    <!--                            <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
+                    <!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
+                    <!--                            <label for="input-file3">업로드</label>-->
+                    <!--                            <input type="file" id="input-file3" class="upload-hidden">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="filebox preview-image">-->
+                    <!--                            <p class="cap">영상</p>-->
+                    <!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
+                    <!--                            <label for="input-file20">업로드</label>-->
+                    <!--                            <input type="file" id="input-file20" class="upload-hidden">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <!--                    인증 방법 중 음성 녹음을 선택 할 경우 display block-->
+                    <!--                    <div class="filebox preview-image">-->
+                    <!--                        <p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>-->
+                    <!--                        <input class="upload-name" value="파일선택" disabled="disabled" >-->
+                    <!--                        <label for="input-file77">업로드</label>-->
+                    <!--                        <input type="file" id="input-file77" class="upload-hidden">-->
+                    <!--                    </div>-->
                 </li>
                 <li>
                     <p class="sub-title important">인증 예시 설명 (*)</p>

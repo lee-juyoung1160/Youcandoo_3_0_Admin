@@ -14,29 +14,29 @@
             <div class="list-wrap clearfix">
                 <p class="list-common-title">발송날짜</p>
                 <div class="date-wrap">
-                    <input type="date">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
-                    <li>오늘</li>
-                    <li>1주일</li>
-                    <li>1개월</li>
-                    <li>3개월</li>
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="ex_select2">제목/내용</label>
-                    <select id="ex_select2">
+                    <label for="search_type">제목/내용</label>
+                    <select id="search_type">
                         <option selected>제목/내용</option>
                         <option>아이디</option>
                     </select>
                 </div>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -88,12 +88,11 @@
             <p>Total <strong class="data-num">16</strong></p>
             <div class="top clearfix">
                 <div class="select-box">
-                    <label for="ex_select2">10개씩 보기</label>
-                    <select id="ex_select2">
-                        <option selected>10개씩 보기</option>
-                        <option>10개씩 보기</option>
-                        <option>20개씩 보기</option>
-                        <option>30개씩 보기</option>
+                    <label for="selPageLength">10개씩 보기</label>
+                    <select id="selPageLength">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="30">30개씩 보기</option>
                     </select>
                 </div>
                 <div class="select-box">

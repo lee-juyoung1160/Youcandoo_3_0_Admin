@@ -4,12 +4,13 @@
 	const promoFrom	 	= $("#promoFrom");
 	const promoTo		= $("#promoTo");
 	const inputFile 	= $("input:file");
-	const inputRadio	= $("input:radio");
 	const budget 		= $("#budget");
 	const banner		= $("#banner");
 	const thumbnail		= $("#thumbnail");
 	const btnSubmit		= $("#btnSubmit");
 	const frequency		= $("#frequency");
+	const doitType		= $("input[name=radio-doit-type]");
+	const isBanner		= $("input[name=radio-banner-open]");
 
 	/** modal **/
 	const modalReward		= $("#modalReward");
@@ -127,15 +128,12 @@
 		bizName.val('');
 		promoName.val('');
 		budget.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
+		doitType.eq(0).prop("checked", true);
+		isBanner.eq(0).prop("checked", true);
 	}
 
 	function initModal()
 	{
-		console.log(promoTo.datepicker("getDate"))
 		modalRwrdTitle.val('');
 		rewardFrom.val('');
 		rewardTo.val('');
@@ -205,6 +203,7 @@
 		if (rewardList.length === 0)
 		{
 			alert(message.createReward);
+			modalFadein();
 			return false;
 		}
 
@@ -225,6 +224,7 @@
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramThumbnailFile);
 		formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());
+		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
 		let reward = [];
 		rewardList.each(function () {
@@ -398,7 +398,7 @@
 		rewardDom += 	'<li>';
 		rewardDom += 		'<p class="sub-title important">주간빈도 (*)</p>';
 		rewardDom += 		'<ul class="day-btn clearfix k">';
-		rewardDom += 			$('#frequency').html();
+		rewardDom += 			frequency.html();
 		rewardDom += 		'</ul>';
 		rewardDom += 	'<li>';
 		rewardDom += 	'<input type="hidden" data-title="'+modalRwrdTitle.val()+'">';
@@ -461,11 +461,8 @@
 					success: function(data) {
 						console.log(JSON.parse(data));
 						response($.map(JSON.parse(data), function(item) {
-							console.log(item);
 							return {
-								//data는 반환한 배열, data[i].USER_INFO 및 아래 선언된 KEY값이 들어가있다.
 								label: item.value,
-								value: item.value,
 							}
 						}));
 					},
@@ -476,10 +473,4 @@
 			},
 			minLength: 2
 		});
-		/*bizName.autocomplete({
-			source: function (request, response) {
-				return ["야나두", "카카오키즈"];
-			},
-			minLength: 1
-		});*/
 	}

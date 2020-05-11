@@ -42,6 +42,8 @@
 		,listNotice : baseApiUrl+'notice/list'
 		,topNotice : baseApiUrl+'notice/changeTop'
 		,createPromotion : baseApiUrl+'promotion/create'
+		,detailPromotion : baseApiUrl+'promotion/getPromotion'
+		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+''
 		,listPromotion : baseApiUrl+''
 		,listUser : baseApiUrl+'user/list'

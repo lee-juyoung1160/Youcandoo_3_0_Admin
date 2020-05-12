@@ -19,6 +19,10 @@ class Admin extends CI_Controller {
         {
             $this->load->layout('admin/admin-update');
         }
+    public function auth()
+        {
+            $this->load->layout('admin/admin-auth-create');
+        }
 
 
 }

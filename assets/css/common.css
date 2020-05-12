@@ -210,6 +210,7 @@ i.question-mark:hover .hover-text {
 	margin-bottom: 42px;
 }
 .modal-content .modal-information {
+	padding: 10px;
 	height: auto;
 	max-height: 400px;
 	overflow-y: auto;
@@ -218,9 +219,9 @@ i.question-mark:hover .hover-text {
 	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
-.modal-content .modal-information li:last-child {
-	border-bottom: 0;
-}
+/*.modal-content .modal-information li:last-child {*/
+/*	border-bottom: 0;*/
+/*}*/
 .modal-content .modal-information .sub-title {
 	margin-bottom: 15px;
 	color: #007aff;

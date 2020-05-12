@@ -19,6 +19,8 @@ class Admin extends CI_Controller {
         {
             $this->load->layout('admin/admin-update');
         }
-
-
+    public function myPage()
+        {
+            $this->load->layout('admin/admin-mypage');
+        }
 }

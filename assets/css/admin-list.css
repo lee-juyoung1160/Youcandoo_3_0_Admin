@@ -1,3 +1,7 @@
+.admin-list-page .list-common-btn-wrap a:last-child {
+    margin-right: 10px;
+    background-color: #999;
+}
 .admin-list-page .list-common .list-wrap:first-child {
     border: none;
     padding-bottom: 0;

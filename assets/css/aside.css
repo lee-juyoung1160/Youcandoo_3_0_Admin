@@ -1,5 +1,9 @@
 /*aside start*/
 aside {
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 50px;
     color: #7d7d7d;
@@ -30,13 +34,26 @@ aside .side-menu-wrap .route li:last-child {
 aside .icon-wrap {
     float: right;
 }
+aside .icon-wrap .col-1,
+aside .icon-wrap .col-2 {
+    float: left;
+}
+aside .icon-wrap .admin-user {
+    margin-right: 40px;
+}
+aside .icon-wrap .admin-user a  i {
+    margin-right: 5px;
+}
 aside .side-menu-wrap .icon-wrap i {
     font-size: 18px;
-    vertical-align: middle;
+    vertical-align: inherit;
+}
+aside .side-menu-wrap .icon-wrap #power-off:hover {
+    color: #c90614;
 }
 aside .side-menu-wrap .icon-wrap #notice {
     position: relative;
-    margin-right: 30px;
+    margin-right: 18px;
 }
 aside .side-menu-wrap .icon-wrap #notice .on-notice {
     display: none;

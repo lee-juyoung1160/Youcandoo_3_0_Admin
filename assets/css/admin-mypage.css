@@ -1,0 +1,18 @@
+.admin-mypage-page .list-common-btn-wrap .update-btn {
+	float: right;
+	text-align: center;
+	line-height: 40px;
+	display: block;
+	width: 150px;
+	height: 40px;
+	color: #ffffff;
+	border-radius: 30px;
+	background-color: #19579a;
+}
+.admin-mypage-page .update-list {
+	display: none;
+}
+.admin-mypage-page .update-list.active {
+	display: block;
+	margin-bottom: 30px;
+}

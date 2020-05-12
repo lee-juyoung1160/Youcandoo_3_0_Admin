@@ -90,3 +90,9 @@
     float: left;
     margin-right: 20px;
 }
+.notice-input-list li {
+    margin-bottom: 20px;
+}
+.notice-input-list li:last-child {
+    margin-bottom: 0;
+}

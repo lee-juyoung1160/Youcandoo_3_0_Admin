@@ -22,6 +22,7 @@
 }
 section.login-pg {
 	padding-left: 0;
+	padding-top: 0;
 }
 .login-pg .login-inner {
 	height: 100vh;

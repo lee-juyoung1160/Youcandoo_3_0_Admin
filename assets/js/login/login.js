@@ -1,23 +1,22 @@
 
-	const email     = $("#email");
+	const userid    = $("#userid");
 	const password  = $("#password");
 	const loginBtn  = $("#login-btn");
 
 	$(document).ready(function () {
 		loginBtn    .on("click", function () { onSubmitLogin(); });
-		email       .on("keydown", function (key) { onKeydownEmail(key) });
+		userid      .on("keydown", function (key) { onKeydownEmail(key) });
 		password    .on("keydown", function (key) { onKeydownPassword(key) });
-
 	});
 
 	function onKeydownEmail(key)
 	{
 		if (key.keyCode === 13)
 		{
-			if (isEmpty(email.val()))
+			if (isEmpty(userid.val()))
 			{
 				alert(message.emptyId);
-				email.focus();
+				userid.focus();
 				return;
 			}
 
@@ -43,17 +42,15 @@
 	function onSubmitLogin()
 	{
 		if (validation())
-		{
-			alert("goLoginAction");
-		}
+			document.loginForm.submit();
 	}
 
 	function validation()
 	{
-		if (isEmpty(email.val()))
+		if (isEmpty(userid.val()))
 		{
 			alert(message.emptyId);
-			email.focus();
+			userid.focus();
 			return false;
 		}
 

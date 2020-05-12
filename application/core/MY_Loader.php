@@ -9,6 +9,12 @@ class MY_Loader extends CI_Loader {
     public function layout($template_name, $vars = array())
     {
         $CI =& get_instance();
+        $CI->load->library('session');
+        $SessionData = $CI->session->userdata("user_data");
+        if(empty($SessionData))
+        {
+            redirect("/", "refresh");
+        }
         $this->view('layout/header',$vars);
         $this->view('layout/header_sub',$vars);
         $this->view('layout/left',$vars);

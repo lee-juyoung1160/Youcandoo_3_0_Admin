@@ -133,10 +133,10 @@
 					type: "POST",
 					async: false,
 					headers: headers,
-					data: params(),
+					data: JSON.stringify({"word": prohibition.val()}),
 					success: function(data) {
 
-						if (isSuccessResp())
+						if (isSuccessResp(data))
 						{
 							modalFadeout();
 							buildGrid();
@@ -150,15 +150,6 @@
 				});
 			}
 		}
-	}
-
-	function params()
-	{
-		let param = {
-			"word": prohibition.val()
-		}
-
-		return JSON.stringify(param);
 	}
 
 	function validation()
@@ -200,7 +191,7 @@
 				data: JSON.stringify(delParams),
 				success: function(data) {
 
-					if (isSuccessResp())
+					if (isSuccessResp(data))
 						buildGrid();
 					else
 						alert(data.message);

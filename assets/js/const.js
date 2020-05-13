@@ -13,13 +13,14 @@
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,doubleChk : '확인해주세요.'
 		,select : '선택해주세요.'
+		,needMore : '추가해주세요.'
 		,maxReward : '최대 5개까지 등록 가능합니다.'
 		,maxTag : '최대 5개까지 등록 가능합니다.'
 		,createReward : '리워드 조건을 생성해주세요'
 		,deleteTop : '상단고정을 해제하시겠습니까?'
 		,insertTop : '상단고정을 설정하시겠습니까?'
 		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
-		,needMore : '추가해주세요.'
+		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };

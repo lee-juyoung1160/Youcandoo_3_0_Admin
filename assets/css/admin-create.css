@@ -70,3 +70,23 @@
 .auth-nav .main-menu i {
     color: #666;
 }
+.auth-set-enrollment .auth-title  {
+    color: #333;
+}
+.del-btn {
+    float: right;
+    width: 130px;
+    height: 40px;
+    color: #c90614;
+    border-radius: 5px;
+    border: 1px solid #c90614;
+    background-color: #fff;
+}
+.del-btn:hover {
+    color: #fff;
+    border: 1px solid #c90614;
+    background-color: #c90614;
+}
+.auth-set-enrollment .sub-title {
+    float:left;
+}

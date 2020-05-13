@@ -7,20 +7,23 @@
 		,create : '등록하시겠습니까?'
 		,modify : '수정하시겠습니까?'
 		,delete : '삭제하시겠습니까?'
+		,input : '입력해주세요.'
 		,required : '필수항목입니다.'
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,doubleChk : '확인해주세요.'
 		,select : '선택해주세요.'
 		,maxReward : '최대 5개까지 등록 가능합니다.'
+		,maxTag : '최대 5개까지 등록 가능합니다.'
 		,createReward : '리워드 조건을 생성해주세요'
 		,deleteTop : '상단고정을 해제하시겠습니까?'
 		,insertTop : '상단고정을 설정하시겠습니까?'
 		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
+		,needMore : '추가해주세요.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
-	const baseApiUrl = 'http://api.kakaokids.org/v1.0/admin/';
+	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
 		,createAdmin : baseApiUrl+''
@@ -51,6 +54,10 @@
 		,deleteProhibition : baseApiUrl+'prohibition/delete'
 		,updateProhibition : baseApiUrl+''
 		,listProhibition : baseApiUrl+'prohibition/list'
+		,createDoit : baseApiUrl+'doit/create'
+		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
+		,involveReward : baseApiUrl+'promotion/getPromotionReward'
+		,selectReward : baseApiUrl+'promotion/getReward'
 	}
 
 	const label = {

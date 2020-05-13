@@ -236,10 +236,20 @@
         return resp.status;
     }
 
+
     function getStatusMessage(data)
     {
         let resp = JSON.parse(data);
         return resp.msg;
+    }
+
+    function isSuccessResp(data)
+    {
+        let resp = JSON.parse(data);
+        if (resp.status === 30000)
+            return true;
+        else
+            return false;
     }
 
     /** modal 열기,닫기 **/

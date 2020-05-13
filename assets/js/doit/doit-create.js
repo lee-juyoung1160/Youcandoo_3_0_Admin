@@ -26,24 +26,14 @@
 	const btnSubmit		= $("#btnSubmit");
 
 	/** modal **/
-	const modalReward		= $("#modalReward");
-	const btnAddReward 		= $("#btnAddReward");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
-	const modalRwrdTitle 	= $('#modalRwrdTitle');
-	const certCount  		= $('#certCount');
-	const goalRate  		= $('#goalRate');
-	const maxUcd  		 	= $('#maxUcd');
-	const individualRate  	= $('#individualRate');
-	const groupRate  		= $('#groupRate');
-
 
 	$(document).ready(function () {
-
 		introFileType	.on('change', function () { onChangeIntroType(this); });
-		btnPromoInfo	.on('click', function () { modalFadein(); });
-		modalCloseBtn	.on('click', function () { modalFadein(); });
+		btnPromoInfo	.on('click', function () { onClickBtnPromoInfo(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		addTag			.on('click', function () { onClickAddTag(); });
 		bizName			.on('keyup', function () { onKeyupBizName(); });
@@ -56,11 +46,46 @@
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
 
 		initInputDatepicker();
-		initTimepicker();
 		initComponent();
+		onChangeIntroType(introFileType.eq(0));
 		onChangeExampleType(exampleType.eq(0));
 	});
 
+	function onClickBtnPromoInfo()
+	{
+		if (isEmpty(selPromo.val()))
+		{
+			alert('프로모션을 '+message.select);
+			return;
+		}
+		else
+		{
+			modalFadein();
+
+			$.ajax({
+				url: api.detailPromotion,
+				type: "POST",
+				headers: headers,
+				data: JSON.stringify({"promotion_idx" : "29"}),
+				success: function(data) {
+					if (isSuccessResp(data))
+						buildPromoInfo(data);
+					else
+						alert(invalidResp(data));
+				},
+				error: function (request, status) {
+					console.log(status);
+				}
+			});
+		}
+	}
+
+	function buildPromoInfo(data)
+	{
+
+	}
+
+	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
 	{
 		let doitFromDate = new Date(doitFrom.datepicker("getDate"));
@@ -77,27 +102,8 @@
 
 		doitFromDate.setDate(doitFromDate.getDate() + Number(duration));
 		doitDateTo = stringFormatToDate(doitFromDate, '-');
-		console.log(doitDateTo)
+
 		doitTo.val(doitDateTo);
-	}
-
-	function initTimepicker()
-	{
-		startTime.timepicker({
-			timeFormat: 'HH:mm',
-			interval: 1,
-			dropdown: true,
-			scrollbar: true,
-			defaultTime: '00:00'
-		});
-
-		endTime.timepicker({
-			timeFormat: 'HH:mm',
-			interval: 1,
-			dropdown: true,
-			scrollbar: true,
-			defaultTime: '23:59'
-		});
 	}
 
 	function initComponent()
@@ -117,14 +123,7 @@
 
 	function initModal()
 	{
-		modalRwrdTitle.val('');
-		doitFrom.val('');
-		doitTo.val('');
-		certCount.val('');
-		goalRate.val('');
-		maxUcd.val('');
-		individualRate.val('');
-		groupRate.val('');
+
 	}
 
 	function onClickAddTag()
@@ -168,15 +167,18 @@
 
 	function validation()
 	{
-		let tagLen = tagList.find('li').length;
+		let tagLen 				= tagList.find('li').length;
+		let introVideoDom 		= $("#introVideo");
 		let introImageFile		= $("#introImage")[0].files;
 		let introVideoFile;
-		if ($("#introVideo").length > 0)
-			introVideoFile		= $("#introVideo")[0].files;
+		if (introVideoDom.length > 0)
+			introVideoFile		= introVideoDom[0].files;
+		let exampleVideoDom		= $("#exampleVideo");
 		let example				= $("#exampleFile")[0].files;
 		let exampleVideoFile;
-		if ($("#exampleVideo").length > 0)
-			exampleVideoFile	= $("#exampleVideo")[0].files;
+		if (exampleVideoDom.length > 0)
+			exampleVideoFile	= exampleVideoDom[0].files;
+
 
 		if (isEmpty(doitTitle.val()))
 		{
@@ -230,7 +232,7 @@
 			alert('두잇 소개 영상은 ' + message.required);
 			return false;
 		}
-console.log(doitFrom)
+
 		if (isEmpty(doitFrom.val()))
 		{
 			alert('인증기간(시작일)은 '+message.required);
@@ -256,6 +258,22 @@ console.log(doitFrom)
 		{
 			alert('인증시간(종료)은 '+message.required);
 			endTime.focus();
+			return false;
+		}
+
+		let actionStartTime	= Number(replaceAll(startTime.val(), ':', ''));
+		let actionEndTime	= Number(replaceAll(endTime.val(), ':', ''));
+		if (actionStartTime > actionEndTime)
+		{
+			alert(message.compareActionTime)
+			startTime.focus();
+			return false;
+		}
+
+		if ($("input[name=chkAccessUser]").is(':checked') && isEmpty(privateCode.val()))
+		{
+			alert('참가코드는 '+message.required);
+			privateCode.focus();
 			return false;
 		}
 
@@ -307,9 +325,9 @@ console.log(doitFrom)
 			paramExampleVoice	= $("#exampleFile")[0].files[0];
 		let formData  = new FormData();
 		formData.append('doit-title', doitTitle.val());
-		formData.append('company-uuid', "COM-79C9A1F7-FB63-F2E3-3317-A70A01A99B03");
-		formData.append('promotion-uuid', "PRO-5F3D9D6F-CC51-BEA1-808F-08FDEC3CC54D");
-		formData.append('reward-uuid', "RWD-B5AF1890-F09F-DBDD-66CF-6BDFBEE59F7B");
+		formData.append('company-uuid', bizUuid);
+		formData.append('promotion-uuid', selPromo.val());
+		formData.append('reward-uuid', selReward.val());
 		formData.append('max-user', maxUser.val());
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
@@ -317,8 +335,8 @@ console.log(doitFrom)
 		formData.append('intro-video-file', paramIntroVideo);
 		formData.append('action-start-date', doitFrom.val());
 		formData.append('action-end-date', doitTo.val());
-		formData.append('action-allow-start-time', startTime.val());
-		formData.append('action-allow-end-time', endTime.val());
+		formData.append('action-allow-start-time', startTime.val()+':00');
+		formData.append('action-allow-end-time', endTime.val()+':59');
 		formData.append('private-code', privateCode.val());
 		formData.append('action-example-resource-type', $('input:radio[name=radio-example-type]:checked').val());
 		formData.append('action-example-image-file', paramExample);
@@ -362,7 +380,6 @@ console.log(doitFrom)
 	let bizUuid;
 	function onKeyupBizName()
 	{
-		console.log(bizName.val())
 		bizName.autocomplete({
 			source: function (request, response) {
 				$.ajax({
@@ -400,7 +417,6 @@ console.log(doitFrom)
 
 	function getInvolvePromo()
 	{
-		console.log(bizUuid);
 		$.ajax({
 			url: api.involvePromotion,
 			type: "POST",
@@ -408,8 +424,6 @@ console.log(doitFrom)
 			headers: headers,
 			data: JSON.stringify({"company_uuid" : bizUuid}),
 			success: function(data) {
-				console.log("onChangeBizName");
-				console.log(data);
 				selPromo.empty();
 				if (isSuccessResp(data))
 				{
@@ -440,6 +454,7 @@ console.log(doitFrom)
 			{
 				let uuid  = respData[i].promotion_uuid;
 				let title = respData[i].promotion_title;
+				console.log(respData[i])
 				optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
 			}
 		}
@@ -449,7 +464,6 @@ console.log(doitFrom)
 
 	function onChangeSelPromo()
 	{
-		console.log("promotion_uuid : " + selPromo.val());
 		onChangeSelectOption(selPromo);
 		$.ajax({
 			url: api.involveReward,
@@ -458,7 +472,7 @@ console.log(doitFrom)
 			headers: headers,
 			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
 			success: function(data) {
-				console.log(data);
+
 				if (isSuccessResp(data))
 				{
 					selReward.empty();
@@ -493,7 +507,6 @@ console.log(doitFrom)
 
 	function onChangeSelReward()
 	{
-		console.log("reward_uuid : " + selReward.val());
 		onChangeSelectOption(selPromo);
 		$.ajax({
 			url: api.selectReward,
@@ -502,7 +515,7 @@ console.log(doitFrom)
 			headers: headers,
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
 			success: function(data) {
-				console.log(data);
+
 				if (isSuccessResp(data))
 				{
 					selectedRewardArea.empty();
@@ -549,7 +562,11 @@ console.log(doitFrom)
 		let introType = $(obj).val();
 		let introText = $("label[for='"+obj.id+"']").text();
 		let introFileDom = '';
-		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>'
+		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
+		if (introType === 'video')
+			introFileDom += '<span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
+		else
+			introFileDom += '<span>사진</span>을 업로드 해주세요!</p>';
 		introFileDom += '<div class="filebox preview-image">';
 		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';

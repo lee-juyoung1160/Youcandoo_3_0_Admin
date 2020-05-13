@@ -63,7 +63,7 @@
 			headers: headers,
 			data: JSON.stringify({"promotion_idx" : idx}),
 			success: function(data) {
-				if (isSuccessResp())
+				if (isSuccessResp(data))
 					buildPromoDetail(data);
 				else
 					alert(data.message);
@@ -113,7 +113,7 @@
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li class="clearfix">';
 			rewardDom += 		'<p class="sub-title important">일일인증 횟수 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ doitData.action_dailiy_allow +'회</p>';
+			rewardDom += 		'<p class="detail-data">'+ doitData.action_daily_allow +'회</p>';
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">목표달성률 (*)</p>';

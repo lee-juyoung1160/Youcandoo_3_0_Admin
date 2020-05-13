@@ -11,6 +11,7 @@
 	const frequency		= $("#frequency");
 	const doitType		= $("input[name=radio-doit-type]");
 	const isBanner		= $("input[name=radio-banner-open]");
+	const rewardListTitle = $("#rewardListTitle");
 
 	/** modal **/
 	const btnAddReward 		= $("#btnAddReward");
@@ -370,6 +371,9 @@
 
 	function appendReward()
 	{
+		if ($('#rewardListArea').find('.enrollment').length === 0)
+			rewardListTitle.text('리워드 조건 생성 목록');
+
 		let period		 	 = 	rewardFrom.val() + "~" + rewardTo.val();
 		let rewardDom = '';
 		rewardDom += '<ul class="enrollment clearfix">';
@@ -442,8 +446,10 @@
 
 	function removeReward(obj)
 	{
-		let target = $(obj).parent();
+		if ($('#rewardListArea').find('.enrollment').length === 1)
+			rewardListTitle.text('');
 
+		let target = $(obj).parent();
 		$(target).remove();
 	}
 

@@ -66,7 +66,7 @@
 				if (isSuccessResp(data))
 					buildPromoDetail(data);
 				else
-					alert(data.message);
+					alert(invalidResp(data));
 			},
 			error: function (request, status) {
 				console.log(status);

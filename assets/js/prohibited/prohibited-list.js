@@ -142,7 +142,7 @@
 							buildGrid();
 						}
 						else
-							alert(data.message);
+							alert(invalidResp(data));
 					},
 					error: function (request, status) {
 						console.log(status);
@@ -194,7 +194,7 @@
 					if (isSuccessResp(data))
 						buildGrid();
 					else
-						alert(data.message);
+						alert(invalidResp(data));
 				},
 				error: function (request, status) {
 					console.log(status);

@@ -241,7 +241,7 @@
 						buildGrid();
 					}
 					else
-						alert(data.message);
+						alert(invalidResp(data));
 				},
 				error: function (request, status) {
 					console.log(status);

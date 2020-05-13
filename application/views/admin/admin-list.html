@@ -30,16 +30,16 @@
                 <li>
                     <p class="list-common-title">권한</p>
                     <div class="select-box list-select-box">
-                        <label for="auth_code">전체</label>
+                        <label id="authCodeLabel" for="auth_code"></label>
                         <select id="auth_code">
-                            <option value="">전체</option>
+                            <!--<option value="">전체</option>
                             <option value="">스페셜</option>
                             <option value="">슈퍼</option>
                             <option value="">운영자</option>
                             <option value="">CS</option>
                             <option value="">마케팅</option>
                             <option value="">정산</option>
-                            <option value="">모니터링</option>
+                            <option value="">모니터링</option>-->
                         </select>
                     </div>
                 </li>
@@ -78,7 +78,7 @@
                     </select>
                 </div>
                 <div class="btn-wrap">
-                    <button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>관리자 삭제</button>
+                    <button id="btnDelete" class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>관리자 삭제</button>
                 </div>
             </div>
             <table id="dataTable">

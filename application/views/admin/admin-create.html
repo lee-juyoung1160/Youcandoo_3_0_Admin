@@ -2,42 +2,37 @@
 <section class="admin-create-page">
     <div class="inner">
         <h2 class="main-title">관리자 신규 등록</h2>
-        <form action="#">
-            <div class="wrap">
-                <ul class="enrollment clearfix">
-                    <li class="clearfix">
-                        <p class="sub-title important">권한(*)</p>
-                        <div class="select-box">
-                            <label for="ex_select1">스페셜</label>
-                            <select id="ex_select1">
-                                <option selected>스페셜</option>
-                                <option>슈퍼</option>
-                                <option>운영자</option>
-                                <option>CS</option>
-                                <option>마케팅</option>
-                                <option>정산</option>
-                                <option>모니터링</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="sub-title important">아이디(*)</p>
-                        <input id="id" type="text" placeholder="아이디를 입력해주세요.">
-                    </li>
-                    <li>
-                        <p class="sub-title important">이름(*)</p>
-                        <input id="name" type="text" placeholder="이름을 입력해주세요.">
-                    </li>
-                    <li>
-                        <p class="sub-title important">이메일(*)</p>
-                        <input id="email" type="email" placeholder="이메일을 입력해주세요.">
-                    </li>
-                    <li>
-                        <button class="completion-btn" type="submit">등록 완료</button>
-                    </li>
-                </ul>
-            </div>
-        </form>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li class="clearfix">
+                    <p class="sub-title important">권한(*)</p>
+                    <div class="select-box">
+                        <label id="authCodeLabel" for="auth_code"></label>
+                        <select id="auth_code">
+                            <option value="admin">운영자</option>
+                            <option value="cs">CS</option>
+                            <option value="master">마케팅</option>
+                            <option value="admin">정산</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">아이디(*)</p>
+                    <input id="userid" type="text" placeholder="아이디를 입력해주세요.">
+                </li>
+                <li>
+                    <p class="sub-title important">이름(*)</p>
+                    <input id="name" type="text" placeholder="이름을 입력해주세요.">
+                </li>
+                <li>
+                    <p class="sub-title important">이메일(*)</p>
+                    <input id="email" type="email" placeholder="이메일을 입력해주세요.">
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>
 <script src="/assets/js/admin/admin-create.js"></script>

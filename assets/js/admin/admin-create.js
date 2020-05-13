@@ -1,41 +1,59 @@
 
-	const permission	= $("#selAuth");
-	const id			= $("#id");
+	const authCode		= $("#auth_code");
+	const authCodeLabel	= $("#authCodeLabel");
+	const userid		= $("#userid");
 	const name 			= $("#name");
-	const password 		= $("#password");
-	const password2		= $("#password2");
 	const email 		= $("#email");
-	const useYn 		= $('input:radio[name="rdoUseYn"]:checked');
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
-		/** component 초기화 **/
-		initComponent();
-
+		getAuthList();
 		btnSubmit.on('click', function () { onSubmitAdmin(); })
 	});
 
-	/** input, select 초기화 **/
-	function initComponent()
+	function getAuthList()
 	{
-		$("#keyword").val('');
-		$("input:radio").each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
+		$.ajax({
+			url: api.listAdminAuth,
+			type: "POST",
+			headers : headers,
+			/*data: params(),*/
+			success: function(data) {
+				if (isSuccessResp(data))
+					buildAuthList(data)
+				else
+					alert(invalidResp(data));
+			},
+			error: function (request, status) {
+				console.log(status);
+			}
 		});
-		$("input:checkbox").prop("checked", true);
-		$("select").each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
+	}
+
+	function buildAuthList(data)
+	{
+		let jsonData  = JSON.parse(data);
+		let respData  = jsonData.data;
+		let optionDom = '';
+		for (let i=0; i<respData.length; i++)
+		{
+			let code = respData[i].code;
+			let name = respData[i].name;
+			if (i === 0)
+				$('#authCodeLabel').text(name);
+
+			optionDom += '<option value="'+code+'">'+name+'</option>';
+		}
+
+		authCode.html(optionDom);
 	}
 
 	function validation()
 	{
-		if (isEmpty(id.val()))
+		if (isEmpty(userid.val()))
 		{
 			alert('아이디는 ' + message.required);
-			id.focus();
+			userid.focus();
 			return false;
 		}
 
@@ -43,20 +61,6 @@
 		{
 			alert('이름은 ' + message.required);
 			name.focus();
-			return false;
-		}
-
-		if (isEmpty(password.val()))
-		{
-			alert('비밀번호는 ' + message.required);
-			password.focus();
-			return false;
-		}
-
-		if (password.val().trim() !== password2.val().trim())
-		{
-			alert('비밀번호가 ' + message.notEqual);
-			password.focus();
 			return false;
 		}
 
@@ -72,15 +76,13 @@
 
 	function params()
 	{
-		let formData = new FormData();
-		formData.append('id', id.val());
-		formData.append('name', name.val());
-		formData.append('password', password.val());
-		formData.append('permission', permission.val());
-		formData.append('email', email.val());
-		formData.append('useYn', useYn.val());
-
-		return formData;
+		let param = {
+			"userid" : userid.val()
+			,"name" : name .val()
+			,"email" : email .val()
+			,"auth_code" : authCode.val()
+		}
+		return JSON.stringify(param);
 	}
 
 	function onSubmitAdmin()
@@ -90,24 +92,22 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: "/admin",
+					url: api.createAdmin,
 					type: "POST",
-					processData: false,
-					contentType: false,
+					headers : headers,
 					data: params(),
 					success: function(data) {
-
-						if (data.code === 200)
+						console.log(data)
+						if (isSuccessResp(data))
 						{
-
+							location.href = "/admin/lists";
 						}
 						else
-							alert(data.message);
+							alert(invalidResp(data));
 					},
 					error: function (request, status) {
 						console.log(status);
 					}
-
 				});
 			}
 		}

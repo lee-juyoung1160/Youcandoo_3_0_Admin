@@ -6,11 +6,14 @@
 	const keyword		= $("#keyword");
 	const authCode		= $("#auth_code");
 	const selPageLength = $("#selPageLength");
+	const btnDelete 	= $("#btnDelete");
 	const inputRadio	= $("input:radio");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
+		/** 권한 목록 불러오기 **/
+		getAuthList();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
@@ -18,8 +21,49 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
+		btnDelete		.on("click", function () { deleteAdmin(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 	});
+
+	function getAuthList()
+	{
+		$.ajax({
+			url: api.listAdminAuth,
+			type: "POST",
+			headers : headers,
+			/*data: params(),*/
+			success: function(data) {
+				if (isSuccessResp(data))
+					buildAuthList(data)
+				else
+					alert(invalidResp(data));
+			},
+			error: function (request, status) {
+				console.log(status);
+			}
+		});
+	}
+
+	function buildAuthList(data)
+	{
+		let jsonData  = JSON.parse(data);
+		let respData  = jsonData.data;
+		let optionDom = '';
+		for (let i=0; i<respData.length; i++)
+		{
+			let code = respData[i].code;
+			let name = respData[i].name;
+			if (i === 0)
+			{
+				$('#authCodeLabel').text('전체');
+				optionDom += '<option value="">전체</option>';
+			}
+
+			optionDom += '<option value="'+code+'">'+name+'</option>';
+		}
+
+		authCode.html(optionDom);
+	}
 
 	function initSearchForm()
 	{
@@ -134,5 +178,10 @@
 	function onSubmitSearch()
 	{
 		buildGrid();
+	}
+	
+	function deleteAdmin()
+	{
+
 	}
 

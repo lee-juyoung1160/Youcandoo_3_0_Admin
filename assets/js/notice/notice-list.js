@@ -235,7 +235,7 @@
 				data: JSON.stringify(topParams),
 				success: function(data) {
 
-					if (getStatusCode(data) === 30000)
+					if (isSuccessResp())
 					{
 						disableStatusBtnTop();
 						buildGrid();

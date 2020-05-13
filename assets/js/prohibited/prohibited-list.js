@@ -136,7 +136,7 @@
 					data: params(),
 					success: function(data) {
 
-						if (getStatusCode(data) === 30000)
+						if (isSuccessResp())
 						{
 							modalFadeout();
 							buildGrid();
@@ -200,7 +200,7 @@
 				data: JSON.stringify(delParams),
 				success: function(data) {
 
-					if (getStatusCode(data) === 30000)
+					if (isSuccessResp())
 						buildGrid();
 					else
 						alert(data.message);

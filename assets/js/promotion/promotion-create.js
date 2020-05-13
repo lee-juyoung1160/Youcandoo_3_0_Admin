@@ -13,7 +13,6 @@
 	const isBanner		= $("input[name=radio-banner-open]");
 
 	/** modal **/
-	const modalReward		= $("#modalReward");
 	const btnAddReward 		= $("#btnAddReward");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
@@ -41,7 +40,6 @@
 		rewardTo			.on('change', function () { onChangeRewardTo(); });
 		promoFrom			.on('change', function () { onChangePromoFrom(); });
 		bizName				.on('keyup', function () { onKeyupBizName(); });
-		bizName				.autocomplete({ delay: 500 });
 
 		initInputDatepicker();
 		initComponent();
@@ -49,6 +47,7 @@
 		goalRateRange();
 	});
 
+	/** 목표달성률 레인지 슬라이더 **/
 	function goalRateRange()
 	{
 		$("#goalRange").ionRangeSlider({
@@ -67,7 +66,7 @@
 		});
 	}
 
-	/** 개인+그룹일 때 리워드 분배 비율 설정  rage slider **/
+	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
 	function rewardRateRange()
 	{
 		$("#rewardRange").ionRangeSlider({
@@ -459,7 +458,6 @@
 					headers: headers,
 					data: JSON.stringify({"keyword" : bizName.val()}),
 					success: function(data) {
-						console.log(JSON.parse(data));
 						response($.map(JSON.parse(data), function(item) {
 							return {
 								label: item.value,
@@ -471,6 +469,7 @@
 					}
 				});
 			},
+			delay: 300,
 			minLength: 2
 		});
 	}

@@ -52,10 +52,6 @@
 				type:"POST",
 				async: false,
 				headers: headers,
-				/*dataFilter: function(data) {
-					let jsonData = JSON.parse(data);
-					console.log(jsonData);
-				},*/
 				data: function (d) {
 					/*
 					if (d.order.length > 0)
@@ -66,13 +62,17 @@
 					}
 				   */
 					console.log(d);
-					console.log(tableParams(d));
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return tableCheckBoxDom(data);
+					}
+				}
+				,{title: "닉네임", 		data: "nickname",   width: "25%",    orderable: false,   className: "text-center" }
+				,{title: "등록일", 		data: "created",    width: "25%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -95,7 +95,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'multi',
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -132,10 +135,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(0);
+		let titleDom = $(nRow).children().eq(1);
 
-		// 제목에 a 태그 추가
-		titleDom.html('<a href="/detail/user">'+aData.nickname+'</a>');
+		/** 제목에 a 태그 추가 **/
+		titleDom.html('<a href="#">'+aData.nickname+'</a>');
 	}
 
 	function onSubmitSearch()

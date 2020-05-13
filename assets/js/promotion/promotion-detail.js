@@ -63,10 +63,8 @@
 			headers: headers,
 			data: JSON.stringify({"promotion_idx" : idx}),
 			success: function(data) {
-				if (getStatusCode(data) === 30000)
-				{
+				if (isSuccessResp())
 					buildPromoDetail(data);
-				}
 				else
 					alert(data.message);
 			},
@@ -196,7 +194,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData);
 			}
 		});
 	}

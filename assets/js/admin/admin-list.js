@@ -4,15 +4,13 @@
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
+	const authCode		= $("#auth_code");
 	const selPageLength = $("#selPageLength");
 	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
-		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
@@ -30,7 +28,6 @@
 			if (index === 0)
 				$(this).prop("checked", true);
 		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -41,7 +38,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listUser,
+				url: api.listAdmin,
 				type: "POST",
 				async: false,
 				headers: headers,
@@ -58,8 +55,15 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return tableCheckBoxDom(data);
+					}
+				}
+				,{title: "아이디", 	data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "이름", 		data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "이메일", 	data: "email",     			width: "15%",     orderable: false,   className: "text-center" }
+				,{title: "최근접속일", data: "recent_datetime",    width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -82,7 +86,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'single',
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -106,12 +113,9 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
+			,"auth_code" : authCode.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
 		}
 
 		return JSON.stringify(param);

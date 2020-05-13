@@ -12,12 +12,13 @@
 	const doitType		= $("input[name=radio-doit-type]");
 	const isBanner		= $("input[name=radio-banner-open]");
 	const rewardListTitle = $("#rewardListTitle");
+	const btnNoticeAdd	= $("#btnNoticeAdd");
+	const noticeArea	= $("#noticeArea");
 
 	/** modal **/
 	const btnAddReward 		= $("#btnAddReward");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
-	const modalContent 		= $(".modal-content");
 	const modalRwrdTitle 	= $("#modalRwrdTitle");
 	const rewardFrom 		= $("#rewardFrom");
 	const rewardTo 			= $("#rewardTo");
@@ -41,6 +42,7 @@
 		rewardTo			.on('change', function () { onChangeRewardTo(); });
 		promoFrom			.on('change', function () { onChangePromoFrom(); });
 		bizName				.on('keyup', function () { onKeyupBizName(); });
+		btnNoticeAdd		.on('click', function () { onClickBtnNoticeAdd(); });
 
 		initInputDatepicker();
 		initComponent();
@@ -85,6 +87,47 @@
 				individualRate.prop("value", data.from);
 				groupRate.prop("value", 100 - data.from);
 			}
+		});
+	}
+
+	function onClickBtnNoticeAdd()
+	{
+		let noticeLen = noticeArea.find('li').length;
+
+		if (noticeAddValidation())
+		{
+			let noticeDom = '';
+			noticeDom += '<li>';
+			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(noticeLen+1)+'</p>';
+			noticeDom += 	'<input type="text" placeholder="유의사항을 입력해주세요.">';
+			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>';
+			noticeDom += '</li>';
+
+			noticeArea.append(noticeDom);
+		}
+	}
+
+	function noticeAddValidation()
+	{
+		let noticeLen = noticeArea.find('li').length;
+
+		if (noticeLen > 3)
+		{
+			alert('유의사항은 '+message.maxNotice);
+			return false;
+		}
+
+		return true;
+	}
+
+	function removeNotice(obj)
+	{
+		$(obj).parent().remove();
+
+		$(".input-notice-title").each(function (idx) {
+			console.log(idx)
+			console.log($(this).text())
+			$(this).text('유의사항 '+(idx+1));
 		});
 	}
 

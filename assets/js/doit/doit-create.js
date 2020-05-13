@@ -560,7 +560,7 @@
 	function onChangeIntroType(obj)
 	{
 		let introType = $(obj).val();
-		let introText = $("label[for='"+obj.id+"']").text();
+		let introText = $("label[for='"+$(obj).attr("id")+"']").text();
 		let introFileDom = '';
 		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
 		if (introType === 'video')
@@ -640,7 +640,6 @@
 		let fileDom = '';
 		fileDom += '<div class="filebox preview-image">';
 		fileDom += 	'<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>';
-		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 		fileDom += 	'<label for="exampleFile">업로드</label>';
 		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeFile(this)">';

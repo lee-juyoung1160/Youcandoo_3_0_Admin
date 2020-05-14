@@ -59,9 +59,9 @@
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    			width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "회사명", 	data: "company_name",   	width: "50%",     orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "create_datetime",   	width: "15%",     orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    	width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "회사명", 	data: "nickname",   width: "50%",     orderable: false,   className: "text-center" }
+				,{title: "등록일", 	data: "created",   	width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -123,7 +123,7 @@
 		let titleDom = $(nRow).children().eq(1);
 
 		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="/biz/detail">'+aData.company_name+'</a>');
+		$(titleDom).html('<a href="/biz/detail">'+aData.nickname+'</a>');
 	}
 
 	function onSubmitSearch()

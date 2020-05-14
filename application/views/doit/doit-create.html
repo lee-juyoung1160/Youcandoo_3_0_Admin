@@ -9,6 +9,49 @@
                     <p class="sub-title important">두잇명(*)</p>
                     <input id="doitTitle" type="text" placeholder="제목을 입력해주세요.">
                 </li>
+                <li>
+                    <p class="sub-title important">소개글 (*)</p>
+                    <input id="doitDesc" type="text" placeholder="내용을 입력해주세요.">
+                </li>
+                <li class="tag-list">
+                    <p class="sub-title important">태그(*)</p>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>
+                    </i>
+                    <div class="tag-input-wrap">
+                        <input id="inputTag" class="tag-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
+                        <button id="addTag" class="add-btn" type="submit">
+                            <i class="fas fa-plus"></i>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                    <ul id="tagList" class="hash-tag-list clearfix">
+                        <!--<li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>
+                        <li>
+                            #<span class="tag-name">밸런스</span>
+                            <i class="delete-btn far fa-times-circle"></i>
+                        </li>-->
+                    </ul>
+                </li>
+                <li class="clearfix">
+                    <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
+                    <!--                    이미지 및 영상 라디오 선택시 관련 .wrap display block-->
+                    <div class="radio-wrap" style="margin-bottom: 30px;">
+                        <input type="radio" id="r10" name="radio-intro-type" value="image"/>
+                        <label for="r10">이미지 <span></span></label>
+                        <input type="radio" id="r11" name="radio-intro-type" value="video"/>
+                        <label for="r11">영상 <span></span></label>
+                    </div>
+                    <div id="introFileArea" class="wrap">
+                    </div>
+                </li>
                 <li class="list-common clearfix" style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
                     <p class="sub-title important">두잇 유형(*)</p>
                     <div class="search-wrap" style="float: left; margin-right: 20px;">
@@ -75,30 +118,34 @@
                     <div class="modal-layout"></div>
                 </li>
 
-                <li id="selectedRewardArea" class="clearfix">
-                    <!--<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>
-                    <div class="fixed">
-                        <p class="cap"><span>인증기간 : </span>2020.02.02 ~ 2020.02.03</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>하루인증횟수 : </span>10</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>하루인증횟수 : </span>10</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>목표달성률 : </span>80%</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>리워드 유형 : </span>개인 5 : 단체 5</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>1인당 최대 UCD : </span>1000 UCD</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>
-                    </div>-->
-                </li>
+<!--                <li id="selectedRewardArea" class="reward-type clearfix">-->
+<!--                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>인증기간 : </span>2020.02.02 ~ 2020.02.03</p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>하루인증횟수 : </span>10</p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>목표달성률 : </span>80%</p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>리워드 유형 : </span>개인 5 : 단체 5</p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>두잇당 최대 인원 : 10명 </span></p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>1인당 최대 UCD : </span>1000 UCD</p>-->
+<!--                    </div>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>-->
+<!--                    </div>-->
+<!--                    <p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>-->
+<!--                    <div class="fixed">-->
+<!--                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>-->
+<!--                    </div>-->
+<!--                </li>-->
                 <li>
                     <p class="sub-title important">최대 모집 인원(*)</p>
                     <input id="maxUser" type="text" class="only-num">
@@ -117,45 +164,6 @@
                         <input type="checkbox" id="c1" name="chkExtraReward"/>
                         <label id="ucd-check-area" for="c1"><span></span>UCD외 추가 리워드 직접 입력</label>
                         <input id="ucd-area" type="text" placeholder="추가 리워드를 입력해주세요.">
-                    </div>
-                </li>
-                <li class="tag-list">
-                    <p class="sub-title important">태그(*)</p>
-                    <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>
-                    </i>
-                    <div class="tag-input-wrap">
-                        <input id="inputTag" class="tag-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
-                        <button id="addTag" class="add-btn" type="submit">
-                            <i class="fas fa-plus"></i>
-                            <span>ADD</span>
-                        </button>
-                    </div>
-                    <ul id="tagList" class="hash-tag-list clearfix">
-                        <!--<li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>-->
-                    </ul>
-                </li>
-                <li class="clearfix">
-                    <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
-<!--                    이미지 및 영상 라디오 선택시 관련 .wrap display block-->
-                    <div class="radio-wrap" style="margin-bottom: 30px;">
-                        <input type="radio" id="r10" name="radio-intro-type" value="image"/>
-                        <label for="r10">이미지 <span></span></label>
-                        <input type="radio" id="r11" name="radio-intro-type" value="video"/>
-                        <label for="r11">영상 <span></span></label>
-                    </div>
-                    <div id="introFileArea" class="wrap">
                     </div>
                 </li>
                 <li>
@@ -253,10 +261,6 @@
                 <li>
                     <p class="sub-title important">인증 예시 설명 (*)</p>
                     <input id="exampleDesc" type="text" placeholder="내용을 입력해주세요.">
-                </li>
-                <li>
-                    <p class="sub-title important">소개글 (*)</p>
-                    <input id="doitDesc" type="text" placeholder="내용을 입력해주세요.">
                 </li>
 <!--                인증제외날짜 및 노출여부는 추후 개발 예정계획-->
 <!--                <li>-->

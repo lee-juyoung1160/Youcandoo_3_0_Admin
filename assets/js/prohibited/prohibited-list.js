@@ -136,13 +136,12 @@
 					data: JSON.stringify({"word": prohibition.val()}),
 					success: function(data) {
 
+						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
 						{
 							modalFadeout();
 							buildGrid();
 						}
-						else
-							alert(invalidResp(data));
 					},
 					error: function (request, status) {
 						console.log(status);

@@ -136,3 +136,13 @@
 		return num.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3');
 	}
 
+	function isAlphabet(param)
+	{
+		let regExp = /^[A-Za-z]*$/;
+
+		return regExp.test(param);
+	}
+
+
+
+

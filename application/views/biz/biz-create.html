@@ -4,8 +4,11 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">회사명(*)</p>
-                    <input id="bizName" type="text" placeholder="회사명을 입력해주세요.">
+                    <p class="sub-title important" style="display: inline-block;" >회사명(*)</p>
+                    <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+                        <span class="hover-text">* 최대 10자까지 가능합니다.</span>
+                    </i>
+                    <input id="bizName" type="text" placeholder="회사명을 입력해주세요." style="display: block;">
                 </li>
                 <li class="tag-list">
                     <p class="sub-title important">사업자 번호(*)</p>
@@ -24,7 +27,10 @@
                     <input id="homepage" type="text" placeholder="https:// 포함해서 입력해주세요.">
                 </li>
                 <li>
-                    <p class="sub-title important">소개 내용(*)</p>
+                    <p class="sub-title important" style="display: inline-block;">소개 내용(*)</p>
+                    <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+                        <span class="hover-text">* 최대 100자까지 입력이 가능합니다.</span>
+                    </i>
                     <textarea id="bizDesc" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
                 </li>
                 <li>

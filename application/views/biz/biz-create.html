@@ -8,7 +8,7 @@
                     <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
                         <span class="hover-text">* 최대 10자까지 가능합니다.</span>
                     </i>
-                    <input id="bizName" type="text" placeholder="회사명을 입력해주세요." style="display: block;">
+                    <input id="bizName" type="text" placeholder="회사명을 입력해주세요." maxlength="10" style="display: block;">
                 </li>
                 <li class="tag-list">
                     <p class="sub-title important">사업자 번호(*)</p>
@@ -31,7 +31,7 @@
                     <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
                         <span class="hover-text">* 최대 100자까지 입력이 가능합니다.</span>
                     </i>
-                    <textarea id="bizDesc" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                    <textarea maxlength="100" id="bizDesc" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
                 </li>
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>

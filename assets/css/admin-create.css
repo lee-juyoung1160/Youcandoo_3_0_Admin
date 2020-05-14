@@ -20,8 +20,10 @@
     margin-left: auto;
 }
 
-.auth-list-enrollment li {
+.auth-list-enrollment ol li {
     position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f1f1;
 }
 .auth-list-enrollment .auth-list-btn {
     display: block;

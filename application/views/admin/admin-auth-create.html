@@ -7,183 +7,33 @@
             <ul class="enrollment auth-list-enrollment">
                 <li class="sub-title">
                     <p class="sub-title important">권한</p>
-                    <button id="btnAddAuth" class="add-btn more-infor-btn" type="button" data-rel="modal-01">
+                    <button class="add-btn more-infor-btn auth-modal-open" type="button" data-rel="modal-01">
                         <i class="fas fa-plus"></i>
                         <span>ADD</span>
                     </button>
                 </li>
-                <ol>
-                    <li class="on"><button class="auth-list-btn" type="button">스페셜</button></li>
+                <ol id="authList">
+                    <!--<li class="on"><button class="auth-list-btn" type="button">스페셜</button></li>
                     <li><button class="auth-list-btn" type="button">슈퍼</button></li>
                     <li><button class="auth-list-btn" type="button">운영자</button></li>
                     <li><button class="auth-list-btn" type="button">CS</button></li>
                     <li><button class="auth-list-btn" type="button">마케팅</button></li>
                     <li><button class="auth-list-btn" type="button">정산</button></li>
-                    <li><button class="auth-list-btn" type="button">모니터링</button></li>
+                    <li><button class="auth-list-btn" type="button">모니터링</button></li>-->
                 </ol>
             </ul>
             
             <div class="enrollment auth-set-enrollment">
                 <div class="clearfix">
                     <p class="sub-title important">권한 설정 - <span class="auth-title">스페셜</span></p>
-                    <button class="del-btn" type="button">
+                    <button id="btnDeleteAuth" class="del-btn" type="button">
                         <i class="fas fa-minus"></i>
                         <span>권한삭제</span>
                     </button>
                 </div>
 
-                <ul class="auth-set-wrap">
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c1" name="cc" />
-                                        <label for="c1"><span></span>비즈</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c2" name="cc" />
-                                            <label for="c2"><span></span>신규등록</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c3" name="cc" />
-                                            <label for="c3"><span></span>비즈관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c5" name="cc" />
-                                        <label for="c5"><span></span>회원</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c6" name="cc" />
-                                            <label for="c6"><span></span>회원관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c7" name="cc" />
-                                        <label for="c7"><span></span>프로모션</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c8" name="cc" />
-                                            <label for="c8"><span></span>신규등록</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c9" name="cc" />
-                                            <label for="c9"><span></span>프로모션 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c11" name="cc" />
-                                        <label for="c11"><span></span>두잇</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c12" name="cc" />
-                                            <label for="c12"><span></span>신규등록</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c13" name="cc" />
-                                            <label for="c13"><span></span>두잇 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c14" name="cc" />
-                                            <label for="c14"><span></span>카테고리 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c18" name="cc" />
-                                        <label for="c18"><span></span>인증</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c19" name="cc" />
-                                            <label for="c19"><span></span>인증 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c20" name="cc" />
-                                        <label for="c20"><span></span>리뷰</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c21" name="cc" />
-                                            <label for="c21"><span></span>리뷰 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
+                <ul id="authMenuArea" class="auth-set-wrap">
+                    <!--<li>
                         <ol class="auth-nav">
                             <li class="clearfix">
                                 <div class="main-menu">
@@ -220,101 +70,9 @@
                                 </ul>
                             </li>
                         </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c28" name="cc" />
-                                        <label for="c28"><span></span>서비스</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c29" name="cc" />
-                                            <label for="c29"><span></span>공지사항 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c30" name="cc" />
-                                            <label for="c30"><span></span>이벤트 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c31" name="cc" />
-                                            <label for="c31"><span></span>FAQ 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c31" name="cc" />
-                                            <label for="c31"><span></span>1:1 문의 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c31" name="cc" />
-                                            <label for="c31"><span></span> 금칙어 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c46" name="cc" />
-                                        <label for="c46"><span></span>푸쉬</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c47" name="cc" />
-                                            <label for="c47"><span></span>푸쉬 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
-                    <li>
-                        <ol class="auth-nav">
-                            <li class="clearfix">
-                                <div class="main-menu">
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c50" name="cc" />
-                                        <label for="c50"><span></span>관리자</label>
-                                    </div>
-                                </div>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c52" name="cc" />
-                                            <label for="c52"><span></span>관리자 관리</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c53" name="cc" />
-                                            <label for="c53"><span></span>권한 관리</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-
+                    </li>-->
+                </ul>
+                <ul>
                     <li>
                         <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
                     </li>
@@ -331,14 +89,14 @@
                 <ul class="modal-information">
                     <li>
                         <p class="sub-title">권한코드 (*)</p>
-                        <input type="text" placeholder="권한코드을 입력해주세요.">
+                        <input id="authCode" type="text" placeholder="권한코드을 입력해주세요.">
                     </li>
                     <li>
                         <p class="sub-title">권한명 (*)</p>
-                        <input type="text" placeholder="권한명을 입력해주세요.">
+                        <input id="authName" type="text" placeholder="권한명을 입력해주세요.">
                     </li>
                 </ul>
-                <button class="completion-btn" type="submit">완료</button>
+                <button id="btnSubmitAuth" class="completion-btn" type="submit">완료</button>
             </div>
         </div>
         <div class="modal-layout"></div>

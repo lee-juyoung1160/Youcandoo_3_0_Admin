@@ -101,7 +101,7 @@
 			noticeDom += '<li>';
 			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(noticeLen+1)+'</p>';
 			noticeDom += 	'<input type="text" placeholder="유의사항을 입력해주세요.">';
-			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>';
+			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
 			noticeDom += '</li>';
 
 			noticeArea.append(noticeDom);

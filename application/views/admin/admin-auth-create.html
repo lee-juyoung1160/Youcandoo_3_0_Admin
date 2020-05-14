@@ -7,7 +7,7 @@
             <ul class="enrollment auth-list-enrollment">
                 <li class="sub-title">
                     <p class="sub-title important">권한</p>
-                    <button class="add-btn more-infor-btn" type="button" data-rel="modal-01">
+                    <button id="btnAddAuth" class="add-btn more-infor-btn" type="button" data-rel="modal-01">
                         <i class="fas fa-plus"></i>
                         <span>ADD</span>
                     </button>
@@ -320,7 +320,7 @@
             </ul>
         </div>
     </div>
-    <div class="modal-wrap">
+    <div id="modalAddAuth" class="modal-wrap">
         <!-- 관리자 권한 추가-->
         <div class="modal-content modal-01">
             <div class="wrap">
@@ -342,27 +342,4 @@
         <div class="modal-layout"></div>
     </div>
 </section>
-<script src="/assets/js/admin/admin-create.js"></script>
-<script>
-
-    // modal event
-    $('.more-infor-btn').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-    $('.auth-list-btn').on('mouseenter', function(){
-
-    });
-
-
-</script>
+<script src="/assets/js/admin/auth-create.js"></script>

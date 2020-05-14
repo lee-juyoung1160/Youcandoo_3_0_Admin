@@ -99,7 +99,10 @@
 					headers: headers,
 					data: params(),
 					success: function(data) {
-						console.log(data);
+
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							location.href = '/biz/lists'
 					},
 					error: function (request, status) {
 						console.log(status);

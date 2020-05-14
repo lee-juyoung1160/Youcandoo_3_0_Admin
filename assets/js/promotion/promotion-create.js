@@ -19,6 +19,7 @@
 	const btnAddReward 		= $("#btnAddReward");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
 	const modalRwrdTitle 	= $("#modalRwrdTitle");
 	const rewardFrom 		= $("#rewardFrom");
 	const rewardTo 			= $("#rewardTo");

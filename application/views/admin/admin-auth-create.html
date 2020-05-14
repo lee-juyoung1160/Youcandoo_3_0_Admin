@@ -7,30 +7,22 @@
             <ul class="enrollment auth-list-enrollment">
                 <li class="sub-title">
                     <p class="sub-title important">권한</p>
-                    <button id="btnAddAuth" class="add-btn more-infor-btn" type="button" data-rel="modal-01">
+                    <button class="add-btn more-infor-btn auth-modal-open" type="button">
                         <i class="fas fa-plus"></i>
                         <span>ADD</span>
                     </button>
                 </li>
-                <ol>
-                    <li class="on"><button class="auth-list-btn" type="button">스페셜</button></li>
-                    <li><button class="auth-list-btn" type="button">슈퍼</button></li>
-                    <li><button class="auth-list-btn" type="button">운영자</button></li>
-                    <li><button class="auth-list-btn" type="button">CS</button></li>
-                    <li><button class="auth-list-btn" type="button">마케팅</button></li>
-                    <li><button class="auth-list-btn" type="button">정산</button></li>
-                    <li><button class="auth-list-btn" type="button">모니터링</button></li>
+                <ol id="authList">
                 </ol>
             </ul>
             <ul class="enrollment auth-set-enrollment">
                 <li class="clearfix">
                     <p class="sub-title important">권한 설정 - <span class="auth-title">스페셜</span></p>
-                    <button class="del-btn" type="button">
+                    <button id="btnDeleteAuth" class="del-btn" type="button">
                         <i class="fas fa-minus"></i>
                         <span>권한삭제</span>
                     </button>
                 </li>
-
                 <li>
                     <ol class="auth-nav">
                         <li class="clearfix">
@@ -250,14 +242,14 @@
                                 </li>
                                 <li>
                                     <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c31" name="cc" />
-                                        <label for="c31"><span></span>1:1 문의 관리</label>
+                                        <input type="checkbox" id="c32" name="cc" />
+                                        <label for="c32"><span></span>1:1 문의 관리</label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c31" name="cc" />
-                                        <label for="c31"><span></span> 금칙어 관리</label>
+                                        <input type="checkbox" id="c33" name="cc" />
+                                        <label for="c33"><span></span> 금칙어 관리</label>
                                     </div>
                                 </li>
                             </ul>
@@ -320,23 +312,23 @@
             </ul>
         </div>
     </div>
-    <div id="modalAddAuth" class="modal-wrap">
+    <div class="modal-wrap">
         <!-- 관리자 권한 추가-->
-        <div class="modal-content modal-01">
+        <div id="modalAddAuth" class="modal-content">
             <div class="wrap">
                 <i class="close-btn fas fa-times-circle"></i>
                 <p class="modal-title">관리자 권한 추가</p>
                 <ul class="modal-information">
                     <li>
                         <p class="sub-title">권한코드 (*)</p>
-                        <input type="text" placeholder="권한코드을 입력해주세요.">
+                        <input id="authCode" type="text" placeholder="권한코드을 입력해주세요.">
                     </li>
                     <li>
                         <p class="sub-title">권한명 (*)</p>
-                        <input type="text" placeholder="권한명을 입력해주세요.">
+                        <input id="authName" type="text" placeholder="권한명을 입력해주세요.">
                     </li>
                 </ul>
-                <button class="completion-btn" type="submit">완료</button>
+                <button id="btnSubmitAuth" class="completion-btn" type="submit">완료</button>
             </div>
         </div>
         <div class="modal-layout"></div>

@@ -66,7 +66,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return tableCheckBoxDom(data);
 					}
@@ -97,7 +97,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			lengthChange: false,

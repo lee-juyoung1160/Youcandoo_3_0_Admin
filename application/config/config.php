@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['redis_session']="100.0.41.15";
+$config['redis_session']="100.0.41.15"; 
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ $config['redis_session']="100.0.41.15";
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://admin.kakaokids.org/';
+$config['base_url'] = 'https://dev.admin.youcandoo.co.kr';
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ $config['base_url'] = 'http://admin.kakaokids.org/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -190,7 +190,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -201,7 +201,7 @@ $config['log_threshold'] = 0;
 | application/logs/ folder. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+$config['log_path'] = '/htdocs/application/logs/';
 
 /*
 |--------------------------------------------------------------------------
@@ -276,7 +276,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= "";
+$config['cookie_domain']	= ".youcandoo.co.kr";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 

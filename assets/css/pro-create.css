@@ -96,3 +96,9 @@
 .notice-input-list li:last-child {
     margin-bottom: 0;
 }
+.reward-type .sub-title {
+    margin-top: 40px;
+}
+.reward-type .sub-title:first-child {
+    margin-top: 0;
+}

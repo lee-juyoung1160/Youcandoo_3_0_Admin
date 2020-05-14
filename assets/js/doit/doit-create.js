@@ -362,7 +362,9 @@
 					contentType: false,
 					data: params(),
 					success: function(data) {
-						console.log(data);
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							location.href = '/doit/lists'
 					},
 					error: function (request, status) {
 						console.log(status);

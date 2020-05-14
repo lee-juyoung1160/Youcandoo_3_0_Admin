@@ -62,7 +62,9 @@
 					data: params(),
 					headers: headers,
 					success: function(data) {
-						console.log(data);
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							location.href = '/notice/lists'
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
 						console.log(xhr.status);

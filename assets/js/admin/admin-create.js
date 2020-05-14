@@ -40,7 +40,7 @@
 			let code = respData[i].code;
 			let name = respData[i].name;
 			if (i === 0)
-				$('#authCodeLabel').text(name);
+				authCodeLabel.text(name);
 
 			optionDom += '<option value="'+code+'">'+name+'</option>';
 		}
@@ -97,13 +97,9 @@
 					headers : headers,
 					data: params(),
 					success: function(data) {
-						console.log(data)
+						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-						{
-							location.href = "/admin/lists";
-						}
-						else
-							alert(invalidResp(data));
+							location.href = '/admin/lists'
 					},
 					error: function (request, status) {
 						console.log(status);

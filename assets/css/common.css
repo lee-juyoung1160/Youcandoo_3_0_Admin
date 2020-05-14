@@ -276,6 +276,9 @@ input[type="time"] {
 input.datepicker {
 	width: 200px;
 }
+input.only-num {
+	width: 220px;
+}
 /* file common */
 .filebox {
 	float: left;
@@ -312,6 +315,7 @@ input.datepicker {
 	width: 180px;
 	height: 40px;
 	padding: 0 20px;
+	margin-right: 4px;
 	color: #7d7d7d;
 	font-size: 15px;
 	line-height: normal;

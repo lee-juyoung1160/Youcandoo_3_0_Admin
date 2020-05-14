@@ -28,10 +28,16 @@
 	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
-		,createAdmin : baseApiUrl+''
-		,deleteAdmin : ''
+		,createAdmin : baseApiUrl+'admin/create'
+		,deleteAdmin : 'admin/delete'
 		,updateAdmin : ''
 		,listAdmin : baseApiUrl+'admin/list'
+		,createAdminAuth : baseApiUrl+'auth/create'
+		,deleteAdminAuth : baseApiUrl+'auth/delete'
+		,updateAdminAuth : baseApiUrl+'auth/update'
+		,listAdminAuth : baseApiUrl+'auth/list'
+		,setAdminAuth : baseApiUrl+'auth/set/menu'
+		,getAdminAuth : baseApiUrl+'auth/get/menu'
 		,createBiz : baseApiUrl+'biz/create'
 		,deleteBiz : ''
 		,updateBiz : ''

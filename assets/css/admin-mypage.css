@@ -16,3 +16,19 @@
 	display: block;
 	margin-bottom: 30px;
 }
+.admin-mypage-page .update-list .top i,
+.admin-mypage-page .update-list .top p {
+	float: left;
+}
+.admin-mypage-page .update-list .top i {
+	font-size: 18px;
+	color: #c90614;
+	margin-left: 9px;
+	margin-right: 5px;
+}
+.admin-mypage-page .update-list .top span {
+	font-size: 14px;
+	color: #c90614;
+	vertical-align: middle;
+	font-weight: 500;
+}

@@ -256,7 +256,7 @@
     {
         let resp = JSON.parse(data);
 
-        return resp.message;
+        return resp.msg;
     }
 
     /** modal 열기,닫기 **/

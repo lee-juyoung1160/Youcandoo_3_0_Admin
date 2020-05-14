@@ -286,5 +286,14 @@
 
     function tableCheckBoxDom(idx)
     {
-        return '<input type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+        return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+    }
+
+    function toggleSingleCheckBox(obj)
+    {
+        let chkBox = dataTable.find('input:checkbox');
+        $(chkBox).each(function () {
+            if (this.id !== obj.id)
+                $(this).prop('checked', false);
+        })
     }

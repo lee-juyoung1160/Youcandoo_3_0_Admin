@@ -68,7 +68,12 @@
 				}
 			},
 			columns: [
-				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return tableCheckBoxDom(data);
+					}
+				}
+				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
 				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
 				,{title: "노출여부", 		data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
 					render: function (data) {
@@ -98,7 +103,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'single',
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -141,8 +149,8 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let topDom	 = $(nRow).children().eq(0);
-		let titleDom = $(nRow).children().eq(1);
+		let topDom	 = $(nRow).children().eq(1);
+		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
 
 		/** 제목에 a 태그 추가 **/
@@ -238,7 +246,7 @@
 					if (isSuccessResp(data))
 					{
 						disableStatusBtnTop();
-						buildGrid();
+						dataTable.DataTable().draw();
 					}
 					else
 						alert(invalidResp(data));

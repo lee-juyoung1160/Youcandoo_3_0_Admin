@@ -62,7 +62,7 @@
 			},
 			columns: [
 				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
-				,{title: "구분", 	data: "event_type",    	name: "event_type",     orderable: false,   className: "text-center" }
+				/* ,{title: "구분", 	data: "event_type",    	name: "event_type",     orderable: false,   className: "text-center" } */
 				,{title: "제목", 	data: "title",  		name: "title",    		orderable: false,   className: "text-center" }
 				,{title: "기간", 	data: "start_date",  	name: "start_date",    	orderable: false,   className: "text-center" }
 				,{title: "노출여부", data: "is_exposure",  	name: "is_exposure",  	   orderable: false,   className: "text-center",

@@ -61,19 +61,18 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					console.log(d);
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return tableCheckBoxDom(data);
 					}
-				}
-				,{title: "닉네임", 		data: "nickname",   width: "25%",    orderable: false,   className: "text-center" }
+				}*/
+				{title: "닉네임", 		data: "nickname",   width: "25%",    orderable: false,   className: "text-center" }
 				,{title: "전화번호", 	data: "phone",   	width: "25%",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 		data: "created",    width: "25%",    orderable: false,   className: "text-center",
+				,{title: "가입일", 		data: "created",    width: "25%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -97,7 +96,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -112,8 +111,7 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
-				console.log(aData);
+				//setRowAttributes(nRow, aData);
 			}
 		});
 	}

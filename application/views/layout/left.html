@@ -156,8 +156,14 @@
                         <li><a href="#">dkdkdkdkdkd</a></li>
                     </ul>
                 </i>
-                <i id="power-off" class="fas fa-power-off"></i>
+                <i onclick="logout();" id="power-off" class="fas fa-power-off"></i>
             </div>
         </div>
     </div>
 </aside>
+<script>
+    function logout()
+    {
+        location.href = "/auth/logout";
+    }
+</script>

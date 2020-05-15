@@ -69,6 +69,34 @@
     margin-right: 10px;
 }
 
+/* 글자수 체크 */
+.input-wrap {
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    position: relative;
+    align-items: center;
+}
+.input-wrap input[type="text"],
+.input-wrap input[type="number"],
+.input-wrap input[type="password"] {
+    padding: 0 55px 0 10px;
+}
+.length-count-wrap {
+    color: #999;
+    font-size: 13px;
+}
+.input-wrap .length-count-wrap {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+}
+.textarea-wrap .length-count-wrap {
+    margin-top: 10px;
+    padding: 0 5px;
+}
+
 /*푸쉬, UCD -검색 결과 */
 .result_box {
     width: 100%;

@@ -1,8 +1,8 @@
 <section class="pro-list-page">
     <div class="inner">
-        <h2 class="main-title">프로모션 목록</h2>
-        <div class="list-common-btn-wrap right-btn clearfix">
-            <a href="/pro/create"><i class="fas fa-plus"></i>프로모션 등록</a>
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">프로모션 목록</h2>
+            <a href="/push/create"><i class="fas fa-plus"></i>프로모션 등록</a>
         </div>
 
         <div class="list-common">
@@ -57,18 +57,17 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num">16</strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="ex_select4">10개씩 보기</label>
-                    <select id="ex_select4">
-                        <option selected>10개씩 보기</option>
-                        <option>30개씩 보기</option>
-                        <option>50개씩 보기</option>
-                        <option>100개씩 보기</option>
-                        <option>300개씩 보기</option>
-                        <option>500개씩 보기</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
                     <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>

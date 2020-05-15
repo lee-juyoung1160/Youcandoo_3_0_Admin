@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="/assets/css/admin-list.css">
 <section class="admin-list-page">
     <div class="inner">
-        <h2 class="main-title">관리자 목록</h2>
-        <div class="list-common-btn-wrap right-btn clearfix">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">관리자 목록</h2>
             <a href="/admin/create"><i class="fas fa-plus"></i>신규 등록</a>
-            <a href="/admin/auth"><i class="fas fa-user-cog"></i>권한 관리</a>
         </div>
+
         <div class="list-common">
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
@@ -67,20 +67,23 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num"></strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="selPageLength">10개씩 보기</label>
-                    <select id="selPageLength">
-                        <option value="10">10개씩 보기</option>
-                        <option value="20">20개씩 보기</option>
-                        <option value="30">30개씩 보기</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
                     <button id="btnDelete" class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>관리자 삭제</button>
                 </div>
             </div>
+
             <table id="dataTable">
                 <!--<colgroup>
                     <col style="width:5%;">

@@ -99,9 +99,9 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return tableCheckBoxDom(data);
+						return multiCheckBoxDom(data);
 					}
 				}
 				,{title: "아이디", 	data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
@@ -131,7 +131,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'single',
+				style: 'multi',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -182,6 +182,40 @@
 	
 	function deleteAdmin()
 	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
 
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 금칙어를 '+message.select);
+			return;
+		}
+
+		let param = [];
+		let len   = selectedData.length;
+		for (let i=0; i<len; i++)
+		{
+			let userId = selectedData[i].userid;
+
+			param.push(userId);
+		}
+
+		if (confirm(message.delete))
+		{
+			$.ajax({
+				url: api.deleteAdmin,
+				type: "POST",
+				async: false,
+				headers: headers,
+				data: JSON.stringify({"delete_data" : param}),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+						buildGrid();
+				},
+				error: function (request, status) {
+					console.log(status);
+				}
+			});
+		}
 	}
-

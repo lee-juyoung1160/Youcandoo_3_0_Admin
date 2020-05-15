@@ -284,9 +284,14 @@
         return chkAll;
     }
 
-    function tableCheckBoxDom(idx)
+    function singleCheckBoxDom(idx)
     {
         return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+    }
+
+    function multiCheckBoxDom(idx)
+    {
+        return '<input type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
     }
 
     function toggleSingleCheckBox(obj)
@@ -295,5 +300,39 @@
         $(chkBox).each(function () {
             if (this.id !== obj.id)
                 $(this).prop('checked', false);
+        })
+    }
+
+    $(document).ready(function () {
+        //getProfile();
+        activeMenu();
+    })
+
+    function getProfile()
+    {
+        $.ajax({
+            url: api.createPromotion,
+            type: "POST",
+            headers: headers,
+            data: params(),
+            success: function(data) {
+                alert(getStatusMessage(data));
+                if (isSuccessResp(data))
+                    location.href = '/promotion/lists'
+            },
+            error: function (request, status) {
+                console.log(status);
+            }
+        });
+    }
+
+    function activeMenu()
+    {
+        let pathName = window.location.pathname;
+        let menuList = $('nav').find('a');
+        $(menuList).each(function () {
+            let menuPath = $(this).attr('href');
+            if (pathName === menuPath)
+                $(this).parents('li').addClass('active');
         })
     }

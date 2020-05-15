@@ -1,3 +1,28 @@
+/* top 공통 영역 */
+h2.main-title {
+	font-weight: 700;
+	font-size: 30px;
+	color: #5a5a5a;
+	padding-bottom: 30px;
+}
+h2.list-main-title {
+	float: left;
+	display: inline-block;
+}
+.main-top a {
+	float: right;
+	text-align: center;
+	line-height: 40px;
+	display: block;
+	width: 150px;
+	height: 40px;
+	color: #ffffff;
+	border-radius: 30px;
+	background-color: #19579a;
+}
+.main-top a i {
+	margin-right: 5px;
+}
 /* CSS common */
 * body {
 	font-family: 'Noto Sans KR', 'sans-serifs' !important;
@@ -5,7 +30,7 @@
 section {
 	width: 100%;
 	padding-top: 50px;
-	padding-left: 283px;
+	padding-left: 250px;
 	position: relative;
 	overflow: hidden;
 }
@@ -55,7 +80,7 @@ h2.main-title {
 	color: #ffffff;
 	background-color: #007aff;
 }
-/* 등록 공통 레이아웃 */
+/* ë“±ë¡ ê³µí†µ ë ˆì´ì•„ì›ƒ */
 .enrollment {
 	padding: 20px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
@@ -262,7 +287,7 @@ input[type="email"]{
 }
 input[type="search"] {
 	border-radius: 30px;
-	padding: 0 50px 0 30px;
+	padding: 0 50px;
 }
 input[type="number"] {
 	width: 150px;
@@ -351,7 +376,7 @@ input.only-num {
 	width: 100%;
 	height: auto;
 }
-/* 해쉬태그 관련 공통영역 */
+/* í•´ì‰¬íƒœê·¸ ê´€ë ¨ ê³µí†µì˜ì—­ */
 input.tag-input {
 	width: 260px;
 }
@@ -484,12 +509,12 @@ input[type="radio"]:checked + label span {
 	background-position: center;
 	background-image: url("../images/radio-on.png");
 }
-.checkbox-wrap {
-	margin-top: 25px;
-}
-.radio-wrap {
-	margin-bottom: 20px;
-}
+/*.checkbox-wrap {*/
+/*	margin-top: 25px;*/
+/*}*/
+/*.radio-wrap {*/
+/*	margin-bottom: 20px;*/
+/*}*/
 /* textarea common */
 textarea {
 	width: 100%;
@@ -504,11 +529,8 @@ textarea {
 }
 
 /* list-common start */
-.list-common {
-	margin-bottom: 30px;
-}
 .list-common-btn-wrap {
-	padding-bottom: 30px;
+	margin-top: 10px;
 }
 .list-common-btn-wrap .btn-wrap {
 	float: right;
@@ -557,6 +579,7 @@ textarea {
 	background-color: #e03030;
 }
 .list-common {
+	margin-bottom: 10px;
 	border-radius: 10px;
 	padding: 20px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
@@ -564,14 +587,14 @@ textarea {
 }
 .list-common-title {
 	font-weight: 500;
-	font-size: 17px;
+	font-size: 15px;
 	margin-bottom: 19px;
 	color: #007aff;
 }
 .list-common .list-wrap:first-child {
 	border-bottom: 1px solid #f1f1f1;
-	margin-bottom: 20px;
-	padding-bottom: 30px;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
 }
 .list-common .list-wrap .day-btn,
 .list-common .list-wrap .select-box,
@@ -608,14 +631,15 @@ textarea {
 .list-common .search-wrap .search-box .search-btn {
 	position: absolute;
 	top: 50%;
-	right: 20px;
+	left: 20px;
 	transform: translateY(-50%);
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
-	color: #565656;
-	font-size: 20px;
+	color: #afafaf;
+	font-size: 16px;
+	cursor: none;
 }
 .list-common .search-wrap .select-box,
 .list-common .search-wrap .search-wrap {
@@ -632,7 +656,6 @@ textarea {
 }
 .doit-list-option ul li {
 	width: 32.2%;
-	min-height: 140px;
 	float: left;
 	margin-right: 20px;
 	border-radius: 10px;
@@ -640,33 +663,36 @@ textarea {
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
 }
-.doit-list-option ul li:nth-child(even) {
-	margin-bottom: 20px;
-}
+/*.doit-list-option ul li:nth-child(even) {*/
+/*	margin-bottom: 20px;*/
+/*}*/
 .doit-list-option ul li:last-child {
 	margin-right: 0;
 }
 .doit-list-option ul li > .list-common-title{
-	margin-bottom: 31px;
+	margin-bottom: 10px;
 }
 /* table common */
 .table-wrap {
-	margin-top: 50px;
+	margin-top: 30px;
 }
-.table-wrap p {
-	margin-bottom: 20px;
+.table-wrap .top .left-wrap {
+	float: left;
+}
+.table-wrap .top .left-wrap p {
+	float: left;
+	display: inline-block;
+	line-height: 40px;
 	font-weight: 500;
 	font-size: 18px;
 	color: #484848;
 }
-.table-wrap p .data-num {
+.table-wrap .top .left-wrap p .data-num {
 	font-weight: 600;
 	font-size: 18px;
 }
-.table-wrap .top {
-	margin-bottom: 20px;
-}
-.table-wrap .top .select-box {
+.table-wrap .top .left-wrap .select-box {
+	float: left;
 	background-color: #ffffff;
 }
 .table-wrap .btn-wrap {
@@ -707,7 +733,7 @@ textarea {
 .table-wrap table thead th {
 	color: #007aff;
 	font-weight: 500;
-	font-size: 17px;
+	font-size: 15px;
 }
 .table-wrap table tbody tr:hover {
 	cursor: pointer;
@@ -875,7 +901,7 @@ textarea {
 .red-card-btn {
 	background-color: #900000;
 }
-/* 데이터 테이블 페이지네이션 */
+/* ë°ì´í„° í…Œì´ë¸” íŽ˜ì´ì§€ë„¤ì´ì…˜ */
 #dataTable_paginate {
 	display: flex;
 	display: -webkit-flex;

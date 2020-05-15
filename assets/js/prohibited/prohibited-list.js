@@ -60,7 +60,12 @@
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    	  	   width: "10%",    orderable: false,   className: "text-center" }
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				}
+				,{title: "No", 		data: "idx",    	  	   width: "10%",    orderable: false,   className: "text-center" }
 				,{title: "금칙어", 	data: "word",    	  	   width: "75%",  	orderable: false,   className: "text-center" }
 				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
@@ -85,7 +90,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'single',
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,

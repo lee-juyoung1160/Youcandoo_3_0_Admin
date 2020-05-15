@@ -68,12 +68,13 @@
 
 	function params()
 	{
-		let formData  = new FormData();
-		formData.append('faq-type ', selFaqType.val());
-		formData.append('faq-title', title.val());
-		formData.append('faq-contents', content.val());
-		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
+		let param = {
+			"faqTitle" : title.val()
+			,"faqContents" : content.val()
+			,"faqType" : selFaqType.val()
+			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+		}
 
-		return formData;
+		return JSON.stringify(param);
 	}
 

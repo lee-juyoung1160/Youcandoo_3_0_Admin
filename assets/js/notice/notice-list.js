@@ -141,7 +141,6 @@
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"orderby" : selSort.val()
 		}
 
 		return JSON.stringify(param);

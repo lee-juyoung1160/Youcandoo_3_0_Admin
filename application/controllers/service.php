@@ -8,16 +8,16 @@ class Service extends CI_Controller {
         switch ($Route)
         {
             case "list" :
-                $this->load->layout('notice/notice-list');
+                $this->load->layout('service/notice-list');
                 break;
             case "create":
-                $this->load->layout('notice/notice-create');
+                $this->load->layout('service/notice-create');
                 break;
             case "update":
-                $this->load->layout('notice/notice-update');
+                $this->load->layout('service/notice-update');
                 break;
             case "detail":
-                $this->load->layout('notice/notice-detail');
+                $this->load->layout('service/notice-detail');
                 break;
         }
     }
@@ -27,16 +27,16 @@ class Service extends CI_Controller {
         switch ($Route)
         {
             case "list" :
-                $this->load->layout('faq/faq-list');
+                $this->load->layout('service/faq-list');
                 break;
             case "create":
-                $this->load->layout('faq/faq-create');
+                $this->load->layout('service/faq-create');
                 break;
             case "update":
-                $this->load->layout('faq/faq-update');
+                $this->load->layout('service/faq-update');
                 break;
             case "detail":
-                $this->load->layout('faq/faq-detail');
+                $this->load->layout('service/faq-detail');
                 break;
         }
     }
@@ -46,16 +46,16 @@ class Service extends CI_Controller {
         switch ($Route)
         {
             case "list" :
-                $this->load->layout('event/event-list');
+                $this->load->layout('service/event-list');
                 break;
             case "create":
-                $this->load->layout('event/event-create');
+                $this->load->layout('service/event-create');
                 break;
             case "update":
-                $this->load->layout('event/event-update');
+                $this->load->layout('service/event-update');
                 break;
             case "detail":
-                $this->load->layout('event/event-detail');
+                $this->load->layout('service/event-detail');
                 break;
         }
     }
@@ -65,22 +65,22 @@ class Service extends CI_Controller {
         switch ($Route)
         {
             case "list" :
-                $this->load->layout('inquiry/inquiry-list');
+                $this->load->layout('service/inquiry-list');
                 break;
             case "create":
-                $this->load->layout('inquiry/inquiry-create');
+                $this->load->layout('service/inquiry-create');
                 break;
             case "update":
-                $this->load->layout('inquiry/inquiry-update');
+                $this->load->layout('service/inquiry-update');
                 break;
             case "detail":
-                $this->load->layout('inquiry/inquiry-detail');
+                $this->load->layout('service/inquiry-detail');
                 break;
         }
     }
 
     public function prohibition()
     {
-        $this->load->layout('prohibited/prohibited-list');
+        $this->load->layout('service/prohibited-list');
     }
 }

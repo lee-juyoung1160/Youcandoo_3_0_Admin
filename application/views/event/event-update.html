@@ -1,28 +1,35 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
+<link rel="stylesheet" href="/assets/css/create-common-jy.css">
 <link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
 <section class="event-create-page">
     <div class="inner">
         <h2 class="main-title">이벤트 수정</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-                <li class="clearfix">
-                    <p class="sub-title important">구분 (*)</p>
-                    <div class="select-box">
-                        <label for="selEventType">이벤트</label>
-                        <select id="selEventType">
-                            <option value="event">이벤트</option>
-                            <option value="event">종료</option>
-                            <option value="event">결과발표</option>
-                        </select>
+<!--                <li class="clearfix">-->
+<!--                    <p class="sub-title important">구분 (*)</p>-->
+<!--                    <div class="select-box">-->
+<!--                        <label for="selEventType">이벤트</label>-->
+<!--                        <select id="selEventType">-->
+<!--                            <option value="event">이벤트</option>-->
+<!--                            <option value="event">종료</option>-->
+<!--                            <option value="event">결과발표</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </li>-->
+                <li>
+                    <p class="sub-title important">제목 (*)</p>
+                    <div class="input-wrap">
+                        <input id="title" type="text" placeholder="제목을 입력해주세요.">
+                        <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">10</span></p>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">제목 (*)</p>
-                    <input id="title" type="text" placeholder="제목을 입력해주세요.">
-                </li>
-                <li>
                     <p class="sub-title important">내용 (*)</p>
-                    <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                    <div class="textarea-wrap">
+                        <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                        <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">1000</span> byte</p>
+                    </div>
                 </li>
                 <li class="clearfix">
                     <p class="sub-title important">썸네일 (*)</p>

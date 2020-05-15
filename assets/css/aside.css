@@ -8,37 +8,9 @@ aside {
     height: 50px;
     color: #7d7d7d;
     line-height: 50px;
-    padding-left: 283px;
+    padding-left: 250px;
     border-bottom: 1px solid #e0e0e0;
     background-color: #ffffff;
-}
-aside .route {
-    float: left;
-}
-aside .side-menu-wrap .route li {
-    float: left;
-    margin-right: 23px;
-    position: relative;
-    font-size: 16px;
-}
-aside .side-menu-wrap .route li:nth-child(n+2)::after {
-    content: "";
-    position: absolute;
-    top: 55%;
-    left: -15px;
-    width: 0;
-    height: 0;
-    margin-top: -1px;
-    border-left: 5px solid #7d7d7d;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    -webkit-transform: translateY(-55%);
-    -ms-transform: translateY(-55%);
-    -moz-transform: translateY(-55%);
-    -o-transform: translateY(-55%);
-}
-aside .side-menu-wrap .route li:last-child {
-    margin-right: 0;
 }
 aside .icon-wrap {
     float: right;

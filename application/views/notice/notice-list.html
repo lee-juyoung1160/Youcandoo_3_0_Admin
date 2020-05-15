@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/assets/css/notice-list.css">
 <section class="notice-list-page">
     <div class="inner">
-        <h2 class="main-title">공지사항 목록</h2>
-        <div class="list-common-btn-wrap right-btn clearfix">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">공지사항 목록</h2>
             <a href="/notice/create"><i class="fas fa-plus"></i>신규 등록</a>
         </div>
 
@@ -65,33 +65,28 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num"></strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="selPageLength">10개씩 보기</label>
-                    <select id="selPageLength">
-                        <option value="10">10개씩 보기</option>
-                        <option value="20">20개씩 보기</option>
-                        <option value="30">30개씩 보기</option>
-                    </select>
-                </div>
-                <div class="select-box">
-                    <label for="selSort">최신 순</label>
-                    <select id="selSort">
-                        <option value="desc">최신 순</option>
-                        <option value="asc">작성일 순</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
                     <!--
-                    dev:
-                    1.이미 상단고정인 경우의 행 클릭시  상단고정 제거 버튼 노출 (.delete-btn)
-                    2. 비활성화 .btn-disabled 추가
-                    -->
+                                       dev:
+                                       1.이미 상단고정인 경우의 행 클릭시  상단고정 제거 버튼 노출 (.delete-btn)
+                                       2. 비활성화 .btn-disabled 추가
+                                       -->
                     <button id="btnTop" class="btn-disabled" type="button"><i class="fas fas fa-bell"></i>상단고정</button>
-                    <!--button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>상단고정 제거</button-->
-                </div>
+                    <!--button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>상단고정 제거</button-->                </div>
             </div>
+
             <table id="dataTable">
                 <!--<colgroup>
                     <col style="width:5%;">

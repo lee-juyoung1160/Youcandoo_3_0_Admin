@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/assets/css/user-list.css">
 <section class="user-list-page">
     <div class="inner">
-        <h2 class="main-title">회원 목록</h2>
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">회원 목록</h2>
+        </div>
 
         <div class="modal-content">
             <div class="wrap">
@@ -101,15 +103,17 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num"></strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="selPageLength">1개씩 보기</label>
-                    <select id="selPageLength">
-                        <option value="10">10개씩 보기</option>
-                        <option value="20">20개씩 보기</option>
-                        <option value="30">30개씩 보기</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
                     <button class="stop-btn" type="button"><i class="fas fa-hand-paper"></i>이용정지</button>
@@ -117,6 +121,7 @@
                     <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
+
             <table id="dataTable">
                 <!--<colgroup>
                     <col style="width:5%;">

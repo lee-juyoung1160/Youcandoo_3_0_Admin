@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/assets/css/doit-category-list.css">
 <section class="doit-category-list-page">
     <div class="inner">
-        <h2 class="main-title">카테고리 목록</h2>
-        <div class="list-common-btn-wrap right-btn clearfix">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">카테고리 목록</h2>
             <a href="/doit/categoryListsCreate"><i class="fas fa-plus"></i>신규 등록</a>
         </div>
 
@@ -35,21 +35,23 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num">16</strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="ex_select4">10개씩 보기</label>
-                    <select id="ex_select4">
-                        <option selected>10개씩 보기</option>
-                        <option>10개씩 보기</option>
-                        <option>20개씩 보기</option>
-                        <option>30개씩 보기</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
                     <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
+
             <table>
                 <colgroup>
                     <col style="width:35%;">

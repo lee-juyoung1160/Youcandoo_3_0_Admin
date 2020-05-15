@@ -305,6 +305,7 @@
 
     $(document).ready(function () {
         //getProfile();
+        activeMenu();
     })
 
     function getProfile()
@@ -312,8 +313,6 @@
         $.ajax({
             url: api.createPromotion,
             type: "POST",
-            processData: false,
-            contentType: false,
             headers: headers,
             data: params(),
             success: function(data) {
@@ -325,4 +324,15 @@
                 console.log(status);
             }
         });
+    }
+
+    function activeMenu()
+    {
+        let pathName = window.location.pathname;
+        let menuList = $('nav').find('a');
+        $(menuList).each(function () {
+            let menuPath = $(this).attr('href');
+            if (pathName === menuPath)
+                $(this).parents('li').addClass('active');
+        })
     }

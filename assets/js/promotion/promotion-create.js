@@ -1,19 +1,19 @@
 
-	const bizName 		= $("#bizName");
-	const promoName		= $("#promoName");
-	const promoFrom	 	= $("#promoFrom");
-	const promoTo		= $("#promoTo");
-	const inputFile 	= $("input:file");
-	const budget 		= $("#budget");
-	const banner		= $("#banner");
-	const thumbnail		= $("#thumbnail");
-	const btnSubmit		= $("#btnSubmit");
-	const frequency		= $("#frequency");
-	const doitType		= $("input[name=radio-doit-type]");
-	const isBanner		= $("input[name=radio-banner-open]");
+	const bizName 		  = $("#bizName");
+	const promoName		  = $("#promoName");
+	const promoFrom	 	  = $("#promoFrom");
+	const promoTo		  = $("#promoTo");
+	const inputFile 	  = $("input:file");
+	const budget 		  = $("#budget");
+	const banner		  = $("#banner");
+	const thumbnail		  = $("#thumbnail");
+	const btnSubmit		  = $("#btnSubmit");
+	const frequency		  = $("#frequency");
+	const doitType		  = $("input[name=radio-doit-type]");
+	const isBanner		  = $("input[name=radio-banner-open]");
 	const rewardListTitle = $("#rewardListTitle");
-	const btnNoticeAdd	= $("#btnNoticeAdd");
-	const noticeArea	= $("#noticeArea");
+	const btnNoticeAdd	  = $("#btnNoticeAdd");
+	const noticeArea	  = $("#noticeArea");
 
 	/** modal **/
 	const btnAddReward 		= $("#btnAddReward");
@@ -100,7 +100,7 @@
 			let noticeDom = '';
 			noticeDom += '<li>';
 			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(noticeLen+1)+'</p>';
-			noticeDom += 	'<input type="text" placeholder="유의사항을 입력해주세요.">';
+			noticeDom += 	'<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요.">';
 			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
 			noticeDom += '</li>';
 
@@ -195,7 +195,8 @@
 	{
 		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
-		let rewardList 		= $('#rewardListArea .enrollment');
+		let rewardList 		= $("#rewardListArea .enrollment");
+		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
 		{
@@ -229,6 +230,12 @@
 		{
 			alert('프로모션기간(종료일)은 ' + message.required);
 			promoTo.focus();
+			return false;
+		}
+
+		if (promotionNotice.length === 0)
+		{
+			alert('유의사항을 ' + message.needMore);
 			return false;
 		}
 
@@ -269,6 +276,13 @@
 		formData.append("promotion-list-image", paramThumbnailFile);
 		formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
+
+		let promotionNotice = $("input[name=promo-notice]");
+		let notice = [];
+		promotionNotice.each(function () {
+			notice.push($(this).val());
+		});
+		formData.append("promotion_notice", JSON.stringify(notice));
 
 		let reward = [];
 		rewardList.each(function () {
@@ -315,6 +329,17 @@
 
 	function onSubmitPromo()
 	{
+		let promotionNotice = $("input[name=promo-notice]");
+		if (promotionNotice.length > 0)
+		{
+			promotionNotice.each(function () {
+				if (isEmpty($(this).val()))
+				{
+					alert('유의사항은 ' + message.required);
+					return;
+				}
+			})
+		}
 		if (validation())
 		{
 			if (confirm(message.create))
@@ -329,7 +354,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/promotion/lists'
+							location.href = '/pro/lists'
 					},
 					error: function (request, status) {
 						console.log(status);

@@ -58,7 +58,7 @@
 		$("#goalRange").ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 0,
+			min: 80,
 			max: 100,
 			from: 80,
 			step: 1,
@@ -77,8 +77,8 @@
 		$("#rewardRange").ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 0,
-			max: 100,
+			min: 10,
+			max: 90,
 			from: 50,
 			step: 10,
 			onStart: function(data) {
@@ -240,6 +240,12 @@
 			return false;
 		}
 
+		if (promotionNotice.length > 0 && isEmptyNotice())
+		{
+			alert('유의사항은 ' + message.required);
+			return false;
+		}
+
 		if (isEmpty(allowCount.val()))
 		{
 			alert('참여가능 횟수는 ' + message.required);
@@ -267,6 +273,18 @@
 		}
 
 		return true;
+	}
+
+	function isEmptyNotice()
+	{
+		let retVal = false;
+		let promotionNotice = $("input[name=promo-notice]");
+		promotionNotice.each(function () {
+			if (isEmpty($(this).val()))
+				retVal = true;
+		})
+
+		return retVal;
 	}
 
 	function params()
@@ -338,17 +356,6 @@
 
 	function onSubmitPromo()
 	{
-		let promotionNotice = $("input[name=promo-notice]");
-		if (promotionNotice.length > 0)
-		{
-			promotionNotice.each(function () {
-				if (isEmpty($(this).val()))
-				{
-					alert('유의사항은 ' + message.required);
-					return;
-				}
-			})
-		}
 		if (validation())
 		{
 			if (confirm(message.create))

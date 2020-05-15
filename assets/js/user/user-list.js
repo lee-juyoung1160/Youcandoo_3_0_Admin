@@ -65,11 +65,11 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return tableCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
-				}*/
+				},
 				{title: "닉네임", 		data: "nickname",   width: "25%",    orderable: false,   className: "text-center" }
 				,{title: "전화번호", 	data: "phone",   	width: "25%",    orderable: false,   className: "text-center" }
 				,{title: "가입일", 		data: "created",    width: "25%",    orderable: false,   className: "text-center",

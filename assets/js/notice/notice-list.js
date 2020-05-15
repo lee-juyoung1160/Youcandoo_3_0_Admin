@@ -246,7 +246,7 @@
 					if (isSuccessResp(data))
 					{
 						disableStatusBtnTop();
-						buildGrid();
+						dataTable.DataTable().draw();
 					}
 					else
 						alert(invalidResp(data));

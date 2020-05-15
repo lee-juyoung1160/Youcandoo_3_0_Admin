@@ -29,8 +29,9 @@
 	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
+		,getProfile : baseApiUrl+'admin/get'
 		,createAdmin : baseApiUrl+'admin/create'
-		,deleteAdmin : 'admin/delete'
+		,deleteAdmin : baseApiUrl+'admin/delete'
 		,updateAdmin : ''
 		,listAdmin : baseApiUrl+'admin/list'
 		,createAdminAuth : baseApiUrl+'auth/create'
@@ -67,6 +68,7 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,selectReward : baseApiUrl+'promotion/getReward'
+
 	}
 
 	const label = {

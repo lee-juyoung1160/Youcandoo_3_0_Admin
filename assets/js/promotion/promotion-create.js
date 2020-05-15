@@ -1,19 +1,20 @@
 
-	const bizName 		= $("#bizName");
-	const promoName		= $("#promoName");
-	const promoFrom	 	= $("#promoFrom");
-	const promoTo		= $("#promoTo");
-	const inputFile 	= $("input:file");
-	const budget 		= $("#budget");
-	const banner		= $("#banner");
-	const thumbnail		= $("#thumbnail");
-	const btnSubmit		= $("#btnSubmit");
-	const frequency		= $("#frequency");
-	const doitType		= $("input[name=radio-doit-type]");
-	const isBanner		= $("input[name=radio-banner-open]");
+	const bizName 		  = $("#bizName");
+	const promoName		  = $("#promoName");
+	const promoFrom	 	  = $("#promoFrom");
+	const promoTo		  = $("#promoTo");
+	const inputFile 	  = $("input:file");
+	const budget 		  = $("#budget");
+	const banner		  = $("#banner");
+	const thumbnail		  = $("#thumbnail");
+	const btnSubmit		  = $("#btnSubmit");
+	const frequency		  = $("#frequency");
+	const doitType		  = $("input[name=radio-doit-type]");
+	const isBanner		  = $("input[name=radio-banner-open]");
 	const rewardListTitle = $("#rewardListTitle");
-	const btnNoticeAdd	= $("#btnNoticeAdd");
-	const noticeArea	= $("#noticeArea");
+	const btnNoticeAdd	  = $("#btnNoticeAdd");
+	const noticeArea	  = $("#noticeArea");
+	const allowCount	  = $("#allowCount");
 
 	/** modal **/
 	const btnAddReward 		= $("#btnAddReward");
@@ -57,7 +58,7 @@
 		$("#goalRange").ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 0,
+			min: 80,
 			max: 100,
 			from: 80,
 			step: 1,
@@ -76,8 +77,8 @@
 		$("#rewardRange").ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 0,
-			max: 100,
+			min: 10,
+			max: 90,
 			from: 50,
 			step: 10,
 			onStart: function(data) {
@@ -100,7 +101,7 @@
 			let noticeDom = '';
 			noticeDom += '<li>';
 			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(noticeLen+1)+'</p>';
-			noticeDom += 	'<input type="text" placeholder="유의사항을 입력해주세요.">';
+			noticeDom += 	'<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요.">';
 			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
 			noticeDom += '</li>';
 
@@ -195,7 +196,8 @@
 	{
 		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
-		let rewardList 		= $('#rewardListArea .enrollment');
+		let rewardList 		= $("#rewardListArea .enrollment");
+		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
 		{
@@ -232,6 +234,25 @@
 			return false;
 		}
 
+		if (promotionNotice.length === 0)
+		{
+			alert('유의사항을 ' + message.needMore);
+			return false;
+		}
+
+		if (promotionNotice.length > 0 && isEmptyNotice())
+		{
+			alert('유의사항은 ' + message.required);
+			return false;
+		}
+
+		if (isEmpty(allowCount.val()))
+		{
+			alert('참여가능 횟수는 ' + message.required);
+			allowCount.focus();
+			return false;
+		}
+
 		if (bannerFile.length === 0)
 		{
 			alert('배너 이미지는 ' + message.required);
@@ -254,21 +275,41 @@
 		return true;
 	}
 
+	function isEmptyNotice()
+	{
+		let retVal = false;
+		let promotionNotice = $("input[name=promo-notice]");
+		promotionNotice.each(function () {
+			if (isEmpty($(this).val()))
+				retVal = true;
+		})
+
+		return retVal;
+	}
+
 	function params()
 	{
 		let rewardList 			= $('#rewardListArea .enrollment');
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
-		formData.append("company-name", bizName.val());
-		formData.append("promotion-title", promoName.val());
-		formData.append("promotion-budget-ucd", budget.val());
-		formData.append("promotion-start-date", promoFrom.val());
-		formData.append("promotion-end-date", promoTo.val());
+		formData.append("company-name", bizName.val().trim());
+		formData.append("promotion-title", promoName.val().trim());
+		formData.append("promotion-budget-ucd", budget.val().trim());
+		formData.append("promotion-start-date", promoFrom.val().trim());
+		formData.append("promotion-end-date", promoTo.val().trim());
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramThumbnailFile);
 		formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
+		formData.append("promotion-allow-count", allowCount.val().trim());
+
+		let promotionNotice = $("input[name=promo-notice]");
+		let notice = [];
+		promotionNotice.each(function () {
+			notice.push($(this).val().trim());
+		});
+		formData.append("promotion_notice", JSON.stringify(notice));
 
 		let reward = [];
 		rewardList.each(function () {
@@ -329,7 +370,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/promotion/lists'
+							location.href = '/pro/lists'
 					},
 					error: function (request, status) {
 						console.log(status);
@@ -450,14 +491,14 @@
 		rewardDom += 			frequency.html();
 		rewardDom += 		'</ul>';
 		rewardDom += 	'<li>';
-		rewardDom += 	'<input type="hidden" data-title="'+modalRwrdTitle.val()+'">';
-		rewardDom += 	'<input type="hidden" data-start="'+rewardFrom.val()+'">';
-		rewardDom += 	'<input type="hidden" data-end="'+rewardTo.val()+'">';
-		rewardDom += 	'<input type="hidden" data-certcount="'+certCount.val()+'">';
-		rewardDom += 	'<input type="hidden" data-goalrate="'+goalRate.val()+'">';
-		rewardDom += 	'<input type="hidden" data-maxucd="'+maxUcd.val()+'">';
-		rewardDom += 	'<input type="hidden" data-individual="'+individualRate.val()+'">';
-		rewardDom += 	'<input type="hidden" data-group="'+groupRate.val()+'">';
+		rewardDom += 	'<input type="hidden" data-title="'+modalRwrdTitle.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-start="'+rewardFrom.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-end="'+rewardTo.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-certcount="'+certCount.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-goalrate="'+goalRate.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-maxucd="'+maxUcd.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-individual="'+individualRate.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-group="'+groupRate.val().trim()+'">';
 		frequency.find('li').each(function (index) {
 			let DomValue 	= 'N';
 			if ($(this).hasClass('active'))

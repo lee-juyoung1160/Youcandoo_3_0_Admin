@@ -40,7 +40,6 @@
 
 	function buildGrid()
 	{
-		console.log(api.listBiz)
 		dataTable.DataTable({
 			ajax : {
 				url: api.listBiz,

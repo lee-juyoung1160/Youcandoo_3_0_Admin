@@ -70,7 +70,7 @@
 			columns: [
 				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return tableCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
 				}
 				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }

@@ -284,9 +284,14 @@
         return chkAll;
     }
 
-    function tableCheckBoxDom(idx)
+    function singleCheckBoxDom(idx)
     {
         return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+    }
+
+    function multiCheckBoxDom(idx)
+    {
+        return '<input type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
     }
 
     function toggleSingleCheckBox(obj)
@@ -296,4 +301,28 @@
             if (this.id !== obj.id)
                 $(this).prop('checked', false);
         })
+    }
+
+    $(document).ready(function () {
+        //getProfile();
+    })
+
+    function getProfile()
+    {
+        $.ajax({
+            url: api.createPromotion,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            headers: headers,
+            data: params(),
+            success: function(data) {
+                alert(getStatusMessage(data));
+                if (isSuccessResp(data))
+                    location.href = '/promotion/lists'
+            },
+            error: function (request, status) {
+                console.log(status);
+            }
+        });
     }

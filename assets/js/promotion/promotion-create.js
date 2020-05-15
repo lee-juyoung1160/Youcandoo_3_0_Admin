@@ -15,6 +15,7 @@
 	const btnNoticeAdd	  = $("#btnNoticeAdd");
 	const noticeArea	  = $("#noticeArea");
 	const allowCount	  = $("#allowCount");
+	const maxUserLimit	  = $("#maxUserLimit");
 
 	/** modal **/
 	const btnAddReward 		= $("#btnAddReward");
@@ -253,6 +254,13 @@
 			return false;
 		}
 
+		if (isEmpty(maxUserLimit.val()))
+		{
+			alert('최대 참여 인원은 ' + message.required);
+			maxUserLimit.focus();
+			return false;
+		}
+
 		if (bannerFile.length === 0)
 		{
 			alert('배너 이미지는 ' + message.required);
@@ -303,6 +311,7 @@
 		formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 		formData.append("promotion-allow-count", allowCount.val().trim());
+		formData.append("promotion-max-user-limit", maxUserLimit.val().trim());
 
 		let promotionNotice = $("input[name=promo-notice]");
 		let notice = [];

@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	/*const selSort		= $("#selSort");*/
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/

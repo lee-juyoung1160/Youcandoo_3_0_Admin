@@ -30,6 +30,7 @@
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
 		,getProfile : baseApiUrl+'admin/get'
+		,updateProfile : baseApiUrl+'update/pwd'
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'
 		,updateAdmin : ''
@@ -71,7 +72,6 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,selectReward : baseApiUrl+'promotion/getReward'
-
 	}
 
 	const label = {

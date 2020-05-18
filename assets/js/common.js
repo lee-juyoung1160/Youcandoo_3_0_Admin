@@ -303,28 +303,6 @@
         })
     }
 
-    function getProfile()
-    {
-        $.ajax({
-            url: api.createPromotion,
-            type: "POST",
-            headers: headers,
-            data: params(),
-            success: function(data) {
-                if (isSuccessResp(data))
-                    buildProfile(data);
-            },
-            error: function (request, status) {
-                console.log(status);
-            }
-        });
-    }
-
-    function buildProfile(data)
-    {
-
-    }
-
     function activeMenu()
     {
         let pathName       = getPathName();

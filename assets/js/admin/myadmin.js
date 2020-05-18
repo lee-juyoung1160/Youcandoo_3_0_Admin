@@ -1,0 +1,121 @@
+
+	const btnProfileModify  = $("#btnProfileModify");
+	const myProfile			= $("#myProfile");
+	const adminId			= $("#adminId");
+	const myId 				= $("#myId");
+	const myName 			= $("#myName");
+	const myEmail 			= $("#myEmail");
+	const password 			= $("#password");
+	const passwordChk 		= $("#passwordChk");
+	const btnSubmit 		= $("#btnSubmit");
+	const search 			= $(".search");
+	const reset 			= $(".reset");
+	const dataNum			= $(".data-num");
+
+	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initSearchDatepicker();
+		/** 검색 폼 초기화 **/
+		initSearchForm();
+		/** 로그인 관리자 정보 **/
+		getProfile();
+		/** 이벤트 **/
+		btnProfileModify	.on('click', function () { toggleProfile(this); })
+		btnSubmit			.on('click', function () { onSubmitProfile(this); })
+		search				.on("click", function () { onSubmitSearch(); });
+		reset				.on("click", function () { initSearchForm(); });
+		dayButtons      	.on("click", function () { onClickActiveAloneDayBtn(this); });
+	});
+
+	function initSearchForm()
+	{
+		/** 검색범위 초기화 **/
+		onClickActiveAloneDayBtn($(".btn_week"));
+	}
+
+	/** 프로필 상세 영역 toggle **/
+	function toggleProfile(obj)
+	{
+		$(obj).toggleClass('active');
+		myProfile.toggleClass('active');
+	}
+
+	function getProfile()
+	{
+		$.ajax({
+			url: api.getProfile,
+			type: "POST",
+			headers : headers,
+			data: JSON.stringify({"userid" : adminId.val()}),
+			success: function(data) {
+				if (isSuccessResp(data))
+					buildProfile(data)
+				else
+					alert(invalidResp(data));
+			},
+			error: function (request, status) {
+				console.log(status);
+			}
+		});
+	}
+
+	function buildProfile(data)
+	{
+		let jsonData  = JSON.parse(data);
+
+		myId.html(jsonData.data.userid);
+		myName.html(jsonData.data.name);
+		myEmail.html(jsonData.data.email);
+	}
+
+	function validation()
+	{
+		if (isEmpty(password.val()))
+		{
+			alert('비밀번호는 ' + message.required);
+			password.focus();
+			return false;
+		}
+
+		if (password.val() !== passwordChk.val())
+		{
+			alert('비밀번호를 ' + message.doubleChk);
+			password.focus();
+			return false;
+		}
+
+		return true;
+	}
+
+	function updateParams()
+	{
+		let param = {
+			"userid" : adminId.val()
+			,"password" : password.val()
+		}
+		return JSON.stringify(param);
+	}
+
+	function onSubmitProfile()
+	{
+		if (validation())
+		{
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.updateProfile,
+					type: "POST",
+					headers : headers,
+					data: updateParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							getProfile();
+					},
+					error: function (request, status) {
+						console.log(status);
+					}
+				});
+			}
+		}
+	}

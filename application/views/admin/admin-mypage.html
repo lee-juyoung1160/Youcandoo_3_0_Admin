@@ -4,59 +4,58 @@
     <div class="inner">
         <h2 class="main-title">프로필 관리</h2>
         <div class="list-common-btn-wrap right-btn clearfix">
-            <button type="button" class="update-btn">
+            <button id="btnProfileModify" type="button" class="update-btn">
                 <i class="fas fa-plus"></i> 프로필 수정하기
             </button>
         </div>
 
-        <form action="#" class="update-list">
-            <div class="wrap">
-                <ul class="enrollment clearfix">
-                    <li>
-                        <div class="top clearfix">
-                            <p class="sub-title">아이디</p>
-                            <i class="far fa-window-close"></i>
-                            <span>변경 불가능</span>
-                        </div>
-                        <p class="detail-data">admin</p>
-                    </li>
-                    <li>
-                        <div class="top clearfix">
-                            <p class="sub-title">이름</p>
-                            <i class="far fa-window-close"></i>
-                            <span>변경 불가능</span>
-                        </div>
-                        <p class="detail-data">어피치</p>
-                    </li>
-                    <li>
-                        <div class="top clearfix">
-                            <p class="sub-title">이메일</p>
-                            <i class="far fa-window-close"></i>
-                            <span>변경 불가능</span>
-                        </div>
-                        <p class="detail-data">email@kakaokids.com</p>
-                    </li>
-                    <li>
-                        <p class="sub-title important">비밀번호(*)</p>
-                        <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
-                    </li>
-                    <li>
-                        <p class="sub-title important">비밀번호 확인(*)</p>
-                        <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
-                    </li>
-                    <li>
-                        <button class="completion-btn" type="submit">수정 완료</button>
-                    </li>
-                </ul>
-            </div>
-        </form>
+        <div id="myProfile" class="wrap update-list">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="top clearfix">
+                        <p class="sub-title">아이디</p>
+                        <i class="far fa-window-close"></i>
+                        <span>변경 불가능</span>
+                    </div>
+                    <p class="detail-data" id="myId"></p>
+                </li>
+                <li>
+                    <div class="top clearfix">
+                        <p class="sub-title">이름</p>
+                        <i class="far fa-window-close"></i>
+                        <span>변경 불가능</span>
+                    </div>
+                    <p class="detail-data" id="myName"></p>
+                </li>
+                <li>
+                    <div class="top clearfix">
+                        <p class="sub-title">이메일</p>
+                        <i class="far fa-window-close"></i>
+                        <span>변경 불가능</span>
+                    </div>
+                    <p class="detail-data" id="myEmail"></p>
+                </li>
+                <li>
+                    <p class="sub-title important">비밀번호(*)</p>
+                    <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                </li>
+                <li>
+                    <p class="sub-title important">비밀번호 확인(*)</p>
+                    <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
+                </li>
+            </ul>
+        </div>
+
         <div class="list-common">
             <div class="list-wrap clearfix" style="border: 0; padding-bottom: 0; margin-bottom: 0;">
                 <p class="list-common-title">날짜</p>
                 <div class="date-wrap">
-                    <input type="text" class="datepicker date_from hasDatepicker" id="dp1589251573308">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="text" class="datepicker date_to hasDatepicker" id="dp1589251573309">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
                     <li class="btn_today">오늘</li>
@@ -155,20 +154,5 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/admin/admin-list.js"></script>
-<script>
-
-    // 프로필 수정하기 이벤트
-   let updateBtn = document.querySelector('.admin-mypage-page .list-common-btn-wrap button');
-   let updateList = document.querySelector('.admin-mypage-page .update-list');
-
-    updateBtn.addEventListener('click', function () {
-        if (!updateBtn.classList.contains('active')) {
-            updateBtn.classList.add('active');
-            updateList.classList.add('active');
-        } else {
-            updateBtn.classList.remove('active');
-            updateList.classList.remove('active');
-        }
-    });
-</script>
+<input id="adminId" type="hidden" value=<?php echo $this->session->userdata['user_data']->userid;?>>
+<script src="/assets/js/admin/myadmin.js"></script>

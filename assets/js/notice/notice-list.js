@@ -236,11 +236,11 @@
 				async: false,
 				data: JSON.stringify(topParams),
 				success: function(data) {
-
+					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
 					{
 						disableStatusBtnTop();
-						dataTable.DataTable().draw();
+						buildGrid();
 					}
 					else
 						alert(invalidResp(data));

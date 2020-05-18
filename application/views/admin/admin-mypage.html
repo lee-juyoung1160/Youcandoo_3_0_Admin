@@ -42,6 +42,7 @@
                 <li>
                     <p class="sub-title important">비밀번호 확인(*)</p>
                     <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                    <small id="passwordChkTxt" style="color:red;"></small>
                 </li>
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
@@ -73,17 +74,18 @@
         </div>
 
         <div class="table-wrap">
-            <p>Total <strong class="data-num"></strong></p>
             <div class="top clearfix">
-                <div class="select-box">
-                    <label for="selPageLength">10개씩 보기</label>
-                    <select id="selPageLength">
-                        <option value="10">10개씩 보기</option>
-                        <option value="20">20개씩 보기</option>
-                        <option value="30">30개씩 보기</option>
-                    </select>
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
-
                 <div class="btn-wrap">
                     <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>

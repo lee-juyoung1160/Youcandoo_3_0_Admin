@@ -7,6 +7,7 @@
 	const myEmail 			= $("#myEmail");
 	const password 			= $("#password");
 	const passwordChk 		= $("#passwordChk");
+	const passwordChkTxt	= $("#passwordChkTxt");
 	const btnSubmit 		= $("#btnSubmit");
 	const search 			= $(".search");
 	const reset 			= $(".reset");
@@ -25,6 +26,8 @@
 		search				.on("click", function () { onSubmitSearch(); });
 		reset				.on("click", function () { initSearchForm(); });
 		dayButtons      	.on("click", function () { onClickActiveAloneDayBtn(this); });
+		password      		.on("keyup", function () { onKeyupPassword(); });
+		passwordChk      	.on("keyup", function () { onKeyupPasswordChk(); });
 	});
 
 	function initSearchForm()
@@ -38,6 +41,20 @@
 	{
 		$(obj).toggleClass('active');
 		myProfile.toggleClass('active');
+	}
+
+	function onKeyupPassword()
+	{
+		passwordChk.val('');
+		passwordChkTxt.html('');
+	}
+
+	function onKeyupPasswordChk()
+	{
+		if (password.val() !== passwordChk.val())
+			passwordChkTxt.html('비밀번호가 일지하지 않습니다.');
+		else
+			passwordChkTxt.html('');
 	}
 
 	function getProfile()
@@ -77,10 +94,17 @@
 			return false;
 		}
 
+		if (isEmpty(passwordChk.val()))
+		{
+			alert('비밀번호 확인을 ' + message.input);
+			passwordChk.focus();
+			return false;
+		}
+
 		if (password.val() !== passwordChk.val())
 		{
 			alert('비밀번호를 ' + message.doubleChk);
-			password.focus();
+			passwordChk.focus();
 			return false;
 		}
 
@@ -93,6 +117,7 @@
 			"userid" : adminId.val()
 			,"password" : password.val()
 		}
+
 		return JSON.stringify(param);
 	}
 
@@ -100,7 +125,7 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(message.modify))
 			{
 				$.ajax({
 					url: api.updateProfile,

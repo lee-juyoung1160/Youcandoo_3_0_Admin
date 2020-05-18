@@ -50,22 +50,15 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    		width: "5%",      		orderable: false,   className: "text-center" }
-				/* ,{title: "구분", 	data: "event_type",    	width: "event_type",     orderable: false,   className: "text-center" } */
-				,{title: "제목", 	data: "title",  		width: "title",    		orderable: false,   className: "text-center" }
-				,{title: "기간", 	data: "start_date",  	width: "start_date",    	orderable: false,   className: "text-center" }
-				,{title: "노출여부", data: "is_exposure",  	width: "is_exposure",  	   orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    		width: "10%",    orderable: false,   className: "text-center" }
+				/* ,{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" } */
+				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
+				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center" }
+				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
@@ -106,7 +99,6 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -130,9 +122,14 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(1);
+		let periodDom = $(nRow).children().eq(2);
 		let detailUrl = '/service/event/detail/'+aData.idx;
+
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+
+		/** 기간 추가 **/
+		$(periodDom).html(aData.start_date +' ~ '+ aData.end_date);
 	}
 
 	function onSubmitSearch()

@@ -56,13 +56,13 @@
 			columns: [
 				{title: "No", 		data: "idx",   	 		width: "10%",      	orderable: false,   className: "text-center" }
 				,{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center" }
-				,{title: "제목", 	data: "title",   		width: "40%",    	orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "text-center" }
 				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성일", 	data: "created_datetime",  width: "20%",   	orderable: false,   className: "text-center",
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",   	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

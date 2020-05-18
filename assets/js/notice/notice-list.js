@@ -57,13 +57,6 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
 				}
 			},
@@ -118,14 +111,12 @@
 
 				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
-
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				setRowAttributes(nRow, aData);
 			}
 		});

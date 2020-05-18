@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	/*const selSort		= $("#selSort");*/
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
 	let iconTop 		= '<i class="fas fas fa-bell"></i>';
@@ -151,9 +151,10 @@
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
+		let detailUrl = '/service/notice/detail/'+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')

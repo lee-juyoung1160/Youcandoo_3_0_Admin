@@ -1,29 +1,31 @@
 
-	const doitTitle		= $("#doitTitle");
-	const bizName 		= $("#bizName");
-	const selPromo 		= $("#selPromo");
-	const selReward 	= $("#selReward");
-	const btnPromoInfo 	= $("#btnPromoInfo");
+	const doitTitle			= $("#doitTitle");
+	const bizName 			= $("#bizName");
+	const selPromo 			= $("#selPromo");
+	const selReward 		= $("#selReward");
+	const btnPromoInfo 		= $("#btnPromoInfo");
 	const selectedRewardArea    = $("#selectedRewardArea")
-	const maxUser 		= $("#maxUser");
-	const chkExtraReward		= $("input[name=chkExtraReward]");
-	const extraReward	= $("#ucd-area");
-	const inputTag		= $("#inputTag");
-	const addTag		= $("#addTag");
-	const tagList		= $("#tagList");
-	const introFileType = $("input[name=radio-intro-type]");
-	const introFileArea	= $("#introFileArea");
-	const doitFrom	    = $("#doitFrom");
-	const doitTo	    = $("#doitTo");
-	const startTime	    = $("#startTime");
-	const endTime	    = $("#endTime");
-	const chkAccessUser = $("input[name=chkAccessUser]");
-	const privateCode 	= $("#privateCode");
-	const exampleType 	= $("input[name=radio-example-type]");
-	const exampleDesc 	= $("#exampleDesc");
-	const doitDesc 		= $("#doitDesc");
-	const exampleArea 	= $("#exampleArea");
-	const btnSubmit		= $("#btnSubmit");
+	const maxUser 			= $("#maxUser");
+	const chkExtraReward	= $("input[name=chkExtraReward]");
+	const extraReward		= $("#ucd-area");
+	const inputTag			= $("#inputTag");
+	const addTag			= $("#addTag");
+	const tagList			= $("#tagList");
+	const introFileType 	= $("input[name=radio-intro-type]");
+	const introFileArea		= $("#introFileArea");
+	const doitFrom	    	= $("#doitFrom");
+	const doitTo	    	= $("#doitTo");
+	const startTime	    	= $("#startTime");
+	const endTime	    	= $("#endTime");
+	const chkAccessUser 	= $("input[name=chkAccessUser]");
+	const privateCode 		= $("#privateCode");
+	const exampleType 		= $("input[name=radio-example-type]");
+	const exampleDesc 		= $("#exampleDesc");
+	const doitDesc 			= $("#doitDesc");
+	const exampleArea 		= $("#exampleArea");
+	const labelSelPromo 	= $("label[for='selPromo']");
+	const labelSelReward 	= $("label[for='selReward']");
+	const btnSubmit			= $("#btnSubmit");
 
 	/** modal **/
 	const modalCloseBtn 	= $(".close-btn");
@@ -187,6 +189,31 @@
 			return false;
 		}
 
+		if (isEmpty(doitDesc.val()))
+		{
+			alert('소개글은 '+message.required);
+			doitDesc.focus();
+			return false;
+		}
+
+		if (isEmpty(tagLen < 1))
+		{
+			alert('태그를 ' + message.needMore);
+			return false;
+		}
+
+		if (introImageFile.length === 0)
+		{
+			alert('두잇 소개 이미지는 ' + message.required);
+			return false;
+		}
+
+		if ($('input:radio[name=radio-doit-type]:checked').val() === 'video' && introVideoFile.length === 0)
+		{
+			alert('두잇 소개 영상은 ' + message.required);
+			return false;
+		}
+
 		if (isEmpty(bizName.val()))
 		{
 			alert('기업명은 ' + message.required);
@@ -212,24 +239,6 @@
 		{
 			alert('최대모집인원은 ' + message.required);
 			maxUser.focus();
-			return false;
-		}
-
-		if (isEmpty(tagLen < 1))
-		{
-			alert('태그를 ' + message.needMore);
-			return false;
-		}
-
-		if (introImageFile.length === 0)
-		{
-			alert('두잇 소개 이미지는 ' + message.required);
-			return false;
-		}
-
-		if ($('input:radio[name=radio-doit-type]:checked').val() === 'video' && introVideoFile.length === 0)
-		{
-			alert('두잇 소개 영상은 ' + message.required);
 			return false;
 		}
 
@@ -296,13 +305,6 @@
 			return false;
 		}
 
-		if (isEmpty(doitDesc.val()))
-		{
-			alert('소개글은 '+message.required);
-			doitDesc.focus();
-			return false;
-		}
-
 		return true;
 	}
 
@@ -324,11 +326,11 @@
 		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
 			paramExampleVoice	= $("#exampleFile")[0].files[0];
 		let formData  = new FormData();
-		formData.append('doit-title', doitTitle.val());
+		formData.append('doit-title', doitTitle.val().trim());
 		formData.append('company-uuid', bizUuid);
-		formData.append('promotion-uuid', selPromo.val());
-		formData.append('reward-uuid', selReward.val());
-		formData.append('max-user', maxUser.val());
+		formData.append('promotion-uuid', selPromo.val().trim());
+		formData.append('reward-uuid', selReward.val().trim());
+		formData.append('max-user', maxUser.val().trim());
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);
@@ -337,13 +339,13 @@
 		formData.append('action-end-date', doitTo.val());
 		formData.append('action-allow-start-time', startTime.val()+':00');
 		formData.append('action-allow-end-time', endTime.val()+':59');
-		formData.append('private-code', privateCode.val());
+		formData.append('private-code', privateCode.val().trim());
 		formData.append('action-example-resource-type', $('input:radio[name=radio-example-type]:checked').val());
 		formData.append('action-example-image-file', paramExample);
 		formData.append('action-example-video-file', paramExampleVideo);
 		formData.append('action-example-voice-file', paramExampleVoice);
-		formData.append('action-description', exampleDesc.val());
-		formData.append('doit-description', doitDesc.val());
+		formData.append('action-description', exampleDesc.val().trim());
+		formData.append('doit-description', doitDesc.val().trim());
 
 		return formData;
 	}
@@ -382,6 +384,14 @@
 	let bizUuid;
 	function onKeyupBizName()
 	{
+		buildOptionPromo();
+		buildOptionReward();
+		buildSelectedReward();
+		autoCompleteBizName();
+	}
+
+	function autoCompleteBizName()
+	{
 		bizName.autocomplete({
 			source: function (request, response) {
 				$.ajax({
@@ -405,6 +415,8 @@
 				});
 			},
 			focus: function( event, ui ) {
+				console.log(ui.item)
+				event.preventDefault();
 				return false;
 			},
 			select: function( event, ui ) {
@@ -412,8 +424,9 @@
 				getInvolvePromo();
 			},
 			matchContains: true,
+			autoFocus: true,
 			delay: 300,
-			minLength: 2
+			minLength: 1
 		});
 	}
 
@@ -426,16 +439,7 @@
 			headers: headers,
 			data: JSON.stringify({"company_uuid" : bizUuid}),
 			success: function(data) {
-				selPromo.empty();
-				if (isSuccessResp(data))
-				{
-					selPromo.find('option').eq(0).prop('selected', true);
-					selReward.find('option').eq(0).prop('selected', true);
-					selPromo.empty();
-					selReward.empty();
-					selectedRewardArea.empty();
 					buildOptionPromo(data);
-				}
 			},
 			error: function (request, status) {
 				console.log(status);
@@ -445,28 +449,31 @@
 
 	function buildOptionPromo(data)
 	{
-		let jsonData = JSON.parse(data);
-		let respData = jsonData.data;
-		let dataLen  = respData.length;
+		labelSelPromo.text('프로모션 선택');
 		let optionPromoDom = '<option value="">프로모션 선택</option>';
-
-		if (dataLen > 0)
+		if (!isEmpty(data) && isSuccessResp(data))
 		{
-			for (let i=0; i<dataLen; i++)
+			let jsonData = JSON.parse(data);
+			let respData = jsonData.data;
+			let dataLen  = respData.length;
+
+			if (dataLen > 0)
 			{
-				let uuid  = respData[i].promotion_uuid;
-				let title = respData[i].promotion_title;
-				console.log(respData[i])
-				optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
+				for (let i=0; i<dataLen; i++)
+				{
+					let uuid  = respData[i].promotion_uuid;
+					let title = respData[i].promotion_title;
+
+					optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
+				}
 			}
 		}
-
 		selPromo.html(optionPromoDom);
 	}
 
 	function onChangeSelPromo()
 	{
-		onChangeSelectOption(selPromo);
+		buildSelectedReward();
 		$.ajax({
 			url: api.involveReward,
 			type: "POST",
@@ -474,12 +481,7 @@
 			headers: headers,
 			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
 			success: function(data) {
-
-				if (isSuccessResp(data))
-				{
-					selReward.empty();
-					buildOptionReward(data);
-				}
+				buildOptionReward(data);
 			},
 			error: function (request, status) {
 				console.log(status);
@@ -489,27 +491,29 @@
 
 	function buildOptionReward(data)
 	{
-		let jsonData = JSON.parse(data);
-		let respData = jsonData.data;
-		let dataLen  = respData.length;
+		labelSelReward.text('리워드 조건 생성 목록 선택');
 		let optionRewardDom = '<option value="">리워드 조건 생성 목록 선택</option>';
-
-		if (dataLen > 0)
+		if (!isEmpty(data) && isSuccessResp(data))
 		{
-			for (let i=0; i<dataLen; i++)
+			let jsonData = JSON.parse(data);
+			let respData = jsonData.data;
+			let dataLen  = respData.length;
+
+			if (dataLen > 0)
 			{
-				let uuid  = respData[i].reward_uuid;
-				let title = respData[i].title;
-				optionRewardDom += '<option value="'+ uuid +'">'+ title +'</option>';
+				for (let i=0; i<dataLen; i++)
+				{
+					let uuid  = respData[i].reward_uuid;
+					let title = respData[i].title;
+					optionRewardDom += '<option value="'+ uuid +'">'+ title +'</option>';
+				}
 			}
 		}
-
 		selReward.html(optionRewardDom);
 	}
 
 	function onChangeSelReward()
 	{
-		onChangeSelectOption(selPromo);
 		$.ajax({
 			url: api.selectReward,
 			type: "POST",
@@ -517,12 +521,7 @@
 			headers: headers,
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
 			success: function(data) {
-
-				if (isSuccessResp(data))
-				{
-					selectedRewardArea.empty();
 					buildSelectedReward(data);
-				}
 			},
 			error: function (request, status) {
 				console.log(status);
@@ -532,30 +531,46 @@
 
 	function buildSelectedReward(data)
 	{
-		let jsonData = JSON.parse(data);
-		let respData = jsonData.data;
+		selectedRewardArea.hide();
 		let selectedRewardDom = '';
-		selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
-		selectedRewardDom += '<div class="fixed">';
-		selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+respData.action_duration+'</span></p>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += '<div class="fixed">';
-		selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+respData.action_daily_allow+'</p>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += '<div class="fixed">';
-		selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+respData.goal_percent+'</p>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ respData.person_percent +' : 단체 '+respData.group_percent +'</p>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += '<div class="fixed">';
-		selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ respData.total_reward +'</p>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += '</div>';
-		selectedRewardDom += '<div class="fixed">';
-		selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ respData.action_dayofweek +'</p>';
-		selectedRewardDom += '</div>';
+		if (!isEmpty(data) && isSuccessResp(data))
+		{
+			let jsonData = JSON.parse(data);
+			let respData = jsonData.data;
+			selectedRewardDom += '<li class="reward-type clearfix">';
+			selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+respData.action_duration+'</span></p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+respData.action_daily_allow+'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+respData.goal_percent+'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ respData.person_percent +' : 단체 '+respData.group_percent +'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>두잇당 최대 인원 : </span>'+ respData.max_user_limit +'명</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ respData.total_reward +'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ respData.action_dayofweek +'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap">현재까지 남은 잔여 UCD는 ';
+			selectedRewardDom += 	'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(respData.remain_budget_ucd)+' UCD</span> 입니다.';
+			selectedRewardDom += 	'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '</li>';
 
-		selectedRewardArea.html(selectedRewardDom);
+			selectedRewardArea.html(selectedRewardDom);
+			selectedRewardArea.show();
+		}
 	}
 
 	/** 소개 이미지/영상 라디오 선탵할 때 파일 업로드 컴포넌트 생성 **/

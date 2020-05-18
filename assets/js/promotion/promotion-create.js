@@ -560,8 +560,8 @@
 		});
 		rewardDom += '</ul>';*/
 
-		rewardDom += '<li onclick="onClickRewards(this);">';
-		rewardDom += 	'Title '+(titleLength < 10 ? "0"+titleLength : titleLength)+'.<span class="tag-name">'+modalRewardTitle.val()+'</span>';
+		rewardDom += '<li>';
+		rewardDom += 	'Title.<span class="tag-name" onclick="onClickRewards(this);">'+modalRewardTitle.val()+'</span>';
 		rewardDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeReward(this);"></i>';
 		rewardDom += 	'<input type="hidden" data-title="'+modalRewardTitle.val().trim()+'">';
 		rewardDom += 	'<input type="hidden" data-minuser="'+minUser.val().trim()+'">';
@@ -601,7 +601,7 @@
 
 	function onClickRewards(obj)
 	{
-		let inputEl 	= $(obj).find('input');
+		let inputEl 	= $(obj).parent().find('input');
 		let titleEl 	= $(inputEl)[0];
 		let minUserEl 	= $(inputEl)[1];
 		let maxUserEl 	= $(inputEl)[2];
@@ -647,8 +647,7 @@
 
 	function removeReward(obj)
 	{
-		let target = $(obj).parent();
-		$(target).remove();
+		$(obj).parent().remove();
 	}
 
 	function onKeyupBizName()

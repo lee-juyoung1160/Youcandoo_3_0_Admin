@@ -11,38 +11,50 @@
 	const frequency		  = $("#frequency");
 	const doitType		  = $("input[name=radio-doit-type]");
 	const isBanner		  = $("input[name=radio-banner-open]");
-	const rewardListTitle = $("#rewardListTitle");
+	/*const rewardListTitle = $("#rewardListTitle");*/
 	const btnNoticeAdd	  = $("#btnNoticeAdd");
 	const noticeArea	  = $("#noticeArea");
 	const allowCount	  = $("#allowCount");
-	const maxUserLimit	  = $("#maxUserLimit");
+	/*const maxUserLimit	  = $("#maxUserLimit");*/
 
-	/** modal **/
+	/** 리워드 입력 modal **/
+	const modalInputReward	= $("#modalInputReward");
 	const btnAddReward 		= $("#btnAddReward");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
-	const modalRwrdTitle 	= $("#modalRwrdTitle");
-	const rewardFrom 		= $("#rewardFrom");
-	const rewardTo 			= $("#rewardTo");
+	const modalRewardTitle 	= $("#modalRewardTitle");
+	const minUser			= $("#minUser");
+	const maxUser			= $("#maxUser");
+	const certDays			= $(".cert-days");
 	const certCount  		= $("#certCount");
 	const goalRate  		= $("#goalRate");
 	const maxUcd  		 	= $("#maxUcd");
 	const individualRate  	= $("#individualRate");
 	const groupRate  		= $("#groupRate");
 	const btnRewardModalSubmit	= $("#btnRewardModalSubmit");
-
+	/** 리워드 입력 보기 modal **/
+	const modalReadReward		= $("#modalReadReward");
+	const modalReadTitle		= $("#modalReadTitle");
+	const modalReadMinMaxUser	= $("#modalReadMinMaxUser");
+	const modalReadDuration		= $("#modalReadDuration");
+	const modalReadCertCount	= $("#modalReadCertCount");
+	const modalReadGoalRate		= $("#modalReadGoalRate");
+	const modalReadMaxUcd		= $("#modalReadMaxUcd");
+	const modalReadRewardRate	= $("#modalReadRewardRate");
+	const modalReadFrequency	= $("#modalReadFrequency");
 
 	$(document).ready(function () {
 		inputFile			.on('change', function () { onChangeValidationImage(this); });
-		btnAddReward		.on('click', function () { modalFadein(); });
+		btnAddReward		.on('click', function () { modalFadeinInPromotion(); });
 		modalCloseBtn		.on('click', function () { modalFadeout(); });
 		modalLayout			.on('click', function () { modalFadeout(); });
 		dayButtons			.on('click', function () { toggleActive(this); });
 		btnSubmit			.on('click', function () { onSubmitPromo(); });
 		btnRewardModalSubmit.on('click', function () { onSubmitRewardModal(); });
-		rewardFrom			.on('change', function () { onChangeRewardFrom(); });
-		rewardTo			.on('change', function () { onChangeRewardTo(); });
+		//rewardFrom			.on('change', function () { onChangeRewardFrom(); });
+		//rewardTo			.on('change', function () { onChangeRewardTo(); });
+		certDays			.on('click', function () { toggleCertDays(this); });
 		promoFrom			.on('change', function () { onChangePromoFrom(); });
 		bizName				.on('keyup', function () { onKeyupBizName(); });
 		btnNoticeAdd		.on('click', function () { onClickBtnNoticeAdd(); });
@@ -52,6 +64,19 @@
 		rewardRateRange();
 		goalRateRange();
 	});
+
+	function toggleCertDays(obj)
+	{
+		certDays.removeClass('active');
+		$(obj).addClass('active');
+	}
+
+	function modalFadeinInPromotion()
+	{
+		modalInputReward.fadeIn();
+		modalLayout.fadeIn();
+		initModal();
+	}
 
 	/** 목표달성률 레인지 슬라이더 **/
 	function goalRateRange()
@@ -134,7 +159,7 @@
 		});
 	}
 
-	function onChangeRewardFrom()
+	/*function onChangeRewardFrom()
 	{
 		if (isEmpty(promoFrom.val()))
 		{
@@ -161,7 +186,7 @@
 			rewardTo.val('');
 			return;
 		}
-	}
+	}*/
 
 	function onChangePromoFrom()
 	{
@@ -180,24 +205,27 @@
 
 	function initModal()
 	{
-		modalRwrdTitle.val('');
-		rewardFrom.val('');
-		rewardTo.val('');
-		rewardFrom.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
-		rewardFrom.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
-		rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
+		modalRewardTitle.val('');
+		minUser.val('');
+		maxUser.val('');
+		//rewardFrom.val('');
+		//rewardTo.val('');
+		//rewardFrom.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
+		//rewardFrom.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
+		//rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
 		certCount.val('');
 		maxUcd.val('');
 		frequency.find('li').each(function () {
 			$(this).removeClass('active');
 		});
+		toggleCertDays(certDays.eq(0));
 	}
 
 	function validation()
 	{
 		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
-		let rewardList 		= $("#rewardListArea .enrollment");
+		let rewardList 		= $("#rewardListArea").find('li');
 		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
@@ -254,12 +282,12 @@
 			return false;
 		}
 
-		if (isEmpty(maxUserLimit.val()))
+		/*if (isEmpty(maxUserLimit.val()))
 		{
 			alert('최대 참여 인원은 ' + message.required);
 			maxUserLimit.focus();
 			return false;
-		}
+		}*/
 
 		if (bannerFile.length === 0)
 		{
@@ -297,7 +325,7 @@
 
 	function params()
 	{
-		let rewardList 			= $('#rewardListArea .enrollment');
+		let rewardList 			= $('#rewardListArea').find('li');
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
@@ -308,10 +336,9 @@
 		formData.append("promotion-end-date", promoTo.val().trim());
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramThumbnailFile);
-		formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());
+		/*formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());*/
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 		formData.append("promotion-allow-count", allowCount.val().trim());
-		formData.append("promotion-max-user-limit", maxUserLimit.val().trim());
 
 		let promotionNotice = $("input[name=promo-notice]");
 		let notice = [];
@@ -324,37 +351,39 @@
 		rewardList.each(function () {
 			let inputEl 	= $(this).find('input');
 			let titleEl 	= $(inputEl)[0];
-			let startEl 	= $(inputEl)[1];
-			let endEl 		= $(inputEl)[2];
-			let certCountEl = $(inputEl)[3];
-			let goalRateEl  = $(inputEl)[4];
-			let maxUcdEl 	= $(inputEl)[5];
-			let individualEl  = $(inputEl)[6];
-			let groupEl 	= $(inputEl)[7];
-			let mondayEl 	= $(inputEl)[8];
-			let tuesdayEl 	= $(inputEl)[9];
-			let wednesdayEl = $(inputEl)[10];
-			let thursdayEl  = $(inputEl)[11];
-			let fridayEl 	= $(inputEl)[12];
-			let saturdayEl  = $(inputEl)[13];
-			let sundayEl 	= $(inputEl)[14];
+			let minUserEl 	= $(inputEl)[1];
+			let maxUserEl 	= $(inputEl)[2];
+			let durationEl 	= $(inputEl)[3];
+			let certCountEl = $(inputEl)[4];
+			let goalRateEl  = $(inputEl)[5];
+			let maxUcdEl 	= $(inputEl)[6];
+			let individualEl  = $(inputEl)[7];
+			let groupEl 	= $(inputEl)[8];
+			let mondayEl 	= $(inputEl)[9];
+			let tuesdayEl 	= $(inputEl)[10];
+			let wednesdayEl = $(inputEl)[11];
+			let thursdayEl  = $(inputEl)[12];
+			let fridayEl 	= $(inputEl)[13];
+			let saturdayEl  = $(inputEl)[14];
+			let sundayEl 	= $(inputEl)[15];
 
 			reward.push({
-				"title" 			 : $(titleEl).data('title')
-				,"action-start-date" : $(startEl).data('start')
-				,"action-end-date" 	 : $(endEl).data('end')
-				,"action-count" 	 : $(certCountEl).data('certcount')
-				,"goal-rate" 		 : $(goalRateEl).data('goalrate')
-				,"ucd-per-person" 	 : $(maxUcdEl).data('maxucd')
-				,"individual-rate" 	 : $(individualEl).data('individual')
-				,"group-rate" 		 : $(groupEl).data('group')
-				,"monday" 			 : $(mondayEl).data('monday')
-				,"tuesday" 			 : $(tuesdayEl).data('tuesday')
-				,"wednesday" 		 : $(wednesdayEl).data('wednesday')
-				,"thursday" 		 : $(thursdayEl).data('thursday')
-				,"friday" 			 : $(fridayEl).data('friday')
-				,"saturday" 		 : $(saturdayEl).data('saturday')
-				,"sunday" 			 : $(sundayEl).data('sunday')
+				"title" 			: $(titleEl).data('title')
+				,"min-user-limit" 	: $(minUserEl).data('minuser')
+				,"max-user-limit" 	: $(maxUserEl).data('maxuser')
+				,"action-duration" 	: $(durationEl).data('duration')
+				,"action-count" 	: $(certCountEl).data('certcount')
+				,"goal-rate" 		: $(goalRateEl).data('goalrate')
+				,"ucd-per-person" 	: $(maxUcdEl).data('maxucd')
+				,"individual-rate" 	: $(individualEl).data('individual')
+				,"group-rate" 		: $(groupEl).data('group')
+				,"monday" 			: $(mondayEl).data('monday')
+				,"tuesday" 			: $(tuesdayEl).data('tuesday')
+				,"wednesday" 		: $(wednesdayEl).data('wednesday')
+				,"thursday" 		: $(thursdayEl).data('thursday')
+				,"friday" 			: $(fridayEl).data('friday')
+				,"saturday" 		: $(saturdayEl).data('saturday')
+				,"sunday" 			: $(sundayEl).data('sunday')
 			});
 		});
 
@@ -391,7 +420,12 @@
 
 	function rewardValidation()
 	{
-		let rewardList = $('#rewardListArea .enrollment');
+		let rewardList = $('#rewardListArea').find('li');
+		let frequencyActiveLength = 0;
+		frequency.find('li').each(function () {
+			if ($(this).hasClass('active'))
+				frequencyActiveLength++;
+		})
 
 		if (rewardList.length > 4)
 		{
@@ -400,24 +434,31 @@
 			return false;
 		}
 
-		if (isEmpty(modalRwrdTitle.val()))
+		if (isEmpty(modalRewardTitle.val()))
 		{
 			alert('리워드 제목은 ' + message.required);
-			modalRwrdTitle.focus();
+			modalRewardTitle.focus();
 			return false;
 		}
 
-		if (isEmpty(rewardFrom.val()))
+		if (isEmpty(minUser.val()))
 		{
-			alert('인증기간(시작일)은 ' + message.required);
-			rewardFrom.focus();
+			alert('두잇 참여 인원(최소)은 ' + message.required);
+			minUser.focus();
 			return false;
 		}
 
-		if (isEmpty(rewardTo.val()))
+		if (isEmpty(maxUser.val()))
 		{
-			alert('인증기간(종료일)은 ' + message.required);
-			rewardTo.focus();
+			alert('두잇 참여 인원(최대)은 ' + message.required);
+			maxUser.focus();
+			return false;
+		}
+
+		if (Number(minUser.val()) > Number(maxUser.val))
+		{
+			alert(message.compareMinMaxUser);
+			minUser.focus();
 			return false;
 		}
 
@@ -428,13 +469,6 @@
 			return false;
 		}
 
-		if (isEmpty(goalRate.val()))
-		{
-			alert('목료달성률은 ' + message.required);
-			goalRate.focus();
-			return false;
-		}
-
 		if (isEmpty(maxUcd.val()))
 		{
 			alert('1인당 최대 지급 UCD는 ' + message.required);
@@ -442,17 +476,9 @@
 			return false;
 		}
 
-		if (isEmpty(individualRate.val()))
+		if (frequencyActiveLength === 0)
 		{
-			alert('리워드유형(개인)은 ' + message.required);
-			individualRate.focus();
-			return false;
-		}
-
-		if (isEmpty(groupRate.val()))
-		{
-			alert('리워드유형(단체)은 ' + message.required);
-			groupRate.focus();
+			alert('주간 빈도는 ' + message.required);
 			return false;
 		}
 
@@ -467,12 +493,16 @@
 
 	function appendReward()
 	{
-		if ($('#rewardListArea').find('.enrollment').length === 0)
-			rewardListTitle.text('리워드 조건 생성 목록');
-
-		let period		 	 = 	rewardFrom.val() + "~" + rewardTo.val();
-		let rewardDom = '';
-		rewardDom += '<ul class="enrollment clearfix">';
+		let rewardListArea = $("#rewardListArea");
+		let rewardLen 	= rewardListArea.find('li').length;
+		let titleLength = Number(rewardLen+1);
+		let duration    = 1;
+		certDays.each(function () {
+			if ($(this).hasClass('active'))
+				duration = $(this).data('days');
+		})
+		let rewardDom 	= '';
+		/*rewardDom += '<ul class="enrollment clearfix">';
 		rewardDom += 	'<i onClick="removeReward(this);" class="delete-btn far fa-times-circle"></i>';
 		rewardDom += 	'<li>';
 		rewardDom += 		'<p class="sub-title important">리워드 제목 (*)</p>';
@@ -528,11 +558,86 @@
 			else if (index === 6)
 				rewardDom += 	'<input type="hidden" data-sunday="'+DomValue+'">';
 		});
-		rewardDom += '</ul>';
+		rewardDom += '</ul>';*/
 
-		$('#rewardListArea').append(rewardDom);
+		rewardDom += '<li onclick="onClickRewards(this);">';
+		rewardDom += 	'Title '+(titleLength < 10 ? "0"+titleLength : titleLength)+'.<span class="tag-name">'+modalRewardTitle.val()+'</span>';
+		rewardDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeReward(this);"></i>';
+		rewardDom += 	'<input type="hidden" data-title="'+modalRewardTitle.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-minuser="'+minUser.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-maxuser="'+maxUser.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-duration="'+duration+'">';
+		rewardDom += 	'<input type="hidden" data-certcount="'+certCount.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-goalrate="'+goalRate.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-maxucd="'+maxUcd.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-individual="'+individualRate.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-group="'+groupRate.val().trim()+'">';
+		frequency.find('li').each(function (index) {
+			let DomValue 	= 'N';
+			if ($(this).hasClass('active'))
+				DomValue	= 'Y';
+
+			if (index === 0)
+				rewardDom += 	'<input type="hidden" data-monday="'+DomValue+'">';
+			else if (index === 1)
+				rewardDom += 	'<input type="hidden" data-tuesday="'+DomValue+'">';
+			else if (index === 2)
+				rewardDom += 	'<input type="hidden" data-wednesday="'+DomValue+'">';
+			else if (index === 3)
+				rewardDom += 	'<input type="hidden" data-thursday="'+DomValue+'">';
+			else if (index === 4)
+				rewardDom += 	'<input type="hidden" data-friday="'+DomValue+'">';
+			else if (index === 5)
+				rewardDom += 	'<input type="hidden" data-saturday="'+DomValue+'">';
+			else if (index === 6)
+				rewardDom += 	'<input type="hidden" data-sunday="'+DomValue+'">';
+		});
+		rewardDom += '</li>';
+
+		rewardListArea.append(rewardDom);
 
 		modalFadeout();
+	}
+
+	function onClickRewards(obj)
+	{
+		let inputEl 	= $(obj).find('input');
+		let titleEl 	= $(inputEl)[0];
+		let minUserEl 	= $(inputEl)[1];
+		let maxUserEl 	= $(inputEl)[2];
+		let durationEl 	= $(inputEl)[3];
+		let certCountEl = $(inputEl)[4];
+		let goalRateEl  = $(inputEl)[5];
+		let maxUcdEl 	= $(inputEl)[6];
+		let individualEl  = $(inputEl)[7];
+		let groupEl 	= $(inputEl)[8];
+		let mondayEl 	= $(inputEl)[9];
+		let tuesdayEl 	= $(inputEl)[10];
+		let wednesdayEl = $(inputEl)[11];
+		let thursdayEl  = $(inputEl)[12];
+		let fridayEl 	= $(inputEl)[13];
+		let saturdayEl  = $(inputEl)[14];
+		let sundayEl 	= $(inputEl)[15];
+		let freq 		= [];
+		if ($(mondayEl).data('monday') === 'Y') freq.push('월');
+		if ($(tuesdayEl).data('tuesday') === 'Y') freq.push('화');
+		if ($(wednesdayEl).data('wednesday') === 'Y') freq.push('수');
+		if ($(thursdayEl).data('thursday') === 'Y') freq.push('목');
+		if ($(fridayEl).data('friday') === 'Y') freq.push('금');
+		if ($(saturdayEl).data('saturday') === 'Y') freq.push('토');
+		if ($(sundayEl).data('sunday') === 'Y') freq.push('일');
+
+		modalReadTitle.html($(titleEl).data('title'));
+		modalReadMinMaxUser.html('최소 '+$(minUserEl).data('minuser')+'명 ~  최대 '+$(maxUserEl).data('maxuser')+'명');
+		modalReadDuration.html($(durationEl).data('duration')+'일');
+		modalReadCertCount.html($(certCountEl).data('certcount')+'회');
+		modalReadGoalRate.html($(goalRateEl).data('goalrate')+'%');
+		modalReadMaxUcd.html($(maxUcdEl).data('maxucd')+' UCD');
+		modalReadRewardRate.html('개인 '+$(individualEl).data('individual')+'% : 단체 '+$(groupEl).data('group')+'%');
+		modalReadFrequency.html(freq.toString());
+
+		modalReadReward.fadeIn();
+		modalLayout.fadeIn();
 	}
 
 	function toggleActive(obj)
@@ -542,9 +647,6 @@
 
 	function removeReward(obj)
 	{
-		if ($('#rewardListArea').find('.enrollment').length === 1)
-			rewardListTitle.text('');
-
 		let target = $(obj).parent();
 		$(target).remove();
 	}

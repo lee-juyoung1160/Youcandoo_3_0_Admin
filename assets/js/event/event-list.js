@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	/*const selSort		= $("#selSort");*/
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -50,27 +50,23 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    		name: "idx",      		orderable: false,   className: "text-center" }
-				/* ,{title: "구분", 	data: "event_type",    	name: "event_type",     orderable: false,   className: "text-center" } */
-				,{title: "제목", 	data: "title",  		name: "title",    		orderable: false,   className: "text-center" }
-				,{title: "기간", 	data: "start_date",  	name: "start_date",    	orderable: false,   className: "text-center" }
-				,{title: "노출여부", data: "is_exposure",  	name: "is_exposure",  	   orderable: false,   className: "text-center",
+				{title: "No", 		data: "idx",    		width: "10%",    orderable: false,   className: "text-center" }
+				/* ,{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" } */
+				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
+				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center" }
+				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성일", 	data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",   orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -81,8 +77,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -106,7 +102,6 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -129,10 +124,15 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(2);
+		let titleDom  = $(nRow).children().eq(1);
+		let periodDom = $(nRow).children().eq(2);
+		let detailUrl = '/service/event/detail/'+aData.idx;
 
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/event/detail">'+aData.title+'</a>');
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+
+		/** 기간 추가 **/
+		$(periodDom).html(aData.start_date +' ~ '+ aData.end_date);
 	}
 
 	function onSubmitSearch()

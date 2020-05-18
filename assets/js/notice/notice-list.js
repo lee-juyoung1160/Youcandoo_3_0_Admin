@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	/*const selSort		= $("#selSort");*/
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
 	let iconTop 		= '<i class="fas fas fa-bell"></i>';
@@ -57,14 +57,10 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
@@ -91,8 +87,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -118,14 +114,12 @@
 
 				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
-
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -151,9 +145,10 @@
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
+		let detailUrl = '/service/notice/detail/'+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')

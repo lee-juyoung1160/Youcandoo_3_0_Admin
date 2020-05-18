@@ -3,36 +3,37 @@
         <h2 class="main-title">이벤트 상세</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-                <li class="clearfix">
+                <!--<li class="clearfix">
                     <p class="sub-title important">구분 (*)</p>
                     <p class="detail-data">이벤트</p>
-                <li>
+                <li>-->
                     <p class="sub-title important">제목 (*)</p>
-                    <p class="detail-data">이벤트 제목입니다.</p>
+                    <p class="detail-data" id="title"></p>
                 </li>
                 <li>
                     <p class="sub-title important">내용 (*)</p>
-                    <p class="detail-data">이벤트 내용입니다</p>
+                    <p class="detail-data" id="content"></p>
                 </li>
                 <li class="sub-title important">
                     <p class="sub-title important">썸네일 (*)</p>
-                    <p class="detail-data-img"><img src="/assets/images/test.png" alt="event image"></p>
+                    <p class="detail-data-img"><img id="eventImg" src="" alt="event image"></p>
                 </li>
                 <li>
                     <p class="sub-title important">기간 (*)</p>
-                    <p class="detail-data">2020/02/02 ~ 2020/03/30</p>
+                    <p class="detail-data" id="period"></p>
                 </li>
                 <li>
                     <p class="sub-title important">노출 여부</p>
-                    <p class="detail-data">Y</p>
+                    <p class="detail-data" id="exposure"></p>
                 </li>
             </ul>
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
-                    <a class="list-btn" href="/event/lists">목록</a>
-                    <a class="update-btn" href="/event/update">수정</a>
+                    <a class="list-btn" href="/service/event/list">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script src="/assets/js/event/event-detail.js"></script>

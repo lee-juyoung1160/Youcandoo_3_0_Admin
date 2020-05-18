@@ -47,20 +47,16 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    	width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "회사명", 	data: "nickname",   width: "50%",     orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",   	width: "15%",     orderable: false,   className: "text-center",
+				{title: "고유 ID", 	data: "company_uuid",   width: "25%",     orderable: false,   className: "text-center" }
+				,{title: "회사명", 	data: "nickname",   	width: "30%",     orderable: false,   className: "text-center" }
+				,{title: "등록일", 	data: "created",   		width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -71,8 +67,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -96,6 +92,7 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				console.log(aData)
 				//setRowAttributes(nRow, aData);
 			}
 		});

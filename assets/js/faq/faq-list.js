@@ -50,27 +50,22 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
-					console.log(Number(d.start))
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
 				{title: "No", 		data: "idx",   	 		width: "10%",      	orderable: false,   className: "text-center" }
 				,{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center" }
-				,{title: "제목", 	data: "title",   		width: "40%",    	orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "text-center" }
 				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성일", 	data: "created_datetime",  width: "20%",   	orderable: false,   className: "text-center",
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",   	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -81,8 +76,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -129,10 +124,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(2);
-
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/faq/detail">'+aData.title+'</a>');
+		let titleDom  = $(nRow).children().eq(2);
+		let detailUrl = '/service/faq/detail/'+aData.idx;
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

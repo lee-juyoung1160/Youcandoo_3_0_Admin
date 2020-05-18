@@ -23,6 +23,7 @@
 		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 		,onlyAlphabet: '영문만 입력할 수 있습니다.'
+		,cantLoadList: '목록을 불러오지 못했습니다. 관리자에게 문의하세요.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
@@ -30,6 +31,7 @@
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
 		,getProfile : baseApiUrl+'admin/get'
+		,updateProfile : baseApiUrl+'admin/update/pwd'
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'
 		,updateAdmin : ''
@@ -45,12 +47,15 @@
 		,updateBiz : ''
 		,listBiz : baseApiUrl+'biz/list'
 		,createEvent : baseApiUrl+'event/create'
+		,detailEvent : baseApiUrl+'event/detail'
 		,updateEvent : ''
 		,listEvent : baseApiUrl+'event/list'
 		,createFaq : baseApiUrl+'faq/create'
+		,detailFaq : baseApiUrl+'faq/detail'
 		,updateFaq : ''
 		,listFaq : baseApiUrl+'faq/list'
 		,createNotice : baseApiUrl+'notice/create'
+		,detailNotice : baseApiUrl+'notice/detail'
 		,updateNotice : ''
 		,listNotice : baseApiUrl+'notice/list'
 		,topNotice : baseApiUrl+'notice/changeTop'
@@ -68,7 +73,6 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,selectReward : baseApiUrl+'promotion/getReward'
-
 	}
 
 	const label = {
@@ -76,4 +80,6 @@
 		,createDoitAdmin : '기업만 두잇 개설 허용'
 		,exposure : '노출'
 		,unexpose : '비노출'
+		,previous : '<i class="fas fa-angle-double-left"></i>'
+		,next : '<i class="fas fa-angle-double-right"></i>'
 	}

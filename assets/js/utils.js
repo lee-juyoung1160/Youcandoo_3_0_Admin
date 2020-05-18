@@ -143,6 +143,17 @@
 		return regExp.test(param);
 	}
 
+	/** 문자열을 split해서 마지막 배열 요소를 반환하는 함수 **/
+	function splitReverse(str, separator)
+	{
+		return str.split(separator).reverse()[0];
+	}
+
+	function getPathName()
+	{
+		return window.location.pathname;
+	}
+
 
 
 

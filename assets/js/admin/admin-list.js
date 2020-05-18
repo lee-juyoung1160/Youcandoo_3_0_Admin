@@ -87,15 +87,10 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
-					console.log(tableParams(d));
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
@@ -104,10 +99,10 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "아이디", 	data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이름", 		data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이메일", 	data: "email",     			width: "15%",     orderable: false,   className: "text-center" }
-				,{title: "최근접속일", data: "recent_datetime",    width: "15%",     orderable: false,   className: "text-center",
+				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center" }
+				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -118,8 +113,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -167,12 +162,11 @@
 
 	function setRowAttribute(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom  = $(nRow).children().eq(3);
+		let detailUrl = '/service/admin/detail/'+aData.idx;
 
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
@@ -187,7 +181,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 금칙어를 '+message.select);
+			alert('삭제할 대상을 목록에서 '+message.select);
 			return;
 		}
 

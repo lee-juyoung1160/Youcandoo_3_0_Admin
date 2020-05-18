@@ -35,6 +35,12 @@
 .create-radio-wrap input[type="radio"] + label span {
     margin-left: 10px;
 }
+.method-li .radio-wrap {
+    margin-bottom: 5px;
+}
+.method-li .radio-wrap:last-child {
+    margin-bottom: 0;
+}
 .doit-option-li .doit-option-contents {
     margin-top: 20px;
     display: none;
@@ -53,10 +59,10 @@
 .doit-detail-page .img-wrap .wrap{
     float: left;
 }
-.doit-create-page .img-wrap .wrap:last-child,
-.doit-detail-page .img-wrap .wrap:last-child {
-    margin-top: 50px;
-}
+/*.doit-create-page .img-wrap .wrap:last-child,*/
+/*.doit-detail-page .img-wrap .wrap:last-child {*/
+/*    margin-top: 50px;*/
+/*}*/
 .doit-detail-page .img-wrap .wrap .file {
     margin-top: 30px;
 }

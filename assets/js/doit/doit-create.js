@@ -30,20 +30,29 @@
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
 
+	/** hash-tag-modal **/
+	const hashTagModalCloseBtn 	= $(".hash-tag-list li i");
+	const hashTagModalLayout 		= $(".modal-layout");
+	const hashTagModalContents 		= $(".hash-tag-contents");
+	const hashTagOpen		= $("#hash-tag-btn")
+
+
 	$(document).ready(function () {
-		introFileType	.on('change', function () { onChangeIntroType(this); });
-		btnPromoInfo	.on('click', function () { onClickBtnPromoInfo(); });
-		modalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout		.on('click', function () { modalFadeout(); });
-		addTag			.on('click', function () { onClickAddTag(); });
-		bizName			.on('keyup', function () { onKeyupBizName(); });
-		selPromo		.on('change', function () { onChangeSelPromo(); });
-		selReward		.on('change', function () { onChangeSelReward(); });
-		chkExtraReward	.on('change', function () { toggleActive(extraReward); });
-		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
-		exampleType		.on('change', function () { onChangeExampleType(this); });
-		doitFrom		.on('change', function () { onChangeDateFrom(); });
-		btnSubmit		.on('click', function () { onSubmitDoit(); });
+		introFileType			.on('change', function () { onChangeIntroType(this); });
+		btnPromoInfo			.on('click', function () { onClickBtnPromoInfo(); });
+		modalCloseBtn			.on('click', function () { modalFadeout(); });
+		hashTagModalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout				.on('click', function () { modalFadeout(); });
+		hashTagModalLayout		.on('click', function () { modalFadeout(); });
+		addTag					.on('click', function () { onClickAddTag(); });
+		bizName					.on('keyup', function () { onKeyupBizName(); });
+		selPromo				.on('change', function () { onChangeSelPromo(); });
+		selReward				.on('change', function () { onChangeSelReward(); });
+		chkExtraReward			.on('change', function () { toggleActive(extraReward); });
+		chkAccessUser			.on('change', function () { toggleActive($(".code-wrap")); });
+		exampleType				.on('change', function () { onChangeExampleType(this); });
+		doitFrom				.on('change', function () { onChangeDateFrom(); });
+		btnSubmit				.on('click', function () { onSubmitDoit(); });
 
 		initInputDatepicker();
 		initComponent();

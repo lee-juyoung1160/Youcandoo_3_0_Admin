@@ -303,36 +303,21 @@
         })
     }
 
-    $(document).ready(function () {
-        //getProfile();
-        activeMenu();
-    })
-
-    function getProfile()
-    {
-        $.ajax({
-            url: api.createPromotion,
-            type: "POST",
-            headers: headers,
-            data: params(),
-            success: function(data) {
-                alert(getStatusMessage(data));
-                if (isSuccessResp(data))
-                    location.href = '/promotion/lists'
-            },
-            error: function (request, status) {
-                console.log(status);
-            }
-        });
-    }
-
     function activeMenu()
     {
-        let pathName = window.location.pathname;
-        let menuList = $('nav').find('a');
+        let pathName       = getPathName();
+        let splitUrlPath   = pathName.split('/');
+        let pathCompareVal = splitUrlPath[1]+splitUrlPath[2];
+        let menuList  = $('nav').find('a');
         $(menuList).each(function () {
-            let menuPath = $(this).attr('href');
-            if (pathName === menuPath)
+            let menuPath       = $(this).attr('href');
+            let splitMenuPath  = menuPath.split('/');
+            let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
+            if (pathCompareVal === menuCompareVal)
                 $(this).parents('li').addClass('active');
         })
     }
+
+    $(document).ready(function () {
+        activeMenu();
+    })

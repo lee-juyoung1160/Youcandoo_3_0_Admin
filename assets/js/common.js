@@ -316,9 +316,8 @@
             headers: headers,
             data: params(),
             success: function(data) {
-                alert(getStatusMessage(data));
                 if (isSuccessResp(data))
-                    location.href = '/promotion/lists'
+                    buildProfile(data);
             },
             error: function (request, status) {
                 console.log(status);
@@ -326,13 +325,24 @@
         });
     }
 
+    function buildProfile(data)
+    {
+
+    }
+
     function activeMenu()
     {
-        let pathName = window.location.pathname;
-        let menuList = $('nav').find('a');
+        let pathName       = getPathName();
+        let splitUrlPath   = pathName.split('/');
+        let pathCompareVal = splitUrlPath[1]+splitUrlPath[2];
+        let menuList  = $('nav').find('a');
         $(menuList).each(function () {
-            let menuPath = $(this).attr('href');
-            if (pathName === menuPath)
+            let menuPath       = $(this).attr('href');
+            let splitMenuPath  = menuPath.split('/');
+            let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
+            console.log('pathCompareVal : '+pathCompareVal)
+            console.log('menuCompareVal : '+menuCompareVal)
+            if (pathCompareVal === menuCompareVal)
                 $(this).parents('li').addClass('active');
         })
     }

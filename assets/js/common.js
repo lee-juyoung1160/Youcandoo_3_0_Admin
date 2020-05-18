@@ -303,11 +303,6 @@
         })
     }
 
-    $(document).ready(function () {
-        //getProfile();
-        activeMenu();
-    })
-
     function getProfile()
     {
         $.ajax({
@@ -340,9 +335,11 @@
             let menuPath       = $(this).attr('href');
             let splitMenuPath  = menuPath.split('/');
             let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
-            console.log('pathCompareVal : '+pathCompareVal)
-            console.log('menuCompareVal : '+menuCompareVal)
             if (pathCompareVal === menuCompareVal)
                 $(this).parents('li').addClass('active');
         })
     }
+
+    $(document).ready(function () {
+        activeMenu();
+    })

@@ -138,7 +138,11 @@
             <div class="col-1 admin-user">
                 <a href="/admin/mypage">
                     <i class="fas fa-user-circle"></i>
-                    <span>안녕하세요! <span class="user-name">어피치</span>님.</span>
+                    <span>안녕하세요!
+                        <span class="user-name">
+                            <?php echo $this->session->userdata['user_data']->userid;?>
+                        </span>님.
+                    </span>
                 </a>
             </div>
             <div class="col-2">

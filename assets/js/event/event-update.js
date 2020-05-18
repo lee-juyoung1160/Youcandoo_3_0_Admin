@@ -1,10 +1,11 @@
 
-	const type			= $("#type");
 	const title 		= $("#title");
 	const content		= $("#content");
+	const eventImg		= $("#eventImg");
+	const period		= $("#period");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/faq/update/";
+	const updateUrl		= "/service/event/update/";
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -16,7 +17,7 @@
 	function getDetail()
 	{
 		$.ajax({
-			url: api.detailFaq,
+			url: api.detailEvent,
 			type: "POST",
 			data: params(),
 			headers: headers,
@@ -35,26 +36,27 @@
 	function params()
 	{
 		const pathName		= getPathName();
-		const faqIdx		= splitReverse(pathName, '/');
+		const eventIdx		= splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : faqIdx});
+		return JSON.stringify({"idx" : eventIdx});
 	}
 
 	function buildDetail(data)
 	{
 		let jsonData = JSON.parse(data);
 
-		type.html(jsonData.data.faq_type);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		title.val(jsonData.data.title);
+		content.val(jsonData.data.contents);
+		eventImg.attr('src', jsonData.data.image_url);
+		period.val(jsonData.data.start_date +' ~ '+jsonData.data.end_date);
+		exposure.val(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
 	}
 
 	function goUpdatePage()
 	{
 		const pathName		= getPathName();
-		const faqIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+faqIdx;
+		const eventIdx		= splitReverse(pathName, '/');
+		location.href = updateUrl+eventIdx;
 	}
 
 

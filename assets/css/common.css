@@ -9,7 +9,8 @@ h2.list-main-title {
 	float: left;
 	display: inline-block;
 }
-.main-top a {
+.main-top a,
+.main-top button {
 	float: right;
 	text-align: center;
 	line-height: 40px;
@@ -99,10 +100,13 @@ h2.main-title {
 .text-input::placeholder {
 	color: #7d7d7d;
 }
+.enrollment>li .hash-tag-list li {
+	margin-bottom: 0;
+}
 p.sub-title {
 	font-weight: 500;
-	font-size: 17px;
-	margin-bottom: 26px;
+	font-size: 15px;
+	margin-bottom: 12px;
 }
 p.sub-title.important {
 	color: #007aff;
@@ -196,7 +200,7 @@ i.question-mark:hover .hover-text {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(0,0,0,0.8);
+	background-color: rgba(0,0,0,0.47);
 }
 .modal-content {
 	display: none;
@@ -385,6 +389,7 @@ input.tag-input {
 }
 .hash-tag-list > li {
 	float: left;
+	font-size: 12px;
 	margin-right: 10px;
 	margin-bottom: 20px;
 	padding: 0.5rem;
@@ -392,6 +397,10 @@ input.tag-input {
 	border-radius: 30px;
 	color: #007aff;
 	background-color: #ffffff;
+}
+.hash-tag-list > li span,
+.hash-tag-list > li i {
+	font-size: 15px;
 }
 .hash-tag-list > li:last-child {
 	margin-right: 0;
@@ -564,6 +573,7 @@ textarea {
 	height: 40px;
 	color: #ffffff;
 	border-radius: 5px;
+	margin-top: 13px;
 	background-color: #007aff;
 }
 .list-common-btn-wrap .reset,
@@ -795,10 +805,10 @@ textarea {
 }
 /* datail commmon */
 .detail-data {
-	color: #5a5a5a;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 1.5;
+	color: #404040;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.7;
 }
 .detail-img {
 	display: block;
@@ -851,6 +861,9 @@ textarea {
 	font-size: 14px;
 	color: #7d7d7d;
 }
+.cert-contents li .top {
+	margin-bottom: 13px;
+}
 .cert-contents .checkbox-wrap {
 	display: inline-block;
 	float: left;
@@ -869,12 +882,12 @@ textarea {
 }
 .cert-contents li .error {
 	position: absolute;
-	top: 50px;
+	top: 51px;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	width: 100%;
-	height: 45%;
+	height: 43%;
 	background-color: rgba(37,37,37,0.9);
 }
 .cert-contents li .error .error-text {
@@ -917,4 +930,8 @@ textarea {
 #dataTable_paginate .paginate_button.current {
 	color: #ffffff;
 	background-color: #007aff;
+}
+/* reward-list */
+.reward-list li {
+	cursor: pointer;
 }

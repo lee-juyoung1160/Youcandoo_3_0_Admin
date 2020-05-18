@@ -24,8 +24,8 @@
                 <div class="select-box">
                     <label for="search_type">제목/내용</label>
                     <select id="search_type">
-                        <option value="nickname">제목/내용</option>
-                        <option value="nickname">작성자</option>
+                        <option value="contents">제목/내용</option>
+                        <!--<option value="nickname">작성자</option>-->
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -42,28 +42,28 @@
                 <li>
                     <p class="list-common-title">문의 구분</p>
                     <div class="select-box list-select-box">
-                        <label for="ex_select3">전체</label>
-                        <select id="ex_select3">
-                            <option selected>전체</option>
-                            <option>두잇인증</option>
-                            <option>채팅</option>
-                            <option>캐시</option>
-                            <option>일반</option>
-                            <option>결제</option>
-                            <option>회원정보</option>
+                        <label for="selQnaType">전체</label>
+                        <select id="selQnaType">
+                            <option value="">전체</option>
+                            <option value="doit">두잇인증</option>
+                            <option value="">채팅</option>
+                            <option value="">캐시</option>
+                            <option value="">일반</option>
+                            <option value="">결제</option>
+                            <option value="">회원정보</option>
                         </select>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">답변 상태</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="rr" />
+                        <input type="radio" id="r2" name="radio-status" value="0"/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="rr" />
+                        <input type="radio" id="r3" name="radio-status" value="1"/>
                         <label for="r3"><span></span>완료</label>
 
-                        <input type="radio" id="r4" name="rr" />
+                        <input type="radio" id="r4" name="radio-status" value="2"/>
                         <label for="r4"><span></span>대기</label>
                     </div>
                 </li>
@@ -88,11 +88,11 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
             </div>
-            <table id="">
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -123,10 +123,10 @@
                         <td>2019/11/07</td>
                         <td>대기</td>
                         <td>admin</td>
-                        <!--
+                        &lt;!&ndash;
                         Dev:
                         상세페이지에 메모가 있을 경우에만 i태그 노출
-                        -->
+                        &ndash;&gt;
                         <td><i class="fas fa-thumbtack"></i></td>
                     </tr>
                     <tr>
@@ -139,15 +139,15 @@
                         <td>admin</td>
                         <td></td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </section>

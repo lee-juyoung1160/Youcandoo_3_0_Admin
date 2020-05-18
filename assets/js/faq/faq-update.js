@@ -44,10 +44,10 @@
 	{
 		let jsonData = JSON.parse(data);
 
-		type.html(jsonData.data.faq_type);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		type.val(jsonData.data.faq_type);
+		title.val(jsonData.data.title);
+		content.val(jsonData.data.contents);
+		exposure.val(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
 	}
 
 	function goUpdatePage()

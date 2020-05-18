@@ -4,10 +4,10 @@
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
+	const selQnaType	= $("#selQnaType");
 	const selPageLength = $("#selPageLength");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
+	const status		= $("input[name=radio-status]");
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
@@ -27,15 +27,11 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
+		status.eq(0).prop("checked", true);
+		searchType.children().eq(0).prop("selected", true);
+		onChangeSelectOption(searchType);
+		selQnaType.children().eq(0).prop("selected", true);
+		onChangeSelectOption(selQnaType);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
@@ -45,34 +41,43 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
-				type:"POST",
+				url: api.listQna,
+				type: "POST",
+				async: false,
+				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				}
+				,{title: "No ", 	data: "idx",	width: "10%",   orderable: false,   className: "text-center" }
+				/*,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
+				,{title: "노출여부", 		data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === "Y" ? "노출" : "비노출";
+					}
+				}
+				,{title: "작성일", 	    data: "created_datetime",  width: "20%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
-				}
+				}*/
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -83,7 +88,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -93,10 +101,14 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
+				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
+				/** row select **/
+				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
+				/** row deselect **/
+				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				setRowAttributes(nRow, aData);
 			}
 		});
@@ -107,12 +119,13 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : "created"
-			,"from_date" : "2020-04-01"
-			,"to_date" : "2020-05-30"
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
+			,"qna_type" : selQnaType.val()
+			,"status" : $("input:radio[name=radio-status]:checked").val()
+			,"orderby" : "desc"
 		}
 
 		return JSON.stringify(param);
@@ -120,11 +133,31 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(0);
+		let titleDom = $(nRow).children().eq(2);
+		let detailUrl = '/service/qna/detail/'+aData.idx;
+console.log(aData)
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+	}
 
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/inquiry/detail">'+aData.nickname+'</a>');
+	/** row select **/
+	function onSelectRow(dt, indexes)
+	{
+		let selectedData 	= dt.rows(indexes).data()[0];
+		let isTop			= selectedData.is_top;
+
+		if (isTop === 'Y')
+			deleteStatusBtnTop();
+		else
+			bestStatusBtnTop();
+	}
+
+	/** row deselect **/
+	function onDeselectRow(table)
+	{
+		let selectedData = table.rows('.selected').data()[0];
+		if (isEmpty(selectedData))
+			disableStatusBtnTop();
 	}
 
 	function onSubmitSearch()

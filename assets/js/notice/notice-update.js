@@ -1,10 +1,10 @@
 
-	const type			= $("#type");
 	const title 		= $("#title");
 	const content		= $("#content");
+	const reserveDate	= $("#reserveDate");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/faq/update/";
+	const updateUrl		= "/service/notice/update/";
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -16,7 +16,7 @@
 	function getDetail()
 	{
 		$.ajax({
-			url: api.detailFaq,
+			url: api.detailNotice,
 			type: "POST",
 			data: params(),
 			headers: headers,
@@ -35,26 +35,26 @@
 	function params()
 	{
 		const pathName		= getPathName();
-		const faqIdx		= splitReverse(pathName, '/');
+		const noticeIdx		= splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : faqIdx});
+		return JSON.stringify({"idx" : noticeIdx});
 	}
 
 	function buildDetail(data)
 	{
 		let jsonData = JSON.parse(data);
 
-		type.html(jsonData.data.faq_type);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		title.val(jsonData.data.title);
+		content.val(jsonData.data.contents);
+		reserveDate.val(jsonData.data.reservation_date);
+		exposure.val(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
 	}
 
 	function goUpdatePage()
 	{
 		const pathName		= getPathName();
-		const faqIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+faqIdx;
+		const noticeIdx		= splitReverse(pathName, '/');
+		location.href = updateUrl+noticeIdx;
 	}
 
 

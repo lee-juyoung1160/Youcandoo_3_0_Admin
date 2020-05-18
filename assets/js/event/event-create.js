@@ -1,5 +1,5 @@
 
-	const eventType = $("#selEventType");
+	/*const eventType = $("#selEventType");*/
 	const title 	= $("#title");
 	const content	= $("#summernote");
 	const eventFrom	= $("#eventFrom");
@@ -103,7 +103,7 @@
 	{
 		let paramThumbnailFile 	= inputFile[0].files[0];
 		let formData  = new FormData();
-		formData.append('event-type', eventType.val());
+		/*formData.append('event-type', eventType.val());*/
 		formData.append('event-title', title.val());
 		formData.append('event-contents', content.val());
 		formData.append('event-start-date', eventFrom.val());

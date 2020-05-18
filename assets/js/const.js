@@ -31,7 +31,7 @@
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
 		,getProfile : baseApiUrl+'admin/get'
-		,updateProfile : baseApiUrl+'update/pwd'
+		,updateProfile : baseApiUrl+'admin/update/pwd'
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'
 		,updateAdmin : ''

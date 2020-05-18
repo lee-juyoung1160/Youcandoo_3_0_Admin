@@ -37,7 +37,7 @@
 
 	function initModal()
 	{
-
+		prohibition.val('');
 	}
 
 	function buildGrid()
@@ -49,15 +49,12 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
+
 			},
 			columns: [
 				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
@@ -77,8 +74,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,

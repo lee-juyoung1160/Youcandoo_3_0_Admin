@@ -24,6 +24,7 @@
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 		,onlyAlphabet: '영문만 입력할 수 있습니다.'
 		,cantLoadList: '목록을 불러오지 못했습니다. 관리자에게 문의하세요.'
+		,compareMinMaxUser: '최소인원은 최대인원을 초과할 수 없습니다.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };

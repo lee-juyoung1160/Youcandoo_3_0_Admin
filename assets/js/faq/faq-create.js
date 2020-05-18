@@ -56,7 +56,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/faq/lists'
+							location.href = '/service/faq/list'
 					},
 					error: function (request, status) {
 						console.log(status);

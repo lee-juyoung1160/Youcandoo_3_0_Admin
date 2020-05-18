@@ -50,14 +50,6 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
-					console.log(Number(d.start))
 					return tableParams(d);
 				}
 			},
@@ -129,10 +121,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(2);
-
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/faq/detail">'+aData.title+'</a>');
+		let titleDom  = $(nRow).children().eq(2);
+		let detailUrl = '/service/faq/detail/'+aData.idx;
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

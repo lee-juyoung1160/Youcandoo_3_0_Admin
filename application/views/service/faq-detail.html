@@ -5,31 +5,30 @@
             <ul class="enrollment clearfix">
                 <li class="clearfix">
                     <p class="sub-title important">구분 (*)</p>
-                    <p class="detail-data">일반문의</p>
+                    <p class="detail-data" id="type"></p>
                 </li>
                 <li>
                     <p class="sub-title important">제목 (*)</p>
-                    <p class="detail-data">FAQ 제목입니다.</p>
+                    <p class="detail-data" id="title"></p>
                 </li>
                 <li>
                     <p class="sub-title important">내용 (*)</p>
-                    <p class="detail-data">
-                        FAQ 내용입니다.<br>
-                        블라블라블라
+                    <p class="detail-data" id="content">
                     </p>
                 </li>
                 <li>
                     <p class="sub-title important">노출 여부</p>
-                    <p class="detail-data">Y</p>
+                    <p class="detail-data" id="exposure"></p>
                 </li>
             </ul>
 
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
-                    <a class="list-btn" href="/faq/lists">목록</a>
-                    <a class="update-btn" href="/faq/update">수정</a>
+                    <a class="list-btn" href="/service/faq/list">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script src="/assets/js/faq/faq-detail.js"></script>

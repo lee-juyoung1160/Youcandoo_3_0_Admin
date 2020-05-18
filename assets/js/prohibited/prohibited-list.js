@@ -177,7 +177,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 금칙어를 '+message.select);
+			alert('삭제할 대상을 목록에서 '+message.select);
 			return;
 		}
 

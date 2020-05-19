@@ -62,7 +62,7 @@
 		,commentQna : baseApiUrl+'qna/comment'
 		,detailQna : baseApiUrl+'qna/detail'
 		,listQna : baseApiUrl+'qna/list'
-		,listQnaType : baseApiUrl+'qna/type'
+		,getQnaType : baseApiUrl+'qna/type'
 		,createPromotion : baseApiUrl+'promotion/create'
 		,detailPromotion : baseApiUrl+'promotion/getPromotion'
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'

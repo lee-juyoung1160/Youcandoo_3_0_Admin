@@ -160,8 +160,8 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(3);
-		let detailUrl = '/service/inquiry/detail/'+aData.idx;
+		let titleDom  = $(nRow).children().eq(3);
+		let detailUrl = aData.status === '0' ? '/service/inquiry/update/'+aData.idx : '/service/inquiry/detail/'+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');

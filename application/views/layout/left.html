@@ -131,6 +131,16 @@
     </nav>
 </header>
 
+<!-- loding html -->
+<div class="loding-back" id="viewLoading">
+    <div class="loding-wrap">
+        <div class="main_loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <span>Loding</span>
+    </div>
+</div>
 <!-- Top Menu -->
 <aside class="side-menu">
     <div class="inner side-menu-wrap clearfix">
@@ -164,4 +174,25 @@
     {
         location.href = "/auth/logout";
     }
+
+    // 로딩될때 스크립트
+    $(document).ready(function($)
+    {
+        // 페이지가 로딩될 때 'Loading 이미지'를 숨김
+        $('#viewLoading').hide();
+
+        // ajax 실행 및 완료시 'Loading 이미지'의 동작 컨트롤
+        $('#viewLoading')
+            .ajaxStart(function()
+            {
+                //$(this).show();
+                $(this).fadeIn(500);
+            })
+            .ajaxStop(function()
+            {
+                //$(this).hide();
+                $(this).fadeOut(500);
+            });
+    });
+
 </script>

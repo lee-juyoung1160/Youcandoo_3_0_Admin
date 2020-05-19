@@ -6,252 +6,340 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">두잇명(*)</p>
-                    <input id="doitTitle" type="text" placeholder="제목을 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">두잇명(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="doitTitle" type="text" placeholder="제목을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <p class="sub-title important">소개글 (*)</p>
-                    <input id="doitDesc" type="text" placeholder="내용을 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">소개글 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="doitDesc" type="text" placeholder="내용을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li class="tag-list">
-                    <p class="sub-title important">태그(*)</p>
-                    <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>
-                    </i>
-                    <div class="tag-input-wrap">
-                        <input id="inputTag" class="tag-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
-                        <button id="addTag" class="add-btn" type="submit">
-                            <i class="fas fa-plus"></i>
-                            <span>ADD</span>
-                        </button>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">태그(*)</p>
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>
+                            </i>
+                        </div>
+                        <div class="col-2">
+                            <div class="tag-input-wrap">
+                                <input id="inputTag" class="tag-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
+                                <button id="addTag" class="add-btn" type="submit">
+                                    <i class="fas fa-plus"></i>
+                                    <span>ADD</span>
+                                </button>
+                            </div>
+                            <ul id="tagList" class="hash-tag-list clearfix">
+                                <!--<li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>-->
+                            </ul>
+                        </div>
                     </div>
-                    <ul id="tagList" class="hash-tag-list clearfix">
-                        <!--<li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>-->
-                    </ul>
                 </li>
-                <li class="clearfix">
-                    <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
-                    <!--                    이미지 및 영상 라디오 선택시 관련 .wrap display block-->
-                    <div class="radio-wrap" style="margin-bottom: 30px;">
-                        <input type="radio" id="r10" name="radio-intro-type" value="image"/>
-                        <label for="r10">이미지 <span></span></label>
-                        <input type="radio" id="r11" name="radio-intro-type" value="video"/>
-                        <label for="r11">영상 <span></span></label>
-                    </div>
-                    <div id="introFileArea" class="wrap">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <!--                    이미지 및 영상 라디오 선택시 관련 .wrap display block-->
+                            <div class="radio-wrap" style="margin-bottom: 30px;">
+                                <input type="radio" id="r10" name="radio-intro-type" value="image"/>
+                                <label for="r10">이미지 <span></span></label>
+                                <input type="radio" id="r11" name="radio-intro-type" value="video"/>
+                                <label for="r11">영상 <span></span></label>
+                            </div>
+                            <div id="introFileArea" class="wrap">
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="list-common clearfix" style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
-                    <p class="sub-title important">두잇 유형(*)</p>
-                    <div class="search-wrap" style="float: left; margin-right: 20px;">
-                        <div class="search-box">
-                            <input id="bizName" type="search" placeholder="스폰 기업명을 검색해주세요.">
-                            <i class="search-btn fas fa-search"></i>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">두잇 유형(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <div class="col-2-1 clearfix" style="float: left; width: 100%;">
+                                <div class="search-wrap" style="width: 340px; float: left; margin-right: 20px;">
+                                    <div class="search-box">
+                                        <input id="bizName" type="search" placeholder="스폰 기업명을 검색해주세요." style="width: 340px;">
+                                        <i class="search-btn fas fa-search"></i>
+                                    </div>
+                                </div>
+                                <div class="select-box" style="float: left; width: 200px;">
+                                    <label for="selPromo">프로모션 선택</label>
+                                    <select id="selPromo">
+                                    </select>
+                                </div>
+                                <div class="select-box" style="float: left; width: 280px;">
+                                    <label for="selReward">리워드 조건 생성 목록 선택</label>
+                                    <select id="selReward">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2-1" style="float: left; width: 100%; margin-top: 20px;">
+                                <div id="selectedRewardArea" class="reward-type clearfix" style="display: none;"></div>
+<!--                                <div class="reward-type clearfix">-->
+<!--                                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>두잇 참여 인원 : </span>최소 1명 ~ 최대 4명</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>인증기간 : </span>7일</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>일일인증 횟수 : </span>10회</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>목표달성률 : </span>80%</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>1인당 최대 지급할 UCD : </span>8000UCD</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>리워드 비율 : </span>개인 5 : 단체 5</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>-->
+<!--                                    </div>-->
+<!--                                    <p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>-->
+<!--                                    <div class="fixed">-->
+<!--                                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
                         </div>
                     </div>
-                    <div class="select-box" style="float: left; width: 200px;">
-                        <label for="selPromo">프로모션 선택</label>
-                        <select id="selPromo">
-                        </select>
-                    </div>
-                    <div class="select-box" style="float: left; width: 280px;">
-                        <label for="selReward">리워드 조건 생성 목록 선택</label>
-                        <select id="selReward">
-                        </select>
-                    </div>
                 </li>
-                <li id="selectedRewardArea" class="reward-type clearfix" style="display: none;">
-                </li>
-                <!--<li class="reward-type clearfix">
-                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>
-                    <div class="fixed">
-                        <p class="cap"><span>인증기간 : </span>2020.02.02 ~ 2020.02.03</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>하루인증횟수 : </span>10</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>목표달성률 : </span>80%</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>리워드 유형 : </span>개인 5 : 단체 5</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>두잇당 최대 인원 : 10명 </span></p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>1인당 최대 UCD : </span>1000 UCD</p>
-                    </div>
-                    <div class="fixed">
-                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>
-                    </div>
-                    <p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>
-                    <div class="fixed">
-                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>
-                    </div>
-                </li>-->
                 <li>
-                    <p class="sub-title important">최대 모집 인원(*)</p>
-                    <input id="maxUser" type="text" class="only-num" maxlength="">
-                    <span class="input-num-title">명</span>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">최대 모집 인원(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="maxUser" type="text" class="only-num" maxlength="">
+                            <span class="input-num-title">명</span>
+                        </div>
+                    </div>
                 </li>
                 <li class="reward-li">
-                    <p class="sub-title">공약 설정</p>
-                    <!--                    <div class="radio-wrap">-->
-                    <!--                        <input type="radio" id="r1" name="rr" />-->
-                    <!--                        <label for="r1">리워드로 UCD 지급 <span></span></label>-->
-                    <!--                        <i class="question-mark far fa-question-circle">-->
-                    <!--                            <span class="hover-text">ON: 목표달성률 성공 시, UCD적립 | OFF: 목표달성률 성공 시, UCD 미적립</span>-->
-                    <!--                        </i>-->
-                    <!--                    </div>-->
-                    <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="chkExtraReward"/>
-                        <label id="ucd-check-area" for="c1"><span></span>UCD외 추가 리워드 직접 입력</label>
-                        <input id="ucd-area" type="text" placeholder="추가 리워드를 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">공약 설정</p>
+                        </div>
+                        <div class="col-2">
+<!--                            <div class="radio-wrap" style="margin-bottom: 10px;">-->
+<!--                                <input type="radio" id="r1" name="rr" />-->
+<!--                                <label for="r1">리워드로 UCD 지급 <span></span></label>-->
+<!--                                <i class="question-mark far fa-question-circle">-->
+<!--                                    <span class="hover-text">ON: 목표달성률 성공 시, <br>UCD적립 | OFF: 목표달성률 성공 시, UCD 미적립</span>-->
+<!--                                </i>-->
+<!--                            </div>-->
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c1" name="chkExtraReward"/>
+                                <label id="ucd-check-area" for="c1"><span></span>UCD외 추가 리워드 직접 입력</label>
+                                <input id="ucd-area" type="text" placeholder="추가 리워드를 입력해주세요.">
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">인증 기간 (*)</p>
-                    <input id="doitFrom" type="text" class="datepicker">
-                    <span class="date-margin-text"> ~ </span>
-                    <input id="doitTo" type="text" class="datepicker">
-                </li>
-                <li class="time-li">
-                    <p class="sub-title important">인증 시간/간격 (*)</p>
-                    <input id="startTime" type="time" value="00:00">
-                    <span class="date-margin-text"> ~ </span>
-                    <input id="endTime" type="time" value="23:59" max="23:59">
-                </li>
-                <li class="doit-option-li">
-                    <p class="sub-title important">두잇옵션 (*)</p>
-                    <div class="checkbox-wrap">
-                        <input type="checkbox" id="c2" name="chkAccessUser" />
-                        <label class="code-btn" for="c2">참여자 제한<span></span></label>
-                        <div class="code-wrap">
-                            <span class="input-num-title margin-left-text">참가코드</span>
-                            <input id="privateCode" class="code-input only-num" type="text" placeholder="숫자 4~6자리" minlength="4" maxlength="6">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">인증 기간 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="doitFrom" type="text" class="datepicker">
+                            <span class="date-margin-text"> ~ </span>
+                            <input id="doitTo" type="text" class="datepicker">
                         </div>
                     </div>
-<!--                    <div class="checkbox-wrap">-->
-<!--                        <input type="checkbox" id="c3" name="cc" />-->
-<!--                        <label for="c3">두잇 비공개<span></span></label>-->
-<!--                    </div>-->
-<!--                    <div class="checkbox-wrap">-->
-<!--                        <input type="checkbox" id="c4" name="cc" />-->
-<!--                        <label class="doit-option-contents-btn" for="c4">인증 콘텐츠 비공개<span></span></label>-->
-<!--                    </div>-->
-                    <div class="radio-wrap doit-option-contents">
-                        <input type="radio" id="r2" name="rr" />
-                        <label for="r2">참여자+개설자만 공개<span></span></label>
+                </li>
+                <li class="time-li">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">인증 시간/간격 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="startTime" type="time" value="00:00">
+                            <span class="date-margin-text"> ~ </span>
+                            <input id="endTime" type="time" value="23:59" max="23:59">
 
-                        <input type="radio" id="r3" name="rr" />
-                        <label for="r3">개설자만 공개<span></span></label>
+                            <sapn class="date-margin-text">간격</sapn>
+                            <input type="text" style="width: 100px;">
+                            <span class="date-margin-text">분</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="doit-option-li">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">두잇옵션 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="chkAccessUser" />
+                                <label class="code-btn" for="c2">참여자 제한<span></span></label>
+                                <div class="code-wrap">
+                                    <span class="input-num-title margin-left-text">참가코드</span>
+                                    <input id="privateCode" class="code-input only-num" type="text" placeholder="숫자 4~6자리" minlength="4" maxlength="6">
+                                </div>
+<!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->
+<!--                                    <input type="checkbox" id="c3" name="cc" />-->
+<!--                                    <label for="c3">두잇 비공개<span></span></label>-->
+<!--                                </div>-->
+<!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->
+<!--                                    <input type="checkbox" id="c4" name="cc" />-->
+<!--                                    <label class="doit-option-contents-btn" for="c4">인증 콘텐츠 비공개<span></span></label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="method-li">
-<!--     인증방법 세개 선택시 인증 예시 이미지 p.cap 텍스트 안에 span 내용 변환               -->
-                    <p class="sub-title important">인증방법 (*)</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r4" name="radio-example-type" value="image"/>
-                        <label for="r4">사진<span></span></label>
-                    </div>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r5" name="radio-example-type" value="video"/>
-                        <label for="r5">동영상<span></span></label>
-                    </div>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r6" name="radio-example-type" value="voice"/>
-                        <label for="r6">음성 녹음<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">인증방법 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <!--     인증방법 세개 선택시 인증 예시 이미지 p.cap 텍스트 안에 span 내용 변환               -->
+                            <div class="radio-wrap">
+                                <input type="radio" id="r4" name="radio-example-type" value="image"/>
+                                <label for="r4">사진<span></span></label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input type="radio" id="r5" name="radio-example-type" value="video"/>
+                                <label for="r5">동영상<span></span></label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input type="radio" id="r6" name="radio-example-type" value="voice"/>
+                                <label for="r6">음성 녹음<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="clearfix">
-                    <p class="sub-title important">인증 예시 (*)</p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">인증 예시 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div id="exampleArea"></div>
+<!--                            <div class="filebox preview-image">-->
+<!--                                <p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>-->
+<!--                                <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
+<!--                                <input class="upload-name" value="파일선택" disabled="disabled" >-->
+<!--                                <label for="input-file6">업로드</label>-->
+<!--                                <input type="file" id="input-file6" class="upload-hidden">-->
+<!--                            </div>-->
+<!--                            인증 방법 중 동영상을 선택할 경우 display block-->
+<!--                            <div class="wrap">-->
+<!--                                <p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>-->
+<!--                                <div class="filebox preview-image">-->
+<!--                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
+<!--                                    <input class="upload-name" value="파일선택" disabled="disabled" >-->
+<!--                                    <label for="input-file3">업로드</label>-->
+<!--                                    <input type="file" id="input-file3" class="upload-hidden">-->
+<!--                                </div>-->
+<!--                                <div class="filebox preview-image">-->
+<!--                                    <p class="cap">영상</p>-->
+<!--                                    <input class="upload-name" value="파일선택" disabled="disabled" >-->
+<!--                                    <label for="input-file20">업로드</label>-->
+<!--                                    <input type="file" id="input-file20" class="upload-hidden">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                    <div id="exampleArea">
+<!--                            인증 방법 중 음성 녹음을 선택 할 경우 display block-->
+<!--                            <div class="filebox preview-image">-->
+<!--                                <p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>-->
+<!--                                <input class="upload-name" value="파일선택" disabled="disabled" >-->
+<!--                                <label for="input-file77">업로드</label>-->
+<!--                                <input type="file" id="input-file77" class="upload-hidden">-->
+<!--                            </div>  -->
+                        </div>
                     </div>
-                    <!--<div class="filebox preview-image">
-                        <p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
-                        <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file6">업로드</label>
-                        <input type="file" id="input-file6" class="upload-hidden">
-                    </div>-->
-
-<!--                     인증 방법 중 동영상을 선택할 경우 display block-->
-<!--                    <div class="wrap">-->
-<!--                        <p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>-->
-<!--                        <div class="filebox preview-image">-->
-<!--                            <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
-<!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
-<!--                            <label for="input-file3">업로드</label>-->
-<!--                            <input type="file" id="input-file3" class="upload-hidden">-->
-<!--                        </div>-->
-<!--                        <div class="filebox preview-image">-->
-<!--                            <p class="cap">영상</p>-->
-<!--                            <input class="upload-name" value="파일선택" disabled="disabled" >-->
-<!--                            <label for="input-file20">업로드</label>-->
-<!--                            <input type="file" id="input-file20" class="upload-hidden">-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    인증 방법 중 음성 녹음을 선택 할 경우 display block-->
-<!--                    <div class="filebox preview-image">-->
-<!--                        <p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>-->
-<!--                        <input class="upload-name" value="파일선택" disabled="disabled" >-->
-<!--                        <label for="input-file77">업로드</label>-->
-<!--                        <input type="file" id="input-file77" class="upload-hidden">-->
-<!--                    </div>-->
                 </li>
                 <li>
-                    <p class="sub-title important">인증 예시 설명 (*)</p>
-                    <input id="exampleDesc" type="text" placeholder="내용을 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">인증 예시 설명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="exampleDesc" type="text" placeholder="내용을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
 <!--                인증제외날짜 및 노출여부는 추후 개발 예정계획-->
 <!--                <li>-->
-<!--                    <p class="sub-title">인증 제외 날짜</p>-->
-<!--                    <div class="tag-input-wrap">-->
-<!--                        <input class="tag-input" type="date">-->
-<!--                        <button class="add-btn" type="submit">-->
-<!--                            <i class="fas fa-plus"></i>-->
-<!--                            <span>ADD</span>-->
-<!--                        </button>-->
+<!--                    <div class="col-wrap clearfix">-->
+<!--                        <div class="col-1">-->
+<!--                            <p class="sub-title">인증 제외 날짜</p>-->
+<!--                        </div>-->
+<!--                        <div class="col-2">-->
+<!--                            <div class="tag-input-wrap">-->
+<!--                                <input class="tag-input" type="date">-->
+<!--                                <button class="add-btn" type="submit">-->
+<!--                                    <i class="fas fa-plus"></i>-->
+<!--                                    <span>ADD</span>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <ul class="hash-tag-list clearfix">-->
+<!--                                <li>-->
+<!--                                    <span class="tag-name">2020/04/25</span>-->
+<!--                                    <i class="delete-btn far fa-times-circle"></i>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <span class="tag-name">2020/04/25</span>-->
+<!--                                    <i class="delete-btn far fa-times-circle"></i>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <span class="tag-name">2020/04/25</span>-->
+<!--                                    <i class="delete-btn far fa-times-circle"></i>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
 <!--                    </div>-->
-<!--                    <ul class="hash-tag-list clearfix">-->
-<!--                        <li>-->
-<!--                            <span class="tag-name">2020/04/25</span>-->
-<!--                            <i class="delete-btn far fa-times-circle"></i>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <span class="tag-name">2020/04/25</span>-->
-<!--                            <i class="delete-btn far fa-times-circle"></i>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <span class="tag-name">2020/04/25</span>-->
-<!--                            <i class="delete-btn far fa-times-circle"></i>-->
-<!--                        </li>-->
-<!--                    </ul>-->
 <!--                </li>-->
-<!--                <li class="doit-open">-->
-<!--                    <p class="sub-title important">두잇 노출 여부</p>-->
-<!--                    <div class="checkbox-wrap">-->
-<!--                        <input type="radio" id="c6" name="rc" />-->
-<!--                        <label for="c6">노출<span></span></label>-->
+                <li class="doit-open">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">두잇 노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c6" name="rc" />
+                                <label for="c6">노출<span></span></label>
 
-<!--                        <input type="radio" id="c7" name="rc" />-->
-<!--                        <label for="c7">비노출<span></span></label>-->
-<!--                    </div>-->
-<!--                </li>-->
+                                <input type="radio" id="c7" name="rc" />
+                                <label for="c7">비노출<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
                 </li>

@@ -1,158 +1,308 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
 <link rel="stylesheet" href="/assets/css/pro-create.css">
-<section class="pro-create-page">
+<section class="pro-detail-page">
     <div class="inner">
         <h2 class="main-title">프로모션 상세 수정</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">스폰 기업명 (*)</p>
-                    <input type="text" placeholder="제목을 입력해주세요.">
-                </li>
-                <li>
-                    <p class="sub-title important">프로모션명 (*)</p>
-                    <input type="text" placeholder="제목을 입력해주세요.">
-                </li>
-                <li class="tag-list">
-                    <p class="sub-title important">프로모션 예산 (*)</p>
-                    <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">*집행 예산의 수수료30% 부과 (수수료=집행예산X30%) <br>* 유캔두와 컨설팅 후 예산을 입력해주세요</span>
-                    </i>
-                    <div class="wrap">
-                        <input type="number">
-                        <span class="input-num-title">원</span>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">스폰 기업명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="bizName" type="text" placeholder="기업명을 선택해주세요.">
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">프로모션 기간 (*)</p>
-                    <input type="date">
-                    <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="promoName" type="text" placeholder="프로모션명을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li class="tag-list">
-                    <div class="wrap">
-                        <p class="sub-title important">유의사항 (*)</p>
-                        <i class="question-mark far fa-question-circle">
-                            <span class="hover-text">* 최소 1개 최대 4개까지 등록이 가능합니다.</span>
-                        </i>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션 예산 (*)</p>
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">*집행 예산의 수수료30% 부과 (수수료=집행예산X30%) <br>* 유캔두와 컨설팅 후 예산을 입력해주세요</span>
+                            </i>
+                        </div>
+                        <div class="col-2">
+                            <div class="wrap">
+                                <input id="budget" type="text" class="only-num" maxlength="11">
+                                <span class="input-num-title">원</span>
+                            </div>
+                        </div>
                     </div>
-                    <button class="add-btn" type="button" style="width: 180px; margin-bottom: 20px;">
-                        <i class="fas fa-plus"></i>
-                        <span>생성하기</span>
-                    </button>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션 기간 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="promoFrom" type="text" class="datepicker">
+                            <span class="date-margin-text"> ~ </span>
+                            <input id="promoTo" type="text" class="datepicker">
+                        </div>
+                    </div>
+                </li>
+                <li class="tag-list">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">유의사항 (*)</p>
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">* 최소 1개 최대 4개까지 등록이 가능합니다.</span>
+                            </i>
+                        </div>
+                        <div class="col-2">
+                            <button id="btnNoticeAdd" class="add-btn" type="button" style="width: 180px; margin-bottom: 20px;">
+                                <i class="fas fa-plus"></i>
+                                <span>생성하기</span>
+                            </button>
+                            <ul id="noticeArea" class="notice-input-list">
+                                <!--<li>
+                                    <p class="cap">첫번째 유의사항</p>
+                                    <input type="text" placeholder="유의사항을 입력해주세요.">
+                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
+                                </li>
+                                <li>
+                                    <p class="cap">두번째 유의사항</p>
+                                    <input type="text" placeholder="유의사항을 입력해주세요.">
+                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="tag-list">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션 참여 가능 횟수 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="allowCount" type="text" class="only-num">
+                            <span class="input-num-title">회</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">이미지 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">배너 및 리스트 (* 이미지 사이즈: 656 x 420)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled" >
+                                <label for="banner">업로드</label>
+                                <input type="file" id="banner" class="upload-hidden">
+                            </div>
+                            <div class="filebox preview-image">
+                                <p class="cap">소개 (* 이미지 사이즈: 656 x 420 이상)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled" >
+                                <label for="thumbnail">업로드</label>
+                                <input type="file" id="thumbnail" class="upload-hidden">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--                <li class="doit-open">-->
+                <!--                    <div class="col-wrap clearfix">-->
+                <!--                        <div class="col-1">-->
+                <!--                            <p class="sub-title important">두잇 개설 유형 (*)</p>-->
+                <!--                        </div>-->
+                <!--                        <div class="col-2">-->
+                <!--                            <div class="checkbox-wrap">-->
+                <!--                                <input type="radio" id="c6" name="radio-doit-type" value="user"/>-->
+                <!--                                <label for="c6">사용자 두잇 개설 허용<span></span></label>-->
 
-                    <ul class="notice-input-list">
-                        <li>
-                            <p class="cap">첫번째 유의사항</p>
-                            <input type="text" placeholder="유의사항을 입력해주세요.">
-                            <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
-                        </li>
-                        <li>
-                            <p class="cap">두번째 유의사항</p>
-                            <input type="text" placeholder="유의사항을 입력해주세요.">
-                            <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
-                        </li>
-                    </ul>
-                </li>
-                <li class="clearfix">
-                    <p class="sub-title important">이미지 (*)</p>
-                    <div class="filebox preview-image">
-                        <p class="cap">메인 배너 (* 이미지 사이즈: 650 x 650)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file1">업로드</label>
-                        <input type="file" id="input-file1" class="upload-hidden">
-                    </div>
-                    <div class="filebox preview-image">
-                        <p class="cap">리스트 썸네일(* 이미지 사이즈: 160 x 165)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file2">업로드</label>
-                        <input type="file" id="input-file2" class="upload-hidden">
-                    </div>
-                </li>
+                <!--                                <input type="radio" id="c7" name="radio-doit-type" value="admin"/>-->
+                <!--                                <label for="c7">기업만 두잇 개설 허용<span></span></label>-->
+
+                <!--                                <div class="checkbox-wrap" style="margin-top: 10px;">-->
+                <!--                                    <input type="checkbox" id="c8" name="cc" />-->
+                <!--                                    <label class="doit-option-contents-btn" for="c8">두잇 개설 시, 승인 사용 (체크시, 승인 후 두잇 앱에 노출)<span></span></label>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </li>-->
                 <li class="doit-open">
-                    <p class="sub-title important">두잇 개설 유형 (*)</p>
-                    <div class="checkbox-wrap">
-                        <input type="radio" id="c6" name="rc" />
-                        <label for="c6">사용자 두잇 개설 허용<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션 홈 배너 노출 여부 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c9" name="radio-banner-open" value="Y"/>
+                                <label for="c9">노출<span></span></label>
 
-                        <input type="radio" id="c7" name="rc" />
-                        <label for="c7">기업만 두잇 개설 허용<span></span></label>
-
-<!--                        <div class="checkbox-wrap">-->
-<!--                            <input type="checkbox" id="c8" name="cc" />-->
-<!--                            <label class="doit-option-contents-btn" for="c8">두잇 개설 시, 승인 사용 (체크시, 승인 후 두잇 앱에 노출)<span></span></label>-->
-<!--                        </div>-->
+                                <input type="radio" id="c10" name="radio-banner-open" value="N"/>
+                                <label for="c10">비노출<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
-<!--                <li class="doit-open">-->
-<!--                    <p class="sub-title important">프로모션 노출 여부 (*)</p>-->
-<!--                    <div class="checkbox-wrap">-->
-<!--                        <input type="radio" id="c9" name="rc" />-->
-<!--                        <label for="c9">노출<span></span></label>-->
-
-<!--                        <input type="radio" id="c10" name="rc" />-->
-<!--                        <label for="c10">비노출<span></span></label>-->
-<!--                    </div>-->
-<!--                </li>-->
                 <li class="pro-reward-list">
-                    <p class="sub-title important">리워드 조건 지정 (*)</p>
-                    <i class="question-mark far fa-question-circle">
-                        <span class="hover-text">* 최소 1개 최대 5개까지 등록이 가능합니다.</span>
-                    </i>
-                    <button class="add-btn upload-btn" type="button">
-                        <i class="fas fa-plus"></i>
-                        <span>생성하기</span>
-                    </button>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">리워드 조건 지정 (*)</p>
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">* 최소 1개 최대 5개까지 등록이 가능합니다.</span>
+                            </i>
+                        </div>
+                        <div class="col-2">
+                            <button id="btnAddReward" class="add-btn" type="button">
+                                <i class="fas fa-plus"></i>
+                                <span>생성하기</span>
+                            </button>
+
+                            <ul class="hash-tag-list reward-list clearfix">
+                                <li id="hash-tag-btn">
+                                    Title 01.<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    Title 02.<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    Title 03.<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    Title 04.<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    Title 05.<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <button class="completion-btn" type="submit">수정 완료</button>
+                    <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
                 </li>
             </ul>
 
-            <div class="modal-content">
+            <div class="modal-content" id="hash-tag-contents">
                 <div class="wrap">
                     <i class="close-btn fas fa-times-circle"></i>
-                    <p class="modal-title">리워드 조건 지정 입력하기</p>
-                    <ul class="pro-reward">
+                    <p class="modal-title">입력하신 리워드 조건입니다.</p>
+                    <ul class="pro-reward modal-information">
                         <li>
                             <p class="sub-title important">리워드 제목 (*)</p>
-                            <input type="text" placeholder="제목을 입력해주세요.">
+                            <p class="detail-data">나이키</p>
+                        </li>
+                        <li>
+                            <p class="sub-title important">두잇 참여 인원 (*)</p>
+                            <p class="detail-data">최소 1명 ~ 최대 5명</p>
                         </li>
                         <li>
                             <p class="sub-title important">인증 기간 (*)</p>
-                            <input type="date">
-                            <span class="date-margin-text"> ~ </span>
-                            <input type="date">
+                            <p class="detail-data">7일</p>
                         </li>
                         <li>
                             <p class="sub-title important">일일인증 횟수 (*)</p>
-                            <input type="number">
+                            <p class="detail-data">5회</p>
+                        </li>
+                        <li>
+                            <p class="sub-title important" style="display: inline-block;">목표달성률 (*)</p>
+                            <p class="detail-data">80%</p>
+                        </li>
+                        <li class="method-li">
+                            <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
+                            <p class="detail-data">5000 UCD</p>
+                        </li>
+                        <li class="reward-typ-li clearfix">
+                            <p class="sub-title important" style="display: inline-block;">리워드 비율 (*)</p>
+                            <p class="detail-data">개인 10% : 단체 90% </p>
+                        </li>
+                        <li>
+                            <p class="sub-title important">주간 빈도 (*)</p>
+                            <p class="detail-data">월, 화, 수</p>
+                        </li>
+                    </ul>
+                    <button class="completion-btn" type="submit">수정 하기</button>
+                </div>
+            </div>
+            <div class="modal-layout" id="hash-tag-contents-back"></div>
+
+            <div id="modalReward" class="modal-content" >
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">리워드 조건 지정 입력하기</p>
+                    <ul class="pro-reward modal-information">
+                        <li>
+                            <p class="sub-title important">리워드 제목 (*)</p>
+                            <input id="modalRwrdTitle" type="text" placeholder="제목을 입력해주세요.">
+                        </li>
+                        <li>
+                            <p class="sub-title important">두잇 참여 인원 (*)</p>
+                            <span>최소</span>
+                            <input type="text" style="width: 150px;">
+                            <span>명</span>
+                            <span>~</span>
+                            <span>최대</span>
+                            <input type="text" style="width: 150px;">
+                            <span>명</span>
+                        </li>
+                        <li>
+                            <p class="sub-title important">인증 기간 (*)</p>
+                            <ul class="day-btn clearfix">
+                                <li>1일</li>
+                                <li>7일</li>
+                                <li>14일</li>
+                                <li>28일</li>
+                                <li>30일</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p class="sub-title important">일일인증 횟수 (*)</p>
+                            <input id="certCount" type="text" class="only-num" maxlength="1">
                             <span class="input-num-title">회</span>
                         </li>
                         <li>
-                            <p class="sub-title important">목표달성률 (*)</p>
-                            <input type="number">
+                            <p class="sub-title important" style="display: inline-block;">목표달성률 (*)</p>
+                            <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+                                <span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
+                            </i>
+                            <input id="goalRange" type="range" class="custom-range" readonly>
+                            <input id="goalRate" type="text" readonly>
                             <span class="input-num-title">%</span>
                         </li>
                         <li class="method-li">
                             <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
-                            <input type="number">
-                            <span class="input-num-title">원</span>
+                            <input id="maxUcd" type="text" class="only-num">
+                            <span class="input-num-title">UCD</span>
                         </li>
                         <li class="reward-typ-li clearfix">
-                            <p class="sub-title important">리워드 유형 (*)</p>
+                            <p class="sub-title important" style="display: inline-block;">리워드 비율 (*)</p>
+                            <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+                                <span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>
+                            </i>
+                            <input id="rewardRange" type="range" class="custom-range" readonly>
                             <span class="input-num-title">개인</span>
-                            <input type="number">
+                            <input id="individualRate" type="number" readonly>
                             <span class="input-num-title margin-text">:</span>
 
                             <span class="input-num-title">단체</span>
-                            <input type="number">
+                            <input id="groupRate" type="number" readonly>
                         </li>
                         <li>
                             <p class="sub-title important">주간 빈도 (*)</p>
-                            <ul class="day-btn clearfix">
+                            <ul id="frequency" class="day-btn clearfix">
                                 <!--        다중선택 가능하게 스크립트                -->
-                                <li class="active">월</li>
+                                <li>월</li>
                                 <li>화</li>
                                 <li>수</li>
                                 <li>목</li>
@@ -161,48 +311,56 @@
                                 <li>일</li>
                             </ul>
                         </li>
-                        <li class="clearfix">
-                            <button class="completion-btn" type="submit">입력 완료</button>
-                        </li>
                     </ul>
+                    <button id="btnRewardModalSubmit" class="completion-btn" type="submit">입력 완료</button>
                 </div>
             </div>
             <div class="modal-layout"></div>
 
             <div class="pro-reward-add-list">
                 <div class="inner clearfix">
-                    <h2 class="main-title">리워드 조건 생성 목록</h2>
-                    <ul class="enrollment clearfix">
-                        <i class="delete-btn far fa-times-circle"></i>
-                        <li>
-                            <p class="sub-title important">리워드 제목 (*)</p>
-                            <p class="detail-data">일주일동안 주 3회 운동 3시간 하기</p>
-                        </li>
-                        <li class="tag-list">
-                            <p class="sub-title important">인증 기간 (*)</p>
-                            <p class="detail-data">2020.02.02 ~ 2020.03.03</p>
-                        </li>
-                        <li class="clearfix">
-                            <p class="sub-title important">일일인증 횟수 (*)</p>
-                            <p class="detail-data">3회</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">목표달성률 (*)</p>
-                            <p class="detail-data">80%</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
-                            <p class="detail-data">1,000 UCD</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">리워드 유형 (*)</p>
-                            <p class="detail-data">개인 5 : 단체 5</p>
-                        </li>
-                        <li>
-                            <p class="sub-title important">주간빈도 (*)</p>
-                            <p class="detail-data">월, 수, 금</p>
-                        </li>
-                    </ul>
+                    <h2 id="rewardListTitle" class="main-title"></h2>
+                    <div id="rewardListArea">
+                        <!--<ul class="enrollment clearfix">
+                            <i class="delete-btn far fa-times-circle"></i>
+                            <li>
+                                <p class="sub-title important">리워드 제목 (*)</p>
+                                <p class="detail-data">일주일동안 주 3회 운동 3시간 하기</p>
+                            </li>
+                            <li class="tag-list">
+                                <p class="sub-title important">인증 기간 (*)</p>
+                                <p class="detail-data">2020.02.02 ~ 2020.03.03</p>
+                            </li>
+                            <li class="clearfix">
+                                <p class="sub-title important">일일인증 횟수 (*)</p>
+                                <p class="detail-data">3회</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">목표달성률 (*)</p>
+                                <p class="detail-data">80%</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
+                                <p class="detail-data">1,000 UCD</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">리워드 유형 (*)</p>
+                                <p class="detail-data">개인전</p>
+                            </li>
+                            <li>
+                                <p class="sub-title important">주간빈도 (*)</p>
+                                <ul class="day-btn clearfix">
+                                    <li class="active">월</li>
+                                    <li>화</li>
+                                    <li class="active">수</li>
+                                    <li>목</li>
+                                    <li class="active">금</li>
+                                    <li>토</li>
+                                    <li>일</li>
+                                </ul>
+                            </li>
+                        </ul>-->
+                    </div>
                 </div>
             </div>
         </div>

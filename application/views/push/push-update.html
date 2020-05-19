@@ -7,66 +7,107 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li class="push-type create-radio-wrap">
-                    <p class="sub-title important">발송유형(*)</p>
-                    <div class="checkbox-wrap">
-                        <input type="radio" id="c1" name="rc" class="type-btn" value="typeNow" />
-                        <label for="c1">즉시발송<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">발송유형(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c1" name="rc" class="type-btn" value="typeNow" />
+                                <label for="c1" >즉시발송<span></span></label>
 
-                        <input type="radio" id="c2" name="rc" class="type-btn" value="typeReserv" />
-                        <label for="c2">예약발송<span></span></label>
+                                <input type="radio" id="c2" name="rc" class="type-btn" value="typeReserv" />
+                                <label for="c2">예약발송<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="push-send-date">
-                    <p class="sub-title important">발송일자</p>
-                    <input type="date">
-                    <input type="time">
-                </li>
-                <li class="clearfix">
-                    <p class="sub-title important">구분 (*)</p>
-                    <div class="select-box">
-                        <label for="ex_select1">일반공지</label>
-                        <select id="ex_select1">
-                            <option selected>일반공지</option>
-                            <option>긴급공지</option>
-                            <option>이벤트공지</option>
-                        </select>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">발송일자</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="date">
+                            <input type="time">
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">제목 (*)</p>
-                    <div class="input-wrap">
-                        <input id="title" type="text" placeholder="제목을 입력해주세요.">
-                        <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">10</span></p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">구분 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="select-box">
+                                <label for="ex_select1">일반공지</label>
+                                <select id="ex_select1">
+                                    <option selected>일반공지</option>
+                                    <option>긴급공지</option>
+                                    <option>이벤트공지</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">내용(*)</p>
-                    <div class="textarea-wrap">
-                        <textarea placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
-                        <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">1000</span></p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-wrap">
+                                <input id="title" type="text" placeholder="제목을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">10</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
+                            <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count">0</span>/<span class="max-count">1000</span> byte</p>
+                        </div>
                     </div>
                 </li>
                 <li class="clearfix">
-                    <p class="sub-title important">이미지</p>
-                    <div class="filebox preview-image">
-                        <p class="cap">썸네일 (이미지 사이즈: 000 x 000)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file3">업로드</label>
-                        <input type="file" id="input-file3" class="upload-hidden">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">이미지</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">썸네일 (이미지 사이즈: 000 x 000)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled" >
+                                <label for="input-file3">업로드</label>
+                                <input type="file" id="input-file3" class="upload-hidden">
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="create-radio-wrap">
-                    <p class="sub-title important">발송대상(*)</p>
-                    <div class="checkbox-wrap">
-                        <input type="radio" id="c3" name="rd" class="obj-btn" value="objAll" />
-                        <label for="c3">전체<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">발송대상(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c3" name="rd" class="obj-btn" value="objAll" />
+                                <label for="c3">전체<span></span></label>
 
-                        <input type="radio" id="c4" name="rd" class="obj-btn" value="objPart"/>
-                        <label for="c4">부분<span></span></label>
+                                <input type="radio" id="c4" name="rd" class="obj-btn" value="objPart"/>
+                                <label for="c4">부분<span></span></label>
 
-                        <input type="radio" id="c5" name="rd" class="obj-btn" value="objGroup"/>
-                        <label for="c5">그룹<span></span></label>
+                                <input type="radio" id="c5" name="rd" class="obj-btn" value="objGroup"/>
+                                <label for="c5">그룹<span></span></label>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="nickname-wrap">
                         <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
@@ -133,7 +174,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button class="completion-btn" type="submit">완료</button>
+                                <button class="completion-btn" type="submit">등록 완료</button>
                             </div>
                         </div>
                         <div class="modal-layout"></div>

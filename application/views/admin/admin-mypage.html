@@ -11,37 +11,67 @@
         <div id="myProfile" class="wrap update-list">
             <ul class="enrollment clearfix">
                 <li>
-                    <div class="top clearfix">
-                        <p class="sub-title">아이디</p>
-                        <i class="far fa-window-close"></i>
-                        <span>변경 불가능</span>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">아이디</p>
+                                <i class="far fa-window-close"></i>
+                                <span>변경 불가능</span>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myId"></p>
+                        </div>
                     </div>
-                    <p class="detail-data" id="myId"></p>
                 </li>
                 <li>
-                    <div class="top clearfix">
-                        <p class="sub-title">이름</p>
-                        <i class="far fa-window-close"></i>
-                        <span>변경 불가능</span>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">이름</p>
+                                <i class="far fa-window-close"></i>
+                                <span>변경 불가능</span>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myName"></p>
+                        </div>
                     </div>
-                    <p class="detail-data" id="myName"></p>
                 </li>
                 <li>
-                    <div class="top clearfix">
-                        <p class="sub-title">이메일</p>
-                        <i class="far fa-window-close"></i>
-                        <span>변경 불가능</span>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">이메일</p>
+                                <i class="far fa-window-close"></i>
+                                <span>변경 불가능</span>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myEmail"></p>
+                        </div>
                     </div>
-                    <p class="detail-data" id="myEmail"></p>
                 </li>
                 <li>
-                    <p class="sub-title important">비밀번호(*)</p>
-                    <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">비밀번호(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <p class="sub-title important">비밀번호 확인(*)</p>
-                    <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
-                    <small id="passwordChkTxt" style="color:red;"></small>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">비밀번호 확인(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                            <small id="passwordChkTxt" style="color:red;"></small>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>

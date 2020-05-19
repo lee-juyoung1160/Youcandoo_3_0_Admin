@@ -86,9 +86,12 @@
 .btn-wrap a i {
     margin-right: 10px;
 }
-.img-list .wrap {
-    float: left;
-    margin-right: 20px;
+/*.img-list .wrap {*/
+/*    float: left;*/
+/*    margin-right: 20px;*/
+/*}*/
+.img-list .wrap:last-child {
+    margin-top: 15px;
 }
 .notice-input-list li {
     margin-bottom: 20px;

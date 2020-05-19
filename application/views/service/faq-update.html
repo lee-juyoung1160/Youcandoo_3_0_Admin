@@ -4,36 +4,60 @@
         <h2 class="main-title">FAQ 수정</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-                <li class="clearfix">
-                    <p class="sub-title important">구분 (*)</p>
-                    <div class="select-box">
-                        <label for="selFaqType">일반문의</label>
-                        <select id="selFaqType">
-                            <option value="normal">일반문의</option>
-                            <option value="user">회원정보</option>
-                            <option value="cash">캐시</option>
-                            <option value="payment">결제</option>
-                            <option value="cert">인증</option>
-                            <option value="message">채팅</option>
-                        </select>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">구분 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="select-box">
+                                <label for="selFaqType">일반문의</label>
+                                <select id="selFaqType">
+                                    <option value="normal">일반문의</option>
+                                    <option value="user">회원정보</option>
+                                    <option value="cash">캐시</option>
+                                    <option value="payment">결제</option>
+                                    <option value="cert">인증</option>
+                                    <option value="message">채팅</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">제목 (*)</p>
-                    <input id="title" type="text" placeholder="제목을 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="title" type="text" placeholder="제목을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <p class="sub-title important">내용 (*)</p>
-                    <textarea id="content" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <textarea id="content" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
                 </li>
                 <li class="create-radio-wrap">
-                    <p class="sub-title important">노출 여부</p>
-                    <div class="checkbox-wrap">
-                        <input type="radio" id="c1" name="radio-exposure" value="Y"/>
-                        <label for="c1">Y<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c1" name="radio-exposure" value="Y"/>
+                                <label for="c1">Y<span></span></label>
 
-                        <input type="radio" id="c2" name="radio-exposure" value="N"/>
-                        <label for="c2">N<span></span></label>
+                                <input type="radio" id="c2" name="radio-exposure" value="N"/>
+                                <label for="c2">N<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>

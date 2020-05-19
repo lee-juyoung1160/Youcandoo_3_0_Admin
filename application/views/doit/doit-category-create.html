@@ -6,53 +6,77 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">카테고리명(*)</p>
-                    <input type="text" placeholder="제목을 입력해주세요.">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">카테고리명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" placeholder="제목을 입력해주세요.">
+                        </div>
+                    </div>
                 </li>
                 <li class="tag-list">
-                    <p class="sub-title">태그</p>
-<!--                    <i class="question-mark far fa-question-circle">-->
-<!--                        <span class="hover-text">최대 3개, 최대 5자까지 등록이 가능합니다.</span>-->
-<!--                    </i>-->
-                    <div class="tag-input-wrap">
-                        <input class="tag-input" type="text" placeholder="태그를 입력해주세요.">
-                        <button class="add-btn" type="submit">
-                            <i class="fas fa-plus"></i>
-                            <span>ADD</span>
-                        </button>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">태그</p>
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">최소 3개, 최대 5자까지 등록이 가능합니다.</span>
+                            </i>
+                        </div>
+                        <div class="col-2">
+                            <div class="tag-input-wrap">
+                                <input class="tag-input" type="text" placeholder="태그를 입력해주세요.">
+                                <button class="add-btn" type="submit">
+                                    <i class="fas fa-plus"></i>
+                                    <span>ADD</span>
+                                </button>
+                            </div>
+                            <ul class="hash-tag-list clearfix">
+                                <li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                                <li>
+                                    #<span class="tag-name">밸런스</span>
+                                    <i class="delete-btn far fa-times-circle"></i>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="hash-tag-list clearfix">
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                        <li>
-                            #<span class="tag-name">밸런스</span>
-                            <i class="delete-btn far fa-times-circle"></i>
-                        </li>
-                    </ul>
                 </li>
-                <li class="img-wrap clearfix">
-                    <p class="sub-title important">카테고리 이미지 업로드 (*)</p>
-                    <div class="filebox preview-image">
-                        <p class="cap">카테고리 아이콘 (* 이미지 사이즈: 128 x 128)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file2">업로드</label>
-                        <input type="file" id="input-file2" class="upload-hidden">
+                <li class="img-wrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">카테고리 이미지 업로드 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">카테고리 아이콘 (* 이미지 사이즈: 128 x 128)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled" >
+                                <label for="input-file2">업로드</label>
+                                <input type="file" id="input-file2" class="upload-hidden">
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="method-li">
-                    <p class="sub-title">노출여부</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r4" name="rr" />
-                        <label for="r4">노출<span></span></label>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">노출여부</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="radio-wrap">
+                                <input type="radio" id="r4" name="rr" />
+                                <label for="r4">노출<span></span></label>
 
-                        <input type="radio" id="r5" name="rr" />
-                        <label for="r5">비노출<span></span></label>
+                                <input type="radio" id="r5" name="rr" />
+                                <label for="r5">비노출<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
@@ -94,8 +118,8 @@
                     <div class="table-wrap modal-information">
                         <table>
                             <colgroup>
-                                <col style="width:4%;">
-                                <col style="width:48%;">
+                                <col style="width:8%;">
+                                <col style="width:44%;">
                                 <col style="width:48%;">
                             </colgroup>
                             <thead>

@@ -21,6 +21,7 @@ class Auth extends CI_Controller {
      */
     public function login()
     {
+
         $UserID = $this->input->post("userid");
         $Password = $this->input->post("password");
         if($UserID == "")

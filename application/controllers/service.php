@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Service extends CI_Controller {
+class Service extends MY_Controller {
 
     public function notice($Route="list")
     {
@@ -66,9 +66,6 @@ class Service extends CI_Controller {
         {
             case "list" :
                 $this->load->layout('service/inquiry-list');
-                break;
-            case "create":
-                $this->load->layout('service/inquiry-create');
                 break;
             case "update":
                 $this->load->layout('service/inquiry-update');

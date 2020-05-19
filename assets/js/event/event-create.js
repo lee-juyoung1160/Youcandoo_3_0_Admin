@@ -89,7 +89,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/event/lists'
+							location.href = '/service/event/list'
 					},
 					error: function (request, status) {
 						console.log(status);

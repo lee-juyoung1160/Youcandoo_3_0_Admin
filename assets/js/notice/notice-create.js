@@ -64,7 +64,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/notice/lists'
+							location.href = '/service/notice/list'
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
 						console.log(xhr.status);

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Confirm extends CI_Controller {
+class Confirm extends MY_Controller {
 
     public function lists()
         {

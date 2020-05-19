@@ -1,22 +1,22 @@
 
-	const title 		= $("#title");
+	const nickname 		= $("#nickname");
+	const regDate		= $("#regDate");
+	const title			= $("#title");
 	const content		= $("#content");
-	const reserveDate	= $("#reserveDate");
-	const exposure		= $("#exposure");
-	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/qna/comment/";
+	const comment		= $("#comment");
+	const admin			= $("#admin");
+	const commentDate	= $("#commentDate");
+	const memo			= $("#memo");
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
 		getDetail();
-
-		goUpdate.on('click', function () { goUpdatePage(); })
 	});
 
 	function getDetail()
 	{
 		$.ajax({
-			url: api.detailNotice,
+			url: api.detailQna,
 			type: "POST",
 			data: params(),
 			headers: headers,
@@ -44,10 +44,14 @@
 	{
 		let jsonData = JSON.parse(data);
 
+		nickname.html(jsonData.data.nickname);
+		regDate.html(jsonData.data.created_datetime);
 		title.html(jsonData.data.title);
 		content.html(jsonData.data.contents);
-		reserveDate.html(jsonData.data.reservation_date);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		comment.html(jsonData.data.comment);
+		admin.html(jsonData.data.admin_userid);
+		commentDate.html(jsonData.data.comment_datetime);
+		memo.html(jsonData.data.memo);
 	}
 
 	function goUpdatePage()

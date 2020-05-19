@@ -6,6 +6,7 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
+<<<<<<< HEAD
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">작성자</p>
@@ -47,11 +48,31 @@
                                 해당 증상 때문에 오늘 인증 실패하게 생겼어요……
                             </p>
                         </div>
+=======
+                    <p class="sub-title important">작성자</p>
+                    <div class="text-box" id="nickname">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">등록일시</p>
+                    <div class="text-box" id="regDate">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">제목</p>
+                    <div class="text-box" id="title">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">내용</p>
+                    <div class="text-box" id="content">
+>>>>>>> ff15021955047953c2bd5e74736215ec965fe41e
                     </div>
                 </li>
             </ul>
             <ul class="enrollment clearfix">
                 <li>
+<<<<<<< HEAD
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">답변 내용 (*)</p>
@@ -75,32 +96,37 @@
                             </p>
                         </div>
                     </div>
+=======
+                    <p class="sub-title important">답변 내용 (*)</p>
+                    <p class="detail-data" id="comment">
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title important">처리자</p>
+                    <p class="detail-data" id="admin">
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title important">처리일시</p>
+                    <p class="detail-data" id="commentDate">
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title important">메모</p>
+                    <p class="detail-data" id="memo">
+                    </p>
+>>>>>>> ff15021955047953c2bd5e74736215ec965fe41e
                 </li>
             </ul>
 
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
-                    <a class="list-btn" href="/inquiry/lists">목록</a>
-                    <a class="update-btn" href="/inquiry/update">수정</a>
+                    <a class="list-btn" href="/service/inquiry/list">목록</a>
+                    <!--<a class="update-btn" id="goUpdate">수정</a>-->
                 </div>
             </div>
         </div>
     </div>
 </section>
 <script src="/assets/js/plugins/summernote-lite.min.js"></script>
-<script>
-    $('#summernote').summernote({
-        placeholder: '내용을 입력해주세요.',
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
-</script>
+<script src="/assets/js/inquiry/inquiry-detail.js"></script>

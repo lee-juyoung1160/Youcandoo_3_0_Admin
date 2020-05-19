@@ -2,10 +2,11 @@
 <link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
 <section class="inquiry-create-page">
     <div class="inner">
-        <h2 class="main-title">1:1 문의 수정</h2>
+        <h2 class="main-title">1:1 문의 답변</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
+<<<<<<< HEAD
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">작성자</p>
@@ -46,6 +47,25 @@
                                 해당 증상 때문에 오늘 인증 실패하게 생겼어요……
                             </p>
                         </div>
+=======
+                    <p class="sub-title important">작성자</p>
+                    <div class="text-box" id="nickname">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">등록일시</p>
+                    <div class="text-box" id="regDate">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">제목</p>
+                    <div class="text-box" id="title">
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title important">내용</p>
+                    <div class="text-box" id="content">
+>>>>>>> ff15021955047953c2bd5e74736215ec965fe41e
                     </div>
                 </li>
             </ul>
@@ -62,6 +82,7 @@
                     </div>
                 </li>
                 <li>
+<<<<<<< HEAD
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title">메모</p>
@@ -73,25 +94,19 @@
                 </li>
                 <li>
                     <button class="completion-btn" type="submit">수 완료</button>
+=======
+                    <p class="sub-title important">메모</p>
+                    <textarea id="memo" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+>>>>>>> ff15021955047953c2bd5e74736215ec965fe41e
                 </li>
             </ul>
         </div>
     </div>
 </section>
+<input id="userid" type="hidden" value=<?php echo $this->session->userdata['user_data']->userid;?>>
 <script src="/assets/js/plugins/summernote-lite.min.js"></script>
-<script>
-    $('#summernote').summernote({
-        placeholder: '내용을 입력해주세요.',
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
-</script>
+<script src="/assets/js/inquiry/inquiry-update.js"></script>

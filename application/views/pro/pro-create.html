@@ -164,8 +164,8 @@
                                 <span>생성하기</span>
                             </button>
 
-                            <ul class="hash-tag-list reward-list clearfix">
-                                <li id="hash-tag-btn">
+                            <ul id="rewardListArea" class="hash-tag-list reward-list clearfix">
+                                <!--<li id="hash-tag-btn">
                                     Title 01.<span class="tag-name">밸런스</span>
                                     <i class="delete-btn far fa-times-circle"></i>
                                 </li>
@@ -184,7 +184,7 @@
                                 <li>
                                     Title 05.<span class="tag-name">밸런스</span>
                                     <i class="delete-btn far fa-times-circle"></i>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>
@@ -194,76 +194,77 @@
                 </li>
             </ul>
 
-            <div class="modal-content" id="hash-tag-contents">
+            <div id="modalReadReward" class="modal-content">
                 <div class="wrap">
                     <i class="close-btn fas fa-times-circle"></i>
                     <p class="modal-title">입력하신 리워드 조건입니다.</p>
                     <ul class="pro-reward modal-information">
                         <li>
                             <p class="sub-title important">리워드 제목 (*)</p>
-                            <p class="detail-data">나이키</p>
+                            <p class="detail-data" id="modalReadTitle"></p>
                         </li>
                         <li>
                             <p class="sub-title important">두잇 참여 인원 (*)</p>
-                            <p class="detail-data">최소 1명 ~ 최대 5명</p>
+                            <p class="detail-data" id="modalReadMinMaxUser"></p>
                         </li>
                         <li>
                             <p class="sub-title important">인증 기간 (*)</p>
-                            <p class="detail-data">7일</p>
+                            <p class="detail-data" id="modalReadDuration"></p>
                         </li>
                         <li>
                             <p class="sub-title important">일일인증 횟수 (*)</p>
-                            <p class="detail-data">5회</p>
+                            <p class="detail-data" id="modalReadCertCount"></p>
                         </li>
                         <li>
                             <p class="sub-title important" style="display: inline-block;">목표달성률 (*)</p>
-                            <p class="detail-data">80%</p>
+                            <p class="detail-data" id="modalReadGoalRate"></p>
                         </li>
                         <li class="method-li">
                             <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
-                            <p class="detail-data">5000 UCD</p>
+                            <p class="detail-data" id="modalReadMaxUcd"></p>
                         </li>
                         <li class="reward-typ-li clearfix">
                             <p class="sub-title important" style="display: inline-block;">리워드 비율 (*)</p>
-                            <p class="detail-data">개인 10% : 단체 90% </p>
+                            <p class="detail-data" id="modalReadRewardRate"></p>
                         </li>
                         <li>
                             <p class="sub-title important">주간 빈도 (*)</p>
-                            <p class="detail-data">월, 화, 수</p>
+                            <p class="detail-data" id="modalReadFrequency"></p>
                         </li>
                     </ul>
-                    <button class="completion-btn" type="submit">수정 하기</button>
+                    <!--<button class="completion-btn" type="submit">수정 하기</button>-->
                 </div>
             </div>
+
             <div class="modal-layout" id="hash-tag-contents-back"></div>
 
-            <div id="modalReward" class="modal-content" >
+            <div id="modalInputReward" class="modal-content" >
                 <div class="wrap">
                     <i class="close-btn fas fa-times-circle"></i>
                     <p class="modal-title">리워드 조건 지정 입력하기</p>
                     <ul class="pro-reward modal-information">
                         <li>
                             <p class="sub-title important">리워드 제목 (*)</p>
-                            <input id="modalRwrdTitle" type="text" placeholder="제목을 입력해주세요.">
+                            <input id="modalRewardTitle" type="text" placeholder="제목을 입력해주세요.">
                         </li>
                         <li>
                             <p class="sub-title important">두잇 참여 인원 (*)</p>
                             <span>최소</span>
-                            <input type="text" style="width: 150px;">
+                            <input id="minUser" type="text" style="width: 150px;" class="only-num">
                             <span>명</span>
                             <span>~</span>
                             <span>최대</span>
-                            <input type="text" style="width: 150px;">
+                            <input id="maxUser" type="text" style="width: 150px;" class="only-num">
                             <span>명</span>
                         </li>
                         <li>
                             <p class="sub-title important">인증 기간 (*)</p>
                             <ul class="day-btn clearfix">
-                                <li>1일</li>
-                                <li>7일</li>
-                                <li>14일</li>
-                                <li>28일</li>
-                                <li>30일</li>
+                                <li class="cert-days" data-days="1">1일</li>
+                                <li class="cert-days" data-days="7">7일</li>
+                                <li class="cert-days" data-days="14">14일</li>
+                                <li class="cert-days" data-days="28">28일</li>
+                                <li class="cert-days" data-days="30">30일</li>
                             </ul>
                         </li>
                         <li>
@@ -316,57 +317,7 @@
                 </div>
             </div>
             <div class="modal-layout"></div>
-
-            <div class="pro-reward-add-list">
-                <div class="inner clearfix">
-                    <h2 id="rewardListTitle" class="main-title"></h2>
-                    <div id="rewardListArea">
-                        <!--<ul class="enrollment clearfix">
-                            <i class="delete-btn far fa-times-circle"></i>
-                            <li>
-                                <p class="sub-title important">리워드 제목 (*)</p>
-                                <p class="detail-data">일주일동안 주 3회 운동 3시간 하기</p>
-                            </li>
-                            <li class="tag-list">
-                                <p class="sub-title important">인증 기간 (*)</p>
-                                <p class="detail-data">2020.02.02 ~ 2020.03.03</p>
-                            </li>
-                            <li class="clearfix">
-                                <p class="sub-title important">일일인증 횟수 (*)</p>
-                                <p class="detail-data">3회</p>
-                            </li>
-                            <li>
-                                <p class="sub-title important">목표달성률 (*)</p>
-                                <p class="detail-data">80%</p>
-                            </li>
-                            <li>
-                                <p class="sub-title important">1인당 최대 지급할 UCD (*)</p>
-                                <p class="detail-data">1,000 UCD</p>
-                            </li>
-                            <li>
-                                <p class="sub-title important">리워드 유형 (*)</p>
-                                <p class="detail-data">개인전</p>
-                            </li>
-                            <li>
-                                <p class="sub-title important">주간빈도 (*)</p>
-                                <ul class="day-btn clearfix">
-                                    <li class="active">월</li>
-                                    <li>화</li>
-                                    <li class="active">수</li>
-                                    <li>목</li>
-                                    <li class="active">금</li>
-                                    <li>토</li>
-                                    <li>일</li>
-                                </ul>
-                            </li>
-                        </ul>-->
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 <script src="/assets/js/promotion/promotion-create.js"></script>
-<script>
-
-</script>

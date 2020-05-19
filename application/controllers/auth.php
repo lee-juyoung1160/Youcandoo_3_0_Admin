@@ -64,7 +64,8 @@ class Auth extends CI_Controller {
         // Session Set
         session_start();
         $this->session->set_userdata("user_data", $UserData);
-
+        $_SESSION["user"] = $UserData;
+        log_message("error", json_encode($_SESSION["user"]));
         if(get_cookie('referer'))
         {
             $ReferPage='/'.get_cookie('referer');

@@ -54,6 +54,11 @@
 	{
 		let jsonData = JSON.parse(data);
 
+		if (jsonData.data.status === '1')
+		{
+			alert(message.completePost);
+			location.href = page.detailInquiry+jsonData.data.idx;
+		}
 		nickname.html(jsonData.data.nickname);
 		regDate.html(jsonData.data.created_datetime);
 		title.html(jsonData.data.title);

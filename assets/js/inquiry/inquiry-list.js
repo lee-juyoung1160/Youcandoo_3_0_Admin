@@ -138,7 +138,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}

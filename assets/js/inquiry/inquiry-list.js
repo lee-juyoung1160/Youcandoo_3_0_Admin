@@ -91,8 +91,8 @@
 			columns: [
 				{title: "No ", 	 	data: "idx",				width: "5%",   orderable: false,   className: "text-center" }
 				,{title: "작성자", 	 data: "nickname",			width: "10%",   orderable: false,   className: "text-center" }
-				,{title: "문의구분",  data: "qna_type",    		width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "제목",  	 data: "qna_name",    		width: "30%",  	orderable: false,   className: "text-center" }
+				,{title: "문의구분",  data: "qna_name",    		width: "10%",  	orderable: false,   className: "text-center" }
+				,{title: "제목",  	 data: "title",    			width: "30%",  	orderable: false,   className: "text-center" }
 				,{title: "등록일", 	 data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
@@ -138,6 +138,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+				console.log(aData)
 			}
 		});
 	}

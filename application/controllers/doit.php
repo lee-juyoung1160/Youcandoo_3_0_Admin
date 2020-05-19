@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Doit extends CI_Controller {
+class Doit extends MY_Controller {
 
     public function create()
         {

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Push extends CI_Controller {
+class Push extends MY_Controller {
 
     public function lists()
         {

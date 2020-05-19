@@ -43,7 +43,7 @@
 	function buildDetail(data)
 	{
 		let jsonData = JSON.parse(data);
-console.log(jsonData)
+
 		nickname.html(jsonData.data.nickname);
 		regDate.html(jsonData.data.created_datetime);
 		title.html(jsonData.data.title);

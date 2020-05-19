@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Service extends CI_Controller {
+class Service extends MY_Controller {
 
     public function notice($Route="list")
     {

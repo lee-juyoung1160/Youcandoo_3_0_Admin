@@ -50,8 +50,33 @@ class Auth extends CI_Controller {
         }
         $this->setLoginInfo($UserID);
         $this->updateFailCount($UserID, 0);
+
+        // Cookie Set
+        $this->load->helper('cookie');
+        $cookie = array(
+            'name'   => 'userid',
+            'value'  => $UserData->userid,
+            'expire' => 60*60*24*365,
+            'domain' => '.youcandoo.co.kr',
+            'path'   => '/'
+        );
+        set_cookie($cookie);
+        // Session Set
+        session_start();
         $this->session->set_userdata("user_data", $UserData);
-        redirect('/pro/lists', 'refresh');
+
+        if(get_cookie('referer'))
+        {
+            $ReferPage='/'.get_cookie('referer');
+            delete_cookie('referer', '.youcandoo.co.kr', '/');
+            redirect($ReferPage, 'refresh');
+        }
+        else
+        {
+            redirect('/pro/lists', 'refresh');
+        }
+
+
     }
 
     /**
@@ -64,7 +89,7 @@ class Auth extends CI_Controller {
     }
     public function check()
     {
-        echo hash("sha512", "11");
+        echo hash("sha512", "user100");
     }
 
     /**

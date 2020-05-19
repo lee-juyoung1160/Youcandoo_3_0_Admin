@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pro extends CI_Controller {
+class Pro extends MY_Controller {
 
     public function lists()
         {

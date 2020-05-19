@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Admin extends MY_Controller {
 
     public function lists()
         {
@@ -19,7 +19,6 @@ class Admin extends CI_Controller {
         {
             $this->load->layout('admin/admin-update');
         }
-
     public function myPage()
         {
             $this->load->layout('admin/admin-mypage');
@@ -29,5 +28,9 @@ class Admin extends CI_Controller {
         {
             $this->load->layout('admin/admin-auth-create');
         }
+    public function authupdate()
+            {
+                $this->load->layout('admin/admin-auth-update');
+            }
 
 }

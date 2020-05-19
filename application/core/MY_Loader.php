@@ -11,6 +11,8 @@ class MY_Loader extends CI_Loader {
         $CI =& get_instance();
         $CI->load->library('session');
         $SessionData = $CI->session->userdata("user_data");
+        
+        log_message("error", json_encode($SessionData) );
         if(empty($SessionData))
         {
             redirect("/", "refresh");

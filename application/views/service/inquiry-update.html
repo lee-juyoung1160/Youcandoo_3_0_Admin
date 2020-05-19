@@ -6,36 +6,68 @@
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">작성자</p>
-                    <div class="text-box" id="nickname">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">작성자</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="nickname"></p>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">등록일시</p>
-                    <div class="text-box" id="regDate">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">등록일시</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="regDate"></p>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">제목</p>
-                    <div class="text-box" id="title">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="title"></p>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">내용</p>
-                    <div class="text-box" id="content">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="content">
+                            </p>
+                        </div>
                     </div>
                 </li>
             </ul>
 
             <ul class="enrollment clearfix">
                 <li>
-                    <p class="sub-title important">답변 내용 (*)</p>
-                    <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">답변 내용 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <p class="sub-title important">메모</p>
-                    <textarea id="memo" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
-
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">메모</p>
+                        </div>
+                        <div class="col-2">
+                            <textarea id="memo" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>

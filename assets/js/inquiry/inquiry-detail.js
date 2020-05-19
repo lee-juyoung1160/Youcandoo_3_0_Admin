@@ -9,8 +9,6 @@
 	const memo			= $("#memo");
 
 	$(document).ready(function () {
-		/** 에디터 초기화 **/
-		//initSummerNote();
 		/** 상세 불러오기 **/
 		getDetail();
 	});
@@ -45,7 +43,7 @@
 	function buildDetail(data)
 	{
 		let jsonData = JSON.parse(data);
-
+console.log(jsonData)
 		nickname.html(jsonData.data.nickname);
 		regDate.html(jsonData.data.created_datetime);
 		title.html(jsonData.data.title);

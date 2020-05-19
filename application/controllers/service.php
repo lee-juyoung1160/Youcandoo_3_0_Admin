@@ -67,9 +67,6 @@ class Service extends CI_Controller {
             case "list" :
                 $this->load->layout('service/inquiry-list');
                 break;
-            case "create":
-                $this->load->layout('service/inquiry-create');
-                break;
             case "update":
                 $this->load->layout('service/inquiry-update');
                 break;

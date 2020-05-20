@@ -64,6 +64,7 @@
 		initComponent();
 		rewardRateRange();
 		goalRateRange();
+		checkInputLength();
 	});
 
 	function toggleCertDays(obj)
@@ -216,7 +217,7 @@
 		//rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
 		certCount.val(1);
 		maxUcd.val('');
-		frequency.hide();
+		//frequency.hide();
 		frequency.find('li').each(function () {
 			$(this).removeClass('active');
 		});

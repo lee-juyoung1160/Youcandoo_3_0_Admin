@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="bizName" type="text" class="length-input" placeholder="회사명을 입력해주세요." maxlength="10" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <input id="bizName" type="text" class="length-input" placeholder="회사명을 입력해주세요." maxlength="10" maxlength="10">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
@@ -58,8 +58,8 @@
                         </div>
                         <div class="col-2">
                             <div class="textarea-wrap">
-                                <textarea placeholder="내용을 입력해주세요." id="bizDesc" class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="100" oninput="maxLengthCheck(this)"></textarea>
-                                <p class="length-count-wrap"><span class="count-text">0</span>/100</p>
+                                <textarea placeholder="내용을 입력해주세요." id="bizDesc" class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="100"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                             </div>
                         </div>
                     </div>
@@ -72,29 +72,3 @@
     </div>
 </section>
 <script src="/assets/js/biz/biz-create.js"></script>
-<script>
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length);
-        });
-        $('.count-input').keyup();
-    });
-
-    $(function() {
-        $('.length-text').keyup(function (e){
-            var contentText = $(this).val();
-            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length);
-        });
-        $('.length-text').keyup();
-    });
-
-</script>

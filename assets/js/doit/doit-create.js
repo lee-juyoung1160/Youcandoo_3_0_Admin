@@ -61,6 +61,7 @@
 		initComponent();
 		onChangeIntroType(introFileType.eq(0));
 		onChangeExampleType(exampleType.eq(0));
+		checkInputLength();
 	});
 
 	function onClickBtnPromoInfo()

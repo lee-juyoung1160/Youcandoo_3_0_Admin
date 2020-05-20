@@ -11,6 +11,7 @@
 
 		initInputDatepicker();
 		initComponent();
+		checkInputLength();
 	});
 
 	function initComponent()

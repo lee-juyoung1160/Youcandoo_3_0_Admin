@@ -12,6 +12,8 @@
     const dateTo             = $(".date_to");
     const inputNumber        = $(".only-num");
     const viewLoading        = $("#viewLoading");
+    const lengthInput        = $(".length-input");
+    const countInput         = $(".count-input");
 
     viewLoading         .hide();
     menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
@@ -19,6 +21,23 @@
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
+
+    /** 글자수 체크 **/
+    function checkInputLength()
+    {
+        lengthInput.on('input', function () {
+            let inputLength = $(this).val().length;
+            let maxLength   = $(this).attr('maxLength');
+
+            if (inputLength > maxLength)
+            {
+                $(this).val($(this).val().slice(0, maxLength))
+                inputLength = maxLength;
+            }
+
+            $(this).next().find(countInput).html(inputLength);
+        })
+    }
 
     function fadeinLoader()
     {

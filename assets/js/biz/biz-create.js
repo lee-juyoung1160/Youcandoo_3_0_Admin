@@ -9,6 +9,7 @@
 	$(document).ready(function () {
 
 		initComponent();
+		checkInputLength();
 
 		profileImage	.on('change', function(){ onChangeValidationImage(this) });
 		btnSubmit		.on('click', function(){ onSubmitBiz(); });

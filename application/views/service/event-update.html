@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
+                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
@@ -101,55 +101,3 @@
     </div>
 </section>
 <script src="/assets/js/plugins/summernote-lite.min.js"></script>
-<script src="/assets/js/event/event-create.js"></script>
-<script>
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length);
-        });
-        $('.count-input').keyup();
-    });
-
-    // onKeyup callback
-    $('#summernote').summernote({
-        // maxTextLength:10,
-        callbacks: {
-            onKeyup: function(e) {
-                bytesHandler(this);
-            }
-        }
-    });
-    function getTextLength(str) {
-        var len = 0;
-
-        for (var i = 0; i < str.length; i++) {
-            if (escape(str.charAt(i)).length == 6) {
-                len++;
-            }
-            len++;
-        }
-        return len;
-    }
-    function bytesHandler(obj){
-        var text = $(obj).val();
-        var leng = text.length;
-        while(getTextLength(text) > 10){
-            leng--;
-            text = text.substring(0, leng);
-        }
-        $(obj).val(text);
-        $('.count-byte').html(getTextLength(text));
-    }
-
-
-
-</script>
-

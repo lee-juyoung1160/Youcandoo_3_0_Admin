@@ -17,6 +17,7 @@
 		initInputDatepicker();
 		initComponent();
 		initSummerNote();
+		checkInputLength();
 	});
 
 	function onChangeFrom()

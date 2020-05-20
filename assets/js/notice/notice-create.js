@@ -12,6 +12,7 @@
 		setDateToday();
 		initComponent();
 		initSummerNote();
+		checkInputLength();
 	});
 
 	function initComponent()

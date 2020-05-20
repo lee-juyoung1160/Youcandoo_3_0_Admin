@@ -12,8 +12,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="bizName" type="text" class="length-input-1" placeholder="기업명을 입력해주세요." maxlength="10" maxlength="10" oninput="maxLengthCheck(this)">
-                                <p class="length-count-wrap"><span class="count-input-1">0</span>/10</p>
+                                <input id="bizName" type="text" class="length-input" placeholder="기업명을 입력해주세요." maxlength="10" maxlength="10">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="promoName" type="text" class="length-input-2" placeholder="프로모션명을 입력해주세요." maxlength="10" maxlength="10" oninput="maxLengthCheck(this)">
-                                <p class="length-count-wrap"><span class="count-input-2">0</span>/10</p>
+                                <input id="promoName" type="text" class="length-input" placeholder="프로모션명을 입력해주세요." maxlength="10" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
                     </div>
@@ -327,27 +327,3 @@
     </div>
 </section>
 <script src="/assets/js/promotion/promotion-create.js"></script>
-<script>
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input-1').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input-1').html(contentInput.length);
-        });
-        $('.count-input-1').keyup();
-    });
-    $(function() {
-        $('.length-input-2').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input-2').html(contentInput.length);
-        });
-        $('.count-input-2').keyup();
-    });
-
-</script>

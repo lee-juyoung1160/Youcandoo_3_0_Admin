@@ -114,8 +114,8 @@
 	function updateParams()
 	{
 		let param = {
-			"userid" : adminId.val()
-			,"password" : password.val()
+			"userid" : adminId.val().trim()
+			,"password" : password.val().trim()
 		}
 
 		return JSON.stringify(param);

@@ -27,14 +27,14 @@
 	{
 		let imageFile	= profileImage[0].files;
 
-		if (isEmpty(bizName.val()))
+		if (isEmpty(bizName.val().trim()))
 		{
 			alert('회사명은 ' + message.required);
 			bizName.focus();
 			return false;
 		}
 
-		if (isEmpty(bizNo.val()))
+		if (isEmpty(bizNo.val().trim()))
 		{
 			alert('사업자번호는 ' + message.required);
 			bizNo.focus();
@@ -55,14 +55,14 @@
 			return false;
 		}
 
-		if (isEmpty(homepage.val()))
+		if (isEmpty(homepage.val().trim()))
 		{
 			alert('홈페이지 링크는 ' + message.required);
 			homepage.focus();
 			return false;
 		}
 
-		if (isEmpty(bizDesc.val()))
+		if (isEmpty(bizDesc.val().trim()))
 		{
 			alert('소개내용은 ' + message.required);
 			bizDesc.focus();

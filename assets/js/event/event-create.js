@@ -104,8 +104,8 @@
 		let paramThumbnailFile 	= inputFile[0].files[0];
 		let formData  = new FormData();
 		/*formData.append('event-type', eventType.val());*/
-		formData.append('event-title', title.val());
-		formData.append('event-contents', content.val());
+		formData.append('event-title', title.val().trim());
+		formData.append('event-contents', content.val().trim());
 		formData.append('event-start-date', eventFrom.val());
 		formData.append('event-end-date', eventTo.val());
 		formData.append('event-image', paramThumbnailFile);

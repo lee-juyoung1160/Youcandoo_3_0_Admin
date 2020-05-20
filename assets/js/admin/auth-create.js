@@ -244,7 +244,7 @@
 	{
 		let param = {
 			"code" : authCode.val().trim().toLocaleLowerCase()
-			,"name" : authName .val().trim()
+			,"name" : authName.val().trim()
 		}
 
 		return JSON.stringify(param);

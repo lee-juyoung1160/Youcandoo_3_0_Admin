@@ -46,7 +46,7 @@
 
 	$(document).ready(function () {
 		inputFile			.on('change', function () { onChangeValidationImage(this); });
-		btnAddReward		.on('click', function () { modalFadeinInPromotion(); });
+		btnAddReward		.on('click', function () { modalFadeinInputReward(); });
 		modalCloseBtn		.on('click', function () { modalFadeout(); });
 		modalLayout			.on('click', function () { modalFadeout(); });
 		dayButtons			.on('click', function () { toggleActive(this); });
@@ -71,7 +71,7 @@
 		$(obj).addClass('active');
 	}
 
-	function modalFadeinInPromotion()
+	function modalFadeinInputReward()
 	{
 		modalInputReward.fadeIn();
 		modalLayout.fadeIn();
@@ -332,8 +332,8 @@
 		formData.append("company-name", bizName.val().trim());
 		formData.append("promotion-title", promoName.val().trim());
 		formData.append("promotion-budget-ucd", budget.val().trim());
-		formData.append("promotion-start-date", promoFrom.val().trim());
-		formData.append("promotion-end-date", promoTo.val().trim());
+		formData.append("promotion-start-date", promoFrom.val());
+		formData.append("promotion-end-date", promoTo.val());
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramThumbnailFile);
 		/*formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());*/

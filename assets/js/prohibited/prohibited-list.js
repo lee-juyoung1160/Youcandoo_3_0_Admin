@@ -137,7 +137,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
-					data: JSON.stringify({"word": prohibition.val()}),
+					data: JSON.stringify({"word": prohibition.val().trim()}),
 					success: function(data) {
 
 						alert(getStatusMessage(data));

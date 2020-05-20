@@ -109,6 +109,7 @@
 		,detailPromo : '/pro/detail/'
 
 		,createDoit : '/doit/create'
+		,listDoit : '/doit/lists'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'

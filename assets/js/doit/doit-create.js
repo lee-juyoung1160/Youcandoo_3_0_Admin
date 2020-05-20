@@ -222,13 +222,6 @@
 				bizUuid = ui.item.key;
 				getInvolvePromo();
 			},
-			search: function( event, ui) {
-					console.log(event)
-				if (event.keyCode === 13)
-				{
-					bizUuid = ui.item.key;
-				}
-			},
 			matchContains: true,
 			autoFocus: true,
 			delay: 300,
@@ -670,7 +663,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/doit/lists'
+							location.href = page.listDoit
 					},
 					error: function (request, status) {
 						console.log(status);

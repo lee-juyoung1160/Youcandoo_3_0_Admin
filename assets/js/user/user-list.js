@@ -7,10 +7,14 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
+	const userActive	= $("input[name=radio-user-active]");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnModalBanUserOpen	= $("#btnModalBanUserOpen");
+	const modalBanUser		= $("#modalBanUser");
+	const modalCloseBtn 	= $(".close-btn");
+	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -25,21 +29,19 @@
 		selPageLength	.on("change", function () { buildGrid(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnModalBanUserOpen	.on("click", function () { modalFadein(); });
+		modalCloseBtn		.on('click', function () { modalFadeout(); });
+		modalLayout			.on('click', function () { modalFadeout(); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
+		userActive.eq(0).prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
-
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}
@@ -129,7 +131,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"member_type" : "active"
+			,"member_type" : $("input[name=radio-user-active]:checked").val()
 		}
 
 		return JSON.stringify(param);
@@ -180,7 +182,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"member_type" : "active"
+			,"member_type" : $("input[name=radio-user-active]:checked").val()
 		}
 
 		return JSON.stringify(param);

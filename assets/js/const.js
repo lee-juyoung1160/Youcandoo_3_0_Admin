@@ -36,6 +36,7 @@
 		,updateProfile : baseApiUrl+'admin/update/pwd'
 
 		,listUser : baseApiUrl+'user/list'
+		,inactiveUser : baseApiUrl+'user/inactive'
 
 		,createBiz : baseApiUrl+'biz/create'
 		,deleteBiz : ''

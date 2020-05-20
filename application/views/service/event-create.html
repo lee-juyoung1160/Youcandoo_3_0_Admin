@@ -5,56 +5,90 @@
         <h2 class="main-title">이벤트 신규 등록</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-<!--                <li class="clearfix">-->
-<!--                    <p class="sub-title important">구분 (*)</p>-->
-<!--                    <div class="select-box">-->
-<!--                        <label for="selEventType">이벤트</label>-->
-<!--                        <select id="selEventType">-->
-<!--                            <option value="event">이벤트</option>-->
-<!--                            <option value="event">종료</option>-->
-<!--                            <option value="event">결과발표</option>-->
-<!--                        </select>-->
+<!--                <li>-->
+<!--                    <div class="col-wrap clearfix">-->
+<!--                        <div class="col-1">-->
+<!--                            <p class="sub-title important">구분 (*)</p>-->
+<!--                        </div>-->
+<!--                        <div class="col-2">-->
+<!--                            <div class="select-box">-->
+<!--                                <label for="selEventType">이벤트</label>-->
+<!--                                <select id="selEventType">-->
+<!--                                    <option value="event">이벤트</option>-->
+<!--                                    <option value="event">종료</option>-->
+<!--                                    <option value="event">결과발표</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
 <!--                    </div>-->
 <!--                </li>-->
                 <li>
-                    <p class="sub-title important">제목 (*)</p>
-                    <div class="input-wrap">
-                        <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
-                        <p class="length-count-wrap"><span class="count-input">0/10</span></p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-wrap">
+                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">내용 (*)</p>
-                    <div class="textarea-wrap">
-                        <textarea id="summernote" class="byte-check" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
-                        <p class="length-count-wrap"><span class="count-byte">0</span>/50byte</p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용 (*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
+                            <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count">0</span>/1000 byte</p>
+                        </div>
                     </div>
                 </li>
                 <li class="clearfix">
-                    <p class="sub-title important">썸네일 (*)</p>
-                    <div class="filebox preview-image">
-                        <p class="cap">썸네일 (* 이미지 사이즈: 1200 x 346)</p>
-                        <input class="upload-name" value="파일선택" disabled="disabled" >
-                        <label for="input-file3">업로드</label>
-                        <input type="file" id="input-file3" class="upload-hidden">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">썸네일 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">썸네일 (* 이미지 사이즈: 1200 x 346)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled" >
+                                <label for="input-file3">업로드</label>
+                                <input type="file" id="input-file3" class="upload-hidden">
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title important">기간 (*)</p>
-                    <div class="date-wrap">
-                        <input id="eventFrom" type="text" class="datepicker">
-                        <span class="date-margin-text"> ~ </span>
-                        <input id="eventTo" type="text" class="datepicker">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">기간 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="date-wrap">
+                                <input id="eventFrom" type="text" class="datepicker">
+                                <span class="date-margin-text"> ~ </span>
+                                <input id="eventTo" type="text" class="datepicker">
+                            </div>
+                        </div>
                     </div>
                 </li>
-                <li class="create-radio-wrap">
-                    <p class="sub-title important">노출 여부</p>
-                    <div class="checkbox-wrap">
-                        <input type="radio" id="c1" name="radio-exposure" value="Y"/>
-                        <label for="c1">Y<span></span></label>
+                <li class="create-radio-wrap clearfix">
+                    <div class="col-wrap">
+                        <div class="col-1">
+                            <p class="sub-title">노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c1" name="radio-exposure" value="Y"/>
+                                <label for="c1">Y<span></span></label>
 
-                        <input type="radio" id="c2" name="radio-exposure" value="N"/>
-                        <label for="c2">N<span></span></label>
+                                <input type="radio" id="c2" name="radio-exposure" value="N"/>
+                                <label for="c2">N<span></span></label>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
@@ -74,7 +108,7 @@
     $(function() {
         $('.length-input').keyup(function (e){
             var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length + '/10');
+            $('.count-input').html(contentInput.length);
         });
         $('.count-input').keyup();
     });
@@ -83,7 +117,7 @@
         $('.length-text').keyup(function (e){
             var contentText = $(this).val();
             //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length + '/100');
+            $('.count-text').html(contentText.length);
         });
         $('.length-text').keyup();
     });

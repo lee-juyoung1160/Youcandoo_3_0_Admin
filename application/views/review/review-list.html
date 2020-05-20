@@ -41,16 +41,22 @@
         <div class="doit-list-option">
             <ul class="clearfix">
                 <li>
-                    <p class="list-common-title">의지</p>
+                    <p class="list-common-title">평점</p>
                     <div class="checkbox-wrap">
                         <input type="checkbox" id="c1" name="cc" />
-                        <label for="c1"><span></span>안할래요</label>
+                        <label for="c1"><span></span>1</label>
 
                         <input type="checkbox" id="c2" name="cc" />
-                        <label for="c2"><span></span>고민되요</label>
+                        <label for="c2"><span></span>2</label>
 
                         <input type="checkbox" id="c3" name="cc" />
-                        <label for="c3"><span></span>또할래요</label>
+                        <label for="c3"><span></span>3</label>
+
+                        <input type="checkbox" id="c10" name="cc" />
+                        <label for="c10"><span></span>4</label>
+
+                        <input type="checkbox" id="c11" name="cc" />
+                        <label for="c11"><span></span>5</label>
                     </div>
                 </li>
                 <li>
@@ -120,7 +126,7 @@
                         <th>No</th>
                         <th>우수리뷰</th>
                         <th>리뷰내용</th>
-                        <th>의지</th>
+                        <th>평점</th>
                         <th>두잇명</th>
                         <th>신고</th>
                         <th>노출여부</th>
@@ -133,7 +139,7 @@
                         <td>2</td>
                         <td>Y</td>
                         <td><button type="button" class="line-clamp more-infor-btn" data-rel="modal-01">물마시기 두잇 너무 좋아요! 일상에 완전 도움이 되요 일상에 완전 도움이 되요</button></td>
-                        <td>완전도움</td>
+                        <td>3</td>
                         <td>하루에 물 6번 마시기</td>
                         <td><button type="button" class="more-infor-btn" data-rel="modal-02">10</button></td>
                         <td>Y</td>
@@ -171,8 +177,17 @@
                         </li>
                         <li class="clearfix">
                             <div class="full-left">
-                                <p class="sub-title">의지</p>
-                                <p class="data-contents">또할래요</p>
+                                <p class="sub-title">평점</p>
+                                <p class="data-contents score-wrap">
+                                    <ol class="star-wrap">
+                                        <li class="on"><i class="fas fa-star"></i></li>
+                                        <li class="on"><i class="fas fa-star"></i></li>
+                                        <li class="on"><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ol>
+                                    <span class="score">3</span>
+                                </p>
                             </div>
                             <div class="full-right">
                                 <p class="sub-title">신고</p>

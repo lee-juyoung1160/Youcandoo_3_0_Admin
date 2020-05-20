@@ -35,3 +35,16 @@
 .review-list-page .modal-02 li {
     border-bottom: none;
 }
+.review-list-page .star-wrap {float: left;}
+.review-list-page .star-wrap li {
+    display: inline-block;
+    color: #f3f3f3;
+}
+.review-list-page .star-wrap li.on {
+    color: #FFA83B;
+}
+.review-list-page .score {
+    float: left;
+    margin-left: 10px;
+
+}

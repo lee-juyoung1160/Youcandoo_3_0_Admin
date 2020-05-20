@@ -187,28 +187,7 @@
 		buildOptionPromo();
 		buildOptionReward();
 		buildSelectedReward();
-		//autoCompleteBizName();
-		autocompleteTest();
-	}
-	
-	function autocompleteTest()
-	{
-		bizName.autocomplete({
-			options: {
-				serviceUrl: api.listBizName,
-				ajaxSettings: {
-					headers: headers
-				},
-			},
-			onSelect: function (suggestion) {
-				alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-			}
-		});
-	}
-
-	function initAutoComplete(data)
-	{
-
+		autoCompleteBizName();
 	}
 
 	function autoCompleteBizName()
@@ -242,13 +221,6 @@
 			select: function( event, ui ) {
 				bizUuid = ui.item.key;
 				getInvolvePromo();
-			},
-			search: function( event, ui) {
-					console.log(event)
-				if (event.keyCode === 13)
-				{
-					bizUuid = ui.item.key;
-				}
 			},
 			matchContains: true,
 			autoFocus: true,
@@ -691,7 +663,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/doit/lists'
+							location.href = page.listDoit
 					},
 					error: function (request, status) {
 						console.log(status);

@@ -64,7 +64,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/service/notice/list'
+							location.href = page.listNotice
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
 						console.log(xhr.status);
@@ -78,8 +78,8 @@
 	function params()
 	{
 		let formData  = new FormData();
-		formData.append('notice-title', title.val());
-		formData.append('notice-contents', content.val());
+		formData.append('notice-title', title.val().trim());
+		formData.append('notice-contents', content.val().trim());
 		formData.append('reservation-date', datePicker.val());
 		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
 

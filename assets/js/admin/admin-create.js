@@ -77,10 +77,10 @@
 	function params()
 	{
 		let param = {
-			"userid" : userid.val()
-			,"name" : name .val()
-			,"email" : email .val()
-			,"auth_code" : authCode.val()
+			"userid" : userid.val().trim()
+			,"name" : name .val().trim()
+			,"email" : email .val().trim()
+			,"auth_code" : authCode.val().trim()
 		}
 		return JSON.stringify(param);
 	}

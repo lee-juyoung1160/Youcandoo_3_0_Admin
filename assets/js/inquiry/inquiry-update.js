@@ -44,7 +44,7 @@
 			"idx" : qnaIdx
 			,"userid" : $("#userid").val()
 			,"comment" : comment.summernote('code')
-			,"memo" : memo.val()
+			,"memo" : memo.val().trim()
 		}
 
 		return JSON.stringify(param);

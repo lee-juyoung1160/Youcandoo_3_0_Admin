@@ -54,16 +54,17 @@
 	function isEmpty(value) 
 	{
 		return (
-		(value.trim() === '') ||
+			/** null or undefined **/
+			(value == null) ||
 
-		/** null or undefined **/
-		(value == null) ||
+			/** has length and it's zero **/
+			(value.hasOwnProperty('length') && value.length === 0) ||
 
-		/** has length and it's zero **/
-		(value.hasOwnProperty('length') && value.length === 0) ||
+			/** is an Object and has no keys **/
+			(value.constructor === Object && Object.keys(value).length === 0) ||
 
-		/** is an Object and has no keys **/
-		(value.constructor === Object && Object.keys(value).length === 0))
+			(value.trim() === '')
+		)
 	}
 	
 	function numberWithCommas(x)

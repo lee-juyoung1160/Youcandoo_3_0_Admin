@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/create-common-jy.css">
 <link rel="stylesheet" href="/assets/css/push-create.css">
 <section class="push-create-page">
     <div class="inner">
@@ -57,8 +56,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="title" type="text" placeholder="제목을 입력해주세요.">
-                                <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">10</span></p>
+                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
                     </div>
@@ -69,16 +68,9 @@
                             <p class="sub-title important">내용(*)</p>
                         </div>
                         <div class="col-2 clearfix">
-                            <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
-                            <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count">0</span>/<span class="max-count">1000</span> byte</p>
+                            <textarea placeholder="내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000" oninput="maxLengthCheck(this)"></textarea>
+                            <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-text">0</span>/1000</p>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="sub-title important">내용 (*)</p>
-                    <div class="textarea-wrap">
-                        <textarea id="content" class="length-text" placeholder="내용을 입력해주세요." name="text" maxlength="100" oninput="maxLengthCheck(this)"></textarea>
-                        <p class="length-count-wrap"><span class="count-text">0/100</span></p>
                     </div>
                 </li>
                 <li class="clearfix">
@@ -109,99 +101,97 @@
                                 <input type="radio" id="c4" name="rd" class="obj-btn" value="objPart"/>
                                 <label for="c4">부분<span></span></label>
 
-                                <input type="radio" id="c5" name="rd" class="obj-btn" value="objGroup"/>
-                                <label for="c5">그룹<span></span></label>
+                                <input type="radio" id="c10" name="rd" class="obj-btn" value="objGroup"/>
+                                <label for="c10">그룹<span></span></label>
                             </div>
-                        </div>
-                    </div>
 
-
-                    <div class="nickname-wrap">
-                        <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
-                        <button class="more-infor-btn" type="button">
-                            <span>찾기</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <div class="modal-content">
-                            <div class="wrap">
-                                <i class="close-btn fas fa-times-circle"></i>
-                                <p class="modal-title">닉네임 찾기</p>
-                                <ul class="modal-information">
-                                    <li>
-                                        <div class="search-wrap">
-                                            <div class="search-box">
-                                                <input type="search" placeholder="닉네임을 입력해주세요.">
-                                                <i class="search-btn fas fa-search"></i>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="table-wrap">
-                                            <table>
-                                                <colgroup>
-                                                    <col style="width:5%;">
-                                                    <col style="width:95%;">
-                                                </colgroup>
-                                                <thead>
-                                                <tr>
-                                                    <th>
-                                                        <div class="checkbox-wrap">
-                                                            <input type="checkbox" id="c55" name="cc" />
-                                                            <label for="c55"><span></span></label>
-                                                        </div>
-                                                    </th>
-                                                    <th>닉네임</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th>
-                                                        <div class="checkbox-wrap">
-                                                            <input type="checkbox" id="c6" name="cc" />
-                                                            <label for="c6"><span></span></label>
-                                                        </div>
-                                                    </th>
-                                                    <td>베리모카</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <ul class="table-pagination clearfix">
-                                                <li><i class="fas fa-angle-double-left"></i></li>
-                                                <li class="active">1</li>
-                                                <li>2</li>
-                                                <li>3</li>
-                                                <li><i class="fas fa-angle-double-right"></i></li>
-                                            </ul>
-                                            <div class="result_box">
-                                                <p>선택된 유저 <em>3</em>명</p>
-                                                <div class="container">
-                                                    BERRY, 새콤달콤, 모카베리
+                            <div class="nickname-wrap">
+                                <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
+                                <button class="more-infor-btn" type="button">
+                                    <span>찾기</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <div class="modal-content">
+                                    <div class="wrap">
+                                        <i class="close-btn fas fa-times-circle"></i>
+                                        <p class="modal-title">닉네임 찾기</p>
+                                        <ul class="modal-information">
+                                            <li>
+                                                <div class="search-wrap">
+                                                    <div class="search-box">
+                                                        <input type="search" placeholder="닉네임을 입력해주세요.">
+                                                        <i class="search-btn fas fa-search"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <button class="completion-btn" type="submit">등록 완료</button>
+                                            </li>
+                                            <li>
+                                                <div class="table-wrap">
+                                                    <table>
+                                                        <colgroup>
+                                                            <col style="width:5%;">
+                                                            <col style="width:95%;">
+                                                        </colgroup>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <div class="checkbox-wrap">
+                                                                    <input type="checkbox" id="c5" name="cc" />
+                                                                    <label for="c5"><span></span></label>
+                                                                </div>
+                                                            </th>
+                                                            <th>닉네임</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>
+                                                                <div class="checkbox-wrap">
+                                                                    <input type="checkbox" id="c6" name="cc" />
+                                                                    <label for="c6"><span></span></label>
+                                                                </div>
+                                                            </th>
+                                                            <td>베리모카</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <ul class="table-pagination clearfix">
+                                                        <li><i class="fas fa-angle-double-left"></i></li>
+                                                        <li class="active">1</li>
+                                                        <li>2</li>
+                                                        <li>3</li>
+                                                        <li><i class="fas fa-angle-double-right"></i></li>
+                                                    </ul>
+                                                    <div class="result_box">
+                                                        <p>선택된 유저 <em>3</em>명</p>
+                                                        <div class="container">
+                                                            BERRY, 새콤달콤, 모카베리
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <button class="completion-btn" type="submit">등록 완료</button>
+                                    </div>
+                                </div>
+                                <div class="modal-layout"></div>
+                                <div class="result_box">
+                                    <p>발송대상 <em>3</em>명</p>
+                                    <div class="container">
+                                        BERRY, 새콤달콤, 모카베리
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-layout"></div>
-                        <div class="result_box">
-                            <p>발송대상 <em>3</em>명</p>
-                            <div class="container">
-                                BERRY, 새콤달콤, 모카베리
+
+                            <div class="group-wrap clearfix">
+                                <p class="cap">csv파일 업로드</p>
+                                <div class="filebox preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled" accept=".csv">
+                                    <label for="input-file3">업로드</label>
+                                    <input type="file" id="input-file5" class="upload-hidden" accept=".csv">
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="group-wrap clearfix">
-                        <p class="cap">csv파일 업로드</p>
-                        <div class="filebox preview-image">
-                            <input class="upload-name" value="파일선택" disabled="disabled" accept=".csv">
-                            <label for="input-file3">업로드</label>
-                            <input type="file" id="input-file5" class="upload-hidden" accept=".csv">
-                        </div>
-                    </div>
-
                 </li>
                 <li>
                     <button class="completion-btn" type="submit">수정 완료</button>
@@ -293,8 +283,8 @@
             $('.nickname-wrap').show();
             $('.group-wrap').hide();
         }else if(valueCheck == 'objGroup') {
-        $('.nickname-wrap').hide();
-        $('.group-wrap').show();
+            $('.nickname-wrap').hide();
+            $('.group-wrap').show();
         }
     });
 
@@ -307,7 +297,7 @@
     $(function() {
         $('.length-input').keyup(function (e){
             var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length + '/10');
+            $('.count-input').html(contentInput.length);
         });
         $('.count-input').keyup();
     });
@@ -316,9 +306,11 @@
         $('.length-text').keyup(function (e){
             var contentText = $(this).val();
             //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length + '/100');
+            $('.count-text').html(contentText.length);
         });
         $('.length-text').keyup();
     });
+
+
 
 </script>

@@ -69,8 +69,8 @@
 	function params()
 	{
 		let param = {
-			"faqTitle" : title.val()
-			,"faqContents" : content.val()
+			"faqTitle" : title.val().trim()
+			,"faqContents" : content.val().trim()
 			,"faqType" : selFaqType.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}

@@ -55,10 +55,11 @@
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">내용</p>
+                            <p class="sub-title important">내용(*)</p>
                         </div>
-                        <div class="col-2">
-                            <textarea placeholder="적립/회수 내용을 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                        <div class="col-2 clearfix">
+                            <textarea placeholder="적립/회수 내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000" oninput="maxLengthCheck(this)"></textarea>
+                            <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-text">0</span>/1000</p>
                         </div>
                     </div>
                 </li>
@@ -158,5 +159,22 @@
         $('.modal-layout').fadeOut();
         $('.modal-content').fadeOut();
     });
+
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-text').keyup(function (e){
+            var contentText = $(this).val();
+            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+            $('.count-text').html(contentText.length);
+        });
+        $('.length-text').keyup();
+    });
+
 
 </script>

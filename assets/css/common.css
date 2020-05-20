@@ -1,3 +1,64 @@
+/* loding css */
+.loading-back {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999;
+	background-color: rgba(33, 33, 33, 0.86);
+}
+.loading-back .loading-wrap {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+}
+.loading-back .loading-wrap span {
+	font-weight: 700;
+	color: #fff;
+	font-size: 30px;
+	letter-spacing: 5px;
+}
+.loading-back .loading-wrap .main_loader{
+	height: 100px;
+	animation: rotate 3s linear infinite;
+	transform-origin: bottom center;
+	-webkit-transform-origin: bottom center;
+	-ms-transform-origin: bottom center;
+	-moz-transform-origin: bottom center;
+	-o-transform-origin: bottom center;
+}
+.loading-back .loading-wrap .circle {
+	animation: grow 1.5s linear infinite;
+	background-color: #5433FF;
+	border-radius: 50%;
+	display: inline-block;
+	margin: -10px;
+	height: 40px;
+	width: 40px;
+	transform: scale(0);
+}
+.loading-back .loading-wrap .circle:nth-child(2){
+	animation-delay: .75s;
+	background-color: #6FB1FC;
+}
+@keyframes rotate {
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes grow {
+	50%{
+		transform: scale(1);
+	}
+}
 /* top 공통 영역 */
 h2.main-title {
 	font-weight: 700;
@@ -88,7 +149,7 @@ h2.main-title {
 	background-color: #ffffff;
 }
 .enrollment>li {
-	padding: 20px 0;
+	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
 .enrollment>li:last-child {
@@ -107,6 +168,7 @@ p.sub-title {
 	font-weight: 500;
 	font-size: 15px;
 	margin-bottom: 12px;
+	color: #007aff;
 }
 p.sub-title.important {
 	color: #007aff;
@@ -385,7 +447,7 @@ input.tag-input {
 	width: 260px;
 }
 .hash-tag-list {
-	margin-top: 10px;
+	margin-top: 16px;
 }
 .hash-tag-list > li {
 	float: left;
@@ -751,7 +813,7 @@ textarea {
 }
 .table-wrap table th,
 .table-wrap table td {
-	padding: 20px 0;
+	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
 .table-wrap table td {
@@ -934,4 +996,17 @@ textarea {
 /* reward-list */
 .reward-list li {
 	cursor: pointer;
+}
+
+
+/* 레이아웃 재배치 */
+.enrollment li .col-wrap .col-1,
+.enrollment li .col-wrap .col-2 {
+	float: left;
+}
+.enrollment li .col-wrap .col-1 {
+	width: 300px;
+}
+.enrollment li .col-wrap .col-2 {
+	width: 940px;
 }

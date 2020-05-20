@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/assets/css/create-common.css">
 <section class="biz-create-page">
     <div class="inner">
         <h2 class="main-title">비즈 상세 수정</h2>
@@ -6,10 +7,13 @@
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">회사명(*)</p>
+                            <p class="sub-title important" style="display: inline-block;" >회사명(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">나이키</p>
+                            <div class="input-wrap">
+                                <input id="bizName" type="text" class="length-input" placeholder="회사명을 입력해주세요." maxlength="10" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -19,7 +23,7 @@
                             <p class="sub-title important">사업자 번호(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">110-250-000000</p>
+                            <input id="bizNo" type="text" class="only-num" placeholder="- 제외 숫자만 입력" maxlength="10">
                         </div>
                     </div>
                 </li>
@@ -29,32 +33,39 @@
                             <p class="sub-title important">프로필 이미지 (*)</p>
                         </div>
                         <div class="col-2">
-                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                            <div class="filebox preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="profileImage">업로드</label>
+                                <input type="file" id="profileImage" class="upload-hidden">
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">홈페이지 링크 (*)</p>
+                            <p class="sub-title important">홈페이지 링크(*)</p>
                         </div>
                         <div class="col-2">
-                            <a class="detail-data" href="https://www.kakaokids.com/" target="_blank">https://www.naver.co.kr/</a>
+                            <input id="homepage" type="text" placeholder="https:// 포함해서 입력해주세요.">
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">소개 내용 (*)</p>
+                            <p class="sub-title important" style="display: inline-block;">소개 내용(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">안녕하세요! 카카오키즈입니다.</p>
+                            <div class="textarea-wrap">
+                                <textarea placeholder="내용을 입력해주세요." id="bizDesc" class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="100" oninput="maxLengthCheck(this)"></textarea>
+                                <p class="length-count-wrap"><span class="count-text">0</span>/100</p>
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <button class="completion-btn" type="submit">수정 완료</button>
+                    <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
                 </li>
             </ul>
         </div>
@@ -105,4 +116,28 @@
             img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
         }
     });
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-input').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input').html(contentInput.length);
+        });
+        $('.count-input').keyup();
+    });
+
+    $(function() {
+        $('.length-text').keyup(function (e){
+            var contentText = $(this).val();
+            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+            $('.count-text').html(contentText.length);
+        });
+        $('.length-text').keyup();
+    });
+
 </script>

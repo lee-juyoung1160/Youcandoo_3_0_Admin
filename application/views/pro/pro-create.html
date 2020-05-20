@@ -21,7 +21,10 @@
                             <p class="sub-title important">프로모션명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="promoName" type="text" placeholder="프로모션명을 입력해주세요.">
+                            <div class="input-wrap">
+                                <input id="promoName" type="text" class="length-input" placeholder="프로모션명을 입력해주세요." maxlength="10" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -321,3 +324,20 @@
     </div>
 </section>
 <script src="/assets/js/promotion/promotion-create.js"></script>
+<script>
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-input').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input').html(contentInput.length);
+        });
+        $('.count-input').keyup();
+    });
+
+</script>

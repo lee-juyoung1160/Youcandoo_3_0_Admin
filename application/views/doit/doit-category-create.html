@@ -11,7 +11,10 @@
                             <p class="sub-title important">카테고리명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input type="text" placeholder="제목을 입력해주세요.">
+                            <div class="input-wrap">
+                                <input id="bizName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="10" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -231,4 +234,32 @@
         $('.modal-layout').fadeOut();
         $('.modal-content').fadeOut();
     });
+
+
+
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-input').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input').html(contentInput.length);
+        });
+        $('.count-input').keyup();
+    });
+
+    $(function() {
+        $('.length-text').keyup(function (e){
+            var contentText = $(this).val();
+            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+            $('.count-text').html(contentText.length);
+        });
+        $('.length-text').keyup();
+    });
+
+
 </script>

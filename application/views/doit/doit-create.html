@@ -11,7 +11,10 @@
                             <p class="sub-title important">두잇명(*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="doitTitle" type="text" placeholder="제목을 입력해주세요.">
+                            <div class="input-wrap">
+                                <input id="doitTitle" type="text" class="length-input" placeholder="두잇명을 입력해주세요." maxlength="10" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -21,7 +24,10 @@
                             <p class="sub-title important">소개글 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="doitDesc" type="text" placeholder="내용을 입력해주세요.">
+                            <div class="input-wrap">
+                                <input id="doitDesc" type="text" class="length-input-2" placeholder="내용을 입력해주세요." maxlength="30" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input-2">0</span>/30</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -289,7 +295,10 @@
                             <p class="sub-title important">인증 예시 설명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="exampleDesc" type="text" placeholder="내용을 입력해주세요.">
+                            <div class="input-wrap">
+                                <input id="exampleDesc" type="text" class="length-input-3" placeholder="내용을 입력해주세요." maxlength="30" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input-3">0</span>/30</p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -349,3 +358,34 @@
 </section>
 <script src="/assets/js/doit/doit-create.js"></script>
 <script src="/assets/js/plugins/jquery.autocomplete.js"></script>
+<script>
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-input').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input').html(contentInput.length);
+        });
+        $('.count-input').keyup();
+    });
+    $(function() {
+        $('.length-input-2').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input-2').html(contentInput.length);
+        });
+        $('.count-input-2').keyup();
+    });
+    $(function() {
+        $('.length-input-3').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input-3').html(contentInput.length);
+        });
+        $('.count-input-3').keyup();
+    });
+
+</script>

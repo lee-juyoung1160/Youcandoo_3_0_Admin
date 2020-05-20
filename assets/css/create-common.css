@@ -99,8 +99,8 @@
     -webkit-transform: translate(0, -50%);
 }
 .textarea-wrap .length-count-wrap {
+    float: right;
     margin-top: 10px;
-    padding: 0 5px;
 }
 
 /*푸쉬, UCD -검색 결과 */

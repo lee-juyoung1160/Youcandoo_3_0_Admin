@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/create-common-jy.css">
 <link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
 <section class="notice-create-page">
     <div class="inner">
@@ -9,8 +8,8 @@
                 <li>
                     <p class="sub-title important">제목 (*)</p>
                     <div class="input-wrap">
-                        <input id="title" type="text" placeholder="제목을 입력해주세요.">
-                        <p class="length-count-wrap"><span class="count">0</span>/<span class="max-count">10</span></p>
+                        <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
+                        <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                     </div>
                 </li>
                 <li>
@@ -43,3 +42,21 @@
 </section>
 <script src="/assets/js/plugins/summernote-lite.min.js"></script>
 <script src="/assets/js/notice/notice-create.js"></script>
+<script>
+
+    //글자수 체크
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+    $(function() {
+        $('.length-input').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input').html(contentInput.length);
+        });
+        $('.count-input').keyup();
+    });
+
+
+</script>

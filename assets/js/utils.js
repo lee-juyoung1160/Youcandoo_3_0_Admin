@@ -146,6 +146,17 @@
 		return regExp.test(param);
 	}
 
+	function isEmail(param)
+	{
+		let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		return regExp.test(param);
+	}
+
+
+
+	출처: https://suyou.tistory.com/150 [수유산장]
+
 	/** 문자열을 split해서 마지막 배열 요소를 반환하는 함수 **/
 	function splitReverse(str, separator)
 	{

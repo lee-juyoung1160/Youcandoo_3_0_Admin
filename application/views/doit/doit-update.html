@@ -12,8 +12,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" placeholder="두잇명을 입력해주세요." maxlength="10" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                                <input id="doitTitle" type="text" class="length-input" placeholder="두잇명을 입력해주세요." maxlength="25" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="doitDesc" type="text" class="length-input-2" placeholder="내용을 입력해주세요." maxlength="30" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
-                                <p class="length-count-wrap"><span class="count-input-2">0</span>/30</p>
+                                <input id="doitDesc" type="text" class="length-input-2" placeholder="내용을 입력해주세요." maxlength="50" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input-2">0</span>/50</p>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,10 @@
                         </div>
                         <div class="col-2">
                             <div class="tag-input-wrap">
-                                <input id="inputTag" class="tag-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
+                                <div class="input-wrap">
+                                <input id="inputTag" class="tag-input length-input-3" type="text" placeholder="태그를 입력해주세요." maxlength="5" oninput="maxLengthCheck(this)">
+                                    <p class="length-count-wrap"><span class="count-input-3">0</span>/5</p>
+                                </div>
                                 <button id="addTag" class="add-btn" type="submit">
                                     <i class="fas fa-plus"></i>
                                     <span>ADD</span>
@@ -167,7 +170,10 @@
                             <div class="checkbox-wrap">
                                 <input type="checkbox" id="c1" name="chkExtraReward"/>
                                 <label id="ucd-check-area" for="c1"><span></span>UCD외 추가 리워드 직접 입력</label>
-                                <input id="ucd-area" type="text" placeholder="추가 리워드를 입력해주세요.">
+                                <div id="ucd-area-wrap" class="input-wrap">
+                                    <input id="ucd-area" type="text" class="length-input-5" placeholder="추가 리워드를 입력해주세요." maxlength="30" oninput="maxLengthCheck(this)">
+                                    <p class="length-count-wrap"><span class="count-input-5">0</span>/30</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -296,8 +302,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="exampleDesc" type="text" class="length-input-3" placeholder="내용을 입력해주세요." maxlength="30" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
-                                <p class="length-count-wrap"><span class="count-input-3">0</span>/30</p>
+                                <input id="exampleDesc" type="text" class="length-input-4" placeholder="내용을 입력해주세요." maxlength="32" style="display: block;" maxlength="10" oninput="maxLengthCheck(this)">
+                                <p class="length-count-wrap"><span class="count-input-4">0</span>/32</p>
                             </div>
                         </div>
                     </div>
@@ -495,6 +501,20 @@
             $('.count-input-3').html(contentInput.length);
         });
         $('.count-input-3').keyup();
+    });
+    $(function() {
+        $('.length-input-4').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input-4').html(contentInput.length);
+        });
+        $('.count-input-4').keyup();
+    });
+    $(function() {
+        $('.length-input-5').keyup(function (e){
+            var contentInput = $(this).val();
+            $('.count-input-5').html(contentInput.length);
+        });
+        $('.count-input-5').keyup();
     });
 
 

@@ -6,10 +6,16 @@
 .tag-list i.question-mark {
     vertical-align: initial;
 }
-.reward-li #ucd-area {
+/*.reward-li #ucd-area {*/
+/*    display: none;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+.reward-li .input-wrap {
     display: none;
     margin-top: 20px;
 }
+
 .reward-typ-li input[type="number"] {
     width: 80px;
 }
@@ -46,8 +52,12 @@
     display: none;
 }
 /* active 영역 */
-.reward-li #ucd-area.active {
-    display: block;
+
+/*.reward-li #ucd-area.active {*/
+/*    display: block;*/
+/*}*/
+.reward-li .input-wrap.active {
+    display: inline-block;
 }
 .doit-option-li .code-wrap.active {
     display: block;

@@ -26,6 +26,7 @@
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const labelSelReward 	= $("label[for='selReward']");
 	const btnSubmit			= $("#btnSubmit");
+	const ucdAreWrap		= $("#ucd-area-wrap");
 
 	/** modal **/
 	const modalCloseBtn 	= $(".close-btn");
@@ -50,7 +51,7 @@
 		bizName					.on('keyup', function () { onKeyupBizName(); });
 		selPromo				.on('change', function () { onChangeSelPromo(); });
 		selReward				.on('change', function () { onChangeSelReward(); });
-		chkExtraReward			.on('change', function () { toggleActive(extraReward); });
+		chkExtraReward			.on('change', function () { toggleActive(ucdAreWrap); });
 		chkAccessUser			.on('change', function () { toggleActive($(".code-wrap")); });
 		exampleType				.on('change', function () { onChangeExampleType(this); });
 		doitFrom				.on('change', function () { onChangeDateFrom(); });

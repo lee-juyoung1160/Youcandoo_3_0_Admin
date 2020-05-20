@@ -54,13 +54,15 @@
 	function isEmpty(value) 
 	{
 		return (
-		// null or undefined
+		(value.trim() === '') ||
+
+		/** null or undefined **/
 		(value == null) ||
-	
-		// has length and it's zero
+
+		/** has length and it's zero **/
 		(value.hasOwnProperty('length') && value.length === 0) ||
-	
-		// is an Object and has no keys
+
+		/** is an Object and has no keys **/
 		(value.constructor === Object && Object.keys(value).length === 0))
 	}
 	
@@ -72,7 +74,7 @@
 	function isImage(obj)
 	{
 		let file = obj.files[0];
-		if (!isEmpty(file))
+		if (file)
 		{
 			let fileType 	= file["type"];
 			let imageTypes 	= ["image/jpeg", "image/png"];
@@ -85,7 +87,7 @@
 	function isVideo(obj)
 	{
 		let file = obj.files[0];
-		if (!isEmpty(file))
+		if (file)
 		{
 			let fileType 	= file["type"];
 			let videoTypes 	= ["video/quicktime", "video/mp4"];
@@ -98,7 +100,7 @@
 	function isAudio(obj)
 	{
 		let file = obj.files[0];
-		if (!isEmpty(file))
+		if (file)
 		{
 			let fileType = file["type"];
 			let audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts"];

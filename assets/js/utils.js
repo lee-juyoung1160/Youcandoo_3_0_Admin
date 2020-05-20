@@ -54,8 +54,6 @@
 	function isEmpty(value) 
 	{
 		return (
-		(value.trim() === '') ||
-
 		/** null or undefined **/
 		(value == null) ||
 

@@ -187,28 +187,7 @@
 		buildOptionPromo();
 		buildOptionReward();
 		buildSelectedReward();
-		//autoCompleteBizName();
-		autocompleteTest();
-	}
-	
-	function autocompleteTest()
-	{
-		bizName.autocomplete({
-			options: {
-				serviceUrl: api.listBizName,
-				ajaxSettings: {
-					headers: headers
-				},
-			},
-			onSelect: function (suggestion) {
-				alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-			}
-		});
-	}
-
-	function initAutoComplete(data)
-	{
-
+		autoCompleteBizName();
 	}
 
 	function autoCompleteBizName()

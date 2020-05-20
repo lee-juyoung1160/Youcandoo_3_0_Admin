@@ -20,6 +20,7 @@
 	const chkAccessUser 	= $("input[name=chkAccessUser]");
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
+	const openYn 			= $("input[name=radio-open-yn]");
 	const exampleDesc 		= $("#exampleDesc");
 	const doitDesc 			= $("#doitDesc");
 	const exampleArea 		= $("#exampleArea");
@@ -132,6 +133,7 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
+		openYn.eq(0).prop('checked', true);
 	}
 
 	function initModal()

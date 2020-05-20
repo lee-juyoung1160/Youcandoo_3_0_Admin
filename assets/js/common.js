@@ -15,7 +15,6 @@
     const lengthInput        = $(".length-input");
     const countInput         = $(".count-input");
 
-    viewLoading         .hide();
     menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
@@ -41,12 +40,12 @@
 
     function fadeinLoader()
     {
-        viewLoading.fadeIn(500);
+        viewLoading.fadeIn(100);
     }
 
     function fadeoutLoader()
     {
-        viewLoading.fadeOut(500);
+        viewLoading.fadeOut(100);
     }
 
     function onClickActiveParentMenu(obj)

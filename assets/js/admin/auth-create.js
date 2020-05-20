@@ -133,7 +133,6 @@
 		authMenuArea.empty();
 		let jsonData  = JSON.parse(data);
 		let respData  = jsonData.data.menu;
-		console.log(jsonData)
 		let isChecked = '';
 		let menuDom	  = '';
 		let len 	  = respData.length;

@@ -101,7 +101,7 @@
 	{
 		let doitFromDate = new Date(doitFrom.datepicker("getDate"));
 		let duration = $("#duration").text();
-		let doitDateTo;
+		let doitToDate;
 
 		if (isEmpty(duration))
 		{
@@ -112,9 +112,9 @@
 		}
 
 		doitFromDate.setDate(doitFromDate.getDate() + Number(duration));
-		doitDateTo = stringFormatToDate(doitFromDate, '-');
+		doitToDate = stringFormatToDate(doitFromDate, '-');
 
-		doitTo.val(doitDateTo);
+		doitTo.val(doitToDate);
 	}
 
 	function initComponent()

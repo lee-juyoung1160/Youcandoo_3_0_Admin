@@ -11,12 +11,24 @@
     const dateFrom           = $(".date_from");
     const dateTo             = $(".date_to");
     const inputNumber        = $(".only-num");
+    const viewLoading        = $("#viewLoading");
 
+    viewLoading         .hide();
     menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
+
+    function fadeinLoader()
+    {
+        viewLoading.fadeIn(500);
+    }
+
+    function fadeoutLoader()
+    {
+        viewLoading.fadeOut(500);
+    }
 
     function onClickActiveParentMenu(obj)
     {
@@ -319,4 +331,6 @@
 
     $(document).ready(function () {
         activeMenu();
+        $(document).ajaxStart(function () { fadeinLoader(); });
+        $(document).ajaxStop(function () { fadeoutLoader(); });
     })

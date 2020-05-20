@@ -251,7 +251,7 @@
                     <ul class="pro-reward modal-information">
                         <li>
                             <p class="sub-title important">리워드 제목 (*)</p>
-                            <input id="modalRewardTitle" type="text" placeholder="제목을 입력해주세요.">
+                            <input id="rewardTitle" type="text" placeholder="제목을 입력해주세요.">
                         </li>
                         <li>
                             <p class="sub-title important">두잇 참여 인원 (*)</p>
@@ -305,7 +305,7 @@
                             <span class="input-num-title">단체</span>
                             <input id="groupRate" type="number" readonly>
                         </li>
-                        <li>
+                        <li id="frequencyParent">
                             <p class="sub-title important">주간 빈도 (*)</p>
                             <ul id="frequency" class="day-btn clearfix">
                                 <!--        다중선택 가능하게 스크립트                -->
@@ -319,7 +319,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <button id="btnRewardModalSubmit" class="completion-btn" type="submit">입력 완료</button>
+                    <button id="btnRewardSubmit" class="completion-btn" type="submit">입력 완료</button>
                 </div>
             </div>
             <div class="modal-layout"></div>

@@ -1,29 +1,26 @@
 
 	const bizName 		  = $("#bizName");
 	const promoName		  = $("#promoName");
+	const budget 		  = $("#budget");
 	const promoFrom	 	  = $("#promoFrom");
 	const promoTo		  = $("#promoTo");
-	const inputFile 	  = $("input:file");
-	const budget 		  = $("#budget");
-	const banner		  = $("#banner");
-	const thumbnail		  = $("#thumbnail");
-	const btnSubmit		  = $("#btnSubmit");
-	const frequency		  = $("#frequency");
-	const doitType		  = $("input[name=radio-doit-type]");
-	const isBanner		  = $("input[name=radio-banner-open]");
-	/*const rewardListTitle = $("#rewardListTitle");*/
 	const btnNoticeAdd	  = $("#btnNoticeAdd");
 	const noticeArea	  = $("#noticeArea");
 	const allowCount	  = $("#allowCount");
+	const banner		  = $("#banner");
+	const thumbnail		  = $("#thumbnail");
+	const inputFile 	  = $("input:file");
+	const isBanner		  = $("input[name=radio-banner-open]");
+	/*const doitType		  = $("input[name=radio-doit-type]");*/
+	/*const rewardListTitle = $("#rewardListTitle");*/
 	/*const maxUserLimit	  = $("#maxUserLimit");*/
+	const btnAddReward 	  = $("#btnAddReward");
+	const rewardListArea  = $("#rewardListArea");
+	const btnSubmit		  = $("#btnSubmit");
 
 	/** 리워드 입력 modal **/
 	const modalInputReward	= $("#modalInputReward");
-	const btnAddReward 		= $("#btnAddReward");
-	const modalCloseBtn 	= $(".close-btn");
-	const modalLayout 		= $(".modal-layout");
-	const modalContent 		= $(".modal-content");
-	const modalRewardTitle 	= $("#modalRewardTitle");
+	const rewardTitle 		= $("#rewardTitle");
 	const minUser			= $("#minUser");
 	const maxUser			= $("#maxUser");
 	const certDays			= $(".cert-days");
@@ -32,7 +29,11 @@
 	const maxUcd  		 	= $("#maxUcd");
 	const individualRate  	= $("#individualRate");
 	const groupRate  		= $("#groupRate");
-	const btnRewardModalSubmit	= $("#btnRewardModalSubmit");
+	const frequency		  	= $("#frequency");
+	const btnRewardSubmit	= $("#btnRewardSubmit");
+	const modalCloseBtn 	= $(".close-btn");
+	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
 	/** 리워드 입력 보기 modal **/
 	const modalReadReward		= $("#modalReadReward");
 	const modalReadTitle		= $("#modalReadTitle");
@@ -45,19 +46,19 @@
 	const modalReadFrequency	= $("#modalReadFrequency");
 
 	$(document).ready(function () {
-		inputFile			.on('change', function () { onChangeValidationImage(this); });
-		btnAddReward		.on('click', function () { modalFadeinInputReward(); });
-		modalCloseBtn		.on('click', function () { modalFadeout(); });
-		modalLayout			.on('click', function () { modalFadeout(); });
-		dayButtons			.on('click', function () { toggleActive(this); });
-		btnSubmit			.on('click', function () { onSubmitPromo(); });
-		btnRewardModalSubmit.on('click', function () { onSubmitRewardModal(); });
+		inputFile		.on('change', function () { onChangeValidationImage(this); });
+		btnAddReward	.on('click', function () { modalFadeinInputReward(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		dayButtons		.on('click', function () { toggleActive(this); });
+		btnSubmit		.on('click', function () { onSubmitPromo(); });
+		btnRewardSubmit	.on('click', function () { onSubmitRewardModal(); });
 		//rewardFrom			.on('change', function () { onChangeRewardFrom(); });
 		//rewardTo			.on('change', function () { onChangeRewardTo(); });
-		certDays			.on('click', function () { toggleCertDays(this); });
-		promoFrom			.on('change', function () { onChangePromoFrom(); });
-		bizName				.on('keyup', function () { onKeyupBizName(); });
-		btnNoticeAdd		.on('click', function () { onClickBtnNoticeAdd(); });
+		certDays		.on('click', function () { toggleCertDays(this); });
+		promoFrom		.on('change', function () { onChangePromoFrom(); });
+		bizName			.on('keyup', function () { onKeyupBizName(); });
+		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
 
 		initInputDatepicker();
 		initComponent();
@@ -199,13 +200,13 @@
 		bizName.val('');
 		promoName.val('');
 		budget.val('');
-		doitType.eq(0).prop("checked", true);
+		/*doitType.eq(0).prop("checked", true);*/
 		isBanner.eq(0).prop("checked", true);
 	}
 
 	function initModal()
 	{
-		modalRewardTitle.val('');
+		rewardTitle.val('');
 		minUser.val('');
 		maxUser.val('');
 		//rewardFrom.val('');
@@ -213,8 +214,9 @@
 		//rewardFrom.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
 		//rewardFrom.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
 		//rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
-		certCount.val('');
+		certCount.val(1);
 		maxUcd.val('');
+		frequency.hide();
 		frequency.find('li').each(function () {
 			$(this).removeClass('active');
 		});
@@ -225,7 +227,7 @@
 	{
 		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
-		let rewardList 		= $("#rewardListArea").find('li');
+		let rewardList 		= rewardListArea.find('li');
 		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
@@ -325,7 +327,7 @@
 
 	function params()
 	{
-		let rewardList 			= $('#rewardListArea').find('li');
+		let rewardList 			= rewardListArea.find('li');
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
@@ -420,7 +422,7 @@
 
 	function rewardValidation()
 	{
-		let rewardList = $('#rewardListArea').find('li');
+		let rewardList = rewardListArea.find('li');
 		let frequencyActiveLength = 0;
 		frequency.find('li').each(function () {
 			if ($(this).hasClass('active'))
@@ -434,10 +436,10 @@
 			return false;
 		}
 
-		if (isEmpty(modalRewardTitle.val()))
+		if (isEmpty(rewardTitle.val()))
 		{
 			alert('리워드 제목은 ' + message.required);
-			modalRewardTitle.focus();
+			rewardTitle.focus();
 			return false;
 		}
 
@@ -493,7 +495,6 @@
 
 	function appendReward()
 	{
-		let rewardListArea = $("#rewardListArea");
 		let rewardLen 	= rewardListArea.find('li').length;
 		let titleLength = Number(rewardLen+1);
 		let duration    = 1;
@@ -561,9 +562,9 @@
 		rewardDom += '</ul>';*/
 
 		rewardDom += '<li>';
-		rewardDom += 	'Title.<span class="tag-name" onclick="onClickRewards(this);">'+modalRewardTitle.val()+'</span>';
+		rewardDom += 	'Title.<span class="tag-name" onclick="onClickRewards(this);">'+rewardTitle.val()+'</span>';
 		rewardDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeReward(this);"></i>';
-		rewardDom += 	'<input type="hidden" data-title="'+modalRewardTitle.val().trim()+'">';
+		rewardDom += 	'<input type="hidden" data-title="'+rewardTitle.val().trim()+'">';
 		rewardDom += 	'<input type="hidden" data-minuser="'+minUser.val().trim()+'">';
 		rewardDom += 	'<input type="hidden" data-maxuser="'+maxUser.val().trim()+'">';
 		rewardDom += 	'<input type="hidden" data-duration="'+duration+'">';

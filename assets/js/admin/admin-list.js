@@ -141,7 +141,6 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
 				//setRowAttributes(nRow, aData);
 			}
 		});

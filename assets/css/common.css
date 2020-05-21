@@ -1072,7 +1072,7 @@ textarea {
 }
 .toggle-btn .knobs:before
 {
-	content: 'Y';
+	content: 'N';
 	position: absolute;
 	top: 3px;
 	left: 3px;
@@ -1084,7 +1084,8 @@ textarea {
 	text-align: center;
 	line-height: 1;
 	padding: 4px 2px;
-	background-color: #03A9F4;
+	background-color: #F44336;
+	/*background-color: #03A9F4;*/
 	border-radius: 50%;
 	transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
 }
@@ -1095,15 +1096,16 @@ textarea {
 }
 .toggle-btn .checkbox:checked:active + .knobs:before
 {
-	margin-left: -26px;
+	/*margin-left: -26px;*/
 }
 .toggle-btn .checkbox:checked + .knobs:before
 {
-	content: 'N';
+	content: 'Y';
 	left: 28px;
-	background-color: #F44336;
+	/*background-color: #F44336;*/
+	background-color: #03A9F4;
 }
 .toggle-btn .checkbox:checked ~ .layer
 {
-	background-color: #fcebeb;
+	background-color: #c9eeff;
 }

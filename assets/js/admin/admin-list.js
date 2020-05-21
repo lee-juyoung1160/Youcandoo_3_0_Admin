@@ -94,17 +94,23 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
-				}
+				}*/
+				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center" }
 				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
 				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
 				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center" }
 				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
+					}
+				}
+				,{title: "사용여부",   data: "is_del",     		width: "10%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === 'Y' ? '사용' : '미사용';
 					}
 				}
 			],
@@ -126,8 +132,8 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
-				selector: ':checkbox'
+				style: 'single',
+				selector: 'button'
 			},
 			lengthChange: false,
 			autoWidth: false,
@@ -142,6 +148,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
+				console.log(aData)
 			}
 		});
 	}

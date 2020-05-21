@@ -8,3 +8,12 @@
     font-size: 15px;
     line-height: 1.5em;
 }
+.enrollment-title {
+    margin: 30px 0 15px;
+    color: #555;
+    font-size: 20px;
+    font-weight: 500;
+}
+.enrollment-title:first-child {
+    margin-top: 0;
+}

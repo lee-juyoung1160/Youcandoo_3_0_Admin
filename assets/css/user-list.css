@@ -8,3 +8,22 @@
 .user-list-page input[type="radio"] + label {
     margin-right: 10px;
 }
+
+.btn-wrap .btn-inner {
+    position: relative;
+    right: 160px;
+    top: 0;
+}
+.btn-wrap .btn-inner button {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.user-list-page .table-wrap .btn-wrap button.delete-btn {
+    background-color: #03A9F4;
+}
+.user-list-page .table-wrap .btn-wrap button.btn-disabled {
+    background-color: #ddd;
+    cursor: inherit;
+}
+

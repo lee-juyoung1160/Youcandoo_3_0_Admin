@@ -1085,7 +1085,6 @@ textarea {
 	line-height: 1;
 	padding: 4px 2px;
 	background-color: #F44336;
-	/*background-color: #03A9F4;*/
 	border-radius: 50%;
 	transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
 }
@@ -1102,7 +1101,6 @@ textarea {
 {
 	content: 'Y';
 	left: 28px;
-	/*background-color: #F44336;*/
 	background-color: #03A9F4;
 }
 .toggle-btn .checkbox:checked ~ .layer

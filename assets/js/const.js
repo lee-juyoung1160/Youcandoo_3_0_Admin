@@ -70,6 +70,7 @@
 		,createFaq : baseApiUrl+'faq/create'
 		,detailFaq : baseApiUrl+'faq/detail'
 		,updateFaq : ''
+		,getFaqType : baseApiUrl+'faq/type'
 		,listFaq : baseApiUrl+'faq/list'
 		,commentQna : baseApiUrl+'qna/comment'
 		,detailQna : baseApiUrl+'qna/detail'

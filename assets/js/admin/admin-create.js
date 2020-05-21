@@ -4,12 +4,23 @@
 	const userid		= $("#userid");
 	const name 			= $("#name");
 	const email 		= $("#email");
+	const chkEmail 		= $("#chkEmail");
+	const useYn 		= $("input[name=radio-use-yn]");
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		initComponent();
 		getAuthList();
-		btnSubmit.on('click', function () { onSubmitAdmin(); })
+
+		btnSubmit	.on('click', function () { onSubmitAdmin(); })
+		email		.on('keyup', function () { onKeyupEmail(); })
 	});
+
+	function initComponent()
+	{
+		userid.focus();
+		useYn.eq(0).prop('checked', true);
+	}
 
 	function getAuthList()
 	{
@@ -33,6 +44,7 @@
 	function buildAuthList(data)
 	{
 		let jsonData  = JSON.parse(data);
+		console.log(jsonData)
 		let respData  = jsonData.data;
 		let optionDom = '';
 		for (let i=0; i<respData.length; i++)
@@ -46,6 +58,14 @@
 		}
 
 		authCode.html(optionDom);
+	}
+
+	function onKeyupEmail()
+	{
+		if (isEmail(email.val()))
+			chkEmail.html('');
+		else
+			chkEmail.html('올바른 이메일 형식을 '+message.input);
 	}
 
 	function validation()
@@ -71,6 +91,13 @@
 			return false;
 		}
 
+		if (!isEmail(email.val()))
+		{
+			alert('올바른 이메일 형식을 '+message.input);
+			email.focus();
+			return false;
+		}
+
 		return true;
 	}
 
@@ -81,6 +108,7 @@
 			,"name" : name .val().trim()
 			,"email" : email .val().trim()
 			,"auth_code" : authCode.val().trim()
+			,"is_active" : $("input[name=radio-use-yn]:checked").val()
 		}
 		return JSON.stringify(param);
 	}

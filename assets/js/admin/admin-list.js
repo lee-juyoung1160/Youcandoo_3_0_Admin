@@ -17,7 +17,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		// buildGrid();
+		buildGrid();
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -108,9 +108,17 @@
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "사용여부",   data: "is_del",     		width: "10%",     orderable: false,   className: "text-center",
+				,{title: "사용여부",   data: "is_active",     		width: "10%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return data === 'Y' ? '사용' : '미사용';
+						let checked   = data === 'Y' ? 'checked' : '';
+						let chkBoxDom = '<div class="toggle-btn-wrap">';
+						chkBoxDom += 		'<div class="toggle-btn on">';
+						chkBoxDom += 			'<input onchange="changeStatus(this)" type="checkbox" class="checkbox" '+checked+'>';
+						chkBoxDom += 			'<div class="knobs"></div>';
+						chkBoxDom += 			'<div class="layer"></div>';
+						chkBoxDom += 		'</div>';
+						chkBoxDom += 	'</div>';
+						return chkBoxDom;
 					}
 				}
 			],
@@ -133,7 +141,7 @@
 			info: false,
 			select: {
 				style: 'single',
-				selector: 'button'
+				selector: ':checkbox'
 			},
 			lengthChange: false,
 			autoWidth: false,
@@ -180,42 +188,27 @@
 		buildGrid();
 	}
 	
-	function deleteAdmin()
+	function changeStatus(obj)
 	{
 		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
+		let selectedData = table.rows('.selected').data()[0];
 
-		if (isEmpty(selectedData))
-		{
-			alert('삭제할 대상을 목록에서 '+message.select);
-			return;
-		}
-
-		let param = [];
-		let len   = selectedData.length;
-		for (let i=0; i<len; i++)
-		{
-			let userId = selectedData[i].userid;
-
-			param.push(userId);
-		}
-
-		if (confirm(message.delete))
+		if (confirm('상태를 '+message.change))
 		{
 			$.ajax({
-				url: api.deleteAdmin,
+				url: $(obj).is(':checked') ? api.activeAdmin : api.inactiveAdmin,
 				type: "POST",
 				async: false,
 				headers: headers,
-				data: JSON.stringify({"delete_data" : param}),
+				data: JSON.stringify({"userid" : selectedData.userid}),
 				success: function(data) {
 					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-						buildGrid();
 				},
 				error: function (request, status) {
 					console.log(status);
 				}
 			});
 		}
+
+		buildGrid();
 	}

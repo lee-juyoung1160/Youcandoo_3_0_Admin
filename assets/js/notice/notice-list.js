@@ -212,6 +212,9 @@
 	/** 상단 고정/해제 **/
 	function toggleTop()
 	{
+		if (btnTop.hasClass('btn-disabled'))
+			return;
+
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 		let isTop 		 = selectedData.is_top;

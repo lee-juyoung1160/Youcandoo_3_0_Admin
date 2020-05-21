@@ -150,7 +150,6 @@
                     <i class="fas fa-user-circle"></i>
                     <span>안녕하세요!
                         <span class="user-name">
-                            <?php echo ($this->session->userdata['user_data']->name);?>
                         </span>님.
                     </span>
                 </a>
@@ -169,30 +168,13 @@
         </div>
     </div>
 </aside>
+<input type="hidden" id="session_userid" value="<?php echo ($this->session->userdata['user_data']->userid);?>"/>
+<input type="hidden" id="session_usernm" value="<?php echo ($this->session->userdata['user_data']->name);?>"/>
+<input type="hidden" id="session_authcode" value="<?php echo ($this->session->userdata['user_data']->auth_code);?>"/>
 <script>
     function logout()
     {
         location.href = "/auth/logout";
     }
-
-    /*// 로딩될때 스크립트
-    $(document).ready(function($)
-    {
-        // 페이지가 로딩될 때 'Loading 이미지'를 숨김
-        $('#viewLoading').hide();
-
-        // ajax 실행 및 완료시 'Loading 이미지'의 동작 컨트롤
-        $('#viewLoading')
-            .ajaxStart(function()
-            {
-                //$(this).show();
-                $(this).fadeIn(500);
-            })
-            .ajaxStop(function()
-            {
-                //$(this).hide();
-                $(this).fadeOut(500);
-            });
-    });*/
-
+    $(".user-name").html($("#session_usernm").val());
 </script>

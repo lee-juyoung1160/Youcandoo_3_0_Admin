@@ -1,7 +1,6 @@
 
 	const btnProfileModify  = $("#btnProfileModify");
 	const myProfile			= $("#myProfile");
-	const adminId			= $("#adminId");
 	const myId 				= $("#myId");
 	const myName 			= $("#myName");
 	const myEmail 			= $("#myEmail");
@@ -114,7 +113,7 @@
 	function updateParams()
 	{
 		let param = {
-			"userid" : adminId.val().trim()
+			"userid" : $("#session_userid").val()
 			,"password" : password.val().trim()
 		}
 

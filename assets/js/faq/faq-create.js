@@ -9,10 +9,46 @@
 
 		btnSubmit.on('click', function () { onSubmitFaq(); });
 
+		getFaqType();
 		initInputDatepicker();
 		initComponent();
 		checkInputLength();
 	});
+
+	function getFaqType()
+	{
+		$.ajax({
+			url: api.getFaqType,
+			type: "POST",
+			headers: headers,
+			success: function(data) {
+				if (isSuccessResp(data))
+					buildFaqType(data);
+				else
+					alert(invalidResp(data));
+			},
+			error: function (request, status) {
+				console.log(status);
+			}
+		});
+	}
+
+	function buildFaqType(data)
+	{
+		let jsonData = JSON.parse(data);
+		let dataLen = jsonData.data.length;
+		let optionDom = '';
+
+		for (let i=0; i<dataLen; i++)
+		{
+			let value = jsonData.data[i].type;
+			let name  = jsonData.data[i].faq_name;
+			optionDom += '<option value="'+value+'">'+name+'</option>';
+		}
+
+		selFaqType.html(optionDom);
+		onChangeSelectOption(selFaqType);
+	}
 
 	function initComponent()
 	{
@@ -50,8 +86,6 @@
 				$.ajax({
 					url: api.createFaq,
 					type: "POST",
-					processData: false,
-					contentType: false,
 					headers: headers,
 					data: params(),
 					success: function(data) {

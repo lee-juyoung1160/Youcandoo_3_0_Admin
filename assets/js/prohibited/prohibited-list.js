@@ -54,7 +54,6 @@
 				error: function(xhr, status, err) {
 					alert(message.cantLoadList);
 				}
-
 			},
 			columns: [
 				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
@@ -110,7 +109,7 @@
 	function tableParams(d)
 	{
 		let param = {
-			"keyword" : keyword.val()
+			"keyword" : keyword.val().trim()
 			/*
 			,"limit" : d.length
 			,"page" : (d.start / d.length) + 1
@@ -139,7 +138,6 @@
 					headers: headers,
 					data: JSON.stringify({"word": prohibition.val().trim()}),
 					success: function(data) {
-
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
 						{
@@ -195,7 +193,7 @@
 				headers: headers,
 				data: JSON.stringify(delParams),
 				success: function(data) {
-
+					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
 						buildGrid();
 					else

@@ -1010,3 +1010,100 @@ textarea {
 .enrollment li .col-wrap .col-2 {
 	width: 940px;
 }
+
+
+/* 토글버튼 */
+.toggle-btn-wrap input[type="checkbox"],
+.toggle-btn-wrap input[type="radio"] {
+	display: block;
+}
+.toggle-btn-wrap {
+	width: 50px;
+}
+.table-wrap .toggle-btn-wrap {
+	margin: 0 auto;
+}
+.toggle-btn
+{
+	position: relative;
+	top: 50%;
+	width: 50px;
+	height: 24px;
+	overflow: hidden;
+}
+.toggle-btn.on, .toggle-btn.on .layer
+{
+	border-radius: 100px;
+}
+.toggle-btn.b2
+{
+	border-radius: 2px;
+}
+.knobs, .layer
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.checkbox
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+	z-index: 10;
+}
+.knobs
+{
+	z-index: 2;
+}
+.layer
+{
+	width: 100%;
+	background-color: #f8f8f8;
+	transition: 0.3s ease all;
+	border: 1px solid #ebebeb;
+	z-index: 1;
+}
+.toggle-btn .knobs:before
+{
+	content: 'Y';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 15px;
+	height: 10px;
+	color: #fff;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1;
+	padding: 4px 2px;
+	background-color: #03A9F4;
+	border-radius: 50%;
+	transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+.toggle-btn .checkbox:active + .knobs:before
+{
+	width: 46px;
+	border-radius: 100px;
+}
+.toggle-btn .checkbox:checked:active + .knobs:before
+{
+	margin-left: -26px;
+}
+.toggle-btn .checkbox:checked + .knobs:before
+{
+	content: 'N';
+	left: 28px;
+	background-color: #F44336;
+}
+.toggle-btn .checkbox:checked ~ .layer
+{
+	background-color: #fcebeb;
+}

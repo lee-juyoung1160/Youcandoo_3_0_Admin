@@ -1,5 +1,6 @@
 .auth-list-enrollment {
     width: 230px;
+    height: auto;
     position: fixed;
     top: 160px;
     z-index: 30;
@@ -9,7 +10,6 @@
     width: 80%;
     height: 100%;
 }
-
 .auth-list-enrollment .sub-title {
     display: flex;
     display: -webkit-flex;
@@ -21,7 +21,6 @@
 .auth-list-enrollment .sub-title .add-btn {
     margin-left: auto;
 }
-
 .auth-list-enrollment ol li {
     position: relative;
     padding: 20px 0;
@@ -48,15 +47,12 @@
 .auth-list-enrollment .more-infor-btn {
     width: 80px;
 }
-
-
-
 .auth-set-enrollment .auth-set-wrap {
     border-top: 1px solid #f1f1f1;
 }
 .auth-set-enrollment .sub-title {
     float:left;
-    padding-bottom: 15px;
+    padding-top: 20px;
 }
 .auth-set-enrollment .auth-title  {
     color: #333;
@@ -65,6 +61,7 @@
     float: right;
     width: 130px;
     height: 40px;
+    margin: 10px 0;
     color: #c90614;
     border-radius: 5px;
     border: 1px solid #c90614;
@@ -75,7 +72,6 @@
     border: 1px solid #c90614;
     background-color: #c90614;
 }
-
 .auth-set-enrollment .checkbox-wrap {
     display: inline-flex;
     margin-top: 0;
@@ -107,12 +103,7 @@
 }
 
 
-
 /*modal*/
 .auth-set-enrollment .modal-wrap input[type="text"] {
     width: 100%;
 }
-
-
-
-

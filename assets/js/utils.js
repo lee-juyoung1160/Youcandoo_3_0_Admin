@@ -63,7 +63,7 @@
 			/** is an Object and has no keys **/
 			(value.constructor === Object && Object.keys(value).length === 0) ||
 
-			(value.trim() === '')
+			(value.constructor !== Object && value.trim() === '')
 		)
 	}
 	

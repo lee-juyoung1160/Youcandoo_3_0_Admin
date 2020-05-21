@@ -75,9 +75,34 @@
 
 	function modalFadeinInputReward()
 	{
+		if (isEmpty(budget.val()))
+		{
+			alert('프로모션 예산을 '+message.input);
+			budget.focus();
+			return;
+		}
+
+		if (isEmpty(promoFrom.val()) || isEmpty(promoTo.val()))
+		{
+			alert('프로모션 기간을 '+message.select);
+			isEmpty(promoFrom.val()) ? promoFrom.focus() : promoTo.focus();
+			return;
+		}
+
 		modalInputReward.fadeIn();
 		modalLayout.fadeIn();
 		initModal();
+	}
+
+	/** 프로모션 기간 계산 **/
+	function calculateTerm() {
+		let fromDate = promoFrom.datepicker('getDate');
+		let toDate = promoTo.datepicker('getDate');
+
+		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
+		diff = Math.ceil(diff / (1000 * 3600 * 24));
+
+		return diff;
 	}
 
 	/** 목표달성률 레인지 슬라이더 **/
@@ -155,8 +180,6 @@
 		$(obj).parent().remove();
 
 		$(".input-notice-title").each(function (idx) {
-			console.log(idx)
-			console.log($(this).text())
 			$(this).text('유의사항 '+(idx+1));
 		});
 	}
@@ -195,18 +218,38 @@
 		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
 	}
 
+	function initNoticeArea()
+	{
+		let noticeDom = '';
+		let noticeTxt = ['프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.', '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.', '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'];
+		for (let i=0; i<3; i++)
+		{
+			noticeDom += '<li>';
+			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(i+1)+'</p>';
+			noticeDom += 	'<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요." value="'+noticeTxt[i]+'">';
+			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
+			noticeDom += '</li>';
+		}
+
+		noticeArea.html(noticeDom);
+	}
+
 	function initComponent()
 	{
 		bizName.focus();
 		bizName.val('');
 		promoName.val('');
 		budget.val('');
+		allowCount.val(1);
 		/*doitType.eq(0).prop("checked", true);*/
 		isBanner.eq(0).prop("checked", true);
+		initNoticeArea();
 	}
 
 	function initModal()
 	{
+		$("#durationWarnTxt").html('인증기간은 프로모션 기간보다 작아야 합니다. 프로모션 기간('+calculateTerm()+'일)');
+		rewardTitle.focus();
 		rewardTitle.val('');
 		minUser.val('');
 		maxUser.val('');
@@ -294,13 +337,13 @@
 
 		if (bannerFile.length === 0)
 		{
-			alert('배너 이미지는 ' + message.required);
+			alert('배너 및 리스트 이미지는 ' + message.required);
 			return false;
 		}
 
 		if (thumbnailFile.length === 0)
 		{
-			alert('썸내일 이미지는 ' + message.required);
+			alert('소개 이미지는 ' + message.required);
 			return false;
 		}
 
@@ -308,6 +351,13 @@
 		{
 			alert(message.createReward);
 			modalFadein();
+			return false;
+		}
+
+		if (rewardList.length > 0 && isOverDuration())
+		{
+			let title = getRewardTitle();
+			alert(title+'의 인증기간을 '+message.doubleChk+'\n (인증기간이 프로모션 기간보다 큼. 삭제 후 재작성.)');
 			return false;
 		}
 
@@ -321,7 +371,43 @@
 		promotionNotice.each(function () {
 			if (isEmpty($(this).val()))
 				retVal = true;
-		})
+		});
+
+		return retVal;
+	}
+
+	function isOverDuration()
+	{
+		let retVal = false;
+		let promoTerm = calculateTerm();
+
+		certDays.each(function () {
+			if ($(this).hasClass('active'))
+			{
+				let duration = $(this).data('days');
+				if (duration > promoTerm)
+					retVal = true;
+			}
+		});
+
+		return retVal;
+	}
+
+	function getRewardTitle()
+	{
+		let retVal = '';
+		let promoTerm = calculateTerm();
+
+		rewardListArea.find('li').each(function (index) {
+			certDays.each(function () {
+				if ($(this).hasClass('active'))
+				{
+					let duration = $(this).data('days');
+					if (duration > promoTerm)
+						retVal = $(rewardListArea.find('li'))[index].innerText;
+				}
+			});
+		});
 
 		return retVal;
 	}
@@ -411,7 +497,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/pro/lists'
+							location.href = page.listPromo
 					},
 					error: function (request, status) {
 						console.log(status);
@@ -660,6 +746,7 @@
 					url: api.listBizName,
 					type: "POST",
 					async: false,
+					global: false,
 					headers: headers,
 					data: JSON.stringify({"keyword" : bizName.val()}),
 					success: function(data) {
@@ -678,3 +765,4 @@
 			minLength: 2
 		});
 	}
+

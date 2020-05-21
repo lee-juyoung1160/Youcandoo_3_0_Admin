@@ -497,7 +497,7 @@
 			return false;
 		}
 
-		if (isEmpty(tagLen < 1))
+		if (tagLen === 0)
 		{
 			alert('태그를 ' + message.needMore);
 			return false;
@@ -647,6 +647,10 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
+		if ($("#chkExtraReward").is(':checked'))
+		{
+			formData.append('group-reward-description', $("#ucd-area").val())
+		}
 
 		return formData;
 	}

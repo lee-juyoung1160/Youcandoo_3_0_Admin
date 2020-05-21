@@ -15,6 +15,10 @@
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
+	const inactive			= $("input[name=radio-inactive]");
+	const period			= $("#period");
+	const cause				= $("#cause");
+	const btnSubmitBanUer	= $("#btnSubmitBanUer");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -29,9 +33,11 @@
 		selPageLength	.on("change", function () { buildGrid(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnModalBanUserOpen	.on("click", function () { modalFadein(); });
-		modalCloseBtn		.on('click', function () { modalFadeout(); });
-		modalLayout			.on('click', function () { modalFadeout(); });
+		/*btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });*/
+		btnModalBanUserOpen	.on("click", function () { onSubmitBanUser(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });
 	});
 
 	function initSearchForm()
@@ -46,13 +52,21 @@
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}
 
+	function initModal()
+	{
+		inactive.eq(0).prop('checked', true);
+		period.focus();
+		period.val('');
+		cause.val('');
+	}
+
 	function buildGrid()
 	{
 		$("#dataTable").DataTable({
 			ajax : {
 				url: api.listUser,
 				type:"POST",
-				async: false,
+				/*async: false,*/
 				headers: headers,
 				data: function (d) {
 					/*
@@ -117,11 +131,19 @@
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				let info = table.page.info();
+
 				/** 목록 상단 totol count **/
 				dataNum.text(info.recordsTotal);
+				/** row select **/
+				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
+				/** row deselect **/
+				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				disableBtnBanUser();
 			}
 		});
 	}
@@ -148,6 +170,55 @@
 
 		/** 제목에 a 태그 추가 **/
 		titleDom.html('<a href="#">'+aData.nickname+'</a>');
+	}
+
+	/** row select **/
+	function onSelectRow(dt, indexes)
+	{
+		let selectedData 	= dt.rows(indexes).data()[0];
+		let isActive		= selectedData.is_active;
+
+		if (isActive === 'Y')
+			enableBtnBanUser();
+		else
+			disableBtnBanUser();
+	}
+
+	/** row deselect **/
+	function onDeselectRow(table)
+	{
+		let selectedData = table.rows('.selected').data()[0];
+		if (isEmpty(selectedData))
+			disableBtnBanUser();
+	}
+
+	function disableBtnBanUser()
+	{
+		if (!btnModalBanUserOpen.hasClass('btn-disabled'))
+			btnModalBanUserOpen.addClass('btn-disabled');
+	}
+
+	function enableBtnBanUser()
+	{
+		if (btnModalBanUserOpen.has('btn-disabled'))
+			btnModalBanUserOpen.removeClass('btn-disabled');
+	}
+
+	function onClickBtnModalBanUserOpen()
+	{
+		if (btnModalBanUserOpen.hasClass('btn-disabled'))
+			return;
+
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('항목을 '+message.select);
+			return;
+		}
+
+		modalFadein();
 	}
 
 	function onSubmitSearch()
@@ -193,5 +264,68 @@
 		return JSON.stringify(param);
 	}
 
+	function onSubmitBanUser()
+	{
+		/*if (banValidation())
+		{*/
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.inactiveUser,
+					type: "POST",
+					async: false,
+					headers: headers,
+					data: banParams(),
+					success: function(data) {
+						alert(getStatusMessage(data))
+						if (isSuccessResp(data))
+						{
+							disableBtnBanUser();
+							buildGrid();
+						}
+					},
+					error: function (request, status) {
+						console.log(status);
+					},
+				});
+			}
+		/*}*/
+	}
 
+	function banParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+		let param = {
+			/*"account_uuid" : selectedData.account_uuid
+			,"inactive_type" : $("input[name=radio-inactive]:checked").val()
+			,"period" : period.val()
+			,"reason" : cause.val()*/
+			"account_uuid" : selectedData.account_uuid
+			,"inactive_type" : "1"
+			,"period" : "1"
+			,"reason" : "그냥"
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function banValidation()
+	{
+		if (isEmpty(period.val()))
+		{
+			alert('정지기간은 '+message.required);
+			period.focus();
+			return false;
+		}
+
+		if (isEmpty(cause.val()))
+		{
+			alert('정지기간은 '+message.required);
+			cause.focus();
+			return false;
+		}
+
+		return true;
+	}
 

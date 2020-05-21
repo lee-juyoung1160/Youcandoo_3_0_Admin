@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="bizName" type="text" class="length-input" placeholder="기업명을 입력해주세요." maxlength="10" oninput="maxLengthCheck(this)">
+                                <input id="bizName" type="text" class="length-input" placeholder="기업명을 입력해주세요." maxlength="10">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="promoName" type="text" class="length-input" placeholder="프로모션명을 입력해주세요." maxlength="20" oninput="maxLengthCheck(this)">
+                                <input id="promoName" type="text" class="length-input" placeholder="프로모션명을 입력해주세요." maxlength="20">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                             </div>
                         </div>
@@ -74,12 +74,17 @@
                             </button>
                             <ul id="noticeArea" class="notice-input-list">
                                 <!--<li>
-                                    <p class="cap">첫번째 유의사항</p>
+                                    <p class="cap">유의사항 1</p>
                                     <input type="text" placeholder="유의사항을 입력해주세요.">
                                     <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
                                 </li>
                                 <li>
-                                    <p class="cap">두번째 유의사항</p>
+                                    <p class="cap">유의사항 2</p>
+                                    <input type="text" placeholder="유의사항을 입력해주세요.">
+                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
+                                </li>
+                                <li>
+                                    <p class="cap">유의사항 3</p>
                                     <input type="text" placeholder="유의사항을 입력해주세요.">
                                     <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
                                 </li>-->
@@ -93,7 +98,7 @@
                             <p class="sub-title important">프로모션 참여 가능 횟수 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="allowCount" type="text" class="only-num">
+                            <input id="allowCount" type="text" class="only-num" readonly>
                             <span class="input-num-title">회</span>
                         </div>
                     </div>
@@ -265,6 +270,7 @@
                         </li>
                         <li>
                             <p class="sub-title important">인증 기간 (*)</p>
+                            <p class="sub-title important"><small id="durationWarnTxt" style="color: red"></small></p>
                             <ul class="day-btn clearfix">
                                 <li class="cert-days" data-days="1">1일</li>
                                 <li class="cert-days" data-days="7">7일</li>
@@ -275,7 +281,7 @@
                         </li>
                         <li>
                             <p class="sub-title important">일일인증 횟수 (*)</p>
-                            <input id="certCount" type="text" class="only-num" maxlength="1">
+                            <input id="certCount" type="text" class="only-num" maxlength="1" readonly>
                             <span class="input-num-title">회</span>
                         </li>
                         <li>

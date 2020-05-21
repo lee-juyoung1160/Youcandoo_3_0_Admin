@@ -13,24 +13,24 @@
                     <li>
                         <p class="sub-title">정지구분(*)</p>
                         <div class="radio-wrap">
-                            <input type="radio" id="r1" name="rr" />
+                            <input type="radio" id="r1" name="radio-inactive" value="1"/>
                             <label for="r1"><span></span>일시정지</label>
 
-                            <input type="radio" id="r2" name="rr" />
+                            <input type="radio" id="r2" name="radio-inactive" value="0"/>
                             <label for="r2"><span></span>영구정지</label>
                         </div>
                     </li>
                     <li>
                         <p class="sub-title">정지기간(*)</p>
-                        <input type="text" class="only-num">
+                        <input id="period" type="text" class="only-num">
                         <span class="input-num-title margin-text">일</span>
                     </li>
                     <li>
                         <p class="sub-title">정지사유(*)</p>
-                        <textarea placeholder="내용을 입력해주세요." name="text" id="ucd-area" cols="30" rows="10"></textarea>
+                        <textarea id="cause" placeholder="내용을 입력해주세요." name="text" id="ucd-area" cols="30" rows="10"></textarea>
                     </li>
                     <li class="clearfix">
-                        <button class="completion-btn" type="submit">발송</button>
+                        <button id="btnSubmitBanUer" class="completion-btn" type="submit">발송</button>
                     </li>
                 </ul>
             </div>
@@ -120,7 +120,7 @@
                            1.이미 이용정지인 경우  이용정지 제거 버튼 노출 (.delete-btn)
                            2. 비활성화 .btn-disabled 추가
                        -->
-                        <button id="btnModalBanUserOpen" class="stop-btn" type="button"><i class="fas fa-hand-paper"></i>이용정지</button>
+                        <button id="btnModalBanUserOpen" class="stop-btn btn-disabled" type="button"><i class="fas fa-hand-paper"></i>이용정지</button>
 <!--                        <button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>이용정지 해제</button>-->
                     </div>
                     <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>

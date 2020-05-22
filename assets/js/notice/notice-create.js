@@ -6,14 +6,19 @@
 	const btnSubmit = $("#btnSubmit");
 
 	$(document).ready(function () {
-
-		btnSubmit.on('click', function () { onSubmitNotice(); });
-
-		initInputDatepicker();
+		/** 데이트피커 초기화 **/
+		initInputTodayDatepicker();
+		/** 예약일 초기화 **/
 		setDateToday();
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 에디터 초기화 **/
 		initSummerNote();
+		/** input 글자 수 체크 **/
 		checkInputLength();
+
+		/** 이벤트 **/
+		btnSubmit.on('click', function () { onSubmitNotice(); });
 	});
 
 	function initComponent()

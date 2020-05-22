@@ -111,6 +111,7 @@
 		formData.append('event-end-date', eventTo.val());
 		formData.append('event-image', paramThumbnailFile);
 		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
+		formData.append('create_user', sessionUserId.val());
 
 		return formData;
 	}

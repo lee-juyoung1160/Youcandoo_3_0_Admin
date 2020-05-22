@@ -108,6 +108,7 @@
 			,"faqContents" : content.val().trim()
 			,"faqType" : selFaqType.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"create_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

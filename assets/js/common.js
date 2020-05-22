@@ -14,6 +14,7 @@
     const viewLoading        = $("#viewLoading");
     const lengthInput        = $(".length-input");
     const countInput         = $(".count-input");
+    const sessionUserId      = $("#session_userid");
 
     menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });

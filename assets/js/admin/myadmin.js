@@ -113,7 +113,7 @@
 	function updateParams()
 	{
 		let param = {
-			"userid" : $("#session_userid").val()
+			"userid" : sessionUserId.val()
 			,"password" : password.val().trim()
 		}
 

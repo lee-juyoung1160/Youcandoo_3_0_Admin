@@ -10,12 +10,22 @@ class MY_Loader extends CI_Loader {
     {
         $CI =& get_instance();
         $CI->load->library('session');
+        $CI->load->helper('url');
+        $CI->load->helper('cookie');
         $SessionData = $CI->session->userdata("user_data");
-        
-        log_message("error", json_encode($SessionData) );
         if(empty($SessionData))
         {
-            redirect("/", "refresh");
+            // 재접속시 사용될 Referer Cookie Set
+            $cookie = array(
+                'name'   => 'referer',
+                'value'  => uri_string(),
+                'expire' => '300',
+                'domain' => '.youcandoo.co.kr',
+                'path'   => '/'
+            );
+            set_cookie($cookie);
+            redirect("/main/login", "refresh");
+            return;
         }
         $this->view('layout/header',$vars);
         $this->view('layout/header_sub',$vars);

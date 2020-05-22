@@ -25,12 +25,12 @@ class Auth extends CI_Controller {
         $Password = $this->input->post("password");
         if($UserID == "")
         {
-            alert("ID 값이 입력되지 않았습니다", "/");
+            alert("ID 값이 입력되지 않았습니다", "/main/login");
             return;
         }
         if($Password == "")
         {
-            alert("Password 값이 입력되지 않았습니다", "/");
+            alert("Password 값이 입력되지 않았습니다", "/main/login");
             return;
         }
 
@@ -38,14 +38,14 @@ class Auth extends CI_Controller {
         $IsExists = $this->redis_session->hExists("admin:user", $UserID);
         if(!$IsExists)
         {
-            alert("사용자 정보가 존재하지 않습니다", "/");
+            alert("사용자 정보가 존재하지 않습니다", "/main/login");
             return;
         }
         $UserData = json_decode($this->redis_session->hGet("admin:user", $UserID));
         if($Password != $UserData->password)
         {
             $this->updateFailCount($UserID, 1);
-            alert("비밀번호가 일치하지 않습니다", "/");
+            alert("비밀번호가 일치하지 않습니다", "/main/login");
             return;
         }
         $this->setLoginInfo($UserID);
@@ -65,7 +65,6 @@ class Auth extends CI_Controller {
         session_start();
         $this->session->set_userdata("user_data", $UserData);
         $_SESSION["user"] = $UserData;
-        log_message("error", json_encode($_SESSION["user"]));
         if(get_cookie('referer'))
         {
             $ReferPage='/'.get_cookie('referer');
@@ -74,7 +73,7 @@ class Auth extends CI_Controller {
         }
         else
         {
-            redirect('/pro/lists', 'refresh');
+            redirect('/', 'refresh');
         }
 
 

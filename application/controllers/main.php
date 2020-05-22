@@ -5,6 +5,10 @@ class Main extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view('login');
+        $this->load->layout('dashboard');
 	}
+	public function login()
+    {
+        $this->load->view('login');
+    }
 }

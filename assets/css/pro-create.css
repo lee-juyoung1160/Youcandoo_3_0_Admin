@@ -128,9 +128,13 @@
     padding-left: 5px;
 }
 .pro-reward-wrap {
+    display: none;
     padding: 20px 30px;
     background-color: #fff;
     border: 2px solid #d9e7f5;
+}
+.pro-reward-wrap:first-child {
+    display: block;
 }
 .enrollment li .pro-reward-wrap .col-wrap .col-1 {
     width: 220px;
@@ -166,5 +170,26 @@
 .pro-reward-wrap .only-num {
     width: 150px;
     text-align: right;
+}
+.reward-add-btn {
+    display: block;
+    width: 170px;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    padding: 0.5rem;
+    border: 1px solid #007aff;
+    border-radius: 30px;
+    color: #007aff;
+    background-color: #ffffff;
+    transition: all .5s;
+}
+.reward-add-btn:hover {
+    color: #fff;
+    background-color: #007aff;
+    border: 1px solid #007aff;
+}
+.reward-user {
+    display: none;
 }
 

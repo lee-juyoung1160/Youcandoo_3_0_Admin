@@ -154,19 +154,19 @@
                                 <span class="hover-text">* 사용자 리워드 조건은 1개만 등록이 가능합니다.</span>
                             </i>
                             <ul class="hash-tag-list reward-tab">
-                                <li class="on" data-target="reward-1">
+                                <li class="on" data-rel="reward-1">
                                     <span class="tag-name">리워드 조건 1</span>
                                 </li>
-                                <li data-target="reward-2">
+                                <li data-rel="reward-2">
                                     <span class="tag-name">리워드 조건 2</span>
                                 </li>
-                                <li data-target="reward-3">
+                                <li data-rel="reward-3">
                                     <span class="tag-name">리워드 조건 3</span>
                                 </li>
-                                <li data-target="reward-4">
+                                <li data-rel="reward-4">
                                     <span class="tag-name">리워드 조건 4</span>
                                 </li>
-                                <li data-target="reward-5" class="reward-user">
+                                <li data-rel="reward-5" class="reward-user">
                                     <span class="tag-name">사용자 리워드 조건</span>
                                     <i class="delete-btn far fa-times-circle"></i>
                                 </li>
@@ -909,10 +909,10 @@
 </section>
 <script src="/assets/js/promotion/promotion-create.js"></script>
 <script>
-    $('[data-target]').on('click', function(e){
-        var dateView = $(this).attr('data-target');
+    $('[data-rel]').on('click', function(e){
+        var dateView = $(this).attr('data-rel');
 
-        $('[data-target]').removeClass('on');
+        $('[data-rel]').removeClass('on');
         $(this).addClass('on');
 
         $('.pro-reward-wrap').hide();

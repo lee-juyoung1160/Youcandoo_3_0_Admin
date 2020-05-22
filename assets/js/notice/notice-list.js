@@ -248,8 +248,6 @@
 						disableStatusBtnTop();
 						buildGrid();
 					}
-					else
-						alert(invalidResp(data));
 				},
 				error: function (request, status) {
 					console.log(status);

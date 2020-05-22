@@ -66,6 +66,7 @@
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
+				,{title: "작성자", 	data: "created_user",      width: "15%",   orderable: false,   className: "text-center" }
 				,{title: "작성일", 	data: "created_datetime",  width: "10%",   orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);

@@ -71,12 +71,13 @@
 				}
 				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
 				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
-				,{title: "노출여부", 		data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
+				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성일", 	    data: "created_datetime",  width: "20%",    orderable: false,   className: "text-center",
+				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center" }
+				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

@@ -4,7 +4,6 @@
 	const content		= $("#content");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/faq/update/";
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -54,7 +53,7 @@
 	{
 		const pathName		= getPathName();
 		const faqIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+faqIdx;
+		location.href = page.updateFaq+faqIdx;
 	}
 
 

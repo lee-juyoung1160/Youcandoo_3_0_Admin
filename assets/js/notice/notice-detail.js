@@ -4,7 +4,6 @@
 	const reserveDate	= $("#reserveDate");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/notice/update/";
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -54,7 +53,7 @@
 	{
 		const pathName		= getPathName();
 		const noticeIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+noticeIdx;
+		location.href = page.updateNotice+noticeIdx;
 	}
 
 

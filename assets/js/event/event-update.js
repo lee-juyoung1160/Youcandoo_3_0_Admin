@@ -1,17 +1,20 @@
 
 	const title 		= $("#title");
-	const content		= $("#content");
+	const content		= $("#summernote");
 	const eventImg		= $("#eventImg");
-	const period		= $("#period");
-	const exposure		= $("#exposure");
-	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/event/update/";
+	const eventFrom		= $("#eventFrom");
+	const eventTo		= $("#eventTo");
+	const exposure		= $("input[name=radio-exposure]");
+	const btnSubmit		= $("#btnSubmit");
+	const inputFile = $("input:file");
 
 	$(document).ready(function () {
+		/** 에디터 초기화 **/
+		initSummerNote();
 		/** 상세 불러오기 **/
 		getDetail();
-
-		goUpdate.on('click', function () { goUpdatePage(); })
+		inputFile	.on('change', function () { onChangeFile(this); });
+		//btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
 	});
 
 	function getDetail()
@@ -19,7 +22,7 @@
 		$.ajax({
 			url: api.detailEvent,
 			type: "POST",
-			data: params(),
+			data: detailParams(),
 			headers: headers,
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -33,7 +36,7 @@
 		});
 	}
 
-	function params()
+	function detailParams()
 	{
 		const pathName		= getPathName();
 		const eventIdx		= splitReverse(pathName, '/');
@@ -46,17 +49,14 @@
 		let jsonData = JSON.parse(data);
 
 		title.val(jsonData.data.title);
-		content.val(jsonData.data.contents);
+		content.summernote('code', jsonData.data.contents);
 		eventImg.attr('src', jsonData.data.image_url);
-		period.val(jsonData.data.start_date +' ~ '+jsonData.data.end_date);
-		exposure.val(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
-	}
-
-	function goUpdatePage()
-	{
-		const pathName		= getPathName();
-		const eventIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+eventIdx;
+		eventFrom.val(jsonData.data.start_date);
+		eventTo.val(jsonData.data.end_date);
+		exposure.each(function () {
+			if ($(this).val() === jsonData.data.is_exposure)
+				$(this).prop('checked', true);
+		})
 	}
 
 

@@ -42,7 +42,7 @@
 		const qnaIdx	= splitReverse(pathName, '/');
 		let param = {
 			"idx" : qnaIdx
-			,"create_user" : sessionUserId.val()
+			,"userid" : sessionUserId.val()
 			,"comment" : comment.summernote('code')
 			,"memo" : memo.val().trim()
 		}

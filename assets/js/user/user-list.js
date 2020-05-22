@@ -88,14 +88,14 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "닉네임", 		data: "nickname",   width: "25%",    orderable: false,   className: "text-center" }
-				,{title: "전화번호", 	data: "phone",   	width: "25%",    orderable: false,   className: "text-center" }
-				,{title: "회원상태", 	data: "is_active", 	width: "10%",    orderable: false,   className: "text-center",
+				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center" }
+				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center" }
+				,{title: "회원상태", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === 'Y' ? '정상' : '정지'
 					}
 				}
-				,{title: "가입일", 		data: "created",    width: "25%",    orderable: false,   className: "text-center",
+				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

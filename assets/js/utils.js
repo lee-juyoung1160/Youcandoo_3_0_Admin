@@ -153,9 +153,12 @@
 		return regExp.test(param);
 	}
 
+	function isUrl(param)
+	{
+		let regExp = /^http[s]?\:\/\//i;
 
-
-	출처: https://suyou.tistory.com/150 [수유산장]
+		return regExp.test(param);
+	}
 
 	/** 문자열을 split해서 마지막 배열 요소를 반환하는 함수 **/
 	function splitReverse(str, separator)

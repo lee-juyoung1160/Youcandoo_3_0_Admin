@@ -105,3 +105,66 @@
 .reward-type .sub-title:first-child {
     margin-top: 0;
 }
+
+
+/* 리워드 조건 지정 */
+
+.pro-create-page .enrollment > li .hash-tag-list li {
+    float: inherit;
+    color: #aaa;
+    width: 170px;
+    margin-bottom: 5px;
+    background-color: #f3f3f3;
+    border: none;
+    cursor: pointer;
+    transition: all .3s;
+}
+.pro-create-page .enrollment > li .hash-tag-list li.on,
+.pro-create-page .enrollment > li .hash-tag-list li:hover{
+    color: #007aff;
+    background-color: #d9e7f5;
+}
+.pro-create-page .hash-tag-list > li .delete-btn {
+    padding-left: 5px;
+}
+.pro-reward-wrap {
+    padding: 20px 30px;
+    background-color: #fff;
+    border: 2px solid #d9e7f5;
+}
+.enrollment li .pro-reward-wrap .col-wrap .col-1 {
+    width: 220px;
+}
+.enrollment li .pro-reward-wrap .col-wrap .col-2 {
+    width: 640px;
+}
+.pro-reward-wrap input[type="text"].input-num-box {
+    width: 30px;
+    height: 15px;
+    padding: 0;
+    font-weigth: 800;
+    background-color: #fff;
+    border: none;
+}
+.pro-reward-wrap .irs--round {
+    width: 250px;
+    margin-bottom: 10px;
+}
+.pro-reward-wrap table th {
+    font-weight: 500;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #f9f9f9;
+}
+.pro-reward-wrap table th,
+.pro-reward-wrap table td {
+    padding: 10px 20px;
+    color: #484848;
+    font-size: 15px;
+    border: 1px solid #f3f3f3;
+}
+.pro-reward-wrap .only-num {
+    width: 150px;
+    text-align: right;
+}
+

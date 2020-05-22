@@ -157,7 +157,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"member_type" : $("input[name=radio-user-active]:checked").val()
+			/*,"member_type" : $("input[name=radio-user-active]:checked").val()*/
 		}
 
 		return JSON.stringify(param);
@@ -257,7 +257,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"member_type" : $("input[name=radio-user-active]:checked").val()
+			/*,"member_type" : $("input[name=radio-user-active]:checked").val()*/
 		}
 
 		return JSON.stringify(param);

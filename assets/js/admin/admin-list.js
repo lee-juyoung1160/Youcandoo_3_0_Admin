@@ -111,13 +111,14 @@
 				,{title: "사용여부",   data: "is_active",     		width: "10%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						let checked   = data === 'Y' ? 'checked' : '';
-						let chkBoxDom = '<div class="toggle-btn-wrap">';
-						chkBoxDom += 		'<div class="toggle-btn on">';
-						chkBoxDom += 			'<input onchange="changeStatus(this)" type="checkbox" class="checkbox" '+checked+'>';
-						chkBoxDom += 			'<div class="knobs"></div>';
-						chkBoxDom += 			'<div class="layer"></div>';
-						chkBoxDom += 		'</div>';
+						let chkBoxDom = '';
+						chkBoxDom += '<div class="toggle-btn-wrap">';
+						chkBoxDom += 	'<div class="toggle-btn on">';
+						chkBoxDom += 		'<input onchange="changeStatus(this)" type="checkbox" class="checkbox" '+checked+'>';
+						chkBoxDom += 		'<div class="knobs"></div>';
+						chkBoxDom += 		'<div class="layer"></div>';
 						chkBoxDom += 	'</div>';
+						chkBoxDom += '</div>';
 						return chkBoxDom;
 					}
 				}
@@ -156,7 +157,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}

@@ -168,7 +168,7 @@
     border: 1px solid #f3f3f3;
 }
 .pro-reward-wrap .only-num {
-    width: 150px;
+    width: 100px;
     text-align: right;
 }
 .reward-add-btn {
@@ -192,4 +192,33 @@
 .reward-user {
     display: none;
 }
-
+.text-right {
+    display: block;
+    text-align: right;
+}
+.frequency.disabled > li,
+.frequency.disabled > li:hover {
+    color: #ddd;
+    border-color: #ddd;
+    background-color: #fff;
+    cursor: inherit;
+}
+.pro-reward-wrap .add-btn-wrap {
+    padding: 0;
+}
+.ucd-add-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    color: #007aff;
+    text-align: center;
+    background: none;
+    transition: all .2s;
+}
+.ucd-add-btn:hover {
+    color: #fff;
+    background: #007aff;
+}
+.pro-reward-wrap table tbody tr:first-child td i {
+    display: none;
+}

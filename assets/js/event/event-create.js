@@ -9,15 +9,19 @@
 	const inputFile = $("input:file");
 
 	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initInputTodayDatepicker();
+		/** 컴퍼넌트 초기화 **/
+		initComponent();
+		/** 에디터 초기화 **/
+		initSummerNote();
+		/** input 글자 수 체크 **/
+		checkInputLength();
 
+		/** 이벤트 **/
 		inputFile	.on('change', function () { onChangeFile(this); });
 		btnSubmit	.on('click', function () { onSubmitEvent(); });
 		eventFrom	.on('change', function () { onChangeFrom() });
-
-		initInputDatepicker();
-		initComponent();
-		initSummerNote();
-		checkInputLength();
 	});
 
 	function onChangeFrom()

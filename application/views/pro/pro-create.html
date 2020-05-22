@@ -73,21 +73,6 @@
                                 <span>생성하기</span>
                             </button>
                             <ul id="noticeArea" class="notice-input-list">
-                                <!--<li>
-                                    <p class="cap">유의사항 1</p>
-                                    <input type="text" placeholder="유의사항을 입력해주세요.">
-                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
-                                </li>
-                                <li>
-                                    <p class="cap">유의사항 2</p>
-                                    <input type="text" placeholder="유의사항을 입력해주세요.">
-                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
-                                </li>
-                                <li>
-                                    <p class="cap">유의사항 3</p>
-                                    <input type="text" placeholder="유의사항을 입력해주세요.">
-                                    <i class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;"></i>
-                                </li>-->
                             </ul>
                         </div>
                     </div>
@@ -201,7 +186,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <div class="input-wrap">
-                                                    <input id="rewardTitle" type="text" class="length-input" placeholder="제목을 입력해주세요." value="딱 한번만" maxlength="20" oninput="maxLengthCheck(this)">
+                                                    <input type="text" class="length-input" placeholder="제목을 입력해주세요." value="딱 한번만" maxlength="20" oninput="maxLengthCheck(this)">
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                                                 </div>
                                             </div>
@@ -226,13 +211,13 @@
                                     <!--
                                     인증기간 1일 클릭 시 주간빈도 보이지 않게
                                     -->
-                                    <li id="frequencyParent">
+                                    <li>
                                         <div class="col-wrap clearfix">
                                             <div class="col-1">
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul id="frequency" class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency">
                                                     <li>월</li>
                                                     <li>화</li>
                                                     <li>수</li>
@@ -253,8 +238,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="goalRange" type="range" class="custom-range" readonly>
-                                                <input id="goalRate" class="input-num-box" type="text" readonly>
+                                                <input type="range" class="custom-range goal-range" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -268,13 +253,13 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="rewardRange" type="range" class="custom-range" readonly>
+                                                <input type="range" class="custom-range reward-range" readonly>
                                                 <span class="input-num-title">개인</span>
-                                                <input id="individualRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input id="groupRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -345,7 +330,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <div class="input-wrap">
-                                                    <input id="rewardTitle" type="text" class="length-input" placeholder="제목을 입력해주세요." value="일주일에 세번만" maxlength="20" oninput="maxLengthCheck(this)">
+                                                    <input type="text" class="length-input" placeholder="제목을 입력해주세요." value="일주일에 세번만" maxlength="20" oninput="maxLengthCheck(this)">
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                                                 </div>
                                             </div>
@@ -370,13 +355,13 @@
                                     <!--
                                     인증기간 1일 클릭 시 주간빈도 보이지 않게
                                     -->
-                                    <li id="frequencyParent">
+                                    <li>
                                         <div class="col-wrap clearfix">
                                             <div class="col-1">
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul id="frequency" class="day-btn clearfix">
+                                                <ul class="day-btn clearfix">
                                                     <li class="active">월</li>
                                                     <li>화</li>
                                                     <li class="active">수</li>
@@ -397,8 +382,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="goalRange" type="range" class="custom-range" readonly>
-                                                <input id="goalRate" class="input-num-box" type="text" readonly>
+                                                <input type="range" class="custom-range" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -412,13 +397,13 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="rewardRange" type="range" class="custom-range" readonly>
+                                                <input type="range" class="custom-range" readonly>
                                                 <span class="input-num-title">개인</span>
-                                                <input id="individualRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input id="groupRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -489,7 +474,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <div class="input-wrap">
-                                                    <input id="rewardTitle" type="text" class="length-input" placeholder="제목을 입력해주세요." value="평일을 알차게" maxlength="20" oninput="maxLengthCheck(this)">
+                                                    <input type="text" class="length-input" placeholder="제목을 입력해주세요." value="평일을 알차게" maxlength="20" oninput="maxLengthCheck(this)">
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                                                 </div>
                                             </div>
@@ -514,13 +499,13 @@
                                     <!--
                                     인증기간 1일 클릭 시 주간빈도 보이지 않게
                                     -->
-                                    <li id="frequencyParent">
+                                    <li>
                                         <div class="col-wrap clearfix">
                                             <div class="col-1">
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul id="frequency" class="day-btn clearfix">
+                                                <ul class="day-btn clearfix">
                                                     <li class="active">월</li>
                                                     <li class="active">화</li>
                                                     <li class="active">수</li>
@@ -541,8 +526,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="goalRange" type="range" class="custom-range" readonly>
-                                                <input id="goalRate" class="input-num-box" type="text" readonly>
+                                                <input type="range" class="custom-range" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -556,13 +541,13 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="rewardRange" type="range" class="custom-range" readonly>
+                                                <input type="range" class="custom-range" readonly>
                                                 <span class="input-num-title">개인</span>
-                                                <input id="individualRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input id="groupRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -633,7 +618,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <div class="input-wrap">
-                                                    <input id="rewardTitle" type="text" class="length-input" placeholder="제목을 입력해주세요." value="하루도 빠짐없이" maxlength="20" oninput="maxLengthCheck(this)">
+                                                    <input type="text" class="length-input" placeholder="제목을 입력해주세요." value="하루도 빠짐없이" maxlength="20" oninput="maxLengthCheck(this)">
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                                                 </div>
                                             </div>
@@ -658,13 +643,13 @@
                                     <!--
                                     인증기간 1일 클릭 시 주간빈도 보이지 않게
                                     -->
-                                    <li id="frequencyParent">
+                                    <li>
                                         <div class="col-wrap clearfix">
                                             <div class="col-1">
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul id="frequency" class="day-btn clearfix">
+                                                <ul class="day-btn clearfix">
                                                     <li class="active">월</li>
                                                     <li class="active">화</li>
                                                     <li class="active">수</li>
@@ -685,8 +670,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="goalRange" type="range" class="custom-range" readonly>
-                                                <input id="goalRate" class="input-num-box" type="text" readonly>
+                                                <input type="range" class="custom-range" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -700,13 +685,13 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="rewardRange" type="range" class="custom-range" readonly>
+                                                <input type="range" class="custom-range" readonly>
                                                 <span class="input-num-title">개인</span>
-                                                <input id="individualRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input id="groupRate" class="input-num-box" type="text" readonly>
+                                                <input class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -844,7 +829,7 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input id="rewardRange" type="range" class="custom-range" readonly>
+                                                <input id="rewardRange" type="range" class="custom-range reward-range" readonly>
                                                 <span class="input-num-title">개인</span>
                                                 <input id="individualRate" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>

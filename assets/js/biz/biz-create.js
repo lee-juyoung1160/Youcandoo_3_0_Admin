@@ -103,7 +103,7 @@
 
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/biz/lists'
+							location.href = page.listBiz
 					},
 					error: function (request, status) {
 						console.log(status);

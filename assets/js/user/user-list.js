@@ -33,8 +33,7 @@
 		selPageLength	.on("change", function () { buildGrid(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });*/
-		btnModalBanUserOpen	.on("click", function () { onSubmitBanUser(); });
+		btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });
@@ -228,10 +227,10 @@
 
 	function onClickExcelBtn()
 	{
-		getList();
+		getExcelData();
 	}
 
-	function getList()
+	function getExcelData()
 	{
 		$.ajax({
 			url: api.listUser,
@@ -266,8 +265,8 @@
 
 	function onSubmitBanUser()
 	{
-		/*if (banValidation())
-		{*/
+		if (banValidation())
+		{
 			if (confirm(message.create))
 			{
 				$.ajax({
@@ -281,6 +280,7 @@
 						if (isSuccessResp(data))
 						{
 							disableBtnBanUser();
+							modalFadeout();
 							buildGrid();
 						}
 					},
@@ -289,7 +289,7 @@
 					},
 				});
 			}
-		/*}*/
+		}
 	}
 
 	function banParams()
@@ -297,14 +297,10 @@
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 		let param = {
-			/*"account_uuid" : selectedData.account_uuid
+			"account_uuid" : selectedData.account_uuid
 			,"inactive_type" : $("input[name=radio-inactive]:checked").val()
 			,"period" : period.val()
-			,"reason" : cause.val()*/
-			"account_uuid" : selectedData.account_uuid
-			,"inactive_type" : "1"
-			,"period" : "1"
-			,"reason" : "그냥"
+			,"reason" : cause.val()
 		}
 
 		return JSON.stringify(param);
@@ -321,7 +317,7 @@
 
 		if (isEmpty(cause.val()))
 		{
-			alert('정지기간은 '+message.required);
+			alert('정지사유는 '+message.required);
 			cause.focus();
 			return false;
 		}

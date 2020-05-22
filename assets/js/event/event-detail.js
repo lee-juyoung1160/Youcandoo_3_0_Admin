@@ -5,7 +5,6 @@
 	const period		= $("#period");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
-	const updateUrl		= "/service/event/update/";
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -56,7 +55,7 @@
 	{
 		const pathName		= getPathName();
 		const eventIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+eventIdx;
+		location.href = page.updateEvent+eventIdx;
 	}
 
 

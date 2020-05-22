@@ -11,14 +11,14 @@
                         </div>
                         <div class="col-2">
                             <div class="select-box">
-                                <label for="selFaqType">일반문의</label>
+                                <label for="selFaqType"></label>
                                 <select id="selFaqType">
-                                    <option value="normal">일반문의</option>
+                                    <!--<option value="normal">일반문의</option>
                                     <option value="user">회원정보</option>
                                     <option value="cash">캐시</option>
                                     <option value="payment">결제</option>
                                     <option value="cert">인증</option>
-                                    <option value="message">채팅</option>
+                                    <option value="message">채팅</option>-->
                                 </select>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="20" oninput="maxLengthCheck(this)">
+                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="20">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                             </div>
                         </div>
@@ -44,8 +44,8 @@
                         </div>
                         <div class="col-2 clearfix">
                             <div class="textarea-wrap">
-                                <textarea id="content" placeholder="내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000" oninput="maxLengthCheck(this)"></textarea>
-                                <p class="length-count-wrap"><span class="count-text">0</span>/1000</p>
+                                <textarea id="content" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/1000</p>
                             </div>
                         </div>
                     </div>
@@ -73,30 +73,4 @@
         </div>
     </div>
 </section>
-<script>
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length);
-        });
-        $('.count-input').keyup();
-    });
-
-    $(function() {
-        $('.length-text').keyup(function (e){
-            var contentText = $(this).val();
-            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length);
-        });
-        $('.length-text').keyup();
-    });
-
-</script>
-<script src="/assets/js/faq/faq-create.js"></script>
+<script src="/assets/js/faq/faq-update.js"></script>

@@ -29,6 +29,45 @@
 		exposure.eq(0).prop('checked', true);
 	}
 
+	function onSubmitNotice()
+	{
+		if (validation())
+		{
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.createNotice,
+					type: "POST",
+					processData: false,
+					contentType: false,
+					data: params(),
+					headers: headers,
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							location.href = page.listNotice
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						console.log(thrownError);
+					}
+				});
+			}
+		}
+	}
+
+	function params()
+	{
+		let param = {
+			'notice_title' : title.val().trim()
+			,'notice_contents' : content.val().trim()
+			,'reservation_date' : reserveDate.val().trim()
+			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
+			,'create_user' : sessionUserId.val()
+		}
+
+		return JSON.stringify(param);
+	}
+
 	function validation()
 	{
 		if (isEmpty(title.val()))
@@ -53,45 +92,5 @@
 		}
 
 		return true;
-	}
-
-	function onSubmitNotice()
-	{
-		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createNotice,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					data: params(),
-					headers: headers,
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listNotice
-					},
-					error: function (xhr, ajaxOptions, thrownError) {
-						console.log(xhr.status);
-						console.log(thrownError);
-					}
-				});
-			}
-		}
-	}
-
-	function params()
-	{
-		let param = {
-			'notice_title' : title.val().trim()
-			,'notice_contents' : content.val().trim()
-			,'reservation_date' : reserveDate.val().trim()
-			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
-			,'create_user' : sessionUserId.val()
-		}
-
-		return JSON.stringify(param);
 	}
 

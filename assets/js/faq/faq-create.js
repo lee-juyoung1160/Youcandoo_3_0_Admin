@@ -6,13 +6,17 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
-
-		btnSubmit.on('click', function () { onSubmitFaq(); });
-
+		/** faq 구분 **/
 		getFaqType();
+		/** 데이트피커 초기화 **/
 		initInputDatepicker();
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** input 글자 수 체크 **/
 		checkInputLength();
+
+		/** 이벤트 **/
+		btnSubmit.on('click', function () { onSubmitFaq(); });
 	});
 
 	function getFaqType()

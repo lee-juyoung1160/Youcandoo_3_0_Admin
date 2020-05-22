@@ -8,6 +8,8 @@
 	$(document).ready(function () {
 		/** 에디터 초기화 **/
 		initSummerNote();
+		/** input 글자 수 체크 **/
+		checkInputLength();
 		/** 상세 불러오기 **/
 		getDetail();
 
@@ -81,13 +83,15 @@
 
 	function params()
 	{
-		let formData  = new FormData();
-		formData.append('notice-title', title.val().trim());
-		formData.append('notice-contents', content.val().trim());
-		formData.append('reservation-date', datePicker.val());
-		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
+		let param = {
+			'notice_title' : title.val().trim()
+			,'notice_contents' : content.val().trim()
+			,'reservation_date' : reserveDate.val().trim()
+			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
+			,'create_user' : sessionUserId.val()
+		}
 
-		return formData;
+		return JSON.stringify(param);
 	}
 
 	function validation()

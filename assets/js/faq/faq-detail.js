@@ -43,7 +43,7 @@
 	{
 		let jsonData = JSON.parse(data);
 
-		type.html(jsonData.data.faq_type);
+		type.html(jsonData.data.faq_name);
 		title.html(jsonData.data.title);
 		content.html(jsonData.data.contents);
 		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');

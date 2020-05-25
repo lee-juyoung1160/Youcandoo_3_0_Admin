@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">프로모션 목록</h2>
-            <a href="/service/pro/create"><i class="fas fa-plus"></i>프로모션 등록</a>
+            <a href="/pro/create"><i class="fas fa-plus"></i>프로모션 등록</a>
         </div>
 
         <div class="list-common">
@@ -31,8 +31,8 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="ex_select2">제목/내용</label>
-                    <select id="ex_select2">
+                    <label for="searchType">제목/내용</label>
+                    <select id="searchType">
                         <option value="promotion_title">제목/내용</option>
                         <option value="company">스폰기업</option>
                     </select>
@@ -70,8 +70,8 @@
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
             </div>
-            <table>
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:15%;">
                     <col style="width:30%;">
@@ -101,15 +101,15 @@
                         <td>보기</td>
                         <td>비노출</td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </section>

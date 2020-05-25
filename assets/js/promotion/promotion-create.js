@@ -16,6 +16,8 @@
 	/** 리워드 입력 **/
 	const rewardSelectArea 	 = $("#rewardSelectArea");
 	const btnRewardTab	 = $("[data-rel]");
+	const btnRewardTitle = $(".btn-reward-title");
+	const rewardTitle 	 = $(".reward-title");
 	const iconUserRewardDelete	 = $("#iconUserRewardDelete");
 	const btnCreateReward	 = $(".reward-add-btn")
 	const userReward	 = $(".reward-user")
@@ -80,8 +82,9 @@
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
 		inputFile		.on('change', function () { onChangeValidationImage(this); });
 		btnRewardTab	.on('click', function () { toggleRewardTab(this); });
-		btnCreateReward	.on('click', function () { createUserReward(this); });
-		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });
+		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
+		/*btnCreateReward	.on('click', function () { createUserReward(this); });
+		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });*/
 		btnDuration		.on('click', function () { onSelectDuration(this); });
 		btnFrequency	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
@@ -100,6 +103,12 @@
 		allowCount.val(1);
 		isBanner.eq(0).prop("checked", true);
 		initNoticeArea();
+		/** 리워드 제목과 탭 이름 같은 값으로 세팅 **/
+		rewardTitle.each(function (index) {
+			$(btnRewardTitle[index]).text($(this).val());
+		});
+
+
 	}
 
 	/** 목표달성률 설정 레인지 슬라이더 **/
@@ -420,6 +429,19 @@
 		btnCreateReward.show();
 		userReward.hide();
 		toggleRewardTab(rewardSelectArea.find('span').eq(0));
+	}
+
+	/** 리워드 제목 입력하면 탭이름도 변경되는 이벤트 **/
+	function onKeyupRewardTitle(obj)
+	{
+		let inputValue = $(obj).val();
+		let idx = 0;
+		rewardTitle.each(function (index) {
+			if ($(this).val() === inputValue)
+				idx = index;
+		});
+
+		$(btnRewardTitle[idx]).text(inputValue);
 	}
 
 	function onSelectDuration(obj)

@@ -735,6 +735,10 @@ textarea {
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
 }
+.doit-list-option ul li .radio-wrap,
+.doit-list-option ul li .checkbox-wrap {
+	padding: 11px 0;
+}
 /*.doit-list-option ul li:nth-child(even) {*/
 /*	margin-bottom: 20px;*/
 /*}*/

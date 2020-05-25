@@ -79,7 +79,9 @@
 .doit-detail-page .img-wrap .wrap .file:first-child {
     margin-top: 0;
 }
-
+.table-btn-wrap.doit-detail-tab li {
+    width: 50%;
+}
 .thumb-list p.sub-title {
     display: inline-block;
     margin-right: 10px;

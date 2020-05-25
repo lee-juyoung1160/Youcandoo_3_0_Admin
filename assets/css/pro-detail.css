@@ -1,0 +1,88 @@
+.reward-list li {
+    width: 50%;
+    border: 2px solid #d9e7f5;
+    cursor: inherit;
+}
+.reward-list li .list-inner {
+    padding: 20px 10px;
+}
+.reward-list li .title {
+    color: #333;
+    font-size: 12px;
+    border-bottom: 1px solid #d9e7f5;
+}
+.reward-list li .title strong {
+    display: block;
+    padding: 5px 0 10px;
+    color: #007aff;
+    font-size: 17px;
+    font-weight: 500;
+}
+.reward-list p.sub-title,
+.reward-list .detail-data {
+    color: #999;
+}
+.reward-list p.sub-title {
+    font-size: 13px;
+    margin-bottom: 0;
+    padding: 5px 0;
+}
+.reward-list .detail-data {
+    font-size: 15px;
+    color: #484848;
+}
+.enrollment li .reward-list  .col-wrap {
+    width: inherit;
+    color: #484848;
+    margin: 5px 0;
+}
+.enrollment li .reward-list  .col-wrap .col-1 {
+    width: 100%;
+}
+.enrollment li .reward-list  .col-wrap .col-2 {
+    width: 100%;
+}
+
+.reward-list table {
+    width: 100%;
+}
+.reward-list table th {
+    font-weight: 500;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #f9f9f9;
+}
+.reward-list table th,
+.reward-list table td {
+    padding: 10px 20px;
+    color: #484848;
+    font-size: 13px;
+    border: 1px solid #f3f3f3;
+}
+.reward-list table td {
+    text-align: right;
+}
+.reward-list table tbody tr td:first-child {
+    text-align: center;
+}
+
+.pro-detail-page .reward-tab li {
+    float: inherit;
+    color: #aaa;
+    width: 170px;
+    background-color: #f3f3f3;
+    border: none;
+    cursor: pointer;
+    transition: all .3s;
+}
+.pro-detail-page  .enrollment>li .hash-tag-list li {
+    margin-bottom: 5px;
+}
+.pro-detail-page .reward-tab li.on,
+.pro-detail-page .reward-tab li:hover
+{
+    color: #007aff;
+    background-color: #d9e7f5;
+}
+
+

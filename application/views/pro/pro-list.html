@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/assets/css/pro-list.css">
 <section class="pro-list-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -98,7 +99,7 @@
                         <td><a href="/pro/detail">나이키1000억프로젝트키1000억프로젝트</a></td>
                         <td>2020-04-08 ~ 2020-04-08 </td>
                         <td>30,000,000원</td>
-                        <td>보기</td>
+                        <td><button type="button" class="more-infor-btn" data-rel="modal-01">보기</button></td>
                         <td>비노출</td>
                     </tr>
                 </tbody>
@@ -112,5 +113,47 @@
             </ul>
         </div>
     </div>
+
+    <!-- 이미지 보기 모달 -->
+    <div class="modal-content modal-01">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">프로모션 이미지</p>
+            <ul class="modal-information">
+                <li>
+                    <p class="sub-title">배너 및 리스트</p>
+                    <p class="data-contents">
+                        <img src="/assets/images/test_656420.jpg" alt="">
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title">소개이미지</p>
+                    <p class="data-contents">
+                        <img src="/assets/images/test_656420.jpg" alt="">
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+
 </section>
 <script src="/assets/js/promotion/promotion-list.js"></script>
+<script>
+    // modal event
+    $('.more-infor-btn').click(function () {
+        var openModal = $(this).attr('data-rel');
+        $('.' + openModal).fadeIn();
+        $('.modal-layout').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+</script>

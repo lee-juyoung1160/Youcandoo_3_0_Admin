@@ -1,0 +1,13 @@
+.pro-list-page .table-wrap td button {
+    display: inline-block;
+    background: none;
+    border-bottom: 1px solid #505050;
+}
+
+.pro-list-page .more-infor-btn {
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    border: inherit;
+    border-radius: inherit;
+}

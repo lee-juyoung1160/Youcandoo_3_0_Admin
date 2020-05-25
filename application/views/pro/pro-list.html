@@ -34,8 +34,8 @@
                 <div class="select-box">
                     <label for="searchType">제목/내용</label>
                     <select id="searchType">
-                        <option value="promotion_title">기업명</option>
-                        <option value="company">프로모션명</option>
+                        <option value="promotion_title">프로모션명</option>
+                        <option value="company">기업명</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -112,7 +112,7 @@
     </div>
 
     <!-- 이미지 보기 모달 -->
-    <div class="modal-content modal-01">
+    <!--<div class="modal-content modal-01">
         <div class="wrap">
             <i class="close-btn fas fa-times-circle"></i>
             <p class="modal-title">프로모션 이미지</p>
@@ -132,25 +132,7 @@
             </ul>
         </div>
     </div>
-    <div class="modal-layout"></div>
-
+    <div class="modal-layout"></div>-->
 
 </section>
 <script src="/assets/js/promotion/promotion-list.js"></script>
-<script>
-    // modal event
-    $('.more-infor-btn').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-</script>

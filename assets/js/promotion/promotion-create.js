@@ -47,6 +47,8 @@
 	const groupRate3	 = $("#groupRate3");
 	const groupRate4	 = $("#groupRate4");
 	const groupRate5	 = $("#groupRate5");
+	const inputRight	 = $(".input-right");
+	const rewardUcd		 = $(".reward-ucd");
 	const iconDeleteRow  = $(".icon-delete-row");
 	const btnCreateRow   = $(".ucd-add-btn");
 	const certDays		 = $(".cert-days");
@@ -82,6 +84,8 @@
 		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });
 		btnDuration		.on('click', function () { onSelectDuration(this); });
 		btnFrequency	.on('click', function () { toggleFrequency(this); });
+		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
+		rewardUcd		.on('keyup', function () { calculateTotalUcd(this); });
 		iconDeleteRow	.on('click', function () { deleteTableRow(this); });
 		btnCreateRow	.on('click', function () { createTableRow(this); });
 		btnSubmit		.on('click', function () { onSubmitPromo(); });
@@ -397,8 +401,8 @@
 	{
 		let viewTarget = $(obj).data('rel');
 
-		btnRewardTab.removeClass('on');
-		$(obj).addClass('on');
+		$(obj).parent().siblings().removeClass('on');
+		$(obj).parent().addClass('on');
 
 		rewardWrap.hide();
 		$('.' + viewTarget).show();
@@ -412,11 +416,10 @@
 
 	function deleteUserReward(obj)
 	{
-		console.log($(obj).parent())
 		$(obj).parent().removeClass('on');
 		btnCreateReward.show();
 		userReward.hide();
-		toggleRewardTab(rewardSelectArea.children().eq(0));
+		toggleRewardTab(rewardSelectArea.find('span').eq(0));
 	}
 
 	function onSelectDuration(obj)
@@ -479,6 +482,7 @@
 		$(obj).parents('tr').remove();
 	}
 
+	/** 인당 UCD 테이블 row 생성하기 버튼 이벤트 **/
 	function createTableRow(obj)
 	{
 		let btnTrDom = $(obj).parents('tr');
@@ -492,16 +496,34 @@
 		let inputTrDom = '';
 		inputTrDom = '<tr>';
 		inputTrDom += 	'<td>';
-		inputTrDom += 		'<input type="text" class="only-num input-left">';
+		inputTrDom += 		'<input type="text" class="only-num input-left" maxlength="5">';
 		inputTrDom += 		'<span class="date-margin-text"> ~ </span>';
-		inputTrDom += 		'<input type="text" class="only-num input-right">';
+		inputTrDom += 		'<input onkeyup="calculateTotalUcd(this)" type="text" class="only-num input-right" maxlength="5">';
 		inputTrDom += 	'</td>';
-		inputTrDom += 	'<td><input type="text" class="only-num"></td>';
+		inputTrDom += 	'<td><input onkeyup="calculateTotalUcd(this)" type="text" class="only-num reward-ucd" maxlength="5"></td>';
 		inputTrDom += 	'<td><span class="text-right"></span></td>';
 		inputTrDom += 	'<td><i onclick="deleteTableRow(this);" class="delete-btn far fa-times-circle icon-delete-row"></i></td>';
 		inputTrDom += '</tr>';
-console.log(inputTrDom)
+
 		btnTrDom.before(inputTrDom);
+	}
+
+	function calculateTotalUcd(obj)
+	{
+		let trDom 	   = $(obj).parents('tr');
+		let inputDom   = trDom.find('input');
+		let totalDom   = trDom.find('span').eq(1);
+		let max		   = 0;
+		let ucd		   = 0;
+
+		$(inputDom).each(function (index) {
+			if (index === 1)
+				max = $(this).val();
+			else if (index === 2)
+				ucd = $(this).val();
+		})
+
+		$(totalDom).html(numberWithCommas(max*ucd));
 	}
 
 	function validation()
@@ -576,12 +598,11 @@ console.log(inputTrDom)
 			return false;
 		}
 
-		/*if (rewardList.length > 0 && isOverDuration())
+		if (isEmptyRewardUcd())
 		{
-			let title = getRewardTitle();
-			alert(title+'의 인증기간을 '+message.doubleChk+'\n (인증기간이 프로모션 기간보다 큼. 삭제 후 재작성.)');
+			alert('인당 UCD는 '+message.required+'\n 리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
 			return false;
-		}*/
+		}
 
 		return true;
 	}
@@ -594,6 +615,26 @@ console.log(inputTrDom)
 			if (isEmpty($(this).val()))
 				retVal = true;
 		});
+
+		return retVal;
+	}
+
+	function isEmptyRewardUcd()
+	{
+		let retVal = false;
+		let ucdTable = $(".ucd-table-body");
+		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDomLength = rewardSelectDoms.length;
+		for (let i=0; i<rewardSelectDomLength; i++)
+		{
+			/** 사용자 지정 리워드 조건이 추가된 경우, 리워드 조건 5의 input도 validation **/
+			if (i < rewardSelectDomLength - 1 || $(rewardSelectDoms[rewardSelectDomLength - 1]).css('display') !== 'none')
+			{
+				$(ucdTable[i]).find('input').each(function () {
+					if (isEmpty($(this).val())) retVal = true;
+				});
+			}
+		}
 
 		return retVal;
 	}
@@ -639,85 +680,83 @@ console.log(inputTrDom)
 		formData.append("promotion-list-image", paramThumbnailFile);
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
-		/** 사용자 지정 리워드 조건의 경우 추가 여부를 확인 후 파라미터에 담는다. **/
 		let rewardSelectDoms = rewardSelectArea.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
+		let rewards = [];
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
-			if (i===(rewardSelectDomLength - 1) && rewardSelectDoms[i].hasClass('on'))
+			/** 사용자 지정 리워드 조건이 추가된 경우만 파라미터에 담는다. **/
+			if (i < rewardSelectDomLength -1 || $(rewardSelectDoms[rewardSelectDomLength -1]).css('display') !== 'none')
 			{
-				let rewards = [];
-				rewardWrap.each(function () {
-					let title 		 = $(this).find('.reward-title');
-					let durationDom	 = $(this).find('.duration');
-					let duration	 = 1;
-					let frequencyDom = $(this).find('.frequency');
-					let monday		 = 'N';
-					let tuesday		 = 'N';
-					let wednesday	 = 'N';
-					let thursday	 = 'N';
-					let friday		 = 'N';
-					let saturday	 = 'N';
-					let sunday		 = 'N';
-					let goalRate 	 = $(this).find('.goal-rate');
-					let personalRate = $(this).find('.individual-rate');
-					let groupRate 	 = $(this).find('.group-rate');
-					let ucdTable	 = $(this).find('.ucd-table-body');
+				let title 		 = $(rewardWrap[i]).find('.reward-title');
+				let durationDom	 = $(rewardWrap[i]).find('.duration');
+				let duration	 = 1;
+				let frequencyDom = $(rewardWrap[i]).find('.frequency');
+				let monday		 = 'N';
+				let tuesday		 = 'N';
+				let wednesday	 = 'N';
+				let thursday	 = 'N';
+				let friday		 = 'N';
+				let saturday	 = 'N';
+				let sunday		 = 'N';
+				let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
+				let personalRate = $(rewardWrap[i]).find('.individual-rate');
+				let groupRate 	 = $(rewardWrap[i]).find('.group-rate');
+				let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
-					/** 인증기간 파라미터 **/
-					durationDom.each(function () {s
-						if ($(this).hasClass('active'))
-							duration = $(this).data('days');
-					});
+				/** 인증기간 파라미터 **/
+				durationDom.each(function () {
+					if ($(this).hasClass('active'))
+						duration = $(this).data('days');
+				});
 
-					/** 주간빈도 파라미터 **/
-					frequencyDom.each(function (index) {
-						let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
-						if (index === 0) monday = frequencyYn;
-						if (index === 1) tuesday = frequencyYn;
-						if (index === 2) wednesday = frequencyYn;
-						if (index === 3) thursday = frequencyYn;
-						if (index === 4) friday = frequencyYn;
-						if (index === 5) saturday = frequencyYn;
-						if (index === 6) sunday = frequencyYn;
-					});
+				/** 주간빈도 파라미터 **/
+				frequencyDom.each(function (freqidx) {
+					let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
+					if (freqidx === 0) monday = frequencyYn;
+					if (freqidx === 1) tuesday = frequencyYn;
+					if (freqidx === 2) wednesday = frequencyYn;
+					if (freqidx === 3) thursday = frequencyYn;
+					if (freqidx === 4) friday = frequencyYn;
+					if (freqidx === 5) saturday = frequencyYn;
+					if (freqidx === 6) sunday = frequencyYn;
+				});
 
-					/** 인당 UCD 파라미터 **/
-					let ucdInfos = [];
-					$(ucdTable).find('tr').each(function () {
+				/** 인당 UCD 파라미터 **/
+				let ucdInfos = [];
+				$(ucdTable).find('tr').each(function () {
 
-						let inputDom = $(this).find('input');
+					let inputDom = $(this).find('input');
 
-						if (inputDom.length > 0)
-						{
-							let minDom = $(inputDom)[0];
-							let maxDom = $(inputDom)[1];
-							let ucdDom = $(inputDom)[2];
+					if (inputDom.length > 0)
+					{
+						let minDom = $(inputDom)[0];
+						let maxDom = $(inputDom)[1];
+						let ucdDom = $(inputDom)[2];
 
-							ucdInfos.push({
-								"min" : $(minDom).val()
-								,"max" : $(maxDom).val()
-								,"per_person_ucd" : $(ucdDom).val()
-							});
-						}
-					})
-
-					rewards.push({
-						"title" 			: title.val()
-						,"action-duration" 	: duration
-						,"goal-rate" 		: goalRate.val()
-						,"individual-rate" 	: personalRate.val()
-						,"group-rate" 		: groupRate.val()
-						,"monday" 			: monday
-						,"tuesday" 			: tuesday
-						,"wednesday" 		: wednesday
-						,"thursday" 		: thursday
-						,"friday" 			: friday
-						,"saturday" 		: saturday
-						,"sunday" 			: sunday
-						,"ucd_info"			: JSON.stringify(ucdInfos)
-					});
+						ucdInfos.push({
+							"min" : $(minDom).val()
+							,"max" : $(maxDom).val()
+							,"per_person_ucd" : $(ucdDom).val()
+						});
+					}
 				})
+
+				rewards.push({
+					"title" 			: title.val()
+					,"action-duration" 	: duration
+					,"goal-rate" 		: goalRate.val()
+					,"individual-rate" 	: personalRate.val()
+					,"group-rate" 		: groupRate.val()
+					,"monday" 			: monday
+					,"tuesday" 			: tuesday
+					,"wednesday" 		: wednesday
+					,"thursday" 		: thursday
+					,"friday" 			: friday
+					,"saturday" 		: saturday
+					,"sunday" 			: sunday
+					,"ucd_info"			: JSON.stringify(ucdInfos)
+				});
 console.log(JSON.stringify(rewards))
 				formData.append("promotion-reward-condition", JSON.stringify(rewards));
 			}

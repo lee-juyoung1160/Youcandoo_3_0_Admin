@@ -115,17 +115,25 @@
 	function initInputNumber(obj)
 	{
 		$('.only-num').on('propertychange change keyup paste input', function (e) {
+			let inputValue = $(obj).val();
+			let inputValueArr = inputValue.split("");
+			let inputLength = inputValueArr.length;
+			let respStr = '';
+			for (let i=0; i<inputLength; i++)
+			{
+				if (inputValueArr[0] == 0)
+					inputValueArr[0] = '';
+				if (isNumber(inputValueArr[i]))
+					respStr += inputValueArr[i];
+			}
 
-	    	if (!isNumber($(obj).val()))
-	    	{
-	    		$(obj).val('');
-	    	}
+			$(obj).val(respStr);
 	    });
 	}
 	
 	function isNumber(param)
 	{
-		let regex = /^[1-9]{1}[0-9]*$/g;
+		let regex = /^[0-9]*$/g;
 		return regex.test(param);
 	}
 

@@ -202,8 +202,8 @@
     display: block;
     text-align: right;
 }
-.frequency.disabled > li,
-.frequency.disabled > li:hover {
+.frequency-ul.disabled > li,
+.frequency-ul.disabled > li:hover {
     color: #ddd;
     border-color: #ddd;
     background-color: #fff;

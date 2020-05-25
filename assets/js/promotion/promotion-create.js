@@ -1,97 +1,326 @@
 
-	const bizName 		  = $("#bizName");
-	const promoName		  = $("#promoName");
-	const budget 		  = $("#budget");
-	const promoFrom	 	  = $("#promoFrom");
-	const promoTo		  = $("#promoTo");
-	const btnNoticeAdd	  = $("#btnNoticeAdd");
-	const noticeArea	  = $("#noticeArea");
-	const allowCount	  = $("#allowCount");
-	const banner		  = $("#banner");
-	const thumbnail		  = $("#thumbnail");
-	const inputFile 	  = $("input:file");
-	const isBanner		  = $("input[name=radio-banner-open]");
-	/*const doitType		  = $("input[name=radio-doit-type]");*/
-	/*const rewardListTitle = $("#rewardListTitle");*/
-	/*const maxUserLimit	  = $("#maxUserLimit");*/
-	const btnAddReward 	  = $("#btnAddReward");
-	const rewardListArea  = $("#rewardListArea");
-	const btnSubmit		  = $("#btnSubmit");
+	const bizName 		 = $("#bizName");
+	const promoName		 = $("#promoName");
+	const budget 		 = $("#budget");
+	const promoFrom	 	 = $("#promoFrom");
+	const promoTo		 = $("#promoTo");
+	const btnNoticeAdd	 = $("#btnNoticeAdd");
+	const noticeArea	 = $("#noticeArea");
+	const allowCount	 = $("#allowCount");
+	const banner		 = $("#banner");
+	const thumbnail		 = $("#thumbnail");
+	const inputFile 	 = $("input:file");
+	const isBanner		 = $("input[name=radio-banner-open]");
+	const btnSubmit		 = $("#btnSubmit");
 
-	/** 리워드 입력 modal **/
-	const modalInputReward	= $("#modalInputReward");
-	const rewardTitle 		= $("#rewardTitle");
-	const minUser			= $("#minUser");
-	const maxUser			= $("#maxUser");
-	const certDays			= $(".cert-days");
-	const certCount  		= $("#certCount");
-	const goalRate  		= $("#goalRate");
-	const maxUcd  		 	= $("#maxUcd");
-	const individualRate  	= $("#individualRate");
-	const groupRate  		= $("#groupRate");
-	const frequency		  	= $("#frequency");
-	const btnRewardSubmit	= $("#btnRewardSubmit");
-	const modalCloseBtn 	= $(".close-btn");
-	const modalLayout 		= $(".modal-layout");
-	const modalContent 		= $(".modal-content");
-	/** 리워드 입력 보기 modal **/
-	const modalReadReward		= $("#modalReadReward");
-	const modalReadTitle		= $("#modalReadTitle");
-	const modalReadMinMaxUser	= $("#modalReadMinMaxUser");
-	const modalReadDuration		= $("#modalReadDuration");
-	const modalReadCertCount	= $("#modalReadCertCount");
-	const modalReadGoalRate		= $("#modalReadGoalRate");
-	const modalReadMaxUcd		= $("#modalReadMaxUcd");
-	const modalReadRewardRate	= $("#modalReadRewardRate");
-	const modalReadFrequency	= $("#modalReadFrequency");
+	/** 리워드 입력 **/
+	const rewardSelectArea 	 = $("#rewardSelectArea");
+	const btnRewardTab	 = $("[data-rel]");
+	const iconUserRewardDelete	 = $("#iconUserRewardDelete");
+	const btnCreateReward	 = $(".reward-add-btn")
+	const userReward	 = $(".reward-user")
+	const rewardWrap 	 = $(".pro-reward-wrap");
+	const btnDuration	 = $(".duration");
+	const btnFrequency	 = $(".frequency");
+	const goalRange1	 = $("#goalRange1");
+	const goalRange2	 = $("#goalRange2");
+	const goalRange3	 = $("#goalRange3");
+	const goalRange4	 = $("#goalRange4");
+	const goalRange5	 = $("#goalRange5");
+	const goalRate1	 	 = $("#goalRate1");
+	const goalRate2	 	 = $("#goalRate2");
+	const goalRate3	 	 = $("#goalRate3");
+	const goalRate4	 	 = $("#goalRate4");
+	const goalRate5	 	 = $("#goalRate5");
+	const rewardRange1	 = $("#rewardRange1");
+	const rewardRange2   = $("#rewardRange2");
+	const rewardRange3	 = $("#rewardRange3");
+	const rewardRange4	 = $("#rewardRange4");
+	const rewardRange5	 = $("#rewardRange5");
+	const personalRate1	 = $("#personalRate1");
+	const personalRate2	 = $("#personalRate2");
+	const personalRate3	 = $("#personalRate3");
+	const personalRate4	 = $("#personalRate4");
+	const personalRate5	 = $("#personalRate5");
+	const groupRate1	 = $("#groupRate1");
+	const groupRate2	 = $("#groupRate2");
+	const groupRate3	 = $("#groupRate3");
+	const groupRate4	 = $("#groupRate4");
+	const groupRate5	 = $("#groupRate5");
+	const iconDeleteRow  = $(".icon-delete-row");
+	const btnCreateRow   = $(".ucd-add-btn");
+	const certDays		 = $(".cert-days");
 
 	$(document).ready(function () {
-		inputFile		.on('change', function () { onChangeValidationImage(this); });
-		btnAddReward	.on('click', function () { modalFadeinInputReward(); });
-		modalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout		.on('click', function () { modalFadeout(); });
-		dayButtons		.on('click', function () { toggleActive(this); });
-		btnSubmit		.on('click', function () { onSubmitPromo(); });
-		btnRewardSubmit	.on('click', function () { onSubmitRewardModal(); });
-		//rewardFrom			.on('change', function () { onChangeRewardFrom(); });
-		//rewardTo			.on('change', function () { onChangeRewardTo(); });
-		certDays		.on('click', function () { toggleCertDays(this); });
-		promoFrom		.on('change', function () { onChangePromoFrom(); });
-		bizName			.on('keyup', function () { onKeyupBizName(); });
-		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
-
+		/** 데이트피커 초기화 **/
 		initInputDatepicker();
-		initComponent();
-		rewardRateRange();
-		goalRateRange();
+		/** 목표달성률 rage slider 초기화 **/
+		initGoalRateRange1();
+		initGoalRateRange2();
+		initGoalRateRange3();
+		initGoalRateRange4();
+		initGoalRateRange5();
+		/** 리워드 비율 range slider 초기화 **/
+		initRewardRateRange1();
+		initRewardRateRange2();
+		initRewardRateRange3();
+		initRewardRateRange4();
+		initRewardRateRange5();
+		/** input text 글자 수 체크 **/
 		checkInputLength();
+		/** 컴퍼넌트 초기화 **/
+		initComponent();
+		/** 주간빈도 초기화 **/
+		toggleDisabledFrequency($(".reward-1").find(btnDuration).eq(0));
+		/** 이벤트 **/
+		bizName			.on('keyup', function () { onKeyupBizName(); });
+		promoFrom		.on('change', function () { onChangePromoFrom(); });
+		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
+		inputFile		.on('change', function () { onChangeValidationImage(this); });
+		btnRewardTab	.on('click', function () { toggleRewardTab(this); });
+		btnCreateReward	.on('click', function () { createUserReward(this); });
+		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });
+		btnDuration		.on('click', function () { onSelectDuration(this); });
+		btnFrequency	.on('click', function () { toggleFrequency(this); });
+		iconDeleteRow	.on('click', function () { deleteTableRow(this); });
+		btnCreateRow	.on('click', function () { createTableRow(this); });
+		btnSubmit		.on('click', function () { onSubmitPromo(); });
 	});
 
-	function toggleCertDays(obj)
+	function initComponent()
 	{
-		certDays.removeClass('active');
-		$(obj).addClass('active');
+		bizName.focus();
+		bizName.val('');
+		promoName.val('');
+		budget.val('');
+		allowCount.val(1);
+		isBanner.eq(0).prop("checked", true);
+		initNoticeArea();
 	}
 
-	function modalFadeinInputReward()
+	/** 목표달성률 설정 레인지 슬라이더 **/
+	function initGoalRateRange1()
 	{
-		if (isEmpty(budget.val()))
-		{
-			alert('프로모션 예산을 '+message.input);
-			budget.focus();
-			return;
-		}
+		goalRange1.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 80,
+			max: 100,
+			from: 90,
+			step: 1,
+			onStart: function(data) {
+				goalRate1.prop("value", data.from);
+			},
+			onChange: function(data) {
+				goalRate1.prop("value", data.from);
+			}
+		});
+	}
 
-		if (isEmpty(promoFrom.val()) || isEmpty(promoTo.val()))
-		{
-			alert('프로모션 기간을 '+message.select);
-			isEmpty(promoFrom.val()) ? promoFrom.focus() : promoTo.focus();
-			return;
-		}
+	function initGoalRateRange2()
+	{
+		goalRange2.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 80,
+			max: 100,
+			from: 90,
+			step: 1,
+			onStart: function(data) {
+				goalRate2.prop("value", data.from);
+			},
+			onChange: function(data) {
+				goalRate2.prop("value", data.from);
+			}
+		});
+	}
 
-		modalInputReward.fadeIn();
-		modalLayout.fadeIn();
-		initModal();
+	function initGoalRateRange3()
+	{
+		goalRange3.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 80,
+			max: 100,
+			from: 90,
+			step: 1,
+			onStart: function(data) {
+				goalRate3.prop("value", data.from);
+			},
+			onChange: function(data) {
+				goalRate3.prop("value", data.from);
+			}
+		});
+	}
+
+	function initGoalRateRange4()
+	{
+		goalRange4.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 80,
+			max: 100,
+			from: 90,
+			step: 1,
+			onStart: function(data) {
+				goalRate4.prop("value", data.from);
+			},
+			onChange: function(data) {
+				goalRate4.prop("value", data.from);
+			}
+		});
+	}
+
+	function initGoalRateRange5()
+	{
+		goalRange5.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 80,
+			max: 100,
+			from: 90,
+			step: 1,
+			onStart: function(data) {
+				goalRate5.prop("value", data.from);
+			},
+			onChange: function(data) {
+				goalRate5.prop("value", data.from);
+			}
+		});
+	}
+
+	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
+	function initRewardRateRange1()
+	{
+		rewardRange1.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 10,
+			max: 90,
+			from: 50,
+			step: 10,
+			onStart: function(data) {
+				personalRate1.prop("value", data.from);
+				groupRate1.prop("value", 100 - data.from);
+			},
+			onChange: function(data) {
+				personalRate1.prop("value", data.from);
+				groupRate1.prop("value", 100 - data.from);
+			}
+		});
+	}
+
+	function initRewardRateRange2()
+	{
+		rewardRange2.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 10,
+			max: 90,
+			from: 50,
+			step: 10,
+			onStart: function(data) {
+				personalRate2.prop("value", data.from);
+				groupRate2.prop("value", 100 - data.from);
+			},
+			onChange: function(data) {
+				personalRate2.prop("value", data.from);
+				groupRate2.prop("value", 100 - data.from);
+			}
+		});
+	}
+
+	function initRewardRateRange3()
+	{
+		rewardRange3.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 10,
+			max: 90,
+			from: 50,
+			step: 10,
+			onStart: function(data) {
+				personalRate3.prop("value", data.from);
+				groupRate3.prop("value", 100 - data.from);
+			},
+			onChange: function(data) {
+				personalRate3.prop("value", data.from);
+				groupRate3.prop("value", 100 - data.from);
+			}
+		});
+	}
+
+	function initRewardRateRange4()
+	{
+		rewardRange4.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 10,
+			max: 90,
+			from: 50,
+			step: 10,
+			onStart: function(data) {
+				personalRate4.prop("value", data.from);
+				groupRate4.prop("value", 100 - data.from);
+			},
+			onChange: function(data) {
+				personalRate4.prop("value", data.from);
+				groupRate4.prop("value", 100 - data.from);
+			}
+		});
+	}
+
+	function initRewardRateRange5()
+	{
+		rewardRange5.ionRangeSlider({
+			skin: "round",
+			type: "single",
+			min: 10,
+			max: 90,
+			from: 50,
+			step: 10,
+			onStart: function(data) {
+				personalRate5.prop("value", data.from);
+				groupRate5.prop("value", 100 - data.from);
+			},
+			onChange: function(data) {
+				personalRate5.prop("value", data.from);
+				groupRate5.prop("value", 100 - data.from);
+			}
+		});
+	}
+
+	function onKeyupBizName()
+	{
+		bizName.autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					url: api.listBizName,
+					type: "POST",
+					async: false,
+					global: false,
+					headers: headers,
+					data: JSON.stringify({"keyword" : bizName.val()}),
+					success: function(data) {
+						response($.map(JSON.parse(data), function(item) {
+							return {
+								label: item.value,
+							}
+						}));
+					},
+					error: function (xhr, status, error) {
+						console.log(error)
+					}
+				});
+			},
+			delay: 300,
+			minLength: 2
+		});
+	}
+
+	function onChangePromoFrom()
+	{
+		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
 	}
 
 	/** 프로모션 기간 계산 **/
@@ -105,46 +334,7 @@
 		return diff;
 	}
 
-	/** 목표달성률 레인지 슬라이더 **/
-	function goalRateRange()
-	{
-		$("#goalRange").ionRangeSlider({
-			skin: "round",
-			type: "single",
-			min: 80,
-			max: 100,
-			from: 80,
-			step: 1,
-			onStart: function(data) {
-				goalRate.prop("value", data.from);
-			},
-			onChange: function(data) {
-				goalRate.prop("value", data.from);
-			}
-		});
-	}
-
-	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
-	function rewardRateRange()
-	{
-		$("#rewardRange").ionRangeSlider({
-			skin: "round",
-			type: "single",
-			min: 10,
-			max: 90,
-			from: 50,
-			step: 10,
-			onStart: function(data) {
-				individualRate.prop("value", data.from);
-				groupRate.prop("value", 100 - data.from);
-			},
-			onChange: function(data) {
-				individualRate.prop("value", data.from);
-				groupRate.prop("value", 100 - data.from);
-			}
-		});
-	}
-
+	/** 유의사항 Dom 추가 **/
 	function onClickBtnNoticeAdd()
 	{
 		let noticeLen = noticeArea.find('li').length;
@@ -168,13 +358,14 @@
 
 		if (noticeLen > 3)
 		{
-			alert('유의사항은 '+message.maxNotice);
+			alert('유의사항은 '+message.maxAddFour);
 			return false;
 		}
 
 		return true;
 	}
 
+	/** 유의사항 Dom 삭제 **/
 	function removeNotice(obj)
 	{
 		$(obj).parent().remove();
@@ -184,40 +375,7 @@
 		});
 	}
 
-	/*function onChangeRewardFrom()
-	{
-		if (isEmpty(promoFrom.val()))
-		{
-			alert('프로모션 기간(시작일)을 먼저 ' + message.select);
-			rewardFrom.val('');
-			return;
-		}
-
-		rewardTo.datepicker("option", "minDate", new Date(rewardFrom.datepicker("getDate")));
-	}
-
-	function onChangeRewardTo()
-	{
-		if (isEmpty(promoFrom.val()))
-		{
-			alert('프로모션 기간(시작일)을 ' + message.select);
-			rewardTo.val('');
-			return;
-		}
-
-		if (isEmpty(promoTo.val()))
-		{
-			alert('프로모션 기간(종료일)을 ' + message.select);
-			rewardTo.val('');
-			return;
-		}
-	}*/
-
-	function onChangePromoFrom()
-	{
-		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
-	}
-
+	/** 유의사항 Dom 초기화 (기본값 3개 세팅) **/
 	function initNoticeArea()
 	{
 		let noticeDom = '';
@@ -234,44 +392,122 @@
 		noticeArea.html(noticeDom);
 	}
 
-	function initComponent()
+	/** 리워드 조건 1, 2, 3, 4, 5 버튼 이벤트 **/
+	function toggleRewardTab(obj)
 	{
-		bizName.focus();
-		bizName.val('');
-		promoName.val('');
-		budget.val('');
-		allowCount.val(1);
-		/*doitType.eq(0).prop("checked", true);*/
-		isBanner.eq(0).prop("checked", true);
-		initNoticeArea();
+		let viewTarget = $(obj).data('rel');
+
+		btnRewardTab.removeClass('on');
+		$(obj).addClass('on');
+
+		rewardWrap.hide();
+		$('.' + viewTarget).show();
 	}
 
-	function initModal()
+	function createUserReward(obj)
 	{
-		$("#durationWarnTxt").html('인증기간은 프로모션 기간보다 작아야 합니다. 프로모션 기간('+calculateTerm()+'일)');
-		rewardTitle.focus();
-		rewardTitle.val('');
-		minUser.val('');
-		maxUser.val('');
-		//rewardFrom.val('');
-		//rewardTo.val('');
-		//rewardFrom.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
-		//rewardFrom.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
-		//rewardTo.datepicker("option", "maxDate", new Date(promoTo.datepicker("getDate")));
-		certCount.val(1);
-		maxUcd.val('');
-		//frequency.hide();
-		frequency.find('li').each(function () {
+		userReward.show();
+		$(obj).hide();
+	}
+
+	function deleteUserReward(obj)
+	{
+		console.log($(obj).parent())
+		$(obj).parent().removeClass('on');
+		btnCreateReward.show();
+		userReward.hide();
+		toggleRewardTab(rewardSelectArea.children().eq(0));
+	}
+
+	function onSelectDuration(obj)
+	{
+		toggleDisabledFrequency(obj);
+		toggleActiveDuration(obj);
+	}
+
+	/** 인증기간 버튼 active 토글 **/
+	function toggleActiveDuration(obj)
+	{
+		let durationButtons = $(obj).siblings('.duration');
+		$(durationButtons).each(function () {
 			$(this).removeClass('active');
 		});
-		toggleCertDays(certDays.eq(0));
+
+		$(obj).toggleClass('active');
+	}
+
+	/** 인증기간 선택에 따라 주간빈도 enable, disable **/
+	function toggleDisabledFrequency(obj)
+	{
+		let	selectedFrequency = $(obj).data('days');
+
+		if (selectedFrequency === 1)
+			disabledFrequency(obj);
+		else
+			enabledFrequency(obj);
+	}
+
+	/** 주간빈도 disabled **/
+	function disabledFrequency(obj)
+	{
+		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
+
+		if (!$(frequencyUl).hasClass('disabled'))
+			$(frequencyUl).addClass('disabled');
+	}
+
+	/** 주간빈도 enabled **/
+	function enabledFrequency(obj)
+	{
+		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
+
+		if ($(frequencyUl).hasClass('disabled'))
+			$(frequencyUl).removeClass('disabled');
+
+		$(frequencyUl).children().removeClass('active');
+	}
+
+	/** 주간빈도 버튼 active 토글 **/
+	function toggleFrequency(obj)
+	{
+		$(obj).toggleClass('active');
+	}
+
+	/** 인당 UCD 테이블 row 삭제 버튼 이벤트 **/
+	function deleteTableRow(obj)
+	{
+		$(obj).parents('tr').remove();
+	}
+
+	function createTableRow(obj)
+	{
+		let btnTrDom = $(obj).parents('tr');
+
+		if ($(btnTrDom).siblings().length >= 4)
+		{
+			alert('인당 UCD는 '+message.maxAddFour);
+			return;
+		}
+
+		let inputTrDom = '';
+		inputTrDom = '<tr>';
+		inputTrDom += 	'<td>';
+		inputTrDom += 		'<input type="text" class="only-num input-left">';
+		inputTrDom += 		'<span class="date-margin-text"> ~ </span>';
+		inputTrDom += 		'<input type="text" class="only-num input-right">';
+		inputTrDom += 	'</td>';
+		inputTrDom += 	'<td><input type="text" class="only-num"></td>';
+		inputTrDom += 	'<td><span class="text-right"></span></td>';
+		inputTrDom += 	'<td><i onclick="deleteTableRow(this);" class="delete-btn far fa-times-circle icon-delete-row"></i></td>';
+		inputTrDom += '</tr>';
+console.log(inputTrDom)
+		btnTrDom.before(inputTrDom);
 	}
 
 	function validation()
 	{
 		let bannerFile		= banner[0].files;
 		let thumbnailFile	= thumbnail[0].files;
-		let rewardList 		= rewardListArea.find('li');
 		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
@@ -328,13 +564,6 @@
 			return false;
 		}
 
-		/*if (isEmpty(maxUserLimit.val()))
-		{
-			alert('최대 참여 인원은 ' + message.required);
-			maxUserLimit.focus();
-			return false;
-		}*/
-
 		if (bannerFile.length === 0)
 		{
 			alert('배너 및 리스트 이미지는 ' + message.required);
@@ -347,19 +576,12 @@
 			return false;
 		}
 
-		if (rewardList.length === 0)
-		{
-			alert(message.createReward);
-			modalFadein();
-			return false;
-		}
-
-		if (rewardList.length > 0 && isOverDuration())
+		/*if (rewardList.length > 0 && isOverDuration())
 		{
 			let title = getRewardTitle();
 			alert(title+'의 인증기간을 '+message.doubleChk+'\n (인증기간이 프로모션 기간보다 큼. 삭제 후 재작성.)');
 			return false;
-		}
+		}*/
 
 		return true;
 	}
@@ -393,28 +615,8 @@
 		return retVal;
 	}
 
-	function getRewardTitle()
-	{
-		let retVal = '';
-		let promoTerm = calculateTerm();
-
-		rewardListArea.find('li').each(function (index) {
-			certDays.each(function () {
-				if ($(this).hasClass('active'))
-				{
-					let duration = $(this).data('days');
-					if (duration > promoTerm)
-						retVal = $(rewardListArea.find('li'))[index].innerText;
-				}
-			});
-		});
-
-		return retVal;
-	}
-
 	function params()
 	{
-		let rewardList 			= rewardListArea.find('li');
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
@@ -423,12 +625,8 @@
 		formData.append("promotion-budget-ucd", budget.val().trim());
 		formData.append("promotion-start-date", promoFrom.val());
 		formData.append("promotion-end-date", promoTo.val());
-		formData.append("promotion-banner-image",paramBannerFile);
-		formData.append("promotion-list-image", paramThumbnailFile);
-		/*formData.append("promotion-doit-type", $('input:radio[name=radio-doit-type]:checked').val());*/
-		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
-		formData.append("promotion-allow-count", allowCount.val().trim());
 
+		/** 유의사항 파라미터 **/
 		let promotionNotice = $("input[name=promo-notice]");
 		let notice = [];
 		promotionNotice.each(function () {
@@ -436,47 +634,94 @@
 		});
 		formData.append("promotion_notice", JSON.stringify(notice));
 
-		let reward = [];
-		rewardList.each(function () {
-			let inputEl 	= $(this).find('input');
-			let titleEl 	= $(inputEl)[0];
-			let minUserEl 	= $(inputEl)[1];
-			let maxUserEl 	= $(inputEl)[2];
-			let durationEl 	= $(inputEl)[3];
-			let certCountEl = $(inputEl)[4];
-			let goalRateEl  = $(inputEl)[5];
-			let maxUcdEl 	= $(inputEl)[6];
-			let individualEl  = $(inputEl)[7];
-			let groupEl 	= $(inputEl)[8];
-			let mondayEl 	= $(inputEl)[9];
-			let tuesdayEl 	= $(inputEl)[10];
-			let wednesdayEl = $(inputEl)[11];
-			let thursdayEl  = $(inputEl)[12];
-			let fridayEl 	= $(inputEl)[13];
-			let saturdayEl  = $(inputEl)[14];
-			let sundayEl 	= $(inputEl)[15];
+		formData.append("promotion-allow-count", allowCount.val());
+		formData.append("promotion-banner-image",paramBannerFile);
+		formData.append("promotion-list-image", paramThumbnailFile);
+		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
-			reward.push({
-				"title" 			: $(titleEl).data('title')
-				,"min-user-limit" 	: $(minUserEl).data('minuser')
-				,"max-user-limit" 	: $(maxUserEl).data('maxuser')
-				,"action-duration" 	: $(durationEl).data('duration')
-				,"action-count" 	: $(certCountEl).data('certcount')
-				,"goal-rate" 		: $(goalRateEl).data('goalrate')
-				,"ucd-per-person" 	: $(maxUcdEl).data('maxucd')
-				,"individual-rate" 	: $(individualEl).data('individual')
-				,"group-rate" 		: $(groupEl).data('group')
-				,"monday" 			: $(mondayEl).data('monday')
-				,"tuesday" 			: $(tuesdayEl).data('tuesday')
-				,"wednesday" 		: $(wednesdayEl).data('wednesday')
-				,"thursday" 		: $(thursdayEl).data('thursday')
-				,"friday" 			: $(fridayEl).data('friday')
-				,"saturday" 		: $(saturdayEl).data('saturday')
-				,"sunday" 			: $(sundayEl).data('sunday')
-			});
-		});
+		/** 사용자 지정 리워드 조건의 경우 추가 여부를 확인 후 파라미터에 담는다. **/
+		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDomLength = rewardSelectDoms.length;
+		for (let i=0; i<rewardSelectDomLength; i++)
+		{
+			if (i===(rewardSelectDomLength - 1) && rewardSelectDoms[i].hasClass('on'))
+			{
+				let rewards = [];
+				rewardWrap.each(function () {
+					let title 		 = $(this).find('.reward-title');
+					let durationDom	 = $(this).find('.duration');
+					let duration	 = 1;
+					let frequencyDom = $(this).find('.frequency');
+					let monday		 = 'N';
+					let tuesday		 = 'N';
+					let wednesday	 = 'N';
+					let thursday	 = 'N';
+					let friday		 = 'N';
+					let saturday	 = 'N';
+					let sunday		 = 'N';
+					let goalRate 	 = $(this).find('.goal-rate');
+					let personalRate = $(this).find('.individual-rate');
+					let groupRate 	 = $(this).find('.group-rate');
+					let ucdTable	 = $(this).find('.ucd-table-body');
 
-		formData.append("promotion-reward-condition", JSON.stringify(reward));
+					/** 인증기간 파라미터 **/
+					durationDom.each(function () {s
+						if ($(this).hasClass('active'))
+							duration = $(this).data('days');
+					});
+
+					/** 주간빈도 파라미터 **/
+					frequencyDom.each(function (index) {
+						let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
+						if (index === 0) monday = frequencyYn;
+						if (index === 1) tuesday = frequencyYn;
+						if (index === 2) wednesday = frequencyYn;
+						if (index === 3) thursday = frequencyYn;
+						if (index === 4) friday = frequencyYn;
+						if (index === 5) saturday = frequencyYn;
+						if (index === 6) sunday = frequencyYn;
+					});
+
+					/** 인당 UCD 파라미터 **/
+					let ucdInfos = [];
+					$(ucdTable).find('tr').each(function () {
+
+						let inputDom = $(this).find('input');
+
+						if (inputDom.length > 0)
+						{
+							let minDom = $(inputDom)[0];
+							let maxDom = $(inputDom)[1];
+							let ucdDom = $(inputDom)[2];
+
+							ucdInfos.push({
+								"min" : $(minDom).val()
+								,"max" : $(maxDom).val()
+								,"per_person_ucd" : $(ucdDom).val()
+							});
+						}
+					})
+
+					rewards.push({
+						"title" 			: title.val()
+						,"action-duration" 	: duration
+						,"goal-rate" 		: goalRate.val()
+						,"individual-rate" 	: personalRate.val()
+						,"group-rate" 		: groupRate.val()
+						,"monday" 			: monday
+						,"tuesday" 			: tuesday
+						,"wednesday" 		: wednesday
+						,"thursday" 		: thursday
+						,"friday" 			: friday
+						,"saturday" 		: saturday
+						,"sunday" 			: sunday
+						,"ucd_info"			: JSON.stringify(ucdInfos)
+					});
+				})
+console.log(JSON.stringify(rewards))
+				formData.append("promotion-reward-condition", JSON.stringify(rewards));
+			}
+		}
 
 		return formData;
 	}
@@ -507,262 +752,4 @@
 		}
 	}
 
-	function rewardValidation()
-	{
-		let rewardList = rewardListArea.find('li');
-		let frequencyActiveLength = 0;
-		frequency.find('li').each(function () {
-			if ($(this).hasClass('active'))
-				frequencyActiveLength++;
-		})
-
-		if (rewardList.length > 4)
-		{
-			alert('리워드는 ' + message.maxReward);
-			modalFadeout();
-			return false;
-		}
-
-		if (isEmpty(rewardTitle.val()))
-		{
-			alert('리워드 제목은 ' + message.required);
-			rewardTitle.focus();
-			return false;
-		}
-
-		if (isEmpty(minUser.val()))
-		{
-			alert('두잇 참여 인원(최소)은 ' + message.required);
-			minUser.focus();
-			return false;
-		}
-
-		if (isEmpty(maxUser.val()))
-		{
-			alert('두잇 참여 인원(최대)은 ' + message.required);
-			maxUser.focus();
-			return false;
-		}
-
-		if (Number(minUser.val()) > Number(maxUser.val))
-		{
-			alert(message.compareMinMaxUser);
-			minUser.focus();
-			return false;
-		}
-
-		if (isEmpty(certCount.val()))
-		{
-			alert('인증 횟수는 ' + message.required);
-			certCount.focus();
-			return false;
-		}
-
-		if (isEmpty(maxUcd.val()))
-		{
-			alert('1인당 최대 지급 UCD는 ' + message.required);
-			maxUcd.focus();
-			return false;
-		}
-
-		if (frequencyActiveLength === 0)
-		{
-			alert('주간 빈도는 ' + message.required);
-			return false;
-		}
-
-		return true;
-	}
-
-	function onSubmitRewardModal()
-	{
-		if (rewardValidation())
-			appendReward();
-	}
-
-	function appendReward()
-	{
-		let rewardLen 	= rewardListArea.find('li').length;
-		let titleLength = Number(rewardLen+1);
-		let duration    = 1;
-		certDays.each(function () {
-			if ($(this).hasClass('active'))
-				duration = $(this).data('days');
-		})
-		let rewardDom 	= '';
-		/*rewardDom += '<ul class="enrollment clearfix">';
-		rewardDom += 	'<i onClick="removeReward(this);" class="delete-btn far fa-times-circle"></i>';
-		rewardDom += 	'<li>';
-		rewardDom += 		'<p class="sub-title important">리워드 제목 (*)</p>';
-		rewardDom += 		'<p class="detail-data">'+ modalRwrdTitle.val() +'</p>';
-		rewardDom += 	'</li>';
-		rewardDom += 	'<li class="tag-list">';
-		rewardDom += 		'<p class="sub-title important">인증 기간 (*)</p>';
-		rewardDom += 		'<p class="detail-data" data->'+ period +'</p>';
-		rewardDom += 	'</li>';
-		rewardDom += 	'<li class="clearfix">';
-		rewardDom += 		'<p class="sub-title important">일일인증 횟수 (*)</p>';
-		rewardDom += 		'<p class="detail-data">'+ certCount.val() +'회</p>';
-		rewardDom += 	'</li>';
-		rewardDom += 	'<li>';
-		rewardDom += 		'<p class="sub-title important">목표달성률 (*)</p>';
-		rewardDom += 		'<p class="detail-data">'+ goalRate.val() +'%</p>';
-		rewardDom += 	'</li>';
-		rewardDom += 	'<li>';
-		rewardDom += 		'<p class="sub-title important">1인당 최대 지급할 UCD (*)</p>';
-		rewardDom += 		'<p class="detail-data">' +maxUcd.val() + ' UCD</p>';
-		rewardDom += 	'</li>';
-		rewardDom += 	'<li>';
-		rewardDom += 		'<p class="sub-title important">주간빈도 (*)</p>';
-		rewardDom += 		'<ul class="day-btn clearfix k">';
-		rewardDom += 			frequency.html();
-		rewardDom += 		'</ul>';
-		rewardDom += 	'<li>';
-		rewardDom += 	'<input type="hidden" data-title="'+modalRwrdTitle.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-start="'+rewardFrom.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-end="'+rewardTo.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-certcount="'+certCount.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-goalrate="'+goalRate.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-maxucd="'+maxUcd.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-individual="'+individualRate.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-group="'+groupRate.val().trim()+'">';
-		frequency.find('li').each(function (index) {
-			let DomValue 	= 'N';
-			if ($(this).hasClass('active'))
-				DomValue	= 'Y';
-
-			if (index === 0)
-				rewardDom += 	'<input type="hidden" data-monday="'+DomValue+'">';
-			else if (index === 1)
-				rewardDom += 	'<input type="hidden" data-tuesday="'+DomValue+'">';
-			else if (index === 2)
-				rewardDom += 	'<input type="hidden" data-wednesday="'+DomValue+'">';
-			else if (index === 3)
-				rewardDom += 	'<input type="hidden" data-thursday="'+DomValue+'">';
-			else if (index === 4)
-				rewardDom += 	'<input type="hidden" data-friday="'+DomValue+'">';
-			else if (index === 5)
-				rewardDom += 	'<input type="hidden" data-saturday="'+DomValue+'">';
-			else if (index === 6)
-				rewardDom += 	'<input type="hidden" data-sunday="'+DomValue+'">';
-		});
-		rewardDom += '</ul>';*/
-
-		rewardDom += '<li>';
-		rewardDom += 	'Title.<span class="tag-name" onclick="onClickRewards(this);">'+rewardTitle.val()+'</span>';
-		rewardDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeReward(this);"></i>';
-		rewardDom += 	'<input type="hidden" data-title="'+rewardTitle.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-minuser="'+minUser.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-maxuser="'+maxUser.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-duration="'+duration+'">';
-		rewardDom += 	'<input type="hidden" data-certcount="'+certCount.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-goalrate="'+goalRate.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-maxucd="'+maxUcd.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-individual="'+individualRate.val().trim()+'">';
-		rewardDom += 	'<input type="hidden" data-group="'+groupRate.val().trim()+'">';
-		frequency.find('li').each(function (index) {
-			let DomValue 	= 'N';
-			if ($(this).hasClass('active'))
-				DomValue	= 'Y';
-
-			if (index === 0)
-				rewardDom += 	'<input type="hidden" data-monday="'+DomValue+'">';
-			else if (index === 1)
-				rewardDom += 	'<input type="hidden" data-tuesday="'+DomValue+'">';
-			else if (index === 2)
-				rewardDom += 	'<input type="hidden" data-wednesday="'+DomValue+'">';
-			else if (index === 3)
-				rewardDom += 	'<input type="hidden" data-thursday="'+DomValue+'">';
-			else if (index === 4)
-				rewardDom += 	'<input type="hidden" data-friday="'+DomValue+'">';
-			else if (index === 5)
-				rewardDom += 	'<input type="hidden" data-saturday="'+DomValue+'">';
-			else if (index === 6)
-				rewardDom += 	'<input type="hidden" data-sunday="'+DomValue+'">';
-		});
-		rewardDom += '</li>';
-
-		rewardListArea.append(rewardDom);
-
-		modalFadeout();
-	}
-
-	function onClickRewards(obj)
-	{
-		let inputEl 	= $(obj).parent().find('input');
-		let titleEl 	= $(inputEl)[0];
-		let minUserEl 	= $(inputEl)[1];
-		let maxUserEl 	= $(inputEl)[2];
-		let durationEl 	= $(inputEl)[3];
-		let certCountEl = $(inputEl)[4];
-		let goalRateEl  = $(inputEl)[5];
-		let maxUcdEl 	= $(inputEl)[6];
-		let individualEl  = $(inputEl)[7];
-		let groupEl 	= $(inputEl)[8];
-		let mondayEl 	= $(inputEl)[9];
-		let tuesdayEl 	= $(inputEl)[10];
-		let wednesdayEl = $(inputEl)[11];
-		let thursdayEl  = $(inputEl)[12];
-		let fridayEl 	= $(inputEl)[13];
-		let saturdayEl  = $(inputEl)[14];
-		let sundayEl 	= $(inputEl)[15];
-		let freq 		= [];
-		if ($(mondayEl).data('monday') === 'Y') freq.push('월');
-		if ($(tuesdayEl).data('tuesday') === 'Y') freq.push('화');
-		if ($(wednesdayEl).data('wednesday') === 'Y') freq.push('수');
-		if ($(thursdayEl).data('thursday') === 'Y') freq.push('목');
-		if ($(fridayEl).data('friday') === 'Y') freq.push('금');
-		if ($(saturdayEl).data('saturday') === 'Y') freq.push('토');
-		if ($(sundayEl).data('sunday') === 'Y') freq.push('일');
-
-		modalReadTitle.html($(titleEl).data('title'));
-		modalReadMinMaxUser.html('최소 '+$(minUserEl).data('minuser')+'명 ~  최대 '+$(maxUserEl).data('maxuser')+'명');
-		modalReadDuration.html($(durationEl).data('duration')+'일');
-		modalReadCertCount.html($(certCountEl).data('certcount')+'회');
-		modalReadGoalRate.html($(goalRateEl).data('goalrate')+'%');
-		modalReadMaxUcd.html($(maxUcdEl).data('maxucd')+' UCD');
-		modalReadRewardRate.html('개인 '+$(individualEl).data('individual')+'% : 단체 '+$(groupEl).data('group')+'%');
-		modalReadFrequency.html(freq.toString());
-
-		modalReadReward.fadeIn();
-		modalLayout.fadeIn();
-	}
-
-	function toggleActive(obj)
-	{
-		$(obj).toggleClass('active');
-	}
-
-	function removeReward(obj)
-	{
-		$(obj).parent().remove();
-	}
-
-	function onKeyupBizName()
-	{
-		bizName.autocomplete({
-			source: function (request, response) {
-				$.ajax({
-					url: api.listBizName,
-					type: "POST",
-					async: false,
-					global: false,
-					headers: headers,
-					data: JSON.stringify({"keyword" : bizName.val()}),
-					success: function(data) {
-						response($.map(JSON.parse(data), function(item) {
-							return {
-								label: item.value,
-							}
-						}));
-					},
-					error: function (xhr, status, error) {
-						console.log(error)
-					}
-				});
-			},
-			delay: 300,
-			minLength: 2
-		});
-	}
 

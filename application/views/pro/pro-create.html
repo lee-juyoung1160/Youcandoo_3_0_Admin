@@ -153,7 +153,7 @@
                             <i class="question-mark far fa-question-circle">
                                 <span class="hover-text">* 사용자 리워드 조건은 1개만 등록이 가능합니다.</span>
                             </i>
-                            <ul class="hash-tag-list reward-tab">
+                            <ul id="rewardSelectArea" class="hash-tag-list reward-tab">
                                 <li class="on" data-rel="reward-1">
                                     <span class="tag-name">리워드 조건 1</span>
                                 </li>
@@ -168,7 +168,7 @@
                                 </li>
                                 <li data-rel="reward-5" class="reward-user">
                                     <span class="tag-name">사용자 리워드 조건</span>
-                                    <i class="delete-btn far fa-times-circle"></i>
+                                    <i id="iconUserRewardDelete" class="delete-btn far fa-times-circle"></i>
                                 </li>
                             </ul>
                             <button class="reward-add-btn" type="button">
@@ -216,7 +216,7 @@
                                                 <!--
                                                 인증기간 1일 일때 ul.disabled
                                                -->
-                                                <ul class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency-ul">
                                                     <li class="frequency">월</li>
                                                     <li class="frequency">화</li>
                                                     <li class="frequency">수</li>
@@ -237,8 +237,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="goalRange1" type="range" class="custom-range goal-range" readonly>
+                                                <input id="goalRate1" class="input-num-box goal-rate" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -252,14 +252,14 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
+                                                <input id="rewardRange1" type="range" class="custom-range reward-range" readonly>
 
                                                 <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="personalRate1" class="input-num-box individual-rate" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="groupRate1" class="input-num-box group-rate" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -272,22 +272,22 @@
                                                 <table>
                                                     <thead>
                                                     <tr>
-                                                        <th>참여 인원 수(명)</th>
+                                                        <th>참여자 수(명)</th>
                                                         <th>인당 UCD</th>
                                                         <th>총 UCD</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="ucd-table-body">
                                                     <tr>
                                                         <td>
                                                             <input type="text" class="only-num input-left" value="10">
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
+                                                        <td><input type="text" class="only-num" value="10"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -295,9 +295,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
+                                                        <td><input type="text" class="only-num" value="12"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -305,9 +305,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
+                                                        <td><input type="text" class="only-num" value="15"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -315,9 +315,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
+                                                        <td><input type="text" class="only-num" value="20"></td>
                                                         <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" class="add-btn-wrap">
@@ -374,7 +374,7 @@
                                                 <!--
                                                  인증기간 1일 일때 ul.disabled
                                                 -->
-                                                <ul class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency-ul">
                                                     <li class="frequency active">월</li>
                                                     <li class="frequency">화</li>
                                                     <li class="frequency active">수</li>
@@ -395,8 +395,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="goalRange2" type="range" class="custom-range goal-range" readonly>
+                                                <input id="goalRate2" class="input-num-box goal-rate" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -410,14 +410,14 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
+                                                <input id="rewardRange2" type="range" class="custom-range reward-range" readonly>
 
                                                 <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="personalRate2" class="input-num-box individual-rate" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="groupRate2" class="input-num-box group-rate" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -430,22 +430,22 @@
                                                 <table>
                                                     <thead>
                                                     <tr>
-                                                        <th>참여 인원 수(명)</th>
+                                                        <th>참여자 수(명)</th>
                                                         <th>인당 UCD</th>
                                                         <th>총 UCD</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="ucd-table-body">
                                                     <tr>
                                                         <td>
                                                             <input type="text" class="only-num input-left" value="10">
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
+                                                        <td><input type="text" class="only-num" value="10"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -453,9 +453,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
+                                                        <td><input type="text" class="only-num" value="12"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -463,9 +463,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
+                                                        <td><input type="text" class="only-num" value="15"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -473,9 +473,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
+                                                        <td><input type="text" class="only-num" value="20"></td>
                                                         <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" class="add-btn-wrap">
@@ -529,7 +529,7 @@
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency-ul">
                                                     <li class="frequency active">월</li>
                                                     <li class="frequency active">화</li>
                                                     <li class="frequency active">수</li>
@@ -550,8 +550,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="goalRange3" type="range" class="custom-range goal-range" readonly>
+                                                <input id="goalRate3" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -565,14 +565,14 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
+                                                <input id="rewardRange3" type="range" class="custom-range reward-range" readonly>
 
                                                 <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="personalRate3" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="groupRate3" class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -585,22 +585,22 @@
                                                 <table>
                                                     <thead>
                                                     <tr>
-                                                        <th>참여 인원 수(명)</th>
+                                                        <th>참여자 수(명)</th>
                                                         <th>인당 UCD</th>
                                                         <th>총 UCD</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="ucd-table-body">
                                                     <tr>
                                                         <td>
                                                             <input type="text" class="only-num input-left" value="10">
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
+                                                        <td><input type="text" class="only-num" value="10"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -608,9 +608,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
+                                                        <td><input type="text" class="only-num" value="12"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -618,9 +618,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
+                                                        <td><input type="text" class="only-num" value="15"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -628,9 +628,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
+                                                        <td><input type="text" class="only-num" value="20"></td>
                                                         <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" class="add-btn-wrap">
@@ -684,7 +684,7 @@
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency-ul">
                                                     <li class="frequency active">월</li>
                                                     <li class="frequency active">화</li>
                                                     <li class="frequency active">수</li>
@@ -705,8 +705,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="goalRange4" type="range" class="custom-range goal-range" readonly>
+                                                <input id="goalRate4" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -720,14 +720,14 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
+                                                <input id="rewardRange4" type="range" class="custom-range reward-range" readonly>
 
                                                 <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="personalRate4" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="groupRate4" class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -740,22 +740,22 @@
                                                 <table>
                                                     <thead>
                                                     <tr>
-                                                        <th>참여 인원 수(명)</th>
+                                                        <th>참여자 수(명)</th>
                                                         <th>인당 UCD</th>
                                                         <th>총 UCD</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="ucd-table-body">
                                                     <tr>
                                                         <td>
                                                             <input type="text" class="only-num input-left" value="10">
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
+                                                        <td><input type="text" class="only-num" value="10"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -763,9 +763,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
+                                                        <td><input type="text" class="only-num" value="12"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -773,9 +773,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
+                                                        <td><input type="text" class="only-num" value="15"></td>
                                                         <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -783,9 +783,9 @@
                                                             <span class="date-margin-text"> ~ </span>
                                                             <input type="text" class="only-num input-right" value="10">
                                                         </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
+                                                        <td><input type="text" class="only-num" value="20"></td>
                                                         <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" class="add-btn-wrap">
@@ -839,7 +839,7 @@
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <ul class="day-btn clearfix">
+                                                <ul class="day-btn clearfix frequency-ul">
                                                     <li class="frequency">월</li>
                                                     <li class="frequency">화</li>
                                                     <li class="frequency">수</li>
@@ -859,8 +859,8 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="goalRange5" type="range" class="custom-range goal-range" readonly>
+                                                <input id="goalRate5" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title">%</span>
                                             </div>
                                         </div>
@@ -874,14 +874,14 @@
                                                 </i>
                                             </div>
                                             <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
+                                                <input id="rewardRange5" type="range" class="custom-range reward-range" readonly>
 
                                                 <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="personalRate5" class="input-num-box" type="text" readonly>
                                                 <span class="input-num-title margin-text">:</span>
 
                                                 <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
+                                                <input id="groupRate5" class="input-num-box" type="text" readonly>
                                             </div>
                                         </div>
                                     </li>
@@ -894,13 +894,13 @@
                                                 <table>
                                                     <thead>
                                                     <tr>
-                                                        <th>참여 인원 수(명)</th>
+                                                        <th>참여자 수(명)</th>
                                                         <th>인당 UCD</th>
                                                         <th>총 UCD</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="ucd-table-body">
                                                     <tr>
                                                         <td>
                                                             <input type="text" class="only-num input-left">
@@ -909,7 +909,7 @@
                                                         </td>
                                                         <td><input type="text" class="only-num reward-ucd"></td>
                                                         <td><span class="text-right">-</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
+                                                        <td><i class="delete-btn far fa-times-circle icon-delete-row"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4" class="add-btn-wrap">
@@ -938,27 +938,3 @@
     </div>
 </section>
 <script src="/assets/js/promotion/promotion-create.js"></script>
-<script>
-    $('[data-rel]').on('click', function(e){
-        var dateView = $(this).attr('data-rel');
-
-        $('[data-rel]').removeClass('on');
-        $(this).addClass('on');
-
-        $('.pro-reward-wrap').hide();
-        $('.' + dateView).show();
-        e.preventDefault();
-    });
-
-    $('.reward-add-btn').on('click', function(e){
-        $('.reward-user').show();
-        $(this).hide();
-        e.preventDefault();
-    });
-
-    $('.delete-btn').on('click', function(e){
-        $('.reward-add-btn').show();
-        $('.reward-user').hide();
-        e.preventDefault();
-    });
-</script>

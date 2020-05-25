@@ -91,7 +91,7 @@
 		createType.text(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
 		isExposure.text(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
 
-		let rewardLen = doitDataList.length;
+		let rewardLen = rewards.length;
 		let rewardDom = '';
 		for (let i=0; i<rewardLen; i++)
 		{
@@ -169,8 +169,8 @@
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -181,7 +181,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'multi',
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -226,11 +226,10 @@
 
 	function onClickExcelBtn()
 	{
-		getList();
-
+		getExcelData();
 	}
 
-	function getList()
+	function getExcelData()
 	{
 		$.ajax({
 			url: api.involveDoitPromotion,
@@ -243,7 +242,6 @@
 			error: function (request, status) {
 				console.log(status);
 			}
-
 		});
 	}
 

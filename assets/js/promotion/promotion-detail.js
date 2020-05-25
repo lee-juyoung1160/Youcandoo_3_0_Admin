@@ -78,13 +78,14 @@
 	{
 		let jsonData   	 = JSON.parse(data);
 		let detailData 	 = jsonData.data;
+		console.log(detailData)
 		let promoData  	 = detailData.promotion;
-		let doitDataList = detailData.reward;
+		let rewards = detailData.reward;
 
-		bizName.text(promoData.company_name);
+		bizName.text(promoData.nickname);
 		promoName.text(promoData.promotion_title);
 		budget.text(numberWithCommas(promoData.budget_ucd)+'원');
-		period.text(promoData.start_date + '~' + promoData.end_date);
+		period.text(promoData.start_date + ' ~ ' + promoData.end_date);
 		banner.attr('src', promoData.banner_image_url);
 		thumbnail.attr('src', promoData.list_image_url);
 		createType.text(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
@@ -94,10 +95,10 @@
 		let rewardDom = '';
 		for (let i=0; i<rewardLen; i++)
 		{
-			let doitData = doitDataList[i];
-			let actionPeriod = doitData.action_start_date + ' ~ ' + doitData.action_end_date;
-			let persnal = doitData.person_percent;
-			let group = doitData.group_percent;
+			let reward = rewards[i];
+			let actionPeriod = reward.action_start_date + ' ~ ' + reward.action_end_date;
+			let persnal = reward.person_percent;
+			let group = reward.group_percent;
 
 			if (i === 0)
 				rewardDom += '<h2 class="main-title">리워드 조건 생성 목록</h2>';
@@ -105,7 +106,7 @@
 			rewardDom += '<ul class="enrollment clearfix">';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">리워드 제목 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ doitData.title +'</p>';
+			rewardDom += 		'<p class="detail-data">'+ reward.title +'</p>';
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li class="tag-list">';
 			rewardDom += 		'<p class="sub-title important">인증 기간 (*)</p>';
@@ -113,15 +114,15 @@
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li class="clearfix">';
 			rewardDom += 		'<p class="sub-title important">일일인증 횟수 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ doitData.action_daily_allow +'회</p>';
+			rewardDom += 		'<p class="detail-data">'+ reward.action_daily_allow +'회</p>';
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">목표달성률 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ doitData.goal_percent +'%</p>';
+			rewardDom += 		'<p class="detail-data">'+ reward.goal_percent +'%</p>';
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">1인당 최대 지급할 UCD (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ numberWithCommas(doitData.total_reward) +'원</p>';
+			rewardDom += 		'<p class="detail-data">'+ numberWithCommas(reward.total_reward) +'원</p>';
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">리워드 유형 (*)</p>';
@@ -129,7 +130,7 @@
 			rewardDom += 	'</li>';
 			rewardDom += 	'<li>';
 			rewardDom += 		'<p class="sub-title important">주간빈도 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ doitData.action_dayofweek +'</p>';
+			rewardDom += 		'<p class="detail-data">'+ reward.action_dayofweek +'</p>';
 			rewardDom += 	'</li>';
 			rewardDom += '</ul>';
 		}

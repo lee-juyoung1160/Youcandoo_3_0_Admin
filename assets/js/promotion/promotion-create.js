@@ -534,7 +534,7 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('회사명은 ' + message.required);
+			alert('기업명은 ' + message.required);
 			bizName.focus();
 			return false;
 		}
@@ -661,7 +661,7 @@
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
-		formData.append("company-name", bizName.val().trim());
+		formData.append("nickname", bizName.val().trim());
 		formData.append("promotion-title", promoName.val().trim());
 		formData.append("promotion-budget-ucd", budget.val().trim());
 		formData.append("promotion-start-date", promoFrom.val());

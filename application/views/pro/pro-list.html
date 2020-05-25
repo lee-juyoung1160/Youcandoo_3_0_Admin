@@ -2,33 +2,30 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">프로모션 목록</h2>
-            <a href="/pro/create"><i class="fas fa-plus"></i>프로모션 등록</a>
+            <a href="/service/pro/create"><i class="fas fa-plus"></i>프로모션 등록</a>
         </div>
 
         <div class="list-common">
             <div class="list-wrap clearfix">
                 <p class="list-common-title">날짜</p>
                 <div class="select-box">
-                    <label for="ex_select1">등록일</label>
-                    <select id="ex_select1">
-                        <option selected>등록일</option>
-                        <option>등록일 역순</option>
-                        <option>프로모션 시작일순</option>
-                        <option>프로모션 시작일 역순</option>
-                        <option>프로모션 종료일순</option>
-                        <option>프로모션 종료일순 역순</option>
+                    <label for="dateType">등록일</label>
+                    <select id="dateType">
+                        <option value="created_datetime">등록일</option>
+                        <option value="start_date">프로모션 시작일</option>
+                        <option value="end_date">프로모션 종료일</option>
                     </select>
                 </div>
                 <div class="date-wrap">
-                    <input type="date">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
-                    <li>오늘</li>
-                    <li>1주일</li>
-                    <li>1개월</li>
-                    <li>3개월</li>
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
@@ -36,13 +33,13 @@
                 <div class="select-box">
                     <label for="ex_select2">제목/내용</label>
                     <select id="ex_select2">
-                        <option selected>제목/내용</option>
-                        <option>스폰기업</option>
+                        <option value="promotion_title">제목/내용</option>
+                        <option value="company">스폰기업</option>
                     </select>
                 </div>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -67,7 +64,7 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->

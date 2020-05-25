@@ -2,13 +2,11 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	const dateType		= $("#date_type");
-	const searchType 	= $("#search_type");
+	const dateType		= $("#dateType");
+	const searchType 	= $("#searchType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 
@@ -23,17 +21,13 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initComponent(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -45,10 +39,11 @@
 
 	function buildGrid()
 	{
-		$("#dataTable").DataTable({
+		dataTable.DataTable({
 			ajax : {
 				url: api.listPromotion,
 				type:"POST",
+				headers: headers,
 				data: function (d) {
 					/*
 					if (d.order.length > 0)
@@ -58,25 +53,24 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					console.log(d);
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "No", 	data: "idx",    width: "5%",    orderable: false,   className: "text-center" }
+				/*,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
-				}
+				}*/
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
@@ -87,7 +81,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'multi',
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -111,12 +105,11 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
+			,"dateType" : dateType.val()
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			//,type_opt : $('#selType').val()
 		}
 
 		return {"data": JSON.stringify(param)};
@@ -125,10 +118,10 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom = $(nRow).children().eq(0);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.idx+'\')';
+		let detailUrl = '/pro/detail/'+aData.idx;
 
 		// 제목에 a 태그 추가
-		titleDom.html('<a href="'+movePageUrl+'">'+aData.nickname+'</a>');
+		//titleDom.html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
@@ -138,14 +131,14 @@
 
 	function onClickExcelBtn()
 	{
-		getList();
+		getExcelData();
 
 	}
 
-	function getList()
+	function getExcelData()
 	{
 		$.ajax({
-			url: apiUrl,
+			url: api.listPromotion,
 			type: "POST",
 			data: excelParams(),
 			success: function(data) {

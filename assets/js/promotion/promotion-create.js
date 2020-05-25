@@ -757,11 +757,10 @@
 					,"sunday" 			: sunday
 					,"ucd_info"			: JSON.stringify(ucdInfos)
 				});
-console.log(JSON.stringify(rewards))
-				formData.append("promotion-reward-condition", JSON.stringify(rewards));
 			}
 		}
 
+		formData.append("promotion-reward-condition", JSON.stringify(rewards));
 		return formData;
 	}
 

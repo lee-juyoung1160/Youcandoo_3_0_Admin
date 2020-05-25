@@ -48,7 +48,7 @@
 		,detailPromotion : baseApiUrl+'promotion/getPromotion'
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+''
-		,listPromotion : baseApiUrl+''
+		,listPromotion : baseApiUrl+'promotion/list'
 
 		,createDoit : baseApiUrl+'doit/create'
 		,detailDoit : baseApiUrl+''

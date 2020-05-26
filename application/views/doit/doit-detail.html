@@ -1,219 +1,222 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
+
 <section class="doit-detail-page">
     <div class="inner">
         <h2 class="main-title">두잇 상세</h2>
         <ul class="table-btn-wrap doit-detail-tab clearfix">
-            <li class="active">두잇 정보</li>
-            <li>참여자 정보</li>
+            <li class="active" id="tabDoit">두잇 정보</li>
+            <li id="tabUser">참여자 정보</li>
         </ul>
         <div class="wrap">
-            <ul class="enrollment clearfix">
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">두잇명 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">나이키</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">소개글 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">안녕하세요 어쩌구 저ㄱ쩌구</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">태그 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <ul class="hash-tag-list clearfix" style="margin-top: 0;">
-                                <li>
-                                    #<span class="tag-name">밸런스</span>
-                                </li>
-                                <li>
-                                    #<span class="tag-name">밸런스</span>
-                                </li>
-                                <li>
-                                    #<span class="tag-name">밸런스</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="img-wrap">
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">두잇 소개 이미지 및 영상 업로드 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <!--     cap important 두잇 소개 이미지 및 영상 선택시 텍스트 다르게 노출               -->
-                            <p class="cap important">두잇 소개 방법 중 이미지를 선택하셨습니다.</p>
-                            <div class="wrap">
-                                <div class="file">
-                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
-                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="썸네일 이미지입니다.">
-                                </div>
+            <div id="doitDetail">
+                <ul class="enrollment clearfix">
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">두잇명 (*)</p>
                             </div>
-<!--                            <div class="wrap">-->
-<!--                                <div class="file">-->
-<!--                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
-<!--                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">-->
-<!--                                </div>-->
-<!--                                <div class="file">-->
-<!--                                    <p class="cap">영상</p>-->
-<!--                                    <p class="detail-data">영상 경로 보여주기</p>-->
-<!--                                </div>-->
-<!--                            </div>  -->
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">두잇 유형 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">프로모션  |  나이키  |  나이키 신발 신고 산책하자!</p>
-                            <div class="col-2-1" style="margin-top: 20px;">
-                                <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>
-                                <p class="detail-data">
-                                    두잇 참여 인원 : 최소 1명 ~ 최대 4명<br>
-                                    인증기간 : 7일<br>
-                                    일일인증 횟수 : 10회<br>
-                                    목표달성률 : 80%<br>
-                                    1인당 최대 지급할 UCD : 8000UCD<br>
-                                    리워드 비율 : 개인 5 : 단체 5<br>
-                                    주간빈도 : 월, 수, 금
-                                </p>
-                                <p class="sub-title" style="margin-top: 40px;"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>
-                                <div class="fixed">
-                                    <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>
-                                </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="doitTitle"></p>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">최대 모집 인원 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">10명</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title">공약 설정 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">추가 리워드 1000 UCD</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">인증 기간 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">2020.02.02 ~ 2020.02.02</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">인증 시간/간격 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">00:00:00 ~ 23:59:59</p>
-                            <p class="detail-data">간격 5 분</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">두잇옵션 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">참여자 제한 </p>
-                            <p class="detail-data">참가자 코드 : 12345</p>
-<!--                            추후개발예정-->
-<!--                            <p class="detail-data">두잇 비공개</p>-->
-<!--                            <p class="detail-data">참여자+개설자만 공개</p>-->
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">인증방법 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">사진</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="img-wrap">
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">인증 예시 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <div class="wrap">
-                                <div class="file">
-                                    <p class="cap important">인증 방법 중 사진을 선택하셨습니다.</p>
-                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
-                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="썸네일 이미지입니다.">
-                                </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">소개글 (*)</p>
                             </div>
-<!--                            <div class="wrap">-->
-<!--                                <p class="cap important">인증 방법 중 영상을 선택하셨습니다.</p>-->
-<!--                                <div class="file">-->
-<!--                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
-<!--                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">-->
-<!--                                </div>-->
-<!--                                <div class="file">-->
-<!--                                    <p class="cap">영상</p>-->
-<!--                                    <p class="detail-data">영상 경로 보여주기</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="wrap">-->
-<!--                                <div class="file">-->
-<!--                                    <p class="cap important">인증 방법 중 음성 녹음을 선택하셨습니다.</p>-->
-<!--                                    <p class="detail-data">음성 경로 보여주기</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div class="col-2">
+                                <p class="detail-data" id="doitDesc"></p>
+                            </div>
                         </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">태그 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <ul id="doitTags" class="hash-tag-list clearfix" style="margin-top: 0;">
+                                    <!--<li>
+                                        #<span class="tag-name">밸런스</span>
+                                    </li>
+                                    <li>
+                                        #<span class="tag-name">밸런스</span>
+                                    </li>
+                                    <li>
+                                        #<span class="tag-name">밸런스</span>
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="img-wrap">
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">두잇 소개 이미지 및 영상 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <!--     cap important 두잇 소개 이미지 및 영상 선택시 텍스트 다르게 노출               -->
+                                <!--<p class="cap important">두잇 소개 방법 중 이미지를 선택하셨습니다.</p>-->
+                                <div class="wrap" id="introWrap">
+                                    <!--<div class="file">
+                                        <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+                                        <img class="detail-img main-banner" src="/assets/images/test.png" alt="썸네일 이미지입니다.">
+                                    </div>-->
+                                </div>
+    <!--                            <div class="wrap">-->
+    <!--                                <div class="file">-->
+    <!--                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
+    <!--                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">-->
+    <!--                                </div>-->
+    <!--                                <div class="file">-->
+    <!--                                    <p class="cap">영상</p>-->
+    <!--                                    <p class="detail-data">영상 경로 보여주기</p>-->
+    <!--                                </div>-->
+    <!--                            </div>  -->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">두잇 유형 및 리워드 조건 (*)</p>
+                            </div>
+                            <div class="col-2" id="reward">
+                                <!--<p class="detail-data">프로모션  |  나이키  |  나이키 신발 신고 산책하자!</p>
+                                <div class="col-2-1" style="margin-top: 20px;">
+                                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>
+                                    <p class="detail-data">
+                                        두잇 참여 인원 : 최소 1명 ~ 최대 4명<br>
+                                        인증기간 : 7일<br>
+                                        일일인증 횟수 : 10회<br>
+                                        목표달성률 : 80%<br>
+                                        1인당 최대 지급할 UCD : 8000UCD<br>
+                                        리워드 비율 : 개인 5 : 단체 5<br>
+                                        주간빈도 : 월, 수, 금
+                                    </p>
+                                    <p class="sub-title" style="margin-top: 40px;"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>
+                                    <div class="fixed">
+                                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">최대 모집 인원 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="maxUser"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title">공약 설정 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="extraReward"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증 기간 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="actionDate"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증 시간/간격 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="actionTime">00:00:00 ~ 23:59:59</p>
+                                <!--<p class="detail-data">간격 5 분</p>-->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">두잇옵션 (*)</p>
+                            </div>
+                            <div class="col-2" id="options">
+                                <!--<p class="detail-data">참여자 제한 </p>
+                                <p class="detail-data">참가자 코드 : 12345</p>-->
+    <!--                            추후개발예정-->
+    <!--                            <p class="detail-data">두잇 비공개</p>-->
+    <!--                            <p class="detail-data">참여자+개설자만 공개</p>-->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증방법 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="actionType"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="img-wrap">
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증 예시 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <div class="wrap" id="actionResource">
+                                    <div class="file">
+                                        <p class="cap important">인증 방법 중 사진을 선택하셨습니다.</p>
+                                        <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+                                        <img class="detail-img main-banner" src="/assets/images/test.png" alt="썸네일 이미지입니다.">
+                                    </div>
+                                </div>
+    <!--                            <div class="wrap">-->
+    <!--                                <p class="cap important">인증 방법 중 영상을 선택하셨습니다.</p>-->
+    <!--                                <div class="file">-->
+    <!--                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>-->
+    <!--                                    <img class="detail-img main-banner" src="/assets/images/test.png" alt="메인 배너 이미지입니다.">-->
+    <!--                                </div>-->
+    <!--                                <div class="file">-->
+    <!--                                    <p class="cap">영상</p>-->
+    <!--                                    <p class="detail-data">영상 경로 보여주기</p>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div class="wrap">-->
+    <!--                                <div class="file">-->
+    <!--                                    <p class="cap important">인증 방법 중 음성 녹음을 선택하셨습니다.</p>-->
+    <!--                                    <p class="detail-data">음성 경로 보여주기</p>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증 예시 설명 (*)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data" id="actionDesc"></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                    <div class="btn-wrap">
+                        <a class="list-btn" href="/doit/lists">목록</a>
+                        <a class="update-btn" href="/doit/update">수정</a>
                     </div>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">인증 예시 설명 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="detail-data">댕댕이가 야외에 있는 모습을 인증해주세요! 실내는 안돼요!</p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
-                <div class="btn-wrap">
-                    <a class="list-btn" href="#">목록</a>
-                    <a class="update-btn" href="/doit/update">수정</a>
                 </div>
             </div>
 
@@ -260,155 +263,142 @@
             </div>
             <div class="modal-layout"></div>
 
-
-            <div class="list-common">
-                <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
-                    <p class="list-common-title">닉네임 검색</p>
-                    <div class="search-wrap">
-                        <div class="search-box">
-                            <input type="search" placeholder="검색어를 입력해주세요.">
-                            <i class="search-btn fas fa-search"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="list-common-btn-wrap clearfix">
-                <div class="btn-wrap">
-                    <button class="reset" type="reset">초기화</button>
-                    <button class="search" type="button">검색</button>
-                </div>
-            </div>
-
-            <div class="table-wrap">
-                <table>
-                    <colgroup>
-                        <col style="width:20%;">
-                        <col style="width:20%;">
-                        <col style="width:20%;">
-                        <col style="width:20%;">
-                        <col style="width:20%;">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>참여자수</th>
-                        <th>목표 달성률</th>
-                        <th>평균 달성률</th>
-                        <th>예상 리워드</th>
-                        <th>적립 리워드</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>3,450명</td>
-                        <td>80%</td>
-                        <td>76%</td>
-                        <td>1,000,000</td>
-                        <td>500,000</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="table-wrap">
-                <div class="top clearfix">
-                    <div class="left-wrap clearfix">
-                        <div class="select-box">
-                            <label for="selPageLength">10개씩 보기</label>
-                            <select id="selPageLength">
-                                <option value="10">10개씩 보기</option>
-                                <option value="20">20개씩 보기</option>
-                                <option value="30">30개씩 보기</option>
-                            </select>
-                        </div>
-                        <p>Total <strong class="data-num">16</strong></p>
-                    </div>
-                    <div class="btn-wrap">
-                        <button class="best-btn" type="button" style="background-color: #ff7601;"><i class="fas fa-user-edit"></i>방장 지정</button>
-                        <button class="best-btn" type="button"><i class="fas fa-users"></i>부방장 지정</button>
-                        <i class="question-mark far fa-question-circle" style="margin-right: 30px;">
-                            <span class="hover-text">방장은 최대 1명만 지정가능 <br>부반장은 최대 3명까지 지정 가능</span>
-                        </i>
-                        <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
-                    </div>
-                </div>
-
-                <table>
-                    <colgroup>
-                        <col style="width:3%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                        <col style="width:10.7%;">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c5" name="cc" />
-                                <label for="c5"><span></span></label>
+            <div id="doitUser" style="display: none;">
+                <div class="list-common">
+                    <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
+                        <p class="list-common-title">닉네임 검색</p>
+                        <div class="search-wrap">
+                            <div class="search-box">
+                                <input type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="search-btn fas fa-search"></i>
                             </div>
-                        </th>
-                        <th>닉네임</th>
-                        <th>총 인증 횟수</th>
-                        <th>성공</th>
-                        <th>실패</th>
-                        <th>신고</th>
-                        <th>옐로카드</th>
-                        <th>레드카드</th>
-                        <th>평균 달성률</th>
-                        <th>적립 리워드</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-common-btn-wrap clearfix">
+                    <div class="btn-wrap">
+                        <button class="reset" type="reset">초기화</button>
+                        <button class="search" type="button">검색</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <colgroup>
+                            <col style="width:20%;">
+                            <col style="width:20%;">
+                            <col style="width:20%;">
+                            <col style="width:20%;">
+                            <col style="width:20%;">
+                        </colgroup>
+                        <thead>
                         <tr>
-                            <td>
-                                <div class="checkbox-wrap">
-                                    <input type="checkbox" id="c6" name="cc" />
-                                    <label for="c6"><span></span></label>
-                                </div>
-                            </td>
-                            <td><a href="#">베리베리(반장)</a></td>
-                            <td>40</td>
-                            <td>20</td>
-                            <td>10</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>-</td>
-                            <td>50%</td>
-                            <td>1,000원</td>
+                            <th>참여자수</th>
+                            <th>목표 달성률</th>
+                            <th>평균 달성률</th>
+                            <th>예상 리워드</th>
+                            <th>적립 리워드</th>
                         </tr>
-                    </tbody>
-                </table>
-                <ul class="table-pagination clearfix">
-                    <li><i class="fas fa-angle-double-left"></i></li>
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li><i class="fas fa-angle-double-right"></i></li>
-                </ul>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>3,450명</td>
+                            <td>80%</td>
+                            <td>76%</td>
+                            <td>1,000,000</td>
+                            <td>500,000</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="top clearfix">
+                        <div class="left-wrap clearfix">
+                            <div class="select-box">
+                                <label for="selPageLength">10개씩 보기</label>
+                                <select id="selPageLength">
+                                    <option value="10">10개씩 보기</option>
+                                    <option value="20">20개씩 보기</option>
+                                    <option value="30">30개씩 보기</option>
+                                </select>
+                            </div>
+                            <p>Total <strong class="data-num">16</strong></p>
+                        </div>
+                        <div class="btn-wrap">
+                            <button class="best-btn" type="button" style="background-color: #ff7601;"><i class="fas fa-user-edit"></i>방장 지정</button>
+                            <button class="best-btn" type="button"><i class="fas fa-users"></i>부방장 지정</button>
+                            <i class="question-mark far fa-question-circle" style="margin-right: 30px;">
+                                <span class="hover-text">방장은 최대 1명만 지정가능 <br>부반장은 최대 3명까지 지정 가능</span>
+                            </i>
+                            <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                        </div>
+                    </div>
+
+                    <table>
+                        <colgroup>
+                            <col style="width:3%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                            <col style="width:10.7%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c5" name="cc" />
+                                    <label for="c5"><span></span></label>
+                                </div>
+                            </th>
+                            <th>닉네임</th>
+                            <th>총 인증 횟수</th>
+                            <th>성공</th>
+                            <th>실패</th>
+                            <th>신고</th>
+                            <th>옐로카드</th>
+                            <th>레드카드</th>
+                            <th>평균 달성률</th>
+                            <th>적립 리워드</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c6" name="cc" />
+                                        <label for="c6"><span></span></label>
+                                    </div>
+                                </td>
+                                <td><a href="#">베리베리(반장)</a></td>
+                                <td>40</td>
+                                <td>20</td>
+                                <td>10</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>-</td>
+                                <td>50%</td>
+                                <td>1,000원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="table-pagination clearfix">
+                        <li><i class="fas fa-angle-double-left"></i></li>
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li><i class="fas fa-angle-double-right"></i></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<script>
-    // modal event
-    $('.more-infor-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-</script>
+<script src="/assets/js/doit/doit-detail.js"></script>
 

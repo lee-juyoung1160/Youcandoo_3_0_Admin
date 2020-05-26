@@ -127,7 +127,7 @@
 		let titleDom  = $(nRow).children().eq(1);
 		let periodDom = $(nRow).children().eq(2);
 		let btnDom 	  = $(nRow).children().eq(5);
-		let detailUrl = '/pro/detail/'+aData.idx;
+		let detailUrl = page.detailPromo+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
 		titleDom.html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');

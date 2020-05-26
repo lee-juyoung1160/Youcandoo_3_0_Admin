@@ -53,7 +53,7 @@
 		,listPromotion : baseApiUrl+'promotion/list'
 
 		,createDoit : baseApiUrl+'doit/create'
-		,detailDoit : baseApiUrl+''
+		,detailDoit : baseApiUrl+'doit/detail'
 		,updateDoit : baseApiUrl+''
 		,listDoit : baseApiUrl+'doit/list'
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
@@ -120,6 +120,7 @@
 
 		,createDoit : '/doit/create'
 		,listDoit : '/doit/lists'
+		,detailDoit : '/doit/detail/'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'

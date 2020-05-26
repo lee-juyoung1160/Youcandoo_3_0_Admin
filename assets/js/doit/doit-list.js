@@ -2,12 +2,13 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	const dateType		= $("#dateType");
-	const searchType 	= $("#searchType");
+	const dateType		= $("#date_type");
+	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
+	const doitStatus	= $("input[name=chk-status]");
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
@@ -16,7 +17,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 테이블 데이터 로드 **/
-		//buildGrid();
+		buildGrid();
 
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -32,7 +33,7 @@
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
-
+		doitStatus.prop('checked', true);
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}
@@ -57,11 +58,15 @@
 				}
 			},
 			columns: [
-				{title: "두잇 유형", 		data: "idx",    	width: "15%",    orderable: false,   className: "text-center" }
-				/*,{title: "두잇명", 			data: "idx",    	width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "인증 기간", 		data: "idx",    	width: "25%",    orderable: false,   className: "text-center" }
-				,{title: "참여인원/모집인원", 	data: "idx",    	width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "진행상태", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
+				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "text-center",
+					render: function (data) {
+						return isEmpty(data) ? label.regular : label.promotion;
+					}
+				}
+				,{title: "두잇명", 			data: "doit_title",    			width: "30%",    orderable: false,   className: "text-center" }
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center" }
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center" }
+				/*,{title: "진행상태", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -97,8 +102,7 @@
 				$(".data-num").text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
-				console.log(aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -107,24 +111,30 @@
 	{
 		let param = {
 			"limit" : d.length
-			,"page" : d.start + 1
-			,"date_type" : $("#date_type").val()
-			,"from_date" : $(".date_from").val()
-			,"to_date" : $(".date_to").val()
-			,"search_type" : $("#search_type").val()
-			,"keyword" : $("#keyword").val()
+			,"page" : (d.start / d.length) + 1
+			,"date_type" : dateType.val()
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
+			,"keyword" : keyword.val()
 		}
 
-		return {"data": JSON.stringify(param)};
+		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
+		let titleDom  	 = $(nRow).children().eq(1);
+		let periodDom  	 = $(nRow).children().eq(2);
+		let constUserDom = $(nRow).children().eq(3);
 		let detailUrl = '/doit/detail/'+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
+		/** 인증기간 **/
+		$(periodDom).html(aData.action_start_datetime+' ~ ' +aData.action_end_datetime);
+		/** 참여인원/모집인원 **/
+		$(constUserDom).html(aData.doit_member+' / ' +aData.max_user);
 	}
 
 	function onSubmitSearch()

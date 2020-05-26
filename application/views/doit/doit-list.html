@@ -12,9 +12,9 @@
                 <div class="select-box">
                     <label for="date_type">등록일</label>
                     <select id="date_type">
-                        <option value="created">등록일</option>
-                        <option value="created">시작일</option>
-                        <option value="created">종료일</option>
+                        <option value="created_datetime">등록일</option>
+                        <option value="action_start_datetime">시작일</option>
+                        <option value="action_end_datetime">종료일</option>
                     </select>
                 </div>
                 <div class="date-wrap">
@@ -34,8 +34,8 @@
                 <div class="select-box">
                     <label for="search_type">두잇명</label>
                     <select id="search_type">
-                        <option value="nickname">두잇명</option>
-                        <option value="nickname">태그</option>
+                        <option value="doit_title">두잇명</option>
+                        <option value="doit_tags">태그</option>
 <!--                        <option value="nickname">개설자</option>-->
 <!--                        <option value="nickname">두잇ID</option>-->
                     </select>
@@ -54,16 +54,16 @@
                 <li>
                     <p class="list-common-title">진행 상태</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="cc" />
+                        <input type="checkbox" id="c1" name="chk-status" />
                         <label for="c1"><span></span>모집중</label>
 
-                        <input type="checkbox" id="c2" name="cc" />
+                        <input type="checkbox" id="c2" name="chk-status" />
                         <label for="c2"><span></span>진행중</label>
 
-                        <input type="checkbox" id="c3" name="cc" />
+                        <input type="checkbox" id="c3" name="chk-status" />
                         <label for="c3"><span></span>결과대기</label>
 
-                        <input type="checkbox" id="c4" name="cc" />
+                        <input type="checkbox" id="c4" name="chk-status" />
                         <label for="c4"><span></span>종료</label>
                     </div>
                 </li>
@@ -113,14 +113,14 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
             </div>
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:15%;">
                     <col style="width:30%;">
                     <col style="width:25%;">
@@ -144,15 +144,15 @@
                         <td>5/8</td>
                         <td>진행중</td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </section>

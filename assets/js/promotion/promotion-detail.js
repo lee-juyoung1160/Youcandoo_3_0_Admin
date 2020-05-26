@@ -9,11 +9,13 @@
 	const promoName 	= $("#promoName");
 	const budget 		= $("#budget");
 	const period 		= $("#period");
+	const promoNotice 	= $("#promoNotice");
 	const banner 		= $("#banner");
 	const thumbnail 	= $("#thumbnail");
 	const createType 	= $("#createType");
 	const isExposure 	= $("#isExposure");
-	const rewardList    = $("#rewardList");
+	const rewardTab     = $("#rewardTab");
+	const rewardDetail  = $("#rewardDetail");
 
 	/** 두잇탭 **/
 	const dataTable		= $("#dataTable")
@@ -74,68 +76,136 @@
 		});
 	}
 
+	let rewards;
 	function buildPromoDetail(data)
 	{
-		let jsonData   	 = JSON.parse(data);
-		let detailData 	 = jsonData.data;
-		console.log(detailData)
-		let promoData  	 = detailData.promotion;
-		let rewards = detailData.reward;
+		let jsonData   	= JSON.parse(data);
+		let detailData 	= jsonData.data;
+		let promoData  	= detailData.promotion;
+		rewards 	= detailData.reward;
+console.log(detailData)
+		let notice 		= promoData.promotion_notice;
+		notice = notice.replace('[', '').replace(']', '');
+		notice = replaceAll(notice, '"', '');
+		let notices = notice.split(",");
+		let noticeDom = '';
 
-		bizName.text(promoData.nickname);
-		promoName.text(promoData.promotion_title);
-		budget.text(numberWithCommas(promoData.budget_ucd)+'원');
-		period.text(promoData.start_date + ' ~ ' + promoData.end_date);
+		bizName.html(promoData.nickname);
+		promoName.html(promoData.promotion_title);
+		budget.html(numberWithCommas(promoData.budget_ucd)+'원');
+		period.html(promoData.start_date + ' ~ ' + promoData.end_date);
+		for (let i=0; i<notices.length; i++)
+			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
+		promoNotice.html(noticeDom);
 		banner.attr('src', promoData.banner_image_url);
 		thumbnail.attr('src', promoData.list_image_url);
-		createType.text(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
-		isExposure.text(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
+		createType.html(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
+		isExposure.html(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
 
 		let rewardLen = rewards.length;
-		let rewardDom = '';
+		let rewardTabDom = '';
 		for (let i=0; i<rewardLen; i++)
 		{
+			let statusOn = i === 0 ? 'on' : '';
 			let reward = rewards[i];
-			let actionPeriod = reward.action_start_date + ' ~ ' + reward.action_end_date;
-			let persnal = reward.person_percent;
-			let group = reward.group_percent;
-
-			if (i === 0)
-				rewardDom += '<h2 class="main-title">리워드 조건 생성 목록</h2>';
-
-			rewardDom += '<ul class="enrollment clearfix">';
-			rewardDom += 	'<li>';
-			rewardDom += 		'<p class="sub-title important">리워드 제목 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ reward.title +'</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li class="tag-list">';
-			rewardDom += 		'<p class="sub-title important">인증 기간 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ actionPeriod +'</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li class="clearfix">';
-			rewardDom += 		'<p class="sub-title important">일일인증 횟수 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ reward.action_daily_allow +'회</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li>';
-			rewardDom += 		'<p class="sub-title important">목표달성률 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ reward.goal_percent +'%</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li>';
-			rewardDom += 		'<p class="sub-title important">1인당 최대 지급할 UCD (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ numberWithCommas(reward.total_reward) +'원</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li>';
-			rewardDom += 		'<p class="sub-title important">리워드 유형 (*)</p>';
-			rewardDom += 		'<p class="detail-data">개인 '+ persnal + ' : 단체 ' + group +'</p>';
-			rewardDom += 	'</li>';
-			rewardDom += 	'<li>';
-			rewardDom += 		'<p class="sub-title important">주간빈도 (*)</p>';
-			rewardDom += 		'<p class="detail-data">'+ reward.action_dayofweek +'</p>';
-			rewardDom += 	'</li>';
-			rewardDom += '</ul>';
+			rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
+			rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
+			rewardTabDom += '</li>';
 		}
 
-		rewardList.html(rewardDom);
+		rewardTab.html(rewardTabDom);
+		onClickRewardTab($("#rewardTab").find('li').eq(0));
+	}
+
+	function onClickRewardTab(obj)
+	{
+		toggleActive(obj);
+		buildReward(obj)
+	}
+
+	function toggleActive(obj)
+	{
+		$("#rewardTab").find('li').removeClass('on');
+		$(obj).addClass('on');
+	}
+
+	function buildReward(obj)
+	{
+		let idx = $(obj).data('idx');
+		let reward = rewards[idx];
+		let ucdInfo = reward.ucd_info;
+		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
+		ucdInfo = ucdInfo.slice(1, -1);
+		let jsonUcdInfo = JSON.parse(ucdInfo);
+
+		let detailDom = '';
+		detailDom += '<li class="reward-1">';
+		detailDom += 	'<div class="list-inner">';
+		detailDom += 		'<p class="title">';
+		detailDom += 			'<strong>'+reward.title+'</strong>';
+		detailDom += 		'</p>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">인증기간</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.action_duration+'일</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">주간빈도</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.action_dayofweek+'</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">목표달성률</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.goal_percent+'%</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">리워드 비율</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">개인 '+reward.person_percent+' : 단체 '+reward.group_percent+'</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap">';
+		detailDom += 			'<p class="sub-title" style="margin-bottom: 5px;">인당 UCD</p>';
+		detailDom += 			'<p class="detail-data">';
+		detailDom += 			'<table>';
+		detailDom += 				'<colgroup>';
+		detailDom += 					'<col style="width:30%;">';
+		detailDom += 					'<col style="width:30%;">';
+		detailDom += 					'<col style="width:40%;">';
+		detailDom += 				'</colgroup>';
+		detailDom += 				'<thead>';
+		detailDom += 				'<tr>';
+		detailDom += 					'<th>참여자 수(명)</th>';
+		detailDom += 					'<th>인당 UCD</th>';
+		detailDom += 					'<th>총 UCD</th>';
+		detailDom += 				'</tr>';
+		detailDom += 				'</thead>';
+		detailDom += 				'<tbody>';
+		detailDom += 				'<tr>';
+		detailDom += 					'<td>'+jsonUcdInfo.min+'</td>';
+		detailDom += 					'<td>'+jsonUcdInfo.max+'</td>';
+		detailDom += 					'<td><span class="text-right">'+jsonUcdInfo.per_person_ucd+'</span></td>';
+		detailDom += 				'</tr>';
+		detailDom += 				'</tbody>';
+		detailDom += 			'</table>';
+		detailDom += 			'</p>';
+		detailDom += 		'</div>';
+		detailDom += 	'</div>';
+		detailDom += '</li>';
+
+		rewardDetail.html(detailDom);
 	}
 
 	function getInvolveDoit()

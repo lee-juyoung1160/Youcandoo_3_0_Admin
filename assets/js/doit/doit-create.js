@@ -166,9 +166,9 @@
 			return false;
 		}
 
-		if (tagLen > 5)
+		if (tagLen >= 5)
 		{
-			alert('태그는 '+message.maxTag);
+			alert('태그는 '+message.maxAddFive);
 			return false;
 		}
 

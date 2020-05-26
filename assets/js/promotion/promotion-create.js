@@ -83,14 +83,14 @@
 		inputFile		.on('change', function () { onChangeValidationImage(this); });
 		btnRewardTab	.on('click', function () { toggleRewardTab(this); });
 		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
-		/*btnCreateReward	.on('click', function () { createUserReward(this); });
-		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });*/
+		btnCreateReward	.on('click', function () { createUserReward(this); });
+		iconUserRewardDelete	.on('click', function () { deleteUserReward(this); });
 		btnDuration		.on('click', function () { onSelectDuration(this); });
 		btnFrequency	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
 		rewardUcd		.on('keyup', function () { calculateTotalUcd(this); });
-		iconDeleteRow	.on('click', function () { deleteTableRow(this); });
-		btnCreateRow	.on('click', function () { createTableRow(this); });
+		/*iconDeleteRow	.on('click', function () { deleteTableRow(this); });
+		btnCreateRow	.on('click', function () { createTableRow(this); });*/
 		btnSubmit		.on('click', function () { onSubmitPromo(); });
 	});
 

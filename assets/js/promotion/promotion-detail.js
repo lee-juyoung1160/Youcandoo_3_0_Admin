@@ -3,6 +3,7 @@
 	const tabDoit 		= $("#tabDoit");
 	const promoDetail	= $("#promoDetail");
 	const involveDoit	= $("#involveDoit");
+	const goUpdate		= $("#goUpdate");
 
 	/** 프로모션 탭 **/
 	const bizName 		= $("#bizName");
@@ -22,6 +23,7 @@
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
 	const dataNum		= $(".data-num");
+
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
@@ -34,6 +36,7 @@
 		tabPromo	.on("click", function () { onClickPromoTab(); });
 		tabDoit		.on("click", function () { onClickDoitTab(); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
+		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
 	function onClickPromoTab()
@@ -325,4 +328,7 @@
 		return JSON.stringify(param);
 	}
 
-
+	function goUpdatePage()
+	{
+		location.href = page.updatePromo+idx;
+	}

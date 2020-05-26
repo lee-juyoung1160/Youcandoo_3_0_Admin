@@ -3,6 +3,7 @@
 	const tabUser 		= $("#tabUser");
 	const doitDetail	= $("#doitDetail");
 	const doitUser		= $("#doitUser");
+	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
 	const doitTitle 	= $("#doitTitle");
@@ -17,13 +18,14 @@
 	const options 		= $("#options");
 	const actionType 	= $("#actionType");
 	const actionResource = $("#actionResource");
-	const actionDesc     = $("#actionDesc");
+	const actionDesc    = $("#actionDesc");
 
 	/** 참여자정보 탭 **/
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
 	const dataNum		= $(".data-num");
+
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
@@ -36,6 +38,7 @@
 		tabDoit		.on("click", function () { onClickDoitTab(); });
 		tabUser		.on("click", function () { onClickUserTab(); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
+		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
 	function onClickDoitTab()
@@ -308,6 +311,11 @@ console.log(detail)
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function goUpdatePage()
+	{
+		location.href = page.updateDoit+idx;
 	}
 
 

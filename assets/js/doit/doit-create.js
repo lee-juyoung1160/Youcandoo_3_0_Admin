@@ -1,5 +1,10 @@
 
 	const doitTitle			= $("#doitTitle");
+	const doitDesc 			= $("#doitDesc");
+	const inputTag			= $("#inputTag");
+	const addTag			= $("#addTag");
+	const introFileType 	= $("input[name=radio-intro-type]");
+	const introFileArea		= $("#introFileArea");
 	const bizName 			= $("#bizName");
 	const selPromo 			= $("#selPromo");
 	const selReward 		= $("#selReward");
@@ -8,11 +13,7 @@
 	const maxUser 			= $("#maxUser");
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
-	const inputTag			= $("#inputTag");
-	const addTag			= $("#addTag");
 	const tagList			= $("#tagList");
-	const introFileType 	= $("input[name=radio-intro-type]");
-	const introFileArea		= $("#introFileArea");
 	const doitFrom	    	= $("#doitFrom");
 	const doitTo	    	= $("#doitTo");
 	const startTime	    	= $("#startTime");
@@ -22,7 +23,6 @@
 	const exampleType 		= $("input[name=radio-example-type]");
 	const openYn 			= $("input[name=radio-open-yn]");
 	const exampleDesc 		= $("#exampleDesc");
-	const doitDesc 			= $("#doitDesc");
 	const exampleArea 		= $("#exampleArea");
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const labelSelReward 	= $("label[for='selReward']");
@@ -340,6 +340,7 @@
 		{
 			let jsonData = JSON.parse(data);
 			let respData = jsonData.data;
+			console.log(respData)
 			selectedRewardDom += '<li class="reward-type clearfix">';
 			selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
 			selectedRewardDom += '<div class="fixed">';
@@ -391,7 +392,7 @@
 		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
 		introFileDom += 	'<label for="introImage">업로드</label>';
-		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" onchange="onChangeFile(this)">';
+		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" onchange="onChangeValidationImage(this)">';
 		introFileDom += '</div>';
 		if (introType === 'video')
 		{
@@ -399,7 +400,7 @@
 			introFileDom += 	'<p class="cap">영상</p>';
 			introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 			introFileDom += 	'<label for="introVideo">업로드</label>';
-			introFileDom += 	'<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeFile(this)">';
+			introFileDom += 	'<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
 			introFileDom += '</div>';
 		}
 
@@ -427,7 +428,7 @@
 		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeFile(this)">';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationImage(this)">';
 		fileDom += '</div>';
 
 		exampleArea.html(fileDom);
@@ -442,13 +443,13 @@
 		fileDom += 		'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
 		fileDom += 		'<label for="exampleFile">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeFile(this)">';
+		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationImage(this)">';
 		fileDom += 	'</div>';
 		fileDom += 	'<div class="filebox preview-image">';
 		fileDom += 		'<p class="cap">영상</p>';
 		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
 		fileDom += 		'<label for="exampleVideo">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleVideo" class="upload-hidden" onchange="onChangeFile(this)">';
+		fileDom += 		'<input type="file" id="exampleVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
 		fileDom += 	'</div>';
 		fileDom += '</div>';
 
@@ -462,7 +463,7 @@
 		fileDom += 	'<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>';
 		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeFile(this)">';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">';
 		fileDom += '</div>';
 
 		exampleArea.html(fileDom);
@@ -543,6 +544,13 @@
 			return false;
 		}
 
+		if ($("input[name=chkExtraReward]").is(':checked') && isEmpty(extraReward.val()))
+		{
+			alert('추가리워드를 '+message.input);
+			extraReward.focus();
+			return false;
+		}
+
 		if (isEmpty(doitFrom.val()))
 		{
 			alert('인증기간(시작일)은 '+message.required);
@@ -582,7 +590,7 @@
 
 		if ($("input[name=chkAccessUser]").is(':checked') && isEmpty(privateCode.val()))
 		{
-			alert('참가코드는 '+message.required);
+			alert('참가코드를 '+message.input);
 			privateCode.focus();
 			return false;
 		}

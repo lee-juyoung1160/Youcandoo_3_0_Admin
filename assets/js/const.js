@@ -117,10 +117,12 @@
 		,listPromo : '/pro/lists'
 		,createPromo : '/pro/create'
 		,detailPromo : '/pro/detail/'
+		,updatePromo : '/pro/update/'
 
 		,createDoit : '/doit/create'
 		,listDoit : '/doit/lists'
 		,detailDoit : '/doit/detail/'
+		,updateDoit : '/doit/update/'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'

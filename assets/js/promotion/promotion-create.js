@@ -415,6 +415,8 @@
 
 		rewardWrap.hide();
 		$('.' + viewTarget).show();
+
+		calculateTotalUcd(inputRight);
 	}
 
 	function createUserReward(obj)
@@ -458,7 +460,7 @@
 			$(this).removeClass('active');
 		});
 
-		$(obj).toggleClass('active');
+		$(obj).addClass('active');
 	}
 
 	/** 인증기간 선택에 따라 주간빈도 enable, disable **/
@@ -620,9 +622,27 @@
 			return false;
 		}
 
+		if (isOverDuration())
+		{
+			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			return false;
+		}
+
+		if (isEmptyFrequency())
+		{
+			alert('인증기간이 1일이 넘을 경우 주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			return false;
+		}
+
 		if (isEmptyRewardUcd())
 		{
-			alert('인당 UCD는 '+message.required+'\n 리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
+			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
+			return false;
+		}
+
+		if (isOverBudget())
+		{
+			alert(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
 			return false;
 		}
 
@@ -666,13 +686,49 @@
 		let retVal = false;
 		let promoTerm = calculateTerm();
 
-		certDays.each(function () {
+		btnDuration.each(function () {
 			if ($(this).hasClass('active'))
 			{
 				let duration = $(this).data('days');
 				if (duration > promoTerm)
 					retVal = true;
 			}
+		});
+
+		return retVal;
+	}
+
+	function isEmptyFrequency()
+	{
+		let retVal = false;
+		let rewardDom = $("ul.pro-reward");
+		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDomLength = rewardSelectDoms.length;
+		for (let i=0; i<rewardSelectDomLength; i++)
+		{
+			if (i < rewardSelectDomLength - 1 || $(rewardSelectDoms[rewardSelectDomLength - 1]).css('display') !== 'none')
+			{
+				let activeDuration = $(rewardDom[i]).find('.duration.active');
+				let activeFrequency = $(rewardDom[i]).find('.frequency.active');
+				let activeFrequencyLen = activeFrequency.length;
+
+				if ($(activeDuration).data('days') > 1 && activeFrequencyLen == 0)
+					retVal = true;
+			}
+		}
+
+		return retVal;
+	}
+
+	function isOverBudget()
+	{
+		let retVal = false;
+		let ucdTable = $(".ucd-table-body");
+		ucdTable.each(function () {
+			let totalDom = $(this).find('span')[1];
+			let totalUcd = replaceAll($(totalDom).text(), ',', '');
+
+			if (totalUcd > budget.val()) retVal = true;
 		});
 
 		return retVal;

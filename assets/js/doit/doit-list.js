@@ -1,40 +1,49 @@
 
+	const search 		= $(".search");
+	const reset 		= $(".reset");
+	const dataTable		= $("#dataTable")
+	const dateType		= $("#dateType");
+	const searchType 	= $("#searchType");
+	const keyword		= $("#keyword");
+	const selPageLength = $("#selPageLength");
+	const xlsxExport 	= $(".excel-btn");
+	const select		= $("select");
+	const dataNum		= $(".data-num");
+
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		/** 검색범위 초기화 **/
-		onClickActiveDayBtn($(".btn_week"));
-		/** input, select, checkbox 초기화 **/
-		initComponent();
+		/** 상단 검색 폼 초기화 **/
+		initSearchForm();
 		/** 테이블 데이터 로드 **/
-		getList();
+		//buildGrid();
 
-		$(".search")		.on("click", function () { onSubmitSearch(); });
-		$(".reset")			.on("click", function () { initComponent(); });
-		$("#selPageLength")	.on("change", function () { getList(); });
+		search			.on("click", function () { onSubmitSearch(); });
+		reset			.on("click", function () { initSearchForm(); });
+		selPageLength	.on("change", function () { buildGrid(); });
+		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
 
-	/** input, select 초기화 **/
-	function initComponent()
+	function initSearchForm()
 	{
-		$("#keyword").val('');
-		$("input:radio").each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		$("input:checkbox").prop("checked", true);
-		$("select").each(function () {
+		keyword.val('');
+		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
+
+		/** 검색범위 초기화 **/
+		onClickActiveAloneDayBtn($(".btn_week"));
 	}
 
-	function getList()
+	function buildGrid()
 	{
 		$('#dataTable').DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/user/list",
-				type:"POST",
+				url: api.listDoit,
+				type: "POST",
+				headers: headers,
 				data: function (d) {
 					/*
 					if (d.order.length > 0)

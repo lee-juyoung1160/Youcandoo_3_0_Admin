@@ -19,7 +19,7 @@
 		buildGrid();
 
 		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initComponent(); });
+		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });

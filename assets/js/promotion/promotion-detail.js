@@ -83,7 +83,6 @@
 		let detailData 	= jsonData.data;
 		let promoData  	= detailData.promotion;
 		rewards 	= detailData.reward;
-console.log(detailData)
 		let notice 		= promoData.promotion_notice;
 		notice = notice.replace('[', '').replace(']', '');
 		notice = replaceAll(notice, '"', '');

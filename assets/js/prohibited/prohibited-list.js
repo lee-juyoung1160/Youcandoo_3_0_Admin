@@ -136,7 +136,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
-					data: JSON.stringify({"word": prohibition.val().trim()}),
+					data: addParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
@@ -153,6 +153,26 @@
 				});
 			}
 		}
+	}
+
+	function addParams()
+	{
+		let inputValue = prohibition.val();
+		let inputValues = inputValue.split(",");
+		let paramValues = [];
+
+		/** 공백 제거 **/
+		for (let i=0; i<inputValues.length; i++)
+		{
+			if (!isEmpty(inputValues[i]))
+				paramValues.push(inputValues[i].trim());
+		}
+
+		let param = {
+			"word" : paramValues.toString()
+		}
+
+		return JSON.stringify(param);
 	}
 
 	function validation()

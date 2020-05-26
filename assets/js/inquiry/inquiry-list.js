@@ -104,7 +104,11 @@
 					}
 				}
 				,{title: "처리자",  	 data: "admin_userid",    	width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,   className: "text-center" }
+				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,   className: "text-center",
+					render: function (data) {
+						return !isEmpty(data) ? label.memo : '-';
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList

@@ -101,6 +101,7 @@
 		,unexpose : '비노출'
 		,previous : '<i class="fas fa-angle-double-left"></i>'
 		,next : '<i class="fas fa-angle-double-right"></i>'
+		,memo : '<i class="fas fa-thumbtack"></i>'
 	}
 
 	const page = {

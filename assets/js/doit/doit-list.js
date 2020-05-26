@@ -57,20 +57,23 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    name: "nickname",    orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",     name: "created",     orderable: false,   className: "text-center",
+				{title: "두잇 유형", 		data: "idx",    	width: "15%",    orderable: false,   className: "text-center" }
+				/*,{title: "두잇명", 			data: "idx",    	width: "30%",    orderable: false,   className: "text-center" }
+				,{title: "인증 기간", 		data: "idx",    	width: "25%",    orderable: false,   className: "text-center" }
+				,{title: "참여인원/모집인원", 	data: "idx",    	width: "15%",    orderable: false,   className: "text-center" }
+				,{title: "진행상태", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
-				}
+				}*/
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
 				,processing : message.searching
 				,paginate: {
-					previous: '<i class="fas fa-angle-double-left"></i>'
-					,next: '<i class="fas fa-angle-double-right"></i>'
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: true,
@@ -110,7 +113,6 @@
 			,"to_date" : $(".date_to").val()
 			,"search_type" : $("#search_type").val()
 			,"keyword" : $("#keyword").val()
-			//,type_opt : $('#selType').val()
 		}
 
 		return {"data": JSON.stringify(param)};
@@ -118,16 +120,15 @@
 
 	function setRowAttribute(nRow, aData)
 	{
-		let tdDom 	 = $(nRow).find('td');
-		let titleDom = $(tdDom).eq(3);
-		let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom  = $(nRow).children().eq(1);
+		let detailUrl = '/doit/detail/'+aData.idx;
 
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="'+movePageUrl+'">'+aData.title+'</a>');
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
-		getList();
+		buildGrid();
 	}
 

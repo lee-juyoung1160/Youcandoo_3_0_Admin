@@ -15,7 +15,6 @@
                         <option value="created">등록일</option>
                         <option value="created">시작일</option>
                         <option value="created">종료일</option>
-                        <option value="created">결과발표일</option>
                     </select>
                 </div>
                 <div class="date-wrap">
@@ -37,8 +36,8 @@
                     <select id="search_type">
                         <option value="nickname">두잇명</option>
                         <option value="nickname">태그</option>
-                        <option value="nickname">개설자</option>
-                        <option value="nickname">두잇ID</option>
+<!--                        <option value="nickname">개설자</option>-->
+<!--                        <option value="nickname">두잇ID</option>-->
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -68,31 +67,31 @@
                         <label for="c4"><span></span>종료</label>
                     </div>
                 </li>
-                <li>
-                    <p class="list-common-title">카테고리</p>
-                    <div class="select-box list-select-box">
-                        <label for="ex_select3">전체</label>
-                        <select id="ex_select3">
-                            <option selected>전체</option>
-                            <option>태그</option>
-                            <option>개설자</option>
-                            <option>두잇ID</option>
-                        </select>
-                    </div>
-                </li>
-                <li>
-                    <p class="list-common-title">사용자 개설</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r2" name="rr" />
-                        <label for="r2"><span></span>전체</label>
+<!--                <li>-->
+<!--                    <p class="list-common-title">카테고리</p>-->
+<!--                    <div class="select-box list-select-box">-->
+<!--                        <label for="ex_select3">전체</label>-->
+<!--                        <select id="ex_select3">-->
+<!--                            <option selected>전체</option>-->
+<!--                            <option>태그</option>-->
+<!--                            <option>개설자</option>-->
+<!--                            <option>두잇ID</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <p class="list-common-title">사용자 개설</p>-->
+<!--                    <div class="radio-wrap">-->
+<!--                        <input type="radio" id="r2" name="rr" />-->
+<!--                        <label for="r2"><span></span>전체</label>-->
 
-                        <input type="radio" id="r3" name="rr" />
-                        <label for="r3"><span></span>Y</label>
+<!--                        <input type="radio" id="r3" name="rr" />-->
+<!--                        <label for="r3"><span></span>Y</label>-->
 
-                        <input type="radio" id="r4" name="rr" />
-                        <label for="r4"><span></span>N</label>
-                    </div>
-                </li>
+<!--                        <input type="radio" id="r4" name="rr" />-->
+<!--                        <label for="r4"><span></span>N</label>-->
+<!--                    </div>-->
+<!--                </li>-->
             </ul>
         </div>
 
@@ -117,61 +116,33 @@
                     <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
-                    <button class="best-btn" type="button"><i class="fas fa-star"></i>인기두잇 지정</button>
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
             </div>
             <table>
                 <colgroup>
-                    <col style="width:3%;">
-                    <col style="width:7%;">
-                    <col style="width:8%;">
-                    <col style="width:5%;">
-                    <col style="width:18%;">
                     <col style="width:15%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
-                    <col style="width:9%;">
+                    <col style="width:30%;">
+                    <col style="width:25%;">
+                    <col style="width:15%;">
+                    <col style="width:15%;">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c5" name="cc" />
-                                <label for="c5"><span></span></label>
-                            </div>
-                        </th>
-                        <th>
-                            인기두잇
-                            <i class="question-mark far fa-question-circle">
-                                <span class="hover-text">최대 6개까지 등록이 가능합니다.</span>
-                            </i>
-                        </th>
-                        <th>두잇 ID</th>
                         <th>두잇 유형</th>
                         <th>두잇명</th>
-                        <th>인증기간</th>
-                        <th>진행 상태</th>
-                        <th>개설자</th>
-                        <th>수정자</th>
+                        <th>인증 기간</th>
+                        <th>참여인원/모집인원</th>
+                        <th>진행상태</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c7" name="cc" />
-                                <label for="c7"><span></span></label>
-                            </div>
-                        </td>
-                        <td>인기</td>
-                        <td>AA01009</td>
                         <td>프로모션</td>
                         <td><a href="/doit/detail">하루에 한번 책 읽기</a></td>
                         <td>2019/11/07 ~ 2019/11/21</td>
-                        <td>결과대기</td>
-                        <td>admin01</td>
-                        <td>admin01</td>
+                        <td>5/8</td>
+                        <td>진행중</td>
                     </tr>
                 </tbody>
             </table>

@@ -140,7 +140,7 @@
 		let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
 		let introUrl  = aData.intro_image_url;
-		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-infor-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
+		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
 		btnDom.html(innerDom);
 	}
 

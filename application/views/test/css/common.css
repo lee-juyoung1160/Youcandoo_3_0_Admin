@@ -145,7 +145,7 @@ i.question-mark:hover .hover-text {
 .date-margin-text {
 	margin: 0 10px;
 }
-.more-infor-btn {
+.more-info-btn {
 	width: 180px;
 	height: 40px;
 	color: #007aff;
@@ -153,7 +153,7 @@ i.question-mark:hover .hover-text {
 	border: 1px solid #007aff;
 	background-color: #fff;
 }
-.more-infor-btn:hover {
+.more-info-btn:hover {
 	color: #ffffff;
 	background-color: #007aff;
 }

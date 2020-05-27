@@ -1,4 +1,4 @@
-.prohibited-list-page .more-infor-btn {
+.prohibited-list-page .more-info-btn {
     border: none;
     text-align: center;
     line-height: 40px;
@@ -9,10 +9,10 @@
     border-radius: 30px;
     background-color: #19579a;
 }
-.prohibited-list-page .more-infor-btn i {
+.prohibited-list-page .more-info-btn i {
     margin-right: 5px;
 }
-.prohibited-list-page .more-infor-btn:hover {
+.prohibited-list-page .more-info-btn:hover {
     background-color: #19579a;
 }
 .prohibited-list-page .modal-information .sub-title {

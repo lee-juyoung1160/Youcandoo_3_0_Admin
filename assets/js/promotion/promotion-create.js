@@ -8,7 +8,7 @@
 	const noticeArea	 = $("#noticeArea");
 	const allowCount	 = $("#allowCount");
 	const banner		 = $("#banner");
-	const thumbnail		 = $("#thumbnail");
+	const intro		 = $("#intro");
 	const inputFile 	 = $("input:file");
 	const isBanner		 = $("input[name=radio-banner-open]");
 	const btnSubmit		 = $("#btnSubmit");
@@ -607,7 +607,7 @@
 	function validation()
 	{
 		let bannerFile		= banner[0].files;
-		let thumbnailFile	= thumbnail[0].files;
+		let introFile	= intro[0].files;
 		let promotionNotice = $("input[name=promo-notice]");
 
 		if (isEmpty(bizName.val()))
@@ -670,7 +670,7 @@
 			return false;
 		}
 
-		if (thumbnailFile.length === 0)
+		if (introFile.length === 0)
 		{
 			alert('소개 이미지는 ' + message.required);
 			return false;
@@ -790,8 +790,8 @@
 
 	function params()
 	{
-		let paramBannerFile 	= banner[0].files[0];
-		let paramThumbnailFile 	= thumbnail[0].files[0];
+		let paramBannerFile = banner[0].files[0];
+		let paramIntroFile 	= intro[0].files[0];
 		let formData  = new FormData();
 		formData.append("nickname", bizName.val());
 		formData.append("promotion-title", promoName.val().trim());
@@ -809,7 +809,7 @@
 
 		formData.append("promotion-allow-count", allowCount.val());
 		formData.append("promotion-banner-image",paramBannerFile);
-		formData.append("promotion-list-image", paramThumbnailFile);
+		formData.append("promotion-list-image", paramIntroFile);
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
 		let rewardSelectDoms = rewardSelectArea.find('li');

@@ -12,7 +12,7 @@
 	const period 		= $("#period");
 	const promoNotice 	= $("#promoNotice");
 	const banner 		= $("#banner");
-	const thumbnail 	= $("#thumbnail");
+	const intro 		= $("#intro");
 	const createType 	= $("#createType");
 	const isExposure 	= $("#isExposure");
 	const rewardTab     = $("#rewardTab");
@@ -84,6 +84,7 @@
 	{
 		let jsonData   	= JSON.parse(data);
 		let detailData 	= jsonData.data;
+		console.log(detailData)
 		let promoData  	= detailData.promotion;
 		rewards 	= detailData.reward;
 		let notice 		= promoData.promotion_notice;
@@ -100,7 +101,7 @@
 			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
 		promoNotice.html(noticeDom);
 		banner.attr('src', promoData.banner_image_url);
-		thumbnail.attr('src', promoData.list_image_url);
+		intro.attr('src', promoData.intro_image_url);
 		createType.html(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
 		isExposure.html(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
 

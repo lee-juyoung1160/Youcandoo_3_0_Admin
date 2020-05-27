@@ -8,30 +8,30 @@
             <div class="list-wrap clearfix">
                 <p class="list-common-title">날짜</p>
                 <div class="date-wrap">
-                    <input type="date">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
-                    <li>오늘</li>
-                    <li>1주일</li>
-                    <li>1개월</li>
-                    <li>3개월</li>
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="ex_select2">두잇명</label>
-                    <select id="ex_select2">
-                        <option selected>두잇명</option>
-                        <option>작성자</option>
-                        <option>내용</option>
+                    <label for="search_type">두잇명</label>
+                    <select id="search_type">
+                        <option value="doit">두잇명</option>
+                        <option value="doit">작성자</option>
+                        <option value="doit">내용</option>
                     </select>
                 </div>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -43,45 +43,45 @@
                 <li>
                     <p class="list-common-title">평점</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="cc" />
+                        <input type="checkbox" id="c1" name="chk-grade" value="1"/>
                         <label for="c1"><span></span>1</label>
 
-                        <input type="checkbox" id="c2" name="cc" />
+                        <input type="checkbox" id="c2" name="chk-grade" value="2"/>
                         <label for="c2"><span></span>2</label>
 
-                        <input type="checkbox" id="c3" name="cc" />
+                        <input type="checkbox" id="c3" name="chk-grade" value="3"/>
                         <label for="c3"><span></span>3</label>
 
-                        <input type="checkbox" id="c10" name="cc" />
+                        <input type="checkbox" id="c10" name="chk-grade" value="4"/>
                         <label for="c10"><span></span>4</label>
 
-                        <input type="checkbox" id="c11" name="cc" />
+                        <input type="checkbox" id="c11" name="chk-grade" value="5"/>
                         <label for="c11"><span></span>5</label>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">신고 여부</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="rr" />
+                        <input type="radio" id="r2" name="radio-report" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="rr" />
+                        <input type="radio" id="r3" name="radio-report" value="Y"/>
                         <label for="r3"><span></span>Y</label>
 
-                        <input type="radio" id="r4" name="rr" />
+                        <input type="radio" id="r4" name="radio-report" value="N"/>
                         <label for="r4"><span></span>N</label>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">블라인드 여부</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r5" name="rc" />
+                        <input type="radio" id="r5" name="radio-blind" value=""/>
                         <label for="r5"><span></span>전체</label>
 
-                        <input type="radio" id="r6" name="rc" />
+                        <input type="radio" id="r6" name="radio-blind" value="Y"/>
                         <label for="r6"><span></span>Y</label>
 
-                        <input type="radio" id="r7" name="rc" />
+                        <input type="radio" id="r7" name="radio-blind" value="N"/>
                         <label for="r7"><span></span>N</label>
                     </div>
                 </li>
@@ -260,26 +260,6 @@
             </div>
             <div class="modal-layout"></div>
         </div>
-
     </div>
-
-
 </section>
-<script>
-
-    // modal event
-    $('.more-infor-btn').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-</script>
+<script src="/assets/js/review/review-list.js"></script>

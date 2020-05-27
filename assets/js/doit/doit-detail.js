@@ -85,7 +85,7 @@
 	{
 		let jsonData = JSON.parse(data);
 		let detail 	 = jsonData.data;
-console.log(detail)
+
 		doitTitle.html(detail.doit_title);
 		doitDesc.html(detail.doit_description);
 		let tag  = detail.doit_tags;
@@ -117,36 +117,42 @@ console.log(detail)
 
 		let rewardDom 	= '';
 		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
-		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company;
+		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
 		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
 		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
+		let remainUcd	= numberWithCommas(detail.remain_budget_ucd);
+		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
+		let personRate  = Math.floor((detail.person_reward/detail.per_person_ucd) * 100);
+		let groupRate   = Math.floor((detail.group_reward/detail.per_person_ucd) *100);
+
 		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
 		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
 		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
 		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'두잇 참여 인원 : <br>';
+		rewardDom += 		'두잇 참여 인원 : '+detail.doit_member+'명<br>';
 		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
 		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
 		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
-		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+' UCD<br>';
-		rewardDom += 		'리워드 비율 : <br>';
-		rewardDom += 		'주간빈도 : '+detail.action_dayofweek;
+		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
+		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
+		rewardDom += 		'주간빈도 : '+dayofweek;
 		rewardDom += 	'</p>';
 		rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
 		rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
 		rewardDom += 	'</p>';
 		rewardDom += 	'<div class="fixed">';
 		rewardDom += 		'<p class="cap">';
-		rewardDom += 			'현재까지 남은 잔여 UCD는';
-		rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;"> UCD</span> 입니다.';
+		rewardDom += 			'현재까지 남은 잔여 UCD는 ';
+		rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
 		rewardDom += 		'</p>';
 		rewardDom += 	'</div>';
 		rewardDom += '</div>';
 		reward.html(rewardDom);
 
 		maxUser.html(detail.max_user+'명');
-		extraReward.html();
+		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
+		extraReward.html(xtraReward);
 		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);
 		actionTime.html(detail.action_allow_start_time + ' ~ ' + detail.action_allow_end_time);
 
@@ -158,41 +164,58 @@ console.log(detail)
 		}
 		options.html(optionDom);
 
-		actionType.html(detail.action_resource_type);
+		actionType.html(getStringValueForActionType(detail.action_resource_type));
 
+		actionResource.html(buildActionResource(detail));
+
+		actionDesc.html(detail.action_description);
+	}
+
+	function getStringValueForActionType(param)
+	{
+		if (param === 'image')
+			return label.image;
+		else if (param === 'video')
+			return label.video;
+		else if (param === 'voice')
+			return label.voice;
+	}
+
+	function buildActionResource(data)
+	{
+		let type = data.action_resource_type;
 		let actionResourceDom = '';
-		if (detail.action_resource_type === 'image')
+		if (type === 'image')
 		{
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+detail.example_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 		}
-		else if (detail.action_resource_type === 'video')
+		else if (type === 'video')
 		{
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+detail.example_video_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_video_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">영상</p>';
 			actionResourceDom += 	'<video controls>';
-			actionResourceDom += 		'<source src="'+detail.example_video_url+'">';
+			actionResourceDom += 		'<source src="'+data.example_video_url+'">';
 			actionResourceDom += 	'</video>';
 			actionResourceDom += '</div>';
 		}
-		else if (detail.action_resource_type === 'voice')
+		else if (type === 'voice')
 		{
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">음성</p>';
 			actionResourceDom += 	'<audio controls>';
-			actionResourceDom += 		'<source src="'+detail.example_voice_url+'">';
+			actionResourceDom += 		'<source src="'+data.example_voice_url+'">';
 			actionResourceDom += 	'</audio>';
 			actionResourceDom += '</div>';
 		}
-		actionResource.html(actionResourceDom);
 
-		actionDesc.html(detail.action_description);
+		return actionResourceDom;
 	}
 
 	function getJoinUser()

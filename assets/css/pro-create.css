@@ -269,6 +269,7 @@
     border: none;
 }
 .modal-content .table-wrap {
+    height: 180px;
     margin-top: 0;
 }
 .modal-content .table-wrap table {

@@ -2,18 +2,20 @@
 	const doitTitle			= $("#doitTitle");
 	const doitDesc 			= $("#doitDesc");
 	const inputTag			= $("#inputTag");
-	const addTag			= $("#addTag");
+	const btnAddTag			= $("#btnAddTag");
+	const addedTags			= $("#addedTags");
 	const introFileType 	= $("input[name=radio-intro-type]");
 	const introFileArea		= $("#introFileArea");
 	const bizName 			= $("#bizName");
 	const selPromo 			= $("#selPromo");
 	const selReward 		= $("#selReward");
-	const btnPromoInfo 		= $("#btnPromoInfo");
-	const selectedRewardArea    = $("#selectedRewardArea")
+	const labelSelPromo 	= $("label[for='selPromo']");
+	const selectedReward    = $("#selectedReward")
+	const labelSelReward 	= $("label[for='selReward']");
 	const maxUser 			= $("#maxUser");
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
-	const tagList			= $("#tagList");
+	const ucdAreWrap		= $("#ucd-area-wrap");
 	const doitFrom	    	= $("#doitFrom");
 	const doitTo	    	= $("#doitTo");
 	const startTime	    	= $("#startTime");
@@ -21,83 +23,44 @@
 	const chkAccessUser 	= $("input[name=chkAccessUser]");
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
-	const openYn 			= $("input[name=radio-open-yn]");
-	const exampleDesc 		= $("#exampleDesc");
 	const exampleArea 		= $("#exampleArea");
-	const labelSelPromo 	= $("label[for='selPromo']");
-	const labelSelReward 	= $("label[for='selReward']");
+	const exampleDesc 		= $("#exampleDesc");
+	const openYn 			= $("input[name=radio-open-yn]");
 	const btnSubmit			= $("#btnSubmit");
-	const ucdAreWrap		= $("#ucd-area-wrap");
 
 	/** modal **/
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
-
-	/** hash-tag-modal **/
-	const hashTagModalCloseBtn 	= $(".hash-tag-list li i");
-	const hashTagModalLayout 		= $(".modal-layout");
-	const hashTagModalContents 		= $(".hash-tag-contents");
-	const hashTagOpen		= $("#hash-tag-btn")
-
+	const dataTable		= $("#dataTable");
+	const modalBizName	= $("#modalBizName");
 
 	$(document).ready(function () {
-		introFileType			.on('change', function () { onChangeIntroType(this); });
-		btnPromoInfo			.on('click', function () { onClickBtnPromoInfo(); });
-		modalCloseBtn			.on('click', function () { modalFadeout(); });
-		hashTagModalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout				.on('click', function () { modalFadeout(); });
-		hashTagModalLayout		.on('click', function () { modalFadeout(); });
-		addTag					.on('click', function () { onClickAddTag(); });
-		bizName					.on('keyup', function () { onKeyupBizName(); });
-		selPromo				.on('change', function () { onChangeSelPromo(); });
-		selReward				.on('change', function () { onChangeSelReward(); });
-		chkExtraReward			.on('change', function () { toggleActive(ucdAreWrap); });
-		chkAccessUser			.on('change', function () { toggleActive($(".code-wrap")); });
-		exampleType				.on('change', function () { onChangeExampleType(this); });
-		doitFrom				.on('change', function () { onChangeDateFrom(); });
-		btnSubmit				.on('click', function () { onSubmitDoit(); });
-
+		/** 데이트피커 초기화 **/
 		initInputDatepicker();
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 소개 파일 영역 초기화 **/
 		onChangeIntroType(introFileType.eq(0));
+		/** 인증예시 파일 영역 초기화 **/
 		onChangeExampleType(exampleType.eq(0));
+		/** input 글자 수 체크 **/
 		checkInputLength();
+		/** 이벤트 **/
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		modalBizName	.on('keyup', function () { getBiz(); });
+		btnAddTag		.on('click', function () { onClickAddTag(); });
+		introFileType	.on('change', function () { onChangeIntroType(this); });
+		bizName			.on('click', function () { onClickBizName(); });
+		selPromo		.on('change', function () { onChangeSelPromo(); });
+		selReward		.on('change', function () { onChangeSelReward(); });
+		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
+		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
+		exampleType		.on('change', function () { onChangeExampleType(this); });
+		doitFrom		.on('change', function () { onChangeDateFrom(); });
+		btnSubmit		.on('click', function () { onSubmitDoit(); });
 	});
-
-	function onClickBtnPromoInfo()
-	{
-		if (isEmpty(selPromo.val()))
-		{
-			alert('프로모션을 '+message.select);
-			return;
-		}
-		else
-		{
-			modalFadein();
-
-			$.ajax({
-				url: api.detailPromotion,
-				type: "POST",
-				headers: headers,
-				data: JSON.stringify({"promotion_idx" : "29"}),
-				success: function(data) {
-					if (isSuccessResp(data))
-						buildPromoInfo(data);
-					else
-						alert(invalidResp(data));
-				},
-				error: function (request, status) {
-					console.log(status);
-				}
-			});
-		}
-	}
-
-	function buildPromoInfo(data)
-	{
-
-	}
 
 	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
@@ -136,11 +99,6 @@
 		openYn.eq(0).prop('checked', true);
 	}
 
-	function initModal()
-	{
-
-	}
-
 	function onClickAddTag()
 	{
 		if (addTagValidation())
@@ -151,13 +109,13 @@
 			tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
 			tagDom += '</li>';
 
-			tagList.append(tagDom);
+			addedTags.append(tagDom);
 		}
 	}
 
 	function addTagValidation()
 	{
-		let tagLen = tagList.find('li').length;
+		let tagLen = addedTags.find('li').length;
 
 		if (isEmpty(inputTag.val()))
 		{
@@ -185,52 +143,81 @@
 		$(obj).toggleClass('active');
 	}
 
-	let bizUuid;
-	function onKeyupBizName()
+	/** 기업 검색 **/
+	function onClickBizName()
 	{
-		buildOptionPromo();
-		buildOptionReward();
-		buildSelectedReward();
-		autoCompleteBizName();
+		modalFadein();
+		getBiz();
 	}
 
-	function autoCompleteBizName()
+	function getBiz()
 	{
-		bizName.autocomplete({
-			source: function (request, response) {
-				$.ajax({
-					url: api.listBizName,
-					type: "POST",
-					async: false,
-					headers: headers,
-					data: JSON.stringify({"keyword" : bizName.val()}),
-					success: function(data) {
-						response($.map(JSON.parse(data), function(item) {
-							return {
-								label: item.value,
-								value: item.value,
-								key: item.key
-							}
-						}));
-					},
-					error: function (xhr, status, error) {
-						console.log(error)
-					}
-				});
+		dataTable.DataTable({
+			ajax : {
+				url: api.listBizName,
+				type:"POST",
+				headers: headers,
+				dataSrc: "",
+				data: function (d) {
+					return JSON.stringify({"keyword" : modalBizName.val()});
+				}
 			},
-			focus: function( event, ui ) {
-				event.preventDefault();
-				return false;
+			columns: [
+				{title: "기업명",	data: "value",    orderable: false,   className: "text-center" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
 			},
-			select: function( event, ui ) {
-				bizUuid = ui.item.key;
-				getInvolvePromo();
+			processing: false,
+			serverSide: true,
+			paging: false,
+			/*pageLength: 10,*/
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader: false,
+			destroy: true,
+			initComplete: function () {
 			},
-			matchContains: true,
-			autoFocus: true,
-			delay: 300,
-			minLength: 1
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			}
 		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		/** 기업명에 클릭이벤트 추가 **/
+		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.key+'\',\''+aData.value+'\')');
+	}
+
+	let bizUuid;
+	function setSelectedBiz(uuid, name)
+	{
+		bizUuid = uuid;
+		bizName.val(name);
+		getInvolvePromo();
+		buildOptionReward();
+		modalFadeout();
+	}
+
+	function initModal()
+	{
+		modalBizName.val('');
+		modalBizName.focus();
 	}
 
 	function getInvolvePromo()
@@ -334,7 +321,7 @@
 
 	function buildSelectedReward(data)
 	{
-		selectedRewardArea.hide();
+		selectedReward.hide();
 		let selectedRewardDom = '';
 		if (!isEmpty(data) && isSuccessResp(data))
 		{
@@ -354,9 +341,6 @@
 			selectedRewardDom += '</div>';
 			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ respData.person_percent +' : 단체 '+respData.group_percent +'</p>';
 			selectedRewardDom += '</div>';
-			/*selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>두잇당 최대 인원 : </span>'+ respData.max_user_limit +'명</p>';
-			selectedRewardDom += '</div>';*/
 			selectedRewardDom += '<div class="fixed">';
 			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ respData.total_reward +'</p>';
 			selectedRewardDom += '</div>';
@@ -372,8 +356,8 @@
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '</li>';
 
-			selectedRewardArea.html(selectedRewardDom);
-			selectedRewardArea.show();
+			selectedReward.html(selectedRewardDom);
+			selectedReward.show();
 		}
 	}
 
@@ -471,7 +455,7 @@
 
 	function validation()
 	{
-		let tagLen 				= tagList.find('li').length;
+		let tagLen 				= addedTags.find('li').length;
 		let introVideoDom 		= $("#introVideo");
 		let introImageFile		= $("#introImage")[0].files;
 		let introVideoFile;
@@ -620,7 +604,7 @@
 	function params()
 	{
 		let paramTag = [];
-		tagList.find('li').each(function () {
+		addedTags.find('li').each(function () {
 			paramTag.push($(this).text());
 		})
 		let paramIntroImage 	= $("#introImage")[0].files[0];
@@ -657,7 +641,7 @@
 		formData.append('doit-description', doitDesc.val().trim());
 		if ($("#chkExtraReward").is(':checked'))
 		{
-			formData.append('group-reward-description', $("#ucd-area").val())
+			formData.append('group-reward-description', $("#ucd-area").val().trim())
 		}
 
 		return formData;

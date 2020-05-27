@@ -92,11 +92,8 @@
                         </div>
                         <div class="col-2 clearfix">
                             <div class="col-2-1 clearfix" style="float: left; width: 100%;">
-                                <div class="search-wrap" style="width: 340px; float: left; margin-right: 20px;">
-                                    <div class="input-wrap">
-                                        <input id="bizName" type="text" class="length-input more-info-btn" placeholder="기업명을 선택해주세요." maxlength="10" style="width: 340px">
-                                        <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
-                                    </div>
+                                <div class="search-wrap" style="width: 250px; float: left; margin-right: 20px;">
+                                    <input id="bizName" type="text" placeholder="클릭 후 기업명을 선택해주세요." style="width: 250px" readonly>
                                 </div>
                                 <div class="select-box" style="float: left; width: 200px;">
                                     <label for="selPromo">프로모션 선택</label>
@@ -370,15 +367,15 @@
                 <li>
                     <div class="search-wrap">
                         <div class="search-box">
-                            <input type="search" placeholder="기업명을 입력해주세요.">
+                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요.">
                             <i class="search-btn fas fa-search"></i>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="table-wrap">
-                        <table>
-                            <colgroup>
+                        <table id="dataTable">
+                            <!--<colgroup>
                                 <col style="width:100%;">
                             </colgroup>
                             <thead>
@@ -390,31 +387,15 @@
                             <tr>
                                 <td>카카오키즈</td>
                             </tr>
-                            </tbody>
+                            </tbody>-->
                         </table>
                     </div>
                 </li>
             </ul>
-            <button class="completion-btn" type="submit">등록</button>
         </div>
     </div>
     <div class="modal-layout"></div>
 
 </section>
 <script src="/assets/js/doit/doit-create.js"></script>
-<script>
-    // modal event
-    $('.more-info-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-</script>
 

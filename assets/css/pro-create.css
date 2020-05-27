@@ -268,9 +268,13 @@
     color: #565656;
     font-size: 20px;
 }
+.modal-content .modal-information > li {
+    border-bottom: none;
+}
 .modal-information li:first-child {
     border: none;
 }
+
 .modal-content .table-wrap {
     margin-top: 0;
 }

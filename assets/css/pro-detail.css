@@ -82,6 +82,9 @@
     transition: all .3s;
 }
 .pro-detail-page  .enrollment>li .hash-tag-list li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     margin-bottom: 5px;
 }
 .pro-detail-page .reward-tab li.on,

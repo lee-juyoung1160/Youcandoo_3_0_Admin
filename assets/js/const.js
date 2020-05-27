@@ -29,6 +29,7 @@
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
+		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };

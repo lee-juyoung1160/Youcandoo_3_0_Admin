@@ -103,13 +103,22 @@
 	{
 		if (addTagValidation())
 		{
-			let tagDom = '';
-			tagDom += '<li>';
-			tagDom += 	'#<span class="tag-name">'+inputTag.val()+'</span>';
-			tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
-			tagDom += '</li>';
+			let inputValue = inputTag.val().trim();
+			let tagArr = [];
+			$(".added-tag").each(function () {
+				tagArr.push($(this).text());
+			});
 
-			addedTags.append(tagDom);
+			if (isEmpty(tagArr) || tagArr.indexOf(inputValue) === -1)
+			{
+				let tagDom = '';
+				tagDom += '<li>';
+				tagDom += 	'#<span class="tag-name added-tag">'+inputValue+'</span>';
+				tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
+				tagDom += '</li>';
+
+				addedTags.append(tagDom);
+			}
 		}
 	}
 
@@ -575,6 +584,13 @@
 		if ($("input[name=chkAccessUser]").is(':checked') && isEmpty(privateCode.val()))
 		{
 			alert('참가코드를 '+message.input);
+			privateCode.focus();
+			return false;
+		}
+
+		if ($("input[name=chkAccessUser]").is(':checked') && privateCode.val().trim().length < 4)
+		{
+			alert(message.minimumPassCode);
 			privateCode.focus();
 			return false;
 		}

@@ -10,6 +10,12 @@
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	/** modal **/
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
+	const modalDetail 	= $("#modalDetail");
+	const modalReason 	= $("#modalReason");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -24,8 +30,21 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnTop			.on("click", function () { toggleTop(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 	});
+
+	function modalDetailFadein()
+	{
+		modalLayout.fadeIn();
+		modalDetail.fadeIn();
+	}
+
+	function modalReasonFadein()
+	{
+		modalLayout.fadeIn();
+		modalReason.fadeIn();
+	}
 
 	function initSearchForm()
 	{
@@ -127,10 +146,8 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
-		let isTop	 = aData.is_top;
-		let detailUrl = '/service/notice/detail/'+aData.idx;
+		let detailUrl = '/review/detail/'+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');

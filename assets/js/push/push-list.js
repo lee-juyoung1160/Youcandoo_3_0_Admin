@@ -4,12 +4,19 @@
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
+	const grade			= $("input[name=chk-grade]");
+	const report		= $("input[name=radio-report]");
+	const blind			= $("input[name=radio-blind]");
 	const selPageLength = $("#selPageLength");
-	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
+	const checkbox		= $("input:checkbox");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	/** modal **/
+	/*const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
+	const modalDetail 	= $("#modalDetail");
+	const modalReason 	= $("#modalReason");*/
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -17,26 +24,37 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		buildGrid();
+		//buildGrid();
 		/** 이벤트 **/
+		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		/*modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });*/
 	});
+
+	function modalDetailFadein()
+	{
+		modalLayout.fadeIn();
+		modalDetail.fadeIn();
+	}
+
+	function modalReasonFadein()
+	{
+		modalLayout.fadeIn();
+		modalReason.fadeIn();
+	}
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
+		checkbox.prop("checked", true);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
@@ -44,68 +62,65 @@
 
 	function buildGrid()
 	{
+		topCount = 0;
 		dataTable.DataTable({
 			ajax : {
-				url:"http://api.kakaokids.org/v1.0/admin/notice/list",
-				type:"POST",
+				url: api.listPush,
+				type: "POST",
+				async: false,
 				headers: headers,
 				data: function (d) {
-					/*if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
+				},
+				error: function(xhr, status, err) {
+					alert(message.cantLoadList);
 				}
 			},
 			columns: [
-				{title: "No "+topIcon, 	data: "idx",    	  	   name: "idx",    	    	   orderable: false,   className: "text-center" }
-				,{title: "제목", 		data: "title",    	  	   name: "title",    		   orderable: false,   className: "text-center" }
-				,{title: "노출여부", 	data: "is_exposure",  	   name: "is_exposure",  	   orderable: false,   className: "text-center",
+				{title: "No ", 			data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
+				/*,{title: "제목", 		data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
+				,{title: "노출여부", 	data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성일", 	    data: "created_datetime",  name: "created_datetime",   orderable: false,   className: "text-center",
+				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center" }
+				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
-				}
+				}*/
 			],
 			language: {
-				emptyTable : "조회된 목록이 없습니다."
-				,zeroRecords: "조회된 목록이 없습니다."
-				,processing : "검색 중.."
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
 				,paginate: {
-					previous: "‹‹"
-					,next: "››"
+					previous: label.previous
+					,next: label.next
 				}
 			},
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: selPageLength.val(),
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
 			info: false,
-			select: 'single',
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData);
-				setRowAttributes(nRow, aData);
+				//setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -115,12 +130,11 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"fromDate" :dateFrom.val()
+			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"orderby" : selSort.val()
 		}
 
 		return JSON.stringify(param);
@@ -128,15 +142,14 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(1);
-		//let movePageUrl = 'javascript:movePageUrl(\'/mod/doit/'+aData.doit_id+'\')';
+		let titleDom = $(nRow).children().eq(2);
+		let detailUrl = '/review/detail/'+aData.idx;
 
-		// 제목에 a 태그 추가
-		$(titleDom).html('<a href="/notice/detail">'+aData.title+'</a>');
+		/** 제목에 a 태그 추가 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
 		buildGrid();
 	}
-

@@ -135,7 +135,7 @@
 
 		if (tagLen >= 3)
 		{
-			alert('태그는 '+message.maxAddFive);
+			alert('태그는 '+message.maxAddThree);
 			return false;
 		}
 

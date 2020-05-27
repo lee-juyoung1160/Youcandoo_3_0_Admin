@@ -13,6 +13,13 @@
 	const isBanner		 = $("input[name=radio-banner-open]");
 	const btnSubmit		 = $("#btnSubmit");
 
+	/** modal **/
+	const modalLayout	= $(".modal-layout");
+	const modalContent  = $(".modal-content");
+	const modalCloseBtn	= $(".close-btn");
+	const dataTable		= $("#dataTable");
+	const modalBizName	= $("#modalBizName");
+
 	/** 리워드 입력 **/
 	const rewardSelectArea 	 = $("#rewardSelectArea");
 	const btnRewardTab	 = $("[data-rel]");
@@ -77,7 +84,10 @@
 		/** 주간빈도 초기화 **/
 		toggleDisabledFrequency($(".reward-1").find(btnDuration).eq(0));
 		/** 이벤트 **/
-		bizName			.on('keyup', function () { onKeyupBizName(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		modalBizName	.on('keyup', function () { getBiz(); });
+		bizName			.on('click', function () { onClickBizName(); });
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
 		inputFile		.on('change', function () { onChangeValidationImage(this); });
@@ -303,32 +313,77 @@
 		});
 	}
 
-	function onKeyupBizName()
+	/** 기업 검색 **/
+	function onClickBizName()
 	{
-		bizName.autocomplete({
-			source: function (request, response) {
-				$.ajax({
-					url: api.listBizName,
-					type: "POST",
-					async: false,
-					global: false,
-					headers: headers,
-					data: JSON.stringify({"keyword" : bizName.val()}),
-					success: function(data) {
-						response($.map(JSON.parse(data), function(item) {
-							return {
-								label: item.value,
-							}
-						}));
-					},
-					error: function (xhr, status, error) {
-						console.log(error)
-					}
-				});
+		modalFadein();
+		getBiz();
+	}
+
+	function getBiz()
+	{
+		dataTable.DataTable({
+			ajax : {
+				url: api.listBizName,
+				type:"POST",
+				headers: headers,
+				dataSrc: "",
+				data: function (d) {
+					return JSON.stringify({"keyword" : modalBizName.val()});
+				}
 			},
-			delay: 300,
-			minLength: 2
+			columns: [
+				{title: "기업명",	data: "value",    orderable: false,   className: "text-center" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: false,
+			/*pageLength: 10,*/
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			}
 		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		/** 기업명에 클릭이벤트 추가 **/
+		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.value+'\')');
+	}
+
+	function setSelectedBiz(name)
+	{
+		bizName.val(name);
+		modalFadeout();
+	}
+
+	function initModal()
+	{
+		modalBizName.val('');
+		modalBizName.focus();
 	}
 
 	function onChangePromoFrom()
@@ -739,7 +794,7 @@
 		let paramBannerFile 	= banner[0].files[0];
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let formData  = new FormData();
-		formData.append("nickname", bizName.val().trim());
+		formData.append("nickname", bizName.val());
 		formData.append("promotion-title", promoName.val().trim());
 		formData.append("promotion-budget-ucd", budget.val().trim());
 		formData.append("promotion-start-date", promoFrom.val());

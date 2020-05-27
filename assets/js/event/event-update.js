@@ -1,7 +1,7 @@
 
 	const title 		= $("#title");
 	const content		= $("#summernote");
-	const eventImg		= $("#eventImg");
+	const eventImg		= $(".preview-image");
 	const eventFrom		= $("#eventFrom");
 	const eventTo		= $("#eventTo");
 	const exposure		= $("input[name=radio-exposure]");
@@ -17,7 +17,7 @@
 		getDetail();
 
 		/** 이벤트 **/
-		inputFile	.on('change', function () { onChangeFile(this); });
+		inputFile	.on('change', function () { onChangeValidationImage(this); });
 		//btnSubmit.on('click', function () { onSubmitUpdateEvent(); });
 	});
 
@@ -54,7 +54,15 @@
 
 		title.val(jsonData.data.title);
 		content.summernote('code', jsonData.data.contents);
-		eventImg.attr('src', jsonData.data.image_url);
+
+		let thumbnailDom = '';
+		thumbnailDom += '<div class="upload-display">';
+		thumbnailDom += 	'<div class="upload-thumb-wrap">';
+		thumbnailDom += 		'<img src="'+jsonData.data.image_url+'" class="upload-thumb">';
+		thumbnailDom += 	'</div>';
+		thumbnailDom += '</div>';
+		eventImg.prepend(thumbnailDom);
+
 		eventFrom.val(jsonData.data.start_date);
 		eventTo.val(jsonData.data.end_date);
 		exposure.each(function () {

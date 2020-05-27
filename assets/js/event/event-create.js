@@ -19,7 +19,7 @@
 		checkInputLength();
 
 		/** 이벤트 **/
-		inputFile	.on('change', function () { onChangeFile(this); });
+		inputFile	.on('change', function () { onChangeValidationImage(this); });
 		btnSubmit	.on('click', function () { onSubmitEvent(); });
 		eventFrom	.on('change', function () { onChangeFrom() });
 	});

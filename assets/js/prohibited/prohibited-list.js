@@ -110,10 +110,8 @@
 	{
 		let param = {
 			"keyword" : keyword.val().trim()
-			/*
 			,"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			*/
 		}
 
 		return JSON.stringify(param);
@@ -199,7 +197,7 @@
 			return;
 		}
 
-		let idx 		 = selectedData.idx;
+		let idx = selectedData.idx;
 		let delParams = {
 			"idx" : idx
 		};

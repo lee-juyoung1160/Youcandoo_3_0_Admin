@@ -368,5 +368,5 @@
     $(document).ready(function () {
         activeMenu();
         $(document).ajaxStart(function () { fadeinLoader(); });
-        $(document).ajaxStop(function () { fadeoutLoader(); });
+        $(document).ajaxComplete(function () { fadeoutLoader(); });
     })

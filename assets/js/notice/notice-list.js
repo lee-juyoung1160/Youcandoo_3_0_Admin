@@ -241,6 +241,7 @@
 				type: "POST",
 				headers: headers,
 				async: false,
+				global: false,
 				data: JSON.stringify(topParams),
 				success: function(data) {
 					alert(getStatusMessage(data));

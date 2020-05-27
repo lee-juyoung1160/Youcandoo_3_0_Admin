@@ -274,6 +274,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
+					global: false,
 					data: banParams(),
 					success: function(data) {
 						alert(getStatusMessage(data))

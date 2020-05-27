@@ -167,6 +167,7 @@
 				type:"POST",
 				headers: headers,
 				dataSrc: "",
+				global: false,
 				data: function (d) {
 					return JSON.stringify({"keyword" : modalBizName.val()});
 				}
@@ -186,8 +187,6 @@
 			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 10,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
 			info: false,

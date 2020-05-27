@@ -200,6 +200,7 @@
 				type: "POST",
 				async: false,
 				headers: headers,
+				global: false,
 				data: JSON.stringify({"userid" : selectedData.userid}),
 				success: function(data) {
 					alert(getStatusMessage(data));

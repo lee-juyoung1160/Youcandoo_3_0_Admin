@@ -87,7 +87,8 @@
 		let detail 	 = jsonData.data;
 
 		doitTitle.html(detail.doit_title);
-		doitDesc.html(detail.doit_description);
+		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
+		doitDesc.html(desc);
 		let tag  = detail.doit_tags;
 		let tags = tag.split(",");
 		let tagDom = '';
@@ -121,10 +122,12 @@
 		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
 		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
-		let remainUcd	= numberWithCommas(detail.remain_budget_ucd);
+		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
 		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
-		let personRate  = Math.floor((detail.person_reward/detail.per_person_ucd) * 100);
-		let groupRate   = Math.floor((detail.group_reward/detail.per_person_ucd) *100);
+		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
+		personRate = isNaN(personRate) ? '-' : personRate;
+		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
+		groupRate = isNaN(groupRate) ? '-' : groupRate;
 
 		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
 		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';

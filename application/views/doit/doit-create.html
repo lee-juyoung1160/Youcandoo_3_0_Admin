@@ -45,12 +45,12 @@
                                     <input id="inputTag" class="tag-input length-input" type="text" placeholder="태그를 입력해주세요." maxlength="5">
                                     <p class="length-count-wrap"><span class="count-input">0</span>/5</p>
                                 </div>
-                                <button id="addTag" class="add-btn" type="submit">
+                                <button id="btnAddTag" class="add-btn" type="submit">
                                     <i class="fas fa-plus"></i>
                                     <span>ADD</span>
                                 </button>
                             </div>
-                            <ul id="tagList" class="hash-tag-list clearfix">
+                            <ul id="addedTags" class="hash-tag-list clearfix">
                                 <!--<li>
                                     #<span class="tag-name">밸런스</span>
                                     <i class="delete-btn far fa-times-circle"></i>
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="col-2-1" style="float: left; width: 100%; margin-top: 20px;">
-                                <div id="selectedRewardArea" class="reward-type clearfix" style="display: none;"></div>
+                                <div id="selectedReward" class="reward-type clearfix" style="display: none;"></div>
 <!--                                <div class="reward-type clearfix">-->
 <!--                                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>-->
 <!--                                    <div class="fixed">-->

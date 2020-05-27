@@ -18,7 +18,8 @@
 		initSearchForm();
 		/** 테이블 데이터 로드 **/
 		buildGrid();
-
+		/** 이벤트 **/
+		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });

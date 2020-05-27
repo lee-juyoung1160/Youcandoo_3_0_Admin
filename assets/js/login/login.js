@@ -5,13 +5,13 @@
 
 	$(document).ready(function () {
 		loginBtn    .on("click", function () { onSubmitLogin(); });
-		userid      .on("keydown", function (key) { onKeydownEmail(key) });
-		password    .on("keydown", function (key) { onKeydownPassword(key) });
+		userid      .on("keydown", function (event) { onKeydownEmail(event) });
+		password    .on("keydown", function (event) { onKeydownPassword(event) });
 	});
 
-	function onKeydownEmail(key)
+	function onKeydownEmail(event)
 	{
-		if (key.keyCode === 13)
+		if (event.keyCode === 13)
 		{
 			if (isEmpty(userid.val()))
 			{
@@ -24,9 +24,9 @@
 		}
 	}
 
-	function onKeydownPassword(key)
+	function onKeydownPassword(event)
 	{
-		if (key.keyCode === 13)
+		if (event.keyCode === 13)
 		{
 			if (isEmpty(password.val()))
 			{

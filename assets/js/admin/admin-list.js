@@ -6,8 +6,6 @@
 	const keyword		= $("#keyword");
 	const authCode		= $("#auth_code");
 	const selPageLength = $("#selPageLength");
-	const btnDelete 	= $("#btnDelete");
-	const inputRadio	= $("input:radio");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 
@@ -19,9 +17,9 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
+		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		btnDelete		.on("click", function () { deleteAdmin(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 	});
 
@@ -68,10 +66,6 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));

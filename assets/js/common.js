@@ -320,6 +320,13 @@
         modalContent.fadeOut();
     }
 
+    /** 목록페이지 엔터로 검색 **/
+    function onKeydownSearch(event)
+    {
+        if (event.keyCode === 13)
+            buildGrid();
+    }
+
     /** 테이블 영역 체크박스 **/
     function tableCheckAllDom()
     {

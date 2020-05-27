@@ -245,16 +245,16 @@
     background: #007aff;
 }
 
-.pro-create-page .modal-content .search-box {
+.modal-content .search-box {
     position: relative;
 }
-.pro-create-page .modal-content .modal-title {
+.modal-content .modal-title {
     margin-bottom: 15px;
 }
-.pro-create-page .modal-content .search-box input[type="search"] {
+.modal-content .search-box input[type="search"] {
     width: 100%;
 }
-.pro-create-page .modal-content .search-box .search-btn {
+.modal-content .search-box .search-btn {
     position: absolute;
     top: 50%;
     right: 20px;
@@ -265,17 +265,17 @@
     color: #565656;
     font-size: 20px;
 }
-.pro-create-page .modal-information li:first-child {
+.modal-information li:first-child {
     border: none;
 }
-.pro-create-page .modal-content .table-wrap {
+.modal-content .table-wrap {
     margin-top: 0;
 }
-.pro-create-page .modal-content .table-wrap table {
+.modal-content .table-wrap table {
     margin-top: 0;
     border-top: 1px solid #eee;
 }
-.pro-create-page .modal-information .table-wrap .table-pagination li {
+.modal-information .table-wrap .table-pagination li {
     border-bottom: none;
 }
 

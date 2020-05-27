@@ -133,7 +133,7 @@
 			return false;
 		}
 
-		if (tagLen >= 5)
+		if (tagLen >= 3)
 		{
 			alert('태그는 '+message.maxAddFive);
 			return false;

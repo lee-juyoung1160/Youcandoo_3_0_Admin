@@ -56,9 +56,9 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return singleCheckBoxDom(data);
+						return multiCheckBoxDom(data);
 					}
 				}
 				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center" }
@@ -86,7 +86,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'single',
+				style: 'multi',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -188,38 +188,58 @@
 	/** 금칙어 삭제 **/
 	function deleteProhibition()
 	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteProhibition,
+					type: "POST",
+					async: false,
+					headers: headers,
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						console.log(status);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
 		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
+		let selectedData = table.rows('.selected').data();
 
 		if (isEmpty(selectedData))
 		{
 			alert('삭제할 대상을 목록에서 '+message.select);
-			return;
+			return false;
 		}
 
-		let idx = selectedData.idx;
-		let delParams = {
-			"idx" : idx
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		let params = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let idx = selectedData[i].idx;
+			params.push(idx);
+		}
+
+		let delParam = {
+			"idx_list" : params
 		};
 
-		if (confirm(message.delete))
-		{
-			$.ajax({
-				url: api.deleteProhibition,
-				type: "POST",
-				async: false,
-				headers: headers,
-				data: JSON.stringify(delParams),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-						buildGrid();
-					else
-						alert(invalidResp(data));
-				},
-				error: function (request, status) {
-					console.log(status);
-				},
-			});
-		}
+		return JSON.stringify(delParam)
 	}

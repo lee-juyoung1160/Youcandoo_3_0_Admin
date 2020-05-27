@@ -331,7 +331,7 @@
     function tableCheckAllDom()
     {
         let chkAll = '<div class="checkbox-wrap">';
-        chkAll +=       '<input type="checkbox" id="checkAll"/>';
+        chkAll +=       '<input onclick="onClickChkAll(this);" type="checkbox" name="chk-row" id="checkAll"/>';
         chkAll +=       '<label for="checkAll"><span></span></label>'
         chkAll += '</div>';
 
@@ -340,12 +340,12 @@
 
     function singleCheckBoxDom(idx)
     {
-        return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+        return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
     }
 
     function multiCheckBoxDom(idx)
     {
-        return '<input type="checkbox" name="checkRow" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+        return '<input onclick="onClickChkRow(this)" type="checkbox" name="chk-row" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
     }
 
     function toggleSingleCheckBox(obj)
@@ -355,6 +355,35 @@
             if (this.id !== obj.id)
                 $(this).prop('checked', false);
         })
+    }
+
+    function onClickChkAll(obj)
+    {
+        let chkName = $(obj).attr('name');
+        if ($(obj).is(':checked'))
+            $('input[name="'+chkName+'"]').prop('checked', true);
+        else
+            $('input[name="'+chkName+'"]').prop('checked', false);
+    }
+
+    function onClickChkRow(obj)
+    {
+        let count   = 0;
+        let chkName = $(obj).attr('name');
+        let element = $('tbody input[name="'+chkName+'"]');
+
+        element.each(function () {
+            if ($(this).is(':checked'))
+                count++;
+        })
+
+        if (count === 0)
+            $('input[name="'+chkName+'"]').prop('checked', false);
+
+        if (element.length === count)
+            $('input[name="'+chkName+'"]').prop('checked', true);
+        else
+            $("#checkAll").prop('checked', false);
     }
 
     function activeMenu()

@@ -48,7 +48,6 @@
 				}
 			});
 		}
-
 	}
 
 	function selectedAuthCode()
@@ -164,7 +163,6 @@
 					let childMenuName   = childData.name;
 					let childPath		= childData.path;
 					let childChkId 		= "cChkId_"+count;
-					//let childChkNm 		= "cChkNm_"+count;
 					isChecked	  	    = childData.view ? 'checked' : '';
 
 					menuDom += '<li>';

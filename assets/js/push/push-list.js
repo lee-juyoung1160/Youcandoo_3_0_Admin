@@ -9,7 +9,7 @@
 	const blind			= $("input[name=radio-blind]");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
-	const checkbox		= $("input:checkbox");
+	const sendType		= $("input[name=chk-send-type]");
 	const dataNum		= $(".data-num");
 	/** modal **/
 	/*const modalCloseBtn = $(".close-btn");
@@ -54,7 +54,7 @@
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
-		checkbox.prop("checked", true);
+		sendType.prop("checked", true);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
@@ -62,7 +62,6 @@
 
 	function buildGrid()
 	{
-		topCount = 0;
 		dataTable.DataTable({
 			ajax : {
 				url: api.listPush,

@@ -9,38 +9,35 @@
             <div class="list-wrap clearfix">
                 <p class="list-common-title">날짜</p>
                 <div class="select-box">
-                    <label for="ex_select1">등록일</label>
-                    <select id="ex_select1">
-                        <option selected>등록일</option>
-                        <option>시작일</option>
-                        <option>종료일</option>
-                        <option>결과발표일</option>
+                    <label for="dateType">등록일</label>
+                    <select id="dateType">
+                        <option value="create">등록일</option>
                     </select>
                 </div>
                 <div class="date-wrap">
-                    <input type="date">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
-                    <li>오늘</li>
-                    <li>1주일</li>
-                    <li>1개월</li>
-                    <li>3개월</li>
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="ex_select2">두잇명</label>
-                    <select id="ex_select2">
-                        <option selected>두잇명</option>
-                        <option>닉네임</option>
+                    <label for="search_type">두잇명</label>
+                    <select id="search_type">
+                        <option value="doit">두잇명</option>
+                        <option value="nickname">닉네임</option>
                     </select>
                 </div>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -52,29 +49,29 @@
                 <li style="width: 33%;">
                     <p class="list-common-title">인증 상태</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="cc" />
+                        <input type="checkbox" id="c1" name="chk-status" value="success"/>
                         <label for="c1"><span></span>성공</label>
 
-                        <input type="checkbox" id="c2" name="cc" />
+                        <input type="checkbox" id="c2" name="chk-status" value="yellow"/>
                         <label for="c2"><span></span>옐로카드</label>
 
-                        <input type="checkbox" id="c3" name="cc" />
+                        <input type="checkbox" id="c3" name="chk-status" value="red"/>
                         <label for="c3"><span></span>레드카드</label>
 
-                        <input type="checkbox" id="c4" name="cc" />
+                        <input type="checkbox" id="c4" name="chk-status" value="report"/>
                         <label for="c4"><span></span>사용자신고</label>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">진행상태</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="rr" />
+                        <input type="radio" id="r2" name="radio-progress" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="rr" />
+                        <input type="radio" id="r3" name="radio-progress" value="intime"/>
                         <label for="r3"><span></span>진행중</label>
 
-                        <input type="radio" id="r4" name="rr" />
+                        <input type="radio" id="r4" name="radio-progress" value="done"/>
                         <label for="r4"><span></span>종료</label>
                     </div>
                 </li>
@@ -246,20 +243,4 @@
         </div>
     </div>
 </section>
-
-<script>
-    // modal event
-    $('.warning-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-</script>
+<script src="/assets/js/confirm/confirm-list.js"></script>

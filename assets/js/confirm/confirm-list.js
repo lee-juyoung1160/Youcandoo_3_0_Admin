@@ -4,18 +4,17 @@
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
-	const grade			= $("input[name=chk-grade]");
-	const report		= $("input[name=radio-report]");
-	const blind			= $("input[name=radio-blind]");
+	const status		= $("input[name=chk-status]");
+	const progress		= $("input[name=radio-progress]");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnWarn		= $(".warning-btn");
+
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const modalDetail 	= $("#modalDetail");
-	const modalReason 	= $("#modalReason");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -30,28 +29,16 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnWarn			.on('click', function () { modalFadein(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 	});
 
-	function modalDetailFadein()
-	{
-		modalLayout.fadeIn();
-		modalDetail.fadeIn();
-	}
-
-	function modalReasonFadein()
-	{
-		modalLayout.fadeIn();
-		modalReason.fadeIn();
-	}
-
 	function initSearchForm()
 	{
 		keyword.val('');
-		grade.prop("checked", true);
-		report.eq(0).prop("checked", true);
-		blind.eq(0).prop("checked", true);
+		status.prop("checked", true);
+		progress.eq(0).prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
@@ -65,7 +52,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listReview,
+				url: api.listConfirm,
 				type: "POST",
 				async: false,
 				headers: headers,

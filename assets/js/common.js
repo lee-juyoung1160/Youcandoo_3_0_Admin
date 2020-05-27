@@ -21,6 +21,7 @@
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
+    dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
 
     /** 글자수 체크 **/
     function checkInputLength()
@@ -152,6 +153,11 @@
             ,dayNames: ["일", "월", "화", "수", "목", "금", "토"]
             ,dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
         });
+    }
+
+    function onChangeSearchDateFrom()
+    {
+        dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
     }
 
     function onChangeValidationImage(obj)

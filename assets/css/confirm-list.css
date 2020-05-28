@@ -9,3 +9,9 @@
 .confirm-list-page .modal-content {
     height: 433px;
 }
+.modal-content.modal-01 {
+    height: auto;
+}
+.modal-content.modal-01 .modal-information {
+    max-height: inherit;
+}

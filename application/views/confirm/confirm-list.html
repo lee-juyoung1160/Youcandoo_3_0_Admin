@@ -113,7 +113,14 @@
                         <span class="success-text">성공</span>
                         <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                     </div>
-                    <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+
+                    <div class="thumbnail-wrap">
+                        <div class="error">
+                            <p class="error-text"><i class="fas fa-exclamation-circle"></i>인증 조건 부적합</p>
+                        </div>
+                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    </div>
+
                     <div class="text-wrap">
                         <p class="title">매일 반려견 산책하기</p>
                         <a href="#">aaaaaaa</a>
@@ -122,9 +129,6 @@
                     <button class="warning-btn" type="button">경고장</button>
                 </li>
                 <li>
-                    <div class="error">
-                        <p class="error-text"><i class="fas fa-exclamation-circle"></i>인증 조건 부적합</p>
-                    </div>
                     <div class="top clearfix">
                         <div class="checkbox-wrap">
                             <input type="checkbox" id="c6" name="cc" />
@@ -133,7 +137,9 @@
                         <span class="failure-text">실패</span>
                         <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                     </div>
-                    <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    <div class="thumbnail-wrap">
+                        <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                    </div>
                     <div class="text-wrap">
                         <p class="title">매일 반려견 산책하기</p>
                         <a href="#">aaaaaaa</a>
@@ -149,7 +155,9 @@
                         </div>
                         <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                     </div>
-                    <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    <div class="thumbnail-wrap">
+                        <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                    </div>
                     <div class="text-wrap">
                         <p class="title">매일 반려견 산책하기</p>
                         <a href="#">aaaaaaa</a>
@@ -165,7 +173,9 @@
                         </div>
                         <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                     </div>
-                    <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    <div class="thumbnail-wrap">
+                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    </div>
                     <div class="text-wrap">
 
                         <p class="title">매일 반려견 산책하기</p>
@@ -182,7 +192,9 @@
                         </div>
                         <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                     </div>
-                    <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    <div class="thumbnail-wrap">
+                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                    </div>
                     <div class="text-wrap">
                         <p class="title">매일 반려견 산책하기</p>
                         <a href="#">aaaaaaa</a>
@@ -200,47 +212,79 @@
                 <li><i class="fas fa-angle-double-right"></i></li>
             </ul>
 
-            <div class="modal-content">
-                <div class="wrap">
-                    <i class="close-btn fas fa-times-circle"></i>
-                    <p class="modal-title">경고장 발송</p>
-                    <ul class="modal-information">
-                        <li>
-                            <p class="sub-title">경고장(*)</p>
-                            <div class="radio-wrap">
-                                <input type="radio" id="r1" name="rr" />
-                                <label for="r1"><span></span>옐로카드</label>
+<!--            <div class="modal-content">-->
+<!--                <div class="wrap">-->
+<!--                    <i class="close-btn fas fa-times-circle"></i>-->
+<!--                    <p class="modal-title">경고장 발송</p>-->
+<!--                    <ul class="modal-information">-->
+<!--                        <li>-->
+<!--                            <p class="sub-title">경고장(*)</p>-->
+<!--                            <div class="radio-wrap">-->
+<!--                                <input type="radio" id="r1" name="rr" />-->
+<!--                                <label for="r1"><span></span>옐로카드</label>-->
 
-                                <input type="radio" id="r8" name="rr" />
-                                <label for="r8"><span></span>레드카드</label>
-                            </div>
-                        </li>
-<!--        발송사유 경고장 라디오 선택시 셀렉박스 구분해서 나오는 스크립트 필요                -->
-                        <li class="clearfix">
-                            <p class="sub-title">발송사유(*)</p>
-                            <div class="select-box active">
-                                <label for="ex_select9">인증 조건/규칙 부적합</label>
-                                <select id="ex_select9">
-                                    <option selected>인증 조건/규칙 부적합</option>
-                                    <option>광고성 게시글</option>
-                                </select>
-                            </div>
-                            <div class="select-box">
-                                <label for="ex_select10">음란/욕설/종교/정치성</label>
-                                <select id="ex_select10">
-                                    <option selected>음란/욕설/종교/정치성</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="clearfix">
-                            <button class="completion-btn" type="submit">발송</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<!--                                <input type="radio" id="r8" name="rr" />-->
+<!--                                <label for="r8"><span></span>레드카드</label>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--&lt;!&ndash;        발송사유 경고장 라디오 선택시 셀렉박스 구분해서 나오는 스크립트 필요                &ndash;&gt;-->
+<!--                        <li class="clearfix">-->
+<!--                            <p class="sub-title">발송사유(*)</p>-->
+<!--                            <div class="select-box active">-->
+<!--                                <label for="ex_select9">인증 조건/규칙 부적합</label>-->
+<!--                                <select id="ex_select9">-->
+<!--                                    <option selected>인증 조건/규칙 부적합</option>-->
+<!--                                    <option>광고성 게시글</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="select-box">-->
+<!--                                <label for="ex_select10">음란/욕설/종교/정치성</label>-->
+<!--                                <select id="ex_select10">-->
+<!--                                    <option selected>음란/욕설/종교/정치성</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li class="clearfix">-->
+<!--                            <button class="completion-btn" type="submit">발송</button>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;인증 컨텐츠 보기&ndash;&gt;-->
+<!--            <div class="modal-content modal-01">-->
+<!--                <div class="wrap">-->
+<!--                    <i class="close-btn fas fa-times-circle"></i>-->
+<!--                    <p class="modal-title">인증 컨텐츠 보기</p>-->
+<!--                    <ul class="modal-information">-->
+<!--                        <li>-->
+<!--                            <p class="sub-title">매일 반려견 산책하기</p>-->
+<!--                            <p class="data-contents">-->
+<!--                                <img src="/assets/images/test2.png" alt="배너 및 소개 이미지">-->
+<!--                            </p>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="modal-layout"></div>
+
 
         </div>
     </div>
 </section>
 <script src="/assets/js/confirm/confirm-list.js"></script>
+<!--<script>-->
+<!--    // modal event-->
+<!--    $('[data-rel]').click(function () {-->
+<!--        var openModal = $(this).attr('data-rel');-->
+<!--        $('.' + openModal).fadeIn();-->
+<!--        $('.modal-layout').fadeIn();-->
+<!--    });-->
+<!--    $('.close-btn').click(function () {-->
+<!--        $('.modal-layout').fadeOut();-->
+<!--        $('.modal-content').fadeOut();-->
+<!--    });-->
+<!--    $('.modal-layout').click(function () {-->
+<!--        $('.modal-layout').fadeOut();-->
+<!--        $('.modal-content').fadeOut();-->
+<!--    });-->
+<!--</script>-->

@@ -6,7 +6,7 @@
         <ul class="table-btn-wrap doit-detail-tab clearfix">
             <li class="active" id="tabDoit">두잇 정보</li>
             <li id="tabUser">참여자 정보</li>
-            <li>인증 정보</li>
+            <li id="tabFeed">인증 정보</li>
         </ul>
         <div class="wrap">
             <div id="doitDetail">
@@ -221,49 +221,7 @@
                 </div>
             </div>
 
-            <div class="modal-content">
-                <div class="wrap">
-                    <i class="close-btn fas fa-times-circle"></i>
-                    <p class="modal-title">프로모션 상세정보</p>
-                    <ul class="modal-information">
-                        <li>
-                            <p class="sub-title">스폰 기업명</p>
-                            <p class="data-contents">나이키</p>
-                        </li>
-                        <li>
-                            <p class="sub-title">프로모션 기간</p>
-                            <p class="data-contents">2020.03.01 ~ 2020.04.01</p>
-                        </li>
-                        <li>
-                            <p class="sub-title">프로모션 예산</p>
-                            <p class="data-contents">10,000,000원</p>
-                        </li>
-                        <li>
-                            <p class="sub-title">1인당 받게되는 UCD</p>
-                            <p class="data-contents">1,000UCD</p>
-                        </li>
-                        <li>
-                            <p class="sub-title">프로모션명</p>
-                            <p class="data-contents">나이키 신발 신고 산책하자!</p>
-                        </li>
-                        <li>
-                            <p class="sub-title">두잇 개설 유형</p>
-                            <p class="data-contents">사용자 두잇 개설 허용 두잇 개설 시, 승인 사용
-                            </p>
-                        </li>
-                        <li>
-                            <p class="sub-title">리워드 시뮬 사용</p>
-                            <p class="data-contents">
-                                <strong class="use">사용</strong>
-                                인원수: 1~10명  |  인증기간: 28일  |  인증회차: 주3일  | 하루인증횟수: 1회  | 목표달성률: 80%
-                                <strong class="reward-data">수정불가항목 : <span class="value">없음</span></strong>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-layout"></div>
-
+            <!--참여자정보탭-->
             <div id="doitUser" style="display: none;">
                 <div class="list-common">
                     <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
@@ -318,8 +276,8 @@
                     <div class="top clearfix">
                         <div class="left-wrap clearfix">
                             <div class="select-box">
-                                <label for="selPageLength">10개씩 보기</label>
-                                <select id="selPageLength">
+                                <label for="selPageLengthForUserTab">10개씩 보기</label>
+                                <select id="selPageLengthForUserTab">
                                     <option value="10">10개씩 보기</option>
                                     <option value="20">20개씩 보기</option>
                                     <option value="30">30개씩 보기</option>
@@ -399,12 +357,12 @@
                 </div>
             </div>
 
-            <div class="table-wrap">
+            <div id="doitFeed" class="table-wrap" style="display: none;">
                 <div class="top clearfix">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="selPageLength">10개씩 보기</label>
-                            <select id="selPageLength">
+                            <label for="selPageLengthForActionTab">10개씩 보기</label>
+                            <select id="selPageLengthForActionTab">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
@@ -417,12 +375,12 @@
                     </div>
                 </div>
 
-                <ul class="cert-contents clearfix">
-                    <li>
+                <ul id="actionUl" class="cert-contents clearfix">
+                    <!--<li>
                         <div class="top clearfix">
                             <div class="checkbox-wrap">
-                                <input type="checkbox" id="c5" name="cc" />
-                                <label for="c5"><span></span></label>
+                                <input type="checkbox" id="c10" name="cc" />
+                                <label for="c10"><span></span></label>
                             </div>
                             <span class="success-text">성공</span>
                             <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
@@ -441,8 +399,8 @@
                         </div>
                         <div class="top clearfix">
                             <div class="checkbox-wrap">
-                                <input type="checkbox" id="c6" name="cc" />
-                                <label for="c6"><span></span></label>
+                                <input type="checkbox" id="c11" name="cc" />
+                                <label for="c11"><span></span></label>
                             </div>
                             <span class="failure-text">실패</span>
                             <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
@@ -470,49 +428,19 @@
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
                         <button class="warning-btn red-card-btn" type="button">레드카드 취소</button>
-                    </li>
-                    <li>
-                        <div class="top clearfix">
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c8" name="cc" />
-                                <label for="c8"><span></span></label>
-                            </div>
-                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                        </div>
-                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
-                        <div class="text-wrap">
-
-                            <p class="title">매일 반려견 산책하기</p>
-                            <a href="#">aaaaaaa</a>
-                            <p class="date">2019.07.17 10:30:24</p>
-                        </div>
-                        <button class="warning-btn" type="button">경고장</button>
-                    </li>
-                    <li>
-                        <div class="top clearfix">
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c9" name="cc" />
-                                <label for="c9"><span></span></label>
-                            </div>
-                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                        </div>
-                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
-                        <div class="text-wrap">
-                            <p class="title">매일 반려견 산책하기</p>
-                            <a href="#">aaaaaaa</a>
-                            <p class="date">2019.07.17 10:30:24</p>
-                        </div>
-                        <button class="warning-btn" type="button">경고장</button>
-                    </li>
+                    </li>-->
                 </ul>
 
-                <ul class="table-pagination clearfix">
+                <!--<ul class="table-pagination clearfix">
                     <li><i class="fas fa-angle-double-left"></i></li>
                     <li class="active">1</li>
                     <li>2</li>
                     <li>3</li>
                     <li><i class="fas fa-angle-double-right"></i></li>
-                </ul>
+                </ul>-->
+
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                </div>
 
                 <div class="modal-content">
                     <div class="wrap">
@@ -522,27 +450,27 @@
                             <li>
                                 <p class="sub-title">경고장(*)</p>
                                 <div class="radio-wrap">
-                                    <input type="radio" id="r1" name="rr" />
+                                    <input type="radio" id="r1" name="radio-warn-type" value="Y"/>
                                     <label for="r1"><span></span>옐로카드</label>
 
-                                    <input type="radio" id="r8" name="rr" />
+                                    <input type="radio" id="r8" name="radio-warn-type" value="R"/>
                                     <label for="r8"><span></span>레드카드</label>
                                 </div>
                             </li>
                             <!--        발송사유 경고장 라디오 선택시 셀렉박스 구분해서 나오는 스크립트 필요                -->
                             <li class="clearfix">
                                 <p class="sub-title">발송사유(*)</p>
-                                <div class="select-box active">
-                                    <label for="ex_select9">인증 조건/규칙 부적합</label>
-                                    <select id="ex_select9">
-                                        <option selected>인증 조건/규칙 부적합</option>
-                                        <option>광고성 게시글</option>
+                                <div id="yelloReasonWrap" class="select-box active">
+                                    <label for="selYellowReason"></label>
+                                    <select id="selYellowReason">
+                                        <option value="">인증 조건/규칙 부적합</option>
+                                        <option value="">광고성 게시글</option>
                                     </select>
                                 </div>
                                 <div class="select-box">
-                                    <label for="ex_select10">음란/욕설/종교/정치성</label>
-                                    <select id="ex_select10">
-                                        <option selected>음란/욕설/종교/정치성</option>
+                                    <label for="selRedReason"></label>
+                                    <select id="selRedReason">
+                                        <option value="">음란/욕설/종교/정치성</option>
                                     </select>
                                 </div>
                             </li>
@@ -553,7 +481,6 @@
                     </div>
                 </div>
                 <div class="modal-layout"></div>
-
             </div>
         </div>
     </div>

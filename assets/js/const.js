@@ -60,6 +60,7 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,selectReward : baseApiUrl+'promotion/getReward'
+		,involveAction : baseApiUrl+'doit/get/action'
 
 		,createNotice : baseApiUrl+'notice/create'
 		,detailNotice : baseApiUrl+'notice/detail'

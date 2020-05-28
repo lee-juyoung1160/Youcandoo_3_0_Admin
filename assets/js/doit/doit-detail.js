@@ -1,9 +1,14 @@
 
 	const tabDoit 		= $("#tabDoit");
 	const tabUser 		= $("#tabUser");
+	const tabAction		= $("#tabFeed");
 	const doitDetail	= $("#doitDetail");
 	const doitUser		= $("#doitUser");
+	const doitAction	= $("#doitFeed");
+	const actionUl 		= $("#actionUl");
 	const goUpdate      = $("#goUpdate");
+	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
+	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
 
 	/** 두잇정보 탭 **/
 	const doitTitle 	= $("#doitTitle");
@@ -26,6 +31,15 @@
 	const xlsxExport 	= $(".excel-btn");
 	const dataNum		= $(".data-num");
 
+	/** 인증정보 탭 **/
+	const btnWarn		= $(".warning-btn");
+	/** modal **/
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
+	const warnType		= $("input[name=radio-warn-type]");
+	const pagination	= $("#dataTable_paginate");
+
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
@@ -35,17 +49,24 @@
 		/** 프로모션 상세정보 **/
 		getDoit();
 
-		tabDoit		.on("click", function () { onClickDoitTab(); });
-		tabUser		.on("click", function () { onClickUserTab(); });
-		xlsxExport	.on("click", function () { onClickExcelBtn(); });
-		goUpdate	.on('click', function () { goUpdatePage(); })
+		tabDoit			.on("click", function () { onClickDoitTab(); });
+		tabUser			.on("click", function () { onClickUserTab(); });
+		tabAction		.on("click", function () { onClickActionTab(); });
+		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		goUpdate		.on('click', function () { goUpdatePage(); })
+		btnWarn			.on('click', function () { modalFadein(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		warnType		.on('change', function () { toggleReason(); });
 	});
 
 	function onClickDoitTab()
 	{
 		doitDetail.show();
 		doitUser.hide();
+		doitAction.hide();
 		tabUser.removeClass('active');
+		tabAction.removeClass('active');
 		tabDoit.addClass('active');
 
 		getDoit();
@@ -55,10 +76,34 @@
 	{
 		doitUser.show();
 		doitDetail.hide();
+		doitAction.hide();
 		tabDoit.removeClass('active');
+		tabAction.removeClass('active');
 		tabUser.addClass('active');
 
 		//getJoinUser();
+	}
+
+	function onClickActionTab()
+	{
+		doitAction.show();
+		doitDetail.hide();
+		doitUser.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.addClass('active');
+		currentPage = 1;
+		getInvolveAction();
+	}
+
+	function initModal()
+	{
+		warnType.eq(0).prop("checked", true);
+	}
+
+	function toggleReason()
+	{
+
 	}
 
 	function getDoit()
@@ -81,14 +126,21 @@
 		});
 	}
 
+	let g_doitUuid;
+	let g_doitTitle;
 	function buildDoitDetail(data)
 	{
 		let jsonData = JSON.parse(data);
 		let detail 	 = jsonData.data;
 
+		g_doitUuid = detail.doit_uuid;
+		g_doitTitle = detail.doit_title;
+
 		doitTitle.html(detail.doit_title);
+
 		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
 		doitDesc.html(desc);
+
 		let tag  = detail.doit_tags;
 		let tags = tag.split(",");
 		let tagDom = '';
@@ -300,6 +352,195 @@
 
 		/** 인증기간 **/
 		periodDom.text(period);
+	}
+
+	/** 인증정보 탭 **/
+	function getInvolveAction()
+	{
+		$.ajax({
+			url: api.involveAction,
+			type: "POST",
+			headers: headers,
+			data: actionParams(),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					buildPagination(data);
+					buildActionInfo(data);
+				}
+			},
+			error: function (request, status) {
+				console.log(status);
+			}
+		});
+	}
+
+	function actionParams()
+	{
+		let param = {
+			"doit_uuid" : g_doitUuid
+			,"page" : currentPage
+			,"limit" : selPageLengthForActionTab.val()
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function buildActionInfo(data)
+	{
+		let jsonData = JSON.parse(data);
+		let actions = jsonData.data;
+		let dataLen  = actions.length;
+		let actionDom = '';
+
+		for (let i=0; i<dataLen; i++)
+		{
+			let action    = actions[i];
+			let actionId  = "action_"+i;
+			let successYn = action.success === 'Y' ? '성공' : '실패';
+			let resourceType = action.resource_type;
+			let btnTxt 	 = '경고장';
+			let btnClass = 'warning-btn';
+			if (action.yellow_card === 'Y')
+			{
+				btnClass += 'yellow-card-btn';
+				btnTxt = '옐로카드 취소';
+			}
+			if (action.red_card === 'Y')
+			{
+				btnClass += 'red-card-btn';
+				btnTxt = '레드카드 취소';
+			}
+
+			actionDom += '<li>';
+			actionDom += 	'<div class="top clearfix">';
+			actionDom += 		'<div class="checkbox-wrap">';
+			actionDom += 			'<input type="checkbox" id="'+actionId+'" name="cc" />';
+			actionDom += 			'<label for="'+actionId+'"><span></span></label>';
+			actionDom += 		'</div>';
+			actionDom += 		'<span class="success-text">'+successYn+'</span>';
+			actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
+			actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
+			actionDom += 	'</div>';
+			actionDom += 	'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+			actionDom += 	'<div class="text-wrap">';
+			actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
+			actionDom += 		'<a href="#">'+action.user_name+'</a>';
+			actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
+			actionDom += 	'</div>';
+			actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
+			actionDom += '</li>';
+		}
+
+		actionUl.html(actionDom);
+	}
+
+	let currentPage = 1;
+	function buildPagination(data)
+	{
+		let jsonData    = JSON.parse(data);
+		let totalCount  = jsonData.recordsTotal;
+		let last		= Math.ceil(totalCount / selPageLengthForActionTab.val());
+		let pageLength  = 7;
+		if (last <= 10)
+			pageLength = last
+		let i;
+
+		let pageDom = '';
+		if (currentPage === 1)
+			pageDom += '<a class="paginate_button previous" id="dataTable_previous">';
+		else
+			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(currentPage-1)+'" id="dataTable_previous">';
+		pageDom +=     '<i class="fas fa-angle-double-left"></i>';
+		pageDom += '</a>';
+		pageDom += '<span>';
+		if (last <= 10)
+		{
+			for (i=1; i<=pageLength; i++)
+			{
+				if (last > 1 && currentPage === i)
+					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
+				else
+					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+			}
+		}
+		else
+		{
+			for (i=1; i<=pageLength; i++)
+			{
+				if (currentPage < 5)
+				{
+					if (last > 1 && currentPage === i)
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
+					else
+					{
+						if (pageLength === i)
+						{
+							pageDom += '<span class="ellipsis">…</span>';
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
+						}
+						else
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+					}
+				}
+				else if (currentPage >= 5 && currentPage <= last - 4)
+				{
+					if (i === 1)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+						pageDom += '<span class="ellipsis">…</span>';
+					}
+
+					if (currentPage === i)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i - 1) + '">' + (i - 1) + '</a>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="' + i + '">' + i + '</a>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i + 1) + '">' + (i + 1) + '</a>';
+					}
+
+					if (pageLength === i)
+					{
+						pageDom += '<span class="ellipsis">…</span>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
+					}
+				}
+				else if (currentPage > last - 4)
+				{
+					if (i === 1)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+						pageDom += '<span class="ellipsis">…</span>';
+					}
+
+					if (i >= pageLength - 4)
+					{
+						if (currentPage === last-(pageLength-i))
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
+						else
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
+					}
+				}
+			}
+		}
+		pageDom += '</span>';
+		if (last === currentPage)
+			pageDom += '<a class="paginate_button next" id="dataTable_next">';
+		else
+			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(currentPage+1)+'" id="dataTable_next">';
+		pageDom += 	   '<i class="fas fa-angle-double-right"></i>';
+		pageDom += '</a>';
+
+		pagination.html(pageDom);
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		currentPage = $(obj).data('page');
+
+		getInvolveAction();
 	}
 
 	function onSubmitSearch()

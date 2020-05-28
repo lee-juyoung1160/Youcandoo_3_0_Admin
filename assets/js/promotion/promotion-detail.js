@@ -84,7 +84,6 @@
 	{
 		let jsonData   	= JSON.parse(data);
 		let detailData 	= jsonData.data;
-		console.log(detailData)
 		let promoData  	= detailData.promotion;
 		rewards 	= detailData.reward;
 		let notice 		= promoData.promotion_notice;
@@ -227,14 +226,13 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					console.log(d);
 					return tableParams(d);
 				}
 			},
 			columns: [
 				{title: "No", 		data: "idx",    	   			width: "5%",     orderable: false,   className: "text-center" }
-				,{title: "두잇 ID", 	data: "doit_uuid",    			width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "두잇 명", 	data: "doit_title",    			width: "15%",    orderable: false,   className: "text-center" }
+				,{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "text-center" }
+				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "text-center" }
 				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center" }
 			],
 			language: {
@@ -285,9 +283,16 @@
 
 	function setRowAttributes(nRow, aData)
 	{
+		let titleDom  = $(nRow).children().eq(1);
+		let countUserDom = $(nRow).children().eq(2);
 		let periodDom = $(nRow).children().eq(3);
+		let detailUrl = page.detailDoit+aData.idx;
 		let period    = aData.action_start_datetime + ' ~ ' + aData.action_end_datetime;
 
+		/** 제목에 a 태그 추가 **/
+		titleDom.html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
+		/** 참여인원/모집인원 **/
+		countUserDom.html(aData.doit_member+"/"+aData.max_user);
 		/** 인증기간 **/
 		periodDom.text(period);
 	}

@@ -1,4 +1,3 @@
-
 	/** 현재 연도-월-일 구하기 **/
 	let today = new Date();
 	let year = today.getFullYear();
@@ -16,7 +15,6 @@
 	result.innerHTML = year + '.' + month + '.' + date + '. '+ hours + ':' + minutes + ' 기준';
 
 	/** 넘버 total 카운팅 **/
-
 	function counter () {
 		$('.count.total').each(function() {
 			let $this = $(this);
@@ -35,7 +33,6 @@
 				});
 		});
 	};
-
 
 
 	/** 도넛 차트 관련 (내일, 오늘, 종료) **/
@@ -57,7 +54,7 @@
 	let labels = {label:['일반', '프로모션']};
 
 
-	/** 완료된 두잇 **/
+	/** 예정되는, 진행중인, 완료된 두잇 **/
 	$.ajax({
 		url : "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
 		headers :{ "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -67,13 +64,35 @@
 		error: function () {
 
 		},
-		success : function(endData){
+		success : function(getDoughnutData){
 			let endChart = new Chart(endDoughnut, {
 				type: doughnut.type,
 				data: {
 					labels: labels.label,
 					datasets: [{
-						data: [endData.data.end.user_cnt, endData.data.end.company_cnt],
+						data: [getDoughnutData.data.end.user_cnt, getDoughnutData.data.end.company_cnt],
+						backgroundColor:backgroundColorDoughnut.color,
+					}]
+				},
+				options: options.options,
+			});
+			let todayChart = new Chart(todayDoughnut, {
+				type: doughnut.type,
+				data: {
+					labels: labels.label,
+					datasets: [{
+						data: [getDoughnutData.data.ing.user_cnt, getDoughnutData.data.ing.company_cnt],
+						backgroundColor:backgroundColorDoughnut.color,
+					}]
+				},
+				options: options.options,
+			});
+			let tomorrowChart = new Chart(tomorrowDoughnut, {
+				type: doughnut.type,
+				data: {
+					labels: labels.label,
+					datasets: [{
+						data: [getDoughnutData.data.pre.user_cnt, getDoughnutData.data.pre.company_cnt],
 						backgroundColor:backgroundColorDoughnut.color,
 					}]
 				},
@@ -84,80 +103,25 @@
 			let endCompanyCount = document.getElementById('end-company');
 			let endTotalCount = document.getElementById('end-total');
 
-			endUserCount.innerHTML = endData.data.end.user_cnt;
-			endCompanyCount.innerHTML = endData.data.end.company_cnt;
-			endTotalCount.innerHTML = endData.data.end.total_cnt;
-
-			counter();
-		},
-	});
-
-	/** 진행중인 두잇 **/
-	$.ajax({
-		url : "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
-		headers :{ "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
-		dataType : 'JSON',
-		type : 'POST',
-
-		error: function () {
-
-		},
-		success: function (ingData) {
-			console.log(ingData.data)
-			let todayChart = new Chart(todayDoughnut, {
-				type: doughnut.type,
-				data: {
-					labels: labels.label,
-					datasets: [{
-						data: [ingData.data.ing.user_cnt, ingData.data.ing.company_cnt],
-						backgroundColor:backgroundColorDoughnut.color,
-					}]
-				},
-				options: options.options,
-			});
-
 			let ingUserCount = document.getElementById('ing-user');
 			let ingCompanyCount =  document.getElementById('ing-company');
 			let ingTotalCount = document.getElementById('ing-total');
-
-			ingUserCount.innerHTML = ingData.data.ing.user_cnt;
-			ingCompanyCount.innerHTML = ingData.data.ing.company_cnt;
-			ingTotalCount.innerHTML = ingData.data.ing.total_cnt;
-
-			counter();
-		},
-	});
-
-	/** 예정되 두잇 **/
-	$.ajax({
-		url : "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
-		headers :{ "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
-		dataType : 'JSON',
-		type : 'POST',
-
-		error: function () {
-
-		},
-		success: function (preData) {
-			let tomorrowChart = new Chart(tomorrowDoughnut, {
-				type: doughnut.type,
-				data: {
-					labels: labels.label,
-					datasets: [{
-						data: [preData.data.pre.user_cnt, preData.data.pre.company_cnt],
-						backgroundColor:backgroundColorDoughnut.color,
-					}]
-				},
-				options: options.options,
-			});
 
 			let preUserCount = document.getElementById('pre-user');
 			let preCompanyCount = document.getElementById('pre-company');
 			let preTotalCount = document.getElementById('pre-total');
 
-			preUserCount.innerHTML = preData.data.pre.user_cnt;
-			preCompanyCount.innerHTML = preData.data.pre.company_cnt;
-			preTotalCount.innerHTML = preData.data.pre.total_cnt;
+			endUserCount.innerHTML = getDoughnutData.data.end.user_cnt;
+			endCompanyCount.innerHTML = getDoughnutData.data.end.company_cnt;
+			endTotalCount.innerHTML = getDoughnutData.data.end.total_cnt;
+
+			ingUserCount.innerHTML = getDoughnutData.data.ing.user_cnt;
+			ingCompanyCount.innerHTML = getDoughnutData.data.ing.company_cnt;
+			ingTotalCount.innerHTML = getDoughnutData.data.ing.total_cnt;
+
+			preUserCount.innerHTML = getDoughnutData.data.pre.user_cnt;
+			preCompanyCount.innerHTML = getDoughnutData.data.pre.company_cnt;
+			preTotalCount.innerHTML = getDoughnutData.data.pre.total_cnt;
 
 			counter();
 		},
@@ -180,11 +144,10 @@
 		getYearData();
 	});
 
-	let yearVal = 2020;
+	let yearVal = "2020";
 
 	$('#doit-year-select').change(function () {
 		yearVal = $(this).val();
-		console.log(yearVal)
 		getYearData();
 	});
 
@@ -192,7 +155,6 @@
 		let param ={
 			'year' : yearVal,
 		};
-		console.log(param)
 		$.ajax({
 			url : "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/month",
 			headers :{ "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -203,8 +165,6 @@
 			error: function () {
 			},
 			success : function(monthData){
-				console.log(monthData.data);
-
 				let monthlyChart = new Chart(monthlyMixedChart, {
 					type: 'bar',
 					data: {

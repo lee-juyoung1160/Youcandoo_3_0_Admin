@@ -18,9 +18,9 @@
                             <canvas id="tomorrow-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count" data-count="3200"></span></li>
-                            <li class="fixed">일반 <span class="count">650</span></li>
-                            <li class="fixed">프로모션  <span class="count">1,000</span></li>
+                            <li class="fixed">Total <span class="total count" id="pre-total" data-count=""></span></li>
+                            <li class="fixed">일반 <span class="count" id="pre-user"></span></li>
+                            <li class="fixed">프로모션  <span class="count" id="pre-company">1,000</span></li>
                         </ul>
                     </div>
                 </div>
@@ -34,9 +34,9 @@
                             <canvas id="today-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  data-count="2000"></span></li>
-                            <li class="fixed">일반 <span class="count">650</span></li>
-                            <li class="fixed">프로모션  <span class="count">1,000</span></li>
+                            <li class="fixed">Total <span class="total count"  id="ing-total" data-count=""></span></li>
+                            <li class="fixed">일반 <span class="count" id="ing-user">650</span></li>
+                            <li class="fixed">프로모션  <span class="count" id="ing-company">1,000</span></li>
                         </ul>
                     </div>
                 </div>
@@ -50,9 +50,9 @@
                             <canvas id="end-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  data-count="13260"></span></li>
-                            <li class="fixed">일반 <span class="count">650</span></li>
-                            <li class="fixed">프로모션  <span class="count">1,000</span></li>
+                            <li class="fixed">Total <span class="total count"  id="end-total" data-count=""></span></li>
+                            <li class="fixed">일반 <span class="count" id="end-user"></span></li>
+                            <li class="fixed">프로모션  <span class="count" id="end-company"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -66,9 +66,9 @@
                             <canvas id="cancel-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  data-count="3260"></span></li>
-                            <li class="fixed">일반 <span class="count">650</span></li>
-                            <li class="fixed">프로모션  <span class="count">1,000</span></li>
+                            <li class="fixed">Total <span class="total count" data-count=""></span></li>
+                            <li class="fixed">일반 <span class="count"></span></li>
+                            <li class="fixed">프로모션  <span class="count"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -79,16 +79,16 @@
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">월 단위로 등록된 두잇</p>
                         <div class="select-box">
-                            <label for="ex_select2">2020년</label>
-                            <select id="ex_select2">
-                                <option selected="">2020년</option>
-                                <option>2021년</option>
+                            <label for="doit-year-select">2020년</label>
+                            <select id="doit-year-select" name="doit-year-value">
+                                <option value="2020" selected>2020년</option>
+                                <option value="2021">2021년</option>
                             </select>
                         </div>
                     </div>
                     <div class="row-wrap row-wrap2">
                         <canvas id="monthly-mixedChart"></canvas>
-                        <div id='chartjsLegend' class='chartjsLegend'></div>
+<!--                        <div id='chartjsLegend' class='chartjsLegend'></div>-->
                     </div>
                 </div>
                 <div class="col">

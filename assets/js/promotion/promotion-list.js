@@ -202,7 +202,7 @@
 				setExcelData("프로모션목록", "프로모션목록", data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}

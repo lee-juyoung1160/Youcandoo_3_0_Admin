@@ -26,8 +26,8 @@
 				else
 					alert(invalidResp(data))
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(thrownError);
+			error: function (request, status) {
+				alert(message.ajaxError);
 			}
 		});
 	}

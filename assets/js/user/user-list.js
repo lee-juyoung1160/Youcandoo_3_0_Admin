@@ -79,8 +79,8 @@
 				   */
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(message.ajaxError);
 				}
 			},
 			columns: [
@@ -243,7 +243,7 @@
 				setExcelData("회원목록", "회원목록", data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			},
 		});
 	}
@@ -288,7 +288,7 @@
 						}
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					},
 				});
 			}

@@ -33,7 +33,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -101,7 +101,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

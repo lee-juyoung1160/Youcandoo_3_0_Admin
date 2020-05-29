@@ -916,7 +916,7 @@
 							location.href = page.listPromo
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

@@ -12,6 +12,7 @@
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const selectedReward    = $("#selectedReward")
 	const labelSelReward 	= $("label[for='selReward']");
+	const maxAvailable 		= $("#maxAvailable");
 	const maxUser 			= $("#maxUser");
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
@@ -339,35 +340,38 @@
 		{
 			let detail = data.data;
 			selectedRewardDom += '<li class="reward-type clearfix">';
-			selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'</span></p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +' : 단체 '+detail.group_percent +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ detail.total_reward +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap">현재까지 남은 잔여 UCD는 ';
-			selectedRewardDom += 	'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(detail.remain_budget_ucd)+' UCD</span> 입니다.';
-			selectedRewardDom += 	'</p>';
-			selectedRewardDom += '</div>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'</span></p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +' : 단체 '+detail.group_percent +'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 UCD : </span>'+ detail.total_reward +'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap">현재까지 남은 잔여 UCD는 ';
+			selectedRewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(detail.remain_budget_ucd)+' UCD</span> 입니다.';
+			selectedRewardDom += 		'</p>';
+			selectedRewardDom += 	'</div>';
 			selectedRewardDom += '</li>';
 
 			selectedReward.html(selectedRewardDom);
 			selectedReward.show();
+
+			/** 모집인원 가이드(프로모션에서 설정한 최대 못집인원을 표출시켜 줌) **/
+			maxAvailable.html(detail.max_user_limit);
 		}
 	}
 
@@ -582,14 +586,14 @@
 			return false;
 		}
 
-		if ($("input[name=chkAccessUser]").is(':checked') && isEmpty(privateCode.val()))
+		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
 			alert('참가코드를 '+message.input);
 			privateCode.focus();
 			return false;
 		}
 
-		if ($("input[name=chkAccessUser]").is(':checked') && privateCode.val().trim().length < 4)
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length < 4)
 		{
 			alert(message.minimumPassCode);
 			privateCode.focus();

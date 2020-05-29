@@ -241,7 +241,7 @@
 					buildOptionPromo(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -283,7 +283,7 @@
 				buildOptionReward(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -324,7 +324,7 @@
 					buildSelectedReward(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -682,7 +682,7 @@
 							location.href = page.listDoit
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

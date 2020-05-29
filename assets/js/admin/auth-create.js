@@ -45,7 +45,7 @@
 						getAuthList();
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(message.ajaxError);
 				}
 			});
 		}
@@ -75,7 +75,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -124,7 +124,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -269,7 +269,7 @@
 						}
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}
@@ -292,7 +292,7 @@
 						getAuthList();
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(message.ajaxError);
 				}
 			});
 		}

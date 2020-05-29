@@ -106,7 +106,7 @@
 							location.href = page.listBiz
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

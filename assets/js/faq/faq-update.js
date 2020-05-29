@@ -29,7 +29,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -68,8 +68,8 @@
 				else
 					alert(invalidResp(data))
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(thrownError);
+			error: function (request, status) {
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -114,7 +114,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

@@ -125,7 +125,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			},
 		});
 	}
@@ -376,7 +376,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -400,7 +400,7 @@
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
 		actionTotal.html(totalCount);
-
+console.log(actions)
 		if (totalCount > 0)
 		{
 			actionTopDom.show();
@@ -582,7 +582,7 @@
 				setExcelData("개설두잇목록", "개설두잇목록", data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}

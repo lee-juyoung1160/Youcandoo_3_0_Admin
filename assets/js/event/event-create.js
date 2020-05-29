@@ -98,7 +98,7 @@
 							location.href = page.listEvent
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

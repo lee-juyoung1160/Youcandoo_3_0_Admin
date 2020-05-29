@@ -71,7 +71,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}
@@ -139,7 +139,7 @@
 							getProfile();
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(message.ajaxError);
 					}
 				});
 			}

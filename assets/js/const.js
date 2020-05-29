@@ -24,7 +24,7 @@
 		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 		,onlyAlphabet: '영문만 입력할 수 있습니다.'
-		,cantLoadList: '목록을 불러오지 못했습니다. 관리자에게 문의하세요.'
+		,ajaxError: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
 		,compareMinMaxUser: '최소인원은 최대인원을 초과할 수 없습니다.'
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'

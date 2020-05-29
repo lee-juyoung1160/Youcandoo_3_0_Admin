@@ -59,8 +59,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(message.ajaxError);
 				}
 			},
 			columns: [
@@ -253,7 +253,7 @@
 					}
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(message.ajaxError);
 				},
 			});
 		}

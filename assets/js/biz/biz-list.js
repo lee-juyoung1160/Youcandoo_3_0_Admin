@@ -50,8 +50,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(message.ajaxError);
 				}
 			},
 			columns: [
@@ -143,7 +143,7 @@
 				setExcelData("비즈목록", "비즈목록", data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			},
 		});
 	}

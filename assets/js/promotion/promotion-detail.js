@@ -75,7 +75,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			},
 		});
 	}
@@ -318,7 +318,7 @@
 				setExcelData("개설두잇목록", "개설두잇목록", data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(message.ajaxError);
 			}
 		});
 	}

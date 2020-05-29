@@ -1,8 +1,10 @@
 .auth-list-enrollment {
     width: 230px;
     height: auto;
+    min-height: 300px;
     position: fixed;
     top: 160px;
+    border-radius: 10px;
     z-index: 30;
 }
 .auth-set-enrollment {

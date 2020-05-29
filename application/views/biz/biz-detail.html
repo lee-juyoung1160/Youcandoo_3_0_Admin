@@ -9,7 +9,7 @@
                             <p class="sub-title important">회사명(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">나이키</p>
+                            <p class="detail-data" id="bizName">나이키</p>
                         </div>
                     </div>
                 </li>
@@ -19,7 +19,7 @@
                             <p class="sub-title important">사업자 번호(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">110-250-000000</p>
+                            <p class="detail-data" id="bizNumber">110-250-000000</p>
                         </div>
                     </div>
                 </li>
@@ -29,7 +29,7 @@
                             <p class="sub-title important">프로필 이미지 (*)</p>
                         </div>
                         <div class="col-2">
-                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                            <img id="bizProfileImg" class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
                     </div>
                 </li>
@@ -38,7 +38,7 @@
                         <div class="col-1">
                             <p class="sub-title important">홈페이지 링크 (*)</p>
                         </div>
-                        <div class="col-2">
+                        <div id="bizLink" class="col-2">
                             <a class="detail-data" href="https://www.kakaokids.com/" target="_blank">https://www.naver.co.kr/</a>
                         </div>
                     </div>
@@ -49,15 +49,15 @@
                             <p class="sub-title important">소개 내용 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">안녕하세요! 카카오키즈입니다.</p>
+                            <p class="detail-data" id="bizDesc">안녕하세요! 카카오키즈입니다.</p>
                         </div>
                     </div>
                 </li>
             </ul>
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
-                    <a class="list-btn" href="#">목록</a>
-                    <a class="update-btn" href="/biz/update">수정</a>
+                    <a class="list-btn" href="/biz/lists">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
                 </div>
             </div>
             <div class="table-wrap">
@@ -247,3 +247,4 @@
         </div>
     </div>
 </section>
+<script src="/assets/js/biz/biz-detail.js"></script>

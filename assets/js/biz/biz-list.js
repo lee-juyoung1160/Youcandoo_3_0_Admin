@@ -93,7 +93,7 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -116,9 +116,9 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom = $(nRow).children().eq(1);
-
+		let detailUrl = page.detailBiz+aData.idx;
 		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="/biz/detail">'+aData.nickname+'</a>');
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.nickname+'</a>');
 	}
 
 	function onSubmitSearch()

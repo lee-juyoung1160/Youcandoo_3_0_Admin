@@ -27,7 +27,7 @@
 		/** 목록 불러오기 **/
 		getActions();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")    	.on("keydown", function (event) { onKeydownSearchActions(event); });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
@@ -55,6 +55,12 @@
 	function initModal()
 	{
 		warnType.eq(0).prop("checked", true);
+	}
+
+	function onKeydownSearchActions(event)
+	{
+		if (event.keyCode === 13)
+			getActions();
 	}
 
 	function onChangeChkStatus(obj)
@@ -181,6 +187,7 @@
 					actionDom += '</ul>';
 			}
 		}
+		else actionTopDom.hide();
 
 		actionWrap.html(actionDom);
 	}

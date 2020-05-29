@@ -126,7 +126,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(2);
-		let detailUrl = '/service/faq/detail/'+aData.idx;
+		let detailUrl = page.detailFaq+aData.idx;
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}

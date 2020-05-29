@@ -282,7 +282,6 @@
         return data.status;
     }
 
-
     function getStatusMessage(data)
     {
         return data.msg;
@@ -298,9 +297,7 @@
 
     function invalidResp(data)
     {
-        let resp = JSON.parse(data);
-
-        return resp.msg;
+        return data.msg;
     }
 
     /** modal 열기,닫기 **/

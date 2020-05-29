@@ -149,7 +149,7 @@
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
-		let detailUrl = '/service/notice/detail/'+aData.idx;
+		let detailUrl = page.detailNotice+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');

@@ -38,6 +38,7 @@
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
 	const warnType		= $("input[name=radio-warn-type]");
+	const actionTotal	= $(".action-total");
 	const pagination	= $("#dataTable_paginate");
 
 	const pathname 		= window.location.pathname;
@@ -58,6 +59,7 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		warnType		.on('change', function () { toggleReason(); });
+		selPageLengthForActionTab.on('change', function () { getInvolveAction(); });
 	});
 
 	function onClickDoitTab()
@@ -392,6 +394,8 @@
 		let actions = jsonData.data;
 		let dataLen  = actions.length;
 		let actionDom = '';
+
+		actionTotal.html(jsonData.recordsTotal);
 
 		for (let i=0; i<dataLen; i++)
 		{

@@ -62,7 +62,7 @@
 			url: api.getProfile,
 			type: "POST",
 			headers : headers,
-			data: JSON.stringify({"userid" : adminId.val()}),
+			data: JSON.stringify({"userid" : sessionUserId.val()}),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildProfile(data)

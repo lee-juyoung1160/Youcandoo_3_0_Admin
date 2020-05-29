@@ -44,8 +44,8 @@
 		,inactiveUser : baseApiUrl+'user/inactive'
 
 		,createBiz : baseApiUrl+'biz/create'
-		,deleteBiz : ''
-		,updateBiz : ''
+		,detailBiz : baseApiUrl+'biz/detail'
+		,involveBizPromotion : 'biz/promotion'
 		,listBiz : baseApiUrl+'biz/list'
 
 		,createPromotion : baseApiUrl+'promotion/create'
@@ -121,6 +121,7 @@
 
 		,listBiz : '/biz/lists'
 		,createBiz : '/biz/create'
+		,detailBiz : '/biz/detail/'
 
 		,listPromo : '/pro/lists'
 		,createPromo : '/pro/create'

@@ -1015,3 +1015,10 @@ textarea {
 .enrollment li .col-wrap .col-2 {
 	width: 940px;
 }
+
+.empty-message {
+	width: 100%;
+	padding: 80px 0;
+	font-size: 15px;
+	text-align: center;
+}

@@ -45,7 +45,7 @@
 
 		,createBiz : baseApiUrl+'biz/create'
 		,detailBiz : baseApiUrl+'biz/detail'
-		,involveBizPromotion : 'biz/promotion'
+		,involveBizPromotion : baseApiUrl+'biz/promotion'
 		,listBiz : baseApiUrl+'biz/list'
 
 		,createPromotion : baseApiUrl+'promotion/create'

@@ -1,0 +1,18 @@
+.biz-img {
+    float: left;
+    width: 20%;
+}
+.biz-info {
+    float: left;
+    width: 80%;
+}
+.biz-info li {
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+.biz-info li .col-wrap .col-1 {
+    width: 200px;
+}
+.biz-info li .col-wrap .col-2 {
+    width: 790px;
+}

@@ -30,6 +30,7 @@
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
 		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
+		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
@@ -61,6 +62,8 @@
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,selectReward : baseApiUrl+'promotion/getReward'
 		,involveAction : baseApiUrl+'doit/get/action'
+
+		,listAction : baseApiUrl+'action/list'
 
 		,createNotice : baseApiUrl+'notice/create'
 		,detailNotice : baseApiUrl+'notice/detail'

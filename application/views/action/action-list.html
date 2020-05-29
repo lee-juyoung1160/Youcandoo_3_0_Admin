@@ -31,7 +31,7 @@
                 <div class="select-box">
                     <label for="search_type">두잇명</label>
                     <select id="search_type">
-                        <option value="doit">두잇명</option>
+                        <option value="doit_title">두잇명</option>
                         <option value="nickname">닉네임</option>
                     </select>
                 </div>
@@ -48,27 +48,27 @@
             <ul class="clearfix">
                 <li style="width: 33%;">
                     <p class="list-common-title">인증 상태</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="c1" name="chk-status" value="success"/>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="chk-status" value="success"/>
                         <label for="c1"><span></span>성공</label>
 
-                        <input type="radio" id="c2" name="chk-status" value="yellow"/>
+                        <input type="checkbox" id="c2" name="chk-status" value="yellow_card"/>
                         <label for="c2"><span></span>옐로카드</label>
 
-                        <input type="radio" id="c3" name="chk-status" value="red"/>
+                        <input type="checkbox" id="c3" name="chk-status" value="red_card"/>
                         <label for="c3"><span></span>레드카드</label>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">신고여부</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-progress" value=""/>
+                        <input type="radio" id="r2" name="radio-report" value="ALL"/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="radio-progress" value="intime"/>
+                        <input type="radio" id="r3" name="radio-report" value="Y"/>
                         <label for="r3"><span></span>Y</label>
 
-                        <input type="radio" id="r4" name="radio-progress" value="done"/>
+                        <input type="radio" id="r4" name="radio-report" value="N"/>
                         <label for="r4"><span></span>N</label>
                     </div>
                 </li>
@@ -83,7 +83,7 @@
         </div>
 
         <div class="table-wrap">
-            <div class="top clearfix">
+            <div id="actionTopDom" class="top clearfix" style="display: none;">
                 <div class="left-wrap clearfix">
                     <div class="select-box">
                         <label for="selPageLength">10개씩 보기</label>
@@ -93,121 +93,81 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
                     <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>경고장 일괄발송</button>
                 </div>
             </div>
 
-            <ul class="cert-contents clearfix">
-                <li>
-                    <div class="top clearfix">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c5" name="cc" />
-                            <label for="c5"><span></span></label>
+            <div id="actionWrap">
+                <!--<ul class="cert-contents clearfix">
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                            <span class="success-text">성공</span>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                         </div>
-                        <span class="success-text">성공</span>
-                        <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                    </div>
 
-                    <div class="thumbnail-wrap">
-                        <div class="error">
-                            <p class="error-text"><i class="fas fa-exclamation-circle"></i>인증 조건 부적합</p>
+                        <div class="thumbnail-wrap">
+                            <div class="error">
+                                <p class="error-text"><i class="fas fa-exclamation-circle"></i>인증 조건 부적합</p>
+                            </div>
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
-                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
-                    </div>
 
-                    <div class="text-wrap">
-                        <p class="title">매일 반려견 산책하기</p>
-                        <a href="#">aaaaaaa</a>
-                        <p class="date">2019.07.17 10:30:24</p>
-                    </div>
-                    <button class="warning-btn" type="button">경고장</button>
-                </li>
-                <li>
-                    <div class="top clearfix">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c6" name="cc" />
-                            <label for="c6"><span></span></label>
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <a href="#">aaaaaaa</a>
+                            <p class="date">2019.07.17 10:30:24</p>
                         </div>
-                        <span class="failure-text">실패</span>
-                        <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                    </div>
-                    <div class="thumbnail-wrap">
-                        <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
-                    </div>
-                    <div class="text-wrap">
-                        <p class="title">매일 반려견 산책하기</p>
-                        <a href="#">aaaaaaa</a>
-                        <p class="date">2019.07.17 10:30:24</p>
-                    </div>
-                    <button class="warning-btn yellow-card-btn" type="button">옐로카드 취소</button>
-                </li>
-                <li>
-                    <div class="top clearfix">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c7" name="cc" />
-                            <label for="c7"><span></span></label>
+                        <button class="warning-btn" type="button">경고장</button>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                            <span class="failure-text">실패</span>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                         </div>
-                        <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                    </div>
-                    <div class="thumbnail-wrap">
-                        <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
-                    </div>
-                    <div class="text-wrap">
-                        <p class="title">매일 반려견 산책하기</p>
-                        <a href="#">aaaaaaa</a>
-                        <p class="date">2019.07.17 10:30:24</p>
-                    </div>
-                    <button class="warning-btn red-card-btn" type="button">레드카드 취소</button>
-                </li>
-                <li>
-                    <div class="top clearfix">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c8" name="cc" />
-                            <label for="c8"><span></span></label>
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
                         </div>
-                        <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                    </div>
-                    <div class="thumbnail-wrap">
-                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
-                    </div>
-                    <div class="text-wrap">
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <a href="#">aaaaaaa</a>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
+                        <button class="warning-btn yellow-card-btn" type="button">옐로카드 취소</button>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                        </div>
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <a href="#">aaaaaaa</a>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
+                        <button class="warning-btn red-card-btn" type="button">레드카드 취소</button>
+                    </li>
+                </ul>-->
+            </div>
 
-                        <p class="title">매일 반려견 산책하기</p>
-                        <a href="#">aaaaaaa</a>
-                        <p class="date">2019.07.17 10:30:24</p>
-                    </div>
-                    <button class="warning-btn" type="button">경고장</button>
-                </li>
-                <li>
-                    <div class="top clearfix">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c9" name="cc" />
-                            <label for="c9"><span></span></label>
-                        </div>
-                        <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                    </div>
-                    <div class="thumbnail-wrap">
-                        <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
-                    </div>
-                    <div class="text-wrap">
-                        <p class="title">매일 반려견 산책하기</p>
-                        <a href="#">aaaaaaa</a>
-                        <p class="date">2019.07.17 10:30:24</p>
-                    </div>
-                    <button class="warning-btn" type="button">경고장</button>
-                </li>
-            </ul>
-
-            <ul class="table-pagination clearfix">
-                <li><i class="fas fa-angle-double-left"></i></li>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+            </div>
 
 <!--            <div class="modal-content">-->
 <!--                <div class="wrap">-->

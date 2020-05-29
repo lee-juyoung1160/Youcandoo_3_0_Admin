@@ -400,7 +400,7 @@
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
 		actionTotal.html(totalCount);
-console.log(actions)
+
 		if (totalCount > 0)
 		{
 			actionTopDom.show();
@@ -413,15 +413,18 @@ console.log(actions)
 				let resourceType = action.resource_type;
 				let btnTxt 	 = '경고장';
 				let btnClass = 'warning-btn';
+				let warnDesc = '';
 				if (action.yellow_card === 'Y')
 				{
-					btnClass += ' yellow-card-btn';
 					btnTxt = '옐로카드 취소';
+					btnClass += ' yellow-card-btn';
+					warnDesc = action.yellow_card_description;
 				}
 				if (action.red_card === 'Y')
 				{
-					btnClass += ' red-card-btn';
 					btnTxt = '레드카드 취소';
+					btnClass += ' red-card-btn';
+					warnDesc = action.red_card_description;
 				}
 
 				if (i===0 || i%5 === 0)
@@ -437,7 +440,15 @@ console.log(actions)
 				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
 				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
 				actionDom += 	'</div>';
-				actionDom += 	'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				actionDom += 	'<div class="thumbnail-wrap">';
+				if (action.yellow_card === 'Y' || action.red_card === 'Y')
+				{
+					actionDom += 	'<div class="error">';
+					actionDom += 		'<p class="error-text"><i class="fas fa-exclamation-circle"></i>'+warnDesc+'</p>';
+					actionDom += 	'</div>';
+				}
+				actionDom += 		'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
 				actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
 				actionDom += 		'<a href="#">'+action.user_name+'</a>';

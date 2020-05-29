@@ -234,6 +234,7 @@
 			url: api.involvePromotion,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"company_uuid" : bizUuid}),
@@ -250,7 +251,7 @@
 	{
 		labelSelPromo.text('프로모션 선택');
 		let optionPromoDom = '<option value="">프로모션 선택</option>';
-		if (!isEmpty(data.data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let details = data.data;
 			let dataLen = details.length;
@@ -271,11 +272,11 @@
 
 	function onChangeSelPromo()
 	{
-		buildSelectedReward();
 		$.ajax({
 			url: api.involveReward,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
@@ -292,7 +293,7 @@
 	{
 		labelSelReward.text('리워드 조건 생성 목록 선택');
 		let optionRewardDom = '<option value="">리워드 조건 생성 목록 선택</option>';
-		if (!isEmpty(data.data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let details = data.data;
 			let dataLen = details.length;
@@ -317,6 +318,7 @@
 			url: api.selectReward,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
@@ -333,7 +335,7 @@
 	{
 		selectedReward.hide();
 		let selectedRewardDom = '';
-		if (!isEmpty(data.data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let detail = data.data;
 			selectedRewardDom += '<li class="reward-type clearfix">';

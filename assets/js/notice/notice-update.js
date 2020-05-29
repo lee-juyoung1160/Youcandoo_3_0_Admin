@@ -21,8 +21,9 @@
 		$.ajax({
 			url: api.detailNotice,
 			type: "POST",
-			data: detailParams(),
 			headers: headers,
+			dataType: 'json',
+			data: detailParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -37,20 +38,20 @@
 
 	function detailParams()
 	{
-		const pathName		= getPathName();
-		const noticeIdx		= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const noticeIdx	= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : noticeIdx});
 	}
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
-		title.val(jsonData.data.title);
-		content.summernote('code', jsonData.data.contents);
-		reserveDate.val(jsonData.data.reservation_date);
+		let detailData = data.data;
+		title.val(detailData.title);
+		content.summernote('code', detailData.contents);
+		reserveDate.val(detailData.reservation_date);
 		exposure.each(function () {
-			if ($(this).val() === jsonData.data.is_exposure)
+			if ($(this).val() === detailData.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -66,8 +67,9 @@
 					type: "POST",
 					processData: false,
 					contentType: false,
-					data: params(),
 					headers: headers,
+					dataType: 'json',
+					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))

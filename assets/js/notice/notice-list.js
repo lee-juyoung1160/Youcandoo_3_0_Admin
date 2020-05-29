@@ -242,6 +242,7 @@
 				headers: headers,
 				async: false,
 				global: false,
+				dataType: 'json',
 				data: JSON.stringify(topParams),
 				success: function(data) {
 					alert(getStatusMessage(data));

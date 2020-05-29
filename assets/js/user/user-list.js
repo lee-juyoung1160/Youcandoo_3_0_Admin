@@ -274,8 +274,9 @@
 					url: api.inactiveUser,
 					type: "POST",
 					async: false,
-					headers: headers,
 					global: false,
+					headers: headers,
+					dataType: 'json',
 					data: banParams(),
 					success: function(data) {
 						alert(getStatusMessage(data))

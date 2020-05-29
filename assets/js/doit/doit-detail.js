@@ -1,10 +1,10 @@
 
 	const tabDoit 		= $("#tabDoit");
 	const tabUser 		= $("#tabUser");
-	const tabAction		= $("#tabFeed");
+	const tabAction		= $("#tabAction");
 	const doitDetail	= $("#doitDetail");
 	const doitUser		= $("#doitUser");
-	const doitAction	= $("#doitFeed");
+	const doitAction	= $("#doitAction");
 	const actionUl 		= $("#actionUl");
 	const goUpdate      = $("#goUpdate");
 	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
@@ -33,13 +33,14 @@
 
 	/** 인증정보 탭 **/
 	const btnWarn		= $(".warning-btn");
+	const actionTopDom	= $("#actionTopDom");
+	const actionTotal	= $(".action-total");
+	const pagination	= $("#dataTable_paginate");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
 	const warnType		= $("input[name=radio-warn-type]");
-	const actionTotal	= $(".action-total");
-	const pagination	= $("#dataTable_paginate");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -115,6 +116,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"idx" : idx}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -132,8 +134,7 @@
 	let g_doitTitle;
 	function buildDoitDetail(data)
 	{
-		let jsonData = JSON.parse(data);
-		let detail 	 = jsonData.data;
+		let detail 	 = data.data;
 
 		g_doitUuid = detail.doit_uuid;
 		g_doitTitle = detail.doit_title;
@@ -363,6 +364,7 @@
 			url: api.involveAction,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			data: actionParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -370,6 +372,8 @@
 					buildPagination(data);
 					buildActionInfo(data);
 				}
+				else
+					alert(invalidResp(data));
 			},
 			error: function (request, status) {
 				console.log(status);
@@ -390,50 +394,55 @@
 
 	function buildActionInfo(data)
 	{
-		let jsonData = JSON.parse(data);
-		let actions = jsonData.data;
-		let dataLen  = actions.length;
-		let actionDom = '';
+		let actions    = data.data;
+		let dataLen    = actions.length;
+		let totalCount = data.recordsTotal
+		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
-		actionTotal.html(jsonData.recordsTotal);
+		actionTotal.html(totalCount);
 
-		for (let i=0; i<dataLen; i++)
+		if (totalCount > 0)
 		{
-			let action    = actions[i];
-			let actionId  = "action_"+i;
-			let successYn = action.success === 'Y' ? '성공' : '실패';
-			let resourceType = action.resource_type;
-			let btnTxt 	 = '경고장';
-			let btnClass = 'warning-btn';
-			if (action.yellow_card === 'Y')
+			actionTopDom.show();
+			actionDom = '';
+			for (let i=0; i<dataLen; i++)
 			{
-				btnClass += 'yellow-card-btn';
-				btnTxt = '옐로카드 취소';
-			}
-			if (action.red_card === 'Y')
-			{
-				btnClass += 'red-card-btn';
-				btnTxt = '레드카드 취소';
-			}
+				let action    = actions[i];
+				let actionId  = "action_"+i;
+				let successYn = action.success === 'Y' ? '성공' : '실패';
+				let resourceType = action.resource_type;
+				let btnTxt 	 = '경고장';
+				let btnClass = 'warning-btn';
+				if (action.yellow_card === 'Y')
+				{
+					btnClass += 'yellow-card-btn';
+					btnTxt = '옐로카드 취소';
+				}
+				if (action.red_card === 'Y')
+				{
+					btnClass += 'red-card-btn';
+					btnTxt = '레드카드 취소';
+				}
 
-			actionDom += '<li>';
-			actionDom += 	'<div class="top clearfix">';
-			actionDom += 		'<div class="checkbox-wrap">';
-			actionDom += 			'<input type="checkbox" id="'+actionId+'" name="cc" />';
-			actionDom += 			'<label for="'+actionId+'"><span></span></label>';
-			actionDom += 		'</div>';
-			actionDom += 		'<span class="success-text">'+successYn+'</span>';
-			actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
-			actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
-			actionDom += 	'</div>';
-			actionDom += 	'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
-			actionDom += 	'<div class="text-wrap">';
-			actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
-			actionDom += 		'<a href="#">'+action.user_name+'</a>';
-			actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
-			actionDom += 	'</div>';
-			actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
-			actionDom += '</li>';
+				actionDom += '<li>';
+				actionDom += 	'<div class="top clearfix">';
+				actionDom += 		'<div class="checkbox-wrap">';
+				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="cc" />';
+				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
+				actionDom += 		'</div>';
+				actionDom += 		'<span class="success-text">'+successYn+'</span>';
+				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
+				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
+				actionDom += 	'</div>';
+				actionDom += 	'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				actionDom += 	'<div class="text-wrap">';
+				actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
+				actionDom += 		'<a href="#">'+action.user_name+'</a>';
+				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
+				actionDom += 	'</div>';
+				actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
+				actionDom += '</li>';
+			}
 		}
 
 		actionUl.html(actionDom);
@@ -442,8 +451,7 @@
 	let currentPage = 1;
 	function buildPagination(data)
 	{
-		let jsonData    = JSON.parse(data);
-		let totalCount  = jsonData.recordsTotal;
+		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / selPageLengthForActionTab.val());
 		let pageLength  = 7;
 		if (last <= 10)

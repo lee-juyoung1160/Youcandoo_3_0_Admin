@@ -66,6 +66,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"promotion_idx" : idx}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -82,8 +83,7 @@
 	let rewards;
 	function buildPromoDetail(data)
 	{
-		let jsonData   	= JSON.parse(data);
-		let detailData 	= jsonData.data;
+		let detailData 	= data.data;
 		let promoData  	= detailData.promotion;
 		rewards 	= detailData.reward;
 		let notice 		= promoData.promotion_notice;

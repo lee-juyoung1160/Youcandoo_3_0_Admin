@@ -235,6 +235,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"company_uuid" : bizUuid}),
 			success: function(data) {
 					buildOptionPromo(data);
@@ -249,18 +250,17 @@
 	{
 		labelSelPromo.text('프로모션 선택');
 		let optionPromoDom = '<option value="">프로모션 선택</option>';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			let dataLen  = respData.length;
+			let details = data.data;
+			let dataLen = details.length;
 
 			if (dataLen > 0)
 			{
 				for (let i=0; i<dataLen; i++)
 				{
-					let uuid  = respData[i].promotion_uuid;
-					let title = respData[i].promotion_title;
+					let uuid  = details[i].promotion_uuid;
+					let title = details[i].promotion_title;
 
 					optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
 				}
@@ -277,6 +277,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
 			success: function(data) {
 				buildOptionReward(data);
@@ -291,18 +292,18 @@
 	{
 		labelSelReward.text('리워드 조건 생성 목록 선택');
 		let optionRewardDom = '<option value="">리워드 조건 생성 목록 선택</option>';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			let dataLen  = respData.length;
+			let details = data.data;
+			let dataLen = details.length;
 
 			if (dataLen > 0)
 			{
 				for (let i=0; i<dataLen; i++)
 				{
-					let uuid  = respData[i].reward_uuid;
-					let title = respData[i].title;
+					let uuid  = details[i].reward_uuid;
+					let title = details[i].title;
+
 					optionRewardDom += '<option value="'+ uuid +'">'+ title +'</option>';
 				}
 			}
@@ -317,6 +318,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
 			success: function(data) {
 					buildSelectedReward(data);
@@ -331,35 +333,33 @@
 	{
 		selectedReward.hide();
 		let selectedRewardDom = '';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			console.log(respData)
+			let detail = data.data;
 			selectedRewardDom += '<li class="reward-type clearfix">';
 			selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
 			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+respData.action_duration+'</span></p>';
+			selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'</span></p>';
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+respData.action_daily_allow+'</p>';
+			selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'</p>';
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+respData.goal_percent+'</p>';
+			selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'</p>';
 			selectedRewardDom += '</div>';
-			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ respData.person_percent +' : 단체 '+respData.group_percent +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ respData.total_reward +'</p>';
-			selectedRewardDom += '</div>';
+			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +' : 단체 '+detail.group_percent +'</p>';
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ respData.action_dayofweek +'</p>';
+			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ detail.total_reward +'</p>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '</div>';
+			selectedRewardDom += '<div class="fixed">';
+			selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
 			selectedRewardDom += '<div class="fixed">';
 			selectedRewardDom += 	'<p class="cap">현재까지 남은 잔여 UCD는 ';
-			selectedRewardDom += 	'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(respData.remain_budget_ucd)+' UCD</span> 입니다.';
+			selectedRewardDom += 	'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(detail.remain_budget_ucd)+' UCD</span> 입니다.';
 			selectedRewardDom += 	'</p>';
 			selectedRewardDom += '</div>';
 			selectedRewardDom += '</li>';
@@ -674,6 +674,7 @@
 					headers: headers,
 					processData: false,
 					contentType: false,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));

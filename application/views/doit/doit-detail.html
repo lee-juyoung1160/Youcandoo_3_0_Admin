@@ -6,7 +6,7 @@
         <ul class="table-btn-wrap doit-detail-tab clearfix">
             <li class="active" id="tabDoit">두잇 정보</li>
             <li id="tabUser">참여자 정보</li>
-            <li id="tabFeed">인증 정보</li>
+            <li id="tabAction">인증 정보</li>
         </ul>
         <div class="wrap">
             <div id="doitDetail">
@@ -358,8 +358,8 @@
             </div>
 
             <!--인증정보탭-->
-            <div id="doitFeed" class="table-wrap" style="display: none;">
-                <div class="top clearfix">
+            <div id="doitAction" class="table-wrap" style="display: none;">
+                <div id="actionTopDom" class="top clearfix" style="display: none;">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
                             <label for="selPageLengthForActionTab">10개씩 보기</label>
@@ -431,16 +431,6 @@
                         <button class="warning-btn red-card-btn" type="button">레드카드 취소</button>
                     </li>-->
                 </ul>
-
-                <p class="empty-message">인증 정보가 없습니다.</p>
-
-                <!--<ul class="table-pagination clearfix">
-                    <li><i class="fas fa-angle-double-left"></i></li>
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li><i class="fas fa-angle-double-right"></i></li>
-                </ul>-->
 
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                 </div>

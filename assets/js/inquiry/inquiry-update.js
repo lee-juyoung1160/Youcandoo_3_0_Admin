@@ -22,8 +22,9 @@
 		$.ajax({
 			url: api.detailQna,
 			type: "POST",
-			data: params(),
 			headers: headers,
+			dataType: 'json',
+			data: params(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -52,17 +53,17 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detailData = data.data;
 
-		if (jsonData.data.status === '1')
+		if (detailData.status === '1')
 		{
 			alert(message.completePost);
-			location.href = page.detailInquiry+jsonData.data.idx;
+			location.href = page.detailInquiry+detailData.idx;
 		}
-		nickname.html(jsonData.data.nickname);
-		regDate.html(jsonData.data.created_datetime);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
+		nickname.html(detailData.nickname);
+		regDate.html(detailData.created_datetime);
+		title.html(detailData.title);
+		content.html(detailData.contents);
 	}
 
 	function onSubmitQna()
@@ -74,8 +75,9 @@
 				$.ajax({
 					url: api.commentQna,
 					type: "POST",
-					data: params(),
 					headers: headers,
+					dataType: 'json',
+					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))

@@ -98,9 +98,9 @@
 					processData: false,
 					contentType: false,
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
-
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
 							location.href = page.listBiz

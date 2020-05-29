@@ -19,6 +19,7 @@
 			type: "POST",
 			data: params(),
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -41,18 +42,19 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detailData = data.data;
 
-		type.html(jsonData.data.faq_name);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		type.html(detailData.faq_name);
+		title.html(detailData.title);
+		content.html(detailData.contents);
+		exposure.html(detailData.is_exposure === 'Y' ? '노출' : '비노출');
 	}
 
 	function goUpdatePage()
 	{
-		const pathName		= getPathName();
-		const faqIdx		= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const faqIdx	= splitReverse(pathName, '/');
+
 		location.href = page.updateFaq+faqIdx;
 	}
 

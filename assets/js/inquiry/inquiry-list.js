@@ -33,6 +33,7 @@
 			url: api.getQnaType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildQnaType(data);
@@ -47,13 +48,13 @@
 
 	function buildQnaType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
+		let details = data.data;
 		let optionDom = '<option value="">전체</option>';
-		for (let i=0; i<dataLen; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].qna_name;
+			let value = details[i].type;
+			let name  = details[i].qna_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 

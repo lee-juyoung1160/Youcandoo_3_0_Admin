@@ -25,6 +25,7 @@
 			url: api.getFaqType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildFaqType(data);
@@ -39,14 +40,15 @@
 
 	function buildFaqType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
-		let optionDom = '';
+		let detailData 	= data.data;
+		let dataLen 	= detailData.length;
+		let optionDom 	= '';
 
 		for (let i=0; i<dataLen; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].faq_name;
+			let value = detailData[i].type;
+			let name  = detailData[i].faq_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 
@@ -91,6 +93,7 @@
 					url: api.createFaq,
 					type: "POST",
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));

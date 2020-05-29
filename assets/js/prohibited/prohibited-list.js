@@ -134,6 +134,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
+					dataType: 'json',
 					data: addParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -197,6 +198,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
+					dataType: 'json',
 					data: delParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));

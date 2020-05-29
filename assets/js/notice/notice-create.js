@@ -40,8 +40,9 @@
 					type: "POST",
 					processData: false,
 					contentType: false,
-					data: params(),
 					headers: headers,
+					dataType: 'json',
+					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))

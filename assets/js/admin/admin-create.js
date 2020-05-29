@@ -29,6 +29,7 @@
 			type: "POST",
 			headers : headers,
 			/*data: params(),*/
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -43,14 +44,12 @@
 
 	function buildAuthList(data)
 	{
-		let jsonData  = JSON.parse(data);
-		console.log(jsonData)
-		let respData  = jsonData.data;
+		let details   = data.data;
 		let optionDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			if (i === 0)
 				authCodeLabel.text(name);
 
@@ -123,11 +122,12 @@
 					url: api.createAdmin,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/admin/lists'
+							location.href = page.listAdmin;
 					},
 					error: function (request, status) {
 						console.log(status);

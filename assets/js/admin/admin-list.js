@@ -29,7 +29,7 @@
 			url: api.listAdminAuth,
 			type: "POST",
 			headers : headers,
-			/*data: params(),*/
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -44,13 +44,12 @@
 
 	function buildAuthList(data)
 	{
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data;
+		let details  = data.data;
 		let optionDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			if (i === 0)
 			{
 				$('#authCodeLabel').text('전체');
@@ -88,11 +87,6 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						return multiCheckBoxDom(data);
-					}
-				}*/
 				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center" }
 				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
 				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center" }

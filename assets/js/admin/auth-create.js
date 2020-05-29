@@ -36,7 +36,8 @@
 			$.ajax({
 				url: api.deleteAdminAuth,
 				type: "POST",
-				headers : headers,
+				headers: headers,
+				dataType: 'json',
 				data : JSON.stringify({"code" : selectedAuthCode()}),
 				success: function(data) {
 					alert(getStatusMessage(data));
@@ -66,6 +67,7 @@
 			url: api.listAdminAuth,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -82,13 +84,12 @@
 	{
 		authList.empty();
 
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data;
+		let details  = data.data;
 		let liDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			i === 0 ? liDom += '<li class="on" data-code="'+code+'">' : liDom += '<li data-code="'+code+'">';
 			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">'+name+'</button>';
 			liDom 	+=	'</li>';
@@ -114,6 +115,7 @@
 			url: api.getAdminAuth,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			data : JSON.stringify({"code" : selectedAuthCode()}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -130,15 +132,14 @@
 	function buildAuthMenu(data)
 	{
 		authMenuArea.empty();
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data.menu;
+
+		let details   = data.data.menu;
 		let isChecked = '';
 		let menuDom	  = '';
-		let len 	  = respData.length;
 		let count 	  = 0;
-		for (let i=0; i<len; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let menuData   	  = respData[i];
+			let menuData   	  = details[i];
 			let menuName   	  = menuData.name;
 			let childLen   	  = menuData.children.length;
 			let parentChkId   = "pChkId_"+i;
@@ -257,6 +258,7 @@
 					url: api.createAdminAuth,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: authParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -282,13 +284,12 @@
 				url: api.setAdminAuth,
 				type: "POST",
 				headers : headers,
+				dataType: 'json',
 				data: menuParams(),
 				success: function(data) {
 					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
-					{
 						getAuthList();
-					}
 				},
 				error: function (request, status) {
 					console.log(status);

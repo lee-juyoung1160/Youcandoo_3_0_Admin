@@ -18,8 +18,9 @@
 		$.ajax({
 			url: api.detailQna,
 			type: "POST",
-			data: params(),
 			headers: headers,
+			dataType: 'json',
+			data: params(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -42,23 +43,16 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detailData = data.data;
 
-		nickname.html(jsonData.data.nickname);
-		regDate.html(jsonData.data.created_datetime);
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		comment.html(jsonData.data.comment);
-		admin.html(jsonData.data.admin_userid);
-		commentDate.html(jsonData.data.comment_datetime);
-		memo.html(jsonData.data.memo);
-	}
-
-	function goUpdatePage()
-	{
-		const pathName		= getPathName();
-		const qnaIdx		= splitReverse(pathName, '/');
-		location.href = updateUrl+qnaIdx;
+		nickname.html(detailData.nickname);
+		regDate.html(detailData.created_datetime);
+		title.html(detailData.title);
+		content.html(detailData.contents);
+		comment.html(detailData.comment);
+		admin.html(detailData.admin_userid);
+		commentDate.html(detailData.comment_datetime);
+		memo.html(detailData.memo);
 	}
 
 

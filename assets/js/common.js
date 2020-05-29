@@ -279,21 +279,18 @@
 
     function getStatusCode(data)
     {
-        let resp = JSON.parse(data);
-        return resp.status;
+        return data.status;
     }
 
 
     function getStatusMessage(data)
     {
-        let resp = JSON.parse(data);
-        return resp.msg;
+        return data.msg;
     }
 
     function isSuccessResp(data)
     {
-        let resp = JSON.parse(data);
-        if (resp.status === 30000)
+        if (data.status === 30000)
             return true;
         else
             return false;

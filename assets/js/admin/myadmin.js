@@ -62,6 +62,7 @@
 			url: api.getProfile,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			data: JSON.stringify({"userid" : sessionUserId.val()}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -77,11 +78,11 @@
 
 	function buildProfile(data)
 	{
-		let jsonData  = JSON.parse(data);
+		let detail = data.data;
 
-		myId.html(jsonData.data.userid);
-		myName.html(jsonData.data.name);
-		myEmail.html(jsonData.data.email);
+		myId.html(detail.userid);
+		myName.html(detail.name);
+		myEmail.html(detail.email);
 	}
 
 	function validation()
@@ -130,6 +131,7 @@
 					url: api.updateProfile,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: updateParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));

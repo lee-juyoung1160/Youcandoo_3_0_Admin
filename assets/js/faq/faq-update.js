@@ -21,6 +21,7 @@
 			url: api.getFaqType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildFaqType(data);
@@ -35,14 +36,15 @@
 
 	function buildFaqType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
-		let optionDom = '';
+		let detailData 	= data.data;
+		let dataLen 	= detailData.length;
+		let optionDom 	= '';
 
 		for (let i=0; i<dataLen; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].faq_name;
+			let value = detailData[i].type;
+			let name  = detailData[i].faq_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 
@@ -57,8 +59,9 @@
 		$.ajax({
 			url: api.detailFaq,
 			type: "POST",
-			data: detailParams(),
 			headers: headers,
+			dataType: 'json',
+			data: detailParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -81,14 +84,14 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detailData = data.data;
 
-		selFaqType.val(jsonData.data.faq_type);
+		selFaqType.val(detailData.faq_type);
 		onChangeSelectOption(selFaqType);
-		title.val(jsonData.data.title);
-		content.val(jsonData.data.contents);
+		title.val(detailData.title);
+		content.val(detailData.contents);
 		exposure.each(function () {
-			if ($(this).val() === jsonData.data.is_exposure)
+			if ($(this).val() === detailData.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -103,6 +106,7 @@
 					url: api.createFaq,
 					type: "POST",
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));

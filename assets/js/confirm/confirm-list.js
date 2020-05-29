@@ -10,6 +10,7 @@
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const btnWarn		= $(".warning-btn");
+	const warnType		= $("input[name=radio-warn-type]");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
@@ -46,6 +47,11 @@
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
+	}
+
+	function initModal()
+	{
+		warnType.eq(0).prop("checked", true);
 	}
 
 	function buildGrid()

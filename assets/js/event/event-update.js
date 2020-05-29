@@ -28,6 +28,7 @@
 			type: "POST",
 			data: detailParams(),
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
@@ -50,23 +51,23 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detailData = data.data;
 
-		title.val(jsonData.data.title);
-		content.summernote('code', jsonData.data.contents);
+		title.val(detailData.title);
+		content.summernote('code', detailData.contents);
 
 		let thumbnailDom = '';
 		thumbnailDom += '<div class="upload-display">';
 		thumbnailDom += 	'<div class="upload-thumb-wrap">';
-		thumbnailDom += 		'<img src="'+jsonData.data.image_url+'" class="upload-thumb">';
+		thumbnailDom += 		'<img src="'+detailData.image_url+'" class="upload-thumb">';
 		thumbnailDom += 	'</div>';
 		thumbnailDom += '</div>';
 		eventImg.prepend(thumbnailDom);
 
-		eventFrom.val(jsonData.data.start_date);
-		eventTo.val(jsonData.data.end_date);
+		eventFrom.val(detailData.start_date);
+		eventTo.val(detailData.end_date);
 		exposure.each(function () {
-			if ($(this).val() === jsonData.data.is_exposure)
+			if ($(this).val() === detailData.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -83,6 +84,7 @@
 					processData: false,
 					contentType: false,
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));

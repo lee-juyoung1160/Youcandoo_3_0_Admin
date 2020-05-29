@@ -5,7 +5,7 @@
 	const doitDetail	= $("#doitDetail");
 	const doitUser		= $("#doitUser");
 	const doitAction	= $("#doitAction");
-	const actionUl 		= $("#actionUl");
+	const actionWrap	= $("#actionWrap");
 	const goUpdate      = $("#goUpdate");
 	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
 	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
@@ -415,14 +415,17 @@
 				let btnClass = 'warning-btn';
 				if (action.yellow_card === 'Y')
 				{
-					btnClass += 'yellow-card-btn';
+					btnClass += ' yellow-card-btn';
 					btnTxt = '옐로카드 취소';
 				}
 				if (action.red_card === 'Y')
 				{
-					btnClass += 'red-card-btn';
+					btnClass += ' red-card-btn';
 					btnTxt = '레드카드 취소';
 				}
+
+				if (i===0 || i%5 === 0)
+					actionDom += '<ul class="cert-contents clearfix">';
 
 				actionDom += '<li>';
 				actionDom += 	'<div class="top clearfix">';
@@ -442,10 +445,13 @@
 				actionDom += 	'</div>';
 				actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
 				actionDom += '</li>';
+
+				if (i>0 && (i+1)%5 === 0)
+					actionDom += '</ul>';
 			}
 		}
 
-		actionUl.html(actionDom);
+		actionWrap.html(actionDom);
 	}
 
 	let currentPage = 1;

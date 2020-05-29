@@ -263,12 +263,12 @@
     function initSummerNote()
     {
         $('#summernote').summernote({
+            lang: 'ko-KR',
             placeholder: '내용을 입력해주세요.',
-            tabsize: 2,
             /*height: 120,*/
             toolbar: [
                 ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
+                /*['color', ['color']],*/
                 ['para', ['paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'video']],

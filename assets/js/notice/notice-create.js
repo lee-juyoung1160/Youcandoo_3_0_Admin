@@ -61,7 +61,7 @@
 		let param = {
 			'notice_title' : title.val().trim()
 			,'notice_contents' : content.val().trim()
-			,'reservation_date' : reserveDate.val().trim()
+			,'reservation_date' : reserveDate.val()
 			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
 			,'create_user' : sessionUserId.val()
 		}

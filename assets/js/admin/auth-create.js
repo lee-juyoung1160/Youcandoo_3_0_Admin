@@ -199,6 +199,7 @@
 		let count   = 0;
 		let chkName = $(obj).attr('name');
 		let element = $('.sub-menu input[name="'+chkName+'"]');
+		let parent  = $('.main-menu input[name="'+chkName+'"]');
 
 		element.each(function () {
 			if ($(this).is(':checked'))
@@ -207,9 +208,8 @@
 
 		if (count === 0)
 			$('input[name="'+chkName+'"]').prop('checked', false);
-
-		if (element.length === count)
-			$('input[name="'+chkName+'"]').prop('checked', true);
+		else if (count > 0)
+			parent.prop('checked', true);
 	}
 
 	function validation()

@@ -47,6 +47,7 @@
 		,createBiz : baseApiUrl+'biz/create'
 		,detailBiz : baseApiUrl+'biz/detail'
 		,involveBizPromotion : baseApiUrl+'biz/promotion'
+		,updateBiz : baseApiUrl+'biz/update'
 		,listBiz : baseApiUrl+'biz/list'
 
 		,createPromotion : baseApiUrl+'promotion/create'
@@ -75,6 +76,7 @@
 		,detailEvent : baseApiUrl+'event/detail'
 		,updateEvent : ''
 		,listEvent : baseApiUrl+'event/list'
+		,getEventType : baseApiUrl+'event/type'
 		,createFaq : baseApiUrl+'faq/create'
 		,detailFaq : baseApiUrl+'faq/detail'
 		,updateFaq : ''
@@ -123,6 +125,7 @@
 		,listBiz : '/biz/lists'
 		,createBiz : '/biz/create'
 		,detailBiz : '/biz/detail/'
+		,updateBiz : '/biz/update/'
 
 		,listPromo : '/pro/lists'
 		,createPromo : '/pro/create'

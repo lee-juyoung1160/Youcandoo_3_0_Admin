@@ -108,7 +108,7 @@
 			"userid" : userid.val().trim()
 			,"name" : name .val().trim()
 			,"email" : email .val().trim()
-			,"auth_code" : authCode.val().trim()
+			,"auth_code" : authCode.val()
 			,"is_active" : $("input[name=radio-use-yn]:checked").val()
 		}
 		return JSON.stringify(param);

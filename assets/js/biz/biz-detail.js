@@ -14,7 +14,7 @@
 			/** 상세 불러오기 **/
 			getDetail();
 
-			//goUpdate.on('click', function () { goUpdatePage(); })
+			goUpdate.on('click', function () { goUpdatePage(); })
 		});
 
 		function getDetail()

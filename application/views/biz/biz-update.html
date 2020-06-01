@@ -7,23 +7,20 @@
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important" style="display: inline-block;" >회사명(*)</p>
+                            <p class="sub-title important" style="display: inline-block;" >회사명</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
-                                <input id="bizName" type="text" class="length-input" placeholder="회사명을 입력해주세요." maxlength="10" maxlength="10">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
-                            </div>
+                            <p class="detail-data" id="bizName"></p>
                         </div>
                     </div>
                 </li>
                 <li class="tag-list">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">사업자 번호(*)</p>
+                            <p class="sub-title important">사업자 번호</p>
                         </div>
                         <div class="col-2">
-                            <input id="bizNo" type="text" class="only-num" placeholder="- 제외 숫자만 입력" maxlength="10">
+                            <p class="detail-data" id="bizNumber"></p>
                         </div>
                     </div>
                 </li>
@@ -35,8 +32,8 @@
                         <div class="col-2">
                             <div class="filebox preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="profileImage">업로드</label>
-                                <input type="file" id="profileImage" class="upload-hidden">
+                                <label for="bizProfileImg">업로드</label>
+                                <input type="file" id="bizProfileImg" class="upload-hidden">
                             </div>
                         </div>
                     </div>
@@ -47,7 +44,7 @@
                             <p class="sub-title important">홈페이지 링크(*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="homepage" type="text" placeholder="https:// 포함해서 입력해주세요.">
+                            <input id="bizLink" type="text" placeholder="https:// 포함해서 입력해주세요.">
                         </div>
                     </div>
                 </li>
@@ -71,3 +68,4 @@
         </div>
     </div>
 </section>
+<script src="/assets/js/biz/biz-update.js"></script>

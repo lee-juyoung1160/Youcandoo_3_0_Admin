@@ -12,8 +12,11 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
+		/** 권한 목록 **/
 		getAuthList();
-
+		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		authModalOpen	.on('click', function () { modalFadein(); })

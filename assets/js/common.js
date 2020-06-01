@@ -15,13 +15,18 @@
     const lengthInput        = $(".length-input");
     const countInput         = $(".count-input");
     const sessionUserId      = $("#session_userid");
+    const sessionAuthCode    = $("#session_authcode");
+    const sideMenu           = $("#sideMenu");
 
-    menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
-    menuListClickEvent  .on("click", function () { onClickChildMenu(this); });
+    /*menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
+    menuListClickEvent  .on("click", function () { onClickChildMenu(this); });*/
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
+
+    getMenuByAuthCode();
+    activeMenu();
 
     /** 글자수 체크 **/
     function checkInputLength()
@@ -48,22 +53,6 @@
     function fadeoutLoader()
     {
         viewLoading.fadeOut(100);
-    }
-
-    function onClickActiveParentMenu(obj)
-    {
-        let content = $(obj).attr("data-target");
-
-        menuBtn.removeClass("active");
-        menuBtnList.removeClass("active");
-        $(obj).addClass("active");
-        $(content).addClass("active");
-    }
-
-    function onClickChildMenu(obj)
-    {
-        menuListClickEvent.removeClass("active");
-        $(obj).addClass("active");
     }
 
     /** 페이지 상단 > 벨 아이콘 클릭 이벤트 **/
@@ -395,8 +384,106 @@
         })
     }
 
+    function getMenuByAuthCode()
+    {
+        $.ajax({
+            url: api.getAdminAuth,
+            type: "POST",
+            headers : headers,
+            dataType: 'json',
+            data : JSON.stringify({"code" : sessionAuthCode.val()}),
+            success: function(data) {
+                if (isSuccessResp(data))
+                    buildMenuByAuthCode(data)
+                else
+                    alert(invalidResp(data));
+            },
+            error: function (request, status) {
+                alert(message.ajaxError);
+            }
+        });
+    }
+
+    let availablePage = [];
+    function buildMenuByAuthCode(data)
+    {
+        let menuData  = data.data.menu;
+        let menuLength = menuData.length;
+        let menuDom   = '';
+        availablePage.length = 0;
+        for (let i=0; i<menuLength; i++)
+        {
+            let menu = menuData[i];
+            let mainIcon = menu.icon;
+            let mainName = menu.name;
+            let mainView = menu.view;
+            let subMenus = menu.children;
+            let subMenuLength = subMenus.length;
+            let target   = 'menu_'+i;
+console.log(menu)
+            if (mainView === true)
+            {
+                menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
+                menuDom +=     '<div class="btn-wrap clearfix">';
+                menuDom +=         '<i class="far ' +mainIcon+'"></i>';
+                menuDom +=         '<span>'+mainName+'</span>';
+                menuDom +=         '<i class="fas fa-chevron-right arrow-i"></i>';
+                menuDom +=     '</div>';
+                menuDom +=     '<ul class="menu-btn-list ' +target+'">';
+                for (let j=0; j<subMenuLength; j++)
+                {
+                    let subMenu = subMenus[j];
+                    let subName  = subMenu.name;
+                    let menuPath = subMenu.path;
+
+                    menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+
+                    availablePage.push(menuPath);
+                }
+                menuDom +=     '</ul>';
+                menuDom +=     '<div class="bar"></div>';
+                menuDom += '</li>';
+            }
+
+        }
+
+        sideMenu.html(menuDom);
+    }
+
+    function checkAuthIntoPage()
+    {
+        let pathName  = getPathName();
+        if (pathName !== '/')
+        {
+            let splitPath = pathName.split('/');
+            let compareValue = '/'+splitPath[1]+'/'+splitPath[2];
+
+            if (availablePage.indexOf(compareValue) === -1)
+            {
+                alert(message.accessDenied);
+                location.href = '/';
+            }
+        }
+
+    }
+
+    function onClickActiveParentMenu(obj)
+    {
+        let content = $(obj).attr("data-target");
+
+        menuBtn.removeClass("active");
+        menuBtnList.removeClass("active");
+        $(obj).addClass("active");
+        $(content).addClass("active");
+    }
+
+    function onClickChildMenu(obj)
+    {
+        menuListClickEvent.removeClass("active");
+        $(obj).addClass("active");
+    }
+
     $(document).ready(function () {
-        activeMenu();
-        $(document).ajaxStart(function () { fadeinLoader(); });
-        $(document).ajaxComplete(function () { fadeoutLoader(); });
+        $(document).ajaxStart(() => { fadeinLoader(); });
+        $(document).ajaxComplete(() => { fadeoutLoader(); });
     })

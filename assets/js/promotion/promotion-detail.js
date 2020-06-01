@@ -29,10 +29,11 @@
 
 
 	$(document).ready(function () {
-
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** 프로모션 상세정보 **/
 		getPromotion();
-
+		/** 이벤트 **/
 		tabPromo	.on("click", function () { onClickPromoTab(); });
 		tabDoit		.on("click", function () { onClickDoitTab(); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });

@@ -10,6 +10,8 @@
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** 권한 목록 불러오기 **/
 		getAuthList();
 		/** 상단 검색 폼 초기화 **/

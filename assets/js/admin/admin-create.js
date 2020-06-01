@@ -9,9 +9,13 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 권한 목록 **/
 		getAuthList();
-
+		/** 이벤트 **/
 		btnSubmit	.on('click', function () { onSubmitAdmin(); })
 		email		.on('keyup', function () { onKeyupEmail(); })
 	});

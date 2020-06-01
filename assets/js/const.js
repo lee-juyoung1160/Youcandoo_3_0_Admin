@@ -1,6 +1,7 @@
 
 	const message = {
-		emptyId : '아이디를 입력해주세요.'
+		accessDenied : '페이지 접근권한없음. 메인페이지로 이동합니다.'
+		,emptyId : '아이디를 입력해주세요.'
 		,emptyPassword : '비밀번호를 입력해주세요.'
 		,emptyList : '조회된 목록이 없습니다.'
 		,searching : '검색 중..'

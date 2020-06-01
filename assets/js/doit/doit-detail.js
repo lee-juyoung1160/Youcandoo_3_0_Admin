@@ -47,10 +47,11 @@
 
 
 	$(document).ready(function () {
-
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** 프로모션 상세정보 **/
 		getDoit();
-
+		/** 이벤트 **/
 		tabDoit			.on("click", function () { onClickDoitTab(); });
 		tabUser			.on("click", function () { onClickUserTab(); });
 		tabAction		.on("click", function () { onClickActionTab(); });

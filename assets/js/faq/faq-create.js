@@ -6,6 +6,8 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** faq 구분 **/
 		getFaqType();
 		/** 데이트피커 초기화 **/
@@ -14,7 +16,6 @@
 		initComponent();
 		/** input 글자 수 체크 **/
 		checkInputLength();
-
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitFaq(); });
 	});

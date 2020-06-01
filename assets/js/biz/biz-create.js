@@ -7,10 +7,13 @@
 	const btnSubmit			= $("#btnSubmit");
 
 	$(document).ready(function () {
-
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** input 글자 수 체크 **/
 		checkInputLength();
-
+		/** 이벤트 **/
 		profileImage	.on('change', function(){ onChangeValidationImage(this) });
 		btnSubmit		.on('click', function(){ onSubmitBiz(); });
 	});

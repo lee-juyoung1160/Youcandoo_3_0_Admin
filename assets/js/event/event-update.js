@@ -9,13 +9,14 @@
 	const inputFile 	= $("input:file");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** 에디터 초기화 **/
 		initSummerNote();
 		/** input 글자 수 체크 **/
 		checkInputLength();
 		/** 상세 불러오기 **/
 		getDetail();
-
 		/** 이벤트 **/
 		inputFile	.on('change', function () { onChangeValidationImage(this); });
 		//btnSubmit.on('click', function () { onSubmitUpdateEvent(); });

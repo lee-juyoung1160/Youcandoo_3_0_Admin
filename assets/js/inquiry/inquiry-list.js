@@ -11,6 +11,8 @@
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** 문의구분 셀렉트 박스 **/
 		getQnaType();
 		/** 데이트피커 초기화 **/

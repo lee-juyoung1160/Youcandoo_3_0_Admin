@@ -6,6 +6,8 @@
 	const btnSubmit		= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 페이지 접근권한 체크 **/
+		checkAuthIntoPage();
 		/** faq 구분 **/
 		getFaqType();
 		/** input 글자 수 체크 **/

@@ -24,9 +24,8 @@
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
-
+    /** 권한별 메뉴 불러오기 **/
     getMenuByAuthCode();
-    activeMenu();
 
     /** 글자수 체크 **/
     function checkInputLength()
@@ -369,21 +368,6 @@
             $("#checkAll").prop('checked', false);
     }
 
-    function activeMenu()
-    {
-        let pathName       = getPathName();
-        let splitUrlPath   = pathName.split('/');
-        let pathCompareVal = splitUrlPath[1]+splitUrlPath[2];
-        let menuList  = $('nav').find('a');
-        $(menuList).each(function () {
-            let menuPath       = $(this).attr('href');
-            let splitMenuPath  = menuPath.split('/');
-            let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
-            if (pathCompareVal === menuCompareVal)
-                $(this).parents('li').addClass('active');
-        })
-    }
-
     function getMenuByAuthCode()
     {
         $.ajax({
@@ -397,6 +381,7 @@
                 {
                     buildMenuByAuthCode(data);
                     checkAuthIntoPage(data);
+                    activeMenu();
                 }
                 else
                     alert(invalidResp(data));
@@ -407,6 +392,7 @@
         });
     }
 
+    /** 권한별 메뉴 리스트 **/
     function buildMenuByAuthCode(data)
     {
         let menuData  = data.data.menu;
@@ -422,7 +408,6 @@
             let subMenus = menu.children;
             let subMenuLength = subMenus.length;
             let target   = 'menu_'+i;
-
             if (mainView === true)
             {
                 menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
@@ -434,11 +419,13 @@
                 menuDom +=     '<ul class="menu-btn-list ' +target+'">';
                 for (let j=0; j<subMenuLength; j++)
                 {
-                    let subMenu = subMenus[j];
+                    let subMenu  = subMenus[j];
                     let subName  = subMenu.name;
                     let menuPath = subMenu.path;
+                    let subView  = subMenu.view;
 
-                    menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                    if (subView === true)
+                        menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
                 }
                 menuDom +=     '</ul>';
                 menuDom +=     '<div class="bar"></div>';
@@ -450,6 +437,7 @@
         sideMenu.html(menuDom);
     }
 
+    /** 권한별 접근 가능 페이지 체크**/
     function checkAuthIntoPage(data)
     {
         let pathName   = getPathName();
@@ -468,9 +456,13 @@
                 {
                     let subMenu = subMenus[j];
                     let menuPath = subMenu.path;
+                    let subView  = subMenu.view;
                     let splitMenuPath = menuPath.split('/');
-                    if (!isEmpty(splitMenuPath[1]))
-                        accessible.push(splitMenuPath[1]);
+                    if (subView === true)
+                    {
+                        if (!isEmpty(splitMenuPath[1]))
+                            accessible.push(splitMenuPath[1]);
+                    }
                 }
             }
         }
@@ -486,7 +478,6 @@
                 location.href = '/';
             }
         }
-
     }
 
     function onClickActiveParentMenu(obj)
@@ -503,6 +494,21 @@
     {
         menuListClickEvent.removeClass("active");
         $(obj).addClass("active");
+    }
+
+    function activeMenu()
+    {
+        let pathName       = getPathName();
+        let splitUrlPath   = pathName.split('/');
+        let pathCompareVal = splitUrlPath[1]+splitUrlPath[2];
+        let menuList  = $('nav').find('a');
+        $(menuList).each(function () {
+            let menuPath       = $(this).attr('href');
+            let splitMenuPath  = menuPath.split('/');
+            let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
+            if (pathCompareVal === menuCompareVal)
+                $(this).parents('li').addClass('active');
+        })
     }
 
     $(document).ready(function () {

@@ -394,7 +394,10 @@
             data : JSON.stringify({"code" : sessionAuthCode.val()}),
             success: function(data) {
                 if (isSuccessResp(data))
-                    buildMenuByAuthCode(data)
+                {
+                    buildMenuByAuthCode(data);
+                    checkAuthIntoPage(data);
+                }
                 else
                     alert(invalidResp(data));
             },
@@ -404,13 +407,12 @@
         });
     }
 
-    let availablePage = [];
     function buildMenuByAuthCode(data)
     {
         let menuData  = data.data.menu;
         let menuLength = menuData.length;
         let menuDom   = '';
-        availablePage.length = 0;
+
         for (let i=0; i<menuLength; i++)
         {
             let menu = menuData[i];
@@ -420,7 +422,7 @@
             let subMenus = menu.children;
             let subMenuLength = subMenus.length;
             let target   = 'menu_'+i;
-console.log(menu)
+
             if (mainView === true)
             {
                 menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
@@ -437,8 +439,6 @@ console.log(menu)
                     let menuPath = subMenu.path;
 
                     menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
-
-                    availablePage.push(menuPath);
                 }
                 menuDom +=     '</ul>';
                 menuDom +=     '<div class="bar"></div>';
@@ -450,15 +450,37 @@ console.log(menu)
         sideMenu.html(menuDom);
     }
 
-    function checkAuthIntoPage()
+    function checkAuthIntoPage(data)
     {
-        let pathName  = getPathName();
+        let pathName   = getPathName();
+        let menuData   = data.data.menu;
+        let menuLength = menuData.length;
+        let accessible = [];
+        for (let i=0; i<menuLength; i++)
+        {
+            let menu     = menuData[i];
+            let mainView = menu.view;
+            let subMenus = menu.children;
+            let subMenuLength = subMenus.length;
+            if (mainView === true)
+            {
+                for (let j=0; j<subMenuLength; j++)
+                {
+                    let subMenu = subMenus[j];
+                    let menuPath = subMenu.path;
+                    let splitMenuPath = menuPath.split('/');
+                    if (!isEmpty(splitMenuPath[1]))
+                        accessible.push(splitMenuPath[1]);
+                }
+            }
+        }
+
         if (pathName !== '/')
         {
             let splitPath = pathName.split('/');
-            let compareValue = '/'+splitPath[1]+'/'+splitPath[2];
+            let compareValue = splitPath[1];
 
-            if (availablePage.indexOf(compareValue) === -1)
+            if (accessible.indexOf(compareValue) === -1)
             {
                 alert(message.accessDenied);
                 location.href = '/';

@@ -15,8 +15,6 @@
 	const prohibition		= $("#prohibition");
 
 	$(document).ready(function () {
-		/** 페이지 접근권한 체크 **/
-		checkAuthIntoPage();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/

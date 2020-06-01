@@ -6,8 +6,6 @@
 	const goUpdate		= $("#goUpdate");
 
 	$(document).ready(function () {
-		/** 페이지 접근권한 체크 **/
-		checkAuthIntoPage();
 		/** 상세 불러오기 **/
 		getDetail();
 

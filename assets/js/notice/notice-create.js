@@ -6,8 +6,6 @@
 	const btnSubmit = $("#btnSubmit");
 
 	$(document).ready(function () {
-		/** 페이지 접근권한 체크 **/
-		checkAuthIntoPage();
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
 		/** 예약일 초기화 **/

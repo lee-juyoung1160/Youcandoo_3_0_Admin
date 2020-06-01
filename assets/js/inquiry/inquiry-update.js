@@ -9,8 +9,6 @@
 	let idx;
 
 	$(document).ready(function () {
-		/** 페이지 접근권한 체크 **/
-		checkAuthIntoPage();
 		/** 에디터 초기화 **/
 		initSummerNote();
 		/** 상세 불러오기 **/

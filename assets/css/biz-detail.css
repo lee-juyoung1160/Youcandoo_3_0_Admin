@@ -10,9 +10,19 @@
     padding: 15px 0;
     border-bottom: 1px solid #f1f1f1;
 }
+.biz-info li:first-child {
+    padding-top: 0;
+}
 .biz-info li .col-wrap .col-1 {
     width: 200px;
 }
 .biz-info li .col-wrap .col-2 {
     width: 790px;
+}
+
+.enrollment-title {
+    margin: 30px 0 15px;
+    color: #5a5a5a;
+    font-size: 23px;
+    font-weight: 600;
 }

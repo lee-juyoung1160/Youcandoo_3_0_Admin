@@ -116,7 +116,7 @@
 		}
 
 		rewardTab.html(rewardTabDom);
-		onClickRewardTab($("#rewardTab").find('li').eq(0));
+		onClickRewardTab(rewardTab.find('li').eq(0));
 	}
 
 	function onClickRewardTab(obj)
@@ -127,7 +127,7 @@
 
 	function toggleActive(obj)
 	{
-		$("#rewardTab").find('li').removeClass('on');
+		rewardTab.find('li').removeClass('on');
 		$(obj).addClass('on');
 	}
 
@@ -139,7 +139,7 @@
 		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
 		ucdInfo = ucdInfo.slice(1, -1);
 		let jsonUcdInfo = JSON.parse(ucdInfo);
-
+console.log(jsonUcdInfo)
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
 		detailDom += 	'<div class="list-inner">';
@@ -183,22 +183,19 @@
 		detailDom += 			'<p class="detail-data">';
 		detailDom += 			'<table>';
 		detailDom += 				'<colgroup>';
-		detailDom += 					'<col style="width:30%;">';
-		detailDom += 					'<col style="width:30%;">';
-		detailDom += 					'<col style="width:40%;">';
+		detailDom += 					'<col style="width:50%;">';
+		detailDom += 					'<col style="width:50%;">';
 		detailDom += 				'</colgroup>';
 		detailDom += 				'<thead>';
 		detailDom += 				'<tr>';
 		detailDom += 					'<th>참여자 수(명)</th>';
 		detailDom += 					'<th>인당 UCD</th>';
-		detailDom += 					'<th>총 UCD</th>';
 		detailDom += 				'</tr>';
 		detailDom += 				'</thead>';
 		detailDom += 				'<tbody>';
 		detailDom += 				'<tr>';
-		detailDom += 					'<td>'+jsonUcdInfo.min+'</td>';
-		detailDom += 					'<td>'+jsonUcdInfo.max+'</td>';
-		detailDom += 					'<td><span class="text-right">'+jsonUcdInfo.per_person_ucd+'</span></td>';
+		detailDom += 					'<td>'+numberWithCommas(jsonUcdInfo.min)+' ~ '+numberWithCommas(jsonUcdInfo.max)+'</td>';
+		detailDom += 					'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.per_person_ucd)+'</span></td>';
 		detailDom += 				'</tr>';
 		detailDom += 				'</tbody>';
 		detailDom += 			'</table>';

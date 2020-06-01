@@ -60,6 +60,7 @@ class Service extends MY_Controller {
         }
     }
 
+/*
     public function inquiry($Route="list")
     {
         switch ($Route)
@@ -75,6 +76,7 @@ class Service extends MY_Controller {
                 break;
         }
     }
+    */
 
     public function prohibition()
     {

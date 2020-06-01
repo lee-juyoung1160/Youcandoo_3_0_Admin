@@ -19,6 +19,7 @@ class Doit extends MY_Controller {
         {
             $this->load->layout('doit/doit-update');
         }
+        /*
     public function categoryLists()
         {
             $this->load->layout('doit/doit-category-list');
@@ -35,4 +36,5 @@ class Doit extends MY_Controller {
         {
             $this->load->layout('doit/doit-category-update');
         }
+        */
 }

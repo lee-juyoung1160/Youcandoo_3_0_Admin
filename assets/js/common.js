@@ -24,8 +24,8 @@
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("keyup", function () { initInputNumber(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
-    /** 권한별 메뉴 불러오기 **/
-    getMenuByAuthCode();
+    /** 권한별 레프트 메뉴 불러오기 **/
+    getLeftMenuByAuthCode();
 
     /** 글자수 체크 **/
     function checkInputLength()
@@ -368,10 +368,10 @@
             $("#checkAll").prop('checked', false);
     }
 
-    function getMenuByAuthCode()
+    function getLeftMenuByAuthCode()
     {
         $.ajax({
-            url: api.getAdminAuth,
+            url: api.getMenuByAuth,
             type: "POST",
             headers : headers,
             dataType: 'json',
@@ -380,14 +380,14 @@
                 if (isSuccessResp(data))
                 {
                     buildMenuByAuthCode(data);
-                    checkAuthIntoPage(data);
+                    //checkAuthIntoPage(data);
                     activeMenu();
                 }
                 else
                     alert(invalidResp(data));
             },
             error: function (request, status) {
-                alert(message.ajaxError);
+                alert('메뉴 목록을 불러오는 중 '+message.ajaxError);
             }
         });
     }
@@ -395,18 +395,15 @@
     /** 권한별 메뉴 리스트 **/
     function buildMenuByAuthCode(data)
     {
-        let menuData  = data.data.menu;
-        let menuLength = menuData.length;
-        let menuDom   = '';
-
-        for (let i=0; i<menuLength; i++)
+        let keys   	= Object.getOwnPropertyNames(data.data);
+        let menuDom = '';
+        for (let i=0; i<keys.length; i++)
         {
-            let menu = menuData[i];
-            let mainIcon = menu.icon;
-            let mainName = menu.name;
-            let mainView = menu.view;
-            let subMenus = menu.children;
-            let subMenuLength = subMenus.length;
+            let key   	 = keys[i];
+            let mainIcon = data.data[key].icon;
+            let mainName = data.data[key].name;
+            let mainView = data.data[key].view;
+            let children = data.data[key].children;
             let target   = 'menu_'+i;
             if (mainView === true)
             {
@@ -417,51 +414,59 @@
                 menuDom +=         '<i class="fas fa-chevron-right arrow-i"></i>';
                 menuDom +=     '</div>';
                 menuDom +=     '<ul class="menu-btn-list ' +target+'">';
-                for (let j=0; j<subMenuLength; j++)
+                if (children)
                 {
-                    let subMenu  = subMenus[j];
-                    let subName  = subMenu.name;
-                    let menuPath = subMenu.path;
-                    let subView  = subMenu.view;
+                    let subKeys = Object.getOwnPropertyNames(children);
+                    for (let j=0; j<subKeys.length; j++)
+                    {
+                        let subKey   = subKeys[j];
+                        let subName  = children[subKey].name;
+                        let menuPath = children[subKey].path;
+                        let subView  = children[subKey].view;
 
-                    if (subView === true)
-                        menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                        if (subView === true)
+                            menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                    }
                 }
                 menuDom +=     '</ul>';
                 menuDom +=     '<div class="bar"></div>';
                 menuDom += '</li>';
             }
-
         }
 
         sideMenu.html(menuDom);
     }
 
-    /** 권한별 접근 가능 페이지 체크**/
+    /** 권한별 접근 가능 페이지 체크 **/
     function checkAuthIntoPage(data)
     {
+        let keys   	= Object.getOwnPropertyNames(data.data);
         let pathName   = getPathName();
-        let menuData   = data.data.menu;
-        let menuLength = menuData.length;
         let accessible = [];
-        for (let i=0; i<menuLength; i++)
+        for (let i=0; i<keys.length; i++)
         {
-            let menu     = menuData[i];
-            let mainView = menu.view;
-            let subMenus = menu.children;
-            let subMenuLength = subMenus.length;
+            let key   	 = keys[i];
+            let mainView = data.data[key].view;
+            let children = data.data[key].children;
             if (mainView === true)
             {
-                for (let j=0; j<subMenuLength; j++)
+                if (children)
                 {
-                    let subMenu = subMenus[j];
-                    let menuPath = subMenu.path;
-                    let subView  = subMenu.view;
-                    let splitMenuPath = menuPath.split('/');
-                    if (subView === true)
+                    let subKeys = Object.getOwnPropertyNames(children);
+                    for (let j=0; j<subKeys.length; j++)
                     {
-                        if (!isEmpty(splitMenuPath[1]))
-                            accessible.push(splitMenuPath[1]);
+                        let subKey   = subKeys[j];
+                        let menuPath = children[subKey].path;
+                        let subView  = children[subKey].view;
+                        let splitMenuPath = menuPath.split('/');
+                        if (subView === true)
+                        {
+                            if (!isEmpty(splitMenuPath[1]))
+                            {
+                                if (accessible.indexOf(splitMenuPath[1]+splitMenuPath[2]) === -1)
+                                    accessible.push(splitMenuPath[1]+splitMenuPath[2]);
+                            }
+                        }
                     }
                 }
             }
@@ -470,8 +475,8 @@
         if (pathName !== '/')
         {
             let splitPath = pathName.split('/');
-            let compareValue = splitPath[1];
-
+            let compareValue = splitPath[1]+splitPath[2];
+console.log(accessible)
             if (accessible.indexOf(compareValue) === -1)
             {
                 alert(message.accessDenied);
@@ -484,15 +489,15 @@
     {
         let content = $(obj).attr("data-target");
 
-        menuBtn.removeClass("active");
-        menuBtnList.removeClass("active");
+        $(".menu-btn").removeClass("active");
+        $(".menu-btn-list").removeClass("active");
         $(obj).addClass("active");
         $(content).addClass("active");
     }
 
     function onClickChildMenu(obj)
     {
-        menuListClickEvent.removeClass("active");
+        $(".menu-btn-list li").removeClass("active");
         $(obj).addClass("active");
     }
 

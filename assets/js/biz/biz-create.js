@@ -43,7 +43,7 @@
 			return false;
 		}
 
-		if (bizNo.val().length !== 10)
+		if (bizNo.val().trim().length !== 10)
 		{
 			alert('사업자번호를 ' + message.doubleChk);
 			bizNo.focus();

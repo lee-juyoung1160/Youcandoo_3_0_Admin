@@ -100,8 +100,8 @@
 		,deleteAdminAuth : baseApiUrl+'auth/delete'
 		,updateAdminAuth : baseApiUrl+'auth/update'
 		,listAdminAuth : baseApiUrl+'auth/list'
-		,setAdminAuth : baseApiUrl+'auth/set/menu'
-		,getAdminAuth : baseApiUrl+'auth/get/menu'
+		,setMenuByAuth : baseApiUrl+'auth/set/menu'
+		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 	}
 
 	const label = {

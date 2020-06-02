@@ -99,7 +99,7 @@
 		authList.html(liDom);
 
 		/** 선택된 권한의 메뉴를 가져옴 **/
-		getAuthMenu();
+		getMenuByAuthCode();
 	}
 
 	function onClickBtnAuth(obj)
@@ -107,13 +107,13 @@
 		authList.find('li').removeClass('on');
 		$(obj).parent().addClass('on');
 
-		getAuthMenu();
+		getMenuByAuthCode();
 	}
 
-	function getAuthMenu()
+	function getMenuByAuthCode()
 	{
 		$.ajax({
-			url: api.getAdminAuth,
+			url: api.getMenuByAuth,
 			type: "POST",
 			headers : headers,
 			dataType: 'json',
@@ -134,42 +134,43 @@
 	{
 		authMenuArea.empty();
 
-		let details   = data.data.menu;
+		let keys   	  = Object.getOwnPropertyNames(data.data);
 		let isChecked = '';
 		let menuDom	  = '';
 		let count 	  = 0;
-		for (let i=0; i<details.length; i++)
+
+		for (let i=0; i<keys.length; i++)
 		{
-			let menuData   	  = details[i];
-			let menuName   	  = menuData.name;
-			let childLen   	  = menuData.children.length;
+			let key   	  	  = keys[i];
+			let menuName   	  = data.data[key].name;
+			let children   	  = data.data[key].children;
 			let parentChkId   = "pChkId_"+i;
 			let chkName 	  = "chkNm_"+i;
-			isChecked	  	  = menuData.view ? 'checked' : '';
+			isChecked	  	  = data.data[key].view ? 'checked' : '';
 
 			menuDom += '<li>';
 			menuDom += 	'<ol class="auth-nav">';
 			menuDom += 		'<li class="clearfix">';
 			menuDom += 			'<div class="main-menu">';
 			menuDom += 				'<div class="checkbox-wrap">';
-			menuDom += 					'<input onclick="onClickParentChk(this)" type="checkbox" id="'+parentChkId+'" name="'+chkName+'" '+isChecked+'/>';
+			menuDom += 					'<input onclick="onClickParentChk(this)" data-key="'+key+'" type="checkbox" id="'+parentChkId+'" name="'+chkName+'" '+isChecked+'/>';
 			menuDom += 					'<label for="'+parentChkId+'"><span></span>'+menuName+'</label>';
 			menuDom += 				'</div>';
 			menuDom += 			'</div>';
 			menuDom += 			'<ul class="sub-menu">';
-			if (childLen > 0)
+			if (children)
 			{
-				for (let j=0; j<childLen; j++)
+				let subKeys = Object.getOwnPropertyNames(children);
+				for (let j=0; j<subKeys.length; j++)
 				{
-					let childData  		= menuData.children[j];
-					let childMenuName   = childData.name;
-					let childPath		= childData.path;
+					let subKey  		= subKeys[j];
+					let childMenuName   = children[subKey].name;
 					let childChkId 		= "cChkId_"+count;
-					isChecked	  	    = childData.view ? 'checked' : '';
+					isChecked	  	    = children[subKey].view ? 'checked' : '';
 
 					menuDom += '<li>';
 					menuDom += 	'<div class="checkbox-wrap">';
-					menuDom += 		'<input onclick="onClickChildChk(this);" data-path="'+childPath+'" type="checkbox" id="'+childChkId+'" name="'+chkName+'" '+isChecked+'/>';
+					menuDom += 		'<input onclick="onClickChildChk(this);" data-key="'+subKey+'" type="checkbox" id="'+childChkId+'" name="'+chkName+'" '+isChecked+'/>';
 					menuDom += 		'<label for="'+childChkId+'"><span></span>'+childMenuName+'</label>';
 					menuDom += 	'</div>';
 					menuDom += '</li>';
@@ -282,7 +283,7 @@
 		if (confirm(message.create))
 		{
 			$.ajax({
-				url: api.setAdminAuth,
+				url: api.setMenuByAuth,
 				type: "POST",
 				headers : headers,
 				dataType: 'json',
@@ -303,36 +304,37 @@
 	{
 		let mainMenuDom = authMenuArea.find('.main-menu');
 		let mainChkBox  = $(mainMenuDom).find('input:checkbox');
-		let menu = [];
+		let keyArr 		= [];
+		let mainObj 	= {};
 		$(mainChkBox).each(function () {
 
-			let mainChkId 	  = this.id;
+			let key	= $(this).data("key");
 			let mainChkNm	  = this.name;
-			let mainChkLabel  = $("label[for='"+mainChkId+"']").text();
-			let children 	  = [];
 			let subMenuChkbox = $('.sub-menu input[name="'+mainChkNm+'"]');
+			let subObj = {};
 
 			$(subMenuChkbox).each(function () {
-				let subChkId 	= this.id;
-				let subChkLabel = $("label[for='"+subChkId+"']").text();
-				children.push({
-					"name" : subChkLabel
-					,"view" : $(this).is(":checked")
-					,"path" : $(this).data("path")
-				});
+
+				let subkey	= $(this).data("key");
+				let view = $(this).is(":checked");
+
+				subObj[subkey] = {
+					view
+				}
 			});
 
-			menu.push({
-				"name" : mainChkLabel
-				,"view" : $(this).is(":checked")
-				,"children" : children
-			});
+			keyArr.push(key);
 
+			let view = $(this).is(":checked")
+			mainObj[key] = {
+				view
+				,"children" : subObj
+			};
 		});
 
 		let param = {
 			"code" : selectedAuthCode()
-			,"menu" : menu
+			,"menu" : mainObj
 		}
 
 		return JSON.stringify(param);

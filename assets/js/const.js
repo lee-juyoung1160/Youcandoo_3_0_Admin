@@ -32,6 +32,9 @@
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
 		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
 		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
+		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
+		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
+		,promotionNotice3: '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'
 	}
 
 	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
@@ -66,6 +69,8 @@
 		,involveAction : baseApiUrl+'doit/get/action'
 
 		,listAction : baseApiUrl+'action/list'
+		,setYellow : baseApiUrl+'action/set/yellow'
+		,setRed : baseApiUrl+'action/set/red'
 
 		,createNotice : baseApiUrl+'notice/create'
 		,detailNotice : baseApiUrl+'notice/detail'

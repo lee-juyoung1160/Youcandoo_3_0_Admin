@@ -1,10 +1,20 @@
 
-	const title 		= $("#title");
-	const content		= $("#content");
-	const eventImg		= $("#eventImg");
-	const period		= $("#period");
-	const exposure		= $("#exposure");
-	const goUpdate		= $("#goUpdate");
+	const type 		 	= $("#type");
+	const title 	 	= $("#title");
+	const contentWrap 	= $("#contentWrap");
+	const content	  	= $("#content");
+	const noticeWrap	= $("#noticeWrap");
+	const notice	 	= $("#notice");
+	const contentImgWrap = $("#contentImgWrap");
+	const contentImg 	= $("#contentImg");
+	const thumbnail	 	= $("#thumbnail");
+	const webWrap	 	= $("#webWrap");
+	const webUrl	 	= $("#webUrl");
+	const linkWrap		= $("#linkWrap");
+	const link		 	= $("#link");
+	const period	 	= $("#period");
+	const exposure	 	= $("#exposure");
+	const goUpdate	 	= $("#goUpdate");
 
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
@@ -43,13 +53,51 @@
 
 	function buildDetail(data)
 	{
-		let detailData = data.data;
+		let detail 	  = data.data;
+		let eventType = detail.event_type;
+		if (eventType === 'event')
+		{
+			linkWrap.hide();
+			webWrap.hide();
+			contentWrap.show();
+			noticeWrap.show();
+			contentImgWrap.show();
+		}
+		else if (eventType === 'announce')
+		{
+			linkWrap.hide();
+			webWrap.hide();
+			contentWrap.show();
+			noticeWrap.show();
+			contentImgWrap.show();
+		}
+		else if (eventType === 'link')
+		{
+			linkWrap.show();
+			webWrap.hide();
+			contentWrap.hide();
+			noticeWrap.hide();
+			contentImgWrap.hide();
+		}
+		else if (eventType === 'web')
+		{
+			webWrap.show();
+			linkWrap.hide();
+			contentWrap.hide();
+			noticeWrap.hide();
+			contentImgWrap.hide();
+		}
 
-		title.html(detailData.title);
-		content.html(detailData.contents);
-		eventImg.attr('src', detailData.image_url);
-		period.html(detailData.start_date +' ~ '+detailData.end_date);
-		exposure.html(detailData.is_exposure === 'Y' ? '노출' : '비노출');
+		type.html(detail.event_name);
+		title.html(detail.title);
+		content.html(detail.contents);
+		notice.html(detail.notice);
+		contentImg.attr('src', detail.image_url);
+		thumbnail.attr('src', detail.thumbnail_image_url);
+		period.html(detail.start_date +' ~ '+detail.end_date);
+		link.html('<a href="'+detail.link_url+'" target="_blank">'+detail.link_url+'</a>');
+		webUrl.html('<a href="'+detail.web_url+'" target="_blank">'+detail.web_url+'</a>');
+		exposure.html(detail.is_exposure === 'Y' ? '노출' : '비노출');
 	}
 
 	function goUpdatePage()

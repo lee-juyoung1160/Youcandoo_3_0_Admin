@@ -9,7 +9,7 @@
                             <p class="sub-title important">구분 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">이벤트(기본)</p>
+                            <p class="detail-data" id="type"></p>
                         </div>
                     </div>
                 </li>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li id="contentWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">내용 (*)</p>
@@ -33,17 +33,24 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li id="noticeWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">유의사항 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="content">
-                                1. 첫번째 유의사항 블라블라블라<br>
-                                2. 두번째 유의사항 블라블라블라블라<br>
-                                3. 세번째 유의사항 블라블라
+                            <p class="detail-data" id="notice">
                             </p>
+                        </div>
+                    </div>
+                </li>
+                <li id="contentImgWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">본문 이미지 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data-img"><img id="contentImg" src="" alt="본문 이미지"></p>
                         </div>
                     </div>
                 </li>
@@ -53,7 +60,27 @@
                             <p class="sub-title important">썸네일 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data-img"><img id="eventImg" src="" alt="event image"></p>
+                            <p class="detail-data-img"><img id="thumbnail" src="" alt="썸네일 이미지"></p>
+                        </div>
+                    </div>
+                </li>
+                <li id="webWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">Web Url (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data-img" id="webUrl"></p>
+                        </div>
+                    </div>
+                </li>
+                <li id="linkWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">Link (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data-img" id="link"></p>
                         </div>
                     </div>
                 </li>

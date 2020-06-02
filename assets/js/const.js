@@ -9,6 +9,8 @@
 		,modify : '수정하시겠습니까?'
 		,delete : '삭제하시겠습니까?'
 		,change : '변경하시겠습니까?'
+		,cancel : '취소하시겠습니까?'
+		,send : '발송하시겠습니까?'
 		,input : '입력해주세요.'
 		,required : '필수항목입니다.'
 		,notEqual : '일치하지 않습니다.'
@@ -71,6 +73,8 @@
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'
 		,setRed : baseApiUrl+'action/set/red'
+		,cancelYellow : baseApiUrl+'action/cancel/yellow'
+		,cancelRed : baseApiUrl+'action/cancel/red'
 
 		,createNotice : baseApiUrl+'notice/create'
 		,detailNotice : baseApiUrl+'notice/detail'

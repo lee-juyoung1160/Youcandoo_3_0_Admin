@@ -106,6 +106,9 @@ section {
 section .inner {
 	padding: 50px 0;
 }
+textarea {
+	resize: none;
+}
 h2.main-title {
 	font-weight: 700;
 	font-size: 30px;

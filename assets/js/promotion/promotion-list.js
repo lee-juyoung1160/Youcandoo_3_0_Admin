@@ -6,6 +6,8 @@
 	const searchType 	= $("#searchType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
+	const isBanner 		= $("input[name=radio-banner]");
+	const status 		= $("input[name=chk-status]");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
@@ -21,6 +23,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
+		status			.on("click", function () { onChangeChkStatus(this); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
@@ -33,9 +36,21 @@
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
+		isBanner.eq(0).prop("checked", true);
+		status.prop("checked", true);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
+	}
+
+	function onChangeChkStatus(obj)
+	{
+		let checkedCount = $("input[name=chk-status]:checked").length;
+		if (checkedCount === 0)
+		{
+			alert(message.minimumChecked);
+			$(obj).prop("checked", true);
+		}
 	}
 
 	function buildGrid()
@@ -55,6 +70,9 @@
 					}
 				   */
 					return tableParams(d);
+				},
+				error: function (request, status) {
+					alert(message.ajaxError);
 				}
 			},
 			columns: [
@@ -110,6 +128,12 @@
 	
 	function tableParams(d)
 	{
+		let statusParam = [];
+		status.each(function () {
+			if ($(this).is(':checked'))
+				statusParam.push($(this).val())
+		});
+
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
@@ -118,6 +142,8 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
+			,"is_banner " : $("input[name=radio-banner]:checked").val()
+			,"status" : statusParam
 		}
 
 		return JSON.stringify(param);
@@ -214,6 +240,12 @@
 
 	function excelParams()
 	{
+		let statusParam = [];
+		status.each(function () {
+			if ($(this).is(':checked'))
+				statusParam.push($(this).val())
+		});
+
 		let param = {
 			"limit" : 20000
 			,"page" : 1
@@ -222,6 +254,8 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
+			,"is_banner " : $("input[name=radio-banner]:checked").val()
+			,"status" : statusParam
 		}
 
 		return JSON.stringify(param);

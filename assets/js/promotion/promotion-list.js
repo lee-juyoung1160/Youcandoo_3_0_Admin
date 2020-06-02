@@ -129,8 +129,9 @@
 		let periodDom = $(nRow).children().eq(2);
 		let btnDom 	  = $(nRow).children().eq(5);
 
-		/** 제목에 a 태그 추가 **/
+		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
+		$(titleDom).css('text-decoration', 'underline');
 
 		/** 프로모션 기간 **/
 		periodDom.html(aData.start_date +' ~ '+aData.end_date);
@@ -139,7 +140,7 @@
 		let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
 		let introUrl  = aData.intro_image_url;
-		let innerDom = '<button onclick="viewImage(this);" type="button" style="border-bottom: none;" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
+		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
 		btnDom.html(innerDom);
 	}
 

@@ -152,6 +152,7 @@
 
 		/** 제목 cell 클릭 상세 이동 **/
 		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
+		$(titleDom).css('text-decoration', 'underline');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')

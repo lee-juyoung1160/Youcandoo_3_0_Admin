@@ -72,13 +72,13 @@
 
 		if (isEmpty(duration))
 		{
-			alert("두잇 유형을 "+message.select);
+			alert("리워드 조건을 "+message.select);
 			doitFrom.val('');
 			bizName.focus();
 			return;
 		}
 
-		doitFromDate.setDate(doitFromDate.getDate() + Number(duration));
+		doitFromDate.setDate(doitFromDate.getDate() + (Number(duration) - 1));
 		doitToDate = stringFormatToDate(doitFromDate, '-');
 
 		doitTo.val(doitToDate);

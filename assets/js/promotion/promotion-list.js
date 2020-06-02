@@ -89,7 +89,12 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}
+				/*,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}*/
+				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center",
+					render: function (data) {
+						return data === 'Y' ? label.exposure : label.unexpose;
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -142,7 +147,7 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			,"is_banner " : $("input[name=radio-banner]:checked").val()
+			,"is_banner" : $("input[name=radio-banner]:checked").val()
 			,"status" : statusParam
 		}
 
@@ -163,11 +168,11 @@
 		periodDom.html(aData.start_date +' ~ '+aData.end_date);
 
 		/** 배너보기 버튼 **/
-		let bannerUrl = aData.banner_image_url;
+		/*let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
 		let introUrl  = aData.intro_image_url;
 		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
-		btnDom.html(innerDom);
+		btnDom.html(innerDom);*/
 	}
 
 	function goDetail(idx)
@@ -254,7 +259,7 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			,"is_banner " : $("input[name=radio-banner]:checked").val()
+			,"is_banner" : $("input[name=radio-banner]:checked").val()
 			,"status" : statusParam
 		}
 

@@ -1022,3 +1022,7 @@ textarea {
 	font-size: 15px;
 	text-align: center;
 }
+
+.cursor-default {
+	cursor: default;
+}

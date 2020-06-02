@@ -58,15 +58,15 @@
 				}
 			},
 			columns: [
-				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center" }
+				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center",
+				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center",
+				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -128,10 +128,9 @@
 		let titleDom  = $(nRow).children().eq(1);
 		let periodDom = $(nRow).children().eq(2);
 		let btnDom 	  = $(nRow).children().eq(5);
-		let detailUrl = page.detailPromo+aData.idx;
 
 		/** 제목에 a 태그 추가 **/
-		titleDom.html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
+		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
 
 		/** 프로모션 기간 **/
 		periodDom.html(aData.start_date +' ~ '+aData.end_date);
@@ -140,8 +139,13 @@
 		let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
 		let introUrl  = aData.intro_image_url;
-		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
+		let innerDom = '<button onclick="viewImage(this);" type="button" style="border-bottom: none;" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
 		btnDom.html(innerDom);
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailPromo+idx;
 	}
 
 	function onSubmitSearch()

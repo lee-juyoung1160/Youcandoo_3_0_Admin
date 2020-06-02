@@ -69,15 +69,15 @@
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
+				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
-				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center",
+				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
+				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -149,10 +149,9 @@
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
-		let detailUrl = page.detailNotice+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+		/** 제목 cell 클릭 상세 이동 **/
+		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')
@@ -160,8 +159,13 @@
 			topCount++;
 
 			/** no컬럼에 숫자대신 아이콘 **/
-			$(topDom).html('<i class="fas fas fa-bell"></i>');
+			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;"></i>');
 		}
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailNotice+idx;
 	}
 
 	/** row select **/

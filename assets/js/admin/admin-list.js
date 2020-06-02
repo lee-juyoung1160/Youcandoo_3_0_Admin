@@ -87,11 +87,11 @@
 				}
 			},
 			columns: [
-				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center" }
-				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center",
+				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -144,7 +144,6 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -160,15 +159,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttribute(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(3);
-		let detailUrl = '/service/admin/detail/'+aData.idx;
-
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

@@ -125,17 +125,20 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  	 = $(nRow).children().eq(1);
 		let periodDom  	 = $(nRow).children().eq(2);
 		let constUserDom = $(nRow).children().eq(3);
-		let detailUrl 	 = page.detailDoit+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
+		/** row 클릭 상세 이동 **/
+		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
 		/** 인증기간 **/
 		$(periodDom).html(aData.action_start_datetime+' ~ ' +aData.action_end_datetime);
 		/** 참여인원/모집인원 **/
 		$(constUserDom).html(aData.doit_member+' / ' +aData.max_user);
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailDoit+idx;
 	}
 
 	function onSubmitSearch()

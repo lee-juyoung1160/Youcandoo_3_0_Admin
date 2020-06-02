@@ -125,15 +125,18 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
 		let periodDom = $(nRow).children().eq(2);
-		let detailUrl = page.detailEvent+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+		/** row 클릭 상세 이동 **/
+		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
 
 		/** 기간 추가 **/
 		$(periodDom).html(aData.start_date +' ~ '+ aData.end_date);
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailEvent+idx;
 	}
 
 	function onSubmitSearch()

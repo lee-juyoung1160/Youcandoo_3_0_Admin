@@ -61,8 +61,8 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
+				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center cursor-default" }
+				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

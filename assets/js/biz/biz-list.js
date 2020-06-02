@@ -115,10 +115,13 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(1);
-		let detailUrl = page.detailBiz+aData.idx;
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.nickname+'</a>');
+		/** row 클릭 상세 이동 **/
+		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailBiz+idx;
 	}
 
 	function onSubmitSearch()

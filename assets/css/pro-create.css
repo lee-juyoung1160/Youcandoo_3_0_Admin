@@ -123,12 +123,12 @@
 .pro-create-page .hash-tag-list > li .delete-btn {
     padding-left: 5px;
 }
-.reward-tab li {
+.reward-tab-ul li {
     position: relative;
     height: 25px;
     line-height: 25px;
 }
-.reward-tab li span {
+.reward-tab-ul li span {
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -141,7 +141,7 @@
     word-wrap:normal;
 
 }
-.reward-tab li i {
+.reward-tab-ul li i {
     position: absolute;
     top: 20%;
     right: 10px;

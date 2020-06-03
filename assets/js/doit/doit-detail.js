@@ -630,7 +630,7 @@
 			pageDom += '<a class="paginate_button previous" id="dataTable_previous">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(currentPage-1)+'" id="dataTable_previous">';
-		pageDom +=     '<i class="fas fa-angle-double-left"></i>';
+		pageDom +=     label.previous;
 		pageDom += '</a>';
 		pageDom += '<span>';
 		if (last <= 10)
@@ -706,7 +706,7 @@
 			pageDom += '<a class="paginate_button next" id="dataTable_next">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(currentPage+1)+'" id="dataTable_next">';
-		pageDom += 	   '<i class="fas fa-angle-double-right"></i>';
+		pageDom += 	  label.next;
 		pageDom += '</a>';
 
 		pagination.html(pageDom);

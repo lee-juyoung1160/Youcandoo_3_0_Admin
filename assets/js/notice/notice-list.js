@@ -11,7 +11,6 @@
 	const dataNum		= $(".data-num");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
-	let iconTop 		= '<i class="fas fas fa-bell"></i>';
 	let topCount		= 0;
 
 	$(document).ready(function () {
@@ -194,7 +193,7 @@
 		btnTop.removeClass('delete-btn');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('btn-disabled');
-		btnTop.html(iconTop +'상단고정');
+		btnTop.html(label.fixedTop +'상단고정');
 	}
 
 	function bestStatusBtnTop()
@@ -202,7 +201,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('delete-btn');
 		btnTop.addClass('best-btn');
-		btnTop.html(iconTop +'상단고정');
+		btnTop.html(label.fixedTop +'상단고정');
 	}
 
 	function deleteStatusBtnTop()
@@ -210,7 +209,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('delete-btn');
-		btnTop.html(iconTop +'상단고정 해제');
+		btnTop.html(label.fixedTop +'상단고정 해제');
 	}
 
 	function onSubmitSearch()

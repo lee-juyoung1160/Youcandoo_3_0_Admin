@@ -318,7 +318,7 @@
 	function onChangeSelReward()
 	{
 		$.ajax({
-			url: api.selectReward,
+			url: api.getReward,
 			type: "POST",
 			async: false,
 			global: false,

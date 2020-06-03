@@ -32,86 +32,12 @@
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
+		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
 		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
 		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
 		,promotionNotice3: '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'
-	}
-
-	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
-	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
-	const api = {
-		listBizName : baseApiUrl+'keyword/getCompanyName'
-		,getBalance : baseApiUrl+'ucd/status/company'
-
-		,getProfile : baseApiUrl+'admin/get'
-		,updateProfile : baseApiUrl+'admin/update/pwd'
-
-		,listUser : baseApiUrl+'user/list'
-		,inactiveUser : baseApiUrl+'user/inactive'
-
-		,createBiz : baseApiUrl+'biz/create'
-		,detailBiz : baseApiUrl+'biz/detail'
-		,involveBizPromotion : baseApiUrl+'biz/promotion'
-		,updateBiz : baseApiUrl+'biz/update'
-		,listBiz : baseApiUrl+'biz/list'
-
-		,createPromotion : baseApiUrl+'promotion/create'
-		,detailPromotion : baseApiUrl+'promotion/getPromotion'
-		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
-		,updatePromotion : baseApiUrl+''
-		,listPromotion : baseApiUrl+'promotion/list'
-
-		,createDoit : baseApiUrl+'doit/create'
-		,detailDoit : baseApiUrl+'doit/detail'
-		,updateDoit : baseApiUrl+''
-		,listDoit : baseApiUrl+'doit/list'
-		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
-		,involveReward : baseApiUrl+'promotion/getPromotionReward'
-		,selectReward : baseApiUrl+'promotion/getReward'
-		,involveAction : baseApiUrl+'doit/get/action'
-
-		,listAction : baseApiUrl+'action/list'
-		,setYellow : baseApiUrl+'action/set/yellow'
-		,setRed : baseApiUrl+'action/set/red'
-		,cancelYellow : baseApiUrl+'action/cancel/yellow'
-		,cancelRed : baseApiUrl+'action/cancel/red'
-
-		,createNotice : baseApiUrl+'notice/create'
-		,detailNotice : baseApiUrl+'notice/detail'
-		,updateNotice : ''
-		,listNotice : baseApiUrl+'notice/list'
-		,topNotice : baseApiUrl+'notice/changeTop'
-		,createEvent : baseApiUrl+'event/create'
-		,detailEvent : baseApiUrl+'event/detail'
-		,updateEvent : ''
-		,listEvent : baseApiUrl+'event/list'
-		,getEventType : baseApiUrl+'event/type'
-		,createFaq : baseApiUrl+'faq/create'
-		,detailFaq : baseApiUrl+'faq/detail'
-		,updateFaq : ''
-		,getFaqType : baseApiUrl+'faq/type'
-		,listFaq : baseApiUrl+'faq/list'
-		,commentQna : baseApiUrl+'qna/comment'
-		,detailQna : baseApiUrl+'qna/detail'
-		,listQna : baseApiUrl+'qna/list'
-		,getQnaType : baseApiUrl+'qna/type'
-		,createProhibition : baseApiUrl+'prohibition/create'
-		,deleteProhibition : baseApiUrl+'prohibition/delete'
-		,updateProhibition : baseApiUrl+''
-		,listProhibition : baseApiUrl+'prohibition/list'
-
-		,createAdmin : baseApiUrl+'admin/create'
-		,deleteAdmin : baseApiUrl+'admin/delete'
-		,listAdmin : baseApiUrl+'admin/list'
-		,activeAdmin : baseApiUrl+'admin/active'
-		,inactiveAdmin : baseApiUrl+'admin/inactive'
-		,createAuth : baseApiUrl+'auth/create'
-		,deleteAuth : baseApiUrl+'auth/delete'
-		,listAuth : baseApiUrl+'auth/list'
-		,setMenuByAuth : baseApiUrl+'auth/set/menu'
-		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 	}
 
 	const label = {
@@ -127,8 +53,93 @@
 		,previous : '<i class="fas fa-angle-double-left"></i>'
 		,next : '<i class="fas fa-angle-double-right"></i>'
 		,memo : '<i class="fas fa-thumbtack"></i>'
+		,fixedTop: '<i class="fas fas fa-bell"></i>'
 	}
 
+	/** api url **/
+	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
+	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
+	const api = {
+		/** 공통 **/
+		listBizName : baseApiUrl+'keyword/getCompanyName'
+		,getBalance : baseApiUrl+'ucd/status/company'
+		/** 마이페이지 **/
+		,getProfile : baseApiUrl+'admin/get'
+		,updateProfile : baseApiUrl+'admin/update/pwd'
+		/** 회원 **/
+		,listUser : baseApiUrl+'user/list'
+		,inactiveUser : baseApiUrl+'user/inactive'
+		/** 비즈 **/
+		,createBiz : baseApiUrl+'biz/create'
+		,detailBiz : baseApiUrl+'biz/detail'
+		,involveBizPromotion : baseApiUrl+'biz/promotion'
+		,updateBiz : baseApiUrl+'biz/update'
+		,listBiz : baseApiUrl+'biz/list'
+		/** 프로모션 **/
+		,createPromotion : baseApiUrl+'promotion/create'
+		,detailPromotion : baseApiUrl+'promotion/getPromotion'
+		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
+		,updatePromotion : baseApiUrl+''
+		,listPromotion : baseApiUrl+'promotion/list'
+		/** 두잇 **/
+		,createDoit : baseApiUrl+'doit/create'
+		,detailDoit : baseApiUrl+'doit/detail'
+		,updateDoit : baseApiUrl+''
+		,listDoit : baseApiUrl+'doit/list'
+		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
+		,involveReward : baseApiUrl+'promotion/getPromotionReward'
+		,getReward : baseApiUrl+'promotion/getReward'
+		,involveAction : baseApiUrl+'doit/get/action'
+		/** 인증 **/
+		,listAction : baseApiUrl+'action/list'
+		,setYellow : baseApiUrl+'action/set/yellow'
+		,setRed : baseApiUrl+'action/set/red'
+		,cancelYellow : baseApiUrl+'action/cancel/yellow'
+		,cancelRed : baseApiUrl+'action/cancel/red'
+		/** 이벤트 **/
+		,createEvent : baseApiUrl+'event/create'
+		,detailEvent : baseApiUrl+'event/detail'
+		,updateEvent : ''
+		,listEvent : baseApiUrl+'event/list'
+		,getEventType : baseApiUrl+'event/type'
+		/** 공지 **/
+		,createNotice : baseApiUrl+'notice/create'
+		,detailNotice : baseApiUrl+'notice/detail'
+		,updateNotice : ''
+		,listNotice : baseApiUrl+'notice/list'
+		,topNotice : baseApiUrl+'notice/changeTop'
+		/** FAQ **/
+		,createFaq : baseApiUrl+'faq/create'
+		,detailFaq : baseApiUrl+'faq/detail'
+		,updateFaq : ''
+		,getFaqType : baseApiUrl+'faq/type'
+		,listFaq : baseApiUrl+'faq/list'
+		/** 금칙어 **/
+		,createProhibition : baseApiUrl+'prohibition/create'
+		,deleteProhibition : baseApiUrl+'prohibition/delete'
+		,updateProhibition : baseApiUrl+''
+		,listProhibition : baseApiUrl+'prohibition/list'
+		/** QNA **/
+		,commentQna : baseApiUrl+'qna/comment'
+		,detailQna : baseApiUrl+'qna/detail'
+		,listQna : baseApiUrl+'qna/list'
+		,getQnaType : baseApiUrl+'qna/type'
+		/** 관리자 **/
+		,createAdmin : baseApiUrl+'admin/create'
+		,deleteAdmin : baseApiUrl+'admin/delete'
+		,listAdmin : baseApiUrl+'admin/list'
+		,activeAdmin : baseApiUrl+'admin/active'
+		,inactiveAdmin : baseApiUrl+'admin/inactive'
+		/** 관리자 권한 **/
+		,createAuth : baseApiUrl+'auth/create'
+		,listAuth : baseApiUrl+'auth/list'
+		,deleteAuth : baseApiUrl+'auth/delete'
+		/** 관리자 권한 별 메뉴 **/
+		,setMenuByAuth : baseApiUrl+'auth/set/menu'
+		,getMenuByAuth : baseApiUrl+'auth/get/menu'
+	}
+
+	/** page url **/
 	const page = {
 		listUser : '/user/lists'
 
@@ -142,26 +153,30 @@
 		,detailPromo : '/pro/detail/'
 		,updatePromo : '/pro/update/'
 
-		,createDoit : '/doit/create'
 		,listDoit : '/doit/lists'
+		,createDoit : '/doit/create'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
+
+		,listEvent : '/service/event/list'
+		,createEvent : '/service/event/create'
+		,detailEvent : '/service/event/detail/'
+		,updateEvent : '/service/event/update/'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'
 		,detailNotice : '/service/notice/detail/'
 		,updateNotice : '/service/notice/update/'
-		,listEvent : '/service/event/list'
-		,createEvent : '/service/event/create'
-		,detailEvent : '/service/event/detail/'
-		,updateEvent : '/service/event/update/'
+
 		,listFaq : '/service/faq/list'
 		,createFaq : '/service/faq/create'
 		,detailFaq : '/service/faq/detail/'
 		,updateFaq : '/service/faq/update/'
+
 		,listInquiry : '/service/inquiry/list'
 		,commentInquiry : '/service/inquiry/update/'
 		,detailInquiry : '/service/inquiry/detail/'
+
 		,listProhibition : '/service/prohibition'
 
 		,listAdmin : '/admin/lists'

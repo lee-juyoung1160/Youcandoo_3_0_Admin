@@ -1014,6 +1014,9 @@ textarea {
 .clear-red-btn:hover {
 	background-color: #d00001;
 }
+.doit-detail-page .modal-content .select-box {
+	width: 100%;
+}
 /* ë°ì´í„° í…Œì´ë¸” íŽ˜ì´ì§€ë„¤ì´ì…˜ */
 #dataTable_paginate {
 	display: flex;

@@ -96,14 +96,14 @@
                     <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
-                    <button class="yellow-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
-                    <button class="warning-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
+                    <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
+                    <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
                 </div>
             </div>
 
             <div id="actionWrap">
                 <ul class="cert-contents clearfix">
-                    <li>
+                    <!--<li>
                         <div class="top clearfix">
                             <div class="checkbox-wrap">
                                 <input type="checkbox" id="c5" name="cc" />
@@ -114,7 +114,7 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <!--옐로카드-->
+                            &lt;!&ndash;옐로카드&ndash;&gt;
                             <div class="error">
                                 <p class="error-text"><i><img src="/assets/images/yellow-card.png" alt=""></i>인증조건에 맞지 않아요</p>
                                 <div class="card-wrap">
@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <!--레드카드-->
+                            &lt;!&ndash;레드카드&ndash;&gt;
                             <div class="error">
                                 <p class="error-text"><i><img src="/assets/images/red-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
                                 <div class="card-wrap">
@@ -173,7 +173,7 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <!--옐로,레드카드-->
+                            &lt;!&ndash;옐로,레드카드&ndash;&gt;
                             <div class="error">
                                 <p class="error-text"><i><img src="/assets/images/rad-yellow-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
                                 <div class="card-wrap">
@@ -228,7 +228,7 @@
                             <a href="#">aaaaaaa</a>
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
 
@@ -264,19 +264,3 @@
     </div>
 </section>
 <script src="/assets/js/action/action-list.js"></script>
-<script>
-    // modal event
-    $('[data-rel]').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-</script>

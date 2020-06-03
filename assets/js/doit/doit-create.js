@@ -89,8 +89,10 @@
 		doitTitle.focus();
 		doitTitle.val('');
 		bizName.val('');
-		selPromo.find('option').eq(0).prop('selected', true);
-		selReward.find('option').eq(0).prop('selected', true);
+		selPromo.children().eq(0).prop('selected', true);
+		onChangeSelectOption(selPromo);
+		selReward.eq(0).prop('selected', true);
+		onChangeSelectOption(selReward);
 		maxUser.val('');
 		inputTag.val('');
 		introFileType.eq(0).prop('checked', true);

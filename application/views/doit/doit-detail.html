@@ -361,12 +361,6 @@
 
             <!--인증정보탭-->
             <div id="doitAction" class="table-wrap" style="display: none;">
-                <div class="top clearfix">
-                    <div class="btn-wrap">
-                        <button class="yellow-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
-                        <button class="warning-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
-                    </div>
-                </div>
                 <div id="actionTopDom" class="top clearfix" style="display: none;">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
@@ -380,12 +374,13 @@
                         <p>Total <strong class="data-num action-total"></strong></p>
                     </div>
                     <div class="btn-wrap">
-                        <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>경고장 일괄발송</button>
+                        <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
+                        <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
                     </div>
                 </div>
 
                 <div id="actionWrap">
-                    <ul class="cert-contents clearfix">
+                    <!--<ul class="cert-contents clearfix">
                         <li>
                             <div class="top clearfix">
                                 <div class="checkbox-wrap">
@@ -397,7 +392,7 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                <!--옐로카드-->
+                                &lt;!&ndash;옐로카드&ndash;&gt;
                                 <div class="error">
                                     <p class="error-text"><i><img src="/assets/images/yellow-card.png" alt=""></i>인증조건에 맞지 않아요</p>
                                     <div class="card-wrap">
@@ -427,7 +422,7 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                <!--레드카드-->
+                                &lt;!&ndash;레드카드&ndash;&gt;
                                 <div class="error">
                                     <p class="error-text"><i><img src="/assets/images/red-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
                                     <div class="card-wrap">
@@ -456,7 +451,7 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                <!--옐로,레드카드-->
+                                &lt;!&ndash;옐로,레드카드&ndash;&gt;
                                 <div class="error">
                                     <p class="error-text"><i><img src="/assets/images/rad-yellow-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
                                     <div class="card-wrap">
@@ -512,7 +507,7 @@
                                 <p class="date">2019.07.17 10:30:24</p>
                             </div>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
 
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
@@ -529,12 +524,12 @@
                                 <div class="select-box active">
                                     <label for="selCauseBy">인증조건에 맞지 않아요</label>
                                     <select id="selCauseBy">
-                                        <option value="aaa">인증조건에 맞지 않아요</option>
-                                        <option value="aaa">광고나 홍보성격이 짙어요</option>
-                                        <option value="bbb">욕설이나 선정적인 내용이 있어요</option>
-                                        <option value="ccc">민감한 개인 정보가 있어요</option>
-                                        <option value="ddd">누군가의 명예를 훼손할 수 있어요</option>
-                                        <option value="eee">에티켓 위반 등 기타 사유에요</option>
+                                        <option value="인증조건에 맞지 않아요">인증조건에 맞지 않아요</option>
+                                        <option value="광고나 홍보성격이 짙어요">광고나 홍보성격이 짙어요</option>
+                                        <option value="욕설이나 선정적인 내용이 있어요">욕설이나 선정적인 내용이 있어요</option>
+                                        <option value="민감한 개인 정보가 있어요">민감한 개인 정보가 있어요</option>
+                                        <option value="누군가의 명예를 훼손할 수 있어요">누군가의 명예를 훼손할 수 있어요</option>
+                                        <option value="에티켓 위반 등 기타 사유에요">에티켓 위반 등 기타 사유에요</option>
                                     </select>
                                 </div>
                             </li>

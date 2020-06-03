@@ -93,7 +93,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.detailContent+message.ajaxLoadError);
 			},
 		});
 	}
@@ -361,7 +361,7 @@
 				setExcelData("개설두잇목록", "개설두잇목록", data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.download+message.ajaxError);
 			}
 		});
 	}
@@ -439,7 +439,7 @@
 						alert(invalidResp(data));
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.submit+message.ajaxError);
 				},
 			});
 		}
@@ -482,7 +482,7 @@
 						getInvolveAction();
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.cancel+message.ajaxError);
 				}
 			});
 		}
@@ -506,7 +506,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('인증 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}

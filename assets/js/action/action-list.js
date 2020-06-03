@@ -106,7 +106,7 @@
 						alert(invalidResp(data));
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.submit+message.ajaxError);
 				},
 			});
 		}
@@ -149,7 +149,7 @@
 						getActions();
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.cancel+message.ajaxError);
 				}
 			});
 		}
@@ -211,7 +211,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.list+message.ajaxLoadError);
 			}
 		});
 	}

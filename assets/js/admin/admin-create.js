@@ -39,7 +39,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -132,7 +132,7 @@
 							location.href = page.listAdmin;
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

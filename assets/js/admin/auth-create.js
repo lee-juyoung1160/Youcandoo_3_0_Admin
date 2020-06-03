@@ -46,7 +46,7 @@
 						getAuthList();
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.delete+message.ajaxError);
 				}
 			});
 		}
@@ -76,7 +76,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('권한 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -125,7 +125,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('메뉴 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -271,7 +271,7 @@
 						}
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}
@@ -294,7 +294,7 @@
 						getAuthList();
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.submit+message.ajaxError);
 				}
 			});
 		}

@@ -29,7 +29,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('구분 '+label.list+message.ajaxError);
 			}
 		});
 	}
@@ -69,7 +69,7 @@
 					alert(invalidResp(data))
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -100,7 +100,7 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(message.modify))
 			{
 				$.ajax({
 					url: api.createFaq,
@@ -114,7 +114,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.modify+message.ajaxError);
 					}
 				});
 			}

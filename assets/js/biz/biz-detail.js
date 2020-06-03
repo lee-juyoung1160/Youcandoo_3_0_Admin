@@ -32,7 +32,7 @@
 						alert(invalidResp(data))
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.detail+message.ajaxLoadError);
 				}
 			});
 		}
@@ -71,7 +71,7 @@
 						return tableParams(d);
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.list+message.ajaxLoadError);
 					}
 				},
 				columns: [

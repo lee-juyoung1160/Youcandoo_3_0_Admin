@@ -49,7 +49,7 @@
 							location.href = page.listNotice
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

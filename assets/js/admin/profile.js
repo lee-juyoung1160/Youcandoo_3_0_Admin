@@ -76,7 +76,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -144,7 +144,7 @@
 							getProfile();
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}
@@ -162,7 +162,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

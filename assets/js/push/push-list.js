@@ -72,7 +72,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

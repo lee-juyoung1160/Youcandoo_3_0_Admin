@@ -52,7 +52,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -147,7 +147,7 @@
 							alert(invalidResp(data));
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					},
 				});
 			}
@@ -206,7 +206,7 @@
 							buildGrid();
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.delete+message.ajaxError);
 					},
 				});
 			}

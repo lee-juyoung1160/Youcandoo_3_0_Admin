@@ -32,7 +32,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -100,7 +100,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

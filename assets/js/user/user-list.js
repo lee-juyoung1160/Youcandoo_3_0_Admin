@@ -80,7 +80,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -243,7 +243,7 @@
 				setExcelData("회원목록", "회원목록", data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.download+message.ajaxError);
 			},
 		});
 	}
@@ -288,7 +288,7 @@
 						}
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					},
 				});
 			}

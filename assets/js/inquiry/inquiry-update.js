@@ -32,7 +32,7 @@
 					alert(invalidResp(data))
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -86,7 +86,7 @@
 							alert(invalidResp(data))
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

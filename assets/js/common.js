@@ -387,7 +387,7 @@
                     alert(invalidResp(data));
             },
             error: function (request, status) {
-                alert('메뉴 목록을 불러오는 중 '+message.ajaxError);
+                alert('메뉴 '+label.list+message.ajaxLoadError);
             }
         });
     }

@@ -245,7 +245,7 @@
 					buildOptionPromo(data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('프로모션 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -287,7 +287,7 @@
 				buildOptionReward(data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('리워드 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -329,11 +329,11 @@
 					buildSelectedReward(data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('리워드 '+label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
-
+	let g_max_user_limit;
 	function buildSelectedReward(data)
 	{
 		selectedReward.hide();
@@ -510,7 +510,7 @@
 			return false;
 		}
 
-		if ($('input:radio[name=radio-doit-type]:checked').val() === 'video' && introVideoFile.length === 0)
+		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
 		{
 			alert('두잇 소개 영상은 ' + message.required);
 			return false;
@@ -518,28 +518,35 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('기업명은 ' + message.required);
+			alert('기업명은 ' + message.required+'\n두잇 유형에서 기업명을 '+message.select);
 			bizName.focus();
 			return false;
 		}
 
 		if (isEmpty(selPromo.val()))
 		{
-			alert('프로모션은 ' + message.required);
+			alert('프로모션은 ' + message.required+'\n두잇 유형에서 프로모션을 '+message.select);
 			selPromo.focus();
 			return false;
 		}
 
 		if (isEmpty(selReward.val()))
 		{
-			alert('리워드 조건은 ' + message.required);
+			alert('리워드 조건은 ' + message.required+'\n두잇 유형에서 리워드 조건을 '+message.select);
 			selReward.focus();
 			return false;
 		}
 
 		if (isEmpty(maxUser.val()))
 		{
-			alert('최대모집인원은 ' + message.required);
+			alert('모집 인원은 ' + message.required);
+			maxUser.focus();
+			return false;
+		}
+
+		if (Number(maxUser.val()) > Number(maxAvailable.text()))
+		{
+			alert('모집 인원은 ' + message.overUserCount);
 			maxUser.focus();
 			return false;
 		}
@@ -690,7 +697,7 @@
 							location.href = page.listDoit
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

@@ -41,7 +41,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -87,7 +87,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

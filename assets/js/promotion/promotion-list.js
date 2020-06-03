@@ -72,7 +72,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(message.ajaxError);
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -238,7 +238,7 @@
 				setExcelData("프로모션목록", "프로모션목록", data);
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.download+message.ajaxError);
 			}
 		});
 	}

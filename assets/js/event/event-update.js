@@ -51,7 +51,7 @@
 					alert(invalidResp(data))
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -158,7 +158,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(message.ajaxError);
+				alert('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -337,7 +337,7 @@
 							location.href = page.listEvent
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.modify+message.ajaxError);
 					}
 				});
 			}

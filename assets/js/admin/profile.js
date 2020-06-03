@@ -28,6 +28,7 @@
 		btnSubmit			.on('click', function () { onSubmitProfile(this); })
 		search				.on("click", function () { getLog(); });
 		reset				.on("click", function () { initSearchForm(); });
+		selPageLength		.on("change", function () { getLog(); });
 		dayButtons      	.on("click", function () { onClickActiveAloneDayBtn(this); });
 		password      		.on("keyup", function () { onKeyupPassword(); });
 		passwordChk      	.on("keyup", function () { onKeyupPasswordChk(); });

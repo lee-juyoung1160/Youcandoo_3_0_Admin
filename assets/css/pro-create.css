@@ -221,13 +221,6 @@
     display: block;
     text-align: right;
 }
-.frequency-ul.disabled > li,
-.frequency-ul.disabled > li:hover {
-    color: #ddd;
-    border-color: #ddd;
-    background-color: #fff;
-    cursor: inherit;
-}
 .pro-reward-wrap .add-btn-wrap {
     padding: 0;
 }

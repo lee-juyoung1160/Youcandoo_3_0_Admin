@@ -25,7 +25,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		getActions();
+		//getActions();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearchActions(event); });
 		search			.on("click", function () { onSubmitSearch(); });

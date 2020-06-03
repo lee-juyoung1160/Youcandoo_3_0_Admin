@@ -166,10 +166,10 @@
 				}
 			},
 			columns: [
-				{title: "경로", 		data: "url",   	 			width: "40%",      	orderable: false,   className: "text-center" }
-				,{title: "날짜", 	data: "datetime",   		width: "15%", 		orderable: false,   className: "text-center" }
-				,{title: "구분", 	data: "access_type_name",	width: "15%",    	orderable: false,   className: "text-center" }
-				,{title: "활동", 	data: "action",      		width: "15%",    	orderable: false,   className: "text-center" }
+				{title: "경로", 		data: "url",   	 			width: "40%",      	orderable: false,   className: "text-center cursor-default" }
+				,{title: "날짜", 	data: "datetime",   		width: "15%", 		orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", 	data: "access_type_name",	width: "15%",    	orderable: false,   className: "text-center cursor-default" }
+				,{title: "활동", 	data: "action",      		width: "15%",    	orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

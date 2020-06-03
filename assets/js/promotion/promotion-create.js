@@ -29,9 +29,6 @@
 	const iconDelReward	 = $(".delete-reward");
 	const btnAddReward	 = $(".reward-add-btn")
 	const rewardsWrap 	 = $("#rewardsWrap");
-	const rewardWrap 	 = $(".pro-reward-wrap");
-	const btnDuration	 = $(".duration");
-	const btnFrequency	 = $(".frequency");
 	const goalRange1	 = $("#goalRange1");
 	const goalRange2	 = $("#goalRange2");
 	const goalRange3	 = $("#goalRange3");
@@ -74,8 +71,6 @@
 		checkInputLength();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** 주간빈도 초기화 **/
-		/*toggleDisabledFrequency($(".reward-1").find(btnDuration).eq(0));*/
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -88,8 +83,8 @@
 		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
 		btnAddReward	.on('click', function () { addReward(this); });
 		iconDelReward	.on('click', function () { deleteReward(this); });
-		btnDuration		.on('click', function () { onSelectDuration(this); });
-		btnFrequency	.on('click', function () { toggleFrequency(this); });
+		$(".duration")	.on('click', function () { onSelectDuration(this); });
+		$(".frequency")	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
 		rewardUcd		.on('keyup', function () { calculateTotalUcd(this); });
 		/*iconDeleteRow	.on('click', function () { deleteTableRow(this); });
@@ -207,7 +202,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}
@@ -226,6 +220,7 @@
 		modalFadeout();
 	}
 
+	let g_total_balance;
 	function getBizBalance(uuid)
 	{
 		$.ajax({
@@ -233,10 +228,14 @@
 			type: "POST",
 			headers: headers,
 			dataType: 'json',
-			data: JSON.stringify({"profile_uuid" : uuid}),
+			data: JSON.stringify({"company_uuid" : uuid}),
 			success: function(data) {
 				if (isSuccessResp(data))
-					console.log(data)
+				{
+					let totalBalance = Number(data.data.cash) + Number(data.data.point);
+					g_total_balance = totalBalance;
+					balance.html('기업 보유 UCD: '+numberWithCommas(totalBalance)+'UCD');
+				}
 				else
 					alert(invalidResp(data));
 			},
@@ -342,7 +341,8 @@
 
 	function toggleShowRewardForm(obj)
 	{
-		let target = $(obj).data('target');
+		let target 	   = $(obj).data('target');
+		let rewardWrap = $(".pro-reward-wrap");
 
 		rewardWrap.hide();
 		$(target).show();
@@ -528,21 +528,21 @@
 	/** 리워드 제목 입력하면 리워드제목 = 탭이름 이벤트 **/
 	function onKeyupRewardTitle(obj)
 	{
-		let inputValue = $(obj).val();
-		let idx = 0;
-		rewardTitle.each(function (index) {
-			if ($(this).val() === inputValue)
-				idx = index;
-		});
+		let inputValue 			 = $(obj).val();
+		let inputRewardTitleDoms = $(".reward-title");
+		let btnRewardTitleDoms 	 = $(".btn-reward-title");
 
-		$(rewardTabTitle[idx]).text(inputValue);
+		inputRewardTitleDoms.each(function (index) {
+			if ($(this).val() === inputValue)
+				btnRewardTitleDoms.eq(index).text(inputValue);
+		});
 	}
 
 	function onSelectDuration(obj)
 	{
 		/*toggleDisabledFrequency(obj);*/
-		initFrequency(obj);
 		toggleActiveDuration(obj);
+		initFrequency(obj);
 	}
 
 	/** 인증기간 버튼 active 토글 **/
@@ -558,9 +558,22 @@
 
 	function initFrequency(obj)
 	{
+		let durationUl  = $(obj).parents('ul.pro-reward').find('.duration-ul');
 		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
+		let duration = 1;
 
-		$(frequencyUl).children().removeClass('active');
+		$(durationUl).children().each(function () {
+			if ($(this).hasClass('active'))
+				duration = $(this).data('days');
+		});
+
+		/** 인증기간 1일이면 주간빈도 월요일로 기본값(validation 피하기용..) **/
+		if (duration === 1)
+		{
+			$(frequencyUl).children().eq(0).addClass('active');
+		}
+		else
+			$(frequencyUl).children().removeClass('active');
 	}
 	/** 인증기간 선택에 따라 주간빈도 enable, disable **/
 	/*function toggleDisabledFrequency(obj)
@@ -690,6 +703,13 @@
 			return false;
 		}
 
+		if (Number(budget.val()) > Number(g_total_balance))
+		{
+			alert('예산은 ' + message.overTotalBalance);
+			budget.focus();
+			return false;
+		}
+
 		if (isEmpty(promoFrom.val()))
 		{
 			alert('프로모션기간(시작일)은 ' + message.required);
@@ -743,7 +763,7 @@
 
 		if (isEmptyFrequency())
 		{
-			alert('인증기간이 1일이 넘을 경우 주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			alert('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
 			return false;
 		}
 
@@ -778,7 +798,7 @@
 	{
 		let retVal = false;
 		let ucdTable = $(".ucd-table-body");
-		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
@@ -796,9 +816,9 @@
 
 	function isOverDuration()
 	{
-		let retVal = false;
-		let promoTerm = calculateTerm();
-
+		let retVal 		= false;
+		let promoTerm 	= calculateTerm();
+		let btnDuration	= $(".duration");
 		btnDuration.each(function () {
 			if ($(this).hasClass('active'))
 			{
@@ -815,7 +835,7 @@
 	{
 		let retVal = false;
 		let rewardDom = $("ul.pro-reward");
-		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
@@ -871,7 +891,7 @@
 		formData.append("promotion-list-image", paramIntroFile);
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
-		let rewardSelectDoms = rewardSelectArea.find('li');
+		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		let rewards = [];
 		for (let i=0; i<rewardSelectDomLength; i++)
@@ -879,6 +899,7 @@
 			/** 사용자 지정 리워드 조건이 추가된 경우만 파라미터에 담는다. **/
 			if (i < rewardSelectDomLength -1 || $(rewardSelectDoms[rewardSelectDomLength -1]).css('display') !== 'none')
 			{
+				let rewardWrap   = $(".pro-reward-wrap");
 				let title 		 = $(rewardWrap[i]).find('.reward-title');
 				let durationDom	 = $(rewardWrap[i]).find('.duration');
 				let duration	 = 1;

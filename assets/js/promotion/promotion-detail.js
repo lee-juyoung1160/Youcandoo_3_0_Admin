@@ -82,26 +82,26 @@
 	let rewards;
 	function buildPromoDetail(data)
 	{
-		let detailData 	= data.data;
-		let promoData  	= detailData.promotion;
-		rewards 	= detailData.reward;
-		let notice 		= promoData.promotion_notice;
+		let details 	= data.data;
+		let detailPromo	= details.promotion;
+		rewards 	= details.reward;
+		let notice 		= detailPromo.promotion_notice;
 		notice = notice.replace('[', '').replace(']', '');
 		notice = replaceAll(notice, '"', '');
 		let notices = notice.split(",");
 		let noticeDom = '';
 
-		bizName.html(promoData.nickname);
-		promoName.html(promoData.promotion_title);
-		budget.html(numberWithCommas(promoData.budget_ucd)+'원');
-		period.html(promoData.start_date + ' ~ ' + promoData.end_date);
+		bizName.html(detailPromo.nickname);
+		promoName.html(detailPromo.promotion_title);
+		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
+		period.html(detailPromo.start_date + ' ~ ' + detailPromo.end_date);
 		for (let i=0; i<notices.length; i++)
 			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
 		promoNotice.html(noticeDom);
-		banner.attr('src', promoData.banner_image_url);
-		intro.attr('src', promoData.intro_image_url);
-		createType.html(promoData.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
-		isExposure.html(promoData.is_banner === 'Y' ? label.exposure : label.unexpose);
+		banner.attr('src', detailPromo.banner_image_url);
+		intro.attr('src', detailPromo.intro_image_url);
+		createType.html(detailPromo.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
+		isExposure.html(detailPromo.is_banner === 'Y' ? label.exposure : label.unexpose);
 
 		let rewardLen = rewards.length;
 		let rewardTabDom = '';
@@ -138,7 +138,6 @@
 		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
 		ucdInfo = ucdInfo.slice(1, -1);
 		let jsonUcdInfo = JSON.parse(ucdInfo);
-console.log(jsonUcdInfo)
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
 		detailDom += 	'<div class="list-inner">';

@@ -442,11 +442,11 @@
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<ul class="day-btn clearfix frequency-ul">';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">월</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">화</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">수</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">목</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">금</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">월</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">화</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">수</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">목</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">금</li>';
 		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">토</li>';
 		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">일</li>';
 		rewardDom += 					'</ul>';
@@ -567,13 +567,19 @@
 				duration = $(this).data('days');
 		});
 
+		$(frequencyUl).children().removeClass('active');
+
 		/** 인증기간 1일이면 주간빈도 월요일로 기본값(validation 피하기용..) **/
-		if (duration === 1)
+		if (Number(duration) === 1)
+			$(frequencyUl).children().eq(0).addClass('active');
+		else
 		{
 			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
+			$(frequencyUl).children().eq(2).addClass('active');
+			$(frequencyUl).children().eq(3).addClass('active');
+			$(frequencyUl).children().eq(4).addClass('active');
 		}
-		else
-			$(frequencyUl).children().removeClass('active');
 	}
 	/** 인증기간 선택에 따라 주간빈도 enable, disable **/
 	/*function toggleDisabledFrequency(obj)

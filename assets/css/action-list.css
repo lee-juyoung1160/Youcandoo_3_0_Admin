@@ -7,11 +7,11 @@
     display: block;
 }
 .confirm-list-page .modal-content {
-    height: 433px;
-}
-.modal-content.modal-01 {
     height: auto;
 }
-.modal-content.modal-01 .modal-information {
-    max-height: inherit;
+.confirm-list-page .modal-content .select-box {
+    width: 100%;
+}
+.table-wrap .btn-wrap button.yellow-btn {
+    background-color: #FFA83B;
 }

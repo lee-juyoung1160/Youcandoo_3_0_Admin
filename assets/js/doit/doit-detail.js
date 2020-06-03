@@ -95,7 +95,7 @@
 		tabUser.removeClass('active');
 		tabAction.addClass('active');
 		currentPage = 1;
-		getInvolveAction();
+		//getInvolveAction();
 	}
 
 	function initModal()

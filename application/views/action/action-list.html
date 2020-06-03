@@ -2,7 +2,7 @@
 <section class="confirm-list-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">인증 목록</h2>
+            <h2 class="main-title list-main-title">신고 목록</h2>
         </div>
 
         <div class="list-common">
@@ -96,12 +96,13 @@
                     <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
-                    <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>경고장 일괄발송</button>
+                    <button class="yellow-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
+                    <button class="warning-btn" data-rel="modal-01" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
                 </div>
             </div>
 
             <div id="actionWrap">
-                <!--<ul class="cert-contents clearfix">
+                <ul class="cert-contents clearfix">
                     <li>
                         <div class="top clearfix">
                             <div class="checkbox-wrap">
@@ -113,9 +114,16 @@
                         </div>
 
                         <div class="thumbnail-wrap">
+                            <!--옐로카드-->
                             <div class="error">
-                                <p class="error-text"><i class="fas fa-exclamation-circle"></i>인증 조건 부적합</p>
+                                <p class="error-text"><i><img src="/assets/images/yellow-card.png" alt=""></i>인증조건에 맞지 않아요</p>
+                                <div class="card-wrap">
+                                    <button class="card-btn clear-yellow-btn" type="button">
+                                        옐로카드 취소
+                                    </button>
+                                </div>
                             </div>
+
                             <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
 
@@ -124,7 +132,6 @@
                             <a href="#">aaaaaaa</a>
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
-                        <button class="warning-btn" type="button">경고장</button>
                     </li>
                     <li>
                         <div class="top clearfix">
@@ -135,15 +142,58 @@
                             <span class="failure-text">실패</span>
                             <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                         </div>
+
                         <div class="thumbnail-wrap">
-                            <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                            <!--레드카드-->
+                            <div class="error">
+                                <p class="error-text"><i><img src="/assets/images/red-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
+                                <div class="card-wrap">
+                                    <button class="card-btn clear-red-btn" type="button">
+                                        레드카드 취소
+                                    </button>
+                                </div>
+                            </div>
+
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
+
                         <div class="text-wrap">
                             <p class="title">매일 반려견 산책하기</p>
                             <a href="#">aaaaaaa</a>
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
-                        <button class="warning-btn yellow-card-btn" type="button">옐로카드 취소</button>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+
+                        <div class="thumbnail-wrap">
+                            <!--옐로,레드카드-->
+                            <div class="error">
+                                <p class="error-text"><i><img src="/assets/images/rad-yellow-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
+                                <div class="card-wrap">
+                                    <button class="card-btn clear-red-btn" type="button">
+                                        옐로카드 취소
+                                    </button>
+                                    <button class="card-btn clear-red-btn" type="button">
+                                        레드카드 취소
+                                    </button>
+                                </div>
+                            </div>
+
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                        </div>
+
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <a href="#">aaaaaaa</a>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
                     </li>
                     <li>
                         <div class="top clearfix">
@@ -161,78 +211,72 @@
                             <a href="#">aaaaaaa</a>
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
-                        <button class="warning-btn red-card-btn" type="button">레드카드 취소</button>
                     </li>
-                </ul>-->
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                        </div>
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <a href="#">aaaaaaa</a>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
             </div>
 
-            <div class="modal-content">
+            <!--경고장 모달-->
+            <div class="modal-content modal-01">
                 <div class="wrap">
                     <i class="close-btn fas fa-times-circle"></i>
                     <p class="modal-title">경고장 발송</p>
                     <ul class="modal-information">
-                        <li>
-                            <p class="sub-title">경고장(*)</p>
-                            <div class="radio-wrap">
-                                <input type="radio" id="r1" name="radio-warn-type" value="Y"/>
-                                <label for="r1"><span></span>옐로카드</label>
-
-                                <input type="radio" id="r8" name="radio-warn-type" value="R"/>
-                                <label for="r8"><span></span>레드카드</label>
-                            </div>
-                        </li>
                         <li class="clearfix">
                             <p class="sub-title">발송사유(*)</p>
                             <div class="select-box active">
-                                <label for="selCauseBy">인증 조건/규칙 부적합</label>
+                                <label for="selCauseBy">인증조건에 맞지 않아요</label>
                                 <select id="selCauseBy">
-                                    <option value="aaa">인증 조건/규칙 부적합</option>
-                                    <option value="bbb">광고성 게시글</option>
+                                    <option value="aaa">인증조건에 맞지 않아요</option>
+                                    <option value="aaa">광고나 홍보성격이 짙어요</option>
+                                    <option value="bbb">욕설이나 선정적인 내용이 있어요</option>
+                                    <option value="ccc">민감한 개인 정보가 있어요</option>
+                                    <option value="ddd">누군가의 명예를 훼손할 수 있어요</option>
+                                    <option value="eee">에티켓 위반 등 기타 사유에요</option>
                                 </select>
                             </div>
                         </li>
-                        <li class="clearfix">
-                            <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
-                        </li>
+                        <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
                     </ul>
                 </div>
             </div>
-            <!--인증 컨텐츠 보기-->
-            <!--<div class="modal-content modal-01">
-                <div class="wrap">
-                    <i class="close-btn fas fa-times-circle"></i>
-                    <p class="modal-title">인증 컨텐츠 보기</p>
-                    <ul class="modal-information">
-                        <li>
-                            <p class="sub-title">매일 반려견 산책하기</p>
-                            <p class="data-contents">
-                                <img src="/assets/images/test2.png" alt="배너 및 소개 이미지">
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
             <div class="modal-layout"></div>
         </div>
     </div>
 </section>
 <script src="/assets/js/action/action-list.js"></script>
-<!--<script>-->
-<!--    // modal event-->
-<!--    $('[data-rel]').click(function () {-->
-<!--        var openModal = $(this).attr('data-rel');-->
-<!--        $('.' + openModal).fadeIn();-->
-<!--        $('.modal-layout').fadeIn();-->
-<!--    });-->
-<!--    $('.close-btn').click(function () {-->
-<!--        $('.modal-layout').fadeOut();-->
-<!--        $('.modal-content').fadeOut();-->
-<!--    });-->
-<!--    $('.modal-layout').click(function () {-->
-<!--        $('.modal-layout').fadeOut();-->
-<!--        $('.modal-content').fadeOut();-->
-<!--    });-->
-<!--</script>-->
+<script>
+    // modal event
+    $('[data-rel]').click(function () {
+        var openModal = $(this).attr('data-rel');
+        $('.' + openModal).fadeIn();
+        $('.modal-layout').fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+</script>

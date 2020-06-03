@@ -14,10 +14,14 @@
 	const pagination	= $("#dataTable_paginate");
 	const btnWarn		= $(".warning-btn");
 
+
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
+	const warnType		= $("input[name=radio-warn-type]");
+	const causeBy		= $("#selCauseBy");
+	const btnSubmitWarn	= $("#btnSubmitWarn");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -33,9 +37,10 @@
 		status			.on("click", function () { onChangeChkStatus(this); });
 		selPageLength	.on("change", function () { getActions(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnWarn			.on('click', function () { modalFadein(); });*/
+		btnWarn			.on('click', function () { onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
 	function initSearchForm()
@@ -55,6 +60,99 @@
 	function initModal()
 	{
 		warnType.eq(0).prop("checked", true);
+		causeBy.find('option').prop("checked", true);
+	}
+
+	function onClickBtnWarn()
+	{
+		if (isCheckedTarget())
+			modalFadein();
+	}
+
+	function isCheckedTarget()
+	{
+		let count = $("input[name=chk-warn]:checked").length;
+		if (count === 0)
+		{
+			alert('발송대상을 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function onSubmitWarn()
+	{
+		let type = $("input[name=radio-warn-type]:checked").val();
+		let url  = type === 'Y' ? api.setYellow : api.setRed;
+
+		if (confirm('경고장을 '+message.send))
+		{
+			$.ajax({
+				url: url,
+				type: "POST",
+				async: false,
+				headers: headers,
+				dataType: 'json',
+				data: warnParams(),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+					{
+						modalFadeout();
+						getActions();
+					}
+					else
+						alert(invalidResp(data));
+				},
+				error: function (request, status) {
+					alert(message.ajaxError);
+				},
+			});
+		}
+	}
+
+	function warnParams()
+	{
+		let uuids = [];
+		$("input[name=chk-warn]").each(function () {
+			if ($(this).is(":checked"))
+				uuids.push($(this).val());
+		})
+
+		let param = {
+			"action_list" : uuids
+			,"description" : causeBy.val()
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function cancelWarn(type, uuid)
+	{
+		let url = type === 'Y' ? api.cancelYellow : api.cancelRed;
+		let param = {
+			"action_uuid" : uuid
+		}
+
+		if (confirm('경고장 발송을 '+message.cancel))
+		{
+			$.ajax({
+				url: url,
+				type: "POST",
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify(param),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+						getActions();
+				},
+				error: function (request, status) {
+					alert(message.ajaxError);
+				}
+			});
+		}
 	}
 
 	function onKeydownSearchActions(event)
@@ -136,22 +234,18 @@
 				let actionId  = "action_"+i;
 				let successYn = action.success === 'Y' ? '성공' : '실패';
 				let resourceType = action.resource_type;
-				let btnTxt 	 = '경고장';
-				let btnClass = 'warning-btn';
 				let warnDesc = '';
+				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
 				if (action.yellow_card === 'Y')
 				{
-					btnTxt = '옐로카드 취소';
-					btnClass += ' yellow-card-btn';
 					warnDesc = action.yellow_card_description;
+					button = '<button onclick="cancelWarn(\'Y\',\''+action.action_uuid+'\');" class="warning-btn yellow-card-btn" type="button">옐로카드 취소</button>';
 				}
 				if (action.red_card === 'Y')
 				{
-					btnTxt = '레드카드 취소';
-					btnClass += ' red-card-btn';
 					warnDesc = action.red_card_description;
+					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="warning-btn red-card-btn" type="button">레드카드 취소</button>';
 				}
-
 
 				if (i===0 || i%5 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
@@ -159,7 +253,7 @@
 				actionDom += '<li>';
 				actionDom += 	'<div class="top clearfix">';
 				actionDom += 		'<div class="checkbox-wrap">';
-				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="cc" />';
+				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'"/>';
 				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
 				actionDom += 		'</div>';
 				actionDom += 		'<span class="success-text">'+successYn+'</span>';
@@ -180,7 +274,7 @@
 				actionDom += 		'<a href="#">'+action.user_name+'</a>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
 				actionDom += 	'</div>';
-				actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
+				actionDom += 	button
 				actionDom += '</li>';
 
 				if (i>0 && (i+1)%5 === 0)

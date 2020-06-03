@@ -35,7 +35,7 @@
 		if (confirm(message.delete))
 		{
 			$.ajax({
-				url: api.deleteAdminAuth,
+				url: api.deleteAuth,
 				type: "POST",
 				headers: headers,
 				dataType: 'json',
@@ -65,7 +65,7 @@
 	function getAuthList()
 	{
 		$.ajax({
-			url: api.listAdminAuth,
+			url: api.listAuth,
 			type: "POST",
 			headers : headers,
 			dataType: 'json',
@@ -257,7 +257,7 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: api.createAdminAuth,
+					url: api.createAuth,
 					type: "POST",
 					headers : headers,
 					dataType: 'json',

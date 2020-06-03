@@ -26,7 +26,7 @@
 	function getAuthList()
 	{
 		$.ajax({
-			url: api.listAdminAuth,
+			url: api.listAuth,
 			type: "POST",
 			headers : headers,
 			dataType: 'json',

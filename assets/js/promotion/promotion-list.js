@@ -90,7 +90,7 @@
 					}
 				}
 				/*,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}*/
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center",
+				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}

@@ -66,6 +66,7 @@
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'
+		,listMyLog : baseApiUrl+'access/list'
 		/** 회원 **/
 		,listUser : baseApiUrl+'user/list'
 		,inactiveUser : baseApiUrl+'user/inactive'

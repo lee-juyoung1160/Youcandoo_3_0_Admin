@@ -12,24 +12,24 @@
 	const dataNum		= $(".data-num");
 	const actionWrap	= $("#actionWrap");
 	const pagination	= $("#dataTable_paginate");
-	const btnWarn		= $(".warning-btn");
-
+	const btnWarnRed	= $(".warning-btn");
+	const btnWarnYellow	= $(".yellow-btn");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const warnType		= $("input[name=radio-warn-type]");
 	const causeBy		= $("#selCauseBy");
 	const btnSubmitWarn	= $("#btnSubmitWarn");
 
+	let g_warn_type;
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//getActions();
+		getActions();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearchActions(event); });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -37,7 +37,8 @@
 		status			.on("click", function () { onChangeChkStatus(this); });
 		selPageLength	.on("change", function () { getActions(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnWarn			.on('click', function () { onClickBtnWarn(); });
+		btnWarnYellow	.on('click', function () { onClickBtnWarn(); g_warn_type = 'Y'; });
+		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
@@ -59,8 +60,8 @@
 
 	function initModal()
 	{
-		warnType.eq(0).prop("checked", true);
-		causeBy.find('option').prop("checked", true);
+		causeBy.children().eq(0).prop("selected", true);
+		onChangeSelectOption(causeBy);
 	}
 
 	function onClickBtnWarn()
@@ -83,8 +84,7 @@
 
 	function onSubmitWarn()
 	{
-		let type = $("input[name=radio-warn-type]:checked").val();
-		let url  = type === 'Y' ? api.setYellow : api.setRed;
+		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
 
 		if (confirm('경고장을 '+message.send))
 		{
@@ -223,7 +223,9 @@
 		let totalCount = data.recordsTotal
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
+		/** total count **/
 		dataNum.html(totalCount);
+
 		if (totalCount > 0)
 		{
 			actionTopDom.show();
@@ -235,16 +237,30 @@
 				let successYn = action.success === 'Y' ? '성공' : '실패';
 				let resourceType = action.resource_type;
 				let warnDesc = '';
+				let warnImage = '';
+				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				if (isEmpty(action.url))
+					actionImage = '<img class="detail-img" src="/assets/images/no-image.jpg" alt="인증 이미지입니다.">';
+				if (resourceType === 'voice')
+					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
 				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
 				if (action.yellow_card === 'Y')
 				{
+					warnImage = '<img src="/assets/images/yellow-card.png" alt="">';
 					warnDesc = action.yellow_card_description;
-					button = '<button onclick="cancelWarn(\'Y\',\''+action.action_uuid+'\');" class="warning-btn yellow-card-btn" type="button">옐로카드 취소</button>';
+					button = '<button onclick="cancelWarn(\'Y\',\''+action.action_uuid+'\');" class="card-btn clear-yellow-btn" type="button">옐로카드 취소</button>';
 				}
 				if (action.red_card === 'Y')
 				{
+					warnImage = '<img src="/assets/images/red-card.png" alt="">';
 					warnDesc = action.red_card_description;
-					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="warning-btn red-card-btn" type="button">레드카드 취소</button>';
+					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
+				}
+				if (action.yellow_card === 'Y' && action.red_card === 'Y')
+				{
+					warnImage = '<img src="/assets/images/rad-yellow-card.png" alt="">';
+					warnDesc = action.red_card_description;
+					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
 				}
 
 				if (i===0 || i%5 === 0)
@@ -264,17 +280,24 @@
 				if (action.yellow_card === 'Y' || action.red_card === 'Y')
 				{
 					actionDom += 	'<div class="error">';
-					actionDom += 		'<p class="error-text"><i class="fas fa-exclamation-circle"></i>'+warnDesc+'</p>';
+					actionDom += 		'<p class="error-text">';
+					actionDom += 			'<i>';
+					actionDom += 				warnImage;
+					actionDom += 			'</i>';
+					actionDom += 				warnDesc;
+					actionDom += 		'</p>';
+					actionDom += 		'<div class="card-wrap">';
+					actionDom += 			button;
+					actionDom += 		'</div>';
 					actionDom += 	'</div>';
 				}
-				actionDom += 		'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				actionDom += 		actionImage;
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
 				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
 				actionDom += 		'<a href="#">'+action.user_name+'</a>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
 				actionDom += 	'</div>';
-				actionDom += 	button
 				actionDom += '</li>';
 
 				if (i>0 && (i+1)%5 === 0)

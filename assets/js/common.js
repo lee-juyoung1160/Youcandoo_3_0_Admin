@@ -22,7 +22,7 @@
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });*/
     noticeBtn           .on("click", function () {  onClickActiveNotice(); });
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
-    inputNumber         .on("keyup", function () { initInputNumber(this); });
+    inputNumber         .on("propertychange change keyup paste input", function () { initInputNumber(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();

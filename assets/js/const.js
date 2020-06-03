@@ -43,6 +43,8 @@
 	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		listBizName : baseApiUrl+'keyword/getCompanyName'
+		,getBalance : baseApiUrl+'ucd/status/company'
+
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'
 
@@ -105,10 +107,9 @@
 		,listAdmin : baseApiUrl+'admin/list'
 		,activeAdmin : baseApiUrl+'admin/active'
 		,inactiveAdmin : baseApiUrl+'admin/inactive'
-		,createAdminAuth : baseApiUrl+'auth/create'
-		,deleteAdminAuth : baseApiUrl+'auth/delete'
-		,updateAdminAuth : baseApiUrl+'auth/update'
-		,listAdminAuth : baseApiUrl+'auth/list'
+		,createAuth : baseApiUrl+'auth/create'
+		,deleteAuth : baseApiUrl+'auth/delete'
+		,listAuth : baseApiUrl+'auth/list'
 		,setMenuByAuth : baseApiUrl+'auth/set/menu'
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 	}

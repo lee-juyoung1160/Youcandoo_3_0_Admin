@@ -114,21 +114,19 @@
 	/** 인풋 숫자만 입력 가능 **/
 	function initInputNumber(obj)
 	{
-		$('.only-num').on('propertychange change keyup paste input', function (e) {
-			let inputValue = $(obj).val();
-			let inputValueArr = inputValue.split("");
-			let inputLength = inputValueArr.length;
-			let respStr = '';
-			for (let i=0; i<inputLength; i++)
-			{
-				if (inputValueArr[0] == 0)
-					inputValueArr[0] = '';
-				if (isNumber(inputValueArr[i]))
-					respStr += inputValueArr[i];
-			}
+		let inputValue = $(obj).val();
+		let inputValueArr = inputValue.split("");
+		let inputLength = inputValueArr.length;
+		let respStr = '';
+		for (let i=0; i<inputLength; i++)
+		{
+			if (inputValueArr[0] == 0 || !isNumber(inputValueArr[0]))
+				inputValueArr[0] = '';
+			if (isNumber(inputValueArr[i]))
+				respStr += inputValueArr[i];
+		}
 
-			$(obj).val(respStr);
-	    });
+		$(obj).val(respStr);
 	}
 	
 	function isNumber(param)

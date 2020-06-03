@@ -120,7 +120,7 @@
 			type: "single",
 			min: 80,
 			max: 100,
-			from: 90,
+			from: 85,
 			step: 1,
 			onStart: function(data) {
 				goalRateDom.prop("value", data.from);
@@ -240,7 +240,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('기업 UCD를 가져오는 중 '+message.ajaxError);
+				alert('기업 보유 UCD'+message.ajaxError);
 			}
 		});
 	}
@@ -996,7 +996,7 @@
 							location.href = page.listPromo
 					},
 					error: function (request, status) {
-						alert(message.ajaxError);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

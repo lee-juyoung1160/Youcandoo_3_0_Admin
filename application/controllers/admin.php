@@ -29,8 +29,12 @@ class Admin extends MY_Controller {
             $this->load->layout('admin/admin-auth-create');
         }
     public function authupdate()
-            {
-                $this->load->layout('admin/admin-auth-update');
-            }
+        {
+            $this->load->layout('admin/admin-auth-update');
+        }
+    public function adminlog()
+        {
+            $this->load->layout('admin/admin-log');
+        }
 
 }

@@ -9,13 +9,13 @@
 	border-radius: 30px;
 	background-color: #19579a;
 }
-.admin-mypage-page .update-list {
-	display: none;
-}
-.admin-mypage-page .update-list.active {
-	display: block;
-	margin-bottom: 30px;
-}
+/*.admin-mypage-page .update-list {*/
+/*	display: none;*/
+/*}*/
+/*.admin-mypage-page .update-list.active {*/
+/*	display: block;*/
+/*	margin-bottom: 30px;*/
+/*}*/
 .admin-mypage-page .update-list .top i,
 .admin-mypage-page .update-list .top p {
 	float: left;

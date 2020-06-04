@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -24,6 +24,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteFaq(); });
 	});
 
 	function initSearchForm()
@@ -94,7 +95,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -141,3 +145,54 @@
 		buildGrid();
 	}
 
+	function deleteFaq()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteFaq,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"faq_uuid" : selectedData.faq_uuid
+		};
+
+		return JSON.stringify(param)
+	}

@@ -9,6 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
 	let topCount		= 0;
@@ -26,6 +27,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteNotice(); });
 		btnTop			.on("click", function () { toggleTop(); });
 	});
 
@@ -261,4 +263,56 @@
 				},
 			});
 		}
+	}
+
+	function deleteNotice()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteNotice,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"notice_uuid" : selectedData.notice_uuid
+		};
+
+		return JSON.stringify(param)
 	}

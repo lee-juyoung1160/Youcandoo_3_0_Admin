@@ -9,6 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -23,6 +24,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteEvent(); });
 	});
 
 	function initSearchForm()
@@ -63,9 +65,9 @@
 					}
 				},
 				/*,{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" }*/
-				{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
+				{title: "제목", 		data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
 				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
+				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
@@ -148,3 +150,54 @@
 		buildGrid();
 	}
 
+	function deleteEvent()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteEvent,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"event_uuid" : selectedData.event_uuid
+		};
+
+		return JSON.stringify(param)
+	}

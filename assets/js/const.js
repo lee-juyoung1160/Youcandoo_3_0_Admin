@@ -87,12 +87,14 @@
 		,listBiz : baseApiUrl+'biz/list'
 		/** 프로모션 **/
 		,createPromotion : baseApiUrl+'promotion/create'
+		,deletePromotion : baseApiUrl+'promotion/delete'
 		,detailPromotion : baseApiUrl+'promotion/getPromotion'
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+''
 		,listPromotion : baseApiUrl+'promotion/list'
 		/** 두잇 **/
 		,createDoit : baseApiUrl+'doit/create'
+		,deleteDoit : baseApiUrl+'doit/delete'
 		,detailDoit : baseApiUrl+'doit/detail'
 		,updateDoit : baseApiUrl+''
 		,listDoit : baseApiUrl+'doit/list'
@@ -110,22 +112,25 @@
 		,cancelRed : baseApiUrl+'action/cancel/red'
 		/** 이벤트 **/
 		,createEvent : baseApiUrl+'event/create'
+		,deleteEvent : baseApiUrl+'event/delete'
 		,detailEvent : baseApiUrl+'event/detail'
 		,updateEvent : ''
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'
+		,deleteNotice : baseApiUrl+'notice/delete'
 		,detailNotice : baseApiUrl+'notice/detail'
 		,updateNotice : ''
 		,listNotice : baseApiUrl+'notice/list'
 		,topNotice : baseApiUrl+'notice/changeTop'
 		/** FAQ **/
 		,createFaq : baseApiUrl+'faq/create'
+		,deleteFaq : baseApiUrl+'faq/delete'
 		,detailFaq : baseApiUrl+'faq/detail'
 		,updateFaq : ''
-		,getFaqType : baseApiUrl+'faq/type'
 		,listFaq : baseApiUrl+'faq/list'
+		,getFaqType : baseApiUrl+'faq/type'
 		/** 금칙어 **/
 		,createProhibition : baseApiUrl+'prohibition/create'
 		,deleteProhibition : baseApiUrl+'prohibition/delete'

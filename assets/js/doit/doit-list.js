@@ -10,6 +10,7 @@
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -24,6 +25,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteDoit(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
 
@@ -153,3 +155,54 @@
 		buildGrid();
 	}
 
+	function deleteDoit()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteDoit,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"doit_uuid" : selectedData.doit_uuid
+		};
+
+		return JSON.stringify(param)
+	}

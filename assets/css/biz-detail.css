@@ -25,3 +25,29 @@
     font-size: 23px;
     font-weight: 600;
 }
+
+.biz-ucd-data {
+    overflow-wrap: break-word;
+    color: #949494;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+.biz-ucd-data dt,
+.biz-ucd-data dd {
+    float:left;
+    margin-left: 10px;
+}
+.biz-ucd-data dt {
+    width: 100px;
+    color: #404040;
+}
+.biz-ucd-data dd {
+    min-width: 150px;
+    text-align: right;
+    color: #949494;
+}
+.biz-ucd-data span {
+    color: #404040;
+    margin-right: 5px;
+}

@@ -2,6 +2,7 @@
 	const tabDoit 		= $("#tabDoit");
 	const tabUser 		= $("#tabUser");
 	const tabAction		= $("#tabAction");
+	const tabReview		= $("#tabReview");
 	const doitDetail	= $("#doitDetail");
 	const doitUser		= $("#doitUser");
 	const doitAction	= $("#doitAction");
@@ -31,8 +32,13 @@
 	const keyword		= $("#keyword")
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
+	const joinTotal		= $(".join-total");
+	const joinCount 	= $("#joinCount");
+	const goal 			= $("#goal");
+	const avg 			= $("#avg");
+	const forecast 		= $("#forecast");
+	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
-	const dataNum		= $(".data-num");
 
 	/** 인증정보 탭 **/
 	const btnWarnRed	= $(".warning-btn");
@@ -40,12 +46,21 @@
 	const actionTopDom	= $("#actionTopDom");
 	const actionTotal	= $(".action-total");
 	const pagination	= $("#dataTable_paginate");
+
+	/** 리뷰정보탭 **/
+	const doitReview		= $("#doitReview");
+	const btnDetailReview	= $("#btnDetailReview");
+	const btnReportReason	= $("#btnReportReason");
+
 	/** modal **/
-	const modalCloseBtn = $(".close-btn");
-	const modalLayout 	= $(".modal-layout");
-	const modalContent 	= $(".modal-content");
-	const causeBy		= $("#selCauseBy");
-	const btnSubmitWarn	= $("#btnSubmitWarn");
+	const modalCloseBtn 	= $(".close-btn");
+	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
+	const modalWarn			= $("#modalWarn");
+	const causeBy			= $("#selCauseBy");
+	const btnSubmitWarn		= $("#btnSubmitWarn");
+	const modalDetailReview	= $("#modalDetailReview");
+	const modalReportReason	= $("#modalReportReason");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -57,6 +72,7 @@
 		tabDoit			.on("click", function () { onClickDoitTab(); });
 		tabUser			.on("click", function () { onClickUserTab(); });
 		tabAction		.on("click", function () { onClickActionTab(); });
+		tabReview		.on("click", function () { onClickReviewTab(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
@@ -67,6 +83,8 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		selPageLengthForActionTab.on('change', function () { getInvolveAction(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
+		btnDetailReview	.on('click', function () { fadeinModalDetailReview(); });
+		btnReportReason	.on('click', function () { fadeinModalReportReason(); });
 	});
 
 	/** 두잇정보탭 **/
@@ -75,13 +93,66 @@
 		doitDetail.show();
 		doitUser.hide();
 		doitAction.hide();
+		doitReview.hide();
 		tabUser.removeClass('active');
 		tabAction.removeClass('active');
+		tabReview.removeClass('active');
 		tabDoit.addClass('active');
 
 		getDoit();
 	}
 
+	/** 참여자정보탭 **/
+	function onClickUserTab()
+	{
+		doitUser.show();
+		doitDetail.hide();
+		doitAction.hide();
+		doitReview.hide();
+		tabDoit.removeClass('active');
+		tabAction.removeClass('active');
+		tabReview.removeClass('active');
+		tabUser.addClass('active');
+
+		getJoinMemberTotal();
+		getJoinMember();
+	}
+
+	/** 인증정보탭 **/
+	let g_warn_type;
+	function onClickActionTab()
+	{
+		doitAction.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitReview.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.addClass('active');
+		tabReview.removeClass('active');
+		currentPage = 1;
+
+		getInvolveAction();
+	}
+
+	/** 리뷰정보탭 **/
+	function onClickReviewTab()
+	{
+		doitReview.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitAction.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.removeClass('active');
+		tabReview.addClass('active');
+
+		//getInvolveReview();
+	}
+
+	/****************
+	 * 두잇정보탭 관련
+	 * **************/
 	function getDoit()
 	{
 		$.ajax({
@@ -249,22 +320,43 @@
 		return actionResourceDom;
 	}
 
-	/** 참여자정보탭 **/
-	function onClickUserTab()
-	{
-		doitUser.show();
-		doitDetail.hide();
-		doitAction.hide();
-		tabDoit.removeClass('active');
-		tabAction.removeClass('active');
-		tabUser.addClass('active');
-
-		getJoinMember();
-	}
-
+	/****************
+	 * 참여자정보탭 관련
+	 * **************/
 	function initSearchForm()
 	{
 		keyword.val('');
+	}
+
+	function getJoinMemberTotal()
+	{
+		$.ajax({
+			url: api.totalJoinMember,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({"doit_uuid" : g_doitUuid}),
+			success: function(data) {
+				if (isSuccessResp(data))
+					setJoinMemberTotal(data);
+				else
+					invalidResp(data);
+			},
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
+			},
+		});
+	}
+
+	function setJoinMemberTotal(data)
+	{
+		let detail = data.data;
+
+		joinCount.html(numberWithCommas(detail.member_cnt)+'명');
+		goal.html(Math.floor(detail.goal_percent)+'%');
+		avg.html(Math.floor(detail.avg_percent)+'%');
+		forecast.html(numberWithCommas(detail.per_person_ucd)+'UCD');
+		saving.html(numberWithCommas(detail.save_reward)+'UCD');
 	}
 
 	function getJoinMember()
@@ -336,7 +428,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.html(info.recordsTotal);
+				joinTotal.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
@@ -399,30 +491,13 @@
 		return JSON.stringify(param);
 	}
 
-	/** 인증정보탭 **/
-	let g_warn_type;
-	function onClickActionTab()
-	{
-		doitAction.show();
-		doitDetail.hide();
-		doitUser.hide();
-		tabDoit.removeClass('active');
-		tabUser.removeClass('active');
-		tabAction.addClass('active');
-		currentPage = 1;
-		getInvolveAction();
-	}
-
-	function initModal()
-	{
-		causeBy.children().eq(0).prop("selected", true);
-		onChangeSelectOption(causeBy);
-	}
-
+	/****************
+	 * 인증정보탭 관련
+	 * **************/
 	function onClickBtnWarn()
 	{
 		if (isCheckedTarget())
-			modalFadein();
+			modalWarnFadein();
 	}
 
 	function isCheckedTarget()
@@ -435,6 +510,19 @@
 		}
 
 		return true;
+	}
+
+	function modalWarnFadein()
+	{
+		modalLayout.fadeIn();
+		modalWarn.fadeIn();
+		initModalWarn();
+	}
+
+	function initModalWarn()
+	{
+		causeBy.children().eq(0).prop("selected", true);
+		onChangeSelectOption(causeBy);
 	}
 
 	function onSubmitWarn()
@@ -457,8 +545,6 @@
 						modalFadeout();
 						getInvolveAction();
 					}
-					else
-						alert(invalidResp(data));
 				},
 				error: function (request, status) {
 					alert(label.submit+message.ajaxError);
@@ -744,6 +830,35 @@
 		getInvolveAction();
 	}
 
+	/****************
+	 * 리뷰정보탭 관련
+	 * **************/
+	function fadeinModalDetailReview()
+	{
+		console.log('ddddd')
+		modalLayout.fadeIn();
+		modalDetailReview.fadeIn();
+		initModalDetailReview();
+	}
+
+	function initModalDetailReview()
+	{
+
+	}
+
+	function fadeinModalReportReason()
+	{
+		modalLayout.fadeIn();
+		modalReportReason.fadeIn();
+		initModalReportReason();
+	}
+
+	function initModalReportReason()
+	{
+
+	}
+
+	/** 수정페이지 이동 **/
 	function goUpdatePage()
 	{
 		location.href = page.updateDoit+idx;

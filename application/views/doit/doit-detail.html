@@ -7,7 +7,7 @@
             <li class="active" id="tabDoit">두잇 정보</li>
             <li id="tabUser">참여자 정보</li>
             <li id="tabAction">인증 정보</li>
-            <li id="">리뷰 정보</li>
+            <li id="tabReview">리뷰 정보</li>
         </ul>
         <div class="wrap">
             <div id="doitDetail">
@@ -244,11 +244,11 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>3,450명</td>
-                            <td>80%</td>
-                            <td>76%</td>
-                            <td>1,000,000</td>
-                            <td>500,000</td>
+                            <td id="joinCount"></td>
+                            <td id="goal"></td>
+                            <td id="avg"></td>
+                            <td id="forecast"></td>
+                            <td id="saving"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -284,7 +284,7 @@
                                     <option value="30">30개씩 보기</option>
                                 </select>
                             </div>
-                            <p>Total <strong class="data-num">16</strong></p>
+                            <p>Total <strong class="join-total"></strong></p>
                         </div>
 <!--                        <div class="btn-wrap">-->
 <!--                            <button class="best-btn" type="button" style="background-color: #ff7601;"><i class="fas fa-user-edit"></i>방장 지정</button>-->
@@ -514,7 +514,7 @@
                 </div>
 
                 <!--경고장 모달-->
-                <div class="modal-content modal-01">
+                <div id="modalWarn" class="modal-content modal-01">
                     <div class="wrap">
                         <i class="close-btn fas fa-times-circle"></i>
                         <p class="modal-title">경고장 발송</p>
@@ -541,67 +541,67 @@
             </div>
 
             <!--리뷰정보탭-->
-            <div class="table-wrap review-list">
-                    <div class="top clearfix">
-                        <div class="left-wrap clearfix">
-                            <div class="select-box">
-                                <label for="selPageLength">10개씩 보기</label>
-                                <select id="selPageLength">
-                                    <option value="10">10개씩 보기</option>
-                                    <option value="20">20개씩 보기</option>
-                                    <option value="30">30개씩 보기</option>
-                                </select>
-                            </div>
-                            <p>Total <strong class="data-num">16</strong></p>
+            <div id="doitReview" class="table-wrap review-list" style="display: none;">
+                <div class="top clearfix">
+                    <div class="left-wrap clearfix">
+                        <div class="select-box">
+                            <label for="selPageLengthForReview">10개씩 보기</label>
+                            <select id="selPageLengthForReview">
+                                <option value="10">10개씩 보기</option>
+                                <option value="20">20개씩 보기</option>
+                                <option value="30">30개씩 보기</option>
+                            </select>
                         </div>
+                        <p>Total <strong class="data-num">16</strong></p>
                     </div>
-                    <table>
-                        <colgroup>
-                            <col style="width:5%;">
-                            <col style="width:30%;">
-                            <col style="width:5%;">
-                            <col style="width:25%;">
-                            <col style="width:5%;">
-                            <col style="width:10%;">
-                            <col style="width:10%;">
-                            <col style="width:10%;">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>리뷰내용</th>
-                            <th>평점</th>
-                            <th>두잇명</th>
-                            <th>신고</th>
-                            <th>블라인드 여부</th>
-                            <th>작성날짜</th>
-                            <th>작성자</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>2</td>
-                            <td><button onclick="modalDetailFadein();" type="button" class="line-clamp more-info-btn" data-rel="modal-01">물마시기 두잇 너무 좋아요! 일상에 완전 도움이 되요 일상에 완전 도움이 되요</button></td>
-                            <td>3</td>
-                            <td>하루에 물 6번 마시기</td>
-                            <td><button onclick="modalReasonFadein();" type="button" class="more-info-btn" data-rel="modal-02">10</button></td>
-                            <td>Y</td>
-                            <td>2019/10/10</td>
-                            <td>베리베리</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <ul class="table-pagination clearfix">
-                        <li><i class="fas fa-angle-double-left"></i></li>
-                        <li class="active">1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li><i class="fas fa-angle-double-right"></i></li>
-                    </ul>
+                </div>
+                <table>
+                    <colgroup>
+                        <col style="width:5%;">
+                        <col style="width:30%;">
+                        <col style="width:5%;">
+                        <col style="width:25%;">
+                        <col style="width:5%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>리뷰내용</th>
+                        <th>평점</th>
+                        <th>두잇명</th>
+                        <th>신고</th>
+                        <th>블라인드 여부</th>
+                        <th>작성날짜</th>
+                        <th>작성자</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td><button id="btnDetailReview" type="button" class="line-clamp more-info-btn">물마시기 두잇 너무 좋아요! 일상에 완전 도움이 되요 일상에 완전 도움이 되요</button></td>
+                        <td>3</td>
+                        <td>하루에 물 6번 마시기</td>
+                        <td><button id="btnReportReason" type="button" class="more-info-btn">10</button></td>
+                        <td>Y</td>
+                        <td>2019/10/10</td>
+                        <td>베리베리</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="table-pagination clearfix">
+                    <li><i class="fas fa-angle-double-left"></i></li>
+                    <li class="active">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li><i class="fas fa-angle-double-right"></i></li>
+                </ul>
 
                 <div class="modal-wrap">
                     <!-- 리뷰 내용 자세히 보기-->
-                    <div id="modalDetail" class="modal-content modal-01">
+                    <div id="modalDetailReview" class="modal-content">
                         <div class="wrap">
                             <i class="close-btn fas fa-times-circle"></i>
                             <p class="modal-title">리뷰 상세</p>
@@ -661,7 +661,7 @@
                         </div>
                     </div>
                     <!-- 리뷰 신고 사유 보기-->
-                    <div id="modalReason" class="modal-content modal-02">
+                    <div id="modalReportReason" class="modal-content">
                         <div class="wrap">
                             <i class="close-btn fas fa-times-circle"></i>
                             <p class="modal-title">리뷰 신고 사유</p>
@@ -705,9 +705,7 @@
                     </div>
                     <div class="modal-layout"></div>
                 </div>
-                </div>
-
-
+            </div>
         </div>
     </div>
 </section>

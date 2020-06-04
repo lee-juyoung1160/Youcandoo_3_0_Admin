@@ -101,6 +101,7 @@
 		,getReward : baseApiUrl+'promotion/getReward'
 		,involveAction : baseApiUrl+'doit/get/action'
 		,listJoinMember : baseApiUrl+'doit/get/member'
+		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

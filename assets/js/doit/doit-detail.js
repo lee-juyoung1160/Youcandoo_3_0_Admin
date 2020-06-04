@@ -26,6 +26,9 @@
 	const actionDesc    = $("#actionDesc");
 
 	/** 참여자정보 탭 **/
+	const search 		= $(".search");
+	const reset 		= $(".reset");
+	const keyword		= $("#keyword")
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
@@ -56,6 +59,8 @@
 		tabAction		.on("click", function () { onClickActionTab(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
+		search			.on("click", function () { getJoinMember(); });
+		reset			.on("click", function () { initSearchForm(); });
 		btnWarnYellow	.on('click', function () { onClickBtnWarn(); g_warn_type = 'Y'; });
 		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
@@ -254,14 +259,19 @@
 		tabAction.removeClass('active');
 		tabUser.addClass('active');
 
-		//getJoinUser();
+		getJoinMember();
 	}
 
-	function getJoinUser()
+	function initSearchForm()
 	{
-		$("#dataTable").DataTable({
+		keyword.val('');
+	}
+
+	function getJoinMember()
+	{
+		dataTable.DataTable({
 			ajax : {
-				url: api.involveDoitPromotion,
+				url: api.listJoinMember,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
@@ -273,15 +283,24 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					console.log(d);
 					return tableParams(d);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    	   			width: "5%",     orderable: false,   className: "text-center" }
-				,{title: "두잇 ID", 	data: "doit_uuid",    			width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "두잇 명", 	data: "doit_title",    			width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center" }
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},*/
+				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "총 인증 횟수", 		data: "total_cnt",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "성공", 	  		data: "success_cnt",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "실패",  	  		data: "fail_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "신고",  	  		data: "report_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "옐로카드",    		data: "yellow_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "레드카드",    		data: "red_cnt",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -295,11 +314,15 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLength.val()),
+			pageLength: Number(selPageLengthForUserTab.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
 			info: false,
+			/*select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},*/
 			select: false,
 			lengthChange: false,
 			autoWidth: false,
@@ -313,7 +336,7 @@
 				dataNum.text(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				//setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -323,7 +346,8 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"promotion_idx" : idx
+			,"doit_uuid" : g_doitUuid
+			,"nickname": keyword.val()
 		}
 
 		return JSON.stringify(param);
@@ -338,12 +362,6 @@
 		periodDom.text(period);
 	}
 
-	/** 참여자정보탭 검색 이벤트 **/
-	function onSubmitSearch()
-	{
-		buildGrid();
-	}
-
 	/** 엑셀 다운로드 **/
 	function onClickExcelBtn()
 	{
@@ -355,10 +373,11 @@
 		$.ajax({
 			url: api.involveDoitPromotion,
 			type: "POST",
+			dataType: 'json',
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data);
+				setExcelData("개설두잇목록", "개설두잇목록", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);
@@ -499,8 +518,8 @@
 			success: function(data) {
 				if (isSuccessResp(data))
 				{
-					buildPagination(data);
-					buildActionInfo(data);
+					buildActionsPagination(data);
+					buildActions(data);
 				}
 				else
 					alert(invalidResp(data));
@@ -522,7 +541,7 @@
 		return JSON.stringify(param);
 	}
 
-	function buildActionInfo(data)
+	function buildActions(data)
 	{
 		let actions    = data.data;
 		let dataLen    = actions.length;
@@ -616,7 +635,7 @@
 	}
 
 	let currentPage = 1;
-	function buildPagination(data)
+	function buildActionsPagination(data)
 	{
 		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / selPageLengthForActionTab.val());

@@ -32,8 +32,13 @@
 	const keyword		= $("#keyword")
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
+	const joinTotal		= $(".join-total");
+	const joinCount 	= $("#joinCount");
+	const goal 			= $("#goal");
+	const avg 			= $("#avg");
+	const forecast 		= $("#forecast");
+	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
-	const dataNum		= $(".data-num");
 
 	/** 인증정보 탭 **/
 	const btnWarnRed	= $(".warning-btn");
@@ -109,6 +114,7 @@
 		tabReview.removeClass('active');
 		tabUser.addClass('active');
 
+		getJoinMemberTotal();
 		getJoinMember();
 	}
 
@@ -322,6 +328,37 @@
 		keyword.val('');
 	}
 
+	function getJoinMemberTotal()
+	{
+		$.ajax({
+			url: api.totalJoinMember,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({"doit_uuid" : g_doitUuid}),
+			success: function(data) {
+				if (isSuccessResp(data))
+					setJoinMemberTotal(data);
+				else
+					invalidResp(data);
+			},
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
+			},
+		});
+	}
+
+	function setJoinMemberTotal(data)
+	{
+		let detail = data.data;
+
+		joinCount.html(numberWithCommas(detail.member_cnt)+'명');
+		goal.html(Math.floor(detail.goal_percent)+'%');
+		avg.html(Math.floor(detail.avg_percent)+'%');
+		forecast.html(numberWithCommas(detail.per_person_ucd)+'UCD');
+		saving.html(numberWithCommas(detail.save_reward)+'UCD');
+	}
+
 	function getJoinMember()
 	{
 		dataTable.DataTable({
@@ -391,7 +428,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.html(info.recordsTotal);
+				joinTotal.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);

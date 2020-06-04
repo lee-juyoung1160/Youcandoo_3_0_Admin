@@ -296,12 +296,12 @@
 					}
 				},*/
 				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "총 인증 횟수", 		data: "total_cnt",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "성공", 	  		data: "success_cnt",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "실패",  	  		data: "fail_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "신고",  	  		data: "report_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "옐로카드",    		data: "yellow_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "레드카드",    		data: "red_cnt",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
 			],

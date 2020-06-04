@@ -4,6 +4,9 @@
 		const bizNumber		= $("#bizNumber");
 		const bizLink		= $("#bizLink");
 		const bizDesc		= $("#bizDesc");
+		const balance		= $("#balance");
+		const cash			= $("#cash");
+		const point			= $("#point");
 		const goUpdate		= $("#goUpdate");
 		const dataNum		= $(".data-num");
 		const dataTable		= $("#dataTable");
@@ -56,7 +59,34 @@
 			bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');
 			bizDesc.html(detail.contents);
 
+			getBizBalance();
 			getInvolvePromo();
+		}
+
+		function getBizBalance()
+		{
+			$.ajax({
+				url: api.getBalance,
+				type: "POST",
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify({"company_uuid" : g_bizUuid}),
+				success: function(data) {
+					if (isSuccessResp(data))
+					{
+						let totalBalance = Number(data.data.cash) + Number(data.data.point);
+
+						balance.html(numberWithCommas(totalBalance));
+						cash.html(numberWithCommas(data.data.cash));
+						point.html(numberWithCommas(data.data.point));
+					}
+					else
+						alert(invalidResp(data));
+				},
+				error: function (request, status) {
+					alert('기업 보유 UCD'+message.ajaxError);
+				}
+			});
 		}
 
 		function getInvolvePromo()

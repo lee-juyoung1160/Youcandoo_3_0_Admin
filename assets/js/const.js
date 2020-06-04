@@ -33,13 +33,13 @@
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
-		,overUserCount: '프로모션에서 설정한 최대 모집인원을 초과할 수 없습니다.'
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
 		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
 		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
 		,promotionNotice3: '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'
+		,invalidRecruitCount: '프로모션에서 설정한 모집인원 범위에 포함돼야 합니다.'
 	}
 
 	const label = {

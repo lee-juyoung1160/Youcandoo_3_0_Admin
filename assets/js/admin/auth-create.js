@@ -8,7 +8,6 @@
 	const authCode 		= $("#authCode");
 	const authName 		= $("#authName");
 	const authMenuArea 	= $("#authMenuArea");
-	const btnDeleteAuth = $("#btnDeleteAuth");
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
@@ -19,7 +18,6 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		authModalOpen	.on('click', function () { modalFadein(); })
 		btnSubmitAuth	.on('click', function () { onSubmitAuth(); })
-		btnDeleteAuth	.on('click', function () { deleteAuth(); })
 		btnSubmit		.on('click', function () { onSubmitAuthMenu(); })
 	});
 
@@ -92,7 +90,10 @@
 			let code = details[i].code;
 			let name = details[i].name;
 			i === 0 ? liDom += '<li class="on" data-code="'+code+'">' : liDom += '<li data-code="'+code+'">';
-			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">'+name+'</button>';
+			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">';
+			liDom	+=  	name;
+			liDom	+= 	'</button>';
+			liDom	+= 	'<i onclick="deleteAuth();" class="delete-btn far fa-times-circle"></i>';
 			liDom 	+=	'</li>';
 		}
 

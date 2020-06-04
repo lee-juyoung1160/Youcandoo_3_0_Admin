@@ -58,16 +58,20 @@
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",   	 		width: "10%",      	orderable: false,   className: "text-center" }
-				,{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center" }
+				{title: "", 		data: "idx",   			width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center cursor-default" }
 				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "text-center" }
-				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center",
+				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? "노출" : "비노출";
 					}
 				}
-				,{title: "작성자", 	data: "created_user",      width: "15%",    	orderable: false,   className: "text-center" }
-				,{title: "작성일", 	data: "created_datetime",  width: "10%",   	orderable: false,   className: "text-center",
+				,{title: "작성자", 	data: "created_user",      width: "15%",    	orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",   	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -100,7 +104,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -125,12 +129,11 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
-	}
+		let titleDom  = $(nRow).children().eq(2);
+		let detailUrl = page.detailFaq+aData.idx;
 
-	function goDetail(idx)
-	{
-		location.href = page.detailFaq+idx;
+		/** 제목에 클릭 상세 이동 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

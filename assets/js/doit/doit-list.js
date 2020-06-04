@@ -41,7 +41,7 @@
 
 	function buildGrid()
 	{
-		$('#dataTable').DataTable({
+		dataTable.DataTable({
 			ajax : {
 				url: api.listDoit,
 				type: "POST",
@@ -56,17 +56,25 @@
 					}
 				   */
 					return tableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
 				,{title: "두잇명", 			data: "doit_title",    			width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center" }
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center" }
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center cursor-default" }
 				/*,{title: "진행상태", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return data.substring(0, 10);
@@ -90,7 +98,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -100,7 +111,7 @@
 				let table = $('#dataTable').DataTable();
 				let info = table.page.info();
 
-				$(".data-num").text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -125,20 +136,16 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let periodDom  	 = $(nRow).children().eq(2);
-		let constUserDom = $(nRow).children().eq(3);
-
-		/** row 클릭 상세 이동 **/
-		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
+		let titleDom  	= $(nRow).children().eq(2);
+		let periodDom  	= $(nRow).children().eq(3);
+		let joinUserDom = $(nRow).children().eq(4);
+		let detailUrl	= page.detailDoit+aData.idx;
+		/** 두잇명 클릭 상세 이동 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
 		/** 인증기간 **/
 		$(periodDom).html(aData.action_start_datetime+' ~ ' +aData.action_end_datetime);
 		/** 참여인원/모집인원 **/
-		$(constUserDom).html(aData.doit_member+' / ' +aData.max_user);
-	}
-
-	function goDetail(idx)
-	{
-		location.href = page.detailDoit+idx;
+		$(joinUserDom).html(aData.doit_member+' / ' +aData.max_user);
 	}
 
 	function onSubmitSearch()

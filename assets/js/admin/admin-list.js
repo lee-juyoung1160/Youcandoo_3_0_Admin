@@ -87,6 +87,11 @@
 				}
 			},
 			columns: [
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
 				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center cursor-default" }
 				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center cursor-default" }
 				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center cursor-default" }
@@ -96,20 +101,7 @@
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "사용여부",   data: "is_active",     		width: "10%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						let checked   = data === 'Y' ? 'checked' : '';
-						let chkBoxDom = '';
-						chkBoxDom += '<div class="toggle-btn-wrap">';
-						chkBoxDom += 	'<div class="toggle-btn on">';
-						chkBoxDom += 		'<input onchange="changeStatus(this)" type="checkbox" class="checkbox" '+checked+'>';
-						chkBoxDom += 		'<div class="knobs"></div>';
-						chkBoxDom += 		'<div class="layer"></div>';
-						chkBoxDom += 	'</div>';
-						chkBoxDom += '</div>';
-						return chkBoxDom;
-					}
-				}
+				,{title: "사용여부",   data: "is_active",     	width: "10%",     orderable: false,   className: "text-center" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -141,9 +133,10 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -161,6 +154,23 @@
 		return JSON.stringify(param);
 	}
 
+	function setRowAttributes(nRow, aData)
+	{
+		/** 사용여부 컬럼에 on off 스위치 **/
+		let useYnDom  = $(nRow).children().eq(6);
+		let checked   = aData.is_active === 'Y' ? 'checked' : '';
+		let switchDom = '';
+		switchDom += '<div class="toggle-btn-wrap">';
+		switchDom += 	'<div class="toggle-btn on">';
+		switchDom += 		'<input onclick="changeStatus(this)" data-userid="'+aData.userid+'" type="radio" class="checkbox ' +checked+'">';
+		switchDom += 		'<div class="knobs"></div>';
+		switchDom += 		'<div class="layer"></div>';
+		switchDom += 	'</div>';
+		switchDom += '</div>';
+
+		$(useYnDom).html(switchDom);
+	}
+
 	function onSubmitSearch()
 	{
 		buildGrid();
@@ -168,26 +178,24 @@
 	
 	function changeStatus(obj)
 	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
 		if (confirm('상태를 '+message.change))
 		{
 			$.ajax({
-				url: $(obj).is(':checked') ? api.activeAdmin : api.inactiveAdmin,
+				url: $(obj).hasClass('checked') ? api.inactiveAdmin : api.activeAdmin,
 				type: "POST",
+				dataType: 'json',
+				global: false,
 				async: false,
 				headers: headers,
-				global: false,
-				data: JSON.stringify({"userid" : selectedData.userid}),
+				data: JSON.stringify({"userid" : $(obj).data('userid')}),
 				success: function(data) {
 					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+						buildGrid();
 				},
 				error: function (request, status) {
 					alert(label.modify+message.ajaxError);
 				}
 			});
 		}
-
-		buildGrid();
 	}

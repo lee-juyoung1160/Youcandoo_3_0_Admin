@@ -140,7 +140,7 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

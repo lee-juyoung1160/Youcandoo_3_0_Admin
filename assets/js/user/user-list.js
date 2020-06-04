@@ -133,7 +133,7 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/

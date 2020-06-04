@@ -1,13 +1,13 @@
 .notice-list-page .btn-wrap {
     position: relative;
 }
-.notice-list-page .table-wrap .btn-wrap button {
+.notice-list-page .table-wrap .btn-wrap .btn-topfix {
     position: absolute;
-    right: 0;
+    right: 160px;
     top: 0;
 }
-.notice-list-page .table-wrap .btn-wrap .delete-btn {
-    background-color: #c90614;
+.notice-list-page .table-wrap .btn-wrap .btn-topfix.delete-btn {
+    background-color: #f27c26;
 }
 .notice-list-page .table-wrap .btn-wrap .btn-disabled {
     background-color: #ddd;

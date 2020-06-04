@@ -145,6 +145,9 @@ h2.main-title {
 	color: #ffffff;
 	background-color: #007aff;
 }
+.table-wrap .btn-wrap button.delete-btn {
+	background-color: #c90614;
+}
 /* ë“±ë¡ ê³µí†µ ë ˆì´ì•„ì›ƒ */
 .enrollment {
 	padding: 20px;

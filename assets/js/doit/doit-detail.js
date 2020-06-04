@@ -16,7 +16,7 @@
 	const doitTags 		= $("#doitTags");
 	const introWrap 	= $("#introWrap");
 	const reward 		= $("#reward");
-	const maxUser 		= $("#maxUser");
+	const recruit 		= $("#recruit");
 	const extraReward	= $("#extraReward");
 	const actionDate 	= $("#actionDate");
 	const actionTime 	= $("#actionTime");
@@ -181,7 +181,7 @@
 		rewardDom += '</div>';
 		reward.html(rewardDom);
 
-		maxUser.html(detail.max_user+'명');
+		recruit.html(detail.max_user+'명');
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);
 		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);

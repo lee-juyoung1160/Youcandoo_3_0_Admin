@@ -12,8 +12,9 @@
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const selectedReward    = $("#selectedReward")
 	const labelSelReward 	= $("label[for='selReward']");
+	const minAvailable 		= $("#minAvailable");
 	const maxAvailable 		= $("#maxAvailable");
-	const maxUser 			= $("#maxUser");
+	const recruit 			= $("#recruit");
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
 	const ucdAreWrap		= $("#ucd-area-wrap");
@@ -93,7 +94,7 @@
 		onChangeSelectOption(selPromo);
 		selReward.eq(0).prop('selected', true);
 		onChangeSelectOption(selReward);
-		maxUser.val('');
+		recruit.val('');
 		inputTag.val('');
 		introFileType.eq(0).prop('checked', true);
 		onChangeIntroType(introFileType);
@@ -223,7 +224,8 @@
 	{
 		bizUuid = uuid;
 		bizName.val(name);
-		maxAvailable.val('-');
+		minAvailable.html('0');
+		maxAvailable.html('0');
 		getInvolvePromo();
 		buildOptionReward();
 		modalFadeout();
@@ -337,6 +339,8 @@
 			}
 		});
 	}
+
+	let g_min_user_limit;
 	let g_max_user_limit;
 	function buildSelectedReward(data)
 	{
@@ -377,7 +381,10 @@
 			selectedReward.show();
 
 			/** 모집인원 가이드(프로모션에서 설정한 최대 못집인원을 표출시켜 줌) **/
+			minAvailable.html(detail.min_user_limit);
 			maxAvailable.html(detail.max_user_limit);
+			g_min_user_limit = detail.min_user_limit;
+			g_max_user_limit = detail.max_user_limit;
 		}
 	}
 
@@ -541,17 +548,17 @@
 			return false;
 		}
 
-		if (isEmpty(maxUser.val()))
+		if (isEmpty(recruit.val()))
 		{
 			alert('모집 인원은 ' + message.required);
-			maxUser.focus();
+			recruit.focus();
 			return false;
 		}
 
-		if (Number(maxUser.val()) > Number(maxAvailable.text()))
+		if (Number(recruit.val()) > Number(g_max_user_limit) || Number(recruit.val()) < Number(g_min_user_limit))
 		{
-			alert('모집 인원은 ' + message.overUserCount);
-			maxUser.focus();
+			alert('모집 인원은 ' + message.invalidRecruitCount);
+			recruit.focus();
 			return false;
 		}
 
@@ -657,7 +664,7 @@
 		formData.append('company-uuid', bizUuid);
 		formData.append('promotion-uuid', selPromo.val().trim());
 		formData.append('reward-uuid', selReward.val().trim());
-		formData.append('max-user', maxUser.val().trim());
+		formData.append('max-user', recruit.val().trim());
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);

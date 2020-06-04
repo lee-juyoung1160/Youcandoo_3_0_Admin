@@ -13,6 +13,9 @@
 .biz-info li:first-child {
     padding-top: 0;
 }
+.biz-info li:last-child {
+    border-bottom: none;
+}
 .biz-info li .col-wrap .col-1 {
     width: 200px;
 }

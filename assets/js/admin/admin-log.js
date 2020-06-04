@@ -26,7 +26,7 @@
 	function initSearchForm()
 	{
 		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		onClickActiveAloneDayBtn($(".btn_today"));
 	}
 
 	function buildGrid()
@@ -44,7 +44,8 @@
 				}
 			},
 			columns: [
-				{title: "경로", 		data: "url",   	 			width: "40%",      	orderable: false,   className: "text-center cursor-default" }
+				{title: "아이디", 	data: "userid",      		width: "15%",    	orderable: false,   className: "text-center cursor-default" }
+				,{title: "경로", 		data: "url",   	 		width: "35%",      	orderable: false,   className: "text-center cursor-default" }
 				,{title: "날짜", 	data: "datetime",   		width: "15%", 		orderable: false,   className: "text-center cursor-default" }
 				,{title: "구분", 	data: "access_type_name",	width: "15%",    	orderable: false,   className: "text-center cursor-default" }
 				,{title: "활동", 	data: "action",      		width: "15%",    	orderable: false,   className: "text-center cursor-default" }
@@ -91,7 +92,8 @@
 			,"page" : (d.start / d.length) + 1
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
-			,"userid" : sessionUserId.val()
+			,"search_type" : searchType.val()
+			,"keyword" : keyword.val().trim()
 		}
 
 		return JSON.stringify(param);

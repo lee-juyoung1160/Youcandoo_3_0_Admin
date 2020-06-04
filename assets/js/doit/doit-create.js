@@ -121,6 +121,9 @@
 				tagDom += '</li>';
 
 				addedTags.append(tagDom);
+
+				inputTag.val('');
+				inputTag.focus();
 			}
 		}
 	}
@@ -220,6 +223,7 @@
 	{
 		bizUuid = uuid;
 		bizName.val(name);
+		maxAvailable.val('-');
 		getInvolvePromo();
 		buildOptionReward();
 		modalFadeout();

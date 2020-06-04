@@ -76,6 +76,11 @@
 				}
 			},
 			columns: [
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
 				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
 				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center cursor-default" }
@@ -113,7 +118,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -123,7 +131,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -156,13 +164,12 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
-		let periodDom = $(nRow).children().eq(2);
-		let btnDom 	  = $(nRow).children().eq(5);
-
+		let titleDom  = $(nRow).children().eq(2);
+		let periodDom = $(nRow).children().eq(3);
+		let btnDom 	  = $(nRow).children().eq(6);
+		let detailUrl = page.detailPromo+aData.idx;
 		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
-		$(titleDom).css('text-decoration', 'underline');
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
 
 		/** 프로모션 기간 **/
 		periodDom.html(aData.start_date +' ~ '+aData.end_date);
@@ -173,11 +180,6 @@
 		let introUrl  = aData.intro_image_url;
 		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
 		btnDom.html(innerDom);*/
-	}
-
-	function goDetail(idx)
-	{
-		location.href = page.detailPromo+idx;
 	}
 
 	function onSubmitSearch()

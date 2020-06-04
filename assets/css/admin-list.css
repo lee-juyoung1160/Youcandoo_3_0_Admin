@@ -87,13 +87,13 @@
     border-radius: 50%;
 }
 
-.toggle-btn .checkbox:checked + .knobs:before
+.toggle-btn .checkbox.checked + .knobs:before
 {
     content: 'Y';
     left: 28px;
     background-color: #03A9F4;
 }
-.toggle-btn .checkbox:checked ~ .layer
+.toggle-btn .checkbox.checked ~ .layer
 {
     background-color: #c9eeff;
 }

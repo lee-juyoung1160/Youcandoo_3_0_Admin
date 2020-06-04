@@ -262,7 +262,7 @@
 		let toDate = promoTo.datepicker('getDate');
 
 		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
-		diff = Math.ceil(diff / (1000 * 3600 * 24));
+		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
 
 		return diff;
 	}
@@ -829,6 +829,7 @@
 			if ($(this).hasClass('active'))
 			{
 				let duration = $(this).data('days');
+
 				if (duration > promoTerm)
 					retVal = true;
 			}
@@ -867,7 +868,7 @@
 			let totalDom = $(this).find('span')[1];
 			let totalUcd = replaceAll($(totalDom).text(), ',', '');
 
-			if (totalUcd > budget.val()) retVal = true;
+			if (Number(totalUcd) > Number(budget.val())) retVal = true;
 		});
 
 		return retVal;

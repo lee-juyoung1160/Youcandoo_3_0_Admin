@@ -3,15 +3,10 @@
 	const tabUser 		= $("#tabUser");
 	const tabAction		= $("#tabAction");
 	const tabReview		= $("#tabReview");
-	const doitDetail	= $("#doitDetail");
-	const doitUser		= $("#doitUser");
-	const doitAction	= $("#doitAction");
-	const actionWrap	= $("#actionWrap");
 	const goUpdate      = $("#goUpdate");
-	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
-	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
 
 	/** 두잇정보 탭 **/
+	const doitDetail	= $("#doitDetail");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
 	const doitTags 		= $("#doitTags");
@@ -27,6 +22,7 @@
 	const actionDesc    = $("#actionDesc");
 
 	/** 참여자정보 탭 **/
+	const doitUser		= $("#doitUser");
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const keyword		= $("#keyword")
@@ -39,18 +35,23 @@
 	const forecast 		= $("#forecast");
 	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
+	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
 
 	/** 인증정보 탭 **/
+	const doitAction	= $("#doitAction");
 	const btnWarnRed	= $(".warning-btn");
 	const btnWarnYellow	= $(".yellow-btn");
+	const actionWrap	= $("#actionWrap");
 	const actionTopDom	= $("#actionTopDom");
 	const actionTotal	= $(".action-total");
 	const pagination	= $("#dataTable_paginate");
+	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
 
 	/** 리뷰정보탭 **/
 	const doitReview		= $("#doitReview");
-	const btnDetailReview	= $("#btnDetailReview");
-	const btnReportReason	= $("#btnReportReason");
+	const reviewTotal		= $(".review-total");
+	const reviewTable		= $("#reviewTable");
+	const selPageLengthForReview	= $("#selPageLengthForReview");
 
 	/** modal **/
 	const modalCloseBtn 	= $(".close-btn");
@@ -83,8 +84,6 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		selPageLengthForActionTab.on('change', function () { getInvolveAction(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
-		btnDetailReview	.on('click', function () { fadeinModalDetailReview(); });
-		btnReportReason	.on('click', function () { fadeinModalReportReason(); });
 	});
 
 	/** 두잇정보탭 **/
@@ -147,7 +146,7 @@
 		tabAction.removeClass('active');
 		tabReview.addClass('active');
 
-		//getInvolveReview();
+		getInvolveReview();
 	}
 
 	/****************
@@ -833,9 +832,104 @@
 	/****************
 	 * 리뷰정보탭 관련
 	 * **************/
+	function getInvolveReview()
+	{
+		reviewTable.DataTable({
+			ajax : {
+				url: api.listReview,
+				type: "POST",
+				headers: headers,
+				data: function (d) {
+					/*
+					if (d.order.length > 0)
+					{
+						var columnIndex = d.order[0].column;
+						d.sort = d.columns[columnIndex].name;
+						d.order = d.order[0].dir;
+					}
+				   */
+					return reviewParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center" }
+				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "두잇명", 		data: "doit_title",  	width: "25%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "text-center cursor-default",
+				 	render: function (data) {
+						return data.substring(0, 10)
+					}
+				 }
+				,{title: "작성자", 		data: "nickname",    	width: "15%",   orderable: false,   className: "text-center cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selPageLengthForReview.val()),
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader:false,
+			destroy: true,
+			initComplete: function () {
+				let table = reviewTable.DataTable();
+				let info = table.page.info();
+
+				reviewTotal.html(info.recordsTotal);
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			}
+		});
+	}
+
+	function reviewParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"from_date" : ""
+			,"to_date" : ""
+			,"search_type" : "doit_uuid"
+			,"keyword" : g_doitUuid
+			,"rating_list" : [1,2,3,4,5]
+			,"is_report" : "ALL"
+			,"is_blind" : "ALL"
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		let reviewDom  	= $(nRow).children().eq(0);
+		let reportDom  	= $(nRow).children().eq(3);
+
+		$(reviewDom).html('<button onclick="fadeinModalDetailReview();" type="button" class="more-info-btn">'+aData.review_text+'</button>');
+		$(reportDom).html('<button onclick="fadeinModalReportReason();" type="button" class="more-info-btn">'+aData.report_count+'</button>');
+	}
+
 	function fadeinModalDetailReview()
 	{
-		console.log('ddddd')
 		modalLayout.fadeIn();
 		modalDetailReview.fadeIn();
 		initModalDetailReview();

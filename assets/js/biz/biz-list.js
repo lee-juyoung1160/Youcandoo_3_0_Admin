@@ -139,11 +139,12 @@
 		$.ajax({
 			url: api.listBiz,
 			type: "POST",
+			dataType: "json",
 			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("비즈목록", "비즈목록", data);
+				setExcelData("비즈목록", "비즈목록", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);

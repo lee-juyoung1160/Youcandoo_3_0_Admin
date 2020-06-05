@@ -233,11 +233,12 @@
 		$.ajax({
 			url: api.listUser,
 			type: "POST",
+			dataType: "json",
 			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("회원목록", "회원목록", data);
+				setExcelData("회원목록", "회원목록", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);

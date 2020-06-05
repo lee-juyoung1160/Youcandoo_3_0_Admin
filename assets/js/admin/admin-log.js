@@ -80,7 +80,6 @@
 				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData)
 			}
 		});
 	}

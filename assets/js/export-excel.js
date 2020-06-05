@@ -56,8 +56,7 @@
 		if (!isEmpty(_sheetName)) excelHandler.sheetName = _sheetName;
 		if (!isEmpty(data))
 		{
-			let jsonData = JSON.parse(data);
-			excelHandler.excelData = jsonData.data;
+			excelHandler.excelData = data;
 		}
 		exportExcel();
 	}

@@ -25,6 +25,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
@@ -39,6 +40,16 @@
 		doitStatus.prop('checked', true);
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
+	}
+
+	function onChangeChkStatus(obj)
+	{
+		let checkedCount = $("input[name=chk-status]:checked").length;
+		if (checkedCount === 0)
+		{
+			alert(message.minimumChecked);
+			$(obj).prop("checked", true);
+		}
 	}
 
 	function buildGrid()

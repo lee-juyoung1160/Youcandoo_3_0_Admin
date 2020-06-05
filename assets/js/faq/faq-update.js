@@ -12,7 +12,7 @@
 		checkInputLength();
 
 		/** 이벤트 **/
-		//btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
+		btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
 	});
 
 	function getFaqType()
@@ -82,16 +82,18 @@
 		return JSON.stringify({"idx" : faqIdx});
 	}
 
+	let g_faq_uuid;
 	function buildDetail(data)
 	{
-		let detailData = data.data;
+		let detail = data.data;
 
-		selFaqType.val(detailData.faq_type);
+		g_faq_uuid = detail.faq_uuid;
+		selFaqType.val(detail.faq_type);
 		onChangeSelectOption(selFaqType);
-		title.val(detailData.title);
-		content.val(detailData.contents);
+		title.val(detail.title);
+		content.val(detail.contents);
 		exposure.each(function () {
-			if ($(this).val() === detailData.is_exposure)
+			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -103,7 +105,7 @@
 			if (confirm(message.modify))
 			{
 				$.ajax({
-					url: api.createFaq,
+					url: api.updateFaq,
 					type: "POST",
 					headers: headers,
 					dataType: 'json',
@@ -124,11 +126,12 @@
 	function params()
 	{
 		let param = {
-			"faqTitle" : title.val().trim()
-			,"faqContents" : content.val().trim()
-			,"faqType" : selFaqType.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"create_user" : sessionUserId.val()
+			"faq_uuid" : g_faq_uuid
+			,"title" : title.val().trim()
+			,"contents" : content.val().trim()
+			,"faq_type" : selFaqType.val()
+			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"updated_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

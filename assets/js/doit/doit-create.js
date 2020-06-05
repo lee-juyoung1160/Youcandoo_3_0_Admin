@@ -68,7 +68,7 @@
 	function onChangeDateFrom()
 	{
 		let doitFromDate = new Date(doitFrom.datepicker("getDate"));
-		let duration = $("#duration").text();
+		let duration = g_duration;
 		let doitToDate;
 
 		if (isEmpty(duration))
@@ -342,6 +342,7 @@
 
 	let g_min_user_limit;
 	let g_max_user_limit;
+	let g_duration;
 	function buildSelectedReward(data)
 	{
 		selectedReward.hide();
@@ -349,22 +350,24 @@
 		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let detail = data.data;
+			g_duration = detail.action_duration;
+
 			selectedRewardDom += '<li class="reward-type clearfix">';
 			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'</span></p>';
+			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'일</span></p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'</p>';
+			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'회</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'</p>';
+			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'%</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +' : 단체 '+detail.group_percent +'</p>';
+			selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +'% : 단체 '+detail.group_percent +'%</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 UCD : </span>'+ detail.total_reward +'</p>';
+			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 UCD : </span>'+ numberWithCommas(detail.total_reward) +' UCD</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
 			selectedRewardDom += 		'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';

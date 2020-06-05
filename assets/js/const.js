@@ -45,8 +45,13 @@
 	}
 
 	const label = {
-		createDoitUser : '사용자 두잇 개설 허용'
-		,createDoitAdmin : '기업만 두잇 개설 허용'
+		list : '목록'
+		,submit : '등록'
+		,modify : '수정'
+		,delete : '삭제'
+		,cancel : '취소'
+		/*,createDoitUser : '사용자 두잇 개설 허용'
+		,createDoitAdmin : '기업만 두잇 개설 허용'*/
 		,exposure : '노출'
 		,unexpose : '비노출'
 		,regular : '일반'

@@ -5,6 +5,61 @@
         <h2 class="main-title">프로모션 두잇 신규 등록</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
+                <li class="list-common clearfix" style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">프로모션 (*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <div class="col-2-1 clearfix" style="float: left; width: 100%;">
+                                <div class="search-wrap" style="width: 235px; float: left; margin-right: 10px;">
+                                    <input id="bizName" type="text" placeholder="클릭 후 기업명을 선택해주세요." style="width: 235px" readonly>
+                                </div>
+                                <div class="select-box" style="float: left; width: 340px;margin-right: 10px;">
+                                    <label for="selPromo">프로모션 선택</label>
+                                    <select id="selPromo">
+                                    </select>
+                                </div>
+                                <div class="select-box" style="float: left; width: 320px;">
+                                    <label for="selReward">리워드 조건 선택</label>
+                                    <select id="selReward">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2-1" style="float: left; width: 100%; margin-top: 20px;">
+                                <div id="selectedReward" class="reward-type clearfix" style="display: none;"></div>
+                                <!--                                <div class="reward-type clearfix">-->
+                                <!--                                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>두잇 참여 인원 : </span>최소 1명 ~ 최대 4명</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>인증기간 : </span>7일</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>일일인증 횟수 : </span>10회</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>목표달성률 : </span>80%</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>1인당 최대 지급할 UCD : </span>8000UCD</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>리워드 비율 : </span>개인 5 : 단체 5</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>-->
+                                <!--                                    <div class="fixed">-->
+                                <!--                                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
@@ -81,61 +136,6 @@
                                 <label for="r11">영상 <span></span></label>
                             </div>
                             <div id="introFileArea" class="wrap">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-common clearfix" style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">두잇 유형(*)</p>
-                        </div>
-                        <div class="col-2 clearfix">
-                            <div class="col-2-1 clearfix" style="float: left; width: 100%;">
-                                <div class="search-wrap" style="width: 235px; float: left; margin-right: 10px;">
-                                    <input id="bizName" type="text" placeholder="클릭 후 기업명을 선택해주세요." style="width: 235px" readonly>
-                                </div>
-                                <div class="select-box" style="float: left; width: 340px;margin-right: 10px;">
-                                    <label for="selPromo">프로모션 선택</label>
-                                    <select id="selPromo">
-                                    </select>
-                                </div>
-                                <div class="select-box" style="float: left; width: 320px;">
-                                    <label for="selReward">리워드 조건 선택</label>
-                                    <select id="selReward">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-2-1" style="float: left; width: 100%; margin-top: 20px;">
-                                <div id="selectedReward" class="reward-type clearfix" style="display: none;"></div>
-<!--                                <div class="reward-type clearfix">-->
-<!--                                    <p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>두잇 참여 인원 : </span>최소 1명 ~ 최대 4명</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>인증기간 : </span>7일</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>일일인증 횟수 : </span>10회</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>목표달성률 : </span>80%</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>1인당 최대 지급할 UCD : </span>8000UCD</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>리워드 비율 : </span>개인 5 : 단체 5</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap"><span>주간빈도 : 월, 수, 금 </span></p>-->
-<!--                                    </div>-->
-<!--                                    <p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>-->
-<!--                                    <div class="fixed">-->
-<!--                                        <p class="cap">현재까지 남은 잔여 UCD는 <span style="font-size: 19px; font-weight: 600; color: #007aff;">50000 UCD</span> 입니다.</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </div>
                         </div>
                     </div>

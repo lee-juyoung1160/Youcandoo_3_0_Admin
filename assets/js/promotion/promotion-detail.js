@@ -11,9 +11,10 @@
 	const budget 		= $("#budget");
 	const period 		= $("#period");
 	const promoNotice 	= $("#promoNotice");
+	const allowCount	= $("#allowCount");
 	const banner 		= $("#banner");
 	const intro 		= $("#intro");
-	const createType 	= $("#createType");
+	/*const createType 	= $("#createType");*/
 	const isExposure 	= $("#isExposure");
 	const rewardTab     = $("#rewardTab");
 	const rewardDetail  = $("#rewardDetail");
@@ -71,10 +72,14 @@
 				if (isSuccessResp(data))
 					buildPromoDetail(data);
 				else
+				{
 					alert(invalidResp(data));
+					location.href = page.listPromo
+				}
 			},
 			error: function (request, status) {
 				alert(label.detailContent+message.ajaxLoadError);
+				location.href = page.listPromo
 			},
 		});
 	}
@@ -84,6 +89,7 @@
 	{
 		let details 	= data.data;
 		let detailPromo	= details.promotion;
+		console.log(detailPromo)
 		rewards 	= details.reward;
 		let notice 		= detailPromo.promotion_notice;
 		notice = notice.replace('[', '').replace(']', '');
@@ -98,9 +104,10 @@
 		for (let i=0; i<notices.length; i++)
 			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
 		promoNotice.html(noticeDom);
+		allowCount.html(detailPromo.promotion_allow_count);
 		banner.attr('src', detailPromo.banner_image_url);
 		intro.attr('src', detailPromo.intro_image_url);
-		createType.html(detailPromo.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);
+		/*createType.html(detailPromo.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);*/
 		isExposure.html(detailPromo.is_banner === 'Y' ? label.exposure : label.unexpose);
 
 		let rewardLen = rewards.length;

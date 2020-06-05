@@ -29,7 +29,7 @@
     font-weight: 600;
 }
 
-.biz-ucd-data {
+.ucd-data {
     overflow-wrap: break-word;
     color: #949494;
     font-size: 16px;
@@ -39,7 +39,7 @@
 .biz-ucd-data dt,
 .biz-ucd-data dd {
     float:left;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .biz-ucd-data dt {
     width: 100px;

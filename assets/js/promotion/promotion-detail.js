@@ -307,10 +307,11 @@
 		$.ajax({
 			url: api.involveDoitPromotion,
 			type: "POST",
+			dataType: "json",
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data);
+				setExcelData("개설두잇목록", "개설두잇목록", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);

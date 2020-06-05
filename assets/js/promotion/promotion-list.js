@@ -237,9 +237,11 @@
 		$.ajax({
 			url: api.listPromotion,
 			type: "POST",
+			dataType: "json",
+			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data);
+				setExcelData("프로모션목록", "프로모션목록", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);

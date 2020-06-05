@@ -6,6 +6,8 @@
 	const btnSubmit		= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initInputTodayDatepicker();
 		/** 에디터 초기화 **/
 		initSummerNote();
 		/** input 글자 수 체크 **/
@@ -13,7 +15,7 @@
 		/** 상세 불러오기 **/
 		getDetail();
 
-		//btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
+		btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
 	});
 
 	function getDetail()
@@ -44,14 +46,16 @@
 		return JSON.stringify({"idx" : noticeIdx});
 	}
 
+	let g_notice_uuid;
 	function buildDetail(data)
 	{
-		let detailData = data.data;
-		title.val(detailData.title);
-		content.summernote('code', detailData.contents);
-		reserveDate.val(detailData.reservation_date);
+		let detail = data.data;
+		g_notice_uuid = detail.notice_uuid;
+		title.val(detail.title);
+		content.summernote('code', detail.contents);
+		reserveDate.val(detail.reservation_date);
 		exposure.each(function () {
-			if ($(this).val() === detailData.is_exposure)
+			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -63,10 +67,8 @@
 			if (confirm(message.modify))
 			{
 				$.ajax({
-					url: api.createNotice,
+					url: api.updateNotice,
 					type: "POST",
-					processData: false,
-					contentType: false,
 					headers: headers,
 					dataType: 'json',
 					data: params(),
@@ -86,11 +88,12 @@
 	function params()
 	{
 		let param = {
-			'notice_title' : title.val().trim()
-			,'notice_contents' : content.val().trim()
+			'notice_uuid' : g_notice_uuid
+			,'title' : title.val().trim()
+			,'contents' : content.val().trim()
 			,'reservation_date' : reserveDate.val().trim()
 			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
-			,'create_user' : sessionUserId.val()
+			,'updated_user' : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

@@ -123,14 +123,14 @@
 		,createNotice : baseApiUrl+'notice/create'
 		,deleteNotice : baseApiUrl+'notice/delete'
 		,detailNotice : baseApiUrl+'notice/detail'
-		,updateNotice : ''
+		,updateNotice : baseApiUrl+'notice/update'
 		,listNotice : baseApiUrl+'notice/list'
 		,topNotice : baseApiUrl+'notice/changeTop'
 		/** FAQ **/
 		,createFaq : baseApiUrl+'faq/create'
 		,deleteFaq : baseApiUrl+'faq/delete'
 		,detailFaq : baseApiUrl+'faq/detail'
-		,updateFaq : ''
+		,updateFaq : baseApiUrl+'faq/update'
 		,listFaq : baseApiUrl+'faq/list'
 		,getFaqType : baseApiUrl+'faq/type'
 		/** 금칙어 **/

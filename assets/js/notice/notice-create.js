@@ -38,8 +38,6 @@
 				$.ajax({
 					url: api.createNotice,
 					type: "POST",
-					processData: false,
-					contentType: false,
 					headers: headers,
 					dataType: 'json',
 					data: params(),

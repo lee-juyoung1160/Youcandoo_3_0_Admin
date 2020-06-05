@@ -163,20 +163,26 @@
             let img    = new Image();
             img.src = window.URL.createObjectURL(obj.files[0]);
             img.onload = function() {
-                let infoMessage = '\n업로드 가능한 이미지 사이즈 : '+needsWidth+'x'+needsHeight+'\n선택한 이미지 사이즈 : '+this.width+'x'+this.height;
+                let infoMessage = '선택한 이미지 사이즈는 '+this.width+'x'+this.height+'입니다';
+                infoMessage += '\n업로드 가능한 이미지 사이즈를 확인해주세요.'
+                /*let infoMessage = '\n업로드 가능한 이미지 사이즈 : '+needsWidth+'x'+needsHeight;
+                infoMessage += '\n선택한 이미지 사이즈 : '+this.width+'x'+this.height;*/
                 if (expr === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
                 {
-                    alert(message.invalidResolution+infoMessage);
+                    /*alert(message.invalidResolution+infoMessage);*/
+                    alert(infoMessage);
                     emptyFile(obj);
                 }
                 else if (expr === 'ge' && (this.width < needsWidth || this.height < needsHeight))
                 {
-                    alert(message.invalidResolution+infoMessage);
+                    /*alert(message.invalidResolution+infoMessage);*/
+                    alert(infoMessage);
                     emptyFile(obj);
                 }
                 else if (expr === 'le' && (this.width > needsWidth || this.height > needsHeight))
                 {
-                    alert(message.invalidResolution+infoMessage);
+                    /*alert(message.invalidResolution+infoMessage);*/
+                    alert(infoMessage);
                     emptyFile(obj);
                 }
                 else
@@ -289,7 +295,17 @@
 
     function getStatusMessage(data)
     {
-        return data.msg;
+        let fileStatus = [30034, 30035, 30308];
+        let msg = data.msg;
+        let code = data.status;
+
+        if (fileStatus.indexOf(code) > -1)
+        {
+            msg = '선택한 이미지 사이즈는 '+data.data.width+'x'+data.data.height+'입니다.\n';
+            msg += data.msg;
+        }
+
+        return msg;
     }
 
     function isSuccessResp(data)

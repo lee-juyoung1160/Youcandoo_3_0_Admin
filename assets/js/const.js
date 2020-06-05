@@ -110,6 +110,8 @@
 		,setRed : baseApiUrl+'action/set/red'
 		,cancelYellow : baseApiUrl+'action/cancel/yellow'
 		,cancelRed : baseApiUrl+'action/cancel/red'
+		/** 리뷰 **/
+		,listReview : baseApiUrl+'review/list'
 		/** 이벤트 **/
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'

@@ -92,7 +92,7 @@
 					,next: label.next
 				}
 			},
-			processing: true,
+			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),

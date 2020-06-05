@@ -150,102 +150,119 @@
 
     function onChangeValidationImage(obj)
     {
-        onChangeFile(obj);
-
         if (!isImage(obj) && obj.files[0])
         {
             alert(message.invalidFile);
-            $(obj).val(null);
-            $(obj).siblings('.upload-name').val('파일선택');
+            emptyFile(obj);
+        }
+        else
+        {
+            let expr   = $(obj).data('expr');
+            let needsWidth  = $(obj).data('width');
+            let needsHeight = $(obj).data('height');
+            let img    = new Image();
+            img.src = window.URL.createObjectURL(obj.files[0]);
+            img.onload = function() {
+                let infoMessage = '\n업로드 가능한 이미지 사이즈 : '+needsWidth+'x'+needsHeight+'\n선택한 이미지 사이즈 : '+this.width+'x'+this.height;
+                if (expr === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
+                {
+                    alert(message.invalidResolution+infoMessage);
+                    emptyFile(obj);
+                }
+                else if (expr === 'ge' && (this.width < needsWidth || this.height < needsHeight))
+                {
+                    alert(message.invalidResolution+infoMessage);
+                    emptyFile(obj);
+                }
+                else if (expr === 'le' && (this.width > needsWidth || this.height > needsHeight))
+                {
+                    alert(message.invalidResolution+infoMessage);
+                    emptyFile(obj);
+                }
+                else
+                    setFile(obj, 'image');
+            }
         }
     }
 
     function onChangeValidationAudio(obj)
     {
-        onChangeFile(obj);
-
         if (!isAudio(obj) && obj.files[0])
         {
             alert(message.invalidFile);
-            $(obj).val(null);
-            $(obj).siblings('.upload-name').val('파일선택');
+            emptyFile(obj);
         }
+        else
+            setFile(obj, 'audio');
     }
 
     function onChangeValidationVideo(obj)
     {
-        onChangeFile(obj);
-
         if (!isVideo(obj) && obj.files[0])
         {
             alert(message.invalidFile);
-            $(obj).val(null);
-            $(obj).siblings('.upload-name').val('파일선택');
+            emptyFile(obj);
         }
+        else
+            setFile(obj, 'video');
+    }
+
+    function emptyFile(obj)
+    {
+        removeThumbnail(obj);
+        $(obj).val(null);
+        $(obj).siblings('.upload-name').val('파일선택');
     }
 
     /** 파일 썸네일과 파일이름 보여주는 이벤트 **/
-    function onChangeFile(obj)
+    function setFile(obj, type)
     {
-        let innerDom = '';
-        let fileName;
-        let src;
-        let parent = $(obj).parent();
-
-        parent.children('.upload-display').remove();
-
-        if(window.File && window.FileReader)
+        if(window.FileReader)
         {
-            let siblingsDom = '.upload-name';
             let file = obj.files[0];
 
-            if ( obj.files && file)
+            if (obj.files && obj.files[0])
             {
-                /** image, audio, video 파일만 **/
-                if (isImage(obj) || isAudio(obj) || isVideo(obj))
+                /** image 일때 썸네일 표출 **/
+                if (type === 'image')
                 {
-                    fileName = file.name;
-                    let reader = new FileReader();
+                    /** 기존 썸네일 삭제 **/
+                    removeThumbnail(obj);
 
-                    reader.onload = function(event) {
-
-                        src = event.target.result;
-
-                        innerDom += '<div class="upload-display">';
-                        innerDom += 	'<div class="upload-thumb-wrap">';
-                        innerDom += 		'<img src="'+src+'" class="upload-thumb">';
-                        innerDom += 	'</div>';
-                        innerDom += '</div>';
-
-                        parent.prepend(innerDom);
-                    }
-
-                    reader.readAsDataURL(file);
-
-                    $(obj).siblings(siblingsDom).val(fileName);
+                    /** 파일읽어서 썸네일 표출하기 **/
+                    readImage(obj);
                 }
+
+                $(obj).siblings('.upload-name').val(file.name);
             }
             else
-                $(obj).siblings(siblingsDom).val('파일선택');
+                emptyFile(obj);
         }
-        /*else
-        {
-            $(obj)[0].select();
-            $(obj)[0].blur();
+        else
+            alert(message.invalidBrowser);
+    }
 
-            let imgSrc = document.selection.createRange().text;
+    function readImage(obj)
+    {
+        let reader = new FileReader();
+        reader.readAsDataURL(obj.files[0]);
 
+        reader.onload = function() {
+
+            let innerDom = '';
             innerDom += '<div class="upload-display">';
             innerDom += 	'<div class="upload-thumb-wrap">';
-            innerDom += 		'<img class="upload-thumb">';
+            innerDom += 		'<img src="'+reader.result+'" class="upload-thumb">';
             innerDom += 	'</div>';
             innerDom += '</div>';
 
-            parent.prepend(innerDom);
+            $(obj).parent().prepend(innerDom);
+        }
+    }
 
-            let img = $(obj).siblings('.upload-display').find('img');
-            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
-        }*/
+    function removeThumbnail(obj)
+    {
+        $(obj).parent().children('.upload-display').remove();
     }
 
     function initSummerNote()
@@ -476,7 +493,7 @@
         {
             let splitPath = pathName.split('/');
             let compareValue = splitPath[1]+splitPath[2];
-console.log(accessible)
+
             if (accessible.indexOf(compareValue) === -1)
             {
                 alert(message.accessDenied);

@@ -66,17 +66,18 @@
 			(value.constructor === String && value.trim() === '')
 		)
 	}
-	
+
+	/** 숫자 형식에 , 붙이기 **/
 	function numberWithCommas(x)
 	{
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	
+
 	function isImage(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
+			let file 		= obj.files[0];
 			let fileType 	= file["type"];
 			let imageTypes 	= ["image/jpeg", "image/png"];
 
@@ -87,9 +88,9 @@
 	
 	function isVideo(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
+			let file 		= obj.files[0];
 			let fileType 	= file["type"];
 			let videoTypes 	= ["video/quicktime", "video/mp4"];
 
@@ -100,11 +101,11 @@
 	
 	function isAudio(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
-			let fileType = file["type"];
-			let audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts"];
+			let file 		= obj.files[0];
+			let fileType 	= file["type"];
+			let audioTypes 	= ["audio/x-m4a", "audio/vnd.dlna.adts"];
 
 			if ($.inArray(fileType, audioTypes) >= 0)
 				return true;

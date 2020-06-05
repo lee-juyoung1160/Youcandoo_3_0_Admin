@@ -123,6 +123,12 @@
 
 	function tableParams(d)
 	{
+		let status = [];
+		doitStatus.each(function () {
+			if ($(this).is(":checked"))
+				status.push($(this).val())
+		})
+
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
@@ -131,6 +137,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
+			,"status" : status
 		}
 
 		return JSON.stringify(param);

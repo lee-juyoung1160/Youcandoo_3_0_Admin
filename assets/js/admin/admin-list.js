@@ -22,7 +22,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
-		btnDelete		.on("click", function () { deleteFaq(); });
+		btnDelete		.on("click", function () { deleteAdmin(); });
 	});
 
 	function getAuthList()

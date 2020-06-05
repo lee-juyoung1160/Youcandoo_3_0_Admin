@@ -89,18 +89,18 @@
 	{
 		let details 	= data.data;
 		let detailPromo	= details.promotion;
-		console.log(detailPromo)
-		rewards 	= details.reward;
-		let notice 		= detailPromo.promotion_notice;
-		notice = notice.replace('[', '').replace(']', '');
-		notice = replaceAll(notice, '"', '');
-		let notices = notice.split(",");
-		let noticeDom = '';
+
+		rewards 		= details.reward;
 
 		bizName.html(detailPromo.nickname);
 		promoName.html(detailPromo.promotion_title);
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
 		period.html(detailPromo.start_date + ' ~ ' + detailPromo.end_date);
+		let notice 		= detailPromo.promotion_notice;
+		notice = notice.replace('[', '').replace(']', '');
+		notice = replaceAll(notice, '"', '');
+		let notices 	= notice.split(",");
+		let noticeDom 	= '';
 		for (let i=0; i<notices.length; i++)
 			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
 		promoNotice.html(noticeDom);

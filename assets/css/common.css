@@ -885,12 +885,12 @@ textarea {
 }
 .detail-img {
 	display: block;
-	width: 165px;
-	height: 165px;
+	width: 375px;
+	height: auto;
 }
 .main-banner {
-	width: 650px;
-	height: 650px;
+	width: 328px;
+	height: 210px;
 }
 
 /* cert-contents common */

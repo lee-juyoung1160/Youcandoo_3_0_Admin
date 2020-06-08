@@ -75,7 +75,10 @@
 					if (isSuccessResp(data))
 					{
 						let totalBalance = Number(data.data.cash) + Number(data.data.point);
+
 						balance.html(numberWithCommas(totalBalance));
+						/*cash.html(numberWithCommas(data.data.cash));
+						point.html(numberWithCommas(data.data.point));*/
 					}
 					else
 						alert(invalidResp(data));

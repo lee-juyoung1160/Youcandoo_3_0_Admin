@@ -62,7 +62,7 @@
 
 	function buildGrid()
 	{
-		$("#dataTable").DataTable({
+		dataTable.DataTable({
 			ajax : {
 				url: api.listUser,
 				type:"POST",
@@ -91,11 +91,11 @@
 				},*/
 				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center cursor-default" }
-				/*,{title: "회원상태", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center",
+				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center",
 					render: function (data) {
-						return data === 'Y' ? '정상' : '정지'
+						return data === 'Y' ? '사용' : '미사용';
 					}
-				}*/
+				}
 				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);

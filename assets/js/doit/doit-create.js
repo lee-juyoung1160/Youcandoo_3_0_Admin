@@ -136,6 +136,19 @@
 			return false;
 		}
 
+		let splitInput = inputTag.val().split('');
+		if (splitInput.indexOf(',') !== -1)
+		{
+			alert('태그에 , 를 포함할 수 없습니다.');
+			return false;
+		}
+
+		if (splitInput.indexOf('#') !== -1)
+		{
+			alert('태그에 # 을 포함할 수 없습니다.');
+			return false;
+		}
+
 		if (tagLen >= 3)
 		{
 			alert('태그는 '+message.maxAddThree);

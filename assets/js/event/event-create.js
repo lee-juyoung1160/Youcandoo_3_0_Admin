@@ -24,8 +24,6 @@
 		initInputTodayDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 이벤트 **/
 		selEventType.on('change', function () { onChangeEventType(this); });
 		webFile		.on('change', function () { onChangeWebFile(this); });

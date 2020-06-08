@@ -14,9 +14,6 @@
 		initComponent();
 		/** 에디터 초기화 **/
 		initSummerNote();
-		/** input 글자 수 체크 **/
-		checkInputLength();
-
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitNotice(); });
 	});

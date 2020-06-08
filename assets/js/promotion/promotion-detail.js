@@ -9,6 +9,7 @@
 	const bizName 		= $("#bizName");
 	const promoName 	= $("#promoName");
 	const budget 		= $("#budget");
+	const balance 		= $("#balance");
 	const period 		= $("#period");
 	const promoNotice 	= $("#promoNotice");
 	const allowCount	= $("#allowCount");
@@ -95,6 +96,7 @@
 		bizName.html(detailPromo.nickname);
 		promoName.html(detailPromo.promotion_title);
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
+		balance.html(numberWithCommas(detailPromo.remain_budget_ucd));
 		period.html(detailPromo.start_date + ' ~ ' + detailPromo.end_date);
 		let notice 		= detailPromo.promotion_notice;
 		notice = notice.replace('[', '').replace(']', '');
@@ -102,9 +104,9 @@
 		let notices 	= notice.split(",");
 		let noticeDom 	= '';
 		for (let i=0; i<notices.length; i++)
-			noticeDom += ' <p class="detail-data">'+(i+1)+'. '+notices[i]+'</p>';
+			noticeDom += '<p class="detail-data">'+notices[i]+'</p>';
 		promoNotice.html(noticeDom);
-		allowCount.html(detailPromo.promotion_allow_count);
+		allowCount.html(detailPromo.promotion_allow_count+'회');
 		banner.attr('src', detailPromo.banner_image_url);
 		intro.attr('src', detailPromo.intro_image_url);
 		/*createType.html(detailPromo.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);*/

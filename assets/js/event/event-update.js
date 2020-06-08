@@ -23,8 +23,6 @@
 		getEventType();
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 상세 내용 **/
 		getDetail()
 		/** 이벤트 **/

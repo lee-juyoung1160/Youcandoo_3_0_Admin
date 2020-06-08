@@ -12,8 +12,6 @@
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitFaq(); });
 	});

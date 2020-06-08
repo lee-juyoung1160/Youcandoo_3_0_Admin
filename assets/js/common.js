@@ -42,6 +42,14 @@
         $(obj).next().find(".count-input").html(inputLength);
     }
 
+    function getPromotionStatusName(param)
+    {
+        if (param === 'pending') return '대기';
+        if (param === 'progress') return '진행';
+        if (param === 'end') return '마감';
+        if (param === 'terminate') return '종료';
+    }
+
     function fadeinLoader()
     {
         viewLoading.fadeIn(100);

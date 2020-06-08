@@ -83,21 +83,25 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center cursor-default",
+				{title: "기업", 			data: "nickname",    		width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    orderable: false,   className: "text-center" }
+				,{title: "프로모션 예산", 	data: "budget_ucd",     width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				/*,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}*/
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "text-center",
+					render: function (data) {
+						return getPromotionStatusName(data);
+					}
+				}
+				,{title: "배너 여부", 	data: "is_banner",    		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}
@@ -167,8 +171,8 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(3);
-		let btnDom 	  = $(nRow).children().eq(6);
+		let periodDom = $(nRow).children().eq(5);
+		let btnDom 	  = $(nRow).children().eq(7);
 		let detailUrl = page.detailPromo+aData.idx;
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');

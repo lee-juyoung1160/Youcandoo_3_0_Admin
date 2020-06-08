@@ -107,12 +107,22 @@
 				columns: [
 					{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
 					,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
-					,{title: "프로모션 예산", data: "budget_ucd",   		width: "24%",     orderable: false,   className: "text-center",
+					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+						render: function (data) {
+							return numberWithCommas(data);
+						}
+					}
+					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
 					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
+					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
+						render: function (data) {
+							return getPromotionStatusName(data);
+						}
+					}
 				],
 				language: {
 					emptyTable : message.emptyList
@@ -145,6 +155,7 @@
 				},
 				fnRowCallback: function( nRow, aData ) {
 					setRowAttributes(nRow, aData);
+					console.log(aData)
 				}
 			});
 		}
@@ -163,7 +174,7 @@
 		function setRowAttributes(nRow, aData)
 		{
 			let titleDom = $(nRow).children().eq(1);
-			let periodDom = $(nRow).children().eq(3);
+			let periodDom = $(nRow).children().eq(4);
 			let detailUrl = page.detailPromo+aData.idx;
 
 			/** 제목에 a 태그 추가 **/

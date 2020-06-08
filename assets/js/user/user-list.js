@@ -137,7 +137,7 @@
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				//setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				disableBtnBanUser();

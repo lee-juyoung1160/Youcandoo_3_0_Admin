@@ -10,11 +10,9 @@
 		initInputTodayDatepicker();
 		/** 에디터 초기화 **/
 		initSummerNote();
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 상세 불러오기 **/
 		getDetail();
-
+		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
 	});
 

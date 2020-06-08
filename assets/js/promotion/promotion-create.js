@@ -67,8 +67,6 @@
 		initRewardRateRange(rewardRange2, personalRate2, groupRate2);
 		initRewardRateRange(rewardRange3, personalRate3, groupRate3);
 		initRewardRateRange(rewardRange4, personalRate4, groupRate4);
-		/** input text 글자 수 체크 **/
-		checkInputLength();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
@@ -267,7 +265,7 @@
 		return diff;
 	}
 
-	/** 유의사항 Dom 추가 **/
+	/** 유의사항 추가 이벤트 **/
 	function onClickBtnNoticeAdd()
 	{
 		let noticeLen = noticeArea.find('li').length;

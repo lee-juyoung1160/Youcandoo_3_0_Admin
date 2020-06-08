@@ -13,35 +13,33 @@
     const inputNumber        = $(".only-num");
     const viewLoading        = $("#viewLoading");
     const lengthInput        = $(".length-input");
-    const countInput         = $(".count-input");
     const sessionUserId      = $("#session_userid");
     const sessionAuthCode    = $("#session_authcode");
     const sideMenu           = $("#sideMenu");
 
     /*menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
     menuListClickEvent  .on("click", function () { onClickChildMenu(this); });*/
-    noticeBtn           .on("click", function () {  onClickActiveNotice(); });
+   /* noticeBtn           .on("click", function () {  onClickActiveNotice(); });*/
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+    lengthInput         .on("input", function () { checkInputLength(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();
 
     /** 글자수 체크 **/
-    function checkInputLength()
+    function checkInputLength(obj)
     {
-        lengthInput.on('input', function () {
-            let inputLength = $(this).val().length;
-            let maxLength   = $(this).attr('maxLength');
+        let inputLength = $(obj).val().length;
+        let maxLength   = $(obj).attr('maxLength');
 
-            if (inputLength > maxLength)
-            {
-                $(this).val($(this).val().slice(0, maxLength))
-                inputLength = maxLength;
-            }
+        if (inputLength > maxLength)
+        {
+            $(obj).val($(obj).val().slice(0, maxLength))
+            inputLength = maxLength;
+        }
 
-            $(this).next().find(countInput).html(inputLength);
-        })
+        $(obj).next().find(".count-input").html(inputLength);
     }
 
     function fadeinLoader()
@@ -55,7 +53,7 @@
     }
 
     /** 페이지 상단 > 벨 아이콘 클릭 이벤트 **/
-    function onClickActiveNotice()
+    /*function onClickActiveNotice()
     {
         if (!noticeBtn.hasClass("active"))
         {
@@ -69,7 +67,7 @@
             noticeList  .removeClass("active");
             onNotice    .removeClass("active");
         }
-    }
+    }*/
 
     /** 셀렉트 옵션 > 선택값에 따라 text 변경 **/
     function onChangeSelectOption(obj)

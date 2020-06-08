@@ -8,9 +8,6 @@
 	$(document).ready(function () {
 		/** faq 구분 **/
 		getFaqType();
-		/** input 글자 수 체크 **/
-		checkInputLength();
-
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
 	});

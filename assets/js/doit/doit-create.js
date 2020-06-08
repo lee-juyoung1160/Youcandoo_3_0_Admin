@@ -46,8 +46,6 @@
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
 		onChangeExampleType(exampleType.eq(0));
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });

@@ -22,6 +22,8 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initInputDatepicker();
 		/** 프로모션 상세정보 **/
 		getPromotion();
 		/** 이벤트 **/
@@ -53,11 +55,21 @@
 		});
 	}
 
+	let g_promotion_uuid;
+	let g_budget;
 	function buildPromoDetail(data)
 	{
 		let detail 	= data.data;
 		let promoData  	= detail.promotion;
 		let rewards = detail.reward;
+
+		/*if (promoData.status !== 'pending')
+		{
+			alert('프로모션 '+getPromotionStatusName(promoData.status)+' 중...\n'+message.cantUpdatePromo);
+			location.href = page.detailPromo+promoData.idx;
+		}*/
+
+		g_promotion_uuid = promoData.promotion_uuid;
 
 		bizName.html(promoData.nickname);
 		promoName.val(promoData.promotion_title);
@@ -160,10 +172,11 @@
 	/** 리워드 영역 **/
 	function buildReward(rewards)
 	{
-		let rewardTabDom = '';
-		let detailDom = '';
+
 		for (let i=0; i<rewards.length; i++)
 		{
+			let rewardTabDom = '';
+			let detailDom = '';
 			let reward   = rewards[i];
 			let idNum = i+1;
 			let rewardId = 'reward'+idNum;
@@ -773,6 +786,22 @@
 		return retVal;
 	}
 
+	function onChangePromoFrom()
+	{
+		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
+	}
+
+	/** 프로모션 기간 계산 **/
+	function calculateTerm() {
+		let fromDate = promoFrom.datepicker('getDate');
+		let toDate = promoTo.datepicker('getDate');
+
+		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
+		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
+
+		return diff;
+	}
+
 	function isEmptyFrequency()
 	{
 		let retVal = false;
@@ -803,7 +832,7 @@
 			let totalDom = $(this).find('span')[1];
 			let totalUcd = replaceAll($(totalDom).text(), ',', '');
 
-			if (Number(totalUcd) > Number(budget.val())) retVal = true;
+			if (Number(totalUcd) > Number(g_budget)) retVal = true;
 		});
 
 		return retVal;
@@ -814,7 +843,7 @@
 		let paramBannerFile = banner[0].files[0];
 		let paramIntroFile 	= intro[0].files[0];
 		let formData  = new FormData();
-		formData.append("promotion-uuid", "");
+		formData.append("promotion-uuid", g_promotion_uuid);
 		formData.append("promotion-title", promoName.val().trim());
 		formData.append("promotion-start-date", promoFrom.val());
 		formData.append("promotion-end-date", promoTo.val());

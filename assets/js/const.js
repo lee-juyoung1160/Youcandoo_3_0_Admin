@@ -12,13 +12,15 @@
 		,cancel : '취소하시겠습니까?'
 		,send : '발송하시겠습니까?'
 		,input : '입력해주세요.'
+		,doubleChk : '확인해주세요.'
+		,select : '선택해주세요.'
+		,needMore : '추가해주세요.'
 		,required : '필수항목입니다.'
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,invalidResolution : '유효하지 않은 이미지 사이즈입니다.'
-		,doubleChk : '확인해주세요.'
-		,select : '선택해주세요.'
-		,needMore : '추가해주세요.'
+		,invalidRecruitCount: '프로모션에서 설정한 모집인원 범위에 포함돼야 합니다.'
+		,invalidBrowser: '지원하지 않는 브라우져입니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'
@@ -40,8 +42,7 @@
 		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
 		,promotionNotice3: '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'
-		,invalidRecruitCount: '프로모션에서 설정한 모집인원 범위에 포함돼야 합니다.'
-		,invalidBrowser: '지원하지 않는 브라우져입니다.'
+		,cantUpdatePromo: '프로모션 상태가 대기 중일 경우 수정할 수 있습니다.\n상세페이지로 이동합니다.'
 	}
 
 	const label = {

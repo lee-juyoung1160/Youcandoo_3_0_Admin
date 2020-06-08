@@ -102,7 +102,6 @@
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
 		})
-
 	}
 
 	function onChangeWebFile(obj)

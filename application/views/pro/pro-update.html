@@ -98,13 +98,13 @@
                                 <p class="cap">배너 및 리스트 (* 이미지 사이즈: 656 x 420)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled" >
                                 <label for="banner">업로드</label>
-                                <input type="file" id="banner" class="upload-hidden">
+                                <input type="file" id="banner" class="upload-hidden" data-width="650" data-height="420" data-expr="eq">
                             </div>
                             <div class="filebox preview-image">
-                                <p class="cap">소개 (* 이미지 사이즈: 656 x 420 이상)</p>
+                                <p class="cap">소개 (* 이미지 사이즈: 420 x 420 이상)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled" >
                                 <label for="thumbnail">업로드</label>
-                                <input type="file" id="thumbnail" class="upload-hidden">
+                                <input type="file" id="thumbnail" class="upload-hidden" data-width="420" data-height="420" data-expr="ge">
                             </div>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <div class="input-wrap">
-                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="일주일에 세 번만" maxlength="20" oninput="maxLengthCheck(this)">
+                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="일주일에 세 번만" maxlength="20">
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                                                 </div>
                                             </div>
@@ -937,7 +937,7 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/promotion/promotion-create.js"></script>
+<script src="/assets/js/promotion/promotion-update.js"></script>
 <script>
     $('[data-rel]').on('click', function(e){
         var dateView = $(this).attr('data-rel');

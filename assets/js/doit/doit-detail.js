@@ -182,6 +182,46 @@
 		g_doitUuid = detail.doit_uuid;
 		g_doitTitle = detail.doit_title;
 
+		let rewardDom 	= '';
+		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
+		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
+		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
+		let doitInfo 	= doitType + bizName + promoTitle;
+		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
+		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
+		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
+		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
+		personRate = isNaN(personRate) ? '-' : personRate;
+		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
+		groupRate = isNaN(groupRate) ? '-' : groupRate;
+
+		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
+		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
+		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
+		rewardDom += 	'<p class="detail-data">';
+		rewardDom += 		'두잇 참여 인원 : '+detail.doit_member+'명<br>';
+		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
+		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
+		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
+		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
+		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
+		rewardDom += 		'주간빈도 : '+dayofweek;
+		rewardDom += 	'</p>';
+		if (!isEmpty(detail.promotion_uuid))
+		{
+			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
+			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
+			rewardDom += 	'</p>';
+			rewardDom += 	'<div class="fixed">';
+			rewardDom += 		'<p class="cap">';
+			rewardDom += 			'현재까지 남은 잔여 UCD는 ';
+			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
+			rewardDom += 		'</p>';
+			rewardDom += 	'</div>';
+		}
+		rewardDom += '</div>';
+		reward.html(rewardDom);
+
 		doitTitle.html(detail.doit_title);
 
 		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
@@ -214,44 +254,8 @@
 		}
 		introWrap.html(introImageDom);
 
-		let rewardDom 	= '';
-		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
-		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
-		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
-		let doitInfo 	= doitType + bizName + promoTitle;
-		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
-		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
-		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
-		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
-		personRate = isNaN(personRate) ? '-' : personRate;
-		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
-		groupRate = isNaN(groupRate) ? '-' : groupRate;
-
-		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
-		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
-		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
-		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'두잇 참여 인원 : '+detail.doit_member+'명<br>';
-		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
-		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
-		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
-		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
-		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
-		rewardDom += 		'주간빈도 : '+dayofweek;
-		rewardDom += 	'</p>';
-		rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
-		rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
-		rewardDom += 	'</p>';
-		rewardDom += 	'<div class="fixed">';
-		rewardDom += 		'<p class="cap">';
-		rewardDom += 			'현재까지 남은 잔여 UCD는 ';
-		rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
-		rewardDom += 		'</p>';
-		rewardDom += 	'</div>';
-		rewardDom += '</div>';
-		reward.html(rewardDom);
-
 		recruit.html(detail.max_user+'명');
+
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);
 		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);

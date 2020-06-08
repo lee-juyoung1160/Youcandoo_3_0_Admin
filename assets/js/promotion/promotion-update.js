@@ -63,11 +63,11 @@
 		let promoData  	= detail.promotion;
 		let rewards = detail.reward;
 
-		/*if (promoData.status !== 'pending')
+		if (promoData.status !== 'pending')
 		{
 			alert('프로모션 '+getPromotionStatusName(promoData.status)+' 중...\n'+message.cantUpdatePromo);
 			location.href = page.detailPromo+promoData.idx;
-		}*/
+		}
 
 		g_promotion_uuid = promoData.promotion_uuid;
 

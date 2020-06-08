@@ -166,6 +166,7 @@
 	/** page url **/
 	const page = {
 		listUser : '/user/lists'
+		,detailUser : '/user/detail/'
 
 		,listBiz : '/biz/lists'
 		,createBiz : '/biz/create'

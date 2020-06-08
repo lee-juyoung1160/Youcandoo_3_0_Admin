@@ -89,9 +89,9 @@
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center" }
 				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center",
+				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === 'Y' ? '사용' : '미사용';
 					}
@@ -137,7 +137,7 @@
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				disableBtnBanUser();
@@ -155,7 +155,6 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			/*,"member_type" : $("input[name=radio-user-active]:checked").val()*/
 		}
 
 		return JSON.stringify(param);
@@ -163,10 +162,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(1);
-
-		/** 제목에 a 태그 추가 **/
-		titleDom.html('<a href="#">'+aData.nickname+'</a>');
+		let nicknameDom = $(nRow).children().eq(0);
+		let detailUrl = page.detailUser+aData.idx;
+		/** 닉네임 클리 상세 이동 **/
+		nicknameDom.html('<a href="'+detailUrl+'">'+aData.nickname+'</a>');
 	}
 
 	/** row select **/

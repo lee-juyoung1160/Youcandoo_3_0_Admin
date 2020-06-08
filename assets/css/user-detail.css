@@ -8,15 +8,10 @@
     border-radius: 10px;
     transition: all .5s;
 }
-.move-tab.bottom-fix {
-    top: inherit;
-    top: auto;
-
-}
 .move-tab li {
     cursor: pointer;
 }
-.move-tab li.on {
+.move-tab li:hover {
     font-weight: 800;
 }
 .move-section-wrap {

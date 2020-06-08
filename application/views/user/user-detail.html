@@ -7,7 +7,7 @@
         <div class="wrap clearfix">
 
             <ol class="enrollment move-tab">
-                <li data-moveto="user-info-01" class="on">기본 정보</li>
+                <li data-moveto="user-info-01">기본 정보</li>
                 <li data-moveto="user-info-02">회원 정보</li>
                 <li data-moveto="doit-info">두잇 정보</li>
                 <li data-moveto="user-ucd">UCD 사용 내역</li>
@@ -137,11 +137,6 @@
                     <!--개설-->
                     <div class="doit-01">
                         <div class="table-wrap">
-                        <div class="top clearfix">
-                            <div class="left-wrap clearfix">
-                                <p>Total <strong class="data-num"></strong></p>
-                            </div>
-                        </div>
                         <table>
                             <colgroup>
                                 <col style="width:40%;">
@@ -164,7 +159,7 @@
                                 <td>댕댕이 산책시키기</td>
                                 <td>200,000</td>
                                 <td>103,000</td>
-                                <td><button class="btn-open-modal" data-modal="modal-01">성공</button></td>
+                                <td>성공</td>
                                 <td class="clearfix">
                                     <div style="display: inline-block;">
                                         <ol class="star-wrap clearfix">
@@ -192,11 +187,6 @@
                     <!--참여-->
                     <div class="doit-02">
                         <div class="table-wrap">
-                            <div class="top clearfix">
-                                <div class="left-wrap clearfix">
-                                    <p>Total <strong class="data-num"></strong></p>
-                                </div>
-                            </div>
                             <table>
                                 <colgroup>
                                     <col style="width:40%;">
@@ -216,7 +206,7 @@
                                 <tr>
                                     <td>댕댕이 산책시키기</td>
                                     <td>103,000</td>
-                                    <td><button class="btn-open-modal" data-modal="modal-01">실패</button></td>
+                                    <td>실패</td>
                                     <td>
                                         <div style="display: inline-block;">
                                             <ol class="star-wrap clearfix">
@@ -247,11 +237,6 @@
                     <p class="enrollment-title">UCD 사용 내역</p>
 
                     <div class="table-wrap">
-                            <div class="top clearfix">
-                                <div class="left-wrap clearfix">
-                                    <p>Total <strong class="data-num"></strong></p>
-                                </div>
-                            </div>
                             <table>
                                 <colgroup>
                                     <col style="width:10%;">
@@ -307,11 +292,6 @@
                     <p class="enrollment-title">사용자 로그</p>
 
                     <div class="table-wrap">
-                        <div class="top clearfix">
-                            <div class="left-wrap clearfix">
-                                <p>Total <strong class="data-num"></strong></p>
-                            </div>
-                        </div>
                         <table>
                             <colgroup>
                                 <col style="width:40%;">
@@ -328,6 +308,54 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
                             <tr>
                                 <td>pormotion/detail</td>
                                 <td>2010/11/11</td>
@@ -360,11 +388,11 @@
         </div>
 
 
-<!--            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">-->
-<!--                <div class="btn-wrap">-->
-<!--                    <a class="list-btn" href="/doit/lists">목록</a>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" href="/user/lists">목록</a>
+                </div>
+            </div>
 
     </div>
 
@@ -472,18 +500,6 @@
     });
 
 
-    $(window).on('scroll', function() {
-        var scrollTop = $(window).scrollTop();
-        console.log(scrollTop);
-
-        if(scrollTop >= 100) {
-
-            $('.move-tab').addClass('bottom-fix');
-
-        }
-
-    });
-
 
 
     $(function () {
@@ -491,14 +507,9 @@
             $('[data-moveto]').on('click', function (e) {
                 var $selectId = $(this).data('moveto');
                 var $offsetTop = $('.' + $selectId).offset().top;
-                var nowIdx = 0;
-
-
-                $('.move-tab').find('li').removeClass('on');
-                $(this).eq(nowIdx).addClass('on');
 
                 $('html, body').stop().animate({
-                    scrollTop: $offsetTop - 160
+                    scrollTop: $offsetTop -160
                 }, 300);
                 e.preventDefault(); e.stopPropagation();
             });

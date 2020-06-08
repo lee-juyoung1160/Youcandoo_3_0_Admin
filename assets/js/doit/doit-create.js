@@ -14,7 +14,7 @@
 	const labelSelReward 	= $("label[for='selReward']");
 	const minAvailable 		= $("#minAvailable");
 	const maxAvailable 		= $("#maxAvailable");
-	const recruit 			= $("#recruit");
+	/*const recruit 			= $("#recruit");*/
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
 	const ucdAreWrap		= $("#ucd-area-wrap");
@@ -88,11 +88,9 @@
 		doitTitle.focus();
 		doitTitle.val('');
 		bizName.val('');
-		selPromo.children().eq(0).prop('selected', true);
-		onChangeSelectOption(selPromo);
-		selReward.eq(0).prop('selected', true);
-		onChangeSelectOption(selReward);
-		recruit.val('');
+		buildOptionPromo();
+		buildOptionReward();
+		/*recruit.val('');*/
 		inputTag.val('');
 		introFileType.eq(0).prop('checked', true);
 		onChangeIntroType(introFileType);
@@ -356,6 +354,9 @@
 			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'일</span></p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>모집인원 : </span>'+detail.min_user_limit+' ~ '+detail.max_user_limit+'명</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
 			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'회</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
@@ -549,19 +550,19 @@
 			return false;
 		}
 
-		if (isEmpty(recruit.val()))
+		/*if (isEmpty(recruit.val()))
 		{
 			alert('모집 인원은 ' + message.required);
 			recruit.focus();
 			return false;
-		}
+		}*/
 
-		if (Number(recruit.val()) > Number(g_max_user_limit) || Number(recruit.val()) < Number(g_min_user_limit))
+		/*if (Number(recruit.val()) > Number(g_max_user_limit) || Number(recruit.val()) < Number(g_min_user_limit))
 		{
 			alert('모집 인원은 ' + message.invalidRecruitCount);
 			recruit.focus();
 			return false;
-		}
+		}*/
 
 		if ($("input[name=chkExtraReward]").is(':checked') && isEmpty(extraReward.val()))
 		{
@@ -665,7 +666,8 @@
 		formData.append('company-uuid', bizUuid);
 		formData.append('promotion-uuid', selPromo.val().trim());
 		formData.append('reward-uuid', selReward.val().trim());
-		formData.append('max-user', recruit.val().trim());
+		formData.append('min-user', g_min_user_limit);
+		formData.append('max-user', g_max_user_limit);
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);

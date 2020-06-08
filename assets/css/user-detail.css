@@ -1,29 +1,81 @@
-.user-list-page .table-wrap .btn-wrap .stop-btn {
-   background-color: #FFA83B ;
+.wrap {
+    position: relative;
 }
-.user-list-page .table-wrap .btn-wrap .out-btn {
-    margin-right: 20px;
-    background-color: #c13030;
+.move-tab {
+    position: fixed;
+    top:160px;
+    width: 230px;
+    border-radius: 10px;
+    transition: all .5s;
 }
-.user-list-page input[type="radio"] + label {
-    margin-right: 10px;
+.move-tab.bottom-fix {
+    top: inherit;
+    top: auto;
+
+}
+.move-tab li {
+    cursor: pointer;
+}
+.move-tab li.on {
+    font-weight: 800;
+}
+.move-section-wrap {
+    float: right;
+    width: 80%;
 }
 
-.btn-wrap .btn-inner {
-    position: relative;
-    right: 160px;
-    top: 0;
+.enrollment-title {
+    margin:50px 0 15px;
+    color: #484848;
+    font-size: 23px;
+    font-weight: 600;
 }
-.btn-wrap .btn-inner button {
-    position: absolute;
-    left: 0;
-    top: 0;
+.enrollment li .col-wrap .col-2 {
+    width: 680px;
 }
-.user-list-page .table-wrap .btn-wrap button.delete-btn {
-    background-color: #03A9F4;
+.star-wrap {
+    margin: 0 auto;
 }
-.user-list-page .table-wrap .btn-wrap button.btn-disabled {
-    background-color: #ddd;
-    cursor: inherit;
+button.btn-open-modal {
+    background: none;
+    border-bottom: 1px solid #333;
+}
+
+
+.ucd-data {
+    overflow-wrap: break-word;
+    color: #949494;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+.ucd-data dt,
+.ucd-data dd {
+    float:left;
+    margin-left: 5px;
+}
+.ucd-data dt {
+    width: 100px;
+    color: #404040;
+}
+.ucd-data dd {
+    min-width: 150px;
+    text-align: right;
+    color: #949494;
+}
+.ucd-data span {
+    color: #404040;
+    margin-right: 5px;
+}
+
+.user-doit-tab li {
+    width: 50%;
+}
+.data-contents li {
+    margin-bottom: 20px;
+}
+.table-wrap .minus-pay td,
+.table-wrap .minus-pay td button {
+    color: #c90614;
 }
 

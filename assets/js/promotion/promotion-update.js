@@ -103,7 +103,7 @@
 		isBanner.each(function () {
 			if ($(this).val() === promoData.is_banner)
 				$(this).prop('checked', true);
-		})
+		});
 
 		buildReward(rewards);
 	}

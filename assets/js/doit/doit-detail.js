@@ -199,7 +199,7 @@
 		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
 		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
 		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'최대 모집 인원 : '+detail.max_user+'명<br>';
+		rewardDom += 		'모집 인원 : '+detail.min_user+' ~ '+detail.max_user+'명<br>';
 		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
 		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
 		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
@@ -254,7 +254,7 @@
 		}
 		introWrap.html(introImageDom);
 
-		recruit.html(detail.max_user+'명');
+		recruit.html(detail.min_user+' ~ '+detail.max_user+'명');
 
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);

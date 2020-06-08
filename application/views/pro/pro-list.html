@@ -50,7 +50,15 @@
         <div class="doit-list-option">
             <ul class="clearfix">
                 <li>
-                    <p class="list-common-title">진행 상태</p>
+                    <p class="list-common-title" style="display: inline-block">진행 상태</p>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text" style="width:450px">
+                            대기 : 프로모션 시작 전 ( 시작일 이전 )<br>
+                            진행 : 프로모션 진행 ( 시작일 이후 부터 종료일 이전 )<br>
+                            마감 : 프로모션에 대한 두잇 생성 마감 ( 종료일 +30일 이전 )<br>
+                            종료 : 프로모션 종료 ( 종료일 +30일 초과 )
+                        </span>
+                    </i>
                     <div class="checkbox-wrap">
                         <input type="checkbox" id="c1" name="chk-status" value="pending"/>
                         <label for="c1"><span></span>대기</label>

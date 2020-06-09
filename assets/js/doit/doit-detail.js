@@ -3,6 +3,7 @@
 	const tabUser 		= $("#tabUser");
 	const tabAction		= $("#tabAction");
 	const tabReview		= $("#tabReview");
+	const tabUcd		= $("#tabUcd");
 	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
@@ -26,16 +27,15 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const keyword		= $("#keyword")
-	const dataTable		= $("#dataTable")
-	const selPageLength = $("#selPageLength");
-	const joinTotal		= $(".join-total");
 	const joinCount 	= $("#joinCount");
 	const goal 			= $("#goal");
 	const avg 			= $("#avg");
 	const forecast 		= $("#forecast");
 	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
-	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
+	const joinUserTable		= $("#joinUserTable")
+	const joinTotalCount	= $("#joinTotalCount");
+	const selPageLengthForUser   = $("#selPageLengthForUser");
 
 	/** 인증정보 탭 **/
 	const doitAction	= $("#doitAction");
@@ -43,15 +43,21 @@
 	const btnWarnYellow	= $(".yellow-btn");
 	const actionWrap	= $("#actionWrap");
 	const actionTopDom	= $("#actionTopDom");
-	const actionTotal	= $(".action-total");
 	const pagination	= $("#dataTable_paginate");
-	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
+	const actionTotalCount		 = $("#actionTotalCount");
+	const selPageLengthForAction = $("#selPageLengthForAction");
 
 	/** 리뷰정보탭 **/
 	const doitReview		= $("#doitReview");
-	const reviewTotal		= $(".review-total");
 	const reviewTable		= $("#reviewTable");
+	const reviewTotalCount			= $("#reviewTotalCount");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
+
+	/** UCD정보탭 **/
+	const ucdInfo		= $("#ucdInfo");
+	const ucdTable		= $("#ucdTable");
+	const ucdTotalCount	= $("#ucdTotalCount");
+	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
 	/** modal **/
 	const modalCloseBtn 	= $(".close-btn");
@@ -74,6 +80,7 @@
 		tabUser			.on("click", function () { onClickUserTab(); });
 		tabAction		.on("click", function () { onClickActionTab(); });
 		tabReview		.on("click", function () { onClickReviewTab(); });
+		tabUcd			.on("click", function () { onClickUcdTab(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
@@ -82,7 +89,7 @@
 		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		selPageLengthForActionTab.on('change', function () { getInvolveAction(); });
+		selPageLengthForAction.on('change', function () { getInvolveAction(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
@@ -93,9 +100,11 @@
 		doitUser.hide();
 		doitAction.hide();
 		doitReview.hide();
+		ucdInfo.hide();
 		tabUser.removeClass('active');
 		tabAction.removeClass('active');
 		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		tabDoit.addClass('active');
 
 		getDoit();
@@ -108,9 +117,11 @@
 		doitDetail.hide();
 		doitAction.hide();
 		doitReview.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
 		tabAction.removeClass('active');
 		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		tabUser.addClass('active');
 
 		getJoinMemberTotal();
@@ -125,10 +136,12 @@
 		doitDetail.hide();
 		doitUser.hide();
 		doitReview.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
 		tabUser.removeClass('active');
 		tabAction.addClass('active');
 		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		currentPage = 1;
 
 		getInvolveAction();
@@ -141,12 +154,31 @@
 		doitDetail.hide();
 		doitUser.hide();
 		doitAction.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
 		tabUser.removeClass('active');
 		tabAction.removeClass('active');
+		tabUcd.removeClass('active');
 		tabReview.addClass('active');
 
 		getInvolveReview();
+	}
+
+	/** UCD정보탭 **/
+	function onClickUcdTab()
+	{
+		ucdInfo.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitAction.hide();
+		doitReview.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.removeClass('active');
+		tabReview.removeClass('active');
+		tabUcd.addClass('active');
+
+		//getUcdLog();
 	}
 
 	/****************
@@ -364,7 +396,7 @@
 
 	function getJoinMember()
 	{
-		dataTable.DataTable({
+		joinUserTable.DataTable({
 			ajax : {
 				url: api.listJoinMember,
 				type:"POST",
@@ -412,7 +444,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLengthForUserTab.val()),
+			pageLength: Number(selPageLengthForUser.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -428,10 +460,10 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = dataTable.DataTable();
+				let table = joinUserTable.DataTable();
 				let info = table.page.info();
 
-				joinTotal.html(info.recordsTotal);
+				joinTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
@@ -627,7 +659,7 @@
 		let param = {
 			"doit_uuid" : g_doitUuid
 			,"page" : currentPage
-			,"limit" : selPageLengthForActionTab.val()
+			,"limit" : selPageLengthForAction.val()
 		}
 
 		return JSON.stringify(param);
@@ -641,7 +673,7 @@
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
 		/** total count **/
-		actionTotal.html(totalCount);
+		actionTotalCount.html(totalCount);
 
 		if (totalCount > 0)
 		{
@@ -730,7 +762,7 @@
 	function buildActionsPagination(data)
 	{
 		let totalCount  = data.recordsTotal;
-		let last		= Math.ceil(totalCount / selPageLengthForActionTab.val());
+		let last		= Math.ceil(totalCount / selPageLengthForAction.val());
 		let pageLength  = 7;
 		if (last <= 10)
 			pageLength = last
@@ -898,7 +930,7 @@
 				let table = reviewTable.DataTable();
 				let info = table.page.info();
 
-				reviewTotal.html(info.recordsTotal);
+				reviewTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -954,6 +986,89 @@
 	function initModalReportReason()
 	{
 
+	}
+
+	/**
+	 * UCD정보탭관련
+	 * **/
+	function getUcdLog()
+	{
+		ucdTable.DataTable({
+			ajax : {
+				url: api.involveBizPromotion,
+				type: "POST",
+				async: false,
+				headers: headers,
+				data: function (d) {
+					return ucdTableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
+				/*,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
+                ,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return numberWithCommas(data);
+                    }
+                }
+                ,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return numberWithCommas(data);
+                    }
+                }
+                ,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
+                ,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return getPromotionStatusName(data);
+                    }
+                }*/
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selPageLengthForUcd.val()),
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader:false,
+			destroy: true,
+			initComplete: function () {
+				let table = promoTable.DataTable();
+				let info = table.page.info();
+
+				ucdTotalCount.html(info.recordsTotal);
+			},
+			fnRowCallback: function( nRow, aData ) {
+			}
+		});
+	}
+
+	function ucdTableParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"company_uuid" : g_bizUuid
+		}
+
+		return JSON.stringify(param);
 	}
 
 	/** 수정페이지 이동 **/

@@ -233,8 +233,8 @@
                 </li>
                 <li>
                     <p class="sub-title">내용 *</p>
-                    <textarea id="content" placeholder="내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
-                    <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-text">0</span>/1000</p>
+                    <textarea id="content" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
+                    <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-input">0</span>/1000</p>
                 </li>
             </ul>
             <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
@@ -244,19 +244,3 @@
 
 </section>
 <script src="/assets/js/biz/biz-detail.js"></script>
-<script>
-    // modal event
-    $('.more-info-btn').click(function () {
-        var openModal = $(this).data('modal');
-        $('.modal-layout').fadeIn();
-        $('.' + openModal).fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-</script>

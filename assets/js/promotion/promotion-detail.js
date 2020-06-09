@@ -1,11 +1,11 @@
 
 	const tabPromo 		= $("#tabPromo");
 	const tabDoit 		= $("#tabDoit");
-	const promoDetail	= $("#promoDetail");
-	const involveDoit	= $("#involveDoit");
+	const tabUcd 		= $("#tabUcd");
 	const goUpdate		= $("#goUpdate");
 
 	/** 프로모션 탭 **/
+	const promoDetail	= $("#promoDetail");
 	const bizName 		= $("#bizName");
 	const promoName 	= $("#promoName");
 	const budget 		= $("#budget");
@@ -21,10 +21,17 @@
 	const rewardDetail  = $("#rewardDetail");
 
 	/** 두잇탭 **/
-	const dataTable		= $("#dataTable")
-	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
-	const dataNum		= $(".data-num");
+	const involveDoit		= $("#involveDoit");
+	const doitTable			= $("#doitTable")
+	const selPageLengthForDoit 	= $("#selPageLengthForDoit");
+	const xlsxExport 		= $(".excel-btn");
+	const doitTotalCount	= $("#doitTotalCount");
+
+	/** Ucd정보탭 **/
+	const ucdInfo		= $("#ucdInfo");
+	const ucdTable		= $("#ucdTable")
+	const selPageLengthForUcd 	= $("#selPageLengthForUcd");
+	const ucdTotalCount	= $("#ucdTotalCount");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -36,6 +43,7 @@
 		/** 이벤트 **/
 		tabPromo	.on("click", function () { onClickPromoTab(); });
 		tabDoit		.on("click", function () { onClickDoitTab(); });
+		tabUcd		.on("click", function () { onClickUcdTab(); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
@@ -44,7 +52,9 @@
 	{
 		promoDetail.show();
 		involveDoit.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
+		tabUcd.removeClass('active');
 		tabPromo.addClass('active');
 
 		getPromotion();
@@ -54,10 +64,24 @@
 	{
 		involveDoit.show();
 		promoDetail.hide();
+		ucdInfo.hide();
 		tabPromo.removeClass('active');
+		tabUcd.removeClass('active');
 		tabDoit.addClass('active');
 
 		getInvolveDoit();
+	}
+
+	function onClickUcdTab()
+	{
+		ucdInfo.show();
+		involveDoit.hide();
+		promoDetail.hide();
+		tabPromo.removeClass('active');
+		tabDoit.removeClass('active');
+		tabUcd.addClass('active');
+
+		//getUcdLog();
 	}
 
 	function getPromotion()
@@ -216,7 +240,7 @@
 
 	function getInvolveDoit()
 	{
-		$("#dataTable").DataTable({
+		doitTable.DataTable({
 			ajax : {
 				url: api.involveDoitPromotion,
 				type:"POST",
@@ -230,7 +254,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					return tableParams(d);
+					return doitTableParams(d);
 				}
 			},
 			columns: [
@@ -251,7 +275,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLength.val()),
+			pageLength: Number(selPageLengthForDoit.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -263,10 +287,10 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = dataTable.DataTable();
+				let table = doitTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.html(info.recordsTotal);
+				doitTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -274,7 +298,7 @@
 		});
 	}
 	
-	function tableParams(d)
+	function doitTableParams(d)
 	{
 		let param = {
 			"limit" : d.length
@@ -299,6 +323,86 @@
 		countUserDom.html(aData.doit_member+"/"+aData.max_user);
 		/** 인증기간 **/
 		periodDom.text(period);
+	}
+
+	function getUcdLog()
+	{
+		ucdTable.DataTable({
+			ajax : {
+				url: api.involveBizPromotion,
+				type: "POST",
+				async: false,
+				headers: headers,
+				data: function (d) {
+					return ucdTableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
+				/*,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
+                ,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return numberWithCommas(data);
+                    }
+                }
+                ,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return numberWithCommas(data);
+                    }
+                }
+                ,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
+                ,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
+                    render: function (data) {
+                        return getPromotionStatusName(data);
+                    }
+                }*/
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selPageLengthForUcd.val()),
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader:false,
+			destroy: true,
+			initComplete: function () {
+				let table = promoTable.DataTable();
+				let info = table.page.info();
+
+				ucdTotalCount.html(info.recordsTotal);
+			},
+			fnRowCallback: function( nRow, aData ) {
+			}
+		});
+	}
+
+	function ucdTableParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"company_uuid" : g_bizUuid
+		}
+
+		return JSON.stringify(param);
 	}
 
 	function onSubmitSearch()

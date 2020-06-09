@@ -8,7 +8,7 @@
             <li id="tabUser">참여자 정보</li>
             <li id="tabAction">인증 정보</li>
             <li id="tabReview">리뷰 정보</li>
-            <li id="">UCD 정보</li>
+            <li id="tabUcd">UCD 정보</li>
         </ul>
         <div class="wrap">
             <div id="doitDetail">
@@ -278,14 +278,14 @@
                     <div class="top clearfix">
                         <div class="left-wrap clearfix">
                             <div class="select-box">
-                                <label for="selPageLengthForUserTab">10개씩 보기</label>
-                                <select id="selPageLengthForUserTab">
+                                <label for="selPageLengthForUser">10개씩 보기</label>
+                                <select id="selPageLengthForUser">
                                     <option value="10">10개씩 보기</option>
                                     <option value="20">20개씩 보기</option>
                                     <option value="30">30개씩 보기</option>
                                 </select>
                             </div>
-                            <p>Total <strong class="join-total"></strong></p>
+                            <p>Total <strong id="joinTotalCount" class="join-total"></strong></p>
                         </div>
 <!--                        <div class="btn-wrap">-->
 <!--                            <button class="best-btn" type="button" style="background-color: #ff7601;"><i class="fas fa-user-edit"></i>방장 지정</button>-->
@@ -297,7 +297,7 @@
 <!--                        </div>-->
                     </div>
 
-                    <table id="dataTable">
+                    <table id="joinUserTable">
                         <!--<colgroup>
                             <col style="width:3%;">
                             <col style="width:10.7%;">
@@ -364,14 +364,14 @@
                 <div id="actionTopDom" class="top clearfix" style="display: none;">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="selPageLengthForActionTab">10개씩 보기</label>
-                            <select id="selPageLengthForActionTab">
+                            <label for="selPageLengthForAction">10개씩 보기</label>
+                            <select id="selPageLengthForAction">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong class="data-num action-total"></strong></p>
+                        <p>Total <strong id="actionTotalCount" class="data-num"></strong></p>
                     </div>
                     <div class="btn-wrap">
                         <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
@@ -551,7 +551,7 @@
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong class="review-total"></strong></p>
+                        <p>Total <strong id="reviewTotalCount" class="data-num"></strong></p>
                     </div>
                 </div>
                 <table id="reviewTable">
@@ -707,25 +707,25 @@
             </div>
 
             <!--UCD 정보-->
-            <div class="table-wrap">
+            <div id="ucdInfo" class="table-wrap">
                 <div class="top clearfix">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="">10개씩 보기</label>
-                            <select id="">
+                            <label for="selPageLengthForUcd">10개씩 보기</label>
+                            <select id="selPageLengthForUcd">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong class="data-num">16</strong></p>
+                        <p>Total <strong id="ucdTotalCount" class="data-num">16</strong></p>
                     </div>
                     <div class="btn-wrap">
                         <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                     </div>
                 </div>
 
-                <table>
+                <table id="ucdTable">
                     <colgroup>
                         <col style="width:15%;">
                         <col style="width:15%;">

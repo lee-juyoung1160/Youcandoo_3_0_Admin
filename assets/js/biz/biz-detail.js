@@ -11,14 +11,18 @@
 		const goUpdate		= $("#goUpdate");
 		const tabPromo		= $("#tabPromo");
 		const tabUcd		= $("#tabUcd");
+
+		/** 프로모션정보탭 **/
 		const promoInfo		= $("#promoInfo");
-		const ucdInfo		= $("#ucdInfo");
-		const selPageLengthForPromo	= $("#selPageLengthForPromo");
-		const selPageLengthForUcd	= $("#selPageLengthForUcd");
 		const promoTable	= $("#promoTable");
+		const promoTotalCount		= $("#promoTotalCount");
+		const selPageLengthForPromo	= $("#selPageLengthForPromo");
+
+		/** UCD정보탭 **/
+		const ucdInfo		= $("#ucdInfo");
 		const ucdTable		= $("#ucdTable");
-		const promoTotalCount	= $("#promoTotalCount");
-		const ucdTotalCount		= $("#ucdTable");
+		const ucdTotalCount			= $("#ucdTable");
+		const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
 		/** modal **/
 		const modalCloseBtn = $(".close-btn");
@@ -38,9 +42,12 @@
 			getInvolvePromo();
 			/** 이벤트 **/
 			btnUcdManualRegist	.on("click", function () { modalFadein(); })
-			goUpdate	.on("click", function () { goUpdatePage(); })
-			tabPromo	.on("click", function () { onClickTabPromo(); });
-			tabUcd		.on("click", function () { onClickTabUcd(); });
+			modalCloseBtn	.on('click', function () { modalFadeout(); });
+			modalLayout		.on('click', function () { modalFadeout(); });
+			goUpdate		.on("click", function () { goUpdatePage(); })
+			tabPromo		.on("click", function () { onClickTabPromo(); });
+			tabUcd			.on("click", function () { onClickTabUcd(); });
+			btnSubmit		.on("click", function () { onSubmitUcdRegist(); });
 		});
 
 		function initModal()
@@ -320,4 +327,7 @@
 			location.href = page.updateBiz+bizIdx;
 		}
 
+		function onSubmitUcdRegist()
+		{
 
+		}

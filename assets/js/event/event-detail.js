@@ -102,7 +102,7 @@
 		period.html(detail.start_date +' ~ '+detail.end_date);
 		link.html('<a href="'+detail.link_url+'" target="_blank">'+detail.link_url+'</a>');
 		webUrl.html('<a href="'+detail.web_url+'" target="_blank">'+detail.web_url+'</a>');
-		exposure.html(detail.is_exposure === 'Y' ? '노출' : '비노출');
+		exposure.html(detail.is_exposure === 'Y' ? label.exposure : label.unexpose);
 	}
 
 	function goUpdatePage()

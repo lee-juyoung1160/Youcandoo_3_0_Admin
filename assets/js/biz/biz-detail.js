@@ -164,20 +164,19 @@
 					}
 				},
 				columns: [
-					{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
-					,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
-					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
+					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
-					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
+					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return getPromotionStatusName(data);
 						}
@@ -231,8 +230,8 @@
 
 		function setRowAttributes(nRow, aData)
 		{
-			let titleDom = $(nRow).children().eq(1);
-			let periodDom = $(nRow).children().eq(4);
+			let titleDom = $(nRow).children().eq(0);
+			let periodDom = $(nRow).children().eq(3);
 			let detailUrl = page.detailPromo+aData.idx;
 
 			/** 제목에 a 태그 추가 **/
@@ -245,7 +244,7 @@
 		{
 			ucdTable.DataTable({
 				ajax : {
-					url: api.bizUcd,
+					url: api.listBizUcd,
 					type: "POST",
 					async: false,
 					headers: headers,
@@ -257,16 +256,16 @@
 					}
 				},
 				columns: [
-					{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "text-center" }
-					,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center" }
-					,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center",
+					{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center" }
-					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "text-center" }
-					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center" }
+					,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
 				],
 				language: {
 					emptyTable : message.emptyList
@@ -323,5 +322,59 @@
 
 		function onSubmitUcdRegist()
 		{
+			if (validation())
+			{
+				if (confirm(message.create))
+				{
+					$.ajax({
+						url: api.updateBizUcd,
+						type: "POST",
+						headers: headers,
+						dataType: 'json',
+						data: ucdParams(),
+						success: function(data) {
+							alert(getStatusMessage(data))
+							if (isSuccessResp(data))
+							{
+								modalFadeout();
+								getUcdLog();
+							}
+						},
+						error: function (request, status) {
+							alert('기업 보유 UCD'+message.ajaxError);
+						}
+					});
+				}
+			}
+		}
 
+		function ucdParams()
+		{
+			let param = {
+				"company_uuid" : g_bizUuid
+				,"division" : $("input[name=radio-division]:checked").val()
+				,"amount" : amount.val().trim()
+				,"description" : content.val().trim()
+			}
+
+			return JSON.stringify(param);
+		}
+
+		function validation()
+		{
+			if (isEmpty(amount.val()))
+			{
+				alert('UCD는 '+message.required);
+				amount.focus();
+				return false;
+			}
+
+			if (isEmpty(content.val()))
+			{
+				alert('내용은 '+message.required);
+				content.focus();
+				return false;
+			}
+
+			return true;
 		}

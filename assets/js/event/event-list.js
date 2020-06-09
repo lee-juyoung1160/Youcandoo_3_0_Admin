@@ -69,7 +69,7 @@
 				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
+						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
 				,{title: "작성자", 	data: "created_user",      width: "15%",   orderable: false,   className: "text-center cursor-default" }

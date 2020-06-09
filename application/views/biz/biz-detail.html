@@ -81,30 +81,30 @@
             </div>
 
             <ul class="table-btn-wrap biz-detail-tab clearfix">
-                <li class="active">프로모션 정보</li>
-                <li>UCD 정보</li>
+                <li class="active" id="tabPromo">프로모션 정보</li>
+                <li id="tabUcd">UCD 정보</li>
             </ul>
 
             <!--프로모션 정보-->
-            <div class="table-wrap">
+            <div id="promoInfo" class="table-wrap">
                 <div class="top clearfix">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="selPageLength">10개씩 보기</label>
-                            <select id="selPageLength">
+                            <label for="selPageLengthForPromo">10개씩 보기</label>
+                            <select id="selPageLengthForPromo">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong class="data-num"></strong></p>
+                        <p>Total <strong id="promoTotalCount" class="data-num"></strong></p>
                     </div>
                     <div class="btn-wrap">
                         <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                     </div>
                 </div>
 
-                <table id="dataTable">
+                <table id="promoTable">
                     <!--<colgroup>
                         <col style="width:4%;">
                         <col style="width:24%;">
@@ -141,25 +141,25 @@
                 </ul>-->
             </div>
             <!--UCD 정보-->
-            <div class="table-wrap">
+            <div id="ucdInfo" class="table-wrap" style="display: none;">
                 <div class="top clearfix">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="">10개씩 보기</label>
-                            <select id="">
+                            <label for="selPageLengthForUcd">10개씩 보기</label>
+                            <select id="selPageLengthForUcd">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong class="data-num">16</strong></p>
+                        <p>Total <strong id="ucdTotalCount" class="data-num">16</strong></p>
                     </div>
                     <div class="btn-wrap">
                         <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                     </div>
                 </div>
 
-                <table>
+                <table id="ucdTable">
                     <colgroup>
                         <col style="width:15%;">
                         <col style="width:15%;">

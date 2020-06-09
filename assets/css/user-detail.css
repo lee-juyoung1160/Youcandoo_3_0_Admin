@@ -73,4 +73,17 @@ button.btn-open-modal {
 .table-wrap .minus-pay td button {
     color: #c90614;
 }
+/*.scroll-box {*/
+/*    width: 1020px;*/
+/*    overflow: hidden;*/
+/*    overflow-x: scroll;*/
+/*}*/
+ol.detail-data {
+    width: 1500px;
+}
+ol.detail-data li {
+    float: left;
+    width: 200px;
+    margin-left: 5px;
+}
 

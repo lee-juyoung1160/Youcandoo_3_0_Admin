@@ -1,6 +1,7 @@
 
 	const title 		= $("#title");
-	const content		= $("#summernote");
+	const content		= $("#content");
+	const contentImage	= $("#contentImage");
 	const reserveDate	= $("#reserveDate");
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit		= $("#btnSubmit");
@@ -8,12 +9,11 @@
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
-		/** 에디터 초기화 **/
-		initSummerNote();
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
-		btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
+		contentImage.on('change', function () { onChangeValidationImage(this); });
+		btnSubmit	.on('click', function () { onSubmitUpdateNotice(); });
 	});
 
 	function getDetail()
@@ -48,14 +48,28 @@
 	function buildDetail(data)
 	{
 		let detail = data.data;
+
 		g_notice_uuid = detail.notice_uuid;
+
 		title.val(detail.title);
-		content.summernote('code', detail.contents);
+		content.val(replaceSelectTextarea(detail.notice_contents));
+		if (!isEmpty(detail.notice_image_url))
+		{
+			let contentImageDom = '';
+			contentImageDom += '<div class="upload-display">';
+			contentImageDom += 	'<div class="upload-thumb-wrap">';
+			contentImageDom += 		'<img src="'+detail.notice_image_url+'" class="upload-thumb">';
+			contentImageDom += 	'</div>';
+			contentImageDom += '</div>';
+
+			contentImage.parent().prepend(contentImageDom);
+		}
 		reserveDate.val(detail.reservation_date);
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
-		})
+		});
+		calculateInputLength();
 	}
 
 	function onSubmitUpdateNotice()
@@ -67,6 +81,8 @@
 				$.ajax({
 					url: api.updateNotice,
 					type: "POST",
+					processData: false,
+					contentType: false,
 					headers: headers,
 					dataType: 'json',
 					data: params(),
@@ -85,16 +101,15 @@
 
 	function params()
 	{
-		let param = {
-			'notice_uuid' : g_notice_uuid
-			,'title' : title.val().trim()
-			,'contents' : content.val().trim()
-			,'reservation_date' : reserveDate.val().trim()
-			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
-			,'updated_user' : sessionUserId.val()
-		}
+		let formData  = new FormData();
+		formData.append('notice_title', title.val().trim());
+		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
+		formData.append('reservation_date', reserveDate.val());
+		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
+		formData.append('notice_image', contentImage[0].files[0]);
+		formData.append('create_user', sessionUserId.val());
 
-		return JSON.stringify(param);
+		return formData;
 	}
 
 	function validation()

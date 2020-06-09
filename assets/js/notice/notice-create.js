@@ -1,6 +1,7 @@
 
 	const title 	= $("#title");
-	const content	= $("#summernote");
+	const content	= $("#content");
+	const contentImage	= $("#contentImage");
 	const reserveDate	= $("#reserveDate");
 	const exposure	= $("input[name=radio-exposure]");
 	const btnSubmit = $("#btnSubmit");
@@ -12,10 +13,9 @@
 		setDateToday();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** 에디터 초기화 **/
-		initSummerNote();
 		/** 이벤트 **/
-		btnSubmit.on('click', function () { onSubmitNotice(); });
+		contentImage.on('change', function () { onChangeValidationImage(this); });
+		btnSubmit	.on('click', function () { onSubmitNotice(); });
 	});
 
 	function initComponent()
@@ -35,6 +35,8 @@
 				$.ajax({
 					url: api.createNotice,
 					type: "POST",
+					processData: false,
+					contentType: false,
 					headers: headers,
 					dataType: 'json',
 					data: params(),
@@ -53,15 +55,15 @@
 
 	function params()
 	{
-		let param = {
-			'notice_title' : title.val().trim()
-			,'notice_contents' : content.val().trim()
-			,'reservation_date' : reserveDate.val()
-			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
-			,'create_user' : sessionUserId.val()
-		}
+		let formData  = new FormData();
+		formData.append('notice_title', title.val().trim());
+		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
+		formData.append('reservation_date', reserveDate.val());
+		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
+		formData.append('notice_image', contentImage[0].files[0]);
+		formData.append('create_user', sessionUserId.val());
 
-		return JSON.stringify(param);
+		return formData;
 	}
 
 	function validation()
@@ -73,7 +75,7 @@
 			return false;
 		}
 
-		if (content.summernote('isEmpty'))
+		if (isEmpty(content.val))
 		{
 			alert('내용은 ' + message.required);
 			content.focus();

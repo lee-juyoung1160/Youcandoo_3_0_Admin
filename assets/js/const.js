@@ -93,6 +93,7 @@
 		,involveBizPromotion : baseApiUrl+'biz/promotion'
 		,updateBiz : baseApiUrl+'biz/update'
 		,listBiz : baseApiUrl+'biz/list'
+		,bizUcd : baseApiUrl+'biz/ucd'
 		/** 프로모션 **/
 		,createPromotion : baseApiUrl+'promotion/create'
 		,deletePromotion : baseApiUrl+'promotion/delete'

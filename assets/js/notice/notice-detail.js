@@ -2,6 +2,7 @@
 	const title 		= $("#title");
 	const content		= $("#content");
 	const reserveDate	= $("#reserveDate");
+	const contentImage	= $("#contentImage");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
 
@@ -42,12 +43,15 @@
 
 	function buildDetail(data)
 	{
-		let detailData = data.data;
-
-		title.html(detailData.title);
-		content.html(detailData.contents);
-		reserveDate.html(detailData.reservation_date);
-		exposure.html(detailData.is_exposure === 'Y' ? '노출' : '비노출');
+		let detail = data.data;
+		let imgUrl = detail.notice_image_url;
+		if (isEmpty(detail.notice_image_url))
+			imgUrl = '/assets/images/no-image.jpg'
+		title.html(detail.title);
+		content.html(detail.notice_contents);
+		contentImage.attr('src', imgUrl);
+		reserveDate.html(detail.reservation_date);
+		exposure.html(detail.is_exposure === 'Y' ? label.exposure : label.unexpose);
 	}
 
 	function goUpdatePage()

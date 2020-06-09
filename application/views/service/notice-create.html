@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
 <section class="notice-create-page">
     <div class="inner">
         <h2 class="main-title">공지사항 신규 등록</h2>
@@ -34,14 +33,14 @@
                 <li id="contentImageWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">본문이미지 (*)</p>
+                            <p class="sub-title important">본문이미지</p>
                         </div>
                         <div class="col-2">
                             <div class="filebox preview-image">
                                 <p class="cap">본문 이미지 (* 이미지 가로 사이즈: 750 이상)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden">
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
                             </div>
                         </div>
                     </div>
@@ -79,6 +78,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/plugins/summernote-lite.min.js"></script>
-<script src="/assets/js/plugins/summernote-ko-KR.js"></script>
 <script src="/assets/js/notice/notice-create.js"></script>

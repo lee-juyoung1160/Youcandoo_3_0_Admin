@@ -38,6 +38,13 @@
         $(obj).next().find(".count-input").html(inputLength);
     }
 
+    function calculateInputLength()
+    {
+        $(".length-input").each(function () {
+            checkInputLength(this);
+        });
+    }
+
     function getPromotionStatusName(param)
     {
         if (param === 'pending') return '대기';
@@ -166,7 +173,7 @@
              * data-oper: 비교연산 eq: 같음, ge: 이상, le: 이하
              * 속성이 있어야 한다.
              * **/
-            let oper   = $(obj).data('oper');
+            /*let oper   = $(obj).data('oper');
             let needsWidth  = $(obj).data('width');
             let needsHeight = $(obj).data('height');
             let img    = new Image();
@@ -191,7 +198,9 @@
                 }
                 else
                     setFile(obj, 'image');
-            }
+            }*/
+
+            setFile(obj, 'image');
         }
     }
 
@@ -556,7 +565,5 @@
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
-        $(".length-input").each(function () {
-            checkInputLength(this);
-        });
+        calculateInputLength();
     })

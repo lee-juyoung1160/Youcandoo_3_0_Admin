@@ -1,3 +1,17 @@
+.more-info-btn {
+    border: none;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    width: 150px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 30px;
+    background-color: #19579a;
+}
+.more-info-btn:hover {
+    background: #19579a;
+}
 .biz-img {
     float: left;
     width: 20%;
@@ -54,4 +68,15 @@
 .biz-ucd-data span {
     color: #404040;
     margin-right: 5px;
+}
+
+.biz-detail-tab {
+    margin-top: 30px;
+}
+.biz-detail-tab li {
+    width: calc(100%/2);
+}
+
+.radio-wrap label {
+    margin-right: 10px;
 }

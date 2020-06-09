@@ -806,13 +806,9 @@
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
-			/** 사용자 지정 리워드 조건이 추가된 경우, 리워드 조건 5의 input도 validation **/
-			if (i < rewardSelectDomLength - 1 || $(rewardSelectDoms[rewardSelectDomLength - 1]).css('display') !== 'none')
-			{
-				$(ucdTable[i]).find('input').each(function () {
-					if (isEmpty($(this).val())) retVal = true;
-				});
-			}
+			$(ucdTable[i]).find('input').each(function () {
+				if (isEmpty($(this).val())) retVal = true;
+			});
 		}
 
 		return retVal;
@@ -844,15 +840,12 @@
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
-			if (i < rewardSelectDomLength - 1 || $(rewardSelectDoms[rewardSelectDomLength - 1]).css('display') !== 'none')
-			{
-				let activeDuration = $(rewardDom[i]).find('.duration.active');
-				let activeFrequency = $(rewardDom[i]).find('.frequency.active');
-				let activeFrequencyLen = activeFrequency.length;
+			let activeDuration = $(rewardDom[i]).find('.duration.active');
+			let activeFrequency = $(rewardDom[i]).find('.frequency.active');
+			let activeFrequencyLen = activeFrequency.length;
 
-				if ($(activeDuration).data('days') > 1 && activeFrequencyLen == 0)
-					retVal = true;
-			}
+			if ($(activeDuration).data('days') > 1 && activeFrequencyLen == 0)
+				retVal = true;
 		}
 
 		return retVal;
@@ -901,80 +894,76 @@
 		let rewards = [];
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
-			/** 사용자 지정 리워드 조건이 추가된 경우만 파라미터에 담는다. **/
-			if (i < rewardSelectDomLength -1 || $(rewardSelectDoms[rewardSelectDomLength -1]).css('display') !== 'none')
-			{
-				let rewardWrap   = $(".pro-reward-wrap");
-				let title 		 = $(rewardWrap[i]).find('.reward-title');
-				let durationDom	 = $(rewardWrap[i]).find('.duration');
-				let duration	 = 1;
-				let frequencyDom = $(rewardWrap[i]).find('.frequency');
-				let monday		 = 'N';
-				let tuesday		 = 'N';
-				let wednesday	 = 'N';
-				let thursday	 = 'N';
-				let friday		 = 'N';
-				let saturday	 = 'N';
-				let sunday		 = 'N';
-				let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
-				let personalRate = $(rewardWrap[i]).find('.personal-rate');
-				let groupRate 	 = $(rewardWrap[i]).find('.group-rate');
-				let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
+			let rewardWrap   = $(".pro-reward-wrap");
+			let title 		 = $(rewardWrap[i]).find('.reward-title');
+			let durationDom	 = $(rewardWrap[i]).find('.duration');
+			let duration	 = 1;
+			let frequencyDom = $(rewardWrap[i]).find('.frequency');
+			let monday		 = 'N';
+			let tuesday		 = 'N';
+			let wednesday	 = 'N';
+			let thursday	 = 'N';
+			let friday		 = 'N';
+			let saturday	 = 'N';
+			let sunday		 = 'N';
+			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
+			let personalRate = $(rewardWrap[i]).find('.personal-rate');
+			let groupRate 	 = $(rewardWrap[i]).find('.group-rate');
+			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
-				/** 인증기간 파라미터 **/
-				durationDom.each(function () {
-					if ($(this).hasClass('active'))
-						duration = $(this).data('days');
-				});
+			/** 인증기간 파라미터 **/
+			durationDom.each(function () {
+				if ($(this).hasClass('active'))
+					duration = $(this).data('days');
+			});
 
-				/** 주간빈도 파라미터 **/
-				frequencyDom.each(function (freqidx) {
-					let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
-					if (freqidx === 0) monday = frequencyYn;
-					if (freqidx === 1) tuesday = frequencyYn;
-					if (freqidx === 2) wednesday = frequencyYn;
-					if (freqidx === 3) thursday = frequencyYn;
-					if (freqidx === 4) friday = frequencyYn;
-					if (freqidx === 5) saturday = frequencyYn;
-					if (freqidx === 6) sunday = frequencyYn;
-				});
+			/** 주간빈도 파라미터 **/
+			frequencyDom.each(function (freqidx) {
+				let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
+				if (freqidx === 0) monday = frequencyYn;
+				if (freqidx === 1) tuesday = frequencyYn;
+				if (freqidx === 2) wednesday = frequencyYn;
+				if (freqidx === 3) thursday = frequencyYn;
+				if (freqidx === 4) friday = frequencyYn;
+				if (freqidx === 5) saturday = frequencyYn;
+				if (freqidx === 6) sunday = frequencyYn;
+			});
 
-				/** 인당 UCD 파라미터 **/
-				let ucdInfos = [];
-				$(ucdTable).find('tr').each(function () {
+			/** 인당 UCD 파라미터 **/
+			let ucdInfos = [];
+			$(ucdTable).find('tr').each(function () {
 
-					let inputDom = $(this).find('input');
+				let inputDom = $(this).find('input');
 
-					if (inputDom.length > 0)
-					{
-						let minDom = $(inputDom)[0];
-						let maxDom = $(inputDom)[1];
-						let ucdDom = $(inputDom)[2];
+				if (inputDom.length > 0)
+				{
+					let minDom = $(inputDom)[0];
+					let maxDom = $(inputDom)[1];
+					let ucdDom = $(inputDom)[2];
 
-						ucdInfos.push({
-							"min" : $(minDom).val()
-							,"max" : $(maxDom).val()
-							,"per_person_ucd" : $(ucdDom).val()
-						});
-					}
-				})
+					ucdInfos.push({
+						"min" : $(minDom).val()
+						,"max" : $(maxDom).val()
+						,"per_person_ucd" : $(ucdDom).val()
+					});
+				}
+			})
 
-				rewards.push({
-					"title" 			: title.val()
-					,"action-duration" 	: duration
-					,"goal-rate" 		: goalRate.val()
-					,"personal-rate" 	: personalRate.val()
-					,"group-rate" 		: groupRate.val()
-					,"monday" 			: monday
-					,"tuesday" 			: tuesday
-					,"wednesday" 		: wednesday
-					,"thursday" 		: thursday
-					,"friday" 			: friday
-					,"saturday" 		: saturday
-					,"sunday" 			: sunday
-					,"ucd_info"			: JSON.stringify(ucdInfos)
-				});
-			}
+			rewards.push({
+				"title" 			: title.val()
+				,"action-duration" 	: duration
+				,"goal-rate" 		: goalRate.val()
+				,"personal-rate" 	: personalRate.val()
+				,"group-rate" 		: groupRate.val()
+				,"monday" 			: monday
+				,"tuesday" 			: tuesday
+				,"wednesday" 		: wednesday
+				,"thursday" 		: thursday
+				,"friday" 			: friday
+				,"saturday" 		: saturday
+				,"sunday" 			: sunday
+				,"ucd_info"			: JSON.stringify(ucdInfos)
+			});
 		}
 
 		formData.append("promotion-reward-condition", JSON.stringify(rewards));

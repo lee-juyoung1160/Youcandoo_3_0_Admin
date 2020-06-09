@@ -1,7 +1,4 @@
 
-    const menuBtn            = $(".menu-btn");
-    const menuBtnList        = $(".menu-btn-list");
-    const menuListClickEvent = $(".menu-btn-list li");
     const noticeBtn          = $("#notice");
     const noticeList         = $(".notice-list");
     const onNotice           = $(".on-notice");
@@ -17,13 +14,12 @@
     const sessionAuthCode    = $("#session_authcode");
     const sideMenu           = $("#sideMenu");
 
-    /*menuBtn             .on("click", function () { onClickActiveParentMenu(this); });
-    menuListClickEvent  .on("click", function () { onClickChildMenu(this); });*/
-   /* noticeBtn           .on("click", function () {  onClickActiveNotice(); });*/
-    selectTarget        .on("change", function () { onChangeSelectOption(this); });
-    inputNumber         .on("propertychange change keyup paste input", function () { initInputNumber(this); });
-    lengthInput         .on("input", function () { checkInputLength(this); });
-    dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
+    /*noticeBtn       .on("click", function () {  onClickActiveNotice(); });*/
+    selectTarget    .on("change", function () { onChangeSelectOption(this); });
+    inputNumber     .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+    lengthInput     .on("propertychange change keyup paste input", function () { checkInputLength(this); });
+    dateFrom        .on("change", function () { onChangeSearchDateFrom(this); });
+
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();
 
@@ -163,31 +159,33 @@
         }
         else
         {
-            let expr   = $(obj).data('expr');
+            /**
+             * 사이즈 체크를 위해서 해당 html 페이지 file element에
+             * data-width: 폭
+             * data-height: 높이
+             * data-oper: 비교연산 eq: 같음, ge: 이상, le: 이하
+             * 속성이 있어야 한다.
+             * **/
+            let oper   = $(obj).data('oper');
             let needsWidth  = $(obj).data('width');
             let needsHeight = $(obj).data('height');
             let img    = new Image();
             img.src = window.URL.createObjectURL(obj.files[0]);
             img.onload = function() {
-                let infoMessage = '선택한 이미지 사이즈는 '+this.width+'x'+this.height+'입니다';
-                infoMessage += '\n업로드 가능한 이미지 사이즈를 확인해주세요.'
-                /*let infoMessage = '\n업로드 가능한 이미지 사이즈 : '+needsWidth+'x'+needsHeight;
-                infoMessage += '\n선택한 이미지 사이즈 : '+this.width+'x'+this.height;*/
-                if (expr === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
+                let infoMessage = '선택한 이미지 사이즈는 '+this.width+'x'+this.height+'입니다.\n업로드 가능한 이미지 사이즈를 확인해주세요.';
+                
+                if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
                 {
-                    /*alert(message.invalidResolution+infoMessage);*/
                     alert(infoMessage);
                     emptyFile(obj);
                 }
-                else if (expr === 'ge' && (this.width < needsWidth || this.height < needsHeight))
+                else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
                 {
-                    /*alert(message.invalidResolution+infoMessage);*/
                     alert(infoMessage);
                     emptyFile(obj);
                 }
-                else if (expr === 'le' && (this.width > needsWidth || this.height > needsHeight))
+                else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
                 {
-                    /*alert(message.invalidResolution+infoMessage);*/
                     alert(infoMessage);
                     emptyFile(obj);
                 }
@@ -558,4 +556,7 @@
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
+        $(".length-input").each(function () {
+            checkInputLength(this);
+        });
     })

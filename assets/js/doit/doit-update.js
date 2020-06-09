@@ -41,6 +41,8 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initInputDatepicker();
 		/** 두잇 상세정보 **/
 		getDoit();
 		/** 이벤트 **/
@@ -77,11 +79,11 @@
 		});
 	}
 
-	let g_doitUuid;
+	let g_doit_uuid;
 	function buildDoitDetail(data) {
 		let detail = data.data;
 console.log(detail)
-		g_doitUuid = detail.doit_uuid;
+		g_doit_uuid = detail.doit_uuid;
 
 		bizName.val(detail.company_name);
 		doitTitle.val(detail.doit_title);

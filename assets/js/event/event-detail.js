@@ -12,6 +12,7 @@
 	const webUrl	 	= $("#webUrl");
 	const linkWrap		= $("#linkWrap");
 	const link		 	= $("#link");
+	const dateWrap	 	= $("#dateWrap");
 	const period	 	= $("#period");
 	const exposure	 	= $("#exposure");
 	const goUpdate	 	= $("#goUpdate");
@@ -62,6 +63,7 @@
 			contentWrap.show();
 			noticeWrap.show();
 			contentImgWrap.show();
+			dateWrap.show();
 		}
 		else if (eventType === 'announce')
 		{
@@ -70,6 +72,7 @@
 			contentWrap.show();
 			noticeWrap.show();
 			contentImgWrap.show();
+			dateWrap.hide();
 		}
 		else if (eventType === 'link')
 		{
@@ -78,6 +81,7 @@
 			contentWrap.hide();
 			noticeWrap.hide();
 			contentImgWrap.hide();
+			dateWrap.show();
 		}
 		else if (eventType === 'web')
 		{
@@ -86,6 +90,7 @@
 			contentWrap.hide();
 			noticeWrap.hide();
 			contentImgWrap.hide();
+			dateWrap.show();
 		}
 
 		type.html(detail.event_name);

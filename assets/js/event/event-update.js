@@ -10,9 +10,10 @@
 	const webWrap		= $("#webWrap");
 	const webUrl		= $("#webUrl");
 	const webFile		= $("#webFile");
-	const contentImageWrap	= $("#contentImageWrap");
-	const contentImage	= $("#contentImage");
+	const contentImgWrap = $("#contentImgWrap");
+	const contentImg	= $("#contentImg");
 	const thumbnail		= $("#thumbnail");
+	const dateWrap		= $("#dateWrap");
 	const eventFrom		= $("#eventFrom");
 	const eventTo		= $("#eventTo");
 	const exposure		= $("input[name=radio-exposure]");
@@ -28,7 +29,7 @@
 		/** 이벤트 **/
 		selEventType.on('change', function () { onChangeEventType(this); });
 		webFile		.on('change', function () { onChangeWebFile(this); });
-		contentImage.on('change', function () { onChangeValidationImage(this); });
+		contentImg	.on('change', function () { onChangeValidationImage(this); });
 		thumbnail	.on('change', function () { onChangeValidationImage(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdateEvent(); });
 		eventFrom	.on('change', function () { onChangeFrom() });
@@ -69,8 +70,8 @@
 		toggleComponent(detail.event_type);
 		selEventType.val(detail.event_type);
 		title.val(detail.title);
-		content.val(detail.contents);
-		notice.val(detail.notice);
+		content.val(replaceSelectTextarea(detail.contents));
+		notice.val(replaceSelectTextarea(detail.notice));
 		if (!isEmpty(detail.image_url))
 		{
 			let contentImgDom = '';
@@ -193,7 +194,8 @@
 			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
-			contentImageWrap.show();
+			contentImgWrap.show();
+			dateWrap.show();
 		}
 		else if (selectedValue === 'announce')
 		{
@@ -201,7 +203,8 @@
 			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
-			contentImageWrap.show();
+			contentImgWrap.show();
+			dateWrap.hide();
 		}
 		else if (selectedValue === 'link')
 		{
@@ -209,7 +212,8 @@
 			webWrap.hide();
 			contentWrap.hide();
 			noticeWrap.hide();
-			contentImageWrap.hide();
+			contentImgWrap.hide();
+			dateWrap.show();
 		}
 		else if (selectedValue === 'web')
 		{
@@ -217,7 +221,8 @@
 			linkWrap.hide();
 			contentWrap.hide();
 			noticeWrap.hide();
-			contentImageWrap.hide();
+			contentImgWrap.hide();
+			dateWrap.show();
 		}
 	}
 
@@ -236,14 +241,6 @@
 
 	function validation()
 	{
-		let thumbnailFile 	 = thumbnail[0].files;
-		let contentImageFile;
-		let htmlFile;
-		if (isDisplay(contentImageWrap))
-			contentImageFile = contentImage[0].files;
-		if (isDisplay(webWrap))
-			htmlFile 		 = webFile[0].files;
-
 		if (isEmpty(title.val()))
 		{
 			alert('제목은 ' + message.required);
@@ -279,32 +276,14 @@
 			return false;
 		}
 
-		if (isDisplay(webWrap) && htmlFile.length === 0)
-		{
-			alert('html 파일은 ' + message.required);
-			return false;
-		}
-
-		if (isDisplay(contentImageWrap) && contentImageFile.length === 0)
-		{
-			alert('본문 이미지는 ' + message.required);
-			return false;
-		}
-
-		if (thumbnailFile.length === 0)
-		{
-			alert('썸네일 이미지는 ' + message.required);
-			return false;
-		}
-
-		if (isEmpty(eventFrom.val()))
+		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
 			alert('기간(시작일)은 ' + message.required);
 			eventFrom.focus();
 			return false;
 		}
 
-		if (isEmpty(eventTo.val()))
+		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
 			alert('기간(종료일)은 ' + message.required);
 			eventTo.focus();
@@ -321,7 +300,7 @@
 			if (confirm(message.modify))
 			{
 				$.ajax({
-					url: api.createEvent,
+					url: api.updateEvent,
 					type: "POST",
 					processData: false,
 					contentType: false,
@@ -345,15 +324,15 @@
 	{
 		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let paramFile;
-		if (isDisplay(contentImageWrap))
-			paramFile = contentImage[0].files[0];
+		if (isDisplay(contentImgWrap))
+			paramFile = contentImg[0].files[0];
 		if (isDisplay(webWrap))
 			paramFile = webFile[0].files[0];
 		let formData  = new FormData();
 		formData.append('event-type', selEventType.val());
 		formData.append('event-title', title.val().trim());
-		formData.append('event-contents', content.val().trim());
-		formData.append('event-notice', notice.val().trim());
+		formData.append('event-contents', replaceInputTextarea(content.val().trim()));
+		formData.append('event-notice', replaceInputTextarea(notice.val().trim()));
 		formData.append('event-start-date', eventFrom.val());
 		formData.append('event-end-date', eventTo.val());
 		formData.append('event-link-url', eventLink.val().trim());

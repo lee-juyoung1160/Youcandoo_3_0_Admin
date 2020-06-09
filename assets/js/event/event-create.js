@@ -12,6 +12,7 @@
 	const contentImageWrap	= $("#contentImageWrap");
 	const contentImage	= $("#contentImage");
 	const thumbnail		= $("#thumbnail");
+	const dateWrap		= $("#dateWrap");
 	const eventFrom		= $("#eventFrom");
 	const eventTo		= $("#eventTo");
 	const exposure		= $("input[name=radio-exposure]");
@@ -127,6 +128,7 @@
 			contentWrap.show();
 			noticeWrap.show();
 			contentImageWrap.show();
+			dateWrap.show();
 		}
 		else if (selectedValue === 'announce')
 		{
@@ -135,6 +137,7 @@
 			contentWrap.show();
 			noticeWrap.show();
 			contentImageWrap.show();
+			dateWrap.hide();
 		}
 		else if (selectedValue === 'link')
 		{
@@ -230,14 +233,14 @@
 			return false;
 		}
 
-		if (isEmpty(eventFrom.val()))
+		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
 			alert('기간(시작일)은 ' + message.required);
 			eventFrom.focus();
 			return false;
 		}
 
-		if (isEmpty(eventTo.val()))
+		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
 			alert('기간(종료일)은 ' + message.required);
 			eventTo.focus();
@@ -285,8 +288,8 @@
 		let formData  = new FormData();
 		formData.append('event-type', selEventType.val());
 		formData.append('event-title', title.val().trim());
-		formData.append('event-contents', content.val().trim());
-		formData.append('event-notice', notice.val().trim());
+		formData.append('event-contents', replaceInputTextarea(content.val().trim()));
+		formData.append('event-notice', replaceInputTextarea(notice.val().trim()));
 		formData.append('event-start-date', eventFrom.val());
 		formData.append('event-end-date', eventTo.val());
 		formData.append('event-link-url', eventLink.val().trim());

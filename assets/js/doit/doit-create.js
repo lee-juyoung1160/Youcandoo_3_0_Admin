@@ -418,7 +418,7 @@
 		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
 		introFileDom += 	'<label for="introImage">업로드</label>';
-		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-expr="eq" onchange="onChangeValidationImage(this)">';
+		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		introFileDom += '</div>';
 		if (introType === 'video')
 		{
@@ -454,7 +454,7 @@
 		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-expr="eq" onchange="onChangeValidationImage(this)">';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		fileDom += '</div>';
 
 		exampleArea.html(fileDom);
@@ -469,7 +469,7 @@
 		fileDom += 		'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
 		fileDom += 		'<label for="exampleFile">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-expr="eq" onchange="onChangeValidationImage(this)">';
+		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		fileDom += 	'</div>';
 		fileDom += 	'<div class="filebox preview-image">';
 		fileDom += 		'<p class="cap">영상</p>';

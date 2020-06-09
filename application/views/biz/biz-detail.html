@@ -3,7 +3,9 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">비즈 상세</h2>
-            <button id="btnOpenModal" type="button" class="more-info-btn" data-modal="modal-01" style="float: right;"><i class="fas fa-plus"></i>UCD 수동등록 </button>
+            <button id="btnUcdManualRegist" type="button" class="more-info-btn" style="float: right;">
+                <i class="fas fa-plus"></i>UCD 수동등록
+            </button>
         </div>
         <div class="wrap">
             <div class="enrollment clearfix">
@@ -214,24 +216,24 @@
                 <li>
                     <p class="sub-title">구분 *</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r11" name="rb" />
+                        <input type="radio" id="r11" name="radio-division" value="deposit"/>
                         <label for="r11"><span></span>충전</label>
 
-                        <input type="radio" id="r12" name="rb" />
+                        <input type="radio" id="r12" name="radio-division" value="withdraw"/>
                         <label for="r12"><span></span>출금</label>
 
-                        <input type="radio" id="r13" name="rb" />
+                        <input type="radio" id="r13" name="radio-division" value="cancel"/>
                         <label for="r13"><span></span>취소</label>
                     </div>
                 </li>
                 <li>
                     <p class="sub-title">UCD *</p>
-                    <input type="text" class="only-num">
+                    <input id="amount" type="text" class="only-num" maxlength="11">
                     <span class="input-num-title">UCD</span>
                 </li>
                 <li>
                     <p class="sub-title">내용 *</p>
-                    <textarea placeholder="내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
+                    <textarea id="content" placeholder="내용을 입력해주세요." class="length-text" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
                     <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-text">0</span>/1000</p>
                 </li>
             </ul>

@@ -1,4 +1,5 @@
 
+		const btnUcdManualRegist	= $("#btnUcdManualRegist");
 		const bizProfileImg	= $("#bizProfileImg");
 		const bizName 		= $("#bizName");
 		const bizNumber		= $("#bizNumber");
@@ -19,6 +20,15 @@
 		const promoTotalCount	= $("#promoTotalCount");
 		const ucdTotalCount		= $("#ucdTable");
 
+		/** modal **/
+		const modalCloseBtn = $(".close-btn");
+		const modalLayout 	= $(".modal-layout");
+		const modalContent 	= $(".modal-content");
+		const division		= $("input[name=radio-division]");
+		const amount		= $("#amount");
+		const content		= $("#content");
+		const btnSubmit		= $("#btnSubmit");
+
 		$(document).ready(function () {
 			/** 상세 불러오기 **/
 			getDetail();
@@ -27,10 +37,19 @@
 			/** 프로모션 정보 **/
 			getInvolvePromo();
 			/** 이벤트 **/
-			goUpdate	.on('click', function () { goUpdatePage(); })
+			btnUcdManualRegist	.on("click", function () { modalFadein(); })
+			goUpdate	.on("click", function () { goUpdatePage(); })
 			tabPromo	.on("click", function () { onClickTabPromo(); });
 			tabUcd		.on("click", function () { onClickTabUcd(); });
 		});
+
+		function initModal()
+		{
+			division.eq(0).prop('checked', true);
+			amount.val('');
+			content.val('');
+			amount.focus();
+		}
 
 		function onClickTabPromo()
 		{

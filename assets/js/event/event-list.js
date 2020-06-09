@@ -64,8 +64,8 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				/*,{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" }*/
-				{title: "제목", 		data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
+				{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
 				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
@@ -113,7 +113,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}
@@ -135,8 +134,8 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
-		let periodDom = $(nRow).children().eq(2);
+		let titleDom  = $(nRow).children().eq(2);
+		let periodDom = $(nRow).children().eq(3);
 		let detailUrl = page.detailEvent+aData.idx;
 
 		/** 제목에 클릭 상세 이동 **/

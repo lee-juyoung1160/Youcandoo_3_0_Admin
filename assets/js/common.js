@@ -22,8 +22,9 @@
    /* noticeBtn           .on("click", function () {  onClickActiveNotice(); });*/
     selectTarget        .on("change", function () { onChangeSelectOption(this); });
     inputNumber         .on("propertychange change keyup paste input", function () { initInputNumber(this); });
-    lengthInput         .on("input", function () { checkInputLength(this); });
+    lengthInput         .on("propertychange change keyup paste input", function () { checkInputLength(this); });
     dateFrom            .on("change", function () { onChangeSearchDateFrom(this); });
+
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();
 
@@ -558,4 +559,7 @@
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
+        $(".length-input").each(function () {
+            checkInputLength(this);
+        });
     })

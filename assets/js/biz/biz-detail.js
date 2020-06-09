@@ -47,6 +47,8 @@
 			goUpdate		.on("click", function () { goUpdatePage(); })
 			tabPromo		.on("click", function () { onClickTabPromo(); });
 			tabUcd			.on("click", function () { onClickTabUcd(); });
+			selPageLengthForPromo.on("change", function () { getInvolvePromo(); });
+			selPageLengthForUcd.on("change", function () { getUcdLog(); });
 			btnSubmit		.on("click", function () { onSubmitUcdRegist(); });
 		});
 
@@ -255,14 +257,14 @@
 					}
 				},
 				columns: [
-					{title: "유형", 	data: "ucd_type",   	width: "15%",     orderable: false,   className: "text-center" }
-					,{title: "구분", data: "division",   	width: "15%",     orderable: false,   className: "text-center" }
-					,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center",
+					{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "text-center" }
+					,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center" }
+					,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "제목", data: "title",  		width: "10%",     orderable: false,   className: "text-center" }
+					,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center" }
 					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "text-center" }
 					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center" }
 				],

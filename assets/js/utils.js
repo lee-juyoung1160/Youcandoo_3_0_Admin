@@ -141,6 +141,16 @@
 		return str.split(searchStr).join(replaceStr);
 	}
 
+	function replaceInputTextarea(value)
+	{
+		return value.replace(/(?:\r\n|\r|\n)/g, "<br>");
+	}
+
+	function replaceSelectTextarea(value)
+	{
+		return value.split("<br>").join("\r\n");
+	}
+
 	function bizNoFormatter(num)
 	{
 		return num.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3');

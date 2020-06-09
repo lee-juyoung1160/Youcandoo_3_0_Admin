@@ -112,7 +112,7 @@
                                 <p class="cap">본문 이미지 (* 이미지 가로 사이즈: 750 이상)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden">
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li id="dateWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">기간 (*)</p>

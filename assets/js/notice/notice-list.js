@@ -74,7 +74,7 @@
 				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
 				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
+						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
 				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center cursor-default" }

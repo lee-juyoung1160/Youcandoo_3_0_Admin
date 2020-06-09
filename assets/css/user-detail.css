@@ -1,13 +1,13 @@
 .wrap {
     position: relative;
+    width: 1280px;
 }
 .move-tab {
-    float: right;
     position: fixed;
     top:160px;
     right: 50%;
     margin-right: -750px;
-    width: 150px;
+    width: 10%;
     border-radius: 10px;
     transition: all .5s;
 }
@@ -19,8 +19,7 @@
     font-weight: 800;
 }
 .move-section-wrap {
-    float: left;
-    width: 85%;
+    width: 80%;
 }
 
 .enrollment-title {

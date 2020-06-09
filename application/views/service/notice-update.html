@@ -18,14 +18,30 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li id="contentWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">내용 (*)</p>
                         </div>
                         <div class="col-2 clearfix">
                             <div class="textarea-wrap">
-                                <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
+                                <textarea placeholder="내용을 입력해주세요." id="content" class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="100"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li id="contentImageWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">본문이미지 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">본문 이미지 (* 이미지 가로 사이즈: 750 이상)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden">
                             </div>
                         </div>
                     </div>

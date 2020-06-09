@@ -21,7 +21,7 @@
 		/** UCD정보탭 **/
 		const ucdInfo		= $("#ucdInfo");
 		const ucdTable		= $("#ucdTable");
-		const ucdTotalCount			= $("#ucdTable");
+		const ucdTotalCount			= $("#ucdTotalCount");
 		const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
 		/** modal **/
@@ -73,7 +73,7 @@
 			promoInfo.hide();
 			tabPromo.removeClass('active');
 			tabUcd.addClass('active');
-			//getUcdLog();
+			getUcdLog();
 		}
 
 		function getDetail()
@@ -243,7 +243,7 @@
 		{
 			ucdTable.DataTable({
 				ajax : {
-					url: api.involveBizPromotion,
+					url: api.bizUcd,
 					type: "POST",
 					async: false,
 					headers: headers,
@@ -255,24 +255,16 @@
 					}
 				},
 				columns: [
-					{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
-					/*,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
-					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+					{title: "유형", 	data: "ucd_type",   	width: "15%",     orderable: false,   className: "text-center" }
+					,{title: "구분", data: "division",   	width: "15%",     orderable: false,   className: "text-center" }
+					,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
-						render: function (data) {
-							return numberWithCommas(data);
-						}
-					}
-					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
-					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
-						render: function (data) {
-							return getPromotionStatusName(data);
-						}
-					}*/
+					,{title: "제목", data: "title",  		width: "10%",     orderable: false,   className: "text-center" }
+					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "text-center" }
+					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center" }
 				],
 				language: {
 					emptyTable : message.emptyList

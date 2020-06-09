@@ -53,8 +53,10 @@
 		selPromo		.on('change', function () { onChangeSelPromo(); });
 		selReward		.on('change', function () { onChangeSelReward(); });
 		btnAddTag		.on('click', function () { onClickAddTag(); });
+		introFileType	.on('change', function () { onChangeIntroType(this); });
 		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
 		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
+		exampleType		.on('change', function () { onChangeExampleType(this); });
 		/*btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });*/
 	});
 
@@ -104,16 +106,20 @@ console.log(detail)
 			addedTags.html(tagDom);
 		}
 
-		/*introFileType.each(function () {
-			if ($(this).val() === detail.is_exposure)
+		introFileType.each(function () {
+			if ($(this).val() === detail.intro_resouce_type)
+			{
 				$(this).prop('checked', true);
-		});*/
+				onChangeIntroType(this);
+			}
+		});
 		minAvailable.html(detail.min_user);
 		maxAvailable.html(detail.max_user);
 		if (!isEmpty(detail.group_reward_description))
 		{
 			chkExtraReward.prop("checked", true);
 			toggleActive(ucdAreWrap);
+			extraReward.val(detail.group_reward_description);
 		}
 		doitFrom.val(detail.action_start_datetime);
 		doitTo.val(detail.action_end_datetime);
@@ -124,6 +130,13 @@ console.log(detail)
 			chkAccessUser.prop("checked", true);
 			toggleActive($(".code-wrap"));
 		}
+		exampleType.each(function () {
+			if ($(this).val() === detail.action_resource_type)
+			{
+				$(this).prop('checked', true);
+				onChangeExampleType(this);
+			}
+		});
 		exampleDesc.val(detail.action_description);
 	}
 
@@ -135,6 +148,99 @@ console.log(detail)
 	function removeTagDom(obj)
 	{
 		$(obj).parent().remove();
+	}
+
+	/** 소개 이미지/영상 라디오 선탵할 때 파일 업로드 컴포넌트 생성 **/
+	function onChangeIntroType(obj)
+	{
+		let introType = $(obj).val();
+		let introText = $("label[for='"+$(obj).attr("id")+"']").text();
+		let introFileDom = '';
+		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
+		if (introType === 'video')
+			introFileDom += '<span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
+		else
+			introFileDom += '<span>사진</span>을 업로드 해주세요!</p>';
+		introFileDom += '<div class="filebox preview-image">';
+		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
+		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
+		introFileDom += 	'<label for="introImage">업로드</label>';
+		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
+		introFileDom += '</div>';
+		if (introType === 'video')
+		{
+			introFileDom += '<div class="filebox preview-image">';
+			introFileDom += 	'<p class="cap">영상</p>';
+			introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
+			introFileDom += 	'<label for="introVideo">업로드</label>';
+			introFileDom += 	'<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
+			introFileDom += '</div>';
+		}
+
+		introFileArea.html(introFileDom);
+	}
+
+	/** 인증예시타입 라디오 체인지 이벤트 **/
+	function onChangeExampleType(obj)
+	{
+		exampleArea.empty();
+
+		let exampleType = $(obj).val();
+		if (exampleType === 'image')
+			buildExampleImage();
+		else if (exampleType === 'video')
+			buildExampleVideo();
+		else if (exampleType === 'voice')
+			buildExampleVoice();
+	}
+
+	function buildExampleImage()
+	{
+		let fileDom = '';
+		fileDom += '<div class="filebox preview-image">';
+		fileDom += 	'<p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>';
+		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
+		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
+		fileDom += 	'<label for="exampleFile">업로드</label>';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
+		fileDom += '</div>';
+
+		exampleArea.html(fileDom);
+	}
+
+	function buildExampleVideo()
+	{
+		let fileDom = '';
+		fileDom += '<div class="wrap">';
+		fileDom += 	'<p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
+		fileDom += 	'<div class="filebox preview-image">';
+		fileDom += 		'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
+		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
+		fileDom += 		'<label for="exampleFile">업로드</label>';
+		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
+		fileDom += 	'</div>';
+		fileDom += 	'<div class="filebox preview-image">';
+		fileDom += 		'<p class="cap">영상</p>';
+		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
+		fileDom += 		'<label for="exampleVideo">업로드</label>';
+		fileDom += 		'<input type="file" id="exampleVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
+		fileDom += 	'</div>';
+		fileDom += '</div>';
+
+		exampleArea.html(fileDom);
+	}
+
+	function buildExampleVoice()
+	{
+		let fileDom = '';
+		fileDom += '<div class="filebox preview-image">';
+		fileDom += 	'<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>';
+		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
+		fileDom += 	'<label for="exampleFile">업로드</label>';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">';
+		fileDom += '</div>';
+
+		exampleArea.html(fileDom);
 	}
 
 	/** 기업 검색 **/

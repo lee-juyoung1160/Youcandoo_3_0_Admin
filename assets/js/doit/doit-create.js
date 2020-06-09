@@ -433,6 +433,7 @@
 		introFileArea.html(introFileDom);
 	}
 
+	/** 인증예시타입 라디오 체인지 이벤트 **/
 	function onChangeExampleType(obj)
 	{
 		exampleArea.empty();

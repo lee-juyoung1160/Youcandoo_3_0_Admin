@@ -777,6 +777,12 @@
 			return false;
 		}
 
+		if (isInvalidJoinUserCount())
+		{
+			alert(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
+			return false;
+		}
+
 		if (isOverBudget())
 		{
 			alert(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
@@ -860,6 +866,22 @@
 			let totalUcd = replaceAll($(totalDom).text(), ',', '');
 
 			if (Number(totalUcd) > Number(budget.val())) retVal = true;
+		});
+
+		return retVal;
+	}
+
+	function isInvalidJoinUserCount()
+	{
+		let retVal = false;
+		let ucdTable = $(".ucd-table-body");
+		ucdTable.each(function () {
+			let minDom = $(this).find('input')[0];
+			let maxDom = $(this).find('input')[1];
+			let minVal = $(minDom).val();
+			let maxVal = $(maxDom).val();
+
+			if (Number(minVal) > Number(maxVal)) retVal = true;
 		});
 
 		return retVal;

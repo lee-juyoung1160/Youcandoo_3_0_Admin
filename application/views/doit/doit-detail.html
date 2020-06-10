@@ -360,31 +360,213 @@
             </div>
 
             <!--인증정보탭-->
-            <div id="doitAction" class="table-wrap" style="display: none;">
+<!--            <div id="doitAction" class="table-wrap" style="display: none;">-->
+<!--                <div id="actionTopDom" class="top clearfix" style="display: none;">-->
+<!--                    <div class="left-wrap clearfix">-->
+<!--                        <div class="select-box">-->
+<!--                            <label for="selPageLengthForAction">10개씩 보기</label>-->
+<!--                            <select id="selPageLengthForAction">-->
+<!--                                <option value="10">10개씩 보기</option>-->
+<!--                                <option value="20">20개씩 보기</option>-->
+<!--                                <option value="30">30개씩 보기</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <p>Total <strong id="actionTotalCount" class="data-num"></strong></p>-->
+<!--                    </div>-->
+<!--                    <div class="btn-wrap">-->
+<!--                        <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>-->
+<!--                        <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div id="actionWrap">-->
+<!--                    &lt;!&ndash;<ul class="cert-contents clearfix">-->
+<!--                        <li>-->
+<!--                            <div class="top clearfix">-->
+<!--                                <div class="checkbox-wrap">-->
+<!--                                    <input type="checkbox" id="c5" name="cc" />-->
+<!--                                    <label for="c5"><span></span></label>-->
+<!--                                </div>-->
+<!--                                <span class="success-text">성공</span>-->
+<!--                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>-->
+<!--                            </div>-->
+
+<!--                            <div class="thumbnail-wrap">-->
+<!--                                &lt;!&ndash;옐로카드&ndash;&gt;-->
+<!--                                <div class="error">-->
+<!--                                    <p class="error-text"><i><img src="/assets/images/yellow-card.png" alt=""></i>인증조건에 맞지 않아요</p>-->
+<!--                                    <div class="card-wrap">-->
+<!--                                        <button class="card-btn clear-yellow-btn" type="button">-->
+<!--                                            옐로카드 취소-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">-->
+<!--                            </div>-->
+
+<!--                            <div class="text-wrap">-->
+<!--                                <p class="title">매일 반려견 산책하기</p>-->
+<!--                                <a href="#">aaaaaaa</a>-->
+<!--                                <p class="date">2019.07.17 10:30:24</p>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <div class="top clearfix">-->
+<!--                                <div class="checkbox-wrap">-->
+<!--                                    <input type="checkbox" id="c6" name="cc" />-->
+<!--                                    <label for="c6"><span></span></label>-->
+<!--                                </div>-->
+<!--                                <span class="failure-text">실패</span>-->
+<!--                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>-->
+<!--                            </div>-->
+
+<!--                            <div class="thumbnail-wrap">-->
+<!--                                &lt;!&ndash;레드카드&ndash;&gt;-->
+<!--                                <div class="error">-->
+<!--                                    <p class="error-text"><i><img src="/assets/images/red-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>-->
+<!--                                    <div class="card-wrap">-->
+<!--                                        <button class="card-btn clear-red-btn" type="button">-->
+<!--                                            레드카드 취소-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">-->
+<!--                            </div>-->
+
+<!--                            <div class="text-wrap">-->
+<!--                                <p class="title">매일 반려견 산책하기</p>-->
+<!--                                <a href="#">aaaaaaa</a>-->
+<!--                                <p class="date">2019.07.17 10:30:24</p>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <div class="top clearfix">-->
+<!--                                <div class="checkbox-wrap">-->
+<!--                                    <input type="checkbox" id="c7" name="cc" />-->
+<!--                                    <label for="c7"><span></span></label>-->
+<!--                                </div>-->
+<!--                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>-->
+<!--                            </div>-->
+
+<!--                            <div class="thumbnail-wrap">-->
+<!--                                &lt;!&ndash;옐로,레드카드&ndash;&gt;-->
+<!--                                <div class="error">-->
+<!--                                    <p class="error-text"><i><img src="/assets/images/rad-yellow-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>-->
+<!--                                    <div class="card-wrap">-->
+<!--                                        <button class="card-btn clear-red-btn" type="button">-->
+<!--                                            옐로카드 취소-->
+<!--                                        </button>-->
+<!--                                        <button class="card-btn clear-red-btn" type="button">-->
+<!--                                            레드카드 취소-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">-->
+<!--                            </div>-->
+
+<!--                            <div class="text-wrap">-->
+<!--                                <p class="title">매일 반려견 산책하기</p>-->
+<!--                                <a href="#">aaaaaaa</a>-->
+<!--                                <p class="date">2019.07.17 10:30:24</p>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <div class="top clearfix">-->
+<!--                                <div class="checkbox-wrap">-->
+<!--                                    <input type="checkbox" id="c7" name="cc" />-->
+<!--                                    <label for="c7"><span></span></label>-->
+<!--                                </div>-->
+<!--                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>-->
+<!--                            </div>-->
+<!--                            <div class="thumbnail-wrap">-->
+<!--                                <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">-->
+<!--                            </div>-->
+<!--                            <div class="text-wrap">-->
+<!--                                <p class="title">매일 반려견 산책하기</p>-->
+<!--                                <a href="#">aaaaaaa</a>-->
+<!--                                <p class="date">2019.07.17 10:30:24</p>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <div class="top clearfix">-->
+<!--                                <div class="checkbox-wrap">-->
+<!--                                    <input type="checkbox" id="c7" name="cc" />-->
+<!--                                    <label for="c7"><span></span></label>-->
+<!--                                </div>-->
+<!--                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>-->
+<!--                            </div>-->
+<!--                            <div class="thumbnail-wrap">-->
+<!--                                <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">-->
+<!--                            </div>-->
+<!--                            <div class="text-wrap">-->
+<!--                                <p class="title">매일 반려견 산책하기</p>-->
+<!--                                <a href="#">aaaaaaa</a>-->
+<!--                                <p class="date">2019.07.17 10:30:24</p>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                    </ul>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash;경고장 모달&ndash;&gt;-->
+<!--                <div id="modalWarn" class="modal-content modal-01">-->
+<!--                    <div class="wrap">-->
+<!--                        <i class="close-btn fas fa-times-circle"></i>-->
+<!--                        <p class="modal-title">경고장 발송</p>-->
+<!--                        <ul class="modal-information">-->
+<!--                            <li class="clearfix">-->
+<!--                                <p class="sub-title">발송사유(*)</p>-->
+<!--                                <div class="select-box active">-->
+<!--                                    <label for="selCauseBy">인증조건에 맞지 않아요</label>-->
+<!--                                    <select id="selCauseBy">-->
+<!--                                        <option value="인증조건에 맞지 않아요">인증조건에 맞지 않아요</option>-->
+<!--                                        <option value="광고나 홍보성격이 짙어요">광고나 홍보성격이 짙어요</option>-->
+<!--                                        <option value="욕설이나 선정적인 내용이 있어요">욕설이나 선정적인 내용이 있어요</option>-->
+<!--                                        <option value="민감한 개인 정보가 있어요">민감한 개인 정보가 있어요</option>-->
+<!--                                        <option value="누군가의 명예를 훼손할 수 있어요">누군가의 명예를 훼손할 수 있어요</option>-->
+<!--                                        <option value="에티켓 위반 등 기타 사유에요">에티켓 위반 등 기타 사유에요</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="modal-layout"></div>-->
+<!--            </div>-->
+
+            <div id="doitAction" class="table-wrap">
                 <div id="actionTopDom" class="top clearfix" style="display: none;">
                     <div class="left-wrap clearfix">
                         <div class="select-box">
-                            <label for="selPageLengthForAction">10개씩 보기</label>
-                            <select id="selPageLengthForAction">
+                            <label for="selPageLength">10개씩 보기</label>
+                            <select id="selPageLength">
                                 <option value="10">10개씩 보기</option>
                                 <option value="20">20개씩 보기</option>
                                 <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong id="actionTotalCount" class="data-num"></strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                     </div>
                     <div class="btn-wrap">
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">발송 된 경고장 취소는 피드 내 경고장 아이콘을 클릭하여 할 수 있습니다.</span>
+                        </i>
                         <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
                         <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
                     </div>
                 </div>
 
                 <div id="actionWrap">
-                    <!--<ul class="cert-contents clearfix">
+                    <ul class="cert-contents clearfix">
                         <li>
                             <div class="top clearfix">
                                 <div class="checkbox-wrap">
-                                    <input type="checkbox" id="c5" name="cc" />
+                                    <input type="checkbox" id="c5" name="cc" disabled />
                                     <label for="c5"><span></span></label>
                                 </div>
                                 <span class="success-text">성공</span>
@@ -392,23 +574,14 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                &lt;!&ndash;옐로카드&ndash;&gt;
-                                <div class="error">
-                                    <p class="error-text"><i><img src="/assets/images/yellow-card.png" alt=""></i>인증조건에 맞지 않아요</p>
-                                    <div class="card-wrap">
-                                        <button class="card-btn clear-yellow-btn" type="button">
-                                            옐로카드 취소
-                                        </button>
-                                    </div>
-                                </div>
-
                                 <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                             </div>
 
                             <div class="text-wrap">
                                 <p class="title">매일 반려견 산책하기</p>
-                                <a href="#">aaaaaaa</a>
+                                <span>aaaaaaa</span>
                                 <p class="date">2019.07.17 10:30:24</p>
+                                <i><img src="/assets/images/yellow-card.png" alt=""></i>
                             </div>
                         </li>
                         <li>
@@ -422,23 +595,14 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                &lt;!&ndash;레드카드&ndash;&gt;
-                                <div class="error">
-                                    <p class="error-text"><i><img src="/assets/images/red-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
-                                    <div class="card-wrap">
-                                        <button class="card-btn clear-red-btn" type="button">
-                                            레드카드 취소
-                                        </button>
-                                    </div>
-                                </div>
-
                                 <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                             </div>
 
                             <div class="text-wrap">
                                 <p class="title">매일 반려견 산책하기</p>
-                                <a href="#">aaaaaaa</a>
+                                <span>aaaaaaa</span>
                                 <p class="date">2019.07.17 10:30:24</p>
+                                <i><img src="/assets/images/red-card.png" alt=""></i>
                             </div>
                         </li>
                         <li>
@@ -451,33 +615,38 @@
                             </div>
 
                             <div class="thumbnail-wrap">
-                                &lt;!&ndash;옐로,레드카드&ndash;&gt;
-                                <div class="error">
-                                    <p class="error-text"><i><img src="/assets/images/rad-yellow-card.png" alt=""></i>욕설이나 선정적인 내용이 있어요</p>
-                                    <div class="card-wrap">
-                                        <button class="card-btn clear-red-btn" type="button">
-                                            옐로카드 취소
-                                        </button>
-                                        <button class="card-btn clear-red-btn" type="button">
-                                            레드카드 취소
-                                        </button>
-                                    </div>
-                                </div>
-
                                 <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                             </div>
 
                             <div class="text-wrap">
                                 <p class="title">매일 반려견 산책하기</p>
-                                <a href="#">aaaaaaa</a>
+                                <span>aaaaaaa</span>
+                                <p class="date">2019.07.17 10:30:24</p>
+                                <i><img src="/assets/images/rad-yellow-card.png" alt=""></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="top clearfix">
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c8" name="cc" />
+                                    <label for="c8"><span></span></label>
+                                </div>
+                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                            </div>
+                            <div class="thumbnail-wrap">
+                                <img class="detail-img" src="/assets/images/no-image.jpg" alt="프로필 이미지입니다.">
+                            </div>
+                            <div class="text-wrap">
+                                <p class="title">매일 반려견 산책하기</p>
+                                <span>aaaaaaa</span>
                                 <p class="date">2019.07.17 10:30:24</p>
                             </div>
                         </li>
                         <li>
                             <div class="top clearfix">
                                 <div class="checkbox-wrap">
-                                    <input type="checkbox" id="c7" name="cc" />
-                                    <label for="c7"><span></span></label>
+                                    <input type="checkbox" id="c9" name="cc" />
+                                    <label for="c9"><span></span></label>
                                 </div>
                                 <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
                             </div>
@@ -486,29 +655,13 @@
                             </div>
                             <div class="text-wrap">
                                 <p class="title">매일 반려견 산책하기</p>
-                                <a href="#">aaaaaaa</a>
+                                <span>aaaaaaa</span>
                                 <p class="date">2019.07.17 10:30:24</p>
                             </div>
                         </li>
-                        <li>
-                            <div class="top clearfix">
-                                <div class="checkbox-wrap">
-                                    <input type="checkbox" id="c7" name="cc" />
-                                    <label for="c7"><span></span></label>
-                                </div>
-                                <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
-                            </div>
-                            <div class="thumbnail-wrap">
-                                <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
-                            </div>
-                            <div class="text-wrap">
-                                <p class="title">매일 반려견 산책하기</p>
-                                <a href="#">aaaaaaa</a>
-                                <p class="date">2019.07.17 10:30:24</p>
-                            </div>
-                        </li>
-                    </ul>-->
+                    </ul>
                 </div>
+
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                 </div>
 
@@ -533,6 +686,106 @@
                                 </div>
                             </li>
                             <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 상세 모달-->
+                <div id="modalDetail" class="modal-content confirm-modal-detail">
+                    <div class="wrap clearfix">
+                        <i class="close-btn fas fa-times-circle"></i>
+                        <p class="modal-title">신고 상세</p>
+
+                        <ul class="modal-information" style="width: 700px;">
+                            <li class="clearfix">
+
+                                <!--                            <div class="audio-contents">-->
+                                <!--                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">-->
+                                <!--                                <audio controls="controls">-->
+                                <!--                                    <source src="/assets/images/audio_test.m4a"/>-->
+                                <!--                                </audio>-->
+                                <!--                            </div>-->
+
+                                <div class="video-contents">
+                                    <video poster="/assets/images/test.png" controls>
+                                        <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>
+                                    </video>
+                                </div>
+
+                                <!--                            <div class="img-contents">-->
+                                <!--                                <img src="/assets/images/test.png" alt="">-->
+                                <!--                            </div>-->
+
+                            </li>
+                            <li class="clearfix">
+                                <div class="sub-title">
+                                    레드카드
+                                </div>
+                                <p class="data-contents">
+                                    사유: <span>욕설이나 선정적인 내용이 있어요</span>
+                                </p>
+                            </li>
+                        </ul>
+
+                        <ul class="modal-information" style="width: 430px;">
+                            <li class="clearfix">
+                                <div class="sub-title">
+                                    두잇명
+                                </div>
+                                <p class="data-contents">
+                                    두잇명이 최대 이십오자까지 노출됩니다. 두잇명
+                                </p>
+                            </li>
+                            <li class="clearfix">
+                                <div class="sub-title">
+                                    닉네임
+                                </div>
+                                <p class="data-contents">
+                                    베리베리베리베리베리베리베리
+                                </p>
+                            </li>
+                            <li class="clearfix">
+                                <div class="sub-title">
+                                    경고장
+                                </div>
+                                <div class="card-wrap">
+                                    <img src="/assets/images/red-card.png" alt="레드카드">
+                                    <span>인증조건에 맞지 않아요.</span>
+                                    <button class="card-btn clear-red-btn">레드카드 취소</button>
+                                </div>
+                                <div class="card-wrap">
+                                    <img src="/assets/images/yellow-card.png" alt="옐로우카드">
+                                    <span>욕설이나 선정적인 내용이 있어요</span>
+                                    <button class="card-btn clear-yellow-btn">옐로카드 취소</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="sub-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    이 두잇의 인증 예시
+                                </div>
+
+                                <!-- 음성 -->
+                                <div style="width: 325px" class="audio-contents">
+                                    <img style="width:100%;" src="/assets/images/voice.jpg" alt="">
+                                    <audio controls="controls">
+                                        <source src="/assets/images/audio_test.m4a"/>
+                                    </audio>
+                                </div>
+
+                                <!--                            &lt;!&ndash; 동영상 &ndash;&gt;-->
+                                <!--                            <div style="width: 325px;" class="video-contents">-->
+                                <!--                                <video poster="/assets/images/test.png" controls>-->
+                                <!--                                    <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>-->
+                                <!--                                </video>-->
+                                <!--                            </div>-->
+
+                                <!--                            &lt;!&ndash; 이미지 &ndash;&gt;-->
+                                <!--                            <div style="width: 325px;" class="img-contents">-->
+                                <!--                                <img src="/assets/images/test.png" alt="">-->
+                                <!--                            </div>-->
+
+                                <p class="data-contents" style="margin-top: 10px;">이 두잇의 인증예시 설명입니다.</p>
+                            </li>
                         </ul>
                     </div>
                 </div>

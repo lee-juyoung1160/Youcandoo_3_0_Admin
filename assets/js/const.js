@@ -70,7 +70,8 @@
 		,previous : '<i class="fas fa-angle-double-left"></i>'
 		,next : '<i class="fas fa-angle-double-right"></i>'
 		,memo : '<i class="fas fa-thumbtack"></i>'
-		,fixedTop: '<i class="fas fas fa-bell"></i>'
+		,fixedTop : '<i class="fas fas fa-bell"></i>'
+		,noImage : '/assets/images/no-image.jpg'
 	}
 
 	/** api url **/
@@ -165,6 +166,8 @@
 		/** 관리자 권한 별 메뉴 **/
 		,setMenuByAuth : baseApiUrl+'auth/set/menu'
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
+		/** UCD **/
+		,listUseUcd : baseApiUrl+'ucd/use/list'
 	}
 
 	/** page url **/

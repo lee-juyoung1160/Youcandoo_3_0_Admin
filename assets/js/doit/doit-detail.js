@@ -89,7 +89,10 @@
 		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		selPageLengthForAction.on('change', function () { getInvolveAction(); });
+		selPageLengthForUser	.on('change', function () { getJoinMember(); });
+		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
+		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
+		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
@@ -178,7 +181,7 @@
 		tabReview.removeClass('active');
 		tabUcd.addClass('active');
 
-		//getUcdLog();
+		getUcdLog();
 	}
 
 	/****************
@@ -271,12 +274,15 @@
 		}
 		doitTags.html(tagDom);
 
+		let introType = detail.intro_resouce_type;
+		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
+		introImg = isEmpty(introImg) ? label.noImage : introImg;
 		let introImageDom = '';
 		introImageDom += '<div class="file">';
 		introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introImageDom += 	'<img class="detail-img main-banner" src="'+detail.doit_image_url+'" alt="썸네일 이미지입니다.">';
+		introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" alt="썸네일 이미지입니다.">';
 		introImageDom += '</div>';
-		if (!isEmpty(detail.doit_video_url))
+		if (introType === 'video')
 		{
 			introImageDom += '<div class="file">';
 			introImageDom += 	'<p class="cap">영상</p>';
@@ -325,16 +331,20 @@
 		let actionResourceDom = '';
 		if (type === 'image')
 		{
+			let imageUrl = data.example_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 		}
 		else if (type === 'video')
 		{
+			let imageUrl = data.example_video_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_video_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">영상</p>';
@@ -690,7 +700,7 @@
 				let warnImage = '';
 				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
 				if (isEmpty(action.url))
-					actionImage = '<img class="detail-img" src="/assets/images/no-image.jpg" alt="인증 이미지입니다.">';
+					actionImage = '<img class="detail-img" src="'+label.noImage+'" alt="인증 이미지입니다.">';
 				if (resourceType === 'voice')
 					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
 				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
@@ -996,7 +1006,7 @@
 	{
 		ucdTable.DataTable({
 			ajax : {
-				url: api.involveBizPromotion,
+				url: api.listDoitUcd,
 				type: "POST",
 				async: false,
 				headers: headers,
@@ -1008,24 +1018,16 @@
 				}
 			},
 			columns: [
-				{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
-				/*,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
-                ,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
-                    render: function (data) {
-                        return numberWithCommas(data);
-                    }
-                }
-                ,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
-                    render: function (data) {
-                        return numberWithCommas(data);
-                    }
-                }
-                ,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
-                ,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
-                    render: function (data) {
-                        return getPromotionStatusName(data);
-                    }
-                }*/
+				{title: "유형", 	data: "ucd_type",		width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -1051,7 +1053,7 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = promoTable.DataTable();
+				let table = ucdTable.DataTable();
 				let info = table.page.info();
 
 				ucdTotalCount.html(info.recordsTotal);
@@ -1066,7 +1068,7 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"company_uuid" : g_bizUuid
+			,"doit_uuid" : g_doitUuid
 		}
 
 		return JSON.stringify(param);

@@ -43,30 +43,31 @@
                 <li class="clearfix">
                     <p class="list-common-title">구분/제목</p>
                     <div class="select-box">
-                        <label for="ex_select1">적립</label>
-                        <select id="ex_select1">
-                            <option selected="">적립</option>
-                            <option>사용</option>
-                            <option>충전</option>
-                            <option>출금</option>
-                            <option>취소</option>
-                            <option>회수</option>
+                        <label for="selDivision1">전체</label>
+                        <select id="selDivision1">
+                            <option value="">전체</option>
+                            <option value="적립">적립</option>
+                            <option value="사용">사용</option>
+                            <option value="충전">충전</option>
+                            <option value="출금">출금</option>
+                            <option value="취소">취소</option>
+                            <option value="회수">회수</option>
                         </select>
                     </div>
                     <div class="select-box">
-                        <label for="ex_select2">전체</label>
-                        <select id="ex_select2">
-                            <option selected="">전체</option>
-                            <option selected="">두잇성공</option>
-                            <option>이벤트참여</option>
-                            <option>운영자지급</option>
+                        <label for="selDivision2">전체</label>
+                        <select id="selDivision2">
+                            <option value="">전체</option>
+                            <option value="두잇성공">두잇성공</option>
+                            <option value="이벤트참여">이벤트참여</option>
+                            <option value="운영자지급">운영자지급</option>
                         </select>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">유형</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-type" value=""/>
+                        <input type="radio" id="r2" name="radio-type" value="all"/>
                         <label for="r2"><span></span>전체</label>
 
                         <input type="radio" id="r3" name="radio-type" value="cash"/>
@@ -79,11 +80,11 @@
                 <li>
                     <p class="list-common-title">사용자 구분</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r6" name="radio-type" value=""/>
+                        <input type="radio" id="r6" name="radio-user-division" value="company"/>
                         <label for="r6"><span></span>기업</label>
 
-                        <input type="radio" id="r5" name="radio-type" value="cash"/>
-                        <label for="r5"><span></span>개인</label>
+                        <input type="radio" id="r7" name="radio-user-division" value="user"/>
+                        <label for="r7"><span></span>개인</label>
 
                     </div>
                 </li>
@@ -115,8 +116,8 @@
                 </div>
             </div>
 
-            <table>
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:15%;">
                     <col style="width:5%;">
                     <col style="width:10%;">
@@ -137,11 +138,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                <!--
+                &lt;!&ndash;
                     dev:
                     금액이 - 인 경우(취소,차감),
                     tr.minus-pay
-                -->
+                &ndash;&gt;
                     <tr class="minus-pay">
                         <td><a href="#">베리베리</a></td>
                         <td>UCD(c)</td>
@@ -178,7 +179,7 @@
                         <td>-</td>
                         <td>2019/11/07</td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>

@@ -38,7 +38,7 @@
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
-		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
+		,minimumPassCode: '참가코드는 네 자릿수를 입력해야 합니다.'
 		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
 		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
@@ -70,7 +70,8 @@
 		,previous : '<i class="fas fa-angle-double-left"></i>'
 		,next : '<i class="fas fa-angle-double-right"></i>'
 		,memo : '<i class="fas fa-thumbtack"></i>'
-		,fixedTop: '<i class="fas fas fa-bell"></i>'
+		,fixedTop : '<i class="fas fas fa-bell"></i>'
+		,noImage : '/assets/images/no-image.jpg'
 	}
 
 	/** api url **/
@@ -102,6 +103,7 @@
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+'promotion/update'
 		,listPromotion : baseApiUrl+'promotion/list'
+		,listPromotionUcd : baseApiUrl+'promotion/get/ucd'
 		/** 두잇 **/
 		,createDoit : baseApiUrl+'doit/create'
 		,deleteDoit : baseApiUrl+'doit/delete'
@@ -114,6 +116,7 @@
 		,involveAction : baseApiUrl+'doit/get/action'
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
+		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'
@@ -165,6 +168,8 @@
 		/** 관리자 권한 별 메뉴 **/
 		,setMenuByAuth : baseApiUrl+'auth/set/menu'
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
+		/** UCD **/
+		,listUseUcd : baseApiUrl+'ucd/use/list'
 	}
 
 	/** page url **/

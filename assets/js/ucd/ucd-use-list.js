@@ -5,8 +5,11 @@
 	const dateType		= $("#dateType");
 	const searchType 	= $("#searchType");
 	const keyword		= $("#keyword");
+	const selDivision1	= $("#selDivision1");
+	const selDivision2	= $("#selDivision2");
 	const selPageLength = $("#selPageLength");
 	const ucdType 		= $("input[name=radio-type]");
+	const userDivision	= $("input[name=radio-user-division]");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
@@ -26,7 +29,7 @@
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -37,6 +40,7 @@
 			onChangeSelectOption($(this));
 		});
 		ucdType.eq(0).prop("checked", true);
+		userDivision.eq(0).prop("checked", true);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
@@ -56,7 +60,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listPromotion,
+				url: api.listUseUcd,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
@@ -75,30 +79,17 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						return singleCheckBoxDom(data);
-					}
-				},
-				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center cursor-default",
+				{title: "닉네임", 	data: "nickname",    width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "유형", 	data: "ucd_type",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", 	data: "division",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "금액", 	data: "amount",    	 width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return numberWithCommas(data);
-					}
-				}
-				/*,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}*/
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return data === 'Y' ? label.exposure : label.unexpose;
-					}
-				}
+				,{title: "제목", 	data: "title",    	 width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "내용", 	data: "description", width: "25%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "일시", 	data: "created",     width: "15%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -117,10 +108,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: {
-				style: 'single',
-				selector: ':checkbox'
-			},
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -133,95 +121,32 @@
 				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			}
 		});
 	}
 	
 	function tableParams(d)
 	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
 			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
+			,"division" : selDivision1.val()
+			,"title" : selDivision2.val()
+			,"ucd_type" : $("input[name=radio-type]:checked").val()
+			,"user_type" : $("input[name=radio-user-division]:checked").val()
 		}
 
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(3);
-		let btnDom 	  = $(nRow).children().eq(6);
-		let detailUrl = page.detailPromo+aData.idx;
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-
-		/** 프로모션 기간 **/
-		periodDom.html(aData.start_date +' ~ '+aData.end_date);
-
-		/** 배너보기 버튼 **/
-		/*let bannerUrl = aData.banner_image_url;
-		let listUrl   = aData.list_image_url;
-		let introUrl  = aData.intro_image_url;
-		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
-		btnDom.html(innerDom);*/
-	}
-
 	function onSubmitSearch()
 	{
 		buildGrid();
-	}
-
-	function viewImage(obj)
-	{
-		let bannerImage = $(obj).data('banner');
-		let listImage   = $(obj).data('list');
-		let introImage  = $(obj).data('intro');
-
-		let modal = '';
-		modal += '<div id="viewImageModal" class="modal-content modal-01" style="display: block;">';
-		modal += 	'<div class="wrap">';
-		modal += 		'<i onclick="removeModal();" class="close-btn fas fa-times-circle"></i>';
-		modal += 		'<p class="modal-title">프로모션 이미지</p>';
-		modal += 		'<ul class="modal-information">';
-		modal += 			'<li>';
-		modal += 				'<p class="sub-title">배너 및 리스트</p>';
-		modal += 				'<p class="data-contents">';
-		modal += 					'<img src="'+bannerImage+'" alt="배너 및 소개 이미지">';
-		modal +=	 			'</p>';
-		modal += 			'</li>';
-		modal += 			'<li>';
-		modal += 				'<p class="sub-title">소개이미지</p>';
-		modal += 				'<p class="data-contents">';
-		modal += 					'<img src="'+introImage+'" alt="소개이미지">';
-		modal += 				'</p>';
-		modal += 			'</li>';
-		modal += 		'</ul>';
-		modal += 	'</div>';
-		modal += '</div>';
-		modal += '<div onclick="removeModal();" id="modalBackDrop" class="modal-layout" style="display: block;"></div>';
-
-		$('body').append(modal);
-	}
-
-	function removeModal()
-	{
-		$("#viewImageModal").remove();
-		$("#modalBackDrop").remove();
 	}
 
 	function onClickExcelBtn()
@@ -238,7 +163,7 @@
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data.data);
+				setExcelData("UCD 사용내역", "UCD 사용내역", data.data);
 			},
 			error: function (request, status) {
 				alert(label.download+message.ajaxError);
@@ -248,76 +173,20 @@
 
 	function excelParams()
 	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
 		let param = {
 			"limit" : 20000
-			,"page" : 1
+			,"page" : 0
 			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
+			,"division" : selDivision1.val()
+			,"title" : selDivision2.val()
+			,"ucd_type" : $("input[name=radio-type]:checked").val()
+			,"user_type" : $("input[name=radio-user-division]:checked").val()
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function deletePromotion()
-	{
-		if (delValidation())
-		{
-			if (confirm(message.delete))
-			{
-				$.ajax({
-					url: api.deletePromotion,
-					type: "POST",
-					async: false,
-					headers: headers,
-					dataType: 'json',
-					data: delParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							buildGrid();
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					},
-				});
-			}
-		}
-	}
-
-	function delValidation()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		if (isEmpty(selectedData))
-		{
-			alert('삭제할 대상을 목록에서 '+message.select);
-			return false;
-		}
-
-		return true;
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"promotion_uuid" : selectedData.promotion_uuid
-		};
-
-		return JSON.stringify(param)
 	}
 

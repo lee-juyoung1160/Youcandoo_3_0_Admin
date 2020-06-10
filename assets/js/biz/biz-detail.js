@@ -291,7 +291,7 @@
 				fixedHeader:false,
 				destroy: true,
 				initComplete: function () {
-					let table = promoTable.DataTable();
+					let table = ucdTable.DataTable();
 					let info = table.page.info();
 
 					ucdTotalCount.html(info.recordsTotal);

@@ -65,20 +65,18 @@
 	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
 	{
-		let doitFromDate = new Date(doitFrom.datepicker("getDate"));
+		let doitFromDate = doitFrom.datepicker("getDate");
 		let duration = g_duration;
-		let doitToDate;
 
 		if (isEmpty(duration))
 		{
 			alert("리워드 조건을 "+message.select);
 			doitFrom.val('');
-			bizName.focus();
 			return;
 		}
 
 		doitFromDate.setDate(doitFromDate.getDate() + (Number(duration) - 1));
-		doitToDate = stringFormatToDate(doitFromDate, '-');
+		let doitToDate = getStringFormatToDate(doitFromDate, '-');
 
 		doitTo.val(doitToDate);
 	}
@@ -120,6 +118,7 @@
 				addedTags.append(tagDom);
 
 				inputTag.val('');
+				checkInputLength(inputTag);
 				inputTag.focus();
 			}
 		}
@@ -361,6 +360,9 @@
 			let detail = data.data;
 			g_duration = detail.action_duration;
 
+			/** 프로모션 종료일로 두잇 인증기간 시작일 최대 값 세팅 **/
+			doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
+
 			selectedRewardDom += '<li class="reward-type clearfix">';
 			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
 			selectedRewardDom += 	'<div class="fixed">';
@@ -578,7 +580,7 @@
 			return false;
 		}*/
 
-		if ($("input[name=chkExtraReward]").is(':checked') && isEmpty(extraReward.val()))
+		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
 			alert('추가리워드를 '+message.input);
 			extraReward.focus();
@@ -629,7 +631,7 @@
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && privateCode.val().trim().length < 4)
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
 			alert(message.minimumPassCode);
 			privateCode.focus();
@@ -697,9 +699,9 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
-		if ($("#chkExtraReward").is(':checked'))
+		if (chkExtraReward.is(':checked'))
 		{
-			formData.append('group-reward-description', $("#ucd-area").val().trim())
+			formData.append('group-reward-description', extraReward.val().trim())
 		}
 
 		return formData;

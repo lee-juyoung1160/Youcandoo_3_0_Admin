@@ -70,6 +70,7 @@
 		}
 
 		g_promotion_uuid = promoData.promotion_uuid;
+		g_budget = promoData.budget_ucd;
 
 		bizName.html(promoData.nickname);
 		promoName.val(promoData.promotion_title);
@@ -111,10 +112,7 @@
 	/** 유의사항 세팅 **/
 	function buildNoticeArea(promoData)
 	{
-		let notice 	  = promoData.promotion_notice;
-		notice = notice.replace('[', '').replace(']', '');
-		notice = replaceAll(notice, '"', '');
-		let notices   = notice.split(",");
+		let notices = promoData.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
 		{

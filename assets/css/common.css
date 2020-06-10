@@ -1076,6 +1076,15 @@ textarea {
 .review-list .modal-content .table-wrap {
 	border-top: 3px solid #f1f1f1;
 }
+.table-wrap .btn-wrap button.eye-slash-btn {
+	background-color: #e03030;
+}
+.table-wrap .btn-wrap button.eye-btn {
+	background-color: #FFA83B;
+}
+
+
+
 .full-left, .full-right {
 	float: left;
 	width: 50%;

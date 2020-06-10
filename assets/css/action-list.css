@@ -37,7 +37,9 @@
 
 
 
-
+.thumbnail-wrap {
+    cursor: pointer;
+}
 .modal-content.confirm-modal-detail {
     width: 1200px;
     height: 800px;

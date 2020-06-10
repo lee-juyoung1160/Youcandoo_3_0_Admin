@@ -607,14 +607,11 @@
                             <ul class="modal-information">
                                 <li>
                                     <p class="sub-title">내용</p>
-                                    <p class="data-contents">
-                                        물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.<br>
-                                        물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.
-                                    </p>
+                                    <p class="data-contents" id="review"></p>
                                 </li>
                                 <li>
                                     <p class="sub-title">두잇명</p>
-                                    <p class="data-contents">하루에 물 6번 마시기</p>
+                                    <p class="data-contents" id="title"></p>
                                 </li>
                                 <li class="clearfix">
                                     <div class="full-left">
@@ -627,40 +624,33 @@
                                             <li><i class="fas fa-star"></i></li>
                                             <li><i class="fas fa-star"></i></li>
                                         </ol>
-                                        <span class="score">3</span>
+                                        <span class="score" id="rating"></span>
                                         </p>
                                     </div>
                                     <div class="full-right">
                                         <p class="sub-title">신고</p>
-                                        <p class="data-contents">4</p>
+                                        <p class="data-contents" id="report"></p>
                                     </div>
                                 </li>
                                 <li class="clearfix">
                                     <div class="full-left">
                                         <p class="sub-title">작성자</p>
-                                        <p class="data-contents">berry</p>
+                                        <p class="data-contents" id="userid"></p>
                                     </div>
                                     <div class="full-right">
                                         <p class="sub-title">작성날짜</p>
-                                        <p class="data-contents">2019/10/10</p>
+                                        <p class="data-contents" id="created"></p>
                                     </div>
                                 </li>
                                 <li>
                                     <p class="sub-title">블라인드 여부</p>
-                                    <div class="radio-wrap">
-                                        <input type="radio" id="r11" name="rb" />
-                                        <label for="r11"><span></span>Y</label>
-
-                                        <input type="radio" id="r12" name="rb" />
-                                        <label for="r12"><span></span>N</label>
-                                    </div>
+                                    <p class="data-contents" id="isBlind"></p>
                                 </li>
                             </ul>
-                            <button class="completion-btn" type="submit">완료</button>
                         </div>
                     </div>
                     <!-- 리뷰 신고 사유 보기-->
-                    <div id="modalReportReason" class="modal-content modal-02">
+                    <!--<div id="modalReportReason" class="modal-content modal-02">
                         <div class="wrap">
                             <i class="close-btn fas fa-times-circle"></i>
                             <p class="modal-title">리뷰 신고 사유</p>
@@ -701,7 +691,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="modal-layout"></div>
                 </div>
             </div>

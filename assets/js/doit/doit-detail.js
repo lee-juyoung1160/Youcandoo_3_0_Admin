@@ -67,7 +67,13 @@
 	const causeBy			= $("#selCauseBy");
 	const btnSubmitWarn		= $("#btnSubmitWarn");
 	const modalDetailReview	= $("#modalDetailReview");
-	const modalReportReason	= $("#modalReportReason");
+	const review	= $("#review");
+	const title		= $("#title");
+	const rating	= $("#rating");
+	const report	= $("#report");
+	const userid	= $("#userid");
+	const created	= $("#created");
+	const isBlind	= $("#isBlind");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -902,10 +908,15 @@
 				}
 			},
 			columns: [
+				{title: tableCheckAllDom(), 	data: "",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return multiCheckBoxDom(data);
+					}
+				},
 				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center" }
 				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "두잇명", 		data: "doit_title",  	width: "25%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center" }
+				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "text-center cursor-default",
 				 	render: function (data) {
@@ -945,6 +956,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+				console.log(aData)
 			}
 		});
 	}
@@ -968,35 +980,43 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let reviewDom  	= $(nRow).children().eq(0);
-		let reportDom  	= $(nRow).children().eq(3);
+		let reviewDom  	= $(nRow).children().eq(1);
 
-		$(reviewDom).html('<button onclick="fadeinModalDetailReview();" type="button" class="more-info-btn">'+aData.review_text+'</button>');
-		$(reportDom).html('<button onclick="fadeinModalReportReason();" type="button" class="more-info-btn">'+aData.report_count+'</button>');
+		let innerDom = '<button ' +
+			'onclick="modalDetailReviewFadein(this);" ' +
+			'type="button" ' +
+			'class="more-info-btn"' +
+			'data-detail="'+aData.review_text+'"' +
+			'data-title="'+aData.doit_title+'"' +
+			'data-rating="'+aData.rating+'"' +
+			'data-report="'+aData.report_count+'"' +
+			'data-nickname="'+aData.nickname+'"' +
+			'data-blind="'+aData.is_blind+'"' +
+			'data-created="'+aData.created+'"' +
+			'>';
+
+		innerDom += aData.review_text;
+		innerDom += '</button>';
+
+		$(reviewDom).html(innerDom);
 	}
 
-	function fadeinModalDetailReview()
+	function modalDetailReviewFadein(obj)
 	{
 		modalLayout.fadeIn();
 		modalDetailReview.fadeIn();
-		initModalDetailReview();
+		initModalDetailReview(obj);
 	}
 
-	function initModalDetailReview()
+	function initModalDetailReview(obj)
 	{
-
-	}
-
-	function fadeinModalReportReason()
-	{
-		modalLayout.fadeIn();
-		modalReportReason.fadeIn();
-		initModalReportReason();
-	}
-
-	function initModalReportReason()
-	{
-
+		review.html($(obj).data('detail'));
+		title.html($(obj).data('title'));
+		rating.html($(obj).data('rating'));
+		report.html($(obj).data('report'));
+		userid.html($(obj).data('nickname'));
+		created.html($(obj).data('created').substring(0, 10));
+		isBlind.html($(obj).data('blind'));
 	}
 
 	/**

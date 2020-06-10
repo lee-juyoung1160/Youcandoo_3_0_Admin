@@ -81,7 +81,7 @@
 		tabDoit.removeClass('active');
 		tabUcd.addClass('active');
 
-		//getUcdLog();
+		getUcdLog();
 	}
 
 	function getPromotion()
@@ -109,6 +109,7 @@
 		});
 	}
 
+	let g_promotion_uuid;
 	let rewards;
 	function buildPromoDetail(data)
 	{
@@ -116,6 +117,8 @@
 		let detailPromo	= details.promotion;
 
 		rewards 		= details.reward;
+
+		g_promotion_uuid = detailPromo.promotion_uuid;
 
 		bizName.html(detailPromo.nickname);
 		promoName.html(detailPromo.promotion_title);
@@ -326,7 +329,7 @@
 	{
 		ucdTable.DataTable({
 			ajax : {
-				url: api.involveBizPromotion,
+				url: api.listPromotionUcd,
 				type: "POST",
 				async: false,
 				headers: headers,
@@ -338,24 +341,16 @@
 				}
 			},
 			columns: [
-				{title: "No", 			data: "idx",   				width: "4%",      orderable: false,   className: "text-center" }
-				/*,{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
-                ,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center",
+				{title: "유형", 	data: "ucd_type",		width: "10%",      orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+                ,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center",
-                    render: function (data) {
-                        return numberWithCommas(data);
-                    }
-                }
-                ,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center" }
-                ,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center",
-                    render: function (data) {
-                        return getPromotionStatusName(data);
-                    }
-                }*/
+                ,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+                ,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "text-center cursor-default" }
+                ,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -381,7 +376,7 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = promoTable.DataTable();
+				let table = ucdTable.DataTable();
 				let info = table.page.info();
 
 				ucdTotalCount.html(info.recordsTotal);
@@ -396,7 +391,7 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"company_uuid" : g_bizUuid
+			,"promotion_uuid" : g_promotion_uuid
 		}
 
 		return JSON.stringify(param);

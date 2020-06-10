@@ -103,6 +103,7 @@
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+'promotion/update'
 		,listPromotion : baseApiUrl+'promotion/list'
+		,listPromotionUcd : baseApiUrl+'promotion/get/ucd'
 		/** 두잇 **/
 		,createDoit : baseApiUrl+'doit/create'
 		,deleteDoit : baseApiUrl+'doit/delete'
@@ -115,6 +116,7 @@
 		,involveAction : baseApiUrl+'doit/get/action'
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
+		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

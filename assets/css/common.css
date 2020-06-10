@@ -305,7 +305,7 @@ i.question-mark:hover .hover-text {
 	font-size: 23px;
 	color: #484848;
 	font-weight: 500;
-	margin-bottom: 42px;
+	margin-bottom: 10px;
 }
 .modal-content .modal-information {
 	padding: 10px;
@@ -321,7 +321,7 @@ i.question-mark:hover .hover-text {
 /*	border-bottom: 0;*/
 /*}*/
 .modal-content .modal-information .sub-title {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	color: #007aff;
 	font-size: 15px;
 }
@@ -907,10 +907,6 @@ textarea {
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
-
-.cert-contents li input[type="checkbox"]:disabled + label span  {
-	background-color: #f9f9f9;
-}
 .cert-contents li:last-child {
 	margin-right: 0;
 }
@@ -969,21 +965,23 @@ textarea {
 	margin: 0 auto 5px;
 }
 .card-wrap {
-	position: absolute;
-	top:60%;
-	left: 0;
-	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.card-wrap:last-child {
+	margin-top: 15px;
+}
+.card-wrap img {
+	width:20px;
+}
+.card-wrap span {
+	margin-left: 5px;
 }
 .card-btn {
-	position: absolute;
-	top:0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
-	padding: 10px 0;
+	margin-left: auto;
+	padding: 8px 10px;
 	color: #fff;
 	border-radius: 4px;
-	margin-top: 10px;
 	transition: all .3s;
 }
 .clear-yellow-btn {

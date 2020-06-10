@@ -96,6 +96,9 @@
                     <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">발송 된 경고장 취소는 피드 내 경고장 아이콘을 클릭하여 할 수 있습니다.</span>
+                    </i>
                     <button class="yellow-btn" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
                     <button class="warning-btn" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
                 </div>
@@ -114,14 +117,6 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <div class="error">
-<!--                                <div class="card-wrap">-->
-<!--                                    <button class="card-btn clear-yellow-btn" type="button">-->
-<!--                                        옐로카드 취소-->
-<!--                                    </button>-->
-<!--                                </div>-->
-                            </div>
-
                             <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
 
@@ -143,14 +138,6 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <div class="error">
-<!--                                <div class="card-wrap">-->
-<!--                                    <button class="card-btn clear-red-btn" type="button">-->
-<!--                                        레드카드 취소-->
-<!--                                    </button>-->
-<!--                                </div>-->
-                            </div>
-
                             <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
 
@@ -171,17 +158,6 @@
                         </div>
 
                         <div class="thumbnail-wrap">
-                            <div class="error">
-<!--                                <div class="card-wrap">-->
-<!--                                    <button class="card-btn clear-red-btn" type="button">-->
-<!--                                        옐로카드 취소-->
-<!--                                    </button>-->
-<!--                                    <button class="card-btn clear-red-btn" type="button">-->
-<!--                                        레드카드 취소-->
-<!--                                    </button>-->
-<!--                                </div>-->
-                            </div>
-
                             <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
                         </div>
 
@@ -256,26 +232,98 @@
                     </ul>
                 </div>
             </div>
-            <div id="modalDetail" class="modal-content modal-02">
-                <div class="wrap">
+            <div id="modalDetail" class="modal-content confirm-modal-detail">
+                <div class="wrap clearfix">
                     <i class="close-btn fas fa-times-circle"></i>
-                    <p class="modal-title">경고장 발송 취소</p>
-                    <ul class="modal-information">
+                    <p class="modal-title">신고 상세</p>
+
+                    <ul class="modal-information" style="width: 700px;">
                         <li class="clearfix">
-                            <p class="sub-title">발송사유(*)</p>
-                            <div class="select-box active">
-                                <label for="selCauseBy">인증조건에 맞지 않아요</label>
-                                <select id="selCauseBy">
-                                    <option value="인증조건에 맞지 않아요">인증조건에 맞지 않아요</option>
-                                    <option value="광고나 홍보성격이 짙어요">광고나 홍보성격이 짙어요</option>
-                                    <option value="욕설이나 선정적인 내용이 있어요">욕설이나 선정적인 내용이 있어요</option>
-                                    <option value="민감한 개인 정보가 있어요">민감한 개인 정보가 있어요</option>
-                                    <option value="누군가의 명예를 훼손할 수 있어요">누군가의 명예를 훼손할 수 있어요</option>
-                                    <option value="에티켓 위반 등 기타 사유에요">에티켓 위반 등 기타 사유에요</option>
-                                </select>
+
+<!--                            <div class="audio-contents">-->
+<!--                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">-->
+<!--                                <audio controls="controls">-->
+<!--                                    <source src="/assets/images/audio_test.m4a"/>-->
+<!--                                </audio>-->
+<!--                            </div>-->
+
+                            <div class="video-contents">
+                                <video poster="/assets/images/test.png" controls>
+                                    <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>
+                                </video>
+                            </div>
+                            
+<!--                            <div class="img-contents">-->
+<!--                                <img src="/assets/images/test.png" alt="">-->
+<!--                            </div>-->
+
+                        </li>
+                        <li class="clearfix">
+                            <div class="sub-title">
+                               레드카드
+                            </div>
+                            <p class="data-contents">
+                                사유: <span>욕설이나 선정적인 내용이 있어요</span>
+                            </p>
+                        </li>
+                    </ul>
+
+                    <ul class="modal-information" style="width: 430px;">
+                        <li class="clearfix">
+                            <div class="sub-title">
+                                두잇명
+                            </div>
+                            <p class="data-contents">
+                                두잇명이 최대 이십오자까지 노출됩니다. 두잇명
+                            </p>
+                        </li>
+                        <li class="clearfix">
+                            <div class="sub-title">
+                                닉네임
+                            </div>
+                            <p class="data-contents">
+                                베리베리베리베리베리베리베리
+                            </p>
+                        </li>
+                        <li class="clearfix">
+                            <div class="sub-title">
+                                경고장
+                            </div>
+                            <div class="card-wrap">
+                                <img src="/assets/images/red-card.png" alt="레드카드">
+                                <span>인증조건에 맞지 않아요.</span>
+                                <button class="card-btn clear-red-btn">레드카드 취소</button>
+                            </div>
+                            <div class="card-wrap">
+                                <img src="/assets/images/yellow-card.png" alt="옐로우카드">
+                                <span>욕설이나 선정적인 내용이 있어요</span>
+                                <button class="card-btn clear-yellow-btn">옐로카드 취소</button>
                             </div>
                         </li>
-                        <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
+                        <li>
+                            <div class="sub-title">
+                                이 두잇의 인증 예시
+                            </div>
+
+                            <div style="width: 325px" class="audio-contents">
+                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">
+                                <audio controls="controls">
+                                    <source src="/assets/images/audio_test.m4a"/>
+                                </audio>
+                            </div>
+
+<!--                            <div style="width: 325px;" class="video-contents">-->
+<!--                                <video poster="/assets/images/test.png" controls>-->
+<!--                                    <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>-->
+<!--                                </video>-->
+<!--                            </div>-->
+
+<!--                            <div style="width: 325px;" class="img-contents">-->
+<!--                                <img src="/assets/images/test.png" alt="">-->
+<!--                            </div>-->
+
+                            <p class="data-contents" style="margin-top: 10px;">이 두잇의 인증예시 설명입니다.</p>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -271,12 +271,15 @@
 		}
 		doitTags.html(tagDom);
 
+		let introType = detail.intro_resouce_type;
+		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
+		introImg = isEmpty(introImg) ? label.noImage : introImg;
 		let introImageDom = '';
 		introImageDom += '<div class="file">';
 		introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introImageDom += 	'<img class="detail-img main-banner" src="'+detail.doit_image_url+'" alt="썸네일 이미지입니다.">';
+		introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" alt="썸네일 이미지입니다.">';
 		introImageDom += '</div>';
-		if (!isEmpty(detail.doit_video_url))
+		if (introType === 'video')
 		{
 			introImageDom += '<div class="file">';
 			introImageDom += 	'<p class="cap">영상</p>';
@@ -325,16 +328,20 @@
 		let actionResourceDom = '';
 		if (type === 'image')
 		{
+			let imageUrl = data.example_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 		}
 		else if (type === 'video')
 		{
+			let imageUrl = data.example_video_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_video_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">영상</p>';
@@ -690,7 +697,7 @@
 				let warnImage = '';
 				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
 				if (isEmpty(action.url))
-					actionImage = '<img class="detail-img" src="/assets/images/no-image.jpg" alt="인증 이미지입니다.">';
+					actionImage = '<img class="detail-img" src="'+label.noImage+'" alt="인증 이미지입니다.">';
 				if (resourceType === 'voice')
 					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
 				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';

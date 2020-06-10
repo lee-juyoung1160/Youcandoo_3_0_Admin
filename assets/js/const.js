@@ -38,7 +38,7 @@
 		,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
-		,minimumPassCode: '참가코드는 최소 4자리 이상 입력해야 합니다.'
+		,minimumPassCode: '참가코드는 네 자릿수를 입력해야 합니다.'
 		,minimumChecked: '최소 하나 이상의 값을 선택해야 합니다.'
 		,promotionNotice1: '프로모션 두잇은 동시에 최대 3개까지만 참여 가능합니다.'
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'

@@ -120,6 +120,7 @@
 				addedTags.append(tagDom);
 
 				inputTag.val('');
+				checkInputLength(inputTag);
 				inputTag.focus();
 			}
 		}
@@ -578,7 +579,7 @@
 			return false;
 		}*/
 
-		if ($("input[name=chkExtraReward]").is(':checked') && isEmpty(extraReward.val()))
+		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
 			alert('추가리워드를 '+message.input);
 			extraReward.focus();
@@ -629,7 +630,7 @@
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && privateCode.val().trim().length < 4)
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
 			alert(message.minimumPassCode);
 			privateCode.focus();
@@ -697,9 +698,9 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
-		if ($("#chkExtraReward").is(':checked'))
+		if (chkExtraReward.is(':checked'))
 		{
-			formData.append('group-reward-description', $("#ucd-area").val().trim())
+			formData.append('group-reward-description', extraReward.val().trim())
 		}
 
 		return formData;

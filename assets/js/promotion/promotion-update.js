@@ -111,10 +111,7 @@
 	/** 유의사항 세팅 **/
 	function buildNoticeArea(promoData)
 	{
-		let notice 	  = promoData.promotion_notice;
-		notice = notice.replace('[', '').replace(']', '');
-		notice = replaceAll(notice, '"', '');
-		let notices   = notice.split(",");
+		let notices = promoData.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
 		{

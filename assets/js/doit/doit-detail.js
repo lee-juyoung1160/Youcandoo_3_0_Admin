@@ -50,6 +50,8 @@
 	/** 리뷰정보탭 **/
 	const doitReview		= $("#doitReview");
 	const reviewTable		= $("#reviewTable");
+	const btnBlind			= $("#btnBlind");
+	const btnUnBlind		= $("#btnUnBlind");
 	const reviewTotalCount			= $("#reviewTotalCount");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
 
@@ -95,6 +97,8 @@
 		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		btnBlind		.on('click', function () { blindReview(); });
+		btnUnBlind		.on('click', function () { unBlindReview(); });
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
 		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
@@ -908,14 +912,13 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "",   width: "5%",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "review_uuid",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				},
 				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center" }
 				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "두잇명", 		data: "doit_title",  	width: "25%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "text-center cursor-default",
@@ -1017,6 +1020,54 @@
 		userid.html($(obj).data('nickname'));
 		created.html($(obj).data('created').substring(0, 10));
 		isBlind.html($(obj).data('blind'));
+	}
+
+	function blindReview()
+	{
+
+	}
+
+	function blindParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		let params = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let idx = selectedData[i].idx;
+			params.push(idx);
+		}
+
+		let delParam = {
+			"idx_list" : params
+		};
+
+		return JSON.stringify(delParam)
+	}
+
+	function unBlindReview()
+	{
+
+	}
+
+	function unBlindParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		let params = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let idx = selectedData[i].idx;
+			params.push(idx);
+		}
+
+		let delParam = {
+			"idx_list" : params
+		};
+
+		return JSON.stringify(delParam)
 	}
 
 	/**

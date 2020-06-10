@@ -359,13 +359,16 @@
 		let paramIntroVideo 	= '';
 		if ($("#introVideo").length > 0)
 			paramIntroVideo 	= $("#introVideo")[0].files[0];
+
+		let privateCode = chkAccessUser.is(':checked') ? privateCode.val().trim() : '';
+
 		let formData  = new FormData();
 		formData.append('doit-uuid', g_doit_uuid);
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);
 		formData.append('intro-video-file', paramIntroVideo);
-		formData.append('private-code', privateCode.val().trim());
+		formData.append('private-code', privateCode);
 		formData.append('doit-description', doitDesc.val().trim());
 
 		return formData;

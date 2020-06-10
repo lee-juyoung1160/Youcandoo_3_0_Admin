@@ -59,16 +59,16 @@
 	}
 
 
-	function onClinkOpenDetail()
+	function onClinkOpenDetail(obj)
 	{
 		modalDetailFadein();
+		initDetailModal(obj);
 	}
 
 	function modalDetailFadein()
 	{
 		$("#modalDetail").fadeIn();
 		modalLayout.fadeIn();
-		initDetailModal();
 	}
 
 	function onClickBtnWarn()
@@ -84,13 +84,74 @@
 		initWarnModal();
 	}
 
+	function initDetailModal(obj)
+	{
+		let type = $(obj).data('type');
+		let actionDom = '';
+		let exampleDom = '';
+		let className = '';
+		if (type === 'image')
+		{
+			className = 'img-contents';
+			actionDom += 	'<img src="'+$(obj).data('url')+'" alt="인증이미지">';
+
+			exampleDom += 	'<img src="'+$(obj).data('exurl')+'" alt="예시이미지">';
+		}
+		else if (type === 'video')
+		{
+			className = 'video-contents';
+			actionDom += 	'<video controls>';
+			actionDom += 		'<source src="'+$(obj).data('url')+'">';
+			actionDom += 	'</video>';
+
+			exampleDom += 	'<video controls>';
+			exampleDom += 		'<source src="'+$(obj).data('exurl')+'">';
+			exampleDom += 	'</video>';
+		}
+		else if (type === 'voice')
+		{
+			className = 'audio-contents';
+			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			actionDom += 	'<audio controls>';
+			actionDom += 		'<source src="'+$(obj).data('url')+'">';
+			actionDom += 	'</audio>';
+
+			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			exampleDom += 	'<audio controls>';
+			exampleDom += 		'<source src="'+$(obj).data('exurl')+'">';
+			exampleDom += 	'</audio>';
+		}
+		$("#modalActionDom").attr('class', className);
+		$("#modalActionDom").html(actionDom);
+		$("#modalExample").attr('class', className);
+		$("#modalExample").html(exampleDom);
+		$("#modalDoitTitle").html($(obj).data('title'));
+		$("#modalNickname").html($(obj).data('nickname'));
+		$("#redWrap").empty();
+		if ($(obj).data('red') === 'Y')
+		{
+			let redCardDom = '<img src="/assets/images/red-card.png" alt="레드카드">';
+			redCardDom += 		'<span>'+$(obj).data('rdesc')+'</span>';
+			redCardDom += 	'<button class="card-btn clear-red-btn">레드카드 취소</button>';
+
+			$("#redWrap").html(redCardDom);
+		}
+		$("#yellowWrap").empty();
+		if ($(obj).data('yellow') === 'Y')
+		{
+			let yellowCardDom = '<img src="/assets/images/yellow-card.png" alt="옐로우카드">';
+			yellowCardDom += 		'<span>'+$(obj).data('ydesc')+'</span>';
+			yellowCardDom += 	'<button class="card-btn clear-yellow-btn">옐로카드 취소</button>';
+
+			$("#yellowWrap").html(yellowCardDom);
+		}
+	}
+
 	function initWarnModal()
 	{
 		causeBy.children().eq(0).prop("selected", true);
 		onChangeSelectOption(causeBy);
 	}
-
-
 
 	function isCheckedTarget()
 	{
@@ -245,7 +306,7 @@ console.log(chkElement)
 		let dataLen    = actions.length;
 		let totalCount = data.recordsTotal
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
-
+console.log(actions)
 		/** total count **/
 		dataNum.html(totalCount);
 
@@ -259,51 +320,60 @@ console.log(chkElement)
 				let actionId  = "action_"+i;
 				let successYn = action.success === 'Y' ? '성공' : '실패';
 				let resourceType = action.resource_type;
-				let warnDesc = '';
-				let warnImage = '';
-				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
-				if (isEmpty(action.url))
-					actionImage = '<img class="detail-img" src="/assets/images/no-image.jpg" alt="인증 이미지입니다.">';
+				let warnImageDom = '';
+				let actionImage = action.image_url;
+				if (isEmpty(actionImage))
+					actionImage = label.noImage;
 				if (resourceType === 'voice')
-					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
-				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
+					actionImage = label.voiceImage;
+				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
+				if (action.yellow_card === 'Y' || action.red_card === 'Y')
+				{
+					actionImageDom += 'onclick="onClinkOpenDetail(this);"  ';
+					actionImageDom += 'data-type="'+action.resource_type+'" ';
+					actionImageDom += 'data-url="'+action.url+'" ';
+					actionImageDom += 'data-exurl="'+action.example_url+'" ';
+					actionImageDom += 'data-title="'+action.doit_title+'" ';
+					actionImageDom += 'data-title="'+action.doit_title+'" ';
+					actionImageDom += 'data-nickname="'+action.user_name+'" ';
+					actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
+					actionImageDom += 'data-red="'+action.red_card+'" ';
+					actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
+					actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
+				}
+				actionImageDom += 'alt="인증 이미지입니다.">';
+
 				if (action.yellow_card === 'Y')
-				{
-					warnImage = '<img onclick="onClinkOpenDetail();" src="/assets/images/yellow-card.png" alt="">';
-					warnDesc = action.yellow_card_description;
-				}
+					warnImageDom = '<img src="/assets/images/yellow-card.png" alt="">';
 				if (action.red_card === 'Y')
-				{
-					warnImage = '<img onclick="onClinkOpenDetail();" src="/assets/images/red-card.png" alt="">';
-					warnDesc = action.red_card_description;
-				}
+					warnImageDom = '<img src="/assets/images/red-card.png" alt="">';
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
-				{
-					warnImage = '<img onclick="onClinkOpenDetail();" src="/assets/images/rad-yellow-card.png" alt="">';
-					warnDesc = action.red_card_description;
-				}
+					warnImageDom = '<img src="/assets/images/rad-yellow-card.png" alt="">';
 
 				if (i===0 || i%5 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
 				actionDom += '<li>';
 				actionDom += 	'<div class="top clearfix">';
-				actionDom += 		'<div class="checkbox-wrap">';
-				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'"/>';
-				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
-				actionDom += 		'</div>';
+				if (action.red_card !== 'Y')
+				{
+					actionDom += 		'<div class="checkbox-wrap">';
+					actionDom += 			'<input type="checkbox" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'"/>';
+					actionDom += 			'<label for="'+actionId+'"><span></span></label>';
+					actionDom += 		'</div>';
+				}
 				actionDom += 		'<span class="success-text">'+successYn+'</span>';
 				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
 				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="thumbnail-wrap">';
-				actionDom += 		actionImage;
+				actionDom += 		actionImageDom;
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
 				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
 				actionDom += 		'<span>'+action.user_name+'</span>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
-				actionDom += 		'<i>'+warnImage+'</i>';
+				actionDom += 		'<i>'+warnImageDom+'</i>';
 				actionDom += 	'</div>';
 				actionDom += '</li>';
 

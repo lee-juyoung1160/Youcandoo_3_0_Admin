@@ -74,6 +74,7 @@
 		,memo : '<i class="fas fa-thumbtack"></i>'
 		,fixedTop : '<i class="fas fas fa-bell"></i>'
 		,noImage : '/assets/images/no-image.jpg'
+		,voiceImage : '/assets/images/voice.jpg'
 	}
 
 	/** api url **/

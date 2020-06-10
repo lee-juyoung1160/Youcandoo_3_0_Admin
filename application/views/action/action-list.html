@@ -102,7 +102,7 @@
             </div>
 
             <div id="actionWrap">
-                <ul class="cert-contents clearfix">
+                <!--<ul class="cert-contents clearfix">
                     <li>
                         <div class="top clearfix">
                             <div class="checkbox-wrap">
@@ -199,7 +199,7 @@
                             <p class="date">2019.07.17 10:30:24</p>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
             </div>
 
             <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
@@ -238,6 +238,8 @@
 
                     <ul class="modal-information" style="width: 700px;">
                         <li class="clearfix">
+                            <div id="modalActionDom" class="">
+                            </div>
 
 <!--                            <div class="audio-contents">-->
 <!--                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">-->
@@ -246,25 +248,25 @@
 <!--                                </audio>-->
 <!--                            </div>-->
 
-                            <div class="video-contents">
+                            <!--<div class="video-contents">
                                 <video poster="/assets/images/test.png" controls>
                                     <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>
                                 </video>
-                            </div>
+                            </div>-->
                             
 <!--                            <div class="img-contents">-->
 <!--                                <img src="/assets/images/test.png" alt="">-->
 <!--                            </div>-->
 
                         </li>
-                        <li class="clearfix">
+                        <!--<li class="clearfix">
                             <div class="sub-title">
                                레드카드
                             </div>
                             <p class="data-contents">
                                 사유: <span>욕설이나 선정적인 내용이 있어요</span>
                             </p>
-                        </li>
+                        </li>-->
                     </ul>
 
                     <ul class="modal-information" style="width: 430px;">
@@ -272,16 +274,14 @@
                             <div class="sub-title">
                                 두잇명
                             </div>
-                            <p class="data-contents">
-                                두잇명이 최대 이십오자까지 노출됩니다. 두잇명
+                            <p id="modalDoitTitle" class="data-contents">
                             </p>
                         </li>
                         <li class="clearfix">
                             <div class="sub-title">
                                 닉네임
                             </div>
-                            <p class="data-contents">
-                                베리베리베리베리베리베리베리
+                            <p id="modalNickname" class="data-contents">
                             </p>
                         </li>
                         <li class="clearfix">
@@ -292,16 +292,16 @@
 <!--                                발송 된 경고장이 없습니다.-->
 <!--                            </p>-->
 
-                            <div class="card-wrap">
-                                <img src="/assets/images/red-card.png" alt="레드카드">
+                            <div id="redWrap" class="card-wrap">
+                                <!--<img src="/assets/images/red-card.png" alt="레드카드">
                                 <span>인증조건에 맞지 않아요.</span>
-                                <button class="card-btn clear-red-btn">레드카드 취소</button>
+                                <button class="card-btn clear-red-btn">레드카드 취소</button>-->
                             </div>
 
-                            <div class="card-wrap">
-                                <img src="/assets/images/yellow-card.png" alt="옐로우카드">
+                            <div id="yellowWrap" class="card-wrap">
+                                <!--<img src="/assets/images/yellow-card.png" alt="옐로우카드">
                                 <span>욕설이나 선정적인 내용이 있어요</span>
-                                <button class="card-btn clear-yellow-btn">옐로카드 취소</button>
+                                <button class="card-btn clear-yellow-btn">옐로카드 취소</button>-->
                             </div>
                         </li>
                         <li>
@@ -310,13 +310,15 @@
                                 이 두잇의 인증 예시
                             </div>
 
+                            <div id="modalExample" style="width: 325px" class="">
+                            </div>
                             <!-- 음성 -->
-                            <div style="width: 325px" class="audio-contents">
+                            <!--<div style="width: 325px" class="audio-contents">
                                 <img style="width:100%;" src="/assets/images/voice.jpg" alt="">
                                 <audio controls="controls">
                                     <source src="/assets/images/audio_test.m4a"/>
                                 </audio>
-                            </div>
+                            </div>-->
 
 <!--                            &lt;!&ndash; 동영상 &ndash;&gt;-->
 <!--                            <div style="width: 325px;" class="video-contents">-->

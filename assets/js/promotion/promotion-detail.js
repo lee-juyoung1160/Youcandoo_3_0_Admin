@@ -122,11 +122,8 @@
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
 		balance.html(numberWithCommas(detailPromo.remain_budget_ucd));
 		period.html(detailPromo.start_date + ' ~ ' + detailPromo.end_date);
-		let notice 		= detailPromo.promotion_notice;
-		notice = notice.replace('[', '').replace(']', '');
-		notice = replaceAll(notice, '"', '');
-		let notices 	= notice.split(",");
-		let noticeDom 	= '';
+		let notices = detailPromo.promotion_notice;
+		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
 			noticeDom += '<p class="detail-data">'+notices[i]+'</p>';
 		promoNotice.html(noticeDom);

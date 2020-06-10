@@ -89,7 +89,10 @@
 		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		selPageLengthForAction.on('change', function () { getInvolveAction(); });
+		selPageLengthForUser	.on('change', function () { getJoinMember(); });
+		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
+		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
+		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 

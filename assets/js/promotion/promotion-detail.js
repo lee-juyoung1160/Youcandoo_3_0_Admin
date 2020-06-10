@@ -45,6 +45,8 @@
 		tabDoit		.on("click", function () { onClickDoitTab(); });
 		tabUcd		.on("click", function () { onClickUcdTab(); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
+		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
+		selPageLengthForUcd	.on("change", function () { getUcdLog(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 

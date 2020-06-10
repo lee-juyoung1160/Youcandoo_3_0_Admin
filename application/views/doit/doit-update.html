@@ -8,10 +8,10 @@
                 <li class="list-common clearfix" style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">프로모션(*)</p>
+                            <p class="sub-title important">두잇 유형 및 프로모션(*)</p>
                         </div>
-                        <div class="col-2" id="reward">
-                            <p class="detail-data">프로모션  |  나이키  |  나이키 신발 신고 산책하자!</p>
+                        <div class="col-2">
+                            <p class="detail-data" id="promotion"></p>
                         </div>
                     </div>
                 </li>
@@ -21,7 +21,7 @@
                             <p class="sub-title important">두잇명(*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data">나이키 신발 신고 산책하자!</p>
+                            <p class="detail-data" id="doitTitle"></p>
                         </div>
                     </div>
                 </li>
@@ -108,13 +108,13 @@
                         </div>
                     </div>
                 </li>
-                <li class="reward-li">
+                <li id="extraRewardWrap" class="reward-li">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title">공약 설정</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="extraReward">공약</p>
+                            <p class="detail-data" id="extraReward"></p>
                         </div>
                     </div>
                 </li>
@@ -124,7 +124,7 @@
                             <p class="sub-title important">인증 기간 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="actionDate">2020-06-04 ~ 2020-06-19</p>
+                            <p class="detail-data" id="actionDate"></p>
                         </div>
                     </div>
                 </li>
@@ -134,7 +134,7 @@
                             <p class="sub-title important">인증 시간/간격 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="actionTime">00:00:00 ~ 23:59:00</p>
+                            <p class="detail-data" id="actionTime"></p>
                         </div>
                     </div>
                 </li>
@@ -149,7 +149,7 @@
                                 <label class="code-btn" for="c2">참여자 제한<span></span></label>
                                 <div class="code-wrap">
                                     <span class="input-num-title margin-left-text">참가코드</span>
-                                    <input id="privateCode" class="code-input only-num" type="text" placeholder="숫자 4~6자리" minlength="4" maxlength="6">
+                                    <input id="privateCode" class="code-input only-num" type="text" placeholder="숫자 4자리" maxlength="4">
                                 </div>
                                 <!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->
                                 <!--                                    <input type="checkbox" id="c3" name="cc" />-->
@@ -170,7 +170,7 @@
                             <p class="sub-title important">인증방법 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="actionType">사진</p>
+                            <p class="detail-data" id="actionType"></p>
                         </div>
                     </div>
                 </li>
@@ -180,7 +180,12 @@
                             <p class="sub-title important">인증 예시 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="wrap" id="actionResource"><div class="file"><p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p><img class="detail-img main-banner" src="https://youcandoo.yanadoocdn.com/doit/example/image/b95bd8bca095bd0056822fa63c435abe/e68fc2d4f3a995f3b0cbac2b13be17d4.jpg" alt="썸네일 이미지입니다."></div></div>
+                            <div class="wrap" id="actionResource">
+                                <!--<div class="file">
+                                    <p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+                                    <img class="detail-img main-banner" src="" alt="썸네일 이미지입니다.">
+                                </div>-->
+                            </div>
                             <!--                            <div class="wrap">-->
                             <!--                                <p class="cap important">인증 방법 중 영상을 선택하셨습니다.</p>-->
                             <!--                                <div class="file">-->
@@ -207,7 +212,7 @@
                             <p class="sub-title important">인증 예시 설명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="detail-data" id="actionDesc">이미지로 드으오</p>
+                            <p class="detail-data" id="actionDesc"></p>
                         </div>
                     </div>
                 </li>

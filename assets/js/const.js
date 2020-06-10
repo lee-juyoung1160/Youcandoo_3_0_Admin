@@ -44,6 +44,8 @@
 		,promotionNotice2: '프로모션 기간이 종료되면 두잇을 개설하실 수 없습니다.'
 		,promotionNotice3: '프로모션 예산이 모두 소진된 경우 두잇을 개설하실 수 없습니다.'
 		,cantUpdatePromo: '프로모션 상태가 대기 중일 경우 수정할 수 있습니다.\n상세페이지로 이동합니다.'
+		,cantUpdateDoit: '두잇 상태가 모집 중일 경우 수정할 수 있습니다.\n상세페이지로 이동합니다.'
+		,cantUpdateUserDoit: '일반두잇은 수정할 수 없습니다.\n상세페이지로 이동합니다.'
 	}
 
 	const label = {
@@ -125,6 +127,7 @@
 		,cancelRed : baseApiUrl+'action/cancel/red'
 		/** 리뷰 **/
 		,listReview : baseApiUrl+'review/list'
+		,updateBlind : baseApiUrl+'review/update'
 		/** 이벤트 **/
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'

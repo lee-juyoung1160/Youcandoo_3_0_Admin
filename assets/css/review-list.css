@@ -1,0 +1,65 @@
+.dataTables_paginate {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+.paginate_button {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 7px;
+    border-radius: 2px;
+}
+.paginate_button.current {
+    color: #ffffff;
+    background-color: #007aff;
+}
+.review-list-page .table-wrap td button {
+    background: none;
+    border-bottom: 1px solid #505050;
+}
+
+.review-list-page .more-info-btn {
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.review-list-page .line-clamp {
+    overflow: hidden;
+    width: 350px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.review-list-page .modal-content label {
+    margin-right: 10px;
+}
+.review-list-page .modal-content .table-wrap {
+    border-top: 3px solid #f1f1f1;
+}
+.full-left, .full-right {
+    float: left;
+    width: 50%;
+}
+.review-list-page .modal-02 .table-wrap,
+.review-list-page .modal-02 .table-wrap table {
+    margin-top: 0;
+}
+.review-list-page .modal-02 li {
+    border-bottom: none;
+}
+.review-list-page .star-wrap {float: left;}
+.review-list-page .star-wrap li {
+    display: inline-block;
+    color: #f3f3f3;
+}
+.review-list-page .star-wrap li.on {
+    color: #FFA83B;
+}
+.review-list-page .score {
+    float: left;
+    margin-left: 10px;
+
+}

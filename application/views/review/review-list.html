@@ -23,9 +23,9 @@
                 <div class="select-box">
                     <label for="search_type">두잇명</label>
                     <select id="search_type">
-                        <option value="doit">두잇명</option>
-                        <option value="doit">작성자</option>
-                        <option value="doit">내용</option>
+                        <option value="doit_title">두잇명</option>
+                        <option value="nickname">작성자</option>
+                        <option value="review_text">내용</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -41,7 +41,7 @@
             <ul class="clearfix">
                 <li>
                     <p class="list-common-title">평점</p>
-                    <div class="checkbox-wrap">
+                    <div class="checkbox-wrap rating-list">
                         <input type="checkbox" id="c1" name="chk-grade" value="1"/>
                         <label for="c1"><span></span>1</label>
 
@@ -60,8 +60,8 @@
                 </li>
                 <li>
                     <p class="list-common-title">신고 여부</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-report" value=""/>
+                    <div class="radio-wrap report">
+                        <input type="radio" id="r2" name="radio-report" value="ALL"/>
                         <label for="r2"><span></span>전체</label>
 
                         <input type="radio" id="r3" name="radio-report" value="Y"/>
@@ -73,8 +73,8 @@
                 </li>
                 <li>
                     <p class="list-common-title">블라인드 여부</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r5" name="radio-blind" value=""/>
+                    <div class="radio-wrap blind">
+                        <input type="radio" id="r5" name="radio-blind" value="ALL"/>
                         <label for="r5"><span></span>전체</label>
 
                         <input type="radio" id="r6" name="radio-blind" value="Y"/>
@@ -105,23 +105,21 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
             </div>
-            <table>
+            <table id="review-table">
                 <colgroup>
-                    <col style="width:5%;">
-                    <col style="width:30%;">
-                    <col style="width:5%;">
                     <col style="width:25%;">
                     <col style="width:5%;">
+                    <col style="width:25%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
+                    <col style="width:15%;">
                     <col style="width:10%;">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>리뷰내용</th>
                         <th>평점</th>
                         <th>두잇명</th>
@@ -131,48 +129,32 @@
                         <th>작성자</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td><button onclick="modalDetailFadein();" type="button" class="line-clamp more-info-btn" data-rel="modal-01">물마시기 두잇 너무 좋아요! 일상에 완전 도움이 되요 일상에 완전 도움이 되요</button></td>
-                        <td>3</td>
-                        <td>하루에 물 6번 마시기</td>
-                        <td><button onclick="modalReasonFadein();" type="button" class="more-info-btn" data-rel="modal-02">10</button></td>
-                        <td>Y</td>
-                        <td>2019/10/10</td>
-                        <td>베리베리</td>
-                    </tr>
-                </tbody>
             </table>
-            <ul class="table-pagination clearfix">
-                <li><i class="fas fa-angle-double-left"></i></li>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
-            <div class="modal-wrap">
-                <!-- 리뷰 내용 자세히 보기-->
-                <div id="modalDetail" class="modal-content modal-01">
-                    <div class="wrap">
-                        <i class="close-btn fas fa-times-circle"></i>
-                        <p class="modal-title">리뷰 상세</p>
-                        <ul class="modal-information">
-                            <li>
-                                <p class="sub-title">내용</p>
-                                <p class="data-contents">
-                                    물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.<br>
-                                    물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.
-                                </p>
-                            </li>
-                            <li>
-                                <p class="sub-title">두잇명</p>
-                                <p class="data-contents">하루에 물 6번 마시기</p>
-                            </li>
-                            <li class="clearfix">
-                                <div class="full-left">
-                                    <p class="sub-title">평점</p>
-                                    <p class="data-contents score-wrap">
+
+
+        </div>
+
+        <div class="modal-wrap">
+            <!-- 리뷰 내용 자세히 보기-->
+            <div id="modalDetail" class="modal-content modal-01">
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">리뷰 상세</p>
+                    <ul class="modal-information">
+                        <li>
+                            <p class="sub-title">내용</p>
+                            <p class="data-contents" id="review_text"></p>
+                        </li>
+                        <li>
+                            <p class="sub-title">두잇명</p>
+                            <p class="data-contents" id="doit_title"></p>
+                        </li>
+                        <li class="clearfix">
+                            <div class="full-left">
+                                <p class="sub-title">평점</p>
+                                <p class="data-contents score-wrap">
+
+
                                     <ol class="star-wrap">
                                         <li class="on"><i class="fas fa-star"></i></li>
                                         <li class="on"><i class="fas fa-star"></i></li>
@@ -180,81 +162,33 @@
                                         <li><i class="fas fa-star"></i></li>
                                         <li><i class="fas fa-star"></i></li>
                                     </ol>
-                                    <span class="score">3</span>
-                                    </p>
-                                </div>
-                                <div class="full-right">
-                                    <p class="sub-title">신고</p>
-                                    <p class="data-contents">4</p>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="full-left">
-                                    <p class="sub-title">작성자</p>
-                                    <p class="data-contents">berry</p>
-                                </div>
-                                <div class="full-right">
-                                    <p class="sub-title">작성날짜</p>
-                                    <p class="data-contents">2019/10/10</p>
-                                </div>
-                            </li>
-                            <li>
-                                <p class="sub-title">블라인드 여부</p>
-                                <div class="radio-wrap">
-                                    <input type="radio" id="r11" name="rb" />
-                                    <label for="r11"><span></span>Y</label>
+                                    <span class="score" id="rating"></span>
+                                </p>
+                            </div>
+                            <div class="full-right">
+                                <p class="sub-title">신고</p>
+                                <p class="data-contents" id="report_count"></p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="full-left">
+                                <p class="sub-title">작성자</p>
+                                <p class="data-contents" id="nickname"></p>
+                            </div>
+                            <div class="full-right">
+                                <p class="sub-title">작성날짜</p>
+                                <p class="data-contents" id="created"></p>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="sub-title">블라인드 여부</p>
+                            <p class="data-contents" id="is_blind"></p>
 
-                                    <input type="radio" id="r12" name="rb" />
-                                    <label for="r12"><span></span>N</label>
-                                </div>
-                            </li>
-                        </ul>
-                        <button class="completion-btn" type="submit">완료</button>
+                        </li>
+                    </ul>
                     </div>
                 </div>
-                <!-- 리뷰 신고 사유 보기-->
-                <div id="modalReason" class="modal-content modal-02">
-                    <div class="wrap">
-                        <i class="close-btn fas fa-times-circle"></i>
-                        <p class="modal-title">리뷰 신고 사유</p>
-                        <ul class="modal-information">
-                            <li>
-                                <div class="table-wrap">
-                                    <table>
-                                        <colgroup>
-                                            <col style="width:70%;">
-                                            <col style="width:30%;">
-                                        </colgroup>
-                                        <thead>
-                                        <tr>
-                                            <th>신고사유</th>
-                                            <th>신고자</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>광고나 홍보 성격이 짙어요</td>
-                                            <td>베리모카</td>
-                                        </tr>
-                                        <tr>
-                                            <td>광고나 홍보 성격이 짙어요</td>
-                                            <td>베리모카</td>
-                                        </tr>
-                                        <tr>
-                                            <td>광고나 홍보 성격이 짙어요</td>
-                                            <td>베리모카</td>
-                                        </tr>
-                                        <tr>
-                                            <td>광고나 홍보 성격이 짙어요</td>
-                                            <td>베리모카</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
                 <div class="modal-layout"></div>
             </div>
         </div>

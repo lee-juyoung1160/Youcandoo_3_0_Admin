@@ -50,8 +50,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -90,10 +90,10 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -115,10 +115,13 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(1);
+		/** row 클릭 상세 이동 **/
+		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
+	}
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="/biz/detail">'+aData.nickname+'</a>');
+	function goDetail(idx)
+	{
+		location.href = page.detailBiz+idx;
 	}
 
 	function onSubmitSearch()
@@ -136,14 +139,15 @@
 		$.ajax({
 			url: api.listBiz,
 			type: "POST",
+			dataType: "json",
 			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("비즈목록", "비즈목록", data);
+				setExcelData("비즈목록", "비즈목록", data.data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.download+message.ajaxError);
 			},
 		});
 	}

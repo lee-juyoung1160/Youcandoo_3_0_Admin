@@ -8,17 +8,16 @@
 	const authCode 		= $("#authCode");
 	const authName 		= $("#authName");
 	const authMenuArea 	= $("#authMenuArea");
-	const btnDeleteAuth = $("#btnDeleteAuth");
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 권한 목록 **/
 		getAuthList();
-
+		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		authModalOpen	.on('click', function () { modalFadein(); })
 		btnSubmitAuth	.on('click', function () { onSubmitAuth(); })
-		btnDeleteAuth	.on('click', function () { deleteAuth(); })
 		btnSubmit		.on('click', function () { onSubmitAuthMenu(); })
 	});
 
@@ -34,9 +33,10 @@
 		if (confirm(message.delete))
 		{
 			$.ajax({
-				url: api.deleteAdminAuth,
+				url: api.deleteAuth,
 				type: "POST",
-				headers : headers,
+				headers: headers,
+				dataType: 'json',
 				data : JSON.stringify({"code" : selectedAuthCode()}),
 				success: function(data) {
 					alert(getStatusMessage(data));
@@ -44,7 +44,7 @@
 						getAuthList();
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(label.delete+message.ajaxError);
 				}
 			});
 		}
@@ -63,9 +63,10 @@
 	function getAuthList()
 	{
 		$.ajax({
-			url: api.listAdminAuth,
+			url: api.listAuth,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -73,7 +74,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('권한 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -82,22 +83,24 @@
 	{
 		authList.empty();
 
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data;
+		let details  = data.data;
 		let liDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			i === 0 ? liDom += '<li class="on" data-code="'+code+'">' : liDom += '<li data-code="'+code+'">';
-			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">'+name+'</button>';
+			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">';
+			liDom	+=  	name;
+			liDom	+= 	'</button>';
+			liDom	+= 	'<i onclick="deleteAuth();" class="delete-btn far fa-times-circle"></i>';
 			liDom 	+=	'</li>';
 		}
 
 		authList.html(liDom);
 
 		/** 선택된 권한의 메뉴를 가져옴 **/
-		getAuthMenu();
+		getMenuByAuthCode();
 	}
 
 	function onClickBtnAuth(obj)
@@ -105,15 +108,16 @@
 		authList.find('li').removeClass('on');
 		$(obj).parent().addClass('on');
 
-		getAuthMenu();
+		getMenuByAuthCode();
 	}
 
-	function getAuthMenu()
+	function getMenuByAuthCode()
 	{
 		$.ajax({
-			url: api.getAdminAuth,
+			url: api.getMenuByAuth,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			data : JSON.stringify({"code" : selectedAuthCode()}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -122,7 +126,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('메뉴 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -130,44 +134,44 @@
 	function buildAuthMenu(data)
 	{
 		authMenuArea.empty();
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data.menu;
+
+		let keys   	  = Object.getOwnPropertyNames(data.data);
 		let isChecked = '';
 		let menuDom	  = '';
-		let len 	  = respData.length;
 		let count 	  = 0;
-		for (let i=0; i<len; i++)
+
+		for (let i=0; i<keys.length; i++)
 		{
-			let menuData   	  = respData[i];
-			let menuName   	  = menuData.name;
-			let childLen   	  = menuData.children.length;
+			let key   	  	  = keys[i];
+			let menuName   	  = data.data[key].name;
+			let children   	  = data.data[key].children;
 			let parentChkId   = "pChkId_"+i;
 			let chkName 	  = "chkNm_"+i;
-			isChecked	  	  = menuData.view ? 'checked' : '';
+			isChecked	  	  = data.data[key].view ? 'checked' : '';
 
 			menuDom += '<li>';
 			menuDom += 	'<ol class="auth-nav">';
 			menuDom += 		'<li class="clearfix">';
 			menuDom += 			'<div class="main-menu">';
 			menuDom += 				'<div class="checkbox-wrap">';
-			menuDom += 					'<input onclick="onClickParentChk(this)" type="checkbox" id="'+parentChkId+'" name="'+chkName+'" '+isChecked+'/>';
+			menuDom += 					'<input onclick="onClickParentChk(this)" data-key="'+key+'" type="checkbox" id="'+parentChkId+'" name="'+chkName+'" '+isChecked+'/>';
 			menuDom += 					'<label for="'+parentChkId+'"><span></span>'+menuName+'</label>';
 			menuDom += 				'</div>';
 			menuDom += 			'</div>';
 			menuDom += 			'<ul class="sub-menu">';
-			if (childLen > 0)
+			if (children)
 			{
-				for (let j=0; j<childLen; j++)
+				let subKeys = Object.getOwnPropertyNames(children);
+				for (let j=0; j<subKeys.length; j++)
 				{
-					let childData  		= menuData.children[j];
-					let childMenuName   = childData.name;
-					let childPath		= childData.path;
+					let subKey  		= subKeys[j];
+					let childMenuName   = children[subKey].name;
 					let childChkId 		= "cChkId_"+count;
-					isChecked	  	    = childData.view ? 'checked' : '';
+					isChecked	  	    = children[subKey].view ? 'checked' : '';
 
 					menuDom += '<li>';
 					menuDom += 	'<div class="checkbox-wrap">';
-					menuDom += 		'<input onclick="onClickChildChk(this);" data-path="'+childPath+'" type="checkbox" id="'+childChkId+'" name="'+chkName+'" '+isChecked+'/>';
+					menuDom += 		'<input onclick="onClickChildChk(this);" data-key="'+subKey+'" type="checkbox" id="'+childChkId+'" name="'+chkName+'" '+isChecked+'/>';
 					menuDom += 		'<label for="'+childChkId+'"><span></span>'+childMenuName+'</label>';
 					menuDom += 	'</div>';
 					menuDom += '</li>';
@@ -198,6 +202,7 @@
 		let count   = 0;
 		let chkName = $(obj).attr('name');
 		let element = $('.sub-menu input[name="'+chkName+'"]');
+		let parent  = $('.main-menu input[name="'+chkName+'"]');
 
 		element.each(function () {
 			if ($(this).is(':checked'))
@@ -206,9 +211,8 @@
 
 		if (count === 0)
 			$('input[name="'+chkName+'"]').prop('checked', false);
-
-		if (element.length === count)
-			$('input[name="'+chkName+'"]').prop('checked', true);
+		else if (count > 0)
+			parent.prop('checked', true);
 	}
 
 	function validation()
@@ -254,9 +258,10 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: api.createAdminAuth,
+					url: api.createAuth,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: authParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -267,7 +272,7 @@
 						}
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}
@@ -279,19 +284,18 @@
 		if (confirm(message.create))
 		{
 			$.ajax({
-				url: api.setAdminAuth,
+				url: api.setMenuByAuth,
 				type: "POST",
 				headers : headers,
+				dataType: 'json',
 				data: menuParams(),
 				success: function(data) {
 					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
-					{
 						getAuthList();
-					}
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(label.submit+message.ajaxError);
 				}
 			});
 		}
@@ -301,36 +305,37 @@
 	{
 		let mainMenuDom = authMenuArea.find('.main-menu');
 		let mainChkBox  = $(mainMenuDom).find('input:checkbox');
-		let menu = [];
+		let keyArr 		= [];
+		let mainObj 	= {};
 		$(mainChkBox).each(function () {
 
-			let mainChkId 	  = this.id;
+			let key	= $(this).data("key");
 			let mainChkNm	  = this.name;
-			let mainChkLabel  = $("label[for='"+mainChkId+"']").text();
-			let children 	  = [];
 			let subMenuChkbox = $('.sub-menu input[name="'+mainChkNm+'"]');
+			let subObj = {};
 
 			$(subMenuChkbox).each(function () {
-				let subChkId 	= this.id;
-				let subChkLabel = $("label[for='"+subChkId+"']").text();
-				children.push({
-					"name" : subChkLabel
-					,"view" : $(this).is(":checked")
-					,"path" : $(this).data("path")
-				});
+
+				let subkey	= $(this).data("key");
+				let view = $(this).is(":checked");
+
+				subObj[subkey] = {
+					view
+				}
 			});
 
-			menu.push({
-				"name" : mainChkLabel
-				,"view" : $(this).is(":checked")
-				,"children" : children
-			});
+			keyArr.push(key);
 
+			let view = $(this).is(":checked")
+			mainObj[key] = {
+				view
+				,"children" : subObj
+			};
 		});
 
 		let param = {
 			"code" : selectedAuthCode()
-			,"menu" : menu
+			,"menu" : mainObj
 		}
 
 		return JSON.stringify(param);

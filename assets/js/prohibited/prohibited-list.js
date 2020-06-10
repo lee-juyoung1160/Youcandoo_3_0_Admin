@@ -51,8 +51,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -61,8 +61,8 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
+				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center cursor-default" }
+				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -99,7 +99,7 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			}
@@ -134,6 +134,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
+					dataType: 'json',
 					data: addParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -146,7 +147,7 @@
 							alert(invalidResp(data));
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					},
 				});
 			}
@@ -197,6 +198,7 @@
 					type: "POST",
 					async: false,
 					headers: headers,
+					dataType: 'json',
 					data: delParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -204,7 +206,7 @@
 							buildGrid();
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.delete+message.ajaxError);
 					},
 				});
 			}

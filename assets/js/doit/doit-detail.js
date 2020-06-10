@@ -1,22 +1,19 @@
 
 	const tabDoit 		= $("#tabDoit");
 	const tabUser 		= $("#tabUser");
-	const tabAction		= $("#tabFeed");
-	const doitDetail	= $("#doitDetail");
-	const doitUser		= $("#doitUser");
-	const doitAction	= $("#doitFeed");
-	const actionUl 		= $("#actionUl");
+	const tabAction		= $("#tabAction");
+	const tabReview		= $("#tabReview");
+	const tabUcd		= $("#tabUcd");
 	const goUpdate      = $("#goUpdate");
-	const selPageLengthForUserTab   = $("#selPageLengthForUserTab");
-	const selPageLengthForActionTab = $("#selPageLengthForActionTab");
 
 	/** 두잇정보 탭 **/
+	const doitDetail	= $("#doitDetail");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
 	const doitTags 		= $("#doitTags");
 	const introWrap 	= $("#introWrap");
 	const reward 		= $("#reward");
-	const maxUser 		= $("#maxUser");
+	const recruit 		= $("#recruit");
 	const extraReward	= $("#extraReward");
 	const actionDate 	= $("#actionDate");
 	const actionTime 	= $("#actionTime");
@@ -26,88 +23,176 @@
 	const actionDesc    = $("#actionDesc");
 
 	/** 참여자정보 탭 **/
-	const dataTable		= $("#dataTable")
-	const selPageLength = $("#selPageLength");
+	const doitUser		= $("#doitUser");
+	const search 		= $(".search");
+	const reset 		= $(".reset");
+	const keyword		= $("#keyword")
+	const joinCount 	= $("#joinCount");
+	const goal 			= $("#goal");
+	const avg 			= $("#avg");
+	const forecast 		= $("#forecast");
+	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
-	const dataNum		= $(".data-num");
+	const joinUserTable		= $("#joinUserTable")
+	const joinTotalCount	= $("#joinTotalCount");
+	const selPageLengthForUser   = $("#selPageLengthForUser");
 
 	/** 인증정보 탭 **/
-	const btnWarn		= $(".warning-btn");
-	/** modal **/
-	const modalCloseBtn = $(".close-btn");
-	const modalLayout 	= $(".modal-layout");
-	const modalContent 	= $(".modal-content");
-	const warnType		= $("input[name=radio-warn-type]");
-	const actionTotal	= $(".action-total");
+	const doitAction	= $("#doitAction");
+	const btnWarnRed	= $(".warning-btn");
+	const btnWarnYellow	= $(".yellow-btn");
+	const actionWrap	= $("#actionWrap");
+	const actionTopDom	= $("#actionTopDom");
 	const pagination	= $("#dataTable_paginate");
+	const actionTotalCount		 = $("#actionTotalCount");
+	const selPageLengthForAction = $("#selPageLengthForAction");
+
+	/** 리뷰정보탭 **/
+	const doitReview		= $("#doitReview");
+	const reviewTable		= $("#reviewTable");
+	const reviewTotalCount			= $("#reviewTotalCount");
+	const selPageLengthForReview	= $("#selPageLengthForReview");
+
+	/** UCD정보탭 **/
+	const ucdInfo		= $("#ucdInfo");
+	const ucdTable		= $("#ucdTable");
+	const ucdTotalCount	= $("#ucdTotalCount");
+	const selPageLengthForUcd	= $("#selPageLengthForUcd");
+
+	/** modal **/
+	const modalCloseBtn 	= $(".close-btn");
+	const modalLayout 		= $(".modal-layout");
+	const modalContent 		= $(".modal-content");
+	const modalWarn			= $("#modalWarn");
+	const causeBy			= $("#selCauseBy");
+	const btnSubmitWarn		= $("#btnSubmitWarn");
+	const modalDetailReview	= $("#modalDetailReview");
+	const review	= $("#review");
+	const title		= $("#title");
+	const rating	= $("#rating");
+	const report	= $("#report");
+	const userid	= $("#userid");
+	const created	= $("#created");
+	const isBlind	= $("#isBlind");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
-
 	$(document).ready(function () {
-
-		/** 프로모션 상세정보 **/
+		/** 두잇 상세정보 **/
 		getDoit();
-
+		/** 이벤트 **/
 		tabDoit			.on("click", function () { onClickDoitTab(); });
 		tabUser			.on("click", function () { onClickUserTab(); });
 		tabAction		.on("click", function () { onClickActionTab(); });
+		tabReview		.on("click", function () { onClickReviewTab(); });
+		tabUcd			.on("click", function () { onClickUcdTab(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
-		btnWarn			.on('click', function () { modalFadein(); });
+		search			.on("click", function () { getJoinMember(); });
+		reset			.on("click", function () { initSearchForm(); });
+		btnWarnYellow	.on('click', function () { onClickBtnWarn(); g_warn_type = 'Y'; });
+		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		warnType		.on('change', function () { toggleReason(); });
-		selPageLengthForActionTab.on('change', function () { getInvolveAction(); });
+		selPageLengthForUser	.on('change', function () { getJoinMember(); });
+		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
+		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
+		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
+		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
+	/** 두잇정보탭 **/
 	function onClickDoitTab()
 	{
 		doitDetail.show();
 		doitUser.hide();
 		doitAction.hide();
+		doitReview.hide();
+		ucdInfo.hide();
 		tabUser.removeClass('active');
 		tabAction.removeClass('active');
+		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		tabDoit.addClass('active');
 
 		getDoit();
 	}
 
+	/** 참여자정보탭 **/
 	function onClickUserTab()
 	{
 		doitUser.show();
 		doitDetail.hide();
 		doitAction.hide();
+		doitReview.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
 		tabAction.removeClass('active');
+		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		tabUser.addClass('active');
 
-		//getJoinUser();
+		getJoinMemberTotal();
+		getJoinMember();
 	}
 
+	/** 인증정보탭 **/
+	let g_warn_type;
 	function onClickActionTab()
 	{
 		doitAction.show();
 		doitDetail.hide();
 		doitUser.hide();
+		doitReview.hide();
+		ucdInfo.hide();
 		tabDoit.removeClass('active');
 		tabUser.removeClass('active');
 		tabAction.addClass('active');
+		tabReview.removeClass('active');
+		tabUcd.removeClass('active');
 		currentPage = 1;
+
 		getInvolveAction();
 	}
 
-	function initModal()
+	/** 리뷰정보탭 **/
+	function onClickReviewTab()
 	{
-		warnType.eq(0).prop("checked", true);
+		doitReview.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitAction.hide();
+		ucdInfo.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.removeClass('active');
+		tabUcd.removeClass('active');
+		tabReview.addClass('active');
+
+		getInvolveReview();
 	}
 
-	function toggleReason()
+	/** UCD정보탭 **/
+	function onClickUcdTab()
 	{
+		ucdInfo.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitAction.hide();
+		doitReview.hide();
+		tabDoit.removeClass('active');
+		tabUser.removeClass('active');
+		tabAction.removeClass('active');
+		tabReview.removeClass('active');
+		tabUcd.addClass('active');
 
+		getUcdLog();
 	}
 
+	/****************
+	 * 두잇정보탭 관련
+	 * **************/
 	function getDoit()
 	{
 		$.ajax({
@@ -115,6 +200,7 @@
 			type: "POST",
 			async: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"idx" : idx}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -123,7 +209,7 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.detailContent+message.ajaxLoadError);
 			},
 		});
 	}
@@ -132,11 +218,51 @@
 	let g_doitTitle;
 	function buildDoitDetail(data)
 	{
-		let jsonData = JSON.parse(data);
-		let detail 	 = jsonData.data;
+		let detail 	 = data.data;
 
 		g_doitUuid = detail.doit_uuid;
 		g_doitTitle = detail.doit_title;
+
+		let rewardDom 	= '';
+		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
+		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
+		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
+		let doitInfo 	= doitType + bizName + promoTitle;
+		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
+		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
+		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
+		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
+		personRate = isNaN(personRate) ? '-' : personRate;
+		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
+		groupRate = isNaN(groupRate) ? '-' : groupRate;
+		let recruitCount = detail.max_user == 1 ? detail.max_user : detail.min_user+' ~ '+detail.max_user;
+
+		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
+		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
+		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
+		rewardDom += 	'<p class="detail-data">';
+		rewardDom += 		'모집 인원 : '+recruitCount+'명<br>';
+		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
+		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
+		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
+		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
+		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
+		rewardDom += 		'주간빈도 : '+dayofweek;
+		rewardDom += 	'</p>';
+		if (!isEmpty(detail.promotion_uuid))
+		{
+			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
+			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
+			rewardDom += 	'</p>';
+			rewardDom += 	'<div class="fixed">';
+			rewardDom += 		'<p class="cap">';
+			rewardDom += 			'현재까지 남은 잔여 UCD는 ';
+			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
+			rewardDom += 		'</p>';
+			rewardDom += 	'</div>';
+		}
+		rewardDom += '</div>';
+		reward.html(rewardDom);
 
 		doitTitle.html(detail.doit_title);
 
@@ -154,12 +280,15 @@
 		}
 		doitTags.html(tagDom);
 
+		let introType = detail.intro_resouce_type;
+		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
+		introImg = isEmpty(introImg) ? label.noImage : introImg;
 		let introImageDom = '';
 		introImageDom += '<div class="file">';
 		introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introImageDom += 	'<img class="detail-img main-banner" src="'+detail.doit_image_url+'" alt="썸네일 이미지입니다.">';
+		introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" alt="썸네일 이미지입니다.">';
 		introImageDom += '</div>';
-		if (!isEmpty(detail.doit_video_url))
+		if (introType === 'video')
 		{
 			introImageDom += '<div class="file">';
 			introImageDom += 	'<p class="cap">영상</p>';
@@ -170,44 +299,8 @@
 		}
 		introWrap.html(introImageDom);
 
-		let rewardDom 	= '';
-		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
-		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
-		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
-		let doitInfo 	= doitType + bizName + promoTitle;
-		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
-		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
-		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
-		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
-		personRate = isNaN(personRate) ? '-' : personRate;
-		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
-		groupRate = isNaN(groupRate) ? '-' : groupRate;
+		recruit.html(recruitCount+'명');
 
-		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
-		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
-		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
-		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'두잇 참여 인원 : '+detail.doit_member+'명<br>';
-		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
-		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
-		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
-		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
-		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
-		rewardDom += 		'주간빈도 : '+dayofweek;
-		rewardDom += 	'</p>';
-		rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
-		rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
-		rewardDom += 	'</p>';
-		rewardDom += 	'<div class="fixed">';
-		rewardDom += 		'<p class="cap">';
-		rewardDom += 			'현재까지 남은 잔여 UCD는 ';
-		rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
-		rewardDom += 		'</p>';
-		rewardDom += 	'</div>';
-		rewardDom += '</div>';
-		reward.html(rewardDom);
-
-		maxUser.html(detail.max_user+'명');
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);
 		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);
@@ -244,16 +337,20 @@
 		let actionResourceDom = '';
 		if (type === 'image')
 		{
+			let imageUrl = data.example_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 		}
 		else if (type === 'video')
 		{
+			let imageUrl = data.example_video_thumbnail_image_url;
+			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+data.example_video_thumbnail_image_url+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
 			actionResourceDom += '</div>';
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">영상</p>';
@@ -275,11 +372,50 @@
 		return actionResourceDom;
 	}
 
-	function getJoinUser()
+	/****************
+	 * 참여자정보탭 관련
+	 * **************/
+	function initSearchForm()
 	{
-		$("#dataTable").DataTable({
+		keyword.val('');
+	}
+
+	function getJoinMemberTotal()
+	{
+		$.ajax({
+			url: api.totalJoinMember,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({"doit_uuid" : g_doitUuid}),
+			success: function(data) {
+				if (isSuccessResp(data))
+					setJoinMemberTotal(data);
+				else
+					invalidResp(data);
+			},
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
+			},
+		});
+	}
+
+	function setJoinMemberTotal(data)
+	{
+		let detail = data.data;
+
+		joinCount.html(numberWithCommas(detail.member_cnt)+'명');
+		goal.html(Math.floor(detail.goal_percent)+'%');
+		avg.html(Math.floor(detail.avg_percent)+'%');
+		forecast.html(numberWithCommas(detail.per_person_ucd)+'UCD');
+		saving.html(numberWithCommas(detail.save_reward)+'UCD');
+	}
+
+	function getJoinMember()
+	{
+		joinUserTable.DataTable({
 			ajax : {
-				url: api.involveDoitPromotion,
+				url: api.listJoinMember,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
@@ -291,15 +427,27 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					console.log(d);
 					return tableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    	   			width: "5%",     orderable: false,   className: "text-center" }
-				,{title: "두잇 ID", 	data: "doit_uuid",    			width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "두잇 명", 	data: "doit_title",    			width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center" }
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},*/
+				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -313,11 +461,15 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLength.val()),
+			pageLength: Number(selPageLengthForUser.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
 			info: false,
+			/*select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},*/
 			select: false,
 			lengthChange: false,
 			autoWidth: false,
@@ -325,23 +477,24 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = dataTable.DataTable();
+				let table = joinUserTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				joinTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				//setRowAttributes(nRow, aData);
 			}
 		});
 	}
-	
+
 	function tableParams(d)
 	{
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"promotion_idx" : idx
+			,"doit_uuid" : g_doitUuid
+			,"nickname": keyword.val()
 		}
 
 		return JSON.stringify(param);
@@ -356,23 +509,164 @@
 		periodDom.text(period);
 	}
 
-	/** 인증정보 탭 **/
+	/** 엑셀 다운로드 **/
+	function onClickExcelBtn()
+	{
+		getExcelData();
+	}
+
+	function getExcelData()
+	{
+		$.ajax({
+			url: api.involveDoitPromotion,
+			type: "POST",
+			dataType: 'json',
+			headers: headers,
+			data: excelParams(),
+			success: function(data) {
+				setExcelData("개설두잇목록", "개설두잇목록", data.data);
+			},
+			error: function (request, status) {
+				alert(label.download+message.ajaxError);
+			}
+		});
+	}
+
+	function excelParams()
+	{
+		let param = {
+			"limit" : 10000
+			,"page" : 1
+			,"promotion_idx" : idx
+		}
+
+		return JSON.stringify(param);
+	}
+
+	/****************
+	 * 인증정보탭 관련
+	 * **************/
+	function onClickBtnWarn()
+	{
+		if (isCheckedTarget())
+			modalWarnFadein();
+	}
+
+	function isCheckedTarget()
+	{
+		let count = $("input[name=chk-warn]:checked").length;
+		if (count === 0)
+		{
+			alert('발송대상을 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function modalWarnFadein()
+	{
+		modalLayout.fadeIn();
+		modalWarn.fadeIn();
+		initModalWarn();
+	}
+
+	function initModalWarn()
+	{
+		causeBy.children().eq(0).prop("selected", true);
+		onChangeSelectOption(causeBy);
+	}
+
+	function onSubmitWarn()
+	{
+		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
+
+		if (confirm('경고장을 '+message.send))
+		{
+			$.ajax({
+				url: url,
+				type: "POST",
+				async: false,
+				headers: headers,
+				dataType: 'json',
+				data: warnParams(),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+					{
+						modalFadeout();
+						getInvolveAction();
+					}
+				},
+				error: function (request, status) {
+					alert(label.submit+message.ajaxError);
+				},
+			});
+		}
+	}
+
+	function warnParams()
+	{
+		let uuids = [];
+		$("input[name=chk-warn]").each(function () {
+			if ($(this).is(":checked"))
+				uuids.push($(this).val());
+		})
+
+		let param = {
+			"action_list" : uuids
+			,"description" : causeBy.val()
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function cancelWarn(type, uuid)
+	{
+		let url = type === 'Y' ? api.cancelYellow : api.cancelRed;
+		let param = {
+			"action_uuid" : uuid
+		}
+
+		if (confirm('경고장 발송을 '+message.cancel))
+		{
+			$.ajax({
+				url: url,
+				type: "POST",
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify(param),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+						getInvolveAction();
+				},
+				error: function (request, status) {
+					alert(label.cancel+message.ajaxError);
+				}
+			});
+		}
+	}
+
 	function getInvolveAction()
 	{
 		$.ajax({
 			url: api.involveAction,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			data: actionParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
 				{
-					buildPagination(data);
-					buildActionInfo(data);
+					buildActionsPagination(data);
+					buildActions(data);
 				}
+				else
+					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('인증 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -382,69 +676,110 @@
 		let param = {
 			"doit_uuid" : g_doitUuid
 			,"page" : currentPage
-			,"limit" : selPageLengthForActionTab.val()
+			,"limit" : selPageLengthForAction.val()
 		}
 
 		return JSON.stringify(param);
 	}
 
-	function buildActionInfo(data)
+	function buildActions(data)
 	{
-		let jsonData = JSON.parse(data);
-		let actions = jsonData.data;
-		let dataLen  = actions.length;
-		let actionDom = '';
+		let actions    = data.data;
+		let dataLen    = actions.length;
+		let totalCount = data.recordsTotal
+		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
-		actionTotal.html(jsonData.recordsTotal);
+		/** total count **/
+		actionTotalCount.html(totalCount);
 
-		for (let i=0; i<dataLen; i++)
+		if (totalCount > 0)
 		{
-			let action    = actions[i];
-			let actionId  = "action_"+i;
-			let successYn = action.success === 'Y' ? '성공' : '실패';
-			let resourceType = action.resource_type;
-			let btnTxt 	 = '경고장';
-			let btnClass = 'warning-btn';
-			if (action.yellow_card === 'Y')
+			actionTopDom.show();
+			actionDom = '';
+			for (let i=0; i<dataLen; i++)
 			{
-				btnClass += 'yellow-card-btn';
-				btnTxt = '옐로카드 취소';
-			}
-			if (action.red_card === 'Y')
-			{
-				btnClass += 'red-card-btn';
-				btnTxt = '레드카드 취소';
-			}
+				let action    = actions[i];
+				let actionId  = "action_"+i;
+				let successYn = action.success === 'Y' ? '성공' : '실패';
+				let resourceType = action.resource_type;
+				let warnDesc = '';
+				let warnImage = '';
+				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
+				if (isEmpty(action.url))
+					actionImage = '<img class="detail-img" src="'+label.noImage+'" alt="인증 이미지입니다.">';
+				if (resourceType === 'voice')
+					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
+				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
+				if (action.yellow_card === 'Y')
+				{
+					warnImage = '<img src="/assets/images/yellow-card.png" alt="">';
+					warnDesc = action.yellow_card_description;
+					button = '<button onclick="cancelWarn(\'Y\',\''+action.action_uuid+'\');" class="card-btn clear-yellow-btn" type="button">옐로카드 취소</button>';
+				}
+				if (action.red_card === 'Y')
+				{
+					warnImage = '<img src="/assets/images/red-card.png" alt="">';
+					warnDesc = action.red_card_description;
+					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
+				}
+				if (action.yellow_card === 'Y' && action.red_card === 'Y')
+				{
+					warnImage = '<img src="/assets/images/rad-yellow-card.png" alt="">';
+					warnDesc = action.red_card_description;
+					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
+				}
 
-			actionDom += '<li>';
-			actionDom += 	'<div class="top clearfix">';
-			actionDom += 		'<div class="checkbox-wrap">';
-			actionDom += 			'<input type="checkbox" id="'+actionId+'" name="cc" />';
-			actionDom += 			'<label for="'+actionId+'"><span></span></label>';
-			actionDom += 		'</div>';
-			actionDom += 		'<span class="success-text">'+successYn+'</span>';
-			actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
-			actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
-			actionDom += 	'</div>';
-			actionDom += 	'<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
-			actionDom += 	'<div class="text-wrap">';
-			actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
-			actionDom += 		'<a href="#">'+action.user_name+'</a>';
-			actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
-			actionDom += 	'</div>';
-			actionDom += 	'<button class="'+btnClass+'" type="button">'+btnTxt+'</button>';
-			actionDom += '</li>';
+				if (i===0 || i%5 === 0)
+					actionDom += '<ul class="cert-contents clearfix">';
+
+				actionDom += '<li>';
+				actionDom += 	'<div class="top clearfix">';
+				actionDom += 		'<div class="checkbox-wrap">';
+				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'"/>';
+				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
+				actionDom += 		'</div>';
+				actionDom += 		'<span class="success-text">'+successYn+'</span>';
+				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
+				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
+				actionDom += 	'</div>';
+				actionDom += 	'<div class="thumbnail-wrap">';
+				if (action.yellow_card === 'Y' || action.red_card === 'Y')
+				{
+					actionDom += 	'<div class="error">';
+					actionDom += 		'<p class="error-text">';
+					actionDom += 			'<i>';
+					actionDom += 				warnImage;
+					actionDom += 			'</i>';
+					actionDom += 				warnDesc;
+					actionDom += 		'</p>';
+					actionDom += 		'<div class="card-wrap">';
+					actionDom += 			button;
+					actionDom += 		'</div>';
+					actionDom += 	'</div>';
+				}
+				actionDom += 		actionImage;
+				actionDom += 	'</div>';
+				actionDom += 	'<div class="text-wrap">';
+				actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
+				actionDom += 		'<a href="#">'+action.user_name+'</a>';
+				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
+				actionDom += 	'</div>';
+				actionDom += '</li>';
+
+				if (i>0 && (i+1)%5 === 0)
+					actionDom += '</ul>';
+			}
 		}
+		else actionTopDom.hide();
 
-		actionUl.html(actionDom);
+		actionWrap.html(actionDom);
 	}
 
 	let currentPage = 1;
-	function buildPagination(data)
+	function buildActionsPagination(data)
 	{
-		let jsonData    = JSON.parse(data);
-		let totalCount  = jsonData.recordsTotal;
-		let last		= Math.ceil(totalCount / selPageLengthForActionTab.val());
+		let totalCount  = data.recordsTotal;
+		let last		= Math.ceil(totalCount / selPageLengthForAction.val());
 		let pageLength  = 7;
 		if (last <= 10)
 			pageLength = last
@@ -455,7 +790,7 @@
 			pageDom += '<a class="paginate_button previous" id="dataTable_previous">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(currentPage-1)+'" id="dataTable_previous">';
-		pageDom +=     '<i class="fas fa-angle-double-left"></i>';
+		pageDom +=     label.previous;
 		pageDom += '</a>';
 		pageDom += '<span>';
 		if (last <= 10)
@@ -531,7 +866,7 @@
 			pageDom += '<a class="paginate_button next" id="dataTable_next">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(currentPage+1)+'" id="dataTable_next">';
-		pageDom += 	   '<i class="fas fa-angle-double-right"></i>';
+		pageDom += 	  label.next;
 		pageDom += '</a>';
 
 		pagination.html(pageDom);
@@ -547,43 +882,219 @@
 		getInvolveAction();
 	}
 
-	function onSubmitSearch()
+	/****************
+	 * 리뷰정보탭 관련
+	 * **************/
+	function getInvolveReview()
 	{
-		buildGrid();
-	}
-
-	function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.involveDoitPromotion,
-			type: "POST",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data);
+		reviewTable.DataTable({
+			ajax : {
+				url: api.listReview,
+				type: "POST",
+				headers: headers,
+				data: function (d) {
+					/*
+					if (d.order.length > 0)
+					{
+						var columnIndex = d.order[0].column;
+						d.sort = d.columns[columnIndex].name;
+						d.order = d.order[0].dir;
+					}
+				   */
+					return reviewParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
+				}
 			},
-			error: function (request, status) {
-				console.log(status);
+			columns: [
+				{title: tableCheckAllDom(), 	data: "",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return multiCheckBoxDom(data);
+					}
+				},
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center" }
+				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "두잇명", 		data: "doit_title",  	width: "25%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "text-center cursor-default",
+				 	render: function (data) {
+						return data.substring(0, 10)
+					}
+				 }
+				,{title: "작성자", 		data: "nickname",    	width: "15%",   orderable: false,   className: "text-center cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selPageLengthForReview.val()),
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader:false,
+			destroy: true,
+			initComplete: function () {
+				let table = reviewTable.DataTable();
+				let info = table.page.info();
+
+				reviewTotalCount.html(info.recordsTotal);
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+				console.log(aData)
 			}
 		});
 	}
 
-	function excelParams()
+	function reviewParams(d)
 	{
 		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"promotion_idx" : idx
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"from_date" : ""
+			,"to_date" : ""
+			,"search_type" : "doit_uuid"
+			,"keyword" : g_doitUuid
+			,"rating_list" : [1,2,3,4,5]
+			,"is_report" : "ALL"
+			,"is_blind" : "ALL"
 		}
 
 		return JSON.stringify(param);
 	}
 
+	function setRowAttributes(nRow, aData)
+	{
+		let reviewDom  	= $(nRow).children().eq(1);
+
+		let innerDom = '<button ' +
+			'onclick="modalDetailReviewFadein(this);" ' +
+			'type="button" ' +
+			'class="more-info-btn"' +
+			'data-detail="'+aData.review_text+'"' +
+			'data-title="'+aData.doit_title+'"' +
+			'data-rating="'+aData.rating+'"' +
+			'data-report="'+aData.report_count+'"' +
+			'data-nickname="'+aData.nickname+'"' +
+			'data-blind="'+aData.is_blind+'"' +
+			'data-created="'+aData.created+'"' +
+			'>';
+
+		innerDom += aData.review_text;
+		innerDom += '</button>';
+
+		$(reviewDom).html(innerDom);
+	}
+
+	function modalDetailReviewFadein(obj)
+	{
+		modalLayout.fadeIn();
+		modalDetailReview.fadeIn();
+		initModalDetailReview(obj);
+	}
+
+	function initModalDetailReview(obj)
+	{
+		review.html($(obj).data('detail'));
+		title.html($(obj).data('title'));
+		rating.html($(obj).data('rating'));
+		report.html($(obj).data('report'));
+		userid.html($(obj).data('nickname'));
+		created.html($(obj).data('created').substring(0, 10));
+		isBlind.html($(obj).data('blind'));
+	}
+
+	/**
+	 * UCD정보탭관련
+	 * **/
+	function getUcdLog()
+	{
+		ucdTable.DataTable({
+			ajax : {
+				url: api.listDoitUcd,
+				type: "POST",
+				async: false,
+				headers: headers,
+				data: function (d) {
+					return ucdTableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "유형", 	data: "ucd_type",		width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selPageLengthForUcd.val()),
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader:false,
+			destroy: true,
+			initComplete: function () {
+				let table = ucdTable.DataTable();
+				let info = table.page.info();
+
+				ucdTotalCount.html(info.recordsTotal);
+			},
+			fnRowCallback: function( nRow, aData ) {
+			}
+		});
+	}
+
+	function ucdTableParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"doit_uuid" : g_doitUuid
+		}
+
+		return JSON.stringify(param);
+	}
+
+	/** 수정페이지 이동 **/
 	function goUpdatePage()
 	{
 		location.href = page.updateDoit+idx;

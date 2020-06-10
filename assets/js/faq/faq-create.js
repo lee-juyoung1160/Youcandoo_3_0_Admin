@@ -12,9 +12,6 @@
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** input 글자 수 체크 **/
-		checkInputLength();
-
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitFaq(); });
 	});
@@ -25,6 +22,7 @@
 			url: api.getFaqType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildFaqType(data);
@@ -32,21 +30,22 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function buildFaqType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
-		let optionDom = '';
+		let detailData 	= data.data;
+		let dataLen 	= detailData.length;
+		let optionDom 	= '';
 
 		for (let i=0; i<dataLen; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].faq_name;
+			let value = detailData[i].type;
+			let name  = detailData[i].faq_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 
@@ -91,6 +90,7 @@
 					url: api.createFaq,
 					type: "POST",
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -98,7 +98,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

@@ -1,5 +1,5 @@
 .table-btn-wrap.pro-detail-tab li {
-    width: 50%;
+    width: clac(100%/3);
 }
 
 .reward-list li {
@@ -93,5 +93,8 @@
     color: #007aff;
     background-color: #d9e7f5;
 }
-
+.sub-data {
+    color: #888;
+    font-weight: 500;
+}
 

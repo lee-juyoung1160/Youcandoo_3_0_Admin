@@ -1,19 +1,19 @@
 
 	const title 		= $("#title");
-	const content		= $("#summernote");
+	const content		= $("#content");
+	const contentImage	= $("#contentImage");
 	const reserveDate	= $("#reserveDate");
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit		= $("#btnSubmit");
 
 	$(document).ready(function () {
-		/** 에디터 초기화 **/
-		initSummerNote();
-		/** input 글자 수 체크 **/
-		checkInputLength();
+		/** 데이트피커 초기화 **/
+		initInputTodayDatepicker();
 		/** 상세 불러오기 **/
 		getDetail();
-
-		//btnSubmit.on('click', function () { onSubmitUpdateNotice(); });
+		/** 이벤트 **/
+		contentImage.on('change', function () { onChangeValidationImage(this); });
+		btnSubmit	.on('click', function () { onSubmitUpdateNotice(); });
 	});
 
 	function getDetail()
@@ -21,60 +21,78 @@
 		$.ajax({
 			url: api.detailNotice,
 			type: "POST",
-			data: detailParams(),
 			headers: headers,
+			dataType: 'json',
+			data: detailParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
 				else
 					alert(invalidResp(data))
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(thrownError);
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function detailParams()
 	{
-		const pathName		= getPathName();
-		const noticeIdx		= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const noticeIdx	= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : noticeIdx});
 	}
 
+	let g_notice_uuid;
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
-		title.val(jsonData.data.title);
-		content.summernote('code', jsonData.data.contents);
-		reserveDate.val(jsonData.data.reservation_date);
+		let detail = data.data;
+
+		g_notice_uuid = detail.notice_uuid;
+
+		title.val(detail.title);
+		content.val(replaceSelectTextarea(detail.notice_contents));
+		if (!isEmpty(detail.notice_image_url))
+		{
+			let contentImageDom = '';
+			contentImageDom += '<div class="upload-display">';
+			contentImageDom += 	'<div class="upload-thumb-wrap">';
+			contentImageDom += 		'<img src="'+detail.notice_image_url+'" class="upload-thumb">';
+			contentImageDom += 	'</div>';
+			contentImageDom += '</div>';
+
+			contentImage.parent().prepend(contentImageDom);
+		}
+		reserveDate.val(detail.reservation_date);
 		exposure.each(function () {
-			if ($(this).val() === jsonData.data.is_exposure)
+			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
-		})
+		});
+		calculateInputLength();
 	}
 
 	function onSubmitUpdateNotice()
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(message.modify))
 			{
 				$.ajax({
-					url: api.createNotice,
+					url: api.updateNotice,
 					type: "POST",
 					processData: false,
 					contentType: false,
-					data: params(),
 					headers: headers,
+					dataType: 'json',
+					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
 							location.href = page.listNotice
 					},
-					error: function (xhr, ajaxOptions, thrownError) {
-						console.log(thrownError);
+					error: function (request, status) {
+						alert(label.modify+message.ajaxError);
 					}
 				});
 			}
@@ -83,15 +101,15 @@
 
 	function params()
 	{
-		let param = {
-			'notice_title' : title.val().trim()
-			,'notice_contents' : content.val().trim()
-			,'reservation_date' : reserveDate.val().trim()
-			,'is_exposure' : $('input:radio[name=radio-exposure]:checked').val()
-			,'create_user' : sessionUserId.val()
-		}
+		let formData  = new FormData();
+		formData.append('notice_title', title.val().trim());
+		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
+		formData.append('reservation_date', reserveDate.val());
+		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
+		formData.append('notice_image', contentImage[0].files[0]);
+		formData.append('create_user', sessionUserId.val());
 
-		return JSON.stringify(param);
+		return formData;
 	}
 
 	function validation()

@@ -7,10 +7,9 @@
 	const btnSubmit			= $("#btnSubmit");
 
 	$(document).ready(function () {
-
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		checkInputLength();
-
+		/** 이벤트 **/
 		profileImage	.on('change', function(){ onChangeValidationImage(this) });
 		btnSubmit		.on('click', function(){ onSubmitBiz(); });
 	});
@@ -28,21 +27,21 @@
 	{
 		let imageFile	= profileImage[0].files;
 
-		if (isEmpty(bizName.val().trim()))
+		if (isEmpty(bizName.val()))
 		{
 			alert('회사명은 ' + message.required);
 			bizName.focus();
 			return false;
 		}
 
-		if (isEmpty(bizNo.val().trim()))
+		if (isEmpty(bizNo.val()))
 		{
 			alert('사업자번호는 ' + message.required);
 			bizNo.focus();
 			return false;
 		}
 
-		if (bizNo.val().length !== 10)
+		if (bizNo.val().trim().length !== 10)
 		{
 			alert('사업자번호를 ' + message.doubleChk);
 			bizNo.focus();
@@ -56,14 +55,21 @@
 			return false;
 		}
 
-		if (isEmpty(homepage.val().trim()))
+		if (isEmpty(homepage.val()))
 		{
 			alert('홈페이지 링크는 ' + message.required);
 			homepage.focus();
 			return false;
 		}
 
-		if (isEmpty(bizDesc.val().trim()))
+		if (!isDomainName(homepage.val().trim()))
+		{
+			alert('홈페이지 링크 형식을 ' + message.doubleChk);
+			homepage.focus();
+			return false;
+		}
+
+		if (isEmpty(bizDesc.val()))
 		{
 			alert('소개내용은 ' + message.required);
 			bizDesc.focus();
@@ -77,10 +83,10 @@
 	{
 		let paramFile = profileImage[0].files[0];
 		let formData  = new FormData();
-		formData.append('company-name', bizName.val());
+		formData.append('company-name', bizName.val().trim());
 		formData.append('company-number', bizNoFormatter(bizNo.val()));
-		formData.append('company-url', homepage.val());
-		formData.append('company-contents', bizDesc.val());
+		formData.append('company-url', homepage.val().trim());
+		formData.append('company-contents', bizDesc.val().trim());
 		formData.append('company-image', paramFile);
 
 		return formData;
@@ -98,15 +104,15 @@
 					processData: false,
 					contentType: false,
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
-
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
 							location.href = page.listBiz
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

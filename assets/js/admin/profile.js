@@ -1,6 +1,4 @@
 
-	const btnProfileModify  = $("#btnProfileModify");
-	const myProfile			= $("#myProfile");
 	const myId 				= $("#myId");
 	const myName 			= $("#myName");
 	const myEmail 			= $("#myEmail");
@@ -8,39 +6,15 @@
 	const passwordChk 		= $("#passwordChk");
 	const passwordChkTxt	= $("#passwordChkTxt");
 	const btnSubmit 		= $("#btnSubmit");
-	const search 			= $(".search");
-	const reset 			= $(".reset");
-	const dataNum			= $(".data-num");
 
 	$(document).ready(function () {
-		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
-		/** 검색 폼 초기화 **/
-		initSearchForm();
-		/** 로그인 관리자 정보 **/
+		/** 나의 정보 **/
 		getProfile();
 		/** 이벤트 **/
-		btnProfileModify	.on('click', function () { toggleProfile(this); })
-		btnSubmit			.on('click', function () { onSubmitProfile(this); })
-		search				.on("click", function () { onSubmitSearch(); });
-		reset				.on("click", function () { initSearchForm(); });
-		dayButtons      	.on("click", function () { onClickActiveAloneDayBtn(this); });
-		password      		.on("keyup", function () { onKeyupPassword(); });
-		passwordChk      	.on("keyup", function () { onKeyupPasswordChk(); });
+		password    .on("keyup", function () { onKeyupPassword(); });
+		passwordChk .on("keyup", function () { onKeyupPasswordChk(); });
+		btnSubmit	.on('click', function () { onSubmitProfile(this); })
 	});
-
-	function initSearchForm()
-	{
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
-	}
-
-	/** 프로필 상세 영역 toggle **/
-	function toggleProfile(obj)
-	{
-		$(obj).toggleClass('active');
-		myProfile.toggleClass('active');
-	}
 
 	function onKeyupPassword()
 	{
@@ -62,6 +36,7 @@
 			url: api.getProfile,
 			type: "POST",
 			headers : headers,
+			dataType: 'json',
 			data: JSON.stringify({"userid" : sessionUserId.val()}),
 			success: function(data) {
 				if (isSuccessResp(data))
@@ -70,18 +45,18 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function buildProfile(data)
 	{
-		let jsonData  = JSON.parse(data);
+		let detail = data.data;
 
-		myId.html(jsonData.data.userid);
-		myName.html(jsonData.data.name);
-		myEmail.html(jsonData.data.email);
+		myId.html(detail.userid);
+		myName.html(detail.name);
+		myEmail.html(detail.email);
 	}
 
 	function validation()
@@ -130,6 +105,7 @@
 					url: api.updateProfile,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: updateParams(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -137,7 +113,7 @@
 							getProfile();
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

@@ -9,9 +9,11 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
+		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 권한 목록 **/
 		getAuthList();
-
+		/** 이벤트 **/
 		btnSubmit	.on('click', function () { onSubmitAdmin(); })
 		email		.on('keyup', function () { onKeyupEmail(); })
 	});
@@ -25,10 +27,11 @@
 	function getAuthList()
 	{
 		$.ajax({
-			url: api.listAdminAuth,
+			url: api.listAuth,
 			type: "POST",
 			headers : headers,
 			/*data: params(),*/
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -36,21 +39,19 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.list+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function buildAuthList(data)
 	{
-		let jsonData  = JSON.parse(data);
-		console.log(jsonData)
-		let respData  = jsonData.data;
+		let details   = data.data;
 		let optionDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			if (i === 0)
 				authCodeLabel.text(name);
 
@@ -107,7 +108,7 @@
 			"userid" : userid.val().trim()
 			,"name" : name .val().trim()
 			,"email" : email .val().trim()
-			,"auth_code" : authCode.val().trim()
+			,"auth_code" : authCode.val()
 			,"is_active" : $("input[name=radio-use-yn]:checked").val()
 		}
 		return JSON.stringify(param);
@@ -123,14 +124,15 @@
 					url: api.createAdmin,
 					type: "POST",
 					headers : headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							location.href = '/admin/lists'
+							location.href = page.listAdmin;
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

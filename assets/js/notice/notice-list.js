@@ -9,9 +9,9 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
-	let iconTop 		= '<i class="fas fas fa-bell"></i>';
 	let topCount		= 0;
 
 	$(document).ready(function () {
@@ -27,6 +27,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteNotice(); });
 		btnTop			.on("click", function () { toggleTop(); });
 	});
 
@@ -59,8 +60,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -68,16 +69,16 @@
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
-				}
-				,{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
+				},
+				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
-				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center",
+				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
+						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
+				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -114,7 +115,7 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
@@ -149,10 +150,10 @@
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
 		let isTop	 = aData.is_top;
-		let detailUrl = '/service/notice/detail/'+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+		/** 제목 cell 클릭 상세 이동 **/
+		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
+		$(titleDom).css('text-decoration', 'underline');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')
@@ -160,8 +161,13 @@
 			topCount++;
 
 			/** no컬럼에 숫자대신 아이콘 **/
-			$(topDom).html('<i class="fas fas fa-bell"></i>');
+			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;"></i>');
 		}
+	}
+
+	function goDetail(idx)
+	{
+		location.href = page.detailNotice+idx;
 	}
 
 	/** row select **/
@@ -189,7 +195,7 @@
 		btnTop.removeClass('delete-btn');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('btn-disabled');
-		btnTop.html(iconTop +'상단고정');
+		btnTop.html(label.fixedTop +'상단고정');
 	}
 
 	function bestStatusBtnTop()
@@ -197,7 +203,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('delete-btn');
 		btnTop.addClass('best-btn');
-		btnTop.html(iconTop +'상단고정');
+		btnTop.html(label.fixedTop +'상단고정');
 	}
 
 	function deleteStatusBtnTop()
@@ -205,7 +211,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('delete-btn');
-		btnTop.html(iconTop +'상단고정 해제');
+		btnTop.html(label.fixedTop +'상단고정 해제');
 	}
 
 	function onSubmitSearch()
@@ -242,6 +248,7 @@
 				headers: headers,
 				async: false,
 				global: false,
+				dataType: 'json',
 				data: JSON.stringify(topParams),
 				success: function(data) {
 					alert(getStatusMessage(data));
@@ -252,8 +259,60 @@
 					}
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(label.submit+message.ajaxError);
 				},
 			});
 		}
+	}
+
+	function deleteNotice()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteNotice,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"notice_uuid" : selectedData.notice_uuid
+		};
+
+		return JSON.stringify(param)
 	}

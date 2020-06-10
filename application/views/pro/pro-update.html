@@ -12,8 +12,8 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="bizName" type="text" class="length-input" placeholder="기업명을 입력해주세요." maxlength="10">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/10</p>
+                                <!--<input id="bizName" type="text" readonly>-->
+                                <p class="detail-data" id="bizName"></p>
                             </div>
                         </div>
                     </div>
@@ -35,14 +35,15 @@
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">프로모션 예산 (*)</p>
-                            <i class="question-mark far fa-question-circle">
+                            <!--<i class="question-mark far fa-question-circle">
                                 <span class="hover-text">*집행 예산의 수수료30% 부과 (수수료=집행예산X30%) <br>* 유캔두와 컨설팅 후 예산을 입력해주세요</span>
-                            </i>
+                            </i>-->
                         </div>
                         <div class="col-2">
                             <div class="wrap">
-                                <input id="budget" type="text" class="only-num" maxlength="11">
-                                <span class="input-num-title">원</span>
+                                <!--<input id="budget" type="text" class="only-num" readonly>
+                                <span class="input-num-title">원</span>-->
+                                <p class="detail-data" id="budget"></p>
                             </div>
                         </div>
                     </div>
@@ -98,13 +99,13 @@
                                 <p class="cap">배너 및 리스트 (* 이미지 사이즈: 656 x 420)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled" >
                                 <label for="banner">업로드</label>
-                                <input type="file" id="banner" class="upload-hidden">
+                                <input type="file" id="banner" class="upload-hidden" data-width="656" data-height="420" data-oper="eq">
                             </div>
                             <div class="filebox preview-image">
-                                <p class="cap">소개 (* 이미지 사이즈: 656 x 420 이상)</p>
+                                <p class="cap">소개 (* 이미지 가로 사이즈: 750 이상)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled" >
-                                <label for="thumbnail">업로드</label>
-                                <input type="file" id="thumbnail" class="upload-hidden">
+                                <label for="intro">업로드</label>
+                                <input type="file" id="intro" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
                             </div>
                         </div>
                     </div>
@@ -151,10 +152,14 @@
                         <div class="col-1">
                             <p class="sub-title important">리워드 조건 지정 (*)</p>
                             <i class="question-mark far fa-question-circle">
-                                <span class="hover-text">* 사용자 리워드 조건은 1개만 등록이 가능합니다.</span>
+                                <span class="hover-text">* 리워드 조건은 최대 5개 설정 가능</span>
                             </i>
-                            <ul class="hash-tag-list reward-tab">
-                                <li class="on" data-rel="reward-1">
+                            <button class="reward-add-btn" type="button">
+                                <i class="fas fa-plus"></i>
+                                <span>생성하기</span>
+                            </button>
+                            <ul id="rewardTabWrap" class="hash-tag-list reward-tab-ul">
+                                <!--<li class="on" data-rel="reward-1">
                                     <span class="tag-name">리워드 조건 1</span>
                                 </li>
                                 <li data-rel="reward-2">
@@ -169,15 +174,11 @@
                                 <li data-rel="reward-5" class="reward-user">
                                     <span class="tag-name">사용자 리워드 조건</span>
                                     <i class="delete-btn far fa-times-circle"></i>
-                                </li>
+                                </li>-->
                             </ul>
-                            <button class="reward-add-btn" type="button">
-                                <i class="fas fa-plus"></i>
-                                <span>생성하기</span>
-                            </button>
                         </div>
-                        <div class="col-2 pro-reward">
-                            <div class="pro-reward-wrap reward-1">
+                        <div id="rewardsWrap" class="col-2 pro-reward">
+                            <!--<div class="pro-reward-wrap reward-1">
                                 <ul class="pro-reward">
                                     <li>
                                         <div class="col-wrap clearfix">
@@ -213,9 +214,9 @@
                                                 <p class="cap">주간 빈도 (*)</p>
                                             </div>
                                             <div class="col-2">
-                                                <!--
+                                                &lt;!&ndash;
                                                 인증기간 1일 일때 ul.disabled
-                                               -->
+                                               &ndash;&gt;
                                                 <ul class="day-btn clearfix">
                                                     <li class="frequency">월</li>
                                                     <li class="frequency">화</li>
@@ -333,600 +334,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-
-                            <div class="pro-reward-wrap reward-2">
-                                <ul class="pro-reward">
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">리워드 제목 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="input-wrap">
-                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="일주일에 세 번만" maxlength="20" oninput="maxLengthCheck(this)">
-                                                    <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인증 기간 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="duration" data-days="1">1일</li>
-                                                    <li class="duration active" data-days="7">1주</li>
-                                                    <li class="duration" data-days="14">2주</li>
-                                                    <li class="duration" data-days="28">4주</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">주간 빈도 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <!--
-                                                 인증기간 1일 일때 ul.disabled
-                                                -->
-                                                <ul class="day-btn clearfix">
-                                                    <li class="frequency active">월</li>
-                                                    <li class="frequency">화</li>
-                                                    <li class="frequency active">수</li>
-                                                    <li class="frequency">목</li>
-                                                    <li class="frequency">금</li>
-                                                    <li class="frequency active">토</li>
-                                                    <li class="frequency">일</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">목표달성률 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title">%</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reward-typ-li clearfix">
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">리워드 비율 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
-
-                                                <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title margin-text">:</span>
-
-                                                <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인당 UCD (*)</p>
-                                            </div>
-                                            <div class="col-2 pro-ucd-wrap">
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>참여 인원 수(명)</th>
-                                                        <th>인당 UCD</th>
-                                                        <th>총 UCD</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
-                                                        <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" class="add-btn-wrap">
-                                                            <button class="ucd-add-btn" type="button">
-                                                                <i class="fas fa-plus"></i>
-                                                                <span>생성하기</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="pro-reward-wrap reward-3">
-                                <ul class="pro-reward">
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">리워드 제목 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="input-wrap">
-                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="평일을 알차게" maxlength="20">
-                                                    <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인증 기간 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="duration" data-days="1">1일</li>
-                                                    <li class="duration active" data-days="7">1주</li>
-                                                    <li class="duration" data-days="14">2주</li>
-                                                    <li class="duration" data-days="28">4주</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">주간 빈도 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="frequency active">월</li>
-                                                    <li class="frequency active">화</li>
-                                                    <li class="frequency active">수</li>
-                                                    <li class="frequency active">목</li>
-                                                    <li class="frequency active">금</li>
-                                                    <li class="frequency">토</li>
-                                                    <li class="frequency">일</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">목표달성률 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title">%</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reward-typ-li clearfix">
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">리워드 비율 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
-
-                                                <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title margin-text">:</span>
-
-                                                <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인당 UCD (*)</p>
-                                            </div>
-                                            <div class="col-2 pro-ucd-wrap">
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>참여 인원 수(명)</th>
-                                                        <th>인당 UCD</th>
-                                                        <th>총 UCD</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
-                                                        <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" class="add-btn-wrap">
-                                                            <button class="ucd-add-btn" type="button">
-                                                                <i class="fas fa-plus"></i>
-                                                                <span>생성하기</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="pro-reward-wrap reward-4">
-                                <ul class="pro-reward">
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">리워드 제목 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="input-wrap">
-                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="하루도 빠짐없이" maxlength="20">
-                                                    <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인증 기간 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="duration" data-days="1">1일</li>
-                                                    <li class="duration active" data-days="7">1주</li>
-                                                    <li class="duration" data-days="14">2주</li>
-                                                    <li class="duration" data-days="28">4주</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">주간 빈도 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="frequency active">월</li>
-                                                    <li class="frequency active">화</li>
-                                                    <li class="frequency active">수</li>
-                                                    <li class="frequency active">목</li>
-                                                    <li class="frequency active">금</li>
-                                                    <li class="frequency active">토</li>
-                                                    <li class="frequency active">일</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">목표달성률 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title">%</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reward-typ-li clearfix">
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">리워드 비율 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
-
-                                                <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title margin-text">:</span>
-
-                                                <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인당 UCD (*)</p>
-                                            </div>
-                                            <div class="col-2 pro-ucd-wrap">
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>참여 인원 수(명)</th>
-                                                        <th>인당 UCD</th>
-                                                        <th>총 UCD</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="10"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="12"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="15"></td>
-                                                        <td><span class="text-right">1,000</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left" value="10">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right" value="10">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd" value="20"></td>
-                                                        <td><span class="text-right">1,200</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" class="add-btn-wrap">
-                                                            <button class="ucd-add-btn" type="button">
-                                                                <i class="fas fa-plus"></i>
-                                                                <span>생성하기</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="pro-reward-wrap reward-5">
-                                <ul class="pro-reward">
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">리워드 제목 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="input-wrap">
-                                                    <input type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." maxlength="20">
-                                                    <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인증 기간 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="duration" data-days="1">1일</li>
-                                                    <li class="duration" data-days="7">1주</li>
-                                                    <li class="duration" data-days="14">2주</li>
-                                                    <li class="duration" data-days="28">4주</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">주간 빈도 (*)</p>
-                                            </div>
-                                            <div class="col-2">
-                                                <ul class="day-btn clearfix">
-                                                    <li class="frequency">월</li>
-                                                    <li class="frequency">화</li>
-                                                    <li class="frequency">수</li>
-                                                    <li class="frequency">목</li>
-                                                    <li class="frequency">금</li>
-                                                    <li class="frequency">토</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">목표달성률 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range goal-range" readonly>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title">%</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reward-typ-li clearfix">
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap" style="display: inline-block;">리워드 비율 (*)</p>
-                                                <i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
-                                                    <span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>
-                                                </i>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="range" class="custom-range reward-range" readonly>
-
-                                                <span class="input-num-title">개인</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                                <span class="input-num-title margin-text">:</span>
-
-                                                <span class="input-num-title">단체</span>
-                                                <input class="input-num-box" type="text" readonly>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col-wrap clearfix">
-                                            <div class="col-1">
-                                                <p class="cap">인당 UCD (*)</p>
-                                            </div>
-                                            <div class="col-2 pro-ucd-wrap">
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>참여 인원 수(명)</th>
-                                                        <th>인당 UCD</th>
-                                                        <th>총 UCD</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="only-num input-left">
-                                                            <span class="date-margin-text"> ~ </span>
-                                                            <input type="text" class="only-num input-right">
-                                                        </td>
-                                                        <td><input type="text" class="only-num reward-ucd"></td>
-                                                        <td><span class="text-right">-</span></td>
-                                                        <td><i class="delete-btn far fa-times-circle"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" class="add-btn-wrap">
-                                                            <button class="ucd-add-btn" type="button">
-                                                                <i class="fas fa-plus"></i>
-                                                                <span>생성하기</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
+                            </div>-->
                         </div>
                     </div>
                 </li>
@@ -936,29 +344,6 @@
             </ul>
         </div>
     </div>
+
 </section>
-<script src="/assets/js/promotion/promotion-create.js"></script>
-<script>
-    $('[data-rel]').on('click', function(e){
-        var dateView = $(this).attr('data-rel');
-
-        $('[data-rel]').removeClass('on');
-        $(this).addClass('on');
-
-        $('.pro-reward-wrap').hide();
-        $('.' + dateView).show();
-        e.preventDefault();
-    });
-
-    $('.reward-add-btn').on('click', function(e){
-        $('.reward-user').show();
-        $(this).hide();
-        e.preventDefault();
-    });
-
-    $('.delete-btn').on('click', function(e){
-        $('.reward-add-btn').show();
-        $('.reward-user').hide();
-        e.preventDefault();
-    });
-</script>
+<script src="/assets/js/promotion/promotion-update.js"></script>

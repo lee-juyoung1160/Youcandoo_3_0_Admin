@@ -12,7 +12,9 @@
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const selectedReward    = $("#selectedReward")
 	const labelSelReward 	= $("label[for='selReward']");
-	const maxUser 			= $("#maxUser");
+	const minAvailable 		= $("#minAvailable");
+	const maxAvailable 		= $("#maxAvailable");
+	/*const recruit 			= $("#recruit");*/
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
 	const ucdAreWrap		= $("#ucd-area-wrap");
@@ -44,8 +46,6 @@
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
 		onChangeExampleType(exampleType.eq(0));
-		/** input 글자 수 체크 **/
-		checkInputLength();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -65,20 +65,18 @@
 	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
 	{
-		let doitFromDate = new Date(doitFrom.datepicker("getDate"));
-		let duration = $("#duration").text();
-		let doitToDate;
+		let doitFromDate = doitFrom.datepicker("getDate");
+		let duration = g_duration;
 
 		if (isEmpty(duration))
 		{
-			alert("두잇 유형을 "+message.select);
+			alert("리워드 조건을 "+message.select);
 			doitFrom.val('');
-			bizName.focus();
 			return;
 		}
 
-		doitFromDate.setDate(doitFromDate.getDate() + Number(duration));
-		doitToDate = stringFormatToDate(doitFromDate, '-');
+		doitFromDate.setDate(doitFromDate.getDate() + (Number(duration) - 1));
+		let doitToDate = getStringFormatToDate(doitFromDate, '-');
 
 		doitTo.val(doitToDate);
 	}
@@ -88,9 +86,9 @@
 		doitTitle.focus();
 		doitTitle.val('');
 		bizName.val('');
-		selPromo.find('option').eq(0).prop('selected', true);
-		selReward.find('option').eq(0).prop('selected', true);
-		maxUser.val('');
+		buildOptionPromo();
+		buildOptionReward();
+		/*recruit.val('');*/
 		inputTag.val('');
 		introFileType.eq(0).prop('checked', true);
 		onChangeIntroType(introFileType);
@@ -118,6 +116,10 @@
 				tagDom += '</li>';
 
 				addedTags.append(tagDom);
+
+				inputTag.val('');
+				checkInputLength(inputTag);
+				inputTag.focus();
 			}
 		}
 	}
@@ -130,6 +132,19 @@
 		{
 			alert('태그를 '+message.input);
 			inputTag.focus();
+			return false;
+		}
+
+		let splitInput = inputTag.val().split('');
+		if (splitInput.indexOf(',') !== -1)
+		{
+			alert('태그에 , 를 포함할 수 없습니다.');
+			return false;
+		}
+
+		if (splitInput.indexOf('#') !== -1)
+		{
+			alert('태그에 # 을 포함할 수 없습니다.');
 			return false;
 		}
 
@@ -217,6 +232,8 @@
 	{
 		bizUuid = uuid;
 		bizName.val(name);
+		minAvailable.html('0');
+		maxAvailable.html('0');
 		getInvolvePromo();
 		buildOptionReward();
 		modalFadeout();
@@ -234,13 +251,15 @@
 			url: api.involvePromotion,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"company_uuid" : bizUuid}),
 			success: function(data) {
 					buildOptionPromo(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('프로모션 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -249,18 +268,17 @@
 	{
 		labelSelPromo.text('프로모션 선택');
 		let optionPromoDom = '<option value="">프로모션 선택</option>';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			let dataLen  = respData.length;
+			let details = data.data;
+			let dataLen = details.length;
 
 			if (dataLen > 0)
 			{
 				for (let i=0; i<dataLen; i++)
 				{
-					let uuid  = respData[i].promotion_uuid;
-					let title = respData[i].promotion_title;
+					let uuid  = details[i].promotion_uuid;
+					let title = details[i].promotion_title;
 
 					optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
 				}
@@ -271,18 +289,19 @@
 
 	function onChangeSelPromo()
 	{
-		buildSelectedReward();
 		$.ajax({
 			url: api.involveReward,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
 			success: function(data) {
 				buildOptionReward(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('리워드 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -291,18 +310,18 @@
 	{
 		labelSelReward.text('리워드 조건 생성 목록 선택');
 		let optionRewardDom = '<option value="">리워드 조건 생성 목록 선택</option>';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			let dataLen  = respData.length;
+			let details = data.data;
+			let dataLen = details.length;
 
 			if (dataLen > 0)
 			{
 				for (let i=0; i<dataLen; i++)
 				{
-					let uuid  = respData[i].reward_uuid;
-					let title = respData[i].title;
+					let uuid  = details[i].reward_uuid;
+					let title = details[i].title;
+
 					optionRewardDom += '<option value="'+ uuid +'">'+ title +'</option>';
 				}
 			}
@@ -313,59 +332,76 @@
 	function onChangeSelReward()
 	{
 		$.ajax({
-			url: api.selectReward,
+			url: api.getReward,
 			type: "POST",
 			async: false,
+			global: false,
 			headers: headers,
+			dataType: 'json',
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
 			success: function(data) {
 					buildSelectedReward(data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('리워드 '+label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
 
+	let g_min_user_limit;
+	let g_max_user_limit;
+	let g_duration;
 	function buildSelectedReward(data)
 	{
 		selectedReward.hide();
 		let selectedRewardDom = '';
-		if (!isEmpty(data) && isSuccessResp(data))
+		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
-			let jsonData = JSON.parse(data);
-			let respData = jsonData.data;
-			console.log(respData)
+			let detail = data.data;
+			g_duration = detail.action_duration;
+
+			/** 프로모션 종료일로 두잇 인증기간 시작일 최대 값 세팅 **/
+			doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
+
 			selectedRewardDom += '<li class="reward-type clearfix">';
-			selectedRewardDom += '<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>인증기간 : </span><span id="duration">'+respData.action_duration+'</span></p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>하루인증횟수 : </span>'+respData.action_daily_allow+'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>목표달성률 : </span>'+respData.goal_percent+'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += 	'<p class="cap"><span>리워드 유형 : </span>개인 '+ respData.person_percent +' : 단체 '+respData.group_percent +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>1인당 최대 UCD : </span>'+ respData.total_reward +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap"><span>주간빈도 : </span>'+ respData.action_dayofweek +'</p>';
-			selectedRewardDom += '</div>';
-			selectedRewardDom += '<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
-			selectedRewardDom += '<div class="fixed">';
-			selectedRewardDom += 	'<p class="cap">현재까지 남은 잔여 UCD는 ';
-			selectedRewardDom += 	'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(respData.remain_budget_ucd)+' UCD</span> 입니다.';
-			selectedRewardDom += 	'</p>';
-			selectedRewardDom += '</div>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'일</span></p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>모집인원 : </span>'+detail.min_user_limit+' ~ '+detail.max_user_limit+'명</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'회</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'%</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +'% : 단체 '+detail.group_percent +'%</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 UCD : </span>'+ numberWithCommas(detail.total_reward) +' UCD</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';
+			selectedRewardDom += 	'</div>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산</p>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap">현재까지 남은 잔여 UCD는 ';
+			selectedRewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(detail.remain_budget_ucd)+' UCD</span> 입니다.';
+			selectedRewardDom += 		'</p>';
+			selectedRewardDom += 	'</div>';
 			selectedRewardDom += '</li>';
 
 			selectedReward.html(selectedRewardDom);
 			selectedReward.show();
+
+			/** 모집인원 가이드(프로모션에서 설정한 최대 못집인원을 표출시켜 줌) **/
+			minAvailable.html(detail.min_user_limit);
+			maxAvailable.html(detail.max_user_limit);
+			g_min_user_limit = detail.min_user_limit;
+			g_max_user_limit = detail.max_user_limit;
 		}
 	}
 
@@ -384,7 +420,7 @@
 		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
 		introFileDom += 	'<label for="introImage">업로드</label>';
-		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" onchange="onChangeValidationImage(this)">';
+		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		introFileDom += '</div>';
 		if (introType === 'video')
 		{
@@ -399,6 +435,7 @@
 		introFileArea.html(introFileDom);
 	}
 
+	/** 인증예시타입 라디오 체인지 이벤트 **/
 	function onChangeExampleType(obj)
 	{
 		exampleArea.empty();
@@ -420,7 +457,7 @@
 		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
 		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationImage(this)">';
+		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		fileDom += '</div>';
 
 		exampleArea.html(fileDom);
@@ -435,7 +472,7 @@
 		fileDom += 		'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
 		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
 		fileDom += 		'<label for="exampleFile">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationImage(this)">';
+		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
 		fileDom += 	'</div>';
 		fileDom += 	'<div class="filebox preview-image">';
 		fileDom += 		'<p class="cap">영상</p>';
@@ -502,7 +539,7 @@
 			return false;
 		}
 
-		if ($('input:radio[name=radio-doit-type]:checked').val() === 'video' && introVideoFile.length === 0)
+		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
 		{
 			alert('두잇 소개 영상은 ' + message.required);
 			return false;
@@ -510,33 +547,40 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('기업명은 ' + message.required);
+			alert('기업명은 ' + message.required+'\n두잇 유형에서 기업명을 '+message.select);
 			bizName.focus();
 			return false;
 		}
 
 		if (isEmpty(selPromo.val()))
 		{
-			alert('프로모션은 ' + message.required);
+			alert('프로모션은 ' + message.required+'\n두잇 유형에서 프로모션을 '+message.select);
 			selPromo.focus();
 			return false;
 		}
 
 		if (isEmpty(selReward.val()))
 		{
-			alert('리워드 조건은 ' + message.required);
+			alert('리워드 조건은 ' + message.required+'\n두잇 유형에서 리워드 조건을 '+message.select);
 			selReward.focus();
 			return false;
 		}
 
-		if (isEmpty(maxUser.val()))
+		/*if (isEmpty(recruit.val()))
 		{
-			alert('최대모집인원은 ' + message.required);
-			maxUser.focus();
+			alert('모집 인원은 ' + message.required);
+			recruit.focus();
 			return false;
-		}
+		}*/
 
-		if ($("input[name=chkExtraReward]").is(':checked') && isEmpty(extraReward.val()))
+		/*if (Number(recruit.val()) > Number(g_max_user_limit) || Number(recruit.val()) < Number(g_min_user_limit))
+		{
+			alert('모집 인원은 ' + message.invalidRecruitCount);
+			recruit.focus();
+			return false;
+		}*/
+
+		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
 			alert('추가리워드를 '+message.input);
 			extraReward.focus();
@@ -580,14 +624,14 @@
 			return false;
 		}
 
-		if ($("input[name=chkAccessUser]").is(':checked') && isEmpty(privateCode.val()))
+		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
 			alert('참가코드를 '+message.input);
 			privateCode.focus();
 			return false;
 		}
 
-		if ($("input[name=chkAccessUser]").is(':checked') && privateCode.val().trim().length < 4)
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
 			alert(message.minimumPassCode);
 			privateCode.focus();
@@ -638,7 +682,8 @@
 		formData.append('company-uuid', bizUuid);
 		formData.append('promotion-uuid', selPromo.val().trim());
 		formData.append('reward-uuid', selReward.val().trim());
-		formData.append('max-user', maxUser.val().trim());
+		formData.append('min-user', g_min_user_limit);
+		formData.append('max-user', g_max_user_limit);
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);
@@ -654,9 +699,9 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
-		if ($("#chkExtraReward").is(':checked'))
+		if (chkExtraReward.is(':checked'))
 		{
-			formData.append('group-reward-description', $("#ucd-area").val().trim())
+			formData.append('group-reward-description', extraReward.val().trim())
 		}
 
 		return formData;
@@ -674,6 +719,7 @@
 					headers: headers,
 					processData: false,
 					contentType: false,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -681,7 +727,7 @@
 							location.href = page.listDoit
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					}
 				});
 			}

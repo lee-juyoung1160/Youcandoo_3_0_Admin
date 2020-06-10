@@ -1,0 +1,539 @@
+<link rel="stylesheet" href="/assets/css/user-detail.css">
+
+<section class="user-detail-page">
+    <div class="inner">
+        <h2 class="main-title">회원 상세</h2>
+
+        <div class="wrap clearfix">
+
+            <div class="move-section-wrap">
+
+                <!-- 기본정보 -->
+                <div class="user-info-01">
+                    <p class="enrollment-title" style="margin-top: 0;">기본 정보</p>
+                    <ul class="enrollment clearfix">
+                        <li>
+                            <div class="col-wrap clearfix">
+                                <div class="col-1">
+                                    <p class="sub-title important">프로필 ID</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="detail-data">PID-7F8527C0-C420-D854-13D7-8F411DA9738A</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-wrap clearfix">
+                                <div class="col-1">
+                                    <p class="sub-title important">닉네임</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="detail-data">베리베리</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-wrap clearfix">
+                                <div class="col-1">
+                                    <p class="sub-title important">보유 UCD</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="ucd-data" style="margin-bottom: 10px;">
+                                        <span id="balance">0</span>UCD
+                                    </p>
+                                    <dl class="ucd-data clearfix">
+                                        <dt>- UCD(c) :</dt>
+                                        <dd><span id="cash">200,000</span>UCD</dd>
+                                    </dl>
+                                    <dl class="ucd-data clearfix">
+                                        <dt>- UCD(p) :</dt>
+                                        <dd><span id="point">10,000</span>UCD</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 회원정보 -->
+                <div class="user-info-02">
+                    <p class="enrollment-title">회원 정보</p>
+                    <ul class="enrollment clearfix">
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">사용 서비스</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">유캔두, 카카오키즈</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">생년월일</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">1999.11.11</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">성별</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">여</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">연락처</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">010-0000-0000</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">이메일</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">barry@naver.com</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">인증여부</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="detail-data">Y</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+                <!-- 두잇정보 -->
+                <div class="doit-info">
+                    <p class="enrollment-title">두잇 정보</p>
+                    <ol class="table-btn-wrap user-doit-tab clearfix">
+                        <li class="active">개설</li>
+                        <li>참여</li>
+                    </ol>
+                    <!--개설-->
+                    <div class="doit-01">
+                        <div class="table-wrap">
+                        <table>
+                            <colgroup>
+                                <col style="width:40%;">
+                                <col style="width:15%;">
+                                <col style="width:15%;">
+                                <col style="width:10%;">
+                                <col style="width:20%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>두잇명</th>
+                                <th>리워드 UCD</th>
+                                <th>사용 UCD</th>
+                                <th>성공여부</th>
+                                <th>리뷰</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>댕댕이 산책시키기</td>
+                                <td>200,000</td>
+                                <td>103,000</td>
+                                <td>성공</td>
+                                <td class="clearfix">
+                                    <div style="display: inline-block;">
+                                        <ol class="star-wrap clearfix">
+                                            <li class="on"><i class="fas fa-star"></i></li>
+                                            <li class="on"><i class="fas fa-star"></i></li>
+                                            <li class="on"><i class="fas fa-star"></i></li>
+                                            <li><i class="fas fa-star"></i></li>
+                                            <li><i class="fas fa-star"></i></li>
+                                        </ol>
+                                        <button class="btn-open-modal score" data-modal="modal-02">3</button>
+                                    </div>
+                                </td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td colspan="5">-->
+<!--                                    <p class="sub-title important"></p>-->
+<!--                                    <div class="scroll-box">-->
+<!--                                        <ol class="detail-data clearfix">-->
+<!--                                           <li><img src="/assets/images/test.png" alt=""></li>-->
+<!--                                            <li><img src="/assets/images/test.png" alt=""></li>-->
+<!--                                            <li><img src="/assets/images/test.png" alt=""></li>-->
+<!--                                            <li><img src="/assets/images/test.png" alt=""></li>-->
+<!--                                            <li><img src="/assets/images/test.png" alt=""></li>-->
+<!--                                        </ol>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                        <!--<ul class="table-pagination clearfix">
+                            <li><i class="fas fa-angle-double-left"></i></li>
+                            <li class="active">1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li><i class="fas fa-angle-double-right"></i></li>
+                        </ul>-->
+                    </div>
+                    </div>
+                    <!--참여-->
+                    <div class="doit-02">
+                        <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width:40%;">
+                                    <col style="width:15%;">
+                                    <col style="width:15%;">
+                                    <col style="width:15%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>두잇명</th>
+                                    <th>적립 UCD</th>
+                                    <th>성공 여부</th>
+                                    <th>리뷰</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>댕댕이 산책시키기</td>
+                                    <td>103,000</td>
+                                    <td>실패</td>
+                                    <td>
+                                        <div style="display: inline-block;">
+                                            <ol class="star-wrap clearfix">
+                                                <li class="on"><i class="fas fa-star"></i></li>
+                                                <li class="on"><i class="fas fa-star"></i></li>
+                                                <li class="on"><i class="fas fa-star"></i></li>
+                                                <li class="on"><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ol>
+                                            <button class="btn-open-modal score" data-modal="modal-02">4</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--<ul class="table-pagination clearfix">
+                                <li><i class="fas fa-angle-double-left"></i></li>
+                                <li class="active">1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li><i class="fas fa-angle-double-right"></i></li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- UCD 사용내역 -->
+                <div class="user-ucd">
+                    <p class="enrollment-title">UCD 사용 내역</p>
+
+                    <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="width:10%;">
+                                    <col style="width:15%;">
+                                    <col style="width:15%;">
+                                    <col style="width:35%;">
+                                    <col style="width:15%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>유형</th>
+                                    <th>구분</th>
+                                    <th>금액</th>
+                                    <th>제목</th>
+                                    <th>내용</th>
+                                    <th>일시</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="minus-pay">
+                                    <td>UCD(c)</td>
+                                    <td>취소</td>
+                                    <td>-10,000</td>
+                                    <td>충전</td>
+                                    <td>일반 두잇 개설 취소</td>
+                                    <td>2020/11/11</td>
+                                </tr>
+                                <tr>
+                                    <td>UCD(p)</td>
+                                    <td>충전</td>
+                                    <td>10,000</td>
+                                    <td>충전</td>
+                                    <td>일반 두잇 개설 취소</td>
+                                    <td>2020/11/11</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--<ul class="table-pagination clearfix">
+                                <li><i class="fas fa-angle-double-left"></i></li>
+                                <li class="active">1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li><i class="fas fa-angle-double-right"></i></li>
+                            </ul>-->
+                        </div>
+
+
+
+                </div>
+                <!-- 사용자 로그 -->
+                <div class="user-log">
+                    <p class="enrollment-title">사용자 로그</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <colgroup>
+                                <col style="width:40%;">
+                                <col style="width:10%;">
+                                <col style="width:15%;">
+                                <col style="width:15%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>경로</th>
+                                <th>날짜</th>
+                                <th>구분</th>
+                                <th>활동</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>pormotion/detail</td>
+                                <td>2010/11/11</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<ul class="table-pagination clearfix">
+                            <li><i class="fas fa-angle-double-left"></i></li>
+                            <li class="active">1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li><i class="fas fa-angle-double-right"></i></li>
+                        </ul>-->
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <ol class="enrollment move-tab">
+                <li data-moveto="user-info-01">기본 정보</li>
+                <li data-moveto="user-info-02">회원 정보</li>
+                <li data-moveto="doit-info">두잇 정보</li>
+                <li data-moveto="user-ucd">UCD 사용 내역</li>
+                <li data-moveto="user-log">사용자 로그</li>
+            </ol>
+
+        </div>
+
+
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" href="/user/lists">목록</a>
+                </div>
+            </div>
+
+    </div>
+
+    <div class="modal-wrap">
+
+        <div class="modal-content modal-01">
+            <div class="wrap">
+                <i class="close-btn fas fa-times-circle"></i>
+                <p class="modal-title">두잇 </p>
+                <ul class="modal-information">
+                    <li>
+                        <p class="sub-title">인증컨텐츠</p>
+                        <ol class="data-contents">
+                            <li style="width: 375px;">
+                                <img src="/assets/images/test.png" alt="">
+                                <p class="date">2020-06-08 12:27:16</p>
+                            </li>
+                            <li style="width: 375px;">
+                                <img src="/assets/images/test.png" alt="">
+                                <p class="date">2020-06-08 12:27:16</p>
+                            </li>
+                            <li style="width: 375px;">
+                                <img src="/assets/images/test.png" alt="">
+                                <p class="date">2020-06-08 12:27:16</p>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 리뷰 내용 자세히 보기-->
+        <div class="modal-content modal-02">
+            <div class="wrap">
+                <i class="close-btn fas fa-times-circle"></i>
+                <p class="modal-title">리뷰 상세</p>
+                <ul class="modal-information">
+                    <li>
+                        <p class="sub-title">내용</p>
+                        <p class="data-contents">
+                            물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.<br>
+                            물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.
+                        </p>
+                    </li>
+                    <li>
+                        <p class="sub-title">두잇명</p>
+                        <p class="data-contents">하루에 물 6번 마시기</p>
+                    </li>
+                    <li class="clearfix">
+                        <div class="full-left">
+                            <p class="sub-title">평점</p>
+                            <p class="data-contents score-wrap">
+                            <ol class="star-wrap">
+                                <li class="on"><i class="fas fa-star"></i></li>
+                                <li class="on"><i class="fas fa-star"></i></li>
+                                <li class="on"><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                            </ol>
+                            <span class="score">3</span>
+                            </p>
+                        </div>
+                        <div class="full-right">
+                            <p class="sub-title">신고</p>
+                            <p class="data-contents">4</p>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="full-left">
+                            <p class="sub-title">작성자</p>
+                            <p class="data-contents">berry</p>
+                        </div>
+                        <div class="full-right">
+                            <p class="sub-title">작성날짜</p>
+                            <p class="data-contents">2019/10/10</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="sub-title">블라인드 여부</p>
+                        <p class="data-contents">Y</p>
+                    </li>
+                </ul>
+                <button class="completion-btn" type="submit">완료</button>
+            </div>
+        </div>
+        <div class="modal-layout"></div>
+    </div>
+
+</section>
+
+<script>
+
+    // modal event
+    $('.btn-open-modal').click(function () {
+        var openModal = $(this).data('modal');
+        $('.modal-layout').fadeIn();
+        $('.' + openModal).fadeIn();
+    });
+    $('.close-btn').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+    $('.modal-layout').click(function () {
+        $('.modal-layout').fadeOut();
+        $('.modal-content').fadeOut();
+    });
+
+
+
+
+    $(function () {
+        function moveSection() {
+            $('[data-moveto]').on('click', function (e) {
+                var $selectId = $(this).data('moveto');
+                var $offsetTop = $('.' + $selectId).offset().top;
+
+                $('html, body').stop().animate({
+                    scrollTop: $offsetTop -160
+                }, 300);
+                e.preventDefault(); e.stopPropagation();
+            });
+        }
+        moveSection();
+    });
+
+
+
+
+</script>
+

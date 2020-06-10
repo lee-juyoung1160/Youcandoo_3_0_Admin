@@ -1,0 +1,92 @@
+.wrap {
+    position: relative;
+    width: 1280px;
+}
+.move-tab {
+    position: fixed;
+    top:160px;
+    right: 50%;
+    margin-right: -750px;
+    width: 10%;
+    border-radius: 10px;
+    transition: all .5s;
+}
+.move-tab li {
+    cursor: pointer;
+    text-align: right;
+}
+.move-tab li:hover {
+    font-weight: 800;
+}
+.move-section-wrap {
+    width: 80%;
+}
+
+.enrollment-title {
+    margin:50px 0 15px;
+    color: #484848;
+    font-size: 23px;
+    font-weight: 600;
+}
+.enrollment li .col-wrap .col-2 {
+    width: 680px;
+}
+.star-wrap {
+    margin: 0 auto;
+}
+button.btn-open-modal {
+    background: none;
+    border-bottom: 1px solid #333;
+}
+
+
+.ucd-data {
+    overflow-wrap: break-word;
+    color: #949494;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+.ucd-data dt,
+.ucd-data dd {
+    float:left;
+    margin-left: 5px;
+}
+.ucd-data dt {
+    width: 100px;
+    color: #404040;
+}
+.ucd-data dd {
+    min-width: 150px;
+    text-align: right;
+    color: #949494;
+}
+.ucd-data span {
+    color: #404040;
+    margin-right: 5px;
+}
+
+.user-doit-tab li {
+    width: 50%;
+}
+.data-contents li {
+    margin-bottom: 20px;
+}
+.table-wrap .minus-pay td,
+.table-wrap .minus-pay td button {
+    color: #c90614;
+}
+/*.scroll-box {*/
+/*    width: 1020px;*/
+/*    overflow: hidden;*/
+/*    overflow-x: scroll;*/
+/*}*/
+ol.detail-data {
+    width: 1500px;
+}
+ol.detail-data li {
+    float: left;
+    width: 200px;
+    margin-left: 5px;
+}
+

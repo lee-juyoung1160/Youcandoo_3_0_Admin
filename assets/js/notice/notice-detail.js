@@ -2,6 +2,7 @@
 	const title 		= $("#title");
 	const content		= $("#content");
 	const reserveDate	= $("#reserveDate");
+	const contentImage	= $("#contentImage");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
 
@@ -17,16 +18,17 @@
 		$.ajax({
 			url: api.detailNotice,
 			type: "POST",
-			data: params(),
 			headers: headers,
+			dataType: 'json',
+			data: params(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
 				else
 					alert(invalidResp(data))
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(thrownError);
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -41,18 +43,22 @@
 
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detail = data.data;
+		let imgUrl = detail.notice_image_url;
+		imgUrl = isEmpty(detail.notice_image_url) ? '/assets/images/no-image.jpg' : imgUrl;
 
-		title.html(jsonData.data.title);
-		content.html(jsonData.data.contents);
-		reserveDate.html(jsonData.data.reservation_date);
-		exposure.html(jsonData.data.is_exposure === 'Y' ? '노출' : '비노출');
+		title.html(detail.title);
+		content.html(detail.notice_contents);
+		contentImage.attr('src', imgUrl);
+		reserveDate.html(detail.reservation_date);
+		exposure.html(detail.is_exposure === 'Y' ? label.exposure : label.unexpose);
 	}
 
 	function goUpdatePage()
 	{
-		const pathName		= getPathName();
-		const noticeIdx		= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const noticeIdx	= splitReverse(pathName, '/');
+
 		location.href = page.updateNotice+noticeIdx;
 	}
 

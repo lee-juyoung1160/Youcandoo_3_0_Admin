@@ -8,6 +8,7 @@
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 권한 목록 불러오기 **/
@@ -21,15 +22,16 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
+		btnDelete		.on("click", function () { deleteAdmin(); });
 	});
 
 	function getAuthList()
 	{
 		$.ajax({
-			url: api.listAdminAuth,
+			url: api.listAuth,
 			type: "POST",
 			headers : headers,
-			/*data: params(),*/
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildAuthList(data)
@@ -37,20 +39,19 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.list+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function buildAuthList(data)
 	{
-		let jsonData  = JSON.parse(data);
-		let respData  = jsonData.data;
+		let details  = data.data;
 		let optionDom = '';
-		for (let i=0; i<respData.length; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let code = respData[i].code;
-			let name = respData[i].name;
+			let code = details[i].code;
+			let name = details[i].name;
 			if (i === 0)
 			{
 				$('#authCodeLabel').text('전체');
@@ -83,39 +84,26 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return multiCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
-				}*/
-				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center" }
-				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center" }
-				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center",
+				},
+				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "사용여부",   data: "is_active",     		width: "10%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						let checked   = data === 'Y' ? 'checked' : '';
-						let chkBoxDom = '';
-						chkBoxDom += '<div class="toggle-btn-wrap">';
-						chkBoxDom += 	'<div class="toggle-btn on">';
-						chkBoxDom += 		'<input onchange="changeStatus(this)" type="checkbox" class="checkbox" '+checked+'>';
-						chkBoxDom += 		'<div class="knobs"></div>';
-						chkBoxDom += 		'<div class="layer"></div>';
-						chkBoxDom += 	'</div>';
-						chkBoxDom += '</div>';
-						return chkBoxDom;
-					}
-				}
+				,{title: "사용여부",   data: "is_active",     	width: "10%",     orderable: false,   className: "text-center" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -147,10 +135,10 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -168,13 +156,21 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttribute(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(3);
-		let detailUrl = '/service/admin/detail/'+aData.idx;
+		/** 사용여부 컬럼에 on off 스위치 **/
+		let useYnDom  = $(nRow).children().eq(6);
+		let checked   = aData.is_active === 'Y' ? 'checked' : '';
+		let switchDom = '';
+		switchDom += '<div class="toggle-btn-wrap">';
+		switchDom += 	'<div class="toggle-btn on">';
+		switchDom += 		'<input onclick="changeStatus(this)" data-userid="'+aData.userid+'" type="radio" class="checkbox ' +checked+'">';
+		switchDom += 		'<div class="knobs"></div>';
+		switchDom += 		'<div class="layer"></div>';
+		switchDom += 	'</div>';
+		switchDom += '</div>';
 
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
+		$(useYnDom).html(switchDom);
 	}
 
 	function onSubmitSearch()
@@ -184,26 +180,76 @@
 	
 	function changeStatus(obj)
 	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
 		if (confirm('상태를 '+message.change))
 		{
 			$.ajax({
-				url: $(obj).is(':checked') ? api.activeAdmin : api.inactiveAdmin,
+				url: $(obj).hasClass('checked') ? api.inactiveAdmin : api.activeAdmin,
 				type: "POST",
+				dataType: 'json',
+				global: false,
 				async: false,
 				headers: headers,
-				global: false,
-				data: JSON.stringify({"userid" : selectedData.userid}),
+				data: JSON.stringify({"userid" : $(obj).data('userid')}),
 				success: function(data) {
 					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+						buildGrid();
 				},
 				error: function (request, status) {
-					console.log(status);
+					alert(label.modify+message.ajaxError);
 				}
 			});
 		}
+	}
 
-		buildGrid();
+	function deleteAdmin()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteAdmin,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"adminid" : selectedData.userid
+		};
+
+		return JSON.stringify(param)
 	}

@@ -7,5 +7,9 @@ class User extends MY_Controller {
 	{
 		$this->load->layout('user/user-list');
 	}
+	public function detail()
+    {
+        $this->load->layout('user/user-detail');
+    }
     
 }

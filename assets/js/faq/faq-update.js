@@ -8,11 +8,8 @@
 	$(document).ready(function () {
 		/** faq 구분 **/
 		getFaqType();
-		/** input 글자 수 체크 **/
-		checkInputLength();
-
 		/** 이벤트 **/
-		//btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
+		btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
 	});
 
 	function getFaqType()
@@ -21,6 +18,7 @@
 			url: api.getFaqType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildFaqType(data);
@@ -28,21 +26,22 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('구분 '+label.list+message.ajaxError);
 			}
 		});
 	}
 
 	function buildFaqType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
-		let optionDom = '';
+		let detailData 	= data.data;
+		let dataLen 	= detailData.length;
+		let optionDom 	= '';
 
 		for (let i=0; i<dataLen; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].faq_name;
+			let value = detailData[i].type;
+			let name  = detailData[i].faq_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 
@@ -57,16 +56,17 @@
 		$.ajax({
 			url: api.detailFaq,
 			type: "POST",
-			data: detailParams(),
 			headers: headers,
+			dataType: 'json',
+			data: detailParams(),
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildDetail(data);
 				else
 					alert(invalidResp(data))
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(thrownError);
+			error: function (request, status) {
+				alert(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -79,16 +79,18 @@
 		return JSON.stringify({"idx" : faqIdx});
 	}
 
+	let g_faq_uuid;
 	function buildDetail(data)
 	{
-		let jsonData = JSON.parse(data);
+		let detail = data.data;
 
-		selFaqType.val(jsonData.data.faq_type);
+		g_faq_uuid = detail.faq_uuid;
+		selFaqType.val(detail.faq_type);
 		onChangeSelectOption(selFaqType);
-		title.val(jsonData.data.title);
-		content.val(jsonData.data.contents);
+		title.val(detail.title);
+		content.val(detail.contents);
 		exposure.each(function () {
-			if ($(this).val() === jsonData.data.is_exposure)
+			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
 		})
 	}
@@ -97,12 +99,13 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(message.modify))
 			{
 				$.ajax({
-					url: api.createFaq,
+					url: api.updateFaq,
 					type: "POST",
 					headers: headers,
+					dataType: 'json',
 					data: params(),
 					success: function(data) {
 						alert(getStatusMessage(data));
@@ -110,7 +113,7 @@
 							location.href = page.listFaq
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.modify+message.ajaxError);
 					}
 				});
 			}
@@ -120,11 +123,12 @@
 	function params()
 	{
 		let param = {
-			"faqTitle" : title.val().trim()
-			,"faqContents" : content.val().trim()
-			,"faqType" : selFaqType.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"create_user" : sessionUserId.val()
+			"faq_uuid" : g_faq_uuid
+			,"title" : title.val().trim()
+			,"contents" : content.val().trim()
+			,"faq_type" : selFaqType.val()
+			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"updated_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

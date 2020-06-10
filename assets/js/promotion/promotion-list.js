@@ -6,9 +6,12 @@
 	const searchType 	= $("#searchType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
+	const isBanner 		= $("input[name=radio-banner]");
+	const status 		= $("input[name=chk-status]");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -21,8 +24,10 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
+		status			.on("click", function () { onChangeChkStatus(this); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deletePromotion(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 	});
 
@@ -33,9 +38,21 @@
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
+		isBanner.eq(0).prop("checked", true);
+		status.prop("checked", true);
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
+	}
+
+	function onChangeChkStatus(obj)
+	{
+		let checkedCount = $("input[name=chk-status]:checked").length;
+		if (checkedCount === 0)
+		{
+			alert(message.minimumChecked);
+			$(obj).prop("checked", true);
+		}
 	}
 
 	function buildGrid()
@@ -55,23 +72,40 @@
 					}
 				   */
 					return tableParams(d);
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "기업", 			data: "nickname",    		width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    orderable: false,   className: "text-center" }
+				,{title: "프로모션 예산", 	data: "budget_ucd",     width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center",
+				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "text-center",
+					render: function (data) {
+						return getPromotionStatusName(data);
+					}
+				}
+				,{title: "배너 여부", 	data: "is_banner",    		width: "10%",    orderable: false,   className: "text-center cursor-default",
+					render: function (data) {
+						return data === 'Y' ? label.exposure : label.unexpose;
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -90,7 +124,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -100,7 +137,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -110,6 +147,12 @@
 	
 	function tableParams(d)
 	{
+		let statusParam = [];
+		status.each(function () {
+			if ($(this).is(':checked'))
+				statusParam.push($(this).val())
+		});
+
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
@@ -118,6 +161,8 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
+			,"is_banner" : $("input[name=radio-banner]:checked").val()
+			,"status" : statusParam
 		}
 
 		return JSON.stringify(param);
@@ -125,23 +170,22 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
-		let periodDom = $(nRow).children().eq(2);
-		let btnDom 	  = $(nRow).children().eq(5);
+		let titleDom  = $(nRow).children().eq(2);
+		let periodDom = $(nRow).children().eq(5);
+		let btnDom 	  = $(nRow).children().eq(7);
 		let detailUrl = page.detailPromo+aData.idx;
-
-		/** 제목에 a 태그 추가 **/
-		titleDom.html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
+		/** 제목에 클릭 상세 이동 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
 
 		/** 프로모션 기간 **/
 		periodDom.html(aData.start_date +' ~ '+aData.end_date);
 
 		/** 배너보기 버튼 **/
-		let bannerUrl = aData.banner_image_url;
+		/*let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
 		let introUrl  = aData.intro_image_url;
 		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
-		btnDom.html(innerDom);
+		btnDom.html(innerDom);*/
 	}
 
 	function onSubmitSearch()
@@ -197,18 +241,26 @@
 		$.ajax({
 			url: api.listPromotion,
 			type: "POST",
+			dataType: "json",
+			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data);
+				setExcelData("프로모션목록", "프로모션목록", data.data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.download+message.ajaxError);
 			}
 		});
 	}
 
 	function excelParams()
 	{
+		let statusParam = [];
+		status.each(function () {
+			if ($(this).is(':checked'))
+				statusParam.push($(this).val())
+		});
+
 		let param = {
 			"limit" : 20000
 			,"page" : 1
@@ -217,9 +269,62 @@
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
+			,"is_banner" : $("input[name=radio-banner]:checked").val()
+			,"status" : statusParam
 		}
 
 		return JSON.stringify(param);
 	}
 
+	function deletePromotion()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deletePromotion,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"promotion_uuid" : selectedData.promotion_uuid
+		};
+
+		return JSON.stringify(param)
+	}
 

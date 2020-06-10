@@ -13,7 +13,8 @@
     background: none;
     border-bottom: 1px solid #505050;
 }
-.ucd-payment-list-page .table-wrap .minus-pay td, .ucd-payment-list-page .table-wrap .minus-pay td button {
+.table-wrap .minus-pay td,
+.table-wrap .minus-pay td button {
     color: #c90614;
 }
 .ucd-payment-list-page .table-wrap .minus-pay td button {

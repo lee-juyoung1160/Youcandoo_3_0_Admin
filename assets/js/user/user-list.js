@@ -62,7 +62,7 @@
 
 	function buildGrid()
 	{
-		$("#dataTable").DataTable({
+		dataTable.DataTable({
 			ajax : {
 				url: api.listUser,
 				type:"POST",
@@ -79,24 +79,24 @@
 				   */
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
-				},
+				},*/
 				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center" }
-				,{title: "회원상태", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center",
+				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return data === 'Y' ? '정상' : '정지'
+						return data === 'Y' ? '사용' : '미사용';
 					}
 				}
-				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "text-center",
+				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -119,10 +119,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: {
-				style: 'single',
-				selector: ':checkbox'
-			},
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -133,14 +130,14 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				disableBtnBanUser();
@@ -158,7 +155,6 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			/*,"member_type" : $("input[name=radio-user-active]:checked").val()*/
 		}
 
 		return JSON.stringify(param);
@@ -166,10 +162,10 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(1);
-
-		/** 제목에 a 태그 추가 **/
-		titleDom.html('<a href="#">'+aData.nickname+'</a>');
+		let nicknameDom = $(nRow).children().eq(0);
+		let detailUrl = page.detailUser+aData.idx;
+		/** 닉네임 클리 상세 이동 **/
+		nicknameDom.html('<a href="'+detailUrl+'">'+aData.nickname+'</a>');
 	}
 
 	/** row select **/
@@ -236,14 +232,15 @@
 		$.ajax({
 			url: api.listUser,
 			type: "POST",
+			dataType: "json",
 			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
-				setExcelData("회원목록", "회원목록", data);
+				setExcelData("회원목록", "회원목록", data.data);
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert(label.download+message.ajaxError);
 			},
 		});
 	}
@@ -274,8 +271,9 @@
 					url: api.inactiveUser,
 					type: "POST",
 					async: false,
-					headers: headers,
 					global: false,
+					headers: headers,
+					dataType: 'json',
 					data: banParams(),
 					success: function(data) {
 						alert(getStatusMessage(data))
@@ -287,7 +285,7 @@
 						}
 					},
 					error: function (request, status) {
-						console.log(status);
+						alert(label.submit+message.ajaxError);
 					},
 				});
 			}

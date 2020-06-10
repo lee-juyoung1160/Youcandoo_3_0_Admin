@@ -51,20 +51,29 @@
 
         <div class="doit-list-option">
             <ul class="clearfix">
-                <li>
+                <li style="width: 680px;">
                     <p class="list-common-title">진행 상태</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="chk-status" />
+                        <input type="checkbox" id="c1" name="chk-status" value="모집중"/>
                         <label for="c1"><span></span>모집중</label>
 
-                        <input type="checkbox" id="c2" name="chk-status" />
-                        <label for="c2"><span></span>진행중</label>
+                        <input type="checkbox" id="c2" name="chk-status" value="모집실패"/>
+                        <label for="c2"><span></span>모집실패</label>
 
-                        <input type="checkbox" id="c3" name="chk-status" />
-                        <label for="c3"><span></span>결과대기</label>
+                        <input type="checkbox" id="c3" name="chk-status" value="개설취소"/>
+                        <label for="c3"><span></span>개설취소</label>
 
-                        <input type="checkbox" id="c4" name="chk-status" />
-                        <label for="c4"><span></span>종료</label>
+                        <input type="checkbox" id="c4" name="chk-status" value="진행중"/>
+                        <label for="c4"><span></span>진행중</label>
+
+                        <input type="checkbox" id="c5" name="chk-status" value="진행종료"/>
+                        <label for="c5"><span></span>진행종료</label>
+
+                        <input type="checkbox" id="c6" name="chk-status" value="결과발표"/>
+                        <label for="c6"><span></span>결과발표</label>
+
+                        <input type="checkbox" id="c7" name="chk-status" value="종료"/>
+                        <label for="c7"><span></span>종료</label>
                     </div>
                 </li>
 <!--                <li>-->
@@ -117,34 +126,48 @@
                 </div>
                 <div class="btn-wrap">
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
+                    <button id="btnDelete" class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>두잇 삭제</button>
                 </div>
             </div>
             <table id="dataTable">
-                <!--<colgroup>
-                    <col style="width:15%;">
-                    <col style="width:30%;">
-                    <col style="width:25%;">
-                    <col style="width:15%;">
-                    <col style="width:15%;">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>두잇 유형</th>
-                        <th>두잇명</th>
-                        <th>인증 기간</th>
-                        <th>참여인원/모집인원</th>
-                        <th>진행상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>프로모션</td>
-                        <td><a href="/doit/detail">하루에 한번 책 읽기</a></td>
-                        <td>2019/11/07 ~ 2019/11/21</td>
-                        <td>5/8</td>
-                        <td>진행중</td>
-                    </tr>
-                </tbody>-->
+<!--                <colgroup>-->
+<!--                    <col style="width:5%;">-->
+<!--                    <col style="width:15%;">-->
+<!--                    <col style="width:30%;">-->
+<!--                    <col style="width:25%;">-->
+<!--                    <col style="width:15%;">-->
+<!--                    <col style="width:10%;">-->
+<!--                </colgroup>-->
+<!--                <thead>-->
+<!--                    <tr>-->
+<!--                        <th>-->
+<!--                            <div class="checkbox-wrap">-->
+<!--                                <input type="checkbox" id="c5" name="cc" />-->
+<!--                                <label for="c5"><span></span></label>-->
+<!--                            </div>-->
+<!--                        </th>-->
+<!--                        <th>두잇 유형</th>-->
+<!--                        <th>두잇명</th>-->
+<!--                        <th>인증 기간</th>-->
+<!--                        <th>참여인원/모집인원</th>-->
+<!--                        <th>진행상태</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <div class="checkbox-wrap">-->
+<!--                                <input type="checkbox" id="c6" name="cc" />-->
+<!--                                <label for="c6"><span></span></label>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td>프로모션</td>-->
+<!--                        <td><a href="/doit/detail">하루에 한번 책 읽기</a></td>-->
+<!--                        <td>2019/11/07 ~ 2019/11/21</td>-->
+<!--                        <td>5/8</td>-->
+<!--                        <td>진행중</td>-->
+<!--                    </tr>-->
+<!--                </tbody>-->
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>

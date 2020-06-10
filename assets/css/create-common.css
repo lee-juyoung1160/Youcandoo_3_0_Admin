@@ -80,7 +80,7 @@
     margin-top: 0;
 }
 .table-btn-wrap.doit-detail-tab li {
-    width: 33.3%;
+    width: calc(100%/5);
 }
 .thumb-list p.sub-title {
     display: inline-block;
@@ -98,21 +98,6 @@
 .input-wrap input[type="number"],
 .input-wrap input[type="password"] {
     padding: 0 55px 0 10px;
-}
-.length-count-wrap {
-    color: #999;
-    font-size: 13px;
-}
-.input-wrap .length-count-wrap {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -50%);
-    -webkit-transform: translate(0, -50%);
-}
-.textarea-wrap .length-count-wrap {
-    float: right;
-    margin-top: 10px;
 }
 
 /*푸쉬, UCD -검색 결과 */
@@ -135,7 +120,7 @@
 
 .empty-message {
     width: 100%;
-    padding: 20px 0;
+    padding: 80px 0;
     font-size: 15px;
     text-align: center;
 }

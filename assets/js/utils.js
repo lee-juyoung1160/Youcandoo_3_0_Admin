@@ -26,7 +26,7 @@
 	    return phone;
 	}
 
-	function stringFormatToDate(_date, _format)
+	function getStringFormatToDate(_date, _format)
 	{
 		let yyyy 	= _date.getFullYear().toString();
 		let mm 		= (_date.getMonth() + 1).toString();
@@ -66,17 +66,18 @@
 			(value.constructor === String && value.trim() === '')
 		)
 	}
-	
+
+	/** 숫자 형식에 , 붙이기 **/
 	function numberWithCommas(x)
 	{
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	
+
 	function isImage(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
+			let file 		= obj.files[0];
 			let fileType 	= file["type"];
 			let imageTypes 	= ["image/jpeg", "image/png"];
 
@@ -87,9 +88,9 @@
 	
 	function isVideo(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
+			let file 		= obj.files[0];
 			let fileType 	= file["type"];
 			let videoTypes 	= ["video/quicktime", "video/mp4"];
 
@@ -100,11 +101,11 @@
 	
 	function isAudio(obj)
 	{
-		let file = obj.files[0];
-		if (file)
+		if (obj.files[0])
 		{
-			let fileType = file["type"];
-			let audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts"];
+			let file 		= obj.files[0];
+			let fileType 	= file["type"];
+			let audioTypes 	= ["audio/x-m4a", "audio/vnd.dlna.adts"];
 
 			if ($.inArray(fileType, audioTypes) >= 0)
 				return true;
@@ -114,21 +115,19 @@
 	/** 인풋 숫자만 입력 가능 **/
 	function initInputNumber(obj)
 	{
-		$('.only-num').on('propertychange change keyup paste input', function (e) {
-			let inputValue = $(obj).val();
-			let inputValueArr = inputValue.split("");
-			let inputLength = inputValueArr.length;
-			let respStr = '';
-			for (let i=0; i<inputLength; i++)
-			{
-				if (inputValueArr[0] == 0)
-					inputValueArr[0] = '';
-				if (isNumber(inputValueArr[i]))
-					respStr += inputValueArr[i];
-			}
+		let inputValue = $(obj).val();
+		let inputValueArr = inputValue.split("");
+		let inputLength = inputValueArr.length;
+		let respStr = '';
+		for (let i=0; i<inputLength; i++)
+		{
+			if (inputValueArr[0] == 0 || !isNumber(inputValueArr[0]))
+				inputValueArr[0] = '';
+			if (isNumber(inputValueArr[i]))
+				respStr += inputValueArr[i];
+		}
 
-			$(obj).val(respStr);
-	    });
+		$(obj).val(respStr);
 	}
 	
 	function isNumber(param)
@@ -140,6 +139,16 @@
 	function replaceAll(str, searchStr, replaceStr)
 	{
 		return str.split(searchStr).join(replaceStr);
+	}
+
+	function replaceInputTextarea(value)
+	{
+		return value.replace(/(?:\r\n|\r|\n)/g, "<br>");
+	}
+
+	function replaceSelectTextarea(value)
+	{
+		return value.split("<br>").join("\r\n");
 	}
 
 	function bizNoFormatter(num)
@@ -161,9 +170,9 @@
 		return regExp.test(param);
 	}
 
-	function isUrl(param)
+	function isDomainName(param)
 	{
-		let regExp = /^http[s]?\:\/\//i;
+		let regExp = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
 
 		return regExp.test(param);
 	}

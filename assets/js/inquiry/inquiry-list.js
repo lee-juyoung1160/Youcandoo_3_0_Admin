@@ -33,6 +33,7 @@
 			url: api.getQnaType,
 			type: "POST",
 			headers: headers,
+			dataType: 'json',
 			success: function(data) {
 				if (isSuccessResp(data))
 					buildQnaType(data);
@@ -40,20 +41,20 @@
 					alert(invalidResp(data));
 			},
 			error: function (request, status) {
-				console.log(status);
+				alert('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
 
 	function buildQnaType(data)
 	{
-		let jsonData = JSON.parse(data);
-		let dataLen = jsonData.data.length;
+		let details = data.data;
 		let optionDom = '<option value="">전체</option>';
-		for (let i=0; i<dataLen; i++)
+		for (let i=0; i<details.length; i++)
 		{
-			let value = jsonData.data[i].type;
-			let name  = jsonData.data[i].qna_name;
+			let value = details[i].type;
+			let name  = details[i].qna_name;
+
 			optionDom += '<option value="'+value+'">'+name+'</option>';
 		}
 
@@ -85,8 +86,8 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -139,7 +140,7 @@
 				let info = table.page.info();
 
 				/** 목록 상단 totol count **/
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

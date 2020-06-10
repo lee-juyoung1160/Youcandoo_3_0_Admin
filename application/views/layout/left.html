@@ -4,8 +4,8 @@
         <a href="/">YOUCANDOO</a>
     </div>
     <nav>
-        <ul>
-            <li class="menu-btn" data-target="member-menu">
+        <ul id="sideMenu">
+            <!--<li class="menu-btn" data-target="member-menu">
                 <div class="btn-wrap clearfix">
                     <i class="far fa-address-card"></i>
                     <span>회원</span>
@@ -49,7 +49,7 @@
                 <ul class="menu-btn-list doit-menu">
                     <li><a href="/doit/create">신규 등록</a></li>
                     <li><a href="/doit/lists">두잇 관리</a></li>
-                    <li><a href="/doit/categoryLists">카테고리 관리</a></li>
+                    &lt;!&ndash;<li><a href="/doit/categoryLists">카테고리 관리</a></li>&ndash;&gt;
                 </ul>
                 <div class="bar"></div>
             </li>
@@ -60,7 +60,7 @@
                     <i class="fas fa-chevron-right arrow-i"></i>
                 </div>
                 <ul class="menu-btn-list cite-menu">
-                    <li><a href="/confirm/lists">인증 관리</a></li>
+                    <li><a href="/action/lists">인증 관리</a></li>
                 </ul>
                 <div class="bar"></div>
             </li>
@@ -99,7 +99,7 @@
                     <li><a href="/service/notice/list">공지사항 관리</a></li>
                     <li><a href="/service/event/list">이벤트 관리</a></li>
                     <li><a href="/service/faq/list">FAQ 관리</a></li>
-                    <li><a href="/service/inquiry/list">1:1 문의 관리</a></li>
+&lt;!&ndash;                    <li><a href="/service/inquiry/list">1:1 문의 관리</a></li>&ndash;&gt;
                     <li><a href="/service/prohibition">금칙어 관리</a></li>
                 </ul>
                 <div class="bar"></div>
@@ -126,7 +126,7 @@
                     <li><a href="/admin/auth">권한 관리</a></li>
                 </ul>
                 <div class="bar"></div>
-            </li>
+            </li>-->
         </ul>
     </nav>
 </header>
@@ -176,5 +176,6 @@
     {
         location.href = "/auth/logout";
     }
+
     $(".user-name").html($("#session_usernm").val());
 </script>

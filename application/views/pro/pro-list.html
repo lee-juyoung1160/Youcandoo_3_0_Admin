@@ -47,6 +47,48 @@
             </div>
         </div>
 
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title" style="display: inline-block">진행 상태</p>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text" style="width:450px">
+                            대기 : 프로모션 시작 전 ( 시작일 이전 )<br>
+                            진행 : 프로모션 진행 ( 시작일 이후 부터 종료일 이전 )<br>
+                            마감 : 프로모션에 대한 두잇 생성 마감 ( 종료일 +30일 이전 )<br>
+                            종료 : 프로모션 종료 ( 종료일 +30일 초과 )
+                        </span>
+                    </i>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="chk-status" value="pending"/>
+                        <label for="c1"><span></span>대기</label>
+
+                        <input type="checkbox" id="c2" name="chk-status" value="progress"/>
+                        <label for="c2"><span></span>진행</label>
+
+                        <input type="checkbox" id="c3" name="chk-status" value="end"/>
+                        <label for="c3"><span></span>마감</label>
+
+                        <input type="checkbox" id="c4" name="chk-status" value="terminate"/>
+                        <label for="c4"><span></span>종료</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">배너적용 여부</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="radio-banner" value=""/>
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-banner" value="Y"/>
+                        <label for="r3"><span></span>Y</label>
+
+                        <input type="radio" id="r4" name="radio-banner" value="N"/>
+                        <label for="r4"><span></span>N</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <div class="list-common-btn-wrap clearfix">
             <div class="btn-wrap">
                 <button class="reset" type="reset">초기화</button>
@@ -69,34 +111,51 @@
                 </div>
                 <div class="btn-wrap">
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
+                        <button id="btnDelete" class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>프로모션 삭제</button>
                 </div>
             </div>
             <table id="dataTable">
 <!--                <colgroup>-->
-<!--                    <col style="width:15%;">-->
-<!--                    <col style="width:30%;">-->
+<!--                    <col style="width:5%;">-->
+<!--                    <col style="width:13%;">-->
+<!--                    <col style="width:25%;">-->
 <!--                    <col style="width:20%;">-->
 <!--                    <col style="width:15%;">-->
-<!--                    <col style="width:15%;">-->
 <!--                    <col style="width:10%;">-->
+<!--                    <col style="width:7%;">-->
+<!--                    <col style="width:8%;">-->
 <!--                </colgroup>-->
 <!--                <thead>-->
 <!--                    <tr>-->
+<!--                        <th>-->
+<!--                            <div class="checkbox-wrap">-->
+<!--                                <input type="checkbox" id="c5" name="cc" />-->
+<!--                                <label for="c5"><span></span></label>-->
+<!--                            </div>-->
+<!--                        </th>-->
 <!--                        <th>기업</th>-->
 <!--                        <th>프로모션명</th>-->
 <!--                        <th>프로모션 기간</th>-->
 <!--                        <th>프로모션 예산</th>-->
 <!--                        <th>프로모션 잔여예산</th>-->
+<!--                        <th>상태</th>-->
 <!--                        <th>배너여부</th>-->
 <!--                    </tr>-->
 <!--                </thead>-->
 <!--                <tbody>-->
 <!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <div class="checkbox-wrap">-->
+<!--                                <input type="checkbox" id="c6" name="cc" />-->
+<!--                                <label for="c6"><span></span></label>-->
+<!--                            </div>-->
+<!--                        </td>-->
 <!--                        <td>도미노피자도미노피자</td>-->
 <!--                        <td><a href="/pro/detail">나이키1000억프로젝트키1000억프로젝트</a></td>-->
 <!--                        <td>2020-04-08 ~ 2020-04-08 </td>-->
 <!--                        <td>30,000,000원</td>-->
 <!--                        <td>900,000원</td>-->
+<!--                        <td>모집완료</td>-->
 <!--                        <td><button type="button" class="more-info-btn" data-rel="modal-01">보기</button></td>-->
 <!--                    </tr>-->
 <!--                </tbody>-->

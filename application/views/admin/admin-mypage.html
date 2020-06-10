@@ -4,9 +4,6 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">프로필 관리</h2>
-            <button id="btnProfileModify" type="button" class="update-btn">
-                <i class="fas fa-plus"></i> 프로필 수정하기
-            </button>
         </div>
         <div id="myProfile" class="wrap update-list">
             <ul class="enrollment clearfix">
@@ -15,8 +12,6 @@
                         <div class="col-1">
                             <div class="top clearfix">
                                 <p class="sub-title" style="width: 80px;">아이디</p>
-                                <i class="far fa-window-close"></i>
-                                <span>변경 불가능</span>
                             </div>
                         </div>
                         <div class="col-2">
@@ -29,8 +24,6 @@
                         <div class="col-1">
                             <div class="top clearfix">
                                 <p class="sub-title" style="width: 80px;">이름</p>
-                                <i class="far fa-window-close"></i>
-                                <span>변경 불가능</span>
                             </div>
                         </div>
                         <div class="col-2">
@@ -43,8 +36,6 @@
                         <div class="col-1">
                             <div class="top clearfix">
                                 <p class="sub-title" style="width: 80px;">이메일</p>
-                                <i class="far fa-window-close"></i>
-                                <span>변경 불가능</span>
                             </div>
                         </div>
                         <div class="col-2">
@@ -79,110 +70,6 @@
             </ul>
         </div>
 
-        <div class="list-common">
-            <div class="list-wrap clearfix" style="border: 0; padding-bottom: 0; margin-bottom: 0;">
-                <p class="list-common-title">날짜</p>
-                <div class="date-wrap">
-                    <input type="text" class="datepicker date_from">
-                    <span class="date-margin-text"> ~ </span>
-                    <input type="text" class="datepicker date_to">
-                </div>
-                <ul class="day-btn clearfix">
-                    <li class="btn_today">오늘</li>
-                    <li class="btn_week active">1주일</li>
-                    <li class="btn_month">1개월</li>
-                    <li class="btn_long">3개월</li>
-                </ul>
-            </div>
-        </div>
-        <div class="list-common-btn-wrap clearfix">
-            <div class="btn-wrap">
-                <button class="reset">초기화</button>
-                <button class="search">검색</button>
-            </div>
-        </div>
-
-        <div class="table-wrap">
-            <div class="top clearfix">
-                <div class="left-wrap clearfix">
-                    <div class="select-box">
-                        <label for="selPageLength">10개씩 보기</label>
-                        <select id="selPageLength">
-                            <option value="10">10개씩 보기</option>
-                            <option value="20">20개씩 보기</option>
-                            <option value="30">30개씩 보기</option>
-                        </select>
-                    </div>
-                    <p>Total <strong class="data-num"></strong></p>
-                </div>
-                <div class="btn-wrap">
-                    <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
-                </div>
-            </div>
-            <table id="dataTable">
-                <colgroup>
-                    <col style="width:5%;">
-                    <col style="width:41.6%;">
-                    <col style="width:31.6%;">
-                    <col style="width:21.6%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c5" name="cc" />
-                            <label for="c5"><span></span></label>
-                        </div>
-                    </th>
-                    <th>경로</th>
-                    <th>최근 접속일</th>
-                    <th>활동</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c6" name="cc" />
-                            <label for="c6"><span></span></label>
-                        </div>
-                    </td>
-                    <td><a href="#">두잇 관리 > 두잇 목록 > 신규등록</a></td>
-                    <td>2019/11/07</td>
-                    <td>수정</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c7" name="cc" />
-                            <label for="c7"><span></span></label>
-                        </div>
-                    </td>
-                    <td><a href="#">두잇 관리 > 두잇 목록 > 신규등록</a></td>
-                    <td>2019/11/07</td>
-                    <td>신규등록</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c8" name="cc" />
-                            <label for="c8"><span></span></label>
-                        </div>
-                    </td>
-                    <td><a href="#">두잇 관리 > 두잇 목록 > 신규등록</a></td>
-                    <td>2019/11/07</td>
-                    <td>모니터링</td>
-                </tr>
-                </tbody>
-            </table>
-            <ul class="table-pagination clearfix">
-                <li><i class="fas fa-angle-double-left"></i></li>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
-        </div>
     </div>
 </section>
-<script src="/assets/js/admin/myadmin.js"></script>
+<script src="/assets/js/admin/profile.js"></script>

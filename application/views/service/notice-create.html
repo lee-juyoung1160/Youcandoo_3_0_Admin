@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/summernote/summernote-lite.min.css">
 <section class="notice-create-page">
     <div class="inner">
         <h2 class="main-title">공지사항 신규 등록</h2>
@@ -12,19 +11,37 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="20">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
+                                <input id="title" class="length-input" type="text" placeholder="제목을 입력해주세요." maxlength="25">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li>
+                <li id="contentWrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">내용 (*)</p>
                         </div>
                         <div class="col-2 clearfix">
-                            <textarea id="summernote" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
+                            <div class="textarea-wrap">
+                                <textarea placeholder="내용을 입력해주세요." id="content" class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="100"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li id="contentImageWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">본문이미지</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">본문 이미지 (* 이미지 가로 사이즈: 750 이상)</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -61,5 +78,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/plugins/summernote-lite.min.js"></script>
 <script src="/assets/js/notice/notice-create.js"></script>

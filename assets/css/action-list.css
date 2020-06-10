@@ -1,0 +1,68 @@
+/*action-list-page css*/
+.confirm-list-page .modal-content .select-box {
+    width: 200px;
+    display: none;
+}
+.confirm-list-page .modal-content .select-box.active {
+    display: block;
+}
+.confirm-list-page .modal-content {
+    height: auto;
+}
+.confirm-list-page .modal-content .select-box {
+    width: 100%;
+}
+.confirm-list-page .sub-title {
+    font-weight: 600;
+    color: #007aff;
+}
+.confirm-list-page .modal-content .sub-title label {
+    font-weight: 600;
+    color: #007aff;
+}
+.table-wrap .btn-wrap button.yellow-btn {
+    background-color: #FFA83B;
+}
+.hover-text {
+    width: 280px;
+    background-color: #fff;
+}
+
+.confirm-list-page input[type="checkbox"]:disabled + label span  {
+    width: 0;
+    margin: 0;
+    background-color: #fff;
+    border: none;
+}
+
+
+
+
+.modal-content.confirm-modal-detail {
+    width: 1200px;
+    height: 800px;
+}
+.modal-content.confirm-modal-detail .modal-information {
+    float: left;
+    max-height: 700px;
+}
+.modal-content.confirm-modal-detail .audio-contents {
+    position: relative;
+}
+.modal-content.confirm-modal-detail audio {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    width: 90%;
+    margin-left: -45%;
+
+}
+.modal-content.confirm-modal-detail video {
+    width: 100%;
+}
+.modal-content.confirm-modal-detail .img-contents img {
+    width: 100%;
+}
+.modal-content.confirm-modal-detail .modal-information {
+    overflow-y: hidden;
+}

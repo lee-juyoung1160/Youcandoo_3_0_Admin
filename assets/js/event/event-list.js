@@ -9,7 +9,7 @@
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
-	/*const selSort		= $("#selSort");*/
+	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -24,6 +24,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnDelete		.on("click", function () { deleteEvent(); });
 	});
 
 	function initSearchForm()
@@ -53,22 +54,26 @@
 				data: function (d) {
 					return tableParams(d);
 				},
-				error: function(xhr, status, err) {
-					alert(message.cantLoadList);
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    		width: "10%",    orderable: false,   className: "text-center" }
-				/* ,{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center" } */
-				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
-				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center" }
-				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center" }
+				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
+					render: function (data) {
+						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 	data: "created_user",      width: "15%",   orderable: false,   className: "text-center" }
-				,{title: "작성일", 	data: "created_datetime",  width: "10%",   orderable: false,   className: "text-center",
+				,{title: "작성자", 	data: "created_user",      width: "15%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",   orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -91,7 +96,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -101,7 +109,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				dataNum.text(info.recordsTotal);
+				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -126,14 +134,13 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
-		let periodDom = $(nRow).children().eq(2);
-		let detailUrl = '/service/event/detail/'+aData.idx;
+		let titleDom  = $(nRow).children().eq(2);
+		let periodDom = $(nRow).children().eq(3);
+		let detailUrl = page.detailEvent+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
+		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
-
-		/** 기간 추가 **/
+		/** 기간 **/
 		$(periodDom).html(aData.start_date +' ~ '+ aData.end_date);
 	}
 
@@ -142,3 +149,54 @@
 		buildGrid();
 	}
 
+	function deleteEvent()
+	{
+		if (delValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.deleteEvent,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: delParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							buildGrid();
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"event_uuid" : selectedData.event_uuid
+		};
+
+		return JSON.stringify(param)
+	}

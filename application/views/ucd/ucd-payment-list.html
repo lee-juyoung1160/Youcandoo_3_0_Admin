@@ -8,30 +8,30 @@
             <div class="list-wrap clearfix">
                 <p class="list-common-title">출금요청일자</p>
                 <div class="date-wrap">
-                    <input type="date">
+                    <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
-                    <input type="date">
+                    <input type="text" class="datepicker date_to">
                 </div>
                 <ul class="day-btn clearfix">
-                    <li>오늘</li>
-                    <li>1주일</li>
-                    <li>1개월</li>
-                    <li>3개월</li>
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="ex_select2">예금주</label>
-                    <select id="ex_select2">
-                        <option selected>예금주</option>
-                        <option>닉네임</option>
-                        <option>계좌번호</option>
+                    <label for="searchType">예금주</label>
+                    <select id="searchType">
+                        <option value="nickname">예금주</option>
+                        <option value="nickname">닉네임</option>
+                        <option value="nickname">계좌번호</option>
                     </select>
                 </div>
                 <div class="search-wrap">
                     <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         <i class="search-btn fas fa-search"></i>
                     </div>
                 </div>
@@ -43,16 +43,16 @@
                 <li>
                     <p class="list-common-title">구분</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="cc" />
+                        <input type="checkbox" id="c1" name="chk-status" value="미확인"/>
                         <label for="c1"><span></span>미확인</label>
 
-                        <input type="checkbox" id="c2" name="cc" />
+                        <input type="checkbox" id="c2" name="chk-status" value="대기"/>
                         <label for="c2"><span></span>대기</label>
 
-                        <input type="checkbox" id="c3" name="cc" />
+                        <input type="checkbox" id="c3" name="chk-status" value="출금완료"/>
                         <label for="c3"><span></span>출금 완료</label>
 
-                        <input type="checkbox" id="c4" name="cc" />
+                        <input type="checkbox" id="c4" name="chk-status" value="반려"/>
                         <label for="c4"><span></span>반려</label>
 
                     </div>
@@ -246,7 +246,7 @@
 
     </div>
 </section>
-
+<script src="/assets/js/ucd/ucd-withdraw-list.js"></script>
 <script>
     // modal event
     $('.more-info-btn').click(function () {

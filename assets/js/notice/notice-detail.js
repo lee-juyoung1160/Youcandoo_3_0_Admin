@@ -45,8 +45,8 @@
 	{
 		let detail = data.data;
 		let imgUrl = detail.notice_image_url;
-		if (isEmpty(detail.notice_image_url))
-			imgUrl = '/assets/images/no-image.jpg'
+		imgUrl = isEmpty(detail.notice_image_url) ? '/assets/images/no-image.jpg' : imgUrl;
+
 		title.html(detail.title);
 		content.html(detail.notice_contents);
 		contentImage.attr('src', imgUrl);

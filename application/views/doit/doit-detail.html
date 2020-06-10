@@ -553,13 +553,16 @@
                         </div>
                         <p>Total <strong id="reviewTotalCount" class="data-num"></strong></p>
                     </div>
+                    <div class="btn-wrap">
+                        <button class="eye-slash-btn" type="button"><i class="fas fa-eye-slash"></i>블라인드 처리</button>
+                        <button class="eye-btn" type="button"><i class="fas fa-eye"></i>블라인드 해제</button>
+                    </div>
                 </div>
                 <table id="reviewTable">
-                    <!--<colgroup>
+                    <colgroup>
                         <col style="width:5%;">
-                        <col style="width:30%;">
+                        <col style="width:35%;">
                         <col style="width:5%;">
-                        <col style="width:25%;">
                         <col style="width:5%;">
                         <col style="width:10%;">
                         <col style="width:10%;">
@@ -567,10 +570,14 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
                         <th>리뷰내용</th>
                         <th>평점</th>
-                        <th>두잇명</th>
                         <th>신고</th>
                         <th>블라인드 여부</th>
                         <th>작성날짜</th>
@@ -579,16 +586,20 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>2</td>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
                         <td><button id="btnDetailReview" type="button" class="line-clamp more-info-btn">물마시기 두잇 너무 좋아요! 일상에 완전 도움이 되요 일상에 완전 도움이 되요</button></td>
                         <td>3</td>
-                        <td>하루에 물 6번 마시기</td>
                         <td><button id="btnReportReason" type="button" class="more-info-btn">10</button></td>
                         <td>Y</td>
                         <td>2019/10/10</td>
                         <td>베리베리</td>
                     </tr>
-                    </tbody>-->
+                    </tbody>
                 </table>
                 <!--<ul class="table-pagination clearfix">
                     <li><i class="fas fa-angle-double-left"></i></li>

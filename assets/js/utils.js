@@ -26,7 +26,7 @@
 	    return phone;
 	}
 
-	function stringFormatToDate(_date, _format)
+	function getStringFormatToDate(_date, _format)
 	{
 		let yyyy 	= _date.getFullYear().toString();
 		let mm 		= (_date.getMonth() + 1).toString();

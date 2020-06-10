@@ -70,6 +70,7 @@
 		}
 
 		g_promotion_uuid = promoData.promotion_uuid;
+		g_budget = promoData.budget_ucd;
 
 		bizName.html(promoData.nickname);
 		promoName.val(promoData.promotion_title);

@@ -196,39 +196,39 @@ $('#doit-year-select').change(function () {
     getYearData(yearVal);
 });
 
-/** 프로모션 진행 현황 **/
-let proStatusChart = new Chart(proStatusDoughnut, {
-    type: doughnutType,
-    data: {
-        labels: ['진행', '완료'],
-        datasets: [{
-            data: [10, 20],
-            backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
-        }]
-    },
-    options: options.options,
-});
-
-/** 리워드 현황 **/
-let rewardStatusChart = new Chart(rewardLine, {
-    type: 'line',
-    data: {
-        datasets: [{
-            label: '프로모션 지급 리워드',
-            data: [20, 20, 30, 40, 35, 40, 80],
-            borderColor: colorLine[0],
-            pointBackgroundColor: colorLine[0],
-            backgroundColor: colorLine[1]
-        }],
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    options: {
-        maintainAspectRatio: false,
-        legend: {
-            align: 'start',
-            position: 'top'
-        }
-    }
-});
+// /** 프로모션 진행 현황 **/
+// let proStatusChart = new Chart(proStatusDoughnut, {
+//     type: doughnutType,
+//     data: {
+//         labels: ['진행', '완료'],
+//         datasets: [{
+//             data: [10, 20],
+//             backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
+//         }]
+//     },
+//     options: options.options,
+// });
+//
+// /** 리워드 현황 **/
+// let rewardStatusChart = new Chart(rewardLine, {
+//     type: 'line',
+//     data: {
+//         datasets: [{
+//             label: '프로모션 지급 리워드',
+//             data: [20, 20, 30, 40, 35, 40, 80],
+//             borderColor: colorLine[0],
+//             pointBackgroundColor: colorLine[0],
+//             backgroundColor: colorLine[1]
+//         }],
+//         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+//     },
+//     options: {
+//         maintainAspectRatio: false,
+//         legend: {
+//             align: 'start',
+//             position: 'top'
+//         }
+//     }
+// });
 
 

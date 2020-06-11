@@ -8,6 +8,12 @@ const searchBtn = document.querySelector('.search');
 const resetBtn = document.querySelector('.reset');
 const days = document.querySelector('.day-btn');
 const ratingLists = document.querySelectorAll('.rating-list input[name=chk-grade]');
+
+// by.leo
+const btnBlind			= $("#btnBlind");
+const btnUnBlind		= $("#btnUnBlind");
+let g_blind_type;
+
 /** 로드 시점 **/
 document.addEventListener("DOMContentLoaded", function () {
     // 데이트피커 초기화
@@ -21,6 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
     ratingLists.forEach(function(item, index, array){item.checked = true;});
     document.querySelector('input[name=radio-report]').checked = true;
     document.querySelector('input[name=radio-blind]').checked = true;
+
+    //by.leo
+    btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
+    btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
+
     // 테이블 실행
     getReviewListData();
 });
@@ -75,6 +86,14 @@ function getReviewListData(params) {
         },
         pageLength: Number(limits.value),
         serverSide: true, // true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음)
+
+
+        processing: false,
+        order: [],
+
+        autoWidth: false,
+        fixedHeader:false,
+
         initComplete: function () {
             let table = $('#review-table').DataTable();
             let info = table.page.info();
@@ -96,21 +115,26 @@ function getReviewListData(params) {
                 console.log(c)
             },
         },columns: [
-            {data: "idx", title: tableCheckAllDom(), render: function (data) {
+            {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+                render: function (data) {
                     return multiCheckBoxDom(data);
-                    console.log(data)
                 }
             },
-            {data: "review_text", render : function(data, type, full, meta) {
+            // {data: "idx", title: tableCheckAllDom(), render: function (data) {
+            //         return multiCheckBoxDom(data);
+            //         console.log(data)
+            //     }
+            // },
+            {title:"리뷰내용", data: "review_text", render : function(data, type, full, meta) {
                     return "<a href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                 }
             },
-            {data: "rating"},
-            {data: "doit_title"},
-            {data: "report_count"},
-            {data: "is_blind"},
-            {data: "created"},
-            {data: "nickname"},
+            {title:"평점",data: "rating"},
+            {title:"두잇명",data: "doit_title"},
+            {title:"신고",data: "report_count"},
+            {title:"블라인드 여부",data: "is_blind"},
+            {title:"작성날짜",data: "created"},
+            {title:"작성자",data: "nickname"}
         ],language: {
             emptyTable: message.emptyList
             , zeroRecords: message.emptyList
@@ -153,3 +177,84 @@ const modalCloseBtn = document.querySelector('.modal-content .close-btn');
 const modalLayout = document.querySelector('.modal-layout');
 modalCloseBtn.addEventListener('click', () => {closeModal();});
 modalLayout.addEventListener('click', () => {closeModal();});
+
+
+//by.leo
+function onClickUpdateBlind()
+{
+    if (blindValidation())
+    {
+        if (confirm('상태를 '+message.change))
+        {
+            $.ajax({
+                url: api.updateBlind,
+                type: "POST",
+                async: false,
+                headers: headers,
+                dataType: 'json',
+                data: blindParams(),
+                success: function(data) {
+                    alert(getStatusMessage(data));
+                    if (isSuccessResp(data))
+                        getReviewListData();
+                },
+                error: function (request, status) {
+                    alert(label.modify+message.ajaxError);
+                },
+            });
+        }
+    }
+}
+
+function blindValidation()
+{
+    let table 		 = $('#review-table').DataTable();
+    let selectedData = table.rows('.selected').data();
+
+    if (isEmpty(selectedData))
+    {
+        alert('삭제할 대상을 목록에서 '+message.select);
+        return false;
+    }
+
+    return true;
+}
+
+function blindParams()
+{
+    let table 		 = $('#review-table').DataTable();
+    let selectedData = table.rows('.selected').data();
+    let reviews = [];
+    for (let i=0; i<selectedData.length; i++)
+        reviews.push(selectedData[i].review_uuid);
+
+    let param = {
+        "reviews" : reviews
+        ,"is_blind" : g_blind_type
+    };
+
+    return JSON.stringify(param)
+}
+
+function getStatusMessage(data)
+{
+    let fileStatus = [30034, 30035, 30308];
+    let msg = data.msg;
+    let code = data.status;
+
+    if (fileStatus.indexOf(code) > -1)
+    {
+        msg = '선택한 이미지 사이즈는 '+data.data.width+'x'+data.data.height+'입니다.\n';
+        msg += data.msg;
+    }
+
+    return msg;
+}
+
+function isSuccessResp(data)
+{
+    if (data.status === 30000)
+        return true;
+    else
+        return false;
+}

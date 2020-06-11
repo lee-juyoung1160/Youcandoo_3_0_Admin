@@ -86,6 +86,15 @@
     width: 375px;
     height: 375px;
 }
+.file {
+    width: 375px;
+}
+.doit-detail-page video {
+    width: 375px;
+}
+.doit-detail-page audio {
+    width: 375px;
+}
 
 .table-btn-wrap.doit-detail-tab li {
     width: calc(100%/5);

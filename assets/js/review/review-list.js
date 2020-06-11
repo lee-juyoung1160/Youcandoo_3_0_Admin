@@ -120,13 +120,8 @@ function getReviewListData(params) {
                     return multiCheckBoxDom(data);
                 }
             },
-            // {data: "idx", title: tableCheckAllDom(), render: function (data) {
-            //         return multiCheckBoxDom(data);
-            //         console.log(data)
-            //     }
-            // },
             {title:"리뷰내용", data: "review_text", render : function(data, type, full, meta) {
-                    return "<a href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
+                    return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                 }
             },
             {title:"평점",data: "rating"},

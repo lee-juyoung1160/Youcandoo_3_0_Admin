@@ -819,7 +819,7 @@
 
 		/** total count **/
 		actionTotalCount.html(totalCount);
-console.log(actions)
+
 		if (totalCount > 0)
 		{
 			actionTopDom.show();
@@ -1078,7 +1078,6 @@ console.log(actions)
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}

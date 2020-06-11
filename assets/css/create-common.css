@@ -80,12 +80,13 @@
 .doit-detail-page .img-wrap .wrap .file:first-child {
     margin-top: 0;
 }
-.doit-detail-page .main-banner {
+.doit-detail-page .main-banner,
+.doit-update-page .main-banner
+{
     width: 375px;
     height: 375px;
-} {
-
 }
+
 .table-btn-wrap.doit-detail-tab li {
     width: calc(100%/5);
 }

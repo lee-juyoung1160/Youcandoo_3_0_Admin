@@ -273,8 +273,7 @@
 		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
 		doitDesc.html(desc);
 
-		let tag  = detail.doit_tags;
-		let tags = tag.split(",");
+		let tags = detail.doit_tags;
 		let tagDom = '';
 		for (let i=0; i<tags.length; i++)
 		{

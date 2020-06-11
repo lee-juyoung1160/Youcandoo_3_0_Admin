@@ -81,15 +81,16 @@
 		doitTitle.html(detail.doit_title);
 		doitDesc.val(detail.doit_description);
 
-		let tag = replaceAll(detail.doit_tags, '#', '');
-		let tags = tag.split(',');
+
+		let tags = detail.doit_tags;
 		let tagDom = '';
 		if (!isEmpty(tags))
 		{
 			for (let i = 0; i < tags.length; i++)
 			{
+				let tag = replaceAll(tags[i], '#', '');
 				tagDom += '<li>';
-				tagDom += 	'#<span class="tag-name added-tag">'+tags[i]+'</span>';
+				tagDom += 	'#<span class="tag-name added-tag">'+tag+'</span>';
 				tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
 				tagDom += '</li>';
 			}

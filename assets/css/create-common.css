@@ -73,11 +73,18 @@
 /*.doit-detail-page .img-wrap .wrap:last-child {*/
 /*    margin-top: 50px;*/
 /*}*/
+
 .doit-detail-page .img-wrap .wrap .file {
     margin-top: 30px;
 }
 .doit-detail-page .img-wrap .wrap .file:first-child {
     margin-top: 0;
+}
+.doit-detail-page .main-banner {
+    width: 375px;
+    height: 375px;
+} {
+
 }
 .table-btn-wrap.doit-detail-tab li {
     width: calc(100%/5);

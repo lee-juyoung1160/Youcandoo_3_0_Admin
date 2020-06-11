@@ -963,6 +963,7 @@ textarea {
 	bottom: 0px;
 	width: 30px;
 	margin: 0 auto 5px;
+	cursor: inherit;
 }
 .card-wrap {
 	display: flex;

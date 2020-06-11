@@ -699,10 +699,12 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
+		/*let extraRewardValue = '';
 		if (chkExtraReward.is(':checked'))
-		{
-			formData.append('group-reward-description', extraReward.val().trim())
-		}
+			extraRewardValue = extraReward.val().trim();
+		formData.append('group-reward-description', extraRewardValue);*/
+		if (chkExtraReward.is(':checked'))
+			formData.append('group-reward-description', extraReward.val().trim());
 
 		return formData;
 	}

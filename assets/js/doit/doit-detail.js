@@ -399,11 +399,11 @@
 	{
 		let detail = data.data;
 
-		joinCount.html(numberWithCommas(detail.member_cnt)+'명');
-		goal.html(Math.floor(detail.goal_percent)+'%');
-		avg.html(Math.floor(detail.avg_percent)+'%');
-		forecast.html(numberWithCommas(detail.per_person_ucd)+'UCD');
-		saving.html(numberWithCommas(detail.save_reward)+'UCD');
+		joinCount.html(numberWithCommas(detail.member_cnt));
+		goal.html(Math.floor(detail.goal_percent));
+		avg.html(Math.floor(detail.avg_percent));
+		forecast.html(numberWithCommas(detail.per_person_ucd));
+		saving.html(numberWithCommas(detail.save_reward));
 	}
 
 	function getJoinMember()

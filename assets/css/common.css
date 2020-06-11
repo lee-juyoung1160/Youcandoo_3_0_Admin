@@ -919,7 +919,7 @@ textarea {
 }
 .cert-contents li .text-wrap {
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -933,7 +933,7 @@ textarea {
 	font-weight: 400;
 }
 .cert-contents li p.date {
-	margin-top: 15px;
+	margin-top: 25px;
 	font-size: 14px;
 	color: #7d7d7d;
 }
@@ -1004,8 +1004,15 @@ textarea {
 	background-color: #fff;
 	border: none;
 }
-.thumbnail-wrap {
+.cert-contents .thumbnail-wrap {
+	overflow: hidden;
 	cursor: pointer;
+}
+.cert-contents .thumbnail-wrap img {
+	transition: all .5s;
+}
+.cert-contents .thumbnail-wrap:hover img{
+	transform: scale(1.08);
 }
 .modal-content.confirm-modal-detail {
 	width: 1200px;

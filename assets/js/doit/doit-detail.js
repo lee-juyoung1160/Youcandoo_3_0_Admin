@@ -46,6 +46,19 @@
 	const pagination	= $("#dataTable_paginate");
 	const actionTotalCount		 = $("#actionTotalCount");
 	const selPageLengthForAction = $("#selPageLengthForAction");
+	/** 경고장 발송 modal **/
+	const modalWarn			= $("#modalWarn");
+	const causeBy			= $("#selCauseBy");
+	const btnSubmitWarn		= $("#btnSubmitWarn");
+	/** 상세보기 modal **/
+	const modalDetailAction	= $("#modalDetailAction");
+	const modalActionDom	= $("#modalActionDom");
+	const modalExample		= $("#modalExample");
+	const modalExampleDesc	= $("#modalExampleDesc");
+	const modalDoitTitle	= $("#modalDoitTitle");
+	const modalNickname		= $("#modalNickname");
+	const modalWarnWrap		= $("#modalWarnWrap");
+	let g_warn_type;
 
 	/** 리뷰정보탭 **/
 	const doitReview		= $("#doitReview");
@@ -54,6 +67,17 @@
 	const btnUnBlind		= $("#btnUnBlind");
 	const reviewTotalCount			= $("#reviewTotalCount");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
+	/** 리뷰상세 modal **/
+	const modalDetailReview		= $("#modalDetailReview");
+	const modalReviewContent	= $("#modalReviewContent");
+	const modalReviewTitle		= $("#modalReviewTitle");
+	const modalReviewStarWrap	= $("#modalReviewStarWrap");
+	const modalReviewRating		= $("#modalReviewRating");
+	const modalReviewReport		= $("#modalReviewReport");
+	const modalReviewUser		= $("#modalReviewUser");
+	const modalReviewCreated	= $("#modalReviewCreated");
+	const modalReviewBlind		= $("#modalReviewBlind");
+	let g_blind_type;
 
 	/** UCD정보탭 **/
 	const ucdInfo		= $("#ucdInfo");
@@ -61,21 +85,10 @@
 	const ucdTotalCount	= $("#ucdTotalCount");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
-	/** modal **/
+	/** modal 공통 **/
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
-	const modalWarn			= $("#modalWarn");
-	const causeBy			= $("#selCauseBy");
-	const btnSubmitWarn		= $("#btnSubmitWarn");
-	const modalDetailReview	= $("#modalDetailReview");
-	const review	= $("#review");
-	const title		= $("#title");
-	const rating	= $("#rating");
-	const report	= $("#report");
-	const userid	= $("#userid");
-	const created	= $("#created");
-	const isBlind	= $("#isBlind");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -93,12 +106,12 @@
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
-		btnWarnYellow	.on('click', function () { onClickBtnWarn(); g_warn_type = 'Y'; });
-		btnWarnRed		.on('click', function () { onClickBtnWarn(); g_warn_type = 'R'; });
+		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
+		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		btnBlind		.on('click', function () { blindReview(); });
-		btnUnBlind		.on('click', function () { unBlindReview(); });
+		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
+		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
 		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
@@ -142,7 +155,6 @@
 	}
 
 	/** 인증정보탭 **/
-	let g_warn_type;
 	function onClickActionTab()
 	{
 		doitAction.show();
@@ -437,11 +449,6 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						return singleCheckBoxDom(data);
-					}
-				},*/
 				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
@@ -549,6 +556,137 @@
 	/****************
 	 * 인증정보탭 관련
 	 * **************/
+
+	/** 인증상세 모달 **/
+	function onClinkActionImage(obj)
+	{
+		modalDetailFadein();
+		buildDetailModal(obj);
+	}
+
+	function modalDetailFadein()
+	{
+		modalDetailAction.fadeIn();
+		modalLayout.fadeIn();
+	}
+
+	function buildDetailModal(obj)
+	{
+		let uuid 		= $(obj).data('uuid');
+		let type 		= $(obj).data('type');
+		let actionUrl 	= $(obj).data('url');
+		let title 		= $(obj).data('title');
+		let nickname 	= $(obj).data('nickname');
+		let red 		= $(obj).data('red');
+		let redDesc		= $(obj).data('rdesc');
+		let yellow 		= $(obj).data('yellow');
+		let yellowDesc	= $(obj).data('ydesc');
+		let exampleUrl 	= $(obj).data('exurl');
+		let exampleDesc	= $(obj).data('exdesc');
+		let actionDom 	= '';
+		let exampleDom 	= '';
+		let className 	= '';
+		if (type === 'image')
+		{
+			className = 'img-contents';
+
+			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지">';
+
+			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지">';
+		}
+		else if (type === 'video')
+		{
+			className = 'video-contents';
+
+			actionDom += 	'<video controls>';
+			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 	'</video>';
+
+			exampleDom += 	'<video controls>';
+			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 	'</video>';
+		}
+		else if (type === 'voice')
+		{
+			className = 'audio-contents';
+
+			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			actionDom += 	'<audio controls>';
+			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 	'</audio>';
+
+			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			exampleDom += 	'<audio controls>';
+			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 	'</audio>';
+		}
+
+		/** 인증게시물 **/
+		modalActionDom.attr('class', className);
+		modalActionDom.html(actionDom);
+
+		/** 두잇명 **/
+		modalDoitTitle.html(title);
+		/** 작성자 **/
+		modalNickname.html(nickname);
+
+		/** 경고장 영역 **/
+		let warnDom = '';
+		if (red === 'Y' || yellow === 'Y')
+		{
+			if (red === 'Y')
+			{
+				warnDom += '<div class="card-wrap">';
+				warnDom += 	    '<img src="'+label.redCardImage+'" alt="레드카드">';
+				warnDom += 			'<span>'+redDesc+'</span>';
+				warnDom += 		'<button onclick="cancelWarn(this);" data-type="R" data-uuid="'+uuid+'" class="card-btn clear-red-btn">레드카드 취소</button>';
+				warnDom += '</div>';
+			}
+			if (yellow === 'Y')
+			{
+				warnDom += '<div class="card-wrap">';
+				warnDom += 	    '<img src="'+label.yellowCardImage+'" alt="옐로우카드">';
+				warnDom += 			'<span>'+yellowDesc+'</span>';
+				warnDom += 		'<button onclick="cancelWarn(this);" data-type="Y" data-uuid="'+uuid+'" class="card-btn clear-yellow-btn">옐로카드 취소</button>';
+				warnDom += '</div>';
+			}
+		}
+		else	warnDom += '<p class="data-contents">발송 된 경고장이 없습니다.</p>';
+		modalWarnWrap.html(warnDom);
+
+		/** 인증예시 **/
+		modalExample.attr('class', className);
+		modalExample.html(exampleDom);
+		modalExampleDesc.html(exampleDesc);
+	}
+
+	function cancelWarn(obj)
+	{
+		let url = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
+		if (confirm('경고장 발송을 '+message.cancel))
+		{
+			$.ajax({
+				url: url,
+				type: "POST",
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify({"action_uuid" : $(obj).data('uuid')}),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					if (isSuccessResp(data))
+					{
+						modalFadeout();
+						getActions();
+					}
+				},
+				error: function (request, status) {
+					alert(label.cancel+message.ajaxError);
+				}
+			});
+		}
+	}
+
+	/** 경고장 발송 모달 **/
 	function onClickBtnWarn()
 	{
 		if (isCheckedTarget())
@@ -557,10 +695,22 @@
 
 	function isCheckedTarget()
 	{
-		let count = $("input[name=chk-warn]:checked").length;
+		let chkedElement = $("input[name=chk-warn]:checked");
+		let count = chkedElement.length;
 		if (count === 0)
 		{
 			alert('발송대상을 '+message.select);
+			return false;
+		}
+
+		let hasYellowCount = 0;
+		chkedElement.each(function () {
+			if ($(this).hasClass('yellow-card'))
+				hasYellowCount++;
+		});
+		if (g_warn_type === 'Y' && hasYellowCount > 0)
+		{
+			alert('선택한 발송대상에 '+message.alreadyHasYellow);
 			return false;
 		}
 
@@ -611,10 +761,8 @@
 	function warnParams()
 	{
 		let uuids = [];
-		$("input[name=chk-warn]").each(function () {
-			if ($(this).is(":checked"))
-				uuids.push($(this).val());
-		})
+		let chkedElement = $("input[name=chk-warn]:checked");
+		chkedElement.each(function () { uuids.push($(this).val()); });
 
 		let param = {
 			"action_list" : uuids
@@ -622,33 +770,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function cancelWarn(type, uuid)
-	{
-		let url = type === 'Y' ? api.cancelYellow : api.cancelRed;
-		let param = {
-			"action_uuid" : uuid
-		}
-
-		if (confirm('경고장 발송을 '+message.cancel))
-		{
-			$.ajax({
-				url: url,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify(param),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-						getInvolveAction();
-				},
-				error: function (request, status) {
-					alert(label.cancel+message.ajaxError);
-				}
-			});
-		}
 	}
 
 	function getInvolveAction()
@@ -705,40 +826,48 @@
 				let actionId  = "action_"+i;
 				let successYn = action.success === 'Y' ? '성공' : '실패';
 				let resourceType = action.resource_type;
-				let warnDesc = '';
-				let warnImage = '';
-				let actionImage = '<img class="detail-img" src="'+action.url+'" alt="인증 이미지입니다.">';
-				if (isEmpty(action.url))
-					actionImage = '<img class="detail-img" src="'+label.noImage+'" alt="인증 이미지입니다.">';
+				let warnImageDom = '';
+				let actionImage = action.image_url;
+				if (isEmpty(actionImage))
+					actionImage = label.noImage;
 				if (resourceType === 'voice')
-					actionImage = '<img class="detail-img" src="/assets/images/voice.jpg" alt="인증 이미지입니다.">';
-				let button = '<button onclick="modalFadein();" class="warning-btn" type="button" data-uuid="'+action.action_uuid+'">경고장</button>';
+					actionImage = label.voiceImage;
+				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
+				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
+				actionImageDom += 'onclick="onClinkActionImage(this);"  ';
+				actionImageDom += 'data-type="'+action.resource_type+'" ';
+				actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
+				actionImageDom += 'data-url="'+action.url+'" ';
+				actionImageDom += 'data-exurl="'+action.example_url+'" ';
+				actionImageDom += 'data-exdesc="'+action.example_description+'" ';
+				actionImageDom += 'data-title="'+action.doit_title+'" ';
+				actionImageDom += 'data-title="'+action.doit_title+'" ';
+				actionImageDom += 'data-nickname="'+action.user_name+'" ';
+				actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
+				actionImageDom += 'data-red="'+action.red_card+'" ';
+				actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
+				actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
+				actionImageDom += 'alt="인증 이미지입니다.">';
+
+				let className = '';
 				if (action.yellow_card === 'Y')
 				{
-					warnImage = '<img src="/assets/images/yellow-card.png" alt="">';
-					warnDesc = action.yellow_card_description;
-					button = '<button onclick="cancelWarn(\'Y\',\''+action.action_uuid+'\');" class="card-btn clear-yellow-btn" type="button">옐로카드 취소</button>';
+					warnImageDom = '<img src="'+label.yellowCardImage+'" alt="">';
+					className = 'yellow-card';
 				}
 				if (action.red_card === 'Y')
-				{
-					warnImage = '<img src="/assets/images/red-card.png" alt="">';
-					warnDesc = action.red_card_description;
-					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
-				}
+					warnImageDom = '<img src="'+label.redCardImage+'" alt="">';
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
-				{
-					warnImage = '<img src="/assets/images/rad-yellow-card.png" alt="">';
-					warnDesc = action.red_card_description;
-					button = '<button onclick="cancelWarn(\'R\',\''+action.action_uuid+'\');" class="card-btn clear-red-btn" type="button">레드카드 취소</button>';
-				}
+					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
 
 				if (i===0 || i%5 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
+				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
 				actionDom += '<li>';
 				actionDom += 	'<div class="top clearfix">';
 				actionDom += 		'<div class="checkbox-wrap">';
-				actionDom += 			'<input type="checkbox" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'"/>';
+				actionDom += 			'<input type="checkbox" class="'+className+'" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'" '+disableChkBox+'/>';
 				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
 				actionDom += 		'</div>';
 				actionDom += 		'<span class="success-text">'+successYn+'</span>';
@@ -746,26 +875,13 @@
 				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="thumbnail-wrap">';
-				if (action.yellow_card === 'Y' || action.red_card === 'Y')
-				{
-					actionDom += 	'<div class="error">';
-					actionDom += 		'<p class="error-text">';
-					actionDom += 			'<i>';
-					actionDom += 				warnImage;
-					actionDom += 			'</i>';
-					actionDom += 				warnDesc;
-					actionDom += 		'</p>';
-					actionDom += 		'<div class="card-wrap">';
-					actionDom += 			button;
-					actionDom += 		'</div>';
-					actionDom += 	'</div>';
-				}
-				actionDom += 		actionImage;
+				actionDom += 		actionImageDom;
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
-				actionDom += 		'<p class="title">'+g_doitTitle+'</p>';
-				actionDom += 		'<a href="#">'+action.user_name+'</a>';
+				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
+				actionDom += 		'<span>'+action.user_name+'</span>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
+				actionDom += 		'<i>'+warnImageDom+'</i>';
 				actionDom += 	'</div>';
 				actionDom += '</li>';
 
@@ -944,7 +1060,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -958,7 +1077,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			}
 		});
 	}
@@ -984,19 +1102,17 @@
 	{
 		let reviewDom  	= $(nRow).children().eq(1);
 
-		let innerDom = '<button ' +
-			'onclick="modalDetailReviewFadein(this);" ' +
-			'type="button" ' +
-			'class="more-info-btn"' +
-			'data-detail="'+aData.review_text+'"' +
-			'data-title="'+aData.doit_title+'"' +
-			'data-rating="'+aData.rating+'"' +
-			'data-report="'+aData.report_count+'"' +
-			'data-nickname="'+aData.nickname+'"' +
-			'data-blind="'+aData.is_blind+'"' +
-			'data-created="'+aData.created+'"' +
-			'>';
-
+		let innerDom = '<button onclick="modalDetailReviewFadein(this);" ';
+		innerDom +=	'type="button" ';
+		innerDom +=	'class="more-info-btn"';
+		innerDom +=	'data-detail="'+aData.review_text+'"';
+		innerDom +=	'data-title="'+aData.doit_title+'"';
+		innerDom +=	'data-rating="'+aData.rating+'"';
+		innerDom +=	'data-report="'+aData.report_count+'"';
+		innerDom +=	'data-nickname="'+aData.nickname+'"';
+		innerDom +=	'data-blind="'+aData.is_blind+'"';
+		innerDom +=	'data-created="'+aData.created+'"';
+		innerDom +=	'>';
 		innerDom += aData.review_text;
 		innerDom += '</button>';
 
@@ -1012,61 +1128,86 @@
 
 	function initModalDetailReview(obj)
 	{
-		review.html($(obj).data('detail'));
-		title.html($(obj).data('title'));
-		rating.html($(obj).data('rating'));
-		report.html($(obj).data('report'));
-		userid.html($(obj).data('nickname'));
-		created.html($(obj).data('created').substring(0, 10));
-		isBlind.html($(obj).data('blind'));
+		let detail = $(obj).data('detail');
+		let title = $(obj).data('title');
+		let rating = $(obj).data('rating');
+		let report = $(obj).data('report');
+		let nickname = $(obj).data('nickname');
+		let created = $(obj).data('created');
+		let blind = $(obj).data('blind');
+
+		modalReviewContent.html(detail);
+		modalReviewTitle.html(title);
+		let starDom = '';
+		for (let i=1; i<=5; i++)
+		{
+			if (i <= rating )
+				starDom += '<li class="on"><i class="fas fa-star"></i></li>';
+			else
+				starDom += '<li><i class="fas fa-star"></i></li>';
+		}
+		modalReviewStarWrap.html(starDom);
+		modalReviewRating.html(rating);
+		modalReviewReport.html(report);
+		modalReviewUser.html(nickname);
+		modalReviewCreated.html(created.substring(0, 10));
+		modalReviewBlind.html(blind);
 	}
 
-	function blindReview()
+	function onClickUpdateBlind()
 	{
+		if (blindValidation())
+		{
+			if (confirm('상태를 '+message.change))
+			{
+				$.ajax({
+					url: api.updateBlind,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: blindParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							getInvolveReview();
+					},
+					error: function (request, status) {
+						alert(label.modify+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
 
+	function blindValidation()
+	{
+		let table 		 = reviewTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		return true;
 	}
 
 	function blindParams()
 	{
-		let table 		 = dataTable.DataTable();
+		let table 		 = reviewTable.DataTable();
 		let selectedData = table.rows('.selected').data();
-
-		let params = [];
+		let reviews = [];
 		for (let i=0; i<selectedData.length; i++)
-		{
-			let idx = selectedData[i].idx;
-			params.push(idx);
-		}
+			reviews.push(selectedData[i].review_uuid);
 
-		let delParam = {
-			"idx_list" : params
+		let param = {
+			"reviews" : reviews
+			,"is_blind" : g_blind_type
 		};
 
-		return JSON.stringify(delParam)
-	}
-
-	function unBlindReview()
-	{
-
-	}
-
-	function unBlindParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		let params = [];
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let idx = selectedData[i].idx;
-			params.push(idx);
-		}
-
-		let delParam = {
-			"idx_list" : params
-		};
-
-		return JSON.stringify(delParam)
+		return JSON.stringify(param)
 	}
 
 	/**

@@ -392,6 +392,8 @@
             $('input[name="'+chkName+'"]').prop('checked', true);
         else
             $('input[name="'+chkName+'"]').prop('checked', false);
+
+        $(obj).closest('table').find('tbody').children('tr').toggleClass('selected');
     }
 
     function onClickChkRow(obj)

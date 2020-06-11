@@ -217,7 +217,7 @@
 			alert('발송대상을 '+message.select);
 			return false;
 		}
-console.log(g_warn_type)
+
 		let hasYellowCount = 0;
 		chkedElement.each(function () {
 			if ($(this).hasClass('yellow-card'))

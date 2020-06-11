@@ -361,7 +361,7 @@
 		if ($("#introVideo").length > 0)
 			paramIntroVideo 	= $("#introVideo")[0].files[0];
 
-		let privateCode = chkAccessUser.is(':checked') ? privateCode.val().trim() : '';
+		let accessCode = chkAccessUser.is(':checked') ? privateCode.val().trim() : '';
 
 		let formData  = new FormData();
 		formData.append('doit-uuid', g_doit_uuid);
@@ -369,7 +369,7 @@
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);
 		formData.append('intro-video-file', paramIntroVideo);
-		formData.append('private-code', privateCode);
+		formData.append('private-code', accessCode);
 		formData.append('doit-description', doitDesc.val().trim());
 
 		return formData;

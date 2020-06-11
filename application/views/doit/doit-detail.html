@@ -508,7 +508,7 @@
                     </div>
                 </div>
                 <!-- 상세 모달-->
-                <div id="modalDetail" class="modal-content confirm-modal-detail">
+                <div id="modalDetailAction" class="modal-content confirm-modal-detail">
                     <div class="wrap clearfix">
                         <i class="close-btn fas fa-times-circle"></i>
                         <p class="modal-title">신고 상세</p>
@@ -629,7 +629,7 @@
                     </div>
                 </div>
                 <table id="reviewTable">
-                    <colgroup>
+                    <!--<colgroup>
                         <col style="width:5%;">
                         <col style="width:35%;">
                         <col style="width:5%;">
@@ -669,7 +669,7 @@
                         <td>2019/10/10</td>
                         <td>베리베리</td>
                     </tr>
-                    </tbody>
+                    </tbody>-->
                 </table>
                 <!--<ul class="table-pagination clearfix">
                     <li><i class="fas fa-angle-double-left"></i></li>
@@ -688,44 +688,44 @@
                             <ul class="modal-information">
                                 <li>
                                     <p class="sub-title">내용</p>
-                                    <p class="data-contents" id="review"></p>
+                                    <p class="data-contents" id="modalReviewContent"></p>
                                 </li>
                                 <li>
                                     <p class="sub-title">두잇명</p>
-                                    <p class="data-contents" id="title"></p>
+                                    <p class="data-contents" id="modalReviewTitle"></p>
                                 </li>
                                 <li class="clearfix">
                                     <div class="full-left">
                                         <p class="sub-title">평점</p>
                                         <p class="data-contents score-wrap">
-                                        <ol class="star-wrap">
-                                            <li class="on"><i class="fas fa-star"></i></li>
+                                        <ol id="modalReviewStarWrap" class="star-wrap">
+                                            <!--<li class="on"><i class="fas fa-star"></i></li>
                                             <li class="on"><i class="fas fa-star"></i></li>
                                             <li class="on"><i class="fas fa-star"></i></li>
                                             <li><i class="fas fa-star"></i></li>
-                                            <li><i class="fas fa-star"></i></li>
+                                            <li><i class="fas fa-star"></i></li>-->
                                         </ol>
-                                        <span class="score" id="rating"></span>
+                                        <span class="score" id="modalReviewRating"></span>
                                         </p>
                                     </div>
                                     <div class="full-right">
                                         <p class="sub-title">신고</p>
-                                        <p class="data-contents" id="report"></p>
+                                        <p class="data-contents" id="modalReviewReport"></p>
                                     </div>
                                 </li>
                                 <li class="clearfix">
                                     <div class="full-left">
                                         <p class="sub-title">작성자</p>
-                                        <p class="data-contents" id="userid"></p>
+                                        <p class="data-contents" id="modalReviewUser"></p>
                                     </div>
                                     <div class="full-right">
                                         <p class="sub-title">작성날짜</p>
-                                        <p class="data-contents" id="created"></p>
+                                        <p class="data-contents" id="modalReviewCreated"></p>
                                     </div>
                                 </li>
                                 <li>
                                     <p class="sub-title">블라인드 여부</p>
-                                    <p class="data-contents" id="isBlind"></p>
+                                    <p class="data-contents" id="modalReviewBlind"></p>
                                 </li>
                             </ul>
                         </div>

@@ -11,6 +11,7 @@
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const btnModalBanUserOpen	= $("#btnModalBanUserOpen");
+	/** modal **/
 	const modalBanUser		= $("#modalBanUser");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
@@ -164,8 +165,9 @@
 	{
 		let nicknameDom = $(nRow).children().eq(0);
 		let detailUrl = page.detailUser+aData.idx;
+		console.log(aData)
 		/** 닉네임 클리 상세 이동 **/
-		nicknameDom.html('<a href="'+detailUrl+'">'+aData.nickname+'</a>');
+		nicknameDom.html('<a onclick="moveDetail(this);" data-uuid="'+aData.profile_uuid+'" data-target="'+page.detailUser+'">'+aData.nickname+'</a>');
 	}
 
 	/** row select **/
@@ -255,7 +257,6 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			/*,"member_type" : $("input[name=radio-user-active]:checked").val()*/
 		}
 
 		return JSON.stringify(param);

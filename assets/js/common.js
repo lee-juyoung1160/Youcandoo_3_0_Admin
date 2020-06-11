@@ -416,6 +416,19 @@
             $("#checkAll").prop('checked', false);
     }
 
+    /** 상세페이지 이동 **/
+    function moveDetail(obj)
+    {
+        let target = $(obj).data('target');
+        let param   = $(obj).data('uuid');
+        let form   = $("<form></form>");
+        form.attr("method", "post");
+        form.attr("action", target);
+        form.append($("<input/>", {type: 'hidden', name: 'uuid', value: param}));
+        form.appendTo("body");
+        form.submit();
+    }
+
     function getLeftMenuByAuthCode()
     {
         $.ajax({

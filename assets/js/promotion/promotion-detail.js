@@ -50,6 +50,7 @@
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
+	/** 프로모션탭 **/
 	function onClickPromoTab(obj)
 	{
 		promoDetail.show();
@@ -60,6 +61,7 @@
 		getPromotion();
 	}
 
+	/** 개설두잇탭 **/
 	function onClickDoitTab(obj)
 	{
 		involveDoit.show();
@@ -70,6 +72,7 @@
 		getInvolveDoit();
 	}
 
+	/** UCD정보탭 **/
 	function onClickUcdTab(obj)
 	{
 		ucdInfo.show();
@@ -378,6 +381,7 @@
 				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -391,6 +395,12 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		if (isNegative(aData.amount))
+			$(nRow).addClass('minus-pay');
 	}
 
 	function onSubmitSearch()

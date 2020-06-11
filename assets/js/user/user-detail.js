@@ -335,6 +335,7 @@
 				initComplete: function () {
 				},
 				fnRowCallback: function( nRow, aData ) {
+					setRowAttributes(nRow, aData);
 				},
 			});
 		}
@@ -350,10 +351,8 @@
 			return JSON.stringify(param);
 		}
 
-		function initModal()
+		function setRowAttributes(nRow, aData)
 		{
-			inactive.eq(0).prop('checked', true);
-			period.focus();
-			period.val('');
-			cause.val('');
+			if (isNegative(aData.amount))
+				$(nRow).addClass('minus-pay');
 		}

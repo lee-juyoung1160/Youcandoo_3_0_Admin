@@ -1252,6 +1252,7 @@
 				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -1265,6 +1266,12 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		if (isNegative(aData.amount))
+			$(nRow).addClass('minus-pay');
 	}
 
 	/** 수정페이지 이동 **/

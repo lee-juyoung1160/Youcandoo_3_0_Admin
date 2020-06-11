@@ -102,6 +102,7 @@
 	function params()
 	{
 		let formData  = new FormData();
+		formData.append('notice_uuid', g_notice_uuid);
 		formData.append('notice_title', title.val().trim());
 		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
 		formData.append('reservation_date', reserveDate.val());

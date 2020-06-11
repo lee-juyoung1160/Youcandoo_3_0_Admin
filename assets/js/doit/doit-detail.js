@@ -97,11 +97,11 @@
 		/** 두잇 상세정보 **/
 		getDoit();
 		/** 이벤트 **/
-		tabDoit			.on("click", function () { onClickDoitTab(); });
-		tabUser			.on("click", function () { onClickUserTab(); });
-		tabAction		.on("click", function () { onClickActionTab(); });
-		tabReview		.on("click", function () { onClickReviewTab(); });
-		tabUcd			.on("click", function () { onClickUcdTab(); });
+		tabDoit			.on("click", function () { onClickDoitTab(this); });
+		tabUser			.on("click", function () { onClickUserTab(this); });
+		tabAction		.on("click", function () { onClickActionTab(this); });
+		tabReview		.on("click", function () { onClickReviewTab(this); });
+		tabUcd			.on("click", function () { onClickUcdTab(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
@@ -120,89 +120,69 @@
 	});
 
 	/** 두잇정보탭 **/
-	function onClickDoitTab()
+	function onClickDoitTab(obj)
 	{
 		doitDetail.show();
 		doitUser.hide();
 		doitAction.hide();
 		doitReview.hide();
 		ucdInfo.hide();
-		tabUser.removeClass('active');
-		tabAction.removeClass('active');
-		tabReview.removeClass('active');
-		tabUcd.removeClass('active');
-		tabDoit.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getDoit();
 	}
 
 	/** 참여자정보탭 **/
-	function onClickUserTab()
+	function onClickUserTab(obj)
 	{
 		doitUser.show();
 		doitDetail.hide();
 		doitAction.hide();
 		doitReview.hide();
 		ucdInfo.hide();
-		tabDoit.removeClass('active');
-		tabAction.removeClass('active');
-		tabReview.removeClass('active');
-		tabUcd.removeClass('active');
-		tabUser.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getJoinMemberTotal();
 		getJoinMember();
 	}
 
 	/** 인증정보탭 **/
-	function onClickActionTab()
+	function onClickActionTab(obj)
 	{
 		doitAction.show();
 		doitDetail.hide();
 		doitUser.hide();
 		doitReview.hide();
 		ucdInfo.hide();
-		tabDoit.removeClass('active');
-		tabUser.removeClass('active');
-		tabAction.addClass('active');
-		tabReview.removeClass('active');
-		tabUcd.removeClass('active');
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		currentPage = 1;
-
 		getInvolveAction();
 	}
 
 	/** 리뷰정보탭 **/
-	function onClickReviewTab()
+	function onClickReviewTab(obj)
 	{
 		doitReview.show();
 		doitDetail.hide();
 		doitUser.hide();
 		doitAction.hide();
 		ucdInfo.hide();
-		tabDoit.removeClass('active');
-		tabUser.removeClass('active');
-		tabAction.removeClass('active');
-		tabUcd.removeClass('active');
-		tabReview.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getInvolveReview();
 	}
 
 	/** UCD정보탭 **/
-	function onClickUcdTab()
+	function onClickUcdTab(obj)
 	{
 		ucdInfo.show();
 		doitDetail.hide();
 		doitUser.hide();
 		doitAction.hide();
 		doitReview.hide();
-		tabDoit.removeClass('active');
-		tabUser.removeClass('active');
-		tabAction.removeClass('active');
-		tabReview.removeClass('active');
-		tabUcd.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getUcdLog();
 	}
 
@@ -1106,7 +1086,7 @@
 
 		let innerDom = '<button onclick="modalDetailReviewFadein(this);" ';
 		innerDom +=	'type="button" ';
-		innerDom +=	'class="more-info-btn"';
+		innerDom +=	'class="line-clamp more-info-btn"';
 		innerDom +=	'data-detail="'+aData.review_text+'"';
 		innerDom +=	'data-title="'+aData.doit_title+'"';
 		innerDom +=	'data-rating="'+aData.rating+'"';

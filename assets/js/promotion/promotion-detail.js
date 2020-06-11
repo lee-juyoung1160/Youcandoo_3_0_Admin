@@ -41,48 +41,42 @@
 		/** 프로모션 상세정보 **/
 		getPromotion();
 		/** 이벤트 **/
-		tabPromo	.on("click", function () { onClickPromoTab(); });
-		tabDoit		.on("click", function () { onClickDoitTab(); });
-		tabUcd		.on("click", function () { onClickUcdTab(); });
+		tabPromo	.on("click", function () { onClickPromoTab(this); });
+		tabDoit		.on("click", function () { onClickDoitTab(this); });
+		tabUcd		.on("click", function () { onClickUcdTab(this); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function () { getUcdLog(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
-	function onClickPromoTab()
+	function onClickPromoTab(obj)
 	{
 		promoDetail.show();
 		involveDoit.hide();
 		ucdInfo.hide();
-		tabDoit.removeClass('active');
-		tabUcd.removeClass('active');
-		tabPromo.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getPromotion();
 	}
 
-	function onClickDoitTab()
+	function onClickDoitTab(obj)
 	{
 		involveDoit.show();
 		promoDetail.hide();
 		ucdInfo.hide();
-		tabPromo.removeClass('active');
-		tabUcd.removeClass('active');
-		tabDoit.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getInvolveDoit();
 	}
 
-	function onClickUcdTab()
+	function onClickUcdTab(obj)
 	{
 		ucdInfo.show();
 		involveDoit.hide();
 		promoDetail.hide();
-		tabPromo.removeClass('active');
-		tabDoit.removeClass('active');
-		tabUcd.addClass('active');
-
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 		getUcdLog();
 	}
 

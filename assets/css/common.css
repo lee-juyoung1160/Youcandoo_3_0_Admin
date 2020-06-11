@@ -1125,6 +1125,7 @@ textarea {
 
 .review-list .line-clamp {
 	overflow: hidden;
+	display: block;
 	max-width: 310px;
 	white-space: nowrap;
 	text-overflow: ellipsis;

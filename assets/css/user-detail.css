@@ -11,6 +11,9 @@
     border-radius: 10px;
     transition: all .5s;
 }
+.modal-content .wrap {
+    width: auto;
+}
 .move-tab li {
     cursor: pointer;
     text-align: right;

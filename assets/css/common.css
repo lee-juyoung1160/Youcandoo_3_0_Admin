@@ -1042,6 +1042,9 @@ textarea {
 .modal-content.confirm-modal-detail .modal-information {
 	overflow-y: hidden;
 }
+.modal-content.confirm-modal-detail .modal-information li:last-child {
+	border-bottom: none;
+}
 
 
 

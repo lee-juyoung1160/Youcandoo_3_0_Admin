@@ -88,6 +88,7 @@
 		let uuid 		= $(obj).data('uuid');
 		let type 		= $(obj).data('type');
 		let actionUrl 	= $(obj).data('url');
+		let coverUrl 	= $(obj).data('cover');
 		let title 		= $(obj).data('title');
 		let nickname 	= $(obj).data('nickname');
 		let red 		= $(obj).data('red');
@@ -111,7 +112,7 @@
 		{
 			className = 'video-contents';
 
-			actionDom += 	'<video controls>';
+			actionDom += 	'<video poster="'+coverUrl+'" controls>';
 			actionDom += 		'<source src="'+actionUrl+'">';
 			actionDom += 	'</video>';
 
@@ -386,6 +387,7 @@
 					actionImageDom += 'data-type="'+action.resource_type+'" ';
 					actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
 					actionImageDom += 'data-url="'+action.url+'" ';
+					actionImageDom += 'data-cover="'+action.image_url+'" ';
 					actionImageDom += 'data-exurl="'+action.example_url+'" ';
 					actionImageDom += 'data-exdesc="'+action.example_description+'" ';
 					actionImageDom += 'data-title="'+action.doit_title+'" ';

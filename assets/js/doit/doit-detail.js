@@ -473,7 +473,6 @@
 				joinTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -488,15 +487,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let periodDom = $(nRow).children().eq(3);
-		let period    = aData.action_start_datetime + ' ~ ' + aData.action_end_datetime;
-
-		/** 인증기간 **/
-		periodDom.text(period);
 	}
 
 	/** 엑셀 다운로드 **/
@@ -1058,7 +1048,7 @@
 				reviewTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				setReviewRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -1080,7 +1070,7 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setReviewRowAttributes(nRow, aData)
 	{
 		let reviewDom  	= $(nRow).children().eq(1);
 
@@ -1252,7 +1242,7 @@
 				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				setUcdRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -1268,7 +1258,7 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setUcdRowAttributes(nRow, aData)
 	{
 		if (isNegative(aData.amount))
 			$(nRow).addClass('minus-pay');

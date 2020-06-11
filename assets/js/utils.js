@@ -66,6 +66,14 @@
 			(value.constructor === String && value.trim() === '')
 		)
 	}
+	
+	function isNegative(value)
+	{
+		if (Math.sign(value) !== -1)
+			return false;
+
+		return true;
+	}
 
 	/** 숫자 형식에 , 붙이기 **/
 	function numberWithCommas(x)

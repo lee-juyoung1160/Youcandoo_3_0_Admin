@@ -475,36 +475,4 @@
     <input type="hidden" id="profile_uuid" value="<?php if(isset($profile_uuid)) echo $profile_uuid ?>"/>
 </section>
 <script src="/assets/js/user/user-detail.js"></script>
-<script>
-
-    // modal event
-    $('.btn-open-modal').click(function () {
-        var openModal = $(this).data('modal');
-        $('.modal-layout').fadeIn();
-        $('.' + openModal).fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    /*$(function () {
-        function moveSection()
-        {
-            $('[data-moveto]').on('click', function (e) {
-                let $selectId = $(this).data('moveto');
-                let $offsetTop = $('.' + $selectId).offset().top;
-
-                $('html, body').stop().animate({
-                    scrollTop: $offsetTop -160
-                }, 300);
-                e.preventDefault(); e.stopPropagation();
-            });
-        }
-        moveSection();
-    });*/
-</script>
 

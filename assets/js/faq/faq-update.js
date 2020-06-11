@@ -88,7 +88,7 @@
 		selFaqType.val(detail.faq_type);
 		onChangeSelectOption(selFaqType);
 		title.val(detail.title);
-		content.val(detail.contents);
+		content.val(replaceSelectTextarea(detail.contents));
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
@@ -125,7 +125,7 @@
 		let param = {
 			"faq_uuid" : g_faq_uuid
 			,"title" : title.val().trim()
-			,"contents" : content.val().trim()
+			,"contents" : replaceInputTextarea(content.val().trim())
 			,"faq_type" : selFaqType.val()
 			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
 			,"updated_user" : sessionUserId.val()

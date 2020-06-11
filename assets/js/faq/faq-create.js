@@ -109,7 +109,7 @@
 	{
 		let param = {
 			"faqTitle" : title.val().trim()
-			,"faqContents" : content.val().trim()
+			,"faqContents" : replaceInputTextarea(content.val().trim())
 			,"faqType" : selFaqType.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 			,"create_user" : sessionUserId.val()

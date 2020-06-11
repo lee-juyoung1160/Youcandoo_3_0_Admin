@@ -27,12 +27,6 @@
     border-radius: inherit;
 }
 
-.review-list-page .line-clamp {
-    overflow: hidden;
-    width: 350px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
 .review-list-page .modal-content label {
     margin-right: 10px;
 }

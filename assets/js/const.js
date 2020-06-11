@@ -46,6 +46,7 @@
 		,cantUpdatePromo: '프로모션 상태가 대기 중일 경우 수정할 수 있습니다.\n상세페이지로 이동합니다.'
 		,cantUpdateDoit: '두잇 상태가 모집 중일 경우 수정할 수 있습니다.\n상세페이지로 이동합니다.'
 		,cantUpdateUserDoit: '일반두잇은 수정할 수 없습니다.\n상세페이지로 이동합니다.'
+		,alreadyHasYellow: '이미 옐로카드를 받은 인증이 포함돼 있습니다.\n해당 게시물 체크 해제 후 다시 시도해주세요.'
 	}
 
 	const label = {
@@ -75,6 +76,9 @@
 		,fixedTop : '<i class="fas fas fa-bell"></i>'
 		,noImage : '/assets/images/no-image.jpg'
 		,voiceImage : '/assets/images/voice.jpg'
+		,redCardImage : '/assets/images/red-card.png'
+		,yellowCardImage : '/assets/images/yellow-card.png'
+		,redYellowCardImage : '/assets/images/rad-yellow-card.png'
 	}
 
 	/** api url **/

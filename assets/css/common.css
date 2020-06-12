@@ -928,10 +928,7 @@ textarea {
 	margin: 10px 0;
 	font-weight: 600;
 }
-.doit-detail-page .cert-contents li .title {
-	display: none;
-}
-.doit-detail-page .cert-contents li .title + span {
+.doit-detail-page .cert-contents li .text-wrap span {
 	display: block;
 	margin-top: 5px;
 }

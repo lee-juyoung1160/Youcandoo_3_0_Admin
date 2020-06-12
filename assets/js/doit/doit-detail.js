@@ -269,9 +269,12 @@
 		let tagDom = '';
 		for (let i=0; i<tags.length; i++)
 		{
-			tagDom += '<li>';
-			tagDom += 	'<span class="tag-name">'+tags[i]+'</span>';
-			tagDom += '</li>';
+			if (!isEmpty(tags[i]))
+			{
+				tagDom += '<li>';
+				tagDom += 	'<span class="tag-name">'+tags[i]+'</span>';
+				tagDom += '</li>';
+			}
 		}
 		doitTags.html(tagDom);
 

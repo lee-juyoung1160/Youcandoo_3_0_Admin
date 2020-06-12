@@ -88,11 +88,14 @@
 		{
 			for (let i = 0; i < tags.length; i++)
 			{
-				let tag = replaceAll(tags[i], '#', '');
-				tagDom += '<li>';
-				tagDom += 	'#<span class="tag-name added-tag">'+tag+'</span>';
-				tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
-				tagDom += '</li>';
+				if (!isEmpty(tags[i]))
+				{
+					let tag = replaceAll(tags[i], '#', '');
+					tagDom += '<li>';
+					tagDom += 	'#<span class="tag-name added-tag">'+tag+'</span>';
+					tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
+					tagDom += '</li>';
+				}
 			}
 			addedTags.html(tagDom);
 		}

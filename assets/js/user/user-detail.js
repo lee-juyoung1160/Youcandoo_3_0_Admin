@@ -214,17 +214,12 @@
 				},
 				columns: [
 					{title: "두잇명", 		data: "doit_title",   	width: "25%",    orderable: false,   className: "text-center cursor-default" }
-					,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",    orderable: false,   className: "text-center cursor-default",
+					,{title: "리워드 UCD", 	data: "reward_ucd",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return isEmpty(data) ? '-' : numberWithCommas(data);
 						}
 					}
-					,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "text-center cursor-default",
-						render: function (data) {
-							return isEmpty(data) ? '-' : numberWithCommas(data);
-						}
-					}
-					,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
+					,{title: "적립 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return isEmpty(data) ? '-' : numberWithCommas(data);
 						}

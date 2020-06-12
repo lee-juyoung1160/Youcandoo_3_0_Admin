@@ -647,7 +647,7 @@
 					if (isSuccessResp(data))
 					{
 						modalFadeout();
-						getActions();
+						getInvolveAction();
 					}
 				},
 				error: function (request, status) {
@@ -746,7 +746,7 @@
 	function getInvolveAction()
 	{
 		$.ajax({
-			url: api.involveAction,
+			url: api.listAction,
 			type: "POST",
 			headers: headers,
 			dataType: 'json',
@@ -769,9 +769,10 @@
 	function actionParams()
 	{
 		let param = {
-			"doit_uuid" : g_doitUuid
-			,"page" : currentPage
+			"page" : currentPage
 			,"limit" : selPageLengthForAction.val()
+			,"search_type" : "doit_uuid"
+			,"keyword" : g_doitUuid
 		}
 
 		return JSON.stringify(param);

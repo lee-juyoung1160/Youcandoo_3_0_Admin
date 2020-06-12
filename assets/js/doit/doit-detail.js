@@ -1111,15 +1111,9 @@
 
 		modalReviewContent.html(detail);
 		modalReviewTitle.html(title);
-		let starDom = '';
-		for (let i=1; i<=5; i++)
-		{
-			if (i <= rating )
-				starDom += '<li class="on"><i class="fas fa-star"></i></li>';
-			else
-				starDom += '<li><i class="fas fa-star"></i></li>';
-		}
-		modalReviewStarWrap.html(starDom);
+		modalReviewStarWrap.find('li').each(function (index) {
+			index < rating ? $(this).addClass('on') : $(this).removeClass('on');
+		});
 		modalReviewRating.html(rating);
 		modalReviewReport.html(report);
 		modalReviewUser.html(nickname);

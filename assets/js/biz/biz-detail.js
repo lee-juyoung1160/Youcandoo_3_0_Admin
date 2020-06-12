@@ -52,13 +52,13 @@
 			btnSubmit		.on("click", function () { onSubmitUcdRegist(); });
 		});
 
-		function initModal()
+		/*function initModal()
 		{
 			division.eq(0).prop('checked', true);
 			amount.val('');
 			content.val('');
 			amount.focus();
-		}
+		}*/
 
 		function onClickTabPromo()
 		{
@@ -164,7 +164,7 @@
 					}
 				},
 				columns: [
-					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center cursor-default" }
+					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
 					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
@@ -212,7 +212,7 @@
 					promoTotalCount.html(info.recordsTotal);
 				},
 				fnRowCallback: function( nRow, aData ) {
-					setRowAttributes(nRow, aData);
+					setPromotionRowAttributes(nRow, aData);
 				}
 			});
 		}
@@ -228,7 +228,7 @@
 			return JSON.stringify(param);
 		}
 
-		function setRowAttributes(nRow, aData)
+		function setPromotionRowAttributes(nRow, aData)
 		{
 			let titleDom = $(nRow).children().eq(0);
 			let periodDom = $(nRow).children().eq(3);
@@ -297,7 +297,7 @@
 					ucdTotalCount.html(info.recordsTotal);
 				},
 				fnRowCallback: function( nRow, aData ) {
-					setRowAttributes(nRow, aData);
+					setUcdRowAttributes(nRow, aData);
 				}
 			});
 		}
@@ -313,7 +313,7 @@
 			return JSON.stringify(param);
 		}
 
-		function setRowAttributes(nRow, aData)
+		function setUcdRowAttributes(nRow, aData)
 		{
 			if (isNegative(aData.amount))
 				$(nRow).addClass('minus-pay');

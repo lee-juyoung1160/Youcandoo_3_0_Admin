@@ -90,7 +90,7 @@
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center" }
+				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {

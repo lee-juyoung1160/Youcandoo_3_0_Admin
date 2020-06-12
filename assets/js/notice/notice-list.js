@@ -69,7 +69,7 @@
 					}
 				},
 				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
+				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center cursor-default" }
 				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
@@ -147,11 +147,11 @@
 	{
 		let topDom	 = $(nRow).children().eq(1);
 		let titleDom = $(nRow).children().eq(2);
+		let detailUrl = page.detailNotice+aData.idx;
 		let isTop	 = aData.is_top;
 
-		/** 제목 cell 클릭 상세 이동 **/
-		$(titleDom).attr('onClick', 'goDetail('+aData.idx+')');
-		$(titleDom).css('text-decoration', 'underline');
+		/** 제목에 클릭 상세 이동 **/
+		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 
 		/** 상단고정 **/
 		if (isTop === 'Y')
@@ -161,11 +161,6 @@
 			/** no컬럼에 숫자대신 아이콘 **/
 			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;"></i>');
 		}
-	}
-
-	function goDetail(idx)
-	{
-		location.href = page.detailNotice+idx;
 	}
 
 	/** row select **/

@@ -257,10 +257,9 @@
 				}
 			},
 			columns: [
-				{title: "No", 		data: "idx",    	   			width: "5%",     orderable: false,   className: "text-center" }
-				,{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "text-center" }
-				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center" }
+				{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -310,9 +309,9 @@
 
 	function setDoitRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(1);
-		let countUserDom = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(3);
+		let titleDom  = $(nRow).children().eq(0);
+		let countUserDom = $(nRow).children().eq(1);
+		let periodDom = $(nRow).children().eq(2);
 		let detailUrl = page.detailDoit+aData.idx;
 		let period    = aData.action_start_datetime + ' ~ ' + aData.action_end_datetime;
 

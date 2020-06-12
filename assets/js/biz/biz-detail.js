@@ -164,7 +164,7 @@
 					}
 				},
 				columns: [
-					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center" }
+					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center cursor-default" }
 					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);

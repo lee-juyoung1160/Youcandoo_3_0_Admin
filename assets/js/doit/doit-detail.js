@@ -1006,7 +1006,7 @@
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center" }
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
@@ -1076,8 +1076,7 @@
 	{
 		let reviewDom  	= $(nRow).children().eq(1);
 
-		let innerDom = '<button onclick="modalDetailReviewFadein(this);" ';
-		innerDom +=	'type="button" ';
+		let innerDom = '<a onclick="modalDetailReviewFadein(this);" ';
 		innerDom +=	'class="line-clamp more-info-btn"';
 		innerDom +=	'data-detail="'+aData.review_text+'"';
 		innerDom +=	'data-title="'+aData.doit_title+'"';
@@ -1088,7 +1087,7 @@
 		innerDom +=	'data-created="'+aData.created+'"';
 		innerDom +=	'>';
 		innerDom += aData.review_text;
-		innerDom += '</button>';
+		innerDom += '</a>';
 
 		$(reviewDom).html(innerDom);
 	}

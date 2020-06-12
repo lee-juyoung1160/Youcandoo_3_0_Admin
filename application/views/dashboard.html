@@ -18,7 +18,7 @@
                             <canvas id="tomorrow-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count" id="pre-total" data-count=""></span></li>
+                            <li class="fixed">Total <span class="total count" id="pre-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="pre-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="pre-company">1,000</span></li>
                         </ul>
@@ -34,7 +34,7 @@
                             <canvas id="today-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  id="ing-total" data-count=""></span></li>
+                            <li class="fixed">Total <span class="total count"  id="ing-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="ing-user">650</span></li>
                             <li class="fixed">프로모션  <span class="count" id="ing-company">1,000</span></li>
                         </ul>
@@ -50,7 +50,7 @@
                             <canvas id="end-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  id="end-total" data-count=""></span></li>
+                            <li class="fixed">Total <span class="total count"  id="end-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="end-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="end-company"></span></li>
                         </ul>
@@ -66,9 +66,9 @@
                             <canvas id="cancel-doughnut"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count" data-count=""></span></li>
-                            <li class="fixed">일반 <span class="count"></span></li>
-                            <li class="fixed">프로모션  <span class="count"></span></li>
+                            <li class="fixed">Total <span class="total count" id="total"></span></li>
+                            <li class="fixed">취소 <span class="count" id="cancle"></span></li>
+                            <li class="fixed">삭제  <span class="count" id="delete"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -79,10 +79,10 @@
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">월 단위로 등록된 두잇</p>
                         <div class="select-box">
-                            <label for="doit-year-select">2020년</label>
+                            <label for="doit-year-select">2020</label>
                             <select id="doit-year-select" name="doit-year-value">
-                                <option value="2020" selected>2020년</option>
-                                <option value="2021">2021년</option>
+                                <option value="2020" selected>2020</option>
+                                <option value="2021">2021</option>
                             </select>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                             <li class="clearfix">
                                 <div class="fixed-wrap">
                                     <i class="fas fa-user"></i>
-                                    <span class="fixed">정상회원</span>
+                                    <span class="fixed">가입회원</span>
                                 </div>
                                 <div class="data-wrap">
                                     <p class="pluses">+<span class="count">5,450</span></p>
@@ -121,7 +121,7 @@
                             <li class="clearfix">
                                 <div class="fixed-wrap">
                                     <i class="fas fa-user-minus"></i>
-                                    <span class="fixed">휴먼회원</span>
+                                    <span class="fixed">정지회원</span>
                                 </div>
                                 <div class="data-wrap">
                                     <p class="pluses">+<span class="count">5,450</span></p>

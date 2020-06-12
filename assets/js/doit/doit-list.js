@@ -206,6 +206,13 @@
 			return false;
 		}
 
+		let doitStatus = selectedData.doit_status;
+		if (doitStatus !== '모집중' || (doitStatus === '모집중' && selectedData.doit_member > 0))
+		{
+			alert(message.cantDeleteDoit);
+			return false;
+		}
+
 		return true;
 	}
 

@@ -84,7 +84,6 @@
 			$.ajax({
 				url: api.getUserProfile,
 				type: "POST",
-				async: false,
 				global: false,
 				headers: headers,
 				dataType: 'json',
@@ -117,7 +116,6 @@
 			$.ajax({
 				url: api.getUserAccount,
 				type: "POST",
-				async: false,
 				global: false,
 				headers: headers,
 				dataType: 'json',
@@ -151,7 +149,6 @@
 				ajax : {
 					url: api.listUserOpened,
 					type:"POST",
-					async: false,
 					headers: headers,
 					data: function (d) {
 						return openedDoitParams(d);
@@ -236,7 +233,6 @@
 				ajax : {
 					url: api.listUserJoined,
 					type:"POST",
-					async: false,
 					headers: headers,
 					data: function (d) {
 						return joinedDoitParams(d);
@@ -316,7 +312,7 @@
 				ajax : {
 					url: api.listUsageUcd,
 					type:"POST",
-					async: false,
+					global: false,
 					headers: headers,
 					data: function (d) {
 						return usageHistoryParams(d);

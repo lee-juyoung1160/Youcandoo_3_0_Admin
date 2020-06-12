@@ -707,11 +707,11 @@
 			return false;
 		}
 
-		if (isOverDuration())
+		/*if (isOverDuration())
 		{
 			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
-		}
+		}*/
 
 		if (isEmptyFrequency())
 		{
@@ -768,7 +768,7 @@
 		return retVal;
 	}
 
-	function isOverDuration()
+	/*function isOverDuration()
 	{
 		let retVal 		= false;
 		let promoTerm 	= calculateTerm();
@@ -784,7 +784,7 @@
 		});
 
 		return retVal;
-	}
+	}*/
 
 	function isInvalidJoinUserCount()
 	{

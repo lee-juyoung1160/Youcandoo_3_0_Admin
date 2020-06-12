@@ -905,6 +905,14 @@ textarea {
 	font-weight: 500;
 	line-height: 1.7;
 }
+.detail-data-img a {
+	border-bottom: 1px solid #505050;
+	transition: all .2s;
+}
+.detail-data-img a:hover {
+	color: #4876EA;
+	border-bottom: 1px solid #4876EA;
+}
 .detail-img {
 	display: block;
 	width: 375px;

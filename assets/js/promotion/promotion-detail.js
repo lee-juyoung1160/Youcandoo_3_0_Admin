@@ -292,7 +292,7 @@
 				doitTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				setDoitRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -308,7 +308,7 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setDoitRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(1);
 		let countUserDom = $(nRow).children().eq(2);
@@ -381,7 +381,7 @@
 				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				setUcdRowAttributes(nRow, aData);
 			}
 		});
 	}
@@ -397,7 +397,7 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setUcdRowAttributes(nRow, aData)
 	{
 		if (isNegative(aData.amount))
 			$(nRow).addClass('minus-pay');

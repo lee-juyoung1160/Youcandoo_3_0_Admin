@@ -845,7 +845,18 @@ textarea {
 }
 .table-wrap table tbody a {
 	border-bottom: 1px solid #505050;
+	transition: all .2s;
 }
+.table-wrap table tbody a:hover,
+.table-wrap td button:hover {
+	color: #4876EA;
+	border-bottom: 1px solid #4876EA;
+}
+.table-wrap .minus-pay td button {
+	color: #4876EA;
+	border-bottom: 1px solid #4876EA;
+}
+
 .table--pagination {
 	font-size: 0;
 	text-align: center;
@@ -925,8 +936,13 @@ textarea {
 	margin: 0 auto;
 }
 .cert-contents li .title {
+	overflow: hidden;
+	max-width: 210px;
 	margin: 10px 0;
+	padding-bottom: 5px;
 	font-weight: 600;
+	text-overflow: ellipsis;
+
 }
 .doit-detail-page .cert-contents li .text-wrap span {
 	display: block;
@@ -1046,11 +1062,15 @@ textarea {
 	bottom: 40px;
 	width: 90%;
 	margin-left: -45%;
-
 }
 .modal-content.confirm-modal-detail video {
 	width: 100%;
 }
+.modal-content.confirm-modal-detail ul li:first-child video {
+	height: 650px;
+	background-color: #000;
+}
+
 .modal-content.confirm-modal-detail .img-contents img {
 	width: 100%;
 }

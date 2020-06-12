@@ -743,6 +743,7 @@
 		return JSON.stringify(param);
 	}
 
+	/** 인증목록 **/
 	function getInvolveAction()
 	{
 		$.ajax({
@@ -851,7 +852,7 @@
 				actionDom += 		actionImageDom;
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
-				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
+				/*actionDom += 		'<p class="title">'+action.doit_title+'</p>';*/
 				actionDom += 		'<span>'+action.user_name+'</span>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
 				actionDom += 		'<i>'+warnImageDom+'</i>';

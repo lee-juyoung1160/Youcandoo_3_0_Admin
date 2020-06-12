@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
@@ -38,7 +37,6 @@
 			if (index === 0)
 				$(this).prop("checked", true);
 		});
-		inputCheck.prop("checked", true);
 		select.each(function () {
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));

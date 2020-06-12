@@ -96,6 +96,7 @@
 		,listUser : baseApiUrl+'user/list'
 		,inactiveUser : baseApiUrl+'user/inactive'
 		,getUserProfile : baseApiUrl+'user/get/profile'
+		,getUserAccount : baseApiUrl+'user/get/account'
 		,listUserUcd : baseApiUrl+'user/get/ucd/history'
 		,listUserOpened : baseApiUrl+'user/get/doit/create'
 		,listUserJoined : baseApiUrl+'user/get/doit/join'
@@ -125,7 +126,7 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,getReward : baseApiUrl+'promotion/getReward'
-		,involveAction : baseApiUrl+'doit/get/action'
+		/*,involveAction : baseApiUrl+'doit/get/action'*/
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
@@ -142,7 +143,7 @@
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'
 		,detailEvent : baseApiUrl+'event/detail'
-		,updateEvent : ''
+		/*,updateEvent : ''*/
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
 		/** 공지 **/

@@ -9,7 +9,7 @@
 		const joinService	= $("#joinService");
 		const contact		= $("#contact");
 		const email			= $("#email");
-		const isCert		= $("#isCert");
+		const isAuth		= $("#isAuth");
 		/** 두잇정보 **/
 		const tabOpened		= $("#tabOpened");
 		const tabJoined		= $("#tabJoined");
@@ -37,7 +37,7 @@
 			/** 기본정보 **/
 			getBasicProfile();
 			/** 회원정보 **/
-			//getUserProfile();
+			getUserAccount();
 			/** 두잇 개설 목록 불러오기 **/
 			getOpenedDoit();
 			/** UCD 사용내역 **/
@@ -96,19 +96,52 @@
 						invalidResp(data);
 				},
 				error: function (request, status) {
-					alert(label.detailContent+message.ajaxError);
+					alert('기본정보 '+label.detailContent+message.ajaxError);
 				},
 			});
 		}
 
 		function buildBasicProfile(data)
 		{
-			let basicInfo = data.data;
-			profileId	.html(basicInfo.profile_uuid);
-			nickname	.html(basicInfo.nickname);
-			balance		.html(numberWithCommas(basicInfo.total));
-			cash		.html(numberWithCommas(basicInfo.cash));
-			point		.html(numberWithCommas(basicInfo.point));
+			let detail = data.data;
+			profileId	.html(detail.profile_uuid);
+			nickname	.html(detail.nickname);
+			balance		.html(numberWithCommas(detail.total));
+			cash		.html(numberWithCommas(detail.cash));
+			point		.html(numberWithCommas(detail.point));
+		}
+
+		/** 회원정보 **/
+		function getUserAccount()
+		{
+			$.ajax({
+				url: api.getUserAccount,
+				type: "POST",
+				async: false,
+				global: false,
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify({"profile_uuid" : profile_uuid}),
+				success: function(data) {
+					if (isSuccessResp(data))
+						buildUserAccount(data);
+					else
+						invalidResp(data);
+				},
+				error: function (request, status) {
+					alert('회원정보 '+label.detailContent+message.ajaxError);
+				},
+			});
+		}
+
+		function buildUserAccount(data)
+		{
+			let detail = data.data;
+
+			joinService	.html(detail.service.toString());
+			contact		.html(detail.phone);
+			email		.html(detail.email);
+			isAuth		.html(detail.is_auth);
 		}
 
 		/** 두잇 개설정보 **/
@@ -124,7 +157,7 @@
 						return openedDoitParams(d);
 					},
 					error: function (request, status) {
-						alert(label.list+message.ajaxLoadError);
+						alert('두잇개설 '+label.list+message.ajaxLoadError);
 					}
 				},
 				columns: [
@@ -209,7 +242,7 @@
 						return joinedDoitParams(d);
 					},
 					error: function (request, status) {
-						alert(label.list+message.ajaxLoadError);
+						alert('두잇참여 '+label.list+message.ajaxLoadError);
 					}
 				},
 				columns: [
@@ -289,7 +322,7 @@
 						return usageHistoryParams(d);
 					},
 					error: function (request, status) {
-						alert(label.list+message.ajaxLoadError);
+						alert('UCD 사용내역 '+label.list+message.ajaxLoadError);
 					}
 				},
 				columns: [

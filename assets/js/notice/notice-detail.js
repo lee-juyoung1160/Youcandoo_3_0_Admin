@@ -2,6 +2,7 @@
 	const title 		= $("#title");
 	const content		= $("#content");
 	const reserveDate	= $("#reserveDate");
+	const contentImageWrap	= $("#contentImageWrap");
 	const contentImage	= $("#contentImage");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
@@ -9,8 +10,9 @@
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
 		getDetail();
-
-		goUpdate.on('click', function () { goUpdatePage(); })
+		/** 이벤트 **/
+		contentImage.on('error', function () { onErrorImage(this) });
+		goUpdate	.on('click', function () { goUpdatePage(); });
 	});
 
 	function getDetail()
@@ -49,9 +51,17 @@
 
 		title.html(detail.title);
 		content.html(detail.notice_contents);
-		contentImage.attr('src', imgUrl);
+		if (isEmpty(detail.notice_image_url))
+			contentImageWrap.remove();
+		else
+			contentImage.attr('src', imgUrl);
 		reserveDate.html(detail.reservation_date);
 		exposure.html(detail.is_exposure === 'Y' ? label.exposure : label.unexpose);
+	}
+
+	function onErrorImage(obj)
+	{
+		$(obj).attr('src', label.noImage);
 	}
 
 	function goUpdatePage()

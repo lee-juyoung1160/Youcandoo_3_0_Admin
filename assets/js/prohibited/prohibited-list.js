@@ -38,6 +38,7 @@
 	function initModal()
 	{
 		prohibition.val('');
+		prohibition.focus();
 	}
 
 	function buildGrid()
@@ -203,7 +204,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							stayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

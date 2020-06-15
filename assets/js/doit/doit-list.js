@@ -86,7 +86,11 @@
 					}
 				}
 				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
+					}
+				}
 				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "text-center cursor-default" }
 			],
@@ -153,13 +157,10 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  	= $(nRow).children().eq(2);
-		let periodDom  	= $(nRow).children().eq(3);
 		let joinUserDom = $(nRow).children().eq(4);
 		let detailUrl	= page.detailDoit+aData.idx;
 		/** 두잇명 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
-		/** 인증기간 **/
-		$(periodDom).html(aData.action_start_datetime+' ~ ' +aData.action_end_datetime);
 		/** 참여인원/모집인원 **/
 		$(joinUserDom).html(aData.doit_member+' / ' +aData.max_user);
 	}
@@ -185,7 +186,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							stayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

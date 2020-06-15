@@ -300,7 +300,6 @@
 				initComplete: function () {
 				},
 				fnRowCallback: function( nRow, aData ) {
-					console.log(aData)
 				},
 			});
 		}

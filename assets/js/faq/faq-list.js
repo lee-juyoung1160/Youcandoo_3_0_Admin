@@ -11,6 +11,7 @@
 	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 
+	/*window.onpopstate = function() { console.log('onpopstate'); }*/
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
@@ -52,7 +53,7 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -65,7 +66,7 @@
 					}
 				},
 				{title: "구분", 	data: "faq_type",   	width: "10%", 		orderable: false,   className: "text-center cursor-default" }
-				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "text-center" }
+				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "text-center cursor-default" }
 				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
@@ -116,17 +117,33 @@
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
+		/*window.history.pushState(null, null, page.listFaq);
+		let history = localStorage.getItem("history");
+		console.log(history)*/
+		let table = dataTable.DataTable();
+		let info = table.page.info();
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : info.length
+			,"page" : (info.start / info.length) + 1
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
+
+		/*let historyParams = {
+			"limit" : info.length
+			,"page" : (info.start / info.length) + 1
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
+			,"keyword" : keyword.val()
+			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+		}
+		localStorage.setItem("history", JSON.stringify(historyParams));*/
 
 		return JSON.stringify(param);
 	}
@@ -161,7 +178,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							stayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

@@ -95,7 +95,11 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						return row.start_date + ' ~ ' + row.end_date;
+					}
+				}
 				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "text-center",
 					render: function (data) {
 						return getPromotionStatusName(data);
@@ -171,15 +175,11 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(5);
 		let btnDom 	  = $(nRow).children().eq(7);
 		let detailUrl = page.detailPromo+aData.idx;
+
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-
-		/** 프로모션 기간 **/
-		periodDom.html(aData.start_date +' ~ '+aData.end_date);
-
 		/** 배너보기 버튼 **/
 		/*let bannerUrl = aData.banner_image_url;
 		let listUrl   = aData.list_image_url;
@@ -292,7 +292,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							stayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

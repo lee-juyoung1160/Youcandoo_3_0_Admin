@@ -416,6 +416,16 @@
             $("#checkAll").prop('checked', false);
     }
 
+    function stayCurrentPage(tableObj)
+    {
+        let table = tableObj.DataTable();
+        table.ajax.reload( null, false );
+        if (table.data().length === 0)
+            table.page( 'last' ).draw( 'page' );
+
+        $("input[name=chk-row]").prop("checked", false);
+    }
+
     /** 상세페이지 이동 **/
     function moveDetail(obj)
     {

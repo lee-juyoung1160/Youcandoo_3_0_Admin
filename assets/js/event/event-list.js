@@ -66,7 +66,11 @@
 				},
 				{title: "구분", 	data: "event_type",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
 				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "text-center cursor-default" }
-				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						return row.start_date + ' ~ ' + row.end_date;
+					}
+				}
 				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
@@ -135,13 +139,10 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(3);
 		let detailUrl = page.detailEvent+aData.idx;
 
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
-		/** 기간 **/
-		$(periodDom).html(aData.start_date +' ~ '+ aData.end_date);
 	}
 
 	function onSubmitSearch()
@@ -165,7 +166,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							stayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

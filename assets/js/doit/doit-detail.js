@@ -1163,7 +1163,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 대상을 목록에서 '+message.select);
+			alert('대상을 목록에서 '+message.select);
 			return false;
 		}
 

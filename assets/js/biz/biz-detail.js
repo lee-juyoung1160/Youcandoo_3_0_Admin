@@ -47,8 +47,8 @@
 			goUpdate		.on("click", function () { goUpdatePage(); })
 			tabPromo		.on("click", function () { onClickTabPromo(); });
 			tabUcd			.on("click", function () { onClickTabUcd(); });
-			selPageLengthForPromo.on("change", function () { getInvolvePromo(); });
-			selPageLengthForUcd.on("change", function () { getUcdLog(); });
+			selPageLengthForPromo.on("change", function () { reloadTable(promoTable); });
+			selPageLengthForUcd.on("change", function () { reloadTable(ucdTable); });
 			btnSubmit		.on("click", function () { onSubmitUcdRegist(); });
 		});
 
@@ -117,9 +117,6 @@
 			bizNumber.html(detail.company_number);
 			bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');
 			bizDesc.html(detail.contents);
-
-			getBizBalance();
-			getInvolvePromo();
 		}
 
 		function getBizBalance()
@@ -154,7 +151,6 @@
 				ajax : {
 					url: api.involveBizPromotion,
 					type: "POST",
-					async: false,
 					headers: headers,
 					data: function (d) {
 						return promoTableParams(d);
@@ -206,13 +202,12 @@
 				fixedHeader:false,
 				destroy: true,
 				initComplete: function () {
-					let table = promoTable.DataTable();
-					let info = table.page.info();
-
-					promoTotalCount.html(info.recordsTotal);
 				},
 				fnRowCallback: function( nRow, aData ) {
 					setPromotionRowAttributes(nRow, aData);
+				},
+				drawCallback: function (settings) {
+					buildTotalCount(promoTable);
 				}
 			});
 		}
@@ -291,13 +286,12 @@
 				fixedHeader:false,
 				destroy: true,
 				initComplete: function () {
-					let table = ucdTable.DataTable();
-					let info = table.page.info();
-
-					ucdTotalCount.html(info.recordsTotal);
 				},
 				fnRowCallback: function( nRow, aData ) {
 					setUcdRowAttributes(nRow, aData);
+				},
+				drawCallback: function (settings) {
+					buildTotalCount(ucdTable);
 				}
 			});
 		}

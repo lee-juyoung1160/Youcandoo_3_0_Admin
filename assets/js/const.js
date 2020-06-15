@@ -48,6 +48,7 @@
 		,cantUpdateUserDoit: '일반두잇은 수정할 수 없습니다.\n상세페이지로 이동합니다.'
 		,cantDeleteDoit: '진행상태 : 모집중 / 참여인원 : 0명인 두잇만 삭제할 수 있습니다.'
 		,alreadyHasYellow: '이미 옐로카드를 받은 인증이 포함돼 있습니다.\n해당 게시물 체크 해제 후 다시 시도해주세요.'
+		,notEnoughBudget: '프로모션 예산이 부족해 두잇을 개설할 수 없습니다.\n기업 또는 프로모션을 다시 선택해주세요.'
 	}
 
 	const label = {

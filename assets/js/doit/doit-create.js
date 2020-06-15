@@ -234,6 +234,7 @@
 		bizName.val(name);
 		minAvailable.html('0');
 		maxAvailable.html('0');
+		selectedReward.empty();
 		getInvolvePromo();
 		buildOptionReward();
 		modalFadeout();
@@ -289,6 +290,7 @@
 
 	function onChangeSelPromo()
 	{
+		selectedReward.empty();
 		$.ajax({
 			url: api.involveReward,
 			type: "POST",
@@ -331,6 +333,7 @@
 
 	function onChangeSelReward()
 	{
+		selectedReward.empty();
 		$.ajax({
 			url: api.getReward,
 			type: "POST",
@@ -353,11 +356,19 @@
 	let g_duration;
 	function buildSelectedReward(data)
 	{
-		selectedReward.hide();
 		let selectedRewardDom = '';
 		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let detail = data.data;
+
+			if (detail.remain_budget_ucd < 1)
+			{
+				alert(message.notEnoughBudget);
+				getInvolvePromo();
+				buildOptionReward();
+				return;
+			}
+
 			g_duration = detail.action_duration;
 
 			/** 프로모션 종료일로 두잇 인증기간 시작일 최대 값 세팅 **/
@@ -395,7 +406,6 @@
 			selectedRewardDom += '</li>';
 
 			selectedReward.html(selectedRewardDom);
-			selectedReward.show();
 
 			/** 모집인원 가이드(프로모션에서 설정한 최대 못집인원을 표출시켜 줌) **/
 			minAvailable.html(detail.min_user_limit);

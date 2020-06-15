@@ -277,20 +277,26 @@
 
 		let introType = detail.intro_resouce_type;
 		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
-		introImg = isEmpty(introImg) ? label.noImage : introImg;
-		let introImageDom = '';
-		introImageDom += '<div class="file">';
-		introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" alt="썸네일 이미지입니다.">';
-		introImageDom += '</div>';
-		if (introType === 'video')
+		let introImageDom = '-';
+		if (!isEmpty(introImg))
 		{
-			introImageDom += '<div class="file">';
-			introImageDom += 	'<p class="cap">영상</p>';
-			introImageDom += 	'<video controls>';
-			introImageDom += 		'<source src="'+detail.doit_video_url+'">';
-			introImageDom += 	'</video>';
+			introImageDom = '<div class="file">';
+			introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
+			introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" onerror="onErrorImage(this);" alt="썸네일 이미지입니다.">';
 			introImageDom += '</div>';
+
+			if (introType === 'video')
+			{
+				if(!isEmpty(detail.doit_video_url))
+				{
+					introImageDom += '<div class="file">';
+					introImageDom += 	'<p class="cap">영상</p>';
+					introImageDom += 	'<video controls>';
+					introImageDom += 		'<source src="'+detail.doit_video_url+'">';
+					introImageDom += 	'</video>';
+					introImageDom += '</div>';
+				}
+			}
 		}
 		introWrap.html(introImageDom);
 
@@ -314,6 +320,11 @@
 		actionResource.html(buildActionResource(detail));
 
 		actionDesc.html(detail.action_description);
+	}
+
+	function onErrorImage(obj)
+	{
+		$(obj).attr('src', label.noImage);
 	}
 
 	function getStringValueForActionType(param)

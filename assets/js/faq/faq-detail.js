@@ -8,7 +8,7 @@
 	$(document).ready(function () {
 		/** 상세 불러오기 **/
 		getDetail();
-
+		/** 이벤트 **/
 		goUpdate.on('click', function () { goUpdatePage(); })
 	});
 

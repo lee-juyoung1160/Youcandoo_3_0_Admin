@@ -52,13 +52,13 @@
 			btnSubmit		.on("click", function () { onSubmitUcdRegist(); });
 		});
 
-		/*function initModal()
+		function initModal()
 		{
 			division.eq(0).prop('checked', true);
 			amount.val('');
 			content.val('');
 			amount.focus();
-		}*/
+		}
 
 		function onClickTabPromo()
 		{
@@ -343,8 +343,9 @@
 							alert(getStatusMessage(data))
 							if (isSuccessResp(data))
 							{
-								modalFadeout();
+								balance.html(numberWithCommas(data.data));
 								getUcdLog();
+								modalFadeout();
 							}
 						},
 						error: function (request, status) {

@@ -164,8 +164,6 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let nicknameDom = $(nRow).children().eq(0);
-		let detailUrl = page.detailUser+aData.idx;
-		console.log(aData)
 		/** 닉네임 클리 상세 이동 **/
 		nicknameDom.html('<a onclick="moveDetail(this);" data-uuid="'+aData.profile_uuid+'" data-target="'+page.detailUser+'">'+aData.nickname+'</a>');
 	}

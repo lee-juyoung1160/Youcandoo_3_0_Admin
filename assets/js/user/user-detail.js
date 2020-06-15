@@ -184,6 +184,11 @@
 							return Math.floor(data);
 						}
 					}
+					,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",
+						render: function (data, type, row, meta) {
+							return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
+						}
+					}
 				],
 				language: {
 					emptyTable : message.emptyList
@@ -263,6 +268,11 @@
 							return Math.floor(data);
 						}
 					}
+					,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",
+						render: function (data, type, row, meta) {
+							return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
+						}
+					}
 				],
 				language: {
 					emptyTable : message.emptyList
@@ -290,6 +300,7 @@
 				initComplete: function () {
 				},
 				fnRowCallback: function( nRow, aData ) {
+					console.log(aData)
 				},
 			});
 		}

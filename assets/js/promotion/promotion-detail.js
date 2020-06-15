@@ -36,7 +36,6 @@
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
-
 	$(document).ready(function () {
 		/** 프로모션 상세정보 **/
 		getPromotion();
@@ -45,8 +44,8 @@
 		tabDoit		.on("click", function () { onClickDoitTab(this); });
 		tabUcd		.on("click", function () { onClickUcdTab(this); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
-		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
-		selPageLengthForUcd	.on("change", function () { getUcdLog(); });
+		selPageLengthForDoit.on("change", function () { reloadTable(doitTable); });
+		selPageLengthForUcd	.on("change", function () { reloadTable(ucdTable); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
@@ -285,13 +284,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = doitTable.DataTable();
-				let info = table.page.info();
-
-				doitTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setDoitRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(doitTable);
 			}
 		});
 	}
@@ -374,13 +372,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = ucdTable.DataTable();
-				let info = table.page.info();
-
-				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setUcdRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(ucdTable);
 			}
 		});
 	}

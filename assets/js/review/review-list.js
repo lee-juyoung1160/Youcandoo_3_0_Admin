@@ -98,22 +98,16 @@ function getReviewListData(params) {
         },
         pageLength: Number(limits.value),
         serverSide: true, // true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음)
-
-
         processing: false,
         order: [],
-
         autoWidth: false,
         fixedHeader:false,
-
         initComplete: function () {
-            let table = $('#review-table').DataTable();
-            let info = table.page.info();
-            $(".data-num").text(info.recordsTotal);
         },
         fnRowCallback: function (nRow, aData) {
-            console.log(aData)
-            console.log(nRow)
+        },
+        drawCallback: function (settings) {
+            buildTotalCount(dataTable);
         },
         ajax: {
             url: "https://api.youcandoo.co.kr/v1.0/admin/review/list",
@@ -241,27 +235,4 @@ function blindParams()
     };
 
     return JSON.stringify(param)
-}
-
-function getStatusMessage(data)
-{
-    let fileStatus = [30034, 30035, 30308];
-    let msg = data.msg;
-    let code = data.status;
-
-    if (fileStatus.indexOf(code) > -1)
-    {
-        msg = '선택한 이미지 사이즈는 '+data.data.width+'x'+data.data.height+'입니다.\n';
-        msg += data.msg;
-    }
-
-    return msg;
-}
-
-function isSuccessResp(data)
-{
-    if (data.status === 30000)
-        return true;
-    else
-        return false;
 }

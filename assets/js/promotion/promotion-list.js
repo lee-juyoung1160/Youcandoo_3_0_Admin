@@ -10,7 +10,6 @@
 	const status 		= $("input[name=chk-status]");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
@@ -25,7 +24,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
@@ -100,7 +99,7 @@
 						return row.start_date + ' ~ ' + row.end_date;
 					}
 				}
-				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "text-center",
+				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return getPromotionStatusName(data);
 					}
@@ -136,15 +135,14 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -190,7 +188,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	function viewImage(obj)
@@ -292,7 +290,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							stayCurrentPage(dataTable);
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

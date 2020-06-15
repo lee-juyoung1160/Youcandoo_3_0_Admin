@@ -19,6 +19,7 @@
     inputNumber     .on("propertychange change keyup paste input", function () { initInputNumber(this); });
     lengthInput     .on("propertychange change keyup paste input", function () { checkInputLength(this); });
     dateFrom        .on("change", function () { onChangeSearchDateFrom(this); });
+    dateTo          .on("change", function () { onChangeSearchDateTo(this); });
 
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();
@@ -155,6 +156,11 @@
     function onChangeSearchDateFrom()
     {
         dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
+    }
+
+    function onChangeSearchDateTo()
+    {
+        dateFrom.datepicker("option", "maxDate", new Date(dateTo.datepicker("getDate")));
     }
 
     function onChangeValidationImage(obj)
@@ -352,7 +358,7 @@
     function onKeydownSearch(event)
     {
         if (event.keyCode === 13)
-            buildGrid();
+            onSubmitSearch();
     }
 
     /** 테이블 영역 체크박스 **/
@@ -416,7 +422,8 @@
             $("#checkAll").prop('checked', false);
     }
 
-    function stayCurrentPage(tableObj)
+    /** 테이블 현재 페이지 리로드 **/
+    function dataReloadAndStayCurrentPage(tableObj)
     {
         let table = tableObj.DataTable();
         table.ajax.reload( null, false );
@@ -424,6 +431,23 @@
             table.page( 'last' ).draw( 'page' );
 
         $("input[name=chk-row]").prop("checked", false);
+    }
+
+    /** 테이블 리로드 **/
+    function reloadTable(tableObj)
+    {
+        let table = tableObj.DataTable();
+        table.ajax.reload();
+    }
+
+    /** 테이블 상단 total count **/
+    function buildTotalCount(tableObj)
+    {
+        let table = tableObj.DataTable();
+        let info = table.page.info();
+        let numEl = tableObj.parent().siblings().find(".data-num")
+
+        $(numEl).html(info.recordsTotal);
     }
 
     /** 상세페이지 이동 **/

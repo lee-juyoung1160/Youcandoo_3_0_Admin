@@ -7,7 +7,6 @@
 	const selPageLength = $("#selPageLength");
 	const inputRadio	= $("input:radio");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
@@ -24,7 +23,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deleteNotice(); });
 		btnTop			.on("click", function () { toggleTop(); });
@@ -107,13 +106,8 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				/** 목록 상단 totol count **/
-				dataNum.html(info.recordsTotal);
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
@@ -123,6 +117,7 @@
 				setRowAttributes(nRow, aData);
 			}
 			,drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 				disableStatusBtnTop();
 			}
 		});
@@ -209,7 +204,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	/** 상단 고정/해제 **/
@@ -248,7 +243,7 @@
 					if (isSuccessResp(data))
 					{
 						disableStatusBtnTop();
-						buildGrid();
+						reloadTable(dataTable);
 					}
 				},
 				error: function (request, status) {
@@ -274,7 +269,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							stayCurrentPage(dataTable);
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

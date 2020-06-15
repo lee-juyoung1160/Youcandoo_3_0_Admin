@@ -8,8 +8,6 @@
 	const selPageLength = $("#selPageLength");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
-	const selSort		= $("#selSort");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -22,7 +20,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
@@ -87,13 +85,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -126,7 +123,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	function onClickExcelBtn()

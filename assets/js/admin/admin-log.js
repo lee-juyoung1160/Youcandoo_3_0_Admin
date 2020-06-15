@@ -4,8 +4,8 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const selPageLength	= $("#selPageLength");
-	const dataNum		= $(".data-num");
 	const dataTable		= $("#dataTable");
+	const select		= $("select");
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
@@ -17,14 +17,19 @@
 		buildGrid();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
-		search			.on("click", function () { buildGrid(); });
+		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
 	function initSearchForm()
 	{
+		keyword.val('');
+		select.each(function () {
+			$(this).children().eq(0).prop("selected", true);
+			onChangeSelectOption($(this));
+		});
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_today"));
 	}
@@ -72,14 +77,13 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -96,4 +100,9 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function onSubmitSearch()
+	{
+		reloadTable(dataTable);
 	}

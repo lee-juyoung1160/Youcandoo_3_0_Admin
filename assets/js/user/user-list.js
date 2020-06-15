@@ -9,17 +9,16 @@
 	const xlsxExport 	= $(".excel-btn");
 	const userActive	= $("input[name=radio-user-active]");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
-	const btnModalBanUserOpen	= $("#btnModalBanUserOpen");
+	/*const btnModalBanUserOpen	= $("#btnModalBanUserOpen");*/
 	/** modal **/
-	const modalBanUser		= $("#modalBanUser");
+	/*const modalBanUser		= $("#modalBanUser");
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
 	const inactive			= $("input[name=radio-inactive]");
 	const period			= $("#period");
 	const cause				= $("#cause");
-	const btnSubmitBanUer	= $("#btnSubmitBanUer");
+	const btnSubmitBanUer	= $("#btnSubmitBanUer");*/
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -32,13 +31,13 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });
-		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		/*btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });*/
+		/*modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });
+		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });*/
 	});
 
 	function initSearchForm()
@@ -53,13 +52,13 @@
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}
 
-	function initModal()
+	/*function initModal()
 	{
 		inactive.eq(0).prop('checked', true);
 		period.focus();
 		period.val('');
 		cause.val('');
-	}
+	}*/
 
 	function buildGrid()
 	{
@@ -125,27 +124,24 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				/** 목록 상단 totol count **/
-				dataNum.html(info.recordsTotal);
 				/** row select **/
-				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
+				/*dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });*/
 				/** row deselect **/
-				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
+				/*let table = dataTable.DataTable();
+				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });*/
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				disableBtnBanUser();
+				buildTotalCount(dataTable);
+				/*disableBtnBanUser();*/
 			}
 		});
 	}
-	
+
 	function tableParams(d)
 	{
 		let param = {
@@ -169,7 +165,7 @@
 	}
 
 	/** row select **/
-	function onSelectRow(dt, indexes)
+	/*function onSelectRow(dt, indexes)
 	{
 		let selectedData 	= dt.rows(indexes).data()[0];
 		let isActive		= selectedData.is_active;
@@ -178,17 +174,17 @@
 			enableBtnBanUser();
 		else
 			disableBtnBanUser();
-	}
+	}*/
 
 	/** row deselect **/
-	function onDeselectRow(table)
+	/*function onDeselectRow(table)
 	{
 		let selectedData = table.rows('.selected').data()[0];
 		if (isEmpty(selectedData))
 			disableBtnBanUser();
-	}
+	}*/
 
-	function disableBtnBanUser()
+	/*function disableBtnBanUser()
 	{
 		if (!btnModalBanUserOpen.hasClass('btn-disabled'))
 			btnModalBanUserOpen.addClass('btn-disabled');
@@ -198,9 +194,9 @@
 	{
 		if (btnModalBanUserOpen.has('btn-disabled'))
 			btnModalBanUserOpen.removeClass('btn-disabled');
-	}
+	}*/
 
-	function onClickBtnModalBanUserOpen()
+	/*function onClickBtnModalBanUserOpen()
 	{
 		if (btnModalBanUserOpen.hasClass('btn-disabled'))
 			return;
@@ -215,14 +211,14 @@
 		}
 
 		modalFadein();
-	}
+	}*/
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
-	function onClickExcelBtn()
+	/*function onClickExcelBtn()
 	{
 		getExcelData();
 	}
@@ -258,9 +254,9 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 
-	function onSubmitBanUser()
+	/*function onSubmitBanUser()
 	{
 		if (banValidation())
 		{
@@ -322,5 +318,5 @@
 		}
 
 		return true;
-	}
+	}*/
 

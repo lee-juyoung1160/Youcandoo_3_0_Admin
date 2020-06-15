@@ -7,7 +7,6 @@
 	const authCode		= $("#auth_code");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
@@ -21,7 +20,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnDelete		.on("click", function () { deleteAdmin(); });
 	});
 
@@ -130,15 +129,14 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -175,7 +173,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 	
 	function changeStatus(obj)
@@ -193,7 +191,7 @@
 				success: function(data) {
 					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
-						buildGrid();
+						dataReloadAndStayCurrentPage(dataTable);
 				},
 				error: function (request, status) {
 					alert(label.modify+message.ajaxError);
@@ -218,7 +216,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							buildGrid();
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

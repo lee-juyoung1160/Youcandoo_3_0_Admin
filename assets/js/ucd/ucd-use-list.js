@@ -12,8 +12,6 @@
 	const userDivision	= $("input[name=radio-user-division]");
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
-	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -26,9 +24,8 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnDelete		.on("click", function () { deletePromotion(); });
 		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
@@ -44,16 +41,6 @@
 
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
-	}
-
-	function onChangeChkStatus(obj)
-	{
-		let checkedCount = $("input[name=chk-status]:checked").length;
-		if (checkedCount === 0)
-		{
-			alert(message.minimumChecked);
-			$(obj).prop("checked", true);
-		}
 	}
 
 	function buildGrid()
@@ -113,15 +100,14 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -153,7 +139,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	function onClickExcelBtn()

@@ -8,10 +8,8 @@
 	const inputRadio	= $("input:radio");
 	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
-	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 
-	/*window.onpopstate = function() { console.log('onpopstate'); }*/
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
@@ -23,7 +21,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deleteFaq(); });
 	});
@@ -104,24 +102,20 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
 
 	function tableParams()
 	{
-		/*window.history.pushState(null, null, page.listFaq);
-		let history = localStorage.getItem("history");
-		console.log(history)*/
 		let table = dataTable.DataTable();
 		let info = table.page.info();
 		let param = {
@@ -133,17 +127,6 @@
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
-
-		/*let historyParams = {
-			"limit" : info.length
-			,"page" : (info.start / info.length) + 1
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
-		}
-		localStorage.setItem("history", JSON.stringify(historyParams));*/
 
 		return JSON.stringify(param);
 	}
@@ -159,7 +142,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	function deleteFaq()
@@ -178,7 +161,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							stayCurrentPage(dataTable);
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

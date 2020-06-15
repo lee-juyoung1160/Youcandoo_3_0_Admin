@@ -4,7 +4,6 @@
 	const dataTable			= $("#dataTable")
 	const keyword			= $("#keyword");
 	const selPageLength 	= $("#selPageLength");
-	const dataNum			= $(".data-num");
 	const btnDelete			= $("#btnDelete");
 	/** modal **/
 	const btnOpenModal		= $("#btnOpenModal");
@@ -22,7 +21,7 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnOpenModal	.on('click', function () { modalFadein(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -50,7 +49,7 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -94,25 +93,26 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				/** 목록 상단 totol count **/
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+
 		let param = {
 			"keyword" : keyword.val().trim()
-			,"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			,"limit" : info.length
+			,"page" : (info.start / info.length) + 1
 		}
 
 		return JSON.stringify(param);
@@ -120,7 +120,7 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	/** 금칙어 등록 **/
@@ -204,7 +204,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							stayCurrentPage(dataTable);
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

@@ -9,7 +9,6 @@
 	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
-	const dataNum		= $(".data-num");
 	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
@@ -23,7 +22,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
@@ -91,7 +90,11 @@
 						return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
 					}
 				}
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						return row.doit_member + '/' + row.max_user;
+					}
+				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
@@ -121,13 +124,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = $('#dataTable').DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
@@ -157,17 +159,14 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let titleDom  	= $(nRow).children().eq(2);
-		let joinUserDom = $(nRow).children().eq(4);
 		let detailUrl	= page.detailDoit+aData.idx;
 		/** 두잇명 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
-		/** 참여인원/모집인원 **/
-		$(joinUserDom).html(aData.doit_member+' / ' +aData.max_user);
 	}
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
 
 	function deleteDoit()
@@ -186,7 +185,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							stayCurrentPage(dataTable);
+							dataReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

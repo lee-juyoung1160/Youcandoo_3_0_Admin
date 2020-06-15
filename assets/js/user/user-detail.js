@@ -20,15 +20,6 @@
 		/** UCD 사용내역 **/
 		const usageHisTable	= $("#usageHisTable")
 
-
-	/*	const searchType 	= $("#search_type");
-		const selPageLength = $("#selPageLength");
-		const userActive	= $("input[name=radio-user-active]");*/
-		/** modal **/
-		const modalCloseBtn 	= $(".close-btn");
-		const modalLayout 		= $(".modal-layout");
-		const modalContent 		= $(".modal-content");
-
 		const profile_uuid 	= $("#profile_uuid").val();
 
 		$(document).ready(function () {
@@ -43,8 +34,8 @@
 			/** UCD 사용내역 **/
 			getUsageHistoryUcd();
 			/** 이벤트 **/
-			tabOpened	.on("click", function () { onClickTabOpened(this); });
-			tabJoined	.on("click", function () { onClickTabJoined(this) });
+			tabOpened.on("click", function () { onClickTabOpened(this); });
+			tabJoined.on("click", function () { onClickTabJoined(this) });
 		});
 
 		function moveSection()
@@ -295,7 +286,7 @@
 				lengthChange: false,
 				autoWidth: false,
 				searching: false,
-				fixedHeader:false,
+				fixedHeader: false,
 				destroy: true,
 				initComplete: function () {
 				},
@@ -364,8 +355,7 @@
 				lengthChange: false,
 				autoWidth: false,
 				searching: false,
-				fixedHeader:false,
-				destroy: true,
+				destroy: false,
 				initComplete: function () {
 				},
 				fnRowCallback: function( nRow, aData ) {

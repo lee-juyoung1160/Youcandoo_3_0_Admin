@@ -34,7 +34,6 @@
 	const saving 		= $("#saving");
 	const xlsxExport 	= $(".excel-btn");
 	const joinUserTable		= $("#joinUserTable")
-	const joinTotalCount	= $("#joinTotalCount");
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 
 	/** 인증정보 탭 **/
@@ -65,7 +64,6 @@
 	const reviewTable		= $("#reviewTable");
 	const btnBlind			= $("#btnBlind");
 	const btnUnBlind		= $("#btnUnBlind");
-	const reviewTotalCount			= $("#reviewTotalCount");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
 	/** 리뷰상세 modal **/
 	const modalDetailReview		= $("#modalDetailReview");
@@ -82,7 +80,6 @@
 	/** UCD정보탭 **/
 	const ucdInfo		= $("#ucdInfo");
 	const ucdTable		= $("#ucdTable");
-	const ucdTotalCount	= $("#ucdTotalCount");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
 	/** modal 공통 **/
@@ -104,7 +101,7 @@
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
-		search			.on("click", function () { getJoinMember(); });
+		search			.on("click", function () { reloadTable(joinUserTable); });
 		reset			.on("click", function () { initSearchForm(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
@@ -112,10 +109,10 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
 		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
-		selPageLengthForUser	.on('change', function () { getJoinMember(); });
+		selPageLengthForUser	.on('change', function () { reloadTable(joinUserTable); });
 		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
-		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
-		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
+		selPageLengthForReview	.on('change', function () { reloadTable(reviewTable); });
+		selPageLengthForUcd		.on('change', function () { reloadTable(ucdTable); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
@@ -470,12 +467,11 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = joinUserTable.DataTable();
-				let info = table.page.info();
-
-				joinTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(joinUserTable);
 			}
 		});
 	}
@@ -1047,13 +1043,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = reviewTable.DataTable();
-				let info = table.page.info();
-
-				reviewTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setReviewRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(reviewTable);
 			}
 		});
 	}
@@ -1140,7 +1135,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							getInvolveReview();
+							reloadTable(reviewTable);
 					},
 					error: function (request, status) {
 						alert(label.modify+message.ajaxError);
@@ -1234,13 +1229,12 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				let table = ucdTable.DataTable();
-				let info = table.page.info();
-
-				ucdTotalCount.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setUcdRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(ucdTable);
 			}
 		});
 	}

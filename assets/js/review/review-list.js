@@ -9,6 +9,7 @@ const resetBtn = document.querySelector('.reset');
 const days = document.querySelector('.day-btn');
 const ratingLists = document.querySelectorAll('.rating-list input[name=chk-grade]');
 
+
 // by.leo
 const btnBlind			= $("#btnBlind");
 const btnUnBlind		= $("#btnUnBlind");
@@ -27,14 +28,25 @@ document.addEventListener("DOMContentLoaded", function () {
     ratingLists.forEach(function(item, index, array){item.checked = true;});
     document.querySelector('input[name=radio-report]').checked = true;
     document.querySelector('input[name=radio-blind]').checked = true;
-
     //by.leo
     btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
     btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
-
     // 테이블 실행
     getReviewListData();
 });
+/** 평점 마지막 하나일때 고정하기 **/
+for (let i=0; i<ratingLists.length; i++) {
+    let clickCount = ratingLists[i];
+    clickCount.addEventListener('click', function () {
+        let checkedCount = document.querySelectorAll('.rating-list input[name=chk-grade]:checked').length;
+        if (checkedCount === 0 ) {
+            alert('최소 하나 이상의 값을 선택해야 합니다.');
+            clickCount.checked = true;
+        }
+    });
+}
+
+
 /** 검색 필드 reset **/
 resetBtn.addEventListener('click', () => {
     keyword.value = "";

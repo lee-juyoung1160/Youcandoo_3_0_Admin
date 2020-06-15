@@ -1,14 +1,15 @@
 /** 현재 연도-월-일 구하기 **/
-let today = new Date();
-let year = today.getFullYear();
-let month = today.getMonth() + 1;
-let date = today.getDate();
-let hours = today.getHours();
-let minutes = today.getMinutes();
+let day = new Date();
+let year = day.getFullYear();
+let month = day.getMonth() + 1;
+let date = day.getDate();
+let hours = day.getHours();
+let minutes = day.getMinutes();
+let oneYearLater = day.getFullYear() +1;
 let result = document.getElementById('today-date');
 
 month = month < 10 ? '0' + month : month;
-today = today < 10 ? '0' + today : today;
+day = day < 10 ? '0' + day : day;
 hours = hours < 10 ? '0' + hours : hours;
 minutes = minutes < 10 ? '0' + minutes : minutes;
 
@@ -64,6 +65,7 @@ $.ajax({
 
     },
     success: function (getDoughnutData) {
+        console.log(getDoughnutData)
         let endChart = new Chart(endDoughnut, {
             type: doughnutType,
             data: {
@@ -97,6 +99,17 @@ $.ajax({
             },
             options: options.options,
         });
+        let cancelChart = new Chart(cancelDoughnut, {
+            type: doughnutType,
+            data: {
+                labels : ['취소', '삭제'],
+                datasets: [{
+                    data: [getDoughnutData.data.cancle.cancle, getDoughnutData.data.cancle.delete],
+                    backgroundColor: backgroundColorDoughnut,
+                }]
+            },
+            options: options.options,
+        });
 
         let endUserCount = document.getElementById('end-user');
         let endCompanyCount = document.getElementById('end-company');
@@ -110,6 +123,10 @@ $.ajax({
         let preCompanyCount = document.getElementById('pre-company');
         let preTotalCount = document.getElementById('pre-total');
 
+        let cancleData = document.getElementById('cancle');
+        let deleteData = document.getElementById('delete');
+        let totalData = document.getElementById('total');
+
         endUserCount.textContent = getDoughnutData.data.end.user_cnt;
         endCompanyCount.textContent = getDoughnutData.data.end.company_cnt;
         endTotalCount.textContent = getDoughnutData.data.end.total_cnt;
@@ -122,27 +139,20 @@ $.ajax({
         preCompanyCount.textContent = getDoughnutData.data.pre.company_cnt;
         preTotalCount.textContent = getDoughnutData.data.pre.total_cnt;
 
+        cancleData.textContent = getDoughnutData.data.cancle.cancle;
+        deleteData.textContent = getDoughnutData.data.cancle.delete;
+        totalData.textContent = getDoughnutData.data.cancle.total;
+
         counter();
     },
 });
-
-let cancelChart = new Chart(cancelDoughnut, {
-    type: doughnutType,
-    data: {
-        labels,
-        datasets: [{
-            data: [50, 50],
-            backgroundColor: backgroundColorDoughnut,
-        }]
-    },
-    options: options.options,
-});
-
 /** 월 단위로 등록된 두잇 **/
+let monthlyChart;
 function getYearData(yearVal) {
     let param = {
         'year': yearVal,
     };
+
     $.ajax({
         url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/month",
         headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -153,7 +163,7 @@ function getYearData(yearVal) {
         error: function () {
         },
         success: function (monthData) {
-            let monthlyChart = new Chart(monthlyMixedChart, {
+             monthlyChart = new Chart(monthlyMixedChart, {
                 type: 'bar',
                 data: {
                     datasets: [{
@@ -180,21 +190,39 @@ function getYearData(yearVal) {
                         align: 'start',
                         position: 'top'
                     }
-                }
+                },
             });
-
-        }
+        },
     });
 };
 /** 월 단위로 등록된 두잇, 로드 바로 실행 **/
-$(document).ready(function () {
-    getYearData('2020');
+document.addEventListener("DOMContentLoaded", function () {
+    getYearData(year);
 });
+
+const yearSelectBox = document.getElementById('doit-year-select');
+// yearSelectBox.value = year
+// console.log(yearSelectBox.value = year)
+//
+// yearSelectBox.append(new Option( year+ "년", year));
+// console.log(yearSelectBox.value)
+//
+// for (let i = 0; i < yearSelectBox.options.length; i++) {
+//     if (yearSelectBox.options[i].value == year) {
+//         yearSelectBox.options[i].value = "selected";
+//     }
+// }
+//
+// if (year !== oneYearLater) {
+//     yearSelectBox.append(new Option( year+1+ "년", year+1));
+// }
 /** 월 단위로 등록된 두잇, select option value 가져오기 **/
-$('#doit-year-select').change(function () {
-    let yearVal = $(this).val();
+yearSelectBox.addEventListener('change', function () {
+    let yearVal = this.value;
     getYearData(yearVal);
+    monthlyChart.destroy()
 });
+
 
 // /** 프로모션 진행 현황 **/
 // let proStatusChart = new Chart(proStatusDoughnut, {

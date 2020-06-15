@@ -15,13 +15,11 @@
 		/** 프로모션정보탭 **/
 		const promoInfo		= $("#promoInfo");
 		const promoTable	= $("#promoTable");
-		const promoTotalCount		= $("#promoTotalCount");
 		const selPageLengthForPromo	= $("#selPageLengthForPromo");
 
 		/** UCD정보탭 **/
 		const ucdInfo		= $("#ucdInfo");
 		const ucdTable		= $("#ucdTable");
-		const ucdTotalCount			= $("#ucdTotalCount");
 		const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
 		/** modal **/
@@ -36,8 +34,6 @@
 		$(document).ready(function () {
 			/** 상세 불러오기 **/
 			getDetail();
-			/** 보유 UCD **/
-			getBizBalance();
 			/** 프로모션 정보 **/
 			getInvolvePromo();
 			/** 이벤트 **/
@@ -111,38 +107,17 @@
 		function buildDetail(data)
 		{
 			let detail = data.data;
+
 			g_bizUuid = detail.company_uuid;
+
 			bizProfileImg.attr('src', detail.image_path);
 			bizName.html(detail.company_name);
 			bizNumber.html(detail.company_number);
 			bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');
 			bizDesc.html(detail.contents);
-		}
 
-		function getBizBalance()
-		{
-			$.ajax({
-				url: api.getBalance,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({"company_uuid" : g_bizUuid}),
-				success: function(data) {
-					if (isSuccessResp(data))
-					{
-						let totalBalance = Number(data.data.cash) + Number(data.data.point);
-
-						balance.html(numberWithCommas(totalBalance));
-						/*cash.html(numberWithCommas(data.data.cash));
-						point.html(numberWithCommas(data.data.point));*/
-					}
-					else
-						alert(invalidResp(data));
-				},
-				error: function (request, status) {
-					alert('기업 보유 UCD'+message.ajaxError);
-				}
-			});
+			let totalBalance = Number(detail.ucd.cash) + Number(detail.ucd.point);
+			balance.html(numberWithCommas(totalBalance));
 		}
 
 		function getInvolvePromo()

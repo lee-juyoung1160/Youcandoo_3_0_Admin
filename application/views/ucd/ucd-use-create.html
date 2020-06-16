@@ -11,14 +11,14 @@
                             <p class="sub-title important">닉네임(*)</p>
                         </div>
                         <div class="col-2">
-                            <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">
-                            <button class="more-info-btn" type="button">
+                            <input id="nickname" class="tag-input" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly>
+                            <!--<button class="more-info-btn" type="button">
                                 <span>찾기</span>
                                 <i class="fas fa-chevron-right"></i>
-                            </button>
+                            </button>-->
                             <div class="result_box" style="margin-top: 10px;">
                                 <p>적립/회수 대상 <em>3</em>명</p>
-                                <div class="container" style="line-height: 1.7;">
+                                <div id="target" class="container" style="line-height: 1.7;">
                                     BERRY(30,000UCD), 새콤달콤(12,320UCD), 모카베리(83,124UCD)
                                 </div>
                             </div>
@@ -32,10 +32,10 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c1" name="rc" />
+                                <input type="radio" id="c1" name="radio-assort" />
                                 <label for="c1">적립<span></span></label>
 
-                                <input type="radio" id="c2" name="rc" />
+                                <input type="radio" id="c2" name="radio-assort" />
                                 <label for="c2">회수<span></span></label>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             </p>
                         </div>
                         <div class="col-2">
-                            <input type="text" class="only-num">
+                            <input id="ucd" type="text" class="only-num" maxlength="7">
                             <span class="input-num-title">UCD</span>
                         </div>
                     </div>
@@ -63,13 +63,13 @@
                             <p class="sub-title important">내용(*)</p>
                         </div>
                         <div class="col-2 clearfix">
-                            <textarea placeholder="적립/회수 내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
+                            <textarea id="content" placeholder="적립/회수 내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
                             <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-input">0</span>/1000</p>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <button class="completion-btn" type="submit">등록 완료</button>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
                 </li>
             </ul>
         </div>
@@ -81,14 +81,14 @@
                     <li>
                         <div class="search-wrap">
                             <div class="search-box">
-                                <input type="search" placeholder="닉네임을 입력해주세요.">
+                                <input id="keyword" type="search" placeholder="닉네임을 입력해주세요.">
                                 <i class="search-btn fas fa-search"></i>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="table-wrap">
-                            <table>
+                            <table id="dataTable">
                                 <colgroup>
                                     <col style="width:10%;">
                                     <col style="width:20%;">
@@ -142,44 +142,10 @@
                         </div>
                     </li>
                 </ul>
-                <button class="completion-btn" type="submit">등록 완료</button>
+                <button id="btnAddUser" class="completion-btn" type="submit">등록 완료</button>
             </div>
         </div>
         <div class="modal-layout"></div>
     </div>
 </section>
-
-<script>
-
-    // modal event
-    $('.more-info-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-text').keyup(function (e){
-            var contentText = $(this).val();
-            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length);
-        });
-        $('.length-text').keyup();
-    });
-
-
-</script>
+<script src="/assets/js/ucd/ucd-create.js"></script>

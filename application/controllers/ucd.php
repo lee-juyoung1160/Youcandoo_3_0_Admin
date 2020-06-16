@@ -19,9 +19,9 @@ class Ucd extends MY_Controller {
                 break;
         }
     }
-    public function payments()
+    public function withdraw()
     {
-        $this->load->layout('ucd/ucd-payment-list');
+        $this->load->layout('ucd/ucd-withdraw-list');
     }
 
 }

@@ -3,10 +3,9 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">비즈 계정 상세</h2>
-            <a href="/ucd/sales/create"><i class="fas fa-plus"></i>UCD 적립 등록</a>
-<!--            <button id="btnUcdManualRegist" type="button" class="more-info-btn" style="float: right;">-->
-<!--                <i class="fas fa-plus"></i>UCD 수동등록-->
-<!--            </button>-->
+            <button id="btnUcdManualRegist" type="button" class="more-info-btn" style="float: right;">
+                <i class="fas fa-plus"></i>UCD 충전/취소
+            </button>
         </div>
         <div class="wrap">
             <div class="enrollment clearfix">
@@ -212,7 +211,7 @@
     <div class="modal-content modal-01">
         <div class="wrap">
             <i class="close-btn fas fa-times-circle"></i>
-            <p class="modal-title">UCD 수동 등록</p>
+            <p class="modal-title">기업 UCD 충전 취소 등록</p>
             <ul class="modal-information">
                 <li>
                     <p class="sub-title">구분 *</p>
@@ -228,14 +227,38 @@
                     </div>
                 </li>
                 <li>
-                    <p class="sub-title">UCD *</p>
+                    <p class="sub-title">
+                        UCD *
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">최대 1억UCD까지 가능합니다.</span>
+                        </i>
+                    </p>
                     <input id="amount" type="text" class="only-num" maxlength="11">
                     <span class="input-num-title">UCD</span>
                 </li>
                 <li>
-                    <p class="sub-title">내용 *</p>
-                    <textarea id="content" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10" style="float: left;" maxlength="1000"></textarea>
-                    <p class="length-count-wrap" style="float: right; margin-top: 10px;"><span class="count-input">0</span>/1000</p>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <div>
+                                <p class="cap">프로모션 기간 (*)</p>
+                                <input id="promoFrom" type="text" class="datepicker">
+                                <span class="date-margin-text"> ~ </span>
+                                <input id="promoTo" type="text" class="datepicker">
+                            </div>
+                            <div style="margin: 20px 0;">
+                                <p class="cap">계약명 (*)</p>
+                                <input type="text">
+                            </div>
+                            <div>
+                                <p class="cap">계약금액 (*)</p>
+                                <input type="text" class="only-num">
+                                <span class="input-num-title">원</span>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>

@@ -2,7 +2,7 @@
 <section class="ucd-payment-list-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">UCD 출금요청 목록</h2>
+            <h2 class="main-title list-main-title">출금내역</h2>
         </div>
         <div class="list-common">
             <div class="list-wrap clearfix">
@@ -22,10 +22,10 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="searchType">예금주</label>
+                    <label for="searchType">닉네임</label>
                     <select id="searchType">
-                        <option value="nickname">예금주</option>
                         <option value="nickname">닉네임</option>
+                        <option value="nickname">예금주</option>
                         <option value="nickname">계좌번호</option>
                     </select>
                 </div>
@@ -81,8 +81,8 @@
                     <p>Total <strong class="data-num">16</strong></p>
                 </div>
                 <div class="btn-wrap">
+                    <button class="complete-btn" type="button"><i class="fas fa-coins"></i>출금</button>
                     <button class="delete-btn more-info-btn" type="button" data-rel="modal-01"><i class="fas fa-minus-circle"></i>반려</button>
-                    <button class="complete-btn" type="button"><i class="fas fa-check"></i>출금완료</button>
                     <button class="stop-btn" type="button"><i class="fas fa-pause-circle"></i>대기</button>
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
@@ -234,6 +234,29 @@
                         </li>
                         <li>
                             <p class="sub-title">주민등록증 사본</p>
+                            <p class="img-contents">
+                                <img src="" alt="">
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 출금 확인 -->
+            <div class="modal-content modal-04">
+                <div class="wrap">
+                    <i class="close-btn fas fa-times-circle"></i>
+                    <p class="modal-title">출금 등록</p>
+                    <ul class="modal-information">
+                        <li>
+                            <p class="sub-title">닉네임</p>
+                            <p class="data-contents">베리베리</p>
+                        </li>
+                        <li>
+                            <p class="sub-title">출금 요청 UCD</p>
+                            <p class="data-contents">930503-2******</p>
+                        </li>
+                        <li>
+                            <p class="sub-title">내요</p>
                             <p class="img-contents">
                                 <img src="" alt="">
                             </p>

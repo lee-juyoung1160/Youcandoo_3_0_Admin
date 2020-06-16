@@ -382,61 +382,47 @@
 
     </div>
 
-<div class="modal-wrap">
-    <div class="modal-content modal-01">
-        <div class="wrap">
-            <i class="close-btn fas fa-times-circle"></i>
-            <p class="modal-title">회원 UCD 충전 취소 등록</p>
-            <ul class="modal-information">
-                <li>
-                    <p class="sub-title">유형 *</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r1" name="radio-division" value="0"/>
-                        <label for="r1"><span></span>cash</label>
+    <div class="modal-wrap">
+        <div class="modal-content modal-01">
+            <div class="wrap">
+                <i class="close-btn fas fa-times-circle"></i>
+                <p class="modal-title">회원 UCD 충전 등록</p>
+                <ul class="modal-information">
+                    <li>
+                        <p class="sub-title">유형 *</p>
+                        <div class="radio-wrap">
+                            <input type="radio" id="r1" name="radio-division" value="0"/>
+                            <label for="r1"><span></span>cash</label>
 
-                        <input type="radio" id="r2" name="radio-division" value="1"/>
-                        <label for="r2"><span></span>point</label>
+                            <input type="radio" id="r2" name="radio-division" value="1"/>
+                            <label for="r2"><span></span>point</label>
 
-                    </div>
-                </li>
-                <li>
-                    <p class="sub-title">구분 *</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r11" name="radio-division" value="0"/>
-                        <label for="r11"><span></span>충전</label>
-
-                        <input type="radio" id="r12" name="radio-division" value="1"/>
-                        <label for="r12"><span></span>출금</label>
-
-                        <input type="radio" id="r13" name="radio-division" value="2"/>
-                        <label for="r13"><span></span>취소</label>
-                    </div>
-                </li>
-                <li>
-                    <p class="sub-title">
-                        UCD *
-                        <i class="question-mark far fa-question-circle">
-                            <span class="hover-text">최대 1백만UCD까지 가능합니다.</span>
-                        </i>
-                    </p>
-                    <input id="amount" type="text" class="only-num" maxlength="7">
-                    <span class="input-num-title">UCD</span>
-                </li>
-                <li>
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">내용(*)</p>
                         </div>
-                        <div class="col-2 clearfix">
-                            <textarea cols="30" rows="10"></textarea>
+                    </li>
+                    <li>
+                        <p class="sub-title">
+                            UCD *
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">최대 1백만UCD까지 가능합니다.</span>
+                            </i>
+                        </p>
+                        <input id="amount" type="text" class="only-num" maxlength="7">
+                        <span class="input-num-title">UCD</span>
+                    </li>
+                    <li>
+                        <div class="col-wrap clearfix">
+                            <div class="col-1">
+                                <p class="sub-title important">내용(*)</p>
+                            </div>
+                            <div class="col-2 clearfix">
+                                <textarea cols="30" rows="10"></textarea>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
-            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                    </li>
+                </ul>
+                <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+            </div>
         </div>
-    </div>
-    <div class="modal-layout"></div>
         <div class="modal-layout"></div>
     </div>
     <input type="hidden" id="profile_uuid" value="<?php if(isset($profile_uuid)) echo $profile_uuid ?>"/>

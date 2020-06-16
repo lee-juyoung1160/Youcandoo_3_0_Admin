@@ -3,7 +3,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">비즈 계정 상세</h2>
-            <button id="btnUcdManualRegist" type="button" class="more-info-btn" style="float: right;">
+            <button id="btnUcdModalOpen" type="button" class="more-info-btn" style="float: right;">
                 <i class="fas fa-plus"></i>UCD 충전/취소
             </button>
         </div>
@@ -244,17 +244,17 @@
                         <div class="col-2 clearfix">
                             <div>
                                 <p class="cap">프로모션 기간 (*)</p>
-                                <input id="promoFrom" type="text" class="datepicker">
+                                <input id="modalFrom" type="text" class="datepicker">
                                 <span class="date-margin-text"> ~ </span>
-                                <input id="promoTo" type="text" class="datepicker">
+                                <input id="modalTo" type="text" class="datepicker">
                             </div>
                             <div style="margin: 20px 0;">
                                 <p class="cap">계약명 (*)</p>
-                                <input type="text">
+                                <input id="contractTitle" type="text">
                             </div>
                             <div>
                                 <p class="cap">계약금액 (*)</p>
-                                <input type="text" class="only-num">
+                                <input id="contractAmount" type="text" class="only-num" maxlength="11">
                                 <span class="input-num-title">원</span>
                             </div>
                         </div>

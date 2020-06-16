@@ -1,6 +1,9 @@
 /* pro-create-page */
 .delete-btn {
     color: #ec5c5c;
+    position: absolute;
+    top: 35%;
+    right: 10px;
 }
 .pro-reward-list .select-box {
     margin-bottom: 20px;
@@ -126,15 +129,19 @@
     height: 45px;
 }
 .table-btn-wrap.reward-tab-ul li {
+    position: relative;
     width: 188px;
     border-left: 1px solid #fff;
     background-color: #eee;
 }
-.table-btn-wrap.reward-tab-ul li.active {
+.table-btn-wrap.reward-tab-ul li.on {
+    color: #fff;
     background-color: #007aff;
 }
 .reward-tab-ul li span {
-    margin-right: 10px;
+    min-width: 100px;
+    margin-right: 5px;
+    padding: 10px 10px;
 }
 .reward-add-btn {
     float: left;

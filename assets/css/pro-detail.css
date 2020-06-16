@@ -73,25 +73,22 @@
 }
 
 .pro-detail-page .reward-tab li {
-    float: inherit;
+    float: left;
+    width: 188px;
+    padding: 10px 0;
     color: #aaa;
-    width: 170px;
+    text-align: center;
     background-color: #f3f3f3;
     border: none;
+    border-right: 1px solid #fff;
     cursor: pointer;
     transition: all .3s;
-}
-.pro-detail-page  .enrollment>li .hash-tag-list li {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 5px;
 }
 .pro-detail-page .reward-tab li.on,
 .pro-detail-page .reward-tab li:hover
 {
-    color: #007aff;
-    background-color: #d9e7f5;
+    color: #fff;
+    background-color: #007aff;
 }
 .sub-data {
     color: #888;

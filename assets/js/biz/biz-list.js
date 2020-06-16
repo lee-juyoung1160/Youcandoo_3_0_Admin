@@ -20,7 +20,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});

@@ -24,7 +24,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
@@ -135,7 +135,7 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {

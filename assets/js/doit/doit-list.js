@@ -22,7 +22,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
@@ -36,7 +36,7 @@
 			$(this).children().eq(0).prop("selected", true);
 			onChangeSelectOption($(this));
 		});
-		doitStatus.prop('checked', true);
+		doitStatus.eq(3).prop('checked', true);
 		/** 검색범위 초기화 **/
 		onClickActiveAloneDayBtn($(".btn_week"));
 	}

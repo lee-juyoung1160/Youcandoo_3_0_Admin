@@ -44,8 +44,8 @@
 		tabDoit		.on("click", function () { onClickDoitTab(this); });
 		tabUcd		.on("click", function () { onClickUcdTab(this); });
 		xlsxExport	.on("click", function () { onClickExcelBtn(); });
-		selPageLengthForDoit.on("change", function () { reloadTable(doitTable); });
-		selPageLengthForUcd	.on("change", function () { reloadTable(ucdTable); });
+		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
+		selPageLengthForUcd	.on("change", function () { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 
@@ -147,6 +147,14 @@
 
 		rewardTab.html(rewardTabDom);
 		onClickRewardTab(rewardTab.find('li').eq(0));
+
+		removeModifyBtn(detailPromo);
+	}
+
+	function removeModifyBtn(detailPromo)
+	{
+		if (detailPromo.status !== 'pending')
+			goUpdate.remove();
 	}
 
 	function onClickRewardTab(obj)

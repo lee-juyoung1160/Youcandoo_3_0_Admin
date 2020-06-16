@@ -21,7 +21,7 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		btnOpenModal	.on('click', function () { modalFadein(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -93,7 +93,7 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {

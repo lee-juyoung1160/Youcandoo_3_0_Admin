@@ -109,10 +109,10 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
 		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
-		selPageLengthForUser	.on('change', function () { reloadTable(joinUserTable); });
+		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
-		selPageLengthForReview	.on('change', function () { reloadTable(reviewTable); });
-		selPageLengthForUcd		.on('change', function () { reloadTable(ucdTable); });
+		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
+		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
@@ -320,6 +320,14 @@
 		actionResource.html(buildActionResource(detail));
 
 		actionDesc.html(detail.action_description);
+
+		removeModifyBtn(detail);
+	}
+
+	function removeModifyBtn(detail)
+	{
+		if (isEmpty(detail.promotion_uuid) || detail.doit_status !== '모집중')
+			goUpdate.remove();
 	}
 
 	function onErrorImage(obj)

@@ -1,9 +1,10 @@
 
 	const nickname	= $("#nickname");
-	const assort 	= $("input[name=radio-assort]");
+	const uctType 	= $("input[name=radio-ucd-type]");
 	const target	= $("#target");
-	const ucd		= $("#ucd");
+	const amount	= $("#amount");
 	const content 	= $("#content");
+	const btnSubmit	= $("#btnSubmit");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
@@ -19,11 +20,13 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		nickname		.on('click', function () { onClickBizName(); });
+		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
 	function initComponent()
 	{
-		assort.eq(0).prop("checked", true);
+		uctType.eq(0).prop("checked", true);
+		amount.focus();
 	}
 
 	function initModal()
@@ -36,6 +39,7 @@
 	function onClickBizName()
 	{
 		modalFadein();
+		/*getUser();*/
 	}
 
 	function getUser()
@@ -97,4 +101,75 @@
 		nickname.val(name);
 	}
 
+	function onSubmitUcd()
+	{
+		if (validation())
+		{
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.updateBizUcd,
+					type: "POST",
+					headers: headers,
+					dataType: 'json',
+					data: ucdParams(),
+					success: function(data) {
+						alert(getStatusMessage(data))
+						if (isSuccessResp(data))
+							location.href = page.listUcdUsage;
+					},
+					error: function (request, status) {
+						alert(label.submit+message.ajaxError);
+					}
+				});
+			}
+		}
+	}
+
+	function ucdParams()
+	{
+		let contract = '['+modalFrom.val()+' ~ '+modalTo.val()+']';
+		contract += '['+contractTitle.val().trim()+']';
+		contract += ':'+contractAmount.val();
+		let param = {
+			"company_uuid" : g_bizUuid
+			,"division" : $("input[name=radio-division]:checked").val()
+			,"amount" : amount.val().trim()
+			,"description" : contract
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function validation()
+	{
+		if (isEmpty(nickname.val()))
+		{
+			alert('닉네임은 '+message.required);
+			return false;
+		}
+
+		if (isEmpty(amount.val()))
+		{
+			alert('UCD는 '+message.required);
+			amount.focus();
+			return false;
+		}
+
+		if (amount.val() > 1000000)
+		{
+			alert('UCD는 '+message.required);
+			amount.focus();
+			return false;
+		}
+
+		if (isEmpty(content.val()))
+		{
+			alert('내용은 '+message.required);
+			content.focus();
+			return false;
+		}
+
+		return true;
+	}
 

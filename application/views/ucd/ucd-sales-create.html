@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="/assets/css/create-common.css">
+<link rel="stylesheet" href="/assets/css/ucd-use-create.css">
+<section class="ucd-give-ded-page">
+    <div class="inner">
+        <h2 class="main-title">UCD 적립/회수 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">기업명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="nickname" type="text" placeholder="클릭 후 기업명을 선택해주세요." readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="create-radio-wrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">구분</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c1" name="radio-assort" />
+                                <label for="c1">적립<span></span></label>
+
+                                <input type="radio" id="c2" name="radio-assort" />
+                                <label for="c2">회수<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">
+                                적립/회수 UCD (*)
+                                <i class="question-mark far fa-question-circle">
+                                    <span class="hover-text">최대 1억UCD까지 가능합니다.</span>
+                                </i>
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <input id="ucd" type="text" class="only-num" maxlength="8">
+                            <span class="input-num-title">UCD</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <div>
+                                <p class="cap">프로모션 기간 (*)</p>
+                                <input id="promoFrom" type="text" class="datepicker">
+                                <span class="date-margin-text"> ~ </span>
+                                <input id="promoTo" type="text" class="datepicker">
+                            </div>
+                            <div style="margin: 20px 0;">
+                                <p class="cap">계약명 (*)</p>
+                                <input type="text">
+                            </div>
+                            <div>
+                                <p class="cap">계약금액 (*)</p>
+                                <input type="text" class="only-num">
+                                <span class="input-num-title">원</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/ucd/ucd-create.js"></script>

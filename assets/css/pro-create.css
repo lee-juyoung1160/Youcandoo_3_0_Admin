@@ -131,6 +131,7 @@
 .table-btn-wrap.reward-tab-ul li {
     position: relative;
     width: 188px;
+    color: #999;
     border-left: 1px solid #fff;
     background-color: #eee;
 }
@@ -138,10 +139,16 @@
     color: #fff;
     background-color: #007aff;
 }
+.table-btn-wrap.reward-tab-ul li.on i {
+    color: #fff;
+}
 .reward-tab-ul li span {
-    min-width: 100px;
-    margin-right: 5px;
-    padding: 10px 10px;
+    display: block;
+    overflow: hidden;
+    max-width: 135px;
+    margin: 0 auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .reward-add-btn {
     float: left;

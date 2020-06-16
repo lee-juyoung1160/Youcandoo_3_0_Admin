@@ -73,16 +73,19 @@
 }
 
 .pro-detail-page .reward-tab li {
+    overflow: hidden;
     float: left;
-    width: 188px;
-    padding: 10px 0;
-    color: #aaa;
+    width: 170px;
+    margin-right: 2px;
+    padding: 10px;
+    color: #007aff;
     text-align: center;
-    background-color: #f3f3f3;
-    border: none;
-    border-right: 1px solid #fff;
+    background-color: #fff;
+    border: 1px solid #007aff;
     cursor: pointer;
     transition: all .3s;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .pro-detail-page .reward-tab li.on,
 .pro-detail-page .reward-tab li:hover

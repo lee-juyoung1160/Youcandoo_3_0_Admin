@@ -1236,3 +1236,10 @@ textarea {
 .table-wrap .minus-pay td {
 	color: #c90614;
 }
+
+.table-wrap .th-row th {
+	vertical-align: middle;
+}
+.table-wrap .th-row tr:last-child th {
+
+}

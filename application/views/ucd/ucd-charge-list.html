@@ -1,7 +1,7 @@
 <section class="ucd-charge-list-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">UCD(c) 충전 목록</h2>
+            <h2 class="main-title list-main-title">매출관리(Biz)</h2>
         </div>
         <div class="list-common">
             <div class="list-wrap clearfix">
@@ -21,10 +21,9 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="searchType">닉네임</label>
+                    <label for="searchType">기업명</label>
                     <select id="searchType">
-                        <option value="nickname">닉네임</option>
-                        <option value="nickname">결제번호</option>
+                        <option value="">기업명</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -63,34 +62,43 @@
             <table>
                 <colgroup>
                     <col style="width:15%;">
+                    <col style="width:5%;">
                     <col style="width:15%;">
-                    <col style="width:25%;">
                     <col style="width:20%;">
                     <col style="width:25%;">
                 </colgroup>
-                <thead>
+                <thead class="th-row">
                     <tr>
-                        <th>닉네임</th>
-                        <th>충전수단</th>
-                        <th>결제/계좌번호</th>
-                        <th>충전금액</th>
-                        <th>충전일시</th>
+                        <th rowspan="2">기업명</th>
+                        <th rowspan="2">구분</th>
+                        <th rowspan="2">적립/회수 UCD</th>
+                        <th colspan="3">내용</th>
+                        <th rowspan="2">일시</th>
+                    </tr>
+                    <tr>
+                        <th>프로모션 기간</th>
+                        <th>계약명</th>
+                        <th>계약금액</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="#">베리베리</a></td>
-                        <td>신용카드</td>
-                        <td>20191113001</td>
-                        <td>10,000원</td>
-                        <td>2019/11/07 14:32:12</td>
+                        <td>@야나두</td>
+                        <td>적립</td>
+                        <td>300,000,000</td>
+                        <td>2020-02-02 ~ 2020-02-28</td>
+                        <td>계약명이 노출됩니다.</td>
+                        <td>500,000,000</td>
+                        <td>2019-11-07</td>
                     </tr>
-                    <tr>
-                        <td><a href="#">베리베리</a></td>
-                        <td>계좌이체</td>
-                        <td>100345698752(국민)</td>
-                        <td>10,000원</td>
-                        <td>2019/11/07 14:32:12</td>
+                    <tr class="minus-pay">
+                        <td>@야나두</td>
+                        <td>회수</td>
+                        <td>-300,000,000</td>
+                        <td>2020-02-02 ~ 2020-02-28</td>
+                        <td>계약명이 노출됩니다.</td>
+                        <td>500,000,000</td>
+                        <td>2019-11-07</td>
                     </tr>
                 </tbody>
             </table>

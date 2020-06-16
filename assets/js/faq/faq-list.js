@@ -127,7 +127,7 @@
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
-
+	/*history.pushState(param, null, page.listFaq);*/
 		return JSON.stringify(param);
 	}
 

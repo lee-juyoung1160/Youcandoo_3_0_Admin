@@ -170,7 +170,6 @@
 	/** 리워드 영역 **/
 	function buildReward(rewards)
 	{
-
 		for (let i=0; i<rewards.length; i++)
 		{
 			let rewardTabDom = '';
@@ -334,6 +333,10 @@
 			let groupDom 	= $('#'+groupRateId);
 			initRewardRateRange(rangeDom, personalDom, groupDom, reward.person_percent);
 		}
+
+		onClickRewardTab($(".reward-tab").eq(0));
+
+		calculateInputLength();
 	}
 
 	function onSelectDuration(obj)

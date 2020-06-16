@@ -107,7 +107,7 @@ function getReviewListData(params) {
         fnRowCallback: function (nRow, aData) {
         },
         drawCallback: function (settings) {
-            buildTotalCount(dataTable);
+            buildTotalCount($('#review-table'));
         },
         ajax: {
             url: "https://api.youcandoo.co.kr/v1.0/admin/review/list",

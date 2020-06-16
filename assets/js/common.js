@@ -615,4 +615,13 @@
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
         calculateInputLength();
-    })
+    });
+
+    /*window.onpageshow = function (event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2))
+        {
+            console.log(event.persisted)
+            console.log(window.performance)
+            console.log(window.performance.navigation.type)
+        }
+    }*/

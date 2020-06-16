@@ -30,17 +30,17 @@
 	const btnAddReward	 = $(".reward-add-btn")
 	const rewardsWrap 	 = $("#rewardsWrap");
 	const goalRange1	 = $("#goalRange1");
-	const goalRange2	 = $("#goalRange2");
+	/*const goalRange2	 = $("#goalRange2");
 	const goalRange3	 = $("#goalRange3");
-	const goalRange4	 = $("#goalRange4");
+	const goalRange4	 = $("#goalRange4");*/
 	const goalRate1	 	 = $("#goalRate1");
-	const goalRate2	 	 = $("#goalRate2");
+	/*const goalRate2	 	 = $("#goalRate2");
 	const goalRate3	 	 = $("#goalRate3");
-	const goalRate4	 	 = $("#goalRate4");
+	const goalRate4	 	 = $("#goalRate4");*/
 	const rewardRange1	 = $("#rewardRange1");
-	const rewardRange2   = $("#rewardRange2");
+	/*const rewardRange2   = $("#rewardRange2");
 	const rewardRange3	 = $("#rewardRange3");
-	const rewardRange4	 = $("#rewardRange4");
+	const rewardRange4	 = $("#rewardRange4");*/
 	const personalRate1	 = $("#personalRate1");
 	const personalRate2	 = $("#personalRate2");
 	const personalRate3	 = $("#personalRate3");
@@ -59,16 +59,18 @@
 		initInputDatepicker();
 		/** 목표달성률 rage slider 초기화 **/
 		initGoalRateRange(goalRange1, goalRate1);
-		initGoalRateRange(goalRange2, goalRate2);
+		/*initGoalRateRange(goalRange2, goalRate2);
 		initGoalRateRange(goalRange3, goalRate3);
-		initGoalRateRange(goalRange4, goalRate4);
+		initGoalRateRange(goalRange4, goalRate4);*/
 		/** 리워드 비율 range slider 초기화 **/
 		initRewardRateRange(rewardRange1, personalRate1, groupRate1);
-		initRewardRateRange(rewardRange2, personalRate2, groupRate2);
+		/*initRewardRateRange(rewardRange2, personalRate2, groupRate2);
 		initRewardRateRange(rewardRange3, personalRate3, groupRate3);
-		initRewardRateRange(rewardRange4, personalRate4, groupRate4);
+		initRewardRateRange(rewardRange4, personalRate4, groupRate4);*/
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 리워드조건 첫번째값 표출 **/
+		onClickRewardTab(rewardTab.eq(0));
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -255,7 +257,7 @@
 	}
 
 	/** 프로모션 기간 계산 **/
-	function calculateTerm() {
+	/*function calculateTerm() {
 		let fromDate = promoFrom.datepicker('getDate');
 		let toDate = promoTo.datepicker('getDate');
 
@@ -263,7 +265,7 @@
 		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
 
 		return diff;
-	}
+	}*/
 
 	/** 유의사항 추가 이벤트 **/
 	function onClickBtnNoticeAdd()
@@ -351,6 +353,7 @@
 		let targetReward = $(obj).data('target');
 		let targetTab	 = $(obj).parent();
 
+		btnAddReward.show();
 		$(targetTab).remove();
 		$(targetReward).remove();
 		if ($(targetTab).hasClass('on'))
@@ -361,15 +364,19 @@
 	function addReward()
 	{
 		let countReward = rewardTabWrap.find('li').length;
-		if (addRewardValidation(countReward))
+		countReward++
+		/*if (addRewardValidation(countReward))
 		{
 			countReward++
 			buildRewardTab(countReward);
 			buildReward(countReward);
-		}
+		}*/
+
+		buildRewardTab(countReward);
+		buildReward(countReward);
 	}
 
-	function addRewardValidation(count)
+	/*function addRewardValidation(count)
 	{
 		if (count >= 5)
 		{
@@ -378,12 +385,17 @@
 		}
 
 		return true;
-	}
-
+	}*/
+	let countId = 2;
 	function buildRewardTab(countReward)
 	{
-		let targetDom    = '#reward'+countReward;
-		let title        = '리워드'+countReward;
+		countId++
+
+		if (countReward === 5)
+			btnAddReward.hide();
+
+		let targetDom    = '#reward'+countId;
+		let title        = '리워드 직접 입력';
 		let rewardTabDom = '';
 		rewardTabDom += '<li>';
 		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
@@ -395,13 +407,13 @@
 
 	function buildReward(countReward)
 	{
-		let domId     		= 'reward'+countReward;
-		let title     		= '리워드'+countReward;
-		let goalRange 		= 'goalRange'+countReward;
-		let goalRate  		= 'goalRate'+countReward;
-		let rewardRange		= 'rewardRange'+countReward;
-		let personalRate  	= 'personalRate'+countReward;
-		let groupRate  		= 'groupRate'+countReward;
+		let domId     		= 'reward'+countId;
+		let title     		= '리워드 직접 입력';
+		let goalRange 		= 'goalRange'+countId;
+		let goalRate  		= 'goalRate'+countId;
+		let rewardRange		= 'rewardRange'+countId;
+		let personalRate  	= 'personalRate'+countId;
+		let groupRate  		= 'groupRate'+countId;
 		let rewardDom = '';
 		rewardDom += '<div id="'+domId+'" class="pro-reward-wrap">';
 		rewardDom += 	'<ul class="pro-reward">';
@@ -501,12 +513,12 @@
 		rewardDom += 						'<tbody class="ucd-table-body">';
 		rewardDom += 							'<tr>';
 		rewardDom += 								'<td>';
-		rewardDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5" value="1">';
+		rewardDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5">';
 		rewardDom += 									'<span class="date-margin-text"> ~ </span>';
-		rewardDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5" value="10">';
+		rewardDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5">';
 		rewardDom += 								'</td>';
-		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="10"></td>';
-		rewardDom += 								'<td><span class="text-right">100</span></td>';
+		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>';
+		rewardDom += 								'<td><span class="text-right">-</span></td>';
 		rewardDom += 							'</tr>';
 		rewardDom += 						'</tbody>';
 		rewardDom += 					'</table>';
@@ -521,6 +533,8 @@
 		initGoalRateRange($('#'+goalRange), $('#'+goalRate));
 
 		initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate));
+
+		calculateInputLength();
 	}
 
 	/** 리워드 제목 입력하면 리워드제목 = 탭이름 이벤트 **/

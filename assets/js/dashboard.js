@@ -1,18 +1,16 @@
-/** 현재 연도-월-일 구하기 **/
 let day = new Date();
 let year = day.getFullYear();
 let month = day.getMonth() + 1;
 let date = day.getDate();
 let hours = day.getHours();
 let minutes = day.getMinutes();
-let oneYearLater = day.getFullYear() +1;
 let result = document.getElementById('today-date');
-
+let newYear = new Date(year, 11, 31, 23,59,59,59);
+/** 현재 연도-월-일 구하기 **/
 month = month < 10 ? '0' + month : month;
-day = day < 10 ? '0' + day : day;
+date = date < 10 ? '0' + date : date;
 hours = hours < 10 ? '0' + hours : hours;
 minutes = minutes < 10 ? '0' + minutes : minutes;
-
 result.textContent = year + '.' + month + '.' + date + '. ' + hours + ':' + minutes + ' 기준';
 
 /** 넘버 total 카운팅 **/
@@ -23,7 +21,7 @@ function counter() {
                 countNum: $this.text()
             },
             {
-                duration: 2000,
+                duration: 1000,
                 easing: 'linear',
                 step: function () {
                     $this.text(Math.floor(this.countNum));
@@ -35,25 +33,23 @@ function counter() {
     });
 };
 
-/** 도넛 차트 관련 (내일, 오늘, 종료) **/
 const tomorrowDoughnut = document.getElementById('tomorrow-doughnut');
 const todayDoughnut = document.getElementById('today-doughnut');
 const endDoughnut = document.getElementById('end-doughnut');
 const cancelDoughnut = document.getElementById('cancel-doughnut');
-/** 월 단위로 등록된 두잇 **/
 const monthlyMixedChart = document.getElementById('monthly-mixedChart');
-/** 프로모션 진행 현황 **/
 const proStatusDoughnut = document.getElementById('pro-status-doughnut');
-/** 리워드 현황 **/
 const rewardLine = document.getElementById('reward-line-Chart');
-/**  도넛 차트 레이아웃 구성 공통 부분 **/
+// 차트 레이아웃 구성 공통 부분
 const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
 const options = {options: {maintainAspectRatio: false, legend: {align: 'start', labels: {fontSize: 12, boxWidth: 12}}}};
 const doughnutType = 'doughnut';
 const labels = ['일반', '프로모션'];
-/** 라인 차트 레이아웃 구성 공통 부분 **/
 const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
-
+/** 월 단위로 등록된 두잇, 로드 바로 실행 **/
+document.addEventListener("DOMContentLoaded", function () {
+    getYearData(year);
+});
 /** 예정되는, 진행중인, 완료된 두잇 **/
 $.ajax({
     url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
@@ -65,7 +61,6 @@ $.ajax({
 
     },
     success: function (getDoughnutData) {
-        console.log(getDoughnutData)
         let endChart = new Chart(endDoughnut, {
             type: doughnutType,
             data: {
@@ -152,7 +147,6 @@ function getYearData(yearVal) {
     let param = {
         'year': yearVal,
     };
-
     $.ajax({
         url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/month",
         headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -195,35 +189,27 @@ function getYearData(yearVal) {
         },
     });
 };
-/** 월 단위로 등록된 두잇, 로드 바로 실행 **/
-document.addEventListener("DOMContentLoaded", function () {
-    getYearData(year);
-});
-
 const yearSelectBox = document.getElementById('doit-year-select');
-// yearSelectBox.value = year
-// console.log(yearSelectBox.value = year)
-//
-// yearSelectBox.append(new Option( year+ "년", year));
-// console.log(yearSelectBox.value)
-//
-// for (let i = 0; i < yearSelectBox.options.length; i++) {
-//     if (yearSelectBox.options[i].value == year) {
-//         yearSelectBox.options[i].value = "selected";
-//     }
-// }
-//
-// if (year !== oneYearLater) {
-//     yearSelectBox.append(new Option( year+1+ "년", year+1));
-// }
+const yearLabel = document.querySelector('.year-label');
 /** 월 단위로 등록된 두잇, select option value 가져오기 **/
 yearSelectBox.addEventListener('change', function () {
     let yearVal = this.value;
     getYearData(yearVal);
     monthlyChart.destroy()
 });
-
-
+/** 새해 기준 새로운 월 단위 차트 생성 **/
+//현재 연도 값 넣고 그리기
+yearLabel.textContent = yearSelectBox.value = year + "년";
+yearSelectBox.append(new Option( year+ "년", year));
+// 새해될때 셀렉박스 및 값 추가
+setTimeout(function () {
+    if (day > newYear) {
+        yearSelectBox.append(new Option( year+1+ "년", year+1));
+        for(let index; index < yearSelectBox.options.length; index++) {
+            yearLabel.textContent = yearSelectBox.options[index].value;
+        }
+    }
+});
 // /** 프로모션 진행 현황 **/
 // let proStatusChart = new Chart(proStatusDoughnut, {
 //     type: doughnutType,

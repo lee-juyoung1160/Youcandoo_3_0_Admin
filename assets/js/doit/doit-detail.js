@@ -320,6 +320,14 @@
 		actionResource.html(buildActionResource(detail));
 
 		actionDesc.html(detail.action_description);
+
+		removeModifyBtn(detail);
+	}
+
+	function removeModifyBtn(detail)
+	{
+		if (isEmpty(detail.promotion_uuid) || detail.doit_status !== '모집중')
+			goUpdate.remove();
 	}
 
 	function onErrorImage(obj)

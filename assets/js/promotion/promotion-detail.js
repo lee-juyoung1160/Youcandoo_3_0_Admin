@@ -147,6 +147,14 @@
 
 		rewardTab.html(rewardTabDom);
 		onClickRewardTab(rewardTab.find('li').eq(0));
+
+		removeModifyBtn(detailPromo);
+	}
+
+	function removeModifyBtn(detailPromo)
+	{
+		if (detailPromo.status !== 'pending')
+			goUpdate.remove();
 	}
 
 	function onClickRewardTab(obj)

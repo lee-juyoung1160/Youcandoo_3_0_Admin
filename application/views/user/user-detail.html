@@ -1,8 +1,14 @@
+<link rel="stylesheet" href="/assets/css/common.css">
 <link rel="stylesheet" href="/assets/css/user-detail.css">
 
 <section class="user-detail-page">
     <div class="inner">
-        <h2 class="main-title">회원 정보 조회 상세</h2>
+        <div class="main-top clearfix">
+            <h2 class="main-title" style="display: inline-block;">회원 정보 조회 상세</h2>
+            <button id="btnUcdManualRegist" type="button" style="float: right;">
+                <i class="fas fa-plus"></i>UCD 충전/취소
+            </button>
+        </div>
 
         <div class="wrap clearfix">
 
@@ -376,89 +382,63 @@
 
     </div>
 
-    <!--<div class="modal-wrap">
+<div class="modal-wrap">
+    <div class="modal-content modal-01">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">회원 UCD 충전 취소 등록</p>
+            <ul class="modal-information">
+                <li>
+                    <p class="sub-title">유형 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r1" name="radio-division" value="0"/>
+                        <label for="r1"><span></span>cash</label>
 
-        <div class="modal-content modal-01">
-            <div class="wrap">
-                <i class="close-btn fas fa-times-circle"></i>
-                <p class="modal-title">두잇 </p>
-                <ul class="modal-information">
-                    <li>
-                        <p class="sub-title">인증컨텐츠</p>
-                        <ol class="data-contents">
-                            <li style="width: 375px;">
-                                <img src="/assets/images/test.png" alt="">
-                                <p class="date">2020-06-08 12:27:16</p>
-                            </li>
-                            <li style="width: 375px;">
-                                <img src="/assets/images/test.png" alt="">
-                                <p class="date">2020-06-08 12:27:16</p>
-                            </li>
-                            <li style="width: 375px;">
-                                <img src="/assets/images/test.png" alt="">
-                                <p class="date">2020-06-08 12:27:16</p>
-                            </li>
-                        </ol>
-                    </li>
-                </ul>
-            </div>
+                        <input type="radio" id="r2" name="radio-division" value="1"/>
+                        <label for="r2"><span></span>point</label>
+
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">구분 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r11" name="radio-division" value="0"/>
+                        <label for="r11"><span></span>충전</label>
+
+                        <input type="radio" id="r12" name="radio-division" value="1"/>
+                        <label for="r12"><span></span>출금</label>
+
+                        <input type="radio" id="r13" name="radio-division" value="2"/>
+                        <label for="r13"><span></span>취소</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">
+                        UCD *
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">최대 1백만UCD까지 가능합니다.</span>
+                        </i>
+                    </p>
+                    <input id="amount" type="text" class="only-num" maxlength="7">
+                    <span class="input-num-title">UCD</span>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
         </div>
-        &lt;!&ndash; 리뷰 내용 자세히 보기&ndash;&gt;
-        <div class="modal-content modal-02">
-            <div class="wrap">
-                <i class="close-btn fas fa-times-circle"></i>
-                <p class="modal-title">리뷰 상세</p>
-                <ul class="modal-information">
-                    <li>
-                        <p class="sub-title">내용</p>
-                        <p class="data-contents">
-                            물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.<br>
-                            물마시기 두잇 너무 좋아요!<br>일상 생활에서 쉽게 할 수 있고 건강에도 도움 되고 너무 좋습니다.<br>이런 두잇에 도전할 수 있게 해주셔서 너무 감사합니다.
-                        </p>
-                    </li>
-                    <li>
-                        <p class="sub-title">두잇명</p>
-                        <p class="data-contents">하루에 물 6번 마시기</p>
-                    </li>
-                    <li class="clearfix">
-                        <div class="full-left">
-                            <p class="sub-title">평점</p>
-                            <p class="data-contents score-wrap">
-                            <ol class="star-wrap">
-                                <li class="on"><i class="fas fa-star"></i></li>
-                                <li class="on"><i class="fas fa-star"></i></li>
-                                <li class="on"><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ol>
-                            <span class="score">3</span>
-                            </p>
-                        </div>
-                        <div class="full-right">
-                            <p class="sub-title">신고</p>
-                            <p class="data-contents">4</p>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="full-left">
-                            <p class="sub-title">작성자</p>
-                            <p class="data-contents">berry</p>
-                        </div>
-                        <div class="full-right">
-                            <p class="sub-title">작성날짜</p>
-                            <p class="data-contents">2019/10/10</p>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="sub-title">블라인드 여부</p>
-                        <p class="data-contents">Y</p>
-                    </li>
-                </ul>
-                <button class="completion-btn" type="submit">완료</button>
-            </div>
-        </div>
+    </div>
+    <div class="modal-layout"></div>
         <div class="modal-layout"></div>
-    </div>-->
+    </div>
     <input type="hidden" id="profile_uuid" value="<?php if(isset($profile_uuid)) echo $profile_uuid ?>"/>
 </section>
 <script src="/assets/js/user/user-detail.js"></script>

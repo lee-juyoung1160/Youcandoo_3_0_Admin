@@ -45,7 +45,7 @@
 				let $offsetTop = $('.' + $selectId).offset().top;
 
 				$('html, body').stop().animate({
-					scrollTop: $offsetTop -160
+					scrollTop: $offsetTop -180
 				}, 300);
 				e.preventDefault(); e.stopPropagation();
 			});

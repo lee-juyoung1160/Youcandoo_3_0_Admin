@@ -169,6 +169,7 @@
     background-color: #fff;
 }
 .pro-reward-wrap {
+    display: none;
     padding: 20px 30px;
     background-color: #fff;
     border: 2px solid #d9e7f5;

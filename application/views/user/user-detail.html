@@ -5,7 +5,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title" style="display: inline-block;">회원 정보 조회 상세</h2>
-            <button id="btnUcdManualRegist" type="button" style="float: right;">
+            <button id="btnUcdModalOpen" type="button" style="float: right;">
                 <i class="fas fa-plus"></i>회원UCD 충전
             </button>
         </div>
@@ -391,10 +391,10 @@
                     <li>
                         <p class="sub-title">유형 *</p>
                         <div class="radio-wrap">
-                            <input type="radio" id="r1" name="radio-division" value="0"/>
+                            <input type="radio" id="r1" name="radio-ucd-type" value="cash"/>
                             <label for="r1"><span></span>cash</label>
 
-                            <input type="radio" id="r2" name="radio-division" value="1"/>
+                            <input type="radio" id="r2" name="radio-ucd-type" value="point"/>
                             <label for="r2"><span></span>point</label>
 
                         </div>
@@ -415,7 +415,7 @@
                                 <p class="sub-title important">내용(*)</p>
                             </div>
                             <div class="col-2 clearfix">
-                                <textarea cols="30" rows="10"></textarea>
+                                <textarea id="content" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                     </li>

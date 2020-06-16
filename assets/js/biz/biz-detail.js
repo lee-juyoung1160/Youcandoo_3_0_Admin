@@ -327,12 +327,12 @@
 							if (isSuccessResp(data))
 							{
 								balance.html(numberWithCommas(data.data));
-								getUcdLog();
+								reloadTable(ucdTable);
 								modalFadeout();
 							}
 						},
 						error: function (request, status) {
-							alert('기업 보유 UCD'+message.ajaxError);
+							alert(label.submit+message.ajaxError);
 						}
 					});
 				}

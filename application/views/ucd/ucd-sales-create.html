@@ -22,13 +22,13 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c1" name="radio-assort" />
+                                <input type="radio" id="c1" name="radio-division" value="0"/>
                                 <label for="c1">충전<span></span></label>
 
-                                <input type="radio" id="c2" name="radio-assort" />
+                                <input type="radio" id="c2" name="radio-division" value="1"/>
                                 <label for="c2">출금<span></span></label>
 
-                                <input type="radio" id="c3" name="radio-assort" />
+                                <input type="radio" id="c3" name="radio-division" value="2"/>
                                 <label for="c3">취소<span></span></label>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             </p>
                         </div>
                         <div class="col-2">
-                            <input id="ucd" type="text" class="only-num" maxlength="8">
+                            <input id="amount" type="text" class="only-num" maxlength="11">
                             <span class="input-num-title">UCD</span>
                         </div>
                     </div>
@@ -64,11 +64,11 @@
                             </div>
                             <div style="margin: 20px 0;">
                                 <p class="cap">계약명 (*)</p>
-                                <input type="text">
+                                <input id="contractTitle" type="text">
                             </div>
                             <div>
                                 <p class="cap">계약금액 (*)</p>
-                                <input type="text" class="only-num">
+                                <input id="contractAmount" type="text" class="only-num">
                                 <span class="input-num-title">원</span>
                             </div>
                         </div>

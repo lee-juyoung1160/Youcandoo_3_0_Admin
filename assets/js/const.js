@@ -208,6 +208,8 @@
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
 
+		,listUcdSales : '/ucd/sales'
+
 		,listEvent : '/service/event/list'
 		,createEvent : '/service/event/create'
 		,detailEvent : '/service/event/detail/'

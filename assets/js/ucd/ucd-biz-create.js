@@ -1,10 +1,14 @@
 
-	const bizName	= $("#bizName");
-	const assort 	= $("input[name=radio-assort]");
-	const ucd		= $("#ucd");
-	const content 	= $("#content");
+	const bizName		= $("#bizName");
+	const assort 		= $("input[name=radio-division]");
+	const amount		= $("#amount");
+	const promoFrom		= $("#promoFrom");
+	const promoTo		= $("#promoTo");
+	const contractTitle	= $("#contractTitle");
+	const contractAmount = $("#contractAmount");
+	const btnSubmit 	= $("#btnSubmit");
 
-	/** modal **/
+	/** 기업검색 modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
@@ -17,7 +21,10 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		modalBizName	.on('keyup', function () { reloadTable(dataTable); });
 		bizName			.on('click', function () { onClickBizName(); });
+		promoFrom		.on('change', function () { onChangePromoFrom(); });
+		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
 	function initComponent()
@@ -92,10 +99,104 @@
 	}
 
 	/** 모달에서 기업명 클릭 했을 때 **/
+	let g_bizUuid;
 	function setSelectedBiz(uuid, name)
 	{
+		g_bizUuid = uuid;
 		bizName.val(name);
 		modalFadeout();
+	}
+
+	function onChangePromoFrom()
+	{
+		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
+	}
+
+	function onSubmitUcd()
+	{
+		if (validation())
+		{
+			if (confirm(message.create))
+			{
+				$.ajax({
+					url: api.updateBizUcd,
+					type: "POST",
+					headers: headers,
+					dataType: 'json',
+					data: ucdParams(),
+					success: function(data) {
+						alert(getStatusMessage(data))
+						if (isSuccessResp(data))
+							location.href = page.listUcdSales;
+					},
+					error: function (request, status) {
+						alert(label.submit+message.ajaxError);
+					}
+				});
+			}
+		}
+	}
+
+	function ucdParams()
+	{
+		let contract = '['+modalFrom.val()+' ~ '+modalTo.val()+']';
+		contract += '['+contractTitle.val().trim()+']';
+		contract += ':'+contractAmount.val();
+		let param = {
+			"company_uuid" : g_bizUuid
+			,"division" : $("input[name=radio-division]:checked").val()
+			,"amount" : amount.val().trim()
+			,"description" : contract
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function validation()
+	{
+		if (isEmpty(amount.val()))
+		{
+			alert('UCD는 '+message.required);
+			amount.focus();
+			return false;
+		}
+
+		if (amount.val() > 100000000)
+		{
+			alert('UCD는 '+message.required);
+			amount.focus();
+			return false;
+		}
+
+		if (isEmpty(modalFrom.val()))
+		{
+			alert('프로모션 기간(시작일)은 '+message.required);
+			modalFrom.focus();
+			return false;
+		}
+
+		if (isEmpty(modalTo.val()))
+		{
+			alert('프로모션 기간(종료일)은 '+message.required);
+			modalTo.focus();
+			return false;
+		}
+
+		if (isEmpty(contractTitle.val()))
+		{
+			alert('계약명은 '+message.required);
+			contractTitle.focus();
+			return false;
+		}
+
+		if (isEmpty(contractAmount.val()))
+		{
+			alert('계약 금액은 '+message.required);
+			contractAmount.focus();
+			return false;
+		}
+
+		return true;
 	}
 
 

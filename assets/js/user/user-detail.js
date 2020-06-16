@@ -1,4 +1,5 @@
 
+		const btnUcdModalOpen	= $("#btnUcdModalOpen");
 		/** 기본정보 **/
 		const profileId		= $("#profileId")
 		const nickname		= $("#nickname")
@@ -20,6 +21,15 @@
 		/** UCD 사용내역 **/
 		const usageHisTable	= $("#usageHisTable")
 
+		/** modal **/
+		const modalCloseBtn = $(".close-btn");
+		const modalLayout 	= $(".modal-layout");
+		const modalContent 	= $(".modal-content");
+		const ucdType		= $("input[name=radio-ucd-type]");
+		const amount		= $("#amount");
+		const content		= $("#content");
+		const btnSubmit		= $("#btnSubmit");
+
 		const profile_uuid 	= $("#profile_uuid").val();
 
 		$(document).ready(function () {
@@ -34,8 +44,11 @@
 			/** UCD 사용내역 **/
 			getUsageHistoryUcd();
 			/** 이벤트 **/
-			tabOpened.on("click", function () { onClickTabOpened(this); });
-			tabJoined.on("click", function () { onClickTabJoined(this) });
+			btnUcdModalOpen	.on("click", function () { modalFadein(); })
+			modalCloseBtn	.on('click', function () { modalFadeout(); });
+			modalLayout		.on('click', function () { modalFadeout(); });
+			tabOpened		.on("click", function () { onClickTabOpened(this); });
+			tabJoined		.on("click", function () { onClickTabJoined(this) });
 		});
 
 		function moveSection()
@@ -49,6 +62,14 @@
 				}, 300);
 				e.preventDefault(); e.stopPropagation();
 			});
+		}
+
+		function initModal()
+		{
+			ucdType.eq(0).prop('checked', true);
+			amount.val('');
+			amount.focus();
+			content.val('');
 		}
 
 		function onClickTabOpened(obj)

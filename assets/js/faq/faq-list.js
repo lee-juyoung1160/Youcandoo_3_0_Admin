@@ -21,7 +21,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deleteFaq(); });
 	});
@@ -102,7 +102,7 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {

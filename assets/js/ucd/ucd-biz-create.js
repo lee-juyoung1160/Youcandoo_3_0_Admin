@@ -155,6 +155,12 @@
 
 	function validation()
 	{
+		if (isEmpty(bizName.val()))
+		{
+			alert('기명명은 '+message.required);
+			return false;
+		}
+
 		if (isEmpty(amount.val()))
 		{
 			alert('UCD는 '+message.required);

@@ -49,8 +49,8 @@
 			goUpdate		.on("click", function () { goUpdatePage(); })
 			tabPromo		.on("click", function () { onClickTabPromo(); });
 			tabUcd			.on("click", function () { onClickTabUcd(); });
-			selPageLengthForPromo.on("change", function () { reloadTable(promoTable); });
-			selPageLengthForUcd.on("change", function () { reloadTable(ucdTable); });
+			selPageLengthForPromo.on("change", function () { getInvolvePromo(); });
+			selPageLengthForUcd.on("change", function () { getUcdLog() });
 			btnSubmit		.on("click", function () { onSubmitUcd(); });
 		});
 
@@ -104,7 +104,7 @@
 						alert(invalidResp(data))
 				},
 				error: function (request, status) {
-					alert(label.detail+message.ajaxLoadError);
+					alert(label.detailContent+message.ajaxLoadError);
 				}
 			});
 		}

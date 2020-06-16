@@ -209,6 +209,7 @@
 		,updateDoit : '/doit/update/'
 
 		,listUcdSales : '/ucd/sales'
+		,listUcdUsage : '/ucd/uses/list'
 
 		,listEvent : '/service/event/list'
 		,createEvent : '/service/event/create'

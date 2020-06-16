@@ -24,7 +24,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
@@ -100,11 +100,12 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+				console.log(aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
@@ -125,7 +126,7 @@
 			,"division" : selDivision1.val()
 			,"title" : selDivision2.val()
 			,"ucd_type" : $("input[name=radio-type]:checked").val()
-			,"user_type" : $("input[name=radio-user-division]:checked").val()
+			,"user_type" : "company"
 		}
 
 		return JSON.stringify(param);

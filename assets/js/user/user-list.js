@@ -31,7 +31,7 @@
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { buildGrid(); });
 		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		/*btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });*/
@@ -124,7 +124,7 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader:false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 				/** row select **/
 				/*dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });*/

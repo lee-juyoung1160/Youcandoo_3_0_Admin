@@ -11,7 +11,7 @@
                             <p class="sub-title important">기업명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="nickname" type="text" placeholder="클릭 후 기업명을 선택해주세요." readonly>
+                            <input id="bizName" type="text" placeholder="클릭 후 기업명을 선택해주세요." readonly>
                         </div>
                     </div>
                 </li>
@@ -77,5 +77,30 @@
             </ul>
         </div>
     </div>
+
+    <!--기업명 검색 모달-->
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">기업명 검색</p>
+            <ul class="modal-information">
+                <li>
+                    <div class="search-wrap">
+                        <div class="search-box">
+                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요.">
+                            <i class="search-btn fas fa-search"></i>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
 </section>
-<script src="/assets/js/ucd/ucd-create.js"></script>
+<script src="/assets/js/ucd/ucd-biz-create.js"></script>

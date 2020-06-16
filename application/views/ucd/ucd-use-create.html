@@ -11,7 +11,7 @@
                             <p class="sub-title important">닉네임(*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="nickname" class="tag-input" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly>
+                            <input id="nickname" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly>
                             <!--<button class="more-info-btn" type="button">
                                 <span>찾기</span>
                                 <i class="fas fa-chevron-right"></i>
@@ -73,6 +73,8 @@
                 </li>
             </ul>
         </div>
+
+        <!--닉네임 검색 모달-->
         <div class="modal-content">
             <div class="wrap">
                 <i class="close-btn fas fa-times-circle"></i>
@@ -81,7 +83,7 @@
                     <li>
                         <div class="search-wrap">
                             <div class="search-box">
-                                <input id="keyword" type="search" placeholder="닉네임을 입력해주세요.">
+                                <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요.">
                                 <i class="search-btn fas fa-search"></i>
                             </div>
                         </div>
@@ -148,4 +150,4 @@
         <div class="modal-layout"></div>
     </div>
 </section>
-<script src="/assets/js/ucd/ucd-create.js"></script>
+<script src="/assets/js/ucd/ucd-user-create.js"></script>

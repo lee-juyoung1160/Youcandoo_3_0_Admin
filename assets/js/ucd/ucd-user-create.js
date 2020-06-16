@@ -1,8 +1,8 @@
 
 	const nickname	= $("#nickname");
-	const assort 	= $("input[name=radio-assort]");
+	const uctType 	= $("input[name=radio-ucd-type]");
 	const target	= $("#target");
-	const ucd		= $("#ucd");
+	const amount	= $("#amount");
 	const content 	= $("#content");
 
 	/** modal **/
@@ -23,7 +23,8 @@
 
 	function initComponent()
 	{
-		assort.eq(0).prop("checked", true);
+		uctType.eq(0).prop("checked", true);
+		amount.focus();
 	}
 
 	function initModal()
@@ -36,6 +37,7 @@
 	function onClickBizName()
 	{
 		modalFadein();
+		/*getUser();*/
 	}
 
 	function getUser()

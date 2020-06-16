@@ -30,6 +30,7 @@
 	function initComponent()
 	{
 		assort.eq(0).prop("checked", true);
+		amount.focus();
 	}
 
 	function initModal()

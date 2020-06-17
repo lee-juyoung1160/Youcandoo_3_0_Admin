@@ -3,7 +3,7 @@
 }
 
 .reward-list li {
-    width: 50%;
+    width: 80%;
     cursor: inherit;
 }
 .reward-list li .list-inner {
@@ -96,5 +96,8 @@
 .sub-data {
     color: #888;
     font-weight: 500;
+}
+table th {
+    vertical-align: middle;
 }
 

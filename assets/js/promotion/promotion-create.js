@@ -81,7 +81,7 @@
 		inputFile		.on('change', function () { onChangeValidationImage(this); });
 		rewardTab		.on('click', function () { onClickRewardTab(this); });
 		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
-		btnAddReward	.on('click', function () { addReward(this); });
+		btnAddReward	.on('click', function () { addReward(); });
 		iconDelReward	.on('click', function () { deleteReward(this); });
 		$(".duration")	.on('click', function () { onSelectDuration(this); });
 		$(".frequency")	.on('click', function () { toggleFrequency(this); });
@@ -364,19 +364,16 @@
 	function addReward()
 	{
 		let countReward = rewardTabWrap.find('li').length;
-		countReward++
-		/*if (addRewardValidation(countReward))
+
+		if (addRewardValidation(countReward))
 		{
 			countReward++
 			buildRewardTab(countReward);
-			buildReward(countReward);
-		}*/
-
-		buildRewardTab(countReward);
-		buildReward(countReward);
+			buildReward();
+		}
 	}
 
-	/*function addRewardValidation(count)
+	function addRewardValidation(count)
 	{
 		if (count >= 5)
 		{
@@ -385,17 +382,18 @@
 		}
 
 		return true;
-	}*/
+	}
+
 	let countId = 2;
-	function buildRewardTab(countReward)
+	function buildRewardTab(count)
 	{
 		countId++
 
-		if (countReward === 5)
+		if (count === 5)
 			btnAddReward.hide();
 
 		let targetDom    = '#reward'+countId;
-		let title        = '리워드 직접 입력';
+		let title        = '리워드 제목 입력';
 		let rewardTabDom = '';
 		rewardTabDom += '<li>';
 		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
@@ -405,7 +403,7 @@
 		rewardTabWrap.append(rewardTabDom);
 	}
 
-	function buildReward(countReward)
+	function buildReward()
 	{
 		let domId     		= 'reward'+countId;
 		let title     		= '리워드 직접 입력';

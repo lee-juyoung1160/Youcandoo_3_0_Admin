@@ -310,7 +310,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data))
 						if (isSuccessResp(data))
-							location.href = page.listWithdrawUcd;
+							location.href = page.listUcdWithdraw;
 					},
 					error: function (request, status) {
 						alert(label.submit+message.ajaxError);

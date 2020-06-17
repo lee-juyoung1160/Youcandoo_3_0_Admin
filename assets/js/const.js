@@ -189,7 +189,6 @@
 		,setMenuByAuth : baseApiUrl+'auth/set/menu'
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 		/** UCD **/
-		,listWithdrawUcd : baseApiUrl+'ucd/withdraw'
 		,listUseUcd : baseApiUrl+'ucd/use/list'
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
@@ -217,6 +216,7 @@
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/uses/list'
+		,listUcdWithdraw : '/ucd/withdraw'
 
 		,listEvent : '/service/event/list'
 		,createEvent : '/service/event/create'

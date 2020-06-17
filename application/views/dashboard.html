@@ -3,7 +3,7 @@
 <section class="dashboard-main chart-pg">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">Dash board</h2>
+            <h2 class="main-title list-main-title">Dash Board</h2>
             <span class="today-date" id="today-date"></span>
         </div>
         <div class="wrap">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="row-wrap row-wrap2">
-                        <canvas id="monthly-mixedChart"></canvas>
+                        <canvas id="monthly-mixedChart" width="auto" height="115"></canvas>
                         <div id='chartjsLegend' class='chartjsLegend'></div>
                     </div>
                 </div>
@@ -100,52 +100,42 @@
                         <ul class="subscriber-status">
                             <li class="clearfix">
                                 <div class="fixed-wrap">
-                                    <i class="fas fa-user-plus"></i>
+                                    <i class="user-icon fas fa-user-plus"></i>
                                     <span class="fixed">신규회원</span>
                                 </div>
                                 <div class="data-wrap">
-                                    <p class="pluses">+<span class="count">5,450</span></p>
-                                    <p class="fixed"><span class="acc">8,000</span></p>
+                                    <p class="pluses">+<span class="count" id="new-user"></span></p>
+                                    <p class="fixed"><span class="acc">8,000</span><span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span></p>
                                 </div>
                             </li>
                             <li class="clearfix">
                                 <div class="fixed-wrap">
-                                    <i class="fas fa-user"></i>
+                                    <i class="user-icon fas fa-user"></i>
                                     <span class="fixed">가입회원</span>
                                 </div>
                                 <div class="data-wrap">
-                                    <p class="pluses">+<span class="count">5,450</span></p>
-                                    <p class="fixed"><span class="acc">8,000</span></p>
+                                    <p class="pluses">+<span class="count" id="join-user"></span></p>
+                                    <p class="fixed"><span class="acc">8,000</span><span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span></p>
                                 </div>
                             </li>
                             <li class="clearfix">
                                 <div class="fixed-wrap">
-                                    <i class="fas fa-user-minus"></i>
-                                    <span class="fixed">정지회원</span>
-                                </div>
-                                <div class="data-wrap">
-                                    <p class="pluses">+<span class="count">5,450</span></p>
-                                    <p class="fixed"><span class="acc">8,000</span></p>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="fixed-wrap">
-                                    <i class="fas fa-user-times"></i>
+                                    <i class="user-icon fas fa-user-times"></i>
                                     <span class="fixed">탈퇴회원</span>
                                 </div>
                                 <div class="data-wrap">
-                                    <p class="pluses">+<span class="count">5,450</span></p>
-                                    <p class="fixed"><span class="acc">8,000</span></p>
+                                    <p class="pluses">+<span class="count" id="leave-user"></span></p>
+                                    <p class="fixed"><span class="acc">8,000</span><span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span></p>
                                 </div>
                             </li>
                             <li class="clearfix">
                                 <div class="fixed-wrap">
-                                    <i class="fas fa-users"></i>
+                                    <i class="user-icon fas fa-users"></i>
                                     <span class="fixed">누적회원</span>
                                 </div>
                                 <div class="data-wrap">
-                                    <p class="pluses">+<span class="count total"  data-count="6900"></span></p>
-                                    <p class="fixed"><span class="acc">8,000,000</span></p>
+                                    <p class="pluses">+<span class="count total" id="total-user"></span></p>
+                                    <p class="fixed"><span class="acc" id="cumulative-user">8,000</span><span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span></p>
                                 </div>
                             </li>
                         </ul>

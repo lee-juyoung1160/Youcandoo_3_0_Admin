@@ -81,6 +81,7 @@
 	{
 		modalDetail.fadeIn();
 		modalLayout.fadeIn();
+		overflowHidden();
 	}
 
 	function buildDetailModal(obj)
@@ -237,6 +238,7 @@
 	{
 		modalWarn.fadeIn();
 		modalLayout.fadeIn();
+		overflowHidden();
 		initWarnModal();
 	}
 

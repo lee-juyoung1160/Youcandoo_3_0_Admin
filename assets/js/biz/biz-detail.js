@@ -118,6 +118,7 @@
 		}
 
 		let g_bizUuid;
+		let g_balance;
 		function buildDetail(data)
 		{
 			let detail = data.data;
@@ -132,6 +133,8 @@
 
 			let totalBalance = Number(detail.ucd.cash) + Number(detail.ucd.point);
 			balance.html(numberWithCommas(totalBalance));
+
+			g_balance = totalBalance;
 		}
 
 		function getInvolvePromo()
@@ -317,7 +320,7 @@
 				if (confirm(message.create))
 				{
 					$.ajax({
-						url: api.updateBizUcd,
+						url: api.createBizUcd,
 						type: "POST",
 						headers: headers,
 						dataType: 'json',
@@ -327,7 +330,8 @@
 							if (isSuccessResp(data))
 							{
 								balance.html(numberWithCommas(data.data));
-								reloadTable(ucdTable);
+								g_balance = data.data;
+								getUcdLog();
 								modalFadeout();
 							}
 						},
@@ -341,14 +345,14 @@
 
 		function ucdParams()
 		{
-			let contract = '['+modalFrom.val()+' ~ '+modalTo.val()+']';
-			contract += '['+contractTitle.val().trim()+']';
-			contract += ':'+contractAmount.val();
 			let param = {
 				"company_uuid" : g_bizUuid
 				,"division" : $("input[name=radio-division]:checked").val()
 				,"amount" : amount.val().trim()
-				,"description" : contract
+				,"start_date" : modalFrom.val()
+				,"end_date" : modalTo.val()
+				,"contract_name" : contractTitle.val().trim()
+				,"contract_price" : contractAmount.val()
 			}
 
 			return JSON.stringify(param);
@@ -365,7 +369,15 @@
 
 			if (amount.val() > 100000000)
 			{
-				alert('UCD는 '+message.required);
+				alert('UCD는 '+message.maxAvailableUcd);
+				amount.focus();
+				return false;
+			}
+
+			let division = $("input[name=radio-division]:checked").val()
+			if ((Number(division) === 1 || Number(division) === 2) && amount.val() > g_balance)
+			{
+				alert('출금/취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
 				amount.focus();
 				return false;
 			}

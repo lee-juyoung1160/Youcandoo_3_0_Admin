@@ -24,6 +24,7 @@
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'
+		,maxAvailableUcd : '최대 1억 UCD까지 등록 가능합니다.'
 		,createReward : '리워드 조건을 생성해주세요'
 		,deleteTop : '상단고정을 해제하시겠습니까?'
 		,insertTop : '상단고정을 설정하시겠습니까?'
@@ -35,6 +36,7 @@
 		,compareMinMaxUser: '최소인원은 최대인원을 초과할 수 없습니다.'
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
+		,overBalance: '보유 UCD를 초과할 수 없습니다.'
 		/*,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'*/
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
@@ -88,7 +90,8 @@
 	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		/** 공통 **/
-		listBizName : baseApiUrl+'keyword/getCompanyName'
+		getBizName : baseApiUrl+'keyword/getCompanyName'
+		,getNickname : baseApiUrl+'keyword/getNickname'
 		,getBalance : baseApiUrl+'ucd/status/company'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
@@ -110,7 +113,6 @@
 		,updateBiz : baseApiUrl+'biz/update'
 		,listBiz : baseApiUrl+'biz/list'
 		,listBizUcd : baseApiUrl+'biz/ucd'
-		,updateBizUcd : baseApiUrl+'biz/ucd/create'
 		/** 프로모션 **/
 		,createPromotion : baseApiUrl+'promotion/create'
 		,deletePromotion : baseApiUrl+'promotion/delete'
@@ -186,6 +188,8 @@
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 		/** UCD **/
 		,listUseUcd : baseApiUrl+'ucd/use/list'
+		,createBizUcd : baseApiUrl+'ucd/create/company'
+		,createUserUcd : baseApiUrl+'ucd/create/user'
 	}
 
 	/** page url **/

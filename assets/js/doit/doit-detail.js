@@ -559,6 +559,7 @@
 	{
 		modalDetailAction.fadeIn();
 		modalLayout.fadeIn();
+		overflowHidden();
 	}
 
 	function buildDetailModal(obj)
@@ -713,6 +714,7 @@
 	{
 		modalLayout.fadeIn();
 		modalWarn.fadeIn();
+		overflowHidden();
 		initModalWarn();
 	}
 
@@ -1116,6 +1118,7 @@
 	{
 		modalLayout.fadeIn();
 		modalDetailReview.fadeIn();
+		overflowHidden();
 		initModalDetailReview(obj);
 	}
 

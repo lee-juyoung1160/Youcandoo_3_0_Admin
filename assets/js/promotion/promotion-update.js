@@ -30,7 +30,7 @@
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
 		inputFile		.on('change', function () { onChangeValidationImage(this); });
-		btnAddReward	.on('click', function () { addReward(this); });
+		btnAddReward	.on('click', function () { addReward(); });
 		btnSubmit		.on('click', function () { onSubmitUpdatePromo(); });
 	});
 
@@ -464,6 +464,7 @@
 	function addReward()
 	{
 		let countReward = rewardTabWrap.find('li').length;
+
 		if (addRewardValidation(countReward))
 		{
 			countReward++
@@ -483,10 +484,16 @@
 		return true;
 	}
 
-	function buildAddRewardTab(countReward)
+	let countId = 2;
+	function buildAddRewardTab(count)
 	{
-		let targetDom    = '#reward'+countReward;
-		let title        = '리워드'+countReward;
+		countId++
+
+		if (count === 5)
+			btnAddReward.hide();
+
+		let targetDom    = '#reward'+countId;
+		let title        = '리워드 제목 입력';
 		let rewardTabDom = '';
 		rewardTabDom += '<li>';
 		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
@@ -496,15 +503,15 @@
 		rewardTabWrap.append(rewardTabDom);
 	}
 
-	function buildAddReward(countReward)
+	function buildAddReward()
 	{
-		let domId     		= 'reward'+countReward;
-		let title     		= '리워드'+countReward;
-		let goalRange 		= 'goalRange'+countReward;
-		let goalRate  		= 'goalRate'+countReward;
-		let rewardRange		= 'rewardRange'+countReward;
-		let personalRate  	= 'personalRate'+countReward;
-		let groupRate  		= 'groupRate'+countReward;
+		let domId     		= 'reward'+countId;
+		let title     		= '리워드 제목 입력';
+		let goalRange 		= 'goalRange'+countId;
+		let goalRate  		= 'goalRate'+countId;
+		let rewardRange		= 'rewardRange'+countId;
+		let personalRate  	= 'personalRate'+countId;
+		let groupRate  		= 'groupRate'+countId;
 		let rewardDom = '';
 		rewardDom += '<div id="'+domId+'" class="pro-reward-wrap">';
 		rewardDom += 	'<ul class="pro-reward">';
@@ -624,6 +631,8 @@
 		initGoalRateRange($('#'+goalRange), $('#'+goalRate), 85);
 
 		initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate), 50);
+
+		calculateInputLength();
 	}
 
 	/** 리워드 제목 입력하면 리워드제목 = 탭이름 이벤트 **/

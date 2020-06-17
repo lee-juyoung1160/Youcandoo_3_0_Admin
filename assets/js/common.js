@@ -402,11 +402,15 @@
     {
         let chkName = $(obj).attr('name');
         if ($(obj).is(':checked'))
+        {
             $('input[name="'+chkName+'"]').prop('checked', true);
+            $(obj).closest('table').find('tbody').children('tr').addClass('selected');
+        }
         else
+        {
             $('input[name="'+chkName+'"]').prop('checked', false);
-
-        $(obj).closest('table').find('tbody').children('tr').toggleClass('selected');
+            $(obj).closest('table').find('tbody').children('tr').removeClass('selected');
+        }
     }
 
     function onClickChkRow(obj)
@@ -624,11 +628,12 @@
         calculateInputLength();
     });
 
-    /*window.onpageshow = function (event) {
+    let isBackAction = false;
+    window.onpageshow = function (event) {
         if (event.persisted || (window.performance && window.performance.navigation.type === 2))
         {
-            console.log(event.persisted)
-            console.log(window.performance)
-            console.log(window.performance.navigation.type)
+            let historyPage = localStorage.getItem("page");
+            if (historyPage === getPathName())
+                isBackAction = true;
         }
-    }*/
+    }

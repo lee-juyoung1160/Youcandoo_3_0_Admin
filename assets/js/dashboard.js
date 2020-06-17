@@ -21,7 +21,7 @@ function counter() {
                 countNum: $this.text()
             },
             {
-                duration: 1000,
+                duration: 1500,
                 easing: 'linear',
                 step: function () {
                     $this.text(Math.floor(this.countNum));
@@ -42,7 +42,7 @@ const proStatusDoughnut = document.getElementById('pro-status-doughnut');
 const rewardLine = document.getElementById('reward-line-Chart');
 // 차트 레이아웃 구성 공통 부분
 const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
-const options = {options: {maintainAspectRatio: false, legend: {align: 'start', labels: {fontSize: 12, boxWidth: 12}}}};
+const options = {options: {maintainAspectRatio: false, legend: {align: 'start', labels: {fontSize: 12, boxWidth: 10,hoverBorderWidth: 900}}}};
 const doughnutType = 'doughnut';
 const labels = ['일반', '프로모션'];
 const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
@@ -68,6 +68,7 @@ $.ajax({
                 datasets: [{
                     data: [getDoughnutData.data.end.user_cnt, getDoughnutData.data.end.company_cnt],
                     backgroundColor: backgroundColorDoughnut,
+                    hoverBorderColor: backgroundColorDoughnut,
                 }]
             },
             options: options.options,
@@ -79,6 +80,7 @@ $.ajax({
                 datasets: [{
                     data: [getDoughnutData.data.ing.user_cnt, getDoughnutData.data.ing.company_cnt],
                     backgroundColor: backgroundColorDoughnut,
+                    hoverBorderColor: backgroundColorDoughnut,
                 }]
             },
             options: options.options,
@@ -90,6 +92,7 @@ $.ajax({
                 datasets: [{
                     data: [getDoughnutData.data.pre.user_cnt, getDoughnutData.data.pre.company_cnt],
                     backgroundColor: backgroundColorDoughnut,
+                    hoverBorderColor: backgroundColorDoughnut,
                 }]
             },
             options: options.options,
@@ -101,6 +104,7 @@ $.ajax({
                 datasets: [{
                     data: [getDoughnutData.data.cancle.cancle, getDoughnutData.data.cancle.delete],
                     backgroundColor: backgroundColorDoughnut,
+                    hoverBorderColor: backgroundColorDoughnut,
                 }]
             },
             options: options.options,
@@ -182,7 +186,9 @@ function getYearData(yearVal) {
                 options: {
                     legend: {
                         align: 'start',
-                        position: 'top'
+                        position: 'top',
+                        responsive:'false',
+                        maintainAspectRatio: 'false',
                     }
                 },
             });
@@ -202,12 +208,37 @@ yearSelectBox.addEventListener('change', function () {
 yearLabel.textContent = yearSelectBox.value = year + "년";
 yearSelectBox.append(new Option( year+ "년", year));
 // 새해될때 셀렉박스 및 값 추가
-setTimeout(function () {
-    if (day > newYear) {
-        yearSelectBox.append(new Option( year+1+ "년", year+1));
-        for(let index; index < yearSelectBox.options.length; index++) {
-            yearLabel.textContent = yearSelectBox.options[index].value;
-        }
+if (day > newYear) {
+    yearSelectBox.append(new Option( year+1+ "년", year+1));
+    for(let index; index < yearSelectBox.options.length; index++) {
+        yearLabel.textContent = yearSelectBox.options[index].value;
+    }
+}
+/** 가입자 현황 데이터 **/
+let newUser = document.getElementById('new-user');
+let joinUser = document.getElementById('join-user');
+let leaveUser = document.getElementById('leave-user');
+let totalUser = document.getElementById('total-user');
+let cumulativeUser = document.getElementById('cumulative-user');
+
+$.ajax({
+    url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/user/status",
+    headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
+    dataType: 'JSON',
+    type: 'POST',
+
+    error: function (d) {
+        console.log(d)
+    },
+    success: function (userStatus) {
+        console.log(userStatus)
+        newUser.textContent = userStatus.data.new_user;
+        joinUser.textContent = userStatus.data.join_user;
+        leaveUser.textContent = userStatus.data.leave_user;
+        totalUser.textContent = userStatus.data.total_user;
+        cumulativeUser.textContent = Number(userStatus.data.join_user) + Number(userStatus.data.leave_user);
+
+        counter();
     }
 });
 // /** 프로모션 진행 현황 **/
@@ -218,6 +249,7 @@ setTimeout(function () {
 //         datasets: [{
 //             data: [10, 20],
 //             backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
+//                hoverBorderColor: backgroundColorDoughnut,
 //         }]
 //     },
 //     options: options.options,

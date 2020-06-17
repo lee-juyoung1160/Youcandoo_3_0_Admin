@@ -101,7 +101,7 @@
 }
 .col-wrap .subscriber-status li {
     width: 100%;
-    padding: 20px 0;
+    padding: 22px 0;
     border-bottom: 1px solid #f1f1f1;
 }
 .col-wrap .subscriber-status li:last-child {
@@ -114,7 +114,7 @@
 .col-wrap .subscriber-status li .data-wrap {
     float: right;
 }
-.col-wrap .subscriber-status li i {
+.col-wrap .subscriber-status li i.user-icon {
     display: inline-block;
     cursor: auto;
     width: 50px;
@@ -128,12 +128,21 @@
     background-color: #fff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
-.col-wrap .subscriber-status li:last-child i {
+.col-wrap .subscriber-status li:last-child i.user-icon {
     color: #fff;
     background-color: #007aff;
 }
+.col-wrap .subscriber-status .today-count {
+    margin-left: 5px;
+    color: #ca0303;
+}
+.col-wrap .subscriber-status .today-count i {
+    cursor: auto;
+}
+.col-wrap .subscriber-status .today-count i.fa-sort-up:before {
+    vertical-align: sub;
+}
 .col-wrap-2 .subscriber-status li:last-child .pluses {
-    font-size: 25px;
     font-weight: 800;
     color: #007aff;
 }

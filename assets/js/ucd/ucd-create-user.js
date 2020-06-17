@@ -2,6 +2,8 @@
 	const nickname	= $("#nickname");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
+	const resultBox = $(".result_box");
+	const btnOpenResult = $(".btn-open-result");
 	const uctType 	= $("input[name=radio-ucd-type]");
 	const target	= $("#target");
 	const amount	= $("#amount");
@@ -28,6 +30,7 @@
 		nickname		.on('click', function () { onClickBizName(); });
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
+		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
@@ -39,8 +42,14 @@
 
 	function initModal()
 	{
-		nickname.val('');
-		nickname.focus();
+		modalNickname.val('');
+		modalNickname.focus();
+	}
+
+	function onClickToggleOpen(obj)
+	{
+		$(obj).next('.table-wrap').slideToggle();
+		$(obj).toggleClass('on');
 	}
 
 	/** 기업 검색 **/
@@ -57,7 +66,6 @@
 				url: api.getNickname,
 				type:"POST",
 				headers: headers,
-				global: false,
 				data: function (d) {
 					return tableParams();
 				},
@@ -147,7 +155,7 @@
 				let cash = detail.ucd.cash;
 				let point = detail.ucd.point;
 				let total = detail.ucd.total;
-				moveUserDom += '<tr data-uuid="'+profileId+'">';
+				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
 				moveUserDom +=     '<td>'+nick+'</td>';
 				moveUserDom += 	   '<td>';
 				moveUserDom += 	   	   '<div class="user-ucd">';
@@ -155,7 +163,7 @@
 				moveUserDom += 		   '</div>';
 				moveUserDom += 	   '</td>';
 				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';
-				moveUserDom += '<tr>';
+				moveUserDom += '</tr>';
 			}
 
 			movedUserTableBody.append(moveUserDom);
@@ -212,24 +220,47 @@
 
 	function onClickAddUser()
 	{
+		buildSelectedUser();
+		modalFadeout();
+		resultBox.show();
+	}
+
+	function buildSelectedUser()
+	{
 		let selectedRow = movedUserTableBody.find('tr');
 		let selectedUserDom = '';
 
-		for (let i=0; i<selectedRow.length; i++)
-		{
-			selectedUserDom += '';
-			selectedUserDom += '';
-			selectedUserDom += '';
-			selectedUserDom += '';
-			selectedUserDom += '';
-			selectedUserDom += '';
-		}
+		$(selectedRow).each(function () {
+			let profileId = $(this).data('uuid');
+			let nick = $(this).data('nick');
+			let total = $(this).data('total');
+			let cash = $(this).data('cash');
+			let point = $(this).data('point');
 
+			selectedUserDom += '<tr data-uuid="'+profileId+'">';
+			selectedUserDom +=     '<td>'+nick+'</td>';
+			selectedUserDom += 	   '<td>';
+			selectedUserDom += 	   	   '<div class="user-ucd">';
+			selectedUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>(ⓒ'+numberWithCommas(cash)+' / ⓟ'+numberWithCommas(point)+')';
+			selectedUserDom += 		   '</div>';
+			selectedUserDom += 	   '</td>';
+			selectedUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
+			selectedUserDom += '</tr>';
+		});
 
 		selectedUserCount.html(selectedRow.length);
 
-		selectedRow
+		selectedUserTableBody.html(selectedUserDom);
+	}
 
+	function calculateSelectedCount()
+	{
+		let count = selectedUserTableBody.find('tr').length;
+
+		if (count === 0)
+			resultBox.hide();
+
+		selectedUserCount.html(count);
 	}
 
 	function onSubmitUcd()
@@ -274,12 +305,6 @@
 
 	function validation()
 	{
-		if (isEmpty(nickname.val()))
-		{
-			alert('닉네임은 '+message.required);
-			return false;
-		}
-
 		if (isEmpty(amount.val()))
 		{
 			alert('UCD는 '+message.required);

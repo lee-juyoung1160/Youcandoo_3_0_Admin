@@ -16,7 +16,7 @@
                                 <span>추가하기</span>
                             </button>
                             <div class="result_box" style="margin-top: 10px;">
-                                <div class="btn-open-result on">
+                                <div class="btn-open-result">
                                     <p class="user-select-title">충전 대상 <em id="selectedUserCount">0</em>명</p>
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
@@ -241,10 +241,3 @@
     </div>
 </section>
 <script src="/assets/js/ucd/ucd-create-user.js"></script>
-<script>
-    $('.btn-open-result').on('click', function () {
-
-        $(this).next('.table-wrap').slideToggle();
-        $(this).toggleClass('on');
-    })
-</script>

@@ -163,13 +163,16 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listBizName,
+				url: api.getBizName,
 				type:"POST",
 				headers: headers,
 				dataSrc: "",
 				global: false,
 				data: function (d) {
 					return JSON.stringify({"keyword" : modalBizName.val()});
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -393,7 +396,7 @@
 			btnAddReward.hide();
 
 		let targetDom    = '#reward'+countId;
-		let title        = '리워드 제목 입력';
+		let title        = '리워드 옵션 명 입력';
 		let rewardTabDom = '';
 		rewardTabDom += '<li>';
 		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
@@ -406,7 +409,7 @@
 	function buildReward()
 	{
 		let domId     		= 'reward'+countId;
-		let title     		= '리워드 직접 입력';
+		let title     		= '리워드 옵션 명 입력';
 		let goalRange 		= 'goalRange'+countId;
 		let goalRate  		= 'goalRate'+countId;
 		let rewardRange		= 'rewardRange'+countId;

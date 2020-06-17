@@ -8,6 +8,7 @@
 
 	/** 두잇정보 탭 **/
 	const doitDetail	= $("#doitDetail");
+	const creator 		= $("#creator");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
 	const doitTags 		= $("#doitTags");
@@ -258,6 +259,8 @@
 		reward.html(rewardDom);
 
 		doitTitle.html(detail.doit_title);
+
+		creator.html(detail.doit_permission);
 
 		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
 		doitDesc.html(desc);

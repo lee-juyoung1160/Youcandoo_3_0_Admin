@@ -353,6 +353,7 @@
 				,"end_date" : modalTo.val()
 				,"contract_name" : contractTitle.val().trim()
 				,"contract_price" : contractAmount.val()
+				,"created_user" : sessionUserId.val()
 			}
 
 			return JSON.stringify(param);
@@ -369,13 +370,13 @@
 
 			if (amount.val() > 100000000)
 			{
-				alert('UCD는 '+message.maxAvailableUcd);
+				alert('UCD는 '+message.maxAvailableBizUcd);
 				amount.focus();
 				return false;
 			}
 
-			let division = $("input[name=radio-division]:checked").val()
-			if ((Number(division) === 1 || Number(division) === 2) && amount.val() > g_balance)
+			let _division = $("input[name=radio-division]:checked").val()
+			if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)
 			{
 				alert('출금/취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
 				amount.focus();

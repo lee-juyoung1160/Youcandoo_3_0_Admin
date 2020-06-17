@@ -493,7 +493,7 @@
 			btnAddReward.hide();
 
 		let targetDom    = '#reward'+countId;
-		let title        = '리워드 제목 입력';
+		let title        = '리워드 옵션 명 입력';
 		let rewardTabDom = '';
 		rewardTabDom += '<li>';
 		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
@@ -506,7 +506,7 @@
 	function buildAddReward()
 	{
 		let domId     		= 'reward'+countId;
-		let title     		= '리워드 제목 입력';
+		let title     		= '리워드 옵션 명 입력';
 		let goalRange 		= 'goalRange'+countId;
 		let goalRate  		= 'goalRate'+countId;
 		let rewardRange		= 'rewardRange'+countId;

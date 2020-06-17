@@ -178,13 +178,16 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listBizName,
+				url: api.getBizName,
 				type:"POST",
 				headers: headers,
 				dataSrc: "",
 				global: false,
 				data: function (d) {
 					return JSON.stringify({"keyword" : modalBizName.val()});
+				},
+				error: function (request, status) {
+					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

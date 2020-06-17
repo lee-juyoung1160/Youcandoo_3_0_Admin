@@ -177,7 +177,7 @@
 
 		if (amount.val() > 100000000)
 		{
-			alert('UCD는 '+message.maxAvailableUcd);
+			alert('UCD는 '+message.maxAvailableBizUcd);
 			amount.focus();
 			return false;
 		}

@@ -343,6 +343,7 @@
     /** modal 열기,닫기 **/
     function modalFadein()
     {
+        $('body').css("overflow", "hidden");
         modalLayout.fadeIn();
         modalContent.fadeIn();
         initModal();
@@ -350,6 +351,7 @@
 
     function modalFadeout()
     {
+        $('body').css("overflow", "scroll");
         modalLayout.fadeOut();
         modalContent.fadeOut();
     }

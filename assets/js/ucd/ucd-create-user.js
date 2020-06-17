@@ -57,6 +57,35 @@
 	{
 		modalFadein();
 		getUser();
+		buildMovedUser();
+	}
+
+	function buildMovedUser()
+	{
+		movedUserTableBody.empty();
+
+		let selectedRow = selectedUserTableBody.find('tr');
+
+		let moveUserDom = '';
+		$(selectedRow).each(function () {
+			let profileId = $(this).data('uuid');
+			let nick = $(this).data('nick');
+			let total = $(this).data('total');
+			let cash = $(this).data('cash');
+			let point = $(this).data('point');
+
+			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
+			moveUserDom +=     '<td>'+nick+'</td>';
+			moveUserDom += 	   '<td>';
+			moveUserDom += 	   	   '<div class="user-ucd">';
+			moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>(ⓒ'+numberWithCommas(cash)+' / ⓟ'+numberWithCommas(point)+')';
+			moveUserDom += 		   '</div>';
+			moveUserDom += 	   '</td>';
+			moveUserDom += 	   '<td><i onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
+			moveUserDom += '</tr>';
+		});
+
+		movedUserTableBody.append(moveUserDom);
 	}
 
 	function getUser()
@@ -117,6 +146,9 @@
 			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
+				dataTable.on( 'page.dt', function () {
+					$("#checkAll").prop('checked', false);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -170,11 +202,6 @@
 		}
 	}
 
-	function removeRow(obj)
-	{
-		$(obj).closest('tr').remove();
-	}
-
 	function moveValidation()
 	{
 		let table 		 = $("#dataTable").DataTable();
@@ -218,6 +245,11 @@
 		return result;
 	}
 
+	function removeRow(obj)
+	{
+		$(obj).closest('tr').remove();
+	}
+
 	function onClickAddUser()
 	{
 		buildSelectedUser();
@@ -237,7 +269,7 @@
 			let cash = $(this).data('cash');
 			let point = $(this).data('point');
 
-			selectedUserDom += '<tr data-uuid="'+profileId+'">';
+			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
 			selectedUserDom +=     '<td>'+nick+'</td>';
 			selectedUserDom += 	   '<td>';
 			selectedUserDom += 	   	   '<div class="user-ucd">';

@@ -353,7 +353,7 @@
     {
         modalLayout.fadeOut();
         modalContent.fadeOut();
-        $('body').css("overflow", "scroll");
+        $('body').css("overflow-y", "scroll");
     }
 
     function overflowHidden()

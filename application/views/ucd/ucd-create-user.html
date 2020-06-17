@@ -8,17 +8,16 @@
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">닉네임(*)</p>
+                            <p class="sub-title important">충전 대상(*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="nickname" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly>
-                            <!--<button class="more-info-btn" type="button">
-                                <span>찾기</span>
-                                <i class="fas fa-chevron-right"></i>
-                            </button>-->
+                            <button id="nickname" class="add-btn" type="button" style="width: 180px;">
+                                <i class="fas fa-plus"></i>
+                                <span>추가하기</span>
+                            </button>
                             <div class="result_box" style="margin-top: 10px;">
                                 <div class="btn-open-result">
-                                    <p class="user-select-title">선택된 유저 <em id="selectedUserCount">0</em>명</p>
+                                    <p class="user-select-title">충전 대상 <em id="selectedUserCount">0</em>명</p>
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
 
@@ -126,7 +125,7 @@
         <div class="modal-content nickname-modal">
             <div class="wrap">
                 <i class="close-btn fas fa-times-circle"></i>
-                <p class="modal-title">UCD충전 대상 등록</p>
+                <p class="modal-title">UCD 충전 대상 등록</p>
 
                 <ul class="modal-information user-search-wrap">
                     <li>

@@ -105,7 +105,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);

@@ -18,7 +18,7 @@
                             </button>-->
                             <div class="result_box" style="margin-top: 10px;">
                                 <div class="btn-open-result">
-                                    <p class="user-select-title">선택된 유저 <em>3</em>명</p>
+                                    <p class="user-select-title">선택된 유저 <em id="selectedUserCount">0</em>명</p>
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
 
@@ -36,8 +36,8 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
+                                        <tbody id="selectedUserTableBody">
+                                        <!--<tr>
                                             <td>베리모카모카베리</td>
                                             <td>
                                                 <div class="user-ucd">
@@ -66,7 +66,7 @@
                                                 </div>
                                             </td>
                                             <td><i style="color: #ec5c5c;" class="far fa-times-circle"></i></td>
-                                        </tr>
+                                        </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -140,7 +140,7 @@
                     <li>
                         <div class="table-wrap">
                             <table id="dataTable">
-                                <colgroup>
+                                <!--<colgroup>
                                     <col style="width:5%;">
                                     <col style="width:15%;">
                                     <col style="width:30%;">
@@ -175,160 +175,15 @@
                                             (ⓒ1000 / ⓟ20,000)
                                         </div>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c7" name="cc" />
-                                            <label for="c7"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>
+                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
                     </li>
                 </ul>
-                <button type="button" class="btn-go-wrap"><i class="fas fa-chevron-right"></i></button>
+                <button id="btnMoveRight" type="button" class="btn-go-wrap"><i class="fas fa-chevron-right"></i></button>
                 <ul class="modal-information user-select-wrap">
                     <li>
-                        <p class="user-select-title">선택된 유저 <em>3</em>명</p>
                         <div class="table-wrap">
                             <table>
                                 <colgroup>
@@ -343,8 +198,8 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
+                                <tbody id="movedUserTableBody">
+                                <!--<tr>
                                     <td>베리모카모카베리</td>
                                     <td>
                                         <div class="user-ucd">
@@ -373,14 +228,14 @@
                                         </div>
                                     </td>
                                     <td><i class="far fa-times-circle"></i></td>
-                                </tr>
+                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
                     </li>
                 </ul>
 
-                <button id="btnAddUser" class="completion-btn" type="submit">등록 완료</button>
+                <button id="btnAddUser" class="completion-btn" type="submit">완료</button>
             </div>
         </div>
         <div class="modal-layout"></div>

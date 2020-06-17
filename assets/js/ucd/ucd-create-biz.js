@@ -1,6 +1,6 @@
 
 	const bizName		= $("#bizName");
-	const assort 		= $("input[name=radio-division]");
+	const division 		= $("input[name=radio-division]");
 	const amount		= $("#amount");
 	const promoFrom		= $("#promoFrom");
 	const promoTo		= $("#promoTo");
@@ -16,6 +16,8 @@
 	const dataTable		= $("#dataTable")
 
 	$(document).ready(function () {
+		/** 데이트피커 초기화 **/
+		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
@@ -29,7 +31,7 @@
 
 	function initComponent()
 	{
-		assort.eq(0).prop("checked", true);
+		division.eq(0).prop("checked", true);
 		amount.focus();
 	}
 
@@ -123,7 +125,7 @@
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: api.updateBizUcd,
+					url: api.createBizUcd,
 					type: "POST",
 					headers: headers,
 					dataType: 'json',
@@ -143,14 +145,15 @@
 
 	function ucdParams()
 	{
-		let contract = '['+modalFrom.val()+' ~ '+modalTo.val()+']';
-		contract += '['+contractTitle.val().trim()+']';
-		contract += ':'+contractAmount.val();
 		let param = {
 			"company_uuid" : g_bizUuid
 			,"division" : $("input[name=radio-division]:checked").val()
 			,"amount" : amount.val().trim()
-			,"description" : contract
+			,"start_date" : promoFrom.val()
+			,"end_date" : promoTo.val()
+			,"contract_name" : contractTitle.val().trim()
+			,"contract_price" : contractAmount.val()
+			,"created_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);
@@ -161,6 +164,7 @@
 		if (isEmpty(bizName.val()))
 		{
 			alert('기명명은 '+message.required);
+			onClickBizName();
 			return false;
 		}
 
@@ -173,22 +177,22 @@
 
 		if (amount.val() > 100000000)
 		{
-			alert('UCD는 '+message.required);
+			alert('UCD는 '+message.maxAvailableUcd);
 			amount.focus();
 			return false;
 		}
 
-		if (isEmpty(modalFrom.val()))
+		if (isEmpty(promoFrom.val()))
 		{
 			alert('프로모션 기간(시작일)은 '+message.required);
-			modalFrom.focus();
+			promoFrom.focus();
 			return false;
 		}
 
-		if (isEmpty(modalTo.val()))
+		if (isEmpty(promoTo.val()))
 		{
 			alert('프로모션 기간(종료일)은 '+message.required);
-			modalTo.focus();
+			promoTo.focus();
 			return false;
 		}
 

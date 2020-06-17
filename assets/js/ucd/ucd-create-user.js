@@ -1,5 +1,5 @@
 
-	const nickname	= $("#nickname");
+	const btnModalOpen	= $("#btnModalOpen");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
 	const resultBox = $(".result_box");
@@ -27,7 +27,7 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		modalNickname	.on('keyup', function () { getUser(); });
-		nickname		.on('click', function () { onClickBizName(); });
+		btnModalOpen	.on('click', function () { onClickModalOpen(); });
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
@@ -53,7 +53,7 @@
 	}
 
 	/** 기업 검색 **/
-	function onClickBizName()
+	function onClickModalOpen()
 	{
 		modalFadein();
 		getUser();
@@ -290,14 +290,18 @@
 
 	function ucdParams()
 	{
-		let contract = '['+modalFrom.val()+' ~ '+modalTo.val()+']';
-		contract += '['+contractTitle.val().trim()+']';
-		contract += ':'+contractAmount.val();
+		let uuids = [];
+		selectedUserTableBody.find('tr').each(function () {
+			uuids.push($(this).data('uuid'));
+		});
+
 		let param = {
-			"company_uuid" : g_bizUuid
-			,"division" : $("input[name=radio-division]:checked").val()
+			"profile_uuid" : uuids
+			,"division" : 0
+			,"ucd_type" : $("input[name=radio-ucd-type]:checked").val()
 			,"amount" : amount.val().trim()
-			,"description" : contract
+			,"description" : content.val().trim()
+			,"created_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);
@@ -305,6 +309,15 @@
 
 	function validation()
 	{
+		let count = selectedUserTableBody.find('tr').length;
+
+		if (count === 0)
+		{
+			alert('충전대상을 '+message.needMore);
+			onClickModalOpen();
+			return false;
+		}
+
 		if (isEmpty(amount.val()))
 		{
 			alert('UCD는 '+message.required);
@@ -314,7 +327,7 @@
 
 		if (amount.val() > 1000000)
 		{
-			alert('UCD는 '+message.required);
+			alert('UCD는 '+message.maxAvailableUserUcd);
 			amount.focus();
 			return false;
 		}

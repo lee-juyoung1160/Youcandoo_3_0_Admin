@@ -343,17 +343,22 @@
     /** modal 열기,닫기 **/
     function modalFadein()
     {
-        $('body').css("overflow", "hidden");
         modalLayout.fadeIn();
         modalContent.fadeIn();
+        overflowHidden();
         initModal();
     }
 
     function modalFadeout()
     {
-        $('body').css("overflow", "scroll");
         modalLayout.fadeOut();
         modalContent.fadeOut();
+        $('body').css("overflow", "scroll");
+    }
+
+    function overflowHidden()
+    {
+        $('body').css("overflow", "hidden");
     }
 
     /** 목록페이지 엔터로 검색 **/

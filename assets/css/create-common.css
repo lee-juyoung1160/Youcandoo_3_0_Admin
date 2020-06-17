@@ -119,6 +119,7 @@
 
 /*푸쉬, UCD -검색 결과 */
 .result_box {
+    display: none;
     width: 70%;
     font-size: 15px;
     padding-top: 20px;

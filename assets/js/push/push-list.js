@@ -39,12 +39,14 @@
 	{
 		modalLayout.fadeIn();
 		modalDetail.fadeIn();
+		overflowHidden();
 	}
 
 	function modalReasonFadein()
 	{
 		modalLayout.fadeIn();
 		modalReason.fadeIn();
+		overflowHidden();
 	}
 
 	function initSearchForm()

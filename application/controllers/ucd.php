@@ -3,33 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ucd extends MY_Controller {
 
-    public function sales($Route="list")
+    public function sales()
     {
-        switch ($Route)
-        {
-            case "list" :
-                $this->load->layout('ucd/ucd-sales-list');
-                break;
-            case "create":
-                $this->load->layout('ucd/ucd-sales-create');
-                break;
-        }
+        $this->load->layout('ucd/ucd-sales-list');
     }
-    public function uses($Route="list")
+
+    public function uses()
     {
-        switch ($Route)
-        {
-            case "list" :
-                $this->load->layout('ucd/ucd-use-list');
-                break;
-            case "create":
-                $this->load->layout('ucd/ucd-use-create');
-                break;
-        }
+        $this->load->layout('ucd/ucd-use-list');
     }
+
     public function withdraw()
     {
         $this->load->layout('ucd/ucd-withdraw-list');
+    }
+
+    public function create($Route="biz")
+    {
+        switch ($Route)
+        {
+            case "biz" :
+                $this->load->layout('ucd/ucd-create-biz');
+                break;
+            case "user":
+                $this->load->layout('ucd/ucd-create-user');
+                break;
+        }
     }
 
 }

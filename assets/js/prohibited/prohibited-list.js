@@ -95,6 +95,9 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				dataTable.on( 'page.dt', function () {
+					$("#checkAll").prop('checked', false);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -114,7 +117,8 @@
 			,"limit" : info.length
 			,"page" : (info.start / info.length) + 1
 		}
-
+		localStorage.setItem("param", JSON.stringify(param));
+		localStorage.setItem("page", getPathName());
 		return JSON.stringify(param);
 	}
 

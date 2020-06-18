@@ -59,9 +59,9 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "내용", 		data: "description", 	   width: "30%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "담당자", 		data: "created_user",      width: "10%",    orderable: false,   className: "text-center cursor-default"}
+				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -89,7 +89,6 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
@@ -117,12 +116,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		if (isNegative(aData.amount))
-			$(nRow).addClass('minus-pay');
 	}
 
 	function onSubmitSearch()

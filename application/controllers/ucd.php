@@ -10,7 +10,7 @@ class Ucd extends MY_Controller {
 
     public function uses()
     {
-        $this->load->layout('ucd/ucd-use-list');
+        $this->load->layout('ucd/ucd-usage-list');
     }
 
     public function withdraw($Route="lists")

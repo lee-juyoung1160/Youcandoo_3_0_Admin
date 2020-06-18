@@ -616,7 +616,10 @@ textarea {
 
 /* list-common start */
 .list-common-btn-wrap {
-	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+
 }
 .list-common-btn-wrap .btn-wrap {
 	float: right;
@@ -666,16 +669,15 @@ textarea {
 	background-color: #e03030;
 }
 .list-common {
-	margin-bottom: 10px;
 	border-radius: 10px;
-	padding: 20px;
+	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
 }
 .list-common-title {
 	font-weight: 500;
 	font-size: 15px;
-	margin-bottom: 19px;
+	margin-bottom: 10px;
 	color: #007aff;
 }
 .list-common .list-wrap:first-child {
@@ -744,9 +746,9 @@ input[type="radio"] + label{
 .doit-list-option ul li {
 	width: 32.2%;
 	float: left;
-	margin-right: 20px;
+	margin:10px 20px 0 0;
 	border-radius: 10px;
-	padding: 20px;
+	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
 }

@@ -441,6 +441,7 @@
 			,"amount" : amount.val()
 			,"description" : content.val().trim()
 			,"created_user" : sessionUserId.val()
+			,"page_type" : ""
 		}
 
 		return JSON.stringify(param);

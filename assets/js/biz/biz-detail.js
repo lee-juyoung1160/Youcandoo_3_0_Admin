@@ -354,6 +354,7 @@
 				,"contract_name" : contractTitle.val().trim()
 				,"contract_price" : contractAmount.val()
 				,"created_user" : sessionUserId.val()
+				,"page_type" : ""
 			}
 
 			return JSON.stringify(param);

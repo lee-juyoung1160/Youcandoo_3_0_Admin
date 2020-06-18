@@ -42,7 +42,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listUseUcd,
+				url: api.listUsageUcd,
 				type:"POST",
 				headers: headers,
 				data: function (d) {

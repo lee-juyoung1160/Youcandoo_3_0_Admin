@@ -615,11 +615,10 @@ textarea {
 }
 
 /* list-common start */
-.list-common-btn-wrap {
+.list-search-btn-wrap {
 	display: flex;
 	justify-content: center;
 	padding: 10px;
-
 }
 .list-common-btn-wrap .btn-wrap {
 	float: right;

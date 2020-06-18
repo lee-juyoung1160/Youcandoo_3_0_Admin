@@ -11,6 +11,7 @@
 	const btnSubmit	= $("#btnSubmit");
 
 	/** modal **/
+	const search 		= $(".search");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
@@ -24,9 +25,10 @@
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
+		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		search    		.on("click", function () { onSubmitSearch() });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		modalNickname	.on('keyup', function () { getUser(); });
 		btnModalOpen	.on('click', function () { onClickModalOpen(); });
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
@@ -44,6 +46,11 @@
 	{
 		modalNickname.val('');
 		modalNickname.focus();
+	}
+
+	function onSubmitSearch()
+	{
+		getUser();
 	}
 
 	function onClickToggleOpen(obj)
@@ -175,7 +182,7 @@
 	{
 		if (moveValidation())
 		{
-			let table 		 = $("#dataTable").DataTable();
+			let table 		 = dataTable.DataTable();
 			let selectedData = table.rows('.selected').data();
 			let moveUserDom = '';
 
@@ -204,9 +211,9 @@
 
 	function moveValidation()
 	{
-		let table 		 = $("#dataTable").DataTable();
+		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
-
+console.log(selectedData)
 		if (isEmpty(selectedData))
 		{
 			alert('대상을 목록에서 '+message.select);
@@ -225,7 +232,7 @@
 	function hasDuplicateId()
 	{
 		let result = false;
-		let table 		 = $("#dataTable").DataTable();
+		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
 
 		let movedUser = [];

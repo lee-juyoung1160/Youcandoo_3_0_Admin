@@ -1090,16 +1090,6 @@ input[type="radio"] + label{
 .modal-content.confirm-modal-detail .modal-information li:last-child {
 	border-bottom: none;
 }
-
-
-
-
-
-
-
-
-
-
 .doit-detail-page .modal-content .select-box {
 	width: 100%;
 }
@@ -1144,18 +1134,14 @@ input[type="radio"] + label{
 	font-size: 15px;
 	text-align: center;
 }
-
 .cursor-default {
 	cursor: default;
 }
-
 /* 리뷰목록 */
-
 .review-list td button {
 	background: none;
 	border-bottom: 1px solid #505050;
 }
-
 .review-list .more-info-btn {
 	width: inherit;
 	height: inherit;
@@ -1167,11 +1153,10 @@ input[type="radio"] + label{
 .review-list .more-info-btn:hover {
 	background: none;
 }
-
 .review-list .line-clamp {
 	overflow: hidden;
 	display: inline-block;
-	max-width: 173px;
+	max-width: 310px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
@@ -1187,9 +1172,6 @@ input[type="radio"] + label{
 .table-wrap .btn-wrap button.eye-btn {
 	background-color: #FFA83B;
 }
-
-
-
 .full-left, .full-right {
 	float: left;
 	width: 50%;
@@ -1238,7 +1220,6 @@ input[type="radio"] + label{
 .table-wrap .minus-pay td {
 	color: #c90614;
 }
-
 .table-wrap .th-row th {
 	vertical-align: middle;
 }

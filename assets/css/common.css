@@ -744,9 +744,9 @@ input[type="radio"] + label{
 	margin-right: 10px;
 }
 .doit-list-option ul li {
-	width: 32.2%;
+	width: 25%;
 	float: left;
-	margin:5px 20px 0 0;
+	margin:5px 5px 0 0;
 	border-radius: 10px;
 	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
@@ -767,7 +767,7 @@ input[type="radio"] + label{
 }
 /* table common */
 .table-wrap {
-	margin-top: 30px;
+	margin-top: 50px;
 }
 .table-wrap .top .left-wrap {
 	float: left;
@@ -819,7 +819,7 @@ input[type="radio"] + label{
 	word-break: break-all;
 	text-align: center;
 	table-layout: fixed;
-	margin-top: 20px;
+	margin-top: 15px;
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }

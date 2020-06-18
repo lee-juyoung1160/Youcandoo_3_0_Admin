@@ -61,7 +61,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				{title: "닉네임", 	data: "nickname",    width: "20%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "유형", 	data: "ucd_type",    width: "5%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "구분", 	data: "division",    width: "5%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "금액", 	data: "amount",    	 width: "10%",    orderable: false,   className: "text-center cursor-default",
@@ -70,7 +70,7 @@
 					}
 				}
 				,{title: "제목", 	data: "title",    	 width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "내용", 	data: "description", width: "40%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "내용", 	data: "description", width: "35%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "일시", 	data: "created",     width: "15%",    orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {

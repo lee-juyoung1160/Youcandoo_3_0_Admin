@@ -54,7 +54,7 @@
 				},*/
 				{title: "닉네임", 		data: "nickname",    	   width: "15%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "유형", 		data: "ucd_type",          width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "출금요청금액", 	data: "amount",    		   width: "10%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "출금액", 		data: "amount",    		   width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

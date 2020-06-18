@@ -333,7 +333,7 @@
 	{
 		usageHisTable.DataTable({
 			ajax : {
-				url: api.listUsageUcd,
+				url: api.listUserUsageUcd,
 				type:"POST",
 				global: false,
 				headers: headers,
@@ -419,7 +419,9 @@
 						alert(getStatusMessage(data))
 						if (isSuccessResp(data))
 						{
-							getBasicProfile();
+							balance.html(numberWithCommas(data.data.total));
+							cash.html(numberWithCommas(data.data.cash));
+							point.html(numberWithCommas(data.data.point));
 							getUsageHistoryUcd();
 							modalFadeout();
 						}

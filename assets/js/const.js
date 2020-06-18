@@ -107,7 +107,7 @@
 		,listUserUcd : baseApiUrl+'user/get/ucd/history'
 		,listUserOpened : baseApiUrl+'user/get/doit/create'
 		,listUserJoined : baseApiUrl+'user/get/doit/join'
-		,listUsageUcd : baseApiUrl+'user/get/ucd/history'
+		,listUserUsageUcd : baseApiUrl+'user/get/ucd/history'
 		/** 비즈 **/
 		,createBiz : baseApiUrl+'biz/create'
 		,detailBiz : baseApiUrl+'biz/detail'

@@ -175,7 +175,7 @@
 	{
 		if (moveValidation())
 		{
-			let table 		 = dataTable.DataTable();
+			let table 		 = $("#dataTable").DataTable();
 			let selectedData = table.rows('.selected').data();
 			let moveUserDom = '';
 

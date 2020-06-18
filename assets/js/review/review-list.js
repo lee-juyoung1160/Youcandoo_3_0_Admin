@@ -134,7 +134,9 @@ function getReviewListData(params) {
             {title:"두잇명",data: "doit_title"},
             {title:"신고",data: "report_count"},
             {title:"블라인드 여부",data: "is_blind"},
-            {title:"작성날짜",data: "created"},
+            {title:"작성날짜",data: "created", render: function (data) {
+                    return data.substring(0, 10);
+                }},
             {title:"작성자",data: "nickname"}
         ],language: {
             emptyTable: message.emptyList

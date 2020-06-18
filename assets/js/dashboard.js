@@ -227,7 +227,6 @@ $.ajax({
         console.log(d)
     },
     success: function (userStatus) {
-        console.log(userStatus)
         let newUser = document.getElementById('new-user');
         let joinUser = document.getElementById('join-user');
         let leaveUser = document.getElementById('leave-user');

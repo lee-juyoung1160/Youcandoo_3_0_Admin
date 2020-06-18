@@ -33,7 +33,7 @@
 
 
 .nickname-modal {
-    width: 1200px;
+    width: 1330px;
 }
 .btn-go-wrap {
     float: left;
@@ -67,7 +67,7 @@
 }
 .nickname-modal .user-select-wrap {
     overflow-y: scroll;
-    width: 460px;
+    width: 590px;
     border: 1px solid #ebebeb;
 }
 .user-select-wrap li:first-child {

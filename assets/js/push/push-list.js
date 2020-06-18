@@ -52,14 +52,9 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
 		sendType.prop("checked", true);
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		initSelectOption();
+		initSearchDateRange();
 	}
 
 	function buildGrid()

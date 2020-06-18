@@ -66,13 +66,8 @@
 	{
 		keyword.val('');
 		status.eq(0).prop("checked", true);
-		searchType.children().eq(0).prop("selected", true);
-		onChangeSelectOption(searchType);
-		selQnaType.children().eq(0).prop("selected", true);
-		onChangeSelectOption(selQnaType);
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		initSelectOption();
+		initSearchDateRange();
 	}
 
 	function buildGrid()

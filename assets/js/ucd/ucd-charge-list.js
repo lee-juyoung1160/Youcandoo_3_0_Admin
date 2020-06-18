@@ -1,204 +1,111 @@
-
-	const search 		= $(".search");
-	const reset 		= $(".reset");
-	const dataTable		= $("#dataTable")
-	const dateType		= $("#dateType");
-	const searchType 	= $("#searchType");
-	const keyword		= $("#keyword");
-	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
-	const select		= $("select");
-	const dataNum		= $(".data-num");
-	const btnDelete		= $("#btnDelete");
-
-	$(document).ready(function () {
-		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** 테이블 데이터 로드 **/
-		//buildGrid();
-		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
-		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
-		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+const formDate = document.querySelector('.date_from');
+const toDate = document.querySelector('.date_to')
+const searchType = document.getElementById('search_type');
+const keyword = document.getElementById('keyword');
+const Pages = document.querySelector('.paginate_button.current');
+const limits = document.getElementById('selPageLength');
+const searchBtn = document.querySelector('.search');
+const resetBtn = document.querySelector('.reset');
+/** 로드 시점 **/
+document.addEventListener("DOMContentLoaded", function () {
+	// 데이트피커 초기화
+	initSearchDatepicker();
+	// 상단 검색 폼 초기화
+	onClickActiveAloneDayBtn($(".btn_week"));
+	// 이벤트
+	$("body").on("keydown", function (event) {onKeydownSearch(event)});
+	dayButtons.on("click", function () {onClickActiveAloneDayBtn(this);});
+	// 테이블 실행
+	getBizListData();
+});
+/** 검색 필드 reset **/
+resetBtn.addEventListener('click', () => {
+	keyword.value = "";
+	const select = $("select");
+	select.each(function () {
+		$(this).children().eq(0).prop("selected", true);
+		onChangeSelectOption($(this));
 	});
-
-	function initSearchForm()
-	{
-		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+	onClickActiveAloneDayBtn($(".btn_week"));
+});
+/** 검색시 테이블 호출 **/
+searchBtn.addEventListener('click', () => {getBizListData();});
+limits.addEventListener('change', () => {getBizListData();});
+/** 데이터 **/
+function tableParams (response) {
+	let param = {
+		"from_date": formDate.value,
+		"to_date": toDate.value,
+		"search_type": searchType.value,
+		"keyword": keyword.value,
+		"page":  (response.start / response.length) + 1,
+		"limit": response.length
 	}
-
-	function buildGrid()
-	{
-		dataTable.DataTable({
-			ajax : {
-				url: api.listPromotion,
-				type:"POST",
-				headers: headers,
-				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
-					return tableParams(d);
-				},
-				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
-				}
-			},
-			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
-					render: function (data) {
-						return singleCheckBoxDom(data);
-					}
-				},
-				{title: "기업", 			data: "nickname",    		   width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",       width: "30%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션기간", 	data: "start_date",    		   width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션예산", 	data: "budget_ucd",    		   width: "15%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return numberWithCommas(data);
-					}
-				}
-				,{title: "프로모션잔여예산", 	data: "remain_budget_ucd", width: "15%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return numberWithCommas(data);
-					}
-				}
-				/*,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center"}*/
-				,{title: "배너 여부", 	data: "is_banner",    width: "10%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return data === 'Y' ? label.exposure : label.unexpose;
-					}
-				}
-			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
+	return JSON.stringify(param);
+}
+	/** 테이블 **/
+	function getBizListData (response) {
+		$('#biz-sales-table').DataTable ({
+			// 테이블 옵션 기능
+			searching: false, //검색
+			lengthChange: false, // 블록 단위 변경기능
+			info: false, // 페이징 상태에 대한 정보 표시
+			padding: false, // 열 너비 계산
+			ordering: false, //원하는 순서대로 데이터 표시
+			paging: true, //페이징
+			destroy: true, //기존 테이블을 삭제하고 새 옵션으로 바꿈
+			pageLength: Number(limits.value),
+			serverSide: true, // true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음)
 			processing: false,
-			serverSide: true,
-			paging: true,
-			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
 			order: [],
-			info: false,
-			select: false,
-			lengthChange: false,
 			autoWidth: false,
-			searching: false,
 			fixedHeader:false,
-			destroy: true,
-			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				dataNum.html(info.recordsTotal);
+			fnRowCallback: function (nRow, aData) {
+				console.log(aData)
+				setUcdRowAttributes(nRow, aData);
 			},
-			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
-			}
-		});
-	}
-	
-	function tableParams(d)
-	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
-		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
-			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
-		}
-
-		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(2);
-		let periodDom = $(nRow).children().eq(3);
-		let btnDom 	  = $(nRow).children().eq(6);
-		let detailUrl = page.detailPromo+aData.idx;
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-
-		/** 프로모션 기간 **/
-		periodDom.html(aData.start_date +' ~ '+aData.end_date);
-	}
-
-	function onSubmitSearch()
-	{
-		buildGrid();
-	}
-
-
-	function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("UCD(c) 충전목록", "UCD(c) 충전목록", data.data);
+			drawCallback: function (settings) {
+				buildTotalCount($('#biz-sales-table'));
 			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
+			ajax: {
+				url: "https://api.youcandoo.co.kr/v1.0/admin/ucd/sales/list",
+				headers: headers,
+				dataType: 'JSON',
+				type: 'POST',
+				data : function (responsed) {
+					return tableParams(responsed)
+				},
+				error: function (d) {
+					console.log(d)
+				},
+			}, columns: [
+				{title:"기업명", data: "nickname"},
+				{title:"구분", data: "division"},
+				{title:"금액", data:"amount", render: function (data) {
+						return numberWithCommas(data);
+					}},
+				{title:"제목", data: "title"},
+				{title:"내용", data:"description"},
+				{title:"담당자", data:"created_user"},
+				{title:"일시",  data:"created_datetime"}
+			],language: {
+				emptyTable: message.emptyList
+				, zeroRecords: message.emptyList
+				, processing: message.searching
+				, paginate: {
+					previous: label.previous
+					, next: label.next
+				}
 			}
+
 		});
 	}
-
-	function excelParams()
+	function setUcdRowAttributes(nRow, aData)
 	{
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-		}
-
-		return JSON.stringify(param);
+		if (isNegative(aData.amount))
+			$(nRow).addClass('minus-pay');
 	}
+
+
+
 

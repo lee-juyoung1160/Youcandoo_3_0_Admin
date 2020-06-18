@@ -59,13 +59,8 @@
 		keyword.val('');
 		status.prop("checked", true);
 		report.eq(0).prop("checked", true);
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		initSelectOption();
+		initSearchDateRange();
 	}
 
 	/************************

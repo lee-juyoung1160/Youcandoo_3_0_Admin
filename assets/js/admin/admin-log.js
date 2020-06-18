@@ -26,12 +26,8 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_today"));
+		initSelectOption();
+		initSearchDateRange();
 	}
 
 	function buildGrid()

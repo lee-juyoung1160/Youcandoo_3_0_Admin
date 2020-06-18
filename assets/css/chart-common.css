@@ -113,6 +113,8 @@
 }
 .col-wrap .subscriber-status li .data-wrap {
     float: right;
+    text-align: right;
+    line-height: 47px;
 }
 .col-wrap .subscriber-status li i.user-icon {
     display: inline-block;
@@ -142,42 +144,18 @@
 .col-wrap .subscriber-status .today-count i.fa-sort-up:before {
     vertical-align: sub;
 }
+
 .col-wrap-2 .subscriber-status li:last-child .pluses {
     font-weight: 800;
     color: #007aff;
 }
-.col-wrap .subscriber-status .data-wrap {
-    text-align: right;
-}
-.col-wrap .subscriber-status .count {
-    margin-left: 5px;
-    color: #0c0f6a;
-    font-weight: 700;
-}
-.col-wrap .subscriber-status .pluses {
+.col-wrap .subscriber-status .acc {
     margin-bottom: 10px;
-    color: #0c0f6a;
     font-weight: 700;
     font-size: 18px;
 }
-.col-wrap .subscriber-status .fixed:first-child {
-    margin-bottom: 10px;
-}
-.col-wrap .subscriber-status .acc {
-    color: #7d7d7d;
-    font-size: 15px;
-}
 .col-wrap-3 .subscriber-status li {
     padding: 10px 0;
-}
-.col-wrap-3  .subscriber-status .pluses {
-    margin-bottom: 0;
-    font-size: 12px;
-    font-weight: 400;
-}
-.col-wrap-3 .subscriber-status .count {
-    margin-left: 0;
-    margin-right: 5px;
 }
 .col-wrap-3 .col-3 .row-wrap2 p {
     float: right;

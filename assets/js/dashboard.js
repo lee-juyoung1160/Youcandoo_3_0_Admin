@@ -49,102 +49,104 @@ const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
 /** 월 단위로 등록된 두잇, 로드 바로 실행 **/
 document.addEventListener("DOMContentLoaded", function () {
     getYearData(year);
+    doItChart();
 });
 /** 예정되는, 진행중인, 완료된 두잇 **/
-$.ajax({
-    url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
-    headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
-    dataType: 'JSON',
-    type: 'POST',
+function doItChart() {
+    $.ajax({
+        url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
+        headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
+        dataType: 'JSON',
+        type: 'POST',
 
-    error: function () {
+        error: function () {
 
-    },
-    success: function (getDoughnutData) {
-        let endChart = new Chart(endDoughnut, {
-            type: doughnutType,
-            data: {
-                labels,
-                datasets: [{
-                    data: [getDoughnutData.data.end.user_cnt, getDoughnutData.data.end.company_cnt],
-                    backgroundColor: backgroundColorDoughnut,
-                    hoverBorderColor: backgroundColorDoughnut,
-                }]
-            },
-            options: options.options,
-        });
-        let todayChart = new Chart(todayDoughnut, {
-            type: doughnutType,
-            data: {
-                labels,
-                datasets: [{
-                    data: [getDoughnutData.data.ing.user_cnt, getDoughnutData.data.ing.company_cnt],
-                    backgroundColor: backgroundColorDoughnut,
-                    hoverBorderColor: backgroundColorDoughnut,
-                }]
-            },
-            options: options.options,
-        });
-        let tomorrowChart = new Chart(tomorrowDoughnut, {
-            type: doughnutType,
-            data: {
-                labels,
-                datasets: [{
-                    data: [getDoughnutData.data.pre.user_cnt, getDoughnutData.data.pre.company_cnt],
-                    backgroundColor: backgroundColorDoughnut,
-                    hoverBorderColor: backgroundColorDoughnut,
-                }]
-            },
-            options: options.options,
-        });
-        let cancelChart = new Chart(cancelDoughnut, {
-            type: doughnutType,
-            data: {
-                labels : ['취소', '삭제'],
-                datasets: [{
-                    data: [getDoughnutData.data.cancle.cancle, getDoughnutData.data.cancle.delete],
-                    backgroundColor: backgroundColorDoughnut,
-                    hoverBorderColor: backgroundColorDoughnut,
-                }]
-            },
-            options: options.options,
-        });
+        },
+        success: function (getDoughnutData) {
+            let endChart = new Chart(endDoughnut, {
+                type: doughnutType,
+                data: {
+                    labels,
+                    datasets: [{
+                        data: [getDoughnutData.data.end.user_cnt, getDoughnutData.data.end.company_cnt],
+                        backgroundColor: backgroundColorDoughnut,
+                        hoverBorderColor: backgroundColorDoughnut,
+                    }]
+                },
+                options: options.options,
+            });
+            let todayChart = new Chart(todayDoughnut, {
+                type: doughnutType,
+                data: {
+                    labels,
+                    datasets: [{
+                        data: [getDoughnutData.data.ing.user_cnt, getDoughnutData.data.ing.company_cnt],
+                        backgroundColor: backgroundColorDoughnut,
+                        hoverBorderColor: backgroundColorDoughnut,
+                    }]
+                },
+                options: options.options,
+            });
+            let tomorrowChart = new Chart(tomorrowDoughnut, {
+                type: doughnutType,
+                data: {
+                    labels,
+                    datasets: [{
+                        data: [getDoughnutData.data.pre.user_cnt, getDoughnutData.data.pre.company_cnt],
+                        backgroundColor: backgroundColorDoughnut,
+                        hoverBorderColor: backgroundColorDoughnut,
+                    }]
+                },
+                options: options.options,
+            });
+            let cancelChart = new Chart(cancelDoughnut, {
+                type: doughnutType,
+                data: {
+                    labels : ['취소', '삭제'],
+                    datasets: [{
+                        data: [getDoughnutData.data.cancle.cancle, getDoughnutData.data.cancle.delete],
+                        backgroundColor: backgroundColorDoughnut,
+                        hoverBorderColor: backgroundColorDoughnut,
+                    }]
+                },
+                options: options.options,
+            });
 
-        let endUserCount = document.getElementById('end-user');
-        let endCompanyCount = document.getElementById('end-company');
-        let endTotalCount = document.getElementById('end-total');
+            let endUserCount = document.getElementById('end-user');
+            let endCompanyCount = document.getElementById('end-company');
+            let endTotalCount = document.getElementById('end-total');
 
-        let ingUserCount = document.getElementById('ing-user');
-        let ingCompanyCount = document.getElementById('ing-company');
-        let ingTotalCount = document.getElementById('ing-total');
+            let ingUserCount = document.getElementById('ing-user');
+            let ingCompanyCount = document.getElementById('ing-company');
+            let ingTotalCount = document.getElementById('ing-total');
 
-        let preUserCount = document.getElementById('pre-user');
-        let preCompanyCount = document.getElementById('pre-company');
-        let preTotalCount = document.getElementById('pre-total');
+            let preUserCount = document.getElementById('pre-user');
+            let preCompanyCount = document.getElementById('pre-company');
+            let preTotalCount = document.getElementById('pre-total');
 
-        let cancleData = document.getElementById('cancle');
-        let deleteData = document.getElementById('delete');
-        let totalData = document.getElementById('total');
+            let cancleData = document.getElementById('cancle');
+            let deleteData = document.getElementById('delete');
+            let totalData = document.getElementById('total');
 
-        endUserCount.textContent = getDoughnutData.data.end.user_cnt;
-        endCompanyCount.textContent = getDoughnutData.data.end.company_cnt;
-        endTotalCount.textContent = getDoughnutData.data.end.total_cnt;
+            endUserCount.textContent = getDoughnutData.data.end.user_cnt;
+            endCompanyCount.textContent = getDoughnutData.data.end.company_cnt;
+            endTotalCount.textContent = getDoughnutData.data.end.total_cnt;
 
-        ingUserCount.textContent = getDoughnutData.data.ing.user_cnt;
-        ingCompanyCount.textContent = getDoughnutData.data.ing.company_cnt;
-        ingTotalCount.textContent = getDoughnutData.data.ing.total_cnt;
+            ingUserCount.textContent = getDoughnutData.data.ing.user_cnt;
+            ingCompanyCount.textContent = getDoughnutData.data.ing.company_cnt;
+            ingTotalCount.textContent = getDoughnutData.data.ing.total_cnt;
 
-        preUserCount.textContent = getDoughnutData.data.pre.user_cnt;
-        preCompanyCount.textContent = getDoughnutData.data.pre.company_cnt;
-        preTotalCount.textContent = getDoughnutData.data.pre.total_cnt;
+            preUserCount.textContent = getDoughnutData.data.pre.user_cnt;
+            preCompanyCount.textContent = getDoughnutData.data.pre.company_cnt;
+            preTotalCount.textContent = getDoughnutData.data.pre.total_cnt;
 
-        cancleData.textContent = getDoughnutData.data.cancle.cancle;
-        deleteData.textContent = getDoughnutData.data.cancle.delete;
-        totalData.textContent = getDoughnutData.data.cancle.total;
-
-        counter();
-    },
-});
+            cancleData.textContent = getDoughnutData.data.cancle.cancle;
+            deleteData.textContent = getDoughnutData.data.cancle.delete;
+            totalData.textContent = getDoughnutData.data.cancle.total;
+            counter();
+        },
+    });
+}
 /** 월 단위로 등록된 두잇 **/
 let monthlyChart;
 function getYearData(yearVal) {
@@ -215,12 +217,6 @@ if (day > newYear) {
     }
 }
 /** 가입자 현황 데이터 **/
-let newUser = document.getElementById('new-user');
-let joinUser = document.getElementById('join-user');
-let leaveUser = document.getElementById('leave-user');
-let totalUser = document.getElementById('total-user');
-let cumulativeUser = document.getElementById('cumulative-user');
-
 $.ajax({
     url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/user/status",
     headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -232,15 +228,19 @@ $.ajax({
     },
     success: function (userStatus) {
         console.log(userStatus)
+        let newUser = document.getElementById('new-user');
+        let joinUser = document.getElementById('join-user');
+        let leaveUser = document.getElementById('leave-user');
+        let totalUser = document.getElementById('total-user');
+
         newUser.textContent = userStatus.data.new_user;
         joinUser.textContent = userStatus.data.join_user;
         leaveUser.textContent = userStatus.data.leave_user;
         totalUser.textContent = userStatus.data.total_user;
-        cumulativeUser.textContent = Number(userStatus.data.join_user) + Number(userStatus.data.leave_user);
-
-        counter();
     }
 });
+
+
 // /** 프로모션 진행 현황 **/
 // let proStatusChart = new Chart(proStatusDoughnut, {
 //     type: doughnutType,

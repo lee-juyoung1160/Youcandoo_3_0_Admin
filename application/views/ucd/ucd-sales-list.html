@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">매출관리(Biz)</h2>
-            <a href="/ucd/create/biz"><i class="fas fa-plus"></i>기업UCD 충전/취소</a>
+            <a style="width: 180px;" href="/ucd/create/biz"><i class="fas fa-plus"></i>기업 UCD 충전/취소</a>
         </div>
         <div class="list-common">
             <div class="list-wrap clearfix">
@@ -22,9 +22,9 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="searchType">기업명</label>
-                    <select id="searchType">
-                        <option value="">기업명</option>
+                    <label for="search_type">기업명</label>
+                    <select id="search_type">
+                        <option value="nickname">기업명</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -54,19 +54,20 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
                 <div class="btn-wrap">
                     <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
             </div>
-            <table>
+            <table id="biz-sales-table">
                 <colgroup>
                     <col style="width:15%;">
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
-                    <col style="width:35%;">
+                    <col style="width:25%;">
+                    <col style="width:10%;">
                     <col style="width:10%;">
                 </colgroup>
                 <thead class="th-row">
@@ -76,35 +77,20 @@
                         <th>금액</th>
                         <th>제목</th>
                         <th>내용</th>
+                        <th>담당자</th>
                         <th>일시</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>@야나두</td>
-                        <td>적립</td>
-                        <td>300,000,000</td>
-                        <td>제목노출</td>
-                        <td>[2020-02-02~ 2020-09-02][카카오키즈 이벤트] : 100</td>
-                        <td>2019-11-07</td>
-                    </tr>
-                    <tr class="minus-pay">
-                        <td>@야나두</td>
-                        <td>적립</td>
-                        <td>-300,000,000</td>
-                        <td>제목노출</td>
-                        <td>[2020-02-02~ 2020-09-02][카카오키즈 이벤트] : 1008</td>
-                        <td>2019-11-07</td>
-                    </tr>
                 </tbody>
             </table>
-            <ul class="table-pagination clearfix">
-                <li><i class="fas fa-angle-double-left"></i></li>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+<!--            <ul class="table-pagination clearfix">-->
+<!--                <li><i class="fas fa-angle-double-left"></i></li>-->
+<!--                <li class="active">1</li>-->
+<!--                <li>2</li>-->
+<!--                <li>3</li>-->
+<!--                <li><i class="fas fa-angle-double-right"></i></li>-->
+<!--            </ul>-->
         </div>
     </div>
 </section>

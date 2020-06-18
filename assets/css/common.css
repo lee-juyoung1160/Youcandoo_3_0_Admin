@@ -1156,7 +1156,7 @@ input[type="radio"] + label{
 .review-list .line-clamp {
 	overflow: hidden;
 	display: inline-block;
-	max-width: 310px;
+	max-width: 211px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }

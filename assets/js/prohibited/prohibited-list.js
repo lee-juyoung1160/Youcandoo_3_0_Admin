@@ -117,8 +117,7 @@
 			,"limit" : info.length
 			,"page" : (info.start / info.length) + 1
 		}
-		localStorage.setItem("param", JSON.stringify(param));
-		localStorage.setItem("page", getPathName());
+
 		return JSON.stringify(param);
 	}
 

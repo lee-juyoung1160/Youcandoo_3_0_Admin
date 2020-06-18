@@ -304,22 +304,22 @@
         $(obj).parent().children('.upload-display').remove();
     }
 
-    function initSummerNote()
+    /*function initSummerNote()
     {
         $('#summernote').summernote({
             lang: 'ko-KR',
             placeholder: '내용을 입력해주세요.',
-            /*height: 120,*/
+            /!*height: 120,*!/
             toolbar: [
                 ['font', ['bold', 'underline', 'clear']],
-                /*['color', ['color']],*/
+                /!*['color', ['color']],*!/
                 ['para', ['paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-    }
+    }*/
 
     function getStatusCode(data)
     {
@@ -343,7 +343,7 @@
 
     function isSuccessResp(data)
     {
-        if (data.status === 30000)
+        if (getStatusCode(data) === 30000)
             return true;
         else
             return false;
@@ -660,7 +660,8 @@
 
     function setHistoryParam(param)
     {
-        localStorage.setItem("param", JSON.stringify(param));
+        param = isEmpty(param) ? '' : JSON.stringify(param);
+        localStorage.setItem("param", param);
         localStorage.setItem("page", getPathName());
     }
 

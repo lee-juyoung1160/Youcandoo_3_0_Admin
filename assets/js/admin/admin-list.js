@@ -78,7 +78,7 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -138,11 +138,16 @@
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : _limit
+			,"page" : _page
 			,"auth_code" : authCode.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()

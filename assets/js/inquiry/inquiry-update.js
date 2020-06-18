@@ -10,7 +10,7 @@
 
 	$(document).ready(function () {
 		/** 에디터 초기화 **/
-		initSummerNote();
+		/*initSummerNote();*/
 		/** 상세 불러오기 **/
 		getDetail();
 

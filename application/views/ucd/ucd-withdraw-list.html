@@ -3,7 +3,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">출금내역</h2>
-            <a href="/ucd/withdraw/create"><i class="fas fa-plus"></i>회원UCD 출금</a>
+            <a href="/ucd/withdraw/user"><i class="fas fa-plus"></i>회원UCD 출금</a>
         </div>
         <div class="list-common">
             <div class="list-wrap clearfix">
@@ -55,12 +55,12 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
             </div>
 
-            <table>
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:15%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -87,15 +87,15 @@
                     <td>신세계 상품권 5만원권 발송 완료</td>
                     <td>admin</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
 
         <div class="modal-wrap">
@@ -196,20 +196,3 @@
     </div>
 </section>
 <script src="/assets/js/ucd/ucd-withdraw-list.js"></script>
-<script>
-    // modal event
-    $('.more-info-btn').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-</script>

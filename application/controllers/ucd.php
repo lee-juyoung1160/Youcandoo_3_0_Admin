@@ -17,8 +17,8 @@ class Ucd extends MY_Controller {
     {
             switch ($Route)
             {
-                case "create" :
-                    $this->load->layout('ucd/ucd-withdraw-create');
+                case "user" :
+                    $this->load->layout('ucd/ucd-withdraw-user');
                     break;
                 case "lists":
                     $this->load->layout('ucd/ucd-withdraw-list');

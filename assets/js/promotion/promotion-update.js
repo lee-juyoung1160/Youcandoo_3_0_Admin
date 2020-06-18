@@ -194,7 +194,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">리워드 제목 (*)</p>';
+			detailDom += 					'<p class="cap">리워드 옵션명 (*)</p>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<div class="input-wrap">';
@@ -209,9 +209,14 @@
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
 			detailDom += 					'<p class="cap">인증 기간 (*)</p>';
+			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
+			detailDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
+			detailDom += 					'</i>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
-			detailDom += 					'<ul class="day-btn clearfix duration-ul">';
+			detailDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
+			detailDom += 					'<span class="input-num-title">일</span>';
+			/*detailDom += 					'<ul class="day-btn clearfix duration-ul">';
 			let durations = [{days : 1, txt : '1일'}, {days : 7, txt : '1주'}, {days : 14, txt : '2주'}, {days : 28, txt : '4주'}];
 			for (let j=0; j<durations.length; j++)
 			{
@@ -220,7 +225,7 @@
 
 				detailDom += 					'<li onclick="onSelectDuration(this);" class="duration '+active+'" data-days="'+dur.days+'">'+dur.txt+'</li>';
 			}
-			detailDom += 					'</ul>';
+			detailDom += 					'</ul>';*/
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
@@ -264,7 +269,7 @@
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
 			/** 리워드 비율 **/
-			let rangeId = 'rewardRange'+idNum;
+			/*let rangeId = 'rewardRange'+idNum;
 			let personalRateId = 'personalRate'+idNum;
 			let groupRateId = 'groupRate'+idNum;
 			detailDom += 		'<li class="reward-typ-li clearfix">';
@@ -284,7 +289,7 @@
 			detailDom += 					'<input id="'+groupRateId+'" class="input-num-box group-rate" type="text" readonly>';
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
-			detailDom += 		'</li>';
+			detailDom += 		'</li>';*/
 			/** 인당 UCD **/
 			let ucdInfo = reward.ucd_info;
 			ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
@@ -297,11 +302,21 @@
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2 pro-ucd-wrap">';
 			detailDom += 					'<table>';
+			detailDom += 						'<colgroup>';
+			detailDom += 							'<col style="width: 35%;">';
+			detailDom += 							'<col style="width: 15%;">';
+			detailDom += 							'<col style="width: 15%;">';
+			detailDom += 							'<col style="width: 25%;">';
+			detailDom += 						'</colgroup>';
 			detailDom += 						'<thead>';
 			detailDom += 							'<tr>';
-			detailDom += 								'<th>참여자 수(명)</th>';
-			detailDom += 								'<th>인당 UCD</th>';
-			detailDom += 								'<th>총 UCD</th>';
+			detailDom += 								'<th rowspan="2">참여자 수(명)</th>';
+			detailDom += 								'<th colspan="2">인당 UCD</th>';
+			detailDom += 								'<th rowspan="2">총 UCD</th>';
+			detailDom += 							'</tr>';
+			detailDom += 							'<tr>';
+			detailDom += 								'<th>개인</th>';
+			detailDom += 								'<th>단체</th>';
 			detailDom += 							'</tr>';
 			detailDom += 						'</thead>';
 			detailDom += 						'<tbody class="ucd-table-body">';
@@ -311,8 +326,9 @@
 			detailDom += 									'<span class="date-margin-text"> ~ </span>';
 			detailDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5" value="'+ucd.max+'">';
 			detailDom += 								'</td>';
-			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucd.per_person_ucd+'"></td>';
-			let totalUcd = Number(ucd.max) * Number(ucd.per_person_ucd);
+			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucd.person_reward+'"></td>';
+			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucd.group_reward+'"></td>';
+			let totalUcd = Number(ucd.max) * (Number(ucd.person_reward)+Number(ucd.group_reward));
 			detailDom += 								'<td><span class="text-right">'+numberWithCommas(totalUcd)+'</span></td>';
 			detailDom += 							'</tr>';
 			detailDom += 						'</tbody>';
@@ -328,10 +344,10 @@
 			let goalRateDom  = $('#'+goalRateId);
 			initGoalRateRange(goalRangeDom, goalRateDom, reward.goal_percent);
 			/** 리워드비율 range 세팅 **/
-			let rangeDom 	= $('#'+rangeId);
+			/*let rangeDom 	= $('#'+rangeId);
 			let personalDom = $('#'+personalRateId);
 			let groupDom 	= $('#'+groupRateId);
-			initRewardRateRange(rangeDom, personalDom, groupDom, reward.person_percent);
+			initRewardRateRange(rangeDom, personalDom, groupDom, reward.person_percent);*/
 		}
 
 		onClickRewardTab($(".reward-tab").eq(0));
@@ -339,39 +355,41 @@
 		calculateInputLength();
 	}
 
-	function onSelectDuration(obj)
+	function onKeyupDuration(obj)
 	{
-		toggleActiveDuration(obj);
 		initFrequency(obj);
 	}
 
 	/** 인증기간 버튼 active 토글 **/
-	function toggleActiveDuration(obj)
-	{
-		let durationButtons = $(obj).siblings('.duration');
-		$(durationButtons).each(function () {
-			$(this).removeClass('active');
-		});
-
-		$(obj).addClass('active');
-	}
-
 	function initFrequency(obj)
 	{
-		let durationUl  = $(obj).parents('ul.pro-reward').find('.duration-ul');
 		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
 		let duration = 1;
-
-		$(durationUl).children().each(function () {
-			if ($(this).hasClass('active'))
-				duration = $(this).data('days');
-		});
+		duration = Number($(obj).val());
 
 		$(frequencyUl).children().removeClass('active');
 
 		/** 인증기간 1일이면 주간빈도 월요일로 기본값(validation 피하기용..) **/
-		if (Number(duration) === 1)
+		if (duration < 2)
 			$(frequencyUl).children().eq(0).addClass('active');
+		else if (duration === 2)
+		{
+			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
+		}
+		else if (duration === 3)
+		{
+			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
+			$(frequencyUl).children().eq(2).addClass('active');
+		}
+		else if (duration === 4)
+		{
+			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
+			$(frequencyUl).children().eq(2).addClass('active');
+			$(frequencyUl).children().eq(3).addClass('active');
+		}
 		else
 		{
 			$(frequencyUl).children().eq(0).addClass('active');
@@ -385,21 +403,37 @@
 	/** 주간빈도 버튼 active 토글 **/
 	function toggleFrequency(obj)
 	{
-		let durationUl = $(obj).parents('ul.pro-reward').find('.duration-ul');
-		let duration = 1;
+		let durationDom = $(obj).closest('ul.pro-reward').find('.duration');
+		let duration = durationDom.val();
 
-		$(durationUl).children().each(function () {
-			if ($(this).hasClass('active'))
-				duration = $(this).data('days');
-		});
+		let frequencyUl = $(obj).parent().find('li');
+		if (isEmpty(duration))
+		{
+			alert('인증기간을 입력해주세요.')
+			durationDom.focus();
+			return;
+		}
 
-		if (duration === 1)
+		if (Number(duration) === 1)
 		{
 			$(obj).siblings().removeClass('active');
 			$(obj).addClass('active');
 		}
 		else
+		{
 			$(obj).toggleClass('active');
+			let activeCount = 0;
+			frequencyUl.each(function () {
+				if ($(this).hasClass('active'))
+					activeCount++
+			});
+
+			if (activeCount > Number(duration))
+			{
+				alert('주간빈도 수는 인증기간을 초과해 선택할 수 없습니다.\n인증기간: '+duration+', 선택한 주간빈도 수: '+activeCount);
+				$(obj).toggleClass('active');
+			}
+		}
 	}
 
 	/** 목표달성률 설정 레인지 슬라이더 **/
@@ -422,7 +456,7 @@
 	}
 
 	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
-	function initRewardRateRange(rangeDom, personalDom, groupDom, value)
+	/*function initRewardRateRange(rangeDom, personalDom, groupDom, value)
 	{
 		rangeDom.ionRangeSlider({
 			skin: "round",
@@ -440,24 +474,28 @@
 				groupDom.prop("value", 100 - data.from);
 			}
 		});
-	}
+	}*/
 
 	function calculateTotalUcd(obj)
 	{
 		let trDom 	   = $(obj).parents('tr');
 		let inputDom   = trDom.find('input');
 		let totalDom   = trDom.find('span').eq(1);
-		let max		   = 0;
-		let ucd		   = 0;
+		let max		   = $(inputDom).eq(1).val();
+		let person	   = $(inputDom).eq(2).val();
+		let group	   = $(inputDom).eq(3).val();
 
-		$(inputDom).each(function (index) {
+		max 	= isEmpty(max) ? 0 : Number(max);
+		person 	= isEmpty(person) ? 0 : Number(person);
+		group 	= isEmpty(group) ? 0 : Number(group);
+		/*$(inputDom).each(function (index) {
 			if (index === 1)
 				max = $(this).val();
 			else if (index === 2)
 				ucd = $(this).val();
-		})
+		})*/
 
-		$(totalDom).html(numberWithCommas(max*ucd));
+		$(totalDom).html(numberWithCommas(max*(person+group)));
 	}
 
 	/** 리워드 조건 생성하기 버튼 이벤트 **/
@@ -534,12 +572,14 @@
 		rewardDom += 					'<p class="cap">인증 기간 (*)</p>';
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<ul class="day-btn clearfix duration-ul">';
+		rewardDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
+		rewardDom += 					'<span class="input-num-title">일</span>';
+		/*rewardDom += 					'<ul class="day-btn clearfix duration-ul">';
 		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="1">1일</li>';
 		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration active" data-days="7">1주</li>';
 		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="14">2주</li>';
 		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="28">4주</li>';
-		rewardDom += 					'</ul>';
+		rewardDom += 					'</ul>';*/
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -576,7 +616,7 @@
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
-		rewardDom += 		'<li class="reward-typ-li clearfix">';
+		/*rewardDom += 		'<li class="reward-typ-li clearfix">';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
 		rewardDom += 					'<p class="cap" style="display: inline-block;">리워드 비율 (*)</p>';
@@ -593,7 +633,7 @@
 		rewardDom += 					'<input id="'+groupRate+'" class="input-num-box group-rate" type="text" readonly>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
+		rewardDom += 		'</li>';*/
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
@@ -601,11 +641,21 @@
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2 pro-ucd-wrap">';
 		rewardDom += 					'<table>';
+		rewardDom += 						'<colgroup>';
+		rewardDom += 							'<col style="width: 35%;">';
+		rewardDom += 							'<col style="width: 15%;">';
+		rewardDom += 							'<col style="width: 15%;">';
+		rewardDom += 							'<col style="width: 25%;">';
+		rewardDom += 						'</colgroup>';
 		rewardDom += 						'<thead>';
 		rewardDom += 							'<tr>';
-		rewardDom += 								'<th>참여자 수(명)</th>';
-		rewardDom += 								'<th>인당 UCD</th>';
-		rewardDom += 								'<th>총 UCD</th>';
+		rewardDom += 								'<th rowspan="2">참여자 수(명)</th>';
+		rewardDom += 								'<th colspan="2">인당 UCD</th>';
+		rewardDom += 								'<th rowspan="2">총 UCD</th>';
+		rewardDom += 							'</tr>';
+		rewardDom += 							'<tr>';
+		rewardDom += 								'<th>개인</th>';
+		rewardDom += 								'<th>단체</th>';
 		rewardDom += 							'</tr>';
 		rewardDom += 						'</thead>';
 		rewardDom += 						'<tbody class="ucd-table-body">';
@@ -613,10 +663,11 @@
 		rewardDom += 								'<td>';
 		rewardDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5" value="1">';
 		rewardDom += 									'<span class="date-margin-text"> ~ </span>';
-		rewardDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5" value="10">';
+		rewardDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5">';
 		rewardDom += 								'</td>';
-		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="10"></td>';
-		rewardDom += 								'<td><span class="text-right">100</span></td>';
+		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>';
+		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>';
+		rewardDom += 								'<td><span class="text-right">-</span></td>';
 		rewardDom += 							'</tr>';
 		rewardDom += 						'</tbody>';
 		rewardDom += 					'</table>';
@@ -630,7 +681,7 @@
 
 		initGoalRateRange($('#'+goalRange), $('#'+goalRate), 85);
 
-		initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate), 50);
+		/*initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate), 50);*/
 
 		calculateInputLength();
 	}
@@ -724,6 +775,11 @@
 			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}*/
+		if (isEmptyDuration())
+		{
+			alert('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			return false;
+		}
 
 		if (isEmptyFrequency())
 		{
@@ -778,6 +834,17 @@
 		}
 
 		return retVal;
+	}
+
+	function isEmptyDuration()
+	{
+		let result = false;
+		$(".duration").each(function () {
+			if (isEmpty($(this).val()))
+				result = true;
+		});
+
+		return result;
 	}
 
 	/*function isOverDuration()
@@ -904,8 +971,8 @@
 			let saturday	 = 'N';
 			let sunday		 = 'N';
 			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
-			let personalRate = $(rewardWrap[i]).find('.personal-rate');
-			let groupRate 	 = $(rewardWrap[i]).find('.group-rate');
+			/*let personalRate = $(rewardWrap[i]).find('.personal-rate');
+			let groupRate 	 = $(rewardWrap[i]).find('.group-rate');*/
 			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
 			/** 인증기간 파라미터 **/
@@ -934,24 +1001,26 @@
 
 				if (inputDom.length > 0)
 				{
-					let minDom = $(inputDom)[0];
-					let maxDom = $(inputDom)[1];
-					let ucdDom = $(inputDom)[2];
+					let minDom   = $(inputDom)[0];
+					let maxDom   = $(inputDom)[1];
+					let personDom = $(inputDom)[2];
+					let groupDom  = $(inputDom)[3];
 
 					ucdInfos.push({
 						"min" : $(minDom).val()
 						,"max" : $(maxDom).val()
-						,"per_person_ucd" : $(ucdDom).val()
+						,"person_reward" : $(personDom).val()
+						,"group_reward" : $(groupDom).val()
 					});
 				}
 			})
 
 			rewards.push({
 				"title" 			: title.val()
-				,"action-duration" 	: duration
+				,"action-duration" 	: durationDom.val()
 				,"goal-rate" 		: goalRate.val()
-				,"personal-rate" 	: personalRate.val()
-				,"group-rate" 		: groupRate.val()
+				/*,"personal-rate" 	: personalRate.val()
+				,"group-rate" 		: groupRate.val()*/
 				,"monday" 			: monday
 				,"tuesday" 			: tuesday
 				,"wednesday" 		: wednesday

@@ -484,9 +484,6 @@ input.tag-input {
 .hash-tag-list > li:last-child {
 	margin-right: 0;
 }
-.hash-tag-list > li .tag-name {
-	margin-left: 5px;
-}
 .hash-tag-list > li .delete-btn {
 	color: #7d7d7d;
 }

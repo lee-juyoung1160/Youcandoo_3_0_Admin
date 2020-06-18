@@ -95,6 +95,9 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				dataTable.on( 'page.dt', function () {
+					$("#checkAll").prop('checked', false);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

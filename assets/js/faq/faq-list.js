@@ -28,19 +28,29 @@
 
 	function initSearchForm()
 	{
-		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
-		inputCheck.prop("checked", true);
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		if (isBackAction)
+		{
+			let historyParams = JSON.parse(localStorage.getItem("param"));
+			dateFrom.val(historyParams.fromDate);
+			dateTo.val(historyParams.toDate);
+			keyword.val(historyParams.keyword);
+			searchType.val(historyParams.searchType);
+			$('input:radio[name=radio-exposure]').each(function () {
+				if ($(this).val() === historyParams.is_exposure)
+					$(this).prop('checked', true);
+			});
+		}
+		else
+		{
+			keyword.val('');
+			inputRadio.each(function (index) {
+				if (index === 0)
+					$(this).prop("checked", true);
+			});
+			inputCheck.prop("checked", true);
+			initSelectOption();
+			initSearchDateRange();
+		}
 	}
 
 	function buildGrid()
@@ -104,6 +114,8 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				table.page(pageIdx).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -114,20 +126,34 @@
 		});
 	}
 
+	let pageIdx = 0;
 	function tableParams()
 	{
 		let table = dataTable.DataTable();
 		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+		if (isBackAction)
+		{
+			let historyParams = JSON.parse(localStorage.getItem("param"))
+			_limit = historyParams.limit;
+			_page = historyParams.page;
+			pageIdx = _page - 1;
+			isBackAction = false;
+		}
 		let param = {
-			"limit" : info.length
-			,"page" : (info.start / info.length) + 1
+			"limit" : _limit
+			,"page" : _page
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
-	/*history.pushState(param, null, page.listFaq);*/
+
+		/** localStorage에 정보 저장 **/
+		setHistoryParam(param);
+
 		return JSON.stringify(param);
 	}
 

@@ -66,10 +66,7 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
+		initSelectOption();
 	}
 
 	function buildGrid()

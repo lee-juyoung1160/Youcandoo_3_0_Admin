@@ -1067,6 +1067,9 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				reviewTable.on( 'page.dt', function () {
+					$("#checkAll").prop('checked', false);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setReviewRowAttributes(nRow, aData);

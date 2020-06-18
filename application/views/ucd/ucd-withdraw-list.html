@@ -3,10 +3,11 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">출금내역</h2>
+            <a href="/ucd/withdraw/user"><i class="fas fa-plus"></i>회원UCD 출금</a>
         </div>
         <div class="list-common">
             <div class="list-wrap clearfix">
-                <p class="list-common-title">출금요청일자</p>
+                <p class="list-common-title">날짜</p>
                 <div class="date-wrap">
                     <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
@@ -25,8 +26,6 @@
                     <label for="searchType">닉네임</label>
                     <select id="searchType">
                         <option value="nickname">닉네임</option>
-                        <option value="nickname">예금주</option>
-                        <option value="nickname">계좌번호</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -36,26 +35,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="doit-list-option">
-            <ul class="clearfix">
-                <li>
-                    <p class="list-common-title">구분</p>
-                    <div class="checkbox-wrap">
-
-                        <input type="checkbox" id="c2" name="chk-status" value="대기"/>
-                        <label for="c2"><span></span>대기</label>
-
-                        <input type="checkbox" id="c3" name="chk-status" value="출금완료"/>
-                        <label for="c3"><span></span>출금 완료</label>
-
-                        <input type="checkbox" id="c4" name="chk-status" value="반려"/>
-                        <label for="c4"><span></span>반려</label>
-
-                    </div>
-                </li>
-            </ul>
         </div>
 
         <div class="list-common-btn-wrap clearfix">
@@ -76,101 +55,47 @@
                             <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">16</strong></p>
-                </div>
-                <div class="btn-wrap">
-                    <button class="complete-btn more-info-btn" type="button" data-rel="modal-04"><i class="fas fa-coins"></i>출금</button>
-                    <button class="delete-btn more-info-btn" type="button" data-rel="modal-01"><i class="fas fa-minus-circle"></i>반려</button>
-                    <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
+                    <p>Total <strong class="data-num"></strong></p>
                 </div>
             </div>
 
-            <table>
-                <colgroup>
-                    <col style="width:5%;">
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:15%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:40%;">
-                    <col style="width:10%;">
+                    <col style="width:15%;">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c5" name="cc" />
-                                <label for="c5"><span></span></label>
-                            </div>
-                        </th>
                         <th>닉네임</th>
+                        <th>유형</th>
                         <th>출금요청금액</th>
-                        <th>출금요청일</th>
-                        <th>처리상태</th>
-                        <th>내용</th>
                         <th>출금일</th>
+                        <th>내용</th>
+                        <th>담당자</th>
                     </tr>
                 </thead>
                 <tbody>
-                <!--
-                    dev:
-                    반려일 경우에만
-                    tr.minus-pay
-                -->
                 <tr>
-                    <th>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c7" name="cc" />
-                            <label for="c7"><span></span></label>
-                        </div>
-                    </th>
                     <td>베리베리</td>
+                    <td>UCD(c)</td>
                     <td>10,000</td>
                     <td>2020-04-04</td>
-                    <td>대기</td>
                     <td>신세계 상품권 5만원권 발송 완료</td>
-<!--                    <td><button type="button" class="more-info-btn" data-rel="modal-02">반려</button></td>-->
-                    <td>-</td>
+                    <td>admin</td>
                 </tr>
-                    <tr>
-                        <th>
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c6" name="cc" />
-                                <label for="c6"><span></span></label>
-                            </div>
-                        </th>
-                        <td>베리베리</td>
-                        <td>10,000</td>
-                        <td>2020-04-04</td>
-                        <td>대기</td>
-                        <td>-</td>
-<!--                        <td><button type="button" class="more-info-btn" data-rel="modal-03">확인</button></td>-->
-                        <td>-</td>
-                    </tr>
-                </tr>
-                <tr class="minus-pay">
-                    <th>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c6" name="cc" />
-                            <label for="c6"><span></span></label>
-                        </div>
-                    </th>
-                    <td>베리베리</td>
-                    <td>10,000</td>
-                    <td>2020-04-04</td>
-                    <td>반려</td>
-                    <td>계좌번호 오류</td>
-                    <td>-</td>
-                </tr>
-                </tbody>
+                </tbody>-->
             </table>
-            <ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>
+            </ul>-->
         </div>
 
         <div class="modal-wrap">
@@ -271,20 +196,3 @@
     </div>
 </section>
 <script src="/assets/js/ucd/ucd-withdraw-list.js"></script>
-<script>
-    // modal event
-    $('.more-info-btn').click(function () {
-        var openModal = $(this).attr('data-rel');
-        $('.' + openModal).fadeIn();
-        $('.modal-layout').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-</script>

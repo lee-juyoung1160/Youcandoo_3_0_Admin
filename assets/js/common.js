@@ -64,7 +64,7 @@
         viewLoading.fadeOut(100);
     }
 
-    /** 페이지 상단 > 벨 아이콘 클릭 이벤트 **/
+    /** 페이지 상단 > 벨(알림) 아이콘 클릭 이벤트 **/
     /*function onClickActiveNotice()
     {
         if (!noticeBtn.hasClass("active"))
@@ -80,6 +80,14 @@
             onNotice    .removeClass("active");
         }
     }*/
+
+    function initSelectOption()
+    {
+        select.each(function () {
+            $(this).children().eq(0).prop("selected", true);
+            onChangeSelectOption($(this));
+        });
+    }
 
     /** 셀렉트 옵션 > 선택값에 따라 text 변경 **/
     function onChangeSelectOption(obj)
@@ -114,6 +122,12 @@
             dateFrom.datepicker("setDate", "-3M");
             dateTo.datepicker("setDate", "today");
         }
+    }
+    
+    function initSearchDateRange()
+    {
+        dateFrom.datepicker("setDate", "-7D");
+        dateTo.datepicker("setDate", "today");
     }
 
     function setDateToday()
@@ -353,7 +367,7 @@
     {
         modalLayout.fadeOut();
         modalContent.fadeOut();
-        $('body').css("overflow", "scroll");
+        $('body').css("overflow-y", "scroll");
     }
 
     function overflowHidden()
@@ -402,11 +416,15 @@
     {
         let chkName = $(obj).attr('name');
         if ($(obj).is(':checked'))
+        {
             $('input[name="'+chkName+'"]').prop('checked', true);
+            $(obj).closest('table').find('tbody').children('tr').addClass('selected');
+        }
         else
+        {
             $('input[name="'+chkName+'"]').prop('checked', false);
-
-        $(obj).closest('table').find('tbody').children('tr').toggleClass('selected');
+            $(obj).closest('table').find('tbody').children('tr').removeClass('selected');
+        }
     }
 
     function onClickChkRow(obj)
@@ -624,11 +642,29 @@
         calculateInputLength();
     });
 
-    /*window.onpageshow = function (event) {
-        if (event.persisted || (window.performance && window.performance.navigation.type === 2))
+    /**
+     * 뒤로가기 관련 >>
+     * 상세페이지에서 목록으로 이동할 때 이전 상태를 유지하기 위함
+     * 왼쪽 사이드 메뉴 클릭 후 페이지 진입할 때 localStorage에 param과 page path 쌓고
+     * 상세에서 목록으로 이동할 때 최근 값을 가져와
+     * **/
+    let isBackAction = false;
+    window.onpageshow = function (event) {
+        if (window.PerformanceNavigation)
         {
-            console.log(event.persisted)
-            console.log(window.performance)
-            console.log(window.performance.navigation.type)
+            let historyPage = localStorage.getItem("page");
+            if (historyPage === getPathName())
+                isBackAction = true;
         }
-    }*/
+    }
+
+    function setHistoryParam(param)
+    {
+        localStorage.setItem("param", JSON.stringify(param));
+        localStorage.setItem("page", getPathName());
+    }
+
+    function getHistoryParam()
+    {
+        return JSON.parse(localStorage.getItem("param"));
+    }

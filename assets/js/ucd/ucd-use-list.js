@@ -32,15 +32,10 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
 		ucdType.eq(0).prop("checked", true);
 		userDivision.eq(0).prop("checked", true);
-
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		initSelectOption();
+		initSearchDateRange();
 	}
 
 	function buildGrid()
@@ -105,7 +100,6 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-				console.log(aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
@@ -126,7 +120,6 @@
 			,"division" : selDivision1.val()
 			,"title" : selDivision2.val()
 			,"ucd_type" : $("input[name=radio-type]:checked").val()
-			,"user_type" : "company"
 		}
 
 		return JSON.stringify(param);

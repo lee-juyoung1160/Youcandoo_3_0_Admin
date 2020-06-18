@@ -15,7 +15,7 @@
     color: #565656;
     font-size: 20px;
 }
-.modal-content .modal-information > li:first-child {
+.modal-content .modal-information > li {
     border: none;
 }
 .ucd-give-ded-page .modal-content .table-wrap {
@@ -33,13 +33,13 @@
 
 
 .nickname-modal {
-    width: 1200px;
+    width: 1330px;
 }
 .btn-go-wrap {
     float: left;
     width: 50px;
     height: 600px;
-    margin: 0 20px;
+    margin: 0 15px;
     background: none;
     border: 1px solid #ddd;
     border-radius: 30px;
@@ -67,7 +67,7 @@
 }
 .nickname-modal .user-select-wrap {
     overflow-y: scroll;
-    width: 450px;
+    width: 590px;
     border: 1px solid #ebebeb;
 }
 .user-select-wrap li:first-child {
@@ -87,16 +87,7 @@
 .user-select-wrap table i {
     color: #ec5c5c;
 }
-.user-ucd {
-    color: #777;
-}
-.user-ucd span {
-    color: #333;
-    font-weight: 600;
-}
-.user-ucd strong {
-    color: #333;
-}
+
 .user-select-title {
     display: inline-block;
     height: 15px;
@@ -121,6 +112,13 @@
 }
 
 .user-select-title em {
+    color: #333;
+}
+
+.user-ucd {
+    color: #777;
+}
+.user-ucd strong {
     color: #333;
 }
 

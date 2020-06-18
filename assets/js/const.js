@@ -52,6 +52,7 @@
 		,cantDeleteDoit: '진행상태 : 모집중 / 참여인원 : 0명인 두잇만 삭제할 수 있습니다.'
 		,alreadyHasYellow: '이미 옐로카드를 받은 인증이 포함돼 있습니다.\n해당 게시물 체크 해제 후 다시 시도해주세요.'
 		,notEnoughBudget: '프로모션 예산이 부족해 두잇을 개설할 수 없습니다.\n기업 또는 프로모션을 다시 선택해주세요.'
+		,alreadyHasUser: '이미 추가된 회원이 포함돼 있습니다.\n해당 회원을 체크 해제 후 다시 시도해주세요.'
 	}
 
 	const label = {
@@ -92,7 +93,7 @@
 	const api = {
 		/** 공통 **/
 		getBizName : baseApiUrl+'keyword/getCompanyName'
-		,getNickname : baseApiUrl+'keyword/getNickname'
+		,getNickname : baseApiUrl+'user/getNickname'
 		,getBalance : baseApiUrl+'ucd/status/company'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
@@ -189,6 +190,7 @@
 		,getMenuByAuth : baseApiUrl+'auth/get/menu'
 		/** UCD **/
 		,listUseUcd : baseApiUrl+'ucd/use/list'
+		,listWithdrawUcd : baseApiUrl+'ucd/withdraw/list'
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
 	}
@@ -215,6 +217,7 @@
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/uses/list'
+		,listUcdWithdraw : '/ucd/withdraw'
 
 		,listEvent : '/service/event/list'
 		,createEvent : '/service/event/create'

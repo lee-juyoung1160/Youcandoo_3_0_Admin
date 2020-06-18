@@ -310,7 +310,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data))
 						if (isSuccessResp(data))
-							location.href = page.listUcdUsage;
+							location.href = page.listUcdWithdraw;
 					},
 					error: function (request, status) {
 						alert(label.submit+message.ajaxError);
@@ -329,7 +329,7 @@
 
 		let param = {
 			"profile_uuid" : uuids
-			,"division" : 0
+			,"division" : 1
 			,"ucd_type" : $("input[name=radio-ucd-type]:checked").val()
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
@@ -345,7 +345,7 @@
 
 		if (count === 0)
 		{
-			alert('충전대상을 '+message.needMore);
+			alert('출금대상을 '+message.needMore);
 			onClickModalOpen();
 			return false;
 		}

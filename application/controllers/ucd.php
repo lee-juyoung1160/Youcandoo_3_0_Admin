@@ -13,10 +13,18 @@ class Ucd extends MY_Controller {
         $this->load->layout('ucd/ucd-use-list');
     }
 
-    public function withdraw()
+    public function withdraw($Route="lists")
     {
-        $this->load->layout('ucd/ucd-withdraw-list');
-    }
+            switch ($Route)
+            {
+                case "user" :
+                    $this->load->layout('ucd/ucd-withdraw-user');
+                    break;
+                case "lists":
+                    $this->load->layout('ucd/ucd-withdraw-list');
+                    break;
+            }
+        }
 
     public function create($Route="biz")
     {

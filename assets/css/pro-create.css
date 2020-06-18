@@ -170,15 +170,15 @@
 }
 .pro-reward-wrap {
     display: none;
-    padding: 20px 30px;
+    padding: 20px;
     background-color: #fff;
     border: 2px solid #d9e7f5;
 }
 .enrollment li .pro-reward-wrap .col-wrap .col-1 {
-    width: 220px;
+    width: 200px;
 }
 .enrollment li .pro-reward-wrap .col-wrap .col-2 {
-    width: 640px;
+    width: 695px;
 }
 .pro-reward-wrap input[type="text"].input-num-box {
     width: 30px;
@@ -193,7 +193,7 @@
     margin-bottom: 10px;
 }
 .pro-reward-wrap table {
-    width: 640px;
+    width: 680px;
 }
 .pro-reward-wrap table th {
     font-weight: 500;
@@ -212,7 +212,7 @@
     display: none;
 }
 .pro-reward-wrap .only-num {
-    width: 90px;
+    width: 75px;
     text-align: right;
 }
 .reward-user {
@@ -245,8 +245,6 @@
     top: 5px;
     content: '-';
 }
-
-
 
 .ucd-add-btn {
     display: block;
@@ -301,6 +299,9 @@
 }
 .modal-information .table-wrap .table-pagination li {
     border-bottom: none;
+}
+table th {
+    vertical-align: middle;
 }
 
 

@@ -16,6 +16,8 @@
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction) setHistoryForm();
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -32,13 +34,23 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		select.each(function () {
-			$(this).children().eq(0).prop("selected", true);
-			onChangeSelectOption($(this));
-		});
+		doitStatus.prop('checked', false);
 		doitStatus.eq(3).prop('checked', true);
-		/** 검색범위 초기화 **/
-		onClickActiveAloneDayBtn($(".btn_week"));
+		initSelectOption();
+		initSearchDateRange();
+	}
+
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+		dateFrom.val(historyParams.from_date);
+		dateTo.val(historyParams.to_date);
+		keyword.val(historyParams.keyword);
+		searchType.val(historyParams.search_type);
+		doitStatus.each(function () {
+			if (historyParams.status.indexOf($(this).val()) !== -1)
+				$(this).prop("checked", true);
+		});
 	}
 
 	function onChangeChkStatus(obj)
@@ -67,7 +79,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -124,6 +136,8 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				table.page(pageIdx).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -134,8 +148,22 @@
 		});
 	}
 
-	function tableParams(d)
+	let pageIdx = 0;
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+		if (isBackAction)
+		{
+			let historyParams = JSON.parse(localStorage.getItem("param"))
+			_limit = historyParams.limit;
+			_page = historyParams.page;
+			pageIdx = _page - 1;
+			isBackAction = false;
+		}
+
 		let status = [];
 		doitStatus.each(function () {
 			if ($(this).is(":checked"))
@@ -143,8 +171,8 @@
 		})
 
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : _limit
+			,"page" : _page
 			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
@@ -152,6 +180,9 @@
 			,"keyword" : keyword.val()
 			,"status" : status
 		}
+
+		/** localStorage에 정보 저장 **/
+		setHistory(param);
 
 		return JSON.stringify(param);
 	}

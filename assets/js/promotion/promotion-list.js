@@ -65,7 +65,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -142,8 +142,13 @@
 		});
 	}
 	
-	function tableParams(d)
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+
 		let statusParam = [];
 		status.each(function () {
 			if ($(this).is(':checked'))
@@ -151,8 +156,8 @@
 		});
 
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : _limit
+			,"page" : _page
 			,"dateType" : dateType.val()
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
@@ -161,6 +166,9 @@
 			,"is_banner" : $("input[name=radio-banner]:checked").val()
 			,"status" : statusParam
 		}
+
+		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam(param);
 
 		return JSON.stringify(param);
 	}

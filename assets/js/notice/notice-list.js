@@ -118,17 +118,25 @@
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : _limit
+			,"page" : _page
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
+
+		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam(param);
 
 		return JSON.stringify(param);
 	}

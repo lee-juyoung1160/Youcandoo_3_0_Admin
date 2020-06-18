@@ -111,12 +111,18 @@
 	{
 		let table = dataTable.DataTable();
 		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
+
 
 		let param = {
 			"keyword" : keyword.val().trim()
-			,"limit" : info.length
-			,"page" : (info.start / info.length) + 1
+			,"limit" : _limit
+			,"page" : _page
 		}
+
+		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam(param);
 
 		return JSON.stringify(param);
 	}

@@ -177,7 +177,7 @@
 		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
 		ucdInfo = ucdInfo.slice(1, -1);
 		let jsonUcdInfo = JSON.parse(ucdInfo);
-		console.log(jsonUcdInfo)
+
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
 		detailDom += 	'<div class="list-inner">';

@@ -208,7 +208,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">인증 기간 (*)</p>';
+			detailDom += 					'<p class="cap" style="display: inline-block;">인증 기간 (*)</p>';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
 			detailDom += 					'</i>';
@@ -256,7 +256,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">목표달성률 (*)</p>';
+			detailDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p>';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>';
 			detailDom += 					'</i>';
@@ -430,7 +430,7 @@
 
 			if (activeCount > Number(duration))
 			{
-				alert('주간빈도 수는 인증기간을 초과해 선택할 수 없습니다.\n인증기간: '+duration+', 선택한 주간빈도 수: '+activeCount);
+				alert('주간빈도는 '+message.overFrequency+'\n인증기간: '+duration+', 선택한 주간빈도 수: '+activeCount);
 				$(obj).toggleClass('active');
 			}
 		}
@@ -770,11 +770,12 @@
 			return false;
 		}
 
-		/*if (isOverDuration())
+		if (isOverDuration())
 		{
 			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
-		}*/
+		}
+
 		if (isEmptyDuration())
 		{
 			alert('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
@@ -789,7 +790,7 @@
 
 		if (isEmptyRewardUcd())
 		{
-			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
+			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 
@@ -810,30 +811,31 @@
 
 	function isEmptyNotice()
 	{
-		let retVal = false;
+		let result = false;
 		let promotionNotice = $("input[name=promo-notice]");
 		promotionNotice.each(function () {
 			if (isEmpty($(this).val()))
-				retVal = true;
+				result = true;
 		});
 
-		return retVal;
+		return result;
 	}
 
 	function isEmptyRewardUcd()
 	{
-		let retVal = false;
+		let result = false;
 		let ucdTable = $(".ucd-table-body");
 		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
 		for (let i=0; i<rewardSelectDomLength; i++)
 		{
 			$(ucdTable[i]).find('input').each(function () {
-				if (isEmpty($(this).val())) retVal = true;
+				if (isEmpty($(this).val()))
+					result = true;
 			});
 		}
 
-		return retVal;
+		return result;
 	}
 
 	function isEmptyDuration()
@@ -847,27 +849,21 @@
 		return result;
 	}
 
-	/*function isOverDuration()
+	function isOverDuration()
 	{
-		let retVal 		= false;
-		let promoTerm 	= calculateTerm();
-		let btnDuration	= $(".duration");
-		btnDuration.each(function () {
-			if ($(this).hasClass('active'))
-			{
-				let duration = $(this).data('days');
-
-				if (duration > promoTerm)
-					retVal = true;
-			}
+		let result 		= false;
+		$(".duration").each(function () {
+			let inputVal = $(this).val();
+			if (inputVal > 30)
+				result = true;
 		});
 
-		return retVal;
-	}*/
+		return result;
+	}
 
 	function isInvalidJoinUserCount()
 	{
-		let retVal = false;
+		let result = false;
 		let ucdTable = $(".ucd-table-body");
 		ucdTable.each(function () {
 			let minDom = $(this).find('input')[0];
@@ -875,10 +871,11 @@
 			let minVal = $(minDom).val();
 			let maxVal = $(maxDom).val();
 
-			if (Number(minVal) > Number(maxVal)) retVal = true;
+			if (Number(minVal) > Number(maxVal))
+				result = true;
 		});
 
-		return retVal;
+		return result;
 	}
 
 	function onChangePromoFrom()

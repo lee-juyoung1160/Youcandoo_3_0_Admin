@@ -123,6 +123,11 @@
             dateTo.datepicker("setDate", "today");
         }
     }
+
+    function initDayBtn()
+    {
+        dayButtons.removeClass("active");
+    }
     
     function initSearchDateRange()
     {
@@ -170,11 +175,13 @@
     function onChangeSearchDateFrom()
     {
         dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
+        initDayBtn();
     }
 
     function onChangeSearchDateTo()
     {
         dateFrom.datepicker("option", "maxDate", new Date(dateTo.datepicker("getDate")));
+        initDayBtn();
     }
 
     function onChangeValidationImage(obj)

@@ -25,6 +25,8 @@
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -46,6 +48,24 @@
 		userActive.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+	}
+
+	let _page = 1;
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+
+		keyword.val(historyParams.keyword);
+		dateFrom.val(historyParams.from_date);
+		dateTo.val(historyParams.to_date);
+		dateType.val(historyParams.date_type);
+		onChangeSelectOption(dateType);
+		searchType.val(historyParams.search_type);
+		onChangeSelectOption(searchType);
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
+
+		_page = historyParams.page;
 	}
 
 	/*function initModal()
@@ -73,7 +93,7 @@
 						d.order = d.order[0].dir;
 					}
 				   */
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
@@ -122,6 +142,14 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+				});
+
+				table.page(_page-1).draw( 'page' );
+
 				/** row select **/
 				/*dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });*/
 				/** row deselect **/
@@ -140,13 +168,8 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
@@ -219,6 +242,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 

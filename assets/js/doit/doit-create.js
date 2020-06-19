@@ -43,7 +43,7 @@
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
 		onChangeExampleType(exampleType.eq(0));
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });

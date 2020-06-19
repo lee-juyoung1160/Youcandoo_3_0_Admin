@@ -13,6 +13,10 @@
 	$(document).ready(function () {
 		/** 권한 목록 **/
 		getAuthList();
+		/** 선택된 권한의 메뉴를 가져옴 **/
+		getMenuByAuthCode();
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam("");
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -65,6 +69,7 @@
 		$.ajax({
 			url: api.listAuth,
 			type: "POST",
+			async: false,
 			headers : headers,
 			dataType: 'json',
 			success: function(data) {
@@ -98,9 +103,6 @@
 		}
 
 		authList.html(liDom);
-
-		/** 선택된 권한의 메뉴를 가져옴 **/
-		getMenuByAuthCode();
 	}
 
 	function onClickBtnAuth(obj)

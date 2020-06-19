@@ -39,21 +39,22 @@
 	}
 
 	let _page = 1;
-	let _limit = Number(selPageLength.val());
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
 		keyword.val(historyParams.keyword);
 		searchType.val(historyParams.search_type);
-		faqType.val(historyParams.faq_type);
+		onChangeSelectOption(faqType);
+		faqType.val(historyParams.searchType);
 		onChangeSelectOption(faqType);
 		$("input[name=radio-exposure]").each(function () {
 			if ($(this).val() === historyParams.is_exposure)
 				$(this).prop("checked", true);
 		});
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
 
 		_page = historyParams.page;
-		_limit = historyParams.limit;
 	}
 
 	function getFaqType()
@@ -158,7 +159,6 @@
 				dataTable.on('page.dt', function (e, settings) {
 					let info = table.page.info();
 					_page = (info.start / info.length) + 1;
-					_limit = info.length;
 				});
 
 				table.page(_page-1).draw( 'page' );
@@ -175,7 +175,7 @@
 	function tableParams()
 	{
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"search_type" : searchType.val()
 			,"faq_type" : faqType.val()
@@ -183,7 +183,7 @@
 			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
 
-		/** localStorage에 정보 저장 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);

@@ -42,11 +42,10 @@
 	}
 
 	let _page = 1;
-	let _limit = Number(selPageLength.val());
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
-		console.log(historyParams)
+
 		keyword.val(historyParams.keyword);
 		dateFrom.val(historyParams.fromDate);
 		dateTo.val(historyParams.toDate);
@@ -58,9 +57,10 @@
 			if (historyParams.status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
 		});
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
 
 		_page = historyParams.page;
-		_limit = historyParams.limit;
 	}
 
 	function onChangeChkStatus(obj)
@@ -160,7 +160,6 @@
 				dataTable.on('page.dt', function (e, settings) {
 					let info = table.page.info();
 					_page = (info.start / info.length) + 1;
-					_limit = info.length;
 				});
 
 				table.page(_page-1).draw( 'page' );
@@ -183,7 +182,7 @@
 		});
 
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"dateType" : dateType.val()
 			,"fromDate" : dateFrom.val()
@@ -194,7 +193,7 @@
 			,"status" : statusParam
 		}
 
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);

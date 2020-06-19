@@ -14,6 +14,8 @@
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -30,6 +32,24 @@
 		keyword.val('');
 		initSelectOption();
 		initSearchDateRange();
+	}
+
+	let _page = 1;
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+
+		keyword.val(historyParams.keyword);
+		dateFrom.val(historyParams.fromDate);
+		dateTo.val(historyParams.toDate);
+		dateType.val(historyParams.dateType);
+		onChangeSelectOption(dateType);
+		searchType.val(historyParams.searchType);
+		onChangeSelectOption(searchType);
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
+
+		_page = historyParams.page;
 	}
 
 	function buildGrid()
@@ -80,6 +100,13 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+				});
+
+				table.page(_page-1).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -92,13 +119,8 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
@@ -107,7 +129,7 @@
 			,"dateType" : dateType.val()
 		}
 
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
@@ -126,6 +148,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 

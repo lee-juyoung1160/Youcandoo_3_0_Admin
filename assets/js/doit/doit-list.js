@@ -41,7 +41,6 @@
 	}
 
 	let _page = 1;
-	let _limit = Number(selPageLength.val());
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
@@ -58,9 +57,10 @@
 		onChangeSelectOption(dateType);
 		searchType.val(historyParams.search_type);
 		onChangeSelectOption(searchType);
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
 
 		_page = historyParams.page;
-		_limit = historyParams.limit;
 	}
 
 	function onChangeChkStatus(obj)
@@ -131,7 +131,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: _limit,
+			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -150,7 +150,6 @@
 				dataTable.on('page.dt', function (e, settings) {
 					let info = table.page.info();
 					_page = (info.start / info.length) + 1;
-					_limit = info.length;
 				});
 
 				table.page(_page-1).draw( 'page' );
@@ -173,7 +172,7 @@
 		})
 
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
@@ -183,7 +182,7 @@
 			,"status" : status
 		}
 
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);

@@ -1,13 +1,5 @@
 .more-info-btn {
     border: none;
-    text-align: center;
-    line-height: 40px;
-    display: block;
-    width: 150px;
-    height: 40px;
-    color: #ffffff;
-    border-radius: 30px;
-    background-color: #19579a;
 }
 .more-info-btn:hover {
     background: #19579a;
@@ -43,33 +35,6 @@
     font-weight: 600;
 }
 
-.ucd-data,
-.biz-ucd-data {
-    overflow-wrap: break-word;
-    color: #949494;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.7;
-}
-.biz-ucd-data dt,
-.biz-ucd-data dd {
-    float:left;
-    margin-left: 5px;
-}
-.biz-ucd-data dt {
-    width: 100px;
-    color: #404040;
-}
-.biz-ucd-data dd {
-    min-width: 150px;
-    text-align: right;
-    color: #949494;
-}
-.biz-ucd-data span {
-    color: #404040;
-    margin-right: 5px;
-}
-
 .biz-detail-tab {
     margin-top: 30px;
 }
@@ -77,6 +42,3 @@
     width: calc(100%/2);
 }
 
-.radio-wrap label {
-    margin-right: 10px;
-}

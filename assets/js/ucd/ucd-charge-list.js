@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 데이트피커 초기화
     initSearchDatepicker();
     // 상단 검색 폼 초기화
-    onClickActiveAloneDayBtn($(".btn_week"));
+    initSearchForm();
     // 이벤트
     $("body").on("keydown", function (event) {
         onKeydownSearch(event)
@@ -21,17 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // 테이블 실행
     getBizListData();
+
 });
 /** 검색 필드 reset **/
 resetBtn.addEventListener('click', () => {
-    keyword.value = "";
-    const select = $("select");
-    select.each(function () {
-        $(this).children().eq(0).prop("selected", true);
-        onChangeSelectOption($(this));
-    });
-    onClickActiveAloneDayBtn($(".btn_week"));
+    initSearchForm();
 });
+
 /** 검색시 테이블 호출 **/
 searchBtn.addEventListener('click', () => {
     getBizListData();
@@ -39,6 +35,16 @@ searchBtn.addEventListener('click', () => {
 limits.addEventListener('change', () => {
     getBizListData();
 });
+
+function initSearchForm() {
+    keyword.value = "";
+    const select = $("select");
+    select.each(function () {
+        $(this).children().eq(0).prop("selected", true);
+        onChangeSelectOption($(this));
+    });
+    initSearchDateRange();
+}
 
 /** 데이터 **/
 function tableParams(response) {

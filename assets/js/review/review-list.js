@@ -20,20 +20,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // 데이트피커 초기화
     initSearchDatepicker();
     // 상단 검색 폼 초기화
-    onClickActiveAloneDayBtn($(".btn_week"));
+    initSearchForm();
     // 이벤트
     $("body").on("keydown", function (event) {onKeydownSearch(event)});
     dayButtons.on("click", function () {onClickActiveAloneDayBtn(this);});
-    // 상단 검색 input 디폴드 값
-    ratingLists.forEach(function(item, index, array){item.checked = true;});
-    document.querySelector('input[name=radio-report]').checked = true;
-    document.querySelector('input[name=radio-blind]').checked = true;
+
     //by.leo
     btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
     btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
     // 테이블 실행
     getReviewListData();
+
+    /** 검색 필드 reset **/
+    resetBtn.addEventListener('click', () => { initSearchForm(); });
+    /** 검색시 테이블 호출 **/
+    searchBtn.addEventListener('click', () => {getReviewListData();});
+    limits.addEventListener('change', () => {getReviewListData();});
 });
+
 /** 평점 마지막 하나일때 고정하기 **/
 for (let i=0; i<ratingLists.length; i++) {
     let clickCount = ratingLists[i];
@@ -46,20 +50,21 @@ for (let i=0; i<ratingLists.length; i++) {
     });
 }
 
-
-/** 검색 필드 reset **/
-resetBtn.addEventListener('click', () => {
+function initSearchForm() {
     keyword.value = "";
     const select = $("select");
     select.each(function () {
         $(this).children().eq(0).prop("selected", true);
         onChangeSelectOption($(this));
     });
-    onClickActiveAloneDayBtn($(".btn_week"));
-});
-/** 검색시 테이블 호출 **/
-searchBtn.addEventListener('click', () => {getReviewListData();});
-limits.addEventListener('change', () => {getReviewListData();});
+    // 상단 검색 input 디폴드 값
+    ratingLists.forEach(function(item, index, array){item.checked = true;});
+    document.querySelector('input[name=radio-report]').checked = true;
+    document.querySelector('input[name=radio-blind]').checked = true;
+    initSearchDateRange();
+}
+
+
 /** 데이터 **/
 function tableParams (response) {
     const ratingLists = document.querySelectorAll('.rating-list input[name=chk-grade]:checked');
@@ -160,7 +165,7 @@ function openModal (review_text, rating, doit_title, report_count, is_blind, cre
     $("#is_blind").html(is_blind);
     $(".modal-layout").fadeIn(500);
     $("#modalDetail").fadeIn(500);
-
+    overflowHidden();
     // 모달 평점에 따른 별 추가
     let liList = $('ol.star-wrap').find('li');
     for(let i=0; i<liList.length; i++){
@@ -175,6 +180,7 @@ function openModal (review_text, rating, doit_title, report_count, is_blind, cre
 function closeModal(){
      $(".modal-layout").fadeOut(500);
      $("#modalDetail").fadeOut(500);
+    $('body').css("overflow-y", "scroll");
  }
 const modalCloseBtn = document.querySelector('.modal-content .close-btn');
 const modalLayout = document.querySelector('.modal-layout');

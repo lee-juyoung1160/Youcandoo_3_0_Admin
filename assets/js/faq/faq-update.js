@@ -8,6 +8,8 @@
 	$(document).ready(function () {
 		/** faq 구분 **/
 		getFaqType();
+		/** 상세 불러오기 **/
+		getDetail();
 		/** 이벤트 **/
 		btnSubmit.on('click', function () { onSubmitUpdateFaq(); });
 	});
@@ -17,6 +19,7 @@
 		$.ajax({
 			url: api.getFaqType,
 			type: "POST",
+			async: false,
 			headers: headers,
 			dataType: 'json',
 			success: function(data) {
@@ -46,9 +49,6 @@
 		}
 
 		selFaqType.html(optionDom);
-
-		/** 상세 불러오기 **/
-		getDetail();
 	}
 
 	function getDetail()

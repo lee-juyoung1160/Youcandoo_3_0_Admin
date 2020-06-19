@@ -887,8 +887,10 @@ input[type="radio"] + label{
 	font-weight: 400;
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+	transition: all .3s;
 }
-.table-btn-wrap li.active {
+.table-btn-wrap li.active,
+.table-btn-wrap li:hover {
 	font-weight: 600;
 	color: #ffffff;
 	background-color: #007aff;

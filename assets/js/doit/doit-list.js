@@ -17,7 +17,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		if (isBackAction) setHistoryForm();
+		if (isBackAction()) setHistoryForm();
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -40,9 +40,12 @@
 		initSearchDateRange();
 	}
 
+	let _page = 1;
+	let _limit = Number(selPageLength.val());
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
+		console.log(historyParams)
 		dateFrom.val(historyParams.from_date);
 		dateTo.val(historyParams.to_date);
 		keyword.val(historyParams.keyword);
@@ -51,6 +54,13 @@
 			if (historyParams.status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
 		});
+		dateType.val(historyParams.date_type);
+		onChangeSelectOption(dateType);
+		searchType.val(historyParams.search_type);
+		onChangeSelectOption(searchType);
+
+		_page = historyParams.page;
+		_limit = historyParams.limit;
 	}
 
 	function onChangeChkStatus(obj)
@@ -121,7 +131,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLength.val()),
+			pageLength: _limit,
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -137,7 +147,13 @@
 			destroy: true,
 			initComplete: function () {
 				let table = dataTable.DataTable();
-				table.page(pageIdx).draw( 'page' );
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+					_limit = info.length;
+				});
+
+				table.page(_page-1).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -148,22 +164,8 @@
 		});
 	}
 
-	let pageIdx = 0;
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-		if (isBackAction)
-		{
-			let historyParams = JSON.parse(localStorage.getItem("param"))
-			_limit = historyParams.limit;
-			_page = historyParams.page;
-			pageIdx = _page - 1;
-			isBackAction = false;
-		}
-
 		let status = [];
 		doitStatus.each(function () {
 			if ($(this).is(":checked"))
@@ -197,6 +199,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 
@@ -216,7 +219,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							dataReloadAndStayCurrentPage(dataTable);
+							tableReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

@@ -448,7 +448,7 @@
     }
 
     /** 테이블 현재 페이지 리로드 **/
-    function dataReloadAndStayCurrentPage(tableObj)
+    function tableReloadAndStayCurrentPage(tableObj)
     {
         let table = tableObj.DataTable();
         table.ajax.reload( null, false );
@@ -500,7 +500,7 @@
                 if (isSuccessResp(data))
                 {
                     buildMenuByAuthCode(data);
-                    //checkAuthIntoPage(data);
+                    /*checkAuthIntoPage(data);*/
                     activeMenu();
                 }
                 else
@@ -636,36 +636,48 @@
         })
     }
 
+    /**
+     * 뒤로가기 액션 관련 >>
+     * 상세페이지에서 목록으로 이동할 때 이전 상태를 유지하기 위함
+     * 페이지 진입할 때 localStorage에 param과 page path 쌓고
+     * 상세에서 목록으로 뒤로가기 이동할 때 localStorage에서 값을 가져와 목록 페이지의 이전 상태를 유지
+     * **/
+    const NavType = window.PerformanceNavigation.TYPE_BACK_FORWARD;
+    function isBackAction()
+    {
+        let result = false;
+        if (NavType === window.performance.navigation.type)
+        {
+            let historyPage = sessionStorage.getItem("page");
+            if (historyPage === getPathName())
+                result = true;
+        }
+
+        return result;
+    }
+
+    function setHistoryParam(param)
+    {
+        param = isEmpty(param) ? '' : JSON.stringify(param);
+        sessionStorage.setItem("param", param);
+        sessionStorage.setItem("page", getPathName());
+    }
+
+    function getHistoryParam()
+    {
+        return JSON.parse(sessionStorage.getItem("param"));
+    }
+    /**
+     * 뒤로가기 액션 관련 >>
+     * 상세페이지에서 목록으로 이동할 때 이전 상태를 유지하기 위함
+     * 페이지 진입할 때 localStorage에 param과 page path 쌓고
+     * 상세에서 목록으로 뒤로가기 이동할 때 localStorage에서 값을 가져와 목록 페이지의 이전 상태를 유지
+     * **/
+
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
         calculateInputLength();
     });
 
-    /**
-     * 뒤로가기 관련 >>
-     * 상세페이지에서 목록으로 이동할 때 이전 상태를 유지하기 위함
-     * 왼쪽 사이드 메뉴 클릭 후 페이지 진입할 때 localStorage에 param과 page path 쌓고
-     * 상세에서 목록으로 이동할 때 최근 값을 가져와
-     * **/
-    let isBackAction = false;
-    window.onpageshow = function (event) {
-        if (window.PerformanceNavigation)
-        {
-            let historyPage = localStorage.getItem("page");
-            if (historyPage === getPathName())
-                isBackAction = true;
-        }
-    }
 
-    function setHistoryParam(param)
-    {
-        param = isEmpty(param) ? '' : JSON.stringify(param);
-        localStorage.setItem("param", param);
-        localStorage.setItem("page", getPathName());
-    }
-
-    function getHistoryParam()
-    {
-        return JSON.parse(localStorage.getItem("param"));
-    }

@@ -17,6 +17,8 @@
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -37,6 +39,28 @@
 		status.prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+	}
+
+	let _page = 1;
+	let _limit = Number(selPageLength.val());
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+		console.log(historyParams)
+		keyword.val(historyParams.keyword);
+		dateFrom.val(historyParams.fromDate);
+		dateTo.val(historyParams.toDate);
+		dateType.val(historyParams.dateType);
+		onChangeSelectOption(dateType);
+		searchType.val(historyParams.searchType);
+		onChangeSelectOption(searchType);
+		status.each(function () {
+			if (historyParams.status.indexOf($(this).val()) !== -1)
+				$(this).prop("checked", true);
+		});
+
+		_page = historyParams.page;
+		_limit = historyParams.limit;
 	}
 
 	function onChangeChkStatus(obj)
@@ -132,6 +156,14 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+					_limit = info.length;
+				});
+
+				table.page(_page-1).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -144,11 +176,6 @@
 	
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-
 		let statusParam = [];
 		status.each(function () {
 			if ($(this).is(':checked'))
@@ -191,6 +218,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 
@@ -293,7 +321,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							dataReloadAndStayCurrentPage(dataTable);
+							tableReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

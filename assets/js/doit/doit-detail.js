@@ -101,7 +101,7 @@
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
-		search			.on("click", function () { reloadTable(joinUserTable); });
+		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
@@ -1142,7 +1142,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							reloadTable(reviewTable);
+							tableReloadAndStayCurrentPage(reviewTable);
 					},
 					error: function (request, status) {
 						alert(label.modify+message.ajaxError);

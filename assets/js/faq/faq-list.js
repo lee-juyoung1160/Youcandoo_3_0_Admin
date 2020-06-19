@@ -15,6 +15,8 @@
 		getFaqType()
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -28,28 +30,30 @@
 
 	function initSearchForm()
 	{
-		if (isBackAction)
-		{
-			let historyParams = getHistoryParam();
-			dateFrom.val(historyParams.fromDate);
-			dateTo.val(historyParams.toDate);
-			keyword.val(historyParams.keyword);
-			searchType.val(historyParams.searchType);
-			$('input:radio[name=radio-exposure]').each(function () {
-				if ($(this).val() === historyParams.is_exposure)
-					$(this).prop('checked', true);
-			});
-		}
-		else
-		{
-			keyword.val('');
-			inputRadio.each(function (index) {
-				if (index === 0)
-					$(this).prop("checked", true);
-			});
-			initSelectOption();
-			initSearchDateRange();
-		}
+		keyword.val('');
+		inputRadio.each(function (index) {
+			if (index === 0)
+				$(this).prop("checked", true);
+		});
+		initSelectOption();
+	}
+
+	let _page = 1;
+	let _limit = Number(selPageLength.val());
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+		keyword.val(historyParams.keyword);
+		searchType.val(historyParams.search_type);
+		faqType.val(historyParams.faq_type);
+		onChangeSelectOption(faqType);
+		$("input[name=radio-exposure]").each(function () {
+			if ($(this).val() === historyParams.is_exposure)
+				$(this).prop("checked", true);
+		});
+
+		_page = historyParams.page;
+		_limit = historyParams.limit;
 	}
 
 	function getFaqType()
@@ -151,7 +155,13 @@
 			destroy: true,
 			initComplete: function () {
 				let table = dataTable.DataTable();
-				table.page(pageIdx).draw( 'page' );
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+					_limit = info.length;
+				});
+
+				table.page(_page-1).draw( 'page' );
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -162,21 +172,8 @@
 		});
 	}
 
-	let pageIdx = 0;
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-		if (isBackAction)
-		{
-			let historyParams = JSON.parse(localStorage.getItem("param"))
-			_limit = historyParams.limit;
-			_page = historyParams.page;
-			pageIdx = _page - 1;
-			isBackAction = false;
-		}
 		let param = {
 			"limit" : _limit
 			,"page" : _page
@@ -203,6 +200,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 
@@ -222,7 +220,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							dataReloadAndStayCurrentPage(dataTable);
+							tableReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

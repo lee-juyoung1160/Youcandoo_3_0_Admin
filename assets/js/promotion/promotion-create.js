@@ -76,7 +76,7 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		modalBizName	.on('keyup', function () { reloadTable(dataTable); });
+		modalBizName	.on('keyup', function () { getBiz(); });
 		bizName			.on('click', function () { onClickBizName(); });
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });

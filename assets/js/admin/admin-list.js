@@ -194,7 +194,7 @@
 				success: function(data) {
 					alert(getStatusMessage(data));
 					if (isSuccessResp(data))
-						dataReloadAndStayCurrentPage(dataTable);
+						tableReloadAndStayCurrentPage(dataTable);
 				},
 				error: function (request, status) {
 					alert(label.modify+message.ajaxError);
@@ -219,7 +219,7 @@
 					success: function(data) {
 						alert(getStatusMessage(data));
 						if (isSuccessResp(data))
-							dataReloadAndStayCurrentPage(dataTable);
+							tableReloadAndStayCurrentPage(dataTable);
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);

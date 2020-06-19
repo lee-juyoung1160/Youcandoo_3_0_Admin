@@ -179,7 +179,9 @@ h2.main-title {
 	color: #7d7d7d;
 }
 .enrollment>li .hash-tag-list li {
+	position: relative;
 	margin-bottom: 0;
+	padding-right: 20px;
 }
 p.sub-title {
 	font-weight: 500;
@@ -469,7 +471,7 @@ input.tag-input {
 .hash-tag-list > li {
 	float: left;
 	font-size: 12px;
-	margin-right: 10px;
+	margin-right: 15px;
 	margin-bottom: 20px;
 	padding: 0.5rem;
 	border: 1px solid #007aff;
@@ -485,7 +487,10 @@ input.tag-input {
 	margin-right: 0;
 }
 .hash-tag-list > li .delete-btn {
+	position: absolute;
 	color: #7d7d7d;
+	top: 30%;
+	right: 3px;
 }
 .hash-tag-list > li .delete-btn:hover {
 	color: #ec5c5c;

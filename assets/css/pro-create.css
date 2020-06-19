@@ -302,6 +302,12 @@
 table th {
     vertical-align: middle;
 }
+.file {
+    margin-bottom: 15px;
+}
+.file video {
+    width: 100%;
+}
 
 
 

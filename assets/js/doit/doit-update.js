@@ -7,8 +7,7 @@
 	const addedTags			= $("#addedTags");
 	const introFileType 	= $("input[name=radio-intro-type]");
 	const introFileArea		= $("#introFileArea");
-	const minAvailable 		= $("#minAvailable");
-	const maxAvailable 		= $("#maxAvailable");
+	const recruitCount		= $("#recruitCount");
 	const extraRewardWrap	= $("#extraRewardWrap");
 	const extraReward		= $("#extraReward");
 	const actionDate	    = $("#actionDate");
@@ -112,8 +111,7 @@
 		introImg = introResourceType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
 		introImg = isEmpty(introImg) ? label.noImage : introImg;
 		buildThumbnailDom();
-		minAvailable.html(detail.min_user);
-		maxAvailable.html(detail.max_user);
+		recruitCount.html(detail.min_user+' ~ '+detail.max_user+'명');
 		extraReward.html(detail.group_reward_description);
 		if (isEmpty(detail.group_reward_description))
 			extraRewardWrap.remove();
@@ -297,19 +295,9 @@
 		return true;
 	}
 
-	function removeTagDom(obj)
-	{
-		$(obj).parent().remove();
-	}
-
 	function validation()
 	{
 		let tagLen 				= addedTags.find('li').length;
-		let introVideoDom 		= $("#introVideo");
-		let introImageFile		= $("#introImage")[0].files;
-		let introVideoFile;
-		if (introVideoDom.length > 0)
-			introVideoFile		= introVideoDom[0].files;
 
 		if (isEmpty(doitDesc.val()))
 		{
@@ -323,18 +311,6 @@
 			alert('태그를 ' + message.needMore);
 			return false;
 		}
-
-		/*if (introImageFile.length === 0)
-		{
-			alert('두잇 소개 이미지는 ' + message.required);
-			return false;
-		}
-
-		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
-		{
-			alert('두잇 소개 영상은 ' + message.required);
-			return false;
-		}*/
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{

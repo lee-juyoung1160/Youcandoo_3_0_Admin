@@ -14,7 +14,6 @@
 	const doitTags 		= $("#doitTags");
 	const introWrap 	= $("#introWrap");
 	const reward 		= $("#reward");
-	const recruit 		= $("#recruit");
 	const extraReward	= $("#extraReward");
 	const actionDate 	= $("#actionDate");
 	const actionTime 	= $("#actionTime");
@@ -296,8 +295,6 @@
 			}
 		}
 		introWrap.html(introImageDom);
-
-		recruit.html(recruitCount+'명');
 
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);

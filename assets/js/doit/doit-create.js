@@ -12,9 +12,6 @@
 	const labelSelPromo 	= $("label[for='selPromo']");
 	const selectedReward    = $("#selectedReward")
 	const labelSelReward 	= $("label[for='selReward']");
-	const minAvailable 		= $("#minAvailable");
-	const maxAvailable 		= $("#maxAvailable");
-	/*const recruit 			= $("#recruit");*/
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
 	const ucdAreWrap		= $("#ucd-area-wrap");
@@ -237,8 +234,6 @@
 	{
 		bizUuid = uuid;
 		bizName.val(name);
-		minAvailable.html('0');
-		maxAvailable.html('0');
 		selectedReward.empty();
 		getInvolvePromo();
 		buildOptionReward();
@@ -380,24 +375,24 @@
 			doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
 
 			selectedRewardDom += '<li class="reward-type clearfix">';
-			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; cursor:default;"></i> 선택하신  프로모션 관련 리워드 조건입니다.</p>';
+			selectedRewardDom += 	'<div class="fixed">';
+			selectedRewardDom += 		'<p class="cap"><span>두잇 참여 인원 : </span>'+detail.user_limit_title+'</p>';
+			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
 			selectedRewardDom += 		'<p class="cap"><span>인증기간 : </span><span id="duration">'+detail.action_duration+'일</span></p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>모집인원 : </span>'+detail.min_user_limit+' ~ '+detail.max_user_limit+'명</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>하루인증횟수 : </span>'+detail.action_daily_allow+'회</p>';
+			selectedRewardDom += 		'<p class="cap"><span>일일인증 횟수 : </span>'+detail.action_daily_allow+'회</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
 			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'%</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +'% : 단체 '+detail.group_percent +'%</p>';
+			/*selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +'% : 단체 '+detail.group_percent +'%</p>';
 			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 UCD : </span>'+ numberWithCommas(detail.total_reward) +' UCD</p>';
+			selectedRewardDom += 	'<div class="fixed">';*/
+			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 지급할 UCD : </span>개인 '+ numberWithCommas(detail.person_reward) +'UCD / 단체 '+ numberWithCommas(detail.group_reward) +'UCD</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
 			selectedRewardDom += 		'<p class="cap"><span>주간빈도 : </span>'+ detail.action_dayofweek +'</p>';
@@ -412,9 +407,6 @@
 
 			selectedReward.html(selectedRewardDom);
 
-			/** 모집인원 가이드(프로모션에서 설정한 최대 못집인원을 표출시켜 줌) **/
-			minAvailable.html(detail.min_user_limit);
-			maxAvailable.html(detail.max_user_limit);
 			g_min_user_limit = detail.min_user_limit;
 			g_max_user_limit = detail.max_user_limit;
 		}

@@ -38,7 +38,8 @@
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overBalance: '보유 UCD를 초과할 수 없습니다.'
-		/*,overDuration: '인증기간은 프로모션 기간을 초과할 수 없습니다.'*/
+		,overDuration: '인증기간은 최대 30일까지 입력 가능합니다.'
+		,overFrequency: '인증기간일 수를 초과해 선택할 수 없습니다.'
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
 		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
 		,minimumPassCode: '참가코드는 네 자릿수를 입력해야 합니다.'

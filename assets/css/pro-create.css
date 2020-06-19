@@ -200,13 +200,12 @@
     font-weight: 500;
     text-align: center;
     background-color: #fff;
-    border-bottom: 1px solid #f9f9f9;
 }
 .pro-reward-wrap table th,
 .pro-reward-wrap table td {
     padding: 10px 20px;
     font-size: 15px;
-    border: 1px solid #f3f3f3;
+    border: 1px solid #f1f1f1;
 }
 .pro-reward-wrap table tbody tr:first-child td i {
     display: none;

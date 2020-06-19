@@ -222,25 +222,19 @@
 		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
 		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
-		let maxUcd		= numberWithCommas(Number(detail.person_reward)+Number(detail.group_reward));
 		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
 		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
-		let personRate  = Math.floor((Number(detail.person_reward)/detail.per_person_ucd) * 100);
-		personRate = isNaN(personRate) ? '-' : personRate;
-		let groupRate   = Math.floor((Number(detail.group_reward)/detail.per_person_ucd) *100);
-		groupRate = isNaN(groupRate) ? '-' : groupRate;
 		let recruitCount = detail.max_user == 1 ? detail.max_user : detail.min_user+' ~ '+detail.max_user;
 
 		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
 		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
 		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
 		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'모집 인원 : '+recruitCount+'명<br>';
+		rewardDom += 		'두잇 참여 인원 : '+recruitCount+'명<br>';
 		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
 		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
 		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
-		rewardDom += 		'1인당 최대 지급할 UCD : '+maxUcd+'UCD<br>';
-		rewardDom += 		'리워드 비율 : 개인 '+personRate+' 그룹 '+groupRate+'<br>';
+		rewardDom += 		'1인당 최대 지급할 UCD : 개인 '+detail.person_reward+'UCD / 단체 '+detail.group_reward+'UCD<br>';
 		rewardDom += 		'주간빈도 : '+dayofweek;
 		rewardDom += 	'</p>';
 		if (!isEmpty(detail.promotion_uuid))
@@ -424,7 +418,7 @@
 		joinCount.html(numberWithCommas(detail.member_cnt));
 		goal.html(Math.floor(detail.goal_percent));
 		avg.html(Math.floor(detail.avg_percent));
-		forecast.html(numberWithCommas(detail.per_person_ucd));
+		forecast.html(numberWithCommas(detail.total_reward));
 		saving.html(numberWithCommas(detail.save_reward));
 	}
 
@@ -436,14 +430,6 @@
 				type:"POST",
 				headers: headers,
 				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams(d);
 				},
 				error: function (request, status) {
@@ -478,10 +464,6 @@
 			ordering: false,
 			order: [],
 			info: false,
-			/*select: {
-				style: 'multi',
-				selector: ':checkbox'
-			},*/
 			select: false,
 			lengthChange: false,
 			autoWidth: false,

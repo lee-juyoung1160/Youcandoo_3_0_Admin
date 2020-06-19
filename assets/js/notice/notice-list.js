@@ -5,7 +5,7 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const inputRadio	= $("input:radio");
+	const exposure		= $("input[name=radio-exposure]");
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
@@ -17,6 +17,8 @@
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -32,12 +34,29 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
+		exposure.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+	}
+
+	let _page = 1;
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+
+		keyword.val(historyParams.keyword);
+		dateFrom.val(historyParams.fromDate);
+		dateTo.val(historyParams.toDate);
+		searchType.val(historyParams.searchType);
+		onChangeSelectOption(searchType);
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
+		exposure.each(function () {
+			if ($(this).val() === historyParams.isExposure)
+				$(this).prop("checked", true);
+		});
+
+		_page = historyParams.page;
 	}
 
 	function buildGrid()
@@ -103,6 +122,14 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				let table = dataTable.DataTable();
+				dataTable.on('page.dt', function (e, settings) {
+					let info = table.page.info();
+					_page = (info.start / info.length) + 1;
+				});
+
+				table.page(_page-1).draw( 'page' );
+
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
@@ -120,13 +147,8 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
-
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
@@ -207,6 +229,7 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		reloadTable(dataTable);
 	}
 

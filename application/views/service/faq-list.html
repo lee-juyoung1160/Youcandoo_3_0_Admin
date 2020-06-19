@@ -6,21 +6,21 @@
         </div>
 
         <div class="list-common">
-            <div class="list-wrap clearfix">
-                <p class="list-common-title">날짜</p>
-                <div class="date-wrap">
-                    <input type="text" class="datepicker date_from">
-                    <span class="date-margin-text"> ~ </span>
-                    <input type="text" class="datepicker date_to">
-                </div>
-                <ul class="day-btn clearfix">
-                    <li class="btn_today">오늘</li>
-                    <li class="btn_week">1주일</li>
-                    <li class="btn_month">1개월</li>
-                    <li class="btn_long">3개월</li>
-                </ul>
-            </div>
-            <div class="list-wrap search-wrap clearfix">
+<!--            <div class="list-wrap clearfix">-->
+<!--                <p class="list-common-title">날짜</p>-->
+<!--                <div class="date-wrap">-->
+<!--                    <input type="text" class="datepicker date_from">-->
+<!--                    <span class="date-margin-text"> ~ </span>-->
+<!--                    <input type="text" class="datepicker date_to">-->
+<!--                </div>-->
+<!--                <ul class="day-btn clearfix">-->
+<!--                    <li class="btn_today">오늘</li>-->
+<!--                    <li class="btn_week">1주일</li>-->
+<!--                    <li class="btn_month">1개월</li>-->
+<!--                    <li class="btn_long">3개월</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <div class="list-wrap search-wrap clearfix" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
                     <label for="search_type">제목/내용</label>
@@ -40,6 +40,21 @@
 
         <div class="doit-list-option">
             <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">구분</p>
+                    <div class="select-box">
+                        <label for="selFaqType"></label>
+                        <select id="selFaqType">
+                            <option value="all">전체</option>
+                            <option value="normal">일반문의</option>
+                            <option value="user">회원정보</option>
+                            <option value="cash">캐시</option>
+                            <option value="payment">결제</option>
+                            <option value="cert">인증</option>
+                            <option value="message">채팅</option>
+                        </select>
+                    </div>
+                </li>
                 <li>
                     <p class="list-common-title">노출여부</p>
                     <div class="radio-wrap">

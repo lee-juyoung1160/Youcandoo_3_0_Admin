@@ -1,5 +1,5 @@
 .table-btn-wrap.pro-detail-tab li {
-    width: clac(100%/3);
+    width: calc(100%/3);
 }
 
 .reward-list li {
@@ -39,7 +39,6 @@
 }
 .enrollment li .reward-list  .col-wrap {
     width: inherit;
-    /*color: #484848;*/
     margin: 5px 0;
 }
 .enrollment li .reward-list  .col-wrap .col-1 {

@@ -135,9 +135,11 @@
     border-left: 1px solid #fff;
     background-color: #eee;
 }
-.table-btn-wrap.reward-tab-ul li.on {
+.table-btn-wrap.reward-tab-ul li.on,
+.table-btn-wrap.reward-tab-ul li:hover {
     color: #fff;
     background-color: #007aff;
+    font-weight: 600;
 }
 .table-btn-wrap.reward-tab-ul li.on i {
     color: #fff;

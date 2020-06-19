@@ -29,6 +29,7 @@
 		$.ajax({
 			url: api.listAuth,
 			type: "POST",
+			async: false,
 			headers : headers,
 			dataType: 'json',
 			success: function(data) {

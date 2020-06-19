@@ -71,7 +71,7 @@
 		initComponent();
 		/** 리워드조건 첫번째값 표출 **/
 		onClickRewardTab(rewardTab.eq(0));
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });

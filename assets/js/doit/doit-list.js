@@ -44,7 +44,7 @@
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
-		console.log(historyParams)
+
 		dateFrom.val(historyParams.from_date);
 		dateTo.val(historyParams.to_date);
 		keyword.val(historyParams.keyword);

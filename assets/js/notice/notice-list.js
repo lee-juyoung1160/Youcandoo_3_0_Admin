@@ -135,7 +135,7 @@
 			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
 
-		/** localStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);

@@ -57,6 +57,10 @@
 			if (historyParams.status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
 		});
+		isBanner.each(function () {
+			if ($(this).val() === historyParams.is_banner)
+				$(this).prop("checked", true);
+		});
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
 

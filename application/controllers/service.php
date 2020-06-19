@@ -80,4 +80,15 @@ class Service extends MY_Controller {
     {
         $this->load->layout('service/prohibited-list');
     }
+
+    public function review()
+    {
+        $this->load->layout('service/review-list');
+    }
+
+    public function action()
+    {
+        $this->load->layout('service/action-list');
+    }
+
 }

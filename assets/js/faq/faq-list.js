@@ -6,7 +6,7 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const faqType 		= $("#selFaqType");
-	const inputRadio	= $("input:radio");
+	const exposure		= $("input[name=radio-exposure]");
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
@@ -31,10 +31,7 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		inputRadio.each(function (index) {
-			if (index === 0)
-				$(this).prop("checked", true);
-		});
+		exposure.eq(0).prop("checked", true);
 		initSelectOption();
 	}
 
@@ -47,7 +44,7 @@
 		onChangeSelectOption(faqType);
 		faqType.val(historyParams.searchType);
 		onChangeSelectOption(faqType);
-		$("input[name=radio-exposure]").each(function () {
+		exposure.each(function () {
 			if ($(this).val() === historyParams.is_exposure)
 				$(this).prop("checked", true);
 		});

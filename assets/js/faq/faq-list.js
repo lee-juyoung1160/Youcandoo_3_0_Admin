@@ -5,14 +5,14 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
+	const faqType 		= $("#selFaqType");
 	const inputRadio	= $("input:radio");
-	const inputCheck	= $("input:checkbox");
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
-		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
+		/** 구분 불러오기 **/
+		getFaqType()
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
@@ -30,7 +30,7 @@
 	{
 		if (isBackAction)
 		{
-			let historyParams = JSON.parse(localStorage.getItem("param"));
+			let historyParams = getHistoryParam();
 			dateFrom.val(historyParams.fromDate);
 			dateTo.val(historyParams.toDate);
 			keyword.val(historyParams.keyword);
@@ -47,10 +47,46 @@
 				if (index === 0)
 					$(this).prop("checked", true);
 			});
-			inputCheck.prop("checked", true);
 			initSelectOption();
 			initSearchDateRange();
 		}
+	}
+
+	function getFaqType()
+	{
+		$.ajax({
+			url: api.getFaqType,
+			type: "POST",
+			async: false,
+			headers: headers,
+			dataType: 'json',
+			success: function(data) {
+				if (isSuccessResp(data))
+					buildFaqType(data);
+				else
+					alert(invalidResp(data));
+			},
+			error: function (request, status) {
+				alert('구분 '+label.list+message.ajaxLoadError);
+			}
+		});
+	}
+
+	function buildFaqType(data)
+	{
+		let detail 		= data.data;
+		let optionDom 	= '<option value="">전체</option>';
+
+		for (let i=0; i<detail.length; i++)
+		{
+			let value = detail[i].type;
+			let name  = detail[i].faq_name;
+
+			optionDom += '<option value="'+value+'">'+name+'</option>';
+		}
+
+		faqType.html(optionDom);
+		onChangeSelectOption(faqType);
 	}
 
 	function buildGrid()
@@ -144,11 +180,10 @@
 		let param = {
 			"limit" : _limit
 			,"page" : _page
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
+			,"search_type" : searchType.val()
+			,"faq_type" : faqType.val()
 			,"keyword" : keyword.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
+			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
 
 		/** localStorage에 정보 저장 **/

@@ -30,25 +30,7 @@
 	const btnAddReward	 = $(".reward-add-btn")
 	const rewardsWrap 	 = $("#rewardsWrap");
 	const goalRange1	 = $("#goalRange1");
-	/*const goalRange2	 = $("#goalRange2");
-	const goalRange3	 = $("#goalRange3");
-	const goalRange4	 = $("#goalRange4");*/
 	const goalRate1	 	 = $("#goalRate1");
-	/*const goalRate2	 	 = $("#goalRate2");
-	const goalRate3	 	 = $("#goalRate3");
-	const goalRate4	 	 = $("#goalRate4");*/
-	/*const rewardRange1	 = $("#rewardRange1");
-	const rewardRange2   = $("#rewardRange2");
-	const rewardRange3	 = $("#rewardRange3");
-	const rewardRange4	 = $("#rewardRange4");
-	const personalRate1	 = $("#personalRate1");
-	const personalRate2	 = $("#personalRate2");
-	const personalRate3	 = $("#personalRate3");
-	const personalRate4	 = $("#personalRate4");
-	const groupRate1	 = $("#groupRate1");
-	const groupRate2	 = $("#groupRate2");
-	const groupRate3	 = $("#groupRate3");
-	const groupRate4	 = $("#groupRate4");*/
 	const inputRight	 = $(".input-right");
 	const rewardUcd		 = $(".reward-ucd");
 	const iconDeleteRow  = $(".icon-delete-row");
@@ -59,14 +41,6 @@
 		initInputDatepicker();
 		/** 목표달성률 rage slider 초기화 **/
 		initGoalRateRange(goalRange1, goalRate1);
-		/*initGoalRateRange(goalRange2, goalRate2);
-		initGoalRateRange(goalRange3, goalRate3);
-		initGoalRateRange(goalRange4, goalRate4);*/
-		/** 리워드 비율 range slider 초기화 **/
-		/*initRewardRateRange(rewardRange1, personalRate1, groupRate1);
-		initRewardRateRange(rewardRange2, personalRate2, groupRate2);
-		initRewardRateRange(rewardRange3, personalRate3, groupRate3);
-		initRewardRateRange(rewardRange4, personalRate4, groupRate4);*/
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 리워드조건 첫번째값 표출 **/
@@ -85,7 +59,6 @@
 		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
 		btnAddReward	.on('click', function () { addReward(); });
 		iconDelReward	.on('click', function () { deleteReward(this); });
-		/*$(".duration")	.on('click', function () { onKeyupDuration(this); });*/
 		$(".duration")	.on('keyup', function () { onKeyupDuration(this); });
 		$(".frequency")	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
@@ -130,27 +103,6 @@
 			},
 			onChange: function(data) {
 				goalRateDom.prop("value", data.from);
-			}
-		});
-	}
-
-	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
-	function initRewardRateRange(rangeDom, personalDom, groupDom)
-	{
-		rangeDom.ionRangeSlider({
-			skin: "round",
-			type: "single",
-			min: 10,
-			max: 90,
-			from: 50,
-			step: 10,
-			onStart: function(data) {
-				personalDom.prop("value", data.from);
-				groupDom.prop("value", 100 - data.from);
-			},
-			onChange: function(data) {
-				personalDom.prop("value", data.from);
-				groupDom.prop("value", 100 - data.from);
 			}
 		});
 	}
@@ -415,9 +367,6 @@
 		let title     		= '리워드 옵션 명 입력';
 		let goalRange 		= 'goalRange'+countId;
 		let goalRate  		= 'goalRate'+countId;
-		let rewardRange		= 'rewardRange'+countId;
-		let personalRate  	= 'personalRate'+countId;
-		let groupRate  		= 'groupRate'+countId;
 		let rewardDom = '';
 		rewardDom += '<div id="'+domId+'" class="pro-reward-wrap">';
 		rewardDom += 	'<ul class="pro-reward">';
@@ -445,12 +394,6 @@
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
 		rewardDom += 					'<span class="input-num-title">일</span>';
-		/*rewardDom += 					'<ul class="day-btn clearfix duration-ul">';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="1">1일</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration active" data-days="7">1주</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="14">2주</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="28">4주</li>';
-		rewardDom += 					'</ul>';*/
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -487,24 +430,6 @@
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
-		/*rewardDom += 		'<li class="reward-typ-li clearfix">';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap" style="display: inline-block;">리워드 비율 (*)</p>';
-		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
-		rewardDom += 						'<span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>';
-		rewardDom += 					'</i>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<input id="'+rewardRange+'" type="range" class="custom-range reward-range" readonly>';
-		rewardDom += 					'<span class="input-num-title">개인</span>';
-		rewardDom += 					'<input id="'+personalRate+'" class="input-num-box personal-rate" type="text" readonly>';
-		rewardDom += 					'<span class="input-num-title margin-text">:</span>';
-		rewardDom += 					'<span class="input-num-title">단체</span>';
-		rewardDom += 					'<input id="'+groupRate+'" class="input-num-box group-rate" type="text" readonly>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';*/
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
@@ -552,8 +477,6 @@
 
 		initGoalRateRange($('#'+goalRange), $('#'+goalRate));
 
-		/*initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate));*/
-
 		calculateInputLength();
 	}
 
@@ -572,31 +495,13 @@
 
 	function onKeyupDuration(obj)
 	{
-		/*toggleActiveDuration(obj);*/
 		initFrequency(obj);
 	}
 
-	/** 인증기간 버튼 active 토글 **/
-	/*function toggleActiveDuration(obj)
-	{
-		let durationButtons = $(obj).siblings('.duration');
-		$(durationButtons).each(function () {
-			$(this).removeClass('active');
-		});
-
-		$(obj).addClass('active');
-	}*/
-
 	function initFrequency(obj)
 	{
-		let durationUl  = $(obj).parents('ul.pro-reward').find('.duration-ul');
 		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
-		let duration = 1;
-		duration = Number($(obj).val());
-		/*$(durationUl).children().each(function () {
-			if ($(this).hasClass('active'))
-				duration = $(this).data('days');
-		});*/
+		let duration = Number($(obj).val());
 
 		$(frequencyUl).children().removeClass('active');
 
@@ -630,47 +535,10 @@
 			$(frequencyUl).children().eq(4).addClass('active');
 		}
 	}
-	/** 인증기간 선택에 따라 주간빈도 enable, disable **/
-	/*function toggleDisabledFrequency(obj)
-	{
-		let	selectedFrequency = $(obj).data('days');
-
-		if (selectedFrequency === 1)
-			disabledFrequency(obj);
-		else
-			enabledFrequency(obj);
-	}*/
-
-	/** 주간빈도 disabled **/
-	/*function disabledFrequency(obj)
-	{
-		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
-
-		if (!$(frequencyUl).hasClass('disabled'))
-			$(frequencyUl).addClass('disabled');
-	}*/
-
-	/** 주간빈도 enabled **/
-	/*function enabledFrequency(obj)
-	{
-		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
-
-		if ($(frequencyUl).hasClass('disabled'))
-			$(frequencyUl).removeClass('disabled');
-
-		$(frequencyUl).children().removeClass('active');
-	}*/
 
 	/** 주간빈도 버튼 active 토글 **/
 	function toggleFrequency(obj)
 	{
-		/*let durationUl = $(obj).parents('ul.pro-reward').find('.duration-ul');
-		let duration = 1;
-
-		$(durationUl).children().each(function () {
-			if ($(this).hasClass('active'))
-				duration = $(this).data('days');
-		});*/
 		let durationDom = $(obj).closest('ul.pro-reward').find('.duration');
 		let duration = durationDom.val();
 
@@ -749,12 +617,6 @@
 		max 	= isEmpty(max) ? 0 : Number(max);
 		person 	= isEmpty(person) ? 0 : Number(person);
 		group 	= isEmpty(group) ? 0 : Number(group);
-		/*$(inputDom).each(function (index) {
-			if (index === 1)
-				max = $(this).val();
-			else if (index === 2)
-				ucd = $(this).val();
-		})*/
 
 		$(totalDom).html(numberWithCommas(max*(person+group)));
 	}
@@ -1022,8 +884,6 @@
 			let saturday	 = 'N';
 			let sunday		 = 'N';
 			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
-			let personalRate = $(rewardWrap[i]).find('.personal-rate');
-			let groupRate 	 = $(rewardWrap[i]).find('.group-rate');
 			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
 			/** 인증기간 파라미터 **/
@@ -1070,8 +930,6 @@
 				"title" 			: title.val().trim()
 				,"action-duration" 	: durationDom.val()
 				,"goal-rate" 		: goalRate.val()
-				/*,"personal-rate" 	: personalRate.val()
-				,"group-rate" 		: groupRate.val()*/
 				,"monday" 			: monday
 				,"tuesday" 			: tuesday
 				,"wednesday" 		: wednesday

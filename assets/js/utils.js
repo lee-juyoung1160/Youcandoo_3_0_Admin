@@ -78,7 +78,9 @@
 	/** 숫자 형식에 , 붙이기 **/
 	function numberWithCommas(x)
 	{
-	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		let result = isEmpty(x) ? 0 : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+	    return result;
 	}
 
 	function isImage(obj)

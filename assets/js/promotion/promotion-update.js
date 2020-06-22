@@ -216,16 +216,6 @@
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
 			detailDom += 					'<span class="input-num-title">일</span>';
-			/*detailDom += 					'<ul class="day-btn clearfix duration-ul">';
-			let durations = [{days : 1, txt : '1일'}, {days : 7, txt : '1주'}, {days : 14, txt : '2주'}, {days : 28, txt : '4주'}];
-			for (let j=0; j<durations.length; j++)
-			{
-				let dur = durations[j];
-				let active = reward.action_duration == dur.days ? 'active' : '';
-
-				detailDom += 					'<li onclick="onSelectDuration(this);" class="duration '+active+'" data-days="'+dur.days+'">'+dur.txt+'</li>';
-			}
-			detailDom += 					'</ul>';*/
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
@@ -268,28 +258,6 @@
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
-			/** 리워드 비율 **/
-			/*let rangeId = 'rewardRange'+idNum;
-			let personalRateId = 'personalRate'+idNum;
-			let groupRateId = 'groupRate'+idNum;
-			detailDom += 		'<li class="reward-typ-li clearfix">';
-			detailDom += 			'<div class="col-wrap clearfix">';
-			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap" style="display: inline-block;">리워드 비율 (*)</p>';
-			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
-			detailDom += 						'<span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>';
-			detailDom += 					'</i>';
-			detailDom += 				'</div>';
-			detailDom += 				'<div class="col-2">';
-			detailDom += 					'<input id="'+rangeId+'" type="range" class="custom-range reward-range" readonly>';
-			detailDom += 					'<span class="input-num-title">개인</span>';
-			detailDom += 					'<input id="'+personalRateId+'" class="input-num-box personal-rate" type="text" readonly>';
-			detailDom += 					'<span class="input-num-title margin-text">:</span>';
-			detailDom += 					'<span class="input-num-title">단체</span>';
-			detailDom += 					'<input id="'+groupRateId+'" class="input-num-box group-rate" type="text" readonly>';
-			detailDom += 				'</div>';
-			detailDom += 			'</div>';
-			detailDom += 		'</li>';*/
 			/** 인당 UCD **/
 			let ucdInfo = reward.ucd_info;
 			ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
@@ -343,11 +311,6 @@
 			let goalRangeDom = $('#'+goalRangeId);
 			let goalRateDom  = $('#'+goalRateId);
 			initGoalRateRange(goalRangeDom, goalRateDom, reward.goal_percent);
-			/** 리워드비율 range 세팅 **/
-			/*let rangeDom 	= $('#'+rangeId);
-			let personalDom = $('#'+personalRateId);
-			let groupDom 	= $('#'+groupRateId);
-			initRewardRateRange(rangeDom, personalDom, groupDom, reward.person_percent);*/
 		}
 
 		onClickRewardTab($(".reward-tab").eq(0));
@@ -455,27 +418,6 @@
 		});
 	}
 
-	/** 개인+그룹일 때 리워드 분배 비율 설정 레인지 슬라이더 **/
-	/*function initRewardRateRange(rangeDom, personalDom, groupDom, value)
-	{
-		rangeDom.ionRangeSlider({
-			skin: "round",
-			type: "single",
-			min: 10,
-			max: 90,
-			from: value,
-			step: 10,
-			onStart: function(data) {
-				personalDom.prop("value", data.from);
-				groupDom.prop("value", 100 - data.from);
-			},
-			onChange: function(data) {
-				personalDom.prop("value", data.from);
-				groupDom.prop("value", 100 - data.from);
-			}
-		});
-	}*/
-
 	function calculateTotalUcd(obj)
 	{
 		let trDom 	   = $(obj).parents('tr');
@@ -488,12 +430,6 @@
 		max 	= isEmpty(max) ? 0 : Number(max);
 		person 	= isEmpty(person) ? 0 : Number(person);
 		group 	= isEmpty(group) ? 0 : Number(group);
-		/*$(inputDom).each(function (index) {
-			if (index === 1)
-				max = $(this).val();
-			else if (index === 2)
-				ucd = $(this).val();
-		})*/
 
 		$(totalDom).html(numberWithCommas(max*(person+group)));
 	}
@@ -547,9 +483,6 @@
 		let title     		= '리워드 옵션 명 입력';
 		let goalRange 		= 'goalRange'+countId;
 		let goalRate  		= 'goalRate'+countId;
-		let rewardRange		= 'rewardRange'+countId;
-		let personalRate  	= 'personalRate'+countId;
-		let groupRate  		= 'groupRate'+countId;
 		let rewardDom = '';
 		rewardDom += '<div id="'+domId+'" class="pro-reward-wrap">';
 		rewardDom += 	'<ul class="pro-reward">';
@@ -574,12 +507,6 @@
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
 		rewardDom += 					'<span class="input-num-title">일</span>';
-		/*rewardDom += 					'<ul class="day-btn clearfix duration-ul">';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="1">1일</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration active" data-days="7">1주</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="14">2주</li>';
-		rewardDom += 						'<li onclick="onSelectDuration(this);" class="duration" data-days="28">4주</li>';
-		rewardDom += 					'</ul>';*/
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -616,24 +543,6 @@
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
-		/*rewardDom += 		'<li class="reward-typ-li clearfix">';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap" style="display: inline-block;">리워드 비율 (*)</p>';
-		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
-		rewardDom += 						'<span class="hover-text">* 최소 10%, 최대가 90% 입니다.</span>';
-		rewardDom += 					'</i>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<input id="'+rewardRange+'" type="range" class="custom-range reward-range" readonly>';
-		rewardDom += 					'<span class="input-num-title">개인</span>';
-		rewardDom += 					'<input id="'+personalRate+'" class="input-num-box personal-rate" type="text" readonly>';
-		rewardDom += 					'<span class="input-num-title margin-text">:</span>';
-		rewardDom += 					'<span class="input-num-title">단체</span>';
-		rewardDom += 					'<input id="'+groupRate+'" class="input-num-box group-rate" type="text" readonly>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';*/
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
@@ -680,8 +589,6 @@
 		rewardsWrap.append(rewardDom);
 
 		initGoalRateRange($('#'+goalRange), $('#'+goalRate), 85);
-
-		/*initRewardRateRange($('#'+rewardRange), $('#'+personalRate), $('#'+groupRate), 50);*/
 
 		calculateInputLength();
 	}
@@ -968,8 +875,6 @@
 			let saturday	 = 'N';
 			let sunday		 = 'N';
 			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
-			/*let personalRate = $(rewardWrap[i]).find('.personal-rate');
-			let groupRate 	 = $(rewardWrap[i]).find('.group-rate');*/
 			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
 			/** 인증기간 파라미터 **/
@@ -1016,8 +921,6 @@
 				"title" 			: title.val()
 				,"action-duration" 	: durationDom.val()
 				,"goal-rate" 		: goalRate.val()
-				/*,"personal-rate" 	: personalRate.val()
-				,"group-rate" 		: groupRate.val()*/
 				,"monday" 			: monday
 				,"tuesday" 			: tuesday
 				,"wednesday" 		: wednesday

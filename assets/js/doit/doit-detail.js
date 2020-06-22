@@ -92,7 +92,7 @@
 
 	$(document).ready(function () {
 		/** 두잇 상세정보 **/
-		getDoit();
+		//getDoit();
 		/** 이벤트 **/
 		tabDoit			.on("click", function () { onClickDoitTab(this); });
 		tabUser			.on("click", function () { onClickUserTab(this); });

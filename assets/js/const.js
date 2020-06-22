@@ -152,6 +152,8 @@
 		/*,updateEvent : ''*/
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
+		/** 푸시 **/
+		,createPush : baseApiUrl+'push/register'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'
 		,deleteNotice : baseApiUrl+'notice/delete'
@@ -223,6 +225,8 @@
 		,createEvent : '/service/event/create'
 		,detailEvent : '/service/event/detail/'
 		,updateEvent : '/service/event/update/'
+
+		,listPush : '/push/list'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'

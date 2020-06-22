@@ -369,9 +369,10 @@
 	{
 		let type = data.action_resource_type;
 		let actionResourceDom = '';
+
 		if (type === 'image')
 		{
-			let imageUrl = data.example_thumbnail_image_url;
+			let imageUrl = data.example_image_url;
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
@@ -380,7 +381,7 @@
 		}
 		else if (type === 'video')
 		{
-			let imageUrl = data.example_video_thumbnail_image_url;
+			let imageUrl = data.example_video_image_url;
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';

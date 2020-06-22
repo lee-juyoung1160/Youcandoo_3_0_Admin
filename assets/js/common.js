@@ -20,8 +20,7 @@
     lengthInput     .on("propertychange change keyup paste input", function () { checkInputLength(this); });
     dateFrom        .on("change", function () { onChangeSearchDateFrom(this); });
     dateTo          .on("change", function () { onChangeSearchDateTo(this); });
-    dateFrom        .prop("readonly", true);
-    dateTo          .prop("readonly", true);
+    datePicker      .prop("readonly", true);
     /** 권한별 레프트 메뉴 불러오기 **/
     getLeftMenuByAuthCode();
 

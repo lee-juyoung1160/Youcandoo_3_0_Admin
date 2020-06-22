@@ -52,6 +52,7 @@
 		doitStatus.each(function () {
 			if (historyParams.status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
+			else $(this).prop("checked", false);
 		});
 		dateType.val(historyParams.date_type);
 		onChangeSelectOption(dateType);

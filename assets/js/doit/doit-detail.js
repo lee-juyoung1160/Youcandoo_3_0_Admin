@@ -238,7 +238,7 @@
 		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
 		rewardDom += 	'<div class="detail-data-wrap clearfix">';
 		rewardDom += 		'<p class="sub-tit">두잇 참여 인원</p>';
-		rewardDom += 		'<p class="detail-data">'+numberWithCommas(recruitCount)+'명</p>';
+		rewardDom += 		'<p class="detail-data">'+recruitCount+'명</p>';
 		rewardDom += 	'</div>';
 		rewardDom += 	'<div class="detail-data-wrap clearfix">';
 		rewardDom += 		'<p class="sub-tit">인증기간</p>';
@@ -267,7 +267,7 @@
 		if (!isEmpty(detail.promotion_uuid))
 		{
 			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
-			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 프로모션 예산';
+			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 예산';
 			rewardDom += 	'</p>';
 			rewardDom += 	'<div class="fixed">';
 			rewardDom += 		'<p class="cap">';

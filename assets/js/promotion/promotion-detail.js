@@ -330,7 +330,6 @@
 			ajax : {
 				url: api.listPromotionUcd,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return ucdTableParams(d);

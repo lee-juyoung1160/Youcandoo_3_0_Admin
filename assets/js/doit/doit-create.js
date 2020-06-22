@@ -250,7 +250,6 @@
 		$.ajax({
 			url: api.involvePromotion,
 			type: "POST",
-			async: false,
 			global: false,
 			headers: headers,
 			dataType: 'json',
@@ -293,7 +292,6 @@
 		$.ajax({
 			url: api.involveReward,
 			type: "POST",
-			async: false,
 			global: false,
 			headers: headers,
 			dataType: 'json',
@@ -336,7 +334,6 @@
 		$.ajax({
 			url: api.getReward,
 			type: "POST",
-			async: false,
 			global: false,
 			headers: headers,
 			dataType: 'json',

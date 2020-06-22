@@ -212,7 +212,6 @@
 				$.ajax({
 					url: api.deleteDoit,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

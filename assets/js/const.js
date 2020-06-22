@@ -229,7 +229,7 @@
 		,detailEvent : '/service/event/detail/'
 		,updateEvent : '/service/event/update/'
 
-		,listPush : '/push/list'
+		,listPush : '/push/lists'
 
 		,listNotice : '/service/notice/list'
 		,createNotice : '/service/notice/create'

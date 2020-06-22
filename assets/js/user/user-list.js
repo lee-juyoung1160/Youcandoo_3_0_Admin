@@ -82,7 +82,6 @@
 			ajax : {
 				url: api.listUser,
 				type:"POST",
-				/*async: false,*/
 				headers: headers,
 				data: function (d) {
 					/*
@@ -257,7 +256,6 @@
 			url: api.listUser,
 			type: "POST",
 			dataType: "json",
-			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {
@@ -293,7 +291,6 @@
 				$.ajax({
 					url: api.inactiveUser,
 					type: "POST",
-					async: false,
 					global: false,
 					headers: headers,
 					dataType: 'json',

@@ -34,7 +34,6 @@
 			ajax : {
 				url: api.listPush,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams();
@@ -49,12 +48,20 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				/*,{title: "발송대상 ", 	data: "idx",    	  	   width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "구분", 		data: "title",    	  	   width: "20%",  	orderable: false,   className: "text-center" }
-
-				,{title: "발송일시", 	data: "created_datetime",  width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "발송여부", 	data: "created_user",      width: "20%",  	orderable: false,   className: "text-center" }
-				*/
+				{title: "발송대상 ", 	data: "param",    	  	   width: "20%",    orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						let jsonData = JSON.parse(data);
+						return jsonData.push_type;
+					}
+				}
+				,{title: "구분", 		data: "param",    	  	   width: "20%",  	orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						let jsonData = JSON.parse(data);
+						return jsonData.store;
+					}
+				}
+				,{title: "발송일시", 	data: "send_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "발송여부", 	data: "send_yn",      		width: "20%",  	orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -136,7 +143,6 @@
 				$.ajax({
 					url: api.cancelPush,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: cancelParams(),
@@ -160,7 +166,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 대상을 목록에서 '+message.select);
+			alert('대상을 목록에서 '+message.select);
 			return false;
 		}
 

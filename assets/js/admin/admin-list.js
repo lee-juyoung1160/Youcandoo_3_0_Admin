@@ -76,7 +76,6 @@
 			ajax : {
 				url: api.listAdmin,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams();

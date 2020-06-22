@@ -205,7 +205,6 @@ function onClickUpdateBlind()
             $.ajax({
                 url: api.updateBlind,
                 type: "POST",
-                async: false,
                 headers: headers,
                 dataType: 'json',
                 data: blindParams(),

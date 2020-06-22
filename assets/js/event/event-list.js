@@ -180,7 +180,6 @@
 				$.ajax({
 					url: api.deleteEvent,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

@@ -875,7 +875,7 @@
 	{
 		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / selPageLengthForAction.val());
-		let pageLength  = 7;
+		let pageLength  = 6;
 		if (last <= 10)
 			pageLength = last
 		let i;
@@ -900,9 +900,9 @@
 		}
 		else
 		{
-			for (i=1; i<=pageLength; i++)
+			if (currentPage < 5)
 			{
-				if (currentPage < 5)
+				for (i=1; i<=pageLength; i++)
 				{
 					if (last > 1 && currentPage === i)
 						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
@@ -917,7 +917,10 @@
 							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
 					}
 				}
-				else if (currentPage >= 5 && currentPage <= last - 4)
+			}
+			else if (currentPage >= 5 && currentPage <= last - 4)
+			{
+				for (i=1; i<=last; i++)
 				{
 					if (i === 1)
 					{
@@ -938,7 +941,10 @@
 						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
 					}
 				}
-				else if (currentPage > last - 4)
+			}
+			else if (currentPage > last - 4)
+			{
+				for (i=1; i<=pageLength; i++)
 				{
 					if (i === 1)
 					{

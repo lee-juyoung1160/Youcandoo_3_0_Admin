@@ -15,7 +15,6 @@
 	const allowCount	= $("#allowCount");
 	const banner 		= $("#banner");
 	const intro 		= $("#intro");
-	/*const createType 	= $("#createType");*/
 	const isExposure 	= $("#isExposure");
 	const rewardTab     = $("#rewardTab");
 	const rewardDetail  = $("#rewardDetail");
@@ -25,13 +24,11 @@
 	const doitTable			= $("#doitTable")
 	const selPageLengthForDoit 	= $("#selPageLengthForDoit");
 	const xlsxExport 		= $(".excel-btn");
-	const doitTotalCount	= $("#doitTotalCount");
 
 	/** Ucd정보탭 **/
 	const ucdInfo		= $("#ucdInfo");
 	const ucdTable		= $("#ucdTable")
 	const selPageLengthForUcd 	= $("#selPageLengthForUcd");
-	const ucdTotalCount	= $("#ucdTotalCount");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -131,7 +128,6 @@
 		allowCount.html(detailPromo.promotion_allow_count+'회');
 		banner.attr('src', detailPromo.banner_image_url);
 		intro.attr('src', detailPromo.intro_image_url);
-		/*createType.html(detailPromo.doit_create_mode === 'user' ? label.createDoitUser : label.createDoitAdmin);*/
 		isExposure.html(detailPromo.is_banner === 'Y' ? label.exposure : label.unexpose);
 
 		let rewardLen = rewards.length;
@@ -208,14 +204,6 @@
 		detailDom += 				'<p class="detail-data">'+reward.goal_percent+'%</p>';
 		detailDom += 			'</div>';
 		detailDom += 		'</div>';
-		/*detailDom += 		'<div class="col-wrap clearfix">';
-		detailDom += 			'<div class="col-1">';
-		detailDom += 				'<p class="sub-title">리워드 비율</p>';
-		detailDom += 			'</div>';
-		detailDom += 			'<div class="col-2">';
-		detailDom += 				'<p class="detail-data">개인 '+reward.person_percent+' : 단체 '+reward.group_percent+'</p>';
-		detailDom += 			'</div>';
-		detailDom += 		'</div>';*/
 		detailDom += 		'<div class="col-wrap">';
 		detailDom += 			'<p class="sub-title" style="margin-bottom: 5px;">인당 UCD</p>';
 		detailDom += 			'<p class="detail-data">';

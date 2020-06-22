@@ -92,7 +92,8 @@
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
-		})
+		});
+		calculateInputLength();
 	}
 
 	function onSubmitUpdateFaq()

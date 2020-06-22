@@ -27,7 +27,8 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		initSearchDateRange();
+		dateFrom.datepicker("setDate", "today");
+		dateTo.datepicker("setDate", "today");
 	}
 
 	function buildGrid()

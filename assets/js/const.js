@@ -19,7 +19,6 @@
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,invalidResolution : '유효하지 않은 이미지 사이즈입니다.'
-		,invalidRecruitCount: '프로모션에서 설정한 모집인원 범위에 포함돼야 합니다.'
 		,invalidBrowser: '지원하지 않는 브라우져입니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'

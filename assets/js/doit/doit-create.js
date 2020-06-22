@@ -87,7 +87,6 @@
 		bizName.val('');
 		buildOptionPromo();
 		buildOptionReward();
-		/*recruit.val('');*/
 		inputTag.val('');
 		introFileType.eq(0).prop('checked', true);
 		onChangeIntroType(introFileType);
@@ -389,9 +388,6 @@
 			selectedRewardDom += 		'<p class="cap"><span>목표달성률 : </span>'+detail.goal_percent+'%</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
-			/*selectedRewardDom += 		'<p class="cap"><span>리워드 유형 : </span>개인 '+ detail.person_percent +'% : 단체 '+detail.group_percent +'%</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="fixed">';*/
 			selectedRewardDom += 		'<p class="cap"><span>1인당 최대 지급할 UCD : </span>개인 '+ numberWithCommas(detail.person_reward) +'UCD / 단체 '+ numberWithCommas(detail.group_reward) +'UCD</p>';
 			selectedRewardDom += 	'</div>';
 			selectedRewardDom += 	'<div class="fixed">';
@@ -573,20 +569,6 @@
 			return false;
 		}
 
-		/*if (isEmpty(recruit.val()))
-		{
-			alert('모집 인원은 ' + message.required);
-			recruit.focus();
-			return false;
-		}*/
-
-		/*if (Number(recruit.val()) > Number(g_max_user_limit) || Number(recruit.val()) < Number(g_min_user_limit))
-		{
-			alert('모집 인원은 ' + message.invalidRecruitCount);
-			recruit.focus();
-			return false;
-		}*/
-
 		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
 			alert('추가리워드를 '+message.input);
@@ -706,10 +688,6 @@
 		formData.append('action-example-voice-file', paramExampleVoice);
 		formData.append('action-description', exampleDesc.val().trim());
 		formData.append('doit-description', doitDesc.val().trim());
-		/*let extraRewardValue = '';
-		if (chkExtraReward.is(':checked'))
-			extraRewardValue = extraReward.val().trim();
-		formData.append('group-reward-description', extraRewardValue);*/
 		if (chkExtraReward.is(':checked'))
 			formData.append('group-reward-description', extraReward.val().trim());
 

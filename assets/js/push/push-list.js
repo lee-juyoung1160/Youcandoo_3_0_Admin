@@ -2,21 +2,9 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
-	const grade			= $("input[name=chk-grade]");
-	const report		= $("input[name=radio-report]");
-	const blind			= $("input[name=radio-blind]");
 	const selPageLength = $("#selPageLength");
-	const select		= $("select");
-	const sendType		= $("input[name=chk-send-type]");
-	const dataNum		= $(".data-num");
-	/** modal **/
-	/*const modalCloseBtn = $(".close-btn");
-	const modalLayout 	= $(".modal-layout");
-	const modalContent 	= $(".modal-content");
-	const modalDetail 	= $("#modalDetail");
-	const modalReason 	= $("#modalReason");*/
+	const btnCancel 	= $("#btnCancel");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -24,36 +12,19 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildGrid();
+		buildGrid();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*modalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout		.on('click', function () { modalFadeout(); });*/
+		btnCancel		.on("click", function () { cancelPush(); });
 	});
-
-	function modalDetailFadein()
-	{
-		modalLayout.fadeIn();
-		modalDetail.fadeIn();
-		overflowHidden();
-	}
-
-	function modalReasonFadein()
-	{
-		modalLayout.fadeIn();
-		modalReason.fadeIn();
-		overflowHidden();
-	}
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		sendType.prop("checked", true);
-		initSelectOption();
 		initSearchDateRange();
 	}
 
@@ -66,26 +37,24 @@
 				async: false,
 				headers: headers,
 				data: function (d) {
-					return tableParams(d);
+					return tableParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "No ", 			data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center" }
-				/*,{title: "제목", 		data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center" }
-				,{title: "노출여부", 	data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return data === "Y" ? "노출" : "비노출";
+						return singleCheckBoxDom(data);
 					}
-				}
-				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}*/
+				},
+				/*,{title: "발송대상 ", 	data: "idx",    	  	   width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", 		data: "title",    	  	   width: "20%",  	orderable: false,   className: "text-center" }
+
+				,{title: "발송일시", 	data: "created_datetime",  width: "20%",    orderable: false,   className: "text-center" }
+				,{title: "발송여부", 	data: "created_user",      width: "20%",  	orderable: false,   className: "text-center" }
+				*/
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -117,21 +86,29 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				//setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(dataTable);
 			}
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _page = (info.start / info.length) + 1;
+
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
+			"limit" : Number(selPageLength.val())
+			,"page" : _page
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
 			,"keyword" : keyword.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
+
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam(param);
 
 		return JSON.stringify(param);
 	}
@@ -147,5 +124,66 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		reloadTable(dataTable);
 	}
+
+	function cancelPush()
+	{
+		if (cancelValidation())
+		{
+			if (confirm(message.delete))
+			{
+				$.ajax({
+					url: api.cancelPush,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: cancelParams(),
+					success: function(data) {
+						alert(getStatusMessage(data));
+						if (isSuccessResp(data))
+							tableReloadAndStayCurrentPage(dataTable);
+					},
+					error: function (request, status) {
+						alert(label.delete+message.ajaxError);
+					},
+				});
+			}
+		}
+	}
+
+	function cancelValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			alert('삭제할 대상을 목록에서 '+message.select);
+			return false;
+		}
+
+		let doitStatus = selectedData.doit_status;
+		if (doitStatus !== '모집중' || (doitStatus === '모집중' && selectedData.doit_member > 0))
+		{
+			alert(message.pushHasBeenSent);
+			return false;
+		}
+
+		return true;
+	}
+
+	function cancelParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"idx" : selectedData.idx
+		};
+
+		return JSON.stringify(param)
+	}
+
+

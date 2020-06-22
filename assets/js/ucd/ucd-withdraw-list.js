@@ -100,11 +100,10 @@
 	{
 		let table = dataTable.DataTable();
 		let info = table.page.info();
-		let _limit = info.length;
 		let _page = (info.start / info.length) + 1;
 
 		let param = {
-			"limit" : _limit
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()

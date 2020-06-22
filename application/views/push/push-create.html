@@ -11,8 +11,8 @@
                             <p class="sub-title important">발송일자</p>
                         </div>
                         <div class="col-2">
-                            <input type="date">
-                            <input type="time" step="2" style="width: 180px;">
+                            <input id="sendDate" type="text" class="datepicker">
+                            <input id="sendTime" type="time" step="2" style="width: 180px;">
                         </div>
                     </div>
                 </li>
@@ -23,14 +23,14 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c1" name="rc" class="type-btn" value="typeNow" />
+                                <input type="radio" id="c1" name="radio-target" class="type-btn" value="all"/>
                                 <label for="c1" >전체<span></span></label>
 
-                                <input type="radio" id="c2" name="rc" class="type-btn" value="typeReserv" />
+                                <input type="radio" id="c2" name="radio-target" class="type-btn" value="individual"/>
                                 <label for="c2">개인<span></span></label>
                             </div>
-                            <div class="text-wrap" style="margin-top: 15px;">
-                                <input id="" class="more-info" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly="">
+                            <div class="text-wrap" style="margin-top: 15px; display: none">
+                                <input id="nickname" class="more-info" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly="">
                             </div>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c3" name="rc" class="type-btn" value="typeNow" />
+                                <input type="radio" id="c3" name="radio-store" class="type-btn" value="all"/>
                                 <label for="c3" >전체<span></span></label>
 
-                                <input type="radio" id="c4" name="rc" class="type-btn" value="typeReserv" />
+                                <input type="radio" id="c4" name="radio-store" class="type-btn" value="apple"/>
                                 <label for="c4">애플<span></span></label>
 
-                                <input type="radio" id="c5" name="rc" class="type-btn" value="typeReserv" />
+                                <input type="radio" id="c5" name="radio-store" class="type-btn" value="google"/>
                                 <label for="c5">구글<span></span></label>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                             <p class="sub-title important">내용(*)</p>
                         </div>
                         <div class="col-2 clearfix">
-                            <textarea placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10"></textarea>
+                            <textarea id="content" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                 </li>
@@ -173,12 +173,11 @@
 <!--                    </div>-->
 <!--                </li>-->
                 <li>
-                    <button class="completion-btn" type="submit">발송</button>
+                    <button id="btnSubmit" class="completion-btn" type="submit">발송</button>
                 </li>
             </ul>
         </div>
     </div>
-
 
     <div class="modal-content">
         <div class="wrap">
@@ -188,7 +187,7 @@
                 <li>
                     <div class="search-wrap">
                         <div class="search-box">
-                            <input id="" type="search" placeholder="닉네임을 입력해주세요.">
+                            <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요.">
                             <i class="search-btn fas fa-search"></i>
                         </div>
                     </div>
@@ -205,117 +204,4 @@
     <div class="modal-layout"></div>
 
 </section>
-
-<script>
-
-    // modal event
-    $('.more-info').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-    // input flie 변환
-    $(document).ready(function(){
-        var fileTarget = $('.filebox .upload-hidden');
-
-        fileTarget.on('change', function(){
-            if(window.FileReader){
-                var filename = $(this)[0].files[0].name;
-            } else {
-                var filename = $(this).val().split('/').pop().split('\\').pop();
-            }
-            $(this).siblings('.upload-name').val(filename);
-        });
-    });
-
-
-    // input preview image
-    var imgTarget = $('.preview-image .upload-hidden');
-
-    imgTarget.on('change', function(){
-        var parent = $(this).parent();
-        parent.children('.upload-display').remove();
-
-        if(window.FileReader){
-            //image 파일만
-            if (!$(this)[0].files[0].type.match(/image\//)) return;
-
-            var reader = new FileReader();
-            reader.onload = function(e){
-                var src = e.target.result;
-                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-            }
-            reader.readAsDataURL($(this)[0].files[0]);
-        }
-        else {
-            $(this)[0].select();
-            $(this)[0].blur();
-            var imgSrc = document.selection.createRange().text;
-            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-
-            var img = $(this).siblings('.upload-display').find('img');
-            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
-        }
-    });
-
-    // // 발송 유형
-    // $('.type-btn').on("click", function () {
-    //     var valueCheck = $('.type-btn:checked').val();
-    //
-    //     if ( valueCheck == 'typeNow' ) {
-    //         $('.push-send-date').hide();
-    //     }else if(valueCheck == 'typeReserv') {
-    //         $('.push-send-date').show();
-    //     }
-    // });
-
-    // 푸시 대상
-    $('.obj-btn').on("click", function () {
-        var valueCheck = $('.obj-btn:checked').val();
-
-        if ( valueCheck == 'objAll' ) {
-            $('.nickname-wrap').hide();
-            $('.group-wrap').hide();
-        }else if(valueCheck == 'objPart') {
-            $('.nickname-wrap').show();
-            $('.group-wrap').hide();
-        }else if(valueCheck == 'objGroup') {
-        $('.nickname-wrap').hide();
-        $('.group-wrap').show();
-        }
-    });
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length);
-        });
-        $('.count-input').keyup();
-    });
-
-    $(function() {
-        $('.length-text').keyup(function (e){
-            var contentText = $(this).val();
-            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length);
-        });
-        $('.length-text').keyup();
-    });
-
-
-
-</script>
+<script src="/assets/js/push/push-create.js"></script>

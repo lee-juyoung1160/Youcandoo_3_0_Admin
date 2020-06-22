@@ -24,10 +24,10 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="search_type">제목/내용</label>
+                    <label for="search_type">닉네임</label>
                     <select id="search_type">
-                        <option value="title">제목/내용</option>
-                        <option value="nickname">아이디</option>
+                        <option value="title">닉네임</option>
+                        <option value="nickname">내용</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -42,13 +42,16 @@
         <div class="doit-list-option">
             <ul class="clearfix">
                 <li>
-                    <p class="list-common-title">발송유형</p>
-                    <div class="checkbox-wrap">
-                        <input type="checkbox" id="c1" name="chk-send-type" value="Immediately"/>
-                        <label for="c1"><span></span>즉시발송</label>
+                    <p class="list-common-title">기기 구분</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="c3" name="chk-send-type" value="Immediately"/>
+                        <label for="c3"><span></span>전체</label>
 
-                        <input type="checkbox" id="c2" name="chk-send-type" value="reserve"/>
-                        <label for="c2"><span></span>예약발송</label>
+                        <input type="radio" id="c1" name="chk-send-type" value="Immediately"/>
+                        <label for="c1"><span></span>애플</label>
+
+                        <input type="radio" id="c2" name="chk-send-type" value="reserve"/>
+                        <label for="c2"><span></span>구글</label>
                     </div>
                 </li>
 <!--                <li>-->
@@ -108,12 +111,10 @@
             <table>
                 <colgroup>
                     <col style="width:5%;">
-                    <col style="width:10%;">
-<!--                    <col style="width:10%;">-->
-                    <col style="width:35%;">
                     <col style="width:20%;">
-<!--                    <col style="width:10%;">-->
-                    <col style="width:10%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
                 </colgroup>
                 <thead>
                     <tr>
@@ -123,11 +124,9 @@
                                 <label for="c9"><span></span></label>
                             </div>
                         </th>
-                        <th>발송유형</th>
-<!--                        <th>구분</th>-->
-                        <th>제목</th>
+                        <th>발송대상</th>
+                        <th>기기 구분</th>
                         <th>발송일시</th>
-<!--                        <th>발송대상</th>-->
                         <th>발송여부</th>
                     </tr>
                 </thead>
@@ -135,16 +134,26 @@
                     <tr>
                         <td>
                             <div class="checkbox-wrap">
-                                <input type="checkbox" id="c10" name="cc" />
-                                <label for="c10"><span></span></label>
+                                <input type="checkbox" id="c11" name="cc" />
+                                <label for="c11"><span></span></label>
                             </div>
                         </td>
-                        <td>즉시발송</td>
-<!--                        <td>일반공지</td>-->
-                        <td><a href="/push/detail">일반공지입니다</a></td>
+                        <td>전체</td>
+                        <td>애플</td>
                         <td>2020/02/02 10:30:30</td>
-<!--                        <td>부분</td>-->
                         <td>완료</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c12" name="cc" />
+                                <label for="c12"><span></span></label>
+                            </div>
+                        </td>
+                        <td>베리베리베리</td>
+                        <td>구글</td>
+                        <td>2020/02/02 10:30:30</td>
+                        <td>취소</td>
                     </tr>
                 </tbody>
             </table>

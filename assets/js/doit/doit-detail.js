@@ -92,7 +92,7 @@
 
 	$(document).ready(function () {
 		/** 두잇 상세정보 **/
-		//getDoit();
+		getDoit();
 		/** 이벤트 **/
 		tabDoit			.on("click", function () { onClickDoitTab(this); });
 		tabUser			.on("click", function () { onClickUserTab(this); });
@@ -216,26 +216,54 @@
 		g_doitUuid = detail.doit_uuid;
 		g_doitTitle = detail.doit_title;
 
+		doitTitle.html(detail.doit_title);
+		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);
+
 		let rewardDom 	= '';
 		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
 		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
 		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
-		let remainUcd	= isEmpty(detail.remain_budget_ucd) ? '' : numberWithCommas(detail.remain_budget_ucd);
+		let balance		= isEmpty(detail.remain_budget_ucd) ? '-' : detail.remain_budget_ucd;
 		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
-		let recruitCount = detail.max_user == 1 ? detail.max_user : detail.min_user+' ~ '+detail.max_user;
+		let minUser 	= Number(detail.min_user);
+		let maxUser 	= Number(detail.max_user);
+		let recruitCount = maxUser === 1 ? maxUser : minUser+' ~ '+maxUser;
+		let personReward = Number(detail.person_reward);
+		let groupReward = Number(detail.group_reward);
+		let totalReward =  personReward + groupReward;
 
 		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
 		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
 		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
-		rewardDom += 	'<p class="detail-data">';
-		rewardDom += 		'두잇 참여 인원 : '+recruitCount+'명<br>';
-		rewardDom += 		'인증기간 : '+detail.action_duration+'일<br>';
-		rewardDom += 		'일일인증 횟수 : '+detail.action_daily_allow+'회<br>';
-		rewardDom += 		'목표달성률 : '+Math.floor(detail.goal_percent)+'%<br>';
-		rewardDom += 		'1인당 최대 지급할 UCD : 개인 '+detail.person_reward+'UCD / 단체 '+detail.group_reward+'UCD<br>';
-		rewardDom += 		'주간빈도 : '+dayofweek;
-		rewardDom += 	'</p>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">두잇 참여 인원</p>';
+		rewardDom += 		'<p class="detail-data">'+numberWithCommas(recruitCount)+'명</p>';
+		rewardDom += 	'</div>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">인증기간</p>';
+		rewardDom += 		'<p class="detail-data">'+detail.action_duration+'일</p>';
+		rewardDom += 	'</div>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">주간빈도</p>';
+		rewardDom += 		'<p class="detail-data">'+dayofweek+'</p>';
+		rewardDom += 	'</div>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">일일 인증 횟수</p>';
+		rewardDom += 		'<p class="detail-data">'+detail.action_daily_allow+'회</p>';
+		rewardDom += 	'</div>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">목표달성률</p>';
+		rewardDom += 		'<p class="detail-data">'+Math.floor(detail.goal_percent)+'%</p>';
+		rewardDom += 	'</div>';
+		rewardDom += 	'<div class="detail-data-wrap clearfix">';
+		rewardDom += 		'<p class="sub-tit">1인 지급 최대 UCD</p>';
+		rewardDom += 		'<p class="detail-data">';
+		rewardDom += 			numberWithCommas(totalReward)+' UCD ';
+		rewardDom += 			'(개인: '+numberWithCommas(personReward)+' UCD / ';
+		rewardDom += 			'단체: '+numberWithCommas(groupReward)+' UCD)';
+		rewardDom += 		'</p>';
+		rewardDom += 	'</div>';
 		if (!isEmpty(detail.promotion_uuid))
 		{
 			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
@@ -244,14 +272,12 @@
 			rewardDom += 	'<div class="fixed">';
 			rewardDom += 		'<p class="cap">';
 			rewardDom += 			'현재까지 남은 잔여 UCD는 ';
-			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+remainUcd+'UCD</span> 입니다.';
+			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(balance)+'UCD</span> 입니다.';
 			rewardDom += 		'</p>';
 			rewardDom += 	'</div>';
 		}
 		rewardDom += '</div>';
 		reward.html(rewardDom);
-
-		doitTitle.html(detail.doit_title);
 
 		creator.html(detail.doit_permission);
 
@@ -298,7 +324,7 @@
 
 		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
 		extraReward.html(xtraReward);
-		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);
+
 		actionTime.html(detail.action_allow_start_time + ' ~ ' + detail.action_allow_end_time);
 
 		let optionDom = '-';
@@ -854,7 +880,6 @@
 				actionDom += 		actionImageDom;
 				actionDom += 	'</div>';
 				actionDom += 	'<div class="text-wrap">';
-				/*actionDom += 		'<p class="title">'+action.doit_title+'</p>';*/
 				actionDom += 		'<span>'+action.user_name+'</span>';
 				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
 				actionDom += 		'<i>'+warnImageDom+'</i>';

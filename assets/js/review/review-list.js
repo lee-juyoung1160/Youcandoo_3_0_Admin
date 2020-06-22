@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
     /** 검색 필드 reset **/
     resetBtn.addEventListener('click', () => { initSearchForm(); });
     /** 검색시 테이블 호출 **/
-    searchBtn.addEventListener('click', () => {getReviewListData();});
-    limits.addEventListener('change', () => {getReviewListData();});
+    searchBtn.addEventListener('click', () => {onSubmitSearch();});
+    limits.addEventListener('change', () => {onSubmitSearch();});
 });
 
 /** 평점 마지막 하나일때 고정하기 **/
@@ -62,6 +62,10 @@ function initSearchForm() {
     document.querySelector('input[name=radio-report]').checked = true;
     document.querySelector('input[name=radio-blind]').checked = true;
     initSearchDateRange();
+}
+
+function onSubmitSearch() {
+    getReviewListData();
 }
 
 

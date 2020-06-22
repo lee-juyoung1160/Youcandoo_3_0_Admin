@@ -30,10 +30,10 @@ resetBtn.addEventListener('click', () => {
 
 /** 검색시 테이블 호출 **/
 searchBtn.addEventListener('click', () => {
-    getBizListData();
+    onSubmitSearch();
 });
 limits.addEventListener('change', () => {
-    getBizListData();
+    onSubmitSearch();
 });
 
 function initSearchForm() {
@@ -44,6 +44,10 @@ function initSearchForm() {
         onChangeSelectOption($(this));
     });
     initSearchDateRange();
+}
+
+function onSubmitSearch() {
+    getBizListData();
 }
 
 /** 데이터 **/

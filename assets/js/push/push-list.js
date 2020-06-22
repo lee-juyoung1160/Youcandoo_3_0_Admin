@@ -51,13 +51,13 @@
 				{title: "발송대상 ", 	data: "param",    	  	   width: "20%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
-						return jsonData.push_type;
+						return jsonData.push_type === 'all' ? '전체' : '개인';
 					}
 				}
 				,{title: "구분", 		data: "param",    	  	   width: "20%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
-						return jsonData.store;
+						return jsonData.store === 'all' ? '전체' : jsonData.store;
 					}
 				}
 				,{title: "발송일시", 	data: "send_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default" }
@@ -138,7 +138,7 @@
 	{
 		if (cancelValidation())
 		{
-			if (confirm(message.delete))
+			if (confirm(message.cancel))
 			{
 				$.ajax({
 					url: api.cancelPush,
@@ -170,8 +170,7 @@
 			return false;
 		}
 
-		let doitStatus = selectedData.doit_status;
-		if (doitStatus !== '모집중' || (doitStatus === '모집중' && selectedData.doit_member > 0))
+		if ('Y' === selectedData.send_yn)
 		{
 			alert(message.pushHasBeenSent);
 			return false;

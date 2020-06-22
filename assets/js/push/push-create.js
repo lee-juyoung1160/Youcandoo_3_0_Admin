@@ -88,8 +88,8 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
-			scrollY: 200,
-			scrollCollapse: true,
+			/*scrollY: 200,
+			scrollCollapse: true,*/
 			destroy: true,
 			initComplete: function () {
 			},
@@ -119,14 +119,13 @@
 	{
 		/** 닉네임에 클릭이벤트 추가 **/
 		$(nRow).attr('onClick', 'setSelectedUser(\''+aData.nickname+'\',\''+aData.profile_uuid+'\')');
-		console.log(aData)
 	}
 
 	let g_profile_uuid;
-	function setSelectedUser(nickname, uuid)
+	function setSelectedUser(_nickname, _uuid)
 	{
-		g_profile_uuid = uuid;
-		nickname.val(name);
+		g_profile_uuid = _uuid;
+		nickname.val(_nickname);
 		modalFadeout();
 	}
 

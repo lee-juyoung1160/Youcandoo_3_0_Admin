@@ -210,7 +210,6 @@
 				$.ajax({
 					url: api.deleteFaq,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

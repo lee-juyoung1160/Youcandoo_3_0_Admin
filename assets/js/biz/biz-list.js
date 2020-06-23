@@ -58,7 +58,6 @@
 			ajax : {
 				url: api.listBiz,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams();
@@ -163,7 +162,6 @@
 			url: api.listBiz,
 			type: "POST",
 			dataType: "json",
-			async: false,
 			headers: headers,
 			data: excelParams(),
 			success: function(data) {

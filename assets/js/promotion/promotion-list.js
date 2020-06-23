@@ -317,7 +317,6 @@
 				$.ajax({
 					url: api.deletePromotion,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

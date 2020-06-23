@@ -66,7 +66,6 @@
 			ajax : {
 				url: api.listNotice,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams(d);
@@ -260,7 +259,6 @@
 				url: api.topNotice,
 				type: "POST",
 				headers: headers,
-				async: false,
 				global: false,
 				dataType: 'json',
 				data: JSON.stringify(topParams),
@@ -288,7 +286,6 @@
 				$.ajax({
 					url: api.deleteNotice,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

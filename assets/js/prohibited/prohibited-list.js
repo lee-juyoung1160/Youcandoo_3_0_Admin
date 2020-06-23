@@ -46,7 +46,6 @@
 			ajax : {
 				url: api.listProhibition,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams();
@@ -140,7 +139,6 @@
 				$.ajax({
 					url: api.createProhibition,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: addParams(),
@@ -204,7 +202,6 @@
 				$.ajax({
 					url: api.deleteProhibition,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

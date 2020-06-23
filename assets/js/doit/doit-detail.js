@@ -739,7 +739,6 @@
 			$.ajax({
 				url: url,
 				type: "POST",
-				async: false,
 				headers: headers,
 				dataType: 'json',
 				data: warnParams(),
@@ -1167,7 +1166,6 @@
 				$.ajax({
 					url: api.updateBlind,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: blindParams(),
@@ -1223,7 +1221,6 @@
 			ajax : {
 				url: api.listDoitUcd,
 				type: "POST",
-				async: false,
 				headers: headers,
 				data: function (d) {
 					return ucdTableParams(d);

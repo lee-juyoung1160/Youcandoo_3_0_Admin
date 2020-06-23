@@ -198,7 +198,7 @@
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<div class="input-wrap">';
-			detailDom += 						'<input oninput="checkInputLength(this);" type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="'+reward.title+'" maxlength="20">';
+			detailDom += 						'<input oninput="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="'+reward.title+'" maxlength="20">';
 			detailDom += 						'<p class="length-count-wrap"><span class="count-input">0</span>/20</p>';
 			detailDom += 					'</div>';
 			detailDom += 				'</div>';

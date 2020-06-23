@@ -43,6 +43,12 @@
     border-top: 1px solid #eee;
     margin-top: 0;
 }
+.modal-content {
+    height: 480px;
+}
+.modal-content .modal-information {
+    overflow: hidden;
+}
 .modal-content .modal-information > li{
     border-bottom: none;
 }

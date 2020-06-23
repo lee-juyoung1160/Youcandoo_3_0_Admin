@@ -47,6 +47,7 @@
 	function onClickNickname()
 	{
 		modalFadein();
+		getUsers();
 	}
 	
 	function getUsers()
@@ -64,7 +65,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "text-center cursor-default" }
+				{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "text-center" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -77,7 +78,7 @@
 			},
 			processing: false,
 			serverSide: true,
-			paging: false,
+			paging: true,
 			pageLength: 10,
 			ordering: false,
 			order: [],
@@ -102,9 +103,13 @@
 
 	function tableParams()
 	{
+		let table = dataTable.DataTable();
+		let info = table.page.info();
+		let _limit = info.length;
+		let _page = (info.start / info.length) + 1;
 		let param = {
-			"limit" : 10
-			,"page" : 1
+			"limit" : _limit
+			,"page" : _page
 			,"keyword" : modalNickname.val()
 		}
 

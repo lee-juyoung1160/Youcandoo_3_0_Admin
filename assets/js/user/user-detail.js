@@ -25,7 +25,6 @@
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const ucdType		= $("input[name=radio-ucd-type]");
 	const amount		= $("#amount");
 	const content		= $("#content");
 	const btnSubmit		= $("#btnSubmit");
@@ -67,7 +66,6 @@
 
 	function initModal()
 	{
-		ucdType.eq(0).prop('checked', true);
 		amount.val('');
 		amount.focus();
 		content.val('');
@@ -439,7 +437,7 @@
 		let param = {
 			"profile_uuid" : [g_profile_uuid]
 			,"division" : 0
-			,"ucd_type" : $("input[name=radio-ucd-type]:checked").val()
+			,"ucd_type" : "point"
 			,"amount" : amount.val()
 			,"description" : content.val().trim()
 			,"created_user" : sessionUserId.val()
@@ -471,7 +469,6 @@
 			content.focus();
 			return false;
 		}
-
 
 		return true;
 	}

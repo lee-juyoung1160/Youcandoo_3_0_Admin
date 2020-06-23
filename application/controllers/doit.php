@@ -2,14 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Doit extends MY_Controller {
-
+    public function index()
+    {
+        $this->load->layout('doit/doit-list');
+    }
     public function create()
         {
             $this->load->layout('doit/doit-create');
-        }
-    public function lists()
-        {
-            $this->load->layout('doit/doit-list');
         }
     public function detail()
         {
@@ -19,7 +18,7 @@ class Doit extends MY_Controller {
         {
             $this->load->layout('doit/doit-update');
         }
-
+        /*
     public function categoryLists()
         {
             $this->load->layout('doit/doit-category-list');
@@ -36,5 +35,5 @@ class Doit extends MY_Controller {
         {
             $this->load->layout('doit/doit-category-update');
         }
-
+        */
 }

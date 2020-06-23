@@ -2,8 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends MY_Controller {
-
-    public function lists()
+    public function index()
         {
             $this->load->layout('admin/admin-list');
         }
@@ -28,11 +27,7 @@ class Admin extends MY_Controller {
         {
             $this->load->layout('admin/admin-auth-create');
         }
-    public function authupdate()
-        {
-            $this->load->layout('admin/admin-auth-update');
-        }
-    public function adminlog()
+    public function log()
         {
             $this->load->layout('admin/admin-log');
         }

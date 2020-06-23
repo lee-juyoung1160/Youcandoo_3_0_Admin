@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Biz extends MY_Controller {
 
-    public function lists()
+    public function index()
         {
             $this->load->layout('biz/biz-list');
         }

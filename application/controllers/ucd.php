@@ -8,7 +8,7 @@ class Ucd extends MY_Controller {
         $this->load->layout('ucd/ucd-sales-list');
     }
 
-    public function uses()
+    public function usage()
     {
         $this->load->layout('ucd/ucd-usage-list');
     }

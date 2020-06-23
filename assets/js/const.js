@@ -202,20 +202,20 @@
 
 	/** page url **/
 	const page = {
-		listUser : '/user/lists'
+		listUser : '/user'
 		,detailUser : '/user/detail/'
 
-		,listBiz : '/biz/lists'
+		,listBiz : '/biz'
 		,createBiz : '/biz/create'
 		,detailBiz : '/biz/detail/'
 		,updateBiz : '/biz/update/'
 
-		,listPromo : '/pro/lists'
-		,createPromo : '/pro/create'
-		,detailPromo : '/pro/detail/'
-		,updatePromo : '/pro/update/'
+		,listPromo : '/promotion'
+		,createPromo : '/promotion/create'
+		,detailPromo : '/promotion/detail/'
+		,updatePromo : '/promotion/update/'
 
-		,listDoit : '/doit/lists'
+		,listDoit : '/doit'
 		,createDoit : '/doit/create'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
@@ -224,30 +224,29 @@
 		,listUcdUsage : '/ucd/uses/list'
 		,listUcdWithdraw : '/ucd/withdraw'
 
-		,listEvent : '/service/event/list'
-		,createEvent : '/service/event/create'
-		,detailEvent : '/service/event/detail/'
-		,updateEvent : '/service/event/update/'
+		,listEvent : '/marketing/event'
+		,createEvent : '/marketing/event/create'
+		,detailEvent : '/marketing/event/detail/'
 
-		,listPush : '/push/lists'
+		,listPush : '/marketing/push'
 
-		,listNotice : '/service/notice/list'
+		,listNotice : '/service/notice'
 		,createNotice : '/service/notice/create'
 		,detailNotice : '/service/notice/detail/'
 		,updateNotice : '/service/notice/update/'
 
-		,listFaq : '/service/faq/list'
+		,listFaq : '/service/faq'
 		,createFaq : '/service/faq/create'
 		,detailFaq : '/service/faq/detail/'
 		,updateFaq : '/service/faq/update/'
 
-		,listInquiry : '/service/inquiry/list'
+		,listInquiry : '/service/inquiry'
 		,commentInquiry : '/service/inquiry/update/'
 		,detailInquiry : '/service/inquiry/detail/'
 
 		,listProhibition : '/service/prohibition'
 
-		,listAdmin : '/admin/lists'
+		,listAdmin : '/admin'
 		,createAdmin : '/admin/create'
 
 		,listAuth : '/admin/auth'

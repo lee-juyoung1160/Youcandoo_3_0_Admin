@@ -41,25 +41,20 @@ class Service extends MY_Controller {
         }
     }
 
-    public function event($Route="list")
+    public function review()
     {
-        switch ($Route)
-        {
-            case "list" :
-                $this->load->layout('service/event-list');
-                break;
-            case "create":
-                $this->load->layout('service/event-create');
-                break;
-            case "update":
-                $this->load->layout('service/event-update');
-                break;
-            case "detail":
-                $this->load->layout('service/event-detail');
-                break;
-        }
+        $this->load->layout('service/review-list');
     }
 
+    public function action()
+    {
+        $this->load->layout('service/action-list');
+    }
+    public function prohibition()
+    {
+        $this->load->layout('service/prohibited-list');
+    }
+/*
     public function inquiry($Route="list")
     {
         switch ($Route)
@@ -75,20 +70,6 @@ class Service extends MY_Controller {
                 break;
         }
     }
-
-    public function prohibition()
-    {
-        $this->load->layout('service/prohibited-list');
-    }
-
-    public function review()
-    {
-        $this->load->layout('service/review-list');
-    }
-
-    public function action()
-    {
-        $this->load->layout('service/action-list');
-    }
+    */
 
 }

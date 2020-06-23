@@ -689,6 +689,11 @@ textarea {
 	margin-bottom: 15px;
 	padding-bottom: 15px;
 }
+.list-common .list-wrap:first-child.only-search {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
 .list-common .list-wrap .day-btn,
 .list-common .list-wrap .select-box,
 .list-common .list-wrap .date-wrap {

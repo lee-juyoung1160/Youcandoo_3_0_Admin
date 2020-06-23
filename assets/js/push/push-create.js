@@ -47,7 +47,6 @@
 	function onClickNickname()
 	{
 		modalFadein();
-		getUsers();
 	}
 	
 	function getUsers()
@@ -78,18 +77,18 @@
 			},
 			processing: false,
 			serverSide: true,
-			paging: true,
+			paging: false,
 			pageLength: 10,
 			ordering: false,
 			order: [],
 			info: false,
 			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
-			/*scrollY: 200,
-			scrollCollapse: true,*/
 			destroy: true,
 			initComplete: function () {
 			},
@@ -103,15 +102,12 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _limit = info.length;
-		let _page = (info.start / info.length) + 1;
 		let param = {
-			"limit" : _limit
-			,"page" : _page
+			"limit" : 10
+			,"page" : 1
 			,"keyword" : modalNickname.val()
 		}
+
 		return JSON.stringify(param);
 	}
 

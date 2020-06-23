@@ -4,7 +4,6 @@
 	const selectedUserTableBody = $("#selectedUserTableBody");
 	const resultBox = $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
-	const uctType 	= $("input[name=radio-ucd-type]");
 	const target	= $("#target");
 	const amount	= $("#amount");
 	const content 	= $("#content");
@@ -38,7 +37,6 @@
 
 	function initComponent()
 	{
-		uctType.eq(0).prop("checked", true);
 		amount.focus();
 	}
 
@@ -337,7 +335,7 @@
 		let param = {
 			"profile_uuid" : uuids
 			,"division" : 0
-			,"ucd_type" : $("input[name=radio-ucd-type]:checked").val()
+			,"ucd_type" : "point"
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
 			,"created_user" : sessionUserId.val()

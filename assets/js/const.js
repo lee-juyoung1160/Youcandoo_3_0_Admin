@@ -206,17 +206,14 @@
 		,detailUser : '/user/detail/'
 
 		,listBiz : '/biz'
-		,createBiz : '/biz/create'
 		,detailBiz : '/biz/detail/'
 		,updateBiz : '/biz/update/'
 
 		,listPromo : '/promotion'
-		,createPromo : '/promotion/create'
 		,detailPromo : '/promotion/detail/'
 		,updatePromo : '/promotion/update/'
 
 		,listDoit : '/doit'
-		,createDoit : '/doit/create'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
 
@@ -225,18 +222,15 @@
 		,listUcdWithdraw : '/ucd/withdraw'
 
 		,listEvent : '/marketing/event'
-		,createEvent : '/marketing/event/create'
 		,detailEvent : '/marketing/event/detail/'
 
 		,listPush : '/marketing/push'
 
 		,listNotice : '/service/notice'
-		,createNotice : '/service/notice/create'
 		,detailNotice : '/service/notice/detail/'
 		,updateNotice : '/service/notice/update/'
 
 		,listFaq : '/service/faq'
-		,createFaq : '/service/faq/create'
 		,detailFaq : '/service/faq/detail/'
 		,updateFaq : '/service/faq/update/'
 

@@ -198,6 +198,11 @@
 		return window.location.pathname;
 	}
 
+	function scrollToTarget(target)
+	{
+		$('html, body').animate({scrollTop : target});
+	}
+
 
 
 

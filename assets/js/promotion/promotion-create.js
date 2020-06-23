@@ -630,7 +630,8 @@
 		if (isEmpty(bizName.val()))
 		{
 			alert('기업명은 ' + message.required);
-			bizName.focus();
+			scrollToTarget(bizName);
+			onClickBizName();
 			return false;
 		}
 

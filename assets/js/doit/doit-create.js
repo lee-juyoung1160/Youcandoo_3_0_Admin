@@ -529,6 +529,29 @@
 		if (exampleVideoDom.length > 0)
 			exampleVideoFile	= exampleVideoDom[0].files;
 
+		if (isEmpty(bizName.val()))
+		{
+			alert('프로모션은 ' + message.required+'\n기업명을 '+message.select);
+			scrollToTarget(bizName);
+			onClickBizName();
+			return false;
+		}
+
+		if (isEmpty(selPromo.val()))
+		{
+			alert('프로모션은 ' + message.required+'\n프로모션을 '+message.select);
+			scrollToTarget(selPromo);
+			selPromo.focus();
+			return false;
+		}
+
+		if (isEmpty(selReward.val()))
+		{
+			alert('리워드 조건은 ' + message.required+'\n리워드 조건을 '+message.select);
+			scrollToTarget(selReward);
+			selReward.focus();
+			return false;
+		}
 
 		if (isEmpty(doitTitle.val()))
 		{
@@ -559,27 +582,6 @@
 		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
 		{
 			alert('두잇 소개 영상은 ' + message.required);
-			return false;
-		}
-
-		if (isEmpty(bizName.val()))
-		{
-			alert('기업명은 ' + message.required+'\n두잇 유형에서 기업명을 '+message.select);
-			bizName.focus();
-			return false;
-		}
-
-		if (isEmpty(selPromo.val()))
-		{
-			alert('프로모션은 ' + message.required+'\n두잇 유형에서 프로모션을 '+message.select);
-			selPromo.focus();
-			return false;
-		}
-
-		if (isEmpty(selReward.val()))
-		{
-			alert('리워드 조건은 ' + message.required+'\n두잇 유형에서 리워드 조건을 '+message.select);
-			selReward.focus();
 			return false;
 		}
 

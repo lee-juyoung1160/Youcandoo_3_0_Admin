@@ -192,8 +192,12 @@
 
 	function setRowAttributes(nRow, aData)
 	{
+		let checkDom 	= $(nRow).children().eq(0);
 		let titleDom  	= $(nRow).children().eq(2);
 		let detailUrl	= page.detailDoit+aData.idx;
+		/** 모집중,참여인원 0이면 체크박스 삭제 **/
+		if (aData.doit_status !== '모집중' || Number(aData.doit_member) > 0)
+			$(checkDom).children().prop('disabled', true);
 		/** 두잇명 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
 	}

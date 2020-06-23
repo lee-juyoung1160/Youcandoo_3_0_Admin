@@ -206,10 +206,14 @@
 
 	function setRowAttributes(nRow, aData)
 	{
+		let checkDom = $(nRow).children().eq(0);
 		let titleDom  = $(nRow).children().eq(2);
 		let btnDom 	  = $(nRow).children().eq(7);
 		let detailUrl = page.detailPromo+aData.idx;
 
+		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
+		if (aData.status !== 'pending')
+			$(checkDom).children().prop('disabled', true);
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
 		/** 배너보기 버튼 **/

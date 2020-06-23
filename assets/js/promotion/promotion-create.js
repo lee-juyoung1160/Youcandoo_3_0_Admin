@@ -733,7 +733,7 @@
 
 		if (isOverBudget())
 		{
-			alert(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
+			alert(message.overBudget+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 

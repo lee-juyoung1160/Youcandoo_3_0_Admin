@@ -30,6 +30,7 @@
 		keyword.val('');
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	function buildGrid()

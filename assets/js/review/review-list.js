@@ -60,6 +60,7 @@ function initSearchForm() {
     document.querySelector('input[name=radio-report]').checked = true;
     document.querySelector('input[name=radio-blind]').checked = true;
     initSearchDateRange();
+    initDayBtn();
 }
 
 function onSubmitSearch() {

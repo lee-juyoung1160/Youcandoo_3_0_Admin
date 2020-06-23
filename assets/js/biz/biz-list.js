@@ -32,6 +32,7 @@
 		keyword.val('');
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	let _page = 1;

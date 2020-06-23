@@ -39,6 +39,7 @@
 		status.prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	let _page = 1;

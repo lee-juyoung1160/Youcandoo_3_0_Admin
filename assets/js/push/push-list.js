@@ -26,6 +26,7 @@
 	{
 		keyword.val('');
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	function buildGrid()
@@ -48,20 +49,20 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "발송대상 ", 	data: "param",    	  	   width: "20%",    orderable: false,   className: "text-center cursor-default",
+				{title: "발송여부", 	data: "push_status",    width: "5%",  	orderable: false,   className: "text-center cursor-default" }
+				,{title: "발송대상 ", 	data: "param",    	  	   width: "30%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
-						return jsonData.push_type === 'all' ? '전체' : '개인';
+						return jsonData.push_type === 'all' ? '전체' : '개인('+jsonData.profile_uuid+')';
 					}
 				}
-				,{title: "구분", 		data: "param",    	  	   width: "20%",  	orderable: false,   className: "text-center cursor-default",
+				,{title: "발송일시", 	data: "send_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "구분", 		data: "param",    	  	   width: "10%",  	orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
 						return jsonData.store === 'all' ? '전체' : jsonData.store;
 					}
 				}
-				,{title: "발송일시", 	data: "send_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "발송여부", 	data: "send_yn",      		width: "20%",  	orderable: false,   className: "text-center cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -92,7 +93,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
@@ -120,14 +121,14 @@
 		return JSON.stringify(param);
 	}
 
-	/*function setRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		let titleDom = $(nRow).children().eq(2);
-		let detailUrl = '/review/detail/'+aData.idx;
-
-		/!** 제목에 a 태그 추가 **!/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
-	}*/
+		let checkDom = $(nRow).children().eq(0);
+		let isDel 	 = aData.is_del;
+		let isSent 	 = aData.send_yn;
+		if (isDel === 'Y' || isSent === 'Y')
+			$(checkDom).children().prop('disabled', true);
+	}
 
 	function onSubmitSearch()
 	{
@@ -167,12 +168,6 @@
 		if (isEmpty(selectedData))
 		{
 			alert('대상을 목록에서 '+message.select);
-			return false;
-		}
-
-		if ('Y' === selectedData.send_yn)
-		{
-			alert(message.pushHasBeenSent);
 			return false;
 		}
 

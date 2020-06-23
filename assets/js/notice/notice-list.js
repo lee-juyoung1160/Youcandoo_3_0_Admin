@@ -37,6 +37,7 @@
 		exposure.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	let _page = 1;

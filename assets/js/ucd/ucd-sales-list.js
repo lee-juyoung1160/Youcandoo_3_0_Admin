@@ -44,6 +44,7 @@ function initSearchForm() {
         onChangeSelectOption($(this));
     });
     initSearchDateRange();
+    initDayBtn();
 }
 
 function onSubmitSearch() {

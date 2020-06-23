@@ -29,6 +29,7 @@
 		initSelectOption();
 		dateFrom.datepicker("setDate", "today");
 		dateTo.datepicker("setDate", "today");
+		initDayBtn();
 	}
 
 	function buildGrid()

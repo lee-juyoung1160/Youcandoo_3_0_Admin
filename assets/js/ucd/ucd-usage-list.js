@@ -36,6 +36,7 @@
 		userDivision.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	function buildGrid()

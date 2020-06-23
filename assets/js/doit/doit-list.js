@@ -38,6 +38,7 @@
 		doitStatus.eq(3).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
+		initDayBtn();
 	}
 
 	let _page = 1;

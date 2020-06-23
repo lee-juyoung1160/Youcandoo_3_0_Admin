@@ -5,4 +5,5 @@
 .push-list-page input[type="checkbox"]:disabled + label span{
     background-color: #fff;
     border: none;
+    cursor: default;
 }

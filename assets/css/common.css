@@ -752,6 +752,11 @@ input[type="checkbox"] + label,
 input[type="radio"] + label{
 	margin-right: 10px;
 }
+input[type="checkbox"]:disabled + label span{
+	background-color: #fff;
+	border: none;
+	cursor: default;
+}
 .doit-list-option ul li {
 	width: 25%;
 	float: left;

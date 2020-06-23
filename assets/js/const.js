@@ -218,7 +218,7 @@
 		,updateDoit : '/doit/update/'
 
 		,listUcdSales : '/ucd/sales'
-		,listUcdUsage : '/ucd/uses/list'
+		,listUcdUsage : '/ucd/usage'
 		,listUcdWithdraw : '/ucd/withdraw'
 
 		,listEvent : '/marketing/event'

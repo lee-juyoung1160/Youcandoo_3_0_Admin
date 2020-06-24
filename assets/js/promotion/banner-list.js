@@ -96,9 +96,9 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				/*if ($.fn.DataTable.isDataTable(bannerTable))
-					bannerTable.find('tbody').children().remove();*/
-				/*let table = bannerTable.DataTable();*/
+				let table = bannerTable.DataTable();
+				if (!table.data().any())
+					bannerTable.find('tbody').children().remove();
 				/** row reorder drag and drop 이벤트 **/
 				/*table.on( 'row-reorder', function ( e, diff, edit ) { onSubmitBanner(); });*/
 			},
@@ -123,30 +123,7 @@
 		{
 			$(targetId).remove();
 
-			let rows = getBannerRows();
-			let ids = [];
-			for (let i=0; i<rows.length; i++)
-				ids.push(rows[i].id)
-
-			$.ajax({
-				url: api.updateBanner,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({ "promotion_list" : ids }),
-				success: function(data) {
-					if (isSuccessResp(data))
-					{
-						buildBanners();
-						toggleDisabledBtnOpenModal();
-					}
-					else invalidResp(data);
-				},
-				error: function (request, status) {
-					alert(label.modify+message.ajaxError);
-					reloadTable(bannerTable);
-				},
-			});
+			updateBanner();
 		}
 	}
 
@@ -181,34 +158,11 @@
 
 	function onSubmitBanner()
 	{
-		let rows = getBannerRows();
-		let ids = [];
-		for (let i=0; i<rows.length; i++)
-			ids.push(rows[i].id)
-
 		if (submitValidation())
 		{
 			if (confirm(message.create))
 			{
-				$.ajax({
-					url: api.updateBanner,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: JSON.stringify({ "promotion_list" : ids }),
-					success: function(data) {
-						if (isSuccessResp(data))
-						{
-							buildBanners();
-							toggleDisabledBtnOpenModal();
-						}
-						else invalidResp(data);
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-						reloadTable(bannerTable);
-					},
-				});
+				updateBanner();
 			}
 		}
 	}
@@ -224,6 +178,37 @@
 		}
 
 		return true;
+	}
+
+	function updateBanner()
+	{
+		let rows = getBannerRows();
+		let ids = [];
+		for (let i=0; i<rows.length; i++)
+			ids.push(rows[i].id)
+
+		$.ajax({
+			url: api.updateBanner,
+			type: "POST",
+			async: false,
+			global: false,
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({ "promotion_list" : ids }),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					modalFadeout();
+					toggleDisabledBtnOpenModal();
+					buildBanners();
+				}
+				else invalidResp(data);
+			},
+			error: function (request, status) {
+				alert(label.modify+message.ajaxError);
+				buildBanners();
+			},
+		});
 	}
 
 	function getPromo()
@@ -313,57 +298,38 @@
 		{
 			if (confirm(message.create))
 			{
-				let table 		 = dataTable.DataTable();
-				let selectedData = table.rows('.selected').data();
-				let rowDom = '';
-				for (let i=0; i<selectedData.length; i++)
-				{
-					let uuid = selectedData[i].promotion_uuid;
-					let imageUrl = selectedData[i].list_image_url;
-					let bizName  = selectedData[i].nickname;
-					let title  = selectedData[i].promotion_title;
-					rowDom += '<tr role="row" class="" id="'+uuid+'">'
-					rowDom += 	'<td class=" text-center">'
-					rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
-					rowDom += 	'</td>'
-					rowDom += 	'<td class="text-center">'+bizName+'</td>'
-					rowDom += 	'<td class="text-center">'+title+'</td>'
-					rowDom += 	'<td class="text-center cursor-default">'
-					rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
-					rowDom += 	'</td>'
-					rowDom += '</tr>'
-				}
+				buildAddBanner();
 
-				let targetTableBody = bannerTable.find('tbody');
-				targetTableBody.append(rowDom);
-
-				let rows = getBannerRows();
-				let ids = [];
-				for (let i=0; i<rows.length; i++)
-					ids.push(rows[i].id)
-
-				$.ajax({
-					url: api.updateBanner,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: JSON.stringify({ "promotion_list" : ids }),
-					success: function(data) {
-						if (isSuccessResp(data))
-						{
-							buildBanners();
-							modalFadeout();
-							toggleDisabledBtnOpenModal();
-						}
-						else invalidResp(data);
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-						reloadTable(bannerTable);
-					},
-				});
+				updateBanner();
 			}
 		}
+	}
+
+	function buildAddBanner()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+		let rowDom = '';
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let uuid = selectedData[i].promotion_uuid;
+			let imageUrl = selectedData[i].list_image_url;
+			let bizName  = selectedData[i].nickname;
+			let title  = selectedData[i].promotion_title;
+			rowDom += '<tr role="row" class="" id="'+uuid+'">'
+			rowDom += 	'<td class=" text-center">'
+			rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
+			rowDom += 	'</td>'
+			rowDom += 	'<td class="text-center">'+bizName+'</td>'
+			rowDom += 	'<td class="text-center">'+title+'</td>'
+			rowDom += 	'<td class="text-center cursor-default">'
+			rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
+			rowDom += 	'</td>'
+			rowDom += '</tr>'
+		}
+
+		let targetTableBody = bannerTable.find('tbody');
+		targetTableBody.append(rowDom);
 	}
 
 	function addValidation()

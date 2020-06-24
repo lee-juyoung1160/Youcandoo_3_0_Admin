@@ -30,7 +30,7 @@
         let inputLength = $(obj).val().length;
         let maxLength   = $(obj).prop('maxLength');
 
-        if (inputLength > maxLength)
+        if (inputLength > maxLength && maxLength > 0)
         {
             $(obj).val($(obj).val().slice(0, maxLength))
             inputLength = maxLength;

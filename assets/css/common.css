@@ -1375,6 +1375,9 @@ table th, table td {
 	width: 850px;
 	height: 700px;
 }
+.banner-modal .pro-banner {
+	width: 150px;
+}
 .banner-modal .modal-information {
 	overflow-y: hidden;
 	max-height: 550px;

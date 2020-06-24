@@ -5,11 +5,11 @@
 	const modalLayout	= $(".modal-layout");
 	const modalContent  = $(".modal-content");
 	const modalCloseBtn	= $(".close-btn");
-	const modalTable	= $("#modalTable");
+	const dataTable		= $("#dataTable");
 
 	$(document).ready(function () {
 		/** 테이블 데이터 로드 **/
-		//buildGrid();
+		buildGrid();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -23,7 +23,7 @@
 
 	function initModal()
 	{
-		//getPromo();
+		getPromo();
 	}
 
 	function buildGrid()
@@ -74,7 +74,7 @@
 			select: false,
 			rowReorder: {
 				selector: 'td:not(:last-child)',
-				update: false
+				update: true
 			},
 			lengthChange: false,
 			autoWidth: false,
@@ -134,26 +134,31 @@
 
 	function getPromo()
 	{
-		modalTable.DataTable({
+		dataTable.DataTable({
 			ajax : {
 				url: api.listPromotion,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
-					return tableParams();
+					return modalParams();
 				},
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "기업명", 		data: "nickname",    		width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "text-center cursor-default",
-					render: function (data, type, row, meta) {
-						return row.start_date + ' ~ ' + row.end_date;
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,   className: "text-center",
+					render: function (data) {
+						return '<img class="pro-banner" src="'+data+'" alt="">';
 					}
 				}
+				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false,   className: "text-center" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false,   className: "text-center" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -167,7 +172,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: 5,
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -176,6 +181,8 @@
 				style: 'single',
 				selector: ':checkbox'
 			},
+			scrollY: 500,
+			scrollCollapse: true,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -188,5 +195,22 @@
 			drawCallback: function (settings) {
 			}
 		});
+	}
+
+	function modalParams()
+	{
+		let param = {
+			"limit" : 5
+			,"page" : 1
+			,"dateType" : "created_datetime"
+			,"fromDate" : "2020-06-17"
+			,"toDate" : "2020-06-24"
+			,"searchType" : "promotion_title"
+			,"keyword" : ""
+			,"is_banner" : ""
+			,"status" : ["pending", "progress", "terminate", "end"]
+		}
+
+		return JSON.stringify(param);
 	}
 

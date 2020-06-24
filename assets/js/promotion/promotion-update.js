@@ -667,7 +667,7 @@
 
 		if (promotionNotice.length === 0)
 		{
-			alert('유의사항을 ' + message.needMore);
+			alert('유의사항을 ' + message.addOn);
 			return false;
 		}
 

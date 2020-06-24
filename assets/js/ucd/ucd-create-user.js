@@ -350,7 +350,7 @@
 
 		if (count === 0)
 		{
-			alert('충전대상을 '+message.needMore);
+			alert('충전대상을 '+message.addOn);
 			onClickModalOpen();
 			return false;
 		}

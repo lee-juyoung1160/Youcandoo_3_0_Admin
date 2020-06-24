@@ -14,7 +14,7 @@
 		,input : '입력해주세요.'
 		,doubleChk : '확인해주세요.'
 		,select : '선택해주세요.'
-		,needMore : '추가해주세요.'
+		,addOn : '추가해주세요.'
 		,required : '필수항목입니다.'
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'

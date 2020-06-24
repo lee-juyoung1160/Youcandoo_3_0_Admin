@@ -1344,9 +1344,26 @@ table th, table td {
 	vertical-align: middle;
 }
 /* 프로모션 배너관리 */
-.pro-banner {
+.pro-banner-page .pro-banner {
 	width: 200px;
 }
-.fa-times-circle {
+.pro-banner-page .fa-times-circle {
 	color: #ec5c5c;
+}
+.pro-banner-page .left-wrap {
+	color: #666;
+	line-height: 1.4em;
+}
+.pro-banner-page .left-wrap .fa-question-circle {
+	float: left;
+	padding: 3px 0;
+	color: #007aff;
+}
+.pro-banner-page .left-wrap span {
+	float: left;
+	margin-left: 5px;
+	font-size: 15px;
+}
+.pro-banner-page .table-wrap table tr:hover {
+	cursor: move;
 }

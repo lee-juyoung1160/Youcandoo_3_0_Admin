@@ -20,7 +20,7 @@ class Promotion extends MY_Controller {
             $this->load->layout('promotion/pro-update');
         }
     public function setting()
-            {
-                $this->load->layout('promotion/pro-banner-list');
-            }
+        {
+            $this->load->layout('promotion/pro-banner-list');
+        }
 }

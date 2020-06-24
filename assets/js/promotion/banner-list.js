@@ -261,7 +261,7 @@
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			scrollY: 375,
+			scrollY: 420,
 			scrollCollapse: true,
 			lengthChange: false,
 			autoWidth: false,

@@ -1373,9 +1373,11 @@ table th, table td {
 }
 .banner-modal {
 	width: 850px;
+	height: 700px;
 }
 .banner-modal .modal-information {
-	max-height: 600px;
+	overflow-y: hidden;
+	max-height: 550px;
 }
 .banner-modal .search-box {
 	float: left;

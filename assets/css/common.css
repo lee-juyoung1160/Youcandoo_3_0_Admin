@@ -1035,8 +1035,9 @@ input[type="checkbox"]:disabled + label span{
 }
 .card-btn {
 	margin-left: auto;
-	padding: 8px 10px;
+	padding: 8px;
 	color: #fff;
+	font-size: 14px;
 	border-radius: 4px;
 	transition: all .3s;
 }
@@ -1408,4 +1409,7 @@ table th, table td {
 .btn-wrap button.disabled {
 	background-color: #ddd;
 	cursor: inherit;
+}
+.dt-rowReorder-float {
+	display: none;
 }

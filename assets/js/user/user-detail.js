@@ -187,12 +187,12 @@
 				}
 				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return Number(data) < 100 && Number(data) > 0 ? Number(data).toFixed(1) : data;
+						return Math.floor(Number(data));
 					}
 				}
 				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return Number(data) < 100 && Number(data) > 0 ? Number(data).toFixed(1) : data;
+						return Math.floor(Number(data));
 					}
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",
@@ -271,12 +271,12 @@
 				}
 				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return Number(data) < 100 && Number(data) > 0 ? Number(data).toFixed(1) : data;
+						return Math.floor(Number(data));
 					}
 				}
 				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return Number(data) < 100 && Number(data) > 0 ? Number(data).toFixed(1) : data;
+						return Math.floor(Number(data));
 					}
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",

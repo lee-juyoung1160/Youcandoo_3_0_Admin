@@ -119,7 +119,7 @@
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';
 						innerDom += 	'<strong>'+numberWithCommas(data)+'</strong>';
-						innerDom += 	'(ⓒ'+row.ucd.cash+' / ⓟ'+row.ucd.point+')';
+						innerDom += 	'(ⓒ'+numberWithCommas(row.ucd.cash)+' / ⓟ'+numberWithCommas(row.ucd.point)+')';
 						innerDom += '</div>';
 						return innerDom;
 					}

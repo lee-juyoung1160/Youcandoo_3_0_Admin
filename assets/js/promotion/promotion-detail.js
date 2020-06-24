@@ -339,8 +339,7 @@
 				}
 			},
 			columns: [
-				{title: "유형", 	data: "ucd_type",		width: "10%",      orderable: false,   className: "text-center cursor-default" }
-				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
                 ,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);

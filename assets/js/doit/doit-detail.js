@@ -470,7 +470,7 @@
 				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return Number(data) < 100 && Number(data) > 0 ? Number(data).toFixed(1) : data;
+						return Math.floor(Number(data));
 					}
 				}
 				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
@@ -1234,11 +1234,10 @@
 				}
 			},
 			columns: [
-				{title: "유형", 	data: "ucd_type",		width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
-					render: function (data) {
-						return numberWithCommas(data);
+				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
 					}
 				}
 				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }

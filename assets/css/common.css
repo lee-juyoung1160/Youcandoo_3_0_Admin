@@ -1343,6 +1343,7 @@ input[type="checkbox"]:disabled + label span{
 table th, table td {
 	vertical-align: middle;
 }
+
 /* 프로모션 배너관리 */
 .pro-banner-page .pro-banner {
 	width: 200px;
@@ -1367,6 +1368,9 @@ table th, table td {
 .pro-banner-page .table-wrap table tbody tr:hover {
 	cursor: n-resize;
 }
+.table-wrap .top button {
+	background-color: #19579a;
+}
 .banner-modal {
 	width: 850px;
 }
@@ -1389,4 +1393,7 @@ table th, table td {
 }
 .banner-modal .table-wrap table tbody tr:hover {
 	cursor: inherit;
+}
+.btn-wrap button.disabled {
+	background-color: #ddd;
 }

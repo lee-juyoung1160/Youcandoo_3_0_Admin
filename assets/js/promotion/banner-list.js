@@ -17,6 +17,8 @@
 		buildBanners();
 		/** 배너추가 버튼 toggle disable **/
 		toggleDisabledBtnOpenModal();
+		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		setHistoryParam("");
 		/** 이벤트 **/
 		modalCloseBtn	.on("click", function () { modalFadeout(); });
 		modalLayout		.on("click", function () { modalFadeout(); });
@@ -45,11 +47,9 @@
 				url: api.listBanner,
 				type:"POST",
 				async: false,
-				dataSrc: "data.promotion",
+				/*dataSrc: "data.promotion",*/
 				headers: headers,
-				/*data: function (d) {
-					return bannerParams();
-				},*/
+				data: "",
 				error: function (request, status) {
 					alert(label.list+message.ajaxLoadError);
 				}
@@ -64,7 +64,7 @@
 				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false,   className: "text-center" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",     orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return '<i onclick="removeOrder(this)" data-uuid="'+data+'" class="far fa-times-circle"></i>';
+						return '<i onclick="removeRow(this)" data-uuid="'+data+'" class="far fa-times-circle"></i>';
 					}
 				}
 			],
@@ -96,8 +96,11 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				/*let table = bannerTable.DataTable();
-				table.on( 'row-reorder', function ( e, diff, edit ) { onSubmitBanner(); });*/
+				let table = bannerTable.DataTable();
+				if (!table.data().any())
+					bannerTable.find('tbody').children().remove();
+				/** row reorder drag and drop 이벤트 **/
+				/*table.on( 'row-reorder', function ( e, diff, edit ) { onSubmitBanner(); });*/
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setBannerRowAttributes(nRow, aData);
@@ -107,21 +110,21 @@
 		});
 	}
 
-	function bannerParams()
-	{
-		return JSON.stringify("");
-	}
-
 	function setBannerRowAttributes(nRow, aData)
 	{
 		$(nRow).prop('id', aData.promotion_uuid);
 	}
 
-	function removeOrder(obj)
+	function removeRow(obj)
 	{
 		let promoUuid = $(obj).data('uuid');
-		if (confirm('노출 목록에서 '+message.delete))
-			$("#"+promoUuid).remove();
+		let targetId = "#"+promoUuid
+		if (confirm(message.delete))
+		{
+			$(targetId).remove();
+
+			updateBanner();
+		}
 	}
 
 	function getBannerRows()
@@ -155,46 +158,57 @@
 
 	function onSubmitBanner()
 	{
-		let rows = getBannerRows();
-		let ids = [];
-		for (let i=0; i<rows.length; i++)
-			ids.push(rows[i].id)
-
-		if (sumitValidation())
+		if (submitValidation())
 		{
-			if (confirm(message.change))
+			if (confirm(message.create))
 			{
-				$.ajax({
-					url: api.updateBanner,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: JSON.stringify({ "ids" : ids }),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						reloadTable(bannerTable);
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-						reloadTable(bannerTable);
-					},
-				});
+				updateBanner();
 			}
 		}
 	}
 
-	function sumitValidation()
+	function submitValidation()
 	{
 		let rows = getBannerRows();
-
 		if (rows.length === 0)
 		{
-			alert("배너는 "+message.required+" 배너를 "+message.needMore);
+			alert("배너를 "+message.addOn);
 			onClickModalOpen();
 			return false;
 		}
 
 		return true;
+	}
+
+	function updateBanner()
+	{
+		let rows = getBannerRows();
+		let ids = [];
+		for (let i=0; i<rows.length; i++)
+			ids.push(rows[i].id)
+
+		$.ajax({
+			url: api.updateBanner,
+			type: "POST",
+			async: false,
+			global: false,
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({ "promotion_list" : ids }),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					modalFadeout();
+					toggleDisabledBtnOpenModal();
+					buildBanners();
+				}
+				else invalidResp(data);
+			},
+			error: function (request, status) {
+				alert(label.modify+message.ajaxError);
+				buildBanners();
+			},
+		});
 	}
 
 	function getPromo()
@@ -213,9 +227,9 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "promotion_uuid",   width: "5%",     orderable: false,   className: "text-center",
 					render: function (data) {
-						return singleCheckBoxDom(data);
+						return multiCheckBoxDom(data);
 					}
 				},
 				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,   className: "text-center",
@@ -244,7 +258,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'single',
+				style: 'multi',
 				selector: ':checkbox'
 			},
 			scrollY: 375,
@@ -266,7 +280,7 @@
 	function modalParams()
 	{
 		let param = {
-			"searchType" : searchType.val()
+			"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 		}
 
@@ -275,23 +289,47 @@
 
 	function onSubmitSearch()
 	{
-		reloadTable(dataTable);
+		getPromo();
 	}
 
 	function addBanners()
 	{
 		if (addValidation())
 		{
-			let table 		 = dataTable.DataTable();
-			let selectedData = table.rows('.selected').data();
-
-			let params = [];
-			for (let i=0; i<selectedData.length; i++)
+			if (confirm(message.create))
 			{
-				let idx = selectedData[i].idx;
-				params.push(idx);
+				buildAddBanner();
+
+				updateBanner();
 			}
 		}
+	}
+
+	function buildAddBanner()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+		let rowDom = '';
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let uuid = selectedData[i].promotion_uuid;
+			let imageUrl = selectedData[i].list_image_url;
+			let bizName  = selectedData[i].nickname;
+			let title  = selectedData[i].promotion_title;
+			rowDom += '<tr role="row" class="" id="'+uuid+'">'
+			rowDom += 	'<td class=" text-center">'
+			rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
+			rowDom += 	'</td>'
+			rowDom += 	'<td class="text-center">'+bizName+'</td>'
+			rowDom += 	'<td class="text-center">'+title+'</td>'
+			rowDom += 	'<td class="text-center cursor-default">'
+			rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
+			rowDom += 	'</td>'
+			rowDom += '</tr>'
+		}
+
+		let targetTableBody = bannerTable.find('tbody');
+		targetTableBody.append(rowDom);
 	}
 
 	function addValidation()
@@ -299,10 +337,11 @@
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
 		let bannerRows 	 = getBannerRows();
-		let vacancy 	 = 5 - bannerRows.length;
 		let ids = [];
 		for (let i=0; i<bannerRows.length; i++)
 			ids.push(bannerRows[i].id)
+
+		let vacancy 	 = 5 - ids.length;
 
 		if (isEmpty(selectedData))
 		{
@@ -310,15 +349,11 @@
 			return false;
 		}
 
-		if (vacancy > selectedData.length)
+		if (selectedData.length > vacancy)
 		{
 			alert('배너는 '+message.maxAddFive+'\n추가 가능한 배너 갯수: '+vacancy);
 			return false;
 		}
-
-console.log(selectedData)
-
-		/*if (ids.indexOf())*/
 
 		return true;
 	}

@@ -569,7 +569,7 @@
 
 		if (tagLen === 0)
 		{
-			alert('태그를 ' + message.needMore);
+			alert('태그를 ' + message.addOn);
 			return false;
 		}
 

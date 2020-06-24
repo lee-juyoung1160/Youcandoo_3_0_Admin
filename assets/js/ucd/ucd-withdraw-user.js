@@ -352,7 +352,7 @@ console.log(selectedData)
 
 		if (count === 0)
 		{
-			alert('출금대상을 '+message.needMore);
+			alert('출금대상을 '+message.addOn);
 			onClickModalOpen();
 			return false;
 		}

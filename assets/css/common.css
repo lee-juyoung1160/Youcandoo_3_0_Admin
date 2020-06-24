@@ -1407,4 +1407,5 @@ table th, table td {
 }
 .btn-wrap button.disabled {
 	background-color: #ddd;
+	cursor: inherit;
 }

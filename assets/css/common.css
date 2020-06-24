@@ -1339,3 +1339,14 @@ input[type="checkbox"]:disabled + label span{
 	font-size: 20px;
 	font-weight: 600;
 }
+
+table th, table td {
+	vertical-align: middle;
+}
+/* 프로모션 배너관리 */
+.pro-banner {
+	width: 200px;
+}
+.fa-times-circle {
+	color: #ec5c5c;
+}

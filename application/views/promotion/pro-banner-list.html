@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="/assets/css/common.css">
+<section class="pro-create-page">
+    <div class="inner">
+        <h2 class="main-title">프로모션 배너 관리</h2>
+        <div class="wrap">
+            <div class="table-wrap" style="margin-top: 0;">
+                <div class="top clearfix">
+                    <p class="left-wrap">최대 5개의 배너를 등록할 수 있으며,<br>마우스 드래그 이동으로 노출 순서를 지정할 수 있습니다.</p>
+                    <div class="btn-wrap">
+                        <button id="" type="button" style="background-color: #19579a;"><i class="fas fa-plus"></i>배너 추가</button>
+                    </div>
+                </div>
+                 <table>
+                    <colgroup>
+                        <col style="width:5%;">
+                        <col style="width:40%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:5%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>배너</th>
+                            <th>기업명</th>
+                            <th>프로모션 명</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">기업명 검색</p>
+            <ul class="modal-information">
+                <li>
+                    <div class="search-wrap">
+                        <div class="search-box">
+                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요.">
+                            <i class="search-btn fas fa-search"></i>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+
+</section>
+<script src="/assets/js/promotion/promotion-create.js"></script>

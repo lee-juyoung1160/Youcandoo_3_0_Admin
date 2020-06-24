@@ -1364,6 +1364,29 @@ table th, table td {
 	margin-left: 5px;
 	font-size: 15px;
 }
-.pro-banner-page .table-wrap table tr:hover {
-	cursor: move;
+.pro-banner-page .table-wrap table tbody tr:hover {
+	cursor: n-resize;
+}
+.banner-modal {
+	width: 850px;
+}
+.banner-modal .modal-information {
+	max-height: 600px;
+}
+.banner-modal .search-box {
+	float: left;
+	width: 450px;
+	position: relative;
+}
+.banner-modal .search-box i {
+	position: absolute;
+	top: 12px;
+	right: 15px;
+}
+.banner-modal input[type="search"] {
+	width: 450px;
+	padding: 15px;
+}
+.banner-modal .table-wrap table tbody tr:hover {
+	cursor: inherit;
 }

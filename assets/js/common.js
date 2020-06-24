@@ -28,7 +28,7 @@
     function checkInputLength(obj)
     {
         let inputLength = $(obj).val().length;
-        let maxLength   = $(obj).attr('maxLength');
+        let maxLength   = $(obj).prop('maxLength');
 
         if (inputLength > maxLength)
         {
@@ -421,7 +421,7 @@
 
     function onClickChkAll(obj)
     {
-        let chkName = $(obj).attr('name');
+        let chkName = $(obj).prop('name');
         if ($(obj).is(':checked'))
         {
             $('input[name="'+chkName+'"]').prop('checked', true);
@@ -437,7 +437,7 @@
     function onClickChkRow(obj)
     {
         let count   = 0;
-        let chkName = $(obj).attr('name');
+        let chkName = $(obj).prop('name');
         let element = $('tbody input[name="'+chkName+'"]');
 
         element.each(function () {
@@ -488,8 +488,8 @@
         let target = $(obj).data('target');
         let param   = $(obj).data('uuid');
         let form   = $("<form></form>");
-        form.attr("method", "post");
-        form.attr("action", target);
+        form.prop("method", "post");
+        form.prop("action", target);
         form.append($("<input/>", {type: 'hidden', name: 'uuid', value: param}));
         form.appendTo("body");
         form.submit();
@@ -614,7 +614,7 @@
 
     function onClickActiveParentMenu(obj)
     {
-        let content = $(obj).attr("data-target");
+        let content = $(obj).prop("data-target");
 
         $(".menu-btn").removeClass("active");
         $(".menu-btn-list").removeClass("active");
@@ -638,7 +638,8 @@
             let menuPath       = $(this).attr('href');
             let splitMenuPath  = menuPath.split('/');
             let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
-            if (pathCompareVal === menuCompareVal)
+            /*if (pathCompareVal === menuCompareVal)*/
+            if (pathName === menuPath)
                 $(this).parents('li').addClass('active');
         })
     }

@@ -426,7 +426,7 @@
 	function onChangeIntroType(obj)
 	{
 		let introType = $(obj).val();
-		let introText = $("label[for='"+$(obj).attr("id")+"']").text();
+		let introText = $("label[for='"+$(obj).prop("id")+"']").text();
 		let introFileDom = '';
 		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
 		if (introType === 'video')

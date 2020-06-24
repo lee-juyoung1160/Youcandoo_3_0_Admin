@@ -125,7 +125,7 @@
 
 			g_bizUuid = detail.company_uuid;
 
-			bizProfileImg.attr('src', detail.image_path);
+			bizProfileImg.prop('src', detail.image_path);
 			bizName.html(detail.company_name);
 			bizNumber.html(detail.company_number);
 			bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');

@@ -124,6 +124,9 @@
 		,updatePromotion : baseApiUrl+'promotion/update'
 		,listPromotion : baseApiUrl+'promotion/list'
 		,listPromotionUcd : baseApiUrl+'promotion/get/ucd'
+		,listBanner : baseApiUrl+'promotion/banner/getExposure'
+		,listNonBanner : baseApiUrl+'promotion/banner/getNonExposure'
+		,updateBanner : baseApiUrl+'promotion/banner/set'
 		/** 두잇 **/
 		,createDoit : baseApiUrl+'doit/create'
 		,deleteDoit : baseApiUrl+'doit/delete'

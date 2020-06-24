@@ -9,7 +9,7 @@
 
 	$(document).ready(function () {
 		/** 테이블 데이터 로드 **/
-		buildGrid();
+		//buildGrid();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -23,7 +23,7 @@
 
 	function initModal()
 	{
-		getPromo();
+		//getPromo();
 	}
 
 	function buildGrid()

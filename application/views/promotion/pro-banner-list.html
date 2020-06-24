@@ -16,7 +16,7 @@
                     </div>
                 </div>
                  <table id="bannerTable">
-                    <!--<colgroup>
+                   <colgroup>
                         <col style="width:5%;">
                         <col style="width:40%;">
                         <col style="width:25%;">
@@ -78,32 +78,124 @@
                             <td>프로젝트키1000억프로젝트</td>
                             <td><i class="far fa-times-circle"></i></td>
                         </tr>
-                    </tbody>-->
+                    </tbody>
                 </table>
             </div>
+            <button id="btnSubmit" class="completion-btn" type="submit" style="margin: 30px 0 50px;">등록 완료</button>
         </div>
     </div>
 
-    <div class="modal-content">
+    <div class="modal-content banner-modal">
         <div class="wrap">
             <i class="close-btn fas fa-times-circle"></i>
             <p class="modal-title">프로모션 배너 추가</p>
             <ul class="modal-information">
                 <li>
-                    <div class="search-wrap">
-                        <div class="search-box">
-                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요.">
-                            <i class="search-btn fas fa-search"></i>
+                    <div class="list-wrap search-wrap clearfix">
+                        <div class="select-box">
+                            <label for="searchType">프로모션명</label>
+                            <select id="searchType">
+                                <option value="promotion_title">프로모션명</option>
+                                <option value="nickname">기업명</option>
+                            </select>
+                        </div>
+                        <div class="search-wrap">
+                            <div class="search-box">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="search-btn fas fa-search"></i>
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="table-wrap">
-                        <table id="modalTable">
+                    <div class="table-wrap" style="margin-top: 0;">
+                        <table style="margin-top: 0;">
+                            <colgroup>
+                                <col style="width:5%;">
+                                <col style="width:35%;">
+                                <col style="width:25%;">
+                                <col style="width:30%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>배너</th>
+                                <th>기업명</th>
+                                <th>프로모션 명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c2" name="cc" />
+                                        <label for="c2"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c3" name="cc" />
+                                        <label for="c3"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c4" name="cc" />
+                                        <label for="c4"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c5" name="cc" />
+                                        <label for="c5"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c6" name="cc" />
+                                        <label for="c6"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </li>
             </ul>
+            <button id="" class="completion-btn" type="submit">추가 완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

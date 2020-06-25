@@ -47,7 +47,7 @@
 		type.html(detailData.faq_name);
 		title.html(detailData.title);
 		content.html(detailData.contents);
-		exposure.html(detailData.is_exposure === 'Y' ? label.exposure : label.unexpose);
+		exposure.html(detailData.is_exposure === 'Y' ? label.y : label.n);
 	}
 
 	function goUpdatePage()

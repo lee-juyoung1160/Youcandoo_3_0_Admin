@@ -69,6 +69,8 @@
 		,terminate : '종료'
 		/*,createDoitUser : '사용자 두잇 개설 허용'
 		,createDoitAdmin : '기업만 두잇 개설 허용'*/
+		,y: 'Y'
+		,n: 'N'
 		,exposure : '<i class="fas fa-check-circle" style="color:#007aff"></i>'
 		,unexpose : '<i class="fas fa-check-circle" style="color:#aaa"></i>'
 		,blind : '<i class="fas fa-eye-slash"></i>'

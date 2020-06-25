@@ -69,8 +69,8 @@
 		,terminate : '종료'
 		/*,createDoitUser : '사용자 두잇 개설 허용'
 		,createDoitAdmin : '기업만 두잇 개설 허용'*/
-		,exposure : '노출'
-		,unexpose : '비노출'
+		,exposure : '<i class="fas fa-check-circle" style="color:#007aff"></i>'
+		,unexpose : '<i class="fas fa-check-circle" style="color:#aaa"></i>'
 		,regular : '일반'
 		,promotion : '프로모션'
 		,image : '사진'

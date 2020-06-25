@@ -128,10 +128,9 @@
 						return getPromotionStatusName(data);
 					}
 				}
-				,{title: "배너 여부", 	data: "is_banner",    		width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "배너 노출 여부", 	data: "is_banner",    	width: "10%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
-						return data === "Y" ? '<i class="fas fa-check-circle" style="color:#007aff"></i>' : '<i class="fas fa-check-circle" style="color:#aaa"></i>';
-						// return data === 'Y' ? label.exposure : label.unexpose;
+						return data === 'Y' ? label.exposure : label.unexpose;
 					}
 				}
 			],

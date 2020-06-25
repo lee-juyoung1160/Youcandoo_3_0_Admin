@@ -113,7 +113,7 @@
                         return data;
                     }
                 },
-                {title: "내용", data: "memo",
+                {title: "내용", data: "description",
                     render: function (data) {
                         let term    = data[0]+' ~ '+data[1];
                         term = isEmpty(data[0]) ? '-' : term;

@@ -1411,6 +1411,3 @@ table th, table td {
 	background-color: #ddd;
 	cursor: inherit;
 }
-.dt-rowReorder-float {
-	display: none;
-}

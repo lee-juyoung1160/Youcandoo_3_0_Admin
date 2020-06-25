@@ -27,6 +27,9 @@
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
 		btnAdd			.on("click", function () { addBanners(); });
 		btnSubmit		.on("click", function () { onSubmitBanner(); });
+		bannerTable.find('tbody').sortable({
+			helper: "clone",
+		});
 	});
 
 	function onClickModalOpen()
@@ -87,10 +90,10 @@
 			order: [],
 			info: false,
 			select: false,
-			rowReorder: {
+			/*rowReorder: {
 				selector: 'td:not(:last-child)',
 				update: false
-			},
+			},*/
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -124,7 +127,7 @@
 		{
 			$(targetId).remove();
 
-			updateBanner();
+			//updateBanner();
 		}
 	}
 
@@ -297,12 +300,13 @@
 	{
 		if (addValidation())
 		{
-			if (confirm(message.create))
+			buildAddBanner();
+			/*if (confirm(message.create))
 			{
 				buildAddBanner();
 
 				updateBanner();
-			}
+			}*/
 		}
 	}
 

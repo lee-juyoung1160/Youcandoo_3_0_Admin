@@ -99,29 +99,26 @@
                 },
             },
             columns: [
-                {title: "기업명", data: "nickname"},
-                {title: "구분", data: "division"},
-                {
-                    title: "금액", data: "amount", render: function (data) {
+                {title: "기업명", data: "nickname",   width: "10%"},
+                {title: "구분",   data: "division",   width: "10%"},
+                {title: "금액",   data: "amount",     width: "10%",
+                    render: function (data) {
                         return numberWithCommas(data);
                     }
                 },
-                {title: "제목", data: "title"},
-                {title: "담당자", data: "created_user"},
-                {title: "일시", data: "created_datetime",
+                {title: "제목", data: "title",        width: "10%" },
+                {title: "내용", data: "description",  width: "20%",
                     render: function (data) {
-                        return data;
+                        let term 	= isEmpty(data) ? '-' : data[0]+' ~ '+data[1];
+                        let title   = isEmpty(data) ? '-' : data[2];
+                        let amount  = isEmpty(data) ? '-' : data[3];
+                        return '<a onclick="btnModalOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">'+title+'</a>';
                     }
                 },
-                {title: "내용", data: "description",
+                {title: "담당자", data: "created_user",    width: "10%" },
+                {title: "일시", data: "created_datetime",  width: "15%",
                     render: function (data) {
-                        let term    = data[0]+' ~ '+data[1];
-                        term = isEmpty(data[0]) ? '-' : term;
-                        let title   = data[2];
-                        title = isEmpty(title) ? '-' : title;
-                        let amount  = data[3];
-                        amount = isEmpty(amount) ? '-' : amount;
-                        return '<a onclick="btnModalOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">보기</a>';
+                        return data;
                     }
                 }
             ],

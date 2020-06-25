@@ -20,19 +20,26 @@
 		/** UCD정보탭 **/
 		const ucdInfo		= $("#ucdInfo");
 		const ucdTable		= $("#ucdTable");
-		const selPageLengthForUcd	= $("#selPageLengthForUcd");
+		const selPageLengthForUcd = $("#selPageLengthForUcd");
 
 		/** modal **/
 		const modalCloseBtn = $(".close-btn");
 		const modalLayout 	= $(".modal-layout");
 		const modalContent 	= $(".modal-content");
-		const division		= $("input[name=radio-division]");
-		const amount		= $("#amount");
-		const modalFrom		= $("#modalFrom");
-		const modalTo		= $("#modalTo");
-		const contractTitle	= $("#contractTitle");
+		/** ucd 적립취소 modal **/
+		const modalContract	 = $("#modalContract");
+		const division		 = $("input[name=radio-division]");
+		const amount		 = $("#amount");
+		const modalFrom		 = $("#modalFrom");
+		const modalTo		 = $("#modalTo");
+		const contractTitle	 = $("#contractTitle");
 		const contractAmount = $("#contractAmount");
-		const btnSubmit		= $("#btnSubmit");
+		const btnSubmit		 = $("#btnSubmit");
+		/** ucd정보 상세내용 modal **/
+		const modalDesc			  = $("#modalDesc");
+		const modalPromoTerm      = $("#modalPromoTerm");
+		const modalContractTitle  = $("#modalContractTitle");
+		const modalContractAmount = $("#modalContractAmount");
 
 		$(document).ready(function () {
 			/** 데이트피커 초기화 **/
@@ -42,7 +49,7 @@
 			/** 프로모션 정보 **/
 			getInvolvePromo();
 			/** 이벤트 **/
-			btnUcdModalOpen	.on("click", function () { onClickModalOpen(); })
+			btnUcdModalOpen	.on("click", function () { onClickModalContractOpen(); })
 			modalCloseBtn	.on('click', function () { modalFadeout(); });
 			modalLayout		.on('click', function () { modalFadeout(); });
 			modalFrom		.on('change', function () { onChangeModalFrom(); });
@@ -59,13 +66,15 @@
 			modalTo.datepicker("option", "minDate", new Date(modalFrom.datepicker("getDate")));
 		}
 
-		function onClickModalOpen()
+		function onClickModalContractOpen()
 		{
-			initModal();
-			modalFadein();
+			initModalContract();
+			modalLayout.fadeIn();
+			modalContract.fadeIn();
+			overflowHidden();
 		}
 
-		function initModal()
+		function initModalContract()
 		{
 			division.eq(0).prop('checked', true);
 			amount.val('');
@@ -249,16 +258,30 @@
 					}
 				},
 				columns: [
-					{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
+					{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "cursor-default" }
+					,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
+					,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+					,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
+					,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "cursor-default",
+						render: function (data, type, row, meta) {
+							let result = data;
+							if (row.division === '충전' || row.division === '취소')
+							{
+								let term 	= isEmpty(data) ? '-' : data[0]+' ~ '+data[1];
+								let title   = isEmpty(data) ? '-' : data[2];
+								let amount  = isEmpty(data) ? '-' : data[3];
+
+								result = '<a onclick="btnModalDescOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">'+title+'</a>';
+							}
+
+							return result;
+						}
+					}
+					,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
 				],
 				language: {
 					emptyTable : message.emptyList
@@ -309,6 +332,21 @@
 		{
 			if (isNegative(aData.amount))
 				$(nRow).addClass('minus-pay');
+		}
+
+		function btnModalDescOpen(obj)
+		{
+			initModalDesc(obj);
+			modalLayout.fadeIn();
+			modalDesc.fadeIn();
+			overflowHidden();
+		}
+
+		function initModalDesc(obj)
+		{
+			modalPromoTerm.html($(obj).data('term'));
+			modalContractTitle.html($(obj).data('title'));
+			modalContractAmount.html(numberWithCommas($(obj).data('amount')));
 		}
 
 		function goUpdatePage()

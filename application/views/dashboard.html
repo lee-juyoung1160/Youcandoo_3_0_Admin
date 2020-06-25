@@ -7,6 +7,76 @@
             <span class="today-date" id="today-date"></span>
         </div>
         <div class="wrap">
+            <div class="col-wrap col-wrap-4">
+                <div class="col clearfix">
+                    <div class="row-wrap row-wrap1 clearfix">
+                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                    </div>
+                    <div class="row-wrap row-wrap2">
+                        <div class="row-1">
+                            <p class="title">기업충전 UCD</p>
+                            <span class="total count ucd" id="ucd-promotion"></span>
+                            <span>UCD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row-wrap row-wrap1 clearfix">
+                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                    </div>
+                    <div class="row-wrap row-wrap2">
+                        <div class="row-1">
+                            <p class="title">개인충전 UCD</p>
+                            <span class="total count ucd" id="ucd-user"></span>
+                            <span>UCD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row-wrap row-wrap1 clearfix">
+                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                    </div>
+                    <div class="row-wrap row-wrap2">
+                        <div class="row-1">
+                            <p class="title">프로모션 예산 UCD</p>
+                            <span class="total count ucd" id="ucd-company"></span>
+                            <span>UCD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row-wrap row-wrap1 clearfix">
+                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                    </div>
+                    <div class="row-wrap row-wrap2">
+                        <div class="row-1">
+                            <p class="title">두잇개설 UCD</p>
+                            <span class="total count ucd" id="ucd-doit"></span>
+                            <span>UCD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-wrap col-wrap-5">
+                <div class="col">
+                    <div class="row-wrap row-wrap1 clearfix">
+                        <p class="title">일 단위로 인증된 두잇</p>
+                        <div class="select-box-wrap clearfix">
+                            <div class="select-box">
+                                <label class="cert-year-label" for="cert-year-select"></label>
+                                <select id="cert-year-select" name="cert-year-value"></select>
+                            </div>
+                            <div class="select-box">
+                                <label class="cert-month-label" for="cert-month-select"></label>
+                                <select id="cert-month-select" name="cert-month-value"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-wrap row-wrap2">
+                        <canvas id="cert-month-chart" width="auto" height="50"></canvas>
+                    </div>
+                </div>
+            </div>
             <div class="col-wrap col-wrap-1">
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
@@ -15,10 +85,10 @@
                     </div>
                     <div class="row-wrap row-wrap2 clearfix">
                         <div class="row-1">
-                            <canvas id="tomorrow-doughnut"></canvas>
+                            <canvas id="tomorrow-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count" id="pre-total"></span></li>
+                            <li class="fixed">Total <span class="total count doit" id="pre-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="pre-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="pre-company">1,000</span></li>
                         </ul>
@@ -31,10 +101,10 @@
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
-                            <canvas id="today-doughnut"></canvas>
+                            <canvas id="today-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  id="ing-total"></span></li>
+                            <li class="fixed">Total <span class="total count doit"  id="ing-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="ing-user">650</span></li>
                             <li class="fixed">프로모션  <span class="count" id="ing-company">1,000</span></li>
                         </ul>
@@ -47,10 +117,10 @@
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
-                            <canvas id="end-doughnut"></canvas>
+                            <canvas id="end-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count"  id="end-total"></span></li>
+                            <li class="fixed">Total <span class="total count doit"  id="end-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="end-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="end-company"></span></li>
                         </ul>
@@ -63,10 +133,10 @@
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
-                            <canvas id="cancel-doughnut"></canvas>
+                            <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count" id="total"></span></li>
+                            <li class="fixed">Total <span class="total count doit" id="total"></span></li>
                             <li class="fixed">취소 <span class="count" id="cancle"></span></li>
                             <li class="fixed">삭제  <span class="count" id="delete"></span></li>
                         </ul>
@@ -80,10 +150,7 @@
                         <p class="title">월 단위로 등록된 두잇</p>
                         <div class="select-box">
                             <label class="year-label" for="doit-year-select"></label>
-                            <select id="doit-year-select" name="doit-year-value">
-<!--                                <option value="">2020</option>-->
-<!--                                <option value="">2021</option>-->
-                            </select>
+                            <select id="doit-year-select" name="doit-year-value"></select>
                         </div>
                     </div>
                     <div class="row-wrap row-wrap2">
@@ -131,7 +198,7 @@
                                     <span class="fixed">누적회원</span>
                                 </div>
                                 <div class="data-wrap">
-                                    <p class="fixed"><span class="total count" id="total-user" ></span><span class="today-count">( <i class="fas fa-sort-up"> <span></span></i> )</span></p>
+                                    <p class="fixed"><span class="total count user" id="total-user" ></span><span class="today-count">( <i class="fas fa-sort-up"> <span></span></i> )</span></p>
                                 </div>
                             </li>
                         </ul>

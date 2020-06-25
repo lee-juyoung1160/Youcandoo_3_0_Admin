@@ -59,6 +59,16 @@
     margin-top: 5px;
     grid-template-columns: 1fr 1fr 2fr;
 }
+/*  .col-wrap-4 그리드 배치*/
+.chart-pg .col-wrap-4  {
+    margin-bottom: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+/*  .col-wrap-4 그리드 배치*/
+.chart-pg .col-wrap-5 {
+    margin-bottom: 5px;
+    grid-template-columns: 1fr;
+}
 .col-wrap-1 .col .row-1,
 .col-wrap-3 .col-1 .row-wrap2 .row-1 {
     float: left;
@@ -165,4 +175,35 @@
 }
 .col-wrap-3 .col-3 .row-wrap2 span {
     margin-left: 10px;
+}
+.col-wrap-4 .col {
+    padding: 0 10px;
+}
+.col-wrap-4 .col .row-wrap1 {
+    float: left;
+    margin-right: 9px;
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.col-wrap-4 .col .row-wrap1 img {
+    width: 43px;
+}
+.col-wrap-4 .col .row-wrap2 {
+    float: left;
+}
+.col-wrap-4 .col .row-wrap2 .row-1 .title {
+    margin-bottom: 5px;
+}
+.col-wrap-4 .col .row-wrap2 .row-1 .count {
+    font-size: 21px;
+}
+.col-wrap-5 .select-box-wrap {
+    float: right;
+}
+.col-wrap-5 .select-box-wrap .select-box {
+    float: left;
+}
+.col-wrap-5 .select-box-wrap .select-box:first-child {
+    margin-right: 10px;
 }

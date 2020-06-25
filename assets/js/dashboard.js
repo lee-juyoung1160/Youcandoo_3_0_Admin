@@ -1,3 +1,26 @@
+const tomorrowDoughnut = document.getElementById('tomorrow-doughnut');
+const todayDoughnut = document.getElementById('today-doughnut');
+const endDoughnut = document.getElementById('end-doughnut');
+const cancelDoughnut = document.getElementById('cancel-doughnut');
+const monthlyMixedChart = document.getElementById('monthly-mixedChart');
+const proStatusDoughnut = document.getElementById('pro-status-doughnut');
+const rewardLine = document.getElementById('reward-line-Chart');
+const certMonthChart = document.getElementById('cert-month-chart');
+// 차트 레이아웃 구성 공통 부분
+const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
+const options = {options: {maintainAspectRatio: false, legend: {align: 'start', labels: {fontSize: 12, boxWidth: 10,hoverBorderWidth: 900}}}};
+const doughnutType = 'doughnut';
+const labels = ['일반', '프로모션'];
+const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
+// 셀렉박스 + 레이블
+const yearSelectBox = document.getElementById('doit-year-select');
+const yearLabel = document.querySelector('.year-label');
+const certMonthSelectBox = document.getElementById('cert-month-select');
+const certMonthLabel = document.querySelector('.cert-month-label');
+const certYearSelectBox = document.getElementById('cert-year-select');
+const certYearLabel = document.querySelector('.cert-year-label');
+
+/** 현재 연도-월-일 구하기 **/
 let day = new Date();
 let year = day.getFullYear();
 let month = day.getMonth() + 1;
@@ -5,8 +28,8 @@ let date = day.getDate();
 let hours = day.getHours();
 let minutes = day.getMinutes();
 let result = document.getElementById('today-date');
-let newYear = new Date(year, 11, 31, 23,59,59,59);
-/** 현재 연도-월-일 구하기 **/
+
+/** 넘버 -> 문자열 바뀌고, 0 붙이기 **/
 month = month < 10 ? '0' + month : month;
 date = date < 10 ? '0' + date : date;
 hours = hours < 10 ? '0' + hours : hours;
@@ -14,14 +37,14 @@ minutes = minutes < 10 ? '0' + minutes : minutes;
 result.textContent = year + '.' + month + '.' + date + '. ' + hours + ':' + minutes + ' 기준';
 
 /** 넘버 total 카운팅 **/
-function counter() {
-    $('.count.total').each(function () {
+function counter(type) {
+    $('.count.total.'+type).each(function () {
         let $this = $(this);
         $({countNum: 0}).animate({
                 countNum: $this.text()
             },
             {
-                duration: 1500,
+                duration: 1800,
                 easing: 'linear',
                 step: function () {
                     $this.text(Math.floor(this.countNum));
@@ -33,26 +56,16 @@ function counter() {
     });
 };
 
-const tomorrowDoughnut = document.getElementById('tomorrow-doughnut');
-const todayDoughnut = document.getElementById('today-doughnut');
-const endDoughnut = document.getElementById('end-doughnut');
-const cancelDoughnut = document.getElementById('cancel-doughnut');
-const monthlyMixedChart = document.getElementById('monthly-mixedChart');
-const proStatusDoughnut = document.getElementById('pro-status-doughnut');
-const rewardLine = document.getElementById('reward-line-Chart');
-// 차트 레이아웃 구성 공통 부분
-const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
-const options = {options: {maintainAspectRatio: false, legend: {align: 'start', labels: {fontSize: 12, boxWidth: 10,hoverBorderWidth: 900}}}};
-const doughnutType = 'doughnut';
-const labels = ['일반', '프로모션'];
-const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
-/** 월 단위로 등록된 두잇, 로드 바로 실행 **/
+/** 로드 바로 실행 **/
 document.addEventListener("DOMContentLoaded", function () {
-    getYearData(year);
-    doItChart();
+    getYearData(day.getFullYear());
+    getCertMonthYearData(day.getFullYear(), day.getMonth() + 1);
+    GetDoitStatus();
+    GetUserStatus();
+    GetUcd();
 });
-/** 예정되는, 진행중인, 완료된 두잇 **/
-function doItChart() {
+/** 예정되는, 진행중인, 완료, 취소된 두잇 **/
+function GetDoitStatus() {
     $.ajax({
         url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/doit/status",
         headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
@@ -73,6 +86,7 @@ function doItChart() {
                         hoverBorderColor: backgroundColorDoughnut,
                     }]
                 },
+                responsive: false,
                 options: options.options,
             });
             let todayChart = new Chart(todayDoughnut, {
@@ -85,6 +99,7 @@ function doItChart() {
                         hoverBorderColor: backgroundColorDoughnut,
                     }]
                 },
+                responsive: false,
                 options: options.options,
             });
             let tomorrowChart = new Chart(tomorrowDoughnut, {
@@ -97,6 +112,7 @@ function doItChart() {
                         hoverBorderColor: backgroundColorDoughnut,
                     }]
                 },
+                responsive: false,
                 options: options.options,
             });
             let cancelChart = new Chart(cancelDoughnut, {
@@ -109,6 +125,7 @@ function doItChart() {
                         hoverBorderColor: backgroundColorDoughnut,
                     }]
                 },
+                responsive: false,
                 options: options.options,
             });
 
@@ -143,11 +160,62 @@ function doItChart() {
             cancleData.textContent = getDoughnutData.data.cancle.cancle;
             deleteData.textContent = getDoughnutData.data.cancle.delete;
             totalData.textContent = getDoughnutData.data.cancle.total;
-            counter();
+            counter("doit");
         },
     });
 }
-/** 월 단위로 등록된 두잇 **/
+/** 가입자 현황 데이터 **/
+function GetUserStatus() {
+    $.ajax({
+        url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/user/status",
+        headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
+        dataType: 'JSON',
+        type: 'POST',
+
+        error: function (d) {
+        },
+        success: function (userStatus) {
+            let newUser = document.getElementById('new-user');
+            let joinUser = document.getElementById('join-user');
+            let leaveUser = document.getElementById('leave-user');
+            let totalUser = document.getElementById('total-user');
+
+            newUser.textContent = userStatus.data.new_user;
+            joinUser.textContent = userStatus.data.join_user;
+            leaveUser.textContent = userStatus.data.leave_user;
+            totalUser.textContent = userStatus.data.total_user;
+            counter("user");
+
+        }
+    });
+}
+/** UCD 관련 차트 데이터 **/
+function GetUcd() {
+    $.ajax({
+        url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/ucd",
+        headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
+        dataType: 'JSON',
+        type: 'POST',
+
+        error: function (d) {
+            console.log(d)
+        },
+        success: function (ucdData) {
+            let ucdUser = document.getElementById('ucd-user');
+            let ucdDoit = document.getElementById('ucd-doit');
+            let ucdCompany = document.getElementById('ucd-company');
+            let ucdPromotion = document.getElementById('ucd-promotion');
+
+            ucdUser.textContent = ucdData.data.user;
+            ucdDoit.textContent = ucdData.data.doit;
+            ucdCompany.textContent = ucdData.data.company;
+            ucdPromotion.textContent = ucdData.data.promotion;
+            counter("ucd");
+        }
+    });
+}
+
+/** 월단위로 등록된 두잇 **/
 let monthlyChart;
 function getYearData(yearVal) {
     let param = {
@@ -179,7 +247,8 @@ function getYearData(yearVal) {
                         data: monthData.data.total,
                         type: 'line',
                         borderColor: colorLine[0],
-                        pointBackgroundColor: colorLine[0],
+                        borderWidth : 2.2,
+                        pointBackgroundColor: 'rgba(255,255,255,1)',
                         backgroundColor: colorLine[1]
                     },
                     ],
@@ -197,47 +266,88 @@ function getYearData(yearVal) {
         },
     });
 };
-const yearSelectBox = document.getElementById('doit-year-select');
-const yearLabel = document.querySelector('.year-label');
-/** 월 단위로 등록된 두잇, select option value 가져오기 **/
+
+/** 월 단위로 인증된 두잇 **/
+let certLineChart;
+function getCertMonthYearData(certYearVal,certMonthVal) {
+    let param = {
+        'month': certMonthVal,
+        'year' : certYearVal
+    };
+    $.ajax({
+        url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/action/date",
+        headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
+        dataType: 'JSON',
+        type: 'POST',
+        data: JSON.stringify(param),
+
+        error: function () {
+        },
+        success: function (certMonthData) {
+            console.log(certMonthData)
+             certLineChart = new Chart(certMonthChart, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                       data: certMonthData.data.result,
+                        lineTension: 0,
+                        borderColor: colorLine[0],
+                        borderWidth : 2.2,
+                        pointBackgroundColor: 'rgba(255,255,255,1)',
+                        backgroundColor: colorLine[1],
+                    }],
+                    labels: certMonthData.data.day,
+                },
+                 options: {
+                     legend: {
+                         display: false
+                     },
+                 }
+             });
+        },
+    });
+};
+
+/** 월단위 셀렉박스 이벤트 **/
 yearSelectBox.addEventListener('change', function () {
     let yearVal = this.value;
     getYearData(yearVal);
-    monthlyChart.destroy()
+    monthlyChart.destroy();
 });
-/** 새해 기준 새로운 월 단위 차트 생성 **/
-//현재 연도 값 넣고 그리기
+let certMonthVal;
+let certYearVal;
+certMonthSelectBox.addEventListener('change', function () {
+    certYearVal = certYearSelectBox.options[certYearSelectBox.selectedIndex].value;
+    certMonthVal = certMonthSelectBox.options[certMonthSelectBox.selectedIndex].value;
+    getCertMonthYearData(certYearVal,certMonthVal);
+    certLineChart.destroy();
+});
+certYearSelectBox.addEventListener('change', function () {
+    certYearVal = certYearSelectBox.options[certYearSelectBox.selectedIndex].value;
+    certMonthVal = certMonthSelectBox.options[certMonthSelectBox.selectedIndex].value;
+    getCertMonthYearData(certYearVal,certMonthVal);
+    certLineChart.destroy();
+});
+
+/** 새해 기준 새로운 단위 차트 생성 **/
+//현재 연도 및 월 값 넣고 그리기
 yearLabel.textContent = yearSelectBox.value = year + "년";
 yearSelectBox.append(new Option( year+ "년", year));
+
+certYearLabel.textContent = yearSelectBox.value = year + "년";
+certYearSelectBox.append(new Option( year+ "년", year));
+
+certMonthLabel.textContent = yearSelectBox.value = month + "월";
+certMonthSelectBox.append(new Option( month+ "월", month));
 // 새해될때 셀렉박스 및 값 추가
-if (day > newYear) {
+let defaultYear = 2020;
+for (year; defaultYear < year; year++) {
     yearSelectBox.append(new Option( year+1+ "년", year+1));
-    for(let index; index < yearSelectBox.options.length; index++) {
-        yearLabel.textContent = yearSelectBox.options[index].value;
-    }
+    certYearSelectBox.append(new Option( year+1+ "년", year+1));
 }
-/** 가입자 현황 데이터 **/
-$.ajax({
-    url: "https://api.youcandoo.co.kr/v1.0/admin/dashboard/user/status",
-    headers: {"Authorization": "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"},
-    dataType: 'JSON',
-    type: 'POST',
 
-    error: function (d) {
-        console.log(d)
-    },
-    success: function (userStatus) {
-        let newUser = document.getElementById('new-user');
-        let joinUser = document.getElementById('join-user');
-        let leaveUser = document.getElementById('leave-user');
-        let totalUser = document.getElementById('total-user');
 
-        newUser.textContent = userStatus.data.new_user;
-        joinUser.textContent = userStatus.data.join_user;
-        leaveUser.textContent = userStatus.data.leave_user;
-        totalUser.textContent = userStatus.data.total_user;
-    }
-});
+
 
 
 // /** 프로모션 진행 현황 **/

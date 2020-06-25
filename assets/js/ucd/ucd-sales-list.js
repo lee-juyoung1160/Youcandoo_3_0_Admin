@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         onClickActiveAloneDayBtn(this);
     });
     // 테이블 실행
-    getBizListData();
+    //getBizListData();
 
 });
 /** 검색 필드 reset **/

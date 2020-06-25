@@ -66,7 +66,7 @@
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
-                    <col style="">
+                    <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
                 </colgroup>
@@ -76,12 +76,19 @@
                         <th>구분</th>
                         <th>금액</th>
                         <th>제목</th>
-                        <th>내용</th>
                         <th>담당자</th>
                         <th>일시</th>
+                        <th>계약 내용</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <td>기업명</td>
+                    <td>구분</td>
+                    <td>금액</td>
+                    <td>제목</td>
+                    <td>담당자</td>
+                    <td>일시</td>
+                    <td><a href="#">보기</a></td>
                 </tbody>
             </table>
 <!--            <ul class="table-pagination clearfix">-->
@@ -93,5 +100,31 @@
 <!--            </ul>-->
         </div>
     </div>
+
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">기업 계약 내용</p>
+            <ul class="modal-information">
+                <li>
+                    <p class="sub-title">프로모션 기간</p>
+                    <p class="data-contents">2020-02-02 ~ 2020-05-30</p>
+                </li>
+                <li>
+                    <p class="sub-title">계약명</p>
+                    <p class="data-contents">삼성카드 초기 계약</p>
+                </li>
+                <li>
+                    <p class="sub-title">계약금액</p>
+                    <p class="data-contents">30,000,000 원</p>
+                </li>
+            </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+
 </section>
 <script src="/assets/js/ucd/ucd-sales-list.js"></script>

@@ -56,7 +56,7 @@
 		else
 			contentImage.attr('src', imgUrl);
 		reserveDate.html(detail.reservation_date);
-		exposure.html(detail.is_exposure === 'Y' ? label.exposure : label.unexpose);
+		exposure.html(detail.is_exposure === 'Y' ? label.y : label.n);
 	}
 
 	function onErrorImage(obj)

@@ -128,7 +128,7 @@
 		allowCount.html(detailPromo.promotion_allow_count+'회');
 		banner.attr('src', detailPromo.banner_image_url);
 		intro.attr('src', detailPromo.intro_image_url);
-		isExposure.html(detailPromo.is_banner === 'Y' ? label.exposure : label.unexpose);
+		isExposure.html(detailPromo.is_banner === 'Y' ? label.y : label.n);
 
 		let rewardLen = rewards.length;
 		let rewardTabDom = '';

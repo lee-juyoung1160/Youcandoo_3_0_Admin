@@ -1046,7 +1046,11 @@
 				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "cursor-default" }
 				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "cursor-default" }
 				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "cursor-default" }
-				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "cursor-default",
+					render: function (data) {
+						return data === 'Y' ? label.blind : label.unblind;
+					}
+				}
 				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "cursor-default",
 				 	render: function (data) {
 						return data.substring(0, 10)

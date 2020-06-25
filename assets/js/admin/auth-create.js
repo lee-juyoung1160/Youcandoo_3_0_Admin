@@ -20,10 +20,16 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		authModalOpen	.on('click', function () { modalFadein(); })
+		authModalOpen	.on('click', function () { onClickModalOpen(); })
 		btnSubmitAuth	.on('click', function () { onSubmitAuth(); })
 		btnSubmit		.on('click', function () { onSubmitAuthMenu(); })
 	});
+
+	function onClickModalOpen()
+	{
+		initModal();
+		modalFadein();
+	}
 
 	function initModal()
 	{

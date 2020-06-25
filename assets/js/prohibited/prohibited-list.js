@@ -22,7 +22,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { buildGrid(); });
-		btnOpenModal	.on('click', function () { modalFadein(); });
+		btnOpenModal	.on('click', function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmit		.on('click', function () { onSubmitProhibition(); });
@@ -32,6 +32,12 @@
 	function initSearchForm()
 	{
 		keyword.val('');
+	}
+
+	function onClickModalOpen()
+	{
+		initModal();
+		modalFadein();
 	}
 
 	function initModal()

@@ -43,7 +43,7 @@
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
 		/** 이벤트 **/
-		btnUcdModalOpen	.on("click", function () { modalFadein(); })
+		btnUcdModalOpen	.on("click", function () { onClickModalOpen(); })
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		tabOpened		.on("click", function () { onClickTabOpened(this); });
@@ -62,6 +62,12 @@
 			}, 300);
 			e.preventDefault(); e.stopPropagation();
 		});
+	}
+
+	function onClickModalOpen()
+	{
+		initModal();
+		modalFadein();
 	}
 
 	function initModal()

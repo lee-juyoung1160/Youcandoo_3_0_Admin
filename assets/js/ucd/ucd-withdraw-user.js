@@ -4,7 +4,6 @@
 	const selectedUserTableBody = $("#selectedUserTableBody");
 	const resultBox = $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
-	const uctType 	= $("input[name=radio-ucd-type]");
 	const target	= $("#target");
 	const amount	= $("#amount");
 	const content 	= $("#content");
@@ -38,7 +37,6 @@
 
 	function initComponent()
 	{
-		uctType.eq(0).prop("checked", true);
 		amount.focus();
 	}
 
@@ -62,6 +60,7 @@
 	/** 기업 검색 **/
 	function onClickModalOpen()
 	{
+		initModal();
 		modalFadein();
 		getUser();
 		buildMovedUser();
@@ -213,7 +212,7 @@
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
-console.log(selectedData)
+
 		if (isEmpty(selectedData))
 		{
 			alert('대상을 목록에서 '+message.select);
@@ -337,7 +336,6 @@ console.log(selectedData)
 		let param = {
 			"profile_uuid" : uuids
 			,"division" : 1
-			,"ucd_type" : $("input[name=radio-ucd-type]:checked").val()
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
 			,"created_user" : sessionUserId.val()
@@ -378,6 +376,26 @@ console.log(selectedData)
 			return false;
 		}
 
+		if (isOverBalance())
+		{
+			alert(message.overBalanceWithdraw);
+			return false;
+		}
+
 		return true;
 	}
+
+	function isOverBalance()
+	{
+		let result = false;
+		let withdraw = Number(amount.val());
+		selectedUserTableBody.children().each(function () {
+			let balance = $(this).data('total');
+			if (withdraw > balance)
+				result = true;
+		});
+
+		return result;
+	}
+
 

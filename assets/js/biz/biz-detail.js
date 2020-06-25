@@ -42,7 +42,7 @@
 			/** 프로모션 정보 **/
 			getInvolvePromo();
 			/** 이벤트 **/
-			btnUcdModalOpen	.on("click", function () { modalFadein(); })
+			btnUcdModalOpen	.on("click", function () { onClickModalOpen(); })
 			modalCloseBtn	.on('click', function () { modalFadeout(); });
 			modalLayout		.on('click', function () { modalFadeout(); });
 			modalFrom		.on('change', function () { onChangeModalFrom(); });
@@ -57,6 +57,12 @@
 		function onChangeModalFrom()
 		{
 			modalTo.datepicker("option", "minDate", new Date(modalFrom.datepicker("getDate")));
+		}
+
+		function onClickModalOpen()
+		{
+			initModal();
+			modalFadein();
 		}
 
 		function initModal()
@@ -379,7 +385,7 @@
 			let _division = $("input[name=radio-division]:checked").val()
 			if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)
 			{
-				alert('출금/취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
+				alert('취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
 				amount.focus();
 				return false;
 			}

@@ -367,7 +367,6 @@
         modalLayout.fadeIn();
         modalContent.fadeIn();
         overflowHidden();
-        initModal();
     }
 
     function modalFadeout()

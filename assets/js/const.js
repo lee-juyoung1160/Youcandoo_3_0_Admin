@@ -37,6 +37,7 @@
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
 		,overBudget: '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overBalance: '보유 UCD를 초과할 수 없습니다.'
+		,overBalanceWithdraw: '보유 UCD가 출금 UCD보다 작은 사용자가 포함돼있습니다.\n해당 사용자 삭제 후 다시 시도해주세요.'
 		,overDuration: '인증기간은 최대 30일까지 입력 가능합니다.'
 		,overFrequency: '인증기간일 수를 초과해 선택할 수 없습니다.'
 		,overTotalBalance : '기업이 보유한 총 UCD를 초과할 수 없습니다.'
@@ -199,6 +200,7 @@
 		/** UCD **/
 		,listUsageUcd : baseApiUrl+'ucd/usage/list'
 		,listWithdrawUcd : baseApiUrl+'ucd/withdraw/list'
+		,listSalesUcd : baseApiUrl+'ucd/sales/list'
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
 	}

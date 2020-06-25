@@ -31,6 +31,7 @@
 
 	function onClickModalOpen()
 	{
+		initModal();
 		modalFadein();
 	}
 

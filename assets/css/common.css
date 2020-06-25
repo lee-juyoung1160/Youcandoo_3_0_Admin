@@ -866,9 +866,10 @@ input[type="checkbox"]:disabled + label span{
 	color: #4876EA;
 	border-bottom: 1px solid #4876EA;
 }
-.table-wrap .minus-pay td button {
-	color: #4876EA;
-	border-bottom: 1px solid #4876EA;
+.table-wrap .minus-pay td button,
+.table-wrap .minus-pay td a {
+	color: #c90614;
+	border-bottom: 1px solid #c90614;
 }
 
 .table--pagination {

@@ -1415,6 +1415,15 @@ table th, table td {
 	background-color: #fff;
 }
 
-.fas.fa-check-circle {
+.fas.fa-check-circle,
+.fas.fa-eye-slash,
+.fas.fa-eye
+{
 	cursor: inherit;
+}
+table .fa-eye {
+	color: #007aff;
+}
+table .fa-eye-slash {
+	color: #aaa;
 }

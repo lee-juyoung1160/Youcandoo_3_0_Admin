@@ -6,22 +6,29 @@ const Pages = document.querySelector('.paginate_button.current');
 const limits = document.getElementById('selPageLength');
 const searchBtn = document.querySelector('.search');
 const resetBtn = document.querySelector('.reset');
+
+/** modal **/
+const modalCloseBtn = $(".close-btn");
+const modalLayout 	= $(".modal-layout");
+const modalContent 	= $(".modal-content");
+
 /** 로드 시점 **/
 document.addEventListener("DOMContentLoaded", function () {
-    // 데이트피커 초기화
+    /** 데이트피커 초기화 **/
     initSearchDatepicker();
-    // 상단 검색 폼 초기화
+    /** 상단 검색 폼 초기화 **/
     initSearchForm();
-    // 이벤트
+    /** 테이블 실행 **/
+    getBizListData();
+    /** 이벤트 **/
     $("body").on("keydown", function (event) {
         onKeydownSearch(event)
     });
     dayButtons.on("click", function () {
         onClickActiveAloneDayBtn(this);
     });
-    // 테이블 실행
-    //getBizListData();
-
+    modalCloseBtn	.on('click', function () { modalFadeout(); });
+    modalLayout		.on('click', function () { modalFadeout(); });
 });
 /** 검색 필드 reset **/
 resetBtn.addEventListener('click', () => {
@@ -111,11 +118,17 @@ function getBizListData(response) {
                 }
             },
             {title: "제목", data: "title"},
-            {title: "내용", data: "description"},
             {title: "담당자", data: "created_user"},
-            {title: "일시", data: "created_datetime", render: function (data) {
-					return data.substring(0, 10);
-				}}
+            {title: "일시", data: "created_datetime",
+                render: function (data) {
+                    return data.substring(0, 10);
+				}
+            },
+            {title: "내용", data: "description",
+                render: function (data) {
+                    return '<a onclick="btnModalOpen();">보기</a>';
+                }
+            }
         ], language: {
             emptyTable: message.emptyList
             , zeroRecords: message.emptyList
@@ -127,6 +140,11 @@ function getBizListData(response) {
         }
 
     });
+}
+
+function btnModalOpen()
+{
+    modalFadein();
 }
 
 function setUcdRowAttributes(nRow, aData) {

@@ -1411,3 +1411,6 @@ table th, table td {
 	background-color: #ddd;
 	cursor: inherit;
 }
+.pro-banner-page .table-wrap table tbody tr td {
+	background-color: #fff;
+}

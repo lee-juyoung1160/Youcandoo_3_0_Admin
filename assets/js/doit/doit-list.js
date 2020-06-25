@@ -98,28 +98,28 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "text-center cursor-default",
+				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "text-center cursor-default",
+				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   orderable: false,   className: "cursor-default" }
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
 					}
 				}
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "text-center cursor-default",
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.doit_member + '/' + row.max_user;
 					}
 				}
-				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

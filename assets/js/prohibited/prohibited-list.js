@@ -61,13 +61,13 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "text-center cursor-default" }
-				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	orderable: false,   className: "cursor-default" }
+				,{title: "등록일", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

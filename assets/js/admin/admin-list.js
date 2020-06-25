@@ -85,21 +85,21 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "text-center cursor-default",
+				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "cursor-default" }
+				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "cursor-default" }
+				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "cursor-default" }
+				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "cursor-default" }
+				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "사용여부",   data: "is_active",     	width: "10%",     orderable: false,   className: "text-center" }
+				,{title: "사용여부",   data: "is_active",     	width: "10%",     orderable: false }
 			],
 			language: {
 				emptyTable : message.emptyList

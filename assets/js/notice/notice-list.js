@@ -76,20 +76,20 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "text-center cursor-default" }
-				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "text-center cursor-default",
+				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "cursor-default" }
+				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "text-center cursor-default" }
-				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "cursor-default" }
+				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

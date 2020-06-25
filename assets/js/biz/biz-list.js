@@ -68,9 +68,9 @@
 				}
 			},
 			columns: [
-				{title: "고유 ID", 	data: "company_uuid",   width: "25%",     orderable: false,   className: "text-center" }
-				,{title: "회사명", 	data: "nickname",   	width: "30%",     orderable: false,   className: "text-center" }
-				,{title: "등록일", 	data: "created",   		width: "15%",     orderable: false,   className: "text-center",
+				{title: "고유 ID", 	data: "company_uuid",   width: "25%",     orderable: false }
+				,{title: "회사명", 	data: "nickname",   	width: "30%",     orderable: false }
+				,{title: "등록일", 	data: "created",   		width: "15%",     orderable: false,
 					render: function (data) {
 						return data.substring(0, 10);
 					}

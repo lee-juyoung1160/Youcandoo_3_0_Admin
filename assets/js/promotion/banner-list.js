@@ -28,9 +28,21 @@
 		btnAdd			.on("click", function () { addBanners(); });
 		btnSubmit		.on("click", function () { onSubmitBanner(); });
 		bannerTable.find('tbody').sortable({
-			helper: "clone",
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
 		});
 	});
+
+	function addAttrDragonElement(el)
+	{
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", "493px");
+		$(tdElement[1]).css("width", "296px");
+		$(tdElement[2]).css("width", "393px");
+		$(tdElement[3]).css("width", "98px");
+		return $(el);
+	}
 
 	function onClickModalOpen()
 	{
@@ -38,9 +50,14 @@
 		modalFadein();
 	}
 
+	let g_banners = [];
 	function initModal()
 	{
 		keyword.val('');
+		g_banners.length = 0;
+		bannerTable.find('tbody').children().each(function () {
+			g_banners.push(this.id);
+		});
 		getPromo();
 	}
 
@@ -51,7 +68,6 @@
 				url: api.listBanner,
 				type:"POST",
 				async: false,
-				/*dataSrc: "data.promotion",*/
 				headers: headers,
 				data: "",
 				error: function (request, status) {
@@ -59,14 +75,14 @@
 				}
 			},
 			columns: [
-				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,   className: "text-center",
+				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
 					render: function (data) {
 						return '<img class="pro-banner" src="'+data+'" alt="">';
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false,   className: "text-center" }
-				,{title: "", 			data: "promotion_uuid",    	width: "5%",     orderable: false,   className: "text-center cursor-default",
+				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false }
+				,{title: "", 			data: "promotion_uuid",    	width: "5%",     orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return '<i onclick="removeRow(this)" data-uuid="'+data+'" class="far fa-times-circle"></i>';
 					}
@@ -90,10 +106,6 @@
 			order: [],
 			info: false,
 			select: false,
-			/*rowReorder: {
-				selector: 'td:not(:last-child)',
-				update: false
-			},*/
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -123,12 +135,10 @@
 	{
 		let promoUuid = $(obj).data('uuid');
 		let targetId = "#"+promoUuid
-		if (confirm(message.delete))
-		{
-			$(targetId).remove();
 
-			//updateBanner();
-		}
+		$(targetId).remove();
+
+		toggleDisabledBtnOpenModal();
 	}
 
 	function getBannerRows()
@@ -166,7 +176,28 @@
 		{
 			if (confirm(message.create))
 			{
-				updateBanner();
+				let rows = getBannerRows();
+				let ids = [];
+				for (let i=0; i<rows.length; i++)
+					ids.push(rows[i].id)
+
+				$.ajax({
+					url: api.updateBanner,
+					type: "POST",
+					async: false,
+					headers: headers,
+					dataType: 'json',
+					data: JSON.stringify({ "promotion_list" : ids }),
+					success: function(data) {
+						alert(getStatusMessage(data))
+						toggleDisabledBtnOpenModal();
+						buildBanners();
+					},
+					error: function (request, status) {
+						alert(label.modify+message.ajaxError);
+						buildBanners();
+					},
+				});
 			}
 		}
 	}
@@ -182,37 +213,6 @@
 		}
 
 		return true;
-	}
-
-	function updateBanner()
-	{
-		let rows = getBannerRows();
-		let ids = [];
-		for (let i=0; i<rows.length; i++)
-			ids.push(rows[i].id)
-
-		$.ajax({
-			url: api.updateBanner,
-			type: "POST",
-			async: false,
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({ "promotion_list" : ids }),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					modalFadeout();
-					toggleDisabledBtnOpenModal();
-					buildBanners();
-				}
-				else invalidResp(data);
-			},
-			error: function (request, status) {
-				alert(label.modify+message.ajaxError);
-				buildBanners();
-			},
-		});
 	}
 
 	function getPromo()
@@ -231,18 +231,18 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "promotion_uuid",   width: "5%",     orderable: false,   className: "text-center",
+				{title: "", 	data: "promotion_uuid",   width: "5%",     orderable: false,
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,   className: "text-center",
+				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
 					render: function (data) {
 						return '<img class="pro-banner" src="'+data+'" alt="">';
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false,   className: "text-center" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false,   className: "text-center" }
+				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -275,10 +275,20 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 			}
 		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		let checkDom = $(nRow).children().eq(0);
+
+		/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
+		if (g_banners.indexOf(aData.promotion_uuid) !== -1)
+			$(checkDom).children().prop('disabled', true);
 	}
 
 	function modalParams()
@@ -300,41 +310,34 @@
 	{
 		if (addValidation())
 		{
-			buildAddBanner();
-			/*if (confirm(message.create))
+			let table 		 = dataTable.DataTable();
+			let selectedData = table.rows('.selected').data();
+			let rowDom = '';
+			for (let i=0; i<selectedData.length; i++)
 			{
-				buildAddBanner();
+				let uuid = selectedData[i].promotion_uuid;
+				let imageUrl = selectedData[i].list_image_url;
+				let bizName  = selectedData[i].nickname;
+				let title  = selectedData[i].promotion_title;
+				rowDom += '<tr role="row" class="" id="'+uuid+'">'
+				rowDom += 	'<td class=" text-center">'
+				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
+				rowDom += 	'</td>'
+				rowDom += 	'<td class="text-center">'+bizName+'</td>'
+				rowDom += 	'<td class="text-center">'+title+'</td>'
+				rowDom += 	'<td class="text-center cursor-default">'
+				rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
+				rowDom += 	'</td>'
+				rowDom += '</tr>'
+			}
 
-				updateBanner();
-			}*/
+			let targetTableBody = bannerTable.find('tbody');
+			targetTableBody.append(rowDom);
+
+			modalFadeout();
+
+			toggleDisabledBtnOpenModal();
 		}
-	}
-
-	function buildAddBanner()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-		let rowDom = '';
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let uuid = selectedData[i].promotion_uuid;
-			let imageUrl = selectedData[i].list_image_url;
-			let bizName  = selectedData[i].nickname;
-			let title  = selectedData[i].promotion_title;
-			rowDom += '<tr role="row" class="" id="'+uuid+'">'
-			rowDom += 	'<td class=" text-center">'
-			rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
-			rowDom += 	'</td>'
-			rowDom += 	'<td class="text-center">'+bizName+'</td>'
-			rowDom += 	'<td class="text-center">'+title+'</td>'
-			rowDom += 	'<td class="text-center cursor-default">'
-			rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
-			rowDom += 	'</td>'
-			rowDom += '</tr>'
-		}
-
-		let targetTableBody = bannerTable.find('tbody');
-		targetTableBody.append(rowDom);
 	}
 
 	function addValidation()

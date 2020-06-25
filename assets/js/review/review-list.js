@@ -134,7 +134,7 @@ function getReviewListData(params) {
                 console.log(c)
             },
         },columns: [
-            {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+            {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
                 render: function (data) {
                     return multiCheckBoxDom(data);
                 }

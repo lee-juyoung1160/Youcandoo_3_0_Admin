@@ -66,7 +66,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "text-center" }
+				{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false }
 			],
 			language: {
 				emptyTable : message.emptyList

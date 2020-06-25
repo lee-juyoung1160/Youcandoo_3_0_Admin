@@ -86,22 +86,22 @@
 				}
 			},
 			columns: [
-				{title: "No ", 	 	data: "idx",				width: "5%",   orderable: false,   className: "text-center" }
-				,{title: "작성자", 	 data: "nickname",			width: "10%",   orderable: false,   className: "text-center" }
-				,{title: "문의구분",  data: "qna_name",    		width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "제목",  	 data: "title",    			width: "30%",  	orderable: false,   className: "text-center" }
-				,{title: "등록일", 	 data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center",
+				{title: "No ", 	 	data: "idx",				width: "5%",    orderable: false }
+				,{title: "작성자", 	 data: "nickname",			width: "10%",   orderable: false }
+				,{title: "문의구분",  data: "qna_name",    		width: "10%",  	orderable: false }
+				,{title: "제목",  	 data: "title",    			width: "30%",  	orderable: false }
+				,{title: "등록일", 	 data: "created_datetime",  width: "15%",   orderable: false,
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				},
-				{title: "답변상태",    data: "status",  			width: "10%",  	orderable: false,   className: "text-center",
+				{title: "답변상태",    data: "status",  			width: "10%",  	orderable: false,
 					render: function (data) {
 						return data === "0" ? "답변대기" : "답변완료";
 					}
 				}
-				,{title: "처리자",  	 data: "admin_userid",    	width: "10%",  	orderable: false,   className: "text-center" }
-				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,   className: "text-center",
+				,{title: "처리자",  	 data: "admin_userid",    	width: "10%",  	orderable: false }
+				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,
 					render: function (data) {
 						return !isEmpty(data) ? label.memo : '-';
 					}

@@ -109,13 +109,13 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",     orderable: false,
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "text-center cursor-default" }
-				,{title: "보유UCD",	data: "ucd.total",   width: "55%", 	 orderable: false,   className: "text-center cursor-default",
+				,{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "cursor-default" }
+				,{title: "보유UCD",	data: "ucd.total",   width: "55%", 	 orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';

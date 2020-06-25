@@ -48,21 +48,21 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",    	   width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "유형", 		data: "ucd_type",          width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "출금액", 		data: "amount",    		   width: "10%",    orderable: false,   className: "text-center cursor-default",
+				{title: "닉네임", 		data: "nickname",    	   width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "유형", 		data: "ucd_type",          width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "출금액", 		data: "amount",    		   width: "10%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "내용", 		data: "description", 	   width: "30%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "담당자", 		data: "created_user",      width: "10%",    orderable: false,   className: "text-center cursor-default"}
-				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "내용", 		data: "description", 	   width: "30%",    orderable: false,   className: "cursor-default" }
+				,{title: "담당자", 		data: "created_user",      width: "10%",    orderable: false,   className: "cursor-default"}
+				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

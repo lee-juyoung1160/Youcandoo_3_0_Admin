@@ -1038,21 +1038,21 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "review_uuid",   width: "5%",     orderable: false,   className: "text-center",
+				{title: tableCheckAllDom(), 	data: "review_uuid",   width: "5%",     orderable: false,
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "text-center cursor-default" }
-				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "text-center cursor-default",
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "cursor-default" }
+				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "cursor-default",
 				 	render: function (data) {
 						return data.substring(0, 10)
 					}
 				 }
-				,{title: "작성자", 		data: "nickname",    	width: "15%",   orderable: false,   className: "text-center cursor-default" }
+				,{title: "작성자", 		data: "nickname",    	width: "15%",   orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

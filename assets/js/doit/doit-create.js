@@ -190,7 +190,7 @@
 				}
 			},
 			columns: [
-				{title: "기업명",	data: "value",    orderable: false,   className: "text-center" }
+				{title: "기업명",	data: "value",    orderable: false }
 			],
 			language: {
 				emptyTable : message.emptyList

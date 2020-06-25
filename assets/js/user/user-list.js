@@ -100,19 +100,19 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,   className: "text-center",
+				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "text-center cursor-default",
+				{title: "닉네임", 		data: "nickname",   	width: "20%",    orderable: false,   className: "cursor-default" }
+				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    orderable: false,   className: "cursor-default" }
+				,{title: "사용구분", 	data: "is_active", 		width: "10%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data === 'Y' ? '사용' : '미사용';
 					}
 				}
-				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "text-center cursor-default",
+				,{title: "가입일", 		data: "created",    width: "15%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

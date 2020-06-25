@@ -123,7 +123,7 @@ function getReviewListData(params) {
             buildTotalCount($('#review-table'));
         },
         ajax: {
-            url: "https://api.youcandoo.co.kr/v1.0/admin/review/list",
+            url: api.listReview,
             headers: headers,
             dataType: 'JSON',
             type: 'POST',
@@ -131,7 +131,7 @@ function getReviewListData(params) {
                 return tableParams(responsed)
             },
             error: function (c) {
-                console.log(c)
+                alert(label.list+message.ajaxLoadError);
             },
         },columns: [
             {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
@@ -146,7 +146,11 @@ function getReviewListData(params) {
             {title:"평점",data: "rating"},
             {title:"두잇명",data: "doit_title"},
             {title:"신고",data: "report_count"},
-            {title:"블라인드 여부",data: "is_blind"},
+            {title:"블라인드 여부",data: "is_blind",
+                render: function (data) {
+                    return data === 'Y' ? label.blind : label.unblind;
+                }
+            },
             {title:"작성날짜",data: "created", render: function (data) {
                     return data.substring(0, 10);
                 }},
@@ -186,8 +190,8 @@ function openModal (review_text, rating, doit_title, report_count, is_blind, cre
     }
 }
 function closeModal(){
-     $(".modal-layout").fadeOut(500);
-     $("#modalDetail").fadeOut(500);
+    $(".modal-layout").fadeOut(500);
+    $("#modalDetail").fadeOut(500);
     $('body').css("overflow-y", "scroll");
  }
 const modalCloseBtn = document.querySelector('.modal-content .close-btn');

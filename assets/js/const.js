@@ -71,6 +71,8 @@
 		,createDoitAdmin : '기업만 두잇 개설 허용'*/
 		,exposure : '<i class="fas fa-check-circle" style="color:#007aff"></i>'
 		,unexpose : '<i class="fas fa-check-circle" style="color:#aaa"></i>'
+		,blind : '<i class="fas fa-eye-slash"></i>'
+		,unblind : '<i class="fas fa-eye"></i>'
 		,regular : '일반'
 		,promotion : '프로모션'
 		,image : '사진'

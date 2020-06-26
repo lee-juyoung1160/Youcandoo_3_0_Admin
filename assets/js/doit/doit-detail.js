@@ -110,7 +110,7 @@
 		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
 		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
-		selPageLengthForAction	.on('change', function () { getInvolveAction(); });
+		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
 		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
@@ -773,6 +773,12 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function onChangePageLengthForAction()
+	{
+		currentPage = 1;
+		getInvolveAction();
 	}
 
 	/** 인증목록 **/

@@ -26,7 +26,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
 		xlsxExport		.on("click", function () { onClickExcelBtn(); });
@@ -227,7 +227,7 @@
 	function onSubmitSearch()
 	{
 		_page = 1;
-		reloadTable(dataTable);
+		buildGrid();
 	}
 
 	function viewImage(obj)

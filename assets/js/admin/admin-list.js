@@ -177,7 +177,7 @@
 
 	function onSubmitSearch()
 	{
-		reloadTable(dataTable);
+		buildGrid();
 	}
 	
 	function changeStatus(obj)

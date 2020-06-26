@@ -21,7 +21,7 @@
 		/** 이벤트 **/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnOpenModal	.on('click', function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -132,7 +132,7 @@
 
 	function onSubmitSearch()
 	{
-		reloadTable(dataTable);
+		buildGrid();
 	}
 
 	/** 금칙어 등록 **/

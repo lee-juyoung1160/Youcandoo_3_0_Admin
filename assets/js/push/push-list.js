@@ -132,7 +132,7 @@
 
 	function onSubmitSearch()
 	{
-		reloadTable(dataTable);
+		buildGrid();
 	}
 
 	function cancelPush()

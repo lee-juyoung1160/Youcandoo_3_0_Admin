@@ -54,7 +54,7 @@ function counter(type) {
                 }
             });
     });
-};
+}
 
 /** 로드 바로 실행 **/
 document.addEventListener("DOMContentLoaded", function () {
@@ -265,7 +265,7 @@ function getYearData(yearVal) {
             });
         },
     });
-};
+}
 
 /** 월 단위로 인증된 두잇 **/
 let certLineChart;
@@ -305,7 +305,7 @@ function getCertMonthYearData(certYearVal,certMonthVal) {
              });
         },
     });
-};
+}
 
 /** 월단위 셀렉박스 이벤트 **/
 yearSelectBox.addEventListener('change', function () {
@@ -329,7 +329,7 @@ certYearSelectBox.addEventListener('change', function () {
 });
 
 /** 새해 기준 새로운 단위 차트 생성 **/
-//현재 연도 및 월 값 넣고 그리기
+/** 현재 연도 및 월 값 넣고 그리기 **/
 yearLabel.textContent = yearSelectBox.value = year + "년";
 yearSelectBox.append(new Option( year+ "년", year));
 
@@ -338,7 +338,7 @@ certYearSelectBox.append(new Option( year+ "년", year));
 
 certMonthLabel.textContent = yearSelectBox.value = month + "월";
 certMonthSelectBox.append(new Option( month+ "월", month));
-// 새해될때 셀렉박스 및 값 추가
+/** 새해될때 셀렉박스 및 값 추가 **/
 let defaultYear = 2020;
 for (year; defaultYear < year; year++) {
     yearSelectBox.append(new Option( year+1+ "년", year+1));

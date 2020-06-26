@@ -41,7 +41,7 @@
 		/** 목록 불러오기 **/
 		getActions();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearchActions(event); });
+		$("body")    	.on("keydown", function (event) { onKeydownSearch(event); });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
@@ -286,15 +286,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	/************************
-	 * 검색관련
-	 * **********************/
-	function onKeydownSearchActions(event)
-	{
-		if (event.keyCode === 13)
-			getActions();
 	}
 
 	/** 인증상태 체크박스 최소 하나 선택 **/
@@ -560,5 +551,6 @@
 
 	function onSubmitSearch()
 	{
+		currentPage =1;
 		getActions();
 	}

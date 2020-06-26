@@ -284,7 +284,6 @@ function getCertMonthYearData(certYearVal,certMonthVal) {
         error: function () {
         },
         success: function (certMonthData) {
-            console.log(certMonthData)
              certLineChart = new Chart(certMonthChart, {
                 type: 'line',
                 data: {

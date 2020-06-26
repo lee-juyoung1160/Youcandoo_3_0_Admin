@@ -267,11 +267,11 @@
 		if (!isEmpty(detail.promotion_uuid))
 		{
 			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
-			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 잔여 예산';
+			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산';
 			rewardDom += 	'</p>';
 			rewardDom += 	'<div class="fixed">';
 			rewardDom += 		'<p class="cap">';
-			rewardDom += 			'현재까지 남은 잔여 UCD는 ';
+			rewardDom += 			'남은 UCD는 ';
 			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(balance)+'UCD</span> 입니다.';
 			rewardDom += 		'</p>';
 			rewardDom += 	'</div>';

@@ -406,9 +406,9 @@
 			selectedRewardDom += 			'단체: '+numberWithCommas(detail.group_reward)+' UCD)';
 			selectedRewardDom += 		'</p>';
 			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 잔여 예산</p>';
+			selectedRewardDom += 	'<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>';
 			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap">남은 잔여 UCD는 ';
+			selectedRewardDom += 		'<p class="cap">남은 UCD는 ';
 			selectedRewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">';
 			selectedRewardDom += 				numberWithCommas(detail.remain_budget_ucd)+' UCD';
 			selectedRewardDom +=			'</span> 입니다.';

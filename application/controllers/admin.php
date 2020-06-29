@@ -31,5 +31,9 @@ class Admin extends MY_Controller {
         {
             $this->load->layout('admin/admin-log');
         }
+    public function deploy()
+        {
+            $this->load->layout('admin/deploy');
+        }
 
 }

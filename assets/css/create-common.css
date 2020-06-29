@@ -140,3 +140,30 @@
     font-size: 15px;
     text-align: center;
 }
+
+
+.deploy-page ul {
+    padding: 0 15px;
+}
+.deploy-page ul li:first-child {
+    padding-top: 15px;
+}
+.deploy-page .btn-wrap button {
+    text-align: center;
+    line-height: 40px;
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 30px;
+    background-color: #3366ff;
+}
+.deploy-page .btn-wrap button.btn-pull {
+    background-color: #9966ff;
+}
+.enrollment-title {
+    margin: 50px 0 15px;
+    color: #484848;
+    font-size: 23px;
+    font-weight: 600;
+}

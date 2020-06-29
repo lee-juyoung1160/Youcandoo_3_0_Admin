@@ -31,7 +31,7 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initDayBtn();
 	}
 

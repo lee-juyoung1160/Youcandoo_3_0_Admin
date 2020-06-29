@@ -136,6 +136,18 @@
         dateTo.datepicker("setDate", "today");
     }
 
+    function initSearchDateRangeMonth()
+    {
+        dateFrom.datepicker("setDate", "-1M");
+        dateTo.datepicker("setDate", "today");
+    }
+
+    function initSearchDateRangeToday()
+    {
+        dateFrom.datepicker("setDate", "today");
+        dateTo.datepicker("setDate", "today");
+    }
+
     function setDateToday()
     {
         datePicker.datepicker("setDate", "today");

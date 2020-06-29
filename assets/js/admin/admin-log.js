@@ -27,8 +27,7 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		dateFrom.datepicker("setDate", "today");
-		dateTo.datepicker("setDate", "today");
+		initSearchDateRangeToday();
 		initDayBtn();
 	}
 

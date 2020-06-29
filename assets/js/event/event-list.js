@@ -32,7 +32,7 @@
 		keyword.val('');
 		exposure.eq(0).prop("checked", true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initDayBtn();
 	}
 

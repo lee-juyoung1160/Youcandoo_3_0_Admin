@@ -48,10 +48,10 @@
 
     function getPromotionStatusName(param)
     {
-        if (param === 'pending') return '대기';
-        if (param === 'progress') return '진행';
-        if (param === 'end') return '마감';
-        if (param === 'terminate') return '종료';
+        if (param === 'pending') return '<i class="far fa-calendar"></i> 대기';
+        if (param === 'progress') return '<i class="far fa-calendar-check"></i> 진행';
+        if (param === 'end') return '<i class="far fa-calendar-times"></i> 마감';
+        if (param === 'terminate') return '<i class="fas fa-calendar-times"></i> 종료';
     }
 
     function fadeinLoader()

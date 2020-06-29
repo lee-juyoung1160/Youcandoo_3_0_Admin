@@ -68,7 +68,7 @@
 
 		if (detail.doit_status !== '모집중')
 		{
-			alert('두잇 '+detail.doit_status+'...\n'+message.cantUpdateDoit);
+			alert(message.cantUpdateDoit);
 			location.href = page.detailDoit+detail.idx;
 		}
 

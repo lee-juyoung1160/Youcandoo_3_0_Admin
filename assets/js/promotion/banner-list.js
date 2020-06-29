@@ -317,12 +317,12 @@
 				let bizName  = selectedData[i].nickname;
 				let title  = selectedData[i].promotion_title;
 				rowDom += '<tr role="row" class="" id="'+uuid+'">'
-				rowDom += 	'<td class=" text-center">'
+				rowDom += 	'<td>'
 				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
 				rowDom += 	'</td>'
-				rowDom += 	'<td class="text-center">'+bizName+'</td>'
-				rowDom += 	'<td class="text-center">'+title+'</td>'
-				rowDom += 	'<td class="text-center cursor-default">'
+				rowDom += 	'<td>'+bizName+'</td>'
+				rowDom += 	'<td>'+title+'</td>'
+				rowDom += 	'<td class="cursor-default">'
 				rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
 				rowDom += 	'</td>'
 				rowDom += '</tr>'

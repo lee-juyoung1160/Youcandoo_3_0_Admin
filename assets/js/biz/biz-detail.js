@@ -166,19 +166,19 @@
 					}
 				},
 				columns: [
-					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
+					{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "cursor-default" }
+					,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "text-center cursor-default",
+					,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "cursor-default",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "text-center cursor-default" }
-					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "text-center cursor-default",
+					,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "cursor-default" }
+					,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "cursor-default",
 						render: function (data) {
 							return getPromotionStatusName(data);
 						}

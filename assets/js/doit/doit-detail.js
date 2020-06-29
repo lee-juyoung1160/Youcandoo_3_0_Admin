@@ -460,19 +460,19 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "실패",  	  		data: "fail",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "신고",  	  		data: "report",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "옐로카드",    		data: "yellow",   		width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "text-center cursor-default",
+				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -1028,14 +1028,6 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return reviewParams(d);
 				},
 				error: function (request, status) {
@@ -1243,15 +1235,15 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "text-center cursor-default",
+				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
+				,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
 					}
 				}
-				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "text-center cursor-default" }
-				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
+				,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "cursor-default" }
+				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

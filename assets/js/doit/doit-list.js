@@ -83,14 +83,6 @@
 				type: "POST",
 				headers: headers,
 				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams();
 				},
 				error: function (request, status) {

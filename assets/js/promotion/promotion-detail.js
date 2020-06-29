@@ -246,21 +246,13 @@
 				type:"POST",
 				headers: headers,
 				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return doitTableParams(d);
 				}
 			},
 			columns: [
-				{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "text-center cursor-default" }
+				{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "cursor-default" }
+				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -338,15 +330,15 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "text-center cursor-default" }
-                ,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "text-center cursor-default",
+				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
+                ,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "text-center cursor-default" }
-                ,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "text-center cursor-default" }
-                ,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "text-center cursor-default" }
+                ,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
+                ,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "cursor-default" }
+                ,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

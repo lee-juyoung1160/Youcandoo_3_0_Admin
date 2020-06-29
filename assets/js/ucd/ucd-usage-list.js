@@ -47,14 +47,6 @@
 				type:"POST",
 				headers: headers,
 				data: function (d) {
-					/*
-					if (d.order.length > 0)
-					{
-						var columnIndex = d.order[0].column;
-						d.sort = d.columns[columnIndex].name;
-						d.order = d.order[0].dir;
-					}
-				   */
 					return tableParams();
 				},
 				error: function (request, status) {
@@ -62,17 +54,17 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 	data: "nickname",    width: "20%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "유형", 	data: "ucd_type",    width: "5%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "구분", 	data: "division",    width: "5%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "금액", 	data: "amount",    	 width: "10%",    orderable: false,   className: "text-center cursor-default",
+				{title: "닉네임", 	data: "nickname",    width: "20%",    orderable: false,   className: "cursor-default" }
+				,{title: "유형", 	data: "ucd_type",    width: "5%",    orderable: false,   className: "cursor-default" }
+				,{title: "구분", 	data: "division",    width: "5%",    orderable: false,   className: "cursor-default" }
+				,{title: "금액", 	data: "amount",    	 width: "10%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "제목", 	data: "title",    	 width: "15%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "내용", 	data: "description", width: "35%",    orderable: false,   className: "text-center cursor-default" }
-				,{title: "일시", 	data: "created",     width: "15%",    orderable: false,   className: "text-center cursor-default" }
+				,{title: "제목", 	data: "title",    	 width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "내용", 	data: "description", width: "35%",    orderable: false,   className: "cursor-default" }
+				,{title: "일시", 	data: "created",     width: "15%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

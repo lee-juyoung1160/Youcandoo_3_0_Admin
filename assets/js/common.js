@@ -46,12 +46,13 @@
         });
     }
 
-    function getPromotionStatusName(param)
+    function getPromotionStatusName(_status)
     {
-        if (param === 'pending') return '<i class="far fa-calendar"></i> 대기';
-        if (param === 'progress') return '<i class="far fa-calendar-check"></i> 진행';
-        if (param === 'end') return '<i class="far fa-calendar-times"></i> 마감';
-        if (param === 'terminate') return '<i class="fas fa-calendar-times"></i> 종료';
+        if (_status === 'pending') return label.pendingIcon+' '+label.pending;
+        else if (_status === 'progress') return label.progressIcon+' '+label.progress;
+        else if (_status === 'end') return label.endIcon+' '+label.end;
+        else if (_status === 'terminate') return label.terminateIcon+' '+label.terminate;
+        else return label.nullValue;
     }
 
     function fadeinLoader()

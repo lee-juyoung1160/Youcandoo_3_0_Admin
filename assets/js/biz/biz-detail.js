@@ -238,7 +238,7 @@
 			/** 제목에 a 태그 추가 **/
 			$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
 			/** 프로모션 기간 **/
-			$(periodDom).html(aData.start_date+' ~ '+aData.end_date);
+			$(periodDom).html(aData.start_date+label.tilde+aData.end_date);
 		}
 
 		function getUcdLog()
@@ -269,9 +269,9 @@
 							let result = data;
 							if (row.division === '충전' || row.division === '취소')
 							{
-								let term 	= isEmpty(data) ? '-' : data[0]+' ~ '+data[1];
-								let title   = isEmpty(data) ? '-' : data[2];
-								let amount  = isEmpty(data) ? '-' : data[3];
+								let term 	= isEmpty(data) ? label.nullValue : data[0]+label.tilde+data[1];
+								let title   = isEmpty(data) ? label.nullValue : data[2];
+								let amount  = isEmpty(data) ? label.nullValue: data[3];
 
 								result = '<a onclick="btnModalDescOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">'+title+'</a>';
 							}

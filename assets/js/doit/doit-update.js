@@ -110,12 +110,12 @@
 		introImg = introResourceType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
 		introImg = isEmpty(introImg) ? label.noImage : introImg;
 		buildThumbnailDom();
-		recruitCount.html(detail.min_user+' ~ '+detail.max_user+'명');
+		recruitCount.html(detail.min_user+label.tilde+detail.max_user+'명');
 		extraReward.html(detail.group_reward_description);
 		if (isEmpty(detail.group_reward_description))
 			extraRewardWrap.remove();
-		actionDate.html(detail.action_start_datetime + ' ~ ' +detail.action_end_datetime);
-		actionTime.html(detail.action_allow_start_time.substring(0, 5) + ' ~ ' +detail.action_allow_end_time.substring(0, 5));
+		actionDate.html(detail.action_start_datetime+label.tilde+detail.action_end_datetime);
+		actionTime.html(detail.action_allow_start_time.substring(0, 5)+label.tilde+detail.action_allow_end_time.substring(0, 5));
 		if (!isEmpty(detail.private_code))
 		{
 			chkAccessUser.prop("checked", true);

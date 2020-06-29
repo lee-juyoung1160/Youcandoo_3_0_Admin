@@ -178,17 +178,17 @@
 				{title: "두잇명", 		data: "doit_title",   	width: "25%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "text-center cursor-default",
@@ -203,7 +203,7 @@
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
-						return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
+						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
 				}
 			],
@@ -267,12 +267,12 @@
 				{title: "두잇명", 		data: "doit_title",   	width: "25%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "리워드 UCD", 	data: "reward_ucd",   	width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "적립 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "text-center cursor-default",
@@ -287,7 +287,7 @@
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data, type, row, meta) {
-						return row.action_start_datetime + ' ~ ' + row.action_end_datetime;
+						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
 				}
 			],
@@ -353,7 +353,7 @@
 				,{title: "구분", 	data: "division",   width: "10%",    orderable: false,   className: "text-center cursor-default" }
 				,{title: "금액", 	data: "amount",		width: "10%",    orderable: false,   className: "text-center cursor-default",
 					render: function (data) {
-						return isEmpty(data) ? '-' : numberWithCommas(data);
+						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
 				,{title: "제목", 	data: "title",   	width: "15%",    orderable: false,   className: "text-center cursor-default" }

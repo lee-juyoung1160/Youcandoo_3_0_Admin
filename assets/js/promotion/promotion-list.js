@@ -120,7 +120,7 @@
 				}
 				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.start_date + ' ~ ' + row.end_date;
+						return row.start_date+label.tilde+row.end_date;
 					}
 				}
 				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "cursor-default",

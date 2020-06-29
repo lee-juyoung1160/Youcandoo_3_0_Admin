@@ -80,7 +80,7 @@
 				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "cursor-default" }
 				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.start_date + ' ~ ' + row.end_date;
+						return row.start_date+label.tilde+row.end_date;
 					}
 				}
 				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "cursor-default",

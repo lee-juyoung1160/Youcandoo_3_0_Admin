@@ -216,18 +216,18 @@
 		g_doitTitle = detail.doit_title;
 
 		doitTitle.html(detail.doit_title);
-		actionDate.html(detail.action_start_datetime + ' ~ ' + detail.action_end_datetime);
+		actionDate.html(detail.action_start_datetime+label.tilde+detail.action_end_datetime);
 
 		let rewardDom 	= '';
 		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
 		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
 		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
-		let balance		= isEmpty(detail.remain_budget_ucd) ? '-' : detail.remain_budget_ucd;
-		let dayofweek   = isEmpty(detail.action_dayofweek) ? '-' : detail.action_dayofweek;
+		let balance		= isEmpty(detail.remain_budget_ucd) ? label.nullValue : detail.remain_budget_ucd;
+		let dayofweek   = isEmpty(detail.action_dayofweek) ? label.nullValue : detail.action_dayofweek;
 		let minUser 	= Number(detail.min_user);
 		let maxUser 	= Number(detail.max_user);
-		let recruitCount = maxUser === 1 ? maxUser : minUser+' ~ '+maxUser;
+		let recruitCount = maxUser === 1 ? maxUser : minUser+label.tilde+maxUser;
 		let personReward = Number(detail.person_reward);
 		let groupReward = Number(detail.group_reward);
 		let totalReward =  personReward + groupReward;
@@ -280,7 +280,7 @@
 
 		creator.html(detail.doit_permission);
 
-		let desc = isEmpty(detail.doit_description) ? '-' : detail.doit_description;
+		let desc = isEmpty(detail.doit_description) ? label.nullValue : detail.doit_description;
 		doitDesc.html(desc);
 
 		let tags = detail.doit_tags;
@@ -298,7 +298,7 @@
 
 		let introType = detail.intro_resouce_type;
 		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
-		let introImageDom = '-';
+		let introImageDom = label.nullValue;
 		if (!isEmpty(introImg))
 		{
 			introImageDom = '<div class="file">';
@@ -321,12 +321,12 @@
 		}
 		introWrap.html(introImageDom);
 
-		let xtraReward = isEmpty(detail.group_reward_description) ? '-' : detail.group_reward_description;
+		let xtraReward = isEmpty(detail.group_reward_description) ? label.nullValue : detail.group_reward_description;
 		extraReward.html(xtraReward);
 
-		actionTime.html(detail.action_allow_start_time + ' ~ ' + detail.action_allow_end_time);
+		actionTime.html(detail.action_allow_start_time+label.tilde+detail.action_allow_end_time);
 
-		let optionDom = '-';
+		let optionDom = label.nullValue;
 		if (!isEmpty(detail.private_code))
 		{
 			optionDom = '<p class="detail-data">참여자 제한 </p>';

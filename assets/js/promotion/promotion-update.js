@@ -64,7 +64,7 @@
 
 		if (promoData.status !== 'pending')
 		{
-			alert('프로모션 '+getPromotionStatusName(promoData.status)+' 중...\n'+message.cantUpdatePromo);
+			alert(message.cantUpdatePromo);
 			location.href = page.detailPromo+promoData.idx;
 		}
 

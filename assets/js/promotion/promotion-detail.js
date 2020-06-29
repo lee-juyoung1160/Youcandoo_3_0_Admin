@@ -118,7 +118,7 @@
 		promoName.html(detailPromo.promotion_title);
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
 		balance.html(numberWithCommas(detailPromo.remain_budget_ucd));
-		period.html(detailPromo.start_date + ' ~ ' + detailPromo.end_date);
+		period.html(detailPromo.start_date+label.tilde+detailPromo.end_date);
 		let notices = detailPromo.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
@@ -224,7 +224,7 @@
 		detailDom += 				'</thead>';
 		detailDom += 				'<tbody>';
 		detailDom += 					'<tr>';
-		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+' ~ '+numberWithCommas(jsonUcdInfo.max)+'</td>';
+		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+label.tilde+numberWithCommas(jsonUcdInfo.max)+'</td>';
 		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.person_reward)+'</span></td>';
 		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.group_reward)+'</span></td>';
 		detailDom += 					'</tr>';
@@ -313,7 +313,7 @@
 		let countUserDom = $(nRow).children().eq(1);
 		let periodDom = $(nRow).children().eq(2);
 		let detailUrl = page.detailDoit+aData.idx;
-		let period    = aData.action_start_datetime + ' ~ ' + aData.action_end_datetime;
+		let period    = aData.action_start_datetime+label.tilde+aData.action_end_datetime;
 
 		/** 제목에 a 태그 추가 **/
 		titleDom.html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');

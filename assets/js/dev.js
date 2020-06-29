@@ -1,25 +1,27 @@
 
 
 	$(document).ready(function () {
+		let btnProStart = $("#btnProStart");
+
 		if (sessionAuthCode.val() !== 'dev')
 		{
-
 			try {
-				$("#btnProStart").remove();
-			} catch (e) {
-
-			}
+				btnProStart.remove();
+			} catch (e) {}
 
 			try {
 				$("#btnDoitStart").remove();
-			} catch (e) {
+			} catch (e) {}
 
-			}
+			try {
+				$("#deployWrapper").find('button').remove();
+			} catch (e) {}
 		}
 
-		$("#btnProStart").on("click", function () {
-			promoStart();
-		})
+		btnProStart.on("click", function () { promoStart(); })
+
+		/**  **/
+		$("#btnDDD").on("click", function () { deploySource(); })
 	})
 
 
@@ -33,7 +35,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('체크하는 거 잊었죠?');
+			alert('시작 대상 체크하세용.');
 			return;
 		}
 
@@ -48,7 +50,28 @@
 				alert(getStatusMessage(data));
 			},
 			error: function (request, status) {
-				alert(label.delete+message.ajaxError);
+				alert(label.modify+message.ajaxError);
 			},
 		});
+	}
+
+	function deploySource()
+	{
+		if (confirm(''))
+		{
+			$.ajax({
+				url: baseTestApiUrl+'promotion/start',
+				type: "POST",
+				async: false,
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify({"promotion_uuid" : ""}),
+				success: function(data) {
+					alert(getStatusMessage(data));
+				},
+				error: function (request, status) {
+					alert(label.modify+message.ajaxError);
+				},
+			});
+		}
 	}

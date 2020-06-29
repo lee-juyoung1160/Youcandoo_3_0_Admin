@@ -39,7 +39,6 @@
 		$.ajax({
 			url: api.detailPromotion,
 			type: "POST",
-			async: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"promotion_idx" : idx}),

@@ -67,7 +67,6 @@
 			ajax : {
 				url: api.listBanner,
 				type:"POST",
-				async: false,
 				headers: headers,
 				data: "",
 				error: function (request, status) {
@@ -184,7 +183,6 @@
 				$.ajax({
 					url: api.updateBanner,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: JSON.stringify({ "promotion_list" : ids }),
@@ -195,7 +193,6 @@
 					},
 					error: function (request, status) {
 						alert(label.modify+message.ajaxError);
-						buildBanners();
 					},
 				});
 			}

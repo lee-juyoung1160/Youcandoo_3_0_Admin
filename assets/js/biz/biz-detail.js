@@ -46,8 +46,6 @@
 			initInputDatepicker();
 			/** 상세 불러오기 **/
 			getDetail();
-			/** 프로모션 정보 **/
-			getInvolvePromo();
 			/** 이벤트 **/
 			btnUcdModalOpen	.on("click", function () { onClickModalContractOpen(); })
 			modalCloseBtn	.on('click', function () { modalFadeout(); });
@@ -108,7 +106,6 @@
 			$.ajax({
 				url: api.detailBiz,
 				type: "POST",
-				async: false,
 				data: params(),
 				headers: headers,
 				dataType: 'json',
@@ -118,8 +115,11 @@
 					else
 						alert(invalidResp(data))
 				},
-				error: function (request, status) {
+				error: function (xhr, status) {
 					alert(label.detailContent+message.ajaxLoadError);
+				},
+				complete: function (xhr, status) {
+					getInvolvePromo();
 				}
 			});
 		}
@@ -137,8 +137,10 @@
 		function buildDetail(data)
 		{
 			let detail = data.data;
+			let _balance = Number(detail.ucd.cash) + Number(detail.ucd.point);
 
 			g_bizUuid = detail.company_uuid;
+			g_balance = _balance;
 
 			bizProfileImg.prop('src', detail.image_path);
 			bizName.html(detail.company_name);
@@ -146,10 +148,7 @@
 			bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');
 			bizDesc.html(detail.contents);
 
-			let totalBalance = Number(detail.ucd.cash) + Number(detail.ucd.point);
-			balance.html(numberWithCommas(totalBalance));
-
-			g_balance = totalBalance;
+			balance.html(numberWithCommas(_balance));
 		}
 
 		function getInvolvePromo()
@@ -248,7 +247,6 @@
 				ajax : {
 					url: api.listBizUcd,
 					type: "POST",
-					async: false,
 					headers: headers,
 					data: function (d) {
 						return ucdTableParams(d);

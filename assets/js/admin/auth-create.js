@@ -13,8 +13,6 @@
 	$(document).ready(function () {
 		/** 권한 목록 **/
 		getAuthList();
-		/** 선택된 권한의 메뉴를 가져옴 **/
-		getMenuByAuthCode();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
@@ -75,7 +73,6 @@
 		$.ajax({
 			url: api.listAuth,
 			type: "POST",
-			async: false,
 			headers : headers,
 			dataType: 'json',
 			success: function(data) {
@@ -84,8 +81,11 @@
 				else
 					alert(invalidResp(data));
 			},
-			error: function (request, status) {
+			error: function (xhr, status) {
 				alert('권한 '+label.list+message.ajaxLoadError);
+			},
+			complete: function (xhr, status) {
+				getMenuByAuthCode();
 			}
 		});
 	}

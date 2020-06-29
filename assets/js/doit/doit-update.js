@@ -39,7 +39,6 @@
 		$.ajax({
 			url: api.detailDoit,
 			type: "POST",
-			async: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"idx" : idx}),

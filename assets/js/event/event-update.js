@@ -24,8 +24,6 @@
 		getEventType();
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
-		/** 상세 내용 **/
-		getDetail()
 		/** 이벤트 **/
 		selEventType.on('change', function () { onChangeEventType(this); });
 		webFile		.on('change', function () { onChangeWebFile(this); });
@@ -147,7 +145,6 @@
 		$.ajax({
 			url: api.getEventType,
 			type: "POST",
-			async: false,
 			headers: headers,
 			dataType: 'json',
 			success: function(data) {
@@ -158,6 +155,9 @@
 			},
 			error: function (request, status) {
 				alert('구분 '+label.list+message.ajaxLoadError);
+			},
+			complete: function (xhr, status) {
+				getDetail();
 			}
 		});
 	}

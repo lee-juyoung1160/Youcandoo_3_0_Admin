@@ -12,10 +12,6 @@
 	$(document).ready(function () {
 		/** 권한 목록 불러오기 **/
 		getAuthList();
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** 목록 불러오기 **/
-		buildGrid();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -29,7 +25,6 @@
 		$.ajax({
 			url: api.listAuth,
 			type: "POST",
-			async: false,
 			headers : headers,
 			dataType: 'json',
 			success: function(data) {
@@ -40,6 +35,12 @@
 			},
 			error: function (request, status) {
 				alert(label.list+message.ajaxLoadError);
+			},
+			complete: function (xhr, status) {
+				/** 상단 검색 폼 초기화 **/
+				initSearchForm();
+				/** 목록 불러오기 **/
+				buildGrid();
 			}
 		});
 	}
@@ -189,7 +190,6 @@
 				type: "POST",
 				dataType: 'json',
 				global: false,
-				async: false,
 				headers: headers,
 				data: JSON.stringify({"userid" : $(obj).data('userid')}),
 				success: function(data) {
@@ -213,7 +213,6 @@
 				$.ajax({
 					url: api.deleteAdmin,
 					type: "POST",
-					async: false,
 					headers: headers,
 					dataType: 'json',
 					data: delParams(),

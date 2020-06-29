@@ -191,7 +191,6 @@
 		$.ajax({
 			url: api.detailDoit,
 			type: "POST",
-			async: false,
 			headers: headers,
 			dataType: 'json',
 			data: JSON.stringify({"idx" : idx}),
@@ -835,7 +834,7 @@
 			{
 				let action    = actions[i];
 				let actionId  = "action_"+i;
-				let successYn = action.success === 'Y' ? '성공' : '실패';
+				let successYn = action.success === 'Y' ? label.success : label.fail;
 				let resourceType = action.resource_type;
 				let warnImageDom = '';
 				let actionImage = action.image_url;

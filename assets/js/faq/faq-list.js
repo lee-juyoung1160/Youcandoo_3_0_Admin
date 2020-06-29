@@ -11,14 +11,12 @@
 	const btnDelete		= $("#btnDelete");
 
 	$(document).ready(function () {
-		/** 구분 불러오기 **/
-		getFaqType()
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
-		/** 목록 불러오기 **/
-		buildGrid();
+		/** 구분 불러오기 **/
+		getFaqType()
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -59,7 +57,6 @@
 		$.ajax({
 			url: api.getFaqType,
 			type: "POST",
-			async: false,
 			headers: headers,
 			dataType: 'json',
 			success: function(data) {
@@ -70,6 +67,9 @@
 			},
 			error: function (request, status) {
 				alert('구분 '+label.list+message.ajaxLoadError);
+			},
+			complete: function (xhr, status) {
+				buildGrid();
 			}
 		});
 	}
@@ -165,7 +165,6 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
-				console.log('drawCallback')
 			}
 		});
 	}

@@ -67,6 +67,8 @@
 		,progress : '진행'
 		,end : '마감'
 		,terminate : '종료'
+		,success: '성공'
+		,fail: '실패'
 		/*,createDoitUser : '사용자 두잇 개설 허용'
 		,createDoitAdmin : '기업만 두잇 개설 허용'*/
 		,y: 'Y'

@@ -1,257 +1,249 @@
-const formDate = document.querySelector('.date_from');
-const toDate = document.querySelector('.date_to')
-const searchType = document.getElementById('search_type');
-const keyword = document.getElementById('keyword');
-const Pages = document.querySelector('.paginate_button.current');
-const limits = document.getElementById('selPageLength');
-const searchBtn = document.querySelector('.search');
-const resetBtn = document.querySelector('.reset');
-const days = document.querySelector('.day-btn');
-const ratingLists = document.querySelectorAll('.rating-list input[name=chk-grade]');
 
-
-// by.leo
-const btnBlind			= $("#btnBlind");
-const btnUnBlind		= $("#btnUnBlind");
-let g_blind_type;
-
-/** 로드 시점 **/
-document.addEventListener("DOMContentLoaded", function () {
-    /** 데이트피커 초기화 **/
-    initSearchDatepicker();
-    /** 상단 검색 폼 초기화 **/
-    initSearchForm();
-    /** 테이블 실행 **/
-    getReviewListData();
-    /** 이벤트 **/
-    $("body").on("keydown", function (event) {onKeydownSearch(event)});
-    dayButtons.on("click", function () {onClickActiveAloneDayBtn(this);});
+    const searchType    = document.getElementById('search_type');
+    const keyword       = document.getElementById('keyword');
+    const limits        = document.getElementById('selPageLength');
+    const searchBtn     = document.querySelector('.search');
+    const resetBtn      = document.querySelector('.reset');
+    const days          = document.querySelector('.day-btn');
+    const ratingLists   = document.getElementsByName('chk-grade');
+    const reviewTable   = document.getElementById('review-table');
+    const select        = $("select");
     /** by.leo **/
-    btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
-    btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
-    /** 검색 필드 reset **/
-    resetBtn.addEventListener('click', () => { initSearchForm(); });
-    /** 검색시 테이블 호출 **/
-    searchBtn.addEventListener('click', () => {onSubmitSearch();});
-    limits.addEventListener('change', () => {onSubmitSearch();});
-});
+    const btnBlind		= $("#btnBlind");
+    const btnUnBlind	= $("#btnUnBlind");
+    let g_blind_type;
+    /** modal **/
+    const modalCloseBtn = document.querySelector('.modal-content .close-btn');
+    const modalLayout   = document.querySelector('.modal-layout');
 
-/** 평점 마지막 하나일때 고정하기 **/
-for (let i=0; i<ratingLists.length; i++) {
-    let clickCount = ratingLists[i];
-    clickCount.addEventListener('click', function () {
-        let checkedCount = document.querySelectorAll('.rating-list input[name=chk-grade]:checked').length;
-        if (checkedCount === 0 ) {
-            alert('최소 하나 이상의 값을 선택해야 합니다.');
-            clickCount.checked = true;
-        }
-    });
-}
+    /** 로드 시점 **/
+    document.addEventListener("DOMContentLoaded", function () {
+        /** 데이트피커 초기화 **/
+        initSearchDatepicker();
+        /** 상단 검색 폼 초기화 **/
+        initSearchForm();
+        /** 테이블 실행 **/
+        getReviewListData();
+        /** 이벤트 **/
+        $("body")   .on("keydown", function (event) {onKeydownSearch(event)});
+        dayButtons  .on("click", function () {onClickActiveAloneDayBtn(this);});
+        /** by.leo **/
+        btnBlind	.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
+        btnUnBlind	.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
+        /** 검색 필드 reset **/
+        resetBtn    .addEventListener('click', () => { initSearchForm(); });
+        /** 검색시 테이블 호출 **/
+        searchBtn   .addEventListener('click', () => {onSubmitSearch();});
+        limits      .addEventListener('change', () => {onSubmitSearch();});
 
-function initSearchForm() {
-    keyword.value = "";
-    const select = $("select");
-    select.each(function () {
-        $(this).children().eq(0).prop("selected", true);
-        onChangeSelectOption($(this));
-    });
-    /** 상단 검색 input 디폴드 값 **/
-    ratingLists.forEach(function(item, index, array){item.checked = true;});
-    document.querySelector('input[name=radio-report]').checked = true;
-    document.querySelector('input[name=radio-blind]').checked = true;
-    initSearchDateRange();
-    initDayBtn();
-}
-
-function onSubmitSearch() {
-    getReviewListData();
-}
-
-
-/** 데이터 **/
-function tableParams (response) {
-    const ratingLists = document.querySelectorAll('.rating-list input[name=chk-grade]:checked');
-    const report = document.querySelector('.report input[name=radio-report]:checked');
-    const blind = document.querySelector('.blind input[name=radio-blind]:checked');
-    const ratingListCheck = Array.from(ratingLists).map(function (checkbox) {
-        return checkbox.value;
+        modalCloseBtn.addEventListener('click', () => {modalFadeout();});
+        modalLayout  .addEventListener('click', () => {modalFadeout();});
     });
 
-    let params = {
-        "from_date": formDate.value,
-        "to_date": toDate.value,
-        "search_type": searchType.value,
-        "keyword": keyword.value,
-        "rating_list": ratingListCheck,
-        "is_report": report.value,
-        "is_blind": blind.value,
-        "page":  (response.start / response.length) + 1,
-        "limit": response.length
+    /** 평점 마지막 하나일때 고정하기 **/
+    for (let i=0; i<ratingLists.length; i++) {
+        let clickCount = ratingLists[i];
+        clickCount.addEventListener('click', function () {
+            let checkedCount = document.querySelectorAll('.rating-list input[name=chk-grade]:checked').length;
+            if (checkedCount === 0 ) {
+                alert('최소 하나 이상의 값을 선택해야 합니다.');
+                clickCount.checked = true;
+            }
+        });
     }
 
-    /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-    setHistoryParam(params);
+    function initSearchForm() {
+        keyword.value = "";
+        initSelectOption();
+        initSearchDateRange();
+        initDayBtn();
+        /** 상단 검색 input 디폴드 값 **/
+        ratingLists.forEach(function(item, index, array){item.checked = true;});
+        document.querySelector('input[name=radio-report]').checked = true;
+        document.querySelector('input[name=radio-blind]').checked = true;
 
-    return JSON.stringify(params)
-}
-/** 테이블 **/
-function getReviewListData(params) {
-    $('#review-table').DataTable({
-        /** 테이블 옵션 기능 **/
-        searching: false, /** 검색 **/
-        lengthChange: false, /** 블록 단위 변경기능 **/
-        info: false, /** 페이징 상태에 대한 정보 표시  **/
-        padding: false, /** 열 너비 계산 **/
-        ordering: false, /** 원하는 순서대로 데이터 표시 **/
-        paging: true, /** 페이징 **/
-        destroy: true, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
-        select: {
-            style: 'multi',
-            selector: ':checkbox'
-        },
-        pageLength: Number(limits.value),
-        serverSide: true, /** true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음) **/
-        processing: false,
-        order: [],
-        autoWidth: false,
-        fixedHeader:false,
-        initComplete: function () {
-        },
-        fnRowCallback: function (nRow, aData) {
-        },
-        drawCallback: function (settings) {
-            buildTotalCount($('#review-table'));
-        },
-        ajax: {
-            url: api.listReview,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            data: function (responsed) {
-                return tableParams(responsed)
+    }
+
+    /** 데이터 **/
+    function tableParams (response) {
+        const report = document.querySelector('.report input[name=radio-report]:checked');
+        const blind = document.querySelector('.blind input[name=radio-blind]:checked');
+        const ratingListCheck = Array.from(ratingLists).map(function (checkbox) {
+            return checkbox.value;
+        });
+
+        let params = {
+            "from_date": dateFrom[0].value,
+            "to_date": dateTo[0].value,
+            "search_type": searchType.value,
+            "keyword": keyword.value,
+            "rating_list": ratingListCheck,
+            "is_report": report.value,
+            "is_blind": blind.value,
+            "page":  (response.start / response.length) + 1,
+            "limit": Number(limits.value)
+        }
+
+        /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+        setHistoryParam(params);
+
+        return JSON.stringify(params)
+    }
+
+    /** 테이블 **/
+    function getReviewListData() {
+        $(reviewTable).DataTable({
+            /** 테이블 옵션 기능 **/
+            searching: false, /** 검색 **/
+            lengthChange: false, /** 블록 단위 변경기능 **/
+            info: false, /** 페이징 상태에 대한 정보 표시  **/
+            padding: false, /** 열 너비 계산 **/
+            ordering: false, /** 원하는 순서대로 데이터 표시 **/
+            paging: true, /** 페이징 **/
+            destroy: true, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
+            select: {
+                style: 'multi',
+                selector: ':checkbox'
             },
-            error: function (c) {
-                alert(label.list+message.ajaxLoadError);
+            pageLength: Number(limits.value),
+            serverSide: true, /** true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음) **/
+            processing: false,
+            order: [],
+            autoWidth: false,
+            fixedHeader:false,
+            initComplete: function () {
             },
-        },columns: [
-            {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
-                render: function (data) {
-                    return multiCheckBoxDom(data);
+            fnRowCallback: function (nRow, aData) {
+            },
+            drawCallback: function (settings) {
+                buildTotalCount($(reviewTable));
+            },
+            ajax: {
+                url: api.listReview,
+                headers: headers,
+                dataType: 'JSON',
+                type: 'POST',
+                data: function (responsed) {
+                    return tableParams(responsed)
+                },
+                error: function (c) {
+                    alert(label.list+message.ajaxLoadError);
+                },
+            },columns: [
+                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
+                    render: function (data) {
+                        return multiCheckBoxDom(data);
+                    }
+                },
+                {title:"리뷰내용", data: "review_text", render : function(data, type, full, meta) {
+                        return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
+                    }
+                },
+                {title:"평점",data: "rating"},
+                {title:"두잇명",data: "doit_title"},
+                {title:"신고",data: "report_count"},
+                {title:"블라인드 여부",data: "is_blind",
+                    render: function (data) {
+                        return data === 'Y' ? label.blind : label.unblind;
+                    }
+                },
+                {title:"작성날짜",data: "created", render: function (data) {
+                        return data.substring(0, 10);
+                    }},
+                {title:"작성자",data: "nickname"}
+            ],language: {
+                emptyTable: message.emptyList
+                , zeroRecords: message.emptyList
+                , processing: message.searching
+                , paginate: {
+                    previous: label.previous
+                    , next: label.next
                 }
-            },
-            {title:"리뷰내용", data: "review_text", render : function(data, type, full, meta) {
-                    return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
-                }
-            },
-            {title:"평점",data: "rating"},
-            {title:"두잇명",data: "doit_title"},
-            {title:"신고",data: "report_count"},
-            {title:"블라인드 여부",data: "is_blind",
-                render: function (data) {
-                    return data === 'Y' ? label.blind : label.unblind;
-                }
-            },
-            {title:"작성날짜",data: "created", render: function (data) {
-                    return data.substring(0, 10);
-                }},
-            {title:"작성자",data: "nickname"}
-        ],language: {
-            emptyTable: message.emptyList
-            , zeroRecords: message.emptyList
-            , processing: message.searching
-            , paginate: {
-                previous: label.previous
-                , next: label.next
+            }
+        });
+    }
+
+    /** 타이틀 클릭시 모달 이벤트 및 데이터 **/
+    function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
+        $("#review_text").html(review_text);
+        $("#doit_title").html(doit_title);
+        $("#rating").html(rating);
+        $("#report_count").html(report_count);
+        $("#nickname").html(nickname);
+        $("#created").html(created);
+        $("#is_blind").html(is_blind);
+        $(".modal-layout").fadeIn(500);
+        $("#modalDetail").fadeIn(500);
+        overflowHidden();
+        /** 모달 평점에 따른 별 추가 **/
+        let liList = $('ol.star-wrap').find('li');
+        for(let i=0; i<liList.length; i++){
+            let listObj = $(liList[i]);
+            if(i<rating){
+                listObj.addClass('on');
+            } else {
+                listObj.removeClass('on');
             }
         }
-    });
-}
-/** 타이틀 클릭시 모달 이벤트 및 데이터 **/
-function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
-    $("#review_text").html(review_text);
-    $("#doit_title").html(doit_title);
-    $("#rating").html(rating);
-    $("#report_count").html(report_count);
-    $("#nickname").html(nickname);
-    $("#created").html(created);
-    $("#is_blind").html(is_blind);
-    $(".modal-layout").fadeIn(500);
-    $("#modalDetail").fadeIn(500);
-    overflowHidden();
-    // 모달 평점에 따른 별 추가
-    let liList = $('ol.star-wrap').find('li');
-    for(let i=0; i<liList.length; i++){
-        let listObj = $(liList[i]);
-        if(i<rating){
-            listObj.addClass('on');
-        } else {
-            listObj.removeClass('on');
-        }
     }
-}
-function closeModal(){
-    $(".modal-layout").fadeOut(500);
-    $("#modalDetail").fadeOut(500);
-    $('body').css("overflow-y", "scroll");
- }
-const modalCloseBtn = document.querySelector('.modal-content .close-btn');
-const modalLayout = document.querySelector('.modal-layout');
-modalCloseBtn.addEventListener('click', () => {closeModal();});
-modalLayout.addEventListener('click', () => {closeModal();});
 
-
-//by.leo
-function onClickUpdateBlind()
-{
-    if (blindValidation())
+    /** by.leo **/
+    function onClickUpdateBlind()
     {
-        if (confirm('상태를 '+message.change))
+        if (blindValidation())
         {
-            $.ajax({
-                url: api.updateBlind,
-                type: "POST",
-                headers: headers,
-                dataType: 'json',
-                data: blindParams(),
-                success: function(data) {
-                    alert(getStatusMessage(data));
-                    if (isSuccessResp(data))
-                        getReviewListData();
-                },
-                error: function (request, status) {
-                    alert(label.modify+message.ajaxError);
-                },
-            });
+            if (confirm('상태를 '+message.change))
+            {
+                $.ajax({
+                    url: api.updateBlind,
+                    type: "POST",
+                    headers: headers,
+                    dataType: 'json',
+                    data: blindParams(),
+                    success: function(data) {
+                        alert(getStatusMessage(data));
+                        if (isSuccessResp(data))
+                            getReviewListData();
+                    },
+                    error: function (request, status) {
+                        alert(label.modify+message.ajaxError);
+                    },
+                });
+            }
         }
     }
-}
 
-function blindValidation()
-{
-    let table 		 = $('#review-table').DataTable();
-    let selectedData = table.rows('.selected').data();
-
-    if (isEmpty(selectedData))
+    function blindValidation()
     {
-        alert('대상을 목록에서 '+message.select);
-        return false;
+        let table 		 = $(reviewTable).DataTable();
+        let selectedData = table.rows('.selected').data();
+
+        if (isEmpty(selectedData))
+        {
+            alert('대상을 목록에서 '+message.select);
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-}
+    function blindParams()
+    {
+        let table 		 = $(reviewTable).DataTable();
+        let selectedData = table.rows('.selected').data();
+        let reviews = [];
+        for (let i=0; i<selectedData.length; i++)
+            reviews.push(selectedData[i].review_uuid);
 
-function blindParams()
-{
-    let table 		 = $('#review-table').DataTable();
-    let selectedData = table.rows('.selected').data();
-    let reviews = [];
-    for (let i=0; i<selectedData.length; i++)
-        reviews.push(selectedData[i].review_uuid);
+        let param = {
+            "reviews" : reviews
+            ,"is_blind" : g_blind_type
+        };
 
-    let param = {
-        "reviews" : reviews
-        ,"is_blind" : g_blind_type
-    };
+        return JSON.stringify(param)
+    }
 
-    return JSON.stringify(param)
-}
+    function onSubmitSearch()
+    {
+        getReviewListData();
+    }

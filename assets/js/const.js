@@ -147,7 +147,6 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,getReward : baseApiUrl+'promotion/getReward'
-		/*,involveAction : baseApiUrl+'doit/get/action'*/
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
@@ -164,7 +163,6 @@
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'
 		,detailEvent : baseApiUrl+'event/detail'
-		/*,updateEvent : ''*/
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
 		/** 푸시 **/

@@ -14,6 +14,8 @@ class MY_Controller extends CI_Controller
 
     function __destruct()
     {
+        $this->load->library('session');
+
         $UserID = "";
         $IP = "";
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

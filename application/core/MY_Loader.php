@@ -25,8 +25,10 @@ class MY_Loader extends CI_Loader {
             );
             set_cookie($cookie);
             redirect("/main/login", "refresh");
+
             return;
         }
+
         $this->view('layout/header',$vars);
         $this->view('layout/header_sub',$vars);
         $this->view('layout/left',$vars);

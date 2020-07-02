@@ -1,4 +1,5 @@
 .DS_Store
+
 .idea/*
 
 application/cache/*
@@ -8,4 +9,3 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
-application/config/config.php

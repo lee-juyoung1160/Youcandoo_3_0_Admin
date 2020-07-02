@@ -64,8 +64,11 @@
 
     }
 
-    /** 데이터 **/
-    function tableParams (response) {
+    /** 테이블 파라미터 **/
+    function tableParams () {
+        let table = $(reviewTable).DataTable();
+        let info = table.page.info();
+        let _page = (info.start / info.length) + 1;
         const report = document.querySelector('.report input[name=radio-report]:checked');
         const blind = document.querySelector('.blind input[name=radio-blind]:checked');
         const ratingListCheck = Array.from(ratingLists).map(function (checkbox) {
@@ -80,7 +83,7 @@
             "rating_list": ratingListCheck,
             "is_report": report.value,
             "is_blind": blind.value,
-            "page":  (response.start / response.length) + 1,
+            "page":  _page,
             "limit": Number(limits.value)
         }
 
@@ -124,7 +127,7 @@
                 dataType: 'JSON',
                 type: 'POST',
                 data: function (responsed) {
-                    return tableParams(responsed)
+                    return tableParams();
                 },
                 error: function (c) {
                     alert(label.list+message.ajaxLoadError);

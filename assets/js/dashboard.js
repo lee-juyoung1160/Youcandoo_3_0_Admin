@@ -258,8 +258,11 @@ function getYearData(yearVal) {
                     legend: {
                         align: 'start',
                         position: 'top',
-                        responsive:'false',
+                        responsive: 'false',
                         maintainAspectRatio: 'false',
+                    },
+                    scales: {
+                        yAxes: [{ticks: {beginAtZero: true}}]
                     }
                 },
             });
@@ -267,7 +270,7 @@ function getYearData(yearVal) {
     });
 }
 
-/** 월 단위로 인증된 두잇 **/
+/** 일 단위로 인증된 두잇 **/
 let certLineChart;
 function getCertMonthYearData(certYearVal,certMonthVal) {
     let param = {
@@ -301,6 +304,9 @@ function getCertMonthYearData(certYearVal,certMonthVal) {
                      legend: {
                          display: false
                      },
+                     scales: {
+                         yAxes: [{ticks: {beginAtZero: true}}]
+                     }
                  }
              });
         },

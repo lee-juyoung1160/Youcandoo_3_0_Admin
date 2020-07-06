@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">앱 버전관리</h2>
-            <button id="btnOpenModal" type="button" class="more-info-btn" style="float: right;"><i class="fas fa-plus"></i>업데이트 등록</button>
+            <button id="btnOpenModal" type="button" class="more-info-btn" style="float: right; border: none;"><i class="fas fa-plus"></i> 업데이트 등록</button>
         </div>
 
         <div class="doit-list-option">
@@ -63,8 +63,8 @@
                             </div>
                         </th>
                         <th>마켓</th>
-                        <th>구분</th>
                         <th>버전</th>
+                        <th>구분</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +76,8 @@
                             </div>
                         </td>
                         <td>애플</td>
+                        <td>0.1.15</td>
                         <td>선택</td>
-                        <td>0.1.1</td>
                     </tr>
                 </tbody>
             </table>
@@ -98,28 +98,37 @@
             <p class="modal-title">버전 업데이트 등록</p>
             <ul class="modal-information">
                 <li>
-                    작업중..
-                </li>
-                <li>
-                    <div class="table-wrap">
-                        <table id="aa">
-                            <!--<colgroup>
-                                <col style="width:100%;">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>기업명</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>카카오키즈</td>
-                            </tr>
-                            </tbody>-->
-                        </table>
+                    <p class="sub-title">구분 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r14" name="radio-division" value="0"/>
+                        <label for="r14"><span></span>강제</label>
+
+                        <input type="radio" id="r15" name="radio-division" value="2"/>
+                        <label for="r15"><span></span>선택</label>
                     </div>
                 </li>
+                <li>
+                    <p class="sub-title">마켓 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r11" name="radio-division" value="0"/>
+                        <label for="r11"><span></span>애플</label>
+
+                        <input type="radio" id="r13" name="radio-division" value="2"/>
+                        <label for="r13"><span></span>구글</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">
+                        최신 버전 *
+                    </p>
+                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
+                    <span class="input-num-title">.</span>
+                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
+                    <span class="input-num-title">.</span>
+                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
+                </li>
             </ul>
+            <button type="button" class="completion-btn">완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

@@ -1,53 +1,75 @@
 
-	const search 			= $(".search");
-	const reset 			= $(".reset");
-	const dataTable			= $("#dataTable")
-	const keyword			= $("#keyword");
-	const selPageLength 	= $("#selPageLength");
-	const btnDelete			= $("#btnDelete");
+	const search 		= $(".search");
+	const reset 		= $(".reset");
+	const marketSearch	= $("input[name=radio-market-search]");
+	const dataTable		= $("#dataTable")
+	const selPageLength = $("#selPageLength");
+	const btnDelete		= $("#btnDelete");
 	/** modal **/
-	const btnOpenModal		= $("#btnOpenModal");
-	const btnSubmit			= $("#btnSubmit");
-	const modalCloseBtn 	= $(".close-btn");
-	const modalLayout 		= $(".modal-layout");
-	const modalContent 		= $(".modal-content");
+	const btnOpenModal	= $("#btnOpenModal");
+	const forceUpdate	= $("input[name=radio-forceupdate]");
+	const marketModal	= $("input[name=radio-market]");
+	const digit			= $("#digit");
+	const decimal1		= $("#decimal1");
+	const decimal2		= $("#decimal2");
+	const btnSubmit		= $("#btnSubmit");
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
 
 	$(document).ready(function () {
 		/** 상단 검색 폼 초기화 **/
-		//initSearchForm();
+		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildGrid();
+		buildGrid();
 		/** 이벤트 **/
+		digit     		.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
+		decimal1     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnOpenModal	.on('click', function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		//btnSubmit		.on('click', function () { onSubmitProhibition(); });
-		//btnDelete		.on("click", function () { deleteProhibition(); });
+		btnSubmit		.on('click', function () { onSubmitAppVersion(); });
+		btnDelete		.on("click", function () { deleteAppVersion(); });
 	});
+
+	function validDigit(obj)
+	{
+		let inputValue = $(obj).val();
+		let inputValueArr = inputValue.split("");
+		if (inputValueArr[0] == 0)
+			$(obj).val(0);
+	}
 
 	function initSearchForm()
 	{
-		keyword.val('');
+		marketSearch.eq(0).prop('checked' ,true);
 	}
 
 	function onClickModalOpen()
 	{
-		initModal();
 		modalFadein();
+		initModal();
 	}
 
 	function initModal()
 	{
+		forceUpdate.eq(0).prop('checked' ,true);
+		marketModal.eq(0).prop('checked' ,true);
+		console.log(digit)
+		digit.val('');
+		decimal1.val('');
+		decimal2.val('');
+		digit.focus();
 	}
 
 	function buildGrid()
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listProhibition,
+				url: api.listAppVersion,
 				type: "POST",
 				headers: headers,
 				data: function (d) {
@@ -58,17 +80,14 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 	data: "idx",   width: "5%",     orderable: false,
 					render: function (data) {
-						return multiCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "업데이트",   data: "word",    	  	    width: "80%",  	 orderable: false,   className: "cursor-default" }
-				,{title: "버전", 	 data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
+				,{title: "마켓",   	data: "word",     width: "30%",    orderable: false,   className: "cursor-default" }
+				,{title: "버전", 	data: "version",  width: "30%",    orderable: false,   className: "cursor-default" }
+				,{title: "업데이트",  data: "version",  width: "30%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -88,7 +107,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -116,7 +135,7 @@
 		let _page = (info.start / info.length) + 1;
 
 		let param = {
-			"keyword" : keyword.val().trim()
+			"store" : $("input[name=radio-market-search]:checked").val()
 			,"limit" : Number(selPageLength.val())
 			,"page" : _page
 		}
@@ -132,15 +151,15 @@
 		buildGrid();
 	}
 
-	/** 금칙어 등록 **/
-	function onSubmitProhibition()
+	/** 앱 버전 등록 **/
+	function onSubmitAppVersion()
 	{
 		if (validation())
 		{
 			if (confirm(message.create))
 			{
 				$.ajax({
-					url: api.createProhibition,
+					url: api.createAppVersion,
 					type: "POST",
 					headers: headers,
 					dataType: 'json',
@@ -165,19 +184,10 @@
 
 	function addParams()
 	{
-		let inputValue = prohibition.val();
-		let inputValues = inputValue.split(",");
-		let paramValues = [];
-
-		/** 공백 제거 **/
-		for (let i=0; i<inputValues.length; i++)
-		{
-			if (!isEmpty(inputValues[i]))
-				paramValues.push(inputValues[i].trim());
-		}
-
 		let param = {
-			"word" : paramValues.toString()
+			"force" : $("input[name=radio-forceupdate]:checked").val()
+			,"market" : $("input[name=radio-market]:checked").val()
+			,"version" : ""
 		}
 
 		return JSON.stringify(param);
@@ -185,25 +195,39 @@
 
 	function validation()
 	{
-		if (isEmpty(prohibition.val()))
+		if (isEmpty(digit.val()))
 		{
-			alert('금칙어는 '+message.required)
-			prohibition.focus();
+			alert('버전은 '+message.required)
+			digit.focus();
+			return false;
+		}
+
+		if (isEmpty(decimal1.val()))
+		{
+			alert('버전은 '+message.required)
+			decimal1.focus();
+			return false;
+		}
+
+		if (isEmpty(decimal2.val()))
+		{
+			alert('버전은 '+message.required)
+			decimal2.focus();
 			return false;
 		}
 
 		return true;
 	}
 
-	/** 금칙어 삭제 **/
-	function deleteProhibition()
+	/** 앱 버전 삭제 **/
+	function deleteAppVersion()
 	{
 		if (delValidation())
 		{
 			if (confirm(message.delete))
 			{
 				$.ajax({
-					url: api.deleteProhibition,
+					url: api.deleteAppVersion,
 					type: "POST",
 					headers: headers,
 					dataType: 'json',
@@ -224,7 +248,7 @@
 	function delValidation()
 	{
 		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
+		let selectedData = table.rows('.selected').data()[0];
 
 		if (isEmpty(selectedData))
 		{
@@ -238,17 +262,10 @@
 	function delParams()
 	{
 		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		let params = [];
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let idx = selectedData[i].idx;
-			params.push(idx);
-		}
+		let selectedData = table.rows('.selected').data()[0];
 
 		let delParam = {
-			"idx_list" : params
+			"idx" : selectedData.idx
 		};
 
 		return JSON.stringify(delParam)

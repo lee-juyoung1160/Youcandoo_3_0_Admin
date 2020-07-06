@@ -110,8 +110,8 @@
 	/** 기업 검색 **/
 	function onClickBizName()
 	{
-		initModal();
 		modalFadein();
+		initModal();
 		getBiz();
 	}
 

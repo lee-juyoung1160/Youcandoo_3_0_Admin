@@ -142,8 +142,8 @@
 
     function btnModalOpen(obj)
     {
-        initModal(obj);
         modalFadein();
+        initModal(obj);
     }
 
     function initModal(obj)

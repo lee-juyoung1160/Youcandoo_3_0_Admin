@@ -10,13 +10,13 @@
                 <li>
                     <p class="list-common-title">마켓</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-exposure" value=""/>
+                        <input type="radio" id="r2" name="radio-market-search" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="radio-exposure" value="Y"/>
+                        <input type="radio" id="r3" name="radio-market-search" value="apple"/>
                         <label for="r3"><span></span>애플</label>
 
-                        <input type="radio" id="r4" name="radio-exposure" value="N"/>
+                        <input type="radio" id="r4" name="radio-market-search" value="google"/>
                         <label for="r4"><span></span>구글</label>
                     </div>
                 </li>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:10%;">
                     <col style="width:30%;">
                     <col style="width:30%;">
@@ -79,7 +79,7 @@
                         <td>0.1.15</td>
                         <td>선택</td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
@@ -100,20 +100,20 @@
                 <li>
                     <p class="sub-title">구분 *</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r14" name="radio-division" value="0"/>
+                        <input type="radio" id="r14" name="radio-forceupdate" value="Y"/>
                         <label for="r14"><span></span>강제</label>
 
-                        <input type="radio" id="r15" name="radio-division" value="2"/>
+                        <input type="radio" id="r15" name="radio-forceupdate" value="N"/>
                         <label for="r15"><span></span>선택</label>
                     </div>
                 </li>
                 <li>
                     <p class="sub-title">마켓 *</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r11" name="radio-division" value="0"/>
+                        <input type="radio" id="r11" name="radio-market" value="apple"/>
                         <label for="r11"><span></span>애플</label>
 
-                        <input type="radio" id="r13" name="radio-division" value="2"/>
+                        <input type="radio" id="r13" name="radio-market" value="google"/>
                         <label for="r13"><span></span>구글</label>
                     </div>
                 </li>
@@ -121,14 +121,12 @@
                     <p class="sub-title">
                         최신 버전 *
                     </p>
-                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
+                    <input id="digit" type="text" style="width: 100px;" maxlength="2">
                     <span class="input-num-title">.</span>
-                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
-                    <span class="input-num-title">.</span>
-                    <input type="text" class="only-num" style="width: 100px;" maxlength="8">
+                    <input id="decimal1" type="text" style="width: 100px;" maxlength="2">
                 </li>
             </ul>
-            <button type="button" class="completion-btn">완료</button>
+            <button id="btnSubmit" type="button" class="completion-btn">완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

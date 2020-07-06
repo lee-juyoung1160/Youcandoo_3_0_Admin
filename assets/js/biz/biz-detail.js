@@ -66,10 +66,10 @@
 
 		function onClickModalContractOpen()
 		{
-			initModalContract();
 			modalLayout.fadeIn();
 			modalContract.fadeIn();
 			overflowHidden();
+			initModalContract();
 		}
 
 		function initModalContract()
@@ -334,10 +334,10 @@
 
 		function btnModalDescOpen(obj)
 		{
-			initModalDesc(obj);
 			modalLayout.fadeIn();
 			modalDesc.fadeIn();
 			overflowHidden();
+			initModalDesc(obj);
 		}
 
 		function initModalDesc(obj)

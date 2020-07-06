@@ -46,8 +46,8 @@
 
 	function onClickModalOpen()
 	{
-		initModal();
 		modalFadein();
+		initModal();
 	}
 
 	let g_banners = [];

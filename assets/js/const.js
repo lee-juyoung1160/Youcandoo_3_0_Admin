@@ -219,9 +219,9 @@
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
 		/** app version **/
-		,createAppVersion : baseApiUrl+'app/version/create'
-		,deleteAppVersion : baseApiUrl+'app/version/delete'
-		,listAppVersion : baseApiUrl+'app/version/list'
+		,createAppVersion : baseApiUrl+'version/create'
+		,deleteAppVersion : baseApiUrl+'version/delete'
+		,listAppVersion : baseApiUrl+'version/list'
 	}
 
 	/** page url **/

@@ -60,8 +60,8 @@
 	/** 기업 검색 **/
 	function onClickModalOpen()
 	{
-		initModal();
 		modalFadein();
+		initModal();
 		getUser();
 		buildMovedUser();
 	}

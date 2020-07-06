@@ -139,6 +139,23 @@
 
 		$(obj).val(respStr);
 	}
+
+	function initInputNumberWithZero(obj)
+	{
+		let inputValue = $(obj).val();
+		let inputValueArr = inputValue.split("");
+		let inputLength = inputValueArr.length;
+		let respStr = '';
+		for (let i=0; i<inputLength; i++)
+		{
+			if (!isNumber(inputValueArr[0]))
+				inputValueArr[0] = '';
+			if (isNumber(inputValueArr[i]))
+				respStr += inputValueArr[i];
+		}
+
+		$(obj).val(respStr);
+	}
 	
 	function isNumber(param)
 	{

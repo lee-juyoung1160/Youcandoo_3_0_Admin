@@ -46,8 +46,8 @@
 
 	function onClickNickname()
 	{
-		initModal();
 		modalFadein();
+		initModal();
 		getUsers();
 	}
 	

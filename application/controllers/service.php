@@ -50,14 +50,17 @@ class Service extends MY_Controller {
     {
         $this->load->layout('service/action-list');
     }
+
     public function prohibition()
     {
         $this->load->layout('service/prohibited-list');
     }
+
     public function version()
     {
         $this->load->layout('service/version-list');
     }
+
 /*
     public function inquiry($Route="list")
     {

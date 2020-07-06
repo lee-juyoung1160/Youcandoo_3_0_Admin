@@ -218,6 +218,10 @@
 		,listSalesUcd : baseApiUrl+'ucd/sales/list'
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
+		/** app version **/
+		,createAppVersion : baseApiUrl+'app/version/create'
+		,deleteAppVersion : baseApiUrl+'app/version/delete'
+		,listAppVersion : baseApiUrl+'app/version/list'
 	}
 
 	/** page url **/
@@ -259,6 +263,8 @@
 		,detailInquiry : '/service/inquiry/detail/'
 
 		,listProhibition : '/service/prohibition'
+
+		,listAppVersion : '/service/app/version'
 
 		,listAdmin : '/admin'
 		,createAdmin : '/admin/create'

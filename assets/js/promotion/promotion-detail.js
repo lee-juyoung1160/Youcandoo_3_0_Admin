@@ -122,7 +122,7 @@
 		let notices = detailPromo.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
-			noticeDom += '<p class="detail-data">'+notices[i]+'</p>';
+			noticeDom += '<p class="detail-data">- '+notices[i]+'</p>';
 		promoNotice.html(noticeDom);
 		allowCount.html(detailPromo.promotion_allow_count+'회');
 		banner.attr('src', detailPromo.banner_image_url);

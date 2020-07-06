@@ -13,8 +13,9 @@
     const btnUnBlind	= $("#btnUnBlind");
     let g_blind_type;
     /** modal **/
-    const modalCloseBtn = document.querySelector('.modal-content .close-btn');
-    const modalLayout   = document.querySelector('.modal-layout');
+    const modalCloseBtn = $(".close-btn");
+    const modalLayout 	= $(".modal-layout");
+    const modalContent 	= $(".modal-content");
 
     /** 로드 시점 **/
     document.addEventListener("DOMContentLoaded", function () {
@@ -36,8 +37,8 @@
         searchBtn   .addEventListener('click', () => {onSubmitSearch();});
         limits      .addEventListener('change', () => {onSubmitSearch();});
 
-        modalCloseBtn.addEventListener('click', () => {modalFadeout();});
-        modalLayout  .addEventListener('click', () => {modalFadeout();});
+        modalCloseBtn.on('click', function () { modalFadeout(); });
+        modalLayout	 .on('click', function () { modalFadeout(); });
     });
 
     /** 평점 마지막 하나일때 고정하기 **/

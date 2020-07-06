@@ -20,6 +20,7 @@
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,invalidResolution : '유효하지 않은 이미지 사이즈입니다.'
 		,invalidBrowser: '지원하지 않는 브라우져입니다.'
+		,maxJoinPromo : '최대 5회까지 등록 가능합니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'
@@ -107,6 +108,12 @@
 		getBizName : baseApiUrl+'keyword/getCompanyName'
 		,getNickname : baseApiUrl+'user/getNickname'
 		,getBalance : baseApiUrl+'ucd/status/company'
+		/** 대시보드 **/
+		,getDoitStat : baseApiUrl+'dashboard/doit/status'
+		,getUserStat : baseApiUrl+'dashboard/user/status'
+		,getUcdStat : baseApiUrl+'dashboard/ucd'
+		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
+		,getDailyAction : baseApiUrl+'dashboard/action/date'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'
@@ -147,7 +154,6 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,getReward : baseApiUrl+'promotion/getReward'
-		/*,involveAction : baseApiUrl+'doit/get/action'*/
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
@@ -164,7 +170,6 @@
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'
 		,detailEvent : baseApiUrl+'event/detail'
-		/*,updateEvent : ''*/
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
 		/** 푸시 **/

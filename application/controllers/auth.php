@@ -41,22 +41,28 @@ class Auth extends CI_Controller {
             alert("사용자 정보가 존재하지 않습니다", "/main/login");
             return;
         }
+
         $UserData = json_decode($this->redis_session->hGet("admin:user", $UserID));
-        if($Password != $UserData->password)
-        {
+        if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
             alert("비밀번호가 일치하지 않습니다", "/main/login");
             return;
         }
+
+        if ($UserData->is_active == "N") {
+            alert("로그인 할수 없습니다", "/main/login");
+            return;
+        }
+
         $this->setLoginInfo($UserID);
         $this->updateFailCount($UserID, 0);
 
         // Cookie Set
         $this->load->helper('cookie');
         $cookie = array(
-            'name'   => 'userid',
-            'value'  => $UserData->userid,
-            'expire' => 60*60*24*365,
+            'name' => 'userid',
+            'value' => $UserData->userid,
+            'expire' => 60 * 60 * 24 * 365,
             'domain' => '.youcandoo.co.kr',
             'path'   => '/'
         );

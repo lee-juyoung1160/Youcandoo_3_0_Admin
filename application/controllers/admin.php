@@ -1,39 +1,47 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends MY_Controller {
+class Admin extends MY_Controller
+{
+
     public function index()
-        {
-            $this->load->layout('admin/admin-list');
-        }
+    {
+        $this->load->layout('admin/admin-list');
+    }
+
     public function create()
-        {
-            $this->load->layout('admin/admin-create');
-        }
+    {
+        $this->load->layout('admin/admin-create');
+    }
+
     public function detail()
-        {
-            $this->load->layout('admin/admin-detail');
-        }
+    {
+        $this->load->layout('admin/admin-detail');
+    }
+
     public function update()
-        {
-            $this->load->layout('admin/admin-update');
-        }
+    {
+        $this->load->layout('admin/admin-update');
+    }
+
     public function myPage()
-        {
-            $this->load->layout('admin/admin-mypage');
-        }
+    {
+        $this->load->layout('admin/admin-mypage');
+    }
 
     public function auth()
-        {
-            $this->load->layout('admin/admin-auth-create');
-        }
+    {
+        $this->load->layout('admin/admin-auth-create');
+    }
+
     public function log()
-        {
-            $this->load->layout('admin/admin-log');
-        }
+    {
+        $this->load->layout('admin/admin-log');
+    }
+
     public function deploy()
-        {
-            $this->load->layout('admin/deploy');
-        }
+    {
+        $this->load->layout('admin/deploy');
+    }
 
 }

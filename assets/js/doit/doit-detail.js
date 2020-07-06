@@ -969,7 +969,7 @@
 						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i + 1) + '">' + (i + 1) + '</a>';
 					}
 
-					if (pageLength === i)
+					if (last === i)
 					{
 						pageDom += '<span class="ellipsis">…</span>';
 						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';

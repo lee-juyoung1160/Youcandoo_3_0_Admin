@@ -7,7 +7,8 @@ class Main extends MY_Controller {
 	{
         $this->load->layout('dashboard');
 	}
-	public function login()
+
+    public function login()
     {
         $this->load->view('login');
     }

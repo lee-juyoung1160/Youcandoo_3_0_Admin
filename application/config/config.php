@@ -24,7 +24,7 @@ $config['redis_session']="10.0.124.14";
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://dev.admin.youcandoo.co.kr';
+$config['base_url'] = 'https://admin.youcandoo.co.kr';
 
 /*
 |--------------------------------------------------------------------------

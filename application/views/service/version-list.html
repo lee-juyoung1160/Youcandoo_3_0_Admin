@@ -1,0 +1,130 @@
+<section class="version-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">앱 버전관리</h2>
+            <a href="#"><i class="fas fa-plus"></i>업데이트 등록</a>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">마켓</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="radio-exposure" value=""/>
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-exposure" value="Y"/>
+                        <label for="r3"><span></span>애플</label>
+
+                        <input type="radio" id="r4" name="radio-exposure" value="N"/>
+                        <label for="r4"><span></span>구글</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="select-box">
+                        <label for="selPageLength">10개씩 보기</label>
+                        <select id="selPageLength">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="30">30개씩 보기</option>
+                        </select>
+                    </div>
+                    <p>Total <strong class="data-num"></strong></p>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnDelete" class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>업데이트 삭제</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <colgroup>
+                    <col style="width:10%;">
+                    <col style="width:30%;">
+                    <col style="width:30%;">
+                    <col style="width:30%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>마켓</th>
+                        <th>구분</th>
+                        <th>버전</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td>애플</td>
+                        <td>선택</td>
+                        <td>0.1.1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+
+
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">버전 업데이트 등록</p>
+            <ul class="modal-information">
+                <li>
+                    작업중..
+                </li>
+                <li>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                            <!--<colgroup>
+                                <col style="width:100%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>기업명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>카카오키즈</td>
+                            </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+
+
+</section>

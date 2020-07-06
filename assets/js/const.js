@@ -107,6 +107,12 @@
 		getBizName : baseApiUrl+'keyword/getCompanyName'
 		,getNickname : baseApiUrl+'user/getNickname'
 		,getBalance : baseApiUrl+'ucd/status/company'
+		/** 대시보드 **/
+		,getDoitStat : baseApiUrl+'dashboard/doit/status'
+		,getUserStat : baseApiUrl+'dashboard/user/status'
+		,getUcdStat : baseApiUrl+'dashboard/ucd'
+		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
+		,getDailyAction : baseApiUrl+'dashboard/action/date'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'

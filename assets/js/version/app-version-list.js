@@ -1,6 +1,6 @@
 
-	const search 		= $(".search");
-	const reset 		= $(".reset");
+	/*const search 		= $(".search");
+	const reset 		= $(".reset");*/
 	const marketSearch	= $("input[name=radio-market-search]");
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
@@ -10,8 +10,7 @@
 	const forceUpdate	= $("input[name=radio-forceupdate]");
 	const marketModal	= $("input[name=radio-market]");
 	const digit			= $("#digit");
-	const decimal1		= $("#decimal1");
-	const decimal2		= $("#decimal2");
+	const decimal		= $("#decimal");
 	const btnSubmit		= $("#btnSubmit");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -24,9 +23,10 @@
 		buildGrid();
 		/** 이벤트 **/
 		digit     		.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
-		decimal1     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initSearchForm(); });
+		decimal     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		/*search			.on("click", function () { onSubmitSearch(); });
+		reset			.on("click", function () { initSearchForm(); });*/
+		marketSearch	.on("click", function () { onSubmitSearch(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnOpenModal	.on('click', function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
@@ -58,10 +58,8 @@
 	{
 		forceUpdate.eq(0).prop('checked' ,true);
 		marketModal.eq(0).prop('checked' ,true);
-		console.log(digit)
 		digit.val('');
-		decimal1.val('');
-		decimal2.val('');
+		decimal.val('');
 		digit.focus();
 	}
 
@@ -85,9 +83,14 @@
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "마켓",   	data: "word",     width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "버전", 	data: "version",  width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "업데이트",  data: "version",  width: "30%",    orderable: false,   className: "cursor-default" }
+				,{title: "마켓",   	data: "store",     		  width: "20%",    orderable: false,   className: "cursor-default" }
+				,{title: "버전", 	data: "target_version",   width: "30%",    orderable: false,   className: "cursor-default" }
+				,{title: "강제여부",  data: "force_update",     width: "20%",    orderable: false,   className: "cursor-default",
+					render: function (data) {
+						return Number(data) === 1 ? '선택' : '강제';
+					}
+				}
+				,{title: "등록일시",  data: "datetime",     	  width: "15%",    orderable: false,   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -185,9 +188,9 @@
 	function addParams()
 	{
 		let param = {
-			"force" : $("input[name=radio-forceupdate]:checked").val()
-			,"market" : $("input[name=radio-market]:checked").val()
-			,"version" : ""
+			"force_update" : $("input[name=radio-forceupdate]:checked").val()
+			,"store" : $("input[name=radio-market]:checked").val()
+			,"target_version" : digit.val()+'.'+decimal.val()
 		}
 
 		return JSON.stringify(param);
@@ -202,17 +205,10 @@
 			return false;
 		}
 
-		if (isEmpty(decimal1.val()))
+		if (isEmpty(decimal.val()))
 		{
 			alert('버전은 '+message.required)
-			decimal1.focus();
-			return false;
-		}
-
-		if (isEmpty(decimal2.val()))
-		{
-			alert('버전은 '+message.required)
-			decimal2.focus();
+			decimal.focus();
 			return false;
 		}
 

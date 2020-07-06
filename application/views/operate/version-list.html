@@ -10,9 +10,6 @@
                 <li>
                     <p class="list-common-title">마켓</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-market-search" value=""/>
-                        <label for="r2"><span></span>전체</label>
-
                         <input type="radio" id="r3" name="radio-market-search" value="apple"/>
                         <label for="r3"><span></span>애플</label>
 
@@ -23,12 +20,12 @@
             </ul>
         </div>
 
-        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+        <!--<div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
                 <button class="search">검색</button>
                 <button class="reset" type="reset">초기화</button>
             </div>
-        </div>
+        </div>-->
 
         <div class="table-wrap">
             <div class="top clearfix">
@@ -100,10 +97,10 @@
                 <li>
                     <p class="sub-title">구분 *</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r14" name="radio-forceupdate" value="Y"/>
+                        <input type="radio" id="r14" name="radio-forceupdate" value="2"/>
                         <label for="r14"><span></span>강제</label>
 
-                        <input type="radio" id="r15" name="radio-forceupdate" value="N"/>
+                        <input type="radio" id="r15" name="radio-forceupdate" value="1"/>
                         <label for="r15"><span></span>선택</label>
                     </div>
                 </li>
@@ -123,7 +120,7 @@
                     </p>
                     <input id="digit" type="text" style="width: 100px;" maxlength="2">
                     <span class="input-num-title">.</span>
-                    <input id="decimal1" type="text" style="width: 100px;" maxlength="2">
+                    <input id="decimal" type="text" style="width: 100px;" maxlength="2">
                 </li>
             </ul>
             <button id="btnSubmit" type="button" class="completion-btn">완료</button>

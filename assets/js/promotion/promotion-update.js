@@ -676,6 +676,20 @@
 			return false;
 		}
 
+		if (isEmpty(allowCount.val()))
+		{
+			alert('프로모션 동시 참여 횟수는 ' + message.required);
+			allowCount.focus();
+			return false;
+		}
+
+		if (Number(allowCount.val()) > 5)
+		{
+			alert('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
+			allowCount.focus();
+			return false;
+		}
+
 		if (isOverDuration())
 		{
 			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);

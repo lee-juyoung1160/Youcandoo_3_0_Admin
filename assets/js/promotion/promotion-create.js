@@ -74,7 +74,7 @@
 		bizName.val('');
 		promoName.val('');
 		budget.val('');
-		allowCount.val(1);
+		allowCount.val(3);
 		isBanner.eq(0).prop("checked", true);
 		initNoticeArea();
 		/** 리워드 제목과 탭 이름 같은 값으로 세팅 **/
@@ -685,7 +685,14 @@
 
 		if (isEmpty(allowCount.val()))
 		{
-			alert('참여가능 횟수는 ' + message.required);
+			alert('프로모션 동시 참여 횟수는 ' + message.required);
+			allowCount.focus();
+			return false;
+		}
+
+		if (Number(allowCount.val()) > 5)
+		{
+			alert('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
 			allowCount.focus();
 			return false;
 		}

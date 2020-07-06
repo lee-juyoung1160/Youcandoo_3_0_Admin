@@ -62,7 +62,6 @@
         ratingLists.forEach(function(item, index, array){item.checked = true;});
         document.querySelector('input[name=radio-report]').checked = true;
         document.querySelector('input[name=radio-blind]').checked = true;
-
     }
 
     /** 테이블 파라미터 **/

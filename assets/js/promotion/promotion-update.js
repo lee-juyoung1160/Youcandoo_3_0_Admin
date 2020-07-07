@@ -34,6 +34,23 @@
 		btnSubmit		.on('click', function () { onSubmitUpdatePromo(); });
 	});
 
+	function onChangePromoFrom()
+	{
+		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
+	}
+
+	/** 프로모션 기간 계산 **/
+	/*function calculateTerm()
+	{
+		let fromDate = promoFrom.datepicker('getDate');
+		let toDate = promoTo.datepicker('getDate');
+
+		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
+		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
+
+		return diff;
+	}*/
+
 	function getPromotion()
 	{
 		$.ajax({
@@ -207,14 +224,14 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap" style="display: inline-block;">인증 기간 (*)</p>';
+			detailDom += 					'<p class="cap" style="display: inline-block;">인증 기간 (*)</p> ';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
 			detailDom += 					'</i>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
-			detailDom += 					'<span class="input-num-title">일</span>';
+			detailDom += 					'<span class="input-num-title"> 일</span>';
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
@@ -245,7 +262,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p>';
+			detailDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p> ';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>';
 			detailDom += 					'</i>';
@@ -253,7 +270,7 @@
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<input id="'+goalRangeId+'" type="range" class="custom-range goal-range" readonly>';
 			detailDom += 					'<input id="'+goalRateId+'" class="input-num-box goal-rate" type="text" readonly>';
-			detailDom += 					'<span class="input-num-title">%</span>';
+			detailDom += 					'<span class="input-num-title"> %</span>';
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
@@ -384,7 +401,7 @@
 		else
 		{
 			$(obj).toggleClass('active');
-			let activeCount = 0;
+			/*let activeCount = 0;
 			frequencyUl.each(function () {
 				if ($(this).hasClass('active'))
 					activeCount++
@@ -394,7 +411,7 @@
 			{
 				alert('주간빈도는 '+message.overFrequency+'\n인증기간: '+duration+', 선택한 주간빈도 수: '+activeCount);
 				$(obj).toggleClass('active');
-			}
+			}*/
 		}
 	}
 
@@ -501,11 +518,14 @@
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap">인증 기간 (*)</p>';
+		rewardDom += 					'<p class="cap">인증 기간 (*)</p> ';
+		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
+		rewardDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
+		rewardDom += 					'</i>';
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
-		rewardDom += 					'<span class="input-num-title">일</span>';
+		rewardDom += 					'<span class="input-num-title"> 일</span>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -530,7 +550,7 @@
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p>';
+		rewardDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p> ';
 		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 		rewardDom += 						'<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>';
 		rewardDom += 					'</i>';
@@ -538,7 +558,7 @@
 		rewardDom +=	 			'<div class="col-2">';
 		rewardDom += 					'<input id="'+goalRange+'" type="range" class="custom-range goal-range" readonly>';
 		rewardDom += 					'<input id="'+goalRate+'" class="input-num-box goal-rate" type="text" readonly>';
-		rewardDom += 					'<span class="input-num-title">%</span>';
+		rewardDom += 					'<span class="input-num-title"> %</span>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -708,6 +728,12 @@
 			return false;
 		}
 
+		if (isOverFrequency())
+		{
+			alert('주간빈도는 '+message.overFrequency+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			return false;
+		}
+
 		if (isEmptyRewardUcd())
 		{
 			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
@@ -745,9 +771,7 @@
 	{
 		let result = false;
 		let ucdTable = $(".ucd-table-body");
-		let rewardSelectDoms = rewardTabWrap.find('li');
-		let rewardSelectDomLength = rewardSelectDoms.length;
-		for (let i=0; i<rewardSelectDomLength; i++)
+		for (let i=0; i<ucdTable.length; i++)
 		{
 			$(ucdTable[i]).find('input').each(function () {
 				if (isEmpty($(this).val()))
@@ -798,39 +822,35 @@
 		return result;
 	}
 
-	function onChangePromoFrom()
-	{
-		promoTo.datepicker("option", "minDate", new Date(promoFrom.datepicker("getDate")));
-	}
-
-	/** 프로모션 기간 계산 **/
-	function calculateTerm() {
-		let fromDate = promoFrom.datepicker('getDate');
-		let toDate = promoTo.datepicker('getDate');
-
-		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
-		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
-
-		return diff;
-	}
-
 	function isEmptyFrequency()
 	{
 		let retVal = false;
 		let rewardDom = $("ul.pro-reward");
-		let rewardSelectDoms = rewardTabWrap.find('li');
-		let rewardSelectDomLength = rewardSelectDoms.length;
-		for (let i=0; i<rewardSelectDomLength; i++)
+		for (let i=0; i<rewardDom.length; i++)
 		{
-			let activeDuration = $(rewardDom[i]).find('.duration.active');
-			let activeFrequency = $(rewardDom[i]).find('.frequency.active');
-			let activeFrequencyLen = activeFrequency.length;
+			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
 
-			if ($(activeDuration).data('days') > 1 && activeFrequencyLen == 0)
-					retVal = true;
+			if (Number(activeFrequencyLen) === 0)
+				result = true;
 		}
 
 		return retVal;
+	}
+
+	function isOverFrequency()
+	{
+		let result = false;
+		let rewardDom = $("ul.pro-reward");
+		for (let i=0; i<rewardDom.length; i++)
+		{
+			let duration = $(rewardDom[i]).find('.duration').val();
+			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
+
+			if (Number(duration) < activeFrequencyLen)
+				result = true;
+		}
+
+		return result;
 	}
 
 	function isOverBudget()

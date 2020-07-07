@@ -186,6 +186,7 @@
 	/****************
 	 * 두잇정보탭 관련
 	 * **************/
+	let g_doitUuid;
 	function getDoit()
 	{
 		$.ajax({
@@ -196,7 +197,10 @@
 			data: JSON.stringify({"idx" : idx}),
 			success: function(data) {
 				if (isSuccessResp(data))
+				{
+					g_doitUuid = data.data.doit_uuid;
 					buildDoitDetail(data);
+				}
 				else
 					alert(invalidResp(data));
 			},
@@ -206,14 +210,9 @@
 		});
 	}
 
-	let g_doitUuid;
-	let g_doitTitle;
 	function buildDoitDetail(data)
 	{
 		let detail 	 = data.data;
-
-		g_doitUuid = detail.doit_uuid;
-		g_doitTitle = detail.doit_title;
 
 		doitTitle.html(detail.doit_title);
 		actionDate.html(detail.action_start_datetime+label.tilde+detail.action_end_datetime);

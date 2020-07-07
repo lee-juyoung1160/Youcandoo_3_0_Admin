@@ -39,12 +39,12 @@
     }
     const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
     /** 셀렉박스 + 레이블 **/
-    let yearSelectBox = document.getElementById('doit-year-select');
-    let yearLabel = document.querySelector('.year-label');
-    let certMonthSelectBox = document.getElementById('cert-month-select');
-    let certMonthLabel = document.querySelector('.cert-month-label');
-    let certYearSelectBox = document.getElementById('cert-year-select');
-    let certYearLabel = document.querySelector('.cert-year-label');
+    const yearSelectBox = document.getElementById('doit-year-select');
+    const yearLabel = document.querySelector('.year-label');
+    const certMonthSelectBox = document.getElementById('cert-month-select');
+    const certMonthLabel = document.querySelector('.cert-month-label');
+    const certYearSelectBox = document.getElementById('cert-year-select');
+    const certYearLabel = document.querySelector('.cert-year-label');
 
     /** 현재 연도-월-일 구하기 **/
     let day = new Date();

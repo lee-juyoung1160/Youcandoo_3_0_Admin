@@ -114,8 +114,6 @@
 				let table = bannerTable.DataTable();
 				if (!table.data().any())
 					bannerTable.find('tbody').children().remove();
-				/** row reorder drag and drop 이벤트 **/
-				/*table.on( 'row-reorder', function ( e, diff, edit ) { onSubmitBanner(); });*/
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setBannerRowAttributes(nRow, aData);

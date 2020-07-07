@@ -1,7 +1,7 @@
 
-    const noticeBtn          = $("#notice");
+    /*const noticeBtn          = $("#notice");
     const noticeList         = $(".notice-list");
-    const onNotice           = $(".on-notice");
+    const onNotice           = $(".on-notice");*/
     const selectTarget       = $(".select-box select");
     const dayButtons         = $(".day-btn li");
     const datePicker         = $(".datepicker");
@@ -577,7 +577,7 @@
     }
 
     /** 권한별 접근 가능 페이지 체크 **/
-    function checkAuthIntoPage(data)
+    /*function checkAuthIntoPage(data)
     {
         let keys   	= Object.getOwnPropertyNames(data.data);
         let pathName   = getPathName();
@@ -595,16 +595,11 @@
                     for (let j=0; j<subKeys.length; j++)
                     {
                         let subKey   = subKeys[j];
-                        let menuPath = children[subKey].path;
                         let subView  = children[subKey].view;
-                        let splitMenuPath = menuPath.split('/');
                         if (subView === true)
                         {
-                            if (!isEmpty(splitMenuPath[1]))
-                            {
-                                if (accessible.indexOf(splitMenuPath[1]+splitMenuPath[2]) === -1)
-                                    accessible.push(splitMenuPath[1]+splitMenuPath[2]);
-                            }
+                            let menuPath = children[subKey].path;
+                            accessible.push(menuPath);
                         }
                     }
                 }
@@ -622,7 +617,7 @@
                 location.href = '/';
             }
         }
-    }
+    }*/
 
     function onClickActiveParentMenu(obj)
     {
@@ -642,15 +637,10 @@
 
     function activeMenu()
     {
-        let pathName       = getPathName();
-        let splitUrlPath   = pathName.split('/');
-        let pathCompareVal = splitUrlPath[1]+splitUrlPath[2];
-        let menuList  = $('nav').find('a');
+        let pathName = getPathName();
+        let menuList = $('nav').find('a');
         $(menuList).each(function () {
-            let menuPath       = $(this).attr('href');
-            let splitMenuPath  = menuPath.split('/');
-            let menuCompareVal = splitMenuPath[1]+splitMenuPath[2];
-            /*if (pathCompareVal === menuCompareVal)*/
+            let menuPath = $(this).attr('href');
             if (pathName === menuPath)
                 $(this).parents('li').addClass('active');
         })

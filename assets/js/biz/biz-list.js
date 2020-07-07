@@ -23,8 +23,8 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -152,7 +152,7 @@
 		buildGrid();
 	}
 
-	function onClickExcelBtn()
+	/*function onClickExcelBtn()
 	{
 		getList();
 	}
@@ -187,5 +187,5 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 

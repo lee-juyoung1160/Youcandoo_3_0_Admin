@@ -136,7 +136,7 @@
 		buildGrid();
 	}
 
-	function onClickExcelBtn()
+	/*function onClickExcelBtn()
 	{
 		getExcelData();
 	}
@@ -175,5 +175,5 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 

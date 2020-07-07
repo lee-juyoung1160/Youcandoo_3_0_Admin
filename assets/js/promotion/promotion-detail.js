@@ -40,10 +40,10 @@
 		tabPromo	.on("click", function () { onClickPromoTab(this); });
 		tabDoit		.on("click", function () { onClickDoitTab(this); });
 		tabUcd		.on("click", function () { onClickUcdTab(this); });
-		xlsxExport	.on("click", function () { onClickExcelBtn(); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function () { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
+		/*xlsxExport	.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	/** 프로모션탭 **/
@@ -396,7 +396,12 @@
 		buildGrid();
 	}
 
-	function onClickExcelBtn()
+	function goUpdatePage()
+	{
+		location.href = page.updatePromo+idx;
+	}
+
+	/*function onClickExcelBtn()
 	{
 		getExcelData();
 	}
@@ -427,9 +432,4 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function goUpdatePage()
-	{
-		location.href = page.updatePromo+idx;
-	}
+	}*/

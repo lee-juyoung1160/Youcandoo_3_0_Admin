@@ -99,7 +99,7 @@
 		tabAction		.on("click", function () { onClickActionTab(this); });
 		tabReview		.on("click", function () { onClickReviewTab(this); });
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -519,7 +519,7 @@
 	}
 
 	/** 엑셀 다운로드 **/
-	function onClickExcelBtn()
+	/*function onClickExcelBtn()
 	{
 		getExcelData();
 	}
@@ -550,7 +550,7 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 
 	/****************
 	 * 인증정보탭 관련

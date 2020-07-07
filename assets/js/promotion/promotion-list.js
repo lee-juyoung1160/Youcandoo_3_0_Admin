@@ -29,7 +29,7 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -200,7 +200,6 @@
 	{
 		let checkDom = $(nRow).children().eq(0);
 		let titleDom  = $(nRow).children().eq(2);
-		let btnDom 	  = $(nRow).children().eq(7);
 		let detailUrl = page.detailPromo+aData.idx;
 
 		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
@@ -208,101 +207,12 @@
 			$(checkDom).children().prop('disabled', true);
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-		/** 배너보기 버튼 **/
-		/*let bannerUrl = aData.banner_image_url;
-		let listUrl   = aData.list_image_url;
-		let introUrl  = aData.intro_image_url;
-		let innerDom = '<button onclick="viewImage(this);" type="button" class="more-info-btn" data-banner="'+bannerUrl+'" data-list="'+listUrl+'" data-intro="'+introUrl+'">보기</button>';
-		btnDom.html(innerDom);*/
 	}
 
 	function onSubmitSearch()
 	{
 		_page = 1;
 		buildGrid();
-	}
-
-	function viewImage(obj)
-	{
-		let bannerImage = $(obj).data('banner');
-		let listImage   = $(obj).data('list');
-		let introImage  = $(obj).data('intro');
-
-		let modal = '';
-		modal += '<div id="viewImageModal" class="modal-content modal-01" style="display: block;">';
-		modal += 	'<div class="wrap">';
-		modal += 		'<i onclick="removeModal();" class="close-btn fas fa-times-circle"></i>';
-		modal += 		'<p class="modal-title">프로모션 이미지</p>';
-		modal += 		'<ul class="modal-information">';
-		modal += 			'<li>';
-		modal += 				'<p class="sub-title">배너 및 리스트</p>';
-		modal += 				'<p class="data-contents">';
-		modal += 					'<img src="'+bannerImage+'" alt="배너 및 소개 이미지">';
-		modal +=	 			'</p>';
-		modal += 			'</li>';
-		modal += 			'<li>';
-		modal += 				'<p class="sub-title">소개이미지</p>';
-		modal += 				'<p class="data-contents">';
-		modal += 					'<img src="'+introImage+'" alt="소개이미지">';
-		modal += 				'</p>';
-		modal += 			'</li>';
-		modal += 		'</ul>';
-		modal += 	'</div>';
-		modal += '</div>';
-		modal += '<div onclick="removeModal();" id="modalBackDrop" class="modal-layout" style="display: block;"></div>';
-
-		$('body').append(modal);
-	}
-
-	function removeModal()
-	{
-		$("#viewImageModal").remove();
-		$("#modalBackDrop").remove();
-	}
-
-	function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
-		}
-
-		return JSON.stringify(param);
 	}
 
 	function deletePromotion()
@@ -355,4 +265,49 @@
 
 		return JSON.stringify(param)
 	}
+
+	/*function onClickExcelBtn()
+	{
+		getExcelData();
+	}
+
+	function getExcelData()
+	{
+		$.ajax({
+			url: api.listPromotion,
+			type: "POST",
+			dataType: "json",
+			headers: headers,
+			data: excelParams(),
+			success: function(data) {
+				setExcelData("프로모션목록", "프로모션목록", data.data);
+			},
+			error: function (request, status) {
+				alert(label.download+message.ajaxError);
+			}
+		});
+	}
+
+	function excelParams()
+	{
+		let statusParam = [];
+		status.each(function () {
+			if ($(this).is(':checked'))
+				statusParam.push($(this).val())
+		});
+
+		let param = {
+			"limit" : 20000
+			,"page" : 1
+			,"dateType" : dateType.val()
+			,"fromDate" : dateFrom.val()
+			,"toDate" : dateTo.val()
+			,"searchType" : searchType.val()
+			,"keyword" : keyword.val()
+			,"is_banner" : $("input[name=radio-banner]:checked").val()
+			,"status" : statusParam
+		}
+
+		return JSON.stringify(param);
+	}*/
 

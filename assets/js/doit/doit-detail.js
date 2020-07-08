@@ -218,9 +218,11 @@
 		actionDate.html(detail.action_start_datetime+label.tilde+detail.action_end_datetime);
 
 		let rewardDom 	= '';
-		let doitType  	= isEmpty(detail.promotion_uuid) ? label.regular : label.promotion;
-		let bizName 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.company_name;
-		let promoTitle 	= isEmpty(detail.promotion_uuid) ? '' : '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'+detail.promotion_title;
+		let separator   = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'
+		let promotionId = detail.promotion_uuid;
+		let doitType  	= isEmpty(promotionId) ? label.regular : label.promotion;
+		let bizName 	= isEmpty(promotionId) ? '' : separator + detail.company_name;
+		let promoTitle 	= isEmpty(promotionId) ? '' : separator + detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
 		let balance		= isEmpty(detail.remain_budget_ucd) ? label.nullValue : detail.remain_budget_ucd;
 		let dayofweek   = isEmpty(detail.action_dayofweek) ? label.nullValue : detail.action_dayofweek;
@@ -459,19 +461,24 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",    	width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "총 인증 횟수", 		data: "total",    		width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "성공", 	  		data: "success",    	width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "실패",  	  		data: "fail",   		width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "신고",  	  		data: "report",   		width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "옐로카드",    		data: "yellow",   		width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "레드카드",    		data: "red",   			width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "10%",    orderable: false,   className: "cursor-default",
+				{title: "닉네임", 			data: "nickname",    	width: "20%",   orderable: false,   className: "cursor-default" }
+				,{title: "총 인증 횟수", 		data: "total",    		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "인증한 횟수", 		data: "todo",    		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",    orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "cursor-default" }
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "cursor-default",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -499,6 +506,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				console.log(aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(joinUserTable);

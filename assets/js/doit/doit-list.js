@@ -108,7 +108,7 @@
 				}
 				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.doit_member + '/' + row.max_user;
+						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "cursor-default" }

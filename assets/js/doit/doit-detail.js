@@ -1040,7 +1040,11 @@
 					}
 				},
 				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "cursor-default" }
-				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "cursor-default" }
+				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "cursor-default",
+					render: function (data) {
+						return buildStar(data);
+					}
+				}
 				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "cursor-default" }
 				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "cursor-default",
 					render: function (data) {
@@ -1092,6 +1096,16 @@
 				buildTotalCount(reviewTable);
 			}
 		});
+	}
+
+	function buildStar(rating)
+	{
+		let starEl = '<ol class="star-wrap" style="float: inherit;">';
+		for (let i=0; i<5; i++)
+			i < Number(rating) ? starEl += '<li class="on"><i class="fas fa-star"></i></li>' : starEl += '<li><i class="fas fa-star"></i></li>';
+		starEl += '</ol>';
+
+		return starEl;
 	}
 
 	function reviewParams(d)

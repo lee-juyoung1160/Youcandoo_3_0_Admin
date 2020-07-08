@@ -16,6 +16,15 @@
     const modalCloseBtn = $(".close-btn");
     const modalLayout 	= $(".modal-layout");
     const modalContent 	= $(".modal-content");
+    const modalDetail 	= $("#modalDetail");
+    const starWrap 	    = $("#starWrap");
+    const reviewTextEl 	= $("#review_text");
+    const doitTitleEl 	= $("#doit_title");
+    const ratingEl 	    = $("#rating");
+    const reportCountEl	= $("#report_count");
+    const nicknameEl    = $("#nickname");
+    const createdEl	    = $("#created");
+    const isBlindEl	    = $("#is_blind");
 
     /** 로드 시점 **/
     document.addEventListener("DOMContentLoaded", function () {
@@ -66,13 +75,15 @@
 
     /** 테이블 파라미터 **/
     function tableParams () {
-        let table = $(reviewTable).DataTable();
-        let info = table.page.info();
-        let _page = (info.start / info.length) + 1;
-        const report = document.querySelector('.report input[name=radio-report]:checked');
-        const blind = document.querySelector('.blind input[name=radio-blind]:checked');
-        const ratingListCheck = Array.from(ratingLists).map(function (checkbox) {
-            return checkbox.value;
+        let table   = $(reviewTable).DataTable();
+        let info    = table.page.info();
+        let _page   = (info.start / info.length) + 1;
+        let report  = document.querySelector('.report input[name=radio-report]:checked');
+        let blind   = document.querySelector('.blind input[name=radio-blind]:checked');
+        let checked = [];
+        Array.from(ratingLists).map(function (element) {
+            if (element.checked)
+                checked.push(element.value);
         });
 
         let params = {
@@ -80,7 +91,7 @@
             "to_date": dateTo[0].value,
             "search_type": searchType.value,
             "keyword": keyword.value,
-            "rating_list": ratingListCheck,
+            "rating_list": checked,
             "is_report": report.value,
             "is_blind": blind.value,
             "page":  _page,
@@ -138,22 +149,28 @@
                         return multiCheckBoxDom(data);
                     }
                 },
-                {title:"리뷰내용", data: "review_text", render : function(data, type, full, meta) {
+                {title:"리뷰내용", data: "review_text", width: '25%',
+                    render : function(data, type, full, meta) {
                         return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                     }
                 },
-                {title:"평점",data: "rating"},
-                {title:"두잇명",data: "doit_title"},
-                {title:"신고",data: "report_count"},
-                {title:"블라인드 여부",data: "is_blind",
+                {title:"평점",data: "rating", width: '10%',
+                    render: function (data) {
+                        return buildStar(data);
+                    }
+                },
+                {title:"두잇명",data: "doit_title", width: '25%'},
+                {title:"신고",data: "report_count", width: '10%'},
+                {title:"블라인드 여부",data: "is_blind", width: '10%',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성날짜",data: "created", render: function (data) {
+                {title:"작성날짜",data: "created", width: '10%',
+                    render: function (data) {
                         return data.substring(0, 10);
                     }},
-                {title:"작성자",data: "nickname"}
+                {title:"작성자",data: "nickname", width: '15%'}
             ],language: {
                 emptyTable: message.emptyList
                 , zeroRecords: message.emptyList
@@ -168,18 +185,18 @@
 
     /** 타이틀 클릭시 모달 이벤트 및 데이터 **/
     function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
-        $("#review_text").html(review_text);
-        $("#doit_title").html(doit_title);
-        $("#rating").html(rating);
-        $("#report_count").html(report_count);
-        $("#nickname").html(nickname);
-        $("#created").html(created);
-        $("#is_blind").html(is_blind);
-        $(".modal-layout").fadeIn(500);
-        $("#modalDetail").fadeIn(500);
+        reviewTextEl.html(review_text);
+        doitTitleEl.html(doit_title);
+        ratingEl.html(rating);
+        reportCountEl.html(report_count);
+        nicknameEl.html(nickname);
+        createdEl.html(created);
+        isBlindEl.html(is_blind);
+        modalLayout.fadeIn(500);
+        modalDetail.fadeIn(500);
         overflowHidden();
         /** 모달 평점에 따른 별 추가 **/
-        let liList = $('ol.star-wrap').find('li');
+        let liList = starWrap.find('li');
         for(let i=0; i<liList.length; i++){
             let listObj = $(liList[i]);
             if(i<rating){
@@ -188,6 +205,16 @@
                 listObj.removeClass('on');
             }
         }
+    }
+
+    function buildStar(rating)
+    {
+        let starEl = '<ol class="star-wrap" style="float: inherit;">';
+        for (let i=0; i<5; i++)
+            i < Number(rating) ? starEl += '<li class="on"><i class="fas fa-star"></i></li>' : starEl += '<li><i class="fas fa-star"></i></li>';
+        starEl += '</ol>';
+
+        return starEl;
     }
 
     /** by.leo **/

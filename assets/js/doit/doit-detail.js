@@ -462,8 +462,8 @@
 			},
 			columns: [
 				{title: "닉네임", 			data: "nickname",    	width: "20%",   orderable: false,   className: "cursor-default" }
-				,{title: "총 인증 횟수", 		data: "total",    		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "인증한 횟수", 		data: "todo",    		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    orderable: false,   className: "cursor-default" }
+				,{title: "인증한 횟수", 		data: "total",    		width: "8%",    orderable: false,   className: "cursor-default" }
 				,{title: "성공", 	  		data: "success",    	width: "8%",    orderable: false,   className: "cursor-default" }
 				,{title: "실패",  	  		data: "fail",   		width: "8%",    orderable: false,   className: "cursor-default" }
 				,{title: "신고",  	  		data: "report",   		width: "8%",    orderable: false,   className: "cursor-default" }
@@ -506,7 +506,6 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				console.log(aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(joinUserTable);

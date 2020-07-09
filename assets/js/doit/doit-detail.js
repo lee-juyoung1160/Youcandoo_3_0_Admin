@@ -350,11 +350,6 @@
 			goUpdate.remove();
 	}
 
-	function onErrorImage(obj)
-	{
-		$(obj).attr('src', label.noImage);
-	}
-
 	function getStringValueForActionType(param)
 	{
 		if (param === 'image')

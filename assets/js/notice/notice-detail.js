@@ -59,11 +59,6 @@
 		exposure.html(detail.is_exposure === 'Y' ? label.y : label.n);
 	}
 
-	function onErrorImage(obj)
-	{
-		$(obj).attr('src', label.noImage);
-	}
-
 	function goUpdatePage()
 	{
 		const pathName	= getPathName();

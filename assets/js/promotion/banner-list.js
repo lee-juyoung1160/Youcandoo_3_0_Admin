@@ -212,6 +212,7 @@
 
 	function getPromo()
 	{
+		dataTable.empty();
 		dataTable.DataTable({
 			ajax : {
 				url: api.listNonBanner,
@@ -233,7 +234,7 @@
 				},
 				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
 					render: function (data) {
-						return '<img class="pro-banner" src="'+data+'" alt="">';
+						return '<img class="pro-banner" src="'+data+'" alt="" onerror="onErrorImage(this);">';
 					}
 				}
 				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
@@ -260,7 +261,7 @@
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			scrollY: 420,
+			scrollY: '420px',
 			scrollCollapse: true,
 			lengthChange: false,
 			autoWidth: false,
@@ -316,7 +317,7 @@
 				let title  = selectedData[i].promotion_title;
 				rowDom += '<tr role="row" class="" id="'+uuid+'">'
 				rowDom += 	'<td>'
-				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="">'
+				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="" onerror="onErrorImage(this);>'
 				rowDom += 	'</td>'
 				rowDom += 	'<td>'+bizName+'</td>'
 				rowDom += 	'<td>'+title+'</td>'

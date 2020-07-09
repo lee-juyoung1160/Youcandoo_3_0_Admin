@@ -394,6 +394,11 @@
         $('body').css("overflow", "hidden");
     }
 
+    function onErrorImage(obj)
+    {
+        $(obj).attr('src', label.noImage);
+    }
+
     /** 목록페이지 엔터로 검색 **/
     function onKeydownSearch(event)
     {

@@ -184,6 +184,7 @@
 	}
 
 	/** 리워드 영역 **/
+	let radioId = 100;
 	function buildReward(rewards)
 	{
 		for (let i=0; i<rewards.length; i++)
@@ -229,9 +230,27 @@
 			detailDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
 			detailDom += 					'</i>';
 			detailDom += 				'</div>';
-			detailDom += 				'<div class="col-2">';
-			detailDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
-			detailDom += 					'<span class="input-num-title"> 일</span>';
+			detailDom += 				'<div class="col-2" style="height: 40px; line-height: 40px;">';
+			detailDom += 					'<div class="checkbox-wrap" style="display: inline-block;">';
+			let actionDuration = Number(reward.action_duration);
+			if (actionDuration === 1)
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="1" checked>';
+			else
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="1">';
+			detailDom += 						'<label for="rdo_'+radioId+'"><span></span>1일</label>';
+			if (actionDuration === 1)
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value=""> ';
+			else
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="" checked> ';
+			detailDom += 						'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
+			detailDom += 					'</div>';
+			if (actionDuration === 1)
+				detailDom +=				'<p style="display: none;">';
+			else
+				detailDom +=				'<p style="display: inline-block;">';
+			detailDom += 						'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
+			detailDom += 						'<span class="input-num-title"> 일</span>';
+			detailDom += 					'</p>';
 			detailDom += 				'</div>';
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
@@ -334,66 +353,51 @@
 		calculateInputLength();
 	}
 
+	function onChangeDuration(obj)
+	{
+		let durationDom = $(obj).parent().siblings();
+		let durationInputEl = $(durationDom).find('.duration')
+
+		$(durationInputEl).val('');
+		$(durationInputEl).focus();
+		isEmpty($(obj).val()) ? $(durationDom).css('display', 'inline-block') : $(durationDom).hide();
+		initFrequency($(durationInputEl));
+	}
+
 	function onKeyupDuration(obj)
 	{
 		initFrequency(obj);
 	}
 
-	/** 인증기간 버튼 active 토글 **/
 	function initFrequency(obj)
 	{
 		let frequencyUl = $(obj).parents('ul.pro-reward').find('.frequency-ul');
-		let duration = 1;
-		duration = Number($(obj).val());
+		let radioDur = $(obj).parents('ul.pro-reward').find('input[type=radio]:checked');
+		let duration = Number($(obj).val());
 
 		$(frequencyUl).children().removeClass('active');
 
-		/** 인증기간 1일이면 주간빈도 월요일로 기본값(validation 피하기용..) **/
-		if (duration < 2)
+		if (!isEmpty($(radioDur).val()))
 			$(frequencyUl).children().eq(0).addClass('active');
-		else if (duration === 2)
-		{
-			$(frequencyUl).children().eq(0).addClass('active');
-			$(frequencyUl).children().eq(1).addClass('active');
-		}
-		else if (duration === 3)
-		{
-			$(frequencyUl).children().eq(0).addClass('active');
-			$(frequencyUl).children().eq(1).addClass('active');
-			$(frequencyUl).children().eq(2).addClass('active');
-		}
-		else if (duration === 4)
-		{
-			$(frequencyUl).children().eq(0).addClass('active');
-			$(frequencyUl).children().eq(1).addClass('active');
-			$(frequencyUl).children().eq(2).addClass('active');
-			$(frequencyUl).children().eq(3).addClass('active');
-		}
 		else
 		{
-			$(frequencyUl).children().eq(0).addClass('active');
-			$(frequencyUl).children().eq(1).addClass('active');
-			$(frequencyUl).children().eq(2).addClass('active');
-			$(frequencyUl).children().eq(3).addClass('active');
-			$(frequencyUl).children().eq(4).addClass('active');
+			if (duration > 6)
+			{
+				$(frequencyUl).children().eq(0).addClass('active');
+				$(frequencyUl).children().eq(1).addClass('active');
+				$(frequencyUl).children().eq(2).addClass('active');
+				$(frequencyUl).children().eq(3).addClass('active');
+				$(frequencyUl).children().eq(4).addClass('active');
+			}
 		}
 	}
 
 	/** 주간빈도 버튼 active 토글 **/
 	function toggleFrequency(obj)
 	{
-		let durationDom = $(obj).closest('ul.pro-reward').find('.duration');
-		let duration = durationDom.val();
+		let radioDuration = $(obj).closest('ul.pro-reward').find('input[type=radio]:checked');
 
-		let frequencyUl = $(obj).parent().find('li');
-		if (isEmpty(duration))
-		{
-			alert('인증기간을 입력해주세요.')
-			durationDom.focus();
-			return;
-		}
-
-		if (Number(duration) === 1)
+		if (!isEmpty($(radioDuration).val()))
 		{
 			$(obj).siblings().removeClass('active');
 			$(obj).addClass('active');
@@ -401,17 +405,6 @@
 		else
 		{
 			$(obj).toggleClass('active');
-			/*let activeCount = 0;
-			frequencyUl.each(function () {
-				if ($(this).hasClass('active'))
-					activeCount++
-			});
-
-			if (activeCount > Number(duration))
-			{
-				alert('주간빈도는 '+message.overFrequency+'\n인증기간: '+duration+', 선택한 주간빈도 수: '+activeCount);
-				$(obj).toggleClass('active');
-			}*/
 		}
 	}
 
@@ -523,9 +516,17 @@
 		rewardDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
 		rewardDom += 					'</i>';
 		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
-		rewardDom += 					'<span class="input-num-title"> 일</span>';
+		rewardDom += 				'<div class="col-2" style="height: 40px; line-height: 40px;">';
+		rewardDom += 					'<div class="checkbox-wrap" style="display: inline-block;">';
+		rewardDom += 						'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+countId+'" value="1" checked>';
+		rewardDom += 						'<label for="rdo_'+radioId+'"><span></span>1일</label>';
+		rewardDom += 						'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+countId+'" value=""> ';
+		rewardDom += 						'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
+		rewardDom += 					'</div>';
+		rewardDom += 					'<p style="display: none;">';
+		rewardDom += 						'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
+		rewardDom += 						'<span class="input-num-title"> 일</span>';
+		rewardDom += 					'</p>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
 		rewardDom += 		'</li>';
@@ -537,10 +538,10 @@
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<ul class="day-btn clearfix frequency-ul">';
 		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">월</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">화</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">수</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">목</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">금</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">화</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">수</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">목</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">금</li>';
 		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">토</li>';
 		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">일</li>';
 		rewardDom += 					'</ul>';
@@ -710,15 +711,15 @@
 			return false;
 		}
 
-		if (isOverDuration())
-		{
-			alert(message.overDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
-			return false;
-		}
-
 		if (isEmptyDuration())
 		{
 			alert('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			return false;
+		}
+
+		if (isInvalidDuration())
+		{
+			alert(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
@@ -728,11 +729,11 @@
 			return false;
 		}
 
-		if (isOverFrequency())
+		/*if (isOverFrequency())
 		{
 			alert('주간빈도는 '+message.overFrequency+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
 			return false;
-		}
+		}*/
 
 		if (isEmptyRewardUcd())
 		{
@@ -785,38 +786,29 @@
 	function isEmptyDuration()
 	{
 		let result = false;
-		$(".duration").each(function () {
-			if (isEmpty($(this).val()))
+		let rewardDom = $("ul.pro-reward");
+		rewardDom.each(function () {
+			let radioDur = $(this).find('input[type=radio]:checked');
+			let duration = $(this).find('.duration');
+
+			if (isEmpty($(radioDur).val()) && isEmpty($(duration).val()))
 				result = true;
 		});
 
 		return result;
 	}
 
-	function isOverDuration()
+	function isInvalidDuration()
 	{
 		let result 		= false;
-		$(".duration").each(function () {
-			let inputVal = $(this).val();
-			if (inputVal > 30)
-				result = true;
-		});
+		let rewardDom = $("ul.pro-reward");
+		rewardDom.each(function () {
+			let radioDur = $(this).find('input[type=radio]:checked');
+			let duration = $(this).find('.duration');
 
-		return result;
-	}
-
-	function isInvalidJoinUserCount()
-	{
-		let result = false;
-		let ucdTable = $(".ucd-table-body");
-		ucdTable.each(function () {
-			let minDom = $(this).find('input')[0];
-			let maxDom = $(this).find('input')[1];
-			let minVal = $(minDom).val();
-			let maxVal = $(maxDom).val();
-
-			if (Number(minVal) > Number(maxVal))
-				result = true;
+			if (isEmpty($(radioDur).val()))
+				if ($(duration).val() < 7 || $(duration).val() > 30)
+					result = true;
 		});
 
 		return result;
@@ -837,7 +829,7 @@
 		return retVal;
 	}
 
-	function isOverFrequency()
+	/*function isOverFrequency()
 	{
 		let result = false;
 		let rewardDom = $("ul.pro-reward");
@@ -851,7 +843,7 @@
 		}
 
 		return result;
-	}
+	}*/
 
 	function isOverBudget()
 	{
@@ -865,6 +857,23 @@
 		});
 
 		return retVal;
+	}
+
+	function isInvalidJoinUserCount()
+	{
+		let result = false;
+		let ucdTable = $(".ucd-table-body");
+		ucdTable.each(function () {
+			let minDom = $(this).find('input')[0];
+			let maxDom = $(this).find('input')[1];
+			let minVal = $(minDom).val();
+			let maxVal = $(maxDom).val();
+
+			if (Number(minVal) > Number(maxVal))
+				result = true;
+		});
+
+		return result;
 	}
 
 	function params()

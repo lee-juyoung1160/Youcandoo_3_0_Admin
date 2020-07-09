@@ -10,7 +10,6 @@
 	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
-	let topCount		= 0;
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -62,7 +61,6 @@
 
 	function buildGrid()
 	{
-		topCount = 0;
 		dataTable.DataTable({
 			ajax : {
 				url: api.listNotice,
@@ -176,8 +174,6 @@
 		/** 상단고정 **/
 		if (isTop === 'Y')
 		{
-			topCount++;
-
 			/** no컬럼에 숫자대신 아이콘 **/
 			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;color:#ffd400;"></i>');
 		}
@@ -247,12 +243,6 @@
 			"is_top" : isTop === 'Y' ? 'N' : 'Y'
 			,"notice_uuid" : noticeUuid
 		};
-
-		if (isTop === 'N' && topCount > 2)
-		{
-			alert(message.overCntTop);
-			return;
-		}
 
 		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
 		{

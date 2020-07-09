@@ -907,7 +907,7 @@
 			let rewardWrap   = $(".pro-reward-wrap");
 			let title 		 = $(rewardWrap[i]).find('.reward-title');
 			let durationDom	 = $(rewardWrap[i]).find('.duration');
-			let duration	 = 1;
+			let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
 			let frequencyDom = $(rewardWrap[i]).find('.frequency');
 			let monday		 = 'N';
 			let tuesday		 = 'N';
@@ -961,7 +961,7 @@
 
 			rewards.push({
 				"title" 			: title.val()
-				,"action-duration" 	: durationDom.val()
+				,"action-duration" 	: duration
 				,"goal-rate" 		: goalRate.val()
 				,"monday" 			: monday
 				,"tuesday" 			: tuesday

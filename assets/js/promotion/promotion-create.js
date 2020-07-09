@@ -29,6 +29,7 @@
 	const iconDelReward	 = $(".delete-reward");
 	const btnAddReward	 = $(".reward-add-btn")
 	const rewardsWrap 	 = $("#rewardsWrap");
+	const radioDuration  = $("input[name=radio-duration]");
 	const goalRange1	 = $("#goalRange1");
 	const goalRate1	 	 = $("#goalRate1");
 	const inputRight	 = $(".input-right");
@@ -59,6 +60,7 @@
 		rewardTitle		.on('keyup', function () { onKeyupRewardTitle(this); });
 		btnAddReward	.on('click', function () { addReward(); });
 		iconDelReward	.on('click', function () { deleteReward(this); });
+		radioDuration	.on('change', function () { onChangeDuration(this); });
 		$(".duration")	.on('keyup', function () { onKeyupDuration(this); });
 		$(".frequency")	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
@@ -77,6 +79,7 @@
 		allowCount.val(3);
 		isBanner.eq(0).prop("checked", true);
 		initNoticeArea();
+		$("input[name=radio-duration]").eq(0).prop("checked", true);
 		/** 리워드 제목과 탭 이름 같은 값으로 세팅 **/
 		matchRewardTitle();
 	}
@@ -494,6 +497,13 @@
 		});
 	}
 
+	function onChangeDuration(obj)
+	{
+		let durationInputEl = $(obj).parent().siblings();
+		console.log($(obj).val())
+		isEmpty($(obj).val()) ? $(durationInputEl).css('display', 'inline-block') : $(durationInputEl).hide();
+	}
+
 	function onKeyupDuration(obj)
 	{
 		initFrequency(obj);
@@ -517,15 +527,15 @@
 		else if (duration === 3)
 		{
 			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
 			$(frequencyUl).children().eq(2).addClass('active');
-			$(frequencyUl).children().eq(4).addClass('active');
 		}
 		else if (duration === 4)
 		{
 			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().eq(1).addClass('active');
 			$(frequencyUl).children().eq(2).addClass('active');
-			$(frequencyUl).children().eq(4).addClass('active');
-			$(frequencyUl).children().eq(6).addClass('active');
+			$(frequencyUl).children().eq(3).addClass('active');
 		}
 		else
 		{
@@ -538,27 +548,70 @@
 	}
 
 	/** 주간빈도 버튼 active 토글 **/
+	const dayNames = ['월', '화', '수', '목', '금', '토', '일', '월', '화', '수', '목', '금', '토'];
 	function toggleFrequency(obj)
 	{
 		let durationDom = $(obj).closest('ul.pro-reward').find('.duration');
-		let duration = durationDom.val();
+		let duration 	= durationDom.val();
+		duration = Number(duration);
+		let frequencyUl = $(obj).parent();
+		let frequencyEl = $(frequencyUl).children();
 
-		let frequencyUl = $(obj).parent().find('li');
 		if (isEmpty(duration))
 		{
-			alert('인증기간을 입력해주세요.')
+			alert('인증기간을 (선택)입력해주세요.')
 			durationDom.focus();
 			return;
 		}
 
-		if (Number(duration) === 1)
+		if (duration === 1)
 		{
 			$(obj).siblings().removeClass('active');
 			$(obj).addClass('active');
 		}
+		else if (duration === 2)
+		{
+			$(obj).siblings().removeClass('active');
+			$(obj).addClass('active');
+			$(obj).next().addClass('active');
+			if (isEmpty($(obj).next()))
+				$(obj).siblings().eq(0).addClass('active');
+		}
+		else if (duration > 2 && duration < 7)
+		{
+			$(obj).siblings().removeClass('active');
+			let idx = $(obj).index();
+			let idx2 = 0;
+			for (let i=idx; i<idx+duration; i++)
+			{
+				$(frequencyEl).eq(i).addClass('active');
+				if (isEmpty($(frequencyEl).eq(i)))
+				{
+					$(frequencyEl).eq(idx2).addClass('active');
+					idx2++
+				}
+			}
+		}
 		else
 		{
 			$(obj).toggleClass('active');
+
+			/*$(obj).toggleClass('active');
+			let selectedFreq = [];
+			frequencyUl.find('li').each(function (index) {
+				if ($(this).hasClass('active'))
+					selectedFreq.push(index);
+			});
+			let minFreq = Math.min.apply(null, selectedFreq);
+			let maxFreq = Math.max.apply(null, selectedFreq);
+			console.log(selectedFreq)
+			console.log('min : '+minFreq)
+			console.log('max : '+maxFreq)
+			if ((maxFreq - minFreq) >= Number(duration))
+			{
+				alert('주간빈도 에러');
+				$(obj).toggleClass('active');
+			}*/
 			/*let activeCount = 0;
 			frequencyUl.each(function () {
 				if ($(this).hasClass('active'))

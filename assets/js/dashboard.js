@@ -34,9 +34,13 @@
     const labels = {
         doitType : ['일반', '프로모션']
         ,cancelType : ['취소', '삭제']
+        ,monthNames : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
     }
-    const colorLine = ['rgb(0,122,255)', 'rgba(0, 0, 0, 0)'];
-    const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
+    const color = {
+        colorLine : ['rgb(0,122,255)', 'rgba(0, 0, 0, 0)']
+        ,backgroundColorDoughnut : ['rgb(0, 48, 135)', 'rgb(0, 122, 255)']
+        ,white : 'rgba(255,255,255,1)'
+    };
     /** 셀렉박스 + 레이블 **/
     const yearSelectBox = document.getElementById('doit-year-select');
     const yearLabel = document.querySelector('.year-label');
@@ -175,8 +179,8 @@
                 labels : label,
                 datasets: [{
                     data: [data1, data2],
-                    backgroundColor: backgroundColorDoughnut,
-                    hoverBorderColor: backgroundColorDoughnut,
+                    backgroundColor: color.backgroundColorDoughnut,
+                    hoverBorderColor: color.backgroundColorDoughnut,
                 }]
             },
             responsive: false,
@@ -265,22 +269,22 @@
                         datasets: [{
                             label: '일반',
                             data: monthData.data.user,
-                            backgroundColor: backgroundColorDoughnut[0],
+                            backgroundColor: color.backgroundColorDoughnut[0],
                         }, {
                             label: '프로모션',
                             data: monthData.data.company,
-                            backgroundColor: backgroundColorDoughnut[1],
+                            backgroundColor: color.backgroundColorDoughnut[1],
                         }, {
                             label: 'Total',
                             data: monthData.data.total,
                             type: 'line',
-                            borderColor: colorLine[0],
+                            borderColor: color.colorLine[0],
                             borderWidth : 2.2,
-                            pointBackgroundColor: 'rgba(255,255,255,1)',
-                            backgroundColor: colorLine[1]
+                            pointBackgroundColor: color.white,
+                            backgroundColor: color.colorLine[1]
                         },
                         ],
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        labels: labels.monthNames
                     },
                     options: {
                         legend: {
@@ -321,10 +325,10 @@
                         datasets: [{
                            data: certMonthData.data.result,
                             lineTension: 0,
-                            borderColor: colorLine[0],
+                            borderColor: color.colorLine[0],
                             borderWidth : 2.2,
-                            pointBackgroundColor: 'rgba(255,255,255,1)',
-                            backgroundColor: colorLine[1],
+                            pointBackgroundColor: color.white,
+                            backgroundColor: color.colorLine[1],
                         }],
                         labels: certMonthData.data.day
                     },

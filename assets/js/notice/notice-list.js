@@ -179,7 +179,7 @@
 			topCount++;
 
 			/** no컬럼에 숫자대신 아이콘 **/
-			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;"></i>');
+			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;color:#ffd400;"></i>');
 		}
 	}
 

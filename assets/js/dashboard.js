@@ -18,7 +18,6 @@
     const monthlyMixedChart = document.getElementById('monthly-mixedChart');
     const certMonthChart    = document.getElementById('cert-month-chart');
     /** 차트 레이아웃 구성 공통 부분 **/
-    const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
     const options = {
         options: {
             maintainAspectRatio: false,
@@ -32,12 +31,12 @@
             }
         }
     }
-    const doughnutType = 'doughnut';
     const labels = {
         doitType : ['일반', '프로모션']
         ,cancelType : ['취소', '삭제']
     }
-    const colorLine = ['rgb(0, 122, 255)', 'rgba(0, 0, 0, 0)'];
+    const colorLine = ['rgb(0,122,255)', 'rgba(0, 0, 0, 0)'];
+    const backgroundColorDoughnut = ['rgb(0, 48, 135)', 'rgb(0, 122, 255)'];
     /** 셀렉박스 + 레이블 **/
     const yearSelectBox = document.getElementById('doit-year-select');
     const yearLabel = document.querySelector('.year-label');
@@ -108,13 +107,13 @@
                     countNum: $this.text()
                 },
                 {
-                    duration: 1800,
+                    duration: 500,
                     easing: 'linear',
                     step: function () {
                         $this.text(Math.floor(this.countNum));
                     },
                     complete: function () {
-                        $this.text(this.countNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $this.text(numberWithCommas(this.countNum));
                     }
                 });
         });
@@ -144,20 +143,20 @@
                     buildDoitDoughnutChart(tomorrowDoughnut, labels.doitType, preData.user_cnt, preData.company_cnt);
                     buildDoitDoughnutChart(cancelDoughnut, labels.cancelType, cancelData.cancle, cancelData.delete);
 
-                    endUserEl.textContent = endData.user_cnt;
-                    endCompanyEl.textContent = endData.company_cnt;
-                    endTotalEl.textContent = endData.total_cnt;
+                    endUserEl.textContent    = numberWithCommas(endData.user_cnt);
+                    endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
+                    endTotalEl.textContent   = endData.total_cnt;
 
-                    ingUserEl.textContent = ingData.user_cnt;
-                    ingCompanyEl.textContent = ingData.company_cnt;
-                    ingTotalEl.textContent = ingData.total_cnt;
+                    ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
+                    ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
+                    ingTotalEl.textContent   = ingData.total_cnt;
 
-                    preUserEl.textContent = preData.user_cnt;
-                    preCompanyEl.textContent = preData.company_cnt;
-                    preTotalEl.textContent = preData.total_cnt;
+                    preUserEl.textContent    = numberWithCommas(preData.user_cnt);
+                    preCompanyEl.textContent = numberWithCommas(preData.company_cnt);
+                    preTotalEl.textContent   = preData.total_cnt;
 
-                    cancelEl.textContent = cancelData.cancle;
-                    deleteEl.textContent = cancelData.delete;
+                    cancelEl.textContent     = numberWithCommas(cancelData.cancle);
+                    deleteEl.textContent     = numberWithCommas(cancelData.delete);
                     cancelTotalEl.textContent = cancelData.total;
 
                     counter("doit");
@@ -171,7 +170,7 @@
     function buildDoitDoughnutChart(target, label, data1, data2)
     {
         new Chart(target, {
-            type: doughnutType,
+            type: 'doughnut',
             data: {
                 labels : label,
                 datasets: [{
@@ -198,15 +197,16 @@
             success: function (userStatus) {
                 if (isSuccessResp(userStatus))
                 {
-                    let newUser = document.getElementById('new-user');
-                    let joinUser = document.getElementById('join-user');
+                    let newUser   = document.getElementById('new-user');
+                    let joinUser  = document.getElementById('join-user');
                     let leaveUser = document.getElementById('leave-user');
                     let totalUser = document.getElementById('total-user');
 
-                    newUser.textContent = userStatus.data.new_user;
-                    joinUser.textContent = userStatus.data.join_user;
-                    leaveUser.textContent = userStatus.data.leave_user;
+                    newUser.textContent   = numberWithCommas(userStatus.data.new_user);
+                    joinUser.textContent  = numberWithCommas(userStatus.data.join_user);
+                    leaveUser.textContent = numberWithCommas(userStatus.data.leave_user);
                     totalUser.textContent = userStatus.data.total_user;
+
                     counter("user");
                 }
                 else
@@ -228,15 +228,16 @@
             success: function (ucdData) {
                 if (isSuccessResp(ucdData))
                 {
-                    let ucdUser = document.getElementById('ucd-user');
-                    let ucdDoit = document.getElementById('ucd-doit');
-                    let ucdCompany = document.getElementById('ucd-company');
+                    let ucdUser      = document.getElementById('ucd-user');
+                    let ucdDoit      = document.getElementById('ucd-doit');
+                    let ucdCompany   = document.getElementById('ucd-company');
                     let ucdPromotion = document.getElementById('ucd-promotion');
 
-                    ucdUser.textContent = ucdData.data.user;
-                    ucdDoit.textContent = ucdData.data.doit;
-                    ucdCompany.textContent = ucdData.data.company;
+                    ucdUser.textContent      = ucdData.data.user;
+                    ucdDoit.textContent      = ucdData.data.doit;
+                    ucdCompany.textContent   = ucdData.data.company;
                     ucdPromotion.textContent = ucdData.data.promotion;
+
                     counter("ucd");
                 }
                 else

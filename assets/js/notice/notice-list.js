@@ -263,7 +263,7 @@
 				},
 				error: function (request, status) {
 					alert(label.submit+message.ajaxError);
-				},
+				}
 			});
 		}
 	}
@@ -287,7 +287,7 @@
 					},
 					error: function (request, status) {
 						alert(label.delete+message.ajaxError);
-					},
+					}
 				});
 			}
 		}

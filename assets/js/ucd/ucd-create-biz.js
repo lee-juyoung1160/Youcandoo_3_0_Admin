@@ -123,7 +123,7 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(confirmMessage()))
 			{
 				$.ajax({
 					url: api.createBizUcd,
@@ -144,12 +144,27 @@
 		}
 	}
 
+	function confirmMessage()
+	{
+		let checkedLabel = $("input[name=radio-division]:checked").prop('labels');
+		let msg = '기업명 : '+bizName.val()+label.lineBreak;
+		msg += $(checkedLabel).text()+' UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
+		msg += '내용 > '+label.lineBreak;
+		msg += '프로모션 기간 : '+promoFrom.val()+label.tilde+promoTo.val()+label.lineBreak;
+		msg += '계약명 : '+contractTitle.val().trim()+label.lineBreak;
+		msg += '계약금액 : '+numberWithCommas(contractAmount.val())+' 원'+label.lineBreak
+		msg += label.lineBreak;
+		msg += message.create;
+
+		return msg;
+	}
+
 	function ucdParams()
 	{
 		let param = {
 			"company_uuid" : g_bizUuid
 			,"division" : $("input[name=radio-division]:checked").val()
-			,"amount" : amount.val().trim()
+			,"amount" : amount.val()
 			,"start_date" : promoFrom.val()
 			,"end_date" : promoTo.val()
 			,"contract_name" : contractTitle.val().trim()

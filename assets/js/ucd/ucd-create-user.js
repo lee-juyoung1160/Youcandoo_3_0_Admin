@@ -305,7 +305,7 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(confirmMessage()))
 			{
 				$.ajax({
 					url: api.createUserUcd,
@@ -324,6 +324,26 @@
 				});
 			}
 		}
+	}
+
+	function confirmMessage()
+	{
+		let msg = '적립대상 : '+label.lineBreak;
+		let targetLength = selectedUserTableBody.find('tr').length;
+		selectedUserTableBody.find('tr').each(function (index) {
+			let nickname = $(this).data('nick');
+
+			msg += nickname
+			if (index !== targetLength -1)
+				msg += ', ';
+			if ((index+1)%3 === 0 && index !== targetLength -1)
+				msg += label.lineBreak;
+		});
+		msg += label.lineBreak+label.lineBreak;
+		msg += '적립UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
+		msg += label.lineBreak+message.create;
+
+		return msg;
 	}
 
 	function ucdParams()

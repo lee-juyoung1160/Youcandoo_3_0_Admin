@@ -305,7 +305,7 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
+			if (confirm(confirmMessage()))
 			{
 				$.ajax({
 					url: api.createUserUcd,
@@ -324,6 +324,25 @@
 				});
 			}
 		}
+	}
+
+	function confirmMessage()
+	{
+		let msg = '출금대상(보유UCD) : '+label.lineBreak;
+		let targetLength = selectedUserTableBody.find('tr').length;
+		selectedUserTableBody.find('tr').each(function (index) {
+			let nickname = $(this).data('nick');
+			let balance  = $(this).data('total');
+
+			msg += nickname+'('+numberWithCommas(balance)+')';
+			if (index !== targetLength -1)
+				msg += label.lineBreak;
+		});
+		msg += label.lineBreak+label.lineBreak;
+		msg += '출금UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
+		msg += label.lineBreak+message.create;
+
+		return msg;
 	}
 
 	function ucdParams()

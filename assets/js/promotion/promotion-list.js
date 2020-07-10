@@ -8,7 +8,7 @@
 	const selPageLength = $("#selPageLength");
 	const isBanner 		= $("input[name=radio-banner]");
 	const status 		= $("input[name=chk-status]");
-	const xlsxExport 	= $(".excel-btn");
+	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
@@ -38,7 +38,7 @@
 		isBanner.eq(0).prop("checked", true);
 		status.prop("checked", true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initDayBtn();
 	}
 

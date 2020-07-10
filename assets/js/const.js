@@ -74,6 +74,7 @@
 		, n: 'N'
 		, nullValue: '-'
 		, tilde: ' ~ '
+		, lineBreak: '\n'
 		, pendingIcon: '<i class="far fa-calendar"></i>'
 		, progressIcon: '<i class="far fa-calendar-check"></i>'
 		, endIcon: '<i class="far fa-calendar-times" style="color:#aaa"></i>'

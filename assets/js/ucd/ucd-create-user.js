@@ -105,7 +105,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -215,13 +215,13 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 
 		if (hasDuplicateId())
 		{
-			alert(message.alreadyHasUser);
+			sweetToast(message.alreadyHasUser);
 			return false;
 		}
 
@@ -304,46 +304,59 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-		{
-			if (confirm(confirmMessage()))
-			{
-				$.ajax({
-					url: api.createUserUcd,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: ucdParams(),
-					success: function(data) {
-						alert(getStatusMessage(data))
-						if (isSuccessResp(data))
-							location.href = page.listUcdUsage;
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
+			sweetConfirmWithContent(message.create, confirmContent, createRequest);
 	}
 
-	function confirmMessage()
+	function confirmContent()
 	{
-		let msg = '적립대상 : '+label.lineBreak;
 		let targetLength = selectedUserTableBody.find('tr').length;
+		let content = '';
+		content	+= 	'<ul class="modal-information">';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">적립대상</p>';
+		content	+= 			'<p class="data-contents">';
+
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
 
-			msg += nickname
+			content += nickname
 			if (index !== targetLength -1)
-				msg += ', ';
-			if ((index+1)%3 === 0 && index !== targetLength -1)
-				msg += label.lineBreak;
+				content += ', ';
+			/*if ((index+1)%3 === 0 && index !== targetLength -1)
+				content += label.lineBreak;*/
 		});
-		msg += label.lineBreak+label.lineBreak;
-		msg += '적립UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
-		msg += label.lineBreak+message.create;
 
-		return msg;
+		content	+= 			'</p>';
+		content	+= 		'</li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">적립 UCD</p>';
+		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
+		content	+= 		'</li>';
+		content += '</ul>'
+
+		return content;
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createUserUcd,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: ucdParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listUcdUsage;
 	}
 
 	function ucdParams()
@@ -371,28 +384,28 @@
 
 		if (count === 0)
 		{
-			alert('충전대상을 '+message.addOn);
+			sweetToast('충전대상을 '+message.addOn);
 			onClickModalOpen();
 			return false;
 		}
 
 		if (isEmpty(amount.val()))
 		{
-			alert('UCD는 '+message.required);
+			sweetToast('UCD는 '+message.required);
 			amount.focus();
 			return false;
 		}
 
 		if (amount.val() > 1000000)
 		{
-			alert('UCD는 '+message.maxAvailableUserUcd);
+			sweetToast('UCD는 '+message.maxAvailableUserUcd);
 			amount.focus();
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 '+message.required);
+			sweetToast('내용은 '+message.required);
 			content.focus();
 			return false;
 		}

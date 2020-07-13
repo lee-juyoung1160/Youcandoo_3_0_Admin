@@ -171,30 +171,36 @@
 		modalExampleDesc.html(exampleDesc);
 	}
 
+	let g_cancel_api;
+	let g_cancel_id;
 	function cancelWarn(obj)
 	{
-		let url = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
-		if (confirm('경고장 발송을 '+message.cancel))
-		{
-			$.ajax({
-				url: url,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({"action_uuid" : $(obj).data('uuid')}),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-					{
-						modalFadeout();
-						getActions();
-					}
-				},
-				error: function (request, status) {
-					alert(label.cancel+message.ajaxError);
-				}
-			});
-		}
+		g_cancel_api = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
+		g_cancel_id  = $(obj).data('uuid');
+		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
+	}
+
+	function cancelRequest(obj)
+	{
+		$.ajax({
+			url: g_cancel_api,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({"action_uuid" : g_cancel_id}),
+			success: function(data) {
+				sweetToastAndCallback(data, cancelSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.cancel+message.ajaxError);
+			}
+		});
+	}
+
+	function cancelSuccess()
+	{
+		modalFadeout();
+		getActions();
 	}
 
 	/************************
@@ -212,7 +218,7 @@
 		let count = chkedElement.length;
 		if (count === 0)
 		{
-			alert('발송대상을 '+message.select);
+			sweetToast('발송대상을 '+message.select);
 			return false;
 		}
 
@@ -223,7 +229,7 @@
 		});
 		if (g_warn_type === 'Y' && hasYellowCount > 0)
 		{
-			alert('선택한 발송대상에 '+message.alreadyHasYellow);
+			sweetToast('선택한 발송대상에 '+message.alreadyHasYellow);
 			return false;
 		}
 
@@ -246,31 +252,32 @@
 
 	function onSubmitWarn()
 	{
+		sweetConfirm('경고장을 '+message.send, sendRequest);
+	}
+
+	function sendRequest()
+	{
 		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
 
-		if (confirm('경고장을 '+message.send))
-		{
-			$.ajax({
-				url: url,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: warnParams(),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-					{
-						modalFadeout();
-						getActions();
-					}
-					else
-						alert(invalidResp(data));
-				},
-				error: function (request, status) {
-					alert(label.submit+message.ajaxError);
-				},
-			});
-		}
+		$.ajax({
+			url: url,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: warnParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, sendSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			},
+		});
+	}
+
+	function sendSuccess()
+	{
+		modalFadeout();
+		getActions();
 	}
 
 	function warnParams()
@@ -293,9 +300,33 @@
 		let checkedCount = $("input[name=chk-status]:checked").length;
 		if (checkedCount === 0)
 		{
-			alert(message.minimumChecked);
+			sweetToast(message.minimumChecked);
 			$(obj).prop("checked", true);
 		}
+	}
+
+	/** 인증목록 **/
+	function getActions()
+	{
+		$.ajax({
+			url: api.listAction,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					buildPagination(data);
+					buildList(data);
+				}
+				else
+					sweetError(invalidResp(data));
+			},
+			error: function (request, status) {
+				sweetError(label.list+message.ajaxLoadError);
+			}
+		});
 	}
 
 	function params()
@@ -323,29 +354,6 @@
 		return JSON.stringify(param);
 	}
 
-	function getActions()
-	{
-		$.ajax({
-			url: api.listAction,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					buildPagination(data);
-					buildList(data);
-				}
-				else
-					alert(invalidResp(data));
-			},
-			error: function (request, status) {
-				alert(label.list+message.ajaxLoadError);
-			}
-		});
-	}
-	/** 인증목록 **/
 	function buildList(data)
 	{
 		let actions    = data.data;

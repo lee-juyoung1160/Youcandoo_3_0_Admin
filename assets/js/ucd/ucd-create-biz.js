@@ -62,7 +62,7 @@
 					return JSON.stringify({"keyword" : modalBizName.val()});
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -122,41 +122,59 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-		{
-			if (confirm(confirmMessage()))
-			{
-				$.ajax({
-					url: api.createBizUcd,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: ucdParams(),
-					success: function(data) {
-						alert(getStatusMessage(data))
-						if (isSuccessResp(data))
-							location.href = page.listUcdSales;
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
+			sweetConfirmWithContent(confirmContent(), createRequest);
 	}
 
-	function confirmMessage()
+	function confirmContent()
 	{
 		let checkedLabel = $("input[name=radio-division]:checked").prop('labels');
-		let msg = '기업명 : '+bizName.val()+label.lineBreak;
-		msg += $(checkedLabel).text()+' UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
-		msg += '내용 > '+label.lineBreak;
-		msg += '프로모션 기간 : '+promoFrom.val()+label.tilde+promoTo.val()+label.lineBreak;
-		msg += '계약명 : '+contractTitle.val().trim()+label.lineBreak;
-		msg += '계약금액 : '+numberWithCommas(contractAmount.val())+' 원'+label.lineBreak
-		msg += label.lineBreak;
-		msg += message.create;
+		let content = '';
+		content	+= 	'<ul class="modal-information">';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">기업명</p>';
+		content	+= 			'<p class="data-contents">'+bizName.val()+label.lineBreak+'</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">'+$(checkedLabel).text()+' UCD</p>';
+		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">프로모션 기간</p>';
+		content	+= 			'<p class="data-contents">'+promoFrom.val()+label.tilde+promoTo.val()+'</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">계약명</p>';
+		content	+= 			'<p class="data-contents">'+contractTitle.val().trim()+'</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">계약금액</p>';
+		content	+= 			'<p class="data-contents">'+numberWithCommas(contractAmount.val())+' 원</p>';
+		content	+= 		'<li>';
+		content += '</ul>'
 
-		return msg;
+		return content;
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createBizUcd,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: ucdParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess)
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listUcdSales;
 	}
 
 	function ucdParams()
@@ -179,49 +197,49 @@
 	{
 		if (isEmpty(bizName.val()))
 		{
-			alert('기명명은 '+message.required);
+			sweetToast('기명명은 '+message.required);
 			onClickBizName();
 			return false;
 		}
 
 		if (isEmpty(amount.val()))
 		{
-			alert('UCD는 '+message.required);
+			sweetToast('UCD는 '+message.required);
 			amount.focus();
 			return false;
 		}
 
 		if (amount.val() > 100000000)
 		{
-			alert('UCD는 '+message.maxAvailableBizUcd);
+			sweetToast('UCD는 '+message.maxAvailableBizUcd);
 			amount.focus();
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
-			alert('프로모션 기간(시작일)은 '+message.required);
+			sweetToast('프로모션 기간(시작일)은 '+message.required);
 			promoFrom.focus();
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
-			alert('프로모션 기간(종료일)은 '+message.required);
+			sweetToast('프로모션 기간(종료일)은 '+message.required);
 			promoTo.focus();
 			return false;
 		}
 
 		if (isEmpty(contractTitle.val()))
 		{
-			alert('계약명은 '+message.required);
+			sweetToast('계약명은 '+message.required);
 			contractTitle.focus();
 			return false;
 		}
 
 		if (isEmpty(contractAmount.val()))
 		{
-			alert('계약 금액은 '+message.required);
+			sweetToast('계약 금액은 '+message.required);
 			contractAmount.focus();
 			return false;
 		}

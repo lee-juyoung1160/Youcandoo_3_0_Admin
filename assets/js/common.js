@@ -528,10 +528,10 @@
                     activeMenu();
                 }
                 else
-                    alert(invalidResp(data));
+                    sweetError(invalidResp(data));
             },
             error: function (request, status) {
-                alert('메뉴 '+label.list+message.ajaxLoadError);
+                sweetError('메뉴 '+label.list+message.ajaxLoadError);
             }
         });
     }
@@ -735,6 +735,18 @@
         })
     }
 
+    function sweetConfirmWithContent(_content, callback)
+    {
+        Swal.fire({
+            html: _content,
+            showCancelButton: true,
+            confirmButtonText: label.confirm,
+            cancelButtonText: label.cancel
+        }).then((result) => {
+            if (result.value)
+                callback();
+        })
+    }
 
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });

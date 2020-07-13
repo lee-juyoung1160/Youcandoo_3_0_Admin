@@ -131,7 +131,7 @@
             dataType: 'JSON',
             type: 'POST',
             error: function () {
-                alert('두잇 상태 도넛 차트 데이터'+ message.ajaxLoadError);
+                sweetError('두잇 상태 도넛 차트 데이터'+ message.ajaxLoadError);
             },
             success: function (getDoughnutData) {
                 if (isSuccessResp(getDoughnutData))
@@ -166,7 +166,7 @@
                     counter("doit");
                 }
                 else
-                    alert(invalidResp(getDoughnutData));
+                    sweetToast(invalidResp(getDoughnutData));
             }
         });
     }
@@ -196,7 +196,7 @@
             dataType: 'JSON',
             type: 'POST',
             error: function (d) {
-                alert('가입자 현황'+ message.ajaxLoadError);
+                sweetError('가입자 현황'+ message.ajaxLoadError);
             },
             success: function (userStatus) {
                 if (isSuccessResp(userStatus))
@@ -214,7 +214,7 @@
                     counter("user");
                 }
                 else
-                    alert(invalidResp(userStatus));
+                    sweetToast(invalidResp(userStatus));
             }
         });
     }
@@ -227,7 +227,7 @@
             dataType: 'JSON',
             type: 'POST',
             error: function (d) {
-                alert('UCD 정보'+ message.ajaxLoadError);
+                sweetError('UCD 정보'+ message.ajaxLoadError);
             },
             success: function (ucdData) {
                 if (isSuccessResp(ucdData))
@@ -245,7 +245,7 @@
                     counter("ucd");
                 }
                 else
-                    alert(invalidResp(ucdData));
+                    sweetToast(invalidResp(ucdData));
             }
         });
     }
@@ -260,44 +260,52 @@
             type: 'POST',
             data: JSON.stringify({'year': yearSelectBox.value}),
             error: function () {
-                alert('월 단위 두잇 데이터'+ message.ajaxLoadError);
+                sweetError('월 단위 두잇 데이터'+ message.ajaxLoadError);
             },
             success: function (monthData) {
-                monthlyChart = new Chart(monthlyMixedChart, {
-                    type: 'bar',
-                    data: {
-                        datasets: [{
-                            label: '일반',
-                            data: monthData.data.user,
-                            backgroundColor: color.backgroundColorDoughnut[0],
-                        }, {
-                            label: '프로모션',
-                            data: monthData.data.company,
-                            backgroundColor: color.backgroundColorDoughnut[1],
-                        }, {
-                            label: 'Total',
-                            data: monthData.data.total,
-                            type: 'line',
-                            borderColor: color.colorLine[0],
-                            borderWidth : 2.2,
-                            pointBackgroundColor: color.white,
-                            backgroundColor: color.colorLine[1]
+                if (isSuccessResp(monthData))
+                {
+                    monthlyChart = new Chart(monthlyMixedChart, {
+                        type: 'bar',
+                        data: {
+                            datasets: [
+                                {
+                                    label: '일반',
+                                    data: monthData.data.user,
+                                    backgroundColor: color.backgroundColorDoughnut[0],
+                                },
+                                {
+                                    label: '프로모션',
+                                    data: monthData.data.company,
+                                    backgroundColor: color.backgroundColorDoughnut[1],
+                                },
+                                {
+                                    label: 'Total',
+                                    data: monthData.data.total,
+                                    type: 'line',
+                                    borderColor: color.colorLine[0],
+                                    borderWidth : 2.2,
+                                    pointBackgroundColor: color.white,
+                                    backgroundColor: color.colorLine[1]
+                                }
+                            ],
+                            labels: labels.monthNames
                         },
-                        ],
-                        labels: labels.monthNames
-                    },
-                    options: {
-                        legend: {
-                            align: 'start',
-                            position: 'top',
-                            responsive: 'false',
-                            maintainAspectRatio: 'false',
-                        },
-                        scales: {
-                            yAxes: [{ticks: {beginAtZero: true}}]
+                        options: {
+                            legend: {
+                                align: 'start',
+                                position: 'top',
+                                responsive: 'false',
+                                maintainAspectRatio: 'false',
+                            },
+                            scales: {
+                                yAxes: [{ticks: {beginAtZero: true}}]
+                            }
                         }
-                    },
-                });
+                    });
+                }
+                else
+                    sweetToast(invalidResp(monthData));
             }
         });
     }
@@ -308,7 +316,8 @@
         let param = {
             'month': certMonthSelectBox.value,
             'year' : certYearSelectBox.value
-        };
+        }
+
         $.ajax({
             url: api.getDailyAction,
             headers: headers,
@@ -316,31 +325,36 @@
             type: 'POST',
             data: JSON.stringify(param),
             error: function () {
-                alert('일 단위 인증 데이터'+ message.ajaxLoadError);
+                sweetError('일 단위 인증 데이터'+ message.ajaxLoadError);
             },
             success: function (certMonthData) {
-                certLineChart = new Chart(certMonthChart, {
-                    type: 'line',
-                    data: {
-                        datasets: [{
-                           data: certMonthData.data.result,
-                            lineTension: 0,
-                            borderColor: color.colorLine[0],
-                            borderWidth : 2.2,
-                            pointBackgroundColor: color.white,
-                            backgroundColor: color.colorLine[1],
-                        }],
-                        labels: certMonthData.data.day
-                    },
-                    options: {
-                        legend: {
-                            display: false
+                if (isSuccessResp(certMonthData))
+                {
+                    certLineChart = new Chart(certMonthChart, {
+                        type: 'line',
+                        data: {
+                            datasets: [{
+                                data: certMonthData.data.result,
+                                lineTension: 0,
+                                borderColor: color.colorLine[0],
+                                borderWidth : 2.2,
+                                pointBackgroundColor: color.white,
+                                backgroundColor: color.colorLine[1],
+                            }],
+                            labels: certMonthData.data.day
                         },
-                        scales: {
-                            yAxes: [{ticks: {beginAtZero: true}}]
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            scales: {
+                                yAxes: [{ticks: {beginAtZero: true}}]
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else
+                    sweetToast(invalidResp(certMonthData));
             }
         });
     }

@@ -95,7 +95,7 @@
                     return tableParams()
                 },
                 error: function () {
-                    alert(label.list+message.ajaxLoadError);
+                    sweetError(label.list+message.ajaxLoadError);
                 },
             },
             columns: [

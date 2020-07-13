@@ -105,7 +105,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -215,13 +215,13 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 
 		if (hasDuplicateId())
 		{
-			alert(message.alreadyHasUser);
+			sweetToast(message.alreadyHasUser);
 			return false;
 		}
 
@@ -304,45 +304,58 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-		{
-			if (confirm(confirmMessage()))
-			{
-				$.ajax({
-					url: api.createUserUcd,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: ucdParams(),
-					success: function(data) {
-						alert(getStatusMessage(data))
-						if (isSuccessResp(data))
-							location.href = page.listUcdWithdraw;
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
+			sweetConfirmWithContent(message.create, confirmContent, createRequest);
 	}
 
-	function confirmMessage()
+	function confirmContent()
 	{
-		let msg = '출금대상(보유UCD) : '+label.lineBreak;
 		let targetLength = selectedUserTableBody.find('tr').length;
+		let content = '';
+		content	+= 	'<ul class="modal-information">';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">출금대상(보유UCD)</p>';
+		content	+= 			'<p class="data-contents">';
+
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
 			let balance  = $(this).data('total');
 
-			msg += nickname+'('+numberWithCommas(balance)+')';
+			content += nickname+'('+numberWithCommas(balance)+')';
 			if (index !== targetLength -1)
-				msg += label.lineBreak;
+				content += ', ';
 		});
-		msg += label.lineBreak+label.lineBreak;
-		msg += '출금UCD : '+numberWithCommas(amount.val())+' UCD'+label.lineBreak;
-		msg += label.lineBreak+message.create;
 
-		return msg;
+		content	+= 			'</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">출금 UCD</p>';
+		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
+		content	+= 		'</li>';
+		content += '</ul>'
+
+		return content;
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createUserUcd,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: ucdParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listUcdWithdraw;
 	}
 
 	function ucdParams()

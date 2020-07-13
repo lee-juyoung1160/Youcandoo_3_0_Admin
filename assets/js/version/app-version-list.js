@@ -74,7 +74,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -158,31 +158,30 @@
 	function onSubmitAppVersion()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createAppVersion,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: addParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-						{
-							modalFadeout();
-							buildGrid();
-						}
-						else
-							alert(invalidResp(data));
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					},
-				});
-			}
-		}
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createAppVersion,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: addParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			},
+		});
+	}
+
+	function createSuccess()
+	{
+		modalFadeout();
+		buildGrid();
 	}
 
 	function addParams()
@@ -200,14 +199,14 @@
 	{
 		if (isEmpty(digit.val()))
 		{
-			alert('버전은 '+message.required)
+			sweetToast('버전은 '+message.required)
 			digit.focus();
 			return false;
 		}
 
 		if (isEmpty(decimal.val()))
 		{
-			alert('버전은 '+message.required)
+			sweetToast('버전은 '+message.required)
 			decimal.focus();
 			return false;
 		}

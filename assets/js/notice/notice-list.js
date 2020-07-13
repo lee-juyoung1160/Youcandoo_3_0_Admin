@@ -175,7 +175,7 @@
 		if (isTop === 'Y')
 		{
 			/** no컬럼에 숫자대신 아이콘 **/
-			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;color:#f27c26;"></i>');
+			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;color:#ffc800;"></i>');
 		}
 	}
 

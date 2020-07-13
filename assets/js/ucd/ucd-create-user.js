@@ -315,7 +315,8 @@ console.log(movedUser)
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">적립대상</p>';
-		content	+= 			'<div class="scroll-wrap"><p class="data-contents"></div>';
+		content	+= 			'<div class="scroll-wrap">';
+		content	+= 				'<p class="data-contents">';
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
@@ -325,7 +326,8 @@ console.log(movedUser)
 				content += ', ';
 		});
 
-		content	+= 			'</p>';
+		content	+= 				'</p>';
+		content	+= 			'</div>';
 		content	+= 		'</li>';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">적립 UCD</p>';

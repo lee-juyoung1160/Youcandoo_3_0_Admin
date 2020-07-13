@@ -805,6 +805,7 @@
 	{
 		let result = false;
 		let rewardDom = $("ul.pro-reward");
+
 		for (let i=0; i<rewardDom.length; i++)
 		{
 			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;

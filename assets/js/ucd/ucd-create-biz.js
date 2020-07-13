@@ -122,7 +122,7 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(confirmContent(), createRequest);
+			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
 	}
 
 	function confirmContent()
@@ -132,7 +132,11 @@
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">기업명</p>';
-		content	+= 			'<p class="data-contents">'+bizName.val()+label.lineBreak+'</p>';
+		content	+= 			'<p class="data-contents">'+bizName.val()+'</p>';
+		content	+= 		'<li>';
+		content	+= 		'<li>';
+		content	+= 			'<p class="sub-title">구분</p>';
+		content	+= 			'<p class="data-contents">'+$(checkedLabel).text()+'</p>';
 		content	+= 		'<li>';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">'+$(checkedLabel).text()+' UCD</p>';

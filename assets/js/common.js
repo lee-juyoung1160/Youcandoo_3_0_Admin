@@ -438,16 +438,18 @@
 
     function onClickChkAll(obj)
     {
+        let tableEl = '#'+$(obj).closest('table').prop('id');
+        let table = $(tableEl).DataTable();
         let chkName = $(obj).prop('name');
         if ($(obj).is(':checked'))
         {
             $('input[name="'+chkName+'"]').prop('checked', true);
-            $(obj).closest('table').find('tbody').children('tr').addClass('selected');
+            table.rows().select();
         }
         else
         {
             $('input[name="'+chkName+'"]').prop('checked', false);
-            $(obj).closest('table').find('tbody').children('tr').removeClass('selected');
+            table.rows().deselect();
         }
     }
 
@@ -735,10 +737,11 @@
         })
     }
 
-    function sweetConfirmWithContent(_content, callback)
+    function sweetConfirmWithContent(msg, _content, callback)
     {
         Swal.fire({
             html: _content,
+            footer: msg,
             showCancelButton: true,
             confirmButtonText: label.confirm,
             cancelButtonText: label.cancel

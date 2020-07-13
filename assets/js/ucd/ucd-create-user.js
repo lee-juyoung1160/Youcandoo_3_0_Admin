@@ -238,7 +238,8 @@
 		$("#movedUserTableBody").find('tr').each(function () {
 			movedUser.push($(this).data("uuid"));
 		});
-
+console.log(movedUser)
+		console.log(selectedData)
 		for (let i=0; i<selectedData.length; i++)
 		{
 			let detail = selectedData[i];
@@ -304,7 +305,7 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(message.create, confirmContent, createRequest);
+			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
 	}
 
 	function confirmContent()
@@ -314,7 +315,7 @@
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">적립대상</p>';
-		content	+= 			'<p class="data-contents">';
+		content	+= 			'<div class="scroll-wrap"><p class="data-contents"></div>';
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
@@ -322,8 +323,6 @@
 			content += nickname
 			if (index !== targetLength -1)
 				content += ', ';
-			/*if ((index+1)%3 === 0 && index !== targetLength -1)
-				content += label.lineBreak;*/
 		});
 
 		content	+= 			'</p>';

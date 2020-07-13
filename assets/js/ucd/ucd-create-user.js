@@ -238,8 +238,7 @@
 		$("#movedUserTableBody").find('tr').each(function () {
 			movedUser.push($(this).data("uuid"));
 		});
-console.log(movedUser)
-		console.log(selectedData)
+
 		for (let i=0; i<selectedData.length; i++)
 		{
 			let detail = selectedData[i];

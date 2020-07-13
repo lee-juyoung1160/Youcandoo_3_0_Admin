@@ -682,12 +682,59 @@
     {
         return JSON.parse(sessionStorage.getItem("param"));
     }
+
+
     /**
-     * 뒤로가기 액션 관련 >>
-     * 상세페이지에서 목록으로 이동할 때 이전 상태를 유지하기 위함
-     * 페이지 진입할 때 sessionStorage에 param과 page path 쌓고
-     * 상세에서 목록으로 뒤로가기 이동할 때 sessionStorage에서 값을 가져와 목록 페이지의 이전 상태를 유지
+     *  alert 관련
      * **/
+    function sweetToast(msg)
+    {
+        Swal.fire({
+            toast: true,
+            position: 'center',
+            icon: 'warning',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1200
+        })
+    }
+
+    function sweetToastAndCallback(data, callback)
+    {
+        Swal.fire({
+            toast: true,
+            position: 'center',
+            icon: isSuccessResp(data) ? 'success' : 'error',
+            title: getStatusMessage(data),
+            showConfirmButton: false,
+            timer: 1200
+        }).then((result) => {
+            if (result.isDismissed && isSuccessResp(data))
+                callback();
+        })
+    }
+
+    function sweetError(msg)
+    {
+        Swal.fire({
+            icon: 'error',
+            text: msg,
+        })
+    }
+
+    function sweetConfirm(msg, callback)
+    {
+        Swal.fire({
+            text: msg,
+            showCancelButton: true,
+            confirmButtonText: label.confirm,
+            cancelButtonText: label.cancel
+        }).then((result) => {
+            if (result.value)
+                callback();
+        })
+    }
+
 
     $(document).ready(function () {
         $(document).ajaxStart(() => { fadeinLoader(); });

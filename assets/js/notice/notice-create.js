@@ -29,28 +29,31 @@
 	function onSubmitNotice()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createNotice,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listNotice
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createNotice,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listNotice;
 	}
 
 	function params()
@@ -70,21 +73,21 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			alert('제목은 ' + message.required);
+			sweetToast('제목은 ' + message.required);
 			title.focus();
 			return false;
 		}
 
-		if (isEmpty(content.val))
+		if (isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast('내용은 ' + message.required);
 			content.focus();
 			return false;
 		}
 
 		if (isEmpty(reserveDate.val()))
 		{
-			alert('예약일은 ' + message.required);
+			sweetToast('예약일은 ' + message.required);
 			reserveDate.focus();
 			return false;
 		}

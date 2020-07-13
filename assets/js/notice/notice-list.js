@@ -70,7 +70,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -238,59 +238,69 @@
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 		let isTop 		 = selectedData.is_top;
+
+		sweetConfirm(isTop === 'Y' ? message.deleteTop : message.insertTop, fixedTopRequest);
+	}
+
+	function fixedTopRequest()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+		let isTop 		 = selectedData.is_top;
 		let noticeUuid	 = selectedData.notice_uuid;
 		let topParams = {
 			"is_top" : isTop === 'Y' ? 'N' : 'Y'
 			,"notice_uuid" : noticeUuid
 		};
 
-		if (confirm(isTop === 'Y' ? message.deleteTop : message.insertTop))
-		{
-			$.ajax({
-				url: api.topNotice,
-				type: "POST",
-				headers: headers,
-				global: false,
-				dataType: 'json',
-				data: JSON.stringify(topParams),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-					{
-						disableStatusBtnTop();
-						tableReloadAndStayCurrentPage(dataTable);
-					}
-				},
-				error: function (request, status) {
-					alert(label.submit+message.ajaxError);
-				}
-			});
-		}
+		$.ajax({
+			url: api.topNotice,
+			type: "POST",
+			headers: headers,
+			global: false,
+			dataType: 'json',
+			data: JSON.stringify(topParams),
+			success: function(data) {
+				sweetToastAndCallback(data, fixedSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
+			}
+		});
+	}
+
+	function fixedSuccess()
+	{
+		disableStatusBtnTop();
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function deleteNotice()
 	{
 		if (delValidation())
-		{
-			if (confirm(message.delete))
-			{
-				$.ajax({
-					url: api.deleteNotice,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: delParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(dataTable);
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		$.ajax({
+			url: api.deleteNotice,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: delParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, deleteSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function deleteSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function delValidation()
@@ -300,7 +310,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 대상을 목록에서 '+message.select);
+			sweetToast('삭제할 대상을 목록에서 '+message.select);
 			return false;
 		}
 

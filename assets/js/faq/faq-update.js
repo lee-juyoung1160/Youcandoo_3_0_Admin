@@ -23,10 +23,10 @@
 				if (isSuccessResp(data))
 					buildFaqType(data);
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxError);
+				sweetError('구분 '+label.list+message.ajaxError);
 			},
 			complete: function (xhr, status) {
 				getDetail();
@@ -63,10 +63,10 @@
 				if (isSuccessResp(data))
 					buildDetail(data);
 				else
-					alert(invalidResp(data))
+					sweetError(invalidResp(data))
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -99,26 +99,29 @@
 	function onSubmitUpdateFaq()
 	{
 		if (validation())
-		{
-			if (confirm(message.modify))
-			{
-				$.ajax({
-					url: api.updateFaq,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listFaq
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.modify, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		$.ajax({
+			url: api.updateFaq,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, updateSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.listFaq
 	}
 
 	function params()
@@ -139,14 +142,14 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			alert('제목은 ' + message.required);
+			sweetToast('제목은 ' + message.required);
 			title.focus();
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast('내용은 ' + message.required);
 			content.focus();
 			return false;
 		}

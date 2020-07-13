@@ -64,6 +64,7 @@
 		, modify: '수정'
 		, delete: '삭제'
 		, cancel: '취소'
+		, confirm: '확인'
 		, pending: '대기'
 		, progress: '진행'
 		, end: '마감'

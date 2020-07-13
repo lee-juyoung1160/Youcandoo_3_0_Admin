@@ -27,10 +27,10 @@
 				if (isSuccessResp(data))
 					buildFaqType(data);
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxLoadError);
+				sweetError('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -65,14 +65,14 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			alert('제목은 ' + message.required);
+			sweetToast('제목은 ' + message.required);
 			title.focus();
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast('내용은 ' + message.required);
 			content.focus();
 			return false;
 		}
@@ -83,26 +83,29 @@
 	function onSubmitFaq()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createFaq,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listFaq
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createFaq,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listFaq
 	}
 
 	function params()

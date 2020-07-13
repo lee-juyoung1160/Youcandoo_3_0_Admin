@@ -57,7 +57,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -139,31 +139,30 @@
 	function onSubmitProhibition()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createProhibition,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: addParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-						{
-							modalFadeout();
-							buildGrid();
-						}
-						else
-							alert(invalidResp(data));
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					},
-				});
-			}
-		}
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createProhibition,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: addParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			},
+		});
+	}
+
+	function createSuccess()
+	{
+		modalFadeout();
+		buildGrid();
 	}
 
 	function addParams()
@@ -190,7 +189,7 @@
 	{
 		if (isEmpty(prohibition.val()))
 		{
-			alert('금칙어는 '+message.required)
+			sweetToast('금칙어는 '+message.required)
 			prohibition.focus();
 			return false;
 		}
@@ -202,26 +201,29 @@
 	function deleteProhibition()
 	{
 		if (delValidation())
-		{
-			if (confirm(message.delete))
-			{
-				$.ajax({
-					url: api.deleteProhibition,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: delParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(dataTable);
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					},
-				});
-			}
-		}
+			sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		$.ajax({
+			url: api.deleteProhibition,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: delParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, deleteSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
+			},
+		});
+	}
+	
+	function deleteSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function delValidation()
@@ -231,7 +233,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 

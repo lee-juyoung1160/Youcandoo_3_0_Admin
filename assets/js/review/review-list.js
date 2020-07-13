@@ -141,8 +141,8 @@
                     return tableParams();
                 },
                 error: function (c) {
-                    alert(label.list+message.ajaxLoadError);
-                },
+                    sweetError(label.list+message.ajaxLoadError);
+                }
             },columns: [
                 {title: tableCheckAllDom(), 	data: "idx",   width: "5%",
                     render: function (data) {
@@ -221,26 +221,29 @@
     function onClickUpdateBlind()
     {
         if (blindValidation())
-        {
-            if (confirm('상태를 '+message.change))
-            {
-                $.ajax({
-                    url: api.updateBlind,
-                    type: "POST",
-                    headers: headers,
-                    dataType: 'json',
-                    data: blindParams(),
-                    success: function(data) {
-                        alert(getStatusMessage(data));
-                        if (isSuccessResp(data))
-                            getReviewListData();
-                    },
-                    error: function (request, status) {
-                        alert(label.modify+message.ajaxError);
-                    },
-                });
+            sweetConfirm('상태를 '+message.change, blindRequest);
+    }
+
+    function blindRequest()
+    {
+        $.ajax({
+            url: api.updateBlind,
+            type: "POST",
+            headers: headers,
+            dataType: 'json',
+            data: blindParams(),
+            success: function(data) {
+                sweetToastAndCallback(data, blindSuccess);
+            },
+            error: function (request, status) {
+                sweetError(label.modify+message.ajaxError);
             }
-        }
+        });
+    }
+
+    function blindSuccess()
+    {
+        getReviewListData();
     }
 
     function blindValidation()
@@ -250,7 +253,7 @@
 
         if (isEmpty(selectedData))
         {
-            alert('대상을 목록에서 '+message.select);
+            sweetToast('대상을 목록에서 '+message.select);
             return false;
         }
 

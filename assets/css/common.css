@@ -1133,7 +1133,6 @@ input[type="checkbox"]:disabled + label span{
 	cursor: pointer;
 }
 
-
 /* 레이아웃 재배치 */
 .enrollment li .col-wrap .col-1,
 .enrollment li .col-wrap .col-2 {
@@ -1427,4 +1426,22 @@ table .fa-eye {
 }
 table .fa-eye-slash {
 	color: #aaa;
+}
+
+
+.swal2-popup .modal-information li:after {
+	display: block;
+	clear: both;
+	content: '';
+}
+.swal2-popup .modal-information .sub-title {
+	float: left;
+	width: 30%;
+	text-align: left;
+}
+.swal2-popup .modal-information .data-contents {
+	float: left;
+	width: 70%;
+	text-align: left;
+	font-size: 16px;
 }

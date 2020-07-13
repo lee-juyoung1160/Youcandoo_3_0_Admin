@@ -10,8 +10,8 @@
 	const selPageLength = $("#selPageLength");
 	const ucdType 		= $("input[name=radio-type]");
 	const userDivision	= $("input[name=radio-user-division]");
-	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
+	const xlsxExport 	= $(".excel-btn");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/

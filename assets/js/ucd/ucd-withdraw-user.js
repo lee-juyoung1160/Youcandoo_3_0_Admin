@@ -382,35 +382,35 @@
 
 		if (count === 0)
 		{
-			alert('출금대상을 '+message.addOn);
+			sweetToast('출금대상을 '+message.addOn);
 			onClickModalOpen();
 			return false;
 		}
 
 		if (isEmpty(amount.val()))
 		{
-			alert('UCD는 '+message.required);
+			sweetToast('UCD는 '+message.required);
 			amount.focus();
 			return false;
 		}
 
 		if (amount.val() > 1000000)
 		{
-			alert('UCD는 '+message.maxAvailableUserUcd);
+			sweetToast('UCD는 '+message.maxAvailableUserUcd);
 			amount.focus();
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 '+message.required);
+			sweetToast('내용은 '+message.required);
 			content.focus();
 			return false;
 		}
 
 		if (isOverBalance())
 		{
-			alert(message.overBalanceWithdraw);
+			sweetToast(message.overBalanceWithdraw);
 			return false;
 		}
 

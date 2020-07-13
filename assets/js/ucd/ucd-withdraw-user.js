@@ -304,7 +304,7 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(message.create, confirmContent, createRequest);
+			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
 	}
 
 	function confirmContent()
@@ -320,7 +320,7 @@
 			let nickname = $(this).data('nick');
 			let balance  = $(this).data('total');
 
-			content += nickname+'('+numberWithCommas(balance)+')';
+			content += nickname;
 			if (index !== targetLength -1)
 				content += ', ';
 		});

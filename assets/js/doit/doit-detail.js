@@ -1104,7 +1104,7 @@
 	{
 		let starEl = '<ol class="star-wrap" style="float: inherit;">';
 		for (let i=0; i<5; i++)
-			i < Number(rating) ? starEl += '<li class="on"><i class="fas fa-star"></i></li>' : starEl += '<li><i class="fas fa-star"></i></li>';
+			starEl += i < Number(rating) ? '<li class="on"><i class="fas fa-star" style="cursor:default;"></i></li>' : '<li><i class="fas fa-star" style="cursor:default;"></i></li>';
 		starEl += '</ol>';
 
 		return starEl;

@@ -144,7 +144,7 @@
                     alert(label.list+message.ajaxLoadError);
                 },
             },columns: [
-                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",     orderable: false,
+                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",
                     render: function (data) {
                         return multiCheckBoxDom(data);
                     }
@@ -154,23 +154,23 @@
                         return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                     }
                 },
-                {title:"평점",data: "rating", width: '10%',
+                {title:"평점",data: "rating", width: '10%', className: 'cursor-default',
                     render: function (data) {
                         return buildStar(data);
                     }
                 },
-                {title:"두잇명",data: "doit_title", width: '25%'},
-                {title:"신고",data: "report_count", width: '10%'},
-                {title:"블라인드 여부",data: "is_blind", width: '10%',
+                {title:"두잇명",data: "doit_title", width: '25%', className: 'cursor-default'},
+                {title:"신고",data: "report_count", width: '10%', className: 'cursor-default'},
+                {title:"블라인드 여부",data: "is_blind", width: '10%', className: 'cursor-default',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성날짜",data: "created", width: '10%',
+                {title:"작성날짜",data: "created", width: '10%', className: 'cursor-default',
                     render: function (data) {
                         return data.substring(0, 10);
                     }},
-                {title:"작성자",data: "nickname", width: '15%'}
+                {title:"작성자",data: "nickname", width: '15%', className: 'cursor-default'}
             ],language: {
                 emptyTable: message.emptyList
                 , zeroRecords: message.emptyList
@@ -211,7 +211,7 @@
     {
         let starEl = '<ol class="star-wrap" style="float: inherit;">';
         for (let i=0; i<5; i++)
-            i < Number(rating) ? starEl += '<li class="on"><i class="fas fa-star"></i></li>' : starEl += '<li><i class="fas fa-star"></i></li>';
+            starEl += i < Number(rating) ? '<li class="on"><i class="fas fa-star" style="cursor:default;"></i></li>' : '<li><i class="fas fa-star" style="cursor:default;"></i></li>';
         starEl += '</ol>';
 
         return starEl;

@@ -34,6 +34,7 @@ class Auth extends CI_Controller {
             return;
         }
 
+
         $Password = hash("sha512",$Password);
         if($this->redis_session->exists("admin:user"))
         {

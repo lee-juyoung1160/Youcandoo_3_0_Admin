@@ -546,7 +546,6 @@
             let target   = 'menu_'+i;
             if (mainView === true)
             {
-                //if (isOuterIp() && isPrivateMenu(mainName)) continue;
                 if (isOuterIp() && isPrivateMenu(mainName)) continue;
 
                 menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
@@ -567,7 +566,7 @@
                         let subView  = children[subKey].view;
 
                         if (subView === true)
-                            menuDom +=     '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                            menuDom += '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
                     }
                 }
                 menuDom +=     '</ul>';

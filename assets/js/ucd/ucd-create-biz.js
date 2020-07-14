@@ -122,7 +122,7 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
+			sweetConfirmWithContent(confirmContent(), createRequest);
 	}
 
 	function confirmContent()
@@ -143,7 +143,7 @@
 		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
 		content	+= 		'<li>';
 		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">프로모션 기간</p>';
+		content	+= 			'<p class="sub-title">기간</p>';
 		content	+= 			'<p class="data-contents">'+promoFrom.val()+label.tilde+promoTo.val()+'</p>';
 		content	+= 		'<li>';
 		content	+= 		'<li>';
@@ -155,6 +155,7 @@
 		content	+= 			'<p class="data-contents">'+numberWithCommas(contractAmount.val())+' 원</p>';
 		content	+= 		'<li>';
 		content += '</ul>'
+		content += '<p class="confirm-message">'+message.create+'</p>';
 
 		return content;
 	}

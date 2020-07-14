@@ -62,7 +62,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -138,30 +138,32 @@
 
 	function onSubmitPush()
 	{
-		params()
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createPush,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listPush
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createPush,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listPush;
 	}
 
 	function params()
@@ -183,14 +185,14 @@
 	{
 		if (isEmpty(sendTime.val()))
 		{
-			alert('발송시간은 ' + message.required);
+			sweetToast('발송시간은 ' + message.required);
 			sendTime.focus();
 			return false;
 		}
 		
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast('내용은 ' + message.required);
 			content.focus();
 			return false;
 		}

@@ -40,7 +40,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -138,26 +138,29 @@
 	function cancelPush()
 	{
 		if (cancelValidation())
-		{
-			if (confirm(message.cancel))
-			{
-				$.ajax({
-					url: api.cancelPush,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: cancelParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(dataTable);
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					},
-				});
+			sweetConfirm(message.cancel, cancelRequest);
+	}
+
+	function cancelRequest()
+	{
+		$.ajax({
+			url: api.cancelPush,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: cancelParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, cancelSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function cancelSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function cancelValidation()
@@ -167,7 +170,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 

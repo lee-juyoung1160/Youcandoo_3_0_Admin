@@ -304,12 +304,11 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
+			sweetConfirmWithContent(confirmContent(), createRequest);
 	}
 
 	function confirmContent()
 	{
-		let targetLength = selectedUserTableBody.find('tr').length;
 		let content = '';
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
@@ -320,9 +319,7 @@
 			let nickname = $(this).data('nick');
 			let balance  = $(this).data('total');
 
-			content += nickname;
-			if (index !== targetLength -1)
-				content += ', ';
+			content += ' @'+nickname+'('+balance+')';
 		});
 
 		content	+= 			'</p>';
@@ -332,6 +329,7 @@
 		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
 		content	+= 		'</li>';
 		content += '</ul>'
+		content += '<p class="confirm-message">'+message.create+'</p>';
 
 		return content;
 	}

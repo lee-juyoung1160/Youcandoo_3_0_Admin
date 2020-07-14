@@ -36,10 +36,10 @@
 				if (isSuccessResp(data))
 					buildDetail(data);
 				else
-					alert(invalidResp(data))
+					sweetError(invalidResp(data))
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}

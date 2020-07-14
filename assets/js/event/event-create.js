@@ -82,10 +82,10 @@
 				if (isSuccessResp(data))
 					buildEventType(data);
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxLoadError);
+				sweetError('구분 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -182,67 +182,67 @@
 
 		if (isEmpty(title.val()))
 		{
-			alert('제목은 ' + message.required);
+			sweetToast('제목은 ' + message.required);
 			title.focus();
 			return false;
 		}
 
 		if (isDisplay(contentWrap) && isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast('내용은 ' + message.required);
 			content.focus();
 			return false;
 		}
 
 		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
 		{
-			alert('유의사항은 ' + message.required);
+			sweetToast('유의사항은 ' + message.required);
 			notice.focus();
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && isEmpty(eventLink.val()))
 		{
-			alert('링크는 ' + message.required);
+			sweetToast('링크는 ' + message.required);
 			eventLink.focus();
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && !isDomainName(eventLink.val().trim()))
 		{
-			alert('링크 형식을 ' + message.doubleChk);
+			sweetToast('링크 형식을 ' + message.doubleChk);
 			eventLink.focus();
 			return false;
 		}
 
 		if (isDisplay(webWrap) && htmlFile.length === 0)
 		{
-			alert('html 파일은 ' + message.required);
+			sweetToast('html 파일은 ' + message.required);
 			return false;
 		}
 
 		if (isDisplay(contentImageWrap) && contentImageFile.length === 0)
 		{
-			alert('본문 이미지는 ' + message.required);
+			sweetToast('본문 이미지는 ' + message.required);
 			return false;
 		}
 
 		if (thumbnailFile.length === 0)
 		{
-			alert('썸네일 이미지는 ' + message.required);
+			sweetToast('썸네일 이미지는 ' + message.required);
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
-			alert('기간(시작일)은 ' + message.required);
+			sweetToast('기간(시작일)은 ' + message.required);
 			eventFrom.focus();
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
-			alert('기간(종료일)은 ' + message.required);
+			sweetToast('기간(종료일)은 ' + message.required);
 			eventTo.focus();
 			return false;
 		}
@@ -253,28 +253,31 @@
 	function onSubmitEvent()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createEvent,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listEvent
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createEvent,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listEvent;
 	}
 
 	function params()

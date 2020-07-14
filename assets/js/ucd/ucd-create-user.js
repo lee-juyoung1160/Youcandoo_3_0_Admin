@@ -304,7 +304,7 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(message.create, confirmContent(), createRequest);
+			sweetConfirmWithContent(confirmContent(), createRequest);
 	}
 
 	function confirmContent()
@@ -331,7 +331,7 @@
 		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
 		content	+= 		'</li>';
 		content += '</ul>'
-		content += '<p class="confirm-message">등록하시겠습니까?</p>';
+		content += '<p class="confirm-message">'+message.create+'</p>';
 
 		return content;
 	}

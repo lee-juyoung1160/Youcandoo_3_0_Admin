@@ -737,11 +737,10 @@
         })
     }
 
-    function sweetConfirmWithContent(msg, _content, callback)
+    function sweetConfirmWithContent(content, callback)
     {
         Swal.fire({
-            html: _content,
-            footer: msg,
+            html: content,
             showCancelButton: true,
             confirmButtonText: label.confirm,
             cancelButtonText: label.cancel

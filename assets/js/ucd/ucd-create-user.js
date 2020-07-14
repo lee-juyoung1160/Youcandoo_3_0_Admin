@@ -314,7 +314,7 @@
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">적립 대상</p>';
 		content	+= 			'<div class="scroll-wrap">';
-		content	+= 				'<p class="data-contents">';
+		content	+= 				'<p class="data-content">';
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
@@ -331,6 +331,7 @@
 		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
 		content	+= 		'</li>';
 		content += '</ul>'
+		content += '<p class="confirm-message">등록하시겠습니까?</p>';
 
 		return content;
 	}

@@ -1428,7 +1428,9 @@ table .fa-eye-slash {
 	color: #aaa;
 }
 
-
+.swal2-popup .modal-information li {
+	padding-bottom: 10px;
+}
 .swal2-popup .modal-information li:after {
 	display: block;
 	clear: both;
@@ -1439,9 +1441,22 @@ table .fa-eye-slash {
 	width: 30%;
 	text-align: left;
 }
+.swal2-popup .modal-information .scroll-wrap,
 .swal2-popup .modal-information .data-contents {
 	float: left;
 	width: 70%;
 	text-align: left;
 	font-size: 16px;
+
+}
+.swal2-popup .modal-information .scroll-wrap {
+	overflow-y: scroll;
+	max-height: 100px;
+	padding: 10px;
+	border: 1px solid #eee;
+}
+.swal2-popup .confirm-message {
+	padding: 20px 0 5px;
+	font-size: 16px;
+	border-top: 1px solid #f3f3f3;
 }

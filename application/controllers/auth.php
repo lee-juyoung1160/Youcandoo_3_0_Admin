@@ -130,7 +130,7 @@ class Auth extends CI_Controller {
             "Authorization : 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.youcandoo.co.kr/v1.0/admin/setLoginInfo");
+        curl_setopt($ch, CURLOPT_URL, $this->config->item("api_server_url")."/v1.0/admin/setLoginInfo");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -162,7 +162,7 @@ class Auth extends CI_Controller {
             "Authorization : 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.youcandoo.co.kr/v1.0/admin/setFailCount");
+        curl_setopt($ch, CURLOPT_URL, $this->config->item("api_server_url")."/v1.0/admin/setFailCount");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -193,7 +193,7 @@ class Auth extends CI_Controller {
             "Authorization : 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.youcandoo.co.kr/v1.0/admin/getAdminUserData");
+        curl_setopt($ch, CURLOPT_URL, $this->config->item("api_server_url")."/v1.0/admin/getAdminUserData");
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);

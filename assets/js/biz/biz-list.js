@@ -6,8 +6,8 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
 	const select		= $("select");
+	const xlsxExport 	= $(".excel-btn");
 
 	$(document).ready(function () {
 		/** 데이트피커 초기화 **/
@@ -64,7 +64,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

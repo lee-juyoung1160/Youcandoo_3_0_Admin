@@ -29,54 +29,84 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('회사명은 ' + message.required);
+			sweetToast('회사명은 ' + message.required);
 			bizName.focus();
 			return false;
 		}
 
 		if (isEmpty(bizNo.val()))
 		{
-			alert('사업자번호는 ' + message.required);
+			sweetToast('사업자번호는 ' + message.required);
 			bizNo.focus();
 			return false;
 		}
 
 		if (bizNo.val().trim().length !== 10)
 		{
-			alert('사업자번호를 ' + message.doubleChk);
+			sweetToast('사업자번호를 ' + message.doubleChk);
 			bizNo.focus();
 			return false;
 		}
 
 		if (imageFile.length === 0)
 		{
-			alert('프로필 이미지는 ' + message.required);
+			sweetToast('프로필 이미지는 ' + message.required);
 			profileImage.focus();
 			return false;
 		}
 
 		if (isEmpty(homepage.val()))
 		{
-			alert('홈페이지 링크는 ' + message.required);
+			sweetToast('홈페이지 링크는 ' + message.required);
 			homepage.focus();
 			return false;
 		}
 
 		if (!isDomainName(homepage.val().trim()))
 		{
-			alert('홈페이지 링크 형식을 ' + message.doubleChk);
+			sweetToast('홈페이지 링크 형식을 ' + message.doubleChk);
 			homepage.focus();
 			return false;
 		}
 
 		if (isEmpty(bizDesc.val()))
 		{
-			alert('소개내용은 ' + message.required);
+			sweetToast('소개내용은 ' + message.required);
 			bizDesc.focus();
 			return false;
 		}
 
 		return true;
+	}
+
+	function onSubmitBiz()
+	{
+		if (validation())
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createBiz,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listBiz;
 	}
 
 	function params()
@@ -90,31 +120,4 @@
 		formData.append('company-image', paramFile);
 
 		return formData;
-	}
-
-	function onSubmitBiz()
-	{
-		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createBiz,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listBiz
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
 	}

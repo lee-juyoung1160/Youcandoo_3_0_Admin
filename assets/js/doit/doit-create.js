@@ -69,7 +69,7 @@
 
 		if (isEmpty(duration))
 		{
-			alert("리워드 조건을 "+message.select);
+			sweetToast("리워드 조건을 "+message.select);
 			doitFrom.val('');
 			return;
 		}
@@ -128,7 +128,7 @@
 
 		if (isEmpty(inputTag.val()))
 		{
-			alert('태그를 '+message.input);
+			sweetToast('태그를 '+message.input);
 			inputTag.focus();
 			return false;
 		}
@@ -136,19 +136,19 @@
 		let splitInput = inputTag.val().split('');
 		if (splitInput.indexOf(',') !== -1)
 		{
-			alert('태그에 , 를 포함할 수 없습니다.');
+			sweetToast('태그에 , 를 포함할 수 없습니다.');
 			return false;
 		}
 
 		if (splitInput.indexOf('#') !== -1)
 		{
-			alert('태그에 # 을 포함할 수 없습니다.');
+			sweetToast('태그에 # 을 포함할 수 없습니다.');
 			return false;
 		}
 
 		if (tagLen >= 3)
 		{
-			alert('태그는 '+message.maxAddThree);
+			sweetToast('태그는 '+message.maxAddThree);
 			return false;
 		}
 
@@ -186,7 +186,7 @@
 					return JSON.stringify({"keyword" : modalBizName.val()});
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -256,10 +256,10 @@
 			dataType: 'json',
 			data: JSON.stringify({"company_uuid" : bizUuid}),
 			success: function(data) {
-					buildOptionPromo(data);
+				buildOptionPromo(data);
 			},
 			error: function (request, status) {
-				alert('프로모션 '+label.list+message.ajaxLoadError);
+				sweetError('프로모션 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -301,7 +301,7 @@
 				buildOptionReward(data);
 			},
 			error: function (request, status) {
-				alert('리워드 '+label.list+message.ajaxLoadError);
+				sweetError('리워드 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -340,10 +340,10 @@
 			dataType: 'json',
 			data: JSON.stringify({"reward_uuid" : selReward.val()}),
 			success: function(data) {
-					buildSelectedReward(data);
+				buildSelectedReward(data);
 			},
 			error: function (request, status) {
-				alert('리워드 '+label.detailContent+message.ajaxLoadError);
+				sweetError('리워드 '+label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -360,7 +360,7 @@
 
 			if (detail.remain_budget_ucd < 1)
 			{
-				alert(message.notEnoughBudget);
+				sweetError(message.notEnoughBudget);
 				getInvolvePromo();
 				buildOptionReward();
 				return;
@@ -532,7 +532,7 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('프로모션은 ' + message.required+'\n기업명을 '+message.select);
+			sweetToast('프로모션은 ' + message.required+'\n기업명을 '+message.select);
 			scrollToTarget(bizName);
 			onClickBizName();
 			return false;
@@ -540,7 +540,7 @@
 
 		if (isEmpty(selPromo.val()))
 		{
-			alert('프로모션은 ' + message.required+'\n프로모션을 '+message.select);
+			sweetToast('프로모션은 ' + message.required+'\n프로모션을 '+message.select);
 			scrollToTarget(selPromo);
 			selPromo.focus();
 			return false;
@@ -548,7 +548,7 @@
 
 		if (isEmpty(selReward.val()))
 		{
-			alert('리워드 조건은 ' + message.required+'\n리워드 조건을 '+message.select);
+			sweetToast('리워드 조건은 ' + message.required+'\n리워드 조건을 '+message.select);
 			scrollToTarget(selReward);
 			selReward.focus();
 			return false;
@@ -556,67 +556,67 @@
 
 		if (isEmpty(doitTitle.val()))
 		{
-			alert('두잇명은 ' + message.required);
+			sweetToast('두잇명은 ' + message.required);
 			doitTitle.focus();
 			return false;
 		}
 
 		if (isEmpty(doitDesc.val()))
 		{
-			alert('소개글은 '+message.required);
+			sweetToast('소개글은 '+message.required);
 			doitDesc.focus();
 			return false;
 		}
 
 		if (tagLen === 0)
 		{
-			alert('태그를 ' + message.addOn);
+			sweetToast('태그를 ' + message.addOn);
 			return false;
 		}
 
 		if (introImageFile.length === 0)
 		{
-			alert('두잇 소개 이미지는 ' + message.required);
+			sweetToast('두잇 소개 이미지는 ' + message.required);
 			return false;
 		}
 
 		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
 		{
-			alert('두잇 소개 영상은 ' + message.required);
+			sweetToast('두잇 소개 영상은 ' + message.required);
 			return false;
 		}
 
 		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
-			alert('추가리워드를 '+message.input);
+			sweetToast('추가리워드를 '+message.input);
 			extraReward.focus();
 			return false;
 		}
 
 		if (isEmpty(doitFrom.val()))
 		{
-			alert('인증기간(시작일)은 '+message.required);
+			sweetToast('인증기간(시작일)은 '+message.required);
 			doitFrom.focus();
 			return false;
 		}
 
 		if (isEmpty(doitTo.val()))
 		{
-			alert('인증기간(종료일)은 '+message.required);
+			sweetToast('인증기간(종료일)은 '+message.required);
 			doitTo.focus();
 			return false;
 		}
 
 		if (isEmpty(startTime.val()))
 		{
-			alert('인증시간(시작)은 '+message.required);
+			sweetToast('인증시간(시작)은 '+message.required);
 			startTime.focus();
 			return false;
 		}
 
 		if (isEmpty(endTime.val()))
 		{
-			alert('인증시간(종료)은 '+message.required);
+			sweetToast('인증시간(종료)은 '+message.required);
 			endTime.focus();
 			return false;
 		}
@@ -625,40 +625,40 @@
 		let actionEndTime	= Number(replaceAll(endTime.val(), ':', ''));
 		if (actionStartTime > actionEndTime)
 		{
-			alert(message.compareActionTime)
+			sweetToast(message.compareActionTime)
 			startTime.focus();
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
-			alert('참가코드를 '+message.input);
+			sweetToast('참가코드를 '+message.input);
 			privateCode.focus();
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
-			alert(message.minimumPassCode);
+			sweetToast(message.minimumPassCode);
 			privateCode.focus();
 			return false;
 		}
 
 		if (example.length === 0)
 		{
-			alert('인증 예시는 ' + message.required);
+			sweetToast('인증 예시는 ' + message.required);
 			return false;
 		}
 
 		if ($('input:radio[name=radio-example-type]:checked').val() === 'video' && exampleVideoFile.length === 0)
 		{
-			alert('인증 예시 영상은 ' + message.required);
+			sweetToast('인증 예시 영상은 ' + message.required);
 			return false;
 		}
 
 		if (isEmpty(exampleDesc.val()))
 		{
-			alert('인증 예시 설명은 '+message.required);
+			sweetToast('인증 예시 설명은 '+message.required);
 			exampleDesc.focus();
 			return false;
 		}
@@ -714,26 +714,30 @@
 	function onSubmitDoit()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createDoit,
-					type: "POST",
-					headers: headers,
-					processData: false,
-					contentType: false,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listDoit
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
+			sweetConfirm(message.create, createRequest);
 	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createDoit,
+			type: "POST",
+			headers: headers,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listDoit;
+	}
+

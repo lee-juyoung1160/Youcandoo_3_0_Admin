@@ -202,10 +202,10 @@
 					buildDoitDetail(data);
 				}
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 			},
 		});
 	}
@@ -452,7 +452,7 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -663,30 +663,36 @@
 		modalExampleDesc.html(exampleDesc);
 	}
 
+	let cancelApi;
+	let cancelId;
 	function cancelWarn(obj)
 	{
-		let url = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
-		if (confirm('경고장 발송을 '+message.cancel))
-		{
-			$.ajax({
-				url: url,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({"action_uuid" : $(obj).data('uuid')}),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-					{
-						modalFadeout();
-						getInvolveAction();
-					}
-				},
-				error: function (request, status) {
-					alert(label.cancel+message.ajaxError);
-				}
-			});
-		}
+		cancelApi = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
+		cancelId  = $(obj).data('uuid');
+		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
+	}
+
+	function cancelRequest()
+	{
+		$.ajax({
+			url: cancelApi,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({"action_uuid" : cancelId}),
+			success: function(data) {
+				sweetToastAndCallback(data, cancelSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.cancel+message.ajaxError);
+			}
+		});
+	}
+
+	function cancelSuccess()
+	{
+		modalFadeout();
+		getInvolveAction();
 	}
 
 	/** 경고장 발송 모달 **/
@@ -702,7 +708,7 @@
 		let count = chkedElement.length;
 		if (count === 0)
 		{
-			alert('발송대상을 '+message.select);
+			sweetToast('발송대상을 '+message.select);
 			return false;
 		}
 
@@ -713,7 +719,7 @@
 		});
 		if (g_warn_type === 'Y' && hasYellowCount > 0)
 		{
-			alert('선택한 발송대상에 '+message.alreadyHasYellow);
+			sweetToast('선택한 발송대상에 '+message.alreadyHasYellow);
 			return false;
 		}
 
@@ -736,29 +742,32 @@
 
 	function onSubmitWarn()
 	{
+		sweetConfirm('경고장을 '+message.send, sendRequest);
+	}
+
+	function sendRequest()
+	{
 		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
 
-		if (confirm('경고장을 '+message.send))
-		{
-			$.ajax({
-				url: url,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data: warnParams(),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-					{
-						modalFadeout();
-						getInvolveAction();
-					}
-				},
-				error: function (request, status) {
-					alert(label.submit+message.ajaxError);
-				},
-			});
-		}
+		$.ajax({
+			url: url,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: warnParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, sendSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function sendSuccess()
+	{
+		modalFadeout();
+		getInvolveAction();
 	}
 
 	function warnParams()
@@ -797,10 +806,10 @@
 					buildActions(data);
 				}
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('인증 '+label.list+message.ajaxLoadError);
+				sweetError('인증 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -1032,7 +1041,7 @@
 					return reviewParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -1180,26 +1189,29 @@
 	function onClickUpdateBlind()
 	{
 		if (blindValidation())
-		{
-			if (confirm('상태를 '+message.change))
-			{
-				$.ajax({
-					url: api.updateBlind,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: blindParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(reviewTable);
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					},
-				});
+			sweetConfirm('상태를 '+message.change, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		$.ajax({
+			url: api.updateBlind,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: blindParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, updateSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function updateSuccess()
+	{
+		tableReloadAndStayCurrentPage(reviewTable);
 	}
 
 	function blindValidation()
@@ -1209,7 +1221,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 
@@ -1246,7 +1258,7 @@
 					return ucdTableParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

@@ -319,16 +319,17 @@
 				let imageUrl = selectedData[i].list_image_url;
 				let bizName  = selectedData[i].nickname;
 				let title  = selectedData[i].promotion_title;
-				rowDom += '<tr role="row" class="" id="'+uuid+'">'
-				rowDom += 	'<td>'
-				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="" onerror="onErrorImage(this);>'
-				rowDom += 	'</td>'
-				rowDom += 	'<td>'+bizName+'</td>'
-				rowDom += 	'<td>'+title+'</td>'
-				rowDom += 	'<td class="cursor-default">'
-				rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>'
-				rowDom += 	'</td>'
-				rowDom += '</tr>'
+
+				rowDom += '<tr role="row" id="'+uuid+'">';
+				rowDom += 	'<td>';
+				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="" onerror="onErrorImage(this);">';
+				rowDom += 	'</td>';
+				rowDom += 	'<td>'+bizName+'</td>';
+				rowDom += 	'<td>'+title+'</td>';
+				rowDom += 	'<td class="cursor-default">';
+				rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
+				rowDom += 	'</td>';
+				rowDom += '</tr>';
 			}
 
 			let targetTableBody = bannerTable.find('tbody');

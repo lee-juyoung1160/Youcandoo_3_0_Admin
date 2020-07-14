@@ -86,7 +86,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -203,26 +203,29 @@
 	function deleteDoit()
 	{
 		if (delValidation())
-		{
-			if (confirm(message.delete))
-			{
-				$.ajax({
-					url: api.deleteDoit,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: delParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(dataTable);
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					},
-				});
+			sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		$.ajax({
+			url: api.deleteDoit,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: delParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, deleteSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function deleteSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function delValidation()
@@ -232,14 +235,14 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('삭제할 대상을 목록에서 '+message.select);
+			sweetToast('삭제할 대상을 목록에서 '+message.select);
 			return false;
 		}
 
 		let doitStatus = selectedData.doit_status;
 		if (doitStatus !== '모집중' || (doitStatus === '모집중' && selectedData.doit_member > 0))
 		{
-			alert(message.cantDeleteDoit);
+			sweetToast(message.cantDeleteDoit);
 			return false;
 		}
 

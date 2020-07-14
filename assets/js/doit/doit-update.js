@@ -46,11 +46,11 @@
 				if (isSuccessResp(data))
 					buildDoitDetail(data);
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
-			},
+				sweetError(label.detailContent+message.ajaxLoadError);
+			}
 		});
 	}
 
@@ -267,7 +267,7 @@
 
 		if (isEmpty(inputTag.val()))
 		{
-			alert('태그를 '+message.input);
+			sweetToast('태그를 '+message.input);
 			inputTag.focus();
 			return false;
 		}
@@ -275,19 +275,19 @@
 		let splitInput = inputTag.val().split('');
 		if (splitInput.indexOf(',') !== -1)
 		{
-			alert('태그에 , 를 포함할 수 없습니다.');
+			sweetToast('태그에 , 를 포함할 수 없습니다.');
 			return false;
 		}
 
 		if (splitInput.indexOf('#') !== -1)
 		{
-			alert('태그에 # 을 포함할 수 없습니다.');
+			sweetToast('태그에 # 을 포함할 수 없습니다.');
 			return false;
 		}
 
 		if (tagLen >= 3)
 		{
-			alert('태그는 '+message.maxAddThree);
+			sweetToast('태그는 '+message.maxAddThree);
 			return false;
 		}
 
@@ -296,31 +296,31 @@
 
 	function validation()
 	{
-		let tagLen 				= addedTags.find('li').length;
+		let tagLen = addedTags.find('li').length;
 
 		if (isEmpty(doitDesc.val()))
 		{
-			alert('소개글은 '+message.required);
+			sweetToast('소개글은 '+message.required);
 			doitDesc.focus();
 			return false;
 		}
 
 		if (tagLen === 0)
 		{
-			alert('태그를 ' + message.addOn);
+			sweetToast('태그를 ' + message.addOn);
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
-			alert('참가코드를 '+message.input);
+			sweetToast('참가코드를 '+message.input);
 			privateCode.focus();
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
-			alert(message.minimumPassCode);
+			sweetToast(message.minimumPassCode);
 			privateCode.focus();
 			return false;
 		}
@@ -356,26 +356,29 @@
 	function onSubmitUpdateDoit()
 	{
 		if (validation())
-		{
-			if (confirm(message.modify))
-			{
-				$.ajax({
-					url: api.updateDoit,
-					type: "POST",
-					headers: headers,
-					processData: false,
-					contentType: false,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listDoit
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.modify, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		$.ajax({
+			url: api.updateDoit,
+			type: "POST",
+			headers: headers,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, updateSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.listDoit;
 	}

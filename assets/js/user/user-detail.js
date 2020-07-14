@@ -109,10 +109,10 @@
 				if (isSuccessResp(data))
 					buildBasicProfile(data);
 				else
-					invalidResp(data);
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('기본정보 '+label.detailContent+message.ajaxError);
+				sweetError('기본정보 '+label.detailContent+message.ajaxError);
 			},
 		});
 	}
@@ -141,10 +141,10 @@
 				if (isSuccessResp(data))
 					buildUserAccount(data);
 				else
-					invalidResp(data);
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('회원정보 '+label.detailContent+message.ajaxError);
+				sweetError('회원정보 '+label.detailContent+message.ajaxError);
 			},
 		});
 	}
@@ -171,7 +171,7 @@
 					return openedDoitParams(d);
 				},
 				error: function (request, status) {
-					alert('두잇개설 '+label.list+message.ajaxLoadError);
+					sweetError('두잇개설 '+label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -260,7 +260,7 @@
 					return joinedDoitParams(d);
 				},
 				error: function (request, status) {
-					alert('두잇참여 '+label.list+message.ajaxLoadError);
+					sweetError('두잇참여 '+label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -345,7 +345,7 @@
 					return usageHistoryParams(d);
 				},
 				error: function (request, status) {
-					alert('UCD 사용내역 '+label.list+message.ajaxLoadError);
+					sweetError('UCD 사용내역 '+label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -410,32 +410,33 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createUserUcd,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: ucdParams(),
-					success: function(data) {
-						alert(getStatusMessage(data))
-						if (isSuccessResp(data))
-						{
-							balance.html(numberWithCommas(data.data.total));
-							cash.html(numberWithCommas(data.data.cash));
-							point.html(numberWithCommas(data.data.point));
-							getUsageHistoryUcd();
-							modalFadeout();
-						}
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createUserUcd,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: ucdParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+				balance.html(numberWithCommas(data.data.total));
+				cash.html(numberWithCommas(data.data.cash));
+				point.html(numberWithCommas(data.data.point));
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		getUsageHistoryUcd();
+		modalFadeout();
 	}
 
 	function ucdParams()
@@ -457,21 +458,21 @@
 	{
 		if (isEmpty(amount.val()))
 		{
-			alert('UCD는 '+message.required);
+			sweetToast('UCD는 '+message.required);
 			amount.focus();
 			return false;
 		}
 
 		if (amount.val() > 1000000)
 		{
-			alert('UCD는 '+message.maxAvailableUserUcd);
+			sweetToast('UCD는 '+message.maxAvailableUserUcd);
 			amount.focus();
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			alert('내용은 '+message.required);
+			sweetToast('내용은 '+message.required);
 			content.focus();
 			return false;
 		}

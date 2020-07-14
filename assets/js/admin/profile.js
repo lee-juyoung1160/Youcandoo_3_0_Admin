@@ -44,10 +44,10 @@
 				if (isSuccessResp(data))
 					buildProfile(data)
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 			}
 		});
 	}
@@ -65,26 +65,49 @@
 	{
 		if (isEmpty(password.val()))
 		{
-			alert('비밀번호는 ' + message.required);
+			sweetToast('비밀번호는 ' + message.required);
 			password.focus();
 			return false;
 		}
 
 		if (isEmpty(passwordChk.val()))
 		{
-			alert('비밀번호 확인을 ' + message.input);
+			sweetToast('비밀번호 확인을 ' + message.input);
 			passwordChk.focus();
 			return false;
 		}
 
 		if (password.val() !== passwordChk.val())
 		{
-			alert('비밀번호를 ' + message.doubleChk);
+			sweetToast('비밀번호를 ' + message.doubleChk);
 			passwordChk.focus();
 			return false;
 		}
 
 		return true;
+	}
+
+	function onSubmitProfile()
+	{
+		if (validation())
+			sweetConfirm(message.modify, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		$.ajax({
+			url: api.updateProfile,
+			type: "POST",
+			headers : headers,
+			dataType: 'json',
+			data: updateParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, getProfile);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
 	}
 
 	function updateParams()
@@ -95,29 +118,4 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function onSubmitProfile()
-	{
-		if (validation())
-		{
-			if (confirm(message.modify))
-			{
-				$.ajax({
-					url: api.updateProfile,
-					type: "POST",
-					headers : headers,
-					dataType: 'json',
-					data: updateParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							getProfile();
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
 	}

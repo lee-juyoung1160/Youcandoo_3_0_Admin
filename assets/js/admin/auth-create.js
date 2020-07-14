@@ -36,38 +36,6 @@
 		authName.val('');
 	}
 
-	function deleteAuth()
-	{
-		if (confirm(message.delete))
-		{
-			$.ajax({
-				url: api.deleteAuth,
-				type: "POST",
-				headers: headers,
-				dataType: 'json',
-				data : JSON.stringify({"code" : selectedAuthCode()}),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-						getAuthList();
-				},
-				error: function (request, status) {
-					alert(label.delete+message.ajaxError);
-				}
-			});
-		}
-	}
-
-	function selectedAuthCode()
-	{
-		let retCode = '';
-		authList.find('li').each(function () {
-			if ($(this).hasClass('on'))
-				retCode = $(this).data('code');
-		});
-		return retCode;
-	}
-
 	function getAuthList()
 	{
 		$.ajax({
@@ -79,10 +47,10 @@
 				if (isSuccessResp(data))
 					buildAuthList(data)
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (xhr, status) {
-				alert('권한 '+label.list+message.ajaxLoadError);
+				sweetError('권한 '+label.list+message.ajaxLoadError);
 			},
 			complete: function (xhr, status) {
 				getMenuByAuthCode();
@@ -131,10 +99,10 @@
 				if (isSuccessResp(data))
 					buildAuthMenu(data)
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('메뉴 '+label.list+message.ajaxLoadError);
+				sweetError('메뉴 '+label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -227,21 +195,21 @@
 	{
 		if (isEmpty(authCode.val()))
 		{
-			alert('권한코드는 ' + message.required);
+			sweetToast('권한코드는 ' + message.required);
 			authCode.focus();
 			return false;
 		}
 
 		if (isEmpty(authName.val()))
 		{
-			alert('권한명은 ' + message.required);
+			sweetToast('권한명은 ' + message.required);
 			authName.focus();
 			return false;
 		}
 
 		if (!isAlphabet(authCode.val()))
 		{
-			alert('권한코드는 '+message.onlyAlphabet)
+			sweetToast('권한코드는 '+message.onlyAlphabet)
 			authCode.focus();
 			return false;
 		}
@@ -262,51 +230,52 @@
 	function onSubmitAuth()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createAuth,
-					type: "POST",
-					headers : headers,
-					dataType: 'json',
-					data: authParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-						{
-							modalFadeout();
-							getAuthList();
-						}
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createAuthRequest);
+	}
+
+	function createAuthRequest()
+	{
+		$.ajax({
+			url: api.createAuth,
+			type: "POST",
+			headers : headers,
+			dataType: 'json',
+			data: authParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, createAuthSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createAuthSuccess()
+	{
+		modalFadeout();
+		getAuthList();
 	}
 
 	function onSubmitAuthMenu()
 	{
-		if (confirm(message.create))
-		{
-			$.ajax({
-				url: api.setMenuByAuth,
-				type: "POST",
-				headers : headers,
-				dataType: 'json',
-				data: menuParams(),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					if (isSuccessResp(data))
-						getAuthList();
-				},
-				error: function (request, status) {
-					alert(label.submit+message.ajaxError);
-				}
-			});
-		}
+		sweetConfirm(message.create, createMenuRequest);
+	}
+
+	function createMenuRequest()
+	{
+		$.ajax({
+			url: api.setMenuByAuth,
+			type: "POST",
+			headers : headers,
+			dataType: 'json',
+			data: menuParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, getAuthList);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
 	}
 
 	function menuParams()
@@ -347,4 +316,36 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function deleteAuth()
+	{
+		sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		$.ajax({
+			url: api.deleteAuth,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data : JSON.stringify({"code" : selectedAuthCode()}),
+			success: function(data) {
+				sweetToastAndCallback(data, getAuthList);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
+			}
+		});
+	}
+
+	function selectedAuthCode()
+	{
+		let retCode = '';
+		authList.find('li').each(function () {
+			if ($(this).hasClass('on'))
+				retCode = $(this).data('code');
+		});
+		return retCode;
 	}

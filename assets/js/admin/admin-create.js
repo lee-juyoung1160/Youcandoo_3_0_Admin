@@ -36,10 +36,10 @@
 				if (isSuccessResp(data))
 					buildAuthList(data)
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(label.list+message.ajaxLoadError);
+				sweetError(label.list+message.ajaxLoadError);
 			}
 		});
 	}
@@ -73,33 +73,61 @@
 	{
 		if (isEmpty(userid.val()))
 		{
-			alert('아이디는 ' + message.required);
+			sweetToast('아이디는 ' + message.required);
 			userid.focus();
 			return false;
 		}
 
 		if (isEmpty(name.val()))
 		{
-			alert('이름은 ' + message.required);
+			sweetToast('이름은 ' + message.required);
 			name.focus();
 			return false;
 		}
 
 		if (isEmpty(email.val()))
 		{
-			alert('이메일은 ' + message.required);
+			sweetToast('이메일은 ' + message.required);
 			email.focus();
 			return false;
 		}
 
 		if (!isEmail(email.val()))
 		{
-			alert('올바른 이메일 형식을 '+message.input);
+			sweetToast('올바른 이메일 형식을 '+message.input);
 			email.focus();
 			return false;
 		}
 
 		return true;
+	}
+
+	function onSubmitAdmin()
+	{
+		if (validation())
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createAdmin,
+			type: "POST",
+			headers : headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
+			}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listAdmin;
 	}
 
 	function params()
@@ -112,29 +140,4 @@
 			,"is_active" : $("input[name=radio-use-yn]:checked").val()
 		}
 		return JSON.stringify(param);
-	}
-
-	function onSubmitAdmin()
-	{
-		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createAdmin,
-					type: "POST",
-					headers : headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listAdmin;
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
-		}
 	}

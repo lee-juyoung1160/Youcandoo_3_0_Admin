@@ -218,28 +218,30 @@
 	function deleteAppVersion()
 	{
 		if (delValidation())
-		{
-			if (confirm(message.delete))
-			{
-				$.ajax({
-					url: api.deleteAppVersion,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: delParams(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							tableReloadAndStayCurrentPage(dataTable);
-					},
-					error: function (request, status) {
-						alert(label.delete+message.ajaxError);
-					},
-				});
-			}
-		}
+			sweetConfirm(message.delete, deleteRequest);
 	}
 
+	function deleteRequest()
+	{
+		$.ajax({
+			url: api.deleteAppVersion,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: delParams(),
+			success: function(data) {
+				sweetToastAndCallback(data, deleteSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.delete+message.ajaxError);
+			},
+		});
+	}
+
+	function sweetToastAndCallback()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
+	}
 	function delValidation()
 	{
 		let table 		 = dataTable.DataTable();
@@ -247,7 +249,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 

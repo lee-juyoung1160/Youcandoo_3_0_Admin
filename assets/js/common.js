@@ -484,13 +484,6 @@
         $("input[name=chk-row]").prop("checked", false);
     }
 
-    /** 테이블 리로드 **/
-    function reloadTable(tableObj)
-    {
-        let table = tableObj.DataTable();
-        table.ajax.reload();
-    }
-
     /** 테이블 상단 total count **/
     function buildTotalCount(tableObj)
     {

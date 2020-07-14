@@ -34,12 +34,12 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		/*btnModalBanUserOpen	.on("click", function () { onClickBtnModalBanUserOpen(); });*/
 		/*modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });*/
+		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -88,7 +88,7 @@
 					return tableParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

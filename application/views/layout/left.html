@@ -171,9 +171,9 @@
 <input type="hidden" id="session_userid" value="<?php echo ($this->session->userdata['user_data']->userid);?>"/>
 <input type="hidden" id="session_usernm" value="<?php echo ($this->session->userdata['user_data']->name);?>"/>
 <input type="hidden" id="session_authcode" value="<?php echo ($this->session->userdata['user_data']->auth_code);?>"/>
+<input id="session_ip" type="hidden" value="<?php echo ($this->session->userdata['recent_ip']->auth_code);?>"/>
 <script>
-    function logout()
-    {
+    function logout() {
         location.href = "/auth/logout";
     }
 

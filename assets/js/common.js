@@ -597,7 +597,7 @@
 
         if (isOuterIp() && isPrivateMenu(compareValue))
         {
-            sweetError(message.accessDenied);
+            alert(message.accessDenied);
             location.href = '/';
         }
     }

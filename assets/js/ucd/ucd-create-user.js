@@ -309,25 +309,23 @@
 
 	function confirmContent()
 	{
-		let targetLength = selectedUserTableBody.find('tr').length;
 		let content = '';
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">적립대상</p>';
+		content	+= 			'<p class="sub-title">적립 대상</p>';
 		content	+= 			'<div class="scroll-wrap">';
 		content	+= 				'<p class="data-contents">';
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
 
-			content += nickname
-			if (index !== targetLength -1)
-				content += ', ';
+			content += ' @'+nickname
 		});
 
 		content	+= 				'</p>';
 		content	+= 			'</div>';
 		content	+= 		'</li>';
+		content	+= 		'<p></p>';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">적립 UCD</p>';
 		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';

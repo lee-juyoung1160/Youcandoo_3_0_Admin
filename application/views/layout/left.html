@@ -150,6 +150,7 @@
                     <i class="fas fa-user-circle"></i>
                     <span>안녕하세요!
                         <span class="user-name" style="font-weight:bold">
+                            <?php echo ($this->session->userdata['user_data']->name);?>
                         </span>님
                     </span>
                 </a>
@@ -163,7 +164,7 @@
 <!--                        <li><a href="#">dkdkdkdkdkd</a></li>-->
 <!--                    </ul>-->
 <!--                </i>-->
-                <i onclick="logout();" id="power-off" class="fas fa-power-off"></i>
+                <i onclick="location.href = '/auth/logout'" id="power-off" class="fas fa-power-off"></i>
             </div>
         </div>
     </div>
@@ -171,11 +172,4 @@
 <input type="hidden" id="session_userid" value="<?php echo ($this->session->userdata['user_data']->userid);?>"/>
 <input type="hidden" id="session_usernm" value="<?php echo ($this->session->userdata['user_data']->name);?>"/>
 <input type="hidden" id="session_authcode" value="<?php echo ($this->session->userdata['user_data']->auth_code);?>"/>
-<input id="session_ip" type="hidden" value="<?php echo ($this->session->userdata['recent_ip']->auth_code);?>"/>
-<script>
-    function logout() {
-        location.href = "/auth/logout";
-    }
-
-    $(".user-name").html($("#session_usernm").val());
-</script>
+<input type="hidden" id="session_userip"  value="<?php echo ($this->session->userdata['user_data']->recent_ip);?>"/>

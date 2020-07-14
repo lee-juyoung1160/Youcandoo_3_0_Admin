@@ -11,6 +11,7 @@
     const viewLoading        = $("#viewLoading");
     const lengthInput        = $(".length-input");
     const sessionUserId      = $("#session_userid");
+    const sessionUserIp      = $("#session_userip");
     const sessionAuthCode    = $("#session_authcode");
     const sideMenu           = $("#sideMenu");
 
@@ -519,7 +520,6 @@
                 if (isSuccessResp(data))
                 {
                     buildMenuByAuthCode(data);
-                    /*checkAuthIntoPage(data);*/
                     activeMenu();
                 }
                 else
@@ -546,6 +546,9 @@
             let target   = 'menu_'+i;
             if (mainView === true)
             {
+                //if (isOuterIp() && isPrivateMenu(mainName)) continue;
+                if (isOuterIp() && isPrivateMenu(mainName)) continue;
+
                 menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
                 menuDom +=     '<div class="btn-wrap clearfix">';
                 menuDom +=         '<i class="far ' +mainIcon+'"></i>';
@@ -576,48 +579,28 @@
         sideMenu.html(menuDom);
     }
 
-    /** 권한별 접근 가능 페이지 체크 **/
-    /*function checkAuthIntoPage(data)
+    function isOuterIp()
     {
-        let keys   	= Object.getOwnPropertyNames(data.data);
-        let pathName   = getPathName();
-        let accessible = [];
-        for (let i=0; i<keys.length; i++)
-        {
-            let key   	 = keys[i];
-            let mainView = data.data[key].view;
-            let children = data.data[key].children;
-            if (mainView === true)
-            {
-                if (children)
-                {
-                    let subKeys = Object.getOwnPropertyNames(children);
-                    for (let j=0; j<subKeys.length; j++)
-                    {
-                        let subKey   = subKeys[j];
-                        let subView  = children[subKey].view;
-                        if (subView === true)
-                        {
-                            let menuPath = children[subKey].path;
-                            accessible.push(menuPath);
-                        }
-                    }
-                }
-            }
-        }
+        return innerIps.indexOf(sessionUserIp.val()) === -1;
+    }
 
-        if (pathName !== '/')
-        {
-            let splitPath = pathName.split('/');
-            let compareValue = splitPath[1]+splitPath[2];
+    function isPrivateMenu(_menuName)
+    {
+        return privateMenus.indexOf(_menuName) !== -1;
+    }
 
-            if (accessible.indexOf(compareValue) === -1)
-            {
-                alert(message.accessDenied);
-                location.href = '/';
-            }
+    /** 내부에서만 접근 가능 페이지 **/
+    function accessdenied()
+    {
+        let pathName     = getPathName();
+        let compareValue = pathName.split('/')[1];
+
+        if (isOuterIp() && isPrivateMenu(compareValue))
+        {
+            alert(message.accessDenied);
+            location.href = '/';
         }
-    }*/
+    }
 
     function onClickActiveParentMenu(obj)
     {
@@ -747,6 +730,7 @@
         $(document).ajaxStart(() => { fadeinLoader(); });
         $(document).ajaxComplete(() => { fadeoutLoader(); });
         calculateInputLength();
+        accessdenied();
     });
 
 

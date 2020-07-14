@@ -67,7 +67,7 @@
 			},
 			error: function (request, status) {
 				sweetError(label.detailContent+message.ajaxLoadError);
-			},
+			}
 		});
 	}
 

@@ -35,14 +35,23 @@ class Auth extends CI_Controller {
         }
 
         $Password = hash("sha512",$Password);
-        $IsExists = $this->redis_session->hExists("admin:user", $UserID);
-        if(!$IsExists)
+        if($this->redis_session->exists("admin:user"))
         {
-            alert("사용자 정보가 존재하지 않습니다", "/main/login");
-            return;
+            $IsExists = $this->redis_session->hExists("admin:user", $UserID);
+            if(!$IsExists)
+            {
+                alert("사용자 정보가 존재하지 않습니다", "/main/login");
+                return;
+            }
+
+            $UserData = json_decode($this->redis_session->hGet("admin:user", $UserID));
+        }
+        else
+        {
+            $Response = $this->getAdminUserData($UserID);
+            $UserData = $Response->data;
         }
 
-        $UserData = json_decode($this->redis_session->hGet("admin:user", $UserID));
         if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
             alert("비밀번호가 일치하지 않습니다", "/main/login");
@@ -167,6 +176,37 @@ class Auth extends CI_Controller {
         {
 //            echo json_encode($ResponseObj);
             alert("접속 기록이 정상적으로 처리되지 않았습니다", "/");
+            return;
+        }
+    }
+
+    /**
+     * 5. Admin 관리자 정보 조회
+     */
+    public function getAdminUserData($UserID)
+    {
+        $body = array(
+            "userid" => $UserID
+        );
+        $header = array(
+            "Content-Type : application/json",
+            "Authorization : 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.youcandoo.co.kr/v1.0/admin/getAdminUserData");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $ResponseObj = json_decode($response);
+        if($ResponseObj->status != 30000)
+        {
+//            echo json_encode($ResponseObj);
+            alert($ResponseObj->msg, "/");
             return;
         }
     }

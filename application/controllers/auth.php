@@ -89,7 +89,6 @@ class Auth extends CI_Controller {
             $LoginIP = $_SERVER['REMOTE_ADDR'];
         }
         $UserData->recent_ip = $LoginIP;
-
         $this->session->set_userdata("user_data", $UserData);
         $_SESSION["user"] = $UserData;
         if(get_cookie('referer'))

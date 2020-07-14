@@ -63,10 +63,10 @@
 				if (isSuccessResp(data))
 					buildPromoDetail(data);
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 			},
 		});
 	}
@@ -81,7 +81,7 @@
 
 		if (promoData.status !== 'pending')
 		{
-			alert(message.cantUpdatePromo);
+			sweetError(message.cantUpdatePromo);
 			location.href = page.detailPromo+promoData.idx;
 		}
 
@@ -166,7 +166,7 @@
 
 		if (noticeLen > 3)
 		{
-			alert('유의사항은 '+message.maxAddFour);
+			sweetToast('유의사항은 '+message.maxAddFour);
 			return false;
 		}
 
@@ -460,7 +460,7 @@
 	{
 		if (count >= 5)
 		{
-			alert('리워드는 '+message.maxAddFive);
+			sweetToast('리워드는 '+message.maxAddFive);
 			return false;
 		}
 
@@ -666,66 +666,66 @@
 
 		if (isEmpty(promoName.val()))
 		{
-			alert('프로모션명은 ' + message.required);
+			sweetToast('프로모션명은 ' + message.required);
 			promoName.focus();
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
-			alert('프로모션기간(시작일)은 ' + message.required);
+			sweetToast('프로모션기간(시작일)은 ' + message.required);
 			promoFrom.focus();
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
-			alert('프로모션기간(종료일)은 ' + message.required);
+			sweetToast('프로모션기간(종료일)은 ' + message.required);
 			promoTo.focus();
 			return false;
 		}
 
 		if (promotionNotice.length === 0)
 		{
-			alert('유의사항을 ' + message.addOn);
+			sweetToast('유의사항을 ' + message.addOn);
 			return false;
 		}
 
 		if (promotionNotice.length > 0 && isEmptyNotice())
 		{
-			alert('유의사항은 ' + message.required);
+			sweetToast('유의사항은 ' + message.required);
 			return false;
 		}
 
 		if (isEmpty(allowCount.val()))
 		{
-			alert('프로모션 동시 참여 횟수는 ' + message.required);
+			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
 			allowCount.focus();
 			return false;
 		}
 
 		if (Number(allowCount.val()) > 5)
 		{
-			alert('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
+			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
 			allowCount.focus();
 			return false;
 		}
 
 		if (isEmptyDuration())
 		{
-			alert('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isInvalidDuration())
 		{
-			alert(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			sweetToast(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isEmptyFrequency())
 		{
-			alert('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			sweetToast('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
 			return false;
 		}
 
@@ -737,19 +737,19 @@
 
 		if (isEmptyRewardUcd())
 		{
-			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
+			sweetToast('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isInvalidJoinUserCount())
 		{
-			alert(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
+			sweetToast(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
 			return false;
 		}
 
 		if (isOverBudget())
 		{
-			alert(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
+			sweetToast(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
 			return false;
 		}
 
@@ -982,28 +982,29 @@
 	function onSubmitUpdatePromo()
 	{
 		if (validation())
-		{
-			if (confirm(message.modify))
-			{
-				$.ajax({
-					url: api.updatePromotion,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listPromo
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					}
-				});
-			}
-		}
+			sweetConfirm(message.modify, updateRequest);
 	}
 
+	function updateRequest()
+	{
+		$.ajax({
+			url: api.updatePromotion,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, updateSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
+			}
+		});
+	}
 
+	function updateSuccess()
+	{
+		location.href = page.listPromo;
+	}

@@ -128,10 +128,10 @@
 				dataSrc: "",
 				global: false,
 				data: function (d) {
-					return JSON.stringify({"keyword" : modalBizName.val()});
+					return JSON.stringify({"keyword" : modalBizName.val().trim()});
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -199,10 +199,10 @@
 					balance.html('기업 보유 UCD: '+numberWithCommas(totalBalance)+'UCD');
 				}
 				else
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('기업 보유 UCD'+message.ajaxError);
+				sweetError('기업 보유 UCD'+message.ajaxError);
 			}
 		});
 	}
@@ -253,7 +253,7 @@
 
 		if (noticeLen > 3)
 		{
-			alert('유의사항은 '+message.maxAddFour);
+			sweetToast('유의사항은 '+message.maxAddFour);
 			return false;
 		}
 
@@ -339,7 +339,7 @@
 	{
 		if (count >= 5)
 		{
-			alert('리워드는 '+message.maxAddFive);
+			sweetToast('리워드는 '+message.maxAddFive);
 			return false;
 		}
 
@@ -619,7 +619,7 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			alert('기업명은 ' + message.required);
+			sweetToast('기업명은 ' + message.required);
 			scrollToTarget(bizName);
 			onClickBizName();
 			return false;
@@ -627,92 +627,92 @@
 
 		if (isEmpty(promoName.val()))
 		{
-			alert('프로모션명은 ' + message.required);
+			sweetToast('프로모션명은 ' + message.required);
 			promoName.focus();
 			return false;
 		}
 
 		if (isEmpty(budget.val()))
 		{
-			alert('예산은 ' + message.required);
+			sweetToast('예산은 ' + message.required);
 			budget.focus();
 			return false;
 		}
 
 		if (Number(budget.val()) > Number(g_total_balance))
 		{
-			alert('예산은 ' + message.overTotalBalance);
+			sweetToast('예산은 ' + message.overTotalBalance);
 			budget.focus();
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
-			alert('프로모션기간(시작일)은 ' + message.required);
+			sweetToast('프로모션기간(시작일)은 ' + message.required);
 			promoFrom.focus();
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
-			alert('프로모션기간(종료일)은 ' + message.required);
+			sweetToast('프로모션기간(종료일)은 ' + message.required);
 			promoTo.focus();
 			return false;
 		}
 
 		if (promotionNotice.length === 0)
 		{
-			alert('유의사항을 ' + message.addOn);
+			sweetToast('유의사항을 ' + message.addOn);
 			return false;
 		}
 
 		if (promotionNotice.length > 0 && isEmptyNotice())
 		{
-			alert('유의사항은 ' + message.required);
+			sweetToast('유의사항은 ' + message.required);
 			return false;
 		}
 
 		if (isEmpty(allowCount.val()))
 		{
-			alert('프로모션 동시 참여 횟수는 ' + message.required);
+			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
 			allowCount.focus();
 			return false;
 		}
 
 		if (Number(allowCount.val()) > 5)
 		{
-			alert('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
+			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
 			allowCount.focus();
 			return false;
 		}
 
 		if (bannerFile.length === 0)
 		{
-			alert('배너 및 리스트 이미지는 ' + message.required);
+			sweetToast('배너 및 리스트 이미지는 ' + message.required);
 			return false;
 		}
 
 		if (introFile.length === 0)
 		{
-			alert('소개 이미지는 ' + message.required);
+			sweetToast('소개 이미지는 ' + message.required);
 			return false;
 		}
 
 		if (isEmptyDuration())
 		{
-			alert('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isInvalidDuration())
 		{
-			alert(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			sweetToast(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isEmptyFrequency())
 		{
-			alert('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			sweetToast('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
 			return false;
 		}
 
@@ -724,19 +724,19 @@
 
 		if (isEmptyRewardUcd())
 		{
-			alert('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
+			sweetToast('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 
 		if (isInvalidJoinUserCount())
 		{
-			alert(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
+			sweetToast(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
 			return false;
 		}
 
 		if (isOverBudget())
 		{
-			alert(message.overBudget+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
+			sweetToast(message.overBudget+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 
@@ -965,28 +965,31 @@
 	function onSubmitPromo()
 	{
 		if (validation())
-		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.createPromotion,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listPromo
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		$.ajax({
+			url: api.createPromotion,
+			type: "POST",
+			processData: false,
+			contentType: false,
+			headers: headers,
+			dataType: 'json',
+			data: params(),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.submit+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listPromo;
 	}
 
 

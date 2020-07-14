@@ -70,7 +70,7 @@
 				headers: headers,
 				data: "",
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -170,31 +170,35 @@
 	function onSubmitBanner()
 	{
 		if (submitValidation())
-		{
-			if (confirm(message.create))
-			{
-				let rows = getBannerRows();
-				let ids = [];
-				for (let i=0; i<rows.length; i++)
-					ids.push(rows[i].id)
+			sweetConfirm(message.create, createRequest);
+	}
 
-				$.ajax({
-					url: api.updateBanner,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: JSON.stringify({ "promotion_list" : ids }),
-					success: function(data) {
-						alert(getStatusMessage(data))
-						toggleDisabledBtnOpenModal();
-						buildBanners();
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					},
-				});
+	function createRequest()
+	{
+		let rows = getBannerRows();
+		let ids = [];
+		for (let i=0; i<rows.length; i++)
+			ids.push(rows[i].id)
+
+		$.ajax({
+			url: api.updateBanner,
+			type: "POST",
+			headers: headers,
+			dataType: 'json',
+			data: JSON.stringify({ "promotion_list" : ids }),
+			success: function(data) {
+				sweetToastAndCallback(data, createSuccess);
+			},
+			error: function (request, status) {
+				sweetError(label.modify+message.ajaxError);
 			}
-		}
+		});
+	}
+
+	function createSuccess()
+	{
+		toggleDisabledBtnOpenModal();
+		buildBanners();
 	}
 
 	function submitValidation()
@@ -202,7 +206,7 @@
 		let rows = getBannerRows();
 		if (rows.length === 0)
 		{
-			alert("배너를 "+message.addOn);
+			sweetToast("배너를 "+message.addOn);
 			onClickModalOpen();
 			return false;
 		}
@@ -223,7 +227,7 @@
 					return modalParams();
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -349,13 +353,13 @@
 
 		if (isEmpty(selectedData))
 		{
-			alert('대상을 목록에서 '+message.select);
+			sweetToast('대상을 목록에서 '+message.select);
 			return false;
 		}
 
 		if (selectedData.length > vacancy)
 		{
-			alert('배너는 '+message.maxAddFive+'\n추가 가능한 배너 갯수: '+vacancy);
+			sweetToast('배너는 '+message.maxAddFive+'\n추가 가능한 배너 갯수: '+vacancy);
 			return false;
 		}
 

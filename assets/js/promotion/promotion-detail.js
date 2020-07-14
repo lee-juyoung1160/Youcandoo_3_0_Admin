@@ -92,12 +92,12 @@
 					buildPromoDetail(data);
 				else
 				{
-					alert(invalidResp(data));
+					sweetError(invalidResp(data));
 					location.href = page.listPromo
 				}
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetError(label.detailContent+message.ajaxLoadError);
 				location.href = page.listPromo
 			},
 		});
@@ -247,6 +247,9 @@
 				headers: headers,
 				data: function (d) {
 					return doitTableParams(d);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -326,7 +329,7 @@
 					return ucdTableParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [

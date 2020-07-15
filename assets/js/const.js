@@ -122,7 +122,7 @@
 		,listMyLog : baseApiUrl+'access/list'
 		/** 회원 **/
 		,listUser : baseApiUrl+'user/list'
-		,inactiveUser : baseApiUrl+'user/inactive'
+		/*,inactiveUser : baseApiUrl+'user/inactive'*/
 		,getUserProfile : baseApiUrl+'user/get/profile'
 		,getUserAccount : baseApiUrl+'user/get/account'
 		,listUserUcd : baseApiUrl+'user/get/ucd/history'
@@ -197,10 +197,10 @@
 		,deleteProhibition : baseApiUrl+'prohibition/delete'
 		,listProhibition : baseApiUrl+'prohibition/list'
 		/** QNA **/
-		,commentQna : baseApiUrl+'qna/comment'
+		/*,commentQna : baseApiUrl+'qna/comment'
 		,detailQna : baseApiUrl+'qna/detail'
 		,listQna : baseApiUrl+'qna/list'
-		,getQnaType : baseApiUrl+'qna/type'
+		,getQnaType : baseApiUrl+'qna/type'*/
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

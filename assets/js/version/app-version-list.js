@@ -238,10 +238,11 @@
 		});
 	}
 
-	function sweetToastAndCallback()
+	function deleteSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
 	}
+
 	function delValidation()
 	{
 		let table 		 = dataTable.DataTable();

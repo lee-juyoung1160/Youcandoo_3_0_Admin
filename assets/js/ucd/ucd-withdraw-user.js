@@ -120,7 +120,7 @@
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';
 						innerDom += 	'<strong>'+numberWithCommas(data)+'</strong>';
-						innerDom += 	'(ⓒ'+row.ucd.cash+' / ⓟ'+row.ucd.point+')';
+						innerDom += 	'(ⓒ'+numberWithCommas(row.ucd.cash)+' / ⓟ'+numberWithCommas(row.ucd.point)+')';
 						innerDom += '</div>';
 						return innerDom;
 					}
@@ -313,16 +313,18 @@
 		content	+= 	'<ul class="modal-information">';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">출금대상(보유UCD)</p>';
-		content	+= 			'<p class="data-contents">';
+		content	+= 			'<div class="scroll-wrap">';
+		content	+= 				'<p class="data-contents">';
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
 			let balance  = $(this).data('total');
 
-			content += ' @'+nickname+'('+balance+')';
+			content += ' @'+nickname+'('+numberWithCommas(balance)+')';
 		});
 
-		content	+= 			'</p>';
+		content	+= 				'</p>';
+		content	+= 			'</div>';
 		content	+= 		'<li>';
 		content	+= 		'<li>';
 		content	+= 			'<p class="sub-title">출금 UCD</p>';

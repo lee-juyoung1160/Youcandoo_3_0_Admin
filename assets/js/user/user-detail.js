@@ -423,9 +423,12 @@
 			data: ucdParams(),
 			success: function(data) {
 				sweetToastAndCallback(data, createSuccess);
-				balance.html(numberWithCommas(data.data.total));
-				cash.html(numberWithCommas(data.data.cash));
-				point.html(numberWithCommas(data.data.point));
+				if (isSuccessResp(data))
+				{
+					balance.html(numberWithCommas(data.data.total));
+					cash.html(numberWithCommas(data.data.cash));
+					point.html(numberWithCommas(data.data.point));
+				}
 			},
 			error: function (request, status) {
 				sweetError(label.submit+message.ajaxError);

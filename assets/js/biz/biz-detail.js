@@ -371,8 +371,11 @@
 			data: ucdParams(),
 			success: function(data) {
 				sweetToastAndCallback(data, createSuccess);
-				balance.html(numberWithCommas(data.data));
-				g_balance = data.data;
+				if (isSuccessResp(data))
+				{
+					balance.html(numberWithCommas(data.data));
+					g_balance = data.data;
+				}
 			},
 			error: function (request, status) {
 				sweetError(label.submit+message.ajaxError);

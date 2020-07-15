@@ -400,6 +400,31 @@
         $(obj).attr('src', label.noImage);
     }
 
+    function onErrorVideo()
+    {
+        sweetToast("영상을 불러올 수 없습니다.");
+    }
+
+    function onErrorActionVideo()
+    {
+        sweetToast("인증 영상을 불러올 수 없습니다.");
+    }
+
+    function onErrorExamVideo()
+    {
+        sweetToast("예시 영상을 불러올 수 없습니다.");
+    }
+
+    function onErrorActionAudio()
+    {
+        sweetToast("인증 음성을 불러올 수 없습니다.");
+    }
+
+    function onErrorExamAudio()
+    {
+        sweetToast("예시 음성을 불러올 수 없습니다.");
+    }
+
     /** 목록페이지 엔터로 검색 **/
     function onKeydownSearch(event)
     {

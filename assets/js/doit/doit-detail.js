@@ -313,8 +313,8 @@
 				{
 					introImageDom += '<div class="file">';
 					introImageDom += 	'<p class="cap">영상</p>';
-					introImageDom += 	'<video controls>';
-					introImageDom += 		'<source src="'+detail.doit_video_url+'">';
+					introImageDom += 	'<video poster="" controls onerror="onErrorImage(this);">';
+					introImageDom += 		'<source src="'+detail.doit_video_url+'" onerror="onErrorVideo();">';
 					introImageDom += 	'</video>';
 					introImageDom += '</div>';
 				}
@@ -368,24 +368,22 @@
 		if (type === 'image')
 		{
 			let imageUrl = data.example_image_url;
-			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다." onerror="onErrorImage(this);">';
 			actionResourceDom += '</div>';
 		}
 		else if (type === 'video')
 		{
 			let imageUrl = data.example_video_image_url;
-			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
+			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다." onerror="onErrorImage(this);">';
 			actionResourceDom += '</div>';
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">영상</p>';
-			actionResourceDom += 	'<video controls>';
-			actionResourceDom += 		'<source src="'+data.example_video_url+'">';
+			actionResourceDom += 	'<video poster="'+imageUrl+'" controls onerror="onErrorImage(this)">';
+			actionResourceDom += 		'<source src="'+data.example_video_url+'" onerror="onErrorExamVideo();">';
 			actionResourceDom += 	'</video>';
 			actionResourceDom += '</div>';
 		}
@@ -394,7 +392,7 @@
 			actionResourceDom += '<div class="file">';
 			actionResourceDom += 	'<p class="cap">음성</p>';
 			actionResourceDom += 	'<audio controls>';
-			actionResourceDom += 		'<source src="'+data.example_voice_url+'">';
+			actionResourceDom += 		'<source src="'+data.example_voice_url+'" onerror="onErrorExamAudio();">';
 			actionResourceDom += 	'</audio>';
 			actionResourceDom += '</div>';
 		}
@@ -593,34 +591,34 @@
 		{
 			className = 'img-contents';
 
-			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지">';
+			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
 
-			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지">';
+			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
 		}
 		else if (type === 'video')
 		{
 			className = 'video-contents';
 
-			actionDom += 	'<video poster="'+coverUrl+'" controls>';
-			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
 			actionDom += 	'</video>';
 
 			exampleDom += 	'<video controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo();">';
 			exampleDom += 	'</video>';
 		}
 		else if (type === 'voice')
 		{
 			className = 'audio-contents';
 
-			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="" onerror="onErrorImage(this);">';
 			actionDom += 	'<audio controls>';
-			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
 			actionDom += 	'</audio>';
 
-			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="" onerror="onErrorImage(this);">';
 			exampleDom += 	'<audio controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
 			exampleDom += 	'</audio>';
 		}
 
@@ -868,6 +866,7 @@
 				actionImageDom += 'data-red="'+action.red_card+'" ';
 				actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
 				actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
+				actionImageDom += 'onerror="'+onErrorImage(this)+'" ';
 				actionImageDom += 'alt="인증 이미지입니다.">';
 
 				let className = '';

@@ -109,26 +109,26 @@
 		{
 			className = 'video-contents';
 
-			actionDom += 	'<video poster="'+coverUrl+'" controls>';
-			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
 			actionDom += 	'</video>';
 
 			exampleDom += 	'<video controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo()">';
 			exampleDom += 	'</video>';
 		}
 		else if (type === 'voice')
 		{
 			className = 'audio-contents';
 
-			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
 			actionDom += 	'<audio controls>';
-			actionDom += 		'<source src="'+actionUrl+'">';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
 			actionDom += 	'</audio>';
 
-			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" alt="">';
+			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
 			exampleDom += 	'<audio controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'">';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
 			exampleDom += 	'</audio>';
 		}
 

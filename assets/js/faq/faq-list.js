@@ -63,10 +63,10 @@
 				if (isSuccessResp(data))
 					buildFaqType(data);
 				else
-					alert(invalidResp(data));
+					sweetToast(invalidResp(data));
 			},
 			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxLoadError);
+				sweetToast('구분 '+label.list+message.ajaxLoadError);
 			},
 			complete: function (xhr, status) {
 				buildGrid();

@@ -121,7 +121,7 @@
 
 		if (!isHtml(obj) && obj.files[0])
 		{
-			alert(message.invalidFile);
+			sweetToast(message.invalidFile);
 			$(obj).val(null);
 			$(obj).siblings('.upload-name').val('파일선택');
 		}

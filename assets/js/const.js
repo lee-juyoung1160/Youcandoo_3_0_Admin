@@ -18,7 +18,6 @@
 		,required : '필수항목입니다.'
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
-		,invalidResolution : '유효하지 않은 이미지 사이즈입니다.'
 		,invalidBrowser: '지원하지 않는 브라우져입니다.'
 		,maxJoinPromo : '최대 5회까지 등록 가능합니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'

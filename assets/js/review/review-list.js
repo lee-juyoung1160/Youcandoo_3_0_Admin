@@ -56,7 +56,7 @@
         clickCount.addEventListener('click', function () {
             let checkedCount = document.querySelectorAll('.rating-list input[name=chk-grade]:checked').length;
             if (checkedCount === 0 ) {
-                alert('최소 하나 이상의 값을 선택해야 합니다.');
+                sweetToast('최소 하나 이상의 값을 선택해야 합니다.');
                 clickCount.checked = true;
             }
         });

@@ -202,7 +202,7 @@
     {
         if (!isImage(obj) && obj.files[0])
         {
-            alert(message.invalidFile);
+            sweetToast(message.invalidFile);
             emptyFile(obj);
         }
         else
@@ -224,17 +224,17 @@
                 
                 if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
                 {
-                    alert(infoMessage);
+                    sweetError(infoMessage);
                     emptyFile(obj);
                 }
                 else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
                 {
-                    alert(infoMessage);
+                    sweetError(infoMessage);
                     emptyFile(obj);
                 }
                 else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
                 {
-                    alert(infoMessage);
+                    sweetError(infoMessage);
                     emptyFile(obj);
                 }
                 else
@@ -249,7 +249,7 @@
     {
         if (!isAudio(obj) && obj.files[0])
         {
-            alert(message.invalidFile);
+            sweetToast(message.invalidFile);
             emptyFile(obj);
         }
         else
@@ -260,7 +260,7 @@
     {
         if (!isVideo(obj) && obj.files[0])
         {
-            alert(message.invalidFile);
+            sweetToast(message.invalidFile);
             emptyFile(obj);
         }
         else
@@ -299,7 +299,7 @@
                 emptyFile(obj);
         }
         else
-            alert(message.invalidBrowser);
+            sweetToast(message.invalidBrowser);
     }
 
     function readImage(obj)

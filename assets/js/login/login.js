@@ -15,7 +15,7 @@
 		{
 			if (isEmpty(userid.val()))
 			{
-				alert(message.emptyId);
+				sweetToast(message.emptyId);
 				userid.focus();
 				return;
 			}
@@ -30,7 +30,7 @@
 		{
 			if (isEmpty(password.val()))
 			{
-				alert(message.emptyPassword);
+				sweetToast(message.emptyPassword);
 				password.focus();
 				return;
 			}
@@ -49,14 +49,14 @@
 	{
 		if (isEmpty(userid.val()))
 		{
-			alert(message.emptyId);
+			sweetToast(message.emptyId);
 			userid.focus();
 			return false;
 		}
 
 		if (isEmpty(password.val()))
 		{
-			alert(message.emptyPassword);
+			sweetToast(message.emptyPassword);
 			password.focus();
 			return false;
 		}

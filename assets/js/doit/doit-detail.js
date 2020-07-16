@@ -423,7 +423,7 @@
 					invalidResp(data);
 			},
 			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
+				sweetToast(label.detailContent+message.ajaxLoadError);
 			},
 		});
 	}

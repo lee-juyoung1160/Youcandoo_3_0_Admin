@@ -73,7 +73,7 @@
 		let checkedCount = $("input[name=chk-status]:checked").length;
 		if (checkedCount === 0)
 		{
-			alert(message.minimumChecked);
+			sweetToast(message.minimumChecked);
 			$(obj).prop("checked", true);
 		}
 	}

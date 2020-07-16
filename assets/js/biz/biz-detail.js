@@ -54,8 +54,8 @@
 		goUpdate		.on("click", function () { goUpdatePage(); })
 		tabPromo		.on("click", function () { onClickTabPromo(); });
 		tabUcd			.on("click", function () { onClickTabUcd(); });
-		selPageLengthForPromo.on("change", function () { getInvolvePromo(); });
-		selPageLengthForUcd.on("change", function () { getUcdLog() });
+		selPageLengthForPromo	.on("change", function () { getInvolvePromo(); });
+		selPageLengthForUcd		.on("change", function () { getUcdLog() });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 

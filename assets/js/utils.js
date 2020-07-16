@@ -45,10 +45,7 @@
 	{
 		let filter = "win16|win32|win64|mac|macintel";
 		
-		if (filter.indexOf(navigator.platform.toLowerCase()) < 0) 
-			return true;
-		else
-			return false;
+		return filter.indexOf(navigator.platform.toLowerCase()) < 0;
 	}
 	
 	function isEmpty(value) 
@@ -69,18 +66,13 @@
 	
 	function isNegative(value)
 	{
-		if (Math.sign(value) !== -1)
-			return false;
-
-		return true;
+		return Math.sign(value) !== -1;
 	}
 
 	/** 숫자 형식에 , 붙이기 **/
 	function numberWithCommas(x)
 	{
-		let result = isEmpty(x) ? 0 : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-	    return result;
+	    return isEmpty(x) ? 0 : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
 	function isImage(obj)
@@ -91,8 +83,7 @@
 			let fileType 	= file["type"];
 			let imageTypes 	= ["image/jpeg", "image/png"];
 
-			if ($.inArray(fileType, imageTypes) >= 0)
-				return true;
+			return $.inArray(fileType, imageTypes) >= 0;
 		}
 	}
 	
@@ -104,8 +95,7 @@
 			let fileType 	= file["type"];
 			let videoTypes 	= ["video/quicktime", "video/mp4"];
 
-			if ($.inArray(fileType, videoTypes) >= 0)
-				return true;
+			return $.inArray(fileType, videoTypes) >= 0;
 		}
 	}
 	
@@ -117,8 +107,7 @@
 			let fileType 	= file["type"];
 			let audioTypes 	= ["audio/x-m4a", "audio/vnd.dlna.adts"];
 
-			if ($.inArray(fileType, audioTypes) >= 0)
-				return true;
+			return $.inArray(fileType, audioTypes) >= 0;
 		}
 	}
 

@@ -32,7 +32,7 @@
 	const avg 			= $("#avg");
 	const forecast 		= $("#forecast");
 	const saving 		= $("#saving");
-	const xlsxExport 	= $(".excel-btn");
+	/*const xlsxExport 	= $(".excel-btn");*/
 	const joinUserTable		= $("#joinUserTable")
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 

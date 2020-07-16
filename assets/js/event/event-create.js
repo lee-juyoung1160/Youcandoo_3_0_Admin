@@ -163,7 +163,7 @@
 
 	function isDisplay(obj)
 	{
-		return $(obj).css('display') === 'none';
+		return !($(obj).css('display') === 'none');
 	}
 
 	function validation()

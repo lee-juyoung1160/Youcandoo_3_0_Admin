@@ -970,8 +970,8 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createPromotion,
+	    $.ajax({
+		  	url: api.createPromotion,
 			type: "POST",
 			processData: false,
 			contentType: false,

@@ -180,7 +180,7 @@
 
 		let param = {
 			"word" : paramValues.toString()
-		}
+		};
 
 		return JSON.stringify(param);
 	}

@@ -180,7 +180,7 @@
 		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
 	}
 
-	function cancelRequest(obj)
+	function cancelRequest()
 	{
 		$.ajax({
 			url: g_cancel_api,

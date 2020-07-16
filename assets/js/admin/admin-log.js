@@ -47,7 +47,7 @@
 			},
 			columns: [
 				{title: "아이디", 	data: "userid",      		width: "15%",    	orderable: false,   className: "cursor-default" }
-				,{title: "경로", 		data: "url",   	 		width: "35%",      	orderable: false,   className: "cursor-default" }
+				,{title: "경로", 	data: "url",   	 			width: "35%",      	orderable: false,   className: "cursor-default" }
 				,{title: "날짜", 	data: "datetime",   		width: "15%", 		orderable: false,   className: "cursor-default" }
 				,{title: "구분", 	data: "access_type_name",	width: "15%",    	orderable: false,   className: "cursor-default" }
 				,{title: "활동", 	data: "action",      		width: "15%",    	orderable: false,   className: "cursor-default" }

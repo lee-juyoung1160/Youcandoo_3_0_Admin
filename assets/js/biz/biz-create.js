@@ -1,10 +1,10 @@
 
-	const bizName  			= $("#bizName");
-	const bizNo  			= $("#bizNo");
-	const profileImage 		= $("#profileImage");
-	const homepage 			= $("#homepage");
-	const bizDesc			= $("#bizDesc");
-	const btnSubmit			= $("#btnSubmit");
+	const bizName  		= $("#bizName");
+	const bizNo  		= $("#bizNo");
+	const profileImage 	= $("#profileImage");
+	const homepage 		= $("#homepage");
+	const bizDesc		= $("#bizDesc");
+	const btnSubmit		= $("#btnSubmit");
 
 	$(document).ready(function () {
 		/** 컴퍼넌트 초기화 **/

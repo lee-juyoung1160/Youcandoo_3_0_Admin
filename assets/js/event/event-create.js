@@ -66,8 +66,7 @@
 			let fileType 	= file["type"];
 			let imageTypes 	= ["text/html"];
 
-			if ($.inArray(fileType, imageTypes) >= 0)
-				return true;
+			return $.inArray(fileType, imageTypes) >= 0;
 		}
 	}
 
@@ -164,10 +163,7 @@
 
 	function isDisplay(obj)
 	{
-		if ($(obj).css('display') === 'none')
-			return false;
-
-		return true;
+		return $(obj).css('display') === 'none';
 	}
 
 	function validation()

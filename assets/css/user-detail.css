@@ -2,8 +2,9 @@
 .move-tab {
     position: fixed;
     top:180px;
-    right: 10px;
+    right: 50%;
     width: 150px;
+    margin-right: -930px;
     border-radius: 10px;
     transition: all .5s;
 }
@@ -18,7 +19,7 @@
     font-weight: 800;
 }
 .move-section-wrap {
-    width: 100%;
+    width: 1280px;
 }
 
 .enrollment-title {
@@ -91,18 +92,18 @@ ol.detail-data li {
 
 @media screen and (max-width: 1600px) {
 
-    .wrap {
-        position: relative;
-        width: 1280px;
-    }
-    .move-tab {
-        right: 50%;
-        width: 9%;
-        margin-right: -760px;
-    }
-    .move-section-wrap {
-        width: 86%;
-    }
+    /*.wrap {*/
+    /*    position: relative;*/
+    /*    width: 1280px;*/
+    /*}*/
+    /*.move-tab {*/
+    /*    right: 50%;*/
+    /*    width: 9%;*/
+    /*    margin-right: -760px;*/
+    /*}*/
+    /*.move-section-wrap {*/
+    /*    width: 86%;*/
+    /*}*/
 
 }
 

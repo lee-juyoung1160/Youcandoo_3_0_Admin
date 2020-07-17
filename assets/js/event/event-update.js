@@ -1,5 +1,5 @@
-
-	const selEventType 	= $("#selEventType");
+/*사용안함: 나중에 추가될 수 있음*/
+	/*const selEventType 	= $("#selEventType");
 	const title 		= $("#title");
 	const linkWrap		= $("#linkWrap");
 	const eventLink		= $("#eventLink");
@@ -20,11 +20,11 @@
 	const btnSubmit 	= $("#btnSubmit");
 
 	$(document).ready(function () {
-		/** 이벤트 구분 **/
+		/!** 이벤트 구분 **!/
 		getEventType();
-		/** 데이트피커 초기화 **/
+		/!** 데이트피커 초기화 **!/
 		initInputTodayDatepicker();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		selEventType.on('change', function () { onChangeEventType(this); });
 		webFile		.on('change', function () { onChangeWebFile(this); });
 		contentImg	.on('change', function () { onChangeValidationImage(this); });
@@ -343,5 +343,5 @@
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
-	}
+	}*/
 

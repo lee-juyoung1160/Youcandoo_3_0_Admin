@@ -1,5 +1,5 @@
-
-	const nickname 	= $("#nickname");
+/*사용안함: 나중에 추가될 수 있음*/
+	/*const nickname 	= $("#nickname");
 	const regDate	= $("#regDate");
 	const title		= $("#title");
 	const content	= $("#content");
@@ -9,7 +9,7 @@
 	let idx;
 
 	$(document).ready(function () {
-		/** 상세 불러오기 **/
+		/!** 상세 불러오기 **!/
 		getDetail();
 
 		btnSubmit.on('click', function () { onSubmitQna(); });
@@ -101,6 +101,6 @@
 		}
 
 		return true;
-	}
+	}*/
 
 

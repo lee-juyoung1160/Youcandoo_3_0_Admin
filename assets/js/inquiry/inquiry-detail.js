@@ -1,5 +1,5 @@
-
-	const nickname 		= $("#nickname");
+/*사용안함: 나중에 추가될 수 있음*/
+/*	const nickname 		= $("#nickname");
 	const regDate		= $("#regDate");
 	const title			= $("#title");
 	const content		= $("#content");
@@ -9,7 +9,7 @@
 	const memo			= $("#memo");
 
 	$(document).ready(function () {
-		/** 상세 불러오기 **/
+		/!** 상세 불러오기 **!/
 		getDetail();
 	});
 
@@ -53,6 +53,6 @@
 		admin.html(detailData.admin_userid);
 		commentDate.html(detailData.comment_datetime);
 		memo.html(detailData.memo);
-	}
+	}*/
 
 

@@ -1,3 +1,5 @@
+<!--사용안함: 나중에 추가될 수 있음-->
+<!--
 <link rel="stylesheet" href="/assets/css/create-common.css">
 <link rel="stylesheet" href="/assets/css/doit-category-create.css">
 <section class="doit-category-create-page">
@@ -164,97 +166,4 @@
             <div class="modal-layout"></div>
         </div>
     </div>
-</section>
-
-<script>
-    // select click event
-    $(document).ready(function() {
-        var selectTarget = $('.select-box select');
-
-        selectTarget.change(function(){
-            var select_name = $(this).children('option:selected').text();
-            $(this).siblings('label').text(select_name);
-        });
-    });
-
-    // input flie 변환
-    $(document).ready(function(){
-        var fileTarget = $('.filebox .upload-hidden');
-
-        fileTarget.on('change', function(){
-            if(window.FileReader){
-                var filename = $(this)[0].files[0].name;
-            } else {
-                var filename = $(this).val().split('/').pop().split('\\').pop();
-            }
-            $(this).siblings('.upload-name').val(filename);
-        });
-    });
-
-
-    // input preview image
-    var imgTarget = $('.preview-image .upload-hidden');
-
-    imgTarget.on('change', function(){
-        var parent = $(this).parent();
-        parent.children('.upload-display').remove();
-
-        if(window.FileReader){
-            //image 파일만
-            if (!$(this)[0].files[0].type.match(/image\//)) return;
-
-            var reader = new FileReader();
-            reader.onload = function(e){
-                var src = e.target.result;
-                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-            }
-            reader.readAsDataURL($(this)[0].files[0]);
-        }
-        else {
-            $(this)[0].select();
-            $(this)[0].blur();
-            var imgSrc = document.selection.createRange().text;
-            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-
-            var img = $(this).siblings('.upload-display').find('img');
-            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
-        }
-    });
-
-    // modal event
-    $('.add-btn').click(function () {
-        $('.modal-layout').fadeIn();
-        $('.modal-content').fadeIn();
-    });
-    $('.close-btn').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-    $('.modal-layout').click(function () {
-        $('.modal-layout').fadeOut();
-        $('.modal-content').fadeOut();
-    });
-
-    //글자수 체크
-    function maxLengthCheck(object){
-        if (object.value.length > object.maxLength){
-            object.value = object.value.slice(0, object.maxLength);
-        }
-    }
-    $(function() {
-        $('.length-input').keyup(function (e){
-            var contentInput = $(this).val();
-            $('.count-input').html(contentInput.length);
-        });
-        $('.count-input').keyup();
-    });
-
-    $(function() {
-        $('.length-text').keyup(function (e){
-            var contentText = $(this).val();
-            //$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-            $('.count-text').html(contentText.length);
-        });
-        $('.length-text').keyup();
-    });
-</script>
+</section>-->

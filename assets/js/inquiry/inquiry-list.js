@@ -1,5 +1,5 @@
-
-	const search 		= $(".search");
+/*사용안함: 나중에 추가될 수 있음*/
+	/*const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
@@ -11,15 +11,15 @@
 	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
-		/** 문의구분 셀렉트 박스 **/
+		/!** 문의구분 셀렉트 박스 **!/
 		getQnaType();
-		/** 데이트피커 초기화 **/
+		/!** 데이트피커 초기화 **!/
 		initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
+		/!** 상단 검색 폼 초기화 **!/
 		initSearchForm();
-		/** 목록 불러오기 **/
+		/!** 목록 불러오기 **!/
 		buildGrid();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -120,7 +120,7 @@
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
+			/!*pagingType: "simple_numbers_no_ellipses",*!/
 			ordering: false,
 			order: [],
 			info: false,
@@ -134,7 +134,7 @@
 				let table = dataTable.DataTable();
 				let info = table.page.info();
 
-				/** 목록 상단 totol count **/
+				/!** 목록 상단 totol count **!/
 				dataNum.html(info.recordsTotal);
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -164,12 +164,12 @@
 		let titleDom  = $(nRow).children().eq(3);
 		let detailUrl = aData.status === '0' ? '/service/inquiry/update/'+aData.idx : '/service/inquiry/detail/'+aData.idx;
 
-		/** 제목에 a 태그 추가 **/
+		/!** 제목에 a 태그 추가 **!/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
 		buildGrid();
-	}
+	}*/
 

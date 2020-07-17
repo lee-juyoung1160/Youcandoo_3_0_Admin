@@ -30,12 +30,6 @@ class Marketing extends CI_Controller {
             case "create" :
                 $this->load->layout('marketing/push-create');
                 break;
-            case "detail":
-                $this->load->layout('marketing/push-detail');
-                break;
-            case "update":
-                $this->load->layout('marketing/push-update');
-                break;
         }
     }
 }

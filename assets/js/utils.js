@@ -66,7 +66,7 @@
 	
 	function isNegative(value)
 	{
-		return Math.sign(value) !== -1;
+		return !(Math.sign(value) !== -1);
 	}
 
 	/** 숫자 형식에 , 붙이기 **/

@@ -60,7 +60,7 @@
 		status.prop("checked", true);
 		report.eq(0).prop("checked", true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeToday();
 		initDayBtn();
 	}
 

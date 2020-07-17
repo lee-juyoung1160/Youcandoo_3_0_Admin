@@ -26,19 +26,19 @@
 	    return phone;
 	}
 
-	function getStringFormatToDate(_date, _format)
+	function getStringFormatToDate(_date, separator)
 	{
 		let yyyy 	= _date.getFullYear().toString();
 		let mm 		= (_date.getMonth() + 1).toString();
 		let dd 		= _date.getDate().toString();
-		
+		let result  = '';
 		try {
-			
+			result = yyyy + separator + (mm[1] ? mm : "0" + mm[0]) + separator + (dd[1] ? dd : "0" + dd[0]);
 		} catch (e) {
 			 
 		}
 		
-		return yyyy + _format + (mm[1] ? mm : "0" + mm[0]) + _format + (dd[1] ? dd : "0" + dd[0]);
+		return result;
 	}
 	
 	function isMobile()

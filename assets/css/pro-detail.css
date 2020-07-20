@@ -71,7 +71,7 @@
     text-align: center;
 }
 
-.pro-detail-page .reward-tab li {
+.reward-tab li {
     overflow: hidden;
     float: left;
     width: 170px;
@@ -86,8 +86,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.pro-detail-page .reward-tab li.on,
-.pro-detail-page .reward-tab li:hover
+.reward-tab li.on,
+.reward-tab li:hover
 {
     color: #fff;
     background-color: #007aff;

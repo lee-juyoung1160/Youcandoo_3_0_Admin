@@ -24,7 +24,7 @@
                             <p class="sub-title important">프로모션명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
+                            <div class="input-wrap" id="promoNameWrap">
                                 <input id="promoName" type="text" class="length-input" placeholder="프로모션명을 입력해주세요." maxlength="20">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                             </div>
@@ -54,9 +54,11 @@
                             <p class="sub-title important">프로모션 기간 (*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="promoFrom" type="text" class="datepicker">
-                            <span class="date-margin-text"> ~ </span>
-                            <input id="promoTo" type="text" class="datepicker">
+                            <div class="input-wrap" id="promoDateWrap">
+                                <input id="promoFrom" type="text" class="datepicker">
+                                <span class="date-margin-text"> ~ </span>
+                                <input id="promoTo" type="text" class="datepicker">
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -87,8 +89,10 @@
                             </i>
                         </div>
                         <div class="col-2">
-                            <input id="allowCount" type="text" class="only-num" maxlength="1">
-                            <span class="input-num-title">회</span>
+                            <div class="input-wrap" id="allowCountWrap">
+                                <input id="allowCount" type="text" class="only-num" maxlength="1">
+                                <span class="input-num-title">회</span>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -140,7 +144,7 @@
                             <p class="sub-title important">프로모션 홈 배너 노출 여부 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="checkbox-wrap">
+                            <div class="checkbox-wrap" id="isBannerWrap">
                                 <input type="radio" id="c9" name="radio-banner-open" value="Y"/>
                                 <label for="c9">Y<span></span></label>
 

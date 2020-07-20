@@ -143,13 +143,20 @@
 		rewardTab.html(rewardTabDom);
 		onClickRewardTab(rewardTab.find('li').eq(0));
 
-		removeModifyBtn(detailPromo);
+		toggleModifyBtn(detailPromo);
 	}
 
-	function removeModifyBtn(detailPromo)
+	function toggleModifyBtn(detailPromo)
 	{
-		if (detailPromo.status !== 'pending')
+		if (isPromotionClosed(detailPromo.status))
 			goUpdate.remove();
+	}
+
+	function isPromotionClosed(_status)
+	{
+		let updateAvailableStatus = ['pending', 'progress'];
+
+		return updateAvailableStatus.indexOf(_status) === -1;
 	}
 
 	function onClickRewardTab(obj)

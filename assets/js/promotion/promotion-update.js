@@ -71,6 +71,13 @@
 		});
 	}
 
+	function isPromotionClosed(_status)
+	{
+		let updateAvailableStatus = ['pending', 'progress'];
+
+		return updateAvailableStatus.indexOf(_status) === -1;
+	}
+
 	let g_promotion_uuid;
 	let g_budget;
 	function buildPromoDetail(data)
@@ -79,22 +86,21 @@
 		let promoData  	= detail.promotion;
 		let rewards = detail.reward;
 
-		if (promoData.status !== 'pending')
+		if (isPromotionClosed(promoData.status))
 		{
-			sweetError(message.cantUpdatePromo);
-			location.href = page.detailPromo+promoData.idx;
+			alert(message.cantUpdatePromo);
+			location.href = page.listPromo;
 		}
 
 		g_promotion_uuid = promoData.promotion_uuid;
 		g_budget = promoData.budget_ucd;
 
 		bizName.html(promoData.nickname);
-		promoName.val(promoData.promotion_title);
+
 		budget.html(numberWithCommas(promoData.budget_ucd)+'원');
-		promoFrom.val(promoData.start_date);
-		promoTo.val(promoData.end_date);
+
 		buildNoticeArea(promoData);
-		allowCount.val(promoData.promotion_allow_count);
+
 		if (!isEmpty(promoData.banner_image_url))
 		{
 			let bannerImgDom = '';
@@ -117,12 +123,30 @@
 
 			intro.parent().prepend(introImgDom);
 		}
-		isBanner.each(function () {
-			if ($(this).val() === promoData.is_banner)
-				$(this).prop('checked', true);
-		});
 
-		buildReward(rewards);
+
+		if (promoData.status === 'pending')
+		{
+			promoName.val(promoData.promotion_title);
+			promoFrom.val(promoData.start_date);
+			promoTo.val(promoData.end_date);
+			allowCount.val(promoData.promotion_allow_count);
+			isBanner.each(function () {
+				if ($(this).val() === promoData.is_banner)
+					$(this).prop('checked', true);
+			});
+
+			buildEditableReward(rewards);
+		}
+		else
+		{
+			$("#promoNameWrap")	.html('<p class="detail-data">'+promoData.promotion_title+'</p>');
+			$("#promoDateWrap")	.html('<p class="detail-data">'+promoData.start_date+' ~ '+promoData.end_date+'</p>');
+			$("#allowCountWrap").html('<p class="detail-data">'+promoData.promotion_allow_count+'</p>');
+			$("#isBannerWrap")	.html('<p class="detail-data">'+promoData.is_banner+'</p>');
+
+			buildRewardTab(rewards);
+		}
 	}
 
 	/** 유의사항 세팅 **/
@@ -183,9 +207,123 @@
 		});
 	}
 
-	/** 리워드 영역 **/
+	/**
+	 * 리워드 영역 - 프로모션 대기상태 : buildEditableReward, 프로모션 진행 중 : buildRewardTab
+	 * **/
+	function buildRewardTab(rewards)
+	{
+		$(".option-guide").remove();
+		rewardsWrap.empty();
+
+		let rewardTabDom = '';
+		for (let i=0; i<rewards.length; i++)
+		{
+			let statusOn = i === 0 ? 'on' : '';
+			let reward = rewards[i];
+			rewardTabDom += i === 0 ? '<ul id="rewardTab" class="clearfix">' : '';
+			rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
+			rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
+			rewardTabDom += '</li>';
+			if (i === rewards.length -1)
+			{
+				rewardTabDom += '</ul>';
+				rewardTabDom += '<ul id="rewardDetail" class="clearfix">';
+				rewardTabDom += '</ul>';
+			}
+		}
+
+		rewardsWrap.html(rewardTabDom);
+		onClickRewardTab($("#rewardTab").children().eq(0));
+	}
+
+	function onClickRewardTab(obj)
+	{
+		toggleActive(obj);
+		buildReward(obj)
+	}
+
+	function toggleActive(obj)
+	{
+		$("#rewardTab").find('li').removeClass('on');
+		$(obj).addClass('on');
+	}
+
+	function buildReward(obj)
+	{
+		let idx = $(obj).data('idx');
+		let reward = rewards[idx];
+		let ucdInfo = reward.ucd_info;
+		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
+		ucdInfo = ucdInfo.slice(1, -1);
+		let jsonUcdInfo = JSON.parse(ucdInfo);
+
+		let detailDom = '';
+		detailDom += '<li class="reward-1">';
+		detailDom += 	'<div class="list-inner">';
+		detailDom += 		'<p class="title">';
+		detailDom += 			'<strong>'+reward.title+'</strong>';
+		detailDom += 		'</p>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">인증기간</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.action_duration+'일</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">주간빈도</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.action_dayofweek+'</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap clearfix">';
+		detailDom += 			'<div class="col-1">';
+		detailDom += 				'<p class="sub-title">목표달성률</p>';
+		detailDom += 			'</div>';
+		detailDom += 			'<div class="col-2">';
+		detailDom += 				'<p class="detail-data">'+reward.goal_percent+'%</p>';
+		detailDom += 			'</div>';
+		detailDom += 		'</div>';
+		detailDom += 		'<div class="col-wrap">';
+		detailDom += 			'<p class="sub-title" style="margin-bottom: 5px;">인당 UCD</p>';
+		detailDom += 			'<p class="detail-data">';
+		detailDom += 			'<table>';
+		detailDom += 				'<colgroup>';
+		detailDom += 					'<col style="width:35%;">';
+		detailDom += 					'<col style="width:20%;">';
+		detailDom += 					'<col style="width:20%;">';
+		detailDom += 				'</colgroup>';
+		detailDom += 				'<thead>';
+		detailDom += 					'<tr>';
+		detailDom += 						'<th rowspan="2">참여자 수(명)</th>';
+		detailDom += 						'<th colspan="2">인당 UCD</th>';
+		detailDom += 					'</tr>';
+		detailDom += 					'<tr>';
+		detailDom += 						'<th>개인</th>';
+		detailDom += 						'<th>단체</th>';
+		detailDom += 					'</tr>';
+		detailDom += 				'</thead>';
+		detailDom += 				'<tbody>';
+		detailDom += 					'<tr>';
+		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+label.tilde+numberWithCommas(jsonUcdInfo.max)+'</td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.person_reward)+'</span></td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.group_reward)+'</span></td>';
+		detailDom += 					'</tr>';
+		detailDom += 				'</tbody>';
+		detailDom += 			'</table>';
+		detailDom += 			'</p>';
+		detailDom += 		'</div>';
+		detailDom += 	'</div>';
+		detailDom += '</li>';
+
+		$("#rewardDetail").html(detailDom);
+	}
+
 	let radioId = 100;
-	function buildReward(rewards)
+	function buildEditableReward(rewards)
 	{
 		for (let i=0; i<rewards.length; i++)
 		{

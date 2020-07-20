@@ -720,7 +720,7 @@
     {
         Swal.fire({
             icon: 'error',
-            text: msg,
+            text: msg
         })
     }
 

@@ -391,12 +391,12 @@ input.only-num {
 	width: 220px;
 }
 /* file common */
-.filebox {
-	float: left;
-	margin-right: 40px;
-}
+/*.filebox {*/
+/*	float: left;*/
+/*	margin-right: 40px;*/
+/*}*/
 .filebox:last-child {
-	margin-right: 0px;
+	margin-top: 10px;
 }
 .filebox input[type="file"] {
 	position: absolute;

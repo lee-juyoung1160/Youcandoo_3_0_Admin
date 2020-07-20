@@ -80,11 +80,13 @@
 
 	let g_promotion_uuid;
 	let g_budget;
+	let g_rewards;
 	function buildPromoDetail(data)
 	{
-		let detail 	= data.data;
-		let promoData  	= detail.promotion;
-		let rewards = detail.reward;
+		let detail 	  = data.data;
+		let promoData = detail.promotion;
+
+		g_rewards = detail.reward;
 
 		if (isPromotionClosed(promoData.status))
 		{
@@ -136,7 +138,7 @@
 					$(this).prop('checked', true);
 			});
 
-			buildEditableReward(rewards);
+			buildEditableReward();
 		}
 		else
 		{
@@ -145,7 +147,7 @@
 			$("#allowCountWrap").html('<p class="detail-data">'+promoData.promotion_allow_count+'</p>');
 			$("#isBannerWrap")	.html('<p class="detail-data">'+promoData.is_banner+'</p>');
 
-			buildRewardTab(rewards);
+			buildRewardTab();
 		}
 	}
 
@@ -210,21 +212,21 @@
 	/**
 	 * 리워드 영역 - 프로모션 대기상태 : buildEditableReward, 프로모션 진행 중 : buildRewardTab
 	 * **/
-	function buildRewardTab(rewards)
+	function buildRewardTab()
 	{
 		$(".option-guide").remove();
 		rewardsWrap.empty();
 
 		let rewardTabDom = '';
-		for (let i=0; i<rewards.length; i++)
+		for (let i=0; i<g_rewards.length; i++)
 		{
 			let statusOn = i === 0 ? 'on' : '';
-			let reward = rewards[i];
+			let reward = g_rewards[i];
 			rewardTabDom += i === 0 ? '<ul id="rewardTab" class="reward-tab clearfix">' : '';
-			rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
+			rewardTabDom += '<li onclick="onClickViewRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
 			rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
 			rewardTabDom += '</li>';
-			if (i === rewards.length -1)
+			if (i === g_rewards.length -1)
 			{
 				rewardTabDom += '</ul>';
 				rewardTabDom += '<ul id="rewardDetail" class="reward-list clearfix">';
@@ -234,10 +236,10 @@
 
 		rewardsWrap.html(rewardTabDom);
 
-		onClickRewardTab($("#rewardTab").find('li').eq(0));
+		onClickViewRewardTab($("#rewardTab").find('li').eq(0));
 	}
 
-	function onClickRewardTab(obj)
+	function onClickViewRewardTab(obj)
 	{
 		toggleActive(obj);
 		buildReward(obj)
@@ -252,7 +254,7 @@
 	function buildReward(obj)
 	{
 		let idx = $(obj).data('idx');
-		let reward = rewards[idx];
+		let reward = g_rewards[idx];
 		let ucdInfo = reward.ucd_info;
 		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
 		ucdInfo = ucdInfo.slice(1, -1);
@@ -324,13 +326,13 @@
 	}
 
 	let radioId = 100;
-	function buildEditableReward(rewards)
+	function buildEditableReward()
 	{
-		for (let i=0; i<rewards.length; i++)
+		for (let i=0; i<g_rewards.length; i++)
 		{
 			let rewardTabDom = '';
 			let detailDom = '';
-			let reward   = rewards[i];
+			let reward   = g_rewards[i];
 			let idNum = i+1;
 			let rewardId = 'reward'+idNum;
 			let target = '#reward'+idNum;

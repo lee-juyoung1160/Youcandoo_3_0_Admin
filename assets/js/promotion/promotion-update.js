@@ -78,6 +78,7 @@
 		return updateAvailableStatus.indexOf(_status) === -1;
 	}
 
+	let g_promo_status;
 	let g_promotion_uuid;
 	let g_budget;
 	let g_rewards;
@@ -85,8 +86,9 @@
 	{
 		let detail 	  = data.data;
 		let promoData = detail.promotion;
-
 		g_rewards = detail.reward;
+
+		g_promo_status = promoData.status;
 
 		if (isPromotionClosed(promoData.status))
 		{
@@ -125,7 +127,6 @@
 
 			intro.parent().prepend(introImgDom);
 		}
-
 
 		if (promoData.status === 'pending')
 		{
@@ -805,21 +806,21 @@
 	{
 		let promotionNotice = $("input[name=promo-notice]");
 
-		if (isEmpty(promoName.val()))
+		if ($("#promoName").length > 0 && isEmpty(promoName.val()))
 		{
 			sweetToast('프로모션명은 ' + message.required);
 			promoName.focus();
 			return false;
 		}
 
-		if (isEmpty(promoFrom.val()))
+		if ($("#promoFrom").length > 0 && isEmpty(promoFrom.val()))
 		{
 			sweetToast('프로모션기간(시작일)은 ' + message.required);
 			promoFrom.focus();
 			return false;
 		}
 
-		if (isEmpty(promoTo.val()))
+		if ($("#promoTo").length > 0 && isEmpty(promoTo.val()))
 		{
 			sweetToast('프로모션기간(종료일)은 ' + message.required);
 			promoTo.focus();
@@ -838,33 +839,33 @@
 			return false;
 		}
 
-		if (isEmpty(allowCount.val()))
+		if ($("#allowCount").length > 0 && isEmpty(allowCount.val()))
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
 			allowCount.focus();
 			return false;
 		}
 
-		if (Number(allowCount.val()) > 5)
+		if ($("#allowCount").length > 0 && Number(allowCount.val()) > 5)
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
 			allowCount.focus();
 			return false;
 		}
 
-		if (isEmptyDuration())
+		if ($(".duration").length > 0 && isEmptyDuration())
 		{
 			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
-		if (isInvalidDuration())
+		if ($(".duration").length > 0 && isInvalidDuration())
 		{
 			sweetToast(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
 			return false;
 		}
 
-		if (isEmptyFrequency())
+		if ($(".frequency").length > 0 && isEmptyFrequency())
 		{
 			sweetToast('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
 			return false;
@@ -876,19 +877,19 @@
 			return false;
 		}*/
 
-		if (isEmptyRewardUcd())
+		if ($(".ucd-table-body").length > 0 && isEmptyRewardUcd())
 		{
 			sweetToast('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
 			return false;
 		}
 
-		if (isInvalidJoinUserCount())
+		if ($(".ucd-table-body").length > 0 && isInvalidJoinUserCount())
 		{
 			sweetToast(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
 			return false;
 		}
 
-		if (isOverBudget())
+		if ($(".ucd-table-body").length > 0 && isOverBudget())
 		{
 			sweetToast(message.overBudget+'\n리워드 조건의 인당 UCD 입력을 '+message.doubleChk);
 			return false;
@@ -1024,9 +1025,8 @@
 		let paramIntroFile 	= intro[0].files[0];
 		let formData  = new FormData();
 		formData.append("promotion-uuid", g_promotion_uuid);
-		formData.append("promotion-title", promoName.val().trim());
-		formData.append("promotion-start-date", promoFrom.val());
-		formData.append("promotion-end-date", promoTo.val());
+		formData.append("promotion-banner-image",paramBannerFile);
+		formData.append("promotion-list-image", paramIntroFile);
 
 		/** 유의사항 파라미터 **/
 		let promotionNotice = $("input[name=promo-notice]");
@@ -1036,87 +1036,92 @@
 		});
 		formData.append("promotion_notice", JSON.stringify(notice));
 
-		formData.append("promotion-allow-count", allowCount.val());
-		formData.append("promotion-banner-image",paramBannerFile);
-		formData.append("promotion-list-image", paramIntroFile);
-		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
-
-		let rewardSelectDoms = rewardTabWrap.find('li');
-		let rewardSelectDomLength = rewardSelectDoms.length;
-		let rewards = [];
-		for (let i=0; i<rewardSelectDomLength; i++)
+		if (g_promo_status === 'pending')
 		{
-			let rewardWrap   = $(".pro-reward-wrap");
-			let title 		 = $(rewardWrap[i]).find('.reward-title');
-			let durationDom	 = $(rewardWrap[i]).find('.duration');
-			let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
-			let frequencyDom = $(rewardWrap[i]).find('.frequency');
-			let monday		 = 'N';
-			let tuesday		 = 'N';
-			let wednesday	 = 'N';
-			let thursday	 = 'N';
-			let friday		 = 'N';
-			let saturday	 = 'N';
-			let sunday		 = 'N';
-			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
-			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
+			formData.append("promotion-title", promoName.val().trim());
+			formData.append("promotion-start-date", promoFrom.val());
+			formData.append("promotion-end-date", promoTo.val());
+			formData.append("promotion-allow-count", allowCount.val());
+			formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
-			/** 인증기간 파라미터 **/
-			durationDom.each(function () {
-				if ($(this).hasClass('active'))
-					duration = $(this).data('days');
-			});
+			let rewardSelectDoms = rewardTabWrap.find('li');
+			let rewardSelectDomLength = rewardSelectDoms.length;
+			let rewards = [];
+			for (let i=0; i<rewardSelectDomLength; i++)
+			{
+				let rewardWrap   = $(".pro-reward-wrap");
+				let title 		 = $(rewardWrap[i]).find('.reward-title');
+				let durationDom	 = $(rewardWrap[i]).find('.duration');
+				let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
+				let frequencyDom = $(rewardWrap[i]).find('.frequency');
+				let monday		 = 'N';
+				let tuesday		 = 'N';
+				let wednesday	 = 'N';
+				let thursday	 = 'N';
+				let friday		 = 'N';
+				let saturday	 = 'N';
+				let sunday		 = 'N';
+				let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
+				let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
-			/** 주간빈도 파라미터 **/
-			frequencyDom.each(function (freqidx) {
-				let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
-				if (freqidx === 0) monday = frequencyYn;
-				if (freqidx === 1) tuesday = frequencyYn;
-				if (freqidx === 2) wednesday = frequencyYn;
-				if (freqidx === 3) thursday = frequencyYn;
-				if (freqidx === 4) friday = frequencyYn;
-				if (freqidx === 5) saturday = frequencyYn;
-				if (freqidx === 6) sunday = frequencyYn;
-			});
+				/** 인증기간 파라미터 **/
+				durationDom.each(function () {
+					if ($(this).hasClass('active'))
+						duration = $(this).data('days');
+				});
 
-			/** 인당 UCD 파라미터 **/
-			let ucdInfos = [];
-			$(ucdTable).find('tr').each(function () {
+				/** 주간빈도 파라미터 **/
+				frequencyDom.each(function (freqidx) {
+					let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
+					if (freqidx === 0) monday = frequencyYn;
+					if (freqidx === 1) tuesday = frequencyYn;
+					if (freqidx === 2) wednesday = frequencyYn;
+					if (freqidx === 3) thursday = frequencyYn;
+					if (freqidx === 4) friday = frequencyYn;
+					if (freqidx === 5) saturday = frequencyYn;
+					if (freqidx === 6) sunday = frequencyYn;
+				});
 
-				let inputDom = $(this).find('input');
+				/** 인당 UCD 파라미터 **/
+				let ucdInfos = [];
+				$(ucdTable).find('tr').each(function () {
 
-				if (inputDom.length > 0)
-				{
-					let minDom   = $(inputDom)[0];
-					let maxDom   = $(inputDom)[1];
-					let personDom = $(inputDom)[2];
-					let groupDom  = $(inputDom)[3];
+					let inputDom = $(this).find('input');
 
-					ucdInfos.push({
-						"min" : $(minDom).val()
-						,"max" : $(maxDom).val()
-						,"person_reward" : $(personDom).val()
-						,"group_reward" : $(groupDom).val()
-					});
-				}
-			})
+					if (inputDom.length > 0)
+					{
+						let minDom   = $(inputDom)[0];
+						let maxDom   = $(inputDom)[1];
+						let personDom = $(inputDom)[2];
+						let groupDom  = $(inputDom)[3];
 
-			rewards.push({
-				"title" 			: title.val()
-				,"action-duration" 	: duration
-				,"goal-rate" 		: goalRate.val()
-				,"monday" 			: monday
-				,"tuesday" 			: tuesday
-				,"wednesday" 		: wednesday
-				,"thursday" 		: thursday
-				,"friday" 			: friday
-				,"saturday" 		: saturday
-				,"sunday" 			: sunday
-				,"ucd_info"			: JSON.stringify(ucdInfos)
-			});
+						ucdInfos.push({
+							"min" : $(minDom).val()
+							,"max" : $(maxDom).val()
+							,"person_reward" : $(personDom).val()
+							,"group_reward" : $(groupDom).val()
+						});
+					}
+				})
+
+				rewards.push({
+					"title" 			: title.val()
+					,"action-duration" 	: duration
+					,"goal-rate" 		: goalRate.val()
+					,"monday" 			: monday
+					,"tuesday" 			: tuesday
+					,"wednesday" 		: wednesday
+					,"thursday" 		: thursday
+					,"friday" 			: friday
+					,"saturday" 		: saturday
+					,"sunday" 			: sunday
+					,"ucd_info"			: JSON.stringify(ucdInfos)
+				});
+			}
+
+			formData.append("promotion-reward-condition", JSON.stringify(rewards));
 		}
 
-		formData.append("promotion-reward-condition", JSON.stringify(rewards));
 		return formData;
 	}
 

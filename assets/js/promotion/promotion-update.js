@@ -220,20 +220,21 @@
 		{
 			let statusOn = i === 0 ? 'on' : '';
 			let reward = rewards[i];
-			rewardTabDom += i === 0 ? '<ul id="rewardTab" class="clearfix">' : '';
+			rewardTabDom += i === 0 ? '<ul id="rewardTab" class="reward-tab clearfix">' : '';
 			rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
 			rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
 			rewardTabDom += '</li>';
 			if (i === rewards.length -1)
 			{
 				rewardTabDom += '</ul>';
-				rewardTabDom += '<ul id="rewardDetail" class="clearfix">';
+				rewardTabDom += '<ul id="rewardDetail" class="reward-list clearfix">';
 				rewardTabDom += '</ul>';
 			}
 		}
 
 		rewardsWrap.html(rewardTabDom);
-		onClickRewardTab($("#rewardTab").children().eq(0));
+
+		onClickRewardTab($("#rewardTab").find('li').eq(0));
 	}
 
 	function onClickRewardTab(obj)

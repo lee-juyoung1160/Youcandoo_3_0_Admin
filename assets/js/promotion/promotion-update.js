@@ -1024,6 +1024,7 @@
 		let paramBannerFile = banner[0].files[0];
 		let paramIntroFile 	= intro[0].files[0];
 		let formData  = new FormData();
+		formData.append("promotion-status", g_promo_status);
 		formData.append("promotion-uuid", g_promotion_uuid);
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramIntroFile);

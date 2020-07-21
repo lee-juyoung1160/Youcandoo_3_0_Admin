@@ -544,6 +544,11 @@
 				$(frequencyUl).children().eq(3).addClass('active');
 				$(frequencyUl).children().eq(4).addClass('active');
 			}
+			else
+			{
+				$(frequencyUl).children().removeClass('active');
+				$(frequencyUl).children().addClass('disabled');
+			}
 		}
 	}
 

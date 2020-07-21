@@ -357,7 +357,7 @@
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<div class="input-wrap">';
-			detailDom += 						'<input oninput="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="'+reward.title+'" maxlength="20">';
+			detailDom += 						'<input oninput="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="리워드 옵션명을 입력해주세요." value="'+reward.title+'" maxlength="20">';
 			detailDom += 						'<p class="length-count-wrap"><span class="count-input">0</span>/20</p>';
 			detailDom += 					'</div>';
 			detailDom += 				'</div>';
@@ -640,11 +640,11 @@
 		rewardDom += 		'<li>';
 		rewardDom += 			'<div class="col-wrap clearfix">';
 		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap">리워드 제목 (*)</p>';
+		rewardDom += 					'<p class="cap">리워드 옵션명 (*)</p>';
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<div class="input-wrap">';
-		rewardDom += 						'<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="'+title+'" maxlength="20">';
+		rewardDom += 						'<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="리워드 옵션명을 입력해주세요." value="'+title+'" maxlength="20">';
 		rewardDom += 						'<p class="length-count-wrap"><span class="count-input">0</span>/20</p>';
 		rewardDom += 					'</div>';
 		rewardDom += 				'</div>';
@@ -853,6 +853,12 @@
 			return false;
 		}
 
+		if ($(".reward-title").length > 0 && isEmptyRewardTitle())
+		{
+			sweetToast('리워드 옵션명은 '+message.required+'\n리워드 조건의 리워드 옵션명을 '+message.doubleChk);
+			return false;
+		}
+
 		if ($(".duration").length > 0 && isEmptyDuration())
 		{
 			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
@@ -921,6 +927,19 @@
 					result = true;
 			});
 		}
+
+		return result;
+	}
+
+	function isEmptyRewardTitle()
+	{
+		let result = false;
+		let rewardTitle = $(".reward-title");
+
+		$(rewardTitle).each(function () {
+			if (isEmpty($(this).val()))
+				result = true;
+		});
 
 		return result;
 	}

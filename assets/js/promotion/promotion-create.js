@@ -699,6 +699,12 @@
 			return false;
 		}
 
+		if (isEmptyRewardTitle())
+		{
+			sweetToast('리워드 옵션명은 '+message.required+'\n리워드 조건의 리워드 옵션명을 '+message.doubleChk);
+			return false;
+		}
+
 		if (isEmptyDuration())
 		{
 			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
@@ -767,6 +773,19 @@
 					result = true;
 			});
 		}
+
+		return result;
+	}
+
+	function isEmptyRewardTitle()
+	{
+		let result = false;
+		let rewardTitle = $(".reward-title");
+
+		$(rewardTitle).each(function () {
+			if (isEmpty($(this).val()))
+				result = true;
+		});
 
 		return result;
 	}

@@ -219,6 +219,13 @@
 .reward-user {
     display: none;
 }
+.frequency-ul li.disabled,
+.frequency-ul li.disabled:hover {
+    cursor: inherit;
+    color: #ddd;
+    background-color: #fff;
+    border-color: #ddd;
+}
 .text-right {
     display: block;
     text-align: right;

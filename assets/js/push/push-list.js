@@ -53,7 +53,7 @@
 				,{title: "발송대상 ", 	data: "param",    	  	width: "30%",   orderable: false,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
-						return jsonData.push_type === 'all' ? '전체' : '개인('+jsonData.profile_uuid+')';
+						return jsonData.push_type === 'all' ? '전체' : '개인('+row.nickname+')';
 					}
 				}
 				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   orderable: false,   className: "cursor-default" }

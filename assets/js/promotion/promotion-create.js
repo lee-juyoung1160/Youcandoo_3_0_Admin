@@ -382,7 +382,7 @@
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<div class="input-wrap">';
-		rewardDom += 						'<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="제목을 입력해주세요." value="'+title+'" maxlength="20">';
+		rewardDom += 						'<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="리워드 옵션명을 입력해주세요." value="'+title+'" maxlength="20">';
 		rewardDom += 						'<p class="length-count-wrap"><span class="count-input">0</span>/20</p>';
 		rewardDom += 					'</div>';
 		rewardDom += 				'</div>';
@@ -531,6 +531,7 @@
 		let duration = Number($(obj).val());
 
 		$(frequencyUl).children().removeClass('active');
+		$(frequencyUl).children().removeClass('disabled');
 
 		if (!isEmpty($(radioDur).val()))
 			$(frequencyUl).children().eq(0).addClass('active');
@@ -544,6 +545,8 @@
 				$(frequencyUl).children().eq(3).addClass('active');
 				$(frequencyUl).children().eq(4).addClass('active');
 			}
+			else
+				$(frequencyUl).children().addClass('disabled');
 		}
 	}
 
@@ -558,9 +561,7 @@
 			$(obj).addClass('active');
 		}
 		else
-		{
 			$(obj).toggleClass('active');
-		}
 	}
 
 	/** 인당 UCD 테이블 row 삭제 버튼 이벤트 **/

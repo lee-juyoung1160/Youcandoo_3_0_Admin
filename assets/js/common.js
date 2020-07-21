@@ -697,7 +697,7 @@
             icon: 'warning',
             title: msg,
             showConfirmButton: false,
-            timer: 1200
+            timer: 1500
         })
     }
 
@@ -709,7 +709,7 @@
             icon: isSuccessResp(data) ? 'success' : 'error',
             title: getStatusMessage(data),
             showConfirmButton: false,
-            timer: 1200
+            timer: 1500
         }).then((result) => {
             if (result.isDismissed && isSuccessResp(data))
                 callback();

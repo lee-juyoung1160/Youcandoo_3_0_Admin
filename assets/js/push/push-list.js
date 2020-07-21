@@ -44,20 +44,20 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 			data: "idx",   			width: "5%",    className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "발송여부", 		data: "push_status",    width: "5%",  	orderable: false,   className: "cursor-default" }
-				,{title: "발송대상 ", 	data: "param",    	  	width: "30%",   orderable: false,   className: "cursor-default",
+				{title: "발송여부", 		data: "push_status",    width: "10%",  	className: "cursor-default" }
+				,{title: "발송대상 ", 	data: "param",    	  	width: "20%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
 						return jsonData.push_type === 'all' ? '전체' : '개인('+row.nickname+')';
 					}
 				}
-				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   orderable: false,   className: "cursor-default" }
-				,{title: "구분", 		data: "param",    	  	width: "10%",  	orderable: false,   className: "cursor-default",
+				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   orderable: true,   className: "cursor-default" }
+				,{title: "구분", 		data: "param",    	  	width: "10%",  	orderable: true,   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
 						return jsonData.store === 'all' ? '전체' : jsonData.store;
@@ -91,6 +91,7 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

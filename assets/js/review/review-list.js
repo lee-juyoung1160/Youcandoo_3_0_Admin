@@ -126,6 +126,7 @@
             autoWidth: false,
             fixedHeader:false,
             initComplete: function () {
+                initTableSorter($(reviewTable));
             },
             fnRowCallback: function (nRow, aData) {
             },
@@ -144,33 +145,34 @@
                     sweetError(label.list+message.ajaxLoadError);
                 }
             },columns: [
-                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",
+                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",  className: 'no-sort',
                     render: function (data) {
                         return multiCheckBoxDom(data);
                     }
                 },
-                {title:"리뷰내용", data: "review_text", width: '25%',
+                {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort no-sort',
                     render : function(data, type, full, meta) {
                         return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                     }
                 },
-                {title:"평점",data: "rating", width: '10%', className: 'cursor-default',
+                {title:"평점",         data: "rating",        width: '10%',   className: 'cursor-default no-sort',
                     render: function (data) {
                         return buildStar(data);
                     }
                 },
-                {title:"두잇명",data: "doit_title", width: '25%', className: 'cursor-default'},
-                {title:"신고",data: "report_count", width: '10%', className: 'cursor-default'},
-                {title:"블라인드 여부",data: "is_blind", width: '10%', className: 'cursor-default',
+                {title:"두잇명",        data: "doit_title",    width: '25%',   className: 'cursor-default' },
+                {title:"신고",          data: "report_count",  width: '10%',  className: 'cursor-default' },
+                {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'cursor-default no-sort',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성날짜",data: "created", width: '10%', className: 'cursor-default',
+                {title:"작성날짜",      data: "created",        width: '10%',   className: 'cursor-default',
                     render: function (data) {
                         return data.substring(0, 10);
-                    }},
-                {title:"작성자",data: "nickname", width: '15%', className: 'cursor-default'}
+                    }
+                },
+                {title:"작성자",        data: "nickname",      width: '15%',   className: 'cursor-default no-sort' }
             ],language: {
                 emptyTable: message.emptyList
                 , zeroRecords: message.emptyList
@@ -243,7 +245,8 @@
 
     function blindSuccess()
     {
-        getReviewListData();
+        tableReloadAndStayCurrentPage($(reviewTable));
+        /*getReviewListData();*/
     }
 
     function blindValidation()

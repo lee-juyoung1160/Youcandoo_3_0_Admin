@@ -74,20 +74,20 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 				data: "idx",   				width: "5%",   className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "No "+tooltipTop, 	data: "idx",    	  	width: "10%",   orderable: false,   className: "cursor-default" }
-				,{title: "제목", 			data: "title",    	  	width: "40%",  	orderable: false,   className: "cursor-default" }
-				,{title: "노출여부", 		data: "is_exposure",  	width: "5%",  	orderable: false,   className: "cursor-default",
+				{title: "No "+tooltipTop, 	data: "idx",    	  		width: "10%",	className: "cursor-default no-sort" }
+				,{title: "제목", 			data: "title",    	  		width: "40%",  	className: "cursor-default" }
+				,{title: "노출여부", 		data: "is_exposure",  		width: "5%",  	className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 		data: "created_user",      width: "10%",  	orderable: false,   className: "cursor-default" }
-				,{title: "작성일", 	    data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default",
+				,{title: "작성자", 			data: "created_user",      width: "10%",  	className: "cursor-default no-sort" }
+				,{title: "작성일", 	    	data: "created_datetime",  width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -132,6 +132,8 @@
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -300,7 +302,7 @@
 
 	function deleteSuccess()
 	{
-		tableReloadAndStayCurrentPage(dataTable);tableReloadAndStayCurrentPage(dataTable);
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function delValidation()

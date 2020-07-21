@@ -86,21 +86,21 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 		data: "idx",   				width: "5%",     className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "아이디", 	 data: "userid",     		width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "이름", 	 data: "name",     			width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "이메일", 	 data: "email",     		width: "15%",     orderable: false,   className: "cursor-default" }
-				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     orderable: false,   className: "cursor-default",
+				{title: "권한", 	 	 data: "auth_name",     	width: "10%",     className: "cursor-default" }
+				,{title: "아이디", 	 data: "userid",     		width: "10%",     className: "cursor-default" }
+				,{title: "이름", 	 data: "name",     			width: "10%",     className: "cursor-default" }
+				,{title: "이메일", 	 data: "email",     		width: "15%",     className: "cursor-default" }
+				,{title: "최근접속일", data: "recent_datetime",   width: "15%",     className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "사용여부",   data: "is_active",     	width: "10%",     orderable: false }
+				,{title: "사용여부",   data: "is_active",     	width: "10%",     className: "cursor-default no-sort" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -129,6 +129,7 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

@@ -520,6 +520,16 @@
         $(numEl).html(info.recordsTotal);
     }
 
+    function initTableSorter(_table)
+    {
+        $(".no-sort").each(function () {
+            if (isEmpty($(this).data('sort-method')))
+                $(this).attr('data-sort-method', 'none');
+        });
+
+        new Tablesort(_table[0]);
+    }
+
     /** 상세페이지 이동 **/
     function moveDetail(obj)
     {
@@ -684,7 +694,6 @@
     {
         return JSON.parse(sessionStorage.getItem("param"));
     }
-
 
     /**
      *  alert 관련

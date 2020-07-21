@@ -78,19 +78,19 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 		data: "idx",   			  width: "5%",     className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "마켓",   	data: "store",     		  width: "20%",    orderable: false,   className: "cursor-default" }
-				,{title: "버전", 	data: "target_version",   width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "강제여부",  data: "force_update",     width: "20%",    orderable: false,   className: "cursor-default",
+				,{title: "마켓",   	data: "store",     		  width: "20%",    className: "cursor-default no-sort" }
+				,{title: "버전", 	data: "target_version",   width: "30%",    className: "cursor-default" }
+				,{title: "강제여부",  data: "force_update",     width: "20%",    className: "cursor-default",
 					render: function (data) {
 						return Number(data) === 1 ? '선택' : '강제';
 					}
 				}
-				,{title: "등록일시",  data: "datetime",     	  width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "등록일시",  data: "datetime",     	  width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -122,6 +122,8 @@
 				dataTable.on( 'page.dt', function () {
 					$("#checkAll").prop('checked', false);
 				});
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

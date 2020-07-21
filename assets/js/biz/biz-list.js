@@ -68,9 +68,9 @@
 				}
 			},
 			columns: [
-				{title: "고유 ID", 	data: "company_uuid",   width: "25%",     orderable: false }
-				,{title: "회사명", 	data: "nickname",   	width: "30%",     orderable: false }
-				,{title: "등록일", 	data: "created",   		width: "15%",     orderable: false,
+				{title: "고유 ID", 	data: "company_uuid",   width: "25%" }
+				,{title: "회사명", 	data: "nickname",   	width: "30%" }
+				,{title: "등록일", 	data: "created",   		width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -107,6 +107,8 @@
 				});
 
 				table.page(_page-1).draw( 'page' );
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

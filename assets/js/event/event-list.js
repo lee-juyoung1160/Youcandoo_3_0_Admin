@@ -71,25 +71,25 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 		data: "idx",   			   width: "5%",     className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "구분", 		data: "event_type",    	width: "10%",   orderable: false,   className: "cursor-default" }
-				,{title: "제목", 	data: "title",  		width: "35%",	orderable: false,   className: "cursor-default" }
-				,{title: "기간", 	data: "start_date",  	width: "20%",   orderable: false,   className: "cursor-default",
+				{title: "구분", 		data: "event_type",    	   width: "10%",	className: "cursor-default" }
+				,{title: "제목", 	data: "title",  		   width: "35%",	className: "cursor-default" }
+				,{title: "기간", 	data: "start_date",  	   width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.start_date+label.tilde+row.end_date;
 					}
 				}
-				,{title: "노출여부",  data: "is_exposure",  	width: "10%",  	orderable: false,   className: "cursor-default",
+				,{title: "노출여부",  data: "is_exposure",  	   width: "10%",  	className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 	data: "created_user",      width: "15%",   orderable: false,   className: "cursor-default" }
-				,{title: "작성일", 	data: "created_datetime",  width: "10%",   orderable: false,   className: "cursor-default",
+				,{title: "작성자", 	data: "created_user",      width: "15%",    className: "cursor-default no-sort" }
+				,{title: "작성일", 	data: "created_datetime",  width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -129,6 +129,8 @@
 				});
 
 				table.page(_page-1).draw( 'page' );
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

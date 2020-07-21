@@ -10,13 +10,13 @@
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
-	$(document).ready(function () {
+	$(function () {
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
 		/** 구분 불러오기 **/
-		getFaqType()
+		getFaqType();
 		/** 이벤트 **/
 		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -106,20 +106,20 @@
 				}
 			},
 			columns: [
-				{title: "", 		data: "idx",   			width: "5%",     orderable: false,
+				{title: "", 		data: "idx",   				width: "5%",	className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "구분", 		data: "faq_type",   	width: "10%", 		orderable: false,   className: "cursor-default" }
-				,{title: "제목", 	data: "title",   		width: "35%",    	orderable: false,   className: "cursor-default" }
-				,{title: "노출여부", data: "is_exposure",  	width: "10%",  	   	orderable: false,   className: "cursor-default",
+				{title: "구분", 		data: "faq_type",   		width: "10%",   className: "cursor-default " }
+				,{title: "제목", 	data: "title",   			width: "30%",   className: "cursor-default" }
+				,{title: "노출여부", data: "is_exposure",  		width: "10%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 	data: "created_user",      width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "작성일", 	data: "created_datetime",  width: "10%",   	orderable: false,   className: "cursor-default",
+				,{title: "작성자", 	data: "created_user",      	width: "15%",    className: "cursor-default no-sort" }
+				,{title: "작성일", 	data: "created_datetime",  	width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -159,6 +159,8 @@
 				});
 
 				table.page(_page-1).draw( 'page' );
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

@@ -22,6 +22,8 @@
 	const usageHisTable	= $("#usageHisTable")
 
 	/** modal **/
+	const modalUcd 		= $("#modalUcd");
+	const modalTokenInfo = $("#modalTokenInfo");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
@@ -43,7 +45,7 @@
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
 		/** 이벤트 **/
-		btnUcdModalOpen	.on("click", function () { onClickModalOpen(); })
+		btnUcdModalOpen	.on("click", function () { onClickUcdModalOpen(); })
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		tabOpened		.on("click", function () { onClickTabOpened(this); });
@@ -64,17 +66,42 @@
 		});
 	}
 
-	function onClickModalOpen()
+	function onClickUcdModalOpen()
 	{
-		modalFadein();
-		initModal();
+		ucdModalFadein();
+		initUcdModal();
 	}
 
-	function initModal()
+	function ucdModalFadein()
+	{
+		modalLayout.fadeIn();
+		modalUcd.fadeIn();
+		overflowHidden();
+	}
+
+	function initUcdModal()
 	{
 		amount.val('');
 		amount.focus();
 		content.val('');
+	}
+
+	function onClickTokenModalOpen()
+	{
+		tokenModalFadein();
+		initTokenModal();
+	}
+
+	function tokenModalFadein()
+	{
+		modalLayout.fadeIn();
+		modalTokenInfo.fadeIn();
+		overflowHidden();
+	}
+
+	function initTokenModal()
+	{
+
 	}
 
 	function onClickTabOpened(obj)

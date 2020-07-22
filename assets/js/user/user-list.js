@@ -104,11 +104,7 @@
 						return data === 'Y' ? '사용' : '미사용';
 					}
 				}
-				,{title: "가입일", 		data: "created",    	width: "15%",    className: "cursor-default",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
+				,{title: "가입일시", 	data: "created",    	width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

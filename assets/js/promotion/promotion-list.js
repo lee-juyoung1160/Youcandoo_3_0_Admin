@@ -202,8 +202,6 @@
 	{
 		let checkDom 	= $(nRow).children().eq(0);
 		let titleDom  	= $(nRow).children().eq(2);
-		let budgetDom  	= $(nRow).children().eq(3);
-		let balanceDom  = $(nRow).children().eq(4);
 		let detailUrl 	= page.detailPromo+aData.idx;
 
 		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
@@ -211,10 +209,6 @@
 			$(checkDom).children().prop('disabled', true);
 		/** 제목에 클릭 상세 이동 **/
 		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-
-		/** 컬럼 타이틀 클릭 정렬 이벤트 용 데이터 세팅 **/
-		$(budgetDom).attr('data-sort', aData.budget_ucd);
-		$(balanceDom).attr('data-sort', aData.remain_budget_ucd);
 	}
 
 	function onSubmitSearch()

@@ -106,6 +106,32 @@
                     </li>
                 </ul>
                 </div>
+                <!-- 기기정보 -->
+                <div class="os-info">
+                    <p class="enrollment-title">기기 정보</p>
+                    <div class="table-wrap" style="margin-top: 0;">
+                        <table>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                                <col style="width: 55%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                            <th>OS</th>
+                            <th>ClientID</th>
+                            <th>Token</th>
+                            <th>등록일시</th>
+                            </thead>
+                            <tbody>
+                            <td>IOS</td>
+                            <td>dddd123ddd123ssss321ss321</td>
+                            <td><a href="#" class="os-token">sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd</a></td>
+                            <td>2020-02-02 00:00:00</td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <!-- 두잇정보 -->
                 <div class="doit-info">
                     <p class="enrollment-title">두잇 정보</p>
@@ -219,7 +245,7 @@
                 <div class="user-ucd">
                     <p class="enrollment-title">UCD 사용 내역</p>
 
-                    <div class="table-wrap">
+                    <div class="table-wrap" style="margin-top: 0;">
                         <table id="usageHisTable">
                            <!-- <colgroup>
                                 <col style="width:10%;">
@@ -366,6 +392,7 @@
             <ol class="enrollment move-tab">
                 <li data-moveto="user-info-01">기본 정보</li>
                 <li data-moveto="user-info-02">회원 정보</li>
+                <li data-moveto="os-info">기기 정보</li>
                 <li data-moveto="doit-info">두잇 정보</li>
                 <li data-moveto="user-ucd">UCD 사용 내역</li>
                 <!--<li data-moveto="user-log">사용자 로그</li>-->
@@ -383,6 +410,7 @@
     </div>
 
     <div class="modal-wrap">
+
         <div class="modal-content modal-01">
             <div class="wrap">
                 <i class="close-btn fas fa-times-circle"></i>
@@ -411,6 +439,18 @@
                     </li>
                 </ul>
                 <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+            </div>
+        </div>
+
+        <div class="modal-content modal-02">
+            <div class="wrap">
+                <i class="close-btn fas fa-times-circle"></i>
+                <p class="modal-title">Token</p>
+                <ul class="modal-information">
+                    <li>
+                        sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="modal-layout"></div>

@@ -76,11 +76,6 @@ button.btn-open-modal {
 .table-wrap .minus-pay td button {
     color: #c90614;
 }
-/*.scroll-box {*/
-/*    width: 1020px;*/
-/*    overflow: hidden;*/
-/*    overflow-x: scroll;*/
-/*}*/
 ol.detail-data {
     width: 1500px;
 }
@@ -89,21 +84,14 @@ ol.detail-data li {
     width: 200px;
     margin-left: 5px;
 }
-
-@media screen and (max-width: 1600px) {
-
-    /*.wrap {*/
-    /*    position: relative;*/
-    /*    width: 1280px;*/
-    /*}*/
-    /*.move-tab {*/
-    /*    right: 50%;*/
-    /*    width: 9%;*/
-    /*    margin-right: -760px;*/
-    /*}*/
-    /*.move-section-wrap {*/
-    /*    width: 86%;*/
-    /*}*/
-
+.os-token {
+    overflow: hidden;
+    display: block;
+    max-width: 490px;
+    margin: 0 auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+
 

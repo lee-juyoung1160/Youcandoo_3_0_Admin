@@ -70,7 +70,7 @@
 	const modalReviewContent	= $("#modalReviewContent");
 	const modalReviewTitle		= $("#modalReviewTitle");
 	const modalReviewStarWrap	= $("#modalReviewStarWrap");
-	const modalReviewRating		= $("#modalReviewRating");
+	/*const modalReviewRating		= $("#modalReviewRating");*/
 	const modalReviewReport		= $("#modalReviewReport");
 	const modalReviewUser		= $("#modalReviewUser");
 	const modalReviewCreated	= $("#modalReviewCreated");
@@ -1178,7 +1178,7 @@
 		modalReviewStarWrap.find('li').each(function (index) {
 			index < rating ? $(this).addClass('on') : $(this).removeClass('on');
 		});
-		modalReviewRating.html(rating);
+		/*modalReviewRating.html(rating);*/
 		modalReviewReport.html(report);
 		modalReviewUser.html(nickname);
 		modalReviewCreated.html(created.substring(0, 10));

@@ -189,7 +189,7 @@
     function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
         reviewTextEl.html(review_text);
         doitTitleEl.html(doit_title);
-        ratingEl.html(rating);
+        /*ratingEl.html(rating);*/
         reportCountEl.html(report_count);
         nicknameEl.html(nickname);
         createdEl.html(created);

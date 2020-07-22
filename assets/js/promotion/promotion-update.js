@@ -21,7 +21,7 @@
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 프로모션 상세정보 **/

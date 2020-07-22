@@ -12,7 +12,7 @@
 	const keyword		= $("#keyword");
 	const btnAdd		= $("#btnAdd");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 배너 테이블 데이터 로드 **/
 		buildBanners();
 		/** 배너추가 버튼 toggle disable **/
@@ -58,6 +58,7 @@
 		bannerTable.find('tbody').children().each(function () {
 			g_banners.push(this.id);
 		});
+
 		getPromo();
 	}
 
@@ -90,7 +91,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -108,8 +109,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				let table = bannerTable.DataTable();
 				if (!table.data().any())
@@ -198,7 +199,8 @@
 	function createSuccess()
 	{
 		toggleDisabledBtnOpenModal();
-		buildBanners();
+		let table = bannerTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function submitValidation()
@@ -247,7 +249,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -270,7 +272,7 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
+			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -303,7 +305,8 @@
 
 	function onSubmitSearch()
 	{
-		getPromo();
+		let table = dataTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function addBanners()

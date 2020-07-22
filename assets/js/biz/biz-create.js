@@ -6,12 +6,12 @@
 	const bizDesc		= $("#bizDesc");
 	const btnSubmit		= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
-		profileImage	.on('change', function(){ onChangeValidationImage(this) });
-		btnSubmit		.on('click', function(){ onSubmitBiz(); });
+		profileImage	.on('change', function() { onChangeValidationImage(this) });
+		btnSubmit		.on('click', function() { onSubmitBiz(); });
 	});
 
 	/** component 초기화 **/

@@ -15,7 +15,7 @@
 	const modalBizName	= $("#modalBizName");
 	const dataTable		= $("#dataTable")
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
@@ -23,7 +23,7 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		modalBizName	.on('keyup', function () { getBiz(); });
+		modalBizName	.on('keyup', function () { onKeyupSearchBiz(); });
 		bizName			.on('click', function () { onClickBizName(); });
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
@@ -112,6 +112,12 @@
 		g_bizUuid = uuid;
 		bizName.val(name);
 		modalFadeout();
+	}
+
+	function onKeyupSearchBiz()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function onChangePromoFrom()

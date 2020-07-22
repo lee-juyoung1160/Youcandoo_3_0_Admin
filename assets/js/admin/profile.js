@@ -7,7 +7,7 @@
 	const passwordChkTxt	= $("#passwordChkTxt");
 	const btnSubmit 		= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 나의 정보 **/
 		getProfile();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

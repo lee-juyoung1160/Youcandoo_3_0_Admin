@@ -8,7 +8,7 @@
 	const select		= $("select");
 	const xlsxExport 	= $(".excel-btn");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -16,7 +16,7 @@
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -53,21 +53,21 @@
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",    	   width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "유형", 		data: "ucd_type",          width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "출금액", 		data: "amount",    		   width: "10%",    orderable: false,   className: "cursor-default",
+				{title: "닉네임", 		data: "nickname",    	   width: "15%",    className: "cursor-default" }
+				,{title: "유형", 		data: "ucd_type",          width: "10%",    className: "cursor-default" }
+				,{title: "출금액", 		data: "amount",    		   width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "내용", 		data: "description", 	   width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "담당자", 		data: "created_user",      width: "10%",    orderable: false,   className: "cursor-default"}
-				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "내용", 		data: "description", 	   width: "30%",    className: "cursor-default no-sort" }
+				,{title: "담당자", 		data: "created_user",      width: "10%",    className: "cursor-default"}
+				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -85,9 +85,10 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -120,7 +121,9 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	/*function onClickExcelBtn()

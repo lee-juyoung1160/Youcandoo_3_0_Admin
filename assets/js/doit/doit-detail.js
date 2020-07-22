@@ -90,7 +90,7 @@
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
-	$(document).ready(function () {
+	$( () => {
 		/** 두잇 상세정보 **/
 		getDoit();
 		/** 이벤트 **/
@@ -99,7 +99,7 @@
 		tabAction		.on("click", function () { onClickActionTab(this); });
 		tabReview		.on("click", function () { onClickReviewTab(this); });
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
+		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -476,7 +476,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -1071,7 +1071,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -1274,7 +1274,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next

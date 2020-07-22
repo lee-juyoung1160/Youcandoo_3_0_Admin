@@ -41,7 +41,7 @@
 	const modalContractTitle  = $("#modalContractTitle");
 	const modalContractAmount = $("#modalContractAmount");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 상세 불러오기 **/
@@ -187,7 +187,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -284,7 +284,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next

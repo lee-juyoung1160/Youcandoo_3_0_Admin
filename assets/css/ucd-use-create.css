@@ -23,6 +23,7 @@
 }
 .ucd-give-ded-page .modal-content .table-wrap table {
     border-top: 1px solid #eee;
+    margin-top: 0;
 }
 .modal-content .modal-information .table-wrap .table-pagination li {
     border-bottom: none;

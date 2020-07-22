@@ -10,7 +10,7 @@
 	const authMenuArea 	= $("#authMenuArea");
 	const btnSubmit 	= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 권한 목록 **/
 		getAuthList();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

@@ -6,12 +6,12 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
+	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
 	const btnDelete		= $("#btnDelete");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -21,14 +21,14 @@
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
-		xlsxExport		.on("click", function () { onClickExcelBtn(); });
+		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -90,33 +90,33 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 				data: "idx",   					width: "5%",    className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   orderable: false,   className: "cursor-default",
+				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   orderable: false,   className: "cursor-default" }
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   orderable: false,   className: "cursor-default",
+				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   className: "cursor-default" }
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
 				}
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   orderable: false,   className: "cursor-default",
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
 					}
 				}
-				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   orderable: false,   className: "cursor-default" }
+				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   className: "cursor-default no-sort" }
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -137,8 +137,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				dataTable.on('page.dt', function (e, settings) {
@@ -147,6 +147,8 @@
 				});
 
 				table.page(_page-1).draw( 'page' );
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -197,7 +199,9 @@
 	function onSubmitSearch()
 	{
 		_page = 1;
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function deleteDoit()

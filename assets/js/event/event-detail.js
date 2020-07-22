@@ -17,7 +17,7 @@
 	const exposure	 	= $("#exposure");
 	const goUpdate	 	= $("#goUpdate");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/

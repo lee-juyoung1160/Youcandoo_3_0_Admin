@@ -7,12 +7,12 @@
 	const bizDesc		= $("#bizDesc");
 	const btnSubmit		= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
 		profileImage.on('change', function () { onChangeValidationImage(this); });
-		btnSubmit	.on('click', function(){ onSubmitBiz(); });
+		btnSubmit	.on('click', function () { onSubmitBiz(); });
 	});
 
 	function getDetail()

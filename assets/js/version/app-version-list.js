@@ -16,7 +16,7 @@
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
@@ -95,7 +95,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -116,8 +116,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				dataTable.on( 'page.dt', function () {
 					$("#checkAll").prop('checked', false);
@@ -153,7 +153,9 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	/** 앱 버전 등록 **/

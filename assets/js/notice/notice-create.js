@@ -6,7 +6,7 @@
 	const exposure	= $("input[name=radio-exposure]");
 	const btnSubmit = $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
 		/** 예약일 초기화 **/

@@ -9,14 +9,14 @@
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 권한 목록 불러오기 **/
 		getAuthList();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnDelete		.on("click", function () { deleteAdmin(); });
 	});
 
@@ -105,7 +105,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -126,8 +126,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				initTableSorter(dataTable);
 			},
@@ -179,7 +179,9 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	let changeApi;

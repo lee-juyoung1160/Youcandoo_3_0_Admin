@@ -34,7 +34,7 @@
 	const dataTable		= $("#dataTable");
 	const modalBizName	= $("#modalBizName");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
@@ -48,7 +48,7 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		modalBizName	.on('keyup', function () { getBiz(); });
+		modalBizName	.on('keyup', function () { onKeyupSearchBiz(); });
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		bizName			.on('click', function () { onClickBizName(); });
@@ -165,7 +165,13 @@
 		$(obj).toggleClass('active');
 	}
 
-	/** 기업 검색 **/
+	function onKeyupSearchBiz()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+	}
+
+	/** 기업 검색 모달**/
 	function onClickBizName()
 	{
 		modalFadein();
@@ -195,7 +201,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next

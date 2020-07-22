@@ -33,7 +33,7 @@
 	const modalWarnWrap		= $("#modalWarnWrap");
 	let g_warn_type;
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -41,12 +41,12 @@
 		/** 목록 불러오기 **/
 		getActions();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event); });
-		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initSearchForm(); });
-		status			.on("click", function () { onChangeChkStatus(this); });
-		selPageLength	.on("change", function () { getActions(); });
-		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		$("body")  .on('keydown', function (event) { onKeydownSearch(event); });
+		search			.on('click', function () { onSubmitSearch(); });
+		reset			.on('click', function () { initSearchForm(); });
+		status			.on('click', function () { onChangeChkStatus(this); });
+		selPageLength	.on('change', function () { getActions(); });
+		dayButtons      .on('click', function () { onClickActiveAloneDayBtn(this); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });

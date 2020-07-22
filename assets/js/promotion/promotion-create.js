@@ -37,7 +37,7 @@
 	const iconDeleteRow  = $(".icon-delete-row");
 	const btnCreateRow   = $(".ucd-add-btn");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 목표달성률 rage slider 초기화 **/
@@ -51,7 +51,7 @@
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		modalBizName	.on('keyup', function () { getBiz(); });
+		modalBizName	.on('keyup', function () { onKeyupSearchBiz(); });
 		bizName			.on('click', function () { onClickBizName(); });
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
@@ -65,8 +65,8 @@
 		$(".frequency")	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
 		rewardUcd		.on('keyup', function () { calculateTotalUcd(this); });
-		/*iconDeleteRow	.on('click', function () { deleteTableRow(this); });
-		btnCreateRow	.on('click', function () { createTableRow(this); });*/
+		/*iconDeleteRow	.on('click', () { deleteTableRow(this); });
+		btnCreateRow	.on('click', () { createTableRow(this); });*/
 		btnSubmit		.on('click', function () { onSubmitPromo(); });
 	});
 
@@ -110,7 +110,13 @@
 		});
 	}
 
-	/** 기업 검색 **/
+	function onKeyupSearchBiz()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+	}
+
+	/** 기업 검색 모달 **/
 	function onClickBizName()
 	{
 		modalFadein();

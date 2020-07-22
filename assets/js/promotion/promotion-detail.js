@@ -33,17 +33,17 @@
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
 
-	$(document).ready(function () {
+	$( () => {
 		/** 프로모션 상세정보 **/
 		getPromotion();
 		/** 이벤트 **/
-		tabPromo	.on("click", function () { onClickPromoTab(this); });
-		tabDoit		.on("click", function () { onClickDoitTab(this); });
-		tabUcd		.on("click", function () { onClickUcdTab(this); });
-		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
-		selPageLengthForUcd	.on("change", function () { onClickUcdTab(); });
+		tabPromo	.on("click", () => { onClickPromoTab(this); });
+		tabDoit		.on("click", () => { onClickDoitTab(this); });
+		tabUcd		.on("click", () => { onClickUcdTab(this); });
+		selPageLengthForDoit.on("change", () => { getInvolveDoit(); });
+		selPageLengthForUcd	.on("change", () => { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
-		/*xlsxExport	.on("click", function () { onClickExcelBtn(); });*/
+		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});
 
 	/** 프로모션탭 **/
@@ -267,7 +267,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -353,7 +353,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next

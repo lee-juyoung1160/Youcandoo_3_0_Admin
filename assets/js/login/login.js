@@ -3,7 +3,7 @@
 	const password  = $("#password");
 	const loginBtn  = $("#login-btn");
 
-	$(document).ready(function () {
+	$( () => {
 		loginBtn    .on("click", function () { onSubmitLogin(); });
 		userid      .on("keydown", function (event) { onKeydownEmail(event) });
 		password    .on("keydown", function (event) { onKeydownPassword(event) });

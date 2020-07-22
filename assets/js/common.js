@@ -104,23 +104,27 @@
     {
         dayButtons.removeClass("active");
         $(obj).addClass("active");
-
+        console.log($(obj))
         if ($(obj).hasClass("btn_today"))
         {
+            console.log('btn_today')
             datePicker.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_week"))
         {
+            console.log('btn_week')
             dateFrom.datepicker("setDate", "-7D");
             dateTo.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_month"))
         {
+            console.log('btn_month')
             dateFrom.datepicker("setDate", "-1M");
             dateTo.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_long"))
         {
+            console.log('btn_long')
             dateFrom.datepicker("setDate", "-3M");
             dateTo.datepicker("setDate", "today");
         }
@@ -759,9 +763,9 @@
         })
     }
 
-    $(document).ready(function () {
-        $(document).ajaxStart(() => { fadeinLoader(); });
-        $(document).ajaxComplete(() => { fadeoutLoader(); });
+    $( () => {
+        $(document).ajaxStart(function () { fadeinLoader(); });
+        $(document).ajaxComplete(function () { fadeoutLoader(); });
         calculateInputLength();
         accessdenied();
     });

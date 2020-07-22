@@ -31,7 +31,7 @@
 
 	const g_profile_uuid 	= $("#profile_uuid").val();
 
-	$(document).ready(function () {
+	$( () => {
 		/** 우측 메뉴클릭 스크롤 **/
 		moveSection();
 		/** 기본정보 **/

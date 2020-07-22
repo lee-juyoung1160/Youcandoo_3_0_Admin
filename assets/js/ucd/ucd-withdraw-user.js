@@ -20,12 +20,12 @@
 	const btnAddUser	= $("#btnAddUser");
 	const movedUserTableBody = $("#movedUserTableBody")
 
-	$(document).ready(function () {
+	$( () => {
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
-		search    		.on("click", function () { onSubmitSearch() });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event); });
+		search    		.on("click", function () { onSubmitSearch(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnModalOpen	.on('click', function () { onClickModalOpen(); });
@@ -48,7 +48,8 @@
 
 	function onSubmitSearch()
 	{
-		getUser();
+		let table = dataTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function onClickToggleOpen(obj)

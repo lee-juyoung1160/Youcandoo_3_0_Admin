@@ -6,7 +6,7 @@
 	const selPageLength = $("#selPageLength");
 	const btnCancel 	= $("#btnCancel");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -14,10 +14,10 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { buildGrid(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnCancel		.on("click", function () { cancelPush(); });
 	});
@@ -56,8 +56,8 @@
 						return jsonData.push_type === 'all' ? '전체' : '개인('+row.nickname+')';
 					}
 				}
-				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   orderable: true,   className: "cursor-default" }
-				,{title: "구분", 		data: "param",    	  	width: "10%",  	orderable: true,   className: "cursor-default",
+				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   className: "cursor-default" }
+				,{title: "구분", 		data: "param",    	  	width: "10%",  	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let jsonData = JSON.parse(data);
 						return jsonData.store === 'all' ? '전체' : jsonData.store;
@@ -133,7 +133,9 @@
 
 	function onSubmitSearch()
 	{
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function cancelPush()

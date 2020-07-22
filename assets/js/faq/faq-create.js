@@ -5,7 +5,7 @@
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit 	= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** faq 구분 **/
 		getFaqType();
 		/** 데이트피커 초기화 **/

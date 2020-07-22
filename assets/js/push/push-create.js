@@ -14,7 +14,7 @@
 	const dataTable		= $("#dataTable");
 	const modalNickname	= $("#modalNickname");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
 		/** 발송일 초기화 **/

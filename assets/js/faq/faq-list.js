@@ -10,7 +10,7 @@
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
-	$(function () {
+	$( () => {
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
@@ -18,7 +18,7 @@
 		/** 구분 불러오기 **/
 		getFaqType();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -126,9 +126,9 @@
 				}
 			],
 			language: {
-				emptyTable : message.emptyList
+				emptyTable: message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -149,8 +149,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				dataTable.on('page.dt', function (e, settings) {
@@ -200,7 +200,9 @@
 	function onSubmitSearch()
 	{
 		_page = 1;
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function deleteFaq()

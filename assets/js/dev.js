@@ -1,6 +1,6 @@
 
 
-	$(document).ready(function () {
+	$( () => {
 		let btnProStart = $("#btnProStart");
 
 		if (sessionAuthCode.val() !== 'dev')
@@ -19,9 +19,6 @@
 		}
 
 		btnProStart.on("click", function () { promoStart(); })
-
-		/**  **/
-		$("#btnDDD").on("click", function () { deploySource(); })
 	})
 
 
@@ -48,30 +45,10 @@
 			data: JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid}),
 			success: function(data) {
 				alert(getStatusMessage(data));
+				location.href = page.listPromo;
 			},
 			error: function (request, status) {
 				alert(label.modify+message.ajaxError);
-			},
+			}
 		});
-	}
-
-	function deploySource()
-	{
-		if (confirm(''))
-		{
-			$.ajax({
-				url: baseTestApiUrl+'promotion/start',
-				type: "POST",
-				async: false,
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({"promotion_uuid" : ""}),
-				success: function(data) {
-					alert(getStatusMessage(data));
-				},
-				error: function (request, status) {
-					alert(label.modify+message.ajaxError);
-				},
-			});
-		}
 	}

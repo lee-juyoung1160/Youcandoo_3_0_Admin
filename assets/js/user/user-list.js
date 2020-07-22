@@ -20,7 +20,7 @@
 	const cause				= $("#cause");
 	const btnSubmitBanUer	= $("#btnSubmitBanUer");*/
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -30,7 +30,7 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -104,16 +104,12 @@
 						return data === 'Y' ? '사용' : '미사용';
 					}
 				}
-				,{title: "가입일", 		data: "created",    	width: "15%",    className: "cursor-default",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
+				,{title: "가입일시", 	data: "created",    	width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -131,8 +127,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				dataTable.on('page.dt', function (e, settings) {
@@ -237,7 +233,9 @@
 	function onSubmitSearch()
 	{
 		_page = 1;
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	/*function onClickExcelBtn()

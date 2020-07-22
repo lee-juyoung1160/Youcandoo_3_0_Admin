@@ -8,7 +8,7 @@
 	const useYn 		= $("input[name=radio-use-yn]");
 	const btnSubmit 	= $("#btnSubmit");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 권한 목록 **/

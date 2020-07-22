@@ -41,10 +41,10 @@
         btnBlind	.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
         btnUnBlind	.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
         /** 검색 필드 reset **/
-        resetBtn    .addEventListener('click', () => { initSearchForm(); });
+        resetBtn    .addEventListener('click', function () { initSearchForm(); });
         /** 검색시 테이블 호출 **/
-        searchBtn   .addEventListener('click', () => {onSubmitSearch();});
-        limits      .addEventListener('change', () => {onSubmitSearch();});
+        searchBtn   .addEventListener('click', function () {onSubmitSearch();});
+        limits      .addEventListener('change', function () {onSubmitSearch();});
 
         modalCloseBtn.on('click', function () { modalFadeout(); });
         modalLayout	 .on('click', function () { modalFadeout(); });
@@ -114,7 +114,7 @@
             padding: false, /** 열 너비 계산 **/
             ordering: false, /** 원하는 순서대로 데이터 표시 **/
             paging: true, /** 페이징 **/
-            destroy: true, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
+            destroy: false, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
             select: {
                 style: 'multi',
                 selector: ':checkbox'
@@ -189,7 +189,7 @@
     function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
         reviewTextEl.html(review_text);
         doitTitleEl.html(doit_title);
-        ratingEl.html(rating);
+        /*ratingEl.html(rating);*/
         reportCountEl.html(report_count);
         nicknameEl.html(nickname);
         createdEl.html(created);
@@ -281,5 +281,7 @@
 
     function onSubmitSearch()
     {
-        getReviewListData();
+        let table = $(reviewTable).DataTable();
+        table.page.len(Number(limits.value));
+        table.ajax.reload();
     }

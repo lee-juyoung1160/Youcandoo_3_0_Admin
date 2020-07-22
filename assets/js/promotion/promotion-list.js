@@ -12,7 +12,7 @@
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
-	$(document).ready(function () {
+	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -22,7 +22,7 @@
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		status			.on("click", function () { onChangeChkStatus(this); });
@@ -93,34 +93,34 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   width: "5%",     orderable: false,
+				{title: "", 			data: "idx",   				width: "5%",     className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "기업", 			data: "nickname",    		width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "프로모션 예산", 	data: "budget_ucd",     width: "15%",    orderable: false,   className: "cursor-default",
+				{title: "기업", 			data: "nickname",    		width: "15%",    className: "cursor-default" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default" }
+				,{title: "프로모션 예산", data: "budget_ucd",     	width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",    orderable: false,   className: "cursor-default",
+				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    orderable: false,   className: "cursor-default",
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.start_date+label.tilde+row.end_date;
 					}
 				}
-				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    className: "cursor-default no-sort",
 					render: function (data) {
 						return getPromotionStatusName(data);
 					}
 				}
-				,{title: "배너 노출 여부", 	data: "is_banner",    	width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "배너 노출 여부", 	data: "is_banner",    	width: "10%",    className: "cursor-default no-sort",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}
@@ -129,7 +129,7 @@
 			language: {
 				emptyTable : message.emptyList
 				,zeroRecords: message.emptyList
-				,processing : message.searching
+				,processing: message.searching
 				,paginate: {
 					previous: label.previous
 					,next: label.next
@@ -150,8 +150,8 @@
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader:false,
-			destroy: true,
+			fixedHeader: false,
+			destroy: false,
 			initComplete: function () {
 				let table = dataTable.DataTable();
 				dataTable.on('page.dt', function (e, settings) {
@@ -160,6 +160,8 @@
 				});
 
 				table.page(_page-1).draw( 'page' );
+
+				initTableSorter(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -198,9 +200,9 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let checkDom = $(nRow).children().eq(0);
-		let titleDom  = $(nRow).children().eq(2);
-		let detailUrl = page.detailPromo+aData.idx;
+		let checkDom 	= $(nRow).children().eq(0);
+		let titleDom  	= $(nRow).children().eq(2);
+		let detailUrl 	= page.detailPromo+aData.idx;
 
 		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
 		if (aData.status !== 'pending')
@@ -212,7 +214,9 @@
 	function onSubmitSearch()
 	{
 		_page = 1;
-		buildGrid();
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function deletePromotion()

@@ -14,12 +14,14 @@
 	/** 두잇정보 **/
 	const tabOpened		= $("#tabOpened");
 	const tabJoined		= $("#tabJoined");
-	const openedWrap	= $("#openedWrap")
-	const openedTable	= $("#openedTable")
-	const joinedWrap	= $("#joinedWrap")
-	const joinedTable	= $("#joinedTable")
+	const openedWrap	= $("#openedWrap");
+	const openedTable	= $("#openedTable");
+	const joinedWrap	= $("#joinedWrap");
+	const joinedTable	= $("#joinedTable");
+	/** 기기정보 **/
+	const deviceTable   = $("#deviceTable");
 	/** UCD 사용내역 **/
-	const usageHisTable	= $("#usageHisTable")
+	const usageHisTable	= $("#usageHisTable");
 
 	/** modal **/
 	const modalUcd 		= $("#modalUcd");
@@ -42,6 +44,8 @@
 		getUserAccount();
 		/** 두잇 개설 목록 불러오기 **/
 		getOpenedDoit();
+		/** 두잇 개설 목록 불러오기 **/
+		getDeviceInfo();
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
 		/** 이벤트 **/
@@ -354,6 +358,67 @@
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
 			,"profile_uuid" : g_profile_uuid
+		}
+
+		return JSON.stringify(param);
+	}
+
+	/** 기기정보 **/
+	function getDeviceInfo()
+	{
+		deviceTable.DataTable({
+			ajax : {
+				url: api.listDevice,
+				type:"POST",
+				global: false,
+				headers: headers,
+				data: function (d) {
+					return deviceParams(d);
+				},
+				error: function (request, status) {
+					sweetError('기기정보 '+label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "유형", 		data: "ucd_type",   width: "10%",    orderable: false,   className: "cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+		});
+	}
+
+	function deviceParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"auth_code" : authCode.val()
+			,"search_type" : searchType.val()
+			,"keyword" : keyword.val()
 		}
 
 		return JSON.stringify(param);

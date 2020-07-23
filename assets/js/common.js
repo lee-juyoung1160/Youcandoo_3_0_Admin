@@ -100,8 +100,11 @@
     function initSelectOption()
     {
         select.each(function () {
-            $(this).children().eq(0).prop("selected", true);
-            onChangeSelectOption($(this));
+            if (this.id !== 'selPageLength')
+            {
+                $(this).children().eq(0).prop("selected", true);
+                onChangeSelectOption($(this));
+            }
         });
     }
 
@@ -118,27 +121,23 @@
     {
         dayButtons.removeClass("active");
         $(obj).addClass("active");
-        console.log($(obj))
+
         if ($(obj).hasClass("btn_today"))
         {
-            console.log('btn_today')
             datePicker.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_week"))
         {
-            console.log('btn_week')
             dateFrom.datepicker("setDate", "-7D");
             dateTo.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_month"))
         {
-            console.log('btn_month')
             dateFrom.datepicker("setDate", "-1M");
             dateTo.datepicker("setDate", "today");
         }
         else if ($(obj).hasClass("btn_long"))
         {
-            console.log('btn_long')
             dateFrom.datepicker("setDate", "-3M");
             dateTo.datepicker("setDate", "today");
         }
@@ -777,11 +776,26 @@
         })
     }
 
+    /** js파일에 쿼리파라미터 추가하기 (브라우저 캐시 갱신) **/
+    /*function scriptVersion()
+    {
+        let scripts = $("script");
+        let len = scripts.length;
+        let date = new Date();
+        let ver = date.getTime();
+        for (let i=0; i<len; i++)
+        {
+            let script = scripts[i];
+            let attrSrc = $(script).prop('src');
+            if (!(attrSrc.includes('plugins')))
+                $(script).attr('src', attrSrc+'?ver='+ver);
+        }
+    }*/
+
     $( () => {
         $(document).ajaxStart(function () { fadeinLoader(); });
         $(document).ajaxComplete(function () { fadeoutLoader(); });
         calculateInputLength();
         accessdenied();
     });
-
 

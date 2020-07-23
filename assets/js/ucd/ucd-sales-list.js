@@ -84,13 +84,13 @@
             autoWidth: false,
             fixedHeader: false,
             initComplete: function (settings, json) {
-                initTableSorter(dataTable);
+                initTableSorter(this);
             },
             fnRowCallback: function (nRow, aData) {
                 setUcdRowAttributes(nRow, aData);
             },
             drawCallback: function (settings) {
-                buildTotalCount(dataTable);
+                buildTotalCount(this);
                 toggleBtnPreviousAndNextOnTable(this);
             },
             ajax: {

@@ -128,12 +128,12 @@
             autoWidth: false,
             fixedHeader:false,
             initComplete: function () {
-                initTableSorter($(reviewTable));
+                initTableSorter(this);
             },
             fnRowCallback: function (nRow, aData) {
             },
             drawCallback: function (settings) {
-                buildTotalCount($(reviewTable));
+                buildTotalCount(this);
                 toggleBtnPreviousAndNextOnTable(this);
             },
             ajax: {

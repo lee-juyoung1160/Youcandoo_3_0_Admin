@@ -92,13 +92,13 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				initTableSorter(dataTable);
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(dataTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

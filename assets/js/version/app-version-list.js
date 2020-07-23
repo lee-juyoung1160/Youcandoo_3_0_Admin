@@ -125,12 +125,12 @@
 					$("#checkAll").prop('checked', false);
 				});
 
-				initTableSorter(dataTable);
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(dataTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

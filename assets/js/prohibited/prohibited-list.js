@@ -109,7 +109,7 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(dataTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

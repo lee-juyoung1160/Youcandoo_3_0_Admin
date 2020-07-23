@@ -501,7 +501,7 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(joinUserTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
@@ -1104,7 +1104,7 @@
 				setReviewRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(reviewTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
@@ -1302,7 +1302,7 @@
 				setUcdRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(ucdTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

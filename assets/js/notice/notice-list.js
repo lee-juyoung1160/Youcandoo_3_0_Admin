@@ -122,26 +122,20 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				dataTable.on('page.dt', function (e, settings) {
-					let info = table.page.info();
-					_page = (info.start / info.length) + 1;
-				});
-
-				table.page(_page-1).draw( 'page' );
-
 				/** row select **/
 				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
 				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
 
-				initTableSorter(dataTable);
+				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
+				redrawPage(this, _page);
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
 			}
 			,drawCallback: function (settings) {
-				buildTotalCount(dataTable);
+				buildTotalCount(this);
 				disableStatusBtnTop();
 				toggleBtnPreviousAndNextOnTable(this);
 			}

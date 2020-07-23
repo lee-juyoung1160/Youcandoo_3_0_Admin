@@ -213,7 +213,7 @@
 				setPromotionRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(promoTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
@@ -311,7 +311,7 @@
 				setUcdRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(ucdTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

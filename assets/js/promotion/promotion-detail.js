@@ -293,7 +293,7 @@
 				setDoitRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(doitTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
@@ -380,7 +380,7 @@
 				setUcdRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(ucdTable);
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

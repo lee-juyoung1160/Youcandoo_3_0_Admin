@@ -544,11 +544,11 @@
     }
 
     /** 테이블 상단 total count **/
-    function buildTotalCount(tableObj)
+    function buildTotalCount(_table)
     {
-        let table = tableObj.DataTable();
+        let table = $(_table).DataTable();
         let info = table.page.info();
-        let numEl = tableObj.parent().siblings().find(".data-num")
+        let numEl = $(_table).parent().siblings().find(".data-num")
 
         $(numEl).html(info.recordsTotal);
     }
@@ -560,7 +560,24 @@
                 $(this).attr('data-sort-method', 'none');
         });
 
-        new Tablesort(_table[0]);
+        new Tablesort($(_table)[0]);
+    }
+
+    /**
+     *  뒤로가기/이전버튼 이벤트에서 활성 페이지 유지를 위한 메서드
+     * **/
+    function redrawPage(_table, param_page)
+    {
+        let table = $(_table).DataTable();
+        table.page(param_page-1).draw( 'page' );
+    }
+
+    function getCurrentPage(_table)
+    {
+        let table = $(_table).DataTable();
+        let info = table.page.info();
+
+        return (info.start / info.length) + 1;
     }
 
     /** 상세페이지 이동 **/

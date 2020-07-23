@@ -536,6 +536,12 @@
         $("input[name=chk-row]").prop("checked", false);
     }
 
+    function toggleBtnPreviousAndNextOnTable(obj)
+    {
+        let pagination = $(obj).closest('.dataTables_wrapper').find('.dataTables_paginate');
+        pagination.toggle(obj.api().page.info().pages > 0);
+    }
+
     /** 테이블 상단 total count **/
     function buildTotalCount(tableObj)
     {

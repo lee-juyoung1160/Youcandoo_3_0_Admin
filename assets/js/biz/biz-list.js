@@ -117,6 +117,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

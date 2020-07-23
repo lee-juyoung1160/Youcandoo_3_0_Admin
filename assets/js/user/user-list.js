@@ -154,6 +154,7 @@
 			drawCallback: function (settings) {
 				buildTotalCount(dataTable);
 				/*disableBtnBanUser();*/
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

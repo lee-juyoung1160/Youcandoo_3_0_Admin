@@ -134,6 +134,7 @@
             },
             drawCallback: function (settings) {
                 buildTotalCount($(reviewTable));
+                toggleBtnPreviousAndNextOnTable(this);
             },
             ajax: {
                 url: api.listReview,

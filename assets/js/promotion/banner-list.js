@@ -120,6 +120,7 @@
 				setBannerRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -280,6 +281,7 @@
 				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

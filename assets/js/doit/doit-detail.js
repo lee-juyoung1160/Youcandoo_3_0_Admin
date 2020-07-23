@@ -502,6 +502,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(joinUserTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -1104,6 +1105,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(reviewTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -1301,6 +1303,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(ucdTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

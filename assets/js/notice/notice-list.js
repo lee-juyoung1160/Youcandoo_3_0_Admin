@@ -143,6 +143,7 @@
 			,drawCallback: function (settings) {
 				buildTotalCount(dataTable);
 				disableStatusBtnTop();
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

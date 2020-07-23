@@ -98,6 +98,7 @@
 				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

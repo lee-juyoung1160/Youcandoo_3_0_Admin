@@ -214,6 +214,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(promoTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -311,6 +312,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(ucdTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

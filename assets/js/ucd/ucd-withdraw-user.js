@@ -160,6 +160,7 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

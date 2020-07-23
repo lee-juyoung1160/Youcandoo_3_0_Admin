@@ -91,6 +91,7 @@
             },
             drawCallback: function (settings) {
                 buildTotalCount(dataTable);
+                toggleBtnPreviousAndNextOnTable(this);
             },
             ajax: {
                 url: api.listSalesUcd,

@@ -294,6 +294,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(doitTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -380,6 +381,7 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(ucdTable);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

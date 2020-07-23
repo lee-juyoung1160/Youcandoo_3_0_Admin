@@ -5,14 +5,23 @@
         <h2 class="main-title">푸시 발송</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-                <li class="push-send-date">
+                <li class="push-send-date create-radio-wrap">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">발송일자</p>
+                            <p class="sub-title important">발송 일자(*)</p>
                         </div>
                         <div class="col-2">
-                            <input id="sendDate" type="text" class="datepicker">
-                            <input id="sendTime" type="time" style="width: 180px;">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c6" name="radio-when" class="type-btn" value="immediately"/>
+                                <label for="c6" >즉시<span></span></label>
+
+                                <input type="radio" id="c7" name="radio-when" class="type-btn" value="reserve"/>
+                                <label for="c7">예약<span></span></label>
+                            </div>
+                            <div class="text-wrap" style="margin-top: 15px; display: none">
+                                <input id="sendDate" type="text" class="datepicker">
+                                <input id="sendTime" type="time" style="width: 180px;">
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -23,14 +32,63 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c1" name="radio-target" class="type-btn" value="all"/>
+                                <input type="radio" id="c1" name="radio-target-user" class="type-btn" value="all"/>
                                 <label for="c1" >전체<span></span></label>
 
-                                <input type="radio" id="c2" name="radio-target" class="type-btn" value="individual"/>
+                                <input type="radio" id="c2" name="radio-target-user" class="type-btn" value="individual"/>
                                 <label for="c2">개인<span></span></label>
                             </div>
                             <div class="text-wrap" style="margin-top: 15px; display: none">
-                                <input id="nickname" class="more-info" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly="">
+                                <button id="btnModalUserOpen" class="add-btn" type="button" style="width: 180px;">
+                                    <i class="fas fa-plus"></i>
+                                    <span>추가하기</span>
+                                </button>
+                                <div class="result_box" style="margin-top: 10px;">
+                                    <div class="btn-open-result">
+                                        <p class="user-select-title">발송 대상 <em id="selectedUserCount">0</em>명</p>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+
+                                    <div class="table-wrap">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:35%;">
+                                                <col style="width:5%;">
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>닉네임</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="selectedUserTableBody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--<input id="nickname" class="more-info" type="text" placeholder="클릭 후 닉네임을 선택해주세요." readonly="">-->
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="push-type create-radio-wrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">발송 구분(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c8" name="radio-target-page" class="type-btn" value=""/>
+                                <label for="c8" >일반<span></span></label>
+
+                                <input type="radio" id="c9" name="radio-target-page" class="type-btn" value="notice"/>
+                                <label for="c9">공지사항<span></span></label>
+
+                                <input type="radio" id="c10" name="radio-target-page" class="type-btn" value="event"/>
+                                <label for="c10">이벤트<span></span></label>
+                            </div>
+                            <div class="text-wrap" style="margin-top: 15px; display: none">
+                                <input id="targetPage" class="more-info" type="text" placeholder="클릭 후 도착 페이지를 선택해주세요." readonly="">
                             </div>
                         </div>
                     </div>
@@ -64,114 +122,6 @@
                         </div>
                     </div>
                 </li>
-
-
-
-<!--                <li class="create-radio-wrap">-->
-<!--                    <div class="col-wrap clearfix">-->
-<!--                        <div class="col-1">-->
-<!--                            <p class="sub-title important">발송대상(*)</p>-->
-<!--                        </div>-->
-<!--                        <div class="col-2">-->
-<!--                            <div class="checkbox-wrap">-->
-<!--                                <input type="radio" id="c3" name="rd" class="obj-btn" value="objAll" />-->
-<!--                                <label for="c3">전체<span></span></label>-->
-
-<!--                                <input type="radio" id="c4" name="rd" class="obj-btn" value="objPart"/>-->
-<!--                                <label for="c4">부분<span></span></label>-->
-
-<!--                                <input type="radio" id="c10" name="rd" class="obj-btn" value="objGroup"/>-->
-<!--                                <label for="c10">그룹<span></span></label>-->
-<!--                            </div>-->
-
-<!--                            <div class="nickname-wrap">-->
-<!--                                <input class="tag-input" type="text" placeholder="닉네임을 입력해주세요.">-->
-<!--                                <button class="more-info-btn" type="button">-->
-<!--                                    <span>찾기</span>-->
-<!--                                    <i class="fas fa-chevron-right"></i>-->
-<!--                                </button>-->
-<!--                                <div class="modal-content">-->
-<!--                                    <div class="wrap">-->
-<!--                                        <i class="close-btn fas fa-times-circle"></i>-->
-<!--                                        <p class="modal-title">닉네임 찾기</p>-->
-<!--                                        <ul class="modal-information">-->
-<!--                                            <li>-->
-<!--                                                <div class="search-wrap">-->
-<!--                                                    <div class="search-box">-->
-<!--                                                        <input type="search" placeholder="닉네임을 입력해주세요.">-->
-<!--                                                        <i class="search-btn fas fa-search"></i>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-<!--                                            <li>-->
-<!--                                                <div class="table-wrap">-->
-<!--                                                    <table>-->
-<!--                                                        <colgroup>-->
-<!--                                                            <col style="width:5%;">-->
-<!--                                                            <col style="width:95%;">-->
-<!--                                                        </colgroup>-->
-<!--                                                        <thead>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>-->
-<!--                                                                <div class="checkbox-wrap">-->
-<!--                                                                    <input type="checkbox" id="c5" name="cc" />-->
-<!--                                                                    <label for="c5"><span></span></label>-->
-<!--                                                                </div>-->
-<!--                                                            </th>-->
-<!--                                                            <th>닉네임</th>-->
-<!--                                                        </tr>-->
-<!--                                                        </thead>-->
-<!--                                                        <tbody>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>-->
-<!--                                                                <div class="checkbox-wrap">-->
-<!--                                                                    <input type="checkbox" id="c6" name="cc" />-->
-<!--                                                                    <label for="c6"><span></span></label>-->
-<!--                                                                </div>-->
-<!--                                                            </th>-->
-<!--                                                            <td>베리모카</td>-->
-<!--                                                        </tr>-->
-<!--                                                        </tbody>-->
-<!--                                                    </table>-->
-<!--                                                    <ul class="table-pagination clearfix">-->
-<!--                                                        <li><i class="fas fa-angle-double-left"></i></li>-->
-<!--                                                        <li class="active">1</li>-->
-<!--                                                        <li>2</li>-->
-<!--                                                        <li>3</li>-->
-<!--                                                        <li><i class="fas fa-angle-double-right"></i></li>-->
-<!--                                                    </ul>-->
-<!--                                                    <div class="result_box">-->
-<!--                                                        <p>선택된 유저 <em>3</em>명</p>-->
-<!--                                                        <div class="container">-->
-<!--                                                            BERRY, 새콤달콤, 모카베리-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                        <button class="completion-btn" type="submit">등록 완료</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="modal-layout"></div>-->
-<!--                                <div class="result_box">-->
-<!--                                    <p>발송대상 <em>3</em>명</p>-->
-<!--                                    <div class="container">-->
-<!--                                        BERRY, 새콤달콤, 모카베리-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div class="group-wrap clearfix">-->
-<!--                                <p class="cap">csv파일 업로드</p>-->
-<!--                                <div class="filebox preview-image">-->
-<!--                                    <input class="upload-name" value="파일선택" disabled="disabled" accept=".csv">-->
-<!--                                    <label for="input-file3">업로드</label>-->
-<!--                                    <input type="file" id="input-file5" class="upload-hidden" accept=".csv">-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
                 <li>
                     <button id="btnSubmit" class="completion-btn" type="submit">발송</button>
                 </li>
@@ -179,26 +129,111 @@
         </div>
     </div>
 
-    <div class="modal-content">
+    <div id="modalTargetPage" class="modal-content">
         <div class="wrap">
             <i class="close-btn fas fa-times-circle"></i>
-            <p class="modal-title">닉네임 검색</p>
+            <p class="modal-title">도착 페이지 검색</p>
             <ul class="modal-information">
                 <li>
                     <div class="search-wrap">
                         <div class="search-box">
-                            <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요.">
+                            <input id="modalPage" type="search" placeholder="도착 페이지를 입력해주세요.">
                             <i class="search-btn fas fa-search"></i>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="table-wrap">
-                        <table id="dataTable">
+                        <table id="targetPageTable">
                         </table>
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <!--닉네임 검색 모달-->
+    <div id="modalTargetUser" class="modal-content nickname-modal">
+        <div class="wrap">
+            <i class="close-btn fas fa-times-circle"></i>
+            <p class="modal-title">발송 대상 등록</p>
+
+            <ul class="modal-information user-search-wrap">
+                <li>
+                    <div class="search-wrap">
+                        <div class="search-box">
+                            <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요.">
+                            <i class="search-btn fas fa-search search"></i>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="table-wrap">
+                        <table id="targetUserTable">
+                            <!--<colgroup>
+                                <col style="width:5%;">
+                                <col style="width:15%;">
+                                <col style="width:30%;">
+                                <col style="width:50%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c5" name="cc" />
+                                        <label for="c5"><span></span></label>
+                                    </div>
+                                </th>
+                                <th>회원유형</th>
+                                <th>닉네임</th>
+                                <th>보유UCD</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c6" name="cc" />
+                                        <label for="c6"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>일반</td>
+                                <td>베리모카</td>
+                                <td>
+                                    <div class="user-ucd">
+                                        <strong>30,000UCD</strong>
+                                        (ⓒ1000 / ⓟ20,000)
+                                    </div>
+                                </td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+            <button id="btnMoveRight" type="button" class="btn-go-wrap"><i class="fas fa-chevron-right"></i></button>
+            <ul class="modal-information user-select-wrap">
+                <li>
+                    <div class="table-wrap">
+                        <table>
+                            <colgroup>
+                                <col style="width:35%;">
+                                <col style="width:5%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>닉네임</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="movedUserTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+
+            <button id="btnAddUser" class="completion-btn" type="submit">완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

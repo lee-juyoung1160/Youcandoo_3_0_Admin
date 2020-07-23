@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/assets/css/admin-create.css">
+<link rel="stylesheet" href="/assets/css/admin-create.css?version=<?php echo $this->config->item('version');?>">
 <section class="admin-create-page">
     <div class="inner">
         <h2 class="main-title">운영자 신규 등록</h2>
@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-2">
                             <div class="select-box">
-                                <label id="authCodeLabel" for="auth_code"></label>
+                                <label for="auth_code"></label>
                                 <select id="auth_code">
                                     <!--<option value="admin">운영자</option>
                                     <option value="cs">CS</option>
@@ -76,4 +76,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/admin/admin-create.js"></script>
+<script src="/assets/js/admin/admin-create.js?version=<?php echo $this->config->item('version');?>"></script>

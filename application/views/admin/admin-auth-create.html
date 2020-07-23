@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/admin-create.css">
+<link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/css/admin-create.css?version=<?php echo $this->config->item('version');?>">
 <section class="admin-auth-create-page">
     <div class="inner">
         <h2 class="main-title">권한 설정</h2>
@@ -51,4 +51,4 @@
         <div class="modal-layout"></div>
     </div>
 </section>
-<script src="/assets/js/admin/auth-create.js"></script>
+<script src="/assets/js/admin/auth-create.js?version=<?php echo $this->config->item('version');?>"></script>

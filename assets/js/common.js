@@ -536,6 +536,7 @@
         $("input[name=chk-row]").prop("checked", false);
     }
 
+    /** 테이블 조회결과 없을 때 이전/다음 버튼 숨기기 **/
     function toggleBtnPreviousAndNextOnTable(obj)
     {
         let pagination = $(obj).closest('.dataTables_wrapper').find('.dataTables_paginate');
@@ -789,6 +790,11 @@
             if (result.value)
                 callback();
         })
+    }
+
+    function historyBack()
+    {
+        history.back();
     }
 
     /** js파일에 쿼리파라미터 추가하기 (브라우저 캐시 갱신) **/

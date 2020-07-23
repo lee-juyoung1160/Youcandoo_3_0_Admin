@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/assets/css/pro-detail.css">
+<link rel="stylesheet" href="/assets/css/pro-detail.css?version=<?php echo $this->config->item('version');?>">
 
 <section class="pro-detail-page">
     <div class="inner">
@@ -208,6 +208,7 @@
                 </ul>
                 <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                     <div class="btn-wrap">
+                        <a class="list-btn" onclick="historyBack();">이전</a>
                         <a class="list-btn" href="/promotion">목록</a>
                         <a class="update-btn" id="goUpdate">수정</a>
                     </div>
@@ -345,4 +346,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/promotion/promotion-detail.js"></script>
+<script src="/assets/js/promotion/promotion-detail.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/assets/css/plugins/chart.min.css">
-<link rel="stylesheet" href="/assets/css/chart-common.css">
+<link rel="stylesheet" href="/assets/css/chart-common.css?version=<?php echo $this->config->item('version');?>">
 <section class="dashboard-main chart-pg">
     <div class="inner">
         <div class="main-top clearfix">
@@ -294,4 +294,4 @@
     </div>
 </section>
 <script src="/assets/js/plugins/chart.min.js"></script>
-<script src="/assets/js/dashboard.js"></script>
+<script src="/assets/js/dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

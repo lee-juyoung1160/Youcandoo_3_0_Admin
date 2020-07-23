@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="/assets/css/common.css">
-<link rel="stylesheet" href="/assets/css/user-detail.css">
-
+<link rel="stylesheet" href="/assets/css/common.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/css/user-detail.css?version=<?php echo $this->config->item('version');?>">
 <section class="user-detail-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -403,6 +402,7 @@
 
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
                     <a class="list-btn" href="/user">목록</a>
                 </div>
             </div>
@@ -457,5 +457,5 @@
     </div>
     <input type="hidden" id="profile_uuid" value="<?php if(isset($profile_uuid)) echo $profile_uuid ?>"/>
 </section>
-<script src="/assets/js/user/user-detail.js"></script>
+<script src="/assets/js/user/user-detail.js?version=<?php echo $this->config->item('version');?>"></script>
 

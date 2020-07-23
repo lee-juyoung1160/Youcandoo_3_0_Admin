@@ -29,16 +29,8 @@
                 <li>
                     <p class="list-common-title">권한</p>
                     <div class="select-box list-select-box">
-                        <label id="authCodeLabel" for="auth_code"></label>
+                        <label for="auth_code"></label>
                         <select id="auth_code">
-                            <!--<option value="">전체</option>
-                            <option value="">스페셜</option>
-                            <option value="">슈퍼</option>
-                            <option value="">운영자</option>
-                            <option value="">CS</option>
-                            <option value="">마케팅</option>
-                            <option value="">정산</option>
-                            <option value="">모니터링</option>-->
                         </select>
                     </div>
                 </li>
@@ -167,4 +159,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/admin/admin-list.js"></script>
+<script src="/assets/js/admin/admin-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -47,6 +47,7 @@
 
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
                     <a class="list-btn" href="/service/faq">목록</a>
                     <a class="update-btn" id="goUpdate">수정</a>
                 </div>
@@ -54,4 +55,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/faq/faq-detail.js"></script>
+<script src="/assets/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>

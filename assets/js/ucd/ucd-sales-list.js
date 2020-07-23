@@ -163,4 +163,5 @@
         let table = dataTable.DataTable();
         table.page.len(Number(limits.value));
         table.ajax.reload();
+        initMinMaxDate();
     }

@@ -147,23 +147,32 @@
     {
         dayButtons.removeClass("active");
     }
+
+    function initMinMaxDate()
+    {
+        datePicker.datepicker("option", "minDate", "-3M");
+        datePicker.datepicker("option", "maxDate", "today");
+    }
     
     function initSearchDateRange()
     {
         dateFrom.datepicker("setDate", "-7D");
         dateTo.datepicker("setDate", "today");
+        datePicker.datepicker("option", "maxDate", "today");
     }
 
     function initSearchDateRangeMonth()
     {
         dateFrom.datepicker("setDate", "-1M");
         dateTo.datepicker("setDate", "today");
+        datePicker.datepicker("option", "maxDate", "today");
     }
 
     function initSearchDateRangeToday()
     {
         dateFrom.datepicker("setDate", "today");
         dateTo.datepicker("setDate", "today");
+        datePicker.datepicker("option", "maxDate", "today");
     }
 
     function setDateToday()

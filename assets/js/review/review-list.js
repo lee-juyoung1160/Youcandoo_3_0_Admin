@@ -286,4 +286,5 @@
         let table = $(reviewTable).DataTable();
         table.page.len(Number(limits.value));
         table.ajax.reload();
+        initMinMaxDate();
     }

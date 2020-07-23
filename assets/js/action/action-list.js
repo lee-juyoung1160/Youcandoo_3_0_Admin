@@ -562,4 +562,5 @@
 	{
 		currentPage =1;
 		getActions();
+		initMinMaxDate();
 	}

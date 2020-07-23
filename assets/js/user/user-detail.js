@@ -478,7 +478,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-			},
+			}
 		});
 	}
 

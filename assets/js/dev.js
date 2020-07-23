@@ -36,19 +36,22 @@
 			return;
 		}
 
-		$.ajax({
-			url: baseTestApiUrl+'promotion/start',
-			type: "POST",
-			async: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid}),
-			success: function(data) {
-				alert(getStatusMessage(data));
-				location.href = page.listPromo;
-			},
-			error: function (request, status) {
-				alert(label.modify+message.ajaxError);
-			}
-		});
+		if (confirm('진짜 오늘 시작??'))
+		{
+			$.ajax({
+				url: baseTestApiUrl+'promotion/start',
+				type: "POST",
+				async: false,
+				headers: headers,
+				dataType: 'json',
+				data: JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid}),
+				success: function(data) {
+					alert(getStatusMessage(data));
+					location.href = page.listPromo;
+				},
+				error: function (request, status) {
+					alert(label.modify+message.ajaxError);
+				}
+			});
+		}
 	}

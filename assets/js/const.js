@@ -127,6 +127,7 @@
 		,listUserUcd : baseApiUrl+'user/get/ucd/history'
 		,listUserOpened : baseApiUrl+'user/get/doit/create'
 		,listUserJoined : baseApiUrl+'user/get/doit/join'
+		,listDevice : baseApiUrl+'user/get/device'
 		,listUserUsageUcd : baseApiUrl+'user/get/ucd/history'
 		/** 비즈 **/
 		,createBiz : baseApiUrl+'biz/create'

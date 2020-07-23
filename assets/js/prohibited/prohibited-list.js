@@ -45,7 +45,7 @@
 	function initModal()
 	{
 		prohibition.val('');
-		prohibition.focus();
+		prohibition.trigger('focus');
 	}
 
 	function buildGrid()
@@ -194,7 +194,7 @@
 		if (isEmpty(prohibition.val()))
 		{
 			sweetToast('금칙어는 '+message.required)
-			prohibition.focus();
+			prohibition.trigger('focus');
 			return false;
 		}
 

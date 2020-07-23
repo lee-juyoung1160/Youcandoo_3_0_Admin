@@ -17,7 +17,7 @@
 	/** component 초기화 **/
 	function initComponent()
 	{
-		bizName.focus();
+		bizName.trigger('focus');
 		bizName.val('');
 		bizNo.val('');
 		$("textarea").val('');
@@ -30,49 +30,49 @@
 		if (isEmpty(bizName.val()))
 		{
 			sweetToast('회사명은 ' + message.required);
-			bizName.focus();
+			bizName.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(bizNo.val()))
 		{
 			sweetToast('사업자번호는 ' + message.required);
-			bizNo.focus();
+			bizNo.trigger('focus');
 			return false;
 		}
 
 		if (bizNo.val().trim().length !== 10)
 		{
 			sweetToast('사업자번호를 ' + message.doubleChk);
-			bizNo.focus();
+			bizNo.trigger('focus');
 			return false;
 		}
 
 		if (imageFile.length === 0)
 		{
 			sweetToast('프로필 이미지는 ' + message.required);
-			profileImage.focus();
+			profileImage.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(homepage.val()))
 		{
 			sweetToast('홈페이지 링크는 ' + message.required);
-			homepage.focus();
+			homepage.trigger('focus');
 			return false;
 		}
 
 		if (!isDomainName(homepage.val().trim()))
 		{
 			sweetToast('홈페이지 링크 형식을 ' + message.doubleChk);
-			homepage.focus();
+			homepage.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(bizDesc.val()))
 		{
 			sweetToast('소개내용은 ' + message.required);
-			bizDesc.focus();
+			bizDesc.trigger('focus');
 			return false;
 		}
 

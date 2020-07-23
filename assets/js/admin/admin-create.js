@@ -1,6 +1,5 @@
 
 	const authCode		= $("#auth_code");
-	const authCodeLabel	= $("#authCodeLabel");
 	const userid		= $("#userid");
 	const name 			= $("#name");
 	const email 		= $("#email");
@@ -20,7 +19,7 @@
 
 	function initComponent()
 	{
-		userid.focus();
+		userid.trigger('focus');
 		useYn.eq(0).prop('checked', true);
 	}
 
@@ -52,13 +51,13 @@
 		{
 			let code = details[i].code;
 			let name = details[i].name;
-			if (i === 0)
-				authCodeLabel.text(name);
 
 			optionDom += '<option value="'+code+'">'+name+'</option>';
 		}
 
 		authCode.html(optionDom);
+
+		onChangeSelectOption(authCode);
 	}
 
 	function onKeyupEmail()
@@ -74,28 +73,28 @@
 		if (isEmpty(userid.val()))
 		{
 			sweetToast('아이디는 ' + message.required);
-			userid.focus();
+			userid.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(name.val()))
 		{
 			sweetToast('이름은 ' + message.required);
-			name.focus();
+			name.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(email.val()))
 		{
 			sweetToast('이메일은 ' + message.required);
-			email.focus();
+			email.trigger('focus');
 			return false;
 		}
 
 		if (!isEmail(email.val()))
 		{
 			sweetToast('올바른 이메일 형식을 '+message.input);
-			email.focus();
+			email.trigger('focus');
 			return false;
 		}
 

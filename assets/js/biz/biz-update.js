@@ -64,21 +64,21 @@
 		if (isEmpty(bizLink.val()))
 		{
 			sweetToast('홈페이지 링크는 ' + message.required);
-			bizLink.focus();
+			bizLink.trigger('focus');
 			return false;
 		}
 
 		if (!isDomainName(bizLink.val()))
 		{
 			sweetToast('홈페이지 링크 형식을 ' + message.doubleChk);
-			bizLink.focus();
+			bizLink.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(bizDesc.val()))
 		{
 			sweetToast('소개내용은 ' + message.required);
-			bizDesc.focus();
+			bizDesc.trigger('focus');
 			return false;
 		}
 

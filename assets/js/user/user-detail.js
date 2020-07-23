@@ -86,7 +86,7 @@
 	function initUcdModal()
 	{
 		amount.val('');
-		amount.focus();
+		amount.trigger('focus');
 		content.val('');
 	}
 
@@ -554,21 +554,21 @@
 		if (isEmpty(amount.val()))
 		{
 			sweetToast('UCD는 '+message.required);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 1000000)
 		{
 			sweetToast('UCD는 '+message.maxAvailableUserUcd);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
 			sweetToast('내용은 '+message.required);
-			content.focus();
+			content.trigger('focus');
 			return false;
 		}
 

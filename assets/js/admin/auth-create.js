@@ -31,7 +31,7 @@
 
 	function initModal()
 	{
-		authCode.focus();
+		authCode.trigger('focus');
 		authCode.val('');
 		authName.val('');
 	}
@@ -196,21 +196,21 @@
 		if (isEmpty(authCode.val()))
 		{
 			sweetToast('권한코드는 ' + message.required);
-			authCode.focus();
+			authCode.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(authName.val()))
 		{
 			sweetToast('권한명은 ' + message.required);
-			authName.focus();
+			authName.trigger('focus');
 			return false;
 		}
 
 		if (!isAlphabet(authCode.val()))
 		{
 			sweetToast('권한코드는 '+message.onlyAlphabet)
-			authCode.focus();
+			authCode.trigger('focus');
 			return false;
 		}
 

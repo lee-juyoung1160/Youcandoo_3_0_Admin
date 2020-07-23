@@ -91,7 +91,7 @@
 
 	function initComponent()
 	{
-		title.focus();
+		title.trigger('focus');
 		title.val('');
 		content.val('');
 		exposure.eq(0).prop('checked', true);
@@ -179,35 +179,35 @@
 		if (isEmpty(title.val()))
 		{
 			sweetToast('제목은 ' + message.required);
-			title.focus();
+			title.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(contentWrap) && isEmpty(content.val()))
 		{
 			sweetToast('내용은 ' + message.required);
-			content.focus();
+			content.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
 		{
 			sweetToast('유의사항은 ' + message.required);
-			notice.focus();
+			notice.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && isEmpty(eventLink.val()))
 		{
 			sweetToast('링크는 ' + message.required);
-			eventLink.focus();
+			eventLink.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && !isDomainName(eventLink.val().trim()))
 		{
 			sweetToast('링크 형식을 ' + message.doubleChk);
-			eventLink.focus();
+			eventLink.trigger('focus');
 			return false;
 		}
 
@@ -232,14 +232,14 @@
 		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
 			sweetToast('기간(시작일)은 ' + message.required);
-			eventFrom.focus();
+			eventFrom.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
 			sweetToast('기간(종료일)은 ' + message.required);
-			eventTo.focus();
+			eventTo.trigger('focus');
 			return false;
 		}
 

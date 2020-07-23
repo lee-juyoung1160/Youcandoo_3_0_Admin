@@ -62,7 +62,7 @@
 		marketModal.eq(0).prop('checked' ,true);
 		digit.val('');
 		decimal.val('');
-		digit.focus();
+		digit.trigger('focus');
 	}
 
 	function buildGrid()
@@ -206,14 +206,14 @@
 		if (isEmpty(digit.val()))
 		{
 			sweetToast('버전은 '+message.required)
-			digit.focus();
+			digit.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(decimal.val()))
 		{
 			sweetToast('버전은 '+message.required)
-			decimal.focus();
+			decimal.trigger('focus');
 			return false;
 		}
 

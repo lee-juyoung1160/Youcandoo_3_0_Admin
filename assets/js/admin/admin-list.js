@@ -50,21 +50,18 @@
 	function buildAuthList(data)
 	{
 		let details  = data.data;
-		let optionDom = '';
+		let optionDom = '<option value="">전체</option>';
 		for (let i=0; i<details.length; i++)
 		{
 			let code = details[i].code;
 			let name = details[i].name;
-			if (i === 0)
-			{
-				$('#authCodeLabel').text('전체');
-				optionDom += '<option value="">전체</option>';
-			}
 
 			optionDom += '<option value="'+code+'">'+name+'</option>';
 		}
 
 		authCode.html(optionDom);
+
+		onChangeSelectOption(authCode);
 	}
 
 	function initSearchForm()

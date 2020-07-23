@@ -96,7 +96,7 @@
 		if (isEmpty(comment.val()))
 		{
 			alert('답변내용은 '+message.required);
-			comment.focus();
+			comment.trigger('focus');
 			return false;
 		}
 

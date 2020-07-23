@@ -256,7 +256,7 @@
 				addedTags.append(tagDom);
 
 				inputTag.val('');
-				inputTag.focus();
+				inputTag.trigger('focus');
 			}
 		}
 	}
@@ -268,7 +268,7 @@
 		if (isEmpty(inputTag.val()))
 		{
 			sweetToast('태그를 '+message.input);
-			inputTag.focus();
+			inputTag.trigger('focus');
 			return false;
 		}
 
@@ -301,7 +301,7 @@
 		if (isEmpty(doitDesc.val()))
 		{
 			sweetToast('소개글은 '+message.required);
-			doitDesc.focus();
+			doitDesc.trigger('focus');
 			return false;
 		}
 
@@ -314,14 +314,14 @@
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
 			sweetToast('참가코드를 '+message.input);
-			privateCode.focus();
+			privateCode.trigger('focus');
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
 			sweetToast(message.minimumPassCode);
-			privateCode.focus();
+			privateCode.trigger('focus');
 			return false;
 		}
 

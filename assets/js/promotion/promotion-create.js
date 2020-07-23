@@ -72,7 +72,7 @@
 
 	function initComponent()
 	{
-		bizName.focus();
+		bizName.trigger('focus');
 		bizName.val('');
 		promoName.val('');
 		budget.val('');
@@ -216,7 +216,7 @@
 	function initModal()
 	{
 		modalBizName.val('');
-		modalBizName.focus();
+		modalBizName.trigger('focus');
 	}
 
 	function onChangePromoFrom()
@@ -520,7 +520,7 @@
 		let durationInputEl = $(durationDom).find('.duration')
 
 		$(durationInputEl).val('');
-		$(durationInputEl).focus();
+		$(durationInputEl).trigger('focus');
 		isEmpty($(obj).val()) ? $(durationDom).css('display', 'inline-block') : $(durationDom).hide();
 		initFrequency($(durationInputEl));
 	}
@@ -635,35 +635,35 @@
 		if (isEmpty(promoName.val()))
 		{
 			sweetToast('프로모션명은 ' + message.required);
-			promoName.focus();
+			promoName.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(budget.val()))
 		{
 			sweetToast('예산은 ' + message.required);
-			budget.focus();
+			budget.trigger('focus');
 			return false;
 		}
 
 		if (Number(budget.val()) > Number(g_total_balance))
 		{
 			sweetToast('예산은 ' + message.overTotalBalance);
-			budget.focus();
+			budget.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
 			sweetToast('프로모션기간(시작일)은 ' + message.required);
-			promoFrom.focus();
+			promoFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
 			sweetToast('프로모션기간(종료일)은 ' + message.required);
-			promoTo.focus();
+			promoTo.trigger('focus');
 			return false;
 		}
 
@@ -682,14 +682,14 @@
 		if (isEmpty(allowCount.val()))
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
-			allowCount.focus();
+			allowCount.trigger('focus');
 			return false;
 		}
 
 		if (Number(allowCount.val()) > 5)
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
-			allowCount.focus();
+			allowCount.trigger('focus');
 			return false;
 		}
 

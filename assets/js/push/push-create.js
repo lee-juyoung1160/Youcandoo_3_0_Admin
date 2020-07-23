@@ -41,7 +41,7 @@
 	function initModal()
 	{
 		modalNickname.val('');
-		modalNickname.focus();
+		modalNickname.trigger('focus');
 	}
 
 	function onClickNickname()
@@ -186,14 +186,14 @@
 		if (isEmpty(sendTime.val()))
 		{
 			sweetToast('발송시간은 ' + message.required);
-			sendTime.focus();
+			sendTime.trigger('focus');
 			return false;
 		}
 		
 		if (isEmpty(content.val()))
 		{
 			sweetToast('내용은 ' + message.required);
-			content.focus();
+			content.trigger('focus');
 			return false;
 		}
 

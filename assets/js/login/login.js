@@ -16,11 +16,11 @@
 			if (isEmpty(userid.val()))
 			{
 				sweetToast(message.emptyId);
-				userid.focus();
+				userid.trigger('focus');
 				return;
 			}
 
-			password.focus();
+			password.trigger('focus');
 		}
 	}
 
@@ -31,7 +31,7 @@
 			if (isEmpty(password.val()))
 			{
 				sweetToast(message.emptyPassword);
-				password.focus();
+				password.trigger('focus');
 				return;
 			}
 
@@ -50,14 +50,14 @@
 		if (isEmpty(userid.val()))
 		{
 			sweetToast(message.emptyId);
-			userid.focus();
+			userid.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(password.val()))
 		{
 			sweetToast(message.emptyPassword);
-			password.focus();
+			password.trigger('focus');
 			return false;
 		}
 

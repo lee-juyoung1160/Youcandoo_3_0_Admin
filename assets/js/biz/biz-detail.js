@@ -76,7 +76,7 @@
 	{
 		division.eq(0).prop('checked', true);
 		amount.val('');
-		amount.focus();
+		amount.trigger('focus');
 		modalFrom.val('');
 		modalTo.val('');
 		contractAmount.val('');
@@ -411,14 +411,14 @@
 		if (isEmpty(amount.val()))
 		{
 			sweetToast('UCD는 '+message.required);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 100000000)
 		{
 			sweetToast('UCD는 '+message.maxAvailableBizUcd);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
@@ -426,35 +426,35 @@
 		if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)
 		{
 			sweetToast('취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(modalFrom.val()))
 		{
 			sweetToast('프로모션 기간(시작일)은 '+message.required);
-			modalFrom.focus();
+			modalFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(modalTo.val()))
 		{
 			sweetToast('프로모션 기간(종료일)은 '+message.required);
-			modalTo.focus();
+			modalTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractTitle.val()))
 		{
 			sweetToast('계약명은 '+message.required);
-			contractTitle.focus();
+			contractTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractAmount.val()))
 		{
 			sweetToast('계약 금액은 '+message.required);
-			contractAmount.focus();
+			contractAmount.trigger('focus');
 			return false;
 		}
 

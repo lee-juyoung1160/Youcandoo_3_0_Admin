@@ -501,7 +501,7 @@
 		let durationInputEl = $(durationDom).find('.duration')
 
 		$(durationInputEl).val('');
-		$(durationInputEl).focus();
+		$(durationInputEl).trigger('focus');
 		isEmpty($(obj).val()) ? $(durationDom).css('display', 'inline-block') : $(durationDom).hide();
 		initFrequency($(durationInputEl));
 	}
@@ -809,21 +809,21 @@
 		if ($("#promoName").length > 0 && isEmpty(promoName.val()))
 		{
 			sweetToast('프로모션명은 ' + message.required);
-			promoName.focus();
+			promoName.trigger('focus');
 			return false;
 		}
 
 		if ($("#promoFrom").length > 0 && isEmpty(promoFrom.val()))
 		{
 			sweetToast('프로모션기간(시작일)은 ' + message.required);
-			promoFrom.focus();
+			promoFrom.trigger('focus');
 			return false;
 		}
 
 		if ($("#promoTo").length > 0 && isEmpty(promoTo.val()))
 		{
 			sweetToast('프로모션기간(종료일)은 ' + message.required);
-			promoTo.focus();
+			promoTo.trigger('focus');
 			return false;
 		}
 
@@ -842,14 +842,14 @@
 		if ($("#allowCount").length > 0 && isEmpty(allowCount.val()))
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
-			allowCount.focus();
+			allowCount.trigger('focus');
 			return false;
 		}
 
 		if ($("#allowCount").length > 0 && Number(allowCount.val()) > 5)
 		{
 			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
-			allowCount.focus();
+			allowCount.trigger('focus');
 			return false;
 		}
 

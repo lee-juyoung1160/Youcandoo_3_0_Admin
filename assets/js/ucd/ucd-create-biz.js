@@ -32,13 +32,13 @@
 	function initComponent()
 	{
 		division.eq(0).prop("checked", true);
-		amount.focus();
+		amount.trigger('focus');
 	}
 
 	function initModal()
 	{
 		modalBizName.val('');
-		modalBizName.focus();
+		modalBizName.trigger('focus');
 	}
 
 	/** 기업 검색 **/
@@ -216,42 +216,42 @@
 		if (isEmpty(amount.val()))
 		{
 			sweetToast('UCD는 '+message.required);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 100000000)
 		{
 			sweetToast('UCD는 '+message.maxAvailableBizUcd);
-			amount.focus();
+			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
 			sweetToast('프로모션 기간(시작일)은 '+message.required);
-			promoFrom.focus();
+			promoFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
 			sweetToast('프로모션 기간(종료일)은 '+message.required);
-			promoTo.focus();
+			promoTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractTitle.val()))
 		{
 			sweetToast('계약명은 '+message.required);
-			contractTitle.focus();
+			contractTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractAmount.val()))
 		{
 			sweetToast('계약 금액은 '+message.required);
-			contractAmount.focus();
+			contractAmount.trigger('focus');
 			return false;
 		}
 

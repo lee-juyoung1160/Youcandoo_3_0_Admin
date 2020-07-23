@@ -82,7 +82,7 @@
 
 	function initComponent()
 	{
-		doitTitle.focus();
+		doitTitle.trigger('focus');
 		doitTitle.val('');
 		bizName.val('');
 		buildOptionPromo();
@@ -117,7 +117,7 @@
 
 				inputTag.val('');
 				checkInputLength(inputTag);
-				inputTag.focus();
+				inputTag.trigger('focus');
 			}
 		}
 	}
@@ -129,7 +129,7 @@
 		if (isEmpty(inputTag.val()))
 		{
 			sweetToast('태그를 '+message.input);
-			inputTag.focus();
+			inputTag.trigger('focus');
 			return false;
 		}
 
@@ -249,7 +249,7 @@
 	function initModal()
 	{
 		modalBizName.val('');
-		modalBizName.focus();
+		modalBizName.trigger('focus');
 	}
 
 	function getInvolvePromo()
@@ -548,7 +548,7 @@
 		{
 			sweetToast('프로모션은 ' + message.required+'\n프로모션을 '+message.select);
 			scrollToTarget(selPromo);
-			selPromo.focus();
+			selPromo.trigger('focus');
 			return false;
 		}
 
@@ -556,21 +556,21 @@
 		{
 			sweetToast('리워드 조건은 ' + message.required+'\n리워드 조건을 '+message.select);
 			scrollToTarget(selReward);
-			selReward.focus();
+			selReward.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitTitle.val()))
 		{
 			sweetToast('두잇명은 ' + message.required);
-			doitTitle.focus();
+			doitTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitDesc.val()))
 		{
 			sweetToast('소개글은 '+message.required);
-			doitDesc.focus();
+			doitDesc.trigger('focus');
 			return false;
 		}
 
@@ -595,35 +595,35 @@
 		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
 			sweetToast('추가리워드를 '+message.input);
-			extraReward.focus();
+			extraReward.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitFrom.val()))
 		{
 			sweetToast('인증기간(시작일)은 '+message.required);
-			doitFrom.focus();
+			doitFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitTo.val()))
 		{
 			sweetToast('인증기간(종료일)은 '+message.required);
-			doitTo.focus();
+			doitTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(startTime.val()))
 		{
 			sweetToast('인증시간(시작)은 '+message.required);
-			startTime.focus();
+			startTime.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(endTime.val()))
 		{
 			sweetToast('인증시간(종료)은 '+message.required);
-			endTime.focus();
+			endTime.trigger('focus');
 			return false;
 		}
 
@@ -632,21 +632,21 @@
 		if (actionStartTime > actionEndTime)
 		{
 			sweetToast(message.compareActionTime)
-			startTime.focus();
+			startTime.trigger('focus');
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
 			sweetToast('참가코드를 '+message.input);
-			privateCode.focus();
+			privateCode.trigger('focus');
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
 		{
 			sweetToast(message.minimumPassCode);
-			privateCode.focus();
+			privateCode.trigger('focus');
 			return false;
 		}
 
@@ -665,7 +665,7 @@
 		if (isEmpty(exampleDesc.val()))
 		{
 			sweetToast('인증 예시 설명은 '+message.required);
-			exampleDesc.focus();
+			exampleDesc.trigger('focus');
 			return false;
 		}
 

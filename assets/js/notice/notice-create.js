@@ -20,7 +20,7 @@
 
 	function initComponent()
 	{
-		title.focus();
+		title.trigger('focus');
 		title.val('');
 		content.val('');
 		exposure.eq(0).prop('checked', true);
@@ -74,21 +74,21 @@
 		if (isEmpty(title.val()))
 		{
 			sweetToast('제목은 ' + message.required);
-			title.focus();
+			title.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
 			sweetToast('내용은 ' + message.required);
-			content.focus();
+			content.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(reserveDate.val()))
 		{
 			sweetToast('예약일은 ' + message.required);
-			reserveDate.focus();
+			reserveDate.trigger('focus');
 			return false;
 		}
 

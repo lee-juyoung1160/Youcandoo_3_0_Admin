@@ -74,7 +74,7 @@
 	/*function initModal()
 	{
 		inactive.eq(0).prop('checked', true);
-		period.focus();
+		period.trigger('focus');
 		period.val('');
 		cause.val('');
 	}*/
@@ -327,14 +327,14 @@
 		if (isEmpty(period.val()))
 		{
 			alert('정지기간은 '+message.required);
-			period.focus();
+			period.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(cause.val()))
 		{
 			alert('정지사유는 '+message.required);
-			cause.focus();
+			cause.trigger('focus');
 			return false;
 		}
 

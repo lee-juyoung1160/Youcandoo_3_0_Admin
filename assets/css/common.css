@@ -1111,7 +1111,7 @@ input[type="checkbox"]:disabled + label span{
 .doit-detail-page .modal-content .select-box {
 	width: 100%;
 }
-/* ë°ì´í„° í…Œì´ë¸” íŽ˜ì´ì§€ë„¤ì´ì…˜ */
+/* paginate */
 .dataTables_paginate {
 	display: flex;
 	display: -webkit-flex;
@@ -1127,6 +1127,15 @@ input[type="checkbox"]:disabled + label span{
 .dataTables_paginate .paginate_button.current {
 	color: #ffffff;
 	background-color: #007aff;
+}
+.paginate_button.previous.disabled,
+.paginate_button.next.disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+.paginate_button.previous.disabled i,
+.paginate_button.next.disabled i {
+	cursor: default;
 }
 /* reward-list */
 .reward-list li {

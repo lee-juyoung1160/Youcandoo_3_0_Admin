@@ -123,9 +123,9 @@
 			destroy: false,
 			initComplete: function () {
 				/** row select **/
-				dataTable.on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
+				$(this).on('select.dt', function ( e, dt, type, indexes ) { onSelectRow(dt, indexes) });
 				/** row deselect **/
-				dataTable.on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(table) });
+				$(this).on('deselect.dt', function ( e, dt, type, indexes ) { onDeselectRow(this) });
 
 				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
 				redrawPage(this, _page);
@@ -191,8 +191,9 @@
 	}
 
 	/** row deselect **/
-	function onDeselectRow(table)
+	function onDeselectRow(_table)
 	{
+		let table 		 = $(_table).DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 		if (isEmpty(selectedData))
 			disableStatusBtnTop();

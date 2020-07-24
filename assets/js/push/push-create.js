@@ -449,7 +449,7 @@
 
 	function createSuccess()
 	{
-		//location.href = page.listPush;
+		location.href = page.listPush;
 	}
 
 	function params()

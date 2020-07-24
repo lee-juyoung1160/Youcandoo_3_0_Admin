@@ -45,6 +45,7 @@
 		btnModalUserOpen.on('click', function () { onClickBtnModalUserOpen(); });
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
+		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
 		inputPage		.on('click', function () { onClickPage(); });
 		btnSubmit		.on('click', function () { onSubmitPush(); });
 	});
@@ -82,7 +83,7 @@
 	{
 		targetUserTable.DataTable({
 			ajax : {
-				url: api.getNickname,
+				url: api.listPushTargetUser,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
@@ -93,12 +94,15 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",     orderable: false,
+				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false }
+				,{title: "닉네임",		data: "nickname",    	   width: "40%", 	 className: 'cursor-default' }
+				,{title: "두잇알림",		data: "noti_doit",    	   width: "15%", 	 className: 'cursor-default' }
+				,{title: "공지알림",		data: "noti_notice",       width: "15%", 	 className: 'cursor-default' }
+				,{title: "마케팅알림",	data: "noti_marketing",    width: "15%", 	 className: 'cursor-default' }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -126,9 +130,9 @@
 			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				//setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -163,9 +167,15 @@
 			{
 				let detail = selectedData[i];
 				let profileId = detail.profile_uuid;
-				let nick = detail.nickname;
-				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'">';
+				let nick 	  = detail.nickname;
+				let doit 	  = detail.noti_doit;
+				let notice 	  = detail.noti_notice;
+				let marketing = detail.noti_marketing;
+				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
 				moveUserDom +=     '<td>'+nick+'</td>';
+				moveUserDom +=     '<td>'+doit+'</td>';
+				moveUserDom +=     '<td>'+notice+'</td>';
+				moveUserDom +=     '<td>'+marketing+'</td>';
 				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';
 				moveUserDom += '</tr>';
 			}
@@ -197,7 +207,7 @@
 	function hasDuplicateId()
 	{
 		let result = false;
-		let table 		 = $("#dataTable").DataTable();
+		let table 		 = $("#targetUserTable").DataTable();
 		let selectedData = table.rows('.selected').data();
 
 		let movedUser = [];
@@ -224,9 +234,25 @@
 
 	function onClickAddUser()
 	{
-		buildSelectedUser();
-		modalFadeout();
-		resultBox.show();
+		if (addUserValidation())
+		{
+			buildSelectedUser();
+			modalFadeout();
+			resultBox.show();
+		}
+	}
+
+	function addUserValidation()
+	{
+		let selectedRowLength = movedUserTableBody.find('tr').length;
+
+		if (selectedRowLength === 0)
+		{
+			sweetToast('발송 대상을 '+message.addOn);
+			return false;
+		}
+
+		return true;
 	}
 
 	function buildSelectedUser()
@@ -236,13 +262,16 @@
 
 		$(selectedRow).each(function () {
 			let profileId = $(this).data('uuid');
-			let nick = $(this).data('nick');
-			let total = $(this).data('total');
-			let cash = $(this).data('cash');
-			let point = $(this).data('point');
+			let nick 	  = $(this).data('nick');
+			let doit 	  = $(this).data('doit');
+			let notice 	  = $(this).data('notice');
+			let marketing = $(this).data('marketing');
 
-			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
+			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
 			selectedUserDom +=     '<td>'+nick+'</td>';
+			selectedUserDom +=     '<td>'+doit+'</td>';
+			selectedUserDom +=     '<td>'+notice+'</td>';
+			selectedUserDom +=     '<td>'+marketing+'</td>';
 			selectedUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
 			selectedUserDom += '</tr>';
 		});
@@ -262,19 +291,11 @@
 		selectedUserCount.html(count);
 	}
 
-	/*function setRowAttributes(nRow, aData)
+	function onClickToggleOpen(obj)
 	{
-		/!** 닉네임에 클릭이벤트 추가 **!/
-		$(nRow).attr('onClick', 'setSelectedUser(\''+aData.nickname+'\',\''+aData.profile_uuid+'\')');
+		$(obj).next('.table-wrap').slideToggle();
+		$(obj).toggleClass('on');
 	}
-
-	let g_profile_uuid;
-	function setSelectedUser(_nickname, _uuid)
-	{
-		g_profile_uuid = _uuid;
-		nickname.val(_nickname);
-		modalFadeout();
-	}*/
 
 	function onClickPage()
 	{
@@ -300,7 +321,7 @@
 	{
 		targetPageTable.DataTable({
 			ajax : {
-				url: api.getNickname,
+				url: api.listPushTargetUser,
 				type:"POST",
 				headers: headers,
 				data: function (d) {
@@ -366,14 +387,14 @@
 	function setPageRowAttributes(nRow, aData)
 	{
 		/** 닉네임에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.nickname+'\',\''+aData.profile_uuid+'\')');
+		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.page_title+'\',\''+aData.event_uuid+'\')');
 	}
 
-	let g_page_uuid;
-	function setSelectedPage(_nickname, _uuid)
+	let g_event_uuid;
+	function setSelectedPage(_page_title, _uuid)
 	{
-		g_page_uuid = _uuid;
-		nickname.val(_nickname);
+		g_event_uuid = _uuid;
+		inputPage.val(_page_title);
 		modalFadeout();
 	}
 
@@ -419,33 +440,63 @@
 
 	function createSuccess()
 	{
-		location.href = page.listPush;
+		//location.href = page.listPush;
 	}
 
 	function params()
 	{
-		let target = $("input[name=radio-target-user]:checked").val();
+		let sendTargetPageType = $("input[name=radio-target-page]:checked").val();
+		let targetPageId = '';
+		let sendTargetUserType = $("input[name=radio-target-user]:checked").val();
+		let profileIds = [];
 		let formData  = new FormData();
+		formData.append('send_date_type', $("input[name=radio-when]:checked").val());
 		formData.append('send_datetime', sendDate.val()+' '+sendTime.val());
-		formData.append('push_type', target);
+		formData.append('push_type', sendTargetUserType);
+		if (sendTargetUserType === 'individual')
+		{
+
+			selectedUserTableBody.find('tr').each(function () {
+				profileIds.push($(this).data('uuid'));
+			});
+		}
+		formData.append('push_profile', JSON.stringify(profileIds));
+		formData.append('push_category', sendTargetPageType);
+		if (sendTargetPageType === 'event')
+			targetPageId = g_event_uuid;
+		formData.append('push_category_target', targetPageId);
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
 		formData.append('push_message', content.val().trim());
 		formData.append('created_user', sessionUserId.val());
-		if (target === 'individual')
-			formData.append('profile_uuid', g_profile_uuid);
 
 		return formData;
 	}
 
 	function validation()
 	{
-		if (isEmpty(sendTime.val()))
+		let sendWhen = $("input[name=radio-when]:checked").val();
+		if (sendWhen === 'reserve' && isEmpty(sendTime.val()))
 		{
-			sweetToast('발송시간은 ' + message.required);
+			sweetToast('발송 시간은 ' + message.required);
 			sendTime.trigger('focus');
 			return false;
 		}
-		
+
+		let sendWhom 	= $("input[name=radio-target-user]:checked").val();
+		let targetCount = selectedUserTableBody.find('tr').length;
+		if (sendWhom === 'individual' && targetCount === 0)
+		{
+			sweetToast('발송 대상은 ' + message.required);
+			return false;
+		}
+
+		let targetPage = $("input[name=radio-target-page]:checked").val();
+		if (targetPage === 'event' && isEmpty(inputPage.val()))
+		{
+			sweetToast('발송 구분은 ' + message.required);
+			return false;
+		}
+
 		if (isEmpty(content.val()))
 		{
 			sweetToast('내용은 ' + message.required);

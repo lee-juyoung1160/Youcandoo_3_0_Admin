@@ -260,9 +260,25 @@
 
 	function onClickAddUser()
 	{
-		buildSelectedUser();
-		modalFadeout();
-		resultBox.show();
+		if (addUserValidation())
+		{
+			buildSelectedUser();
+			modalFadeout();
+			resultBox.show();
+		}
+	}
+
+	function addUserValidation()
+	{
+		let selectedRowLength = movedUserTableBody.find('tr').length;
+
+		if (selectedRowLength === 0)
+		{
+			sweetToast('출금 대상을 '+message.addOn);
+			return false;
+		}
+
+		return true;
 	}
 
 	function buildSelectedUser()

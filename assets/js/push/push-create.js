@@ -46,6 +46,7 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
+		modalPage		.on('keyup', function () { onKeyupSearchPage(); });
 		inputPage		.on('click', function () { onClickPage(); });
 		btnSubmit		.on('click', function () { onSubmitPush(); });
 	});
@@ -301,7 +302,7 @@
 	{
 		modalTargetPageFadein();
 		initTargetPageModal();
-		/*getEventPage();*/
+		getEventPage();
 	}
 
 	function modalTargetPageFadein()
@@ -321,8 +322,9 @@
 	{
 		targetPageTable.DataTable({
 			ajax : {
-				url: api.listPushTargetUser,
+				url: api.listPushTargetPage,
 				type:"POST",
+				global: false,
 				headers: headers,
 				data: function (d) {
 					return pageParams();
@@ -332,7 +334,8 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false }
+				{title: "구분",	data: "event_name",    width: "20%", 	 className: "cursor-default" }
+				,{title: "제목",	data: "title",    	   width: "40%", 	 className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -378,7 +381,7 @@
 		let param = {
 			"limit" : _limit
 			,"page" : _page
-			,"keyword" : modalNickname.val()
+			,"keyword" : modalPage.val()
 		}
 
 		return JSON.stringify(param);
@@ -387,7 +390,7 @@
 	function setPageRowAttributes(nRow, aData)
 	{
 		/** 닉네임에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.page_title+'\',\''+aData.event_uuid+'\')');
+		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.title+'\',\''+aData.event_uuid+'\')');
 	}
 
 	let g_event_uuid;
@@ -396,6 +399,12 @@
 		g_event_uuid = _uuid;
 		inputPage.val(_page_title);
 		modalFadeout();
+	}
+
+	function onKeyupSearchPage()
+	{
+		let table = targetPageTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function onChangeTargetUser(obj)
@@ -459,8 +468,10 @@
 			selectedUserTableBody.find('tr').each(function () {
 				profileIds.push($(this).data('uuid'));
 			});
+
+			profileIds = JSON.stringify(profileIds)
 		}
-		formData.append('push_profile', JSON.stringify(profileIds));
+		formData.append('push_profile', profileIds);
 		formData.append('push_category', sendTargetPageType);
 		if (sendTargetPageType === 'event')
 			targetPageId = g_event_uuid;

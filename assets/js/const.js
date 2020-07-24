@@ -179,6 +179,7 @@
 		,listPush : baseApiUrl+'push/list'
 		,cancelPush : baseApiUrl+'push/cancel'
 		,listPushTargetUser : baseApiUrl+'push/user'
+		,listPushTargetPage : baseApiUrl+'push/event'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'
 		,deleteNotice : baseApiUrl+'notice/delete'

@@ -68,7 +68,7 @@
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착지", 		data: "category_target",  width: "20%",   className: "cursor-default",
+				,{title: "도착페이지", 		data: "category_target",  width: "20%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '' : ('['+row.event_name+'] '+row.event_title);
 					}

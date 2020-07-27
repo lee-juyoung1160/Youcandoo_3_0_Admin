@@ -175,10 +175,7 @@
 	{
 		let idx = $(obj).data('idx');
 		let reward = rewards[idx];
-		let ucdInfo = reward.ucd_info;
-		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
-		ucdInfo = ucdInfo.slice(1, -1);
-		let jsonUcdInfo = JSON.parse(ucdInfo);
+		let ucdInfo = reward.ucd_info[0];
 
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
@@ -231,9 +228,9 @@
 		detailDom += 				'</thead>';
 		detailDom += 				'<tbody>';
 		detailDom += 					'<tr>';
-		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+label.tilde+numberWithCommas(jsonUcdInfo.max)+'</td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.person_reward)+'</span></td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.group_reward)+'</span></td>';
+		detailDom += 						'<td>'+numberWithCommas(ucdInfo.min)+label.tilde+numberWithCommas(ucdInfo.max)+'</td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.person_reward)+'</span></td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.group_reward)+'</span></td>';
 		detailDom += 					'</tr>';
 		detailDom += 				'</tbody>';
 		detailDom += 			'</table>';

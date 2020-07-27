@@ -103,9 +103,9 @@
 		{
 			className = 'img-contents';
 
-			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지">';
+			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
 
-			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지">';
+			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
 		}
 		else if (type === 'video')
 		{
@@ -369,6 +369,8 @@
 		if (totalCount > 0)
 		{
 			actionTopDom.show();
+			pagination.show();
+
 			actionDom = '';
 			for (let i=0; i<dataLen; i++)
 			{
@@ -385,6 +387,7 @@
 				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
 				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
 					actionImageDom += 'onclick="onClinkActionImage(this);"  ';
+					actionImageDom += 'onerror="onErrorImage(this);"  ';
 					actionImageDom += 'data-type="'+action.resource_type+'" ';
 					actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
 					actionImageDom += 'data-url="'+action.url+'" ';
@@ -440,7 +443,11 @@
 					actionDom += '</ul>';
 			}
 		}
-		else actionTopDom.hide();
+		else
+		{
+			actionTopDom.hide();
+			pagination.show();
+		}
 
 		actionWrap.html(actionDom);
 	}

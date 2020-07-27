@@ -58,7 +58,7 @@
 		$(obj).toggleClass('on');
 	}
 
-	/** 기업 검색 **/
+	/** 회원 검색 **/
 	function onClickModalOpen()
 	{
 		modalFadein();

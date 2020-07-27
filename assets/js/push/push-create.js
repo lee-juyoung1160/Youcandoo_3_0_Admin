@@ -65,6 +65,33 @@
 		modalTargetUserFadein();
 		initTargetUserModal();
 		getUsers();
+		buildMovedUser();
+	}
+
+	function buildMovedUser()
+	{
+		movedUserTableBody.empty();
+
+		let selectedRow = selectedUserTableBody.find('tr');
+
+		let moveUserDom = '';
+		$(selectedRow).each(function () {
+			let profileId = $(this).data('uuid');
+			let nick 	  = $(this).data('nick');
+			let doit 	  = $(this).data('doit');
+			let notice 	  = $(this).data('notice');
+			let marketing = $(this).data('marketing');
+
+			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
+			moveUserDom +=     '<td>'+nick+'</td>';
+			moveUserDom +=     '<td>'+doit+'</td>';
+			moveUserDom +=     '<td>'+notice+'</td>';
+			moveUserDom +=     '<td>'+marketing+'</td>';
+			moveUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
+			moveUserDom += '</tr>';
+		});
+
+		movedUserTableBody.append(moveUserDom);
 	}
 
 	function initTargetUserModal()

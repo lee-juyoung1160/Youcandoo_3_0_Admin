@@ -272,7 +272,6 @@
 
 	function buildOptionPromo(data)
 	{
-		labelSelPromo.text('프로모션 선택');
 		let optionPromoDom = '<option value="">프로모션 선택</option>';
 		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
@@ -291,6 +290,7 @@
 			}
 		}
 		selPromo.html(optionPromoDom);
+		onChangeSelectOption(selPromo);
 	}
 
 	function onChangeSelPromo()
@@ -314,7 +314,6 @@
 
 	function buildOptionReward(data)
 	{
-		labelSelReward.text('리워드 조건 생성 목록 선택');
 		let optionRewardDom = '<option value="">리워드 조건 생성 목록 선택</option>';
 		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
@@ -333,6 +332,7 @@
 			}
 		}
 		selReward.html(optionRewardDom);
+		onChangeSelectOption(selReward);
 	}
 
 	function onChangeSelReward()

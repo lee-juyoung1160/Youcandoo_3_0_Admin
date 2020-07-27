@@ -926,7 +926,7 @@
 
 		let pageDom = '';
 		if (currentPage === 1)
-			pageDom += '<a class="paginate_button previous" id="dataTable_previous">';
+			pageDom += '<a class="paginate_button previous disabled" id="dataTable_previous">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(currentPage-1)+'" id="dataTable_previous">';
 		pageDom +=     label.previous;
@@ -1008,7 +1008,7 @@
 		}
 		pageDom += '</span>';
 		if (last === currentPage)
-			pageDom += '<a class="paginate_button next" id="dataTable_next">';
+			pageDom += '<a class="paginate_button next disabled" id="dataTable_next">';
 		else
 			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(currentPage+1)+'" id="dataTable_next">';
 		pageDom += 	  label.next;

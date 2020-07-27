@@ -37,11 +37,11 @@
 		/** 프로모션 상세정보 **/
 		getPromotion();
 		/** 이벤트 **/
-		tabPromo	.on("click", () => { onClickPromoTab(this); });
-		tabDoit		.on("click", () => { onClickDoitTab(this); });
-		tabUcd		.on("click", () => { onClickUcdTab(this); });
-		selPageLengthForDoit.on("change", () => { getInvolveDoit(); });
-		selPageLengthForUcd	.on("change", () => { onClickUcdTab(); });
+		tabPromo	.on("click", function () { onClickPromoTab(this); });
+		tabDoit		.on("click", function () { onClickDoitTab(this); });
+		tabUcd		.on("click", function () { onClickUcdTab(this); });
+		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
+		selPageLengthForUcd	.on("change", function() { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});

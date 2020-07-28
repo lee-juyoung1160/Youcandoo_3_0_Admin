@@ -60,7 +60,10 @@
 
 	function createSuccess()
 	{
-		sweetConfirmWithCancelCallback(message.moveToCreatePush, redirectPushCreate, redirectList);
+		if ($('input:radio[name=radio-exposure]:checked').val() === 'Y')
+			sweetConfirmWithCancelCallback(message.moveToCreatePush, redirectPushCreate, redirectList);
+		else
+			redirectList();
 	}
 
 	function redirectPushCreate()

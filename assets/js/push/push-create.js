@@ -14,6 +14,7 @@
 	const inputPage		= $("#targetPage");
 	const osType		= $("input[name=radio-store]");
 	const content		= $("#content");
+	const contentImage	= $("#contentImage");
 	const btnSubmit 	= $("#btnSubmit");
 
 	/** modal **/
@@ -30,6 +31,8 @@
 	const modalPage			= $("#modalPage");
 
 	const reqPage			= $("#req_page");
+	const pageUuid			= $("#page_uuid");
+	const reqContent		= $("#req_content");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -48,9 +51,10 @@
 		btnModalUserOpen.on('click', function () { onClickBtnModalUserOpen(); });
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
-		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
+		btnOpenResult	.on('click', function () { onClickToggleOpen(this); });
 		modalPage		.on('keyup', function () { onKeyupSearchPage(); });
 		inputPage		.on('click', function () { onClickPage(); });
+		contentImage	.on('change', function () { onChangeValidationImage(this); });
 		btnSubmit		.on('click', function () { onSubmitPush(); });
 	});
 
@@ -68,10 +72,15 @@
 	function checkRequestPage()
 	{
 		const reqPages = ['notice', 'event'];
+
 		if (reqPages.indexOf(reqPage.val()) !== -1)
 		{
 			let pageName = reqPage.val() === 'notice' ? '공지사항' : '이벤트';
-			targetPageWrap.html('<p class="detail-data">'+pageName+'</p>');
+			let label 	 = pageName + '(' + reqContent.val() + ')';
+
+			targetPageWrap.html('<p class="detail-data">'+label+'</p>');
+
+			content.val(reqContent.val());
 		}
 	}
 
@@ -435,10 +444,10 @@
 		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.title+'\',\''+aData.event_uuid+'\')');
 	}
 
-	let g_event_uuid;
+	let g_page_uuid = pageUuid.val();
 	function setSelectedPage(_page_title, _uuid)
 	{
-		g_event_uuid = _uuid;
+		g_page_uuid = _uuid;
 		inputPage.val(_page_title);
 		modalFadeout();
 	}
@@ -472,34 +481,18 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createPush,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createPush;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		location.href = page.listPush;
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
 	}
 
 	function params()
 	{
 		let sendTargetPageType = $("input[name=radio-target-page]:checked").val();
-		let targetPageId = '';
 		let sendTargetUserType = $("input[name=radio-target-user]:checked").val();
 		let profileIds = [];
+		let pushMessage = isEmpty(reqContent.val()) ? content.val().trim() : reqContent.val();
 		let formData  = new FormData();
 		formData.append('send_date_type', $("input[name=radio-when]:checked").val());
 		formData.append('send_datetime', sendDate.val()+' '+sendTime.val());
@@ -515,14 +508,22 @@
 		}
 		formData.append('push_profile', profileIds);
 		formData.append('push_category', sendTargetPageType);
-		if (sendTargetPageType === 'event')
-			targetPageId = g_event_uuid;
-		formData.append('push_category_target', targetPageId);
+		formData.append('push_category_target', g_page_uuid);
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
-		formData.append('push_message', content.val().trim());
+		formData.append('push_message', pushMessage);
 		formData.append('created_user', sessionUserId.val());
 
 		return formData;
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listPush;
 	}
 
 	function validation()
@@ -544,7 +545,7 @@
 		}
 
 		let targetPage = $("input[name=radio-target-page]:checked").val();
-		if (targetPage === 'event' && isEmpty(inputPage.val()))
+		if (targetPage.length > 0 && targetPage === 'event' && isEmpty(inputPage.val()))
 		{
 			sweetToast('발송 구분은 ' + message.required);
 			return false;

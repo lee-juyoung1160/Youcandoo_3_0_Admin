@@ -58,17 +58,18 @@
 					}
 				}
 				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
-				,{title: "스토어", 		data: "store",    	  	width: "10%",  	className: "cursor-default",
+				,{title: "내용", 		data: "send_message",  	width: "25%",   className: "cursor-default" }
+				,{title: "스토어", 		data: "store",    	  	width: "5%",  	className: "cursor-default",
 					render: function (data) {
 						return data === 'all' ? '전체' : data;
 					}
 				}
-				,{title: "구분", 		data: "category",  width: "10%",   className: "cursor-default",
+				,{title: "구분", 		data: "category",  width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  width: "20%",   className: "cursor-default",
+				,{title: "도착페이지", 		data: "category_target",  width: "15%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '' : ('['+row.event_name+'] '+row.event_title);
 					}
@@ -165,19 +166,27 @@
 
 	function cancelRequest()
 	{
-		$.ajax({
-			url: api.cancelPush,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: cancelParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, cancelSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			}
-		});
+		let url 	= api.cancelPush;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, cancelParams(), cancelReqCallback, errMsg, false);
+	}
+
+	function cancelParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"idx" : selectedData.idx
+		};
+
+		return JSON.stringify(param)
+	}
+
+	function cancelReqCallback(data)
+	{
+		sweetToastAndCallback(data, cancelSuccess);
 	}
 
 	function cancelSuccess()
@@ -198,17 +207,4 @@
 
 		return true;
 	}
-
-	function cancelParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"idx" : selectedData.idx
-		};
-
-		return JSON.stringify(param)
-	}
-
 

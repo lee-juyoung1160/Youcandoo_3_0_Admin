@@ -18,22 +18,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailNotice,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: detailParams(),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					sweetError(invalidResp(data))
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.detailNotice;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, detailParams(), getDetailCallback, errMsg, false);
 	}
 
 	function detailParams()
@@ -42,6 +30,11 @@
 		const noticeIdx	= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : noticeIdx});
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	let g_notice_uuid;
@@ -80,26 +73,10 @@
 
 	function updateRequest()
 	{
-		$.ajax({
-			url: api.updateNotice,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, updateSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.updateNotice;
+		let errMsg 	= label.modify+message.ajaxError;
 
-	function updateSuccess()
-	{
-		location.href = page.listNotice;
+		ajaxRequestWithJsonData(true, url, params(), updateReqCallback, errMsg, false);
 	}
 
 	function params()
@@ -114,6 +91,16 @@
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
+	}
+
+	function updateReqCallback(data)
+	{
+		sweetToastAndCallback(data, updateSuccess);
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.listNotice;
 	}
 
 	function validation()

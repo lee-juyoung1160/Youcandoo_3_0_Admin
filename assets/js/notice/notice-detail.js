@@ -17,22 +17,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailNotice,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					sweetError(invalidResp(data))
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.detailNotice;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
 	}
 
 	function params()
@@ -41,6 +29,11 @@
 		const noticeIdx		= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : noticeIdx});
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	function buildDetail(data)

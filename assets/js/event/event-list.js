@@ -200,7 +200,7 @@
 		return JSON.stringify(param)
 	}
 
-	function deleteReqCallback()
+	function deleteReqCallback(data)
 	{
 		sweetToastAndCallback(data, deleteSuccess);
 	}

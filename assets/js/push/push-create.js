@@ -492,7 +492,6 @@
 		let sendTargetPageType = $("input[name=radio-target-page]:checked").val();
 		let sendTargetUserType = $("input[name=radio-target-user]:checked").val();
 		let profileIds = [];
-		let pushMessage = isEmpty(reqContent.val()) ? content.val().trim() : reqContent.val();
 		let formData  = new FormData();
 		formData.append('send_date_type', $("input[name=radio-when]:checked").val());
 		formData.append('send_datetime', sendDate.val()+' '+sendTime.val());
@@ -510,7 +509,7 @@
 		formData.append('push_category', sendTargetPageType);
 		formData.append('push_category_target', g_page_uuid);
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
-		formData.append('push_message', pushMessage);
+		formData.append('push_message', content.val().trim());
 		formData.append('created_user', sessionUserId.val());
 
 		return formData;

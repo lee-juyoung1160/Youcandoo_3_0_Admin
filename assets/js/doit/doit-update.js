@@ -26,7 +26,7 @@
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 두잇 상세정보 **/
-		getDoit();
+		getDetail();
 		/** 이벤트 **/
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
@@ -34,30 +34,25 @@
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
 
-	function getDoit()
+	function getDetail()
 	{
-		$.ajax({
-			url: api.detailDoit,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"idx" : idx}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDoitDetail(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let param   = JSON.stringify({"idx" : idx});
+		let url 	= api.detailDoit;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, getDetailCallback, errMsg, false);
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	let g_doit_uuid;
 	let introImg;
 	let introResourceType;
-	function buildDoitDetail(data) {
+	function buildDetail(data)
+	{
 		let detail = data.data;
 
 		if (isEmpty(detail.promotion_uuid))
@@ -328,6 +323,20 @@
 		return true;
 	}
 
+	function onSubmitUpdateDoit()
+	{
+		if (validation())
+			sweetConfirm(message.modify, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		let url 	= api.updateDoit;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+	}
+
 	function params()
 	{
 		let paramTag = [];
@@ -353,29 +362,9 @@
 		return formData;
 	}
 
-	function onSubmitUpdateDoit()
+	function updateReqCallback(data)
 	{
-		if (validation())
-			sweetConfirm(message.modify, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		$.ajax({
-			url: api.updateDoit,
-			type: "POST",
-			headers: headers,
-			processData: false,
-			contentType: false,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, updateSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()

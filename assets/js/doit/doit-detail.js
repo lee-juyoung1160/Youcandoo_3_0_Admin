@@ -70,7 +70,6 @@
 	const modalReviewContent	= $("#modalReviewContent");
 	const modalReviewTitle		= $("#modalReviewTitle");
 	const modalReviewStarWrap	= $("#modalReviewStarWrap");
-	/*const modalReviewRating		= $("#modalReviewRating");*/
 	const modalReviewReport		= $("#modalReviewReport");
 	const modalReviewUser		= $("#modalReviewUser");
 	const modalReviewCreated	= $("#modalReviewCreated");
@@ -92,7 +91,7 @@
 
 	$( () => {
 		/** 두잇 상세정보 **/
-		getDoit();
+		getDetail();
 		/** 이벤트 **/
 		tabDoit			.on("click", function () { onClickDoitTab(this); });
 		tabUser			.on("click", function () { onClickUserTab(this); });
@@ -126,7 +125,7 @@
 		ucdInfo.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
-		getDoit();
+		getDetail();
 	}
 
 	/** 참여자정보탭 **/
@@ -187,30 +186,27 @@
 	 * 두잇정보탭 관련
 	 * **************/
 	let g_doitUuid;
-	function getDoit()
+	function getDetail()
 	{
-		$.ajax({
-			url: api.detailDoit,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"idx" : idx}),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					g_doitUuid = data.data.doit_uuid;
-					buildDoitDetail(data);
-				}
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			},
-		});
+		let param   = JSON.stringify({"idx" : idx});
+		let url 	= api.detailDoit;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, param, getDetailCallback, errMsg, false);
 	}
 
-	function buildDoitDetail(data)
+	function getDetailCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			g_doitUuid = data.data.doit_uuid;
+			buildDetail(data);
+		}
+		else
+			sweetError(invalidResp(data));
+	}
+
+	function buildDetail(data)
 	{
 		let detail 	 = data.data;
 
@@ -410,22 +406,16 @@
 
 	function getJoinMemberTotal()
 	{
-		$.ajax({
-			url: api.totalJoinMember,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"doit_uuid" : g_doitUuid}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					setJoinMemberTotal(data);
-				else
-					invalidResp(data);
-			},
-			error: function (request, status) {
-				sweetToast(label.detailContent+message.ajaxLoadError);
-			},
-		});
+		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
+		let url 	= api.totalJoinMember;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, param, getJoinMemberTotalCallback, errMsg, false);
+	}
+
+	function getJoinMemberTotalCallback(data)
+	{
+		isSuccessResp(data) ? setJoinMemberTotal(data) : sweetError(invalidResp(data));
 	}
 
 	function setJoinMemberTotal(data)
@@ -454,20 +444,20 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",    	width: "20%",   orderable: false,   className: "cursor-default" }
-				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "인증한 횟수", 		data: "total",    		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "성공", 	  		data: "success",    	width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "실패",  	  		data: "fail",   		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "신고",  	  		data: "report",   		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "옐로카드",    		data: "yellow",   		width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "레드카드",    		data: "red",   			width: "8%",    orderable: false,   className: "cursor-default" }
-				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",    orderable: false,   className: "cursor-default",
+				{title: "닉네임", 			data: "nickname",    	width: "20%",   className: "cursor-default" }
+				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    className: "cursor-default" }
+				,{title: "인증한 횟수", 		data: "total",    		width: "8%",    className: "cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "8%",    className: "cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "8%",    className: "cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "8%",    className: "cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "8%",    className: "cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "8%",    className: "cursor-default" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -671,21 +661,19 @@
 		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
 	}
 
+	/** 경고장 취소 **/
 	function cancelRequest()
 	{
-		$.ajax({
-			url: cancelApi,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"action_uuid" : cancelId}),
-			success: function(data) {
-				sweetToastAndCallback(data, cancelSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.cancel+message.ajaxError);
-			}
-		});
+		let param   = JSON.stringify({"action_uuid" : cancelId});
+		let url 	= cancelApi;
+		let errMsg 	= label.cancel+message.ajaxError;
+
+		ajaxRequestWithJsonData(false, url, param, cancelReqCallback, errMsg, false);
+	}
+
+	function cancelReqCallback(data)
+	{
+		sweetToastAndCallback(data, cancelSuccess);
 	}
 
 	function cancelSuccess()
@@ -694,7 +682,7 @@
 		getInvolveAction();
 	}
 
-	/** 경고장 발송 모달 **/
+	/** 경고장 발송 **/
 	function onClickBtnWarn()
 	{
 		if (isCheckedTarget())
@@ -703,22 +691,22 @@
 
 	function isCheckedTarget()
 	{
-		let chkedElement = $("input[name=chk-warn]:checked");
-		let count = chkedElement.length;
-		if (count === 0)
+		let checkedElement = $("input[name=chk-warn]:checked");
+
+		if (checkedElement.length === 0)
 		{
-			sweetToast('발송대상을 '+message.select);
+			sweetToast('발송 대상을 '+message.select);
 			return false;
 		}
 
 		let hasYellowCount = 0;
-		chkedElement.each(function () {
+		checkedElement.each(function () {
 			if ($(this).hasClass('yellow-card'))
 				hasYellowCount++;
 		});
 		if (g_warn_type === 'Y' && hasYellowCount > 0)
 		{
-			sweetToast('선택한 발송대상에 '+message.alreadyHasYellow);
+			sweetToast('선택한 발송 대상에 '+message.alreadyHasYellow);
 			return false;
 		}
 
@@ -747,26 +735,9 @@
 	function sendRequest()
 	{
 		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
+		let errMsg 	= '리워드 '+label.list+message.ajaxLoadError;
 
-		$.ajax({
-			url: url,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: warnParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, sendSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
-
-	function sendSuccess()
-	{
-		modalFadeout();
-		getInvolveAction();
+		ajaxRequestWithJsonData(true, url, warnParams(), sendReqCallback, errMsg, false);
 	}
 
 	function warnParams()
@@ -783,34 +754,30 @@
 		return JSON.stringify(param);
 	}
 
+	function sendReqCallback(data)
+	{
+		sweetToastAndCallback(data, sendSuccess);
+	}
+
+	function sendSuccess()
+	{
+		modalFadeout();
+		getInvolveAction();
+	}
+
 	function onChangePageLengthForAction()
 	{
 		currentPage = 1;
 		getInvolveAction();
 	}
 
-	/** 인증목록 **/
+	/** 인증 목록 **/
 	function getInvolveAction()
 	{
-		$.ajax({
-			url: api.listAction,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: actionParams(),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					buildActionsPagination(data);
-					buildActions(data);
-				}
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('인증 '+label.list+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.listAction;
+		let errMsg 	= '인증 '+label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, actionParams(), getInvolveActionCallback, errMsg, false);
 	}
 
 	function actionParams()
@@ -823,6 +790,17 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function getInvolveActionCallback(data)
+	{
+		isSuccessResp(data) ? involveActionSuccess(data) : sweetError(invalidResp(data));
+	}
+
+	function involveActionSuccess(data)
+	{
+		buildActions(data);
+		buildActionsPagination(data);
 	}
 
 	function buildActions(data)
@@ -1052,29 +1030,29 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "review_uuid",   width: "5%",     orderable: false,
+				{title: tableCheckAllDom(), 	data: "review_uuid",   width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "리뷰내용", 		data: "review_text",	width: "30%",   orderable: false,   className: "cursor-default" }
-				,{title: "평점", 		data: "rating",    		width: "10%",   orderable: false,   className: "cursor-default",
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   className: "cursor-default" }
+				,{title: "평점", 		data: "rating",    		width: "10%",   className: "cursor-default",
 					render: function (data) {
 						return buildStar(data);
 					}
 				}
-				,{title: "신고", 		data: "report_count",   width: "10%",   orderable: false,   className: "cursor-default" }
-				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   orderable: false,   className: "cursor-default",
+				,{title: "신고", 		data: "report_count",   width: "10%",   className: "cursor-default" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   className: "cursor-default",
 					render: function (data) {
 						return data === 'Y' ? label.blind : label.unblind;
 					}
 				}
-				,{title: "작성날짜", 	data: "created",    	width: "15%",   orderable: false,   className: "cursor-default",
+				,{title: "작성날짜", 	data: "created",    	width: "15%",   className: "cursor-default",
 				 	render: function (data) {
 						return data.substring(0, 10)
 					}
 				 }
-				,{title: "작성자", 		data: "nickname",    	width: "15%",   orderable: false,   className: "cursor-default" }
+				,{title: "작성자", 		data: "nickname",    	width: "15%",   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -1197,24 +1175,36 @@
 	function onClickUpdateBlind()
 	{
 		if (blindValidation())
-			sweetConfirm('상태를 '+message.change, updateRequest);
+			sweetConfirm('상태를 '+message.change, updateBlind);
 	}
 
-	function updateRequest()
+	function updateBlind()
 	{
-		$.ajax({
-			url: api.updateBlind,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: blindParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, updateSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		let url 	= api.updateBlind;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, blindParams(), updateBlindCallback, errMsg, false);
+	}
+
+	function blindParams()
+	{
+		let table 		 = reviewTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+		let reviews = [];
+		for (let i=0; i<selectedData.length; i++)
+			reviews.push(selectedData[i].review_uuid);
+
+		let param = {
+			"reviews" : reviews
+			,"is_blind" : g_blind_type
+		};
+
+		return JSON.stringify(param)
+	}
+
+	function updateBlindCallback(data)
+	{
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
@@ -1236,22 +1226,6 @@
 		return true;
 	}
 
-	function blindParams()
-	{
-		let table 		 = reviewTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-		let reviews = [];
-		for (let i=0; i<selectedData.length; i++)
-			reviews.push(selectedData[i].review_uuid);
-
-		let param = {
-			"reviews" : reviews
-			,"is_blind" : g_blind_type
-		};
-
-		return JSON.stringify(param)
-	}
-
 	/**
 	 * UCD정보탭관련
 	 * **/
@@ -1270,15 +1244,15 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "cursor-default",
+				{title: "구분", data: "division",   		width: "10%",     className: "cursor-default" }
+				,{title: "금액", data: "amount",   		width: "15%",     className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
 					}
 				}
-				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
-				,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "cursor-default" }
-				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
+				,{title: "제목", data: "title",  		width: "15%",     className: "cursor-default" }
+				,{title: "내용", data: "description",   	width: "25%",     className: "cursor-default" }
+				,{title: "일시", data: "created",   		width: "15%",     className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

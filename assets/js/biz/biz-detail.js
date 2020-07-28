@@ -103,25 +103,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailBiz,
-			type: "POST",
-			data: params(),
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					sweetError(invalidResp(data))
-			},
-			error: function (xhr, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			},
-			complete: function (xhr, status) {
-				getInvolvePromo();
-			}
-		});
+		let url 	= api.detailBiz;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, params(), getDetailCallback, errMsg, getInvolvePromo);
 	}
 
 	function params()
@@ -130,6 +115,11 @@
 		const bizIdx	= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : bizIdx});
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	let g_bizUuid;
@@ -365,30 +355,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createBizUcd,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: ucdParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-				if (isSuccessResp(data))
-				{
-					balance.html(numberWithCommas(data.data));
-					g_balance = data.data;
-				}
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createBizUcd;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		getUcdLog();
-		modalFadeout();
+		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
 	}
 
 	function ucdParams()
@@ -406,6 +376,23 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function createReqCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			balance.html(numberWithCommas(data.data));
+			g_balance = data.data;
+		}
+
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		getUcdLog();
+		modalFadeout();
 	}
 
 	function validation()

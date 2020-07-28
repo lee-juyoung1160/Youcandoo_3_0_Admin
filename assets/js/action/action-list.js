@@ -66,8 +66,19 @@
 		initDayBtn();
 	}
 
+	/** 인증상태 체크박스 최소 하나 선택 **/
+	function onChangeChkStatus(obj)
+	{
+		let checkedCount = $("input[name=chk-status]:checked").length;
+		if (checkedCount === 0)
+		{
+			sweetToast(message.minimumChecked);
+			$(obj).prop("checked", true);
+		}
+	}
+
 	/************************
-	 * 인증상세 모달 관련
+	 * 인증 상세 모달 관련
 	 * **********************/
 	function onClinkActionImage(obj)
 	{
@@ -179,24 +190,21 @@
 	{
 		g_cancel_api = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
 		g_cancel_id  = $(obj).data('uuid');
+
 		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
 	}
 
 	function cancelRequest()
 	{
-		$.ajax({
-			url: g_cancel_api,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"action_uuid" : g_cancel_id}),
-			success: function(data) {
-				sweetToastAndCallback(data, cancelSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.cancel+message.ajaxError);
-			}
-		});
+		let param = JSON.stringify({"action_uuid" : g_cancel_id});
+		let errMsg = label.cancel+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, g_cancel_api, param, cancelReqCallback, errMsg, false);
+	}
+
+	function cancelReqCallback(data)
+	{
+		sweetToastAndCallback(data, cancelSuccess);
 	}
 
 	function cancelSuccess()
@@ -206,7 +214,7 @@
 	}
 
 	/************************
-	 * 경고장 발송 모달 관련
+	 * 경고장 발송 관련
 	 * **********************/
 	function onClickBtnWarn()
 	{
@@ -254,39 +262,22 @@
 
 	function onSubmitWarn()
 	{
-		sweetConfirm('경고장을 '+message.send, sendRequest);
+		sweetConfirm('경고장을 '+message.send, warnRequest);
 	}
 
-	function sendRequest()
+	function warnRequest()
 	{
 		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
+		let errMsg = label.submit+message.ajaxError;
 
-		$.ajax({
-			url: url,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: warnParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, sendSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			},
-		});
-	}
-
-	function sendSuccess()
-	{
-		modalFadeout();
-		getActions();
+		ajaxRequestWithJsonData(true, url, warnParams(), warnReqCallback, errMsg, false);
 	}
 
 	function warnParams()
 	{
 		let uuids = [];
-		let chkedElement = $("input[name=chk-warn]:checked");
-		chkedElement.each(function () { uuids.push($(this).val()); });
+		let checkedElement = $("input[name=chk-warn]:checked");
+		checkedElement.each(function () { uuids.push($(this).val()); });
 
 		let param = {
 			"action_list" : uuids
@@ -296,42 +287,29 @@
 		return JSON.stringify(param);
 	}
 
-	/** 인증상태 체크박스 최소 하나 선택 **/
-	function onChangeChkStatus(obj)
+	function warnReqCallback(data)
 	{
-		let checkedCount = $("input[name=chk-status]:checked").length;
-		if (checkedCount === 0)
-		{
-			sweetToast(message.minimumChecked);
-			$(obj).prop("checked", true);
-		}
+		sweetToastAndCallback(data, sendSuccess);
 	}
 
-	/** 인증목록 **/
+	function sendSuccess()
+	{
+		modalFadeout();
+		getActions();
+	}
+
+	/************************
+	 * 인증 목록 관련
+	 * **********************/
 	function getActions()
 	{
-		$.ajax({
-			url: api.listAction,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					buildPagination(data);
-					buildList(data);
-				}
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.list+message.ajaxLoadError);
-			}
-		});
+		let url 	 = api.listAction;
+		let errMsg 	 = label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, listParams(), getActionsCallback, errMsg, false);
 	}
 
-	function params()
+	function listParams()
 	{
 		let statusParam = [];
 		status.each(function () {
@@ -354,6 +332,17 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function getActionsCallback(data)
+	{
+		isSuccessResp(data) ? getActionsSuccess(data) : sweetError(invalidResp(data));
+	}
+
+	function getActionsSuccess(data)
+	{
+		buildList(data);
+		buildPagination(data);
 	}
 
 	function buildList(data)
@@ -446,7 +435,7 @@
 		else
 		{
 			actionTopDom.hide();
-			pagination.show();
+			pagination.hide();
 		}
 
 		actionWrap.html(actionDom);

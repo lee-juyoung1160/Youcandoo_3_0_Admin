@@ -87,21 +87,15 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createBiz,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
+		let url 	= api.createBiz;
+		let errMsg 	= label.submit+message.ajaxError;
+
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()

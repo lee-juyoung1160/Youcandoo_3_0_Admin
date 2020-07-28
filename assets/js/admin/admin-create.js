@@ -25,22 +25,15 @@
 
 	function getAuthList()
 	{
-		$.ajax({
-			url: api.listAuth,
-			type: "POST",
-			headers : headers,
-			/*data: params(),*/
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildAuthList(data)
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.list+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.listAuth;
+		let errMsg 	= label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, null, getAuthListCallback, errMsg, false);
+	}
+
+	function getAuthListCallback(data)
+	{
+		isSuccessResp(data) ? buildAuthList(data) : sweetError(invalidResp(data));
 	}
 
 	function buildAuthList(data)
@@ -109,19 +102,15 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createAdmin,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
+		let url = api.createAdmin;
+		let errMsg = label.submit+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, params(), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()

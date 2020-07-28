@@ -210,19 +210,27 @@
 
 	function deleteRequest()
 	{
-		$.ajax({
-			url: api.deleteDoit,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: delParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, deleteSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			}
-		});
+		let url 	= api.deleteDoit;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"doit_uuid" : selectedData.doit_uuid
+		};
+
+		return JSON.stringify(param)
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteSuccess);
 	}
 
 	function deleteSuccess()
@@ -251,14 +259,3 @@
 		return true;
 	}
 
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"doit_uuid" : selectedData.doit_uuid
-		};
-
-		return JSON.stringify(param)
-	}

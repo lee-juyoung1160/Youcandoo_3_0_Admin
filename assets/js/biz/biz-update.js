@@ -17,22 +17,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailBiz,
-			type: "POST",
-			data: detailParams(),
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					sweetError(invalidResp(data))
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.detailBiz;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithFormData(false, url, detailParams(), getDetailCallback, errMsg, false);
 	}
 
 	function detailParams()
@@ -41,6 +29,11 @@
 		let bizIdx	  = splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : bizIdx});
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	function buildDetail(data)
@@ -57,6 +50,44 @@
 		bizNumber.html(detail.company_number);
 		bizLink.val(detail.url);
 		bizDesc.val(detail.contents);
+	}
+
+	function onSubmitBiz()
+	{
+		if (validation())
+			sweetConfirm(message.modify, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		let url 	= api.updateBiz;
+		let errMsg 	= label.submit+message.ajaxError;
+
+		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+	}
+
+	function params()
+	{
+		let pathName  = getPathName();
+		let bizIdx	  = splitReverse(pathName, '/');
+		let paramFile = profileImage[0].files[0];
+		let formData  = new FormData();
+		formData.append('company-idx', bizIdx);
+		formData.append('company-url', bizLink.val().trim());
+		formData.append('company-contents', bizDesc.val().trim());
+		formData.append('company-image', paramFile);
+
+		return formData;
+	}
+
+	function updateReqCallback(data)
+	{
+		sweetToastAndCallback(data, updateSuccess);
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.listBiz;
 	}
 
 	function validation()
@@ -84,48 +115,3 @@
 
 		return true;
 	}
-
-	function params()
-	{
-		let pathName  = getPathName();
-		let bizIdx	  = splitReverse(pathName, '/');
-		let paramFile = profileImage[0].files[0];
-		let formData  = new FormData();
-		formData.append('company-idx', bizIdx);
-		formData.append('company-url', bizLink.val().trim());
-		formData.append('company-contents', bizDesc.val().trim());
-		formData.append('company-image', paramFile);
-
-		return formData;
-	}
-
-	function onSubmitBiz()
-	{
-		if (validation())
-			sweetConfirm(message.modify, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		$.ajax({
-			url: api.updateBiz,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, updateSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
-
-	function updateSuccess()
-	{
-		location.href = page.listBiz;
-	}
-

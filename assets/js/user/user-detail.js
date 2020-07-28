@@ -514,13 +514,13 @@
 			dataType: 'json',
 			data: ucdParams(),
 			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
 				if (isSuccessResp(data))
 				{
 					balance.html(numberWithCommas(data.data.total));
 					cash.html(numberWithCommas(data.data.cash));
 					point.html(numberWithCommas(data.data.point));
 				}
+				sweetToastAndCallback(data, createSuccess);
 			},
 			error: function (request, status) {
 				sweetError(label.submit+message.ajaxError);

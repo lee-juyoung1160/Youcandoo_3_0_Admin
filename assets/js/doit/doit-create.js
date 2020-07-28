@@ -9,9 +9,7 @@
 	const bizName 			= $("#bizName");
 	const selPromo 			= $("#selPromo");
 	const selReward 		= $("#selReward");
-	const labelSelPromo 	= $("label[for='selPromo']");
 	const selectedReward    = $("#selectedReward")
-	const labelSelReward 	= $("label[for='selReward']");
 	const chkExtraReward	= $("input[name=chkExtraReward]");
 	const extraReward		= $("#ucd-area");
 	const ucdAreWrap		= $("#ucd-area-wrap");
@@ -235,10 +233,10 @@
 		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.key+'\',\''+aData.value+'\')');
 	}
 
-	let bizUuid;
+	let g_biz_uuid;
 	function setSelectedBiz(uuid, name)
 	{
-		bizUuid = uuid;
+		g_biz_uuid = uuid;
 		bizName.val(name);
 		selectedReward.empty();
 		getInvolvePromo();
@@ -254,20 +252,11 @@
 
 	function getInvolvePromo()
 	{
-		$.ajax({
-			url: api.involvePromotion,
-			type: "POST",
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"company_uuid" : bizUuid}),
-			success: function(data) {
-				buildOptionPromo(data);
-			},
-			error: function (request, status) {
-				sweetError('프로모션 '+label.list+message.ajaxLoadError);
-			}
-		});
+		let param   = JSON.stringify({"company_uuid" : g_biz_uuid});
+		let url 	= api.involvePromotion;
+		let errMsg 	= '프로모션 '+label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, buildOptionPromo, errMsg, false);
 	}
 
 	function buildOptionPromo(data)
@@ -296,20 +285,12 @@
 	function onChangeSelPromo()
 	{
 		selectedReward.empty();
-		$.ajax({
-			url: api.involveReward,
-			type: "POST",
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"promotion_uuid" : selPromo.val()}),
-			success: function(data) {
-				buildOptionReward(data);
-			},
-			error: function (request, status) {
-				sweetError('리워드 '+label.list+message.ajaxLoadError);
-			}
-		});
+
+		let param   = JSON.stringify({"promotion_uuid" : selPromo.val()});
+		let url 	= api.involveReward;
+		let errMsg 	= '리워드 '+label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, buildOptionReward, errMsg, false);
 	}
 
 	function buildOptionReward(data)
@@ -338,20 +319,12 @@
 	function onChangeSelReward()
 	{
 		selectedReward.empty();
-		$.ajax({
-			url: api.getReward,
-			type: "POST",
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"reward_uuid" : selReward.val()}),
-			success: function(data) {
-				buildSelectedReward(data);
-			},
-			error: function (request, status) {
-				sweetError('리워드 '+label.detailContent+message.ajaxLoadError);
-			}
-		});
+
+		let param   = JSON.stringify({"reward_uuid" : selReward.val()});
+		let url 	= api.getReward;
+		let errMsg 	= '리워드 '+label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, buildSelectedReward, errMsg, false);
 	}
 
 	let g_min_user_limit;
@@ -522,6 +495,75 @@
 		exampleArea.html(fileDom);
 	}
 
+	function onSubmitDoit()
+	{
+		if (validation())
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		let url 	= api.createDoit;
+		let errMsg 	= label.submit+message.ajaxError;
+
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+	}
+
+	function params()
+	{
+		let paramTag = [];
+		addedTags.find('li').each(function () {
+			paramTag.push($(this).text());
+		})
+		let paramIntroImage 	= $("#introImage")[0].files[0];
+		let paramIntroVideo 	= '';
+		if ($("#introVideo").length > 0)
+			paramIntroVideo 	= $("#introVideo")[0].files[0];
+		let paramExample		= $("#exampleFile")[0].files[0];
+		let paramExampleVideo 	= '';
+		if ($("#exampleVideo").length > 0)
+			paramExampleVideo	= $("#exampleVideo")[0].files[0];
+		let paramExampleVoice	= '';
+		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
+			paramExampleVoice	= $("#exampleFile")[0].files[0];
+		let formData  = new FormData();
+		formData.append('doit-title', doitTitle.val().trim());
+		formData.append('company-uuid', g_biz_uuid);
+		formData.append('promotion-uuid', selPromo.val().trim());
+		formData.append('reward-uuid', selReward.val().trim());
+		formData.append('min-user', g_min_user_limit);
+		formData.append('max-user', g_max_user_limit);
+		formData.append('doit-tags', paramTag.toString());
+		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
+		formData.append('intro-image-file', paramIntroImage);
+		formData.append('intro-video-file', paramIntroVideo);
+		formData.append('action-start-date', doitFrom.val());
+		formData.append('action-end-date', doitTo.val());
+		formData.append('action-allow-start-time', startTime.val()+':00');
+		formData.append('action-allow-end-time', endTime.val()+':59');
+		formData.append('private-code', privateCode.val().trim());
+		formData.append('action-example-resource-type', $('input:radio[name=radio-example-type]:checked').val());
+		formData.append('action-example-image-file', paramExample);
+		formData.append('action-example-video-file', paramExampleVideo);
+		formData.append('action-example-voice-file', paramExampleVoice);
+		formData.append('action-description', exampleDesc.val().trim());
+		formData.append('doit-description', doitDesc.val().trim());
+		if (chkExtraReward.is(':checked'))
+			formData.append('group-reward-description', extraReward.val().trim());
+
+		return formData;
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listDoit;
+	}
+
 	function validation()
 	{
 		let tagLen 				= addedTags.find('li').length;
@@ -671,79 +713,3 @@
 
 		return true;
 	}
-
-	function params()
-	{
-		let paramTag = [];
-		addedTags.find('li').each(function () {
-			paramTag.push($(this).text());
-		})
-		let paramIntroImage 	= $("#introImage")[0].files[0];
-		let paramIntroVideo 	= '';
-		if ($("#introVideo").length > 0)
-			paramIntroVideo 	= $("#introVideo")[0].files[0];
-		let paramExample		= $("#exampleFile")[0].files[0];
-		let paramExampleVideo 	= '';
-		if ($("#exampleVideo").length > 0)
-			paramExampleVideo	= $("#exampleVideo")[0].files[0];
-		let paramExampleVoice	= '';
-		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
-			paramExampleVoice	= $("#exampleFile")[0].files[0];
-		let formData  = new FormData();
-		formData.append('doit-title', doitTitle.val().trim());
-		formData.append('company-uuid', bizUuid);
-		formData.append('promotion-uuid', selPromo.val().trim());
-		formData.append('reward-uuid', selReward.val().trim());
-		formData.append('min-user', g_min_user_limit);
-		formData.append('max-user', g_max_user_limit);
-		formData.append('doit-tags', paramTag.toString());
-		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
-		formData.append('intro-image-file', paramIntroImage);
-		formData.append('intro-video-file', paramIntroVideo);
-		formData.append('action-start-date', doitFrom.val());
-		formData.append('action-end-date', doitTo.val());
-		formData.append('action-allow-start-time', startTime.val()+':00');
-		formData.append('action-allow-end-time', endTime.val()+':59');
-		formData.append('private-code', privateCode.val().trim());
-		formData.append('action-example-resource-type', $('input:radio[name=radio-example-type]:checked').val());
-		formData.append('action-example-image-file', paramExample);
-		formData.append('action-example-video-file', paramExampleVideo);
-		formData.append('action-example-voice-file', paramExampleVoice);
-		formData.append('action-description', exampleDesc.val().trim());
-		formData.append('doit-description', doitDesc.val().trim());
-		if (chkExtraReward.is(':checked'))
-			formData.append('group-reward-description', extraReward.val().trim());
-
-		return formData;
-	}
-
-	function onSubmitDoit()
-	{
-		if (validation())
-			sweetConfirm(message.create, createRequest);
-	}
-
-	function createRequest()
-	{
-		$.ajax({
-			url: api.createDoit,
-			type: "POST",
-			headers: headers,
-			processData: false,
-			contentType: false,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
-
-	function createSuccess()
-	{
-		location.href = page.listDoit;
-	}
-

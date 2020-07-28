@@ -9,6 +9,7 @@
 	const selectedUserTableBody = $("#selectedUserTableBody");
 	const resultBox 	= $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
+	const targetPageWrap	= $("#targetPageWrap");
 	const targetPage	= $("input[name=radio-target-page]");
 	const inputPage		= $("#targetPage");
 	const osType		= $("input[name=radio-store]");
@@ -60,6 +61,18 @@
 		targetUser.eq(0).prop('checked', true);
 		targetPage.eq(0).prop('checked', true);
 		osType.eq(0).prop('checked', true);
+
+		checkRequestPage();
+	}
+
+	function checkRequestPage()
+	{
+		const reqPages = ['notice', 'event'];
+		if (reqPages.indexOf(reqPage.val()) !== -1)
+		{
+			let pageName = reqPage.val() === 'notice' ? '공지사항' : '이벤트';
+			targetPageWrap.html('<p class="detail-data">'+pageName+'</p>');
+		}
 	}
 
 	function onClickBtnModalUserOpen()

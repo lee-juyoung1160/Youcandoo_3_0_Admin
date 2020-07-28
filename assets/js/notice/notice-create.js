@@ -60,7 +60,7 @@
 
 	function createSuccess()
 	{
-		sweetConfirmWithCancelCallback('푸시 알림을 등록하시겠습니까?', redirectPushCreate, redirectList);
+		sweetConfirmWithCancelCallback(message.moveToCreatePush, redirectPushCreate, redirectList);
 	}
 
 	function redirectPushCreate()
@@ -69,6 +69,7 @@
 		form.prop("method", "post");
 		form.prop("action", page.createPush);
 		form.append($("<input/>", {type: 'hidden', name: 'req_page', value: 'notice'}));
+		form.append($("<input/>", {type: 'hidden', name: 'req_content', value: title.val().trim()}));
 		form.appendTo("body");
 		form.submit();
 	}

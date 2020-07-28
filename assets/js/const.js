@@ -252,6 +252,7 @@
 		,listEvent : '/marketing/event'
 		,detailEvent : '/marketing/event/detail/'
 
+		,createPush : '/marketing/push/create'
 		,listPush : '/marketing/push'
 
 		,listNotice : '/service/notice'

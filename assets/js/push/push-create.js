@@ -28,6 +28,8 @@
 	const targetPageTable	= $("#targetPageTable");
 	const modalPage			= $("#modalPage");
 
+	const reqPage			= $("#req_page");
+
 	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();

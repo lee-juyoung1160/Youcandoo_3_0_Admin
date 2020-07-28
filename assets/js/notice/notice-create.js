@@ -34,26 +34,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createNotice,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createNotice;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		location.href = page.listNotice;
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
 	}
 
 	function params()
@@ -67,6 +51,31 @@
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		sweetConfirmWithCancelCallback('푸시 알림을 등록하시겠습니까?', redirectPushCreate, redirectList);
+	}
+
+	function redirectPushCreate()
+	{
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.createPush);
+		form.append($("<input/>", {type: 'hidden', name: 'req_page', value: 'notice'}));
+		form.appendTo("body");
+		form.submit();
+	}
+
+	function redirectList()
+	{
+		location.href = page.listNotice;
 	}
 
 	function validation()

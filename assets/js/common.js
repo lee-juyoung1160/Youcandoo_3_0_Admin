@@ -801,6 +801,21 @@
         })
     }
 
+    function sweetConfirmWithCancelCallback(msg, okCallback, cancelCallback)
+    {
+        Swal.fire({
+            text: msg,
+            showCancelButton: true,
+            confirmButtonText: label.confirm,
+            cancelButtonText: label.cancel
+        }).then((result) => {
+            if (result.value)
+                okCallback();
+            else
+                cancelCallback();
+        })
+    }
+
     function sweetConfirmWithContent(content, callback)
     {
         Swal.fire({

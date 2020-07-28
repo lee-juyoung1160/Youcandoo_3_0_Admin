@@ -9,6 +9,7 @@
 	const selectedUserTableBody = $("#selectedUserTableBody");
 	const resultBox 	= $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
+	const targetPageWrap	= $("#targetPageWrap");
 	const targetPage	= $("input[name=radio-target-page]");
 	const inputPage		= $("#targetPage");
 	const osType		= $("input[name=radio-store]");
@@ -27,6 +28,8 @@
 	const modalTargetPage	= $("#modalTargetPage");
 	const targetPageTable	= $("#targetPageTable");
 	const modalPage			= $("#modalPage");
+
+	const reqPage			= $("#req_page");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -58,6 +61,18 @@
 		targetUser.eq(0).prop('checked', true);
 		targetPage.eq(0).prop('checked', true);
 		osType.eq(0).prop('checked', true);
+
+		checkRequestPage();
+	}
+
+	function checkRequestPage()
+	{
+		const reqPages = ['notice', 'event'];
+		if (reqPages.indexOf(reqPage.val()) !== -1)
+		{
+			let pageName = reqPage.val() === 'notice' ? '공지사항' : '이벤트';
+			targetPageWrap.html('<p class="detail-data">'+pageName+'</p>');
+		}
 	}
 
 	function onClickBtnModalUserOpen()
@@ -65,6 +80,33 @@
 		modalTargetUserFadein();
 		initTargetUserModal();
 		getUsers();
+		buildMovedUser();
+	}
+
+	function buildMovedUser()
+	{
+		movedUserTableBody.empty();
+
+		let selectedRow = selectedUserTableBody.find('tr');
+
+		let moveUserDom = '';
+		$(selectedRow).each(function () {
+			let profileId = $(this).data('uuid');
+			let nick 	  = $(this).data('nick');
+			let doit 	  = $(this).data('doit');
+			let notice 	  = $(this).data('notice');
+			let marketing = $(this).data('marketing');
+
+			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
+			moveUserDom +=     '<td>'+nick+'</td>';
+			moveUserDom +=     '<td>'+doit+'</td>';
+			moveUserDom +=     '<td>'+notice+'</td>';
+			moveUserDom +=     '<td>'+marketing+'</td>';
+			moveUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
+			moveUserDom += '</tr>';
+		});
+
+		movedUserTableBody.append(moveUserDom);
 	}
 
 	function initTargetUserModal()
@@ -449,7 +491,7 @@
 
 	function createSuccess()
 	{
-		//location.href = page.listPush;
+		location.href = page.listPush;
 	}
 
 	function params()

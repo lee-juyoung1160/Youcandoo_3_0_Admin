@@ -7,7 +7,7 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
-	const xlsxExport 	= $(".excel-btn");
+	/*const xlsxExport 	= $(".excel-btn");*/
 
 	$( () => {
 		/** 데이트피커 초기화 **/

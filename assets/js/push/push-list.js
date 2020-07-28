@@ -52,17 +52,25 @@
 					}
 				},
 				{title: "발송여부", 		data: "push_status",    width: "10%",  	className: "cursor-default" }
-				,{title: "발송대상 ", 	data: "param",    	  	width: "20%",   className: "cursor-default",
-					render: function (data, type, row, meta) {
-						let jsonData = JSON.parse(data);
-						return jsonData.push_type === 'all' ? '전체' : '개인('+row.nickname+')';
+				,{title: "발송대상 ", 	data: "push_type", 	  	width: "10%",   className: "cursor-default",
+					render: function (data) {
+						return data === 'all' ? '전체' : '개인';
 					}
 				}
-				,{title: "발송일시", 	data: "send_datetime",  width: "20%",   className: "cursor-default" }
-				,{title: "구분", 		data: "param",    	  	width: "10%",  	className: "cursor-default",
+				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
+				,{title: "스토어", 		data: "store",    	  	width: "10%",  	className: "cursor-default",
+					render: function (data) {
+						return data === 'all' ? '전체' : data;
+					}
+				}
+				,{title: "구분", 		data: "category",  width: "10%",   className: "cursor-default",
+					render: function (data) {
+						return getPushCategory(data);
+					}
+				}
+				,{title: "도착페이지", 		data: "category_target",  width: "20%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let jsonData = JSON.parse(data);
-						return jsonData.store === 'all' ? '전체' : jsonData.store;
+						return isEmpty(data) ? '' : ('['+row.event_name+'] '+row.event_title);
 					}
 				}
 			],
@@ -132,6 +140,13 @@
 		let isSent 	 = aData.send_yn;
 		if (isDel === 'Y' || isSent === 'Y')
 			$(checkDom).children().prop('disabled', true);
+	}
+
+	function getPushCategory(data)
+	{
+		if (data === 'notice') return '공지';
+		if (data === 'event') return '이벤트';
+		else return '일반';
 	}
 
 	function onSubmitSearch()

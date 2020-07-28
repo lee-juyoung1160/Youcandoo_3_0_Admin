@@ -22,29 +22,25 @@
 
 	function getAuthList()
 	{
-		$.ajax({
-			url: api.listAuth,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildAuthList(data)
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.list+message.ajaxLoadError);
-			},
-			complete: function (xhr, status) {
-				/** 상단 검색 폼 초기화 **/
-				initSearchForm();
-				/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-				initPageLength();
-				/** 목록 불러오기 **/
-				buildGrid();
-			}
-		});
+		let url 	= api.listAuth;
+		let errMsg 	= label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, null, authListSuccessCallback, errMsg, authListComplete);
+	}
+
+	function authListSuccessCallback(data)
+	{
+		isSuccessResp(data) ? buildAuthList(data) : sweetError(invalidResp(data));
+	}
+
+	function authListComplete()
+	{
+		/** 상단 검색 폼 초기화 **/
+		initSearchForm();
+		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		initPageLength();
+		/** 목록 불러오기 **/
+		buildGrid();
 	}
 
 	function buildAuthList(data)
@@ -180,6 +176,9 @@
 		table.ajax.reload();
 	}
 
+	/**********************
+	 *   관리자 사용 여부 관련
+	 * *******************/
 	let changeApi;
 	let targetAdmin;
 	function changeStatus(obj)
@@ -191,48 +190,19 @@
 
 	function changeRequest()
 	{
-		$.ajax({
-			url: changeApi,
-			type: "POST",
-			dataType: 'json',
-			global: false,
-			headers: headers,
-			data: JSON.stringify({"userid" : targetAdmin}),
-			success: function(data) {
-				sweetToastAndCallback(data, successCallback);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		let param   = JSON.stringify({"userid" : targetAdmin});
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, changeApi, param, reqCallback, errMsg, false);
 	}
 
+	/**********************
+	 *   관리자 삭제 관련
+	 * *******************/
 	function deleteAdmin()
 	{
 		if (delValidation())
 			sweetConfirm(message.delete, deleteRequest);
-	}
-
-	function deleteRequest()
-	{
-		$.ajax({
-			url: api.deleteAdmin,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: delParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, successCallback);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			},
-		});
-	}
-
-	function successCallback()
-	{
-		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function delValidation()
@@ -249,6 +219,14 @@
 		return true;
 	}
 
+	function deleteRequest()
+	{
+		let url 	= api.deleteAdmin;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, delParams(), reqCallback, errMsg, false);
+	}
+
 	function delParams()
 	{
 		let table 		 = dataTable.DataTable();
@@ -260,3 +238,17 @@
 
 		return JSON.stringify(param)
 	}
+
+	function reqCallback(data)
+	{
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
+	function reqSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
+	}
+
+
+
+

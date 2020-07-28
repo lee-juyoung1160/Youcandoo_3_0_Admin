@@ -37,11 +37,11 @@
 		/** 프로모션 상세정보 **/
 		getPromotion();
 		/** 이벤트 **/
-		tabPromo	.on("click", () => { onClickPromoTab(this); });
-		tabDoit		.on("click", () => { onClickDoitTab(this); });
-		tabUcd		.on("click", () => { onClickUcdTab(this); });
-		selPageLengthForDoit.on("change", () => { getInvolveDoit(); });
-		selPageLengthForUcd	.on("change", () => { onClickUcdTab(); });
+		tabPromo	.on("click", function () { onClickPromoTab(this); });
+		tabDoit		.on("click", function () { onClickDoitTab(this); });
+		tabUcd		.on("click", function () { onClickUcdTab(this); });
+		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
+		selPageLengthForUcd	.on("change", function() { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});
@@ -175,10 +175,7 @@
 	{
 		let idx = $(obj).data('idx');
 		let reward = rewards[idx];
-		let ucdInfo = reward.ucd_info;
-		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
-		ucdInfo = ucdInfo.slice(1, -1);
-		let jsonUcdInfo = JSON.parse(ucdInfo);
+		let ucdInfo = reward.ucd_info[0];
 
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
@@ -231,9 +228,9 @@
 		detailDom += 				'</thead>';
 		detailDom += 				'<tbody>';
 		detailDom += 					'<tr>';
-		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+label.tilde+numberWithCommas(jsonUcdInfo.max)+'</td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.person_reward)+'</span></td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.group_reward)+'</span></td>';
+		detailDom += 						'<td>'+numberWithCommas(ucdInfo.min)+label.tilde+numberWithCommas(ucdInfo.max)+'</td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.person_reward)+'</span></td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.group_reward)+'</span></td>';
 		detailDom += 					'</tr>';
 		detailDom += 				'</tbody>';
 		detailDom += 			'</table>';

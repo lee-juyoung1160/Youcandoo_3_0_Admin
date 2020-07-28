@@ -28,7 +28,10 @@ class Marketing extends CI_Controller {
                 $this->load->layout('marketing/push-list');
                 break;
             case "create" :
-                $this->load->layout('marketing/push-create');
+                $data['req_page'] = $this->input->post('req_page');
+                $data['page_uuid'] = $this->input->post('page_uuid');
+                $data['req_content'] = $this->input->post('req_content');
+                $this->load->layout('marketing/push-create', $data);
                 break;
         }
     }

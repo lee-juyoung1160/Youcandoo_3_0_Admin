@@ -38,24 +38,15 @@
 
 	function getAuthList()
 	{
-		$.ajax({
-			url: api.listAuth,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildAuthList(data)
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (xhr, status) {
-				sweetError('권한 '+label.list+message.ajaxLoadError);
-			},
-			complete: function (xhr, status) {
-				getMenuByAuthCode();
-			}
-		});
+		let url 	= api.listAuth;
+		let errMsg 	= '권한 ' + label.list + message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, null, getAuthListCallback, errMsg, getMenuByAuthCode);
+	}
+
+	function getAuthListCallback(data)
+	{
+		isSuccessResp(data) ? buildAuthList(data) : sweetError(invalidResp(data));
 	}
 
 	function buildAuthList(data)
@@ -89,22 +80,16 @@
 
 	function getMenuByAuthCode()
 	{
-		$.ajax({
-			url: api.getMenuByAuth,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			data : JSON.stringify({"code" : selectedAuthCode()}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildAuthMenu(data)
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('메뉴 '+label.list+message.ajaxLoadError);
-			}
-		});
+		let param   = JSON.stringify({"code" : selectedAuthCode()});
+		let url 	= api.getMenuByAuth;
+		let errMsg 	= '메뉴 ' + label.list + message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, menuListCallback, errMsg, false);
+	}
+
+	function menuListCallback(data)
+	{
+		isSuccessResp(data) ? buildAuthMenu(data) : sweetError(invalidResp(data));
 	}
 
 	function buildAuthMenu(data)
@@ -235,19 +220,15 @@
 
 	function createAuthRequest()
 	{
-		$.ajax({
-			url: api.createAuth,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			data: authParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createAuthSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
+		let url 	= api.createAuth;
+		let errMsg 	= label.submit+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, authParams(), createAuthReqCallback, errMsg, false);
+	}
+
+	function createAuthReqCallback(data)
+	{
+		sweetToastAndCallback(data, createAuthSuccess);
 	}
 
 	function createAuthSuccess()
@@ -263,19 +244,15 @@
 
 	function createMenuRequest()
 	{
-		$.ajax({
-			url: api.setMenuByAuth,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			data: menuParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, getAuthList);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
+		let url 	= api.setMenuByAuth;
+		let errMsg 	= label.submit+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, menuParams(), createMenuReqCallback, errMsg, false);
+	}
+
+	function createMenuReqCallback(data)
+	{
+		sweetToastAndCallback(data, getMenuByAuthCode);
 	}
 
 	function menuParams()
@@ -325,19 +302,16 @@
 
 	function deleteRequest()
 	{
-		$.ajax({
-			url: api.deleteAuth,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data : JSON.stringify({"code" : selectedAuthCode()}),
-			success: function(data) {
-				sweetToastAndCallback(data, getAuthList);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			}
-		});
+		let param   = JSON.stringify({"code" : selectedAuthCode()})
+		let url 	= api.deleteAuth;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, param, deleteReqCallback, errMsg, false);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, getAuthList);
 	}
 
 	function selectedAuthCode()

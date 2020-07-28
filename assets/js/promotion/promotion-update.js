@@ -256,10 +256,7 @@
 	{
 		let idx = $(obj).data('idx');
 		let reward = g_rewards[idx];
-		let ucdInfo = reward.ucd_info;
-		ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
-		ucdInfo = ucdInfo.slice(1, -1);
-		let jsonUcdInfo = JSON.parse(ucdInfo);
+		let ucdInfo = reward.ucd_info[0];
 
 		let detailDom = '';
 		detailDom += '<li class="reward-1">';
@@ -312,9 +309,9 @@
 		detailDom += 				'</thead>';
 		detailDom += 				'<tbody>';
 		detailDom += 					'<tr>';
-		detailDom += 						'<td>'+numberWithCommas(jsonUcdInfo.min)+label.tilde+numberWithCommas(jsonUcdInfo.max)+'</td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.person_reward)+'</span></td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(jsonUcdInfo.group_reward)+'</span></td>';
+		detailDom += 						'<td>'+numberWithCommas(ucdInfo.min)+label.tilde+numberWithCommas(ucdInfo.max)+'</td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.person_reward)+'</span></td>';
+		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.group_reward)+'</span></td>';
 		detailDom += 					'</tr>';
 		detailDom += 				'</tbody>';
 		detailDom += 			'</table>';
@@ -436,10 +433,7 @@
 			detailDom += 			'</div>';
 			detailDom += 		'</li>';
 			/** 인당 UCD **/
-			let ucdInfo = reward.ucd_info;
-			ucdInfo = ucdInfo.replace('[', '').replace(']', '').replace(/\\/g,'');
-			ucdInfo = ucdInfo.slice(1, -1);
-			let ucd = JSON.parse(ucdInfo);
+			let ucdInfo = reward.ucd_info[0];
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
@@ -467,13 +461,13 @@
 			detailDom += 						'<tbody class="ucd-table-body">';
 			detailDom += 							'<tr>';
 			detailDom += 								'<td>';
-			detailDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5" value="'+ucd.min+'">';
+			detailDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5" value="'+ucdInfo.min+'">';
 			detailDom += 									'<span class="date-margin-text"> ~ </span>';
-			detailDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5" value="'+ucd.max+'">';
+			detailDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5" value="'+ucdInfo.max+'">';
 			detailDom += 								'</td>';
-			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucd.person_reward+'"></td>';
-			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucd.group_reward+'"></td>';
-			let totalUcd = Number(ucd.max) * (Number(ucd.person_reward)+Number(ucd.group_reward));
+			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucdInfo.person_reward+'"></td>';
+			detailDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5" value="'+ucdInfo.group_reward+'"></td>';
+			let totalUcd = Number(ucdInfo.max) * (Number(ucdInfo.person_reward)+Number(ucdInfo.group_reward));
 			detailDom += 								'<td><span class="text-right">'+numberWithCommas(totalUcd)+'</span></td>';
 			detailDom += 							'</tr>';
 			detailDom += 						'</tbody>';

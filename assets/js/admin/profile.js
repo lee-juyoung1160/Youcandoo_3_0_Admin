@@ -34,22 +34,16 @@
 
 	function getProfile()
 	{
-		$.ajax({
-			url: api.getProfile,
-			type: "POST",
-			headers : headers,
-			dataType: 'json',
-			data: JSON.stringify({"userid" : sessionUserId.val()}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildProfile(data)
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let param   = JSON.stringify({"userid" : sessionUserId.val()});
+		let url 	= api.getProfile;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, param, getProfileCallback, errMsg, false);
+	}
+
+	function getProfileCallback(data)
+	{
+		isSuccessResp(data) ? buildProfile(data) : sweetError(invalidResp(data));
 	}
 
 	function buildProfile(data)

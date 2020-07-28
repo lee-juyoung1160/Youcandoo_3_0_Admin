@@ -55,6 +55,7 @@
 		,notEnoughBudget: '프로모션 예산이 부족해 두잇을 개설할 수 없습니다.\n기업 또는 프로모션을 다시 선택해주세요.'
 		,alreadyHasUser: '이미 추가된 회원이 포함돼 있습니다.\n해당 회원을 체크 해제 후 다시 시도해주세요.'
 		,pushHasBeenSent: '선택한 푸시는 이미 발송됐습니다. 발송된 푸시는 취소할 수 없습니다.'
+		,moveToCreatePush: '푸시 알림을 등록하시겠습니까?'
 	}
 
 	const label = {
@@ -252,6 +253,7 @@
 		,listEvent : '/marketing/event'
 		,detailEvent : '/marketing/event/detail/'
 
+		,createPush : '/marketing/push/create'
 		,listPush : '/marketing/push'
 
 		,listNotice : '/service/notice'

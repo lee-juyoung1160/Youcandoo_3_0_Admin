@@ -254,26 +254,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createEvent,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createEvent;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		location.href = page.listEvent;
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
 	}
 
 	function params()
@@ -299,4 +283,32 @@
 
 		return formData;
 	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		sweetConfirmWithCancelCallback(message.moveToCreatePush, redirectPushCreate, redirectList);
+	}
+
+	function redirectPushCreate()
+	{
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.createPush);
+		form.append($("<input/>", {type: 'hidden', name: 'req_page', value: 'event'}));
+		form.append($("<input/>", {type: 'hidden', name: 'req_content', value: title.val().trim()}));
+		form.appendTo("body");
+		form.submit();
+	}
+
+	function redirectList()
+	{
+		location.href = page.listNotice;
+	}
+
+
 

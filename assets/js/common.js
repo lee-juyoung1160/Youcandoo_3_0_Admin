@@ -770,8 +770,13 @@
             showConfirmButton: false,
             timer: 1500
         }).then((result) => {
-            if (result.isDismissed && isSuccessResp(data))
-                callback();
+            if (result.isDismissed)
+            {
+                if (isSuccessResp(data))
+                    callback();
+                else
+                    sweetError(invalidResp(data));
+            }
         })
     }
 
@@ -793,6 +798,21 @@
         }).then((result) => {
             if (result.value)
                 callback();
+        })
+    }
+
+    function sweetConfirmWithCancelCallback(msg, okCallback, cancelCallback)
+    {
+        Swal.fire({
+            text: msg,
+            showCancelButton: true,
+            confirmButtonText: label.confirm,
+            cancelButtonText: label.cancel
+        }).then((result) => {
+            if (result.value)
+                okCallback();
+            else
+                cancelCallback();
         })
     }
 

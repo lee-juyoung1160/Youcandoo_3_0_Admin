@@ -50,31 +50,15 @@
 
 	function getFaqType()
 	{
-		$.ajax({
-			url: api.getFaqType,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildFaqType(data);
-				else
-					sweetToast(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetToast('구분 '+label.list+message.ajaxLoadError);
-			},
-			complete: function (xhr, status) {
-				/** 상단 검색 폼 초기화 **/
-				initSearchForm();
-				/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-				initPageLength();
-				/** 뒤로가기 액션일때 검색폼 세팅 **/
-				if (isBackAction()) setHistoryForm();
-				/** 목록 **/
-				buildGrid();
-			}
-		});
+		let url 	= api.getFaqType;
+		let errMsg 	= '구분 '+label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, completeCallback);
+	}
+
+	function getFaqTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
 	}
 
 	function buildFaqType(data)
@@ -92,6 +76,18 @@
 
 		faqType.html(optionDom);
 		onChangeSelectOption(faqType);
+	}
+
+	function completeCallback()
+	{
+		/** 상단 검색 폼 초기화 **/
+		initSearchForm();
+		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		initPageLength();
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
+		/** 목록 **/
+		buildGrid();
 	}
 
 	function buildGrid()
@@ -211,19 +207,27 @@
 
 	function deleteRequest()
 	{
-		$.ajax({
-			url: api.deleteFaq,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: delParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, deleteSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			},
-		});
+		let url 	= api.deleteFaq;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let param = {
+			"faq_uuid" : selectedData.faq_uuid
+		};
+
+		return JSON.stringify(param);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteSuccess);
 	}
 
 	function deleteSuccess()
@@ -243,16 +247,4 @@
 		}
 
 		return true;
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"faq_uuid" : selectedData.faq_uuid
-		};
-
-		return JSON.stringify(param)
 	}

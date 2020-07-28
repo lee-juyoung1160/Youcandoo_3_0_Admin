@@ -510,6 +510,7 @@
 		formData.append('push_category_target', g_page_uuid);
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
 		formData.append('push_message', content.val().trim());
+		formData.append('push_image', contentImage[0].files[0]);
 		formData.append('created_user', sessionUserId.val());
 
 		return formData;
@@ -543,8 +544,8 @@
 			return false;
 		}
 
-		let targetPage = $("input[name=radio-target-page]:checked").val();
-		if (targetPage.length > 0 && targetPage === 'event' && isEmpty(inputPage.val()))
+		let checkedTargetPage = $("input[name=radio-target-page]:checked").val();
+		if (targetPage.length > 0 && checkedTargetPage === 'event' && isEmpty(inputPage.val()))
 		{
 			sweetToast('발송 구분은 ' + message.required);
 			return false;

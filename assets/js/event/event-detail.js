@@ -26,22 +26,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailEvent,
-			type: "POST",
-			data: params(),
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					sweetError(invalidResp(data))
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.detailEvent;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
 	}
 
 	function params()
@@ -50,6 +38,11 @@
 		const eventIdx		= splitReverse(pathName, '/');
 
 		return JSON.stringify({"idx" : eventIdx});
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
 	function buildDetail(data)

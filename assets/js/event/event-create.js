@@ -262,7 +262,6 @@
 
 	function params()
 	{
-		let paramThumbnailFile 	= thumbnail[0].files[0];
 		let paramFile;
 		if (isDisplay(contentImageWrap))
 			paramFile = contentImage[0].files[0];
@@ -277,15 +276,17 @@
 		formData.append('event-end-date', eventTo.val());
 		formData.append('event-link-url', eventLink.val().trim());
 		formData.append('event-image', paramFile);
-		formData.append('event-thumbnail-image', paramThumbnailFile);
+		formData.append('event-thumbnail-image', thumbnail[0].files[0]);
 		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
 	}
 
+	let g_event_uuid;
 	function createReqCallback(data)
 	{
+		g_event_uuid = data.data;
 		sweetToastAndCallback(data, createSuccess);
 	}
 
@@ -303,6 +304,7 @@
 		form.prop("method", "post");
 		form.prop("action", page.createPush);
 		form.append($("<input/>", {type: 'hidden', name: 'req_page', value: 'event'}));
+		form.append($("<input/>", {type: 'hidden', name: 'page_uuid', value: g_event_uuid}));
 		form.append($("<input/>", {type: 'hidden', name: 'req_content', value: title.val().trim()}));
 		form.appendTo("body");
 		form.submit();
@@ -310,7 +312,7 @@
 
 	function redirectList()
 	{
-		location.href = page.listNotice;
+		location.href = page.listEvent;
 	}
 
 

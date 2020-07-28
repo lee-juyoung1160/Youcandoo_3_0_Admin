@@ -18,21 +18,15 @@
 
 	function getFaqType()
 	{
-		$.ajax({
-			url: api.getFaqType,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildFaqType(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('구분 '+label.list+message.ajaxLoadError);
-			}
-		});
+		let url 	= api.getFaqType;
+		let errMsg 	= '구분 '+label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, false);
+	}
+
+	function getFaqTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildFaqType(data) : sweetError(invalidResp(data));
 	}
 
 	function buildFaqType(data)
@@ -88,24 +82,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createFaq,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createFaq;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		location.href = page.listFaq
+		ajaxRequestWithJsonData(true, url, params(), createReqCallback, errMsg, false);
 	}
 
 	function params()
@@ -121,3 +101,12 @@
 		return JSON.stringify(param);
 	}
 
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listFaq
+	}

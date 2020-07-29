@@ -11,6 +11,8 @@
 	const contact		= $("#contact");
 	const email			= $("#email");
 	const isAuth		= $("#isAuth");
+	/** 기기정보 **/
+	const deviceTable   = $("#deviceTable");
 	/** 두잇정보 **/
 	const tabOpened		= $("#tabOpened");
 	const tabJoined		= $("#tabJoined");
@@ -18,8 +20,10 @@
 	const openedTable	= $("#openedTable");
 	const joinedWrap	= $("#joinedWrap");
 	const joinedTable	= $("#joinedTable");
-	/** 기기정보 **/
-	const deviceTable   = $("#deviceTable");
+	/** 인증정보 **/
+	const userAction   	= $("#userAction");
+	const actionWrap   	= $("#actionWrap");
+	const actionPagination	= $(".action_paginate");
 	/** UCD 사용내역 **/
 	const usageHisTable	= $("#usageHisTable");
 
@@ -42,10 +46,12 @@
 		getBasicProfile();
 		/** 회원정보 **/
 		getUserAccount();
-		/** 두잇 개설 목록 불러오기 **/
-		getOpenedDoit();
-		/** 두잇 개설 목록 불러오기 **/
+		/** 기기정보 **/
 		getDeviceInfo();
+		/** 두잇 정보 **/
+		getOpenedDoit();
+		/** 인증 정보 **/
+		getActions();
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
 		/** 이벤트 **/
@@ -129,23 +135,16 @@
 	/** 기본정보 **/
 	function getBasicProfile()
 	{
-		$.ajax({
-			url: api.getUserProfile,
-			type: "POST",
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"profile_uuid" : g_profile_uuid}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildBasicProfile(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('기본정보 '+label.detailContent+message.ajaxError);
-			},
-		});
+		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
+		let url 	= api.getUserProfile;
+		let errMsg 	= '기본정보 '+label.detailContent+message.ajaxError;
+
+		ajaxRequestWithJsonData(false, url, param, getBasicProfileCallback, errMsg, false);
+	}
+
+	function getBasicProfileCallback(data)
+	{
+		isSuccessResp(data) ? buildBasicProfile(data) : sweetError(invalidResp(data));
 	}
 
 	function buildBasicProfile(data)
@@ -161,23 +160,16 @@
 	/** 회원정보 **/
 	function getUserAccount()
 	{
-		$.ajax({
-			url: api.getUserAccount,
-			type: "POST",
-			global: false,
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"profile_uuid" : g_profile_uuid}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildUserAccount(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('회원정보 '+label.detailContent+message.ajaxError);
-			},
-		});
+		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
+		let url 	= api.getUserAccount;
+		let errMsg 	= '회원정보 '+label.detailContent+message.ajaxError;
+
+		ajaxRequestWithJsonData(false, url, param, getUserAccountCallback, errMsg, false);
+	}
+
+	function getUserAccountCallback(data)
+	{
+		isSuccessResp(data) ? buildUserAccount(data) : sweetError(invalidResp(data));
 	}
 
 	function buildUserAccount(data)
@@ -188,6 +180,38 @@
 		contact		.html(detail.phone);
 		email		.html(detail.email);
 		isAuth		.html(detail.is_auth);
+	}
+
+	/** 기기정보 **/
+	function getDeviceInfo()
+	{
+		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
+		let url 	= api.getUserDevice;
+		let errMsg 	= '기기정보 '+label.detailContent+message.ajaxError;
+
+		ajaxRequestWithJsonData(false, url, param, getDeviceInfoCallback, errMsg, false);
+	}
+
+	function getDeviceInfoCallback(data)
+	{
+		isSuccessResp(data) ? buildDeviceInfo(data) : sweetError(invalidResp(data));
+	}
+
+	function buildDeviceInfo(data)
+	{
+		console.log(data)
+		let deviceData = data;
+		let tdDom = '';
+		tdDom += '<td>IOS</td>';
+		tdDom += '<td>IOS</td>';
+		tdDom += '<td><a onclick="onClickTokenModalOpen(this);" class="os-token">sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd</a></td>';
+		tdDom += '<td>IOS</td>';
+		deviceTable.append(tdDom);
+	}
+
+	function onClickTokenModalOpen(obj)
+	{
+
 	}
 
 	/** 두잇 개설정보 **/
@@ -206,33 +230,33 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   	width: "25%",    orderable: false,   className: "cursor-default" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",    orderable: false,   className: "cursor-default",
+				{title: "두잇명", 		data: "doit_title",   	width: "25%",    className: "cursor-default" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "cursor-default",
+				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
@@ -265,6 +289,9 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
 		});
 	}
 
@@ -295,28 +322,28 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   	width: "25%",    orderable: false,   className: "cursor-default" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",   	width: "10%",    orderable: false,   className: "cursor-default",
+				{title: "두잇명", 		data: "doit_title",   	width: "25%",    className: "cursor-default" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",   	width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "적립 UCD", 	data: "use_ucd",   		width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "적립 UCD", 	data: "use_ucd",   		width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    orderable: false,   className: "cursor-default",
+				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    orderable: false,   className: "cursor-default",
+				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
@@ -349,6 +376,9 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
 		});
 	}
 
@@ -363,65 +393,237 @@
 		return JSON.stringify(param);
 	}
 
-	/** 기기정보 **/
-	function getDeviceInfo()
+	/** 인증 정보 **/
+	function getActions()
 	{
-		deviceTable.DataTable({
-			ajax : {
-				url: api.listDevice,
-				type:"POST",
-				global: false,
-				headers: headers,
-				data: function (d) {
-					return deviceParams(d);
-				},
-				error: function (request, status) {
-					sweetError('기기정보 '+label.list+message.ajaxLoadError);
-				}
-			},
-			columns: [
-				{title: "유형", 		data: "ucd_type",   width: "10%",    orderable: false,   className: "cursor-default" }
-			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
-			serverSide: true,
-			paging: true,
-			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
-			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			destroy: true,
-			initComplete: function () {
-			},
-			fnRowCallback: function( nRow, aData ) {
-			},
-		});
+		let url 	 = api.listUserAction;
+		let errMsg 	 = label.list+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, actionParams(), getActionsCallback, errMsg, false);
 	}
 
-	function deviceParams(d)
+	function actionParams()
 	{
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
-			,"auth_code" : authCode.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
+			"limit" : 10
+			,"page" : actionCurrentPage
+			,"profile_uuid" : g_profile_uuid
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function getActionsCallback(data)
+	{
+		isSuccessResp(data) ? getActionsSuccess(data) : sweetError(invalidResp(data));
+	}
+
+	function getActionsSuccess(data)
+	{
+		buildActionList(data);
+		buildActionPagination(data);
+	}
+
+	function buildActionList(data)
+	{
+		let actions    = data.data;
+		let dataLen    = actions.length;
+		let totalCount = data.recordsTotal
+		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
+
+		if (totalCount > 0)
+		{
+			actionPagination.show();
+
+			actionDom = '';
+			for (let i=0; i<dataLen; i++)
+			{
+				let action    = actions[i];
+				let actionId  = "action_"+i;
+				let successYn = action.success === 'Y' ? label.success : label.fail;
+				let resourceType = action.resource_type;
+				let warnImageDom = '';
+				let actionImage = action.image_url;
+				if (isEmpty(actionImage))
+					actionImage = label.noImage;
+				if (resourceType === 'voice')
+					actionImage = label.voiceImage;
+				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
+				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
+				actionImageDom += 'onclick="onClinkActionImage(this);"  ';
+				actionImageDom += 'onerror="onErrorImage(this);"  ';
+				actionImageDom += 'data-type="'+action.resource_type+'" ';
+				actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
+				actionImageDom += 'data-url="'+action.url+'" ';
+				actionImageDom += 'data-cover="'+action.image_url+'" ';
+				actionImageDom += 'data-exurl="'+action.example_url+'" ';
+				actionImageDom += 'data-exdesc="'+action.example_description+'" ';
+				actionImageDom += 'data-title="'+action.doit_title+'" ';
+				actionImageDom += 'data-title="'+action.doit_title+'" ';
+				actionImageDom += 'data-nickname="'+action.user_name+'" ';
+				actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
+				actionImageDom += 'data-red="'+action.red_card+'" ';
+				actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
+				actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
+				actionImageDom += 'alt="인증 이미지입니다.">';
+
+				let className = '';
+				if (action.yellow_card === 'Y')
+				{
+					warnImageDom = '<img src="'+label.yellowCardImage+'" alt="">';
+					className = 'yellow-card';
+				}
+				if (action.red_card === 'Y')
+					warnImageDom = '<img src="'+label.redCardImage+'" alt="">';
+				if (action.yellow_card === 'Y' && action.red_card === 'Y')
+					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
+
+				if (i===0 || i%5 === 0)
+					actionDom += '<ul class="cert-contents clearfix">';
+
+				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
+				actionDom += '<li>';
+				actionDom += 	'<div class="top clearfix">';
+				actionDom += 		'<div class="checkbox-wrap">';
+				actionDom += 			'<input type="checkbox" class="'+className+'" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'" '+disableChkBox+'/>';
+				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
+				actionDom += 		'</div>';
+				actionDom += 		'<span class="success-text">'+successYn+'</span>';
+				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
+				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
+				actionDom += 	'</div>';
+				actionDom += 	'<div class="thumbnail-wrap">';
+				actionDom += 		actionImageDom;
+				actionDom += 	'</div>';
+				actionDom += 	'<div class="text-wrap">';
+				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
+				actionDom += 		'<span>'+action.user_name+'</span>';
+				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
+				actionDom += 		'<i>'+warnImageDom+'</i>';
+				actionDom += 	'</div>';
+				actionDom += '</li>';
+
+				if (i>0 && (i+1)%5 === 0)
+					actionDom += '</ul>';
+			}
+		}
+		else
+			actionPagination.hide();
+
+		actionWrap.html(actionDom);
+	}
+
+	let actionCurrentPage = 1;
+	function buildActionPagination(data)
+	{
+		let totalCount  = data.recordsTotal;
+		let last		= Math.ceil(totalCount / 10);
+		let pageLength  = 6;
+		if (last <= 10)
+			pageLength = last
+		let i;
+
+		let pageDom = '';
+		if (actionCurrentPage === 1)
+			pageDom += '<a class="paginate_button previous disabled" id="dataTable_previous">';
+		else
+			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(actionCurrentPage-1)+'" id="dataTable_previous">';
+		pageDom +=     label.previous;
+		pageDom += '</a>';
+		pageDom += '<span>';
+		if (last <= 10)
+		{
+			for (i=1; i<=pageLength; i++)
+			{
+				if (last > 1 && actionCurrentPage === i)
+					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
+				else
+					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+			}
+		}
+		else
+		{
+			if (actionCurrentPage < 5)
+			{
+				for (i=1; i<=pageLength; i++)
+				{
+					if (last > 1 && actionCurrentPage === i)
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
+					else
+					{
+						if (pageLength === i)
+						{
+							pageDom += '<span class="ellipsis">…</span>';
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
+						}
+						else
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+					}
+				}
+			}
+			else if (actionCurrentPage >= 5 && actionCurrentPage <= last - 4)
+			{
+				for (i=1; i<=last; i++)
+				{
+					if (i === 1)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+						pageDom += '<span class="ellipsis">…</span>';
+					}
+
+					if (actionCurrentPage === i)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i - 1) + '">' + (i - 1) + '</a>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="' + i + '">' + i + '</a>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i + 1) + '">' + (i + 1) + '</a>';
+					}
+
+					if (last === i)
+					{
+						pageDom += '<span class="ellipsis">…</span>';
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
+					}
+				}
+			}
+			else if (actionCurrentPage > last - 4)
+			{
+				for (i=1; i<=pageLength; i++)
+				{
+					if (i === 1)
+					{
+						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+						pageDom += '<span class="ellipsis">…</span>';
+					}
+
+					if (i >= pageLength - 4)
+					{
+						if (actionCurrentPage === last-(pageLength-i))
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
+						else
+							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
+					}
+				}
+			}
+		}
+		pageDom += '</span>';
+		if (last === actionCurrentPage)
+			pageDom += '<a class="paginate_button next disabled" id="dataTable_next">';
+		else
+			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(actionCurrentPage+1)+'" id="dataTable_next">';
+		pageDom += 	   label.next;
+		pageDom += '</a>';
+
+		actionPagination.html(pageDom);
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		actionCurrentPage = $(obj).data('page');
+
+		getActions();
 	}
 
 	/** UCD 사용내역 **/
@@ -441,16 +643,16 @@
 				}
 			},
 			columns: [
-				{title: "유형", 		data: "ucd_type",   width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "구분", 	data: "division",   width: "10%",    orderable: false,   className: "cursor-default" }
-				,{title: "금액", 	data: "amount",		width: "10%",    orderable: false,   className: "cursor-default",
+				{title: "유형", 		data: "ucd_type",   width: "10%",    className: "cursor-default" }
+				,{title: "구분", 	data: "division",   width: "10%",    className: "cursor-default" }
+				,{title: "금액", 	data: "amount",		width: "10%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.nullValue : numberWithCommas(data);
 					}
 				}
-				,{title: "제목", 	data: "title",   	width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "내용", 	data: "description",width: "30%",    orderable: false,   className: "cursor-default" }
-				,{title: "일시", 	data: "created",   	width: "15%",    orderable: false,   className: "cursor-default" }
+				,{title: "제목", 	data: "title",   	width: "15%",    className: "cursor-default" }
+				,{title: "내용", 	data: "description",width: "30%",    className: "cursor-default" }
+				,{title: "일시", 	data: "created",   	width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -478,7 +680,11 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
+
 		});
 	}
 
@@ -507,31 +713,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createUserUcd,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: ucdParams(),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					balance.html(numberWithCommas(data.data.total));
-					cash.html(numberWithCommas(data.data.cash));
-					point.html(numberWithCommas(data.data.point));
-				}
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createUserUcd;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		getUsageHistoryUcd();
-		modalFadeout();
+		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
 	}
 
 	function ucdParams()
@@ -547,6 +732,24 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function createReqCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			balance.html(numberWithCommas(data.data.total));
+			cash.html(numberWithCommas(data.data.cash));
+			point.html(numberWithCommas(data.data.point));
+		}
+
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		getUsageHistoryUcd();
+		modalFadeout();
 	}
 
 	function validation()

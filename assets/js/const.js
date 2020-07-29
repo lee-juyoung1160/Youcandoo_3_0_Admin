@@ -130,6 +130,8 @@
 		,listUserJoined : baseApiUrl+'user/get/doit/join'
 		,listDevice : baseApiUrl+'user/get/device'
 		,listUserUsageUcd : baseApiUrl+'user/get/ucd/history'
+		,listUserAction : baseApiUrl+'user/get/action'
+		,getUserDevice : baseApiUrl+'user/get/device'
 		/** 비즈 **/
 		,createBiz : baseApiUrl+'biz/create'
 		,detailBiz : baseApiUrl+'biz/detail'

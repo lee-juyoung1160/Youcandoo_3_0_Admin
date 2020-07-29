@@ -15,6 +15,7 @@
                 sweetError(_errorMsg);
             },
             complete: function (xhr, status) {
+                /** 동기 처리를 할 때 사용함 **/
                 if (_completeCallback)
                     _completeCallback();
             }
@@ -40,6 +41,7 @@
                 sweetError(_errorMsg);
             },
             complete: function (xhr, status) {
+                /** 동기 처리를 할 때 사용함 **/
                 if (_completeCallback)
                     _completeCallback();
             }

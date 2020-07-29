@@ -489,7 +489,7 @@
 
 	function params()
 	{
-		let sendTargetPageType = $("input[name=radio-target-page]:checked").val();
+		let sendTargetPageType = isEmpty(reqPage.val()) ? $("input[name=radio-target-page]:checked").val() : reqPage.val();
 		let sendTargetUserType = $("input[name=radio-target-user]:checked").val();
 		let profileIds = [];
 		let formData  = new FormData();

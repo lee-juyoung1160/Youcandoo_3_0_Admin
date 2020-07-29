@@ -71,7 +71,7 @@
 				}
 				,{title: "도착페이지", 		data: "category_target",  width: "15%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return isEmpty(data) ? '' : ('['+row.event_name+'] '+row.event_title);
+						return isEmpty(data) ? '-' : ('['+row.event_name+'] '+row.event_title);
 					}
 				}
 			],

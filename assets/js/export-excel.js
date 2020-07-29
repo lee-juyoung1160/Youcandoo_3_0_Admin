@@ -60,3 +60,21 @@
 		}
 		exportExcel();
 	}
+
+	function readExcelData(event)
+	{
+		let input = event.target;
+		let reader = new FileReader();
+
+		reader.onload = () => {
+
+			let fileData = reader.result;
+			let wb = XLSX.read(fileData, {type : 'binary'});
+
+			wb.SheetNames.forEach( (sheet, index) => {
+				let rowObj =XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+			})
+		};
+
+		reader.readAsBinaryString(input.files[0]);
+	}

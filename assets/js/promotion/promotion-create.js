@@ -191,26 +191,23 @@
 	let g_total_balance;
 	function getBizBalance(uuid)
 	{
-		$.ajax({
-			url: api.getBalance,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"company_uuid" : uuid}),
-			success: function(data) {
-				if (isSuccessResp(data))
-				{
-					let totalBalance = Number(data.data.cash) + Number(data.data.point);
-					g_total_balance = totalBalance;
-					balance.html('기업 보유 UCD: '+numberWithCommas(totalBalance)+'UCD');
-				}
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('기업 보유 UCD'+message.ajaxError);
-			}
-		});
+		let param   = JSON.stringify({"company_uuid" : uuid});
+		let url 	= api.getBalance;
+		let errMsg 	= '기업 보유 UCD'+message.ajaxError;
+
+		ajaxRequestWithJsonData(false, url, param, getBizBalanceCallback, errMsg, false);
+	}
+
+	function getBizBalanceCallback(data)
+	{
+		isSuccessResp(data) ? getBizBalanceSuccess(data) : sweetError(invalidResp(data));
+	}
+
+	function getBizBalanceSuccess(data)
+	{
+		let totalBalance = Number(data.data.cash) + Number(data.data.point);
+		g_total_balance = totalBalance;
+		balance.html('기업 보유 UCD: '+numberWithCommas(totalBalance)+'UCD');
 	}
 
 	function initModal()
@@ -996,21 +993,15 @@
 
 	function createRequest()
 	{
-	    $.ajax({
-		  	url: api.createPromotion,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
+	    let url = api.createPromotion;
+	    let errMsg = label.submit+message.ajaxError;
+
+	    ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()

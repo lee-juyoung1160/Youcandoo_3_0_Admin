@@ -25,7 +25,7 @@
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 프로모션 상세정보 **/
-		getPromotion();
+		getDetail();
 		/** 이벤트 **/
 		promoFrom		.on('change', function () { onChangePromoFrom(); });
 		btnNoticeAdd	.on('click', function () { onClickBtnNoticeAdd(); });
@@ -51,24 +51,18 @@
 		return diff;
 	}*/
 
-	function getPromotion()
+	function getDetail()
 	{
-		$.ajax({
-			url: api.detailPromotion,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"promotion_idx" : idx}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildPromoDetail(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-			}
-		});
+		let param   = JSON.stringify({"promotion_idx" : idx});
+		let url 	= api.detailPromotion;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(false, url, param, getDetailCallback, errMsg, false);
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildPromoDetail(data) : sweetError(invalidResp(data));
 	}
 
 	function isPromotionClosed(_status)
@@ -1147,21 +1141,15 @@
 
 	function updateRequest()
 	{
-		$.ajax({
-			url: api.updatePromotion,
-			type: "POST",
-			processData: false,
-			contentType: false,
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				sweetToastAndCallback(data, updateSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		let url 	= api.updatePromotion;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+	}
+
+	function updateReqCallback(data)
+	{
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()

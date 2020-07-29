@@ -137,6 +137,7 @@
 			ajax : {
 				url: api.listPushTargetUser,
 				type:"POST",
+				global: false,
 				headers: headers,
 				data: function (d) {
 					return tableParams();

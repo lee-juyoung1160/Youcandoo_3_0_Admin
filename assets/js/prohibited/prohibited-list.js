@@ -211,19 +211,15 @@
 
 	function deleteRequest()
 	{
-		$.ajax({
-			url: api.deleteProhibition,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: delParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, deleteSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			},
-		});
+		let url 	= api.deleteProhibition;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteSuccess);
 	}
 	
 	function deleteSuccess()

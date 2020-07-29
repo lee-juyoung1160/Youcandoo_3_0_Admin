@@ -423,9 +423,9 @@
 	function getActions()
 	{
 		let url 	 = api.listUserAction;
-		let errMsg 	 = label.list+message.ajaxLoadError;
+		let errMsg 	 = '인증정보 '+label.list+message.ajaxLoadError;
 
-		ajaxRequestWithJsonData(true, url, actionParams(), getActionsCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, actionParams(), getActionsCallback, errMsg, false);
 	}
 
 	function actionParams()

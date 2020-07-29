@@ -593,27 +593,25 @@
         form.submit();
     }
 
+    /** 사이드 메뉴 세팅 **/
     function getLeftMenuByAuthCode()
     {
-        $.ajax({
-            url: api.getMenuByAuth,
-            type: "POST",
-            headers : headers,
-            dataType: 'json',
-            data : JSON.stringify({"code" : sessionAuthCode.val()}),
-            success: function(data) {
-                if (isSuccessResp(data))
-                {
-                    buildMenuByAuthCode(data);
-                    activeMenu();
-                }
-                else
-                    sweetError(invalidResp(data));
-            },
-            error: function (request, status) {
-                sweetError('메뉴 '+label.list+message.ajaxLoadError);
-            }
-        });
+        let param   = JSON.stringify({"code" : sessionAuthCode.val()});
+        let url     = api.getMenuByAuth;
+        let errMsg  = '메뉴 '+label.list+message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, param, getLeftMenuByAuthCodeCallback, errMsg, false);
+    }
+
+    function getLeftMenuByAuthCodeCallback(data)
+    {
+        isSuccessResp(data) ? getLeftMenuByAuthCodeSuccess(data) : sweetError(invalidResp(data));
+    }
+
+    function getLeftMenuByAuthCodeSuccess(data)
+    {
+        buildMenuByAuthCode(data);
+        activeMenu();
     }
 
     /** 권한별 메뉴 리스트 **/

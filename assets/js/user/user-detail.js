@@ -457,6 +457,8 @@
 		let totalCount = data.recordsTotal
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
+		actionWrap.empty();
+
 		if (totalCount > 0)
 		{
 			actionPagination.show();

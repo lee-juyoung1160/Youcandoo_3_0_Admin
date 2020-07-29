@@ -485,7 +485,6 @@
 				actionImageDom += 'data-exurl="'+action.example_url+'" ';
 				actionImageDom += 'data-exdesc="'+action.example_description+'" ';
 				actionImageDom += 'data-title="'+action.doit_title+'" ';
-				actionImageDom += 'data-title="'+action.doit_title+'" ';
 				actionImageDom += 'data-nickname="'+action.user_name+'" ';
 				actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
 				actionImageDom += 'data-red="'+action.red_card+'" ';
@@ -730,7 +729,6 @@
 				warnDom += '<div class="card-wrap">';
 				warnDom += 	    '<img src="'+label.redCardImage+'" alt="레드카드">';
 				warnDom += 			'<span>'+redDesc+'</span>';
-				warnDom += 		'<button onclick="cancelWarn(this);" data-type="R" data-uuid="'+uuid+'" class="card-btn clear-red-btn">레드카드 취소</button>';
 				warnDom += '</div>';
 			}
 			if (yellow === 'Y')
@@ -738,7 +736,6 @@
 				warnDom += '<div class="card-wrap">';
 				warnDom += 	    '<img src="'+label.yellowCardImage+'" alt="옐로우카드">';
 				warnDom += 			'<span>'+yellowDesc+'</span>';
-				warnDom += 		'<button onclick="cancelWarn(this);" data-type="Y" data-uuid="'+uuid+'" class="card-btn clear-yellow-btn">옐로카드 취소</button>';
 				warnDom += '</div>';
 			}
 		}

@@ -28,14 +28,17 @@
 	const usageHisTable	= $("#usageHisTable");
 
 	/** modal **/
-	const modalUcd 		= $("#modalUcd");
-	const modalTokenInfo = $("#modalTokenInfo");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
+
+	const modalUcd 		= $("#modalUcd");
 	const amount		= $("#amount");
 	const content		= $("#content");
 	const btnSubmit		= $("#btnSubmit");
+
+	const modalTokenInfo = $("#modalTokenInfo");
+	const deviceToken 	= $("#deviceToken");
 
 	const g_profile_uuid 	= $("#profile_uuid").val();
 
@@ -94,24 +97,6 @@
 		amount.val('');
 		amount.trigger('focus');
 		content.val('');
-	}
-
-	function onClickTokenModalOpen()
-	{
-		tokenModalFadein();
-		initTokenModal();
-	}
-
-	function tokenModalFadein()
-	{
-		modalLayout.fadeIn();
-		modalTokenInfo.fadeIn();
-		overflowHidden();
-	}
-
-	function initTokenModal()
-	{
-
 	}
 
 	function onClickTabOpened(obj)
@@ -185,33 +170,67 @@
 	/** 기기정보 **/
 	function getDeviceInfo()
 	{
-		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
-		let url 	= api.getUserDevice;
-		let errMsg 	= '기기정보 '+label.detailContent+message.ajaxError;
-
-		ajaxRequestWithJsonData(false, url, param, getDeviceInfoCallback, errMsg, false);
-	}
-
-	function getDeviceInfoCallback(data)
-	{
-		isSuccessResp(data) ? buildDeviceInfo(data) : sweetError(invalidResp(data));
-	}
-
-	function buildDeviceInfo(data)
-	{
-		console.log(data)
-		let deviceData = data;
-		let tdDom = '';
-		tdDom += '<td>IOS</td>';
-		tdDom += '<td>IOS</td>';
-		tdDom += '<td><a onclick="onClickTokenModalOpen(this);" class="os-token">sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd</a></td>';
-		tdDom += '<td>IOS</td>';
-		deviceTable.append(tdDom);
+		deviceTable.DataTable({
+			ajax : {
+				url: api.listUserDevice,
+				type:"POST",
+				headers: headers,
+				data: function (d) {
+					return JSON.stringify({"profile_uuid" : g_profile_uuid});
+				},
+				error: function (request, status) {
+					sweetError('기기정보 '+label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "기기구분", 		data: "device_type",   	width: "10%",    className: "cursor-default" }
+				,{title: "단말기ID", 	data: "client_id",   	width: "25%",    className: "cursor-default" }
+				,{title: "푸시토큰", 	data: "device_token",   width: "55%",    className: "cursor-default",
+					render: function (data) {
+						return '<a onclick="onClickTokenModalOpen(this);" data-token="'+data+'" class="os-token">'+data+'</a>';
+					}
+				}
+				,{title: "등록일시", 	data: "datetime",   	width: "15%",    className: "cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: false,
+			pageLength: 10,
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
 	}
 
 	function onClickTokenModalOpen(obj)
 	{
-
+		modalLayout.fadeIn();
+		modalTokenInfo.fadeIn();
+		deviceToken.html($(obj).data('token'));
+		overflowHidden();
 	}
 
 	/** 두잇 개설정보 **/
@@ -481,13 +500,8 @@
 				if (i===0 || i%5 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
-				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
 				actionDom += '<li>';
 				actionDom += 	'<div class="top clearfix">';
-				actionDom += 		'<div class="checkbox-wrap">';
-				actionDom += 			'<input type="checkbox" class="'+className+'" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'" '+disableChkBox+'/>';
-				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
-				actionDom += 		'</div>';
 				actionDom += 		'<span class="success-text">'+successYn+'</span>';
 				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
 				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';

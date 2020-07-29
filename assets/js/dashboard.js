@@ -83,24 +83,15 @@
 
     /** 로드 바로 실행 **/
     document.addEventListener("DOMContentLoaded", function () {
-        getCertMonthYearData();
-        getYearData();
-        GetDoitStatus();
-        GetUserStatus();
-        GetUcd();
+        getDailyActions();
+        getMonthlyDoit();
+        getDoitStatus();
+        getUserStatus();
+        getUcdStatus();
         /** 월단위 셀렉박스 이벤트 **/
-        yearSelectBox.addEventListener('change', function () {
-            getYearData();
-            monthlyChart.destroy();
-        });
-        certMonthSelectBox.addEventListener('change', function () {
-            getCertMonthYearData();
-            certLineChart.destroy();
-        });
-        certYearSelectBox.addEventListener('change', function () {
-            getCertMonthYearData();
-            certLineChart.destroy();
-        });
+        yearSelectBox       .addEventListener('change', function () { getMonthlyDoit(); });
+        certMonthSelectBox  .addEventListener('change', function () { getDailyActions(); });
+        certYearSelectBox   .addEventListener('change', function () { getDailyActions(); });
     });
 
     /** 넘버 total 카운팅 **/
@@ -124,51 +115,49 @@
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/
-    function GetDoitStatus() {
-        $.ajax({
-            url: api.getDoitStat,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            error: function () {
-                sweetError('두잇 상태 도넛 차트 데이터'+ message.ajaxLoadError);
-            },
-            success: function (getDoughnutData) {
-                if (isSuccessResp(getDoughnutData))
-                {
-                    let respData    = getDoughnutData.data;
-                    let endData     = respData.end;
-                    let ingData     = respData.ing;
-                    let preData     = respData.pre;
-                    let cancelData  = respData.cancle;
+    function getDoitStatus() {
 
-                    buildDoitDoughnutChart(endDoughnut, labels.doitType, endData.user_cnt, endData.company_cnt);
-                    buildDoitDoughnutChart(todayDoughnut, labels.doitType, ingData.user_cnt, ingData.company_cnt);
-                    buildDoitDoughnutChart(tomorrowDoughnut, labels.doitType, preData.user_cnt, preData.company_cnt);
-                    buildDoitDoughnutChart(cancelDoughnut, labels.cancelType, cancelData.cancle, cancelData.delete);
+        let url     = api.getDoitStat;
+        let errMsg  = '두잇 상태 데이터'+ message.ajaxLoadError;
 
-                    endUserEl.textContent    = numberWithCommas(endData.user_cnt);
-                    endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
-                    endTotalEl.textContent   = endData.total_cnt;
+        ajaxRequestWithJsonData(false, url, null, getDoitStatusCallback, errMsg, false);
+    }
 
-                    ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
-                    ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
-                    ingTotalEl.textContent   = ingData.total_cnt;
+    function getDoitStatusCallback(data)
+    {
+        isSuccessResp(data) ? getDoitStatusSuccess(data) : sweetToast(invalidResp(data));
+    }
 
-                    preUserEl.textContent    = numberWithCommas(preData.user_cnt);
-                    preCompanyEl.textContent = numberWithCommas(preData.company_cnt);
-                    preTotalEl.textContent   = preData.total_cnt;
+    function getDoitStatusSuccess(data)
+    {
+        let respData    = data.data;
+        let endData     = respData.end;
+        let ingData     = respData.ing;
+        let preData     = respData.pre;
+        let cancelData  = respData.cancle;
 
-                    cancelEl.textContent     = numberWithCommas(cancelData.cancle);
-                    deleteEl.textContent     = numberWithCommas(cancelData.delete);
-                    cancelTotalEl.textContent = cancelData.total;
+        buildDoitDoughnutChart(endDoughnut, labels.doitType, endData.user_cnt, endData.company_cnt);
+        buildDoitDoughnutChart(todayDoughnut, labels.doitType, ingData.user_cnt, ingData.company_cnt);
+        buildDoitDoughnutChart(tomorrowDoughnut, labels.doitType, preData.user_cnt, preData.company_cnt);
+        buildDoitDoughnutChart(cancelDoughnut, labels.cancelType, cancelData.cancle, cancelData.delete);
 
-                    counter("doit");
-                }
-                else
-                    sweetToast(invalidResp(getDoughnutData));
-            }
-        });
+        endUserEl.textContent    = numberWithCommas(endData.user_cnt);
+        endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
+        endTotalEl.textContent   = endData.total_cnt;
+
+        ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
+        ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
+        ingTotalEl.textContent   = ingData.total_cnt;
+
+        preUserEl.textContent    = numberWithCommas(preData.user_cnt);
+        preCompanyEl.textContent = numberWithCommas(preData.company_cnt);
+        preTotalEl.textContent   = preData.total_cnt;
+
+        cancelEl.textContent     = numberWithCommas(cancelData.cancle);
+        deleteEl.textContent     = numberWithCommas(cancelData.delete);
+        cancelTotalEl.textContent = cancelData.total;
+
+        counter("doit");
     }
 
     function buildDoitDoughnutChart(target, label, data1, data2)
@@ -189,172 +178,161 @@
     }
 
     /** 가입자 현황 데이터 **/
-    function GetUserStatus() {
-        $.ajax({
-            url: api.getUserStat,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            error: function (d) {
-                sweetError('가입자 현황'+ message.ajaxLoadError);
-            },
-            success: function (userStatus) {
-                if (isSuccessResp(userStatus))
-                {
-                    let newUser   = document.getElementById('new-user');
-                    let joinUser  = document.getElementById('join-user');
-                    let leaveUser = document.getElementById('leave-user');
-                    let totalUser = document.getElementById('total-user');
+    function getUserStatus() {
 
-                    newUser.textContent   = numberWithCommas(userStatus.data.new_user);
-                    joinUser.textContent  = numberWithCommas(userStatus.data.join_user);
-                    leaveUser.textContent = numberWithCommas(userStatus.data.leave_user);
-                    totalUser.textContent = userStatus.data.total_user;
+        let url     = api.getUserStat;
+        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
 
-                    counter("user");
-                }
-                else
-                    sweetToast(invalidResp(userStatus));
-            }
-        });
+        ajaxRequestWithJsonData(false, url, null, getUserStatusCallback, errMsg, false);
+    }
+
+    function getUserStatusCallback(data)
+    {
+        isSuccessResp(data) ? getUserStatusSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    function getUserStatusSuccess(data)
+    {
+        let newUser   = document.getElementById('new-user');
+        let joinUser  = document.getElementById('join-user');
+        let leaveUser = document.getElementById('leave-user');
+        let totalUser = document.getElementById('total-user');
+
+        newUser.textContent   = numberWithCommas(data.data.new_user);
+        joinUser.textContent  = numberWithCommas(data.data.join_user);
+        leaveUser.textContent = numberWithCommas(data.data.leave_user);
+        totalUser.textContent = data.data.total_user;
+
+        counter("user");
     }
 
     /** UCD 관련 차트 데이터 **/
-    function GetUcd() {
-        $.ajax({
-            url: api.getUcdStat,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            error: function (d) {
-                sweetError('UCD 정보'+ message.ajaxLoadError);
-            },
-            success: function (ucdData) {
-                if (isSuccessResp(ucdData))
-                {
-                    let ucdUser      = document.getElementById('ucd-user');
-                    let ucdDoit      = document.getElementById('ucd-doit');
-                    let ucdCompany   = document.getElementById('ucd-company');
-                    let ucdPromotion = document.getElementById('ucd-promotion');
+    function getUcdStatus() {
 
-                    ucdUser.textContent      = ucdData.data.user;
-                    ucdDoit.textContent      = ucdData.data.doit;
-                    ucdCompany.textContent   = ucdData.data.company;
-                    ucdPromotion.textContent = ucdData.data.promotion;
+        let url     = api.getUcdStat;
+        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
 
-                    counter("ucd");
-                }
-                else
-                    sweetToast(invalidResp(ucdData));
-            }
-        });
+        ajaxRequestWithJsonData(false, url, null, getUcdCallback, errMsg, false);
+    }
+
+    function getUcdCallback(data)
+    {
+        isSuccessResp(data) ? getUcdSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    function getUcdSuccess(data)
+    {
+        let ucdUser      = document.getElementById('ucd-user');
+        let ucdDoit      = document.getElementById('ucd-doit');
+        let ucdCompany   = document.getElementById('ucd-company');
+        let ucdPromotion = document.getElementById('ucd-promotion');
+
+        ucdUser.textContent      = data.data.user;
+        ucdDoit.textContent      = data.data.doit;
+        ucdCompany.textContent   = data.data.company;
+        ucdPromotion.textContent = data.data.promotion;
+
+        counter("ucd");
     }
 
     /** 월단위로 등록된 두잇 **/
-    let monthlyChart;
-    function getYearData() {
-        $.ajax({
-            url: api.getMonthlyDoit,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            data: JSON.stringify({'year': yearSelectBox.value}),
-            error: function () {
-                sweetError('월 단위 두잇 데이터'+ message.ajaxLoadError);
+    function getMonthlyDoit() {
+
+        let param   = JSON.stringify({'year' : yearSelectBox.value});
+        let url     = api.getMonthlyDoit;
+        let errMsg  = '월 단위 두잇 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, param, getMonthlyDoitCallback, errMsg, false);
+    }
+
+    function getMonthlyDoitCallback(data)
+    {
+        isSuccessResp(data) ? getMonthlyDoitSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    function getMonthlyDoitSuccess(data)
+    {
+        new Chart(monthlyMixedChart, {
+            type: 'bar',
+            data: {
+                datasets: [
+                    {
+                        label: '일반',
+                        data: data.data.user,
+                        backgroundColor: color.backgroundColorDoughnut[0],
+                    },
+                    {
+                        label: '프로모션',
+                        data: data.data.company,
+                        backgroundColor: color.backgroundColorDoughnut[1],
+                    },
+                    {
+                        label: 'Total',
+                        data: data.data.total,
+                        type: 'line',
+                        borderColor: color.colorLine[0],
+                        borderWidth : 2.2,
+                        pointBackgroundColor: color.white,
+                        backgroundColor: color.colorLine[1]
+                    }
+                ],
+                labels: labels.monthNames
             },
-            success: function (monthData) {
-                if (isSuccessResp(monthData))
-                {
-                    monthlyChart = new Chart(monthlyMixedChart, {
-                        type: 'bar',
-                        data: {
-                            datasets: [
-                                {
-                                    label: '일반',
-                                    data: monthData.data.user,
-                                    backgroundColor: color.backgroundColorDoughnut[0],
-                                },
-                                {
-                                    label: '프로모션',
-                                    data: monthData.data.company,
-                                    backgroundColor: color.backgroundColorDoughnut[1],
-                                },
-                                {
-                                    label: 'Total',
-                                    data: monthData.data.total,
-                                    type: 'line',
-                                    borderColor: color.colorLine[0],
-                                    borderWidth : 2.2,
-                                    pointBackgroundColor: color.white,
-                                    backgroundColor: color.colorLine[1]
-                                }
-                            ],
-                            labels: labels.monthNames
-                        },
-                        options: {
-                            legend: {
-                                align: 'start',
-                                position: 'top',
-                                responsive: 'false',
-                                maintainAspectRatio: 'false',
-                            },
-                            scales: {
-                                yAxes: [{ticks: {beginAtZero: true}}]
-                            }
-                        }
-                    });
+            options: {
+                responsive: 'false',
+                maintainAspectRatio: 'false',
+                legend: {
+                    align: 'end',
+                    position: 'top'
+                },
+                scales: {
+                    yAxes: [{ticks: {beginAtZero: true}}]
                 }
-                else
-                    sweetToast(invalidResp(monthData));
             }
         });
     }
 
     /** 일 단위 인증 수 **/
-    let certLineChart;
-    function getCertMonthYearData() {
+    function getDailyActions() {
+
         let param = {
             'month': certMonthSelectBox.value,
             'year' : certYearSelectBox.value
         }
 
-        $.ajax({
-            url: api.getDailyAction,
-            headers: headers,
-            dataType: 'JSON',
-            type: 'POST',
-            data: JSON.stringify(param),
-            error: function () {
-                sweetError('일 단위 인증 데이터'+ message.ajaxLoadError);
+        let url     = api.getDailyAction;
+        let errMsg  = '일 단위 인증 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDailyActionsCallback, errMsg, false);
+    }
+
+    function getDailyActionsCallback(data)
+    {
+        isSuccessResp(data) ? getDailyActionsSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    function getDailyActionsSuccess(data)
+    {
+        new Chart(certMonthChart, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: data.data.result,
+                    lineTension: 0,
+                    borderColor: color.colorLine[0],
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.colorLine[1],
+                }],
+                labels: data.data.day
             },
-            success: function (certMonthData) {
-                if (isSuccessResp(certMonthData))
-                {
-                    certLineChart = new Chart(certMonthChart, {
-                        type: 'line',
-                        data: {
-                            datasets: [{
-                                data: certMonthData.data.result,
-                                lineTension: 0,
-                                borderColor: color.colorLine[0],
-                                borderWidth : 2.2,
-                                pointBackgroundColor: color.white,
-                                backgroundColor: color.colorLine[1],
-                            }],
-                            labels: certMonthData.data.day
-                        },
-                        options: {
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                yAxes: [{ticks: {beginAtZero: true}}]
-                            }
-                        }
-                    });
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{ticks: {beginAtZero: true}}]
                 }
-                else
-                    sweetToast(invalidResp(certMonthData));
             }
         });
     }

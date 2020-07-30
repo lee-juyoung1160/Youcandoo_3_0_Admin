@@ -15,96 +15,76 @@
 
                 <!-- 기본정보 -->
                 <div class="user-info-01">
-                    <p class="enrollment-title" style="margin-top: 0;">기본 정보</p>
-                    <ul class="enrollment clearfix">
-                        <li>
-                            <div class="col-wrap clearfix">
-                                <div class="col-1">
-                                    <p class="sub-title important">프로필 ID</p>
+                    <p class="enrollment-title" style="margin-top: 0;">회원 정보</p>
+                    <div class="enrollment clearfix">
+                        <ul class="enrollment-col  clearfix">
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">프로필 ID</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p id="profileId" class="detail-data"></p>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <p id="profileId" class="detail-data"></p>
+                            </li>
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">닉네임</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p id="nickname" class="detail-data"></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="col-wrap clearfix">
-                                <div class="col-1">
-                                    <p class="sub-title important">닉네임</p>
+                            </li>
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">보유 UCD</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p class="ucd-data" style="margin-bottom: 10px;">
+                                            <span id="balance"></span>UCD
+                                            (ⓒ<span id="cash"></span> / ⓟ<span id="point"></span>)
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <p id="nickname" class="detail-data"></p>
+                            </li>
+                        </ul>
+                        <ul class="enrollment-col clearfix">
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">연락처</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p id="contact" class="detail-data"></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="col-wrap clearfix">
-                                <div class="col-1">
-                                    <p class="sub-title important">보유 UCD</p>
+                            </li>
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">이메일</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p id="email" class="detail-data"></p>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <p class="ucd-data" style="margin-bottom: 10px;">
-                                        <span id="balance"></span>UCD
-                                    </p>
-                                    <dl class="ucd-data clearfix">
-                                        <dt>- UCD(c) :</dt>
-                                        <dd><span id="cash"></span>UCD</dd>
-                                    </dl>
-                                    <dl class="ucd-data clearfix">
-                                        <dt>- UCD(p) :</dt>
-                                        <dd><span id="point"></span>UCD</dd>
-                                    </dl>
+                            </li>
+                            <li>
+                                <div class="col-wrap clearfix">
+                                    <div class="col-1">
+                                        <p class="sub-title important">인증여부</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p id="isAuth" class="detail-data"></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 회원정보 -->
-                <div class="user-info-02">
-                    <p class="enrollment-title">회원 정보</p>
-                    <ul class="enrollment clearfix">
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">사용 서비스</p>
-                            </div>
-                            <div class="col-2">
-                                <p id="joinService" class="detail-data"></p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">연락처</p>
-                            </div>
-                            <div class="col-2">
-                                <p id="contact" class="detail-data"></p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">이메일</p>
-                            </div>
-                            <div class="col-2">
-                                <p id="email" class="detail-data"></p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">인증여부</p>
-                            </div>
-                            <div class="col-2">
-                                <p id="isAuth" class="detail-data"></p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                            </li>
+                            </ul>
+                    </div>
                 </div>
 
                 <!-- 기기정보 -->
@@ -525,8 +505,7 @@
             </div>
 
             <ol class="enrollment move-tab">
-                <li data-moveto="user-info-01">기본 정보</li>
-                <li data-moveto="user-info-02">회원 정보</li>
+                <li data-moveto="user-info-01">회원 정보</li>
                 <li data-moveto="os-info">기기 정보</li>
                 <li data-moveto="doit-info">두잇 정보</li>
                 <li data-moveto="action-info">인증 정보</li>

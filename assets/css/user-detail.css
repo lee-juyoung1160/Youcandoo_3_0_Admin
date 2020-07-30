@@ -22,6 +22,24 @@
     width: 1280px;
 }
 
+.enrollment-col {
+    float: left;
+    width: 50%;
+}
+.enrollment-col > li:first-child {
+    padding-top: 0;
+}
+.enrollment-col > li {
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+.enrollment-col > li:last-child {
+    border-bottom: none;
+}
+
+
+
+
 .enrollment-title {
     margin:50px 0 15px;
     color: #484848;
@@ -29,7 +47,7 @@
     font-weight: 600;
 }
 .enrollment li .col-wrap .col-2 {
-    width: 680px;
+    width: 80%;
 }
 .star-wrap {
     margin: 0 auto;
@@ -42,27 +60,12 @@ button.btn-open-modal {
 
 .ucd-data {
     overflow-wrap: break-word;
-    color: #949494;
+    color: #333;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.7;
 }
-.ucd-data dt,
-.ucd-data dd {
-    float:left;
-    margin-left: 5px;
-}
-.ucd-data dt {
-    width: 100px;
-    color: #404040;
-}
-.ucd-data dd {
-    min-width: 150px;
-    text-align: right;
-    color: #949494;
-}
 .ucd-data span {
-    color: #404040;
     margin-right: 5px;
 }
 

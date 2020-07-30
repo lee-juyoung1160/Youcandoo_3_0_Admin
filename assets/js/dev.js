@@ -2,8 +2,10 @@
 
 	$( () => {
 		let btnProStart = $("#btnProStart");
-		const accesses = ['dev', 'smg'];
+		/*const accesses = ['dev', 'smg'];
 		if (accesses.indexOf(sessionAuthCode.val()) === -1)
+		{*/
+		if (sessionAuthCode.val() !== 'smg')
 		{
 			try {
 				btnProStart.remove();

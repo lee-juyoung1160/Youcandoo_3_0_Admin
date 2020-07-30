@@ -64,7 +64,6 @@
     const labels = {
         doitType : ['일반', '프로모션']
         ,cancelType : ['모집실패', '개설취소']
-        ,monthNames : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
     }
     const color = {
         white : 'rgba(255,255,255,1)'
@@ -305,7 +304,7 @@
             }
         ];
 
-        initChart(monthlyMixedChart, chartType.bar, labels.monthNames, dataset, options.barOptions);
+        initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
 
     /** 일 단위 인증 수 **/

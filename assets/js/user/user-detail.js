@@ -7,7 +7,6 @@
 	const cash			= $("#cash")
 	const point			= $("#point")
 	/** 회원정보 **/
-	const joinService	= $("#joinService");
 	const contact		= $("#contact");
 	const email			= $("#email");
 	const isAuth		= $("#isAuth");
@@ -168,7 +167,6 @@
 	{
 		let detail = data.data;
 
-		joinService	.html(detail.service.toString());
 		contact		.html(detail.phone);
 		email		.html(detail.email);
 		isAuth		.html(detail.is_auth);

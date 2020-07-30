@@ -75,14 +75,14 @@
 				}
 			},
 			columns: [
-				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
+				{title: "배너이미지",		data: "list_image_url",		width: "25%",
 					render: function (data) {
 						return '<img class="pro-banner" src="'+data+'" alt="">';
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false }
-				,{title: "", 			data: "promotion_uuid",    	width: "5%",     orderable: false,   className: "cursor-default",
+				,{title: "기업", 		data: "nickname",    		width: "15%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "20%" }
+				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return '<i onclick="removeRow(this)" data-uuid="'+data+'" class="far fa-times-circle"></i>';
 					}
@@ -177,24 +177,21 @@
 
 	function createRequest()
 	{
-		let rows = getBannerRows();
-		let ids = [];
+		let rows 	= getBannerRows();
+		let ids 	= [];
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)
 
-		$.ajax({
-			url: api.updateBanner,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({ "promotion_list" : ids }),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		let param   = JSON.stringify({ "promotion_list" : ids });
+		let url 	= api.updateBanner;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, param, createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()

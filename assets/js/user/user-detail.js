@@ -21,7 +21,6 @@
 	const joinedWrap	= $("#joinedWrap");
 	const joinedTable	= $("#joinedTable");
 	/** 인증정보 **/
-	const userAction   	= $("#userAction");
 	const actionWrap   	= $("#actionWrap");
 	const actionPagination	= $(".action_paginate");
 	/** UCD 사용내역 **/
@@ -31,12 +30,20 @@
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-
+	/** 인증상세 모달 **/
+	const modalActionDetail	= $("#modalActionDetail");
+	const modalActionDom	= $("#modalActionDom");
+	const modalExample		= $("#modalExample");
+	const modalExampleDesc	= $("#modalExampleDesc");
+	const modalDoitTitle	= $("#modalDoitTitle");
+	const modalNickname		= $("#modalNickname");
+	const modalWarnWrap		= $("#modalWarnWrap");
+	/** ucd 적립 모달 **/
 	const modalUcd 		= $("#modalUcd");
 	const amount		= $("#amount");
 	const content		= $("#content");
 	const btnSubmit		= $("#btnSubmit");
-
+	/** 푸시토큰 모달 **/
 	const modalTokenInfo = $("#modalTokenInfo");
 	const deviceToken 	= $("#deviceToken");
 
@@ -416,9 +423,9 @@
 	function getActions()
 	{
 		let url 	 = api.listUserAction;
-		let errMsg 	 = label.list+message.ajaxLoadError;
+		let errMsg 	 = '인증정보 '+label.list+message.ajaxLoadError;
 
-		ajaxRequestWithJsonData(true, url, actionParams(), getActionsCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, actionParams(), getActionsCallback, errMsg, false);
 	}
 
 	function actionParams()
@@ -450,6 +457,8 @@
 		let totalCount = data.recordsTotal
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
+		actionWrap.empty();
+
 		if (totalCount > 0)
 		{
 			actionPagination.show();
@@ -477,7 +486,6 @@
 				actionImageDom += 'data-cover="'+action.image_url+'" ';
 				actionImageDom += 'data-exurl="'+action.example_url+'" ';
 				actionImageDom += 'data-exdesc="'+action.example_description+'" ';
-				actionImageDom += 'data-title="'+action.doit_title+'" ';
 				actionImageDom += 'data-title="'+action.doit_title+'" ';
 				actionImageDom += 'data-nickname="'+action.user_name+'" ';
 				actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
@@ -638,6 +646,108 @@
 		actionCurrentPage = $(obj).data('page');
 
 		getActions();
+	}
+
+	function onClinkActionImage(obj)
+	{
+		modalDetailFadein();
+		buildDetailModal(obj);
+	}
+
+	function modalDetailFadein()
+	{
+		modalActionDetail.fadeIn();
+		modalLayout.fadeIn();
+		overflowHidden();
+	}
+
+	function buildDetailModal(obj)
+	{
+		let uuid 		= $(obj).data('uuid');
+		let type 		= $(obj).data('type');
+		let actionUrl 	= $(obj).data('url');
+		let coverUrl 	= $(obj).data('cover');
+		let title 		= $(obj).data('title');
+		let nickname 	= $(obj).data('nickname');
+		let red 		= $(obj).data('red');
+		let redDesc		= $(obj).data('rdesc');
+		let yellow 		= $(obj).data('yellow');
+		let yellowDesc	= $(obj).data('ydesc');
+		let exampleUrl 	= $(obj).data('exurl');
+		let exampleDesc	= $(obj).data('exdesc');
+		let actionDom 	= '';
+		let exampleDom 	= '';
+		let className 	= '';
+		if (type === 'image')
+		{
+			className = 'img-contents';
+
+			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
+
+			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
+		}
+		else if (type === 'video')
+		{
+			className = 'video-contents';
+
+			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
+			actionDom += 	'</video>';
+
+			exampleDom += 	'<video controls>';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo()">';
+			exampleDom += 	'</video>';
+		}
+		else if (type === 'voice')
+		{
+			className = 'audio-contents';
+
+			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
+			actionDom += 	'<audio controls>';
+			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
+			actionDom += 	'</audio>';
+
+			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
+			exampleDom += 	'<audio controls>';
+			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
+			exampleDom += 	'</audio>';
+		}
+
+		/** 인증게시물 **/
+		modalActionDom.attr('class', className);
+		modalActionDom.html(actionDom);
+
+		/** 두잇명 **/
+		modalDoitTitle.html(title);
+		/** 작성자 **/
+		modalNickname.html(nickname);
+
+		/** 경고장 영역 **/
+		let warnDom = '';
+		if (red === 'Y' || yellow === 'Y')
+		{
+			if (red === 'Y')
+			{
+				warnDom += '<div class="card-wrap">';
+				warnDom += 	    '<img src="'+label.redCardImage+'" alt="레드카드">';
+				warnDom += 			'<span>'+redDesc+'</span>';
+				warnDom += '</div>';
+			}
+			if (yellow === 'Y')
+			{
+				warnDom += '<div class="card-wrap">';
+				warnDom += 	    '<img src="'+label.yellowCardImage+'" alt="옐로우카드">';
+				warnDom += 			'<span>'+yellowDesc+'</span>';
+				warnDom += '</div>';
+			}
+		}
+		else	warnDom += '<p class="data-contents">발송 된 경고장이 없습니다.</p>';
+		modalWarnWrap.html(warnDom);
+
+		/** 인증예시 **/
+		modalExample.attr('class', className);
+		modalExample.html(exampleDom);
+		modalExampleDesc.html(exampleDesc);
 	}
 
 	/** UCD 사용내역 **/

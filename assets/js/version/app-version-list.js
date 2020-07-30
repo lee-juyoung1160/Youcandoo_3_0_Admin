@@ -1,6 +1,4 @@
 
-	/*const search 		= $(".search");
-	const reset 		= $(".reset");*/
 	const marketSearch	= $("input[name=radio-market-search]");
 	const dataTable		= $("#dataTable")
 	const selPageLength = $("#selPageLength");
@@ -26,8 +24,6 @@
 		/** 이벤트 **/
 		digit     		.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		decimal     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		/*search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initSearchForm(); });*/
 		marketSearch	.on("click", function () { onSubmitSearch(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnOpenModal	.on('click', function () { onClickModalOpen(); });
@@ -119,7 +115,7 @@
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
 				dataTable.on( 'page.dt', function () {
 					$("#checkAll").prop('checked', false);
@@ -170,25 +166,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createAppVersion,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: addParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			},
-		});
-	}
+		let url 	= api.createAppVersion;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		modalFadeout();
-		buildGrid();
+		ajaxRequestWithJsonData(true, url, addParams(), createReqCallback, errMsg, false);
 	}
 
 	function addParams()
@@ -200,6 +181,17 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		modalFadeout();
+		buildGrid();
 	}
 
 	function validation()
@@ -230,19 +222,27 @@
 
 	function deleteRequest()
 	{
-		$.ajax({
-			url: api.deleteAppVersion,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: delParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, deleteSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.delete+message.ajaxError);
-			},
-		});
+		let url 	= api.deleteAppVersion;
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
+	}
+
+	function delParams()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		let delParam = {
+			"idx" : selectedData.idx
+		};
+
+		return JSON.stringify(delParam)
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteSuccess);
 	}
 
 	function deleteSuccess()
@@ -262,16 +262,4 @@
 		}
 
 		return true;
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let delParam = {
-			"idx" : selectedData.idx
-		};
-
-		return JSON.stringify(delParam)
 	}

@@ -356,24 +356,10 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createUserUcd,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: ucdParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			}
-		});
-	}
+		let url 	= api.createUserUcd;
+		let errMsg 	= label.submit+message.ajaxError;
 
-	function createSuccess()
-	{
-		location.href = page.listUcdWithdraw;
+		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
 	}
 
 	function ucdParams()
@@ -392,6 +378,16 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
+	}
+
+	function createSuccess()
+	{
+		location.href = page.listUcdWithdraw;
 	}
 
 	function validation()

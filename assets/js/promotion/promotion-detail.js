@@ -35,7 +35,7 @@
 
 	$( () => {
 		/** 프로모션 상세정보 **/
-		getPromotion();
+		getDetail();
 		/** 이벤트 **/
 		tabPromo	.on("click", function () { onClickPromoTab(this); });
 		tabDoit		.on("click", function () { onClickDoitTab(this); });
@@ -54,7 +54,7 @@
 		ucdInfo.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
-		getPromotion();
+		getDetail();
 	}
 
 	/** 개설두잇탭 **/
@@ -79,28 +79,18 @@
 		getUcdLog();
 	}
 
-	function getPromotion()
+	function getDetail()
 	{
-		$.ajax({
-			url: api.detailPromotion,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: JSON.stringify({"promotion_idx" : idx}),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildPromoDetail(data);
-				else
-				{
-					sweetError(invalidResp(data));
-					location.href = page.listPromo
-				}
-			},
-			error: function (request, status) {
-				sweetError(label.detailContent+message.ajaxLoadError);
-				location.href = page.listPromo
-			},
-		});
+		let param 	= JSON.stringify({"promotion_idx" : idx});
+		let url	 	= api.detailPromotion;
+		let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+		ajaxRequestWithJsonData(true, url, param, getDetailCallback, errMsg, false);
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildPromoDetail(data) : sweetError(invalidResp(data));
 	}
 
 	let g_promotion_uuid;
@@ -257,9 +247,9 @@
 				}
 			},
 			columns: [
-				{title: "두잇 명", 	data: "doit_title",    			width: "35%",    orderable: false,   className: "cursor-default" }
-				,{title: "참여인원/모집인원", 	data: "max_user",    	width: "15%",    orderable: false,   className: "cursor-default" }
-				,{title: "인증기간", data: "action_start_datetime",   width: "20%",    orderable: false,   className: "cursor-default" }
+				{title: "두잇명", 			data: "doit_title",    			width: "35%",    className: "cursor-default" }
+				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "15%",    className: "cursor-default" }
+				,{title: "인증기간", 		data: "action_start_datetime",  width: "20%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -338,15 +328,15 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
-                ,{title: "금액", data: "amount",   		width: "10%",     orderable: false,   className: "cursor-default",
+				{title: "구분", data: "division",   		width: "10%",     className: "cursor-default" }
+                ,{title: "금액", data: "amount",   		width: "10%",     className: "cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
-                ,{title: "내용", data: "description",   	width: "25%",     orderable: false,   className: "cursor-default" }
-                ,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
+                ,{title: "제목", data: "title",  		width: "15%",     className: "cursor-default" }
+                ,{title: "내용", data: "description",   	width: "25%",     className: "cursor-default" }
+                ,{title: "일시", data: "created",   		width: "15%",     className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

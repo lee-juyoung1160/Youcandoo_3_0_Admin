@@ -9,6 +9,7 @@
 	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
+	const radioDoitType	= $("input[name=radio-doit-type]");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {
@@ -38,6 +39,7 @@
 		keyword.val('');
 		doitStatus.prop('checked', false);
 		doitStatus.eq(3).prop('checked', true);
+		radioDoitType.eq(0).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initDayBtn();

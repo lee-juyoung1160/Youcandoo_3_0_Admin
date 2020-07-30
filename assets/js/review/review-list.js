@@ -20,7 +20,6 @@
     const starWrap 	    = $("#starWrap");
     const reviewTextEl 	= $("#review_text");
     const doitTitleEl 	= $("#doit_title");
-    const ratingEl 	    = $("#rating");
     const reportCountEl	= $("#report_count");
     const nicknameEl    = $("#nickname");
     const createdEl	    = $("#created");
@@ -192,7 +191,6 @@
     function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
         reviewTextEl.html(review_text);
         doitTitleEl.html(doit_title);
-        /*ratingEl.html(rating);*/
         reportCountEl.html(report_count);
         nicknameEl.html(nickname);
         createdEl.html(created);
@@ -231,39 +229,10 @@
 
     function blindRequest()
     {
-        $.ajax({
-            url: api.updateBlind,
-            type: "POST",
-            headers: headers,
-            dataType: 'json',
-            data: blindParams(),
-            success: function(data) {
-                sweetToastAndCallback(data, blindSuccess);
-            },
-            error: function (request, status) {
-                sweetError(label.modify+message.ajaxError);
-            }
-        });
-    }
+        let url     = api.updateBlind;
+        let errMsg  = label.modify+message.ajaxError;
 
-    function blindSuccess()
-    {
-        tableReloadAndStayCurrentPage($(reviewTable));
-        /*getReviewListData();*/
-    }
-
-    function blindValidation()
-    {
-        let table 		 = $(reviewTable).DataTable();
-        let selectedData = table.rows('.selected').data();
-
-        if (isEmpty(selectedData))
-        {
-            sweetToast('대상을 목록에서 '+message.select);
-            return false;
-        }
-
-        return true;
+        ajaxRequestWithJsonData(true, url, blindParams(), blindReqCallback, errMsg, false);
     }
 
     function blindParams()
@@ -280,6 +249,30 @@
         };
 
         return JSON.stringify(param)
+    }
+
+    function blindReqCallback(data)
+    {
+        sweetToastAndCallback(data, blindSuccess);
+    }
+
+    function blindSuccess()
+    {
+        tableReloadAndStayCurrentPage($(reviewTable));
+    }
+
+    function blindValidation()
+    {
+        let table 		 = $(reviewTable).DataTable();
+        let selectedData = table.rows('.selected').data();
+
+        if (isEmpty(selectedData))
+        {
+            sweetToast('대상을 목록에서 '+message.select);
+            return false;
+        }
+
+        return true;
     }
 
     function onSubmitSearch()

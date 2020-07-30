@@ -15,6 +15,8 @@
 				$("#btnDoitStart").remove();
 			} catch (e) {}
 		}
+		else
+			btnProStart.show();
 
 		btnProStart.on("click", function () { promoStart(); })
 	})

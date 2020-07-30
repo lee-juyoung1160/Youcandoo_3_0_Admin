@@ -2,8 +2,8 @@
 
 	$( () => {
 		let btnProStart = $("#btnProStart");
-
-		if (sessionAuthCode.val() !== 'dev')
+		const accesses = ['dev', 'smg'];
+		if (accesses.indexOf(sessionAuthCode.val()) === -1)
 		{
 			try {
 				btnProStart.remove();
@@ -12,46 +12,46 @@
 			try {
 				$("#btnDoitStart").remove();
 			} catch (e) {}
-
-			try {
-				$("#deployWrapper").find('button').remove();
-			} catch (e) {}
 		}
 
 		btnProStart.on("click", function () { promoStart(); })
 	})
 
-
-	/** api url **/
-	const baseTestApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
-
 	function promoStart()
 	{
-		let table 		 = $("#dataTable").DataTable();
+		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 
 		if (isEmpty(selectedData))
 		{
-			alert('시작 대상 체크하세용.');
+			sweetToast('대상을 선택하세요.');
 			return;
 		}
 
-		if (confirm('진짜 오늘 시작??'))
-		{
-			$.ajax({
-				url: baseTestApiUrl+'promotion/start',
-				type: "POST",
-				async: false,
-				headers: headers,
-				dataType: 'json',
-				data: JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid}),
-				success: function(data) {
-					alert(getStatusMessage(data));
-					location.href = page.listPromo;
-				},
-				error: function (request, status) {
-					alert(label.modify+message.ajaxError);
-				}
-			});
-		}
+		sweetConfirm('확인을 누르면 해당 프로모션이 오늘 시작합니다.', promoStartConfirmCallback);
 	}
+
+	function promoStartConfirmCallback()
+	{
+		let table 		 = $("#dataTable").DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+		let param 		 = JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid});
+		let url			 = 'https://api.youcandoo.co.kr/v1.0/admin/promotion/start';
+		let errMsg		 = label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, param, promoStartSuccessCallback, errMsg, false);
+	}
+
+	function promoStartSuccessCallback(data)
+	{
+		sweetToastAndCallback(data, startSuccess);
+	}
+
+	function startSuccess()
+	{
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
+	}
+
+

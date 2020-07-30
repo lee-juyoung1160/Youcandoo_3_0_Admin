@@ -65,6 +65,10 @@
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
+		radioDoitType.each(function () {
+			if ($(this).val() === historyParams.doit_type)
+				$(this).prop("checked", true);
+		});
 
 		_page = historyParams.page;
 	}
@@ -175,6 +179,7 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status" : status
+			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

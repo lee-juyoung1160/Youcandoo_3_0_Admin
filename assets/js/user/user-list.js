@@ -6,9 +6,9 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const xlsxExport 	= $(".excel-btn");
 	const userActive	= $("input[name=radio-user-active]");
 	const select		= $("select");
+	const xlsxExport 	= $(".excel-btn");
 	/*const btnModalBanUserOpen	= $("#btnModalBanUserOpen");*/
 	/** modal **/
 	/*const modalBanUser		= $("#modalBanUser");
@@ -67,6 +67,10 @@
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
+		userActive.each(function () {
+			if ($(this).val() === historyParams.is_active)
+				$(this).prop("checked", true);
+		});
 
 		_page = historyParams.page;
 	}
@@ -163,6 +167,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
+			,"is_active" : $("input[name=radio-user-active]:checked").val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

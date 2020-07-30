@@ -60,7 +60,7 @@
             <div class="col-wrap col-wrap-5">
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
-                        <p class="title">일 단위로 인증된 수</p>
+                        <p class="title">일 별 인증 수</p>
                         <div class="select-box-wrap clearfix">
                             <div class="select-box">
                                 <label class="cert-year-label" for="cert-year-select"></label>
@@ -80,15 +80,15 @@
             <div class="col-wrap col-wrap-1">
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
-                        <p class="title">모집중인 두잇</p>
+                        <p class="title">모집중 두잇</p>
                         <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap row-wrap2 clearfix">
                         <div class="row-1">
-                            <canvas id="tomorrow-doughnut" width="40" height="auto"></canvas>
+                            <canvas id="pending-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count doit" id="pre-total"></span></li>
+                            <li class="fixed">전체 <span class="total count doit" id="pre-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="pre-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="pre-company"></span></li>
                         </ul>
@@ -96,15 +96,15 @@
                 </div>
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
-                        <p class="title">진행중인 두잇</p>
+                        <p class="title">진행중 두잇</p>
                         <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
-                            <canvas id="today-doughnut" width="40" height="auto"></canvas>
+                            <canvas id="progress-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count doit"  id="ing-total"></span></li>
+                            <li class="fixed">전체 <span class="total count doit"  id="ing-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="ing-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="ing-company"></span></li>
                         </ul>
@@ -117,10 +117,10 @@
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
-                            <canvas id="end-doughnut" width="40" height="auto"></canvas>
+                            <canvas id="complete-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count doit"  id="end-total"></span></li>
+                            <li class="fixed">전체 <span class="total count doit"  id="end-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="end-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="end-company"></span></li>
                         </ul>
@@ -136,7 +136,7 @@
                             <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">Total <span class="total count doit" id="total"></span></li>
+                            <li class="fixed">전체 <span class="total count doit" id="total"></span></li>
                             <li class="fixed">취소 <span class="count" id="cancle"></span></li>
                             <li class="fixed">삭제  <span class="count" id="delete"></span></li>
                         </ul>
@@ -147,7 +147,7 @@
             <div class="col-wrap col-wrap-2">
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
-                        <p class="title">월 단위로 등록된 두잇</p>
+                        <p class="title">월 별 두잇 개설 수</p>
                         <div class="select-box">
                             <label class="year-label" for="doit-year-select"></label>
                             <select id="doit-year-select" name="doit-year-value"></select>

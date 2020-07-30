@@ -1,26 +1,25 @@
 
-    const tomorrowDoughnut  = document.getElementById('tomorrow-doughnut');
-    const todayDoughnut     = document.getElementById('today-doughnut');
-    const endDoughnut       = document.getElementById('end-doughnut');
-    const cancelDoughnut    = document.getElementById('cancel-doughnut');
-    const endUserEl     = document.getElementById('end-user');
-    const endCompanyEl  = document.getElementById('end-company');
-    const endTotalEl    = document.getElementById('end-total');
-    const ingUserEl     = document.getElementById('ing-user');
-    const ingCompanyEl  = document.getElementById('ing-company');
-    const ingTotalEl    = document.getElementById('ing-total');
-    const preUserEl     = document.getElementById('pre-user');
-    const preCompanyEl  = document.getElementById('pre-company');
-    const preTotalEl    = document.getElementById('pre-total');
-    const cancelEl      = document.getElementById('cancle');
-    const deleteEl      = document.getElementById('delete');
+    const pendingCtx        = document.getElementById('pending-doughnut');
+    const progressingCtx    = document.getElementById('progress-doughnut');
+    const completeCtx       = document.getElementById('complete-doughnut');
+    const cancelCtx         = document.getElementById('cancel-doughnut');
+    const endUserEl         = document.getElementById('end-user');
+    const endCompanyEl      = document.getElementById('end-company');
+    const endTotalEl        = document.getElementById('end-total');
+    const ingUserEl         = document.getElementById('ing-user');
+    const ingCompanyEl      = document.getElementById('ing-company');
+    const ingTotalEl        = document.getElementById('ing-total');
+    const preUserEl         = document.getElementById('pre-user');
+    const preCompanyEl      = document.getElementById('pre-company');
+    const preTotalEl        = document.getElementById('pre-total');
+    const cancelEl          = document.getElementById('cancle');
+    const deleteEl          = document.getElementById('delete');
     const cancelTotalEl     = document.getElementById('total');
     const monthlyMixedChart = document.getElementById('monthly-mixedChart');
     const certMonthChart    = document.getElementById('cert-month-chart');
     /** 차트 레이아웃 구성 공통 부분 **/
     const options = {
-        options: {
-            maintainAspectRatio: false,
+        doughnutOptions: {
             legend: {
                 align: 'start',
                 labels: {
@@ -28,8 +27,39 @@
                     boxWidth: 10,
                     hoverBorderWidth: 900
                 }
+            },
+            maintainAspectRatio: false
+        },
+        barOptions: {
+            legend: {
+                align: 'end',
+                position: 'top'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        },
+        lineOptions: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
+    }
+    const chartType = {
+        doughnut : 'doughnut'
+        ,line : 'line'
+        ,bar : 'bar'
     }
     const labels = {
         doitType : ['일반', '프로모션']
@@ -37,9 +67,10 @@
         ,monthNames : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
     }
     const color = {
-        colorLine : ['rgb(0,122,255)', 'rgba(0, 0, 0, 0)']
-        ,backgroundColorDoughnut : ['rgb(0, 48, 135)', 'rgb(0, 122, 255)']
-        ,white : 'rgba(255,255,255,1)'
+        white : 'rgba(255,255,255,1)'
+        ,black : 'rgba(0, 0, 0, 0)'
+        ,dodgerBlue : 'rgb(0, 122, 255)'
+        ,prussianBlue : 'rgb(0, 48, 135)'
     };
     /** 셀렉박스 + 레이블 **/
     const yearSelectBox = document.getElementById('doit-year-select');
@@ -76,9 +107,9 @@
 
     /** 새해될때 셀렉박스 및 값 추가 **/
     let defaultYear = 2020;
-    for (year; defaultYear < year; year++) {
-        yearSelectBox.append(new Option( year+1+ "년", year+1));
-        certYearSelectBox.append(new Option( year+1+ "년", year+1));
+    for (defaultYear; defaultYear < year; defaultYear++) {
+        yearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
+        certYearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
     }
 
     /** 로드 바로 실행 **/
@@ -131,50 +162,52 @@
     function getDoitStatusSuccess(data)
     {
         let respData    = data.data;
-        let endData     = respData.end;
-        let ingData     = respData.ing;
         let preData     = respData.pre;
+        let ingData     = respData.ing;
+        let endData     = respData.end;
         let cancelData  = respData.cancle;
 
-        buildDoitDoughnutChart(endDoughnut, labels.doitType, endData.user_cnt, endData.company_cnt);
-        buildDoitDoughnutChart(todayDoughnut, labels.doitType, ingData.user_cnt, ingData.company_cnt);
-        buildDoitDoughnutChart(tomorrowDoughnut, labels.doitType, preData.user_cnt, preData.company_cnt);
-        buildDoitDoughnutChart(cancelDoughnut, labels.cancelType, cancelData.cancle, cancelData.delete);
+        let pendingDataset = [{
+            data : [preData.user_cnt, preData.company_cnt]
+            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+        }]
 
-        endUserEl.textContent    = numberWithCommas(endData.user_cnt);
-        endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
-        endTotalEl.textContent   = endData.total_cnt;
+        let progressDataset = [{
+            data : [ingData.user_cnt, ingData.company_cnt]
+            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+        }]
 
-        ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
-        ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
-        ingTotalEl.textContent   = ingData.total_cnt;
+        let endDataset = [{
+            data : [endData.user_cnt, endData.company_cnt]
+            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+        }]
 
+        let cancelDataset = [{
+            data : [cancelData.cancle, cancelData.delete]
+            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+        }]
+
+        initChart(pendingCtx, chartType.doughnut, labels.doitType, pendingDataset, options.doughnutOptions);
         preUserEl.textContent    = numberWithCommas(preData.user_cnt);
         preCompanyEl.textContent = numberWithCommas(preData.company_cnt);
         preTotalEl.textContent   = preData.total_cnt;
 
+        initChart(progressingCtx, chartType.doughnut, labels.doitType, progressDataset, options.doughnutOptions);
+        ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
+        ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
+        ingTotalEl.textContent   = ingData.total_cnt;
+
+        initChart(completeCtx, chartType.doughnut, labels.doitType, endDataset, options.doughnutOptions);
+        endUserEl.textContent    = numberWithCommas(endData.user_cnt);
+        endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
+        endTotalEl.textContent   = endData.total_cnt;
+
+        initChart(cancelCtx, chartType.doughnut, labels.cancelType, cancelDataset, options.doughnutOptions);
         cancelEl.textContent     = numberWithCommas(cancelData.cancle);
         deleteEl.textContent     = numberWithCommas(cancelData.delete);
         cancelTotalEl.textContent = cancelData.total;
 
         counter("doit");
-    }
-
-    function buildDoitDoughnutChart(target, label, data1, data2)
-    {
-        new Chart(target, {
-            type: 'doughnut',
-            data: {
-                labels : label,
-                datasets: [{
-                    data: [data1, data2],
-                    backgroundColor: color.backgroundColorDoughnut,
-                    hoverBorderColor: color.backgroundColorDoughnut,
-                }]
-            },
-            responsive: false,
-            options: options.options,
-        });
     }
 
     /** 가입자 현황 데이터 **/
@@ -240,7 +273,7 @@
 
         let param   = JSON.stringify({'year' : yearSelectBox.value});
         let url     = api.getMonthlyDoit;
-        let errMsg  = '월 단위 두잇 데이터'+ message.ajaxLoadError;
+        let errMsg  = '월 별 두잇 개설 데이터'+ message.ajaxLoadError;
 
         ajaxRequestWithJsonData(false, url, param, getMonthlyDoitCallback, errMsg, false);
     }
@@ -252,44 +285,27 @@
 
     function getMonthlyDoitSuccess(data)
     {
-        new Chart(monthlyMixedChart, {
-            type: 'bar',
-            data: {
-                datasets: [
-                    {
-                        label: '일반',
-                        data: data.data.user,
-                        backgroundColor: color.backgroundColorDoughnut[0],
-                    },
-                    {
-                        label: '프로모션',
-                        data: data.data.company,
-                        backgroundColor: color.backgroundColorDoughnut[1],
-                    },
-                    {
-                        label: 'Total',
-                        data: data.data.total,
-                        type: 'line',
-                        borderColor: color.colorLine[0],
-                        borderWidth : 2.2,
-                        pointBackgroundColor: color.white,
-                        backgroundColor: color.colorLine[1]
-                    }
-                ],
-                labels: labels.monthNames
-            },
-            options: {
-                responsive: 'false',
-                maintainAspectRatio: 'false',
-                legend: {
-                    align: 'end',
-                    position: 'top'
-                },
-                scales: {
-                    yAxes: [{ticks: {beginAtZero: true}}]
-                }
+        let dataset = [
+            {
+                label: '일반',
+                data: data.data.user,
+                backgroundColor: color.prussianBlue
+            }, {
+                label: '프로모션',
+                data: data.data.company,
+                backgroundColor: color.dodgerBlue
+            }, {
+                label: '전체',
+                data: data.data.total,
+                type: 'line',
+                borderColor: color.dodgerBlue,
+                borderWidth : 2.2,
+                pointBackgroundColor: color.white,
+                backgroundColor: color.black
             }
-        });
+        ];
+
+        initChart(monthlyMixedChart, chartType.bar, labels.monthNames, dataset, options.barOptions);
     }
 
     /** 일 단위 인증 수 **/
@@ -301,7 +317,7 @@
         }
 
         let url     = api.getDailyAction;
-        let errMsg  = '일 단위 인증 데이터'+ message.ajaxLoadError;
+        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDailyActionsCallback, errMsg, false);
     }
@@ -313,28 +329,30 @@
 
     function getDailyActionsSuccess(data)
     {
-        new Chart(certMonthChart, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    data: data.data.result,
-                    lineTension: 0,
-                    borderColor: color.colorLine[0],
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.colorLine[1],
-                }],
-                labels: data.data.day
+        let label = data.data.day;
+        let dataset = [{
+            data: data.data.result,
+            lineTension: 0,
+            borderColor: color.dodgerBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
+        }];
+
+        initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
+    }
+
+
+    function initChart(ctx, type, label, dataset, options)
+    {
+        new Chart(ctx,{
+            type : type,
+            data : {
+                labels : label,
+                datasets : dataset
             },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{ticks: {beginAtZero: true}}]
-                }
-            }
-        });
+            options : options
+        })
     }
 
     /** 프로모션 진행 현황 **/
@@ -345,7 +363,7 @@
             datasets: [{
                 data: [10, 20],
                 backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
-                   hoverBorderColor: backgroundColorDoughnut,
+                   hoverBorderColor: [color.prussianBlue, color.dodgerBlue],
             }]
         },
         options: options.options,
@@ -358,9 +376,9 @@
             datasets: [{
                 label: '프로모션 지급 리워드',
                 data: [20, 20, 30, 40, 35, 40, 80],
-                borderColor: colorLine[0],
-                pointBackgroundColor: colorLine[0],
-                backgroundColor: colorLine[1]
+                borderColor: color.white,
+                pointBackgroundColor: color.white,
+                backgroundColor: color.black
             }],
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },

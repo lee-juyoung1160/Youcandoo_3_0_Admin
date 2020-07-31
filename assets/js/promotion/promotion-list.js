@@ -122,7 +122,7 @@
 						return getPromotionStatusName(data);
 					}
 				}
-				,{title: "배너 노출 여부", 	data: "is_banner",    	width: "10%",    className: "cursor-default no-sort",
+				,{title: "공개 여부", 	data: "is_banner",    	width: "10%",    className: "cursor-default no-sort",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}

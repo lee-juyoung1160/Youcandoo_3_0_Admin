@@ -40,6 +40,11 @@
 		
 		return result;
 	}
+
+	function appendZero(_num)
+	{
+		return Number(_num) < 10 ? _num.toString().padStart(2, '0') : _num;
+	}
 	
 	function isMobile()
 	{

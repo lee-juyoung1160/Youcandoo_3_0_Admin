@@ -17,6 +17,10 @@
     const cancelTotalEl     = document.getElementById('total');
     const monthlyMixedChart = document.getElementById('monthly-mixedChart');
     const certMonthChart    = document.getElementById('cert-month-chart');
+    const yearSelectBox = document.getElementById('doit-year-select');
+    const certMonthSelectBox = document.getElementById('cert-month-select');
+    const certYearSelectBox = document.getElementById('cert-year-select');
+
     /** 차트 레이아웃 구성 공통 부분 **/
     const options = {
         doughnutOptions: {
@@ -71,13 +75,6 @@
         ,dodgerBlue : 'rgb(0, 122, 255)'
         ,prussianBlue : 'rgb(0, 48, 135)'
     };
-    /** 셀렉박스 + 레이블 **/
-    const yearSelectBox = document.getElementById('doit-year-select');
-    const yearLabel = document.querySelector('.year-label');
-    const certMonthSelectBox = document.getElementById('cert-month-select');
-    const certMonthLabel = document.querySelector('.cert-month-label');
-    const certYearSelectBox = document.getElementById('cert-year-select');
-    const certYearLabel = document.querySelector('.cert-year-label');
 
     /** 현재 연도-월-일 구하기 **/
     let day = new Date();
@@ -86,33 +83,11 @@
     let date = day.getDate();
     let hours = day.getHours();
     let minutes = day.getMinutes();
-    let result = document.getElementById('today-date');
-
-    /** 넘버 -> 문자열 바뀌고, 0 붙이기 **/
-    month = month < 10 ? '0' + month : month;
-    date = date < 10 ? '0' + date : date;
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    result.textContent = year + '.' + month + '.' + date + '. ' + hours + ':' + minutes + ' 기준';
-
-    /** 새해 기준 새로운 단위 차트 생성 **/
-    /** 현재 연도 및 월 값 넣고 그리기 **/
-    yearLabel.textContent = yearSelectBox.value = year + "년";
-    yearSelectBox.append(new Option( year+ "년", year));
-    certYearLabel.textContent = certYearSelectBox.value = year + "년";
-    certYearSelectBox.append(new Option( year+ "년", year));
-    certMonthLabel.textContent = certMonthSelectBox.value = month + "월";
-    certMonthSelectBox.append(new Option( month+ "월", month));
-
-    /** 새해될때 셀렉박스 및 값 추가 **/
-    let defaultYear = 2020;
-    for (defaultYear; defaultYear < year; defaultYear++) {
-        yearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
-        certYearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
-    }
 
     /** 로드 바로 실행 **/
     document.addEventListener("DOMContentLoaded", function () {
+        setBaseDate();
+        initSelectBox();
         getDailyActions();
         getMonthlyDoit();
         getDoitStatus();
@@ -120,9 +95,32 @@
         getUcdStatus();
         /** 월단위 셀렉박스 이벤트 **/
         yearSelectBox       .addEventListener('change', function () { getMonthlyDoit(); });
-        certMonthSelectBox  .addEventListener('change', function () { getDailyActions(); });
         certYearSelectBox   .addEventListener('change', function () { getDailyActions(); });
+        certMonthSelectBox  .addEventListener('change', function () { getDailyActions(); });
     });
+
+    function setBaseDate()
+    {
+        let result = document.getElementById('today-date');
+        result.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
+    }
+
+    function initSelectBox()
+    {
+        let defaultYear = 2020;
+        for (defaultYear; defaultYear <= year; defaultYear++) {
+            yearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
+            certYearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
+        }
+
+        onChangeSelectOption($('#cert-year-select'));
+        onChangeSelectOption($('#doit-year-select'));
+
+        for (month; month >= 7; month--)
+            month === 7 ? certMonthSelectBox.append(new Option( appendZero(month) + "월", appendZero(month))) : certMonthSelectBox.prepend(new Option( appendZero(month) + "월", appendZero(month)));
+
+        onChangeSelectOption($('#cert-month-select'));
+    }
 
     /** 넘버 total 카운팅 **/
     function counter(type) {

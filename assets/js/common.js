@@ -649,7 +649,7 @@
                         if (subView === true)
                         {
                             menuDom += '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
-                            buildAccessibleMenuStorage(menuPath)
+                            buildAccessibleMenus(menuPath)
                         }
                     }
                 }
@@ -664,27 +664,41 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = [];
-    function buildAccessibleMenuStorage(_path)
+    let accessibleMenus = ['/', '/admin/mypage'];
+    function buildAccessibleMenus(_path)
     {
         accessibleMenus.push(_path);
 
+        /**
+         * 관리자 > 권한 설정에서 페이지 접근 권한을 따로 설정할 수 없는 경우..
+         * 비즈등록, 이벤트 등록, 푸시등록, 공지등록, faq등록, 관리자 등록 그리고 모든 수정, 상세 페이지들..
+         * 직접 넣어줬음..뭔가 다른 방법을 찾는 게 좋을 듯..
+         * **/
         if (_path.includes('create'))
             accessibleMenus.push(_path.replace('create', 'update'))
+
+        let customAccessiblePages = ['/user', '/biz', '/promotion', '/doit', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin'];
+        if (customAccessiblePages.indexOf(_path) !== -1)
+        {
+            accessibleMenus.push(_path + '/create');
+            accessibleMenus.push(_path + '/update');
+            accessibleMenus.push(_path + '/detail');
+        }
+
+        if (_path === '/ucd/sales') accessibleMenus.push('/ucd/create/biz');
+        if (_path === '/ucd/usage') accessibleMenus.push('/ucd/create/user');
+        if (_path === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
     }
 
     /** 권한 별 접근 가능 페이지 **/
     function accessDeniedAuth()
     {
         let pathName = getPathName();
-        if (pathName.includes('update'))
+        if (pathName.includes('update') || pathName.includes('detail'))
         {
             pathName = pathName.replace(pathName.split('/').reverse()[0], '');
             pathName = pathName.slice(0, -1);
         }
-
-        if (pathName === '/') return;
-        if (pathName.includes('detail')) return;
 
         if (accessibleMenus.indexOf(pathName) === -1)
         {

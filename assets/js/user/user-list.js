@@ -49,7 +49,7 @@
 		keyword.val('');
 		userActive.eq(0).prop("checked", true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initDayBtn();
 	}
 

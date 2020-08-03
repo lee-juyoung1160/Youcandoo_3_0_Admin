@@ -22,8 +22,6 @@
     dateFrom        .on("change", function () { onChangeSearchDateFrom(this); });
     dateTo          .on("change", function () { onChangeSearchDateTo(this); });
     datePicker      .prop("readonly", true);
-    /** 권한별 레프트 메뉴 불러오기 **/
-    getLeftMenuByAuthCode();
 
     /** 글자수 체크 **/
     function checkInputLength(obj)
@@ -649,7 +647,10 @@
                         let subView  = children[subKey].view;
 
                         if (subView === true)
+                        {
                             menuDom += '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                            buildAccessibleMenuStorage(menuPath)
+                        }
                     }
                 }
                 menuDom +=     '</ul>';
@@ -659,6 +660,48 @@
         }
 
         sideMenu.html(menuDom);
+
+        accessDeniedAuth();
+    }
+
+    let accessibleMenus = [];
+    function buildAccessibleMenuStorage(_path)
+    {
+        accessibleMenus.push(_path);
+
+        if (_path.includes('create'))
+            accessibleMenus.push(_path.replace('create', 'update'))
+    }
+
+    /** 권한 별 접근 가능 페이지 **/
+    function accessDeniedAuth()
+    {
+        let pathName = getPathName();
+        if (pathName.includes('update'))
+            pathName = pathName.replace(pathName.split('/').reverse()[0], '');
+
+
+        if (pathName === '/') return;
+        if (pathName.includes('detail')) return;
+
+        if (accessibleMenus.indexOf(pathName) === -1)
+        {
+            alert(message.accessDenied);
+            location.href = '/';
+        }
+    }
+
+    /** 외부IP로 접근할 수 없는 페이지 **/
+    function accessDeniedExternalIp()
+    {
+        let pathName     = getPathName();
+        let compareValue = pathName.split('/')[1];
+
+        if (isOuterIp() && isPrivateMenu(compareValue))
+        {
+            alert(message.accessDenied);
+            location.href = '/';
+        }
     }
 
     function isOuterIp()
@@ -669,19 +712,6 @@
     function isPrivateMenu(_menuName)
     {
         return privateMenus.indexOf(_menuName) !== -1;
-    }
-
-    /** 내부에서만 접근 가능 페이지 **/
-    function accessdenied()
-    {
-        let pathName     = getPathName();
-        let compareValue = pathName.split('/')[1];
-
-        if (isOuterIp() && isPrivateMenu(compareValue))
-        {
-            alert(message.accessDenied);
-            location.href = '/';
-        }
     }
 
     function onClickActiveParentMenu(obj)
@@ -851,7 +881,8 @@
     $( () => {
         $(document).ajaxStart(function () { fadeinLoader(); });
         $(document).ajaxComplete(function () { fadeoutLoader(); });
+        getLeftMenuByAuthCode();
+        accessDeniedExternalIp();
         calculateInputLength();
-        accessdenied();
     });
 

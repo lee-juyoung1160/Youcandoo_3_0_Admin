@@ -678,8 +678,10 @@
     {
         let pathName = getPathName();
         if (pathName.includes('update'))
+        {
             pathName = pathName.replace(pathName.split('/').reverse()[0], '');
-
+            pathName = pathName.slice(0, -1);
+        }
 
         if (pathName === '/') return;
         if (pathName.includes('detail')) return;

@@ -649,7 +649,7 @@
                         if (subView === true)
                         {
                             menuDom += '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
-                            buildAccessibleMenus(menuPath)
+                            buildAccessibleMenus(menuPath);
                         }
                     }
                 }
@@ -665,29 +665,40 @@
     }
 
     let accessibleMenus = ['/', '/admin/mypage'];
-    function buildAccessibleMenus(_path)
+    function buildAccessibleMenus(_auth)
     {
-        accessibleMenus.push(_path);
-
         /**
-         * 관리자 > 권한 설정에서 페이지 접근 권한을 따로 설정할 수 없는 경우..
-         * 비즈등록, 이벤트 등록, 푸시등록, 공지등록, faq등록, 관리자 등록 그리고 모든 수정, 상세 페이지들..
-         * 직접 넣어줬음..뭔가 다른 방법을 찾는 게 좋을 듯..
+         * 현재 관리자 > 권한설정 메뉴에서 상세보기 권한, 수정 권한은 설정할 수 없음
+         * 등록 권한은 일부 페이지만(promotion, doit) 설정 가능
+         * 목록 권한은 모두 설정 가능.
+         * 목록 권한만 있는 사용자가 권한이 없는(등록, 수정) 페이지의 url직접 접근할 경우 페이지 노출 됨.
+         * 그것을 막고자 어쩔 수 없이 이 로직이 생김.
          * **/
-        if (_path.includes('create'))
-            accessibleMenus.push(_path.replace('create', 'update'))
 
-        let customAccessiblePages = ['/user', '/biz', '/promotion', '/doit', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin'];
-        if (customAccessiblePages.indexOf(_path) !== -1)
+        accessibleMenus.push(_auth);
+
+        /** 프로모션등록, 두잇등록 권한이 있으면 수정 권한 추가 **/
+        let customAccessiblePages = ['/promotion/create', '/doit/create'];
+        if (customAccessiblePages.indexOf(_auth) !== -1)
+            accessibleMenus.push(_auth.replace('create', 'update'));
+
+        /** 프로모션 목록, 두잇 목록 권한이 있으면 상세 권한 추가 **/
+        let customAccessiblePages1 = ['/promotion', '/doit'];
+        if (customAccessiblePages1.indexOf(_auth) !== -1)
+            accessibleMenus.push(_auth + '/detail');
+
+        /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
+        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin'];
+        if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
-            accessibleMenus.push(_path + '/create');
-            accessibleMenus.push(_path + '/update');
-            accessibleMenus.push(_path + '/detail');
+            accessibleMenus.push(_auth + '/create');
+            accessibleMenus.push(_auth + '/update');
+            accessibleMenus.push(_auth + '/detail');
         }
 
-        if (_path === '/ucd/sales') accessibleMenus.push('/ucd/create/biz');
-        if (_path === '/ucd/usage') accessibleMenus.push('/ucd/create/user');
-        if (_path === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
+        if (_auth === '/ucd/sales') accessibleMenus.push('/ucd/create/biz');
+        if (_auth === '/ucd/usage') accessibleMenus.push('/ucd/create/user');
+        if (_auth === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
     }
 
     /** 권한 별 접근 가능 페이지 **/

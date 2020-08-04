@@ -63,7 +63,7 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "내용", 	data: "description",        width: "35%",    className: "cursor-default no-sort" }
+                ,{title: "내용", 	data: "description",        width: "30%",    className: "cursor-default no-sort" }
                 ,{title: "담당자", 	data: "created_user",       width: "10%",    className: "cursor-default no-sort" }
                 ,{title: "일시", 	data: "created_datetime",   width: "15%",    className: "cursor-default" }
             ],

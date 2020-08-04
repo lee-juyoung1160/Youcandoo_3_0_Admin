@@ -114,7 +114,7 @@
                     }
                 },
                 {title: "제목",   data: "title",             width: "10%",    className: "cursor-default" },
-                {title: "내용",   data: "description",       width: "20%",    className: "cursor-default no-sort",
+                {title: "내용",   data: "description",       width: "30%",    className: "cursor-default no-sort",
                     render: function (data) {
                         let term 	= isEmpty(data) ? label.nullValue : data[0]+label.tilde+data[1];
                         let title   = isEmpty(data) ? label.nullValue : data[2];

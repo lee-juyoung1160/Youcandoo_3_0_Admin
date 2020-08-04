@@ -65,7 +65,7 @@
 					}
 				}
 				,{title: "제목", 	data: "title",    	 width: "10%",    className: "cursor-default" }
-				,{title: "내용", 	data: "description", width: "25%",    className: "cursor-default no-sort" }
+				,{title: "내용", 	data: "description", width: "30%",    className: "cursor-default no-sort" }
 				,{title: "일시", 	data: "created",     width: "15%",    className: "cursor-default" }
 			],
 			language: {

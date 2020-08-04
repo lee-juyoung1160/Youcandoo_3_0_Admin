@@ -115,8 +115,12 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "닉네임",	data: "nickname",    width: "35%", 	 orderable: false,   className: "cursor-default" }
-				,{title: "보유UCD",	data: "ucd.total",   width: "55%", 	 orderable: false,   className: "cursor-default",
+				,{title: "회원",	data: "nickname",    width: "50%", 	 className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return '<div class="p-info">'+data+'<span class="p-id">'+row.profile_uuid+'</span></div>'
+					}
+				}
+				,{title: "보유UCD",	data: "ucd.total",   width: "50%", 	 className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';

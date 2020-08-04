@@ -1501,3 +1501,14 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
 }
+
+/*유저 아이디*/
+.p-info {
+	text-align: left;
+}
+.p-id {
+	display: block;
+	color: #888;
+	font-size: 10px;
+	text-align: left;
+}

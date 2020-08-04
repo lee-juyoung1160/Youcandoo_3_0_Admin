@@ -143,7 +143,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: 8,
 			ordering: false,
 			order: [],
 			info: false,

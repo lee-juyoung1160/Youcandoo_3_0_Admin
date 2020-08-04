@@ -46,7 +46,7 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",   			width: "5%",    className: "no-sort",
+				{title: "", 			data: "idx",   			width: "0%",    className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
@@ -59,7 +59,7 @@
 				}
 				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
 				,{title: "내용", 		data: "send_message",  	width: "25%",   className: "cursor-default" }
-				,{title: "스토어", 		data: "store",    	  	width: "5%",  	className: "cursor-default",
+				,{title: "스토어", 		data: "store",    	  	width: "10%",  	className: "cursor-default",
 					render: function (data) {
 						return data === 'all' ? '전체' : data;
 					}
@@ -69,7 +69,7 @@
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  width: "15%",   className: "cursor-default",
+				,{title: "도착페이지", 		data: "category_target",  width: "25%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '-' : ('['+row.event_name+'] '+row.event_title);
 					}

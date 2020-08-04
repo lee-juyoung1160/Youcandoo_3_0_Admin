@@ -103,7 +103,11 @@
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "닉네임", 		data: "nickname",   	width: "20%",    className: "cursor-default" }
+				{title: "닉네임", 		data: "nickname",   	width: "20%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return '<a onclick="moveDetail(this);" data-uuid="'+row.profile_uuid+'" data-target="'+page.detailUser+'">' + data + '</a>';
+					}
+				}
 				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%",    className: "cursor-default" }
 				,{title: "사용구분", 	data: "is_active", 		width: "10%",    className: "cursor-default",
 					render: function (data) {
@@ -147,7 +151,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -174,13 +177,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let nicknameDom = $(nRow).children().eq(0);
-		/** 닉네임 클리 상세 이동 **/
-		nicknameDom.html('<a onclick="moveDetail(this);" data-uuid="'+aData.profile_uuid+'" data-target="'+page.detailUser+'">'+aData.nickname+'</a>');
 	}
 
 	/** row select **/

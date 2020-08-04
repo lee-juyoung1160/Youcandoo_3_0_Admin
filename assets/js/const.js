@@ -255,6 +255,7 @@
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'
 		,listUcdWithdraw : '/ucd/withdraw'
+		,listUcdCharge : '/ucd/charge'
 		,listUcdCancel : '/ucd/cancel'
 
 		,listEvent : '/marketing/event'

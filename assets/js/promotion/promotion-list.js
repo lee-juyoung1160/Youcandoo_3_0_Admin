@@ -101,7 +101,12 @@
 					}
 				},
 				{title: "기업", 			data: "nickname",    		width: "15%",    className: "cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl 	= page.detailPromo + row.idx;
+						return '<a href="'+detailUrl+'">' + data + '</a>';
+					}
+				}
 				,{title: "프로모션 예산", data: "budget_ucd",     	width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
@@ -197,15 +202,11 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let checkDom 	= $(nRow).children().eq(0);
-		let titleDom  	= $(nRow).children().eq(2);
-		let detailUrl 	= page.detailPromo+aData.idx;
+		let checkDom = $(nRow).children().eq(0);
 
 		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
 		if (aData.status !== 'pending')
 			$(checkDom).children().prop('disabled', true);
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
 	}
 
 	function onSubmitSearch()

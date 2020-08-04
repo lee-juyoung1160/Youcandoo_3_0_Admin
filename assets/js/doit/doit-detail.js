@@ -1034,7 +1034,11 @@
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "리뷰내용", 		data: "review_text",	width: "30%",   className: "cursor-default" }
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",   className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return buildReviewDetail(row);
+					}
+				}
 				,{title: "평점", 		data: "rating",    		width: "10%",   className: "cursor-default",
 					render: function (data) {
 						return buildStar(data);
@@ -1080,12 +1084,11 @@
 			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
-				reviewTable.on( 'page.dt', function () {
+				$(this).on( 'page.dt', function () {
 					$("#checkAll").prop('checked', false);
 				});
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setReviewRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -1121,24 +1124,22 @@
 		return JSON.stringify(param);
 	}
 
-	function setReviewRowAttributes(nRow, aData)
+	function buildReviewDetail(data)
 	{
-		let reviewDom  	= $(nRow).children().eq(1);
+		let innerEl = '<a onclick="modalDetailReviewFadein(this);" ';
+		innerEl +=	'class="line-clamp more-info-btn"';
+		innerEl +=	'data-detail="'+data.review_text+'"';
+		innerEl +=	'data-title="'+data.doit_title+'"';
+		innerEl +=	'data-rating="'+data.rating+'"';
+		innerEl +=	'data-report="'+data.report_count+'"';
+		innerEl +=	'data-nickname="'+data.nickname+'"';
+		innerEl +=	'data-blind="'+data.is_blind+'"';
+		innerEl +=	'data-created="'+data.created+'"';
+		innerEl +=	'>';
+		innerEl += data.review_text;
+		innerEl += '</a>';
 
-		let innerDom = '<a onclick="modalDetailReviewFadein(this);" ';
-		innerDom +=	'class="line-clamp more-info-btn"';
-		innerDom +=	'data-detail="'+aData.review_text+'"';
-		innerDom +=	'data-title="'+aData.doit_title+'"';
-		innerDom +=	'data-rating="'+aData.rating+'"';
-		innerDom +=	'data-report="'+aData.report_count+'"';
-		innerDom +=	'data-nickname="'+aData.nickname+'"';
-		innerDom +=	'data-blind="'+aData.is_blind+'"';
-		innerDom +=	'data-created="'+aData.created+'"';
-		innerDom +=	'>';
-		innerDom += aData.review_text;
-		innerDom += '</a>';
-
-		$(reviewDom).html(innerDom);
+		return innerEl;
 	}
 
 	function modalDetailReviewFadein(obj)

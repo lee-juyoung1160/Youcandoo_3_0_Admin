@@ -247,9 +247,23 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 			data: "doit_title",    			width: "35%",    className: "cursor-default" }
-				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "15%",    className: "cursor-default" }
-				,{title: "인증기간", 		data: "action_start_datetime",  width: "20%",    className: "cursor-default" }
+				{title: "두잇명", 			data: "doit_title",    			width: "35%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailDoit+row.idx;
+						return '<a href="'+detailUrl+'">' + data +'</a>';
+					}
+				}
+				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "15%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return row.doit_member + ' / ' + data;
+					}
+				}
+				,{title: "인증기간", 		data: "action_start_datetime",  width: "20%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return data + label.tilde + row.action_end_datetime;
+					}
+				}
+				,{title: "진행상태", 		data: "doit_status",  			width: "10%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -277,7 +291,6 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setDoitRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -295,22 +308,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function setDoitRowAttributes(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(0);
-		let countUserDom = $(nRow).children().eq(1);
-		let periodDom = $(nRow).children().eq(2);
-		let detailUrl = page.detailDoit+aData.idx;
-		let period    = aData.action_start_datetime+label.tilde+aData.action_end_datetime;
-
-		/** 제목에 a 태그 추가 **/
-		titleDom.html('<a href="'+detailUrl+'">'+aData.doit_title+'</a>');
-		/** 참여인원/모집인원 **/
-		countUserDom.html(aData.doit_member+"/"+aData.max_user);
-		/** 인증기간 **/
-		periodDom.text(period);
 	}
 
 	function getUcdLog()

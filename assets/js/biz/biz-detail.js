@@ -156,7 +156,12 @@
 				}
 			},
 			columns: [
-				{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "cursor-default" }
+				{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailPromo+row.idx;
+						return '<a href="'+detailUrl+'">' + data + '</a>';
+					}
+				}
 				,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
@@ -167,7 +172,11 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "cursor-default" }
+				,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return data + label.tilde + row.end_date;
+					}
+				}
 				,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "cursor-default",
 					render: function (data) {
 						return getPromotionStatusName(data);
@@ -200,7 +209,6 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setPromotionRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -218,18 +226,6 @@
 		}
 
 		return JSON.stringify(param);
-	}
-
-	function setPromotionRowAttributes(nRow, aData)
-	{
-		let titleDom = $(nRow).children().eq(0);
-		let periodDom = $(nRow).children().eq(3);
-		let detailUrl = page.detailPromo+aData.idx;
-
-		/** 제목에 a 태그 추가 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.promotion_title+'</a>');
-		/** 프로모션 기간 **/
-		$(periodDom).html(aData.start_date+label.tilde+aData.end_date);
 	}
 
 	function getUcdLog()

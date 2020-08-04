@@ -316,7 +316,7 @@
 		if (count === 0)
 			resultBox.hide();
 
-		selectedUserCount.html(count);
+		selectedUserCount.html(count.toString);
 	}
 
 	function onSubmitUcd()
@@ -388,7 +388,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listUcdUsage;
+		location.href = page.listUcdCharge;
 	}
 
 	function validation()

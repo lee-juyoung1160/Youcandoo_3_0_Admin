@@ -91,7 +91,11 @@
 				,{title: "이름", 	   data: "name",     		  width: "10%",     className: "cursor-default" }
 				,{title: "이메일", 	   data: "email",     		  width: "15%",     className: "cursor-default" }
 				,{title: "최근접속일시", data: "recent_datetime",   width: "15%",     className: "cursor-default" }
-				,{title: "사용여부",   data: "is_active",     	width: "10%",     className: "cursor-default no-sort" }
+				,{title: "사용여부",    data: "is_active",     	  width: "10%",     className: "cursor-default no-sort",
+					render: function (data, type, row, meta) {
+						return buildSwitch(row);
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -123,7 +127,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -152,21 +155,20 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function buildSwitch(data)
 	{
 		/** 사용여부 컬럼에 on off 스위치 **/
-		let useYnDom  = $(nRow).children().eq(6);
-		let checked   = aData.is_active === 'Y' ? 'checked' : '';
-		let switchDom = '';
-		switchDom += '<div class="toggle-btn-wrap">';
-		switchDom += 	'<div class="toggle-btn on">';
-		switchDom += 		'<input onclick="changeStatus(this)" data-userid="'+aData.userid+'" type="radio" class="checkbox ' +checked+'">';
-		switchDom += 		'<div class="knobs"></div>';
-		switchDom += 		'<div class="layer"></div>';
-		switchDom += 	'</div>';
-		switchDom += '</div>';
+		let checked   = data.is_active === 'Y' ? 'checked' : '';
+		let switchEl = '';
+		switchEl += '<div class="toggle-btn-wrap">';
+		switchEl += 	'<div class="toggle-btn on">';
+		switchEl += 		'<input onclick="changeStatus(this)" data-userid="'+data.userid+'" type="radio" class="checkbox ' +checked+'">';
+		switchEl += 		'<div class="knobs"></div>';
+		switchEl += 		'<div class="layer"></div>';
+		switchEl += 	'</div>';
+		switchEl += '</div>';
 
-		$(useYnDom).html(switchDom);
+		return switchEl;
 	}
 
 	function onSubmitSearch()

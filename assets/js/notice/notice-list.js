@@ -77,12 +77,18 @@
 			},
 			columns: [
 				{title: "", 				data: "idx",   				width: "5%",   className: "no-sort",
-					render: function (data) {
-						return singleCheckBoxDom(data);
+					render: function (data, type, row, meta) {
+						let fixTopEl = '<i class="fas fas fa-bell" style="cursor:default;color:#ffc800;"></i>';
+						return row.is_top === 'Y' ?  fixTopEl : singleCheckBoxDom(data);
 					}
 				},
 				{title: "No "+tooltipTop, 	data: "idx",    	  		width: "10%",	className: "cursor-default no-sort" }
-				,{title: "제목", 			data: "title",    	  		width: "40%",  	className: "cursor-default" }
+				,{title: "제목", 			data: "title",    	  		width: "40%",  	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailNotice + row.idx;
+						return '<a href="'+detailUrl+'">' + data + '</a>';
+					}
+				}
 				,{title: "노출여부", 		data: "is_exposure",  		width: "5%",  	className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
@@ -132,7 +138,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			}
 			,drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -158,24 +163,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let topDom	 = $(nRow).children().eq(1);
-		let titleDom = $(nRow).children().eq(2);
-		let detailUrl = page.detailNotice+aData.idx;
-		let isTop	 = aData.is_top;
-
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
-
-		/** 상단고정 **/
-		if (isTop === 'Y')
-		{
-			/** no컬럼에 숫자대신 아이콘 **/
-			$(topDom).html('<i class="fas fas fa-bell" style="cursor:default;color:#ffc800;"></i>');
-		}
 	}
 
 	/** row select **/

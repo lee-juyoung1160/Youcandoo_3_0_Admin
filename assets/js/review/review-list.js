@@ -140,7 +140,7 @@
                 headers: headers,
                 dataType: 'JSON',
                 type: 'POST',
-                data: function (responsed) {
+                data: function () {
                     return tableParams();
                 },
                 error: function (c) {

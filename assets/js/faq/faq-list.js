@@ -111,7 +111,12 @@
 					}
 				},
 				{title: "구분", 		data: "faq_type",   		width: "10%",   className: "cursor-default " }
-				,{title: "제목", 	data: "title",   			width: "30%",   className: "cursor-default" }
+				,{title: "제목", 	data: "title",   			width: "30%",   className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailFaq + row.idx;
+						return '<a href="'+detailUrl+'">' + data + '</a>';
+					}
+				}
 				,{title: "노출여부", data: "is_exposure",  		width: "10%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
@@ -156,7 +161,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -180,15 +184,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(2);
-		let detailUrl = page.detailFaq+aData.idx;
-
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

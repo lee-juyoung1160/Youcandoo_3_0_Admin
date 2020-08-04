@@ -93,7 +93,6 @@
                 initTableSorter(this);
             },
             fnRowCallback: function( nRow, aData ) {
-                setRowAttributes(nRow, aData);
             },
             drawCallback: function (settings) {
                 buildTotalCount(this);
@@ -125,12 +124,6 @@
         setHistoryParam(param);
 
         return JSON.stringify(param);
-    }
-
-    function setRowAttributes(nRow, aData)
-    {
-        if (isNegative(aData.amount))
-            $(nRow).addClass('minus-pay');
     }
 
     function onSubmitSearch()

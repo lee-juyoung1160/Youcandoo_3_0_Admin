@@ -697,7 +697,8 @@
         }
 
         if (_auth === '/ucd/sales') accessibleMenus.push('/ucd/create/biz');
-        if (_auth === '/ucd/usage') accessibleMenus.push('/ucd/create/user');
+        if (_auth === '/ucd/charge') accessibleMenus.push('/ucd/create/user');
+        if (_auth === '/ucd/cancel') accessibleMenus.push('/ucd/cancel/user');
         if (_auth === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
     }
 

@@ -34,16 +34,16 @@ class Ucd extends MY_Controller {
         }
     }
     public function cancel($Route = "list")
-            {
-                switch ($Route) {
-                    case "user" :
-                        $this->load->layout('ucd/ucd-cancel-user');
-                        break;
-                    case "list":
-                        $this->load->layout('ucd/ucd-cancel-list');
-                        break;
-                }
-            }
+    {
+        switch ($Route) {
+            case "user" :
+                $this->load->layout('ucd/ucd-cancel-user');
+                break;
+            case "list":
+                $this->load->layout('ucd/ucd-cancel-list');
+                break;
+        }
+    }
 
     public function create($Route="biz")
     {

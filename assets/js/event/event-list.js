@@ -79,10 +79,15 @@
 					}
 				},
 				{title: "구분", 		data: "event_type",    	   width: "10%",	className: "cursor-default" }
-				,{title: "제목", 	data: "title",  		   width: "35%",	className: "cursor-default" }
+				,{title: "제목", 	data: "title",  		   width: "35%",	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailEvent + row.idx;
+						return '<a href="'+detailUrl+'">' + data + '</a>';
+					}
+				}
 				,{title: "기간", 	data: "start_date",  	   width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.start_date+label.tilde+row.end_date;
+						return row.start_date + label.tilde + row.end_date;
 					}
 				}
 				,{title: "노출여부",  data: "is_exposure",  	   width: "10%",  	className: "cursor-default no-sort",
@@ -129,7 +134,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -154,15 +158,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		let titleDom  = $(nRow).children().eq(2);
-		let detailUrl = page.detailEvent+aData.idx;
-
-		/** 제목에 클릭 상세 이동 **/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()

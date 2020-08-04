@@ -32,7 +32,7 @@
     }
 
 
-    function ajaxRequestWithFormData (_global, _reqUrl, _reqParam, _callback, _errorMsg, _completeCallback)
+    function ajaxRequestWithFormData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
     {
         $.ajax({
             url: _reqUrl,
@@ -44,7 +44,7 @@
             dataType: 'json',
             data: _reqParam,
             success: function(data) {
-                _callback(data);
+                _successCallback(data);
             },
             error: function (request, status) {
                 sweetError(_errorMsg);

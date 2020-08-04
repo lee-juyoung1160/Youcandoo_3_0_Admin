@@ -117,15 +117,14 @@
 				}
 				,{title: "회원",	data: "nickname",    width: "50%", 	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return '<div class="p-info">'+data+'<span class="p-id">'+row.profile_uuid+'</span></div>'
+						return '<div class="p-info">'+data+'<span class="p-id">'+row.profile_uuid+'</span></div>';
 					}
 				}
 				,{title: "보유UCD",	data: "ucd.total",   width: "50%", 	 className: "cursor-default",
-					render: function (data, type, row, meta) {
+					render: function (data) {
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';
 						innerDom += 	'<strong>'+numberWithCommas(data)+'</strong>';
-						innerDom += 	'(ⓒ'+numberWithCommas(row.ucd.cash)+' / ⓟ'+numberWithCommas(row.ucd.point)+')';
 						innerDom += '</div>';
 						return innerDom;
 					}
@@ -203,7 +202,7 @@
 				moveUserDom +=     '<td>'+nick+'</td>';
 				moveUserDom += 	   '<td>';
 				moveUserDom += 	   	   '<div class="user-ucd">';
-				moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>(ⓒ'+numberWithCommas(cash)+' / ⓟ'+numberWithCommas(point)+')';
+				moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>';
 				moveUserDom += 		   '</div>';
 				moveUserDom += 	   '</td>';
 				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';

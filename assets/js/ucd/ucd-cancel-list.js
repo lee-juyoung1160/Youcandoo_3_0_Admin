@@ -56,17 +56,15 @@
                 }
             },
             columns: [
-                {title: "닉네임", 	data: "nickname",    width: "20%",    className: "cursor-default" }
-                ,{title: "유형", 	data: "ucd_type",    width: "5%",     className: "cursor-default" }
-                ,{title: "구분", 	data: "division",    width: "5%",     className: "cursor-default" }
-                ,{title: "금액", 	data: "amount",    	 width: "10%",    className: "cursor-default",
+                {title: "닉네임", 	data: "nickname",           width: "20%",    className: "cursor-default" }
+                ,{title: "유형", 	data: "ucd_type",           width: "5%",     className: "cursor-default" }
+                ,{title: "금액", 	data: "amount",    	        width: "10%",    className: "cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "제목", 	data: "title",    	 width: "15%",    className: "cursor-default" }
-                ,{title: "내용", 	data: "description", width: "35%",    className: "cursor-default no-sort" }
-                ,{title: "일시", 	data: "created",     width: "15%",    className: "cursor-default" }
+                ,{title: "내용", 	data: "description",        width: "35%",    className: "cursor-default no-sort" }
+                ,{title: "일시", 	data: "created_datetime",   width: "15%",    className: "cursor-default" }
             ],
             language: {
                 emptyTable : message.emptyList
@@ -95,7 +93,6 @@
                 initTableSorter(this);
             },
             fnRowCallback: function( nRow, aData ) {
-                setRowAttributes(nRow, aData);
             },
             drawCallback: function (settings) {
                 buildTotalCount(this);
@@ -127,12 +124,6 @@
         setHistoryParam(param);
 
         return JSON.stringify(param);
-    }
-
-    function setRowAttributes(nRow, aData)
-    {
-        if (isNegative(aData.amount))
-            $(nRow).addClass('minus-pay');
     }
 
     function onSubmitSearch()

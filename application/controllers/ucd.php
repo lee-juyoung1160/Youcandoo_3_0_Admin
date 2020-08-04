@@ -25,6 +25,23 @@ class Ucd extends MY_Controller {
         }
     }
 
+    public function charge($Route = "list")
+    {
+        switch ($Route) {
+            case "list":
+                $this->load->layout('ucd/ucd-charge-list');
+                break;
+        }
+    }
+    public function cancel($Route = "list")
+            {
+                switch ($Route) {
+                    case "list":
+                        $this->load->layout('ucd/ucd-cancel-list');
+                        break;
+                }
+            }
+
     public function create($Route="biz")
     {
         switch ($Route)

@@ -46,7 +46,7 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",   			width: "0%",    className: "no-sort",
+				{title: "", 			data: "idx",   			width: "5%",    className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
@@ -69,7 +69,7 @@
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  width: "25%",   className: "cursor-default",
+				,{title: "도착페이지", 		data: "category_target",  width: "20%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '-' : ('['+row.event_name+'] '+row.event_title);
 					}

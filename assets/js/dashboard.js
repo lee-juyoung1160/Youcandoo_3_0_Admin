@@ -107,10 +107,18 @@
 
     function initSelectBox()
     {
-        let defaultYear = 2020;
-        for (defaultYear; defaultYear <= year; defaultYear++) {
-            yearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
-            certYearSelectBox.append(new Option( defaultYear + "년", defaultYear.toString()));
+        for (year; year >= 2020; year--)
+        {
+            if (year === 2020)
+            {
+                yearSelectBox.append(new Option( year + "년", year.toString()));
+                certYearSelectBox.append(new Option( year + "년", year.toString()));
+            }
+            else
+            {
+                yearSelectBox.prepend(new Option( year + "년", year.toString()));
+                certYearSelectBox.prepend(new Option( year + "년", year.toString()));
+            }
         }
 
         onChangeSelectOption($('#cert-year-select'));

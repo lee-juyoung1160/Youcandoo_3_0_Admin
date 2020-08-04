@@ -57,7 +57,7 @@
             },
             columns: [
                 {title: "닉네임", 	data: "nickname",           width: "20%",    className: "cursor-default" }
-                ,{title: "유형", 	data: "ucd_type",           width: "5%",     className: "cursor-default" }
+                ,{title: "유형", 	data: "ucd_type",           width: "10%",     className: "cursor-default" }
                 ,{title: "금액", 	data: "amount",    	        width: "10%",    className: "cursor-default",
                     render: function (data) {
                         return numberWithCommas(data);

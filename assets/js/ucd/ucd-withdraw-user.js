@@ -78,14 +78,14 @@
 			let profileId = $(this).data('uuid');
 			let nick = $(this).data('nick');
 			let total = $(this).data('total');
-			let cash = $(this).data('cash');
-			let point = $(this).data('point');
 
-			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
-			moveUserDom +=     '<td>'+nick+'</td>';
+			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
+			moveUserDom +=     '<td>'
+			moveUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
+			moveUserDom += 	   '</td>';
 			moveUserDom += 	   '<td>';
 			moveUserDom += 	   	   '<div class="user-ucd">';
-			moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>(ⓒ'+numberWithCommas(cash)+' / ⓟ'+numberWithCommas(point)+')';
+			moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>';
 			moveUserDom += 		   '</div>';
 			moveUserDom += 	   '</td>';
 			moveUserDom += 	   '<td><i onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
@@ -115,12 +115,12 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "회원",	data: "nickname",    width: "50%", 	 className: "cursor-default",
+				,{title: "회원",	data: "nickname",    width: "65%", 	 className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return '<div class="p-info">'+data+'<span class="p-id">'+row.profile_uuid+'</span></div>';
 					}
 				}
-				,{title: "보유UCD",	data: "ucd.total",   width: "50%", 	 className: "cursor-default",
+				,{title: "보유UCD",	data: "ucd.total",   width: "30%", 	 className: "cursor-default",
 					render: function (data) {
 						let innerDom = '';
 						innerDom += '<div class="user-ucd">';
@@ -195,14 +195,14 @@
 				let detail = selectedData[i];
 				let profileId = detail.profile_uuid;
 				let nick = detail.nickname;
-				let cash = detail.ucd.cash;
-				let point = detail.ucd.point;
 				let total = detail.ucd.total;
-				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
-				moveUserDom +=     '<td>'+nick+'</td>';
+
+				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
+				moveUserDom +=     '<td>'
+				moveUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
 				moveUserDom += 	   '<td>';
 				moveUserDom += 	   	   '<div class="user-ucd">';
-				moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>';
+				moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'</strong>';
 				moveUserDom += 		   '</div>';
 				moveUserDom += 	   '</td>';
 				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';
@@ -293,14 +293,14 @@
 			let profileId = $(this).data('uuid');
 			let nick = $(this).data('nick');
 			let total = $(this).data('total');
-			let cash = $(this).data('cash');
-			let point = $(this).data('point');
 
-			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-cash="'+cash+'" data-point="'+point+'" data-total="'+total+'">';
-			selectedUserDom +=     '<td>'+nick+'</td>';
+			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
+			selectedUserDom +=     '<td>'
+			selectedUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
+			selectedUserDom += 	   '</td>';
 			selectedUserDom += 	   '<td>';
 			selectedUserDom += 	   	   '<div class="user-ucd">';
-			selectedUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>(ⓒ'+numberWithCommas(cash)+' / ⓟ'+numberWithCommas(point)+')';
+			selectedUserDom += 	       	   '<strong>'+numberWithCommas(total)+'</strong>';
 			selectedUserDom += 		   '</div>';
 			selectedUserDom += 	   '</td>';
 			selectedUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';

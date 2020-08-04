@@ -122,16 +122,17 @@
 			intro.parent().prepend(introImgDom);
 		}
 
+		isBanner.each(function () {
+			if ($(this).val() === promoData.is_banner)
+				$(this).prop('checked', true);
+		});
+
 		if (promoData.status === 'pending')
 		{
 			promoName.val(promoData.promotion_title);
 			promoFrom.val(promoData.start_date);
 			promoTo.val(promoData.end_date);
 			allowCount.val(promoData.promotion_allow_count);
-			isBanner.each(function () {
-				if ($(this).val() === promoData.is_banner)
-					$(this).prop('checked', true);
-			});
 
 			buildEditableReward();
 		}
@@ -139,8 +140,7 @@
 		{
 			$("#promoNameWrap")	.html('<p class="detail-data">'+promoData.promotion_title+'</p>');
 			$("#promoDateWrap")	.html('<p class="detail-data">'+promoData.start_date+' ~ '+promoData.end_date+'</p>');
-			$("#allowCountWrap").html('<p class="detail-data">'+promoData.promotion_allow_count+'</p>');
-			$("#isBannerWrap")	.html('<p class="detail-data">'+promoData.is_banner+'</p>');
+			$("#allowCountWrap")	.html('<p class="detail-data">'+promoData.promotion_allow_count+'</p>');
 
 			buildRewardTab();
 		}
@@ -1043,6 +1043,7 @@
 			notice.push($(this).val().trim());
 		});
 		formData.append("promotion_notice", JSON.stringify(notice));
+		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
 		if (g_promo_status === 'pending')
 		{
@@ -1050,7 +1051,6 @@
 			formData.append("promotion-start-date", promoFrom.val());
 			formData.append("promotion-end-date", promoTo.val());
 			formData.append("promotion-allow-count", allowCount.val());
-			formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 
 			let rewardSelectDoms = rewardTabWrap.find('li');
 			let rewardSelectDomLength = rewardSelectDoms.length;

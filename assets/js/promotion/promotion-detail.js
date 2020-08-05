@@ -247,23 +247,24 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 			data: "doit_title",    			width: "35%",    className: "cursor-default",
+				{title: "두잇명", 			data: "doit_title",    			width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit+row.idx;
 						return '<a href="'+detailUrl+'">' + data +'</a>';
 					}
 				}
-				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "15%",    className: "cursor-default",
+				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.doit_member + ' / ' + data;
 					}
 				}
-				,{title: "인증기간", 		data: "action_start_datetime",  width: "20%",    className: "cursor-default",
+				,{title: "인증기간", 		data: "action_start_datetime",  width: "15%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return data + label.tilde + row.action_end_datetime;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",  			width: "10%",    className: "cursor-default" }
+				,{title: "개설자", 			data: "nickname",  				width: "15%",    className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

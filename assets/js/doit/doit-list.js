@@ -128,7 +128,7 @@
 						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
 					}
 				}
-				,{title: "진행상태", 		data: "doit_status",    		width: "7%",   className: "cursor-default" }
+				,{title: "진행상태", 		data: "doit_status",    		width: "7%",    className: "cursor-default" }
 				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
 			],
 			language: {

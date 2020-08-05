@@ -185,7 +185,7 @@ h2.main-title {
 }
 p.sub-title {
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 14px;
 	margin-bottom: 12px;
 	color: #007aff;
 }
@@ -568,13 +568,14 @@ input[type="radio"] + label{
 }
 input[type="checkbox"] + label span {
 	display: inline-block;
-	width: 19px;
-	height: 19px;
+	width: 17px;
+	height: 17px;
 	margin: -2px 10px 0 0;
 	vertical-align: middle;
 	cursor: pointer;
-	border: 1px solid #ebebeb;
-	background-color: #f5f5f5;
+	border: 1px solid #aaa;
+	background-color: #fff;
+	/*box-shadow: inset 0px 0px 10px rgba(0,0,0,0.05);*/
 }
 input[type="checkbox"]:checked + label span {
 	background-size: cover;
@@ -584,14 +585,14 @@ input[type="checkbox"]:checked + label span {
 }
 input[type="radio"] + label span {
 	display:inline-block;
-	width:19px;
-	height:19px;
+	width:17px;
+	height:17px;
 	border-radius: 50%;
 	margin:-2px 10px 0 0;
 	vertical-align:middle;
 	cursor:pointer;
-	border: 1px solid #ebebeb;
-	background-color: #f5f5f5;
+	border: 1px solid #aaa;
+	background-color: #fff;
 }
 input[type="radio"]:checked + label span {
 	background-size: 13px;
@@ -755,7 +756,7 @@ input[type="radio"] + label{
 	font-size: 14px;
 }
 input[type="checkbox"]:disabled + label span{
-	background-color: #fff;
+	background-color: #EEE;
 	border: none;
 	cursor: default;
 }
@@ -934,8 +935,8 @@ input[type="checkbox"]:disabled + label span{
 .detail-data {
 	overflow-wrap: break-word;
 	color: #404040;
-	font-size: 16px;
-	font-weight: 500;
+	font-size: 15px;
+	font-weight: 400;
 	line-height: 1.7;
 }
 .detail-data-img a {

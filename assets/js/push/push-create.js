@@ -147,7 +147,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",
+				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%", className: 'cursor-default',
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
@@ -183,7 +183,6 @@
 			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
-				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

@@ -402,7 +402,7 @@
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
 					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
 
-				if (i===0 || i%5 === 0)
+				if (i===0 || i%6 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
 				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
@@ -427,7 +427,7 @@
 				actionDom += 	'</div>';
 				actionDom += '</li>';
 
-				if (i>0 && (i+1)%5 === 0)
+				if (i>0 && (i+1)%6 === 0)
 					actionDom += '</ul>';
 			}
 		}

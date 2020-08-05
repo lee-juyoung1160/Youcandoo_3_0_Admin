@@ -963,7 +963,7 @@ input[type="checkbox"]:disabled + label span{
 .cert-contents li {
 	float: left;
 	position: relative;
-	margin-right: 20px;
+	margin-right: 10px;
 	width: 240px;
 	padding: 20px 15px;
 	margin-top: 20px;

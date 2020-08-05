@@ -106,7 +106,7 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "15%",   className: "cursor-default",
+				{title: "두잇 유형", 		data: "promotion_uuid", 		width: "7%",   className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
@@ -117,17 +117,19 @@
 						return '<a href="'+detailUrl+'">' + row.doit_title + '</a>';
 					}
 				}
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "25%",   className: "cursor-default",
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "15%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return row.action_start_datetime+label.tilde+row.action_end_datetime;
 					}
 				}
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "15%",   className: "cursor-default no-sort",
+				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
 					}
 				}
-				,{title: "진행상태", 		data: "doit_status",    		width: "15%",   className: "cursor-default no-sort" }
+				,{title: "진행상태", 		data: "doit_status",    		width: "7%",   className: "cursor-default" }
+				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
 			],
 			language: {
 				emptyTable : message.emptyList

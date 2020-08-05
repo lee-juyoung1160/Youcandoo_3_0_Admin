@@ -38,6 +38,9 @@
 	{
 		keyword.val('');
 		doitStatus.prop('checked', false);
+		doitStatus.eq(0).prop('checked', true);
+		doitStatus.eq(1).prop('checked', true);
+		doitStatus.eq(2).prop('checked', true);
 		doitStatus.eq(3).prop('checked', true);
 		radioDoitType.eq(0).prop('checked', true);
 		initSelectOption();

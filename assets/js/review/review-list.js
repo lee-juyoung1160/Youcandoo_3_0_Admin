@@ -151,30 +151,30 @@
                     render: function (data) {
                         return multiCheckBoxDom(data);
                     }
-                },
-                {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort no-sort',
-                    render : function(data, type, full, meta) {
-                        return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
+                }
+                ,{title:"리뷰내용",      data: "review_text",    width: '30%',  className: 'no-sort no-sort',
+                    render : function(data, type, row, meta) {
+                        return buildReviewDetail(row);
                     }
-                },
-                {title:"평점",         data: "rating",        width: '10%',   className: 'cursor-default no-sort',
+                }
+                ,{title:"평점",         data: "rating",         width: '10%',   className: 'cursor-default no-sort',
                     render: function (data) {
                         return buildStar(data);
                     }
-                },
-                {title:"두잇명",        data: "doit_title",    width: '25%',   className: 'cursor-default' },
-                {title:"신고",          data: "report_count",  width: '10%',  className: 'cursor-default' },
-                {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'cursor-default no-sort',
+                }
+                ,{title:"두잇명",        data: "doit_title",    width: '25%',   className: 'cursor-default' }
+                ,{title:"신고",          data: "report_count",  width: '5%',  className: 'cursor-default' }
+                ,{title:"블라인드 여부",  data: "is_blind",      width: '8%',   className: 'cursor-default no-sort',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
-                },
-                {title:"작성날짜",      data: "created",        width: '10%',   className: 'cursor-default',
+                }
+                ,{title:"작성자",        data: "nickname",      width: '15%',   className: 'cursor-default no-sort' }
+                ,{title:"작성일",         data: "created",      width: '10%',   className: 'cursor-default',
                     render: function (data) {
                         return data.substring(0, 10);
                     }
-                },
-                {title:"작성자",        data: "nickname",      width: '15%',   className: 'cursor-default no-sort' }
+                }
             ],language: {
                 emptyTable: message.emptyList
                 , zeroRecords: message.emptyList
@@ -187,26 +187,44 @@
         });
     }
 
+    function buildReviewDetail(data)
+    {
+        let innerEl = '<a onclick="openModal(this);" ';
+        innerEl +=	'class="line-clamp more-info-btn"';
+        innerEl +=	'data-detail="'+data.review_text+'"';
+        innerEl +=	'data-title="'+data.doit_title+'"';
+        innerEl +=	'data-rating="'+data.rating+'"';
+        innerEl +=	'data-report="'+data.report_count+'"';
+        innerEl +=	'data-nickname="'+data.nickname+'"';
+        innerEl +=	'data-blind="'+data.is_blind+'"';
+        innerEl +=	'data-created="'+data.created+'"';
+        innerEl +=	'>';
+        innerEl += data.review_text;
+        innerEl += '</a>';
+
+        return innerEl;
+    }
+
     /** 타이틀 클릭시 모달 이벤트 및 데이터 **/
-    function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
-        reviewTextEl.html(review_text);
-        doitTitleEl.html(doit_title);
-        reportCountEl.html(report_count);
-        nicknameEl.html(nickname);
-        createdEl.html(created);
-        isBlindEl.html(is_blind);
-        modalLayout.fadeIn(500);
-        modalDetail.fadeIn(500);
+    function openModal (obj)
+    {
+        reviewTextEl    .html($(obj).data('detail'));
+        doitTitleEl     .html($(obj).data('title'));
+        reportCountEl   .html($(obj).data('report'));
+        nicknameEl      .html($(obj).data('nickname'));
+        createdEl       .html($(obj).data('created'));
+        isBlindEl       .html($(obj).data('blind'));
+
+        modalFadein();
         overflowHidden();
+
         /** 모달 평점에 따른 별 추가 **/
-        let liList = starWrap.find('li');
-        for(let i=0; i<liList.length; i++){
-            let listObj = $(liList[i]);
-            if(i<rating){
-                listObj.addClass('on');
-            } else {
-                listObj.removeClass('on');
-            }
+        let liEls  = starWrap.find('li');
+        let rating = Number($(obj).data('rating'));
+        for (let i=0; i<liEls.length; i++)
+        {
+            let liEl = $(liEls[i]);
+            i < rating ? liEl.addClass('on') : liEl.removeClass('on');
         }
     }
 

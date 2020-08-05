@@ -34,6 +34,9 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** n개씩보기 셀렉트 박스 초기화 **/
+		initCustomPageLength(selPageLengthForDoit);
+		initCustomPageLength(selPageLengthForUcd);
 		/** 프로모션 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
@@ -45,6 +48,19 @@
 		goUpdate	.on('click', function () { goUpdatePage(); })
 		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});
+
+	function initCustomPageLength(_element)
+	{
+		let options = '';
+		options += '<option value="10">10개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+		options += '<option value="50">50개씩 보기</ooption>';
+		options += '<option value="100">100개씩 보기</ooption>';
+
+		_element.html(options);
+
+		onChangeSelectOption(_element);
+	}
 
 	/** 프로모션탭 **/
 	function onClickPromoTab(obj)

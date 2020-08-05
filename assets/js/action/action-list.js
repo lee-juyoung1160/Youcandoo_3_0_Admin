@@ -39,7 +39,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLengthForActions();
 		/** 목록 불러오기 **/
 		getActions();
 		/** 이벤트 **/
@@ -64,6 +64,20 @@
 		initSelectOption();
 		initSearchDateRangeToday();
 		initDayBtn();
+	}
+
+	function initPageLengthForActions()
+	{
+		let pageLengthEl = $("#selPageLength");
+		let options = '';
+		options += '<option value="12">12개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+		options += '<option value="60">60개씩 보기</ooption>';
+		options += '<option value="120">120개씩 보기</ooption>';
+
+		pageLengthEl.html(options);
+
+		onChangeSelectOption(pageLengthEl);
 	}
 
 	/** 인증상태 체크박스 최소 하나 선택 **/

@@ -81,7 +81,7 @@
 				}
 			},
 			columns: [
-				{title: "", 		data: "idx",   				width: "5%",     className: "no-sort",
+				{title: "", 		data: "idx",   				width: "5%",     className: "cursor-default no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}

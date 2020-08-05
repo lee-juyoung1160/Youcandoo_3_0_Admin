@@ -147,12 +147,12 @@
                     sweetError(label.list+message.ajaxLoadError);
                 }
             },columns: [
-                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",  className: 'no-sort',
+                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",  className: 'cursor-default no-sort',
                     render: function (data) {
                         return multiCheckBoxDom(data);
                     }
                 },
-                {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort no-sort',
+                {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort',
                     render : function(data, type, full, meta) {
                         return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
                     }

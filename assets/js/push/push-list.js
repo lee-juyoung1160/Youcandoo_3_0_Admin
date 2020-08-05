@@ -6,6 +6,12 @@
 	const selPageLength = $("#selPageLength");
 	const btnCancel 	= $("#btnCancel");
 
+	/** modal **/
+	const detail 		= $("#detail");
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
+
 	$( () => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
@@ -22,6 +28,8 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnCancel		.on("click", function () { cancelPush(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 	});
 
 	function initSearchForm()
@@ -60,7 +68,7 @@
 				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
 				,{title: "내용", 		data: "send_message",  			width: "25%",   className: "cursor-default",
 					render: function (data) {
-						return '<a class="line-clamp">' + data + '</a>';
+						return '<a onclick="onClickDetail(this);" data-detail="'+data+'" class="line-clamp">' + data + '</a>';
 					}
 				}
 				,{title: "스토어", 		data: "store",    	  		  width: "8%",  	className: "cursor-default",
@@ -116,6 +124,12 @@
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	function onClickDetail(obj)
+	{
+		modalFadein();
+		detail.html($(obj).data('detail'));
 	}
 
 	function tableParams()

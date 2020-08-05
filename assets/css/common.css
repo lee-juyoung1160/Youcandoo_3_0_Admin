@@ -97,7 +97,7 @@ section {
 	overflow: hidden;
 }
 .inner {
-	width: 1280px;
+	width: 90%;
 	min-width: 1024px;
 	height: 100%;
 	margin: 0 auto;
@@ -510,12 +510,11 @@ select::-ms-expand {
 	margin-right: 20px;
 	position: relative;
 	width: 150px;
-	height: 40px;
-	font-size: 15px;
+	height: 35px;
+	font-size: 13px;
 	color: #cccccc;
 	border: 1px solid #ebebeb;
 	border-radius: 5px;
-	position: relative;
 	background-color: #f8f8f8;
 	z-index: 1;
 }
@@ -550,7 +549,7 @@ select::-ms-expand {
 	height: auto;
 	line-height: normal;
 	font-family: inherit;
-	padding: .8em .5em;
+	padding: .5em .5em;
 	border: 0;
 	opacity: 0;
 	filter:alpha(opacity=0);
@@ -681,7 +680,7 @@ textarea {
 }
 .list-common-title {
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 14px;
 	margin-bottom: 10px;
 	color: #007aff;
 }
@@ -737,7 +736,7 @@ textarea {
 	-moz-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 	color: #afafaf;
-	font-size: 16px;
+	font-size: 14px;
 	cursor: none;
 }
 .list-common .search-wrap .select-box,
@@ -784,37 +783,36 @@ input[type="checkbox"]:disabled + label span{
 .table-wrap {
 	margin-top: 50px;
 }
-.table-wrap .top .left-wrap {
-	float: left;
+.table-wrap .top .right-wrap {
+	float: right;
 }
-.table-wrap .top .left-wrap p {
+.table-wrap .top .right-wrap p {
 	float: left;
 	display: inline-block;
+	margin-right: 15px;
 	line-height: 40px;
 	font-weight: 500;
-	font-size: 18px;
+	font-size: 14px;
 	color: #484848;
 }
-.table-wrap .top .left-wrap p .data-num {
+.table-wrap .top .right-wrap p .data-num {
 	font-weight: 600;
-	font-size: 18px;
+	font-size: 14px;
 }
-.table-wrap .top .left-wrap .select-box {
+.table-wrap .top .right-wrap .select-box {
 	float: left;
 	background-color: #ffffff;
 }
 .table-wrap .btn-wrap {
-	float: right;
+	float: left;
 }
 .table-wrap .btn-wrap button {
-	text-align: center;
-	line-height: 40px;
-	display: inline-block;
-	width: 150px;
-	height: 40px;
+
+	padding: 10px;
 	color: #ffffff;
-	border-radius: 30px;
+	font-size: 14px;
 	background-color: #19579a;
+	border-radius: 5px;
 }
 .table-wrap .btn-wrap .best-btn {
 	background-color: #ffc800;
@@ -839,21 +837,26 @@ input[type="checkbox"]:disabled + label span{
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
 .table-wrap table thead th {
+	padding: 13px 5px;
 	color: #007aff;
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 14px;
 }
 .table-wrap table tbody tr:hover {
 	cursor: pointer;
 	box-shadow: -3px 1px 8px 4px rgba(0, 0, 0, 0.05);
 }
+.table-wrap table tbody tr:nth-child(even) td {
+	background-color: #f9f9f9;
+}
 .table-wrap table th,
 .table-wrap table td {
-	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
 .table-wrap table td {
+	padding: 10px 5px;
 	line-height: 1.4;
+	font-size: 14px;
 }
 .table-wrap .checkbox-wrap {
 	margin-top: 0;
@@ -881,7 +884,7 @@ input[type="checkbox"]:disabled + label span{
 .table-pagination li {
 	cursor: pointer;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	padding: 7px;
 	border-radius: 2px;
 }
@@ -900,7 +903,7 @@ input[type="checkbox"]:disabled + label span{
 	border-right: 1px solid #f1f1f1;
 	line-height: 45px;
 	text-align: center;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 400;
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);

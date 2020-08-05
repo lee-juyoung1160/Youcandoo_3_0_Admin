@@ -445,19 +445,20 @@
 			},
 			columns: [
 				{title: "닉네임", 			data: "nickname",    	width: "20%",   className: "cursor-default" }
+				,{title: "프로필ID", 		data: "profile_uuid",   width: "25%",   className: "cursor-default" }
 				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    className: "cursor-default" }
 				,{title: "인증한 횟수", 		data: "total",    		width: "8%",    className: "cursor-default" }
-				,{title: "성공", 	  		data: "success",    	width: "8%",    className: "cursor-default" }
-				,{title: "실패",  	  		data: "fail",   		width: "8%",    className: "cursor-default" }
-				,{title: "신고",  	  		data: "report",   		width: "8%",    className: "cursor-default" }
-				,{title: "옐로카드",    		data: "yellow",   		width: "8%",    className: "cursor-default" }
-				,{title: "레드카드",    		data: "red",   			width: "8%",    className: "cursor-default" }
+				,{title: "성공", 	  		data: "success",    	width: "5%",    className: "cursor-default" }
+				,{title: "실패",  	  		data: "fail",   		width: "5%",    className: "cursor-default" }
+				,{title: "신고",  	  		data: "report",   		width: "5%",    className: "cursor-default" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "5%",    className: "cursor-default" }
+				,{title: "레드카드",    		data: "red",   			width: "5%",    className: "cursor-default" }
 				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",    className: "cursor-default",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "10%",    className: "cursor-default",
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",    className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

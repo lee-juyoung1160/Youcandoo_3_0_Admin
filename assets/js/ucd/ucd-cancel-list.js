@@ -66,6 +66,11 @@
                 ,{title: "내용", 	data: "description",        width: "30%",    className: "cursor-default no-sort" }
                 ,{title: "담당자", 	data: "created_user",       width: "10%",    className: "cursor-default no-sort" }
                 ,{title: "일시", 	data: "created_datetime",   width: "15%",    className: "cursor-default" }
+                ,{title: "메모", 	data: "amount",             width: "5%",     className: "no-sort",
+                    render: function (data) {
+                        return '<div class="tooltip"><i class="fas fa-check-circle tooltip-mark on"></i><div class="tooltip-hover-text"><strong>memo</strong><p>qmffkqmff 블라블라</p></div></div>'
+                    }
+                }
             ],
             language: {
                 emptyTable : message.emptyList

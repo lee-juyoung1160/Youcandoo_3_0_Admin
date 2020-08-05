@@ -94,9 +94,9 @@
         getUserStatus();
         getUcdStatus();
         /** 월단위 셀렉박스 이벤트 **/
-        yearSelectBox       .addEventListener('change', function () { getMonthlyDoit(); });
-        certYearSelectBox   .addEventListener('change', function () { getDailyActions(); });
-        certMonthSelectBox  .addEventListener('change', function () { getDailyActions(); });
+        yearSelectBox       .addEventListener('change', function () { destroyChart(monthlyDoitChart); getMonthlyDoit(); });
+        certYearSelectBox   .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
+        certMonthSelectBox  .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
     });
 
     function setBaseDate()
@@ -288,6 +288,7 @@
         isSuccessResp(data) ? getMonthlyDoitSuccess(data) : sweetToast(invalidResp(data));
     }
 
+    let monthlyDoitChart;
     function getMonthlyDoitSuccess(data)
     {
         let dataset = [
@@ -310,7 +311,7 @@
             }
         ];
 
-        initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
 
     /** 일 단위 인증 수 **/
@@ -332,6 +333,7 @@
         isSuccessResp(data) ? getDailyActionsSuccess(data) : sweetToast(invalidResp(data));
     }
 
+    let dailyActionChart;
     function getDailyActionsSuccess(data)
     {
         let label = data.data.day;
@@ -344,20 +346,26 @@
             backgroundColor: color.black
         }];
 
-        initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
+        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
     }
 
 
     function initChart(ctx, type, label, dataset, options)
     {
-        new Chart(ctx,{
+        return new Chart(ctx,{
             type : type,
             data : {
                 labels : label,
                 datasets : dataset
             },
             options : options
-        })
+        });
+
+    }
+
+    function destroyChart(_chart)
+    {
+        _chart.destroy();
     }
 
     /** 프로모션 진행 현황 **/

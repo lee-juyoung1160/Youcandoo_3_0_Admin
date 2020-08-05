@@ -90,6 +90,11 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** n개씩보기 셀렉트 박스 초기화 **/
+		initCustomPageLength(selPageLengthForUser);
+		initCustomPageLength(selPageLengthForReview);
+		initCustomPageLength(selPageLengthForUcd);
+		initPageLengthForActions();
 		/** 두잇 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
@@ -114,6 +119,19 @@
 		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
+
+	function initCustomPageLength(_element)
+	{
+		let options = '';
+		options += '<option value="10">10개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+		options += '<option value="50">50개씩 보기</ooption>';
+		options += '<option value="100">100개씩 보기</ooption>';
+
+		_element.html(options);
+
+		onChangeSelectOption(_element);
+	}
 
 	/** 두잇정보탭 **/
 	function onClickDoitTab(obj)
@@ -547,6 +565,18 @@
 	/****************
 	 * 인증정보탭 관련
 	 * **************/
+	function initPageLengthForActions()
+	{
+		let options = '';
+		options += '<option value="12">12개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+		options += '<option value="60">60개씩 보기</ooption>';
+		options += '<option value="120">120개씩 보기</ooption>';
+
+		selPageLengthForAction.html(options);
+
+		onChangeSelectOption(selPageLengthForAction);
+	}
 
 	/** 인증상세 모달 **/
 	function onClinkActionImage(obj)
@@ -862,7 +892,7 @@
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
 					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
 
-				if (i===0 || i%5 === 0)
+				if (i===0 || i%6 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
 				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
@@ -886,7 +916,7 @@
 				actionDom += 	'</div>';
 				actionDom += '</li>';
 
-				if (i>0 && (i+1)%5 === 0)
+				if (i>0 && (i+1)%6 === 0)
 					actionDom += '</ul>';
 			}
 		}

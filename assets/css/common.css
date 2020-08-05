@@ -1527,7 +1527,8 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	font-size: 10px;
 	text-align: left;
 }
-/* 메모유무 */
+
+/* 메모툴팁 */
 .tooltip {
 	position: relative;
 }
@@ -1537,18 +1538,17 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .tooltip-mark.on {
 	color: #007aff;
 }
-/*.tooltip-mark:hover .tooltip-hover-text {*/
-/*	display: block;*/
-/*}*/
 .tooltip-hover-text {
 	position: absolute;
 	top: 0;
-	right: 30px;
+	right: 40px;
 	width: 300px;
 	text-align: left;
 	background-color: #fff;
-	border: 1px solid #f5f5f5;
+	border: 1px solid #ddd;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+	z-index: 100;
+	border-left: 3px solid #007aff;
 }
 .tooltip-hover-text strong {
 	display: block;
@@ -1561,5 +1561,5 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .tooltip-hover-text p {
 	padding: 8px;
 	font-size: 13px;
-	background-color: #fff;
+	background-color: #d9e7f5;
 }

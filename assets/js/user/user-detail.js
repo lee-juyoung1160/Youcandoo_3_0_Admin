@@ -38,10 +38,11 @@
 	const modalNickname		= $("#modalNickname");
 	const modalWarnWrap		= $("#modalWarnWrap");
 	/** ucd 적립 모달 **/
-	const modalUcd 		= $("#modalUcd");
-	const amount		= $("#amount");
-	const content		= $("#content");
-	const btnSubmit		= $("#btnSubmit");
+	const modalUcd 	= $("#modalUcd");
+	const amount	= $("#amount");
+	const content	= $("#content");
+	const memo		= $("#memo");
+	const btnSubmit	= $("#btnSubmit");
 	/** 푸시토큰 모달 **/
 	const modalTokenInfo = $("#modalTokenInfo");
 	const deviceToken 	= $("#deviceToken");
@@ -849,6 +850,7 @@
 			,"ucd_type" : "point"
 			,"amount" : amount.val()
 			,"description" : content.val().trim()
+			,"memo" : memo.val().trim()
 			,"created_user" : sessionUserId.val()
 			,"page_type" : ""
 		}

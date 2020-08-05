@@ -7,6 +7,7 @@
 	const target	= $("#target");
 	const amount	= $("#amount");
 	const content 	= $("#content");
+	const memo 		= $("#memo");
 	const btnSubmit	= $("#btnSubmit");
 
 	/** modal **/
@@ -378,6 +379,7 @@
 			,"ucd_type" : "point"
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
+			,"memo" : memo.val().trim()
 			,"created_user" : sessionUserId.val()
 		}
 

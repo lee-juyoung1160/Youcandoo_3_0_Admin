@@ -65,7 +65,12 @@
                 }
                 ,{title: "내용", 	data: "description",        width: "30%",    className: "cursor-default no-sort" }
                 ,{title: "담당자", 	data: "created_user",       width: "10%",    className: "cursor-default no-sort" }
-                ,{title: "일시", 	data: "created_datetime",   width: "15%",    className: "cursor-default" }
+                ,{title: "충전일시",	data: "created_datetime",   width: "15%",    className: "cursor-default" }
+                ,{title: "메모", 	data: "memo",               width: "5%",     className: "no-sort",
+                    render: function (data) {
+                        return buildMemo(data);
+                    }
+                }
             ],
             language: {
                 emptyTable : message.emptyList
@@ -100,6 +105,33 @@
                 toggleBtnPreviousAndNextOnTable(this);
             }
         });
+    }
+
+    function buildMemo(data)
+    {
+        let memoEl = '';
+        memoEl += '<div class="tooltip">';
+        if (!isEmpty(data))
+            memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on"></i>';
+        else
+            memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
+        memoEl +=   '<div class="tooltip-hover-text" style="display: none;">';
+        memoEl +=       '<strong>memo</strong>';
+        memoEl +=       '<p>'+data+'</p>';
+        memoEl +=   '</div>';
+        memoEl += '</div>';
+
+        return memoEl;
+    }
+
+    function mouseoverMemo(obj)
+    {
+        $(obj).siblings().show();
+    }
+
+    function mouseoutMemo(obj)
+    {
+        $(obj).siblings().hide();
     }
 
     function tableParams()

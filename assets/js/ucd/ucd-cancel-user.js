@@ -7,6 +7,7 @@
 	const target	= $("#target");
 	const amount	= $("#amount");
 	const content 	= $("#content");
+	const memo 		= $("#memo");
 	const btnSubmit	= $("#btnSubmit");
 
 	/** modal **/
@@ -377,6 +378,7 @@
 			,"division" : 2
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
+			,"memo" : memo.val().trim()
 			,"created_user" : sessionUserId.val()
 		}
 
@@ -390,7 +392,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listUcdCancel;
+		//location.href = page.listUcdCancel;
 	}
 
 	function validation()

@@ -94,9 +94,9 @@
         getUserStatus();
         getUcdStatus();
         /** 월단위 셀렉박스 이벤트 **/
-        yearSelectBox       .addEventListener('change', function () { destroyChart(monthlyDoitChart); getMonthlyDoit(); });
-        certYearSelectBox   .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
-        certMonthSelectBox  .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
+        yearSelectBox       .addEventListener('change', function () { updateMonthlyDoitChart(); });
+        certYearSelectBox   .addEventListener('change', function () { updateDailyActionChart(); });
+        certMonthSelectBox  .addEventListener('change', function () { updateDailyActionChart(); });
     });
 
     function setBaseDate()
@@ -273,7 +273,7 @@
         counter("ucd");
     }
 
-    /** 월단위로 등록된 두잇 **/
+    /** 월 별 개설 두잇 **/
     function getMonthlyDoit() {
 
         let param   = JSON.stringify({'year' : yearSelectBox.value});
@@ -314,7 +314,7 @@
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
 
-    /** 일 단위 인증 수 **/
+    /** 일 별 인증 **/
     function getDailyActions() {
 
         let param = {
@@ -363,9 +363,49 @@
 
     }
 
-    function destroyChart(_chart)
+    function destroyChart(_chartEl)
     {
-        _chart.destroy();
+        _chartEl.destroy();
+    }
+
+    function updateDailyActionChart()
+    {
+        let param = {
+            'month': certMonthSelectBox.value,
+            'year' : certYearSelectBox.value
+        }
+
+        let url     = api.getDailyAction;
+        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateDailyActionChartCallback, errMsg, false);
+
+    }
+
+    function updateDailyActionChartCallback(_data)
+    {
+        dailyActionChart.data.datasets[0].data = _data.data.result;
+        dailyActionChart.update();
+    }
+
+    function updateMonthlyDoitChart()
+    {
+        let param   = JSON.stringify({'year' : yearSelectBox.value});
+        let url     = api.getMonthlyDoit;
+        let errMsg  = '월 별 두잇 개설 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, param, updateMonthlyDoitChartCallback, errMsg, false);
+    }
+
+    function updateMonthlyDoitChartCallback(_data)
+    {
+        /** 일반 **/
+        monthlyDoitChart.data.datasets[0].data = _data.data.user;
+        /** 프로모션 **/
+        monthlyDoitChart.data.datasets[1].data = _data.data.company;
+        /** 전체 **/
+        monthlyDoitChart.data.datasets[2].data = _data.data.total;
+        monthlyDoitChart.update();
     }
 
     /** 프로모션 진행 현황 **/

@@ -392,7 +392,7 @@
 
 	function createSuccess()
 	{
-		//location.href = page.listUcdCancel;
+		location.href = page.listUcdCancel;
 	}
 
 	function validation()

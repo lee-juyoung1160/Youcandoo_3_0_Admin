@@ -16,6 +16,7 @@
             url: _reqUrl,
             type: "POST",
             headers: headers,
+            contentType: 'text/plain',
             dataType: 'json',
             data: _reqParam,
             success: function(data) {

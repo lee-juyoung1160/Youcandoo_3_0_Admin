@@ -102,8 +102,10 @@ table tr td {
 table.recommend-list tr td:first-child {
     width: 120px;
 }
-table.recommend-list tr td {
-    cursor: pointer;
+table.recommend-list tr td:first-child,
+table.recommend-list tr td:nth-child(2)
+{
+    cursor: n-resize;
 }
 table.doit-shr-list tr td:first-child {
     width: 5px;

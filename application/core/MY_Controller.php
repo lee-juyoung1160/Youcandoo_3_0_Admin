@@ -44,7 +44,7 @@ class MY_Controller extends CI_Controller
         $AccessLog["datetime"] = date("Y-m-d H:i:s");
         $AccessLog["userid"] = $UserID;
         $AccessLog["ip"] = $IP;
-        $this->redis_session->lPush("admin:log", json_encode($AccessLog));
+        /*$this->redis_session->lPush("admin:log", json_encode($AccessLog));*/
         $this->redis_session->close();
     }
 }

@@ -965,7 +965,7 @@ input[type="checkbox"]:disabled + label span{
 	float: left;
 	position: relative;
 	margin-right: 10px;
-	width: 240px;
+	width: 16%;
 	padding: 20px 15px;
 	margin-top: 20px;
 	background-color: #ffffff;

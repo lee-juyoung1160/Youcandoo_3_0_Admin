@@ -121,8 +121,8 @@
 
 		detailEl += 			'</ul>';
 		detailEl += 			'<p class="doit-tit">'+title+'</p>';
-		detailEl += 			'<p class="doit-leader">'+nickname+'</p>';
-		detailEl += 			'<p class="doit-num">'+memberCnt+'</p>';
+		detailEl += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
+		detailEl +=   			'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
 		detailEl += 	'<td>';
 
 		return detailEl;
@@ -217,7 +217,7 @@
 	{
 		let thumbnailEl = '';
 		thumbnailEl += '<div class="doit-thumbnail">';
-		thumbnailEl += 	 '<img src="'+data.image_url+'" alt="두잇썸네일" onerror="onErrorImage(this);">';
+		thumbnailEl += 	 '<img src="'+data.image_url+'" onerror="onErrorImage(this);">';
 		thumbnailEl += '</div>';
 
 		return thumbnailEl;
@@ -285,7 +285,7 @@
 				rowDom += '<tr id="'+uuid+'">';
 				rowDom += 	'<td>';
 				rowDom += 		'<div class="doit-thumbnail">';
-				rowDom += 			'<img src="'+imageUrl+'" alt="" onerror="onErrorImage(this);" alt="두잇썸네일">';
+				rowDom += 			'<img src="'+imageUrl+'" alt="" onerror="onErrorImage(this);">';
 				rowDom += 		'</div>';
 				rowDom += 	'</td>';
 				rowDom += 	'<td>';
@@ -299,8 +299,8 @@
 				}
 				rowDom += 			'</ul>';
 				rowDom += 			'<p class="doit-tit">'+title+'</p>';
-				rowDom += 			'<p class="doit-leader">'+nickname+'</p>';
-				rowDom += 			'<p class="doit-num">'+memberCnt+'</p>';
+				rowDom += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
+				rowDom +=   		'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
 				rowDom += 	'<td>';
 				rowDom += 	'<td class="cursor-default">';
 				rowDom += 		'<i onclick="removeRow(this);" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';

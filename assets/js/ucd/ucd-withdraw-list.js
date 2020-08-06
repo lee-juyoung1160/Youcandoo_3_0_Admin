@@ -65,7 +65,7 @@
 				,{title: "내용", 		data: "description", 	   width: "30%",    className: "cursor-default no-sort" }
 				,{title: "담당자", 		data: "created_user",      width: "10%",    className: "cursor-default"}
 				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    className: "cursor-default" }
-				,{title: "메모", 	data: "memo",               width: "5%",     className: "no-sort",
+				,{title: "메모", 		data: "memo",              width: "5%",     className: "cursor-default no-sort",
 					render: function (data) {
 						return buildMemo(data);
 					}
@@ -111,7 +111,7 @@
 		let memoEl = '';
 		memoEl += '<div class="tooltip">';
 		if (!isEmpty(data))
-			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on"></i>';
+			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>';
 		else
 			memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
 		memoEl +=   '<div class="tooltip-hover-text" style="display: none;">';

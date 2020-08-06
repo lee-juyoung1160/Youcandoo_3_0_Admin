@@ -107,6 +107,9 @@ table.recommend-list tr td:nth-child(2)
 {
     cursor: n-resize;
 }
+table.recommend-list tr td:last-child {
+    width: 10px;
+}
 table.doit-shr-list tr td:first-child {
     width: 5px;
 }

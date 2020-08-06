@@ -38,8 +38,8 @@
 
 	/** 인증정보 탭 **/
 	const doitAction	= $("#doitAction");
-	const btnWarnRed	= $(".warning-btn");
-	const btnWarnYellow	= $(".yellow-btn");
+	const btnWarnRed	= $("#btnWarnRed");
+	const btnWarnYellow	= $("#btnWarnYellow");
 	const actionWrap	= $("#actionWrap");
 	const actionTopDom	= $("#actionTopDom");
 	const pagination	= $("#dataTable_paginate");

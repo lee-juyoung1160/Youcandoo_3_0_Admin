@@ -12,8 +12,8 @@
 	const dataNum		= $(".data-num");
 	const actionWrap	= $("#actionWrap");
 	const pagination	= $("#dataTable_paginate");
-	const btnWarnRed	= $(".warning-btn");
-	const btnWarnYellow	= $(".yellow-btn");
+	const btnWarnRed	= $("#btnWarnRed");
+	const btnWarnYellow	= $("#btnWarnYellow");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");

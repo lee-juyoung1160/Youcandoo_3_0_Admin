@@ -56,6 +56,11 @@
 						return buildRecommendDetail(row);
 					}
 				}
+				,{title: "", 	data: "doit_status", 	width: "10px",    className: "cursor-default",
+					render: function (data) {
+						return '<span>'+data+'</span>';
+					}
+				}
 				,{title: "", 	data: "doit_uuid", 		width: "10px",    className: "cursor-default",
 					render: function (data) {
 						return '<i onclick="removeRow(this);" data-uuid="'+data+'" class="far fa-times-circle"></i>';

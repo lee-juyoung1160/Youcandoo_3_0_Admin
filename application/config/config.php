@@ -280,7 +280,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= ".youcandoo.co.kr";
+$config['cookie_domain']	= "admin.youcandoo.co.kr";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 

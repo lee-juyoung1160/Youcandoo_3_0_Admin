@@ -67,15 +67,15 @@ class Auth extends CI_Controller {
         $this->updateFailCount($UserID, 0);
 
         // Cookie Set
-        $this->load->helper('cookie');
-        $cookie = array(
-            'name' => 'userid',
-            'value' => $UserData->userid,
-            'expire' => 60 * 60 * 24 * 365,
-            'domain' => '.youcandoo.co.kr',
-            'path'   => '/'
-        );
-        set_cookie($cookie);
+//        $this->load->helper('cookie');
+//        $cookie = array(
+//            'name' => 'userid',
+//            'value' => $UserData->userid,
+//            'expire' => 60 * 60 * 24 * 365,
+//            'domain' => '.youcandoo.co.kr',
+//            'path'   => '/'
+//        );
+//        set_cookie($cookie);
         // Session Set
         session_start();
 

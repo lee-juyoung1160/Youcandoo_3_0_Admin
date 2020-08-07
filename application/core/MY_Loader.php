@@ -20,7 +20,7 @@ class MY_Loader extends CI_Loader {
                 'name'   => 'referer',
                 'value'  => uri_string(),
                 'expire' => '300',
-                'domain' => '.youcandoo.co.kr',
+                'domain' => 'admin.youcandoo.co.kr',
                 'path'   => '/'
             );
             set_cookie($cookie);

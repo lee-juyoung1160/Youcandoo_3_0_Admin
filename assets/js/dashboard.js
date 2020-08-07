@@ -1,4 +1,5 @@
 
+    const select            = $("select");
     const baseDate          = document.getElementById('today-date');
     const pendingCtx        = document.getElementById('pending-doughnut');
     const progressingCtx    = document.getElementById('progress-doughnut');
@@ -115,13 +116,10 @@
             certYearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
         }
 
-        onChangeSelectOption($('#cert-year-select'));
-        onChangeSelectOption($('#doit-year-select'));
-
         for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            certMonthSelectBox.prepend(new Option( appendZero(month) + "월", appendZero(month)));
+            certMonthSelectBox.prepend(new Option( appendZero(defaultMonth) + "월", appendZero(defaultMonth)));
 
-        onChangeSelectOption($('#cert-month-select'));
+        initSelectOption();
     }
 
     /** 넘버 total 카운팅 **/

@@ -58,7 +58,7 @@
 				}
 				,{title: "", 	data: "doit_status", 	width: "10px",    className: "cursor-default",
 					render: function (data) {
-						return '<span>'+data+'</span>';
+						return buildDoitStatus(data);
 					}
 				}
 				,{title: "", 	data: "doit_uuid", 		width: "10px",    className: "cursor-default",
@@ -131,6 +131,16 @@
 		detailEl += 	'<td>';
 
 		return detailEl;
+	}
+
+	function buildDoitStatus(data)
+	{
+		let statusEl = '';
+		statusEl += '<span>';
+		statusEl += data;
+		statusEl += '</span>';
+
+		return statusEl;
 	}
 
 	function setRecommendedRowAttributes(nRow, aData)

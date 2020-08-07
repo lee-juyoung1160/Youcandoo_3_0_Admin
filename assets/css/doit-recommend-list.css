@@ -14,6 +14,7 @@
     width: 43%;
 }
 .enrollment {
+    min-height: 622px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;

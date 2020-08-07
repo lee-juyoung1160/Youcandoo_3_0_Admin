@@ -29,12 +29,12 @@
 		btnSubmit		.on("click", function () { onSubmitBanner(); });
 		bannerTable.find('tbody').sortable({
 			helper: function (e, el) {
-				return addAttrDragonElement(el);
+				return addAttrDragOnElement(el);
 			}
 		});
 	});
 
-	function addAttrDragonElement(el)
+	function addAttrDragOnElement(el)
 	{
 		let tdElement = $(el).children();
 		$(tdElement[0]).css("width", "493px");
@@ -100,8 +100,6 @@
 			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 10,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
 			info: false,
@@ -120,7 +118,6 @@
 				setBannerRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
-				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -362,7 +359,7 @@
 
 		if (selectedData.length > vacancy)
 		{
-			sweetToast('배너는 '+message.maxAddFive+'\n추가 가능한 배너 갯수: '+vacancy);
+			sweetToast('배너는 '+message.maxAddFive+'\n추가할 수 있는 배너 수: '+vacancy);
 			return false;
 		}
 

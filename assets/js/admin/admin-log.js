@@ -14,7 +14,7 @@
 		/** 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLength(selPageLength);
 		/** 이력 테이블 **/
 		buildGrid();
 		/** 이벤트 **/

@@ -27,7 +27,8 @@
 		let tdElement = $(el).children();
 		$(tdElement[0]).css("width", "120px");
 		$(tdElement[1]).css("width", "auto");
-		$(tdElement[2]).css("width", "10px");
+		$(tdElement[2]).css("width", "120px");
+		$(tdElement[3]).css("width", "10px");
 		return $(el);
 	}
 
@@ -135,12 +136,19 @@
 
 	function buildDoitStatus(data)
 	{
+		let classOn = '';
+		let comment = '';
+		if (data !== '모집중')
+		{
+			classOn = 'on'
+			comment = '<em class="state-msg">삭제가 필요합니다.</em>';
+		}
 		let statusEl = '';
 		statusEl += '<div class="doit-state">';
-		statusEl += '<span class="icon-state on">';
-		statusEl += data;
-		statusEl += '</span>';
-		statusEl += '<em class="state-msg">삭제가 필요합니다.</em>';
+		statusEl += 	'<span class="icon-state '+classOn+'">';
+		statusEl += 		data;
+		statusEl += 	'</span>';
+		statusEl += 	comment;
 		statusEl += '</div>';
 
 		return statusEl;
@@ -319,6 +327,11 @@
 				rowDom += 			'<p class="doit-tit">'+title+'</p>';
 				rowDom += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
 				rowDom +=   		'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
+				rowDom += 	'</td>';
+				rowDom += 	'<td>';
+				rowDom += 		'<div class="doit-state">';
+				rowDom += 			'<span class="icon-state">모집중</span>';
+				rowDom += 		'</div>';
 				rowDom += 	'</td>';
 				rowDom += 	'<td class="cursor-default">';
 				rowDom += 		'<i onclick="removeRow(this);" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';

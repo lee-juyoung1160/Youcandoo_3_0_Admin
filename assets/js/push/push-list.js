@@ -18,7 +18,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLength(selPageLength);
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -66,7 +66,7 @@
 					}
 				}
 				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
-				,{title: "내용", 		data: "send_message",  			width: "25%",   className: "cursor-default",
+				,{title: "내용", 		data: "send_message",  			width: "25%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return '<a onclick="onClickDetail(this);" data-detail="'+data+'" class="line-clamp">' + data + '</a>';
 					}
@@ -81,7 +81,7 @@
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  width: "30%",   className: "cursor-default",
+				,{title: "도착페이지", 		data: "category_target",  width: "30%",   className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '-' : ('['+row.event_name+'] '+row.event_title);
 					}

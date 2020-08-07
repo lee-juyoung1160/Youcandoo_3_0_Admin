@@ -164,6 +164,9 @@
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
+		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
+		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
+		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

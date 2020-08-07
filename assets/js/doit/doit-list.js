@@ -6,7 +6,6 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
@@ -18,7 +17,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLength(selPageLength);
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
 		/** 테이블 데이터 로드 **/
@@ -31,7 +30,6 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
-		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -271,4 +269,3 @@
 
 		return true;
 	}
-

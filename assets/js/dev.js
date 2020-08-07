@@ -1,25 +1,31 @@
 
+	const env = $("#env");
+	const btnProStart = $("#btnProStart");
+	/*const btnDoitStart = $("#btnDoitStart");*/
 
 	$( () => {
-		let btnProStart = $("#btnProStart");
-		/*const accesses = ['dev', 'smg'];
+		toggleStartButton();
+
+		btnProStart.on("click", function () { promoStart(); })
+	})
+
+	function toggleStartButton()
+	{
+		const accesses = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
+
 		if (accesses.indexOf(sessionAuthCode.val()) === -1)
-		{*/
-		if (sessionAuthCode.val() !== 'smg')
 		{
 			try {
 				btnProStart.remove();
 			} catch (e) {}
 
-			try {
-				$("#btnDoitStart").remove();
-			} catch (e) {}
+			/*try {
+				btnDoitStart.remove();
+			} catch (e) {}*/
 		}
 		else
 			btnProStart.show();
-
-		btnProStart.on("click", function () { promoStart(); })
-	})
+	}
 
 	function promoStart()
 	{

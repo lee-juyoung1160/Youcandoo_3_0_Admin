@@ -30,7 +30,7 @@
     padding-top: 0;
 }
 .enrollment-col > li {
-    padding: 15px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #f1f1f1;
 }
 .enrollment-col > li:last-child {
@@ -38,13 +38,10 @@
     border-bottom: none;
 }
 
-
-
-
 .enrollment-title {
     margin:50px 0 15px;
     color: #484848;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 600;
 }
 .enrollment li .col-wrap .col-2 {

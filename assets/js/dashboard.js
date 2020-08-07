@@ -1,4 +1,6 @@
 
+    const select            = $("select");
+    const baseDate          = document.getElementById('today-date');
     const pendingCtx        = document.getElementById('pending-doughnut');
     const progressingCtx    = document.getElementById('progress-doughnut');
     const completeCtx       = document.getElementById('complete-doughnut');
@@ -94,40 +96,30 @@
         getUserStatus();
         getUcdStatus();
         /** 월단위 셀렉박스 이벤트 **/
-        yearSelectBox       .addEventListener('change', function () { destroyChart(monthlyDoitChart); getMonthlyDoit(); });
-        certYearSelectBox   .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
-        certMonthSelectBox  .addEventListener('change', function () { destroyChart(dailyActionChart); getDailyActions(); });
+        yearSelectBox       .addEventListener('change', function () { updateMonthlyDoitChart(); });
+        certYearSelectBox   .addEventListener('change', function () { updateDailyActionChart(); });
+        certMonthSelectBox  .addEventListener('change', function () { updateDailyActionChart(); });
     });
 
     function setBaseDate()
     {
-        let result = document.getElementById('today-date');
-        result.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
+        baseDate.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
     }
 
+    let defaultYear  = 2020;
+    let defaultMonth = 7;
     function initSelectBox()
     {
-        for (year; year >= 2020; year--)
+        for (defaultYear; defaultYear <= year; defaultYear++)
         {
-            if (year === 2020)
-            {
-                yearSelectBox.append(new Option( year + "년", year.toString()));
-                certYearSelectBox.append(new Option( year + "년", year.toString()));
-            }
-            else
-            {
-                yearSelectBox.prepend(new Option( year + "년", year.toString()));
-                certYearSelectBox.prepend(new Option( year + "년", year.toString()));
-            }
+            yearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
+            certYearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
         }
 
-        onChangeSelectOption($('#cert-year-select'));
-        onChangeSelectOption($('#doit-year-select'));
+        for (defaultMonth; defaultMonth <= month; defaultMonth++)
+            certMonthSelectBox.prepend(new Option( appendZero(defaultMonth) + "월", appendZero(defaultMonth)));
 
-        for (month; month >= 7; month--)
-            month === 7 ? certMonthSelectBox.append(new Option( appendZero(month) + "월", appendZero(month))) : certMonthSelectBox.prepend(new Option( appendZero(month) + "월", appendZero(month)));
-
-        onChangeSelectOption($('#cert-month-select'));
+        initSelectOption();
     }
 
     /** 넘버 total 카운팅 **/
@@ -273,7 +265,7 @@
         counter("ucd");
     }
 
-    /** 월단위로 등록된 두잇 **/
+    /** 월 별 개설 두잇 **/
     function getMonthlyDoit() {
 
         let param   = JSON.stringify({'year' : yearSelectBox.value});
@@ -291,30 +283,28 @@
     let monthlyDoitChart;
     function getMonthlyDoitSuccess(data)
     {
-        let dataset = [
-            {
-                label: '일반',
-                data: data.data.user,
-                backgroundColor: color.prussianBlue
-            }, {
-                label: '프로모션',
-                data: data.data.company,
-                backgroundColor: color.dodgerBlue
-            }, {
-                label: '전체',
-                data: data.data.total,
-                type: 'line',
-                borderColor: color.dodgerBlue,
-                borderWidth : 2.2,
-                pointBackgroundColor: color.white,
-                backgroundColor: color.black
-            }
-        ];
+        let dataset = [{
+            label: '전체',
+            data: data.data.total,
+            type: 'line',
+            borderColor: color.dodgerBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
+        }, {
+            label: '일반',
+            data: data.data.user,
+            backgroundColor: color.prussianBlue
+        }, {
+            label: '프로모션',
+            data: data.data.company,
+            backgroundColor: color.dodgerBlue
+        }];
 
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
 
-    /** 일 단위 인증 수 **/
+    /** 일 별 인증 **/
     function getDailyActions() {
 
         let param = {
@@ -363,45 +353,42 @@
 
     }
 
-    function destroyChart(_chart)
+    function updateDailyActionChart()
     {
-        _chart.destroy();
+        let param = {
+            'month': certMonthSelectBox.value,
+            'year' : certYearSelectBox.value
+        }
+
+        let url     = api.getDailyAction;
+        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateDailyActionChartCallback, errMsg, false);
+
     }
 
-    /** 프로모션 진행 현황 **/
-    /*let proStatusChart = new Chart(proStatusDoughnut, {
-        type: doughnutType,
-        data: {
-            labels: ['진행', '완료'],
-            datasets: [{
-                data: [10, 20],
-                backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
-                   hoverBorderColor: [color.prussianBlue, color.dodgerBlue],
-            }]
-        },
-        options: options.options,
-    });*/
+    function updateDailyActionChartCallback(_data)
+    {
+        dailyActionChart.data.datasets[0].data = _data.data.result;
+        dailyActionChart.update();
+    }
 
-    /** 리워드 현황 **/
-    /*let rewardStatusChart = new Chart(rewardLine, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: '프로모션 지급 리워드',
-                data: [20, 20, 30, 40, 35, 40, 80],
-                borderColor: color.white,
-                pointBackgroundColor: color.white,
-                backgroundColor: color.black
-            }],
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        options: {
-            maintainAspectRatio: false,
-            legend: {
-                align: 'start',
-                position: 'top'
-            }
-        }
-    });*/
+    function updateMonthlyDoitChart()
+    {
+        let param   = JSON.stringify({'year' : yearSelectBox.value});
+        let url     = api.getMonthlyDoit;
+        let errMsg  = '월 별 두잇 개설 데이터'+ message.ajaxLoadError;
 
+        ajaxRequestWithJsonData(false, url, param, updateMonthlyDoitChartCallback, errMsg, false);
+    }
 
+    function updateMonthlyDoitChartCallback(_data)
+    {
+        /** 전체 **/
+        monthlyDoitChart.data.datasets[2].data = _data.data.total;
+        /** 일반 **/
+        monthlyDoitChart.data.datasets[0].data = _data.data.user;
+        /** 프로모션 **/
+        monthlyDoitChart.data.datasets[1].data = _data.data.company;
+        monthlyDoitChart.update();
+    }

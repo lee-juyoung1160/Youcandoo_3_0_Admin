@@ -8,7 +8,6 @@
 	const selPageLength = $("#selPageLength");
 	const isBanner 		= $("input[name=radio-banner]");
 	const status 		= $("input[name=chk-status]");
-	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
@@ -18,7 +17,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLength(selPageLength);
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
 		/** 테이블 데이터 로드 **/
@@ -31,7 +30,6 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnDelete		.on("click", function () { deletePromotion(); });
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -267,49 +265,3 @@
 
 		return true;
 	}
-
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
-		}
-
-		return JSON.stringify(param);
-	}*/
-

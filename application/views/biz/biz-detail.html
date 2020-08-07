@@ -39,7 +39,8 @@
                         <div class="col-1">
                             <p class="sub-title important">홈페이지 링크 (*)</p>
                         </div>
-                        <div id="bizLink" class="col-2">
+                        <div class="col-2">
+                            <span id="bizLink" class="biz-link"></span>
                         </div>
                     </div>
                 </li>
@@ -59,8 +60,8 @@
                             <p class="sub-title important">보유 UCD (*)</p>
                         </div>
                         <div class="col-2">
-                            <p class="biz-ucd-data" style="margin-bottom: 10px;">
-                                <span id="balance"></span>UCD
+                            <p>
+                                <span id="balance"></span> UCD
                             </p>
                             <!--<dl class="biz-ucd-data clearfix">
                                 <dt>- UCD(c) :</dt>
@@ -73,14 +74,10 @@
                         </div>
                     </div>
                 </li>
+                <li class="clearfix">
+                    <a class="update-btn btn-info" id="goUpdate"><i class="fas fa-edit"></i> 수정</a>
+                </li>
             </ul>
-            </div>
-            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
-                <div class="btn-wrap">
-                    <a class="list-btn" onclick="historyBack();">이전</a>
-                    <a class="list-btn" href="/biz">목록</a>
-                    <a class="update-btn" id="goUpdate">수정</a>
-                </div>
             </div>
 
             <ul class="table-btn-wrap biz-detail-tab clearfix">
@@ -91,16 +88,13 @@
             <!--프로모션 정보-->
             <div id="promoInfo" class="table-wrap">
                 <div class="top clearfix">
-                    <div class="left-wrap clearfix">
+                    <div class="right-wrap clearfix">
+                        <p>Total <strong id="promoTotalCount" class="data-num"></strong></p>
                         <div class="select-box">
-                            <label for="selPageLengthForPromo">10개씩 보기</label>
+                            <label for="selPageLengthForPromo"></label>
                             <select id="selPageLengthForPromo">
-                                <option value="10">10개씩 보기</option>
-                                <option value="20">20개씩 보기</option>
-                                <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong id="promoTotalCount" class="data-num"></strong></p>
                     </div>
                     <div class="btn-wrap">
                         <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
@@ -146,16 +140,13 @@
             <!--UCD 정보-->
             <div id="ucdInfo" class="table-wrap" style="display: none;">
                 <div class="top clearfix">
-                    <div class="left-wrap clearfix">
+                    <div class="right-wrap clearfix">
+                        <p>Total <strong id="ucdTotalCount" class="data-num"></strong></p>
                         <div class="select-box">
-                            <label for="selPageLengthForUcd">10개씩 보기</label>
+                            <label for="selPageLengthForUcd"></label>
                             <select id="selPageLengthForUcd">
-                                <option value="10">10개씩 보기</option>
-                                <option value="20">20개씩 보기</option>
-                                <option value="30">30개씩 보기</option>
                             </select>
                         </div>
-                        <p>Total <strong id="ucdTotalCount" class="data-num"></strong></p>
                     </div>
                     <div class="btn-wrap">
                         <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
@@ -202,7 +193,17 @@
                 </table>
             </div>
         </div>
+
+        <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+            <div class="btn-wrap">
+                <a class="list-btn" onclick="historyBack();">이전</a>
+                <a class="list-btn" href="/biz">목록</a>
+            </div>
+        </div>
+
+
     </div>
+
 
     <!-- 기업UCD 적립/취소 -->
     <div id="modalContract" class="modal-content modal-01">

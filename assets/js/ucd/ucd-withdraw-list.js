@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
-	const xlsxExport 	= $(".excel-btn");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -14,7 +13,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength();
+		initPageLength(selPageLength);
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -23,8 +22,6 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnDelete		.on("click", function () { deletePromotion(); });*/
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -50,11 +47,6 @@
 				}
 			},
 			columns: [
-				/*{title: "", 	data: "idx",   width: "5%",     orderable: false,
-					render: function (data) {
-						return singleCheckBoxDom(data);
-					}
-				},*/
 				{title: "닉네임", 		data: "nickname",    	   width: "15%",    className: "cursor-default" }
 				,{title: "유형", 		data: "ucd_type",          width: "10%",    className: "cursor-default" }
 				,{title: "출금액", 		data: "amount",    		   width: "10%",    className: "cursor-default",
@@ -65,7 +57,7 @@
 				,{title: "내용", 		data: "description", 	   width: "30%",    className: "cursor-default no-sort" }
 				,{title: "담당자", 		data: "created_user",      width: "10%",    className: "cursor-default"}
 				,{title: "출금일시", 	data: "created_datetime",  width: "15%",    className: "cursor-default" }
-				,{title: "메모", 	data: "memo",               width: "5%",     className: "no-sort",
+				,{title: "메모", 		data: "memo",              width: "5%",     className: "cursor-default no-sort",
 					render: function (data) {
 						return buildMemo(data);
 					}
@@ -111,7 +103,7 @@
 		let memoEl = '';
 		memoEl += '<div class="tooltip">';
 		if (!isEmpty(data))
-			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on"></i>';
+			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>';
 		else
 			memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
 		memoEl +=   '<div class="tooltip-hover-text" style="display: none;">';
@@ -161,49 +153,3 @@
 		table.ajax.reload();
 		initMinMaxDate();
 	}
-
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("프로모션목록", "프로모션목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let statusParam = [];
-		status.each(function () {
-			if ($(this).is(':checked'))
-				statusParam.push($(this).val())
-		});
-
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"dateType" : dateType.val()
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"is_banner" : $("input[name=radio-banner]:checked").val()
-			,"status" : statusParam
-		}
-
-		return JSON.stringify(param);
-	}*/
-

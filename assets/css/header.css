@@ -14,13 +14,14 @@
 }
 .w-admin-header .logo {
     width: 100%;
-    height: 60px;
+    height: 50px;
     margin-bottom: 30px;
+    color: #007aff;
     text-align: center;
     font-weight: 900;
     font-size: 20px;
-    line-height: 60px;
-    color: #007aff;
+    line-height: 50px;
+    background-color: #fff;
 }
 .w-admin-header nav ul .menu-btn {
     width: 100%;

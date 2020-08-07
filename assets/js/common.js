@@ -81,18 +81,30 @@
         }
     }*/
 
-    function initPageLength()
+    function initPageLength(_obj)
     {
-        let pageLengthEl = $("#selPageLength");
         let options = '';
         options += '<option value="10">10개씩 보기</ooption>';
         options += '<option selected value="30">30개씩 보기</ooption>';
         options += '<option value="50">50개씩 보기</ooption>';
         options += '<option value="100">100개씩 보기</ooption>';
 
-        pageLengthEl.html(options);
+        _obj.html(options);
 
-        onChangeSelectOption(pageLengthEl);
+        onChangeSelectOption(_obj);
+    }
+
+    function initActionPageLength(_obj)
+    {
+        let options = '';
+        options += '<option value="12">12개씩 보기</ooption>';
+        options += '<option selected value="30">30개씩 보기</ooption>';
+        options += '<option value="60">60개씩 보기</ooption>';
+        options += '<option value="120">120개씩 보기</ooption>';
+
+        _obj.html(options);
+
+        onChangeSelectOption(_obj);
     }
 
     function initSelectOption()

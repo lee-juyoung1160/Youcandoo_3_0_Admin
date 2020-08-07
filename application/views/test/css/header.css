@@ -1,0 +1,119 @@
+/* header CSS*/
+.w-admin-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 24vh;
+    min-width: 283px;
+    min-height: 100vh;
+    overflow-y: scroll;
+    height: 100%;
+    color: #484848;
+    background-color: #fff;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+}
+.w-admin-header .logo {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 60px;
+    color: #007aff;
+}
+.w-admin-header nav ul .menu-btn {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+.w-admin-header nav ul .menu-btn .bar {
+    width: 0;
+}
+.w-admin-header nav ul .menu-btn:hover .bar {
+    width: 100%;
+    -webkit-transition: width .15s;
+    transition: width .15s;
+    height: 2px;
+    position: absolute;
+    display: block;
+    background: #aed5ff;
+    bottom: 0;
+    left: 0;
+}
+.w-admin-header nav ul .menu-btn:hover {
+    background-color: #f7f7f7;
+}
+.w-admin-header nav ul .menu-btn .btn-wrap {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 20px;
+    position: relative;
+}
+.w-admin-header nav ul .menu-btn .btn-wrap span {
+    /*float: left;*/
+    padding-left: 5px;
+}
+.w-admin-header nav ul .menu-btn .btn-wrap i {
+    font-size: 15px;
+    color: #484848;
+    line-height: 45px;
+    -webkit-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.w-admin-header nav ul .menu-btn .btn-wrap .arrow-i {
+    float: right;
+}
+.w-admin-header nav ul .menu-btn-list li.active {
+    color: #007aff;
+    background-color: #d9e7f5;
+    box-shadow: 5px 0px #007aff inset;
+    -webkit-transition: box-shadow .2s linear,text-indent .2s linear;
+    -ms-transition: box-shadow .2s linear,text-indent .2s linear;
+    -moz-transition: box-shadow .2s linear,text-indent .2s linear;
+    -o-transition: box-shadow .2s linear,text-indent .2s linear;
+    transition: box-shadow .2s linear,text-indent .2s linear;
+}
+.w-admin-header nav ul .menu-btn-list > li {
+    padding: 20px 20px 20px 40px;
+}
+.w-admin-header nav ul .menu-btn-list > li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.w-admin-header nav ul .menu-btn-list > li:hover {
+    color: #007aff;
+    background-color: #d9e7f5;
+    box-shadow: 5px 0px #007aff inset;
+    -webkit-transition: box-shadow .2s linear,text-indent .2s linear;
+    -ms-transition: box-shadow .2s linear,text-indent .2s linear;
+    -moz-transition: box-shadow .2s linear,text-indent .2s linear;
+    -o-transition: box-shadow .2s linear,text-indent .2s linear;
+    transition: box-shadow .2s linear,text-indent .2s linear;
+}
+.w-admin-header nav ul .menu-btn .menu-btn-list {
+    display: none;
+    text-indent: 0;
+}
+.w-admin-header nav ul .menu-btn.active{
+    background-color: #f7f7f7;
+}
+.w-admin-header nav ul .menu-btn.active .bar {
+    width: 0;
+}
+.w-admin-header nav ul .menu-btn.active .menu-btn-list {
+    display: block;
+}
+.w-admin-header nav ul .menu-btn.active .btn-wrap .arrow-i {
+    color: #007aff;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}

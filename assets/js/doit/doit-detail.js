@@ -32,14 +32,13 @@
 	const avg 			= $("#avg");
 	const forecast 		= $("#forecast");
 	const saving 		= $("#saving");
-	/*const xlsxExport 	= $(".excel-btn");*/
 	const joinUserTable		= $("#joinUserTable")
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 
 	/** 인증정보 탭 **/
 	const doitAction	= $("#doitAction");
-	const btnWarnRed	= $(".warning-btn");
-	const btnWarnYellow	= $(".yellow-btn");
+	const btnWarnRed	= $("#btnWarnRed");
+	const btnWarnYellow	= $("#btnWarnYellow");
 	const actionWrap	= $("#actionWrap");
 	const actionTopDom	= $("#actionTopDom");
 	const pagination	= $("#dataTable_paginate");
@@ -91,10 +90,10 @@
 
 	$( () => {
 		/** n개씩보기 셀렉트 박스 초기화 **/
-		initCustomPageLength(selPageLengthForUser);
-		initCustomPageLength(selPageLengthForReview);
-		initCustomPageLength(selPageLengthForUcd);
-		initPageLengthForActions();
+		initPageLength(selPageLengthForUser);
+		initPageLength(selPageLengthForReview);
+		initPageLength(selPageLengthForUcd);
+		initActionPageLength(selPageLengthForAction);
 		/** 두잇 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
@@ -103,7 +102,6 @@
 		tabAction		.on("click", function () { onClickActionTab(this); });
 		tabReview		.on("click", function () { onClickReviewTab(this); });
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
-		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -119,19 +117,6 @@
 		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
-
-	function initCustomPageLength(_element)
-	{
-		let options = '';
-		options += '<option value="10">10개씩 보기</ooption>';
-		options += '<option selected value="30">30개씩 보기</ooption>';
-		options += '<option value="50">50개씩 보기</ooption>';
-		options += '<option value="100">100개씩 보기</ooption>';
-
-		_element.html(options);
-
-		onChangeSelectOption(_element);
-	}
 
 	/** 두잇정보탭 **/
 	function onClickDoitTab(obj)
@@ -528,55 +513,9 @@
 		return JSON.stringify(param);
 	}
 
-	/** 엑셀 다운로드 **/
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.involveDoitPromotion,
-			type: "POST",
-			dataType: 'json',
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"promotion_idx" : idx
-		}
-
-		return JSON.stringify(param);
-	}*/
-
 	/****************
 	 * 인증정보탭 관련
 	 * **************/
-	function initPageLengthForActions()
-	{
-		let options = '';
-		options += '<option value="12">12개씩 보기</ooption>';
-		options += '<option selected value="30">30개씩 보기</ooption>';
-		options += '<option value="60">60개씩 보기</ooption>';
-		options += '<option value="120">120개씩 보기</ooption>';
-
-		selPageLengthForAction.html(options);
-
-		onChangeSelectOption(selPageLengthForAction);
-	}
 
 	/** 인증상세 모달 **/
 	function onClinkActionImage(obj)
@@ -1342,5 +1281,3 @@
 	{
 		location.href = page.updateDoit+idx;
 	}
-
-

@@ -34,6 +34,9 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** n개씩보기 셀렉트 박스 초기화 **/
+		initPageLength(selPageLengthForDoit);
+		initPageLength(selPageLengthForUcd);
 		/** 프로모션 상세정보 **/
 		getDetail();
 		/** 이벤트 **/

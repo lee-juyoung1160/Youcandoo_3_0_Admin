@@ -6,8 +6,6 @@
 	const bizLink		= $("#bizLink");
 	const bizDesc		= $("#bizDesc");
 	const balance		= $("#balance");
-	/*const cash			= $("#cash");
-	const point			= $("#point");*/
 	const goUpdate		= $("#goUpdate");
 	const tabPromo		= $("#tabPromo");
 	const tabUcd		= $("#tabUcd");
@@ -42,6 +40,9 @@
 	const modalContractAmount = $("#modalContractAmount");
 
 	$( () => {
+		/** n개씩보기 셀렉트 박스 초기화 **/
+		initPageLength(selPageLengthForPromo);
+		initPageLength(selPageLengthForUcd);
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 상세 불러오기 **/

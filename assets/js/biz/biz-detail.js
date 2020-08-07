@@ -6,8 +6,6 @@
 	const bizLink		= $("#bizLink");
 	const bizDesc		= $("#bizDesc");
 	const balance		= $("#balance");
-	/*const cash			= $("#cash");
-	const point			= $("#point");*/
 	const goUpdate		= $("#goUpdate");
 	const tabPromo		= $("#tabPromo");
 	const tabUcd		= $("#tabUcd");

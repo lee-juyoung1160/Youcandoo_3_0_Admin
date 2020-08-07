@@ -283,25 +283,23 @@
     let monthlyDoitChart;
     function getMonthlyDoitSuccess(data)
     {
-        let dataset = [
-            {
-                label: '일반',
-                data: data.data.user,
-                backgroundColor: color.prussianBlue
-            }, {
-                label: '프로모션',
-                data: data.data.company,
-                backgroundColor: color.dodgerBlue
-            }, {
-                label: '전체',
-                data: data.data.total,
-                type: 'line',
-                borderColor: color.dodgerBlue,
-                borderWidth : 2.2,
-                pointBackgroundColor: color.white,
-                backgroundColor: color.black
-            }
-        ];
+        let dataset = [{
+            label: '전체',
+            data: data.data.total,
+            type: 'line',
+            borderColor: color.dodgerBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
+        }, {
+            label: '일반',
+            data: data.data.user,
+            backgroundColor: color.prussianBlue
+        }, {
+            label: '프로모션',
+            data: data.data.company,
+            backgroundColor: color.dodgerBlue
+        }];
 
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
@@ -355,11 +353,6 @@
 
     }
 
-    function destroyChart(_chartEl)
-    {
-        _chartEl.destroy();
-    }
-
     function updateDailyActionChart()
     {
         let param = {
@@ -391,49 +384,11 @@
 
     function updateMonthlyDoitChartCallback(_data)
     {
+        /** 전체 **/
+        monthlyDoitChart.data.datasets[2].data = _data.data.total;
         /** 일반 **/
         monthlyDoitChart.data.datasets[0].data = _data.data.user;
         /** 프로모션 **/
         monthlyDoitChart.data.datasets[1].data = _data.data.company;
-        /** 전체 **/
-        monthlyDoitChart.data.datasets[2].data = _data.data.total;
         monthlyDoitChart.update();
     }
-
-    /** 프로모션 진행 현황 **/
-    /*let proStatusChart = new Chart(proStatusDoughnut, {
-        type: doughnutType,
-        data: {
-            labels: ['진행', '완료'],
-            datasets: [{
-                data: [10, 20],
-                backgroundColor: ['rgb(0, 48, 135)', 'rgba(125, 125, 125, 0.2)'],
-                   hoverBorderColor: [color.prussianBlue, color.dodgerBlue],
-            }]
-        },
-        options: options.options,
-    });*/
-
-    /** 리워드 현황 **/
-    /*let rewardStatusChart = new Chart(rewardLine, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: '프로모션 지급 리워드',
-                data: [20, 20, 30, 40, 35, 40, 80],
-                borderColor: color.white,
-                pointBackgroundColor: color.white,
-                backgroundColor: color.black
-            }],
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        options: {
-            maintainAspectRatio: false,
-            legend: {
-                align: 'start',
-                position: 'top'
-            }
-        }
-    });*/
-
-

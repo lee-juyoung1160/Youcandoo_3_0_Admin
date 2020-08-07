@@ -7,7 +7,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const select		= $("select");
-	/*const xlsxExport 	= $(".excel-btn");*/
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -26,7 +25,6 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -153,41 +151,3 @@
 		table.ajax.reload();
 		initMinMaxDate();
 	}
-
-	/*function onClickExcelBtn()
-	{
-		getList();
-	}
-
-	function getList()
-	{
-		$.ajax({
-			url: api.listBiz,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("비즈목록", "비즈목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			},
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"searchType" : searchType.val()
-			,"keyword" : keyword.val()
-			,"dateType" : dateType.val()
-		}
-
-		return JSON.stringify(param);
-	}*/
-

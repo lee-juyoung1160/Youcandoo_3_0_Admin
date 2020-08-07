@@ -6,7 +6,6 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	/*const xlsxExport 	= $(".excel-btn");*/
 	const select		= $("select");
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
@@ -31,7 +30,6 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
-		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -271,4 +269,3 @@
 
 		return true;
 	}
-

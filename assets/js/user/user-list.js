@@ -8,7 +8,6 @@
 	const selPageLength = $("#selPageLength");
 	const userActive	= $("input[name=radio-user-active]");
 	const select		= $("select");
-	const xlsxExport 	= $(".excel-btn");
 	/*const btnModalBanUserOpen	= $("#btnModalBanUserOpen");*/
 	/** modal **/
 	/*const modalBanUser		= $("#modalBanUser");
@@ -41,7 +40,6 @@
 		/*modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmitBanUer	.on('click', function () { onSubmitBanUser(); });*/
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
 	});
 
 	function initSearchForm()
@@ -236,43 +234,6 @@
 		table.ajax.reload();
 		initMinMaxDate();
 	}
-
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listUser,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("회원목록", "회원목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			},
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 20000
-			,"page" : 1
-			,"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val()
-		}
-
-		return JSON.stringify(param);
-	}*/
 
 	/*function onSubmitBanUser()
 	{

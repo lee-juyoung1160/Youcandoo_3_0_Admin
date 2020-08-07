@@ -32,7 +32,6 @@
 	const avg 			= $("#avg");
 	const forecast 		= $("#forecast");
 	const saving 		= $("#saving");
-	/*const xlsxExport 	= $(".excel-btn");*/
 	const joinUserTable		= $("#joinUserTable")
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 
@@ -103,7 +102,6 @@
 		tabAction		.on("click", function () { onClickActionTab(this); });
 		tabReview		.on("click", function () { onClickReviewTab(this); });
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
-		/*xlsxExport		.on("click", () => { onClickExcelBtn(); });*/
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -514,40 +512,6 @@
 
 		return JSON.stringify(param);
 	}
-
-	/** 엑셀 다운로드 **/
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.involveDoitPromotion,
-			type: "POST",
-			dataType: 'json',
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"promotion_idx" : idx
-		}
-
-		return JSON.stringify(param);
-	}*/
 
 	/****************
 	 * 인증정보탭 관련
@@ -1317,5 +1281,3 @@
 	{
 		location.href = page.updateDoit+idx;
 	}
-
-

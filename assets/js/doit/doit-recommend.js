@@ -26,7 +26,7 @@
 	{
 		let tdElement = $(el).children();
 		$(tdElement[0]).css("width", "120px");
-		$(tdElement[1]).css("width", "auto");
+		$(tdElement[1]).css("width", $(el).width() - 250);
 		$(tdElement[2]).css("width", "120px");
 		$(tdElement[3]).css("width", "10px");
 		return $(el);

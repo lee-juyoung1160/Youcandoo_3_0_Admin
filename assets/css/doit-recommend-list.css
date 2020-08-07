@@ -154,3 +154,25 @@ table.doit-shr-list .doit-num {
     color: #fff;
     padding-right: 5px;
 }
+.doit-state {
+    text-align: center;
+}
+.doit-state .icon-state {
+    display: inline-block;
+    padding: 3px 10px;
+    color: #fff;
+    font-size: 15px;
+    background-color: #00c0ef;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+.doit-state .icon-state.on {
+    background-color: #dd4b39 ;
+}
+.doit-state .state-msg {
+    display: block;
+    margin-top: 5px;
+    color: #ec5c5c;
+    font-size: 12px;
+}

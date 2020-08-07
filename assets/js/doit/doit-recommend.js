@@ -56,7 +56,7 @@
 						return buildRecommendDetail(row);
 					}
 				}
-				,{title: "", 	data: "doit_status", 	width: "10px",    className: "cursor-default",
+				,{title: "", 	data: "doit_status",   className: "cursor-default",
 					render: function (data) {
 						return buildDoitStatus(data);
 					}
@@ -136,9 +136,12 @@
 	function buildDoitStatus(data)
 	{
 		let statusEl = '';
-		statusEl += '<span>';
+		statusEl += '<div class="doit-state">';
+		statusEl += '<span class="icon-state on">';
 		statusEl += data;
 		statusEl += '</span>';
+		statusEl += '<em class="state-msg">삭제가 필요합니다.</em>';
+		statusEl += '</div>';
 
 		return statusEl;
 	}

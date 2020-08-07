@@ -33,7 +33,6 @@
 	}
 
 	let g_recommend = [];
-
 	function buildRecommended()
 	{
 		recommendedTable.DataTable({

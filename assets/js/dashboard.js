@@ -1,4 +1,5 @@
 
+    const baseDate          = document.getElementById('today-date');
     const pendingCtx        = document.getElementById('pending-doughnut');
     const progressingCtx    = document.getElementById('progress-doughnut');
     const completeCtx       = document.getElementById('complete-doughnut');
@@ -101,31 +102,24 @@
 
     function setBaseDate()
     {
-        let result = document.getElementById('today-date');
-        result.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
+        baseDate.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
     }
 
+    let defaultYear  = 2020;
+    let defaultMonth = 7;
     function initSelectBox()
     {
-        for (year; year >= 2020; year--)
+        for (defaultYear; defaultYear <= year; defaultYear++)
         {
-            if (year === 2020)
-            {
-                yearSelectBox.append(new Option( year + "년", year.toString()));
-                certYearSelectBox.append(new Option( year + "년", year.toString()));
-            }
-            else
-            {
-                yearSelectBox.prepend(new Option( year + "년", year.toString()));
-                certYearSelectBox.prepend(new Option( year + "년", year.toString()));
-            }
+            yearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
+            certYearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
         }
 
         onChangeSelectOption($('#cert-year-select'));
         onChangeSelectOption($('#doit-year-select'));
 
-        for (month; month >= 7; month--)
-            month === 7 ? certMonthSelectBox.append(new Option( appendZero(month) + "월", appendZero(month))) : certMonthSelectBox.prepend(new Option( appendZero(month) + "월", appendZero(month)));
+        for (defaultMonth; defaultMonth <= month; defaultMonth++)
+            certMonthSelectBox.prepend(new Option( appendZero(month) + "월", appendZero(month)));
 
         onChangeSelectOption($('#cert-month-select'));
     }

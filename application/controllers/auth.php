@@ -67,7 +67,7 @@ class Auth extends CI_Controller {
         $this->updateFailCount($UserID, 0);
 
         // Cookie Set
-//        $this->load->helper('cookie');
+        $this->load->helper('cookie');
 //        $cookie = array(
 //            'name' => 'userid',
 //            'value' => $UserData->userid,

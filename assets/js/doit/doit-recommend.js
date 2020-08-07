@@ -301,7 +301,7 @@
 				rowDom += 			'<p class="doit-tit">'+title+'</p>';
 				rowDom += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
 				rowDom +=   		'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
-				rowDom += 	'<td>';
+				rowDom += 	'</td>';
 				rowDom += 	'<td class="cursor-default">';
 				rowDom += 		'<i onclick="removeRow(this);" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
 				rowDom += 	'</td>';

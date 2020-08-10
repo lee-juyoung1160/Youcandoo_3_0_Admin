@@ -1430,7 +1430,7 @@ table th, table td {
 }
 .banner-modal .modal-information {
 	overflow-y: hidden;
-	max-height: 550px;
+	min-height: 550px;
 }
 .banner-modal .search-box {
 	float: left;

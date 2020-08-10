@@ -1,0 +1,50 @@
+.box {
+    border-radius: 10px;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+}
+.title {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #5a5a5a;
+}
+
+.ucd-text {
+    display: flex;
+    align-content: center;
+}
+.ucd-text img {
+    width: 23px;
+    height: 23px;
+}
+.ucd-text span {
+    color: #007aff;
+    font-size: 18px;
+    font-weight: 600;
+}
+.tab {
+    border-bottom: 1px solid #f3f3f3;
+}
+.tab li {
+    float: left;
+    width: calc(100%/6);
+    padding: 10px;
+    background-color: #fff;
+    border-top: 3px solid #fff;
+    border-right: 1px solid #f3f3f3;
+    cursor: pointer;
+    transition: all .3s;
+}
+.tab li:last-child {
+    border-right: none;
+}
+.tab li:hover,
+.tab li.on {
+    background-color: #fff;
+    border-top: 3px solid #007aff;
+}
+
+.content {
+    padding: 15px;
+}

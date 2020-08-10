@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="/assets/css/plugins/chart.min.css">
+<link rel="stylesheet" href="/assets/css/chart-ucd.css?version=<?php echo $this->config->item('version');?>">
+<section class="dashboard-ucd chart-pg">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">UCD 현황</h2>
+            <span class="today-date" id="today-date"></span>
+        </div>
+        <div class="wrap">
+            <div class="row">
+                <div class="box">
+                    <ul class="tab clearfix">
+                        <li class="on">
+                            <dl>
+                                <dt class="title">발행</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="title">적립</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="title">프로모션 예산</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="title">두잇 개설</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="title">상품 교환</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="title">취소</dt>
+                                <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                            </dl>
+                        </li>
+                    </ul>
+
+                    <div class="content">
+                        <div class="col col-1">
+                            <canvas id="monthly-mixedChart" width="400" height="auto"></canvas>
+                        </div>
+                        <div class="col col-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/chart.min.js"></script>
+<script src="/assets/js/dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -45,9 +45,10 @@
 	const btnSubmit	= $("#btnSubmit");
 	/** 푸시토큰 모달 **/
 	const modalTokenInfo = $("#modalTokenInfo");
-	const deviceToken 	= $("#deviceToken");
+	const deviceToken 	 = $("#deviceToken");
 
-	const g_profile_uuid 	= $("#profile_uuid").val();
+	const g_page_length  = 12;
+	const g_profile_uuid = $("#profile_uuid").val();
 
 	$( () => {
 		/** 우측 메뉴클릭 스크롤 **/
@@ -430,7 +431,7 @@
 	function actionParams()
 	{
 		let param = {
-			"limit" : 10
+			"limit" : g_page_length
 			,"page" : actionCurrentPage
 			,"profile_uuid" : g_profile_uuid
 		}
@@ -504,7 +505,7 @@
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
 					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
 
-				if (i===0 || i%5 === 0)
+				if (i===0 || i%6 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
 				actionDom += '<li>';
@@ -524,7 +525,7 @@
 				actionDom += 	'</div>';
 				actionDom += '</li>';
 
-				if (i>0 && (i+1)%5 === 0)
+				if (i>0 && (i+1)%6 === 0)
 					actionDom += '</ul>';
 			}
 		}
@@ -538,7 +539,7 @@
 	function buildActionPagination(data)
 	{
 		let totalCount  = data.recordsTotal;
-		let last		= Math.ceil(totalCount / 10);
+		let last		= Math.ceil(totalCount / g_page_length);
 		let pageLength  = 6;
 		if (last <= 10)
 			pageLength = last

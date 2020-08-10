@@ -89,9 +89,6 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				let table = recommendedTable.DataTable();
-				if (!table.data().any())
-					recommendedTable.find('tbody').children().remove();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRecommendedRowAttributes(nRow, aData);
@@ -293,6 +290,8 @@
 	{
 		if (addValidation())
 		{
+			$(".dataTables_empty").parent().remove();
+
 			let table 		 = doitTable.DataTable();
 			let selectedData = table.rows('.selected').data();
 			let rowDom = '';
@@ -375,7 +374,8 @@
 
 	function getRecommendRows()
 	{
-		return recommendedTable.find('tbody').children();
+		let recommended = recommendedTable.DataTable();
+		return recommended.data().any() ? recommendedTable.find('tbody').children() : 0;
 	}
 
 	function initDisableCheckbox()
@@ -389,8 +389,8 @@
 
 	function onSubmitRecommend()
 	{
-		if (submitValidation())
-			sweetConfirm(message.create, createRequest);
+		/*if (submitValidation())*/
+		sweetConfirm(message.create, createRequest);
 	}
 
 	function createRequest()
@@ -418,7 +418,7 @@
 		table.ajax.reload();
 	}
 
-	function submitValidation()
+	/*function submitValidation()
 	{
 		let rows = getRecommendRows();
 		if (rows.length === 0)
@@ -428,4 +428,4 @@
 		}
 
 		return true;
-	}
+	}*/

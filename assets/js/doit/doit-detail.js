@@ -1214,15 +1214,16 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   		width: "10%",     className: "cursor-default" }
-				,{title: "금액", data: "amount",   		width: "15%",     className: "cursor-default",
+				{title: "구분",    data: "division",   		width: "10%",     className: "cursor-default" }
+				,{title: "금액",   data: "amount",   		width: "15%",     className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
 					}
 				}
-				,{title: "제목", data: "title",  		width: "15%",     className: "cursor-default" }
-				,{title: "내용", data: "description",   	width: "25%",     className: "cursor-default" }
-				,{title: "일시", data: "created",   		width: "15%",     className: "cursor-default" }
+				,{title: "제목",   data: "title",  			width: "15%",     className: "cursor-default" }
+				,{title: "내용",   data: "description",   	width: "25%",     className: "cursor-default" }
+				,{title: "닉네임", data: "nickname",   		width: "15%",     className: "cursor-default" }
+				,{title: "일시",   data: "created",   		width: "15%",     className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

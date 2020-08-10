@@ -58,4 +58,9 @@ class Ucd extends MY_Controller {
         }
     }
 
+    public function dashboard()
+    {
+        $this->load->layout('ucd/ucd-dashboard');
+    }
+
 }

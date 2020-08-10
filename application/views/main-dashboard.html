@@ -15,7 +15,7 @@
                     <div class="row-wrap row-wrap2">
                         <div class="row-1">
                             <p class="title">기업충전 UCD</p>
-                            <span class="total count ucd" id="ucd-company"></span>
+                            <span class="total count" id="ucd-company"></span>
                             <span>UCD</span>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="row-wrap row-wrap2">
                         <div class="row-1">
                             <p class="title">개인충전 UCD</p>
-                            <span class="total count ucd" id="ucd-user"></span>
+                            <span class="total count" id="ucd-user"></span>
                             <span>UCD</span>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="row-wrap row-wrap2">
                         <div class="row-1">
                             <p class="title">프로모션 예산 UCD</p>
-                            <span class="total count ucd" id="ucd-promotion"></span>
+                            <span class="total count" id="ucd-promotion"></span>
                             <span>UCD</span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     <div class="row-wrap row-wrap2">
                         <div class="row-1">
                             <p class="title">두잇개설 UCD</p>
-                            <span class="total count ucd" id="ucd-doit"></span>
+                            <span class="total count" id="ucd-doit"></span>
                             <span>UCD</span>
                         </div>
                     </div>
@@ -81,14 +81,13 @@
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">모집중 두잇</p>
-                        <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap row-wrap2 clearfix">
                         <div class="row-1">
                             <canvas id="pending-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">전체 <span class="total count doit" id="pre-total"></span></li>
+                            <li class="fixed">전체 <span class="total count" id="pre-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="pre-user"></span></li>
                             <li class="fixed">프로모션  <span class="count" id="pre-company"></span></li>
                         </ul>
@@ -97,48 +96,45 @@
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">진행중 두잇</p>
-                        <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
                             <canvas id="progress-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">전체 <span class="total count doit"  id="ing-total"></span></li>
+                            <li class="fixed">전체 <span class="total count"  id="ing-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="ing-user"></span></li>
-                            <li class="fixed">프로모션  <span class="count" id="ing-company"></span></li>
+                            <li class="fixed">프로모션 <span class="count" id="ing-company"></span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">완료된 두잇</p>
-                        <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
                             <canvas id="complete-doughnut" width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">전체 <span class="total count doit"  id="end-total"></span></li>
+                            <li class="fixed">전체 <span class="total count"  id="end-total"></span></li>
                             <li class="fixed">일반 <span class="count" id="end-user"></span></li>
-                            <li class="fixed">프로모션  <span class="count" id="end-company"></span></li>
+                            <li class="fixed">프로모션 <span class="count" id="end-company"></span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">취소된 두잇</p>
-                        <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap clearfix">
                         <div class="row-1">
                             <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
                         </div>
                         <ul class="row-2">
-                            <li class="fixed">전체 <span class="total count doit" id="total"></span></li>
+                            <li class="fixed">전체 <span class="total count" id="total"></span></li>
                             <li class="fixed">모집실패 <span class="count" id="cancle"></span></li>
-                            <li class="fixed">개설취소  <span class="count" id="delete"></span></li>
+                            <li class="fixed">개설취소 <span class="count" id="delete"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -161,7 +157,6 @@
                 <div class="col">
                     <div class="row-wrap row-wrap1 clearfix">
                         <p class="title">가입자 현황</p>
-                        <!--<a href="#"><i class="fas fa-ellipsis-v"></i></a>-->
                     </div>
                     <div class="row-wrap row-wrap2">
                         <ul class="subscriber-status">
@@ -173,7 +168,6 @@
                                 <div class="data-wrap">
                                     <p class="fixed">
                                         <span class="acc" id="new-user"></span>
-                                        <!--<span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span>-->
                                     </p>
                                 </div>
                             </li>
@@ -185,7 +179,6 @@
                                 <div class="data-wrap">
                                     <p class="fixed">
                                         <span class="acc" id="join-user"></span>
-                                        <!--<span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span>-->
                                     </p>
                                 </div>
                             </li>
@@ -197,7 +190,6 @@
                                 <div class="data-wrap">
                                     <p class="fixed">
                                         <span class="acc" id="leave-user"></span>
-                                        <!--<span class="today-count">( <i class="fas fa-sort-up"> <span>3</span></i> )</span>-->
                                     </p>
                                 </div>
                             </li>
@@ -208,8 +200,7 @@
                                 </div>
                                 <div class="data-wrap">
                                     <p class="fixed">
-                                        <span class="total count user" id="total-user" ></span>
-                                        <!--<span class="today-count">( <i class="fas fa-sort-up"> <span></span></i> )</span>-->
+                                        <span class="total count" id="total-user" ></span>
                                     </p>
                                 </div>
                             </li>
@@ -218,80 +209,9 @@
                 </div>
             </div>
 
-<!--            <div class="col-wrap col-wrap-3">-->
-<!--                <div class="col col-1">-->
-<!--                    <div class="row-wrap1 clearfix">-->
-<!--                        <p class="title">프로모션 진행 현황</p>-->
-<!--                        <i class="fas fa-ellipsis-v"></i>-->
-<!--                    </div>-->
-<!--                    <div class="row-wrap2 clearfix">-->
-<!--                        <div class="row-1">-->
-<!--                            <canvas id="pro-status-doughnut"></canvas>-->
-<!--                        </div>-->
-<!--                        <ul class="row-2">-->
-<!--                            <li class="fixed">Total <span class="total count"  data-count="5800"></span></li>-->
-<!--                            <li class="fixed">진행 <span class="count">650</span></li>-->
-<!--                            <li class="fixed">완료  <span class="count">1,000</span></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col col-2">-->
-<!--                    <div class="row-wrap1 clearfix">-->
-<!--                        <p class="title">두잇 상황별 현황</p>-->
-<!--                        <i class="fas fa-ellipsis-v"></i>-->
-<!--                    </div>-->
-<!--                    <div class="row-wrap2 clearfix">-->
-<!--                        <ul class="subscriber-status">-->
-<!--                            <li class="clearfix">-->
-<!--                                <div class="fixed-wrap">-->
-<!--                                    <span class="fixed">삭제된 두잇 수</span>-->
-<!--                                </div>-->
-<!--                                <div class="data-wrap">-->
-<!--                                    <p class="pluses"><span class="count">5,450</span>개</p>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <li class="clearfix">-->
-<!--                                <div class="fixed-wrap">-->
-<!--                                    <span class="fixed">현재 두잇 진행하는 인원</span>-->
-<!--                                </div>-->
-<!--                                <div class="data-wrap">-->
-<!--                                    <p class="pluses"><span class="count">5,450</span>원</p>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <li class="clearfix">-->
-<!--                                <div class="fixed-wrap">-->
-<!--                                    <span class="fixed">인증 수</span>-->
-<!--                                </div>-->
-<!--                                <div class="data-wrap">-->
-<!--                                    <p class="pluses"><span class="count">5,450</span>개</p>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <li class="clearfix">-->
-<!--                                <div class="fixed-wrap">-->
-<!--                                    <span class="fixed">두잇 평균 달성률</span>-->
-<!--                                </div>-->
-<!--                                <div class="data-wrap">-->
-<!--                                    <p class="pluses"><span class="count total" data-count="80"></span>%</p>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col col-3">-->
-<!--                    <div class="row-wrap1 clearfix">-->
-<!--                        <p class="title">리워드 현황</p>-->
-<!--                        <i class="fas fa-ellipsis-v"></i>-->
-<!--                    </div>-->
-<!--                    <div class="row-wrap2 clearfix">-->
-<!--                        <p class="fixed">누적<span class="count total"  data-count="50000000"></span> UCD</p>-->
-<!--                    </div>-->
-<!--                    <div class="row-wrap3">-->
-<!--                        <canvas id="reward-line-Chart"></canvas>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </section>
 <script src="/assets/js/plugins/chart.min.js"></script>
-<script src="/assets/js/dashboard.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/chart-config.js"></script>
+<script src="/assets/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

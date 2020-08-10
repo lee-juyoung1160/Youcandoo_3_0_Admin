@@ -23,6 +23,21 @@
     dateTo          .on("change", function () { onChangeSearchDateTo(this); });
     datePicker      .prop("readonly", true);
 
+    /** 숫자 카운팅 에니메이션 **/
+    function countAnimation(obj)
+    {
+        $({countNum: 0}).animate({ countNum: $(obj).text() },{
+            duration: 500,
+            easing: 'linear',
+            step: function () {
+                $(obj).text(Math.floor(this.countNum));
+            },
+            complete: function () {
+                $(obj).text(numberWithCommas(this.countNum));
+            }
+        });
+    }
+
     /** 글자수 체크 **/
     function checkInputLength(obj)
     {

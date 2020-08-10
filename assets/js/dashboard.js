@@ -1,82 +1,35 @@
 
     const select            = $("select");
-    const baseDate          = document.getElementById('today-date');
-    const pendingCtx        = document.getElementById('pending-doughnut');
-    const progressingCtx    = document.getElementById('progress-doughnut');
-    const completeCtx       = document.getElementById('complete-doughnut');
-    const cancelCtx         = document.getElementById('cancel-doughnut');
-    const endUserEl         = document.getElementById('end-user');
-    const endCompanyEl      = document.getElementById('end-company');
-    const endTotalEl        = document.getElementById('end-total');
-    const ingUserEl         = document.getElementById('ing-user');
-    const ingCompanyEl      = document.getElementById('ing-company');
-    const ingTotalEl        = document.getElementById('ing-total');
-    const preUserEl         = document.getElementById('pre-user');
-    const preCompanyEl      = document.getElementById('pre-company');
-    const preTotalEl        = document.getElementById('pre-total');
-    const cancelEl          = document.getElementById('cancle');
-    const deleteEl          = document.getElementById('delete');
-    const cancelTotalEl     = document.getElementById('total');
-    const monthlyMixedChart = document.getElementById('monthly-mixedChart');
-    const certMonthChart    = document.getElementById('cert-month-chart');
+    const baseDate          = $('#today-date');
+    const ucdUser           = $('#ucd-user');
+    const ucdDoit           = $('#ucd-doit');
+    const ucdCompany        = $('#ucd-company');
+    const ucdPromotion      = $('#ucd-promotion');
+    const newUser           = $('#new-user');
+    const joinUser          = $('#join-user');
+    const leaveUser         = $('#leave-user');
+    const totalUser         = $('#total-user');
+    const pendingCtx        = $('#pending-doughnut');
+    const progressingCtx    = $('#progress-doughnut');
+    const completeCtx       = $('#complete-doughnut');
+    const cancelCtx         = $('#cancel-doughnut');
+    const endUserEl         = $('#end-user');
+    const endCompanyEl      = $('#end-company');
+    const endTotalEl        = $('#end-total');
+    const ingUserEl         = $('#ing-user');
+    const ingCompanyEl      = $('#ing-company');
+    const ingTotalEl        = $('#ing-total');
+    const preUserEl         = $('#pre-user');
+    const preCompanyEl      = $('#pre-company');
+    const preTotalEl        = $('#pre-total');
+    const cancelEl          = $('#cancle');
+    const deleteEl          = $('#delete');
+    const cancelTotalEl     = $('#total');
+    const monthlyMixedChart = $('#monthly-mixedChart');
+    const certMonthChart    = $('#cert-month-chart');
     const yearSelectBox = document.getElementById('doit-year-select');
     const certMonthSelectBox = document.getElementById('cert-month-select');
     const certYearSelectBox = document.getElementById('cert-year-select');
-
-    /** 차트 레이아웃 구성 공통 부분 **/
-    const options = {
-        doughnutOptions: {
-            legend: {
-                align: 'start',
-                labels: {
-                    fontSize: 12,
-                    boxWidth: 10,
-                    hoverBorderWidth: 900
-                }
-            },
-            maintainAspectRatio: false
-        },
-        barOptions: {
-            legend: {
-                align: 'end',
-                position: 'top'
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        },
-        lineOptions: {
-            legend: {
-                display: false
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    }
-    const chartType = {
-        doughnut : 'doughnut'
-        ,line : 'line'
-        ,bar : 'bar'
-    }
-    const labels = {
-        doitType : ['일반', '프로모션']
-        ,cancelType : ['모집실패', '개설취소']
-    }
-    const color = {
-        white : 'rgba(255,255,255,1)'
-        ,black : 'rgba(0, 0, 0, 0)'
-        ,dodgerBlue : 'rgb(0, 122, 255)'
-        ,prussianBlue : 'rgb(0, 48, 135)'
-    };
 
     /** 현재 연도-월-일 구하기 **/
     let day = new Date();
@@ -90,11 +43,16 @@
     document.addEventListener("DOMContentLoaded", function () {
         setBaseDate();
         initSelectBox();
-        getDailyActions();
-        getMonthlyDoit();
-        getDoitStatus();
-        getUserStatus();
+        /** 상단 ucd 정보 **/
         getUcdStatus();
+        /** 일 별  인증 수 차트**/
+        getDailyActions();
+        /** 두잇 진행상태 별 차트 **/
+        getDoitStatus();
+        /** 월 별 개설 두잇 수 차트 **/
+        getMonthlyDoit();
+        /** 가입자 현황 정보 **/
+        getUserStatus();
         /** 월단위 셀렉박스 이벤트 **/
         yearSelectBox       .addEventListener('change', function () { updateMonthlyDoitChart(); });
         certYearSelectBox   .addEventListener('change', function () { updateDailyActionChart(); });
@@ -122,29 +80,71 @@
         initSelectOption();
     }
 
-    /** 넘버 total 카운팅 **/
-    function counter(type) {
-        $('.count.total.'+type).each(function () {
-            let $this = $(this);
-            $({countNum: 0}).animate({
-                    countNum: $this.text()
-                },
-                {
-                    duration: 500,
-                    easing: 'linear',
-                    step: function () {
-                        $this.text(Math.floor(this.countNum));
-                    },
-                    complete: function () {
-                        $this.text(numberWithCommas(this.countNum));
-                    }
-                });
-        });
+    /** UCD 정보 **/
+    function getUcdStatus() {
+
+        let url     = api.getUcdStat;
+        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, null, getUcdCallback, errMsg, false);
+    }
+
+    function getUcdCallback(data)
+    {
+        isSuccessResp(data) ? getUcdSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    function getUcdSuccess(data)
+    {
+        ucdUser         .text(data.data.user);
+        ucdDoit         .text(data.data.doit);
+        ucdCompany      .text(data.data.company);
+        ucdPromotion    .text(data.data.promotion);
+
+        countAnimation(ucdUser);
+        countAnimation(ucdDoit);
+        countAnimation(ucdCompany);
+        countAnimation(ucdPromotion);
+    }
+
+    /** 일 별 인증 수 **/
+    function getDailyActions()
+    {
+        let param = {
+            'month': certMonthSelectBox.value,
+            'year' : certYearSelectBox.value
+        }
+
+        let url     = api.getDailyAction;
+        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDailyActionsCallback, errMsg, false);
+    }
+
+    function getDailyActionsCallback(data)
+    {
+        isSuccessResp(data) ? getDailyActionsSuccess(data) : sweetToast(invalidResp(data));
+    }
+
+    let dailyActionChart;
+    function getDailyActionsSuccess(data)
+    {
+        let label = data.data.day;
+        let dataset = [{
+            data: data.data.result,
+            lineTension: 0,
+            borderColor: color.dodgerBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
+        }];
+
+        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/
-    function getDoitStatus() {
-
+    function getDoitStatus()
+    {
         let url     = api.getDoitStat;
         let errMsg  = '두잇 상태 데이터'+ message.ajaxLoadError;
 
@@ -185,89 +185,33 @@
         }]
 
         initChart(pendingCtx, chartType.doughnut, labels.doitType, pendingDataset, options.doughnutOptions);
-        preUserEl.textContent    = numberWithCommas(preData.user_cnt);
-        preCompanyEl.textContent = numberWithCommas(preData.company_cnt);
-        preTotalEl.textContent   = preData.total_cnt;
+        preUserEl   .text(numberWithCommas(preData.user_cnt));
+        preCompanyEl.text(numberWithCommas(preData.company_cnt));
+        preTotalEl  .text(preData.total_cnt);
+        countAnimation(preTotalEl);
 
         initChart(progressingCtx, chartType.doughnut, labels.doitType, progressDataset, options.doughnutOptions);
-        ingUserEl.textContent    = numberWithCommas(ingData.user_cnt);
-        ingCompanyEl.textContent = numberWithCommas(ingData.company_cnt);
-        ingTotalEl.textContent   = ingData.total_cnt;
+        ingUserEl   .text(numberWithCommas(ingData.user_cnt));
+        ingCompanyEl.text(numberWithCommas(ingData.company_cnt));
+        ingTotalEl  .text(ingData.total_cnt);
+        countAnimation(ingTotalEl);
 
         initChart(completeCtx, chartType.doughnut, labels.doitType, endDataset, options.doughnutOptions);
-        endUserEl.textContent    = numberWithCommas(endData.user_cnt);
-        endCompanyEl.textContent = numberWithCommas(endData.company_cnt);
-        endTotalEl.textContent   = endData.total_cnt;
+        endUserEl   .text(numberWithCommas(endData.user_cnt));
+        endCompanyEl.text(numberWithCommas(endData.company_cnt));
+        endTotalEl  .text(endData.total_cnt);
+        countAnimation(endTotalEl);
 
         initChart(cancelCtx, chartType.doughnut, labels.cancelType, cancelDataset, options.doughnutOptions);
-        cancelEl.textContent     = numberWithCommas(cancelData.cancle);
-        deleteEl.textContent     = numberWithCommas(cancelData.delete);
-        cancelTotalEl.textContent = cancelData.total;
-
-        counter("doit");
-    }
-
-    /** 가입자 현황 데이터 **/
-    function getUserStatus() {
-
-        let url     = api.getUserStat;
-        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
-
-        ajaxRequestWithJsonData(false, url, null, getUserStatusCallback, errMsg, false);
-    }
-
-    function getUserStatusCallback(data)
-    {
-        isSuccessResp(data) ? getUserStatusSuccess(data) : sweetToast(invalidResp(data));
-    }
-
-    function getUserStatusSuccess(data)
-    {
-        let newUser   = document.getElementById('new-user');
-        let joinUser  = document.getElementById('join-user');
-        let leaveUser = document.getElementById('leave-user');
-        let totalUser = document.getElementById('total-user');
-
-        newUser.textContent   = numberWithCommas(data.data.new_user);
-        joinUser.textContent  = numberWithCommas(data.data.join_user);
-        leaveUser.textContent = numberWithCommas(data.data.leave_user);
-        totalUser.textContent = data.data.total_user;
-
-        counter("user");
-    }
-
-    /** UCD 관련 차트 데이터 **/
-    function getUcdStatus() {
-
-        let url     = api.getUcdStat;
-        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
-
-        ajaxRequestWithJsonData(false, url, null, getUcdCallback, errMsg, false);
-    }
-
-    function getUcdCallback(data)
-    {
-        isSuccessResp(data) ? getUcdSuccess(data) : sweetToast(invalidResp(data));
-    }
-
-    function getUcdSuccess(data)
-    {
-        let ucdUser      = document.getElementById('ucd-user');
-        let ucdDoit      = document.getElementById('ucd-doit');
-        let ucdCompany   = document.getElementById('ucd-company');
-        let ucdPromotion = document.getElementById('ucd-promotion');
-
-        ucdUser.textContent      = data.data.user;
-        ucdDoit.textContent      = data.data.doit;
-        ucdCompany.textContent   = data.data.company;
-        ucdPromotion.textContent = data.data.promotion;
-
-        counter("ucd");
+        cancelEl        .text(numberWithCommas(cancelData.cancle));
+        deleteEl        .text(numberWithCommas(cancelData.delete));
+        cancelTotalEl   .text(cancelData.total);
+        countAnimation(cancelTotalEl);
     }
 
     /** 월 별 개설 두잇 **/
-    function getMonthlyDoit() {
-
+    function getMonthlyDoit()
+    {
         let param   = JSON.stringify({'year' : yearSelectBox.value});
         let url     = api.getMonthlyDoit;
         let errMsg  = '월 별 두잇 개설 데이터'+ message.ajaxLoadError;
@@ -304,55 +248,34 @@
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
     }
 
-    /** 일 별 인증 **/
-    function getDailyActions() {
-
-        let param = {
-            'month': certMonthSelectBox.value,
-            'year' : certYearSelectBox.value
-        }
-
-        let url     = api.getDailyAction;
-        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
-
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDailyActionsCallback, errMsg, false);
-    }
-
-    function getDailyActionsCallback(data)
+    /** 가입자 현황 **/
+    function getUserStatus()
     {
-        isSuccessResp(data) ? getDailyActionsSuccess(data) : sweetToast(invalidResp(data));
+        let url     = api.getUserStat;
+        let errMsg  = '가입자 현황'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, null, getUserStatusCallback, errMsg, false);
     }
 
-    let dailyActionChart;
-    function getDailyActionsSuccess(data)
+    function getUserStatusCallback(data)
     {
-        let label = data.data.day;
-        let dataset = [{
-            data: data.data.result,
-            lineTension: 0,
-            borderColor: color.dodgerBlue,
-            borderWidth : 2.2,
-            pointBackgroundColor: color.white,
-            backgroundColor: color.black
-        }];
-
-        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
+        isSuccessResp(data) ? getUserStatusSuccess(data) : sweetToast(invalidResp(data));
     }
 
-
-    function initChart(ctx, type, label, dataset, options)
+    function getUserStatusSuccess(data)
     {
-        return new Chart(ctx,{
-            type : type,
-            data : {
-                labels : label,
-                datasets : dataset
-            },
-            options : options
-        });
+        newUser     .text(numberWithCommas(data.data.new_user));
+        joinUser    .text(numberWithCommas(data.data.join_user));
+        leaveUser   .text(numberWithCommas(data.data.leave_user));
+        totalUser   .text(data.data.total_user);
 
+        countAnimation(newUser);
+        countAnimation(joinUser);
+        countAnimation(leaveUser);
+        countAnimation(totalUser);
     }
 
+    /** 일별인증 차트 업데이트(셀렉트박스 이벤트) **/
     function updateDailyActionChart()
     {
         let param = {
@@ -373,6 +296,7 @@
         dailyActionChart.update();
     }
 
+    /** 월별 개설 두잇 차트 업데이트(셀렉트박스 이벤트) **/
     function updateMonthlyDoitChart()
     {
         let param   = JSON.stringify({'year' : yearSelectBox.value});

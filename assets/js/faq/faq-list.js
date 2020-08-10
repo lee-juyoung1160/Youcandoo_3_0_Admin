@@ -53,7 +53,7 @@
 		let url 	= api.getFaqType;
 		let errMsg 	= '구분 '+label.list+message.ajaxLoadError;
 
-		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, completeCallback);
+		ajaxRequestWithJsonData(true, url, null, getFaqTypeCallback, errMsg, completeCallback);
 	}
 
 	function getFaqTypeCallback(data)

@@ -49,10 +49,28 @@
                     </ul>
 
                     <div class="content">
-                        <div class="col col-1">
-                            <canvas id="monthly-mixedChart" width="400" height="auto"></canvas>
+
+                        <div class="top clearfix">
+                            <p class="title">일 별 현황</p>
+                            <div class="select-box-wrap clearfix">
+                                <div class="select-box">
+                                    <label class="cert-year-label" for="cert-year-select">2020년</label>
+                                    <select id="cert-year-select" name="cert-year-value"><option value="2020">2020년</option></select>
+                                </div>
+                                <div class="select-box">
+                                    <label class="cert-month-label" for="cert-month-select">07월</label>
+                                    <select id="cert-month-select" name="cert-month-value"><option value="08">08월</option><option value="07">07월</option></select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col col-2"></div>
+
+                        <div class="row">
+                            <div class="col col-1">
+                                <canvas id="monthly-mixedChart" width="400" height="auto"></canvas>
+                            </div>
+                            <div class="col col-2"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -48,3 +48,28 @@
 .content {
     padding: 15px;
 }
+
+.top {
+    display: flex;
+    align-content: center;
+    margin-bottom: 15px;
+    padding: 10px 0 5px;
+    border-bottom: 1px solid #f3f3f3 ;
+}
+.top > .title {
+    margin-right: auto;
+    margin-bottom: 0;
+}
+.select-box-wrap {
+    margin-left: auto;
+}
+.top .select-box {
+    width: 104px;
+    height: 34px;
+    font-size: 13px;
+    border-radius: 30px;
+    margin-right: 5px;
+}
+.top .select-box label {
+    padding: 0.7em 0.7em;
+}

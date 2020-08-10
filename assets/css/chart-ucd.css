@@ -118,7 +118,7 @@ input.datepicker {
 button.search {
     display: inline-block;
     width: 70px;
-    height: 33px;
+    height: 35px;
     font-size: 14px;
     color: #ffffff;
     border-radius: 5px;
@@ -127,4 +127,12 @@ button.search {
 }
 button.search:hover {
     background-color: #006AFD;
+}
+
+.table-wrap {
+    margin-top: 0;
+    padding: 0 15px;
+}
+.table-wrap table {
+    box-shadow:none;
 }

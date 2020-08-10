@@ -26,6 +26,11 @@
 	    return phone;
 	}
 
+	function getLastDayNumber(_year, _month)
+	{
+		return new Date(_year, _month, 0).getDate();
+	}
+
 	function getStringFormatToDate(_date, separator)
 	{
 		let yyyy 	= _date.getFullYear().toString();

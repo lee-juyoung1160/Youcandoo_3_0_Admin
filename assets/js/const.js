@@ -232,6 +232,7 @@
 		,listChargeUcd : baseApiUrl+'ucd/charge/list'
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
+		,summaryUcd : baseApiUrl+'ucd/dashboard/summary'
 		/** app version **/
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'

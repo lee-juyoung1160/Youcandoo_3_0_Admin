@@ -269,9 +269,6 @@
         leaveUser   .text(numberWithCommas(data.data.leave_user));
         totalUser   .text(data.data.total_user);
 
-        countAnimation(newUser);
-        countAnimation(joinUser);
-        countAnimation(leaveUser);
         countAnimation(totalUser);
     }
 

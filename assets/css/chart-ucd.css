@@ -42,7 +42,7 @@
     height: 23px;
 }
 .ucd-text span {
-    color: #005AFD;
+    color: #006AFD;
     font-size: 19px;
     font-weight: 600;
 }
@@ -126,5 +126,5 @@ button.search {
     transition: all .3s;
 }
 button.search:hover {
-    background-color: #005AFD;
+    background-color: #006AFD;
 }

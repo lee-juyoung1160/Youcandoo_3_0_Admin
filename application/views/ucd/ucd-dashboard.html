@@ -10,37 +10,37 @@
             <div class="row">
                 <div class="box">
                     <ul class="tab clearfix">
-                        <li class="on">
+                        <li id="issuanceUcd" class="on">
                             <dl>
                                 <dt class="title">발행</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
                             </dl>
                         </li>
-                        <li>
+                        <li id="accumulateUcd">
                             <dl>
                                 <dt class="title">적립</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
                             </dl>
                         </li>
-                        <li>
+                        <li id="balanceUcd">
                             <dl>
                                 <dt class="title">프로모션 예산</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
                             </dl>
                         </li>
-                        <li>
+                        <li id="exchangeUcd">
                             <dl>
                                 <dt class="title">두잇 개설</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
                             </dl>
                         </li>
-                        <li>
+                        <li id="cancelUcd">
                             <dl>
                                 <dt class="title">상품 교환</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
                             </dl>
                         </li>
-                        <li>
+                        <li class="">
                             <dl>
                                 <dt class="title">취소</dt>
                                 <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
@@ -49,10 +49,9 @@
                     </ul>
 
                     <div class="content">
-
                         <div class="top clearfix">
-                            <p class="title">일 별 현황</p>
-                            <div class="select-box-wrap clearfix">
+                            <p class="title">월 간 현황</p>
+                            <div class="right-wrap clearfix">
                                 <div class="select-box">
                                     <label for="selYear"></label>
                                     <select id="selYear">
@@ -70,9 +69,42 @@
                             <div class="col col-1">
                                 <canvas id="dailyInfo" width="400" height="auto"></canvas>
                             </div>
-                            <div class="col col-2"></div>
+                            <div class="col col-2">
+                                <div class="month-data">
+                                    <dl>
+                                        <dt class="title">Total</dt>
+                                        <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt class="title">개인충전</dt>
+                                        <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt class="title">기업충전</dt>
+                                        <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘"><span>86,956,800</span></dd>
+                                    </dl>
+                                </div>
+                            </div>
                         </div>
 
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="content">
+
+                        <div class="top">
+                            <div class="title">기간 별 현황</div>
+                            <div class="right-wrap clearfix">
+
+                                <div class="date-wrap">
+                                    <span class="date-margin-text"> 기간검색 </span>
+                                    <input type="text" class="datepicker date_from hasDatepicker">
+                                    <span class="date-margin-text"> ~ </span>
+                                    <input type="text" class="datepicker date_to hasDatepicker">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

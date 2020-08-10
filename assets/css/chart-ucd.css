@@ -1,12 +1,35 @@
+.row {
+    width: 100%;
+    *zoom:1;
+}
+.row:after {
+    display: block;
+    clear: both;
+    content: '';
+}
+.row .col {
+    float: left;
+}
+.row .col-1 {
+    width: 85%;
+}
+.row .col-2 {
+    width: 15%;
+}
+
 .box {
-    border-radius: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
 }
-.title {
+.box:last-child {
+    margin-bottom: 0;
+}
+.title, .date-margin-text {
     margin-bottom: 10px;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     color: #5a5a5a;
 }
 
@@ -20,19 +43,17 @@
 }
 .ucd-text span {
     color: #007aff;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
 }
-.tab {
-    border-bottom: 1px solid #f3f3f3;
-}
+
 .tab li {
     float: left;
     width: calc(100%/6);
-    padding: 10px;
-    background-color: #fff;
-    border-top: 3px solid #fff;
-    border-right: 1px solid #f3f3f3;
+    padding: 10px 10px 15px 10px;
+    background-color: #f0f6ff;
+    border-top: 3px solid #f0f6ff;
+    border-right: 1px solid #fff;
     cursor: pointer;
     transition: all .3s;
 }
@@ -60,7 +81,7 @@
     margin-right: auto;
     margin-bottom: 0;
 }
-.select-box-wrap {
+.top > .right-wrap {
     margin-left: auto;
 }
 .top .select-box {
@@ -72,4 +93,25 @@
 }
 .top .select-box label {
     padding: 0.7em 0.7em;
+}
+
+.month-data {
+    padding: 30px 20px;
+}
+.month-data dl {
+    margin-bottom: 15px;
+}
+.month-data .title {
+    font-size: 13px;
+}
+.month-data .ucd-text img {
+    width: 20px;
+    height: 20px;
+}
+.month-data .ucd-text span {
+    font-size: 16px;
+    font-weight: 500;
+}
+input.datepicker {
+    width: 100px;
 }

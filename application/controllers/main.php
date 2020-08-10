@@ -5,7 +5,7 @@ class Main extends MY_Controller {
 
 	public function index()
 	{
-        $this->load->layout('dashboard');
+        $this->load->layout('main-dashboard');
 	}
 
     public function login()

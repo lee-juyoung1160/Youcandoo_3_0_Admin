@@ -22,6 +22,16 @@
 		});
 	});
 
+	function disableSort()
+	{
+		recommendedTable.find('tbody').sortable("option", "disabled", true);
+	}
+
+	function enableSort()
+	{
+		recommendedTable.find('tbody').sortable("option", "disabled", false);
+	}
+
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
@@ -63,7 +73,7 @@
 				}
 				,{title: "", 	data: "doit_uuid", 		width: "10px",    className: "cursor-default",
 					render: function (data) {
-						return '<i onclick="removeRow(this);" data-uuid="'+data+'" class="far fa-times-circle"></i>';
+						return '<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="'+data+'" class="far fa-times-circle"></i>';
 					}
 				}
 			],
@@ -332,7 +342,7 @@
 				rowDom += 		'</div>';
 				rowDom += 	'</td>';
 				rowDom += 	'<td class="cursor-default">';
-				rowDom += 		'<i onclick="removeRow(this);" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
+				rowDom += 		'<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
 				rowDom += 	'</td>';
 				rowDom += '</tr>';
 			}

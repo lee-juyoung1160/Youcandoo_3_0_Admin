@@ -42,7 +42,7 @@
     height: 23px;
 }
 .ucd-text span {
-    color: #007aff;
+    color: #005AFD;
     font-size: 19px;
     font-weight: 600;
 }
@@ -114,4 +114,17 @@
 }
 input.datepicker {
     width: 100px;
+}
+button.search {
+    display: inline-block;
+    width: 70px;
+    height: 33px;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #007aff;
+    transition: all .3s;
+}
+button.search:hover {
+    background-color: #005AFD;
 }

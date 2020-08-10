@@ -395,7 +395,7 @@
 
 	function createRequest()
 	{
-		let rows 	= getRecommendRows();
+		let rows 	= recommendedTable.find('tbody').children();
 		let ids 	= [];
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)

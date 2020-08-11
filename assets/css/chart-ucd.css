@@ -164,7 +164,7 @@
     height: 20px;
 }
 .month-data .ucd-text span {
-    color: #505050;
+    color: #666;
     font-size: 17px;
     font-weight: 500;
 }
@@ -190,7 +190,6 @@ button.search:hover {
 
 .table-wrap {
     margin-top: 0;
-    padding: 0 15px;
 }
 .table-wrap table {
     box-shadow:none;

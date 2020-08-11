@@ -247,7 +247,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -255,7 +255,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -265,7 +265,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -273,7 +273,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -283,7 +283,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -291,7 +291,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -301,7 +301,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -309,7 +309,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -319,7 +319,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -327,7 +327,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -337,7 +337,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -345,7 +345,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -355,7 +355,7 @@
                     label: label.personal,
                     data: chartData.user,
                     /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.dodgerBlue,
+                    borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
@@ -363,7 +363,7 @@
                     label: label.biz,
                     data: chartData.company,
                     /*backgroundColor: color.prussianBlue*/
-                    borderColor: color.prussianBlue,
+                    borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black

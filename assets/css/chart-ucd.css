@@ -25,19 +25,24 @@
 }
 .box-title {
     margin-bottom: 10px;
+    padding: 5px 10px;
     color: #fff;
-    font-size: 18px;
+    font-size: 17px;
     background-color: #007aff;
 }
-
 .box:last-child {
     margin-bottom: 0;
 }
 .title, .date-margin-text {
     margin-bottom: 10px;
+    color: #5a5a5a;
     font-weight: 500;
     font-size: 14px;
-    color: #5a5a5a;
+}
+.sub-title {
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 13px;
 }
 
 .ucd-text {
@@ -58,7 +63,9 @@
     color: #666;
     font-size: 13px;
 }
-
+.tab .box {
+    padding: 0;
+}
 .tab li {
     float: left;
     width: 16%;
@@ -70,6 +77,9 @@
     cursor: pointer;
     transition: all .3s;
 }
+.tab li dl {
+    padding: 0 10px 10px 10px;
+}
 .tab li:last-child {
     margin-right: 0px;
     border-right: none;
@@ -78,6 +88,11 @@
 .tab li.on {
     background-color: #fff;
     /*border-left: 3px solid #007aff;*/
+}
+.tab li:hover .box-title,
+.tab li.on .box-title {
+    color: #fff;
+    background-color: #007aff;
 }
 
 .content {

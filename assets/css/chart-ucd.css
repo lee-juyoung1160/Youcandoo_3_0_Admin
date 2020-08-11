@@ -151,7 +151,9 @@
 }
 .month-data .title {
     font-size: 13px;
+    color: #333;
 }
+
 .month-data .ucd-text {
     position: inherit;
     left: inherit;
@@ -162,8 +164,12 @@
     height: 20px;
 }
 .month-data .ucd-text span {
-    font-size: 16px;
+    color: #505050;
+    font-size: 17px;
     font-weight: 500;
+}
+.month-data .total-text span {
+    color: #006AFD;
 }
 input.datepicker {
     width: 100px;

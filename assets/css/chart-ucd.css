@@ -54,7 +54,7 @@
     left: 10px;
     bottom: 10px;
     align-content: center;
-    z-index: 100;
+    z-index: 30;
 }
 .ucd-text img {
     width: 23px;

@@ -144,27 +144,10 @@
     let dailyChart;
     function initDailyChart(data)
     {
-        let xLabel = getDayNames(selYear.val(), selMonth.val());
-        let chartData = data.data.chart;
-        let dataset = [{
-            label: label.personal,
-            data: chartData.user,
-            /*backgroundColor: color.dodgerBlue*/
-            borderColor: color.dodgerBlue,
-            borderWidth : 2.2,
-            pointBackgroundColor: color.white,
-            backgroundColor: color.black
-        }, {
-            label: label.biz,
-            data: chartData.company,
-            /*backgroundColor: color.prussianBlue*/
-            borderColor: color.prussianBlue,
-            borderWidth : 2.2,
-            pointBackgroundColor: color.white,
-            backgroundColor: color.black
-        }];
+        let xLabel  = getDayNames(selYear.val(), selMonth.val());
+        let dataset = initDataset(data);
 
-        dailyChart = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions);
+        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions);
     }
 
     function buildSummary(data)
@@ -173,6 +156,7 @@
         let user = Number(summaryData.user_ucd);
         let biz = Number(summaryData.company_ucd);
         let tot = user + biz;
+
         totalUcd.html(numberWithCommas(tot));
         userUcd.html(numberWithCommas(user));
         bizUcd.html(numberWithCommas(biz));
@@ -236,16 +220,10 @@
         }
     }
 
-    function updateDailyChart(_data)
+    function updateDailyChart(data)
     {
-        let chartData = _data.data.chart;
-
-        /** 가로축 레이블 변경 **/
         dailyChart.data.labels = getDayNames(selYear.val(), selMonth.val());
-        /** 개인 **/
-        dailyChart.data.datasets[0].data = chartData.user;
-        /** 기업 **/
-        dailyChart.data.datasets[1].data = chartData.company;
+        dailyChart.data.datasets = initDataset(data);
         dailyChart.update();
     }
 
@@ -257,6 +235,140 @@
             dayNames.push(i+'일');
 
         return dayNames;
+    }
+
+    function initDataset(data)
+    {
+        let chartData = data.data.chart;
+
+        switch(g_ucd_type) {
+            case 'create':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            case 'reward':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            case 'balance':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            case 'doit':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            case 'exchange':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            case 'cancel':
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+            default:
+                return [{
+                    label: label.personal,
+                    data: chartData.user,
+                    /*backgroundColor: color.dodgerBlue*/
+                    borderColor: color.dodgerBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }, {
+                    label: label.biz,
+                    data: chartData.company,
+                    /*backgroundColor: color.prussianBlue*/
+                    borderColor: color.prussianBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.black
+                }];
+        }
     }
 
     function getApiUrl()

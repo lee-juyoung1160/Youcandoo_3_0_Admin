@@ -44,8 +44,8 @@
 }
 .sub-title {
     margin-bottom: 5px;
-    color: #666;
-    font-size: 13px;
+    color: #888;
+    font-size: 12px;
 }
 
 .ucd-text {
@@ -151,6 +151,11 @@
 }
 .month-data .title {
     font-size: 13px;
+}
+.month-data .ucd-text {
+    position: inherit;
+    left: inherit;
+    bottom: inherit;
 }
 .month-data .ucd-text img {
     width: 20px;

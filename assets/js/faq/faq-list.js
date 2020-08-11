@@ -7,7 +7,6 @@
 	const selPageLength = $("#selPageLength");
 	const faqType 		= $("#selFaqType");
 	const exposure		= $("input[name=radio-exposure]");
-	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {

@@ -1,11 +1,10 @@
 
     const issuanceUcd   = $('#issuanceUcd');
-    const accumulateUcd = $('#accumulateUcd');
+    const rewardUcd     = $('#rewardUcd');
     const balanceUcd    = $('#balanceUcd');
     const doitUcd       = $('#doitUcd');
     const exchangeUcd   = $('#exchangeUcd');
     const cancelUcd     = $('#cancelUcd');
-    const select    = $('select');
     const selYear   = $('#selYear');
     const selMonth  = $('#selMonth');
     const dailyInfo = $('#dailyInfo');
@@ -20,13 +19,14 @@
 
     /** 로드 바로 실행 **/
     $(() => {
+        initSearchDatepicker();
         initSelectBox();
         getSummaryUcd();
         /*initDetailChart();*/
         getDetailSuccess();
         /** 월단위 셀렉박스 이벤트 **/
         issuanceUcd     .on('click', function () { onClickLiElement(this); });
-        accumulateUcd   .on('click', function () { onClickLiElement(this); });
+        rewardUcd       .on('click', function () { onClickLiElement(this); });
         balanceUcd      .on('click', function () { onClickLiElement(this); });
         doitUcd         .on('click', function () { onClickLiElement(this); });
         exchangeUcd     .on('click', function () { onClickLiElement(this); });
@@ -64,25 +64,38 @@
 
     function getSummaryUcdSuccess(data)
     {
-        console.log(data)
         let detail = data.data;
         let issuancePersonal = detail.payment.company_ucd;
         let issuanceBiz      = detail.payment.user_ucd;
         let issuanceTotal    = Number(issuancePersonal) + Number(issuanceBiz);
-
         let rewardPromo = Number(detail.reward.promotion_ucd);
         let rewardDoit  = Number(detail.reward.doit_ucd);
         let rewardAvg   = Number(detail.reward.avg_ucd);
-
         let balance     = detail.promotion.ucd;
-
         let doitCreate  = detail.create.ucd;
-
         let exchangeTotal = detail.exchange.ucd;
         let exchangeAvg   = detail.exchange.avg_ucd;
-
         let cancel      = detail.cancel.ucd;
 
+        let issuanceTotalEl = issuanceUcd.find('span');
+        let rewardTotalEl   = rewardUcd.find('span');
+        let balanceTotalEl  = balanceUcd.find('span');
+        let doitTotalEl     = doitUcd.find('span');
+        let exchangeTotalEl = exchangeUcd.find('span');
+        let cancelTotalEl   = cancelUcd.find('span');
+
+        $(issuanceTotalEl).text(issuanceTotal);
+        countAnimation($(issuanceTotalEl));
+        $(rewardTotalEl).text(rewardPromo+rewardDoit);
+        countAnimation($(rewardTotalEl));
+        $(balanceTotalEl).text(balance);
+        countAnimation($(balanceTotalEl));
+        $(doitTotalEl).text(doitCreate);
+        countAnimation($(doitTotalEl));
+        $(exchangeTotalEl).text(exchangeTotal);
+        countAnimation($(exchangeTotalEl));
+        $(cancelTotalEl).text(cancel);
+        countAnimation($(cancelTotalEl));
     }
 
     /** 상세정보 차트 초기화 **/

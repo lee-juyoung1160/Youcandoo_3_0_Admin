@@ -7,7 +7,6 @@
     const days          = document.querySelector('.day-btn');
     const ratingLists   = document.getElementsByName('chk-grade');
     const reviewTable   = document.getElementById('review-table');
-    const select        = $("select");
     /** by.leo **/
     const btnBlind		= $("#btnBlind");
     const btnUnBlind	= $("#btnUnBlind");

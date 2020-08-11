@@ -8,7 +8,6 @@
 	const selPageLength = $("#selPageLength");
 	const isBanner 		= $("input[name=radio-banner]");
 	const status 		= $("input[name=chk-status]");
-	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {

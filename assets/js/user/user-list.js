@@ -7,7 +7,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const userActive	= $("input[name=radio-user-active]");
-	const select		= $("select");
 	/*const btnModalBanUserOpen	= $("#btnModalBanUserOpen");*/
 	/** modal **/
 	/*const modalBanUser		= $("#modalBanUser");

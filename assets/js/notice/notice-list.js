@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const exposure		= $("input[name=radio-exposure]");
-	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';

@@ -5,7 +5,6 @@
 	const reset 		= $(".reset");
 	const selPageLength	= $("#selPageLength");
 	const dataTable		= $("#dataTable");
-	const select		= $("select");
 	const btnSubmit 	= $("#btnSubmit");
 
 	$( () => {

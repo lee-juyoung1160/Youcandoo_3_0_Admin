@@ -10,7 +10,6 @@
     const selPageLength = $("#selPageLength");
     const ucdType 		= $("input[name=radio-type]");
     const userDivision	= $("input[name=radio-user-division]");
-    const select		= $("select");
 
     $( () => {
         /** 데이트피커 초기화 **/

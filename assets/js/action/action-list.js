@@ -7,7 +7,6 @@
 	const status		= $("input[name=chk-status]");
 	const report		= $("input[name=radio-report]");
 	const selPageLength = $("#selPageLength");
-	const select		= $("select");
 	const actionTopDom	= $("#actionTopDom");
 	const dataNum		= $(".data-num");
 	const actionWrap	= $("#actionWrap");

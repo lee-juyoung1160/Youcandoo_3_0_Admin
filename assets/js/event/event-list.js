@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const exposure		= $("input[name=radio-exposure]");
-	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {

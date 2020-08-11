@@ -5,7 +5,6 @@
 	const searchType 	= $("#searchType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const select		= $("select");
 
 	$( () => {
 		/** 데이트피커 초기화 **/

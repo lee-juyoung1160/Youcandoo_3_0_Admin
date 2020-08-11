@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const selQnaType	= $("#selQnaType");
 	const selPageLength = $("#selPageLength");
-	const select		= $("select");
 	const status		= $("input[name=radio-status]");
 	const dataNum		= $(".data-num");
 

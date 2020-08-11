@@ -6,7 +6,6 @@
 	const keyword		= $("#keyword");
 	const authCode		= $("#auth_code");
 	const selPageLength = $("#selPageLength");
-	const select		= $("select");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {

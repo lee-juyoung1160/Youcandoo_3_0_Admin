@@ -1,27 +1,23 @@
 
-    /*const noticeBtn          = $("#notice");
-    const noticeList         = $(".notice-list");
-    const onNotice           = $(".on-notice");*/
-    const selectTarget       = $(".select-box select");
-    const dayButtons         = $(".day-btn li");
-    const datePicker         = $(".datepicker");
-    const dateFrom           = $(".date_from");
-    const dateTo             = $(".date_to");
-    const inputNumber        = $(".only-num");
-    const viewLoading        = $("#viewLoading");
-    const lengthInput        = $(".length-input");
-    const sessionUserId      = $("#session_userid");
-    const sessionUserIp      = $("#session_userip");
-    const sessionAuthCode    = $("#session_authcode");
-    const sideMenu           = $("#sideMenu");
+    const selectEls       = $(".select-box select");
+    const dayButtons      = $(".day-btn li");
+    const datePicker      = $(".datepicker");
+    const dateFrom        = $(".date_from");
+    const dateTo          = $(".date_to");
+    const inputNumber     = $(".only-num");
+    const viewLoading     = $("#viewLoading");
+    const lengthInput     = $(".length-input");
+    const sessionUserId   = $("#session_userid");
+    const sessionUserIp   = $("#session_userip");
+    const sessionAuthCode = $("#session_authcode");
+    const sideMenu        = $("#sideMenu");
 
-    /*noticeBtn       .on("click", function () {  onClickActiveNotice(); });*/
-    selectTarget    .on("change", function () { onChangeSelectOption(this); });
-    inputNumber     .on("propertychange change keyup paste input", function () { initInputNumber(this); });
-    lengthInput     .on("propertychange change keyup paste input", function () { checkInputLength(this); });
-    dateFrom        .on("change", function () { onChangeSearchDateFrom(this); });
-    dateTo          .on("change", function () { onChangeSearchDateTo(this); });
-    datePicker      .prop("readonly", true);
+    selectEls   .on("change", function () { onChangeSelectOption(this); });
+    inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+    lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
+    dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
+    dateTo      .on("change", function () { onChangeSearchDateTo(this); });
+    datePicker  .prop("readonly", true);
 
     /** 숫자 카운팅 에니메이션 **/
     function countAnimation(obj)
@@ -55,9 +51,7 @@
 
     function calculateInputLength()
     {
-        $(".length-input").each(function () {
-            checkInputLength(this);
-        });
+        $(".length-input").each(function () {  checkInputLength(this); });
     }
 
     function getPromotionStatusName(_status)
@@ -78,23 +72,6 @@
     {
         viewLoading.fadeOut(100);
     }
-
-    /** 페이지 상단 > 벨(알림) 아이콘 클릭 이벤트 **/
-    /*function onClickActiveNotice()
-    {
-        if (!noticeBtn.hasClass("active"))
-        {
-            noticeBtn   .addClass("active");
-            noticeList  .addClass("active");
-            onNotice    .addClass("active");
-        }
-        else
-        {
-            noticeBtn   .removeClass("active");
-            noticeList  .removeClass("active");
-            onNotice    .removeClass("active");
-        }
-    }*/
 
     function initPageLength(_obj)
     {
@@ -124,7 +101,7 @@
 
     function initSelectOption()
     {
-        select.each(function () {
+        selectEls.each(function () {
             if (this.id !== 'selPageLength')
             {
                 $(this).children().eq(0).prop("selected", true);

@@ -1,5 +1,4 @@
 
-    const select            = $("select");
     const baseDate          = $('#today-date');
     const ucdUser           = $('#ucd-user');
     const ucdDoit           = $('#ucd-doit');

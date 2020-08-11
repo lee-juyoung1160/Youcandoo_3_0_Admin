@@ -42,28 +42,35 @@
     height: 23px;
 }
 .ucd-text span {
+    display: block;
     color: #006AFD;
     font-size: 19px;
     font-weight: 600;
 }
+.ucd-accumulate {
+    color: #666;
+    font-size: 13px;
+}
 
 .tab li {
     float: left;
-    width: calc(100%/6);
+    width: 16%;
+    margin-right: 0.8%;
     padding: 10px 10px 15px 10px;
+    background-color: #fff;
     background-color: #f0f6ff;
-    border-top: 3px solid #f0f6ff;
     border-right: 1px solid #fff;
     cursor: pointer;
     transition: all .3s;
 }
 .tab li:last-child {
+    margin-right: 0px;
     border-right: none;
 }
 .tab li:hover,
 .tab li.on {
     background-color: #fff;
-    border-top: 3px solid #007aff;
+    border-left: 3px solid #007aff;
 }
 
 .content {

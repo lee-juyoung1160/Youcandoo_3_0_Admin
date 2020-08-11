@@ -29,10 +29,9 @@
     color: #777;
     font-size: 16px;
     font-weight: 500;
-    background-color: #ddd;
-    -webkit-border-radius: 5px 5px 0 0;
-    -moz-border-radius: 5px 5px 0 0;
+    background-color: #eee;
     border-radius: 5px 5px 0 0;
+    transition: all .3s;
 }
 .box:last-child {
     margin-bottom: 0;
@@ -51,7 +50,11 @@
 
 .ucd-text {
     display: flex;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
     align-content: center;
+    z-index: 100;
 }
 .ucd-text img {
     width: 23px;
@@ -72,7 +75,9 @@
 }
 .tab li {
     float: left;
+    position: relative;
     width: 16%;
+    height: 93px;
     margin-right: 0.8%;
     padding: 10px 10px 15px 10px;
     background-color: #fff;
@@ -80,6 +85,13 @@
     border-right: 1px solid #fff;
     cursor: pointer;
     transition: all .3s;
+}
+.tab li .bg-icon {
+    position: absolute;
+    top: 60%;
+    right: 5px;
+    color: #f0f6ff;
+    font-size: 25px;
 }
 .tab li dl {
     padding: 0 10px 10px 10px;
@@ -98,7 +110,10 @@
     color: #fff;
     background-color: #007aff;
 }
-
+.tab li:hover .bg-icon,
+.tab li.on .bg-icon {
+    color: #f1f1f1;
+}
 .content {
     padding: 15px;
 }
@@ -154,7 +169,7 @@ button.search {
     height: 35px;
     font-size: 14px;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: #007aff;
     transition: all .3s;
 }

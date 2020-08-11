@@ -8,11 +8,11 @@
     const selYear   = $('#selYear');
     const selMonth  = $('#selMonth');
     const dailyInfo = $('#dailyInfo');
-    const totalUcd = $('#totalUcd');
-    const userUcd = $('#userUcd');
-    const bizUcd = $('#bizUcd');
+    const totalUcd  = $('#totalUcd');
+    const userUcd   = $('#userUcd');
+    const bizUcd    = $('#bizUcd');
     const grid      = $("#grid");
-    let g_ucd_type;
+    let g_ucd_type  = 'create';
 
     let chartOptions = {
         legend: {
@@ -25,6 +25,9 @@
                     beginAtZero: true
                 }
             }]
+        },
+        animation: {
+            duration: 1000
         }
     }
 
@@ -39,8 +42,6 @@
     /** 로드 바로 실행 **/
     $(() => {
         initSelectBox();
-        initSearchDatepicker();
-        initDateRange();
         getSummaryUcd();
         initPage();
         /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
@@ -67,16 +68,6 @@
             selMonth.prepend('<option value="'+appendZero(defaultMonth)+'">'+appendZero(defaultMonth)+' 월</option>');
 
         initSelectOption();
-    }
-
-    function initDateRange()
-    {
-        const firstDate = new Date();
-        firstDate.setDate(1);
-        dateFrom.datepicker("setDate", firstDate);
-        dateTo.datepicker("setDate", "today");
-        datePicker.datepicker("option", "minDate", "2020-07-01");
-        datePicker.datepicker("option", "maxDate", "today");
     }
 
     /** 상단 UCD 누적 정보 **/
@@ -134,7 +125,7 @@
             'month': selMonth.val()
         }
 
-        let url     = api.issuanceUcd;
+        let url     = getApiUrl();
         let errMsg  = '데이터'+ message.ajaxLoadError;
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), initPageCallback, errMsg, false);

@@ -8,6 +8,25 @@
     const selYear   = $('#selYear');
     const selMonth  = $('#selMonth');
     const dailyInfo = $('#dailyInfo');
+    const totalUcd = $('#totalUcd');
+    const userUcd = $('#userUcd');
+    const bizUcd = $('#bizUcd');
+    const grid      = $("#grid");
+    let g_ucd_type;
+
+    let chartOptions = {
+        legend: {
+            align: 'end',
+            position: 'top'
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
 
     /** 현재 연도-월-일 구하기 **/
     let date    = new Date();
@@ -19,20 +38,22 @@
 
     /** 로드 바로 실행 **/
     $(() => {
-        initSearchDatepicker();
         initSelectBox();
+        initSearchDatepicker();
+        initDateRange();
         getSummaryUcd();
-        /*initDetailChart();*/
-        getDetailSuccess();
+        initPage();
+        /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+        setHistoryParam("");
         /** 월단위 셀렉박스 이벤트 **/
-        issuanceUcd     .on('click', function () { onClickLiElement(this); });
-        rewardUcd       .on('click', function () { onClickLiElement(this); });
-        balanceUcd      .on('click', function () { onClickLiElement(this); });
-        doitUcd         .on('click', function () { onClickLiElement(this); });
-        exchangeUcd     .on('click', function () { onClickLiElement(this); });
-        cancelUcd       .on('click', function () { onClickLiElement(this); });
-        /*selYear       .on('click', function () { updateDetailChart(); });
-        selMonth   .on('click', function () { updateDetailChart(); });*/
+        issuanceUcd .on('click', function () { g_ucd_type = 'create'; onClickLiElement(this); });
+        rewardUcd   .on('click', function () { g_ucd_type = 'reward'; onClickLiElement(this); });
+        balanceUcd  .on('click', function () { g_ucd_type = 'balance'; onClickLiElement(this); });
+        doitUcd     .on('click', function () { g_ucd_type = 'doit'; onClickLiElement(this); });
+        exchangeUcd .on('click', function () { g_ucd_type = 'exchange'; onClickLiElement(this); });
+        cancelUcd   .on('click', function () { g_ucd_type = 'cancel'; onClickLiElement(this); });
+        selYear     .on('change', function () { updatePage(); });
+        selMonth    .on('change', function () { updatePage(); });
     });
 
     let defaultYear  = 2020;
@@ -48,11 +69,21 @@
         initSelectOption();
     }
 
+    function initDateRange()
+    {
+        const firstDate = new Date();
+        firstDate.setDate(1);
+        dateFrom.datepicker("setDate", firstDate);
+        dateTo.datepicker("setDate", "today");
+        datePicker.datepicker("option", "minDate", "2020-07-01");
+        datePicker.datepicker("option", "maxDate", "today");
+    }
+
     /** 상단 UCD 누적 정보 **/
     function getSummaryUcd()
     {
-        let url     = api.summaryUcd;
-        let errMsg  = '상단 UCD 누적 데이터'+ message.ajaxLoadError;
+        let url    = api.summaryUcd;
+        let errMsg = '상단 UCD 누적 데이터'+ message.ajaxLoadError;
 
         ajaxRequestWithJsonData(false, url, null, getSummaryUcdCallback, errMsg, false);
     }
@@ -64,18 +95,16 @@
 
     function getSummaryUcdSuccess(data)
     {
-        let detail = data.data;
+        let detail           = data.data;
         let issuancePersonal = detail.payment.company_ucd;
         let issuanceBiz      = detail.payment.user_ucd;
         let issuanceTotal    = Number(issuancePersonal) + Number(issuanceBiz);
-        let rewardPromo = Number(detail.reward.promotion_ucd);
-        let rewardDoit  = Number(detail.reward.doit_ucd);
-        let rewardAvg   = Number(detail.reward.avg_ucd);
-        let balance     = detail.promotion.ucd;
-        let doitCreate  = detail.create.ucd;
-        let exchangeTotal = detail.exchange.ucd;
-        let exchangeAvg   = detail.exchange.avg_ucd;
-        let cancel      = detail.cancel.ucd;
+        let rewardPromo      = Number(detail.reward.promotion_ucd);
+        let rewardDoit       = Number(detail.reward.doit_ucd);
+        let balance          = detail.promotion.ucd;
+        let createDoit       = detail.create.ucd;
+        let exchangeTotal    = detail.exchange.ucd;
+        let cancel           = detail.cancel.ucd;
 
         let issuanceTotalEl = issuanceUcd.find('span');
         let rewardTotalEl   = rewardUcd.find('span');
@@ -90,7 +119,7 @@
         countAnimation($(rewardTotalEl));
         $(balanceTotalEl).text(balance);
         countAnimation($(balanceTotalEl));
-        $(doitTotalEl).text(doitCreate);
+        $(doitTotalEl).text(createDoit);
         countAnimation($(doitTotalEl));
         $(exchangeTotalEl).text(exchangeTotal);
         countAnimation($(exchangeTotalEl));
@@ -98,96 +127,163 @@
         countAnimation($(cancelTotalEl));
     }
 
-    /** 상세정보 차트 초기화 **/
-    function initDetailChart()
+    function initPage()
     {
         let param = {
-            'month': certMonthSelectBox.value,
-            'year' : certYearSelectBox.value
+            'year' : selYear.val(),
+            'month': selMonth.val()
         }
 
-        let url     = api.getDailyAction;
-        let errMsg  = '차트 데이터'+ message.ajaxLoadError;
+        let url     = api.issuanceUcd;
+        let errMsg  = '데이터'+ message.ajaxLoadError;
 
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), initPageCallback, errMsg, false);
     }
 
-    function getDetailCallback(data)
+    function initPageCallback(data)
     {
-        isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
+        if (isSuccessResp(data))
+        {
+            initDailyChart(data);
+            buildSummary(data);
+            buildGrid(data);
+        }
     }
 
-    let detailChart;
-    function getDetailSuccess()
+    let dailyChart;
+    function initDailyChart(data)
     {
-        let lastDayNum = getLastDayNumber(year, month);
-        let label = [];
-        for (let i=1; i<=lastDayNum; i++)
-            label.push(i+'일');
-
+        let xLabel = getDayNames(selYear.val(), selMonth.val());
+        let chartData = data.data.chart;
         let dataset = [{
-            label: '개인',
-            data: ['10', '20', '30', '40', '50'],
-            backgroundColor: color.dodgerBlue
+            label: label.personal,
+            data: chartData.user,
+            /*backgroundColor: color.dodgerBlue*/
+            borderColor: color.dodgerBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
         }, {
-            label: '기업',
-            data: ['50', '60', '70', '80', '90'],
-            backgroundColor: color.prussianBlue
+            label: label.biz,
+            data: chartData.company,
+            /*backgroundColor: color.prussianBlue*/
+            borderColor: color.prussianBlue,
+            borderWidth : 2.2,
+            pointBackgroundColor: color.white,
+            backgroundColor: color.black
         }];
 
-        detailChart = initChart(dailyInfo, chartType.bar, label, dataset, options.barOptions);
+        dailyChart = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions);
     }
 
-    function updateDetailChart()
+    function buildSummary(data)
     {
-        let param = {
-            'month': certMonthSelectBox.value,
-            'year' : certYearSelectBox.value
+        let summaryData = data.data.total;
+        let user = Number(summaryData.user_ucd);
+        let biz = Number(summaryData.company_ucd);
+        let tot = user + biz;
+        totalUcd.html(numberWithCommas(tot));
+        userUcd.html(numberWithCommas(user));
+        bizUcd.html(numberWithCommas(biz));
+    }
+
+    function buildGrid(data)
+    {
+        let rows = data.data.data;
+        let i = 0
+        let innerEl = '';
+        for (i; i<rows.length; i++)
+        {
+            let row = rows[i];
+            let user = row.user_ucd;
+            let company = row.company_ucd;
+            let tot = Number(user) + Number(company);
+            innerEl += '<tr>';
+            innerEl +=   '<td class="cursor-default">'+row.date+'</td>';
+            innerEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
+            innerEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
+            innerEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
+            innerEl += '</tr>';
         }
 
-        let url     = api.getDailyAction;
-        let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
-
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateDetailChartCallback, errMsg, false);
-    }
-
-    function updateDetailChartCallback(_data)
-    {
-        /** 개인 **/
-        detailChart.data.datasets[0].data = _data.data.result;
-        /** 기업 **/
-        detailChart.data.datasets[1].data = _data.data.result;
-        detailChart.update();
-    }
-
-    function updateMonthlyDoitChart()
-    {
-        let param   = JSON.stringify({'year' : yearSelectBox.value});
-        let url     = api.getMonthlyDoit;
-        let errMsg  = '월 별 두잇 개설 데이터'+ message.ajaxLoadError;
-
-        ajaxRequestWithJsonData(false, url, param, updateMonthlyDoitChartCallback, errMsg, false);
-    }
-
-    function updateMonthlyDoitChartCallback(_data)
-    {
-        /** 전체 **/
-        monthlyDoitChart.data.datasets[2].data = _data.data.total;
-        /** 일반 **/
-        monthlyDoitChart.data.datasets[0].data = _data.data.user;
-        /** 프로모션 **/
-        monthlyDoitChart.data.datasets[1].data = _data.data.company;
-        monthlyDoitChart.update();
+        grid.html(innerEl);
     }
 
     function onClickLiElement(obj)
     {
-        console.log($(obj))
         toggleActive(obj);
+        initSelectOption();
+        updatePage();
     }
 
     function toggleActive(obj)
     {
         $(obj).siblings().removeClass('on');
         $(obj).addClass('on');
+    }
+
+    function updatePage()
+    {
+        let param = {
+            'year' : selYear.val(),
+            'month': selMonth.val()
+        }
+
+        let url     = getApiUrl();
+        let errMsg  = '데이터'+ message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), updatePageCallback, errMsg, false);
+    }
+
+    function updatePageCallback(data)
+    {
+        if (isSuccessResp(data))
+        {
+            updateDailyChart(data);
+            buildSummary(data);
+            buildGrid(data);
+        }
+    }
+
+    function updateDailyChart(_data)
+    {
+        let chartData = _data.data.chart;
+
+        /** 가로축 레이블 변경 **/
+        dailyChart.data.labels = getDayNames(selYear.val(), selMonth.val());
+        /** 개인 **/
+        dailyChart.data.datasets[0].data = chartData.user;
+        /** 기업 **/
+        dailyChart.data.datasets[1].data = chartData.company;
+        dailyChart.update();
+    }
+
+    function getDayNames(_year, _month)
+    {
+        let lastDayNum  = getLastDayNumber(Number(_year), Number(_month));
+        let dayNames    = [];
+        for (let i=1; i<=lastDayNum; i++)
+            dayNames.push(i+'일');
+
+        return dayNames;
+    }
+
+    function getApiUrl()
+    {
+        switch(g_ucd_type) {
+            case 'create':
+                return api.issuanceUcd;
+            case 'reward':
+                return api.issuanceUcd;
+            case 'balance':
+                return api.issuanceUcd;
+            case 'doit':
+                return api.issuanceUcd;
+            case 'exchange':
+                return api.issuanceUcd;
+            case 'cancel':
+                return api.issuanceUcd;
+            default:
+                return api.issuanceUcd;
+        }
     }

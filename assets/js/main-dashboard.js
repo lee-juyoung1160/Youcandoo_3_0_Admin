@@ -60,7 +60,8 @@
 
     function setBaseDate()
     {
-        baseDate.textContent = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
+        let dateTxt = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
+        baseDate.text(dateTxt);
     }
 
     let defaultYear  = 2020;
@@ -95,14 +96,13 @@
 
     function getUcdSuccess(data)
     {
-        ucdUser         .text(data.data.user);
-        ucdDoit         .text(data.data.doit);
-        ucdCompany      .text(data.data.company);
-        ucdPromotion    .text(data.data.promotion);
-
+        ucdUser.text(data.data.user);
         countAnimation(ucdUser);
+        ucdDoit.text(data.data.doit);
         countAnimation(ucdDoit);
+        ucdCompany.text(data.data.company);
         countAnimation(ucdCompany);
+        ucdPromotion.text(data.data.promotion);
         countAnimation(ucdPromotion);
     }
 

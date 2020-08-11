@@ -86,6 +86,8 @@
 		, unblind: '<i class="fas fa-eye"></i>'
 		, regular: '일반'
 		, promotion: '프로모션'
+		, personal: '개인'
+		, biz: '기업'
 		, image: '사진'
 		, video: '영상'
 		, voice: '음성'
@@ -233,6 +235,7 @@
 		,createBizUcd : baseApiUrl+'ucd/create/company'
 		,createUserUcd : baseApiUrl+'ucd/create/user'
 		,summaryUcd : baseApiUrl+'ucd/dashboard/summary'
+		,issuanceUcd : baseApiUrl+'ucd/dashboard/payment'
 		/** app version **/
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'

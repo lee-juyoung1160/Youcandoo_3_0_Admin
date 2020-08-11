@@ -67,5 +67,7 @@
         white : 'rgba(255,255,255,1)'
         ,black : 'rgba(0, 0, 0, 0)'
         ,dodgerBlue : 'rgb(0, 122, 255)'
+        ,dodgerBlueTranslucent : 'rgba(0, 122, 255, 0.3)'
         ,prussianBlue : 'rgb(0, 48, 135)'
+        ,prussianBlueTranslucent : 'rgba(0, 48, 135, 0.3)'
     }

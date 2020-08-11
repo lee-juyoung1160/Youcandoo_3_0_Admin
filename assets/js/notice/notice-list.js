@@ -237,6 +237,15 @@
 
 	function fixedTopRequest()
 	{
+
+		let url 	= api.topNotice;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, fixParams(), fixedTopRequestCallback, errMsg, false);
+	}
+
+	function fixParams()
+	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
 		let isTop 		 = selectedData.is_top;
@@ -246,20 +255,12 @@
 			,"notice_uuid" : noticeUuid
 		};
 
-		$.ajax({
-			url: api.topNotice,
-			type: "POST",
-			headers: headers,
-			global: false,
-			dataType: 'json',
-			data: JSON.stringify(topParams),
-			success: function(data) {
-				sweetToastAndCallback(data, fixedSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.modify+message.ajaxError);
-			}
-		});
+		return JSON.stringify(topParams);
+	}
+
+	function fixedTopRequestCallback(data)
+	{
+		sweetToastAndCallback(data, fixedSuccess);
 	}
 
 	function fixedSuccess()

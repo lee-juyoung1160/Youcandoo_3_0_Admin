@@ -319,7 +319,7 @@
                 }
 
                 return {
-                    text : ['일자', '전체', '일반 두잇', '프로모션 두잇', '평균']
+                    text : ['일자', '전체', '일반 두잇', '프로모션 두잇', '인당 평균 적립액']
                     ,el : rowEl
                 };
 
@@ -348,7 +348,7 @@
                 }
 
                 return {
-                    text : ['일자', '전체', '평균']
+                    text : ['일자', '전체']
                     ,el : rowEl
                 };
             case 'exchange':
@@ -363,7 +363,7 @@
                 }
 
                 return {
-                    text : ['일자', '전체']
+                    text : ['일자', '전체', '인당 평균 교환 UCD']
                     ,el : rowEl
                 };
             case 'cancel':
@@ -452,14 +452,6 @@
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.jyBlueA
-                }, {
-                    label: label.average,
-                    data: chartData.avg,
-                    lineTension: 0.4,
-                    borderColor: color.summerSky,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.black
                 }];
             case 'budget':
                 return [{

@@ -1,35 +1,18 @@
 
     const issuanceUcd   = $('#issuanceUcd');
     const rewardUcd     = $('#rewardUcd');
-    const balanceUcd    = $('#balanceUcd');
+    const budgetUcd    = $('#budgetUcd');
     const doitUcd       = $('#doitUcd');
     const exchangeUcd   = $('#exchangeUcd');
     const cancelUcd     = $('#cancelUcd');
-    const selYear   = $('#selYear');
-    const selMonth  = $('#selMonth');
-    const dailyInfo = $('#dailyInfo');
-    const totalUcd  = $('#totalUcd');
-    const userUcd   = $('#userUcd');
-    const bizUcd    = $('#bizUcd');
+    const selYear       = $('#selYear');
+    const selMonth      = $('#selMonth');
+    const dailyInfo     = $('#dailyInfo');
+    const summaryWrap   = $('#summaryWrap');
+    /*const userUcd   = $('#userUcd');
+    const bizUcd    = $('#bizUcd');*/
     const grid      = $("#grid");
     let g_ucd_type  = 'create';
-
-    let chartOptions = {
-        legend: {
-            align: 'end',
-            position: 'top'
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        },
-        animation: {
-            duration: 1000
-        }
-    }
 
     /** 현재 연도-월-일 구하기 **/
     let date    = new Date();
@@ -49,7 +32,7 @@
         /** 월단위 셀렉박스 이벤트 **/
         issuanceUcd .on('click', function () { g_ucd_type = 'create'; onClickLiElement(this); });
         rewardUcd   .on('click', function () { g_ucd_type = 'reward'; onClickLiElement(this); });
-        balanceUcd  .on('click', function () { g_ucd_type = 'balance'; onClickLiElement(this); });
+        budgetUcd   .on('click', function () { g_ucd_type = 'budget'; onClickLiElement(this); });
         doitUcd     .on('click', function () { g_ucd_type = 'doit'; onClickLiElement(this); });
         exchangeUcd .on('click', function () { g_ucd_type = 'exchange'; onClickLiElement(this); });
         cancelUcd   .on('click', function () { g_ucd_type = 'cancel'; onClickLiElement(this); });
@@ -99,7 +82,7 @@
 
         let issuanceTotalEl = issuanceUcd.find('span');
         let rewardTotalEl   = rewardUcd.find('span');
-        let balanceTotalEl  = balanceUcd.find('span');
+        let budgetTotalEl  = budgetUcd.find('span');
         let doitTotalEl     = doitUcd.find('span');
         let exchangeTotalEl = exchangeUcd.find('span');
         let cancelTotalEl   = cancelUcd.find('span');
@@ -108,8 +91,8 @@
         countAnimation($(issuanceTotalEl));
         $(rewardTotalEl).text(rewardPromo+rewardDoit);
         countAnimation($(rewardTotalEl));
-        $(balanceTotalEl).text(balance);
-        countAnimation($(balanceTotalEl));
+        $(budgetTotalEl).text(balance);
+        countAnimation($(budgetTotalEl));
         $(doitTotalEl).text(createDoit);
         countAnimation($(doitTotalEl));
         $(exchangeTotalEl).text(exchangeTotal);
@@ -147,39 +130,56 @@
         let xLabel  = getDayNames(selYear.val(), selMonth.val());
         let dataset = initDataset(data);
 
-        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions);
+        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.lineOptions);
+        dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;
+    }
+
+    function ticksCallback(value, index, values)
+    {
+        value = Number(value) / 1000;
+        return numberWithCommas(value)+'k';
     }
 
     function buildSummary(data)
     {
-        let summaryData = data.data.total;
-        let user = Number(summaryData.user_ucd);
-        let biz = Number(summaryData.company_ucd);
-        let tot = user + biz;
+        let summaryData = getSummaryData(data);
+        let innerEl = '';
+        let i = 0;
+        for (i; i<summaryData.text.length; i++)
+        {
+            let txt = summaryData.text[i];
+            let ucd = summaryData.data[i];
 
-        totalUcd.html(numberWithCommas(tot));
-        userUcd.html(numberWithCommas(user));
-        bizUcd.html(numberWithCommas(biz));
+            innerEl += '<dl>'
+            innerEl +=   '<dt class="title">'+txt+'</dt>';
+            innerEl +=   i === 0 ? '<dd class="ucd-text total-text">' : '<dd class="ucd-text">';
+            innerEl +=      '<img src="/assets/images/icon_ucd_s.png" alt="아이콘">';
+            innerEl +=      '<span id="totalUcd">'+numberWithCommas(ucd)+'</span>';
+            innerEl +=   '</dd>';
+            innerEl += '</dl>';
+        }
+
+        summaryWrap.html(innerEl);
     }
 
     function buildGrid(data)
     {
-        let rows = data.data.data;
+        let rows = getGrid(data);
         let i = 0
         let innerEl = '';
-        for (i; i<rows.length; i++)
+        innerEl += '<thead>'
+        innerEl +=    '<tr>'
+        for (i; i<rows.text.length; i++)
         {
-            let row = rows[i];
-            let user = row.user_ucd;
-            let company = row.company_ucd;
-            let tot = Number(user) + Number(company);
-            innerEl += '<tr>';
-            innerEl +=   '<td class="cursor-default">'+row.date+'</td>';
-            innerEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
-            innerEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
-            innerEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
-            innerEl += '</tr>';
+            let txt = rows.text[i];
+
+            innerEl +=   '<th>'+txt+'</th>';
         }
+        innerEl +=     '</tr>';
+        innerEl += '</thead>';
+        innerEl += '<tbody>'
+        innerEl +=      rows.el
+        innerEl += '</tbody>';
 
         grid.html(innerEl);
     }
@@ -227,6 +227,178 @@
         dailyChart.update();
     }
 
+    function getSummaryData(data)
+    {
+        let summaryData = data.data.total;
+
+        switch(g_ucd_type)
+        {
+            case 'create':
+                return {
+                    text : ['전체', '개인충전', '기업충전']
+                    ,data : [Number(summaryData.user_ucd) + Number(summaryData.company_ucd), Number(summaryData.user_ucd), Number(summaryData.company_ucd)]
+                };
+            case 'reward':
+                return {
+                    text : ['전체', '일반 두잇', '프로모션 두잇', '인당 평균 적립액']
+                    ,data : [Number(summaryData.total_ucd), Number(summaryData.promotion_ucd), Number(summaryData.doit_ucd), Number(summaryData.avg)]
+                };
+            case 'budget':
+                return {
+                    text : ['전체']
+                    ,data : [Number(summaryData.ucd)]
+                };
+            case 'doit':
+                return {
+                    text : ['전체']
+                    ,data : [Number(summaryData.ucd)]
+                };
+            case 'exchange':
+                return {
+                    text : ['전체']
+                    ,data : [Number(summaryData.ucd)]
+                };
+            case 'cancel':
+                return {
+                    text : ['전체']
+                    ,data : [Number(summaryData.ucd)]
+                };
+            default:
+                return {
+                    text : ['전체', '개인충전', '기업충전']
+                    ,data : [Number(summaryData.user_ucd) + Number(summaryData.company_ucd), Number(summaryData.user_ucd), Number(summaryData.company_ucd)]
+                };
+        }
+    }
+
+    function getGrid(data)
+    {
+        let rows = data.data.data;
+        let rowEl = '';
+        let i = 0;
+
+        switch(g_ucd_type)
+        {
+            case 'create':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    let user = row.user_ucd;
+                    let company = row.company_ucd;
+                    let tot = Number(user)+Number(company);
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체', '개인충전', '기업충전']
+                    ,el : rowEl
+                };
+
+            case 'reward':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    let avg = row.avg;
+                    let doit = row.doit_ucd;
+                    let promotion = row.promotion_ucd;
+                    let tot = Number(doit)+Number(promotion);
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(doit)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(promotion)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(avg)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체', '일반 두잇', '프로모션 두잇', '평균']
+                    ,el : rowEl
+                };
+
+            case 'budget':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체']
+                    ,el : rowEl
+                };
+            case 'doit':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체']
+                    ,el : rowEl
+                };
+            case 'exchange':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체']
+                    ,el : rowEl
+                };
+            case 'cancel':
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체']
+                    ,el : rowEl
+                };
+            default:
+                for (i; i<rows.length; i++)
+                {
+                    let row = rows[i];
+                    let user = row.user_ucd;
+                    let company = row.company_ucd;
+                    let tot = Number(user)+Number(company);
+                    rowEl += '<tr>';
+                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
+                    rowEl += '</tr>';
+                }
+
+                return {
+                    text : ['일자', '전체', '개인충전', '기업충전']
+                    ,el : rowEl
+                };
+        }
+    }
+
     function getDayNames(_year, _month)
     {
         let lastDayNum  = getLastDayNumber(Number(_year), Number(_month));
@@ -246,7 +418,7 @@
                 return [{
                     label: label.personal,
                     data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
+                    lineTension: 0.4,
                     borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -254,7 +426,7 @@
                 }, {
                     label: label.biz,
                     data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -262,35 +434,27 @@
                 }];
             case 'reward':
                 return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
+                    label: label.regular,
+                    data: chartData.doit,
+                    lineTension: 0.4,
                     borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
                 }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    label: label.promotion,
+                    data: chartData.promotion,
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
                     backgroundColor: color.black
                 }];
-            case 'balance':
+            case 'budget':
                 return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.wildWatermelon,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.black
-                }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    label: '프로모션 예산',
+                    data: chartData.ucd,
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -298,17 +462,9 @@
                 }];
             case 'doit':
                 return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.wildWatermelon,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.black
-                }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    label: '두잇 개설',
+                    data: chartData.ucd,
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -316,17 +472,9 @@
                 }];
             case 'exchange':
                 return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.wildWatermelon,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.black
-                }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    label: '상품교환',
+                    data: chartData.ucd,
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -334,17 +482,9 @@
                 }];
             case 'cancel':
                 return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
-                    borderColor: color.wildWatermelon,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.black
-                }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    label: '취소',
+                    data: chartData.ucd,
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -354,7 +494,7 @@
                 return [{
                     label: label.personal,
                     data: chartData.user,
-                    /*backgroundColor: color.dodgerBlue*/
+                    lineTension: 0.4,
                     borderColor: color.wildWatermelon,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -362,7 +502,7 @@
                 }, {
                     label: label.biz,
                     data: chartData.company,
-                    /*backgroundColor: color.prussianBlue*/
+                    lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
@@ -373,19 +513,20 @@
 
     function getApiUrl()
     {
-        switch(g_ucd_type) {
+        switch(g_ucd_type)
+        {
             case 'create':
                 return api.issuanceUcd;
             case 'reward':
-                return api.issuanceUcd;
-            case 'balance':
-                return api.issuanceUcd;
+                return api.rewardUcd;
+            case 'budget':
+                return api.budgetUcd;
             case 'doit':
-                return api.issuanceUcd;
+                return api.doitCreateUcd;
             case 'exchange':
-                return api.issuanceUcd;
+                return api.exchangeUcd;
             case 'cancel':
-                return api.issuanceUcd;
+                return api.cancelUcd;
             default:
                 return api.issuanceUcd;
         }

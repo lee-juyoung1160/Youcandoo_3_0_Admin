@@ -13,14 +13,14 @@
     }
 
     /** 차트 레이아웃 구성 공통 부분 **/
-    const options = {
+    const chartOptions = {
         doughnutOptions: {
             legend: {
-                align: 'start',
+                align: 'center',
+                position: 'left',
                 labels: {
                     fontSize: 12,
-                    boxWidth: 10,
-                    hoverBorderWidth: 900
+                    boxWidth: 10
                 }
             },
             maintainAspectRatio: false
@@ -40,7 +40,8 @@
         },
         lineOptions: {
             legend: {
-                display: false
+                align: 'end',
+                position: 'top'
             },
             scales: {
                 yAxes: [{
@@ -58,7 +59,7 @@
         ,bar : 'bar'
     }
 
-    const labels = {
+    const chartLabels = {
         doitType : ['일반', '프로모션']
         ,cancelType : ['모집실패', '개설취소']
     }

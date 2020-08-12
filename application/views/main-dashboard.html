@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row-wrap row-wrap2">
+                    <div class="row-wrap row-wrap2" style="position: relative;">
                         <canvas id="cert-month-chart" width="auto" height="50"></canvas>
                     </div>
                 </div>
@@ -213,5 +213,5 @@
     </div>
 </section>
 <script src="/assets/js/plugins/chart.min.js"></script>
-<script src="/assets/js/chart-config.js"></script>
+<script src="/assets/js/chart-config.js?version=<?php echo $this->config->item('version');?>"></script>
 <script src="/assets/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -26,7 +26,7 @@
                         </dl>
                         <i class="bg-icon fas fa-piggy-bank"></i>
                     </li>
-                    <li id="balanceUcd" class="box">
+                    <li id="budgetUcd" class="box">
                         <p class="box-title">프로모션 예산</p>
                         <dl>
                             <dt class="sub-title">누적금액</dt>
@@ -84,8 +84,8 @@
                                 <canvas id="dailyInfo" width="400" height="auto"></canvas>
                             </div>
                             <div class="col col-2">
-                                <div class="month-data">
-                                    <dl>
+                                <div class="month-data" id="summaryWrap">
+                                    <!--<dl>
                                         <dt class="title">전체</dt>
                                         <dd class="ucd-text total-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘">
                                             <span id="totalUcd"></span>
@@ -102,7 +102,7 @@
                                         <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘">
                                             <span id="bizUcd"></span>
                                         </dd>
-                                    </dl>
+                                    </dl>-->
                                 </div>
                             </div>
                         </div>
@@ -126,8 +126,8 @@
 <!--                        </div>-->
 <!--                    </div>-->
                     <div class="table-wrap">
-                        <table>
-                            <colgroup></colgroup>
+                        <table id="grid">
+                            <!--<colgroup></colgroup>
                             <thead>
                             <tr>
                                 <th>일자</th>
@@ -136,14 +136,14 @@
                                 <th>기업충전</th>
                             </tr>
                             </thead>
-                            <tbody id="grid">
-                            <!--<tr>
+                            <tbody>
+                            <tr>
                                 <td>2020-01-01</td>
                                 <td>3,000,000</td>
                                 <td>3,000,000</td>
-                            </tr>-->
+                            </tr>
                             </tbody>
-                            <!--<tfoot>
+                            <tfoot>
                             <tr>
                                 <th>Total</th>
                                 <td>3,000,000</td>

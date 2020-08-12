@@ -236,6 +236,11 @@
 		,createUserUcd : baseApiUrl+'ucd/create/user'
 		,summaryUcd : baseApiUrl+'ucd/dashboard/summary'
 		,issuanceUcd : baseApiUrl+'ucd/dashboard/payment'
+		,rewardUcd : baseApiUrl+'ucd/dashboard/reward'
+		,budgetUcd : baseApiUrl+'ucd/dashboard/promotion'
+		,doitCreateUcd : baseApiUrl+'ucd/dashboard/doit'
+		,exchangeUcd : baseApiUrl+'ucd/dashboard/exchange'
+		,cancelUcd : baseApiUrl+'ucd/dashboard/cancel'
 		/** app version **/
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'

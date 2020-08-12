@@ -138,7 +138,8 @@
             backgroundColor: color.black
         }];
 
-        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options.lineOptions);
+        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, chartOptions.lineOptions);
+        dailyActionChart.options.legend.display = false;
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/
@@ -183,25 +184,25 @@
             ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
         }]
 
-        initChart(pendingCtx, chartType.doughnut, labels.doitType, pendingDataset, options.doughnutOptions);
+        initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
         preUserEl   .text(numberWithCommas(preData.user_cnt));
         preCompanyEl.text(numberWithCommas(preData.company_cnt));
         preTotalEl  .text(preData.total_cnt);
         countAnimation(preTotalEl);
 
-        initChart(progressingCtx, chartType.doughnut, labels.doitType, progressDataset, options.doughnutOptions);
+        initChart(progressingCtx, chartType.doughnut, chartLabels.doitType, progressDataset, chartOptions.doughnutOptions);
         ingUserEl   .text(numberWithCommas(ingData.user_cnt));
         ingCompanyEl.text(numberWithCommas(ingData.company_cnt));
         ingTotalEl  .text(ingData.total_cnt);
         countAnimation(ingTotalEl);
 
-        initChart(completeCtx, chartType.doughnut, labels.doitType, endDataset, options.doughnutOptions);
+        initChart(completeCtx, chartType.doughnut, chartLabels.doitType, endDataset, chartOptions.doughnutOptions);
         endUserEl   .text(numberWithCommas(endData.user_cnt));
         endCompanyEl.text(numberWithCommas(endData.company_cnt));
         endTotalEl  .text(endData.total_cnt);
         countAnimation(endTotalEl);
 
-        initChart(cancelCtx, chartType.doughnut, labels.cancelType, cancelDataset, options.doughnutOptions);
+        initChart(cancelCtx, chartType.doughnut, chartLabels.cancelType, cancelDataset, chartOptions.doughnutOptions);
         cancelEl        .text(numberWithCommas(cancelData.cancle));
         deleteEl        .text(numberWithCommas(cancelData.delete));
         cancelTotalEl   .text(cancelData.total);
@@ -228,8 +229,9 @@
     {
         let dataset = [{
             label: '전체',
-            data: data.data.total,
             type: 'line',
+            lineTension: 0,
+            data: data.data.total,
             borderColor: color.dodgerBlue,
             borderWidth : 2.2,
             pointBackgroundColor: color.white,
@@ -244,7 +246,7 @@
             backgroundColor: color.dodgerBlue
         }];
 
-        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, options.barOptions);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.barOptions);
     }
 
     /** 가입자 현황 **/
@@ -283,7 +285,6 @@
         let errMsg  = '일 별 인증 데이터'+ message.ajaxLoadError;
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateDailyActionChartCallback, errMsg, false);
-
     }
 
     function updateDailyActionChartCallback(_data)

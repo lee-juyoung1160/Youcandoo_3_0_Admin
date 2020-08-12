@@ -132,13 +132,13 @@
         let dataset = [{
             data: data.data.result,
             lineTension: 0,
-            borderColor: color.dodgerBlue,
+            borderColor: color.jyBlue,
             borderWidth : 2.2,
             pointBackgroundColor: color.white,
             backgroundColor: color.black
         }];
 
-        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, chartOptions.lineOptions);
+        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, chartOptions.options);
         dailyActionChart.options.legend.display = false;
     }
 
@@ -185,28 +185,29 @@
         }]
 
         initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
-        preUserEl   .text(numberWithCommas(preData.user_cnt));
-        preCompanyEl.text(numberWithCommas(preData.company_cnt));
-        preTotalEl  .text(preData.total_cnt);
-        countAnimation(preTotalEl);
+        preUserEl   .text(getDoitStatusTextValue(preData.user_cnt));
+        preCompanyEl.text(getDoitStatusTextValue(preData.company_cnt));
+        preTotalEl  .text(getDoitStatusTextValue(preData.total_cnt));
 
         initChart(progressingCtx, chartType.doughnut, chartLabels.doitType, progressDataset, chartOptions.doughnutOptions);
-        ingUserEl   .text(numberWithCommas(ingData.user_cnt));
-        ingCompanyEl.text(numberWithCommas(ingData.company_cnt));
-        ingTotalEl  .text(ingData.total_cnt);
-        countAnimation(ingTotalEl);
+        ingUserEl   .text(getDoitStatusTextValue(ingData.user_cnt));
+        ingCompanyEl.text(getDoitStatusTextValue(ingData.company_cnt));
+        ingTotalEl  .text(getDoitStatusTextValue(ingData.total_cnt));
 
         initChart(completeCtx, chartType.doughnut, chartLabels.doitType, endDataset, chartOptions.doughnutOptions);
-        endUserEl   .text(numberWithCommas(endData.user_cnt));
-        endCompanyEl.text(numberWithCommas(endData.company_cnt));
-        endTotalEl  .text(endData.total_cnt);
-        countAnimation(endTotalEl);
+        endUserEl   .text(getDoitStatusTextValue(endData.user_cnt));
+        endCompanyEl.text(getDoitStatusTextValue(endData.company_cnt));
+        endTotalEl  .text(getDoitStatusTextValue(endData.total_cnt));
 
         initChart(cancelCtx, chartType.doughnut, chartLabels.cancelType, cancelDataset, chartOptions.doughnutOptions);
-        cancelEl        .text(numberWithCommas(cancelData.cancle));
-        deleteEl        .text(numberWithCommas(cancelData.delete));
-        cancelTotalEl   .text(cancelData.total);
-        countAnimation(cancelTotalEl);
+        cancelEl        .text(getDoitStatusTextValue(cancelData.cancle));
+        deleteEl        .text(getDoitStatusTextValue(cancelData.delete));
+        cancelTotalEl   .text(getDoitStatusTextValue(cancelData.total));
+    }
+
+    function getDoitStatusTextValue(_value)
+    {
+        return Number(_value) >= 1000 ? numberWithCommas(Number(_value)/1000)+'k' : numberWithCommas(_value);
     }
 
     /** 월 별 개설 두잇 **/
@@ -232,7 +233,7 @@
             type: 'line',
             lineTension: 0,
             data: data.data.total,
-            borderColor: color.dodgerBlue,
+            borderColor: color.jyBlue,
             borderWidth : 2.2,
             pointBackgroundColor: color.white,
             backgroundColor: color.black
@@ -246,7 +247,7 @@
             backgroundColor: color.dodgerBlue
         }];
 
-        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.barOptions);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.options);
     }
 
     /** 가입자 현황 **/

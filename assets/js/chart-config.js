@@ -25,20 +25,7 @@
             },
             maintainAspectRatio: false
         },
-        barOptions: {
-            legend: {
-                align: 'end',
-                position: 'top'
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        },
-        lineOptions: {
+        options: {
             legend: {
                 align: 'end',
                 position: 'top'

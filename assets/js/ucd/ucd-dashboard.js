@@ -130,13 +130,13 @@
         let xLabel  = getDayNames(selYear.val(), selMonth.val());
         let dataset = initDataset(data);
 
-        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.lineOptions);
+        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.options);
         dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;
     }
 
     function ticksCallback(value, index, values)
     {
-        let isOverK = Number(value) > 1000
+        let isOverK = Number(value) >= 1000
         value = isOverK ? Number(value) / 1000 : Number(value);
         return isOverK ? numberWithCommas(value)+'k' : numberWithCommas(value);
     }

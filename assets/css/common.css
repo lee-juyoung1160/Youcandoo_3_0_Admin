@@ -1208,7 +1208,6 @@ input[type="checkbox"]:disabled + label span{
 	padding: 10px 0;
 	font-size: 15px;
 	text-align: center;
-	border-top: 1px solid #f3f3f3;
 }
 .cursor-default {
 	cursor: default;

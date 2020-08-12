@@ -136,8 +136,9 @@
 
     function ticksCallback(value, index, values)
     {
-        value = Number(value) / 1000;
-        return numberWithCommas(value)+'k';
+        let isOverK = Number(value) > 1000
+        value = isOverK ? Number(value) / 1000 : Number(value);
+        return isOverK ? numberWithCommas(value)+'k' : numberWithCommas(value);
     }
 
     function buildSummary(data)
@@ -164,6 +165,7 @@
 
     function buildGrid(data)
     {
+        let rowLength = data.data.data.length;
         let rows = getGrid(data);
         let i = 0
         let innerEl = '';
@@ -177,8 +179,8 @@
         }
         innerEl +=     '</tr>';
         innerEl += '</thead>';
-        innerEl += '<tbody>'
-        innerEl +=      rows.el
+        innerEl += '<tbody>';
+        innerEl +=    rowLength > 0 ? rows.el : '<tr><td colspan="'+rows.text.length+'"><p class="result-message">조회결과가 없습니다.</p></td></tr>';
         innerEl += '</tbody>';
 
         grid.html(innerEl);
@@ -255,8 +257,8 @@
                 };
             case 'exchange':
                 return {
-                    text : ['전체']
-                    ,data : [Number(summaryData.ucd)]
+                    text : ['전체', '인당 평균 교환 UCD']
+                    ,data : [Number(summaryData.ucd), Number(summaryData.avg)]
                 };
             case 'cancel':
                 return {
@@ -346,7 +348,7 @@
                 }
 
                 return {
-                    text : ['일자', '전체']
+                    text : ['일자', '전체', '평균']
                     ,el : rowEl
                 };
             case 'exchange':
@@ -356,6 +358,7 @@
                     rowEl += '<tr>';
                     rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
                     rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
+                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.avg)+'</td>';
                     rowEl += '</tr>';
                 }
 

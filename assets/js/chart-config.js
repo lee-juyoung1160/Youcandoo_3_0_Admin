@@ -29,6 +29,13 @@
             legend: {
                 align: 'end',
                 position: 'top'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
     }

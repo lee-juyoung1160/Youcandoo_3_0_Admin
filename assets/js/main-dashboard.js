@@ -138,8 +138,14 @@
             backgroundColor: color.black
         }];
 
-        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, chartOptions.options);
-        dailyActionChart.options.legend.display = false;
+        let options = {
+            legend: {
+                display: false
+            }
+        };
+
+        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options);
+        console.log(dailyActionChart.options.legend)
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/

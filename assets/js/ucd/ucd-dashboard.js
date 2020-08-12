@@ -422,31 +422,39 @@
                     label: label.personal,
                     data: chartData.user,
                     lineTension: 0.4,
-                    borderColor: color.wildWatermelon,
+                    borderColor: color.mintSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.mintSkyA
                 }, {
                     label: label.biz,
                     data: chartData.company,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }];
             case 'reward':
                 return [{
                     label: label.regular,
                     data: chartData.doit,
                     lineTension: 0.4,
-                    borderColor: color.wildWatermelon,
+                    borderColor: color.mintSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.mintSkyA
                 }, {
                     label: label.promotion,
                     data: chartData.promotion,
+                    lineTension: 0.4,
+                    borderColor: color.jyBlue,
+                    borderWidth : 2.2,
+                    pointBackgroundColor: color.white,
+                    backgroundColor: color.jyBlueA
+                }, {
+                    label: label.average,
+                    data: chartData.avg,
                     lineTension: 0.4,
                     borderColor: color.summerSky,
                     borderWidth : 2.2,
@@ -458,58 +466,58 @@
                     label: '프로모션 예산',
                     data: chartData.ucd,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }];
             case 'doit':
                 return [{
                     label: '두잇 개설',
                     data: chartData.ucd,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }];
             case 'exchange':
                 return [{
                     label: '상품교환',
                     data: chartData.ucd,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }];
             case 'cancel':
                 return [{
                     label: '취소',
                     data: chartData.ucd,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }];
             default:
                 return [{
                     label: label.personal,
                     data: chartData.user,
                     lineTension: 0.4,
-                    borderColor: color.wildWatermelon,
+                    borderColor: color.jyBlue,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.jyBlueA
                 }, {
                     label: label.biz,
                     data: chartData.company,
                     lineTension: 0.4,
-                    borderColor: color.summerSky,
+                    borderColor: color.mintSky,
                     borderWidth : 2.2,
                     pointBackgroundColor: color.white,
-                    backgroundColor: color.black
+                    backgroundColor: color.mintSkyA
                 }];
         }
     }

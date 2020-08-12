@@ -69,6 +69,8 @@
         ,black : 'rgba(0, 0, 0, 0)'
         ,dodgerBlue : 'rgb(0, 122, 255)'
         ,prussianBlue : 'rgb(0, 48, 135)'
-        ,wildWatermelon : 'rgb(56, 195, 209)'
-        ,summerSky : 'rgb(63, 108, 205)'
+        ,mintSky : 'rgb(56, 195, 209)'
+        ,mintSkyA : 'rgba(56, 195, 209, 0.4)'
+        ,jyBlue : 'rgba(63, 108, 205)'
+        ,jyBlueA : 'rgba(63, 108, 205, 0.4)'
     }

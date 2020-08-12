@@ -1203,6 +1203,12 @@ input[type="checkbox"]:disabled + label span{
 	background-color: #fff;
 	box-shadow: 4px 5px 6px 0 rgba(0,0,0,0.05);
 }
+.result-message {
+	width: 100%;
+	padding: 35px 0;
+	font-size: 15px;
+	text-align: center;
+}
 .cursor-default {
 	cursor: default;
 }

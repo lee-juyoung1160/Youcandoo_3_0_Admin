@@ -1,3 +1,4 @@
+
 .row {
     width: 100%;
     *zoom:1;
@@ -63,7 +64,8 @@
 .ucd-text span {
     display: block;
     color: #006AFD;
-    font-size: 19px;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-size: 20px;
     font-weight: 600;
 }
 .ucd-accumulate {
@@ -108,7 +110,8 @@
 .tab li:hover .box-title,
 .tab li.on .box-title {
     color: #fff;
-    background-color: #007aff;
+    background-color: #0061f2;
+    /*background: linear-gradient(to left,rgba(3,201,243,1),rgba(0,122,255,1));*/
 }
 .tab li:hover .bg-icon,
 .tab li.on .bg-icon {

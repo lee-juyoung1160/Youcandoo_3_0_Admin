@@ -131,10 +131,10 @@
         let label = data.data.day;
         let dataset = [{
             data: data.data.result,
-            lineTension: 0,
+            lineTension: 0.1,
             borderColor: color.jyBlue,
-            borderWidth : 2.2,
-            pointBackgroundColor: color.white,
+            borderWidth : 2,
+            pointBackgroundColor: color.jyBlue,
             backgroundColor: color.black
         }];
 
@@ -198,29 +198,24 @@
         }]
 
         initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
-        preUserEl   .text(getDoitStatusTextValue(preData.user_cnt));
-        preCompanyEl.text(getDoitStatusTextValue(preData.company_cnt));
-        preTotalEl  .text(getDoitStatusTextValue(preData.total_cnt));
+        preUserEl   .text(convertNumberToKvalue(preData.user_cnt));
+        preCompanyEl.text(convertNumberToKvalue(preData.company_cnt));
+        preTotalEl  .text(convertNumberToKvalue(preData.total_cnt));
 
         initChart(progressingCtx, chartType.doughnut, chartLabels.doitType, progressDataset, chartOptions.doughnutOptions);
-        ingUserEl   .text(getDoitStatusTextValue(ingData.user_cnt));
-        ingCompanyEl.text(getDoitStatusTextValue(ingData.company_cnt));
-        ingTotalEl  .text(getDoitStatusTextValue(ingData.total_cnt));
+        ingUserEl   .text(convertNumberToKvalue(ingData.user_cnt));
+        ingCompanyEl.text(convertNumberToKvalue(ingData.company_cnt));
+        ingTotalEl  .text(convertNumberToKvalue(ingData.total_cnt));
 
         initChart(completeCtx, chartType.doughnut, chartLabels.doitType, endDataset, chartOptions.doughnutOptions);
-        endUserEl   .text(getDoitStatusTextValue(endData.user_cnt));
-        endCompanyEl.text(getDoitStatusTextValue(endData.company_cnt));
-        endTotalEl  .text(getDoitStatusTextValue(endData.total_cnt));
+        endUserEl   .text(convertNumberToKvalue(endData.user_cnt));
+        endCompanyEl.text(convertNumberToKvalue(endData.company_cnt));
+        endTotalEl  .text(convertNumberToKvalue(endData.total_cnt));
 
         initChart(cancelCtx, chartType.doughnut, chartLabels.cancelType, cancelDataset, chartOptions.doughnutOptions);
-        cancelEl        .text(getDoitStatusTextValue(cancelData.cancle));
-        deleteEl        .text(getDoitStatusTextValue(cancelData.delete));
-        cancelTotalEl   .text(getDoitStatusTextValue(cancelData.total));
-    }
-
-    function getDoitStatusTextValue(_value)
-    {
-        return Number(_value) >= 1000 ? numberWithCommas(Number(_value)/1000)+'k' : numberWithCommas(_value);
+        cancelEl        .text(convertNumberToKvalue(cancelData.cancle));
+        deleteEl        .text(convertNumberToKvalue(cancelData.delete));
+        cancelTotalEl   .text(convertNumberToKvalue(cancelData.total));
     }
 
     /** 월 별 개설 두잇 **/
@@ -244,11 +239,11 @@
         let dataset = [{
             label: '전체',
             type: 'line',
-            lineTension: 0,
+            lineTension: 0.1,
             data: data.data.total,
             borderColor: color.jyBlue,
-            borderWidth : 2.2,
-            pointBackgroundColor: color.white,
+            borderWidth : 2,
+            pointBackgroundColor: color.jyBlue,
             backgroundColor: color.black
         }, {
             label: '일반',

@@ -22,13 +22,20 @@
                     fontSize: 12,
                     boxWidth: 10
                 }
-            },
-            maintainAspectRatio: false
+            }
+            ,maintainAspectRatio: false
         },
         options: {
             legend: {
                 align: 'end',
                 position: 'top'
+            },
+            tooltips : {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return convertNumberToKvalue(tooltipItem.value);
+                    }
+                }
             },
             scales: {
                 yAxes: [{

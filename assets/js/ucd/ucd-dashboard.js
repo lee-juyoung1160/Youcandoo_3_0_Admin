@@ -1,7 +1,7 @@
 
     const issuanceUcd   = $('#issuanceUcd');
     const rewardUcd     = $('#rewardUcd');
-    const budgetUcd    = $('#budgetUcd');
+    const budgetUcd     = $('#budgetUcd');
     const doitUcd       = $('#doitUcd');
     const exchangeUcd   = $('#exchangeUcd');
     const cancelUcd     = $('#cancelUcd');
@@ -9,10 +9,8 @@
     const selMonth      = $('#selMonth');
     const dailyInfo     = $('#dailyInfo');
     const summaryWrap   = $('#summaryWrap');
-    /*const userUcd   = $('#userUcd');
-    const bizUcd    = $('#bizUcd');*/
-    const grid      = $("#grid");
-    let g_ucd_type  = 'create';
+    const grid          = $("#grid");
+    let g_ucd_type      = 'create';
 
     /** 현재 연도-월-일 구하기 **/
     let date    = new Date();
@@ -136,9 +134,7 @@
 
     function ticksCallback(value, index, values)
     {
-        let isOverK = Number(value) >= 1000
-        value = isOverK ? Number(value) / 1000 : Number(value);
-        return isOverK ? numberWithCommas(value)+'k' : numberWithCommas(value);
+        return convertNumberToKvalue(value);
     }
 
     function buildSummary(data)
@@ -155,7 +151,7 @@
             innerEl +=   '<dt class="title">'+txt+'</dt>';
             innerEl +=   i === 0 ? '<dd class="ucd-text total-text">' : '<dd class="ucd-text">';
             innerEl +=      '<img src="/assets/images/icon_ucd_s.png" alt="아이콘">';
-            innerEl +=      '<span id="totalUcd">'+numberWithCommas(ucd)+'</span>';
+            innerEl +=      '<span>'+numberWithCommas(ucd)+'</span>';
             innerEl +=   '</dd>';
             innerEl += '</dl>';
         }
@@ -421,95 +417,95 @@
                 return [{
                     label: label.personal,
                     data: chartData.user,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.mintSky,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.mintSkyA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.mintSky,
+                    backgroundColor: color.black
                 }, {
                     label: label.biz,
                     data: chartData.company,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             case 'reward':
                 return [{
                     label: label.regular,
                     data: chartData.doit,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.mintSky,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.mintSkyA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.mintSky,
+                    backgroundColor: color.black
                 }, {
                     label: label.promotion,
                     data: chartData.promotion,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             case 'budget':
                 return [{
                     label: '프로모션 예산',
                     data: chartData.ucd,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             case 'doit':
                 return [{
                     label: '두잇 개설',
                     data: chartData.ucd,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             case 'exchange':
                 return [{
                     label: '상품교환',
                     data: chartData.ucd,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             case 'cancel':
                 return [{
                     label: '취소',
                     data: chartData.ucd,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }];
             default:
                 return [{
                     label: label.personal,
                     data: chartData.user,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.jyBlue,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.jyBlueA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.jyBlue,
+                    backgroundColor: color.black
                 }, {
                     label: label.biz,
                     data: chartData.company,
-                    lineTension: 0.4,
+                    lineTension: 0.1,
                     borderColor: color.mintSky,
-                    borderWidth : 2.2,
-                    pointBackgroundColor: color.white,
-                    backgroundColor: color.mintSkyA
+                    borderWidth : 2,
+                    pointBackgroundColor: color.mintSky,
+                    backgroundColor: color.black
                 }];
         }
     }

@@ -61,8 +61,8 @@
     const color = {
         white : 'rgba(255,255,255,1)'
         ,black : 'rgba(0, 0, 0, 0)'
-        ,dodgerBlue : 'rgb(0, 122, 255)'
-        ,prussianBlue : 'rgb(0, 48, 135)'
+        ,dodgerBlue : 'rgb(56, 195, 209)'
+        ,prussianBlue : 'rgba(63, 108, 205)'
         ,mintSky : 'rgb(56, 195, 209)'
         ,mintSkyA : 'rgba(56, 195, 209, 0.4)'
         ,jyBlue : 'rgba(63, 108, 205)'

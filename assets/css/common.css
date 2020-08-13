@@ -964,6 +964,7 @@ input[type="checkbox"]:disabled + label span{
 	color: #404040;
 	font-size: 14px;
 	font-weight: 400;
+	line-height: 1.5em;
 }
 .detail-data-img a {
 	border-bottom: 1px solid #505050;

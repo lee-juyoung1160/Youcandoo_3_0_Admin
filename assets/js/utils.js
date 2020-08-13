@@ -26,6 +26,12 @@
 	    return phone;
 	}
 
+	function convertNumberToKvalue(_value)
+	{
+		_value = Number(_value);
+		return _value >= 1000 ? numberWithCommas(_value/1000)+'k' : numberWithCommas(_value);
+	}
+
 	function getLastDayNumber(_year, _month)
 	{
 		return new Date(_year, _month, 0).getDate();

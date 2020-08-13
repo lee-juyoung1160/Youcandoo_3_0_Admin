@@ -38,7 +38,7 @@
 			return;
 		}
 
-		sweetConfirm('확인을 누르면 해당 프로모션이 오늘 시작합니다.', promoStartConfirmCallback);
+		sweetConfirm('확인을 누르면 해당 프로모션이 진행 중 상태로 변경됩니다.', promoStartConfirmCallback);
 	}
 
 	function promoStartConfirmCallback()

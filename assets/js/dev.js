@@ -1,30 +1,39 @@
 
 	const env = $("#env");
-	const btnProStart = $("#btnProStart");
-	/*const btnDoitStart = $("#btnDoitStart");*/
+	const btnProStart 	= $("#btnProStart");
+	const btnDoitStart 	= $("#btnDoitStart");
 
 	$( () => {
 		toggleStartButton();
 
-		btnProStart.on("click", function () { promoStart(); })
+		btnProStart.on("click", function () { promoStart(); });
+		btnDoitStart.on("click", function () { sweetError('아직 구현 안됨.ㅋㅋ') })
 	})
 
 	function toggleStartButton()
 	{
-		const accesses = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
+		const accessibleAuthCodes = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
 
-		if (accesses.indexOf(sessionAuthCode.val()) === -1)
+		if (accessibleAuthCodes.indexOf(sessionAuthCode.val()) === -1)
 		{
 			try {
 				btnProStart.remove();
 			} catch (e) {}
 
-			/*try {
+			try {
 				btnDoitStart.remove();
-			} catch (e) {}*/
+			} catch (e) {}
 		}
 		else
-			btnProStart.show();
+		{
+			try {
+				btnProStart.show();
+			} catch (e) {}
+
+			try {
+				btnDoitStart.show();
+			} catch (e) {}
+		}
 	}
 
 	function promoStart()
@@ -54,10 +63,47 @@
 
 	function promoStartSuccessCallback(data)
 	{
-		sweetToastAndCallback(data, startSuccess);
+		sweetToastAndCallback(data, promoStartSuccess);
 	}
 
-	function startSuccess()
+	function promoStartSuccess()
+	{
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
+	}
+
+	function doitStart()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+
+		if (isEmpty(selectedData))
+		{
+			sweetToast('대상을 선택하세요.');
+			return;
+		}
+
+		sweetConfirm('확인을 누르면 5분 후 해당 두잇이 진행 중 상태로 변경됩니다.', doitStartConfirmCallback);
+	}
+
+	function doitStartConfirmCallback()
+	{
+		let table 		 = $("#dataTable").DataTable();
+		let selectedData = table.rows('.selected').data()[0];
+		let param 		 = JSON.stringify({"doit_uuid" : selectedData.doit_uuid});
+		let url			 = 'https://api.youcandoo.co.kr/v1.0/admin/doit/start';
+		let errMsg		 = label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, param, doitStartSuccessCallback, errMsg, false);
+	}
+
+	function doitStartSuccessCallback(data)
+	{
+		sweetToastAndCallback(data, doitStartSuccess);
+	}
+
+	function doitStartSuccess()
 	{
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));

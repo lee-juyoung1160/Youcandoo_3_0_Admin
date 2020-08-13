@@ -161,9 +161,12 @@ h2.main-title {
 }
 /* ë“±ë¡ ê³µí†µ ë ˆì´ì•„ì›ƒ */
 .enrollment {
-	padding: 20px;
+	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .enrollment>li {
 	padding: 10px 0;
@@ -186,7 +189,7 @@ h2.main-title {
 p.sub-title {
 	font-weight: 500;
 	font-size: 14px;
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 	color: #007aff;
 }
 p.sub-title.important {
@@ -575,7 +578,6 @@ input[type="checkbox"] + label span {
 	cursor: pointer;
 	border: 1px solid #aaa;
 	background-color: #fff;
-	/*box-shadow: inset 0px 0px 10px rgba(0,0,0,0.05);*/
 }
 input[type="checkbox"]:checked + label span {
 	background-size: cover;
@@ -960,9 +962,8 @@ input[type="checkbox"]:disabled + label span{
 .detail-data {
 	overflow-wrap: break-word;
 	color: #404040;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: 400;
-	line-height: 1.7;
 }
 .detail-data-img a {
 	border-bottom: 1px solid #505050;

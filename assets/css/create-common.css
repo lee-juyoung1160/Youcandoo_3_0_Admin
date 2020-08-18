@@ -104,6 +104,155 @@
     margin-right: 10px;
 }
 
+/* 두잇톡 */
+.doitTalk .time-line,
+.doitTalk .top-fix {
+    position: relative;
+    margin-top: 20px;
+}
+.doitTalk .top-fix {
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+}
+.doitTalk .top-fix .top .title {
+    float: left;
+    padding: 5px 8px;
+    color: #0061f2;
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid #0061f2;
+    border-radius: 30px;
+}
+
+.doitTalk .time-line:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    width: 5px;
+    background: #d9e7f5;
+    left: 11.9%;
+}
+.time-line-info {
+    position: relative;
+    float: left;
+    width: 15%;
+}
+.time-line-info .date {
+    color: #0061f2;
+    font-size: 18px;
+    font-weight: 600;
+}
+.time-line-info .icon {
+    position: absolute;
+    top: 0;
+    right: 15%;
+    z-index: 100;
+}
+.time-line-info .icon span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 5px solid #007aff;
+    border-radius: 50%;
+
+}
+.time-line-body {
+    position: relative;
+    float: right;
+    width: 85%;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border: 1px solid #f3f3f3;
+    border-radius: 5px;
+}
+.time-line-body.delete-box {
+    padding: 30px 15px;
+    color: #fff;
+    text-align: center;
+    background-color: #aaa;
+}
+.time-line-body.blind {
+    border-color: #f3f3f3;
+    background: repeating-linear-gradient(-45deg, #f3f3f3, #f3f3f3 4px, #f9f9f9 0, #f9f9f9 8px);
+}
+.doitTalk .top {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.doitTalk .top .nickname {
+    float: left;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.doitTalk .top .nickname strong {
+    color: orangered;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.doitTalk .top .btn-wrap {
+    float: right;
+}
+.doitTalk .top .btn-wrap button {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    transition: all .3s;
+}
+.doitTalk .top .btn-wrap button.eye-slash-btn {
+    color: #f46600;
+    border-bottom: 1px solid #f46600;
+}
+.doitTalk .top .btn-wrap button.eye-btn {
+    color: #FFA83B;
+    border-bottom: 1px solid #FFA83B;
+}
+.doitTalk .contants-wrap {
+    padding: 15px 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4em;
+}
+.doitTalk .contants-wrap .talk-text {
+    float: left;
+    width: 85%;
+}
+.doitTalk .contants-wrap .talk-img {
+    overflow: hidden;
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin-right: 20px;
+}
+.doitTalk .bottom {
+    padding-top: 10px;
+    border-top: 1px solid #f1f1f1;
+}
+.doitTalk .bottom .time {
+    float: right;
+    color: #999;
+    font-size: 14px;
+}
+.doitTalk .bottom ol {
+    float: left;
+}
+.doitTalk .bottom ol li {
+    float: left;
+    margin-right: 15px;
+    font-size: 14px;
+}
+.doitTalk .bottom ol li strong {
+    font-weight: 600;
+}
+
+
 /* 글자수 체크 */
 .input-wrap {
     display: inline-flex;

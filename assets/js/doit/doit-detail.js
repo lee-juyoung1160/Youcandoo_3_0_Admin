@@ -4,6 +4,7 @@
 	const tabAction		= $("#tabAction");
 	const tabReview		= $("#tabReview");
 	const tabUcd		= $("#tabUcd");
+	const tabTalk		= $("#tabTalk");
 	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
@@ -80,6 +81,9 @@
 	const ucdTable		= $("#ucdTable");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
+	/** 두잇톡 **/
+	const doitTalk		= $("#doitTalk");
+
 	/** modal 공통 **/
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
@@ -102,6 +106,7 @@
 		tabAction		.on("click", function () { onClickActionTab(this); });
 		tabReview		.on("click", function () { onClickReviewTab(this); });
 		tabUcd			.on("click", function () { onClickUcdTab(this); });
+		tabTalk			.on("click", function () { onClickTalkTab(this); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -126,6 +131,7 @@
 		doitAction.hide();
 		doitReview.hide();
 		ucdInfo.hide();
+		doitTalk.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
 		getDetail();
@@ -139,6 +145,7 @@
 		doitAction.hide();
 		doitReview.hide();
 		ucdInfo.hide();
+		doitTalk.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
 		getJoinMemberTotal();
@@ -153,6 +160,7 @@
 		doitUser.hide();
 		doitReview.hide();
 		ucdInfo.hide();
+		doitTalk.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
 		currentPage = 1;
@@ -167,6 +175,7 @@
 		doitUser.hide();
 		doitAction.hide();
 		ucdInfo.hide();
+		doitTalk.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
 		getInvolveReview();
@@ -180,9 +189,23 @@
 		doitUser.hide();
 		doitAction.hide();
 		doitReview.hide();
+		doitTalk.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
 		getUcdLog();
+	}
+
+	/** doitTalk탭 **/
+	function onClickTalkTab(obj)
+	{
+		doitTalk.show();
+		doitDetail.hide();
+		doitUser.hide();
+		doitAction.hide();
+		doitReview.hide();
+		ucdInfo.hide();
+		$(obj).siblings().removeClass('active');
+		$(obj).addClass('active');
 	}
 
 	/****************

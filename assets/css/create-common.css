@@ -97,7 +97,7 @@
 }
 
 .table-btn-wrap.doit-detail-tab li {
-    width: calc(100%/6);
+    width: calc(100%/5);
 }
 .thumb-list p.sub-title {
     display: inline-block;

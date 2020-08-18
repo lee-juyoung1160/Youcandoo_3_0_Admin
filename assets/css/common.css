@@ -387,9 +387,12 @@ input[type="time"] {
 input.datepicker {
 	width: 200px;
 }
-input.only-num {
+input.only-num,
+input.only-num-with-zero
+{
 	width: 220px;
 }
+
 /* file common */
 /*.filebox {*/
 /*	float: left;*/

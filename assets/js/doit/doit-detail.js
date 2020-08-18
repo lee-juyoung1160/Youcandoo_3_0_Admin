@@ -114,8 +114,8 @@
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
-		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
+		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlindReview(); });
+		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlindReview(); });
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
@@ -206,6 +206,7 @@
 		ucdInfo.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
+		getDoitTalk();
 	}
 
 	/****************
@@ -214,8 +215,8 @@
 	let g_doitUuid;
 	function getDetail()
 	{
-		let param   = JSON.stringify({"idx" : idx});
 		let url 	= api.detailDoit;
+		let param   = JSON.stringify({"idx" : idx});
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(true, url, param, getDetailCallback, errMsg, false);
@@ -255,50 +256,48 @@
 		let groupReward = Number(detail.group_reward);
 		let totalReward =  personReward + groupReward;
 
-		rewardDom += '<p class="detail-data">'+doitInfo+'</p>';
-		rewardDom += '<div class="col-2-1" style="margin-top: 20px;">';
-		rewardDom += 	'<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">두잇 참여 인원</p>';
-		rewardDom += 		'<p class="detail-data">'+recruitCount+'명</p>';
-		rewardDom += 	'</div>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">인증기간</p>';
-		rewardDom += 		'<p class="detail-data">'+detail.action_duration+'일</p>';
-		rewardDom += 	'</div>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">주간빈도</p>';
-		rewardDom += 		'<p class="detail-data">'+dayofweek+'</p>';
-		rewardDom += 	'</div>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">일일 인증 횟수</p>';
-		rewardDom += 		'<p class="detail-data">'+detail.action_daily_allow+'회</p>';
-		rewardDom += 	'</div>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">목표달성률</p>';
-		rewardDom += 		'<p class="detail-data">'+Math.floor(detail.goal_percent)+'%</p>';
-		rewardDom += 	'</div>';
-		rewardDom += 	'<div class="detail-data-wrap clearfix">';
-		rewardDom += 		'<p class="sub-tit">1인 지급 최대 UCD</p>';
-		rewardDom += 		'<p class="detail-data">';
-		rewardDom += 			numberWithCommas(totalReward)+' UCD ';
-		rewardDom += 			'(개인: '+numberWithCommas(personReward)+' UCD / ';
-		rewardDom += 			'단체: '+numberWithCommas(groupReward)+' UCD)';
-		rewardDom += 		'</p>';
-		rewardDom += 	'</div>';
+		rewardDom +=
+			`<p class="detail-data">${doitInfo}</p>
+			<div class="col-2-1" style="margin-top: 20px;">
+				<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">두잇 참여 인원</p>
+					<p class="detail-data">${recruitCount}명</p>
+				</div>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">인증기간</p>
+					<p class="detail-data">${detail.action_duration}일</p>
+				</div>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">주간빈도</p>
+					<p class="detail-data">${dayofweek}</p>
+				</div>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">일일 인증 횟수</p>
+					<p class="detail-data">${detail.action_daily_allow}회</p>
+				</div>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">목표달성률</p>
+					<p class="detail-data">${Math.floor(detail.goal_percent)}%</p>
+				</div>
+				<div class="detail-data-wrap clearfix">
+					<p class="sub-tit">1인 지급 최대 UCD</p>
+					<p class="detail-data">
+						${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(personReward)} UCD / 단체: ${numberWithCommas(groupReward)} UCD)
+					</p>
+				</div>`
 		if (!isEmpty(detail.promotion_uuid))
 		{
-			rewardDom += 	'<p class="sub-title" style="margin-top: 40px;">'
-			rewardDom += 		'<i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산';
-			rewardDom += 	'</p>';
-			rewardDom += 	'<div class="fixed">';
-			rewardDom += 		'<p class="cap">';
-			rewardDom += 			'남은 UCD는 ';
-			rewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">'+numberWithCommas(balance)+'UCD</span> 입니다.';
-			rewardDom += 		'</p>';
-			rewardDom += 	'</div>';
+			rewardDom +=
+				`<p class="sub-title" style="margin-top: 40px;"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>
+				 <div class="fixed">
+				 	<p class="cap">남은 UCD는 
+						<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(balance)} UCD</span> 입니다.
+					</p>
+				 </div>`
 		}
-		rewardDom += '</div>';
+		rewardDom +=
+			`</div>`
 		reward.html(rewardDom);
 
 		creator.html(detail.doit_permission);
@@ -311,11 +310,7 @@
 		for (let i=0; i<tags.length; i++)
 		{
 			if (!isEmpty(tags[i]))
-			{
-				tagDom += '<li>';
-				tagDom += 	'<span class="tag-name">'+tags[i]+'</span>';
-				tagDom += '</li>';
-			}
+				tagDom += `<li><span class="tag-name">${tags[i]}</span></li>`
 		}
 		doitTags.html(tagDom);
 
@@ -324,21 +319,23 @@
 		let introImageDom = label.nullValue;
 		if (!isEmpty(introImg))
 		{
-			introImageDom = '<div class="file">';
-			introImageDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			introImageDom += 	'<img class="detail-img main-banner" src="'+introImg+'" onerror="onErrorImage(this);" alt="썸네일 이미지입니다.">';
-			introImageDom += '</div>';
+			introImageDom =
+				`<div class="file">
+					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+					<img class="detail-img main-banner" src="${introImg}" onerror="onErrorImage(this);" alt="썸네일 이미지입니다.">
+				</div>`
 
 			if (introType === 'video')
 			{
 				if(!isEmpty(detail.doit_video_url))
 				{
-					introImageDom += '<div class="file">';
-					introImageDom += 	'<p class="cap">영상</p>';
-					introImageDom += 	'<video poster="" controls onerror="onErrorImage(this);">';
-					introImageDom += 		'<source src="'+detail.doit_video_url+'" onerror="onErrorVideo();">';
-					introImageDom += 	'</video>';
-					introImageDom += '</div>';
+					introImageDom +=
+						`<div class="file">
+							<p class="cap">영상</p>
+							<video poster="" controls onerror="onErrorImage(this);">
+								<source src="${detail.doit_video_url}" onerror="onErrorVideo();">
+							</video>
+						</div>`
 				}
 			}
 		}
@@ -352,8 +349,9 @@
 		let optionDom = label.nullValue;
 		if (!isEmpty(detail.private_code))
 		{
-			optionDom = '<p class="detail-data">참여자 제한 </p>';
-			optionDom += '<p class="detail-data">참가자 코드 : '+detail.private_code+'</p>';
+			optionDom =
+				`<p class="detail-data">참여자 제한 </p>
+				 <p class="detail-data">참가자 코드 : ${detail.private_code}</p>`
 		}
 		options.html(optionDom);
 
@@ -432,8 +430,8 @@
 
 	function getJoinMemberTotal()
 	{
-		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
 		let url 	= api.totalJoinMember;
+		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(true, url, param, getJoinMemberTotalCallback, errMsg, false);
@@ -657,8 +655,8 @@
 	/** 경고장 취소 **/
 	function cancelRequest()
 	{
-		let param   = JSON.stringify({"action_uuid" : cancelId});
 		let url 	= cancelApi;
+		let param   = JSON.stringify({"action_uuid" : cancelId});
 		let errMsg 	= label.cancel+message.ajaxError;
 
 		ajaxRequestWithJsonData(false, url, param, cancelReqCallback, errMsg, false);
@@ -1092,10 +1090,15 @@
 
 	function buildStar(rating)
 	{
-		let starEl = '<ol class="star-wrap" style="float: inherit;">';
+		let starEl = '';
 		for (let i=0; i<5; i++)
-			starEl += i < Number(rating) ? '<li class="on"><i class="fas fa-star" style="cursor:default;"></i></li>' : '<li><i class="fas fa-star" style="cursor:default;"></i></li>';
-		starEl += '</ol>';
+		{
+			let active = i < Number(rating) ? 'on' : '';
+			starEl +=
+				`<ol class="star-wrap" style="float: inherit;">
+					<li class="${active}"><i class="fas fa-star" style="cursor:default;"></i></li>
+				</ol>`
+		}
 
 		return starEl;
 	}
@@ -1119,20 +1122,18 @@
 
 	function buildReviewDetail(data)
 	{
-		let innerEl = '<a onclick="modalDetailReviewFadein(this);" ';
-		innerEl +=	'class="line-clamp more-info-btn"';
-		innerEl +=	'data-detail="'+data.review_text+'"';
-		innerEl +=	'data-title="'+data.doit_title+'"';
-		innerEl +=	'data-rating="'+data.rating+'"';
-		innerEl +=	'data-report="'+data.report_count+'"';
-		innerEl +=	'data-nickname="'+data.nickname+'"';
-		innerEl +=	'data-blind="'+data.is_blind+'"';
-		innerEl +=	'data-created="'+data.created+'"';
-		innerEl +=	'>';
-		innerEl += data.review_text;
-		innerEl += '</a>';
-
-		return innerEl;
+		return (
+			`<a onclick="modalDetailReviewFadein(this);"
+				class="line-clamp more-info-btn"
+				data-detail="${data.review_text}"
+				data-title="${data.doit_title}"
+				data-rating="${data.rating}"
+				data-report="${data.report_count}"
+				data-nickname="${data.nickname}"
+				data-blind="${data.is_blind}"
+				data-created="${data.created}"
+				>${data.review_text}</a>`
+		)
 	}
 
 	function modalDetailReviewFadein(obj)
@@ -1158,25 +1159,24 @@
 		modalReviewStarWrap.find('li').each(function (index) {
 			index < rating ? $(this).addClass('on') : $(this).removeClass('on');
 		});
-		/*modalReviewRating.html(rating);*/
 		modalReviewReport.html(report);
 		modalReviewUser.html(nickname);
 		modalReviewCreated.html(created.substring(0, 10));
 		modalReviewBlind.html(blind);
 	}
 
-	function onClickUpdateBlind()
+	function onClickUpdateBlindReview()
 	{
 		if (blindValidation())
-			sweetConfirm('상태를 '+message.change, updateBlind);
+			sweetConfirm(`상태를 ${message.change}`, updateBlindReview);
 	}
 
-	function updateBlind()
+	function updateBlindReview()
 	{
 		let url 	= api.updateBlind;
 		let errMsg 	= label.modify+message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, blindParams(), updateBlindCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, blindParams(), updateBlindReviewCallback, errMsg, false);
 	}
 
 	function blindParams()
@@ -1195,12 +1195,12 @@
 		return JSON.stringify(param)
 	}
 
-	function updateBlindCallback(data)
+	function updateBlindReviewCallback(data)
 	{
-		sweetToastAndCallback(data, updateSuccess);
+		sweetToastAndCallback(data, updateReviewSuccess);
 	}
 
-	function updateSuccess()
+	function updateReviewSuccess()
 	{
 		tableReloadAndStayCurrentPage(reviewTable);
 	}
@@ -1298,6 +1298,173 @@
 	{
 		if (isNegative(aData.amount))
 			$(nRow).addClass('minus-pay');
+	}
+
+	/**
+	 * 두잇톡 탭 관련
+	 * **/
+	function getDoitTalk()
+	{
+		let url = api.listDoitTalk;
+		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
+		let errMsg 	= `두잇톡 ${label.list+message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(true, url, param, getDoitTalkSuccessCallback, errMsg, false);
+	}
+
+	function getDoitTalkSuccessCallback(data)
+	{
+		let notice  = data.data.notice;
+		let creator = data.data.permission;
+		let details = data.data.data;
+		let talkLen = data.data.data.length;
+		let innerEl = '';
+		let i = 0;
+		let createDay = '';
+		let btnBlind;
+		let blindClass;
+
+		if (!isEmpty(notice))
+		{
+			btnBlind = notice.is_blind === 'Y' ?
+				`<button onclick="onSubmitBlindTalk(this);" 
+							data-uuid="${notice.board_uuid}" 
+							data-blind="N"
+							type="button" 
+							class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
+				`<button onclick="onSubmitBlindTalk(this);" 
+							data-uuid="${notice.board_uuid}" 
+							data-blind="Y"
+							type="button" 
+							type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+
+			blindClass = notice.is_blind === 'Y' ? 'blind' : '';
+
+			innerEl +=
+				`<div class="top-fix ${blindClass}">
+					<div class="top clearfix">
+						<p class="title">공지</p>
+						<div class="btn-wrap">
+							${btnBlind}
+						</div>
+					</div>
+					<div class="contants-wrap clearfix">
+						<div style="white-space: pre" class="talk-text">${notice.text_body}</div>
+					</div>
+					<div class="bottom clearfix">
+						<span class="time">${notice.created_time}</span>
+						<ol class="clearfix">
+							<li><i class="fas fa-heart" style="color: red;"></i> <strong>${numberWithCommas(notice.like)}</strong></li>
+						</ol>
+					</div>
+				</div>`
+		}
+
+		for (i; i<talkLen; i++)
+		{
+			let detail = details[i];
+
+			if (i === 0)
+				innerEl += `<ul class="time-line">`
+
+			innerEl +=
+				`<li class="talk-box clearfix">`;
+
+			if (createDay !== detail.created_date)
+			{
+				innerEl +=
+					`<div class="time-line-info">
+						<div class="date">${detail.created_date}</div>
+						<div class="icon"><span></span></div>
+					</div>`
+
+				createDay = detail.created_date;
+			}
+
+			if (detail.is_del === 'Y')
+			{
+				innerEl +=
+					`<div class="time-line-body delete-box">
+						<i class="fas fa-exclamation-circle"></i> 삭제된 두잇톡입니다.
+					</div>`
+			}
+			else
+			{
+				btnBlind = detail.is_blind === 'Y' ?
+					`<button onclick="onSubmitBlindTalk(this);" 
+							data-uuid="${detail.board_uuid}" 
+							data-blind="N"
+							type="button" 
+							class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
+					`<button onclick="onSubmitBlindTalk(this);" 
+							data-uuid="${detail.board_uuid}" 
+							data-blind="Y"
+							type="button" 
+							type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+
+				blindClass = detail.is_blind === 'Y' ? 'blind' : '';
+				let crownIcon = creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
+
+				innerEl +=
+					`<div class="time-line-body ${blindClass}">
+						<div class="top clearfix">
+							<p class="nickname">${detail.nickname} ${crownIcon}</p>
+							<div class="btn-wrap">
+								${btnBlind}
+							</div>
+						</div>
+						<div class="contants-wrap clearfix">
+							<div style="white-space: pre" class="talk-text">${detail.text_body}</div>
+						</div>
+						<div class="bottom clearfix">
+							<span class="time">${detail.created_time}</span>
+							<ol class="clearfix">
+								<li><i class="fas fa-heart" style="color: red;"></i> <strong>${detail.like}</strong></li>
+								<li><strong>신고:</strong> ${detail.report}</li>
+							</ol>
+						</div>
+					</div>
+				</li>`
+			}
+		}
+
+	/*<div class="talk-img">
+		<img src="${detail.img}" alt="">
+		</div>*/
+
+		doitTalk.html(innerEl);
+	}
+
+	let g_board_uuid;
+	let g_is_blind_talk;
+	function onSubmitBlindTalk(obj)
+	{
+		g_board_uuid = $(obj).data('uuid');
+		g_is_blind_talk = $(obj).data('blind');
+
+		sweetConfirm(`상태를 ${message.modify}`, updateBlindTalk);
+	}
+
+	function updateBlindTalk()
+	{
+		let url = api.updateBlindTalk;
+		let errMsg = label.modify+message.ajaxError;
+		let param = {
+			"board_uuid": g_board_uuid,
+			"is_blind" : g_is_blind_talk
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateBlindTalkCallback, errMsg, false);
+	}
+
+	function updateBlindTalkCallback(data)
+	{
+		sweetToastAndCallback(data, updateBlindTalkSuccess);
+	}
+
+	function updateBlindTalkSuccess()
+	{
+		getDoitTalk();
 	}
 
 	/** 수정페이지 이동 **/

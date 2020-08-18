@@ -940,7 +940,7 @@ input[type="checkbox"]:disabled + label span{
 	border-right: 1px solid #f1f1f1;
 	line-height: 45px;
 	text-align: center;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: 400;
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
@@ -960,7 +960,7 @@ input[type="checkbox"]:disabled + label span{
 	overflow-wrap: break-word;
 	color: #404040;
 	font-size: 14px;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1.5em;
 }
 .detail-data-img a {

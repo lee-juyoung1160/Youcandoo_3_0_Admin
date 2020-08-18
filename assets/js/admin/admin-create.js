@@ -45,7 +45,7 @@
 			let code = details[i].code;
 			let name = details[i].name;
 
-			optionDom += '<option value="'+code+'">'+name+'</option>';
+			optionDom += `<option value="${code}">${name}</option>`;
 		}
 
 		authCode.html(optionDom);
@@ -58,35 +58,35 @@
 		if (isEmail(email.val()))
 			chkEmail.html('');
 		else
-			chkEmail.html('올바른 이메일 형식을 '+message.input);
+			chkEmail.html(`올바른 이메일 형식을 ${message.input}`);
 	}
 
 	function validation()
 	{
 		if (isEmpty(userid.val()))
 		{
-			sweetToast('아이디는 ' + message.required);
+			sweetToast(`아이디는 ${message.required}`);
 			userid.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(name.val()))
 		{
-			sweetToast('이름은 ' + message.required);
+			sweetToast(`이름은 ${message.required}`);
 			name.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(email.val()))
 		{
-			sweetToast('이메일은 ' + message.required);
+			sweetToast(`이메일은 ${message.required}`);
 			email.trigger('focus');
 			return false;
 		}
 
 		if (!isEmail(email.val()))
 		{
-			sweetToast('올바른 이메일 형식을 '+message.input);
+			sweetToast(`올바른 이메일 형식을 ${message.input}`);
 			email.trigger('focus');
 			return false;
 		}

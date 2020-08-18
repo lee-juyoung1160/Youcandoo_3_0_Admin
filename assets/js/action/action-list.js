@@ -112,36 +112,34 @@
 		if (type === 'image')
 		{
 			className = 'img-contents';
-
-			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
-
-			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
+			actionDom += `<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);">`
+			exampleDom += `<img src="${exampleUrl}" alt="예시이미지" onerror="onErrorImage(this);">`
 		}
 		else if (type === 'video')
 		{
 			className = 'video-contents';
-
-			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
-			actionDom += 	'</video>';
-
-			exampleDom += 	'<video controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo()">';
-			exampleDom += 	'</video>';
+			actionDom +=
+				`<video poster="${coverUrl}" controls onerror="onErrorImage(this);">
+					<source src="${actionUrl}" onerror="onErrorActionVideo();">
+				</video>`
+			exampleDom +=
+				`<video controls>
+					<source src="${exampleUrl}" onerror="onErrorExamVideo()">
+				</video>`
 		}
 		else if (type === 'voice')
 		{
 			className = 'audio-contents';
-
-			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			actionDom += 	'<audio controls>';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
-			actionDom += 	'</audio>';
-
-			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			exampleDom += 	'<audio controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
-			exampleDom += 	'</audio>';
+			actionDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${actionUrl}" onerror="onErrorActionAudio();">
+				</audio>`
+			exampleDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${exampleUrl}" onerror="onErrorExamAudio();">
+				</audio>`
 		}
 
 		/** 인증게시물 **/
@@ -153,28 +151,30 @@
 		/** 작성자 **/
 		modalNickname.html(nickname);
 
-		/** 경고장 영역 **/
+		/** 모달 경고장 영역 **/
 		let warnDom = '';
 		if (red === 'Y' || yellow === 'Y')
 		{
 			if (red === 'Y')
 			{
-				warnDom += '<div class="card-wrap">';
-				warnDom += 	    '<img src="'+label.redCardImage+'" alt="레드카드">';
-				warnDom += 			'<span>'+redDesc+'</span>';
-				warnDom += 		'<button onclick="cancelWarn(this);" data-type="R" data-uuid="'+uuid+'" class="card-btn clear-red-btn">레드카드 취소</button>';
-				warnDom += '</div>';
+				warnDom +=
+					`<div class="card-wrap">
+						<img src="${label.redCardImage}" alt="레드카드">
+						<span>${redDesc}</span>
+						<button onclick="cancelWarn(this);" data-type="R" data-uuid="${uuid}" class="card-btn clear-red-btn">레드카드 취소</button>
+					</div>`
 			}
 			if (yellow === 'Y')
 			{
-				warnDom += '<div class="card-wrap">';
-				warnDom += 	    '<img src="'+label.yellowCardImage+'" alt="옐로우카드">';
-				warnDom += 			'<span>'+yellowDesc+'</span>';
-				warnDom += 		'<button onclick="cancelWarn(this);" data-type="Y" data-uuid="'+uuid+'" class="card-btn clear-yellow-btn">옐로카드 취소</button>';
-				warnDom += '</div>';
+				warnDom +=
+					`<div class="card-wrap">
+						<img src="${label.yellowCardImage}" alt="옐로우카드">
+						<span>${yellowDesc}</span>
+						<button onclick="cancelWarn(this);" data-type="Y" data-uuid="${uuid}" class="card-btn clear-yellow-btn">옐로카드 취소</button>
+					</div>`
 			}
 		}
-		else	warnDom += '<p class="data-contents">발송 된 경고장이 없습니다.</p>';
+		else	warnDom += `<p class="data-contents">발송 된 경고장이 없습니다.</p>`
 		modalWarnWrap.html(warnDom);
 
 		/** 인증예시 **/
@@ -190,7 +190,7 @@
 		g_cancel_api = $(obj).data('type') === 'Y' ? api.cancelYellow : api.cancelRed;
 		g_cancel_id  = $(obj).data('uuid');
 
-		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
+		sweetConfirm(`경고장 발송을 ${message.cancel}`, cancelRequest);
 	}
 
 	function cancelRequest()
@@ -227,18 +227,18 @@
 		let count = chkedElement.length;
 		if (count === 0)
 		{
-			sweetToast('발송대상을 '+message.select);
+			sweetToast(`발송대상을 ${message.select}`);
 			return false;
 		}
 
 		let hasYellowCount = 0;
 		chkedElement.each(function () {
-			if ($(this).hasClass('yellow-card'))
+			if ($(this).data('is-yellow') === 'Y')
 				hasYellowCount++;
 		});
 		if (g_warn_type === 'Y' && hasYellowCount > 0)
 		{
-			sweetToast('선택한 발송대상에 '+message.alreadyHasYellow);
+			sweetToast(`선택한 발송대상에 ${message.alreadyHasYellow}`);
 			return false;
 		}
 
@@ -261,7 +261,7 @@
 
 	function onSubmitWarn()
 	{
-		sweetConfirm('경고장을 '+message.send, warnRequest);
+		sweetConfirm(`경고장을 ${message.send}`, warnRequest);
 	}
 
 	function warnRequest()
@@ -363,7 +363,7 @@
 			for (let i=0; i<dataLen; i++)
 			{
 				let action    = actions[i];
-				let actionId  = "action_"+i;
+				let actionId  = `action_${i}`;
 				let successYn = action.success === 'Y' ? label.success : label.fail;
 				let resourceType = action.resource_type;
 				let warnImageDom = '';
@@ -373,58 +373,59 @@
 				if (resourceType === 'voice')
 					actionImage = label.voiceImage;
 				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
-				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
-					actionImageDom += 'onclick="onClinkActionImage(this);"  ';
-					actionImageDom += 'onerror="onErrorImage(this);"  ';
-					actionImageDom += 'data-type="'+action.resource_type+'" ';
-					actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
-					actionImageDom += 'data-url="'+action.url+'" ';
-					actionImageDom += 'data-cover="'+action.image_url+'" ';
-					actionImageDom += 'data-exurl="'+action.example_url+'" ';
-					actionImageDom += 'data-exdesc="'+action.example_description+'" ';
-					actionImageDom += 'data-title="'+action.doit_title+'" ';
-					actionImageDom += 'data-nickname="'+action.user_name+'" ';
-					actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
-					actionImageDom += 'data-red="'+action.red_card+'" ';
-					actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
-					actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
-					actionImageDom += 'alt="인증 이미지입니다.">';
+				let actionImageDom =
+					`<img class="detail-img" 
+						src="${actionImage}"
+						onclick="onClinkActionImage(this);"
+						onerror="onErrorImage(this);"
+						data-type="${action.resource_type}"
+						data-uuid="${action.action_uuid}"
+						data-url="${action.url}"
+						data-cover="${action.image_url}"
+						data-exurl="${action.example_url}"
+						data-exdesc="${action.example_description}"
+						data-title="${action.doit_title}"
+						data-nickname="${action.user_name}"
+						data-yellow="${action.yellow_card}"
+						data-red="${action.red_card}"
+						data-ydesc="${action.yellow_card_description}"
+						data-rdesc="${action.red_card_description}"
+						alt="인증 이미지입니다.">`
 
-				let className = '';
 				if (action.yellow_card === 'Y')
-				{
-					warnImageDom = '<img src="'+label.yellowCardImage+'" alt="">';
-					className = 'yellow-card';
-				}
-				if (action.red_card === 'Y')
-					warnImageDom = '<img src="'+label.redCardImage+'" alt="">';
+					warnImageDom = `<img src="${label.yellowCardImage}" alt="">`;
+				else if (action.red_card === 'Y')
+					warnImageDom = `<img src="${label.redCardImage}" alt="">`;
+
 				if (action.yellow_card === 'Y' && action.red_card === 'Y')
-					warnImageDom = '<img src="'+label.redYellowCardImage+'" alt="">';
+					warnImageDom = `<img src="${label.redYellowCardImage}" alt="">`;
 
 				if (i===0 || i%6 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
 				let disableChkBox = action.red_card === 'Y' ? 'disabled' : '';
-				actionDom += '<li>';
-				actionDom += 	'<div class="top clearfix">';
-				actionDom += 		'<div class="checkbox-wrap">';
-				actionDom += 			'<input type="checkbox" class="'+className+'" id="'+actionId+'" name="chk-warn" value="'+action.action_uuid+'" '+disableChkBox+'/>';
-				actionDom += 			'<label for="'+actionId+'"><span></span></label>';
-				actionDom += 		'</div>';
-				actionDom += 		'<span class="success-text">'+successYn+'</span>';
-				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
-				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
-				actionDom += 	'</div>';
-				actionDom += 	'<div class="thumbnail-wrap">';
-				actionDom += 		actionImageDom;
-				actionDom += 	'</div>';
-				actionDom += 	'<div class="text-wrap">';
-				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
-				actionDom += 		'<span>'+action.user_name+'</span>';
-				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
-				actionDom += 		'<i>'+warnImageDom+'</i>';
-				actionDom += 	'</div>';
-				actionDom += '</li>';
+
+				actionDom +=
+					`<li>
+						<div class="top clearfix">
+							<div class="checkbox-wrap">
+								<input type="checkbox" data-is-yellow="${action.yellow_card}" id="${actionId}" name="chk-warn" value="${action.action_uuid}" ${disableChkBox}/>
+								<label for="${actionId}"><span></span></label>
+							</div>
+							<span class="success-text">${successYn}</span>
+							<i class="warning-icon fas fa-exclamation-triangle">
+							<span>신고 : <span class="cert-data-num">${action.report_count}</span></span></i>
+						</div>
+						<div class="thumbnail-wrap">
+							${actionImageDom}
+						</div>
+						<div class="text-wrap">
+							<p class="title">${action.doit_title}</p>
+							<span>${action.user_name}</span>
+							<p class="date">${action.action_datetime}</p>
+							<i>${warnImageDom}</i>
+						</div>
+					</li>`
 
 				if (i>0 && (i+1)%6 === 0)
 					actionDom += '</ul>';
@@ -444,27 +445,23 @@
 	{
 		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / selPageLength.val());
-		let pageLength  = 6;
-		if (last <= 10)
-			pageLength = last
+		let pageLength  = last <= 10 ? last : 6;
 		let i;
+		let current;
 
 		let pageDom = '';
-		if (currentPage === 1)
-			pageDom += '<a class="paginate_button previous disabled" id="dataTable_previous">';
-		else
-			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(currentPage-1)+'" id="dataTable_previous">';
-		pageDom +=     label.previous;
-		pageDom += '</a>';
-		pageDom += '<span>';
+		pageDom += currentPage === 1 ?
+			`<a class="paginate_button previous disabled" id="dataTable_previous">${label.previous}</a><span>` :
+			`<a onclick="onClickPageNum(this)" 
+				class="paginate_button previous" 
+				data-page="${(currentPage-1)}" id="dataTable_previous">${label.previous}</a><span>`
+
 		if (last <= 10)
 		{
 			for (i=1; i<=pageLength; i++)
 			{
-				if (last > 1 && currentPage === i)
-					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
-				else
-					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+				current = last > 1 && currentPage === i ? 'current' : '';
+				pageDom += `<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${i}">${i}</a>`
 			}
 		}
 		else
@@ -474,16 +471,13 @@
 				for (i=1; i<=pageLength; i++)
 				{
 					if (last > 1 && currentPage === i)
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
+						pageDom += `<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="${i}">${i}</a>`
 					else
 					{
-						if (pageLength === i)
-						{
-							pageDom += '<span class="ellipsis">…</span>';
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
-						}
-						else
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
+						pageDom += pageLength === i ?
+							`<span class="ellipsis">…</span>
+							<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${last}">${last}</a>` :
+							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>`
 					}
 				}
 			}
@@ -493,21 +487,24 @@
 				{
 					if (i === 1)
 					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-						pageDom += '<span class="ellipsis">…</span>';
+						pageDom +=
+							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
+							 <span class="ellipsis">…</span>`
 					}
 
 					if (currentPage === i)
 					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i - 1) + '">' + (i - 1) + '</a>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="' + i + '">' + i + '</a>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i + 1) + '">' + (i + 1) + '</a>';
+						pageDom +=
+							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${(i - 1)}">${(i - 1)}</a>
+							<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="${i}">${i}</a>
+							<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${(i + 1)}">${(i + 1)}</a>`
 					}
 
 					if (last === i)
 					{
-						pageDom += '<span class="ellipsis">…</span>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
+						pageDom +=
+							`<span class="ellipsis">…</span>
+							<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${last}">${last}</a>`
 					}
 				}
 			}
@@ -517,27 +514,29 @@
 				{
 					if (i === 1)
 					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-						pageDom += '<span class="ellipsis">…</span>';
+						pageDom +=
+							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
+							 <span class="ellipsis">…</span>`
 					}
 
 					if (i >= pageLength - 4)
 					{
-						if (currentPage === last-(pageLength-i))
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
-						else
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
+						let current = currentPage === last-(pageLength-i) ? 'current' : '';
+						pageDom +=
+							`<a onclick="onClickPageNum(this);" 
+								class="paginate_button ${current}" 
+								data-page="${(last-(pageLength-i))}">${(last-(pageLength-i))}</a>`
 					}
 				}
 			}
 		}
-		pageDom += '</span>';
-		if (last === currentPage)
-			pageDom += '<a class="paginate_button next disabled" id="dataTable_next">';
-		else
-			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(currentPage+1)+'" id="dataTable_next">';
-		pageDom += 	   label.next;
-		pageDom += '</a>';
+
+		pageDom += last === currentPage ?
+			`</span><a class="paginate_button next disabled" id="dataTable_next">${label.next}</a>` :
+			`</span><a onclick="onClickPageNum(this)" 
+						class="paginate_button next" 
+						data-page="${(currentPage+1)}" 
+						id="dataTable_next">${label.next}</a>`
 
 		pagination.html(pageDom);
 	}

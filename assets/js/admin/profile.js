@@ -59,21 +59,21 @@
 	{
 		if (isEmpty(password.val()))
 		{
-			sweetToast('비밀번호는 ' + message.required);
+			sweetToast(`비밀번호는 ${message.required}`);
 			password.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(passwordChk.val()))
 		{
-			sweetToast('비밀번호 확인을 ' + message.input);
+			sweetToast(`비밀번호 확인을 ${message.input}`);
 			passwordChk.trigger('focus');
 			return false;
 		}
 
 		if (password.val() !== passwordChk.val())
 		{
-			sweetToast('비밀번호를 ' + message.doubleChk);
+			sweetToast(`비밀번호를 ${message.doubleChk}`);
 			passwordChk.trigger('focus');
 			return false;
 		}

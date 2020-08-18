@@ -45,13 +45,13 @@
 	function buildAuthList(data)
 	{
 		let details  = data.data;
-		let optionDom = '<option value="">전체</option>';
+		let optionDom = '';
 		for (let i=0; i<details.length; i++)
 		{
 			let code = details[i].code;
 			let name = details[i].name;
 
-			optionDom += '<option value="'+code+'">'+name+'</option>';
+			optionDom += i ===0 ? `<option value="">전체</option>` : `<option value="${code}">${name}</option>`
 		}
 
 		authCode.html(optionDom);
@@ -158,16 +158,15 @@
 	{
 		/** 사용여부 컬럼에 on off 스위치 **/
 		let checked   = data.is_active === 'Y' ? 'checked' : '';
-		let switchEl = '';
-		switchEl += '<div class="toggle-btn-wrap">';
-		switchEl += 	'<div class="toggle-btn on">';
-		switchEl += 		'<input onclick="changeStatus(this)" data-userid="'+data.userid+'" type="radio" class="checkbox ' +checked+'">';
-		switchEl += 		'<div class="knobs"></div>';
-		switchEl += 		'<div class="layer"></div>';
-		switchEl += 	'</div>';
-		switchEl += '</div>';
-
-		return switchEl;
+		return (
+			`<div class="toggle-btn-wrap">
+				<div class="toggle-btn on">
+					<input onclick="changeStatus(this)" data-userid="${data.userid}" type="radio" class="checkbox ${checked}">
+					<div class="knobs"></div>
+					<div class="layer"></div>
+				</div>
+			</div>`
+		)
 	}
 
 	function onSubmitSearch()
@@ -186,7 +185,7 @@
 	{
 		changeApi 	= $(obj).hasClass('checked') ? api.inactiveAdmin : api.activeAdmin;
 		targetAdmin = $(obj).data('userid');
-		sweetConfirm('상태를 '+message.change, changeRequest);
+		sweetConfirm(`상태를 ${message.change}`, changeRequest);
 	}
 
 	function changeRequest()
@@ -213,7 +212,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('삭제할 대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

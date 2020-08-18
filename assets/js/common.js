@@ -5,6 +5,7 @@
     const dateFrom        = $(".date_from");
     const dateTo          = $(".date_to");
     const inputNumber     = $(".only-num");
+    const inputNumberWithZero     = $(".only-num-with-zero");
     const viewLoading     = $("#viewLoading");
     const lengthInput     = $(".length-input");
     const sessionUserId   = $("#session_userid");
@@ -14,6 +15,7 @@
 
     selectEls   .on("change", function () { onChangeSelectOption(this); });
     inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+    inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
     lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
     dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
     dateTo      .on("change", function () { onChangeSearchDateTo(this); });

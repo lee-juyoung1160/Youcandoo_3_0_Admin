@@ -176,9 +176,11 @@
     text-align: center;
     background-color: #aaa;
 }
-.time-line-body.blind {
+.time-line-body.blind,
+.doitTalk .top-fix.blind
+{
     border-color: #f3f3f3;
-    background: repeating-linear-gradient(-45deg, #f3f3f3, #f3f3f3 4px, #f9f9f9 0, #f9f9f9 8px);
+    background: repeating-linear-gradient(-45deg, #f3f3f3, #f3f3f3 3px, #f9f9f9 0, #f9f9f9 6px);
 }
 .doitTalk .top {
     padding-bottom: 10px;
@@ -223,6 +225,7 @@
 .doitTalk .contants-wrap .talk-text {
     float: left;
     width: 85%;
+    white-space:pre;
 }
 .doitTalk .contants-wrap .talk-img {
     overflow: hidden;

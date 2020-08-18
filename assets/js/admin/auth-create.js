@@ -39,7 +39,7 @@
 	function getAuthList()
 	{
 		let url 	= api.listAuth;
-		let errMsg 	= '권한 ' + label.list + message.ajaxLoadError;
+		let errMsg 	= `권한 ${label.list} ${message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(false, url, null, getAuthListCallback, errMsg, getMenuByAuthCode);
 	}
@@ -59,12 +59,12 @@
 		{
 			let code = details[i].code;
 			let name = details[i].name;
-			i === 0 ? liDom += '<li class="on" data-code="'+code+'">' : liDom += '<li data-code="'+code+'">';
-			liDom	+=	'<button onclick="onClickBtnAuth(this);" data-code="'+code+'" class="auth-list-btn" type="button">';
-			liDom	+=  	name;
-			liDom	+= 	'</button>';
-			liDom	+= 	'<i onclick="deleteAuth();" class="delete-btn far fa-times-circle"></i>';
-			liDom 	+=	'</li>';
+			let active = i === 0 ? 'on' : '';
+			liDom +=
+				`<li class="${active}" data-code="${code}">
+					<button onclick="onClickBtnAuth(this);" data-code="${code}" class="auth-list-btn" type="button">${name}</button>
+					<i onclick="deleteAuth();" class="delete-btn far fa-times-circle"></i>
+				</li>`
 		}
 
 		authList.html(liDom);
@@ -82,7 +82,7 @@
 	{
 		let param   = JSON.stringify({"code" : selectedAuthCode()});
 		let url 	= api.getMenuByAuth;
-		let errMsg 	= '메뉴 ' + label.list + message.ajaxLoadError;
+		let errMsg 	= `메뉴 ${label.list} ${message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(false, url, param, menuListCallback, errMsg, false);
 	}
@@ -106,20 +106,20 @@
 			let key   	  	  = keys[i];
 			let menuName   	  = data.data[key].name;
 			let children   	  = data.data[key].children;
-			let parentChkId   = "pChkId_"+i;
-			let chkName 	  = "chkNm_"+i;
+			let parentChkId   = `pChkId_${i}`;
+			let chkName 	  = `chkNm_${i}`;
 			isChecked	  	  = data.data[key].view ? 'checked' : '';
 
-			menuDom += '<li>';
-			menuDom += 	'<ol class="auth-nav">';
-			menuDom += 		'<li class="clearfix">';
-			menuDom += 			'<div class="main-menu">';
-			menuDom += 				'<div class="checkbox-wrap">';
-			menuDom += 					'<input onclick="onClickParentChk(this)" data-key="'+key+'" type="checkbox" id="'+parentChkId+'" name="'+chkName+'" '+isChecked+'/>';
-			menuDom += 					'<label for="'+parentChkId+'"><span></span>'+menuName+'</label>';
-			menuDom += 				'</div>';
-			menuDom += 			'</div>';
-			menuDom += 			'<ul class="sub-menu">';
+			menuDom += `<li>
+							<ol class="auth-nav">
+								<li class="clearfix">
+									<div class="main-menu">
+										<div class="checkbox-wrap">
+											<input onclick="onClickParentChk(this)" data-key="${key}" type="checkbox" id="${parentChkId}" name="${chkName}" ${isChecked}/>
+											<label for="${parentChkId}"><span></span>${menuName}</label>
+										</div>
+									</div>
+									<ul class="sub-menu">`
 			if (children)
 			{
 				let subKeys = Object.getOwnPropertyNames(children);
@@ -127,23 +127,24 @@
 				{
 					let subKey  		= subKeys[j];
 					let childMenuName   = children[subKey].name;
-					let childChkId 		= "cChkId_"+count;
+					let childChkId 		= `cChkId_${count}`;
 					isChecked	  	    = children[subKey].view ? 'checked' : '';
 
-					menuDom += '<li>';
-					menuDom += 	'<div class="checkbox-wrap">';
-					menuDom += 		'<input onclick="onClickChildChk(this);" data-key="'+subKey+'" type="checkbox" id="'+childChkId+'" name="'+chkName+'" '+isChecked+'/>';
-					menuDom += 		'<label for="'+childChkId+'"><span></span>'+childMenuName+'</label>';
-					menuDom += 	'</div>';
-					menuDom += '</li>';
+					menuDom += `<li>
+									<div class="checkbox-wrap">
+										<input onclick="onClickChildChk(this);" data-key="${subKey}" type="checkbox" id="${childChkId}" name="${chkName}" ${isChecked}/>
+										<label for="${childChkId}"><span></span>${childMenuName}</label>
+									</div>
+								</li>`
 
 					count++;
 				}
 			}
-			menuDom += 			'</ul>';
-			menuDom += 		'</li>';
-			menuDom += 	'</ol>';
-			menuDom += '</li>';
+			menuDom +=
+									`</ul>
+								</li>
+							</ol>
+						</li>`
 		}
 
 		authMenuArea.html(menuDom);
@@ -180,21 +181,21 @@
 	{
 		if (isEmpty(authCode.val()))
 		{
-			sweetToast('권한코드는 ' + message.required);
+			sweetToast(`권한코드는 ${message.required}`);
 			authCode.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(authName.val()))
 		{
-			sweetToast('권한명은 ' + message.required);
+			sweetToast(`권한명은 ${message.required}`);
 			authName.trigger('focus');
 			return false;
 		}
 
 		if (!isAlphabet(authCode.val()))
 		{
-			sweetToast('권한코드는 '+message.onlyAlphabet)
+			sweetToast(`권한코드는 ${message.onlyAlphabet}`);
 			authCode.trigger('focus');
 			return false;
 		}

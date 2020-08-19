@@ -211,7 +211,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('삭제할 대상을 목록에서 '+message.select);
+			sweetToast(`삭제할 대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

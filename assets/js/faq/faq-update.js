@@ -36,7 +36,7 @@
 			let value = detailData[i].type;
 			let name  = detailData[i].faq_name;
 
-			optionDom += '<option value="'+value+'">'+name+'</option>';
+			optionDom += `<option value="${value}">${name}</option>`
 		}
 
 		selFaqType.html(optionDom);
@@ -122,14 +122,14 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast('제목은 ' + message.required);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			sweetToast('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}

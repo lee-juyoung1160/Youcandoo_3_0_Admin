@@ -72,21 +72,15 @@
 
 	function getEventType()
 	{
-		$.ajax({
-			url: api.getEventType,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildEventType(data);
-				else
-					sweetError(invalidResp(data));
-			},
-			error: function (request, status) {
-				sweetError('구분 '+label.list+message.ajaxLoadError);
-			}
-		});
+		let url = api.getEventType;
+		let errMsg = `구분 ${label.list+message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getEventTypeCallback, errMsg, false);
+	}
+
+	function getEventTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildEventType(data) : sweetError(invalidResp(data));
 	}
 
 	function initComponent()
@@ -178,67 +172,67 @@
 
 		if (isEmpty(title.val()))
 		{
-			sweetToast('제목은 ' + message.required);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(contentWrap) && isEmpty(content.val()))
 		{
-			sweetToast('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
 		{
-			sweetToast('유의사항은 ' + message.required);
+			sweetToast(`유의사항은 ${message.required}`);
 			notice.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && isEmpty(eventLink.val()))
 		{
-			sweetToast('링크는 ' + message.required);
+			sweetToast(`링크는 ${message.required}`);
 			eventLink.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && !isDomainName(eventLink.val().trim()))
 		{
-			sweetToast('링크 형식을 ' + message.doubleChk);
+			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			eventLink.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(webWrap) && htmlFile.length === 0)
 		{
-			sweetToast('html 파일은 ' + message.required);
+			sweetToast(`html 파일은 ${message.required}`);
 			return false;
 		}
 
 		if (isDisplay(contentImageWrap) && contentImageFile.length === 0)
 		{
-			sweetToast('본문 이미지는 ' + message.required);
+			sweetToast(`본문 이미지는 ${message.required}`);
 			return false;
 		}
 
 		if (thumbnailFile.length === 0)
 		{
-			sweetToast('썸네일 이미지는 ' + message.required);
+			sweetToast(`썸네일 이미지는 ${message.required}`);
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
-			sweetToast('기간(시작일)은 ' + message.required);
+			sweetToast(`기간(시작일)은 ${message.required}`);
 			eventFrom.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
-			sweetToast('기간(종료일)은 ' + message.required);
+			sweetToast(`기간(종료일)은 ${message.required}`);
 			eventTo.trigger('focus');
 			return false;
 		}

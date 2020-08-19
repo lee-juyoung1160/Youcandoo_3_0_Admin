@@ -50,7 +50,7 @@
 	function getFaqType()
 	{
 		let url 	= api.getFaqType;
-		let errMsg 	= '구분 '+label.list+message.ajaxLoadError;
+		let errMsg 	= `구분 ${label.list} ${message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(true, url, null, getFaqTypeCallback, errMsg, completeCallback);
 	}
@@ -63,14 +63,14 @@
 	function buildFaqType(data)
 	{
 		let detail 		= data.data;
-		let optionDom 	= '<option value="">전체</option>';
+		let optionDom 	= '';
 
 		for (let i=0; i<detail.length; i++)
 		{
 			let value = detail[i].type;
 			let name  = detail[i].faq_name;
 
-			optionDom += '<option value="'+value+'">'+name+'</option>';
+			optionDom += i === 0 ? '<option value="">전체</option>' : `<option value="${value}">${name}</option>`
 		}
 
 		faqType.html(optionDom);
@@ -236,7 +236,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('삭제할 대상을 목록에서 '+message.select);
+			sweetToast(`삭제할 대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

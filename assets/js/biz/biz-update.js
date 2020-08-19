@@ -39,12 +39,12 @@
 	function buildDetail(data)
 	{
 		let detail = data.data;
-		let thumbnailDom = '';
-		thumbnailDom += '<div class="upload-display">';
-		thumbnailDom += 	'<div class="upload-thumb-wrap">';
-		thumbnailDom += 		'<img src="'+detail.image_path+'" class="upload-thumb">';
-		thumbnailDom += 	'</div>';
-		thumbnailDom += '</div>';
+		let thumbnailDom =
+			`<div class="upload-display">
+				<div class="upload-thumb-wrap">
+					<img src="${detail.image_path}" class="upload-thumb">
+				</div>
+			</div>`
 		thumbnailWarp.prepend(thumbnailDom);
 		bizName.html(detail.company_name);
 		bizNumber.html(detail.company_number);
@@ -94,21 +94,21 @@
 	{
 		if (isEmpty(bizLink.val()))
 		{
-			sweetToast('홈페이지 링크는 ' + message.required);
+			sweetToast(`홈페이지 링크는 ${message.required}`);
 			bizLink.trigger('focus');
 			return false;
 		}
 
 		if (!isDomainName(bizLink.val()))
 		{
-			sweetToast('홈페이지 링크 형식을 ' + message.doubleChk);
+			sweetToast(`홈페이지 링크 형식을 ${message.doubleChk}`);
 			bizLink.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(bizDesc.val()))
 		{
-			sweetToast('소개내용은 ' + message.required);
+			sweetToast(`소개내용은 ${message.required}`);
 			bizDesc.trigger('focus');
 			return false;
 		}

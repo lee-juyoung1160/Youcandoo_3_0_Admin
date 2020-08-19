@@ -146,14 +146,16 @@
         {
             let txt = summaryData.text[i];
             let ucd = summaryData.data[i];
+            let totalTextCalss = i === 0 ? 'total-text' : '';
 
-            innerEl += '<dl>'
-            innerEl +=   '<dt class="title">'+txt+'</dt>';
-            innerEl +=   i === 0 ? '<dd class="ucd-text total-text">' : '<dd class="ucd-text">';
-            innerEl +=      '<img src="/assets/images/icon_ucd_s.png" alt="아이콘">';
-            innerEl +=      '<span>'+numberWithCommas(ucd)+'</span>';
-            innerEl +=   '</dd>';
-            innerEl += '</dl>';
+            innerEl +=
+                `<dl>
+                    <dt class="title">${txt}</dt>
+                    <dd class="ucd-text ${totalTextCalss}">
+                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                        <span>${numberWithCommas(ucd)}</span>
+                    </dd>
+                </dl>`
         }
 
         summaryWrap.html(innerEl);
@@ -165,19 +167,22 @@
         let rows = getGrid(data);
         let i = 0
         let innerEl = '';
-        innerEl += '<thead>'
-        innerEl +=    '<tr>'
+        innerEl +=
+            `<thead>
+                <tr>`
         for (i; i<rows.text.length; i++)
-        {
-            let txt = rows.text[i];
-
-            innerEl +=   '<th>'+txt+'</th>';
-        }
-        innerEl +=     '</tr>';
-        innerEl += '</thead>';
-        innerEl += '<tbody>';
-        innerEl +=    rowLength > 0 ? rows.el : '<tr><td colspan="'+rows.text.length+'"><p class="result-message">조회결과가 없습니다.</p></td></tr>';
-        innerEl += '</tbody>';
+            innerEl += `<th>${rows.text[i]}</th>`
+        innerEl +=
+                `</tr>
+            </thead>
+            <tbody>`
+        innerEl += rowLength > 0 ?
+                rows.el : 
+                `<tr>
+                    <td colspan="${rows.text.length}"><p class="result-message">조회결과가 없습니다.</p></td>
+                </tr>`
+        innerEl +=
+            `</tbody>`
 
         grid.html(innerEl);
     }
@@ -284,12 +289,13 @@
                     let user = row.user_ucd;
                     let company = row.company_ucd;
                     let tot = Number(user)+Number(company);
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(tot)}</td>
+                            <td class="cursor-default">${numberWithCommas(user)}</td>
+                            <td class="cursor-default">${numberWithCommas(company)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -305,13 +311,14 @@
                     let doit = row.doit_ucd;
                     let promotion = row.promotion_ucd;
                     let tot = Number(doit)+Number(promotion);
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(doit)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(promotion)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(avg)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(tot)}</td>
+                            <td class="cursor-default">${numberWithCommas(doit)}</td>
+                            <td class="cursor-default">${numberWithCommas(promotion)}</td>
+                            <td class="cursor-default">${numberWithCommas(avg)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -323,10 +330,11 @@
                 for (i; i<rows.length; i++)
                 {
                     let row = rows[i];
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -337,10 +345,11 @@
                 for (i; i<rows.length; i++)
                 {
                     let row = rows[i];
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -351,11 +360,12 @@
                 for (i; i<rows.length; i++)
                 {
                     let row = rows[i];
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.avg)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                            <td class="cursor-default">${numberWithCommas(row.avg)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -366,10 +376,11 @@
                 for (i; i<rows.length; i++)
                 {
                     let row = rows[i];
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(row.ucd)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                        </tr>`
                 }
 
                 return {
@@ -383,12 +394,13 @@
                     let user = row.user_ucd;
                     let company = row.company_ucd;
                     let tot = Number(user)+Number(company);
-                    rowEl += '<tr>';
-                    rowEl +=   '<td class="cursor-default">'+row.created_date+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(tot)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(user)+'</td>';
-                    rowEl +=   '<td class="cursor-default">'+numberWithCommas(company)+'</td>';
-                    rowEl += '</tr>';
+                    rowEl +=
+                        `<tr>
+                            <td class="cursor-default">${row.created_date}</td>
+                            <td class="cursor-default">${numberWithCommas(tot)}</td>
+                            <td class="cursor-default">${numberWithCommas(user)}</td>
+                            <td class="cursor-default">${numberWithCommas(company)}</td>
+                        </tr>`
                 }
 
                 return {

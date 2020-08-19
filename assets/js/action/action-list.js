@@ -348,7 +348,7 @@
 	{
 		let actions    = data.data;
 		let dataLen    = actions.length;
-		let totalCount = data.recordsTotal
+		let totalCount = data.recordsTotal;
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
 		/** total count **/
@@ -448,8 +448,8 @@
 		let pageLength  = last <= 10 ? last : 6;
 		let i;
 		let current;
-
 		let pageDom = '';
+
 		pageDom += currentPage === 1 ?
 			`<a class="paginate_button previous disabled" id="dataTable_previous">${label.previous}</a><span>` :
 			`<a onclick="onClickPageNum(this)" 
@@ -489,7 +489,7 @@
 					{
 						pageDom +=
 							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
-							 <span class="ellipsis">…</span>`
+							<span class="ellipsis">…</span>`
 					}
 
 					if (currentPage === i)
@@ -516,7 +516,7 @@
 					{
 						pageDom +=
 							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
-							 <span class="ellipsis">…</span>`
+							<span class="ellipsis">…</span>`
 					}
 
 					if (i >= pageLength - 4)

@@ -43,10 +43,10 @@
     function initSelectBox()
     {
         for (defaultYear; defaultYear <= year; defaultYear++)
-            selYear.prepend('<option value="'+defaultYear+'">'+defaultYear+' 년</option>');
+            selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
         for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            selMonth.prepend('<option value="'+appendZero(defaultMonth)+'">'+appendZero(defaultMonth)+' 월</option>');
+            selMonth.prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
 
         initSelectOption();
     }
@@ -55,7 +55,7 @@
     function getSummaryUcd()
     {
         let url    = api.summaryUcd;
-        let errMsg = '상단 UCD 누적 데이터'+ message.ajaxLoadError;
+        let errMsg = `상단 UCD 누적 데이터${message.ajaxLoadError}`;
 
         ajaxRequestWithJsonData(false, url, null, getSummaryUcdCallback, errMsg, false);
     }
@@ -80,7 +80,7 @@
 
         let issuanceTotalEl = issuanceUcd.find('span');
         let rewardTotalEl   = rewardUcd.find('span');
-        let budgetTotalEl  = budgetUcd.find('span');
+        let budgetTotalEl   = budgetUcd.find('span');
         let doitTotalEl     = doitUcd.find('span');
         let exchangeTotalEl = exchangeUcd.find('span');
         let cancelTotalEl   = cancelUcd.find('span');
@@ -107,7 +107,7 @@
         }
 
         let url     = getApiUrl();
-        let errMsg  = '데이터'+ message.ajaxLoadError;
+        let errMsg  = `차트데이터${message.ajaxLoadError}`;
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), initPageCallback, errMsg, false);
     }
@@ -146,13 +146,14 @@
         {
             let txt = summaryData.text[i];
             let ucd = summaryData.data[i];
-            let totalTextCalss = i === 0 ? 'total-text' : '';
+            let totalTextClass = i === 0 ? 'total-text' : '';
+            let icon = txt.includes('회원') ? '<i class="fas fa-user"></i>' : '<img src="/assets/images/icon_ucd_s.png" alt="아이콘">';
 
             innerEl +=
                 `<dl>
                     <dt class="title">${txt}</dt>
-                    <dd class="ucd-text ${totalTextCalss}">
-                        <img src="/assets/images/icon_ucd_s.png" alt="아이콘">
+                    <dd class="ucd-text ${totalTextClass}">
+                        ${icon}
                         <span>${numberWithCommas(ucd)}</span>
                     </dd>
                 </dl>`
@@ -208,7 +209,7 @@
         }
 
         let url     = getApiUrl();
-        let errMsg  = '데이터'+ message.ajaxLoadError;
+        let errMsg  = `차트데이터${message.ajaxLoadError}`;
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), updatePageCallback, errMsg, false);
     }
@@ -243,8 +244,8 @@
                 };
             case 'reward':
                 return {
-                    text : ['전체', '일반 두잇', '프로모션 두잇', '인당 평균 적립액']
-                    ,data : [Number(summaryData.total_ucd), Number(summaryData.promotion_ucd), Number(summaryData.doit_ucd), Number(summaryData.avg)]
+                    text : ['전체', '일반 두잇', '프로모션 두잇', '적립받은 회원 수', '인당 평균 적립액']
+                    ,data : [Number(summaryData.total_ucd), Number(summaryData.promotion_ucd), Number(summaryData.doit_ucd), Number(summaryData.member), Number(summaryData.avg)]
                 };
             case 'budget':
                 return {
@@ -253,13 +254,13 @@
                 };
             case 'doit':
                 return {
-                    text : ['전체']
-                    ,data : [Number(summaryData.ucd)]
+                    text : ['전체', '일반', '프로모션', '반환']
+                    ,data : [Number(summaryData.ucd), Number(summaryData.doit_ucd), Number(summaryData.promotion_ucd), Number(summaryData.cancel_ucd)]
                 };
             case 'exchange':
                 return {
-                    text : ['전체', '인당 평균 교환 UCD']
-                    ,data : [Number(summaryData.ucd), Number(summaryData.avg)]
+                    text : ['전체', '교환한 회원 수', '인당 평균 교환 UCD']
+                    ,data : [Number(summaryData.ucd), Number(summaryData.member), Number(summaryData.avg)]
                 };
             case 'cancel':
                 return {
@@ -308,6 +309,7 @@
                 {
                     let row = rows[i];
                     let avg = row.avg;
+                    let member = row.member;
                     let doit = row.doit_ucd;
                     let promotion = row.promotion_ucd;
                     let tot = Number(doit)+Number(promotion);
@@ -317,12 +319,13 @@
                             <td class="cursor-default">${numberWithCommas(tot)}</td>
                             <td class="cursor-default">${numberWithCommas(doit)}</td>
                             <td class="cursor-default">${numberWithCommas(promotion)}</td>
+                            <td class="cursor-default">${numberWithCommas(member)}</td>
                             <td class="cursor-default">${numberWithCommas(avg)}</td>
                         </tr>`
                 }
 
                 return {
-                    text : ['일자', '전체', '일반 두잇', '프로모션 두잇', '인당 평균 적립액']
+                    text : ['일자', '전체', '일반 두잇', '프로모션 두잇', '적립받은 회원 수', '인당 평균 적립액']
                     ,el : rowEl
                 };
 
@@ -348,12 +351,14 @@
                     rowEl +=
                         `<tr>
                             <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                            <td class="cursor-default">${numberWithCommas(row.total_ucd)}</td>
+                            <td class="cursor-default">${numberWithCommas(row.doit_ucd)}</td>
+                            <td class="cursor-default">${numberWithCommas(row.promotion_ucd)}</td>
                         </tr>`
                 }
 
                 return {
-                    text : ['일자', '전체']
+                    text : ['일자', '전체', '일반', '프로모션']
                     ,el : rowEl
                 };
             case 'exchange':
@@ -364,12 +369,13 @@
                         `<tr>
                             <td class="cursor-default">${row.created_date}</td>
                             <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                            <td class="cursor-default">${numberWithCommas(row.member)}</td>
                             <td class="cursor-default">${numberWithCommas(row.avg)}</td>
                         </tr>`
                 }
 
                 return {
-                    text : ['일자', '전체', '인당 평균 교환 UCD']
+                    text : ['일자', '전체', '교환한 회원 수' ,'인당 평균 교환 UCD']
                     ,el : rowEl
                 };
             case 'cancel':

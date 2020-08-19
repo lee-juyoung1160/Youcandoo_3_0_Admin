@@ -33,7 +33,7 @@
 		,onlyAlphabet: '영문만 입력할 수 있습니다.'
 		,ajaxError: ` 처리 중, 일시적인 오류가 발생했습니다.
 					잠시 후 다시 시도해주세요.`
-		,ajaxLoadError: `을 불러올 수 없습니다.
+		,ajaxLoadError: `을(를) 불러올 수 없습니다.
 						잠시 후 다시 시도해주세요.`
 		,compareMinMaxUser: '최소인원은 최대인원을 초과할 수 없습니다.'
 		,completePost: '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'

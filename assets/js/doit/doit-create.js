@@ -106,10 +106,11 @@
 			if (isEmpty(tagArr) || tagArr.indexOf(inputValue) === -1)
 			{
 				let tagDom = '';
-				tagDom += '<li>';
-				tagDom += 	'#<span class="tag-name added-tag">'+inputValue+'</span>';
-				tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
-				tagDom += '</li>';
+				tagDom +=
+					`<li>
+						#<span class="tag-name added-tag">${inputValue}</span>
+						<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>
+					</li>`
 
 				addedTags.append(tagDom);
 
@@ -126,7 +127,7 @@
 
 		if (isEmpty(inputTag.val()))
 		{
-			sweetToast('태그를 '+message.input);
+			sweetToast(`태그를 ${message.input}`);
 			inputTag.trigger('focus');
 			return false;
 		}
@@ -146,7 +147,7 @@
 
 		if (tagLen >= 3)
 		{
-			sweetToast('태그는 '+message.maxAddThree);
+			sweetToast(`태그는 ${message.maxAddThree}`);
 			return false;
 		}
 
@@ -194,7 +195,7 @@
 				}
 			},
 			columns: [
-				{title: "기업명",	data: "value",    orderable: false }
+				{title: "기업명",	data: "value" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -230,7 +231,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		/** 기업명에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.key+'\',\''+aData.value+'\')');
+		$(nRow).attr('onClick', `setSelectedBiz("${aData.key}", "${aData.value}")`);
 	}
 
 	let g_biz_uuid;
@@ -352,48 +353,45 @@
 
 			let totalReward = Number(detail.person_reward) + Number(detail.group_reward);
 
-			selectedRewardDom += '<li class="reward-type clearfix">';
-			selectedRewardDom += 	'<p class="sub-title">';
-			selectedRewardDom +=		'<i class="far fa-check-square" style="color:#007aff; cursor:default;">';
-			selectedRewardDom +=		'</i> 선택하신  프로모션 관련 리워드 조건입니다.';
-			selectedRewardDom += 	'</p>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">두잇 참여 인원</p>';
-			selectedRewardDom += 		'<p class="detail-data">'+detail.user_limit_title+'</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">인증기간</p>';
-			selectedRewardDom += 		'<p class="detail-data">'+detail.action_duration+'일</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">주간빈도</p>';
-			selectedRewardDom += 		'<p class="detail-data">'+detail.action_dayofweek+'</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">일일 인증 횟수</p>';
-			selectedRewardDom += 		'<p class="detail-data">'+detail.action_daily_allow+'회</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">목표달성률</p>';
-			selectedRewardDom += 		'<p class="detail-data">'+Math.floor(detail.goal_percent)+'%</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<div class="detail-data-wrap clearfix">';
-			selectedRewardDom += 		'<p class="sub-tit">1인 지급 최대 UCD</p>';
-			selectedRewardDom += 		'<p class="detail-data">';
-			selectedRewardDom += 			numberWithCommas(totalReward)+' UCD ';
-			selectedRewardDom += 			'(개인: '+numberWithCommas(detail.person_reward)+' UCD / ';
-			selectedRewardDom += 			'단체: '+numberWithCommas(detail.group_reward)+' UCD)';
-			selectedRewardDom += 		'</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += 	'<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>';
-			selectedRewardDom += 	'<div class="fixed">';
-			selectedRewardDom += 		'<p class="cap">남은 UCD는 ';
-			selectedRewardDom += 			'<span style="font-size: 19px; font-weight: 600; color: #007aff;">';
-			selectedRewardDom += 				numberWithCommas(detail.remain_budget_ucd)+' UCD';
-			selectedRewardDom +=			'</span> 입니다.';
-			selectedRewardDom += 		'</p>';
-			selectedRewardDom += 	'</div>';
-			selectedRewardDom += '</li>';
+			selectedRewardDom +=
+				`<li class="reward-type clearfix">
+					<p class="sub-title">
+						<i class="far fa-check-square" style="color:#007aff; cursor:default;">
+						</i> 선택하신  프로모션 관련 리워드 조건입니다.
+					</p>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">두잇 참여 인원</p>
+						<p class="detail-data">${detail.user_limit_title}</p>
+					</div>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">인증기간</p>
+						<p class="detail-data">${detail.action_duration}일</p>
+					</div>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">주간빈도</p>
+						<p class="detail-data">${detail.action_dayofweek}</p>
+					</div>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">일일 인증 횟수</p>
+						<p class="detail-data">${detail.action_daily_allow}회</p>
+					</div>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">목표달성률</p>
+						<p class="detail-data">${Math.floor(detail.goal_percent)}%</p>
+					</div>
+					<div class="detail-data-wrap clearfix">
+						<p class="sub-tit">1인 지급 최대 UCD</p>
+						<p class="detail-data">
+							${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(detail.person_reward)} UCD / 단체: ${numberWithCommas(detail.group_reward)} UCD)
+						</p>
+					</div>
+					<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>
+					<div class="fixed">
+						<p class="cap">남은 UCD는 
+							<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(detail.remain_budget_ucd)} UCD</span> 입니다.
+						</p>
+					</div>
+				</li>`
 
 			selectedReward.html(selectedRewardDom);
 
@@ -408,25 +406,33 @@
 		let introType = $(obj).val();
 		let introText = $("label[for='"+$(obj).prop("id")+"']").text();
 		let introFileDom = '';
-		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
+		introFileDom += `<p class="cap important">두잇 소개 방법 중 <span>${introText}</span>를(을) 선택하셨습니다.`;
 		if (introType === 'video')
-			introFileDom += '<span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
+			introFileDom += `<span>영상</span> 및 썸네일을 업로드 해주세요!</p>`;
 		else
-			introFileDom += '<span>사진</span>을 업로드 해주세요!</p>';
-		introFileDom += '<div class="filebox preview-image">';
-		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
-		introFileDom += 	'<label for="introImage">업로드</label>';
-		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
-		introFileDom += '</div>';
+			introFileDom += `<span>사진</span>을 업로드 해주세요!</p>`;
+		introFileDom +=
+			`<div class="filebox preview-image">
+				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+				<input class="upload-name" value="파일선택" disabled="disabled">
+				<label for="introImage">업로드</label>
+				<input type="file" 
+						id="introImage" 
+						class="upload-hidden" 
+						data-width="650" 
+						data-height="650" 
+						data-oper="eq" 
+						onchange="onChangeValidationImage(this)">
+			</div>`
 		if (introType === 'video')
 		{
-			introFileDom += '<div class="filebox preview-image">';
-			introFileDom += 	'<p class="cap">영상</p>';
-			introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
-			introFileDom += 	'<label for="introVideo">업로드</label>';
-			introFileDom += 	'<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
-			introFileDom += '</div>';
+			introFileDom +=
+				`<div class="filebox preview-image">
+					<p class="cap">영상</p>
+					<input class="upload-name" value="파일선택" disabled="disabled" >
+					<label for="introVideo">업로드</label>
+					<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">
+				</div>`
 		}
 
 		introFileArea.html(introFileDom);
@@ -449,13 +455,20 @@
 	function buildExampleImage()
 	{
 		let fileDom = '';
-		fileDom += '<div class="filebox preview-image">';
-		fileDom += 	'<p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>';
-		fileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
-		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
-		fileDom += '</div>';
+		fileDom +=
+			`<div class="filebox preview-image">
+				<p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
+				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+				<input class="upload-name" value="파일선택" disabled="disabled" >
+				<label for="exampleFile">업로드</label>
+				<input type="file" 
+						id="exampleFile" 
+						class="upload-hidden" 
+						data-width="650" 
+						data-height="650" 
+						data-oper="eq" 
+						onchange="onChangeValidationImage(this)">
+			</div>`
 
 		exampleArea.html(fileDom);
 	}
@@ -463,21 +476,27 @@
 	function buildExampleVideo()
 	{
 		let fileDom = '';
-		fileDom += '<div class="wrap">';
-		fileDom += 	'<p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
-		fileDom += 	'<div class="filebox preview-image">';
-		fileDom += 		'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
-		fileDom += 		'<label for="exampleFile">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleFile" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
-		fileDom += 	'</div>';
-		fileDom += 	'<div class="filebox preview-image">';
-		fileDom += 		'<p class="cap">영상</p>';
-		fileDom += 		'<input class="upload-name" value="파일선택" disabled="disabled">';
-		fileDom += 		'<label for="exampleVideo">업로드</label>';
-		fileDom += 		'<input type="file" id="exampleVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
-		fileDom += 	'</div>';
-		fileDom += '</div>';
+			`<div class="wrap">
+				<p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>
+				<div class="filebox preview-image">
+					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+					<input class="upload-name" value="파일선택" disabled="disabled">
+					<label for="exampleFile">업로드</label>
+					<input type="file" 
+							id="exampleFile" 
+							class="upload-hidden" 
+							data-width="650" 
+							data-height="650" 
+							data-oper="eq" 
+							onchange="onChangeValidationImage(this)">
+				</div>
+				<div class="filebox preview-image">
+					<p class="cap">영상</p>
+					<input class="upload-name" value="파일선택" disabled="disabled">
+					<label for="exampleVideo">업로드</label>
+					<input type="file" id="exampleVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">
+				</div>
+			</div>`
 
 		exampleArea.html(fileDom);
 	}
@@ -485,12 +504,13 @@
 	function buildExampleVoice()
 	{
 		let fileDom = '';
-		fileDom += '<div class="filebox preview-image">';
-		fileDom += 	'<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>';
-		fileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
-		fileDom += 	'<label for="exampleFile">업로드</label>';
-		fileDom += 	'<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">';
-		fileDom += '</div>';
+		fileDom +=
+			`<div class="filebox preview-image">
+				<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>
+				<input class="upload-name" value="파일선택" disabled="disabled" >
+				<label for="exampleFile">업로드</label>
+				<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">
+			</div>`
 
 		exampleArea.html(fileDom);
 	}
@@ -566,6 +586,7 @@
 
 	function validation()
 	{
+		let msg;
 		let tagLen 				= addedTags.find('li').length;
 		let introVideoDom 		= $("#introVideo");
 		let introImageFile		= $("#introImage")[0].files;
@@ -580,7 +601,9 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			sweetToast('프로모션은 ' + message.required+'\n기업명을 '+message.select);
+			msg = `기업명은 ${message.required}
+					기업명을 ${message.select}`
+			sweetToast(msg);
 			scrollToTarget(bizName);
 			onClickBizName();
 			return false;
@@ -588,7 +611,9 @@
 
 		if (isEmpty(selPromo.val()))
 		{
-			sweetToast('프로모션은 ' + message.required+'\n프로모션을 '+message.select);
+			msg = `프로모션은 ${message.required}
+					프로모션을 ${message.select}`
+			sweetToast(msg);
 			scrollToTarget(selPromo);
 			selPromo.trigger('focus');
 			return false;
@@ -596,7 +621,9 @@
 
 		if (isEmpty(selReward.val()))
 		{
-			sweetToast('리워드 조건은 ' + message.required+'\n리워드 조건을 '+message.select);
+			msg = `리워드 조건은  ${message.required}
+					리워드 조건을 ${message.select}`
+			sweetToast(msg);
 			scrollToTarget(selReward);
 			selReward.trigger('focus');
 			return false;
@@ -604,67 +631,67 @@
 
 		if (isEmpty(doitTitle.val()))
 		{
-			sweetToast('두잇명은 ' + message.required);
+			sweetToast(`두잇명은 ${message.required}`);
 			doitTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitDesc.val()))
 		{
-			sweetToast('소개글은 '+message.required);
+			sweetToast(`소개글은 ${message.required}`);
 			doitDesc.trigger('focus');
 			return false;
 		}
 
 		if (tagLen === 0)
 		{
-			sweetToast('태그를 ' + message.addOn);
+			sweetToast(`태그를 ${message.addOn}`);
 			return false;
 		}
 
 		if (introImageFile.length === 0)
 		{
-			sweetToast('두잇 소개 이미지는 ' + message.required);
+			sweetToast(`두잇 소개 이미지는 ${message.required}`);
 			return false;
 		}
 
 		if ($('input:radio[name=radio-intro-type]:checked').val() === 'video' && introVideoFile.length === 0)
 		{
-			sweetToast('두잇 소개 영상은 ' + message.required);
+			sweetToast(`두잇 소개 영상은 ${message.required}`);
 			return false;
 		}
 
 		if (chkExtraReward.is(':checked') && isEmpty(extraReward.val()))
 		{
-			sweetToast('추가리워드를 '+message.input);
+			sweetToast(`추가리워드를 ${message.input}`);
 			extraReward.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitFrom.val()))
 		{
-			sweetToast('인증기간(시작일)은 '+message.required);
+			sweetToast(`인증기간(시작일)은 ${message.required}`);
 			doitFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(doitTo.val()))
 		{
-			sweetToast('인증기간(종료일)은 '+message.required);
+			sweetToast(`인증기간(종료일)은 ${message.required}`);
 			doitTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(startTime.val()))
 		{
-			sweetToast('인증시간(시작)은 '+message.required);
+			sweetToast(`인증시간(시작)은 ${message.required}`);
 			startTime.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(endTime.val()))
 		{
-			sweetToast('인증시간(종료)은 '+message.required);
+			sweetToast(`인증시간(종료)은 ${message.required}`);
 			endTime.trigger('focus');
 			return false;
 		}
@@ -680,7 +707,7 @@
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
-			sweetToast('참가코드를 '+message.input);
+			sweetToast(`참가코드를 ${message.input}`);
 			privateCode.trigger('focus');
 			return false;
 		}
@@ -694,19 +721,19 @@
 
 		if (example.length === 0)
 		{
-			sweetToast('인증 예시는 ' + message.required);
+			sweetToast(`인증 예시는 ${message.required}`);
 			return false;
 		}
 
 		if ($('input:radio[name=radio-example-type]:checked').val() === 'video' && exampleVideoFile.length === 0)
 		{
-			sweetToast('인증 예시 영상은 ' + message.required);
+			sweetToast(`인증 예시 영상은 ${message.required}`);
 			return false;
 		}
 
 		if (isEmpty(exampleDesc.val()))
 		{
-			sweetToast('인증 예시 설명은 '+message.required);
+			sweetToast(`인증 예시 설명은 ${message.required}`);
 			exampleDesc.trigger('focus');
 			return false;
 		}

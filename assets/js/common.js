@@ -340,11 +340,12 @@
         reader.onload = function() {
 
             let innerDom = '';
-            innerDom += '<div class="upload-display">';
-            innerDom += 	'<div class="upload-thumb-wrap">';
-            innerDom += 		'<img src="'+reader.result+'" class="upload-thumb">';
-            innerDom += 	'</div>';
-            innerDom += '</div>';
+            innerDom +=
+                `<div class="upload-display">
+                    <div class="upload-thumb-wrap">
+                        <img src="${reader.result}" class="upload-thumb">
+                    </div>
+                </div>`
 
             $(obj).parent().prepend(innerDom);
         }
@@ -385,8 +386,9 @@
 
         if (fileStatus.indexOf(code) > -1)
         {
-            msg = '선택한 이미지 사이즈는 '+data.data.width+'x'+data.data.height+'입니다.\n';
-            msg += data.msg;
+            msg =
+                `선택한 이미지 사이즈는 ${data.data.width} x ${data.data.height} 입니다.
+                 ${data.msg}`
         }
 
         return msg;
@@ -394,10 +396,7 @@
 
     function isSuccessResp(data)
     {
-        if (getStatusCode(data) === 30000)
-            return true;
-        else
-            return false;
+        return getStatusCode(data) === 30000;
     }
 
     function invalidResp(data)
@@ -465,22 +464,22 @@
     /** 테이블 영역 체크박스 **/
     function tableCheckAllDom()
     {
-        let chkAll = '<div class="checkbox-wrap">';
-        chkAll +=       '<input onclick="onClickChkAll(this);" type="checkbox" name="chk-row" id="checkAll"/>';
-        chkAll +=       '<label for="checkAll"><span></span></label>'
-        chkAll += '</div>';
-
-        return chkAll;
+        return (
+            `<div class="checkbox-wrap">
+                <input onclick="onClickChkAll(this);" type="checkbox" name="chk-row" id="checkAll"/>
+                <label for="checkAll"><span></span></label>
+            </div>`
+        )
     }
 
     function singleCheckBoxDom(idx)
     {
-        return '<input onclick="toggleSingleCheckBox(this);" type="checkbox" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+        return `<input onclick="toggleSingleCheckBox(this);" type="checkbox" id="${idx}"/><label for="${idx}"><span></span></label>`
     }
 
     function multiCheckBoxDom(idx)
     {
-        return '<input onclick="onClickChkRow(this)" type="checkbox" name="chk-row" id="'+idx+'"/><label for="'+idx+'"><span></span></label>';
+        return `<input onclick="onClickChkRow(this)" type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label>`
     }
 
     function toggleSingleCheckBox(obj)
@@ -635,13 +634,14 @@
             {
                 if (isOuterIp() && isPrivateMenu(mainName)) continue;
 
-                menuDom += '<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="'+target+'">';
-                menuDom +=     '<div class="btn-wrap clearfix">';
-                menuDom +=         '<i class="far ' +mainIcon+'"></i>';
-                menuDom +=         '<span>'+mainName+'</span>';
-                menuDom +=         '<i class="fas fa-chevron-right arrow-i"></i>';
-                menuDom +=     '</div>';
-                menuDom +=     '<ul class="menu-btn-list ' +target+'">';
+                menuDom +=
+                    `<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="${target}">
+                        <div class="btn-wrap clearfix">
+                            <i class="far ${mainIcon}"></i>
+                            <span>${mainName}</span>
+                            <i class="fas fa-chevron-right arrow-i"></i>
+                        </div>
+                        <ul class="menu-btn-list ' +target+'">`
                 if (children)
                 {
                     let subKeys = Object.getOwnPropertyNames(children);
@@ -654,14 +654,15 @@
 
                         if (subView === true)
                         {
-                            menuDom += '<li onclick="onClickChildMenu(this);"><a href="'+menuPath+'">'+subName+'</a></li>';
+                            menuDom += `<li onclick="onClickChildMenu(this);"><a href="${menuPath}">${subName}</a></li>`
                             buildAccessibleMenus(menuPath);
                         }
                     }
                 }
-                menuDom +=     '</ul>';
-                menuDom +=     '<div class="bar"></div>';
-                menuDom += '</li>';
+                menuDom +=
+                        `</ul>
+                        <div class="bar"></div>
+                    </li>`
             }
         }
 
@@ -670,7 +671,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard'];
     function buildAccessibleMenus(_auth)
     {
         /**

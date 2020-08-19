@@ -84,10 +84,11 @@
 				if (!isEmpty(tags[i]))
 				{
 					let tag = replaceAll(tags[i], '#', '');
-					tagDom += '<li>';
-					tagDom += 	'#<span class="tag-name added-tag">'+tag+'</span>';
-					tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
-					tagDom += '</li>';
+					tagDom +=
+						`<li>
+							#<span class="tag-name added-tag">${tag}</span>
+							<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>
+						</li>`
 				}
 			}
 			addedTags.html(tagDom);
@@ -127,11 +128,12 @@
 	function buildThumbnailDom()
 	{
 		let introImgDom = '';
-		introImgDom += '<div class="upload-display">';
-		introImgDom += 	'<div class="upload-thumb-wrap">';
-		introImgDom += 		'<img src="'+introImg+'" class="upload-thumb">';
-		introImgDom += 	'</div>';
-		introImgDom += '</div>';
+		introImgDom +=
+			`<div class="upload-display">
+					<div class="upload-thumb-wrap">
+					<img src="${introImg}" class="upload-thumb">
+				</div>
+			</div>`
 		$("#introImage").parent().prepend(introImgDom);
 	}
 
@@ -153,34 +155,37 @@
 		{
 			let imageUrl = data.example_thumbnail_image_url;
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
-			actionResourceDom += '<div class="file">';
-			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
-			actionResourceDom += '</div>';
+			actionResourceDom +=
+				`<div class="file">
+					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다.">
+				</div>`
 		}
 		else if (type === 'video')
 		{
 			let imageUrl = data.example_video_thumbnail_image_url;
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
-			actionResourceDom += '<div class="file">';
-			actionResourceDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-			actionResourceDom += 	'<img class="detail-img main-banner" src="'+imageUrl+'" alt="썸네일 이미지입니다.">';
-			actionResourceDom += '</div>';
-			actionResourceDom += '<div class="file">';
-			actionResourceDom += 	'<p class="cap">영상</p>';
-			actionResourceDom += 	'<video controls>';
-			actionResourceDom += 		'<source src="'+data.example_video_url+'">';
-			actionResourceDom += 	'</video>';
-			actionResourceDom += '</div>';
+			actionResourceDom +=
+				`<div class="file">
+					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다.">
+				</div>
+				<div class="file">
+					<p class="cap">영상</p>
+					<video controls>
+						<source src="${data.example_video_url}">
+					</video>
+				</div>`
 		}
 		else if (type === 'voice')
 		{
-			actionResourceDom += '<div class="file">';
-			actionResourceDom += 	'<p class="cap">음성</p>';
-			actionResourceDom += 	'<audio controls>';
-			actionResourceDom += 		'<source src="'+data.example_voice_url+'">';
-			actionResourceDom += 	'</audio>';
-			actionResourceDom += '</div>';
+			actionResourceDom +=
+				`<div class="file">
+					<p class="cap">음성</p>
+					<audio controls>
+						<source src="${data.example_voice_url}">
+					</audio>
+				</div>`
 		}
 
 		return actionResourceDom;
@@ -202,25 +207,33 @@
 		let introType = $(obj).val();
 		let introText = $("label[for='"+$(obj).attr("id")+"']").text();
 		let introFileDom = '';
-		introFileDom += '<p class="cap important">두잇 소개 방법 중 <span>'+introText+'</span>를(을) 선택하셨습니다.';
+		introFileDom += `<p class="cap important">두잇 소개 방법 중 <span>${introText}</span>를(을) 선택하셨습니다.`
 		if (introType === 'video')
 			introFileDom += '<span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
 		else
 			introFileDom += '<span>사진</span>을 업로드 해주세요!</p>';
-		introFileDom += '<div class="filebox preview-image">';
-		introFileDom += 	'<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
-		introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled">';
-		introFileDom += 	'<label for="introImage">업로드</label>';
-		introFileDom += 	'<input type="file" id="introImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq" onchange="onChangeValidationImage(this)">';
-		introFileDom += '</div>';
+
+		introFileDom +=
+			`<div class="filebox preview-image">
+				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
+				<input class="upload-name" value="파일선택" disabled="disabled">
+				<label for="introImage">업로드</label>
+				<input type="file" 
+						id="introImage" 
+						class="upload-hidden" 
+						data-width="650" 
+						data-height="650" 
+						data-oper="eq" onchange="onChangeValidationImage(this)">
+			</div>`
 		if (introType === 'video')
 		{
-			introFileDom += '<div class="filebox preview-image">';
-			introFileDom += 	'<p class="cap">영상</p>';
-			introFileDom += 	'<input class="upload-name" value="파일선택" disabled="disabled" >';
-			introFileDom += 	'<label for="introVideo">업로드</label>';
-			introFileDom += 	'<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">';
-			introFileDom += '</div>';
+			introFileDom +=
+				`<div class="filebox preview-image">
+					<p class="cap">영상</p>
+					<input class="upload-name" value="파일선택" disabled="disabled" >
+					<label for="introVideo">업로드</label>
+					<input type="file" id="introVideo" class="upload-hidden" onchange="onChangeValidationVideo(this)">
+				</div>`
 		}
 
 		introFileArea.html(introFileDom);
@@ -243,10 +256,11 @@
 			if (isEmpty(tagArr) || tagArr.indexOf(inputValue) === -1)
 			{
 				let tagDom = '';
-				tagDom += '<li>';
-				tagDom += 	'#<span class="tag-name added-tag">'+inputValue+'</span>';
-				tagDom += 	'<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>';
-				tagDom += '</li>';
+				tagDom +=
+					`<li>
+						#<span class="tag-name added-tag">${inputValue}</span>
+						<i class="delete-btn far fa-times-circle" onclick="removeTagDom(this);"></i>
+					</li>`
 
 				addedTags.append(tagDom);
 
@@ -262,7 +276,7 @@
 
 		if (isEmpty(inputTag.val()))
 		{
-			sweetToast('태그를 '+message.input);
+			sweetToast(`태그를 ${message.input}`);
 			inputTag.trigger('focus');
 			return false;
 		}
@@ -282,7 +296,7 @@
 
 		if (tagLen >= 3)
 		{
-			sweetToast('태그는 '+message.maxAddThree);
+			sweetToast(`태그는 ${message.maxAddThree}`);
 			return false;
 		}
 
@@ -295,20 +309,20 @@
 
 		if (isEmpty(doitDesc.val()))
 		{
-			sweetToast('소개글은 '+message.required);
+			sweetToast(`소개글은 ${message.required}`);
 			doitDesc.trigger('focus');
 			return false;
 		}
 
 		if (tagLen === 0)
 		{
-			sweetToast('태그를 ' + message.addOn);
+			sweetToast(`태그를 ${message.addOn}`);
 			return false;
 		}
 
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
-			sweetToast('참가코드를 '+message.input);
+			sweetToast(`참가코드를 ${message.input}`);
 			privateCode.trigger('focus');
 			return false;
 		}

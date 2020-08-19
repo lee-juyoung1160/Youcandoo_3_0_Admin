@@ -862,8 +862,8 @@
 
 				actionDom +=
 					`<li>
-						<div class="top clearfix">';
-							<div class="checkbox-wrap">';
+						<div class="top clearfix">
+							<div class="checkbox-wrap">
 								<input type="checkbox" data-is-yellow="${action.yellow_card}" id="${actionId}" name="chk-warn" value="${action.action_uuid}" ${disableChkBox}/>
 								<label for="${actionId}"><span></span></label>
 							</div>

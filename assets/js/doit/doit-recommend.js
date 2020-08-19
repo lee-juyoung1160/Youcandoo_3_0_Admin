@@ -73,7 +73,7 @@
 				}
 				,{title: "", 	data: "doit_uuid", 		width: "10px",    className: "cursor-default",
 					render: function (data) {
-						return '<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="'+data+'" class="far fa-times-circle"></i>';
+						return `<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="${data}" class="far fa-times-circle"></i>`
 					}
 				}
 			],
@@ -118,24 +118,25 @@
 		let memberCnt = data.member_count;
 
 		let detailEl = '';
-		detailEl += 	'<td>';
-		detailEl += 		'<div class="doit-detail-info">';
-		detailEl += 			'<ul class="tag clearfix">';
+		detailEl +=
+				`<div class="doit-detail-info">
+					<ul class="tag clearfix">`
 		if (!isEmpty(tags))
 		{
 			for (let j=0; j<tags.length; j++)
 			{
 				let tag = tags[j];
 				if (!isEmpty(tag))
-					detailEl += 		'<li>'+tag+'</li>';
+					detailEl += `<li>${tag}</li>`;
 			}
 		}
 
-		detailEl += 			'</ul>';
-		detailEl += 			'<p class="doit-tit">'+title+'</p>';
-		detailEl += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
-		detailEl +=   			'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
-		detailEl += 	'<td>';
+		detailEl +=
+					`</ul>
+					 <p class="doit-tit">${title}</p>
+					 <p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>
+					 <p class="doit-num"><strong>참여자 수: </strong><span>${memberCnt}</span></p>
+				</div>`
 
 		return detailEl;
 	}
@@ -149,15 +150,13 @@
 			classOn = 'on'
 			comment = '<em class="state-msg">삭제가 필요합니다.</em>';
 		}
-		let statusEl = '';
-		statusEl += '<div class="doit-state">';
-		statusEl += 	'<span class="icon-state '+classOn+'">';
-		statusEl += 		data;
-		statusEl += 	'</span>';
-		statusEl += 	comment;
-		statusEl += '</div>';
 
-		return statusEl;
+		return (
+			`<div class="doit-state">
+				<span class="icon-state ${classOn}">${data}</span>
+				${comment}
+			</div>`
+		)
 	}
 
 	function setRecommendedRowAttributes(nRow, aData)
@@ -247,24 +246,22 @@
 
 	function buildThumbnail(data)
 	{
-		let thumbnailEl = '';
-		thumbnailEl += '<div class="doit-thumbnail">';
-		thumbnailEl += 	 '<img src="'+data.image_url+'" onerror="onErrorImage(this);">';
-		thumbnailEl += '</div>';
-
-		return thumbnailEl;
+		return (
+			`<div class="doit-thumbnail">
+				<img src="${data.image_url}" onerror="onErrorImage(this);">
+			</div>`
+		)
 	}
 
 	function buildDetail(data)
 	{
-		let detailEl = '';
-		detailEl += '<div class="doit-detail-info">';
-		detailEl += 	 '<p class="doit-tit">'+data.doit_title+'</p>';
-		detailEl += 	 '<p class="doit-leader"><strong>개설자 : </strong><span>'+data.nickname+'</span></p>';
-		detailEl +=   '<p class="doit-num"><strong>참여자 수: </strong><span>'+data.member_count+'</span></p>';
-		detailEl += '</div>';
-
-		return detailEl;
+		return (
+			`<div class="doit-detail-info">
+				<p class="doit-tit">${data.doit_title}</p>
+				<p class="doit-leader"><strong>개설자 : </strong><span>${data.nickname}</span></p>
+				<p class="doit-num"><strong>참여자 수: </strong><span>${data.member_count}</span></p>
+			</div>`
+		)
 	}
 
 	function setDoitRowAttributes(nRow, aData)
@@ -316,35 +313,40 @@
 				let nickname  = selectedData[i].nickname;
 				let memberCnt = selectedData[i].member_count;
 
-				rowDom += '<tr id="'+uuid+'">';
-				rowDom += 	'<td>';
-				rowDom += 		'<div class="doit-thumbnail">';
-				rowDom += 			'<img src="'+imageUrl+'" alt="" onerror="onErrorImage(this);">';
-				rowDom += 		'</div>';
-				rowDom += 	'</td>';
-				rowDom += 	'<td>';
-				rowDom += 		'<div class="doit-detail-info">';
-				rowDom += 			'<ul class="tag clearfix">';
+				rowDom +=
+					`<tr id="'+uuid+'">
+						<td>
+							<div class="doit-thumbnail">
+								<img src="${imageUrl}" alt="" onerror="onErrorImage(this);">
+							</div>
+						</td>
+						<td>
+							<div class="doit-detail-info">
+								<ul class="tag clearfix">`
 				for (let j=0; j<tags.length; j++)
 				{
 					let tag = tags[j];
 					if (!isEmpty(tag))
-						rowDom += 		'<li>'+tag+'</li>';
+						rowDom += 	`<li>${tag}</li>`
 				}
-				rowDom += 			'</ul>';
-				rowDom += 			'<p class="doit-tit">'+title+'</p>';
-				rowDom += 	 		'<p class="doit-leader"><strong>개설자 : </strong><span>'+nickname+'</span></p>';
-				rowDom +=   		'<p class="doit-num"><strong>참여자 수: </strong><span>'+memberCnt+'</span></p>';
-				rowDom += 	'</td>';
-				rowDom += 	'<td>';
-				rowDom += 		'<div class="doit-state">';
-				rowDom += 			'<span class="icon-state">모집중</span>';
-				rowDom += 		'</div>';
-				rowDom += 	'</td>';
-				rowDom += 	'<td class="cursor-default">';
-				rowDom += 		'<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
-				rowDom += 	'</td>';
-				rowDom += '</tr>';
+								`</ul>
+								<p class="doit-tit">${title}</p>
+								<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>
+								<p class="doit-num"><strong>참여자 수: </strong><span>${memberCnt}</span></p>
+						</td>
+						<td>
+							<div class="doit-state">
+								<span class="icon-state">모집중</span>
+							</div>
+						</td>
+						<td class="cursor-default">
+							<i onclick="removeRow(this);" 
+								onmouseenter="disableSort();" 
+								onmouseleave="enableSort();" 
+								data-uuid="${uuid}" 
+								class="far fa-times-circle"></i>
+						</td>
+					</tr>`
 			}
 
 			let targetTableBody = recommendedTable.find('tbody');
@@ -365,17 +367,19 @@
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)
 
-		let vacancy 	 = 3 - ids.length;
+		let vacancy = 3 - ids.length;
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 
 		if (selectedData.length > vacancy)
 		{
-			sweetToast('추천 두잇은 '+message.maxAddThree+'\n추가할 수 있는 두잇 수: '+vacancy);
+			let msg = `추천 두잇은 ${message.maxAddThree}
+						추가할 수 있는 두잇 수: ${vacancy}`
+			sweetToast(msg);
 			return false;
 		}
 

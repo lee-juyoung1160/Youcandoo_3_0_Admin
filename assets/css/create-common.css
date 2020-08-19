@@ -106,7 +106,7 @@
 
 /* 두잇톡 */
 .doitTalk .time-line,
-.doitTalk .top-fix {
+info-fix {
     position: relative;
     margin-top: 20px;
 }
@@ -114,14 +114,16 @@
     padding: 15px;
     background-color: #fff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    /*border: 2px solid #0061f2;*/
 }
 .doitTalk .top-fix .top .title {
     float: left;
-    padding: 5px 8px;
-    color: #0061f2;
+    padding: 5px 10px;
+    color: #fff;
     font-size: 16px;
     font-weight: 500;
-    border: 2px solid #0061f2;
+    background-color: #0061f2;
+    /*border: 2px solid #0061f2;*/
     border-radius: 30px;
 }
 
@@ -167,7 +169,7 @@
     padding: 15px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #fff;
-    border: 1px solid #f3f3f3;
+    border: 1px solid #eee;
     border-radius: 5px;
 }
 .time-line-body.delete-box {
@@ -179,16 +181,16 @@
 .time-line-body.blind,
 .doitTalk .top-fix.blind
 {
-    border-color: #f3f3f3;
-    background: repeating-linear-gradient(-45deg, #f3f3f3, #f3f3f3 3px, #f9f9f9 0, #f9f9f9 6px);
+    background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 3px, #f9f9f9 0, #f9f9f9 6px);
 }
 .doitTalk .top {
+
     padding-bottom: 10px;
     border-bottom: 1px solid #f1f1f1;
 }
 .doitTalk .top .nickname {
     float: left;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 1.5;
 }
@@ -213,8 +215,8 @@
     border-bottom: 1px solid #f46600;
 }
 .doitTalk .top .btn-wrap button.eye-btn {
-    color: #FFA83B;
-    border-bottom: 1px solid #FFA83B;
+    color: #f39c12;
+    border-bottom: 1px solid #f39c12;
 }
 .doitTalk .contants-wrap {
     padding: 15px 0;

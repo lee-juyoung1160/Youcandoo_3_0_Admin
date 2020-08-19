@@ -136,9 +136,8 @@
 		bizProfileImg.prop('src', detail.image_path);
 		bizName.html(detail.company_name);
 		bizNumber.html(detail.company_number);
-		bizLink.html('<a class="detail-data" href="'+detail.url+'" target="_blank">'+detail.url+'</a>');
+		bizLink.html(`<a class="detail-data" href="${detail.url}" target="_blank">${detail.url}</a>`);
 		bizDesc.html(detail.contents);
-
 		balance.html(numberWithCommas(_balance));
 	}
 
@@ -157,28 +156,28 @@
 				}
 			},
 			columns: [
-				{title: "프로모션명", 	data: "promotion_title",   	width: "24%",     orderable: false,   className: "cursor-default",
+				{title: "프로모션명", 	data: "promotion_title",   	width: "24%",	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailPromo+row.idx;
 						return '<a href="'+detailUrl+'">' + data + '</a>';
 					}
 				}
-				,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",     orderable: false,   className: "cursor-default",
+				,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",     orderable: false,   className: "cursor-default",
+				,{title: "잔여예산", 	data: "remain_budget_ucd",  width: "15%",   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "기간", 		data: "start_date",   		width: "24%",     orderable: false,   className: "cursor-default",
+				,{title: "기간", 		data: "start_date",   		width: "24%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return data + label.tilde + row.end_date;
 					}
 				}
-				,{title: "프로모션 상태", data: "status",   			width: "10%",     orderable: false,   className: "cursor-default",
+				,{title: "프로모션 상태", data: "status",   			width: "10%",   className: "cursor-default",
 					render: function (data) {
 						return getPromotionStatusName(data);
 					}
@@ -244,15 +243,15 @@
 				}
 			},
 			columns: [
-				{title: "유형", 	data: "ucd_type",   	width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "구분", data: "division",   	width: "10%",     orderable: false,   className: "cursor-default" }
-				,{title: "금액", data: "amount",   		width: "15%",     orderable: false,   className: "cursor-default",
+				{title: "유형", 	data: "ucd_type",   	width: "10%",   className: "cursor-default" }
+				,{title: "구분", data: "division",   	width: "10%",   className: "cursor-default" }
+				,{title: "금액", data: "amount",   		width: "15%",   className: "cursor-default",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "제목", data: "title",  		width: "15%",     orderable: false,   className: "cursor-default" }
-				,{title: "내용", data: "description",   	width: "30%",     orderable: false,   className: "cursor-default",
+				,{title: "제목", data: "title",  		width: "15%",   className: "cursor-default" }
+				,{title: "내용", data: "description",   	width: "30%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let result = data;
 						if (row.division === '충전' || row.division === '취소')
@@ -261,13 +260,16 @@
 							let title   = isEmpty(data) ? label.nullValue : data[2];
 							let amount  = isEmpty(data) ? label.nullValue: data[3];
 
-							result = '<a onclick="btnModalDescOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">'+title+'</a>';
+							result = `<a onclick="btnModalDescOpen(this);" 
+										data-term="${term}" 
+										data-title="${title}" 
+										data-amount="${amount}">${title}</a>`
 						}
 
 						return result;
 					}
 				}
-				,{title: "일시", data: "created",   		width: "15%",     orderable: false,   className: "cursor-default" }
+				,{title: "일시", data: "created",   		width: "15%",   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -396,14 +398,14 @@
 	{
 		if (isEmpty(amount.val()))
 		{
-			sweetToast('UCD는 '+message.required);
+			sweetToast(`UCD는 ${message.required}`);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 100000000)
 		{
-			sweetToast('UCD는 '+message.maxAvailableBizUcd);
+			sweetToast(`UCD는 ${message.maxAvailableBizUcd}`);
 			amount.trigger('focus');
 			return false;
 		}
@@ -411,35 +413,38 @@
 		let _division = $("input[name=radio-division]:checked").val()
 		if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)
 		{
-			sweetToast('취소 UCD는 '+message.overBalance+'\n보유 UCD: '+numberWithCommas(g_balance)+'\n입력한 UCD: '+numberWithCommas(amount.val()));
+			let msg = `취소 UCD는 ${message.overBalance}
+						보유 UCD: ${numberWithCommas(g_balance)}
+						입력한 UCD: ${numberWithCommas(amount.val())}`
+			sweetToast(msg);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(modalFrom.val()))
 		{
-			sweetToast('프로모션 기간(시작일)은 '+message.required);
+			sweetToast(`프로모션 기간(시작일)은 ${message.required}`);
 			modalFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(modalTo.val()))
 		{
-			sweetToast('프로모션 기간(종료일)은 '+message.required);
+			sweetToast(`프로모션 기간(종료일)은 ${message.required}`);
 			modalTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractTitle.val()))
 		{
-			sweetToast('계약명은 '+message.required);
+			sweetToast(`계약명은 ${message.required}`);
 			contractTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractAmount.val()))
 		{
-			sweetToast('계약 금액은 '+message.required);
+			sweetToast(`계약 금액은 ${message.required}`);
 			contractAmount.trigger('focus');
 			return false;
 		}

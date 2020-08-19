@@ -171,8 +171,8 @@
 	/** row select **/
 	function onSelectRow(dt, indexes)
 	{
-		let selectedData 	= dt.rows(indexes).data()[0];
-		let isTop			= selectedData.is_top;
+		let selectedData = dt.rows(indexes).data()[0];
+		let isTop		 = selectedData.is_top;
 
 		if (isTop === 'Y')
 			deleteStatusBtnTop();
@@ -194,7 +194,7 @@
 		btnTop.removeClass('delete-btn');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('btn-disabled');
-		btnTop.html(label.fixedTop +'상단고정');
+		btnTop.html(`${label.fixedTop} 상단고정`);
 	}
 
 	function bestStatusBtnTop()
@@ -202,7 +202,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('delete-btn');
 		btnTop.addClass('best-btn');
-		btnTop.html(label.fixedTop +'상단고정');
+		btnTop.html(`${label.fixedTop} 상단고정`);
 	}
 
 	function deleteStatusBtnTop()
@@ -210,7 +210,7 @@
 		btnTop.removeClass('btn-disabled');
 		btnTop.removeClass('best-btn');
 		btnTop.addClass('delete-btn');
-		btnTop.html(label.fixedTop +'상단고정 해제');
+		btnTop.html(`${label.fixedTop} 상단고정 해제`);
 	}
 
 	function onSubmitSearch()
@@ -312,7 +312,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('삭제할 대상을 목록에서 '+message.select);
+			sweetToast(`삭제할 대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

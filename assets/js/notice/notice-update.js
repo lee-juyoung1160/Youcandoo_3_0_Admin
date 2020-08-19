@@ -49,11 +49,12 @@
 		if (!isEmpty(detail.notice_image_url))
 		{
 			let contentImageDom = '';
-			contentImageDom += '<div class="upload-display">';
-			contentImageDom += 	'<div class="upload-thumb-wrap">';
-			contentImageDom += 		'<img src="'+detail.notice_image_url+'" class="upload-thumb">';
-			contentImageDom += 	'</div>';
-			contentImageDom += '</div>';
+			contentImageDom +=
+				`<div class="upload-display">
+					<div class="upload-thumb-wrap">
+						<img src="${detail.notice_image_url}" class="upload-thumb">
+					</div>
+				</div>`
 
 			contentImage.parent().prepend(contentImageDom);
 		}
@@ -107,21 +108,21 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast('제목은 ' + message.required);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			sweetToast('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(reserveDate.val()))
 		{
-			sweetToast('예약일은 ' + message.required);
+			sweetToast(`예약일은 ${message.required}`);
 			reserveDate.trigger('focus');
 			return false;
 		}

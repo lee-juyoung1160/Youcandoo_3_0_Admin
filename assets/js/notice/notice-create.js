@@ -86,21 +86,21 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast('제목은 ' + message.required);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			sweetToast('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(reserveDate.val()))
 		{
-			sweetToast('예약일은 ' + message.required);
+			sweetToast(`예약일은 ${message.required}`);
 			reserveDate.trigger('focus');
 			return false;
 		}

@@ -72,14 +72,14 @@
 .col-wrap-1 .col .row-1,
 .col-wrap-3 .col-1 .row-wrap2 .row-1 {
     float: left;
-    width: 60%;
+    width: 70%;
 }
 .col-wrap-1 .col .row-2,
 .col-wrap-3 .col-1 .row-wrap2 .row-2 {
-    width: 40%;
+    width: 30%;
     float: right;
     text-align: right;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 .col-wrap-1 .col .row-2 li,
 .col-wrap-3 .col-1 .row-wrap2 .row-2 li {

@@ -185,22 +185,22 @@
 
         let pendingDataset = [{
             data : [preData.user_cnt, preData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let progressDataset = [{
             data : [ingData.user_cnt, ingData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let endDataset = [{
             data : [endData.user_cnt, endData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let cancelDataset = [{
             data : [cancelData.cancle, cancelData.delete]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
@@ -244,21 +244,21 @@
     {
         let dataset = [{
             label: '전체',
-            type: 'line',
-            lineTension: 0.1,
+            type: 'bubble',
+            /*lineTension: 0.1,*/
             data: data.data.total,
-            borderColor: color.jyBlue,
-            borderWidth : 2,
-            pointBackgroundColor: color.jyBlue,
-            backgroundColor: color.black
+            borderColor: color.dodgerBlue,
+            /*borderWidth : 2,*/
+            /*pointBackgroundColor: color.jyBlue,*/
+            backgroundColor: color.dodgerBlue
         }, {
             label: '일반',
             data: data.data.user,
-            backgroundColor: color.prussianBlue
+            backgroundColor: color.jyBlue
         }, {
             label: '프로모션',
             data: data.data.company,
-            backgroundColor: color.dodgerBlue
+            backgroundColor: color.mintSky
         }];
 
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.options);

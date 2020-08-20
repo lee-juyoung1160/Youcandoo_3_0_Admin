@@ -66,6 +66,7 @@
         keyword.value = "";
         initSelectOption();
         initSearchDateRange();
+        initMaxDateToday();
         initDayBtn();
         /** 상단 검색 input 디폴드 값 **/
         ratingLists.forEach(function(item, index, array){item.checked = true;});
@@ -279,5 +280,5 @@
         let table = $(reviewTable).DataTable();
         table.page.len(Number(limits.value));
         table.ajax.reload();
-        initMinMaxDate();
+        initMaxDateToday();
     }

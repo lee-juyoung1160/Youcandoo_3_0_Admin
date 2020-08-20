@@ -42,6 +42,7 @@
     function initSearchForm() {
         keyword.value = "";
         initSearchDateRange();
+        initMaxDateToday();
         initDayBtn();
     }
 
@@ -164,5 +165,5 @@
         let table = dataTable.DataTable();
         table.page.len(Number(limits.value));
         table.ajax.reload();
-        initMinMaxDate();
+        initMaxDateToday();
     }

@@ -37,6 +37,7 @@
 		exposure.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRangeMonth();
+		initMaxDateToday();
 		initDayBtn();
 	}
 
@@ -219,7 +220,7 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMinMaxDate();
+		initMaxDateToday();
 	}
 
 	/** 상단 고정/해제 **/

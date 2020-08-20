@@ -38,6 +38,7 @@
 		status.prop("checked", true);
 		initSelectOption();
 		initSearchDateRangeMonth();
+		initMaxDateAfterThreeMonth();
 		initDayBtn();
 	}
 
@@ -212,7 +213,7 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMinMaxDate();
+		initMaxDateAfterThreeMonth();
 	}
 
 	function deletePromotion()

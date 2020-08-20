@@ -62,6 +62,7 @@
 		report.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRangeToday();
+		initMaxDateToday();
 		initDayBtn();
 	}
 
@@ -555,5 +556,5 @@
 	{
 		currentPage =1;
 		getActions();
-		initMinMaxDate();
+		initMaxDateToday();
 	}

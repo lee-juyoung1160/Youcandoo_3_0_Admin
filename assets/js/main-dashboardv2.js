@@ -62,6 +62,24 @@
         initChart($("#doughnut2"), chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
         initChart($("#doughnut3"), chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
         initChart($("#doughnut4"), chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+
+
+        let lineData = []
+        let lineLabel = []
+        for (var i = 0; i<31; i++)
+        {
+            lineLabel.push(i)
+            lineData.push(Math.floor(Math.random()*100));
+        }
+        let lineDataset = [{
+            data : lineData,
+            lineTension: 0.1,
+            borderColor: color.jyBlue,
+            borderWidth : 2,
+            pointBackgroundColor: color.jyBlue,
+            backgroundColor: color.black
+        }];
+        initChart($("#dailyActionChart"), chartType.line, lineLabel, lineDataset, chartOptions.options);
     }
 
     function setBaseDate()

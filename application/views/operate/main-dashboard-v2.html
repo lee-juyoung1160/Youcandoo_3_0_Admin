@@ -51,10 +51,10 @@
                 </div>
             </div>
 
-            <div class="row row-4">
+            <div class="md-doit row row-4">
                 <div class="col box">
                     <div class="content-inner">
-                        <p class="data-title">개설 현황
+                        <p class="data-title">두잇 개설 현황
                             <i class="question-mark far fa-question-circle">
                                 <em class="tooltip" style="width: 250px;">
                                     <b>기업 및 개인에게 발행된 UCD 총합</b><br>
@@ -64,13 +64,31 @@
                             </i>
                         </p>
                         <div>
-                            <canvas id="doughnut1" width="40" height="auto"></canvas>
+                            <canvas id="doughnut1"></canvas>
+                        </div>
+                        <div class="data-wrap clearfix">
+                            <dl>
+                                <dt class="data-title">모집중</dt>
+                                <dd class="data-num" style="color: green;">128</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">진행중</dt>
+                                <dd class="data-num">55</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">개설 취소</dt>
+                                <dd class="data-num" style="color: orange;">10</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">모집 실패</dt>
+                                <dd class="data-num"style="color: orangered;">10</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
                 <div class="col box">
                     <div class="content-inner">
-                        <p class="data-title">참여 현황
+                        <p class="data-title">두잇 참여 현황
                             <i class="question-mark far fa-question-circle">
                                 <em class="tooltip" style="width: 250px;">
                                     <b>기업 및 개인에게 발행된 UCD 총합</b><br>
@@ -80,13 +98,31 @@
                             </i>
                         </p>
                         <div>
-                            <canvas id="doughnut2" width="40" height="auto"></canvas>
+                            <canvas id="doughnut2"></canvas>
+                        </div>
+                        <div class="data-wrap clearfix">
+                            <dl>
+                                <dt class="data-title">신청</dt>
+                                <dd class="data-num"style="color: green;">128</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">참여취소</dt>
+                                <dd class="data-num" style="color: orangered;">55</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">인증건 수</dt>
+                                <dd class="data-num">10</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">평균 참여자 수</dt>
+                                <dd class="data-num" style="color: slateblue">10</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
                 <div class="col box">
                     <div class="content-inner">
-                        <p class="data-title">종료 현황
+                        <p class="data-title">두잇 종료 현황
                             <i class="question-mark far fa-question-circle">
                                 <em class="tooltip" style="width: 250px;">
                                     <b>기업 및 개인에게 발행된 UCD 총합</b><br>
@@ -96,7 +132,25 @@
                             </i>
                         </p>
                         <div>
-                            <canvas id="doughnut3" width="40" height="auto"></canvas>
+                            <canvas id="doughnut3"></canvas>
+                        </div>
+                        <div class="data-wrap clearfix">
+                            <dl>
+                                <dt class="data-title">성공</dt>
+                                <dd class="data-num">128</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">실패</dt>
+                                <dd class="data-num"style="color: orangered;">55</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">평균 달성률</dt>
+                                <dd class="data-num" style="color: slateblue;">92.7<em>%</em></dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">리뷰 작성</dt>
+                                <dd class="data-num" style="color:orange;">15</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
@@ -112,11 +166,48 @@
                             </i>
                         </p>
                         <div>
-                            <canvas id="doughnut4" width="40" height="auto"></canvas>
+                            <canvas id="doughnut4"></canvas>
+                        </div>
+                        <div class="data-wrap clearfix">
+                            <dl>
+                                <dt class="data-title">옐로카드</dt>
+                                <dd class="data-num" style="color:orange;">128</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">레드카드</dt>
+                                <dd class="data-num" style="color:orangered;">55</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">인증 신고</dt>
+                                <dd class="data-num" style="color:slateblue;">10</dd>
+                            </dl>
+                            <dl>
+                                <dt class="data-title">인증 수</dt>
+                                <dd class="data-num">356</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <div class="row-custom">
+                <div class="col col-3 box">
+                    <div class="content-inner">
+                        <p class="data-title">일 별 인증현황</p>
+                        <div>
+                            <canvas id="cert-month-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-1 box">
+                    <div class="content-inner">
+                        <p class="data-title">인기 두잇 랭킹</p>
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
     </div>

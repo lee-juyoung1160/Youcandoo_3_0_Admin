@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-.row {
+.row,
+.row-custom {
     width: 100%;
     *zoom:1;
 }
-.row:after {
+.row:after,
+.row-custom:after{
     display: block;
     clear: both;
     content: '';
 }
-.row .col {
+.row .col,
+.row-custom .col {
     float: left;
 }
 .row .col-1 {
@@ -22,6 +25,17 @@
     width: 24.2%;
     margin-right: 0.8%;
 }
+
+
+.row-custom .col-1 {
+    width: 24.2%;
+}
+.row-custom .col-3 {
+    width: 74.3%;
+    margin-right: 0.8%;
+}
+
+
 
 .box {
     margin-bottom: 10px;
@@ -155,14 +169,15 @@ i.fa-user {
     font-weight: 500;
 }
 .dashboard-main p.data-title {
+    color: #333;
     margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
 }
 .dashboard-main .data-num {
     display: block;
     color: #006AFD;
     font-family: 'Roboto', sans-serif;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 600;
 }
 .main-user-info .user-icon {
@@ -177,7 +192,31 @@ i.fa-user {
     float: left;
 }
 
-/*  UCD */
+
+.md-doit .data-wrap {
+    margin-top: 30px;
+}
+.md-doit dl {
+    float: left;
+    width: 25%;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+.md-doit dl:last-child {
+    border-right: none;
+}
+.md-doit dt.data-title {
+    font-size: 12px;
+}
+.md-doit .data-num {
+    font-size: 18px;
+}
+.md-doit .data-num em {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+    /*  UCD */
 .dashboard-ucd .ucd-text {
     display: flex;
     position: absolute;

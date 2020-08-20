@@ -635,7 +635,8 @@
             let target   = 'menu_'+i;
             if (mainView === true)
             {
-                if (isOuterIp() && isPrivateMenu(mainName)) continue;
+                /*if (isOuterIp() && isPrivateMenu(mainName)) continue;*/
+                if (isOuterIp() && isAccessDeniedUcdUserBiz() && isPrivateMenu(mainName)) continue;
 
                 menuDom +=
                     `<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="${target}">
@@ -735,11 +736,21 @@
         let pathName     = getPathName();
         let compareValue = pathName.split('/')[1];
 
-        if (isOuterIp() && isPrivateMenu(compareValue))
+        if (isOuterIp() && isAccessDeniedUcdUserBiz() && isPrivateMenu(compareValue))
+        /*if (isOuterIp() && isPrivateMenu(compareValue))*/
         {
             alert(message.accessDenied);
             location.href = '/';
         }
+    }
+
+    function isAccessDeniedUcdUserBiz()
+    {
+        /** 2020.08.20
+         *  재택근무로 추가된 로직. 원래는 아래 펑션(ip)으로 처리했으나 권한으로 처리하는 것으로 변경.
+         * **/
+        let accessibleAuths = ['smg', 'mg'];
+        return accessibleAuths.indexOf(sessionAuthCode.val()) === -1;
     }
 
     function isOuterIp()

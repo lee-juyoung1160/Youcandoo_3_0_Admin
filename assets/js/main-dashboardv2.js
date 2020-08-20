@@ -30,14 +30,14 @@
     const certMonthSelectBox = document.getElementById('cert-month-select');
     const certYearSelectBox = document.getElementById('cert-year-select');*/
 
-    /** 현재 연도-월-일 구하기 **/
-    let day = new Date();
-    let year = day.getFullYear();
-    let month = day.getMonth() + 1;
-    let date = day.getDate();
-    let hours = day.getHours();
-    let minutes = day.getMinutes();
+    const datePrev     = $('#datePrev');
+    const dateSelected = $('#dateSelected');
+    const dateNext     = $('#dateNext');
 
+    /** 현재 연도-월-일 구하기 **/
+    let d = new Date();
+    getStringFormatToDate(d, '-');
+    dateSelected.html
     /** 로드 바로 실행 **/
     document.addEventListener("DOMContentLoaded", function () {
         doughnutChart();

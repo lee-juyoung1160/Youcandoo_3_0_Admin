@@ -55,7 +55,7 @@
     function doughnutChart() {
         let dataset = [{
             data : [19, 71]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         initChart($("#doughnut1"), chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
@@ -73,13 +73,10 @@
         }
         let lineDataset = [{
             data : lineData,
-            lineTension: 0.1,
-            borderColor: color.jyBlue,
-            borderWidth : 2,
-            pointBackgroundColor: color.jyBlue,
-            backgroundColor: color.black
+            barThickness : 10,
+            backgroundColor: color.jyBlue
         }];
-        initChart($("#dailyActionChart"), chartType.line, lineLabel, lineDataset, chartOptions.options);
+        initChart($("#dailyActionChart"), chartType.bar, lineLabel, lineDataset, chartOptions.noLegend);
     }
 
     function setBaseDate()
@@ -209,22 +206,22 @@
 
         let pendingDataset = [{
             data : [preData.user_cnt, preData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let progressDataset = [{
             data : [ingData.user_cnt, ingData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let endDataset = [{
             data : [endData.user_cnt, endData.company_cnt]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         let cancelDataset = [{
             data : [cancelData.cancle, cancelData.delete]
-            ,backgroundColor : [color.prussianBlue, color.dodgerBlue]
+            ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
@@ -278,14 +275,14 @@
         }, {
             label: '일반',
             data: data.data.user,
-            backgroundColor: color.prussianBlue
+            backgroundColor: color.jyBlue
         }, {
             label: '프로모션',
             data: data.data.company,
-            backgroundColor: color.dodgerBlue
+            backgroundColor: color.mintSky
         }];
 
-        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.options);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.withLegend);
     }
 
     /** 가입자 현황 **/

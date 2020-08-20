@@ -128,7 +128,7 @@
         let xLabel  = getDayNames(selYear.val(), selMonth.val());
         let dataset = initDataset(data);
 
-        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.options);
+        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.withLegend);
         dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;
     }
 

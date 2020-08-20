@@ -25,7 +25,7 @@
                 }
             }
         },
-        options: {
+        withLegend: {
             legend: {
                 align: 'end',
                 position: 'top'
@@ -43,7 +43,26 @@
                         beginAtZero: true
                     }
                 }]
-            }
+            },
+            maintainAspectRatio : false
+        },
+        noLegend: {
+            legend: false,
+            tooltips : {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return convertNumberToKvalue(tooltipItem.value);
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            maintainAspectRatio : false
         }
     }
 

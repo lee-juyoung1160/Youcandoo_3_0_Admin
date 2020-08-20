@@ -131,34 +131,16 @@
         let label = data.data.day;
         let dataset = [{
             data: data.data.result,
-            lineTension: 0.1,
+            /*lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,
             pointBackgroundColor: color.jyBlue,
-            backgroundColor: color.black
+            backgroundColor: color.black*/
+            barThickness : 15,
+            backgroundColor: color.jyBlue
         }];
 
-        let options = {
-            legend: {
-                display: false
-            },
-            tooltips : {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        return convertNumberToKvalue(tooltipItem.value);
-                    }
-                }
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        };
-
-        dailyActionChart = initChart(certMonthChart, chartType.line, label, dataset, options);
+        dailyActionChart = initChart(certMonthChart, chartType.bar, label, dataset, chartOptions.noLegend);
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/
@@ -261,7 +243,7 @@
             backgroundColor: color.mintSky
         }];
 
-        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.options);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.withLegend);
     }
 
     /** 가입자 현황 **/

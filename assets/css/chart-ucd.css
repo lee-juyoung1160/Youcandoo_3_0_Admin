@@ -155,6 +155,7 @@ i.fa-user {
     font-weight: 500;
 }
 .dashboard-main p.data-title {
+    margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
 .dashboard-main .data-num {

@@ -420,13 +420,13 @@
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<ul class="day-btn clearfix frequency-ul">';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">월</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">화</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">수</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">목</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">금</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">토</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">일</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">월</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">화</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">수</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">목</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">금</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">토</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">일</li>';
 		rewardDom += 					'</ul>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
@@ -537,7 +537,7 @@
 		$(frequencyUl).children().removeClass('disabled');
 
 		if (!isEmpty($(radioDur).val()))
-			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().addClass('disabled');
 		else
 		{
 			if (duration > 6)
@@ -831,6 +831,8 @@
 
 		for (let i=0; i<rewardDom.length; i++)
 		{
+			if (!isEmpty($(rewardDom[i]).find('input[type=radio]:checked').val())) continue;
+
 			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
 
 			if (Number(activeFrequencyLen) === 0)

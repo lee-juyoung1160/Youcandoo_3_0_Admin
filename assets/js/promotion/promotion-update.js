@@ -367,20 +367,23 @@
 			detailDom += 					'<div class="checkbox-wrap" style="display: inline-block;">';
 			let actionDuration = Number(reward.action_duration);
 			if (actionDuration === 1)
+			{
 				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="1" checked>';
-			else
-				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="1">';
-			detailDom += 						'<label for="rdo_'+radioId+'"><span></span>1일</label>';
-			if (actionDuration === 1)
+				detailDom += 					'<label for="rdo_'+radioId+'"><span></span>1일</label>';
 				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value=""> ';
-			else
-				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="" checked> ';
-			detailDom += 						'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
-			detailDom += 					'</div>';
-			if (actionDuration === 1)
+				detailDom += 					'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
+				detailDom += 				'</div>';
 				detailDom +=				'<p style="display: none;">';
+			}
 			else
+			{
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="1">';
+				detailDom += 						'<label for="rdo_'+radioId+'"><span></span>1일</label>';
+				detailDom +=					'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+i+'" value="" checked> ';
+				detailDom += 						'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
+				detailDom +=				'</div>';
 				detailDom +=				'<p style="display: inline-block;">';
+			}
 			detailDom += 						'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2" value="'+reward.action_duration+'">';
 			detailDom += 						'<span class="input-num-title"> 일</span>';
 			detailDom += 					'</p>';
@@ -399,8 +402,13 @@
 			for (let k=0; k<frequencys.length; k++)
 			{
 				let freq = frequencys[k];
-				let actionDays = reward.action_dayofweek.split(',');
-				let active = actionDays.indexOf(freq) !== -1 ? 'active' : '';
+				let actionDays = [];
+				let active = 'disabled';
+				if (!isEmpty(reward.action_dayofweek))
+				{
+					actionDays = reward.action_dayofweek.split(',');
+					active = actionDays.indexOf(freq) !== -1 ? 'active' : '';
+				}
 
 				detailDom += 					'<li onclick="toggleFrequency(this);" class="frequency '+active+'">'+freq+'</li>';
 			}
@@ -506,9 +514,10 @@
 		let duration = Number($(obj).val());
 
 		$(frequencyUl).children().removeClass('active');
+		$(frequencyUl).children().removeClass('disabled');
 
 		if (!isEmpty($(radioDur).val()))
-			$(frequencyUl).children().eq(0).addClass('active');
+			$(frequencyUl).children().addClass('disabled');
 		else
 		{
 			if (duration > 6)
@@ -519,6 +528,8 @@
 				$(frequencyUl).children().eq(3).addClass('active');
 				$(frequencyUl).children().eq(4).addClass('active');
 			}
+			else
+				$(frequencyUl).children().addClass('disabled');
 		}
 	}
 
@@ -667,13 +678,13 @@
 		rewardDom += 				'</div>';
 		rewardDom += 				'<div class="col-2">';
 		rewardDom += 					'<ul class="day-btn clearfix frequency-ul">';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency active">월</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">화</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">수</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">목</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">금</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">토</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency">일</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">월</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">화</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">수</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">목</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">금</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">토</li>';
+		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">일</li>';
 		rewardDom += 					'</ul>';
 		rewardDom += 				'</div>';
 		rewardDom += 			'</div>';
@@ -970,6 +981,8 @@
 
 		for (let i=0; i<rewardDom.length; i++)
 		{
+			if (!isEmpty($(rewardDom[i]).find('input[type=radio]:checked').val())) continue;
+
 			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
 
 			if (Number(activeFrequencyLen) === 0)

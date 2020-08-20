@@ -189,7 +189,8 @@
 		detailDom += 				'<p class="sub-title">주간빈도</p>';
 		detailDom += 			'</div>';
 		detailDom += 			'<div class="col-2">';
-		detailDom += 				'<p class="detail-data">'+reward.action_dayofweek+'</p>';
+		let actionDayOfWeek = isEmpty(reward.action_dayofweek) ? '-' : reward.action_dayofweek;
+		detailDom += 				'<p class="detail-data">'+actionDayOfWeek+'</p>';
 		detailDom += 			'</div>';
 		detailDom += 		'</div>';
 		detailDom += 		'<div class="col-wrap clearfix">';

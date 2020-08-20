@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 .row {
     width: 100%;
     *zoom:1;
@@ -18,11 +18,19 @@
     width: 15%;
 }
 
+.row-4 .col {
+    width: 24.2%;
+    margin-right: 0.8%;
+}
+
 .box {
     margin-bottom: 10px;
     border-radius: 5px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
+}
+.content-inner {
+    padding: 15px;
 }
 .box-title {
     display: flex;
@@ -51,82 +59,6 @@
     font-size: 12px;
 }
 
-.ucd-text {
-    display: flex;
-    position: absolute;
-    left: 10px;
-    top: 60px;
-    align-content: center;
-    z-index: 30;
-}
-.ucd-text img {
-    width: 23px;
-    height: 23px;
-}
-.ucd-text span {
-    display: block;
-    color: #006AFD;
-    /*font-family: 'Roboto', sans-serif;*/
-    font-size: 20px;
-    font-weight: 600;
-}
-.ucd-accumulate {
-    color: #666;
-    font-size: 13px;
-}
-.tab .box {
-    padding: 0;
-}
-.tab li {
-    float: left;
-    position: relative;
-    width: 16%;
-    height: 93px;
-    margin-right: 0.8%;
-    padding: 10px 10px 15px 10px;
-    background-color: #fff;
-    background-color: #f9f9f9;
-    border-right: 1px solid #fff;
-    cursor: pointer;
-    transition: all .3s;
-}
-.tab li .bg-icon {
-    position: absolute;
-    top: 60%;
-    right: 5px;
-    color: #f9f9f9;
-    font-size: 25px;
-}
-.tab li dl {
-    padding: 0 10px 10px 10px;
-}
-.tab li:last-child {
-    margin-right: 0px;
-    border-right: none;
-}
-.tab li:hover,
-.tab li.on {
-    background-color: #fff;
-    /*border-left: 3px solid #007aff;*/
-}
-.tab li:hover .box-title,
-.tab li.on .box-title {
-    color: #fff;
-    background-color: #0061f2;
-    /*background: linear-gradient(to left,rgba(3,201,243,1),rgba(0,122,255,1));*/
-}
-.tab li:hover .bg-icon,
-.tab li.on .bg-icon {
-    color: #f1f1f1;
-}
-.tab li:hover .question-mark,
-.tab li.on .question-mark {
-    color: #fff;
-}
-.content {
-    padding: 15px;
-}
-
 .top {
     display: flex;
     align-content: center;
@@ -150,58 +82,6 @@
 }
 .top .select-box label {
     padding: 0.7em 0.7em;
-}
-
-.month-data {
-    padding: 30px 20px;
-}
-.month-data dl {
-    margin-bottom: 15px;
-}
-.month-data .title {
-    font-size: 13px;
-    color: #333;
-}
-
-.month-data .ucd-text {
-    position: inherit;
-    left: inherit;
-    bottom: inherit;
-}
-.month-data .ucd-text img {
-    width: 20px;
-    height: 20px;
-}
-.month-data .ucd-text span {
-    color: #666;
-    font-size: 17px;
-    font-weight: 500;
-}
-.month-data .total-text span {
-    color: #006AFD;
-}
-input.datepicker {
-    width: 100px;
-}
-button.search {
-    display: inline-block;
-    width: 70px;
-    height: 35px;
-    font-size: 14px;
-    color: #ffffff;
-    border-radius: 3px;
-    background-color: #007aff;
-    transition: all .3s;
-}
-button.search:hover {
-    background-color: #006AFD;
-}
-
-.table-wrap {
-    margin-top: 0;
-}
-.table-wrap table {
-    box-shadow:none;
 }
 
 i.question-mark {
@@ -239,6 +119,174 @@ i.fa-user {
     margin: 3px 5px;
     color: #999;
     font-size: 13px;
-    
+}
+
+/* main */
+.dashboard-main .main-user-info .box {
+    overflow: hidden;
+    position: relative;
+}
+.dashboard-main .date-pic {
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    margin: 15px 15px 0 0;
+}
+.dashboard-main .date-pic i {
+    float: left;
+    color: #333;
+    font-size: 26px;
+    transition: all .3s;
+}
+.dashboard-main .date-pic i:hover {
+    color: #007aff;
+}
+.dashboard-main .date-pic i.no-date {
+    color: #aaa;
+}
+.dashboard-main .date-pic .date {
+    float: left;
+    padding: 5px 20px;
+    margin: 0 10px;
+}
+.dashboard-main .data-title {
+    padding-bottom: 8px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+}
+.dashboard-main p.data-title {
+    border-bottom: 1px solid #ddd;
+}
+.dashboard-main .data-num {
+    display: block;
+    color: #006AFD;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+.main-user-info .user-icon {
+    /*float: right;*/
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    font-size: 30px;
+    color: #ddd;
+}
+.user-data {
+    float: left;
+}
+
+/*  UCD */
+.dashboard-ucd .ucd-text {
+    display: flex;
+    position: absolute;
+    left: 10px;
+    top: 60px;
+    align-content: center;
+    z-index: 30;
+}
+.dashboard-ucd .ucd-text img {
+    width: 23px;
+    height: 23px;
+}
+.dashboard-ucd .ucd-text span {
+    display: block;
+    color: #006AFD;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+.dashboard-ucd .ucd-accumulate {
+    color: #666;
+    font-size: 13px;
+}
+.dashboard-ucd .tab .box {
+    padding: 0;
+}
+.dashboard-ucd .tab li {
+    float: left;
+    position: relative;
+    width: 16%;
+    height: 93px;
+    margin-right: 0.8%;
+    padding: 10px 10px 15px 10px;
+    background-color: #fff;
+    background-color: #f9f9f9;
+    border-right: 1px solid #fff;
+    cursor: pointer;
+    transition: all .3s;
+}
+.dashboard-ucd .tab li .bg-icon {
+    position: absolute;
+    top: 60%;
+    right: 5px;
+    color: #f9f9f9;
+    font-size: 25px;
+}
+.dashboard-ucd .tab li dl {
+    padding: 0 10px 10px 10px;
+}
+.dashboard-ucd .tab li:last-child {
+    margin-right: 0px;
+    border-right: none;
+}
+.dashboard-ucd .tab li:hover,
+.dashboard-ucd .tab li.on {
+    background-color: #fff;
+    /*border-left: 3px solid #007aff;*/
+}
+.dashboard-ucd .tab li:hover .box-title,
+.dashboard-ucd .tab li.on .box-title {
+    color: #fff;
+    background-color: #0061f2;
+    /*background: linear-gradient(to left,rgba(3,201,243,1),rgba(0,122,255,1));*/
+}
+.dashboard-ucd .tab li:hover .bg-icon,
+.dashboard-ucd .tab li.on .bg-icon {
+    color: #f1f1f1;
+}
+.dashboard-ucd .tab li:hover .question-mark,
+.dashboard-ucd .tab li.on .question-mark {
+    color: #fff;
+}
+.dashboard-ucd .content {
+    padding: 15px;
+}
+
+
+.dashboard-ucd .month-data {
+    padding: 30px 20px;
+}
+.dashboard-ucd .month-data dl {
+    margin-bottom: 15px;
+}
+.dashboard-ucd .month-data .title {
+    font-size: 13px;
+    color: #333;
+}
+
+.dashboard-ucd .month-data .ucd-text {
+    position: inherit;
+    left: inherit;
+    bottom: inherit;
+}
+.dashboard-ucd .month-data .ucd-text img {
+    width: 20px;
+    height: 20px;
+}
+.dashboard-ucd .month-data .ucd-text span {
+    color: #666;
+    font-size: 17px;
+    font-weight: 500;
+}
+.dashboard-ucd .month-data .total-text span {
+    color: #006AFD;
+}
+
+.dashboard-ucd .table-wrap {
+    margin-top: 0;
+}
+.dashboard-ucd .table-wrap table {
+    box-shadow:none;
 }
 

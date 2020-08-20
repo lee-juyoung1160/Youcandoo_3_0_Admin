@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="/assets/css/plugins/chart.min.css">
+<link rel="stylesheet" href="/assets/css/chart-ucd.css?version=<?php echo $this->config->item('version');?>">
+<section class="dashboard-main chart-pg">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">Dash Board</h2>
+            <div class="date-pic clearfix">
+                <i class="fas fa-caret-left"></i>
+                <p class="date box"><span>2020-08-20</span></p>
+                <i class="fas fa-caret-right no-date"></i>
+            </div>
+        </div>
+        <div class="wrap">
+
+            <div class="main-user-info row row-4">
+                <div class="col box">
+                    <div class="content-inner clearfix">
+                        <i class="fas fa-user-plus user-icon"></i>
+                        <dl class="user-data">
+                            <dt class="data-title">신규회원 수</dt>
+                            <dd class="data-num" style="color: green;">209</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner clearfix">
+                        <i class="fas fa-user-minus user-icon"></i>
+                        <dl class="user-data">
+                            <dt class="data-title">탈퇴회원 수</dt>
+                            <dd class="data-num" style="color: orangered;">15</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner clearfix">
+                        <i class="fas fa-user-ninja user-icon"></i>
+                        <dl class="user-data">
+                            <dt class="data-title">불량회원 수</dt>
+                            <dd class="data-num" style="color: orange;">15</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner clearfix">
+                        <i class="fas fa-users user-icon"></i>
+                        <dl class="user-data">
+                            <dt class="data-title">누적 가입회원 수</dt>
+                            <dd class="data-num">52,547,658</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-4">
+                <div class="col box">
+                    <div class="content-inner">
+                        <p class="data-title">개설 현황
+                            <i class="question-mark far fa-question-circle">
+                                <em class="tooltip" style="width: 250px;">
+                                    <b>기업 및 개인에게 발행된 UCD 총합</b><br>
+                                    - 개인 : 운영진이 별도로 발행한 UCD<br>
+                                    - 기업 : 프로모션 계약을 통해 발행된 UCD
+                                </em>
+                            </i>
+                        </p>
+                        <div>
+                            <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner">
+                        <p class="data-title">참여 현황
+                            <i class="question-mark far fa-question-circle">
+                                <em class="tooltip" style="width: 250px;">
+                                    <b>기업 및 개인에게 발행된 UCD 총합</b><br>
+                                    - 개인 : 운영진이 별도로 발행한 UCD<br>
+                                    - 기업 : 프로모션 계약을 통해 발행된 UCD
+                                </em>
+                            </i>
+                        </p>
+                        <div>
+                            <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner">
+                        <p class="data-title">종료 현황
+                            <i class="question-mark far fa-question-circle">
+                                <em class="tooltip" style="width: 250px;">
+                                    <b>기업 및 개인에게 발행된 UCD 총합</b><br>
+                                    - 개인 : 운영진이 별도로 발행한 UCD<br>
+                                    - 기업 : 프로모션 계약을 통해 발행된 UCD
+                                </em>
+                            </i>
+                        </p>
+                        <div>
+                            <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner">
+                        <p class="data-title">인증 현황
+                            <i class="question-mark far fa-question-circle">
+                                <em class="tooltip" style="width: 250px;">
+                                    <b>기업 및 개인에게 발행된 UCD 총합</b><br>
+                                    - 개인 : 운영진이 별도로 발행한 UCD<br>
+                                    - 기업 : 프로모션 계약을 통해 발행된 UCD
+                                </em>
+                            </i>
+                        </p>
+                        <div>
+                            <canvas id="cancel-doughnut"width="40" height="auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/chart.min.js"></script>
+<script src="/assets/js/chart-config.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/ucd/ucd-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

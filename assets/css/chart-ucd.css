@@ -1,3 +1,4 @@
+/* chart-common */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 .row,
 .row-custom {
@@ -26,7 +27,6 @@
     margin-right: 0.8%;
 }
 
-
 .row-custom .col-1 {
     width: 24.2%;
 }
@@ -34,8 +34,6 @@
     width: 74.3%;
     margin-right: 0.8%;
 }
-
-
 
 .box {
     margin-bottom: 10px;

@@ -314,7 +314,7 @@
 				let memberCnt = selectedData[i].member_count;
 
 				rowDom +=
-					`<tr id="'+uuid+'">
+					`<tr id="${uuid}">
 						<td>
 							<div class="doit-thumbnail">
 								<img src="${imageUrl}" alt="" onerror="onErrorImage(this);">
@@ -329,6 +329,7 @@
 					if (!isEmpty(tag))
 						rowDom += 	`<li>${tag}</li>`
 				}
+				rowDom +=
 								`</ul>
 								<p class="doit-tit">${title}</p>
 								<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>

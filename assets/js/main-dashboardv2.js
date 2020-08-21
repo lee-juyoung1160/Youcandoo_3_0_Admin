@@ -135,7 +135,7 @@
     {
         let dataset = [{
             data : [161, 71]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);

@@ -167,22 +167,22 @@
 
         let pendingDataset = [{
             data : [preData.user_cnt, preData.company_cnt]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         let progressDataset = [{
             data : [ingData.user_cnt, ingData.company_cnt]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         let endDataset = [{
             data : [endData.user_cnt, endData.company_cnt]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         let cancelDataset = [{
             data : [cancelData.cancle, cancelData.delete]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         initChart(pendingCtx, chartType.doughnut, chartLabels.doitType, pendingDataset, chartOptions.doughnutOptions);
@@ -236,11 +236,11 @@
         }, {
             label: '일반',
             data: data.data.user,
-            backgroundColor: color.jyBlue
+            backgroundColor: color.mintSky
         }, {
             label: '프로모션',
             data: data.data.company,
-            backgroundColor: color.mintSky
+            backgroundColor: color.jyBlue
         }];
 
         monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.withLegend);

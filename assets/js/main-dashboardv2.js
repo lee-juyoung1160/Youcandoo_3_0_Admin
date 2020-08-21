@@ -29,28 +29,67 @@
     const yearSelectBox = document.getElementById('doit-year-select');
     const certMonthSelectBox = document.getElementById('cert-month-select');
     const certYearSelectBox = document.getElementById('cert-year-select');*/
-
+    let minDate;
+    let maxDate;
     const datePrev     = $('#datePrev');
     const dateSelected = $('#dateSelected');
     const dateNext     = $('#dateNext');
 
     /** 현재 연도-월-일 구하기 **/
-    let d = new Date();
-    getStringFormatToDate(d, '-');
-    dateSelected.html
     /** 로드 바로 실행 **/
-    document.addEventListener("DOMContentLoaded", function () {
+    $(() => {
+        initMinMaxDate();
+        setBaseDate();
         doughnutChart();
-        /*getDoitStatus();
-        /!** 월 별 개설 두잇 수 차트 **!/
-        getMonthlyDoit();
-        /!** 가입자 현황 정보 **!/
-        getUserStatus();
-        /!** 월단위 셀렉박스 이벤트 **!/
-        yearSelectBox       .addEventListener('change', function () { updateMonthlyDoitChart(); });
-        certYearSelectBox   .addEventListener('change', function () { updateDailyActionChart(); });
-        certMonthSelectBox  .addEventListener('change', function () { updateDailyActionChart(); });*/
-    });
+
+        datePrev       .on('click', function () { onClickPrev(this); });
+        dateNext       .on('click', function () { onClickNext(this); });
+    })
+
+    function initMinMaxDate()
+    {
+        let d = new Date();
+        maxDate = getStringFormatToDate(d, '-');
+        d.setMonth(d.getMonth() - 1)
+        minDate = getStringFormatToDate(d, '-');
+    }
+
+    function toggleSideButton()
+    {
+        let selectedDate = dateSelected.text();
+
+        datePrev.removeClass('disabled');
+        dateNext.removeClass('disabled');
+        if (selectedDate === minDate)
+            datePrev.addClass('disabled');
+
+        if (selectedDate === maxDate)
+            dateNext.addClass('disabled');
+    }
+
+    function onClickPrev(obj)
+    {
+        toggleSideButton();
+
+        if (!$(obj).hasClass('disabled'))
+        {
+            let d = new Date(dateSelected.text());
+            d.setDate(d.getDate() - 1);
+            dateSelected.text(getStringFormatToDate(d, '-'));
+        }
+    }
+
+    function onClickNext(obj)
+    {
+        toggleSideButton();
+
+        if (!$(obj).hasClass('disabled'))
+        {
+            let d = new Date(dateSelected.text());
+            d.setDate(d.getDate() + 1);
+            dateSelected.text(getStringFormatToDate(d, '-'));
+        }
+    }
 
     function doughnutChart() {
         let dataset = [{
@@ -81,8 +120,7 @@
 
     function setBaseDate()
     {
-        let dateTxt = year + '.' + appendZero(month) + '.' + appendZero(date) + '. ' + appendZero(hours) + ':' + appendZero(minutes) + ' 기준';
-        baseDate.text(dateTxt);
+        dateSelected.html(getStringFormatToDate(new Date(), '-'));
     }
 
     let defaultYear  = 2020;

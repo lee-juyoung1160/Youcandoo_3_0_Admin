@@ -271,7 +271,7 @@
         let summaryData = data.data.data;
         successDoit.html(numberWithCommas(summaryData.모집중));
         failDoit.html(numberWithCommas(summaryData.진행중));
-        avgSuccess.html(`${Number(summaryData.개설취소).toFixed(1)}%`);
+        avgSuccess.html(Number(summaryData.개설취소).toFixed(1));
         reviewCount.html(numberWithCommas(summaryData.모집실패));
     }
 

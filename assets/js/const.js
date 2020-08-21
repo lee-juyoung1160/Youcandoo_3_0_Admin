@@ -131,6 +131,7 @@
 		,getUcdStat : baseApiUrl+'dashboard/ucd'
 		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
 		,getDailyAction : baseApiUrl+'dashboard/action/date'
+		,getDoitOpenStatus : baseApiUrl+'dashboard/doit/establish'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'

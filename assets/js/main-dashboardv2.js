@@ -15,6 +15,10 @@
     const banUser       = $('#banUser');
     const totalUser     = $('#totalUser');
     const doughnut1     = $('#doughnut1');
+    const pendingDoit     = $('#pendingDoit');
+    const inProgressDoit  = $('#inProgressDoit');
+    const cancelOpenDoit  = $('#cancelOpenDoit');
+    const failOpenDoit    = $('#failOpenDoit');
     const doughnut2     = $('#doughnut2');
     const doughnut3     = $('#doughnut3');
     const doughnut4     = $('#doughnut4');
@@ -87,7 +91,10 @@
     function initPage()
     {
         getUserInfo();
-        getDoitStatus();
+        getDoitOpenStatus();
+        getDoitJoinStatus();
+        getDoitClosedStatus();
+        getReportStatus();
         getDailyActions();
         getPopularDoit();
     }
@@ -96,7 +103,10 @@
     {
         g_page_type = 'update';
         getUserInfo();
-        getDoitStatus();
+        getDoitOpenStatus();
+        getDoitJoinStatus();
+        getDoitClosedStatus();
+        getReportStatus();
         getDailyActions();
         getPopularDoit();
     }
@@ -106,8 +116,8 @@
         let url = api.getEventType
         let errMsg = `상단 회원데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from" : dateSelected.text(),
-            "to" : dateSelected.text()
+            "from_date" : dateSelected.text(),
+            "to_date" : dateSelected.text()
         });
 
         ajaxRequestWithJsonData(false, url, param, getUserInfoCallback, errMsg, false);
@@ -118,53 +128,148 @@
     
     }
     
-    function getDoitStatus()
+    function getDoitOpenStatus()
     {
-        let url = api.getEventType
-        let errMsg = `두잇현황 데이터${message.ajaxLoadError}`;
+        let url = api.getDoitOpenStatus
+        let errMsg = `두잇개설현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from" : dateSelected.text(),
-            "to" : dateSelected.text()
+            "from_date" : dateSelected.text(),
+            "to_date" : dateSelected.text()
         });
-        let callback = g_page_type === 'init' ? initDoughnut : updateDoughnut;
+        let callback = g_page_type === 'init' ? initDoitOpenStatus : updateDoitOpenStatus;
 
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
-    function initDoughnut(data)
+    function initDoitOpenStatus(data)
     {
+        let chartData = data.data.chart;
         let dataset = [{
-            data : [161, 71]
+            data : [chartData.general_cnt, chartData.promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+
+        setDoitOpenSummary(data);
+    }
+
+    function updateDoitOpenStatus(data)
+    {
+        let chartData = data.data.chart;
+
+        doughnutCtx1.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx1.update();
+
+        setDoitOpenSummary(data);
+    }
+
+    function setDoitOpenSummary(data)
+    {
+        let summaryData = data.data.data;
+        pendingDoit.html(numberWithCommas(summaryData.모집중));
+        inProgressDoit.html(numberWithCommas(summaryData.진행중));
+        cancelOpenDoit.html(numberWithCommas(summaryData.개설취소));
+        failOpenDoit.html(numberWithCommas(summaryData.모집실패));
+    }
+
+    function getDoitJoinStatus()
+    {
+        let url = api.getDoitOpenStatus
+        let errMsg = `두잇참여현황 데이터${message.ajaxLoadError}`;
+        let param = JSON.stringify({
+            "from_date" : dateSelected.text(),
+            "to_date" : dateSelected.text()
+        });
+        let callback = g_page_type === 'init' ? initDoughnut2 : updateDoughnut2;
+
+        ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
+    }
+
+    function getDoitClosedStatus()
+    {
+        let url = api.getDoitOpenStatus
+        let errMsg = `두잇종료현황 데이터${message.ajaxLoadError}`;
+        let param = JSON.stringify({
+            "from_date" : dateSelected.text(),
+            "to_date" : dateSelected.text()
+        });
+        let callback = g_page_type === 'init' ? initDoughnut3 : updateDoughnut3;
+
+        ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
+    }
+
+    function getReportStatus()
+    {
+        let url = api.getDoitOpenStatus
+        let errMsg = `두잇종료현황 데이터${message.ajaxLoadError}`;
+        let param = JSON.stringify({
+            "from_date" : dateSelected.text(),
+            "to_date" : dateSelected.text()
+        });
+        let callback = g_page_type === 'init' ? initDoughnut4 : updateDoughnut4;
+
+        ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
+    }
+
+
+
+    function initDoughnut2(data)
+    {
+        let chartData = data.data.chart;
+        let dataset = [{
+            data : [chartData.general_cnt, chartData.promotion_cnt]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
+        }]
+
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+    }
+
+    function initDoughnut3(data)
+    {
+        let chartData = data.data.chart;
+        let dataset = [{
+            data : [chartData.general_cnt, chartData.promotion_cnt]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
+        }]
+
         doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
+    }
+
+    function initDoughnut4(data)
+    {
+        let chartData = data.data.chart;
+        let dataset = [{
+            data : [chartData.general_cnt, chartData.promotion_cnt]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
+        }]
+
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
     }
 
-    function updateDoughnut(data)
+
+
+    function updateDoughnut2(data)
     {
-        let doughnutData1 = [];
-        for (let i=0; i<2; i++) doughnutData1.push(Math.floor(Math.random()*100));
-        let doughnutData2 = [];
-        for (let i=0; i<2; i++) doughnutData2.push(Math.floor(Math.random()*100));
-        let doughnutData3 = [];
-        for (let i=0; i<2; i++) doughnutData3.push(Math.floor(Math.random()*100));
-        let doughnutData4 = [];
-        for (let i=0; i<2; i++) doughnutData4.push(Math.floor(Math.random()*100));
+        let chartData = data.data.chart;
 
-        doughnutCtx1.data.datasets[0].data = doughnutData1;
-        doughnutCtx1.update();
-
-        doughnutCtx2.data.datasets[0].data = doughnutData2;
+        doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
         doughnutCtx2.update();
+    }
 
-        doughnutCtx3.data.datasets[0].data = doughnutData3;
+    function updateDoughnut3(data)
+    {
+        let chartData = data.data.chart;
+
+        doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
         doughnutCtx3.update();
+    }
 
-        doughnutCtx4.data.datasets[0].data = doughnutData4;
+    function updateDoughnut4(data)
+    {
+        let chartData = data.data.chart;
+
+        doughnutCtx4.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
         doughnutCtx4.update();
     }
 

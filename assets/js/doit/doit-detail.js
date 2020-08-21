@@ -399,7 +399,7 @@
 			let imageUrl = data.example_video_image_url;
 			actionResourceDom +=
 				`<div class="file">
-					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>';
+					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다." onerror="onErrorImage(this);">
 				</div>
 				<div class="file">

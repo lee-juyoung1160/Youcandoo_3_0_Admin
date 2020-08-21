@@ -75,6 +75,7 @@
     const chartLabels = {
         doitType : ['일반', '프로모션']
         ,cancelType : ['모집실패', '개설취소']
+        ,successYn : ['성공', '실패']
     }
 
     const color = {

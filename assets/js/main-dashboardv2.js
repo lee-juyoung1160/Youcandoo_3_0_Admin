@@ -162,7 +162,7 @@
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-
+        setTotalCountInPie(doughnutCtx1, chartData.total_cnt);
         setDoitOpenSummary(data);
     }
 
@@ -171,6 +171,7 @@
         let chartData = data.data.chart;
 
         doughnutCtx1.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        setTotalCountInPie(doughnutCtx1, chartData.total_cnt);
         doughnutCtx1.update();
 
         setDoitOpenSummary(data);
@@ -193,12 +194,12 @@
             "from_date" : dateSelected.text(),
             "to_date" : dateSelected.text()
         });
-        let callback = g_page_type === 'init' ? initDoughnut2 : updateDoughnut2;
+        let callback = g_page_type === 'init' ? initDoitJoinStatus : updateDoitJoinStatus;
 
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
-    function initDoughnut2(data)
+    function initDoitJoinStatus(data)
     {
         let chartData = data.data.chart;
         let dataset = [{
@@ -207,15 +208,16 @@
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-
+        setTotalCountInPie(doughnutCtx2, chartData.total_cnt);
         setDoitJoinSummary(data);
     }
 
-    function updateDoughnut2(data)
+    function updateDoitJoinStatus(data)
     {
         let chartData = data.data.chart;
 
         doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        setTotalCountInPie(doughnutCtx2, chartData.total_cnt);
         doughnutCtx2.update();
 
         setDoitJoinSummary(data);
@@ -238,12 +240,12 @@
             "from_date" : dateSelected.text(),
             "to_date" : dateSelected.text()
         });
-        let callback = g_page_type === 'init' ? initDoughnut3 : updateDoughnut3;
+        let callback = g_page_type === 'init' ? initDoitClosedStatus : updateDoitClosedStatus;
 
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
-    function initDoughnut3(data)
+    function initDoitClosedStatus(data)
     {
         let chartData = data.data.chart;
         let dataset = [{
@@ -252,15 +254,16 @@
         }]
 
         doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
-
+        setTotalCountInPie(doughnutCtx3, chartData.total_cnt);
         setDoitClosedSummary(data);
     }
 
-    function updateDoughnut3(data)
+    function updateDoitClosedStatus(data)
     {
         let chartData = data.data.chart;
 
         doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        setTotalCountInPie(doughnutCtx3, chartData.total_cnt);
         doughnutCtx3.update();
 
         setDoitClosedSummary(data);
@@ -283,12 +286,12 @@
             "from_date" : dateSelected.text(),
             "to_date" : dateSelected.text()
         });
-        let callback = g_page_type === 'init' ? initDoughnut4 : updateDoughnut4;
+        let callback = g_page_type === 'init' ? initReportStatus : updateReportStatus;
 
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
-    function initDoughnut4(data)
+    function initReportStatus(data)
     {
         let chartData = data.data.chart;
         let dataset = [{
@@ -297,15 +300,16 @@
         }]
 
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-
+        setTotalCountInPie(doughnutCtx4, chartData.total_cnt);
         setReportSummary(data);
     }
 
-    function updateDoughnut4(data)
+    function updateReportStatus(data)
     {
         let chartData = data.data.chart;
 
         doughnutCtx4.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        setTotalCountInPie(doughnutCtx4, chartData.total_cnt);
         doughnutCtx4.update();
 
         setReportSummary(data);
@@ -358,6 +362,11 @@
             barData.push(Math.floor(Math.random()*100));
         dailyActionCtx.data.datasets[0].data = barData;
         dailyActionCtx.update();
+    }
+
+    function setTotalCountInPie(chartCtx, data)
+    {
+        chartCtx.options.elements.center.text = numberWithCommas(data);
     }
 
     function getPopularDoit()

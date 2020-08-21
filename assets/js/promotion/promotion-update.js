@@ -11,6 +11,7 @@
 	const intro		 	 = $("#intro");
 	const inputFile 	 = $("input:file");
 	const isBanner		 = $("input[name=radio-banner-open]");
+	const isGallery	 	 = $("#isGallery");
 	const rewardTabWrap	 = $("#rewardTabWrap");
 	const rewardsWrap	 = $("#rewardsWrap");
 	const btnSubmit		 = $("#btnSubmit");
@@ -126,6 +127,8 @@
 			if ($(this).val() === promoData.is_banner)
 				$(this).prop('checked', true);
 		});
+
+		isGallery.html(promoData.allow_gallery_image);
 
 		if (promoData.status === 'pending')
 		{

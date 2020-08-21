@@ -104,8 +104,6 @@ i.question-mark {
 i.question-mark .tooltip {
     display: none;
     position: absolute;
-    top: 25px;
-    left: 0;
     min-width: 180px;
     width: auto;
     padding: 5px;
@@ -118,6 +116,16 @@ i.question-mark .tooltip {
     border-top: 3px solid #007aff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     z-index: 101;
+}
+i.question-mark .tooltip-bottom {
+    top: 25px;
+    left: 0;
+}
+i.question-mark .tooltip-right {
+    top:-5px;
+    right: -235px;
+    border-top: none;
+    border-left: 3px solid #007aff;
 }
 .question-mark .tooltip b {
     color: #0061f2;
@@ -132,6 +140,7 @@ i.fa-user {
     color: #999;
     font-size: 13px;
 }
+
 
 .t-green {
     color: green;

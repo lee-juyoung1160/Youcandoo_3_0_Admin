@@ -65,10 +65,10 @@
             let d = new Date(dateSelected.text());
             d.setDate(d.getDate() - 1);
             dateSelected.text(getStringFormatToDate(d, '-'));
-        }
 
-        toggleSideButton();
-        updatePage();
+            toggleSideButton();
+            updatePage();
+        }
     }
 
     function onClickNext(obj)
@@ -78,10 +78,10 @@
             let d = new Date(dateSelected.text());
             d.setDate(d.getDate() + 1);
             dateSelected.text(getStringFormatToDate(d, '-'));
-        }
 
-        toggleSideButton();
-        updatePage();
+            toggleSideButton();
+            updatePage();
+        }
     }
 
     function initPage()
@@ -89,6 +89,7 @@
         getUserInfo();
         getDoitStatus();
         getDailyActions();
+        getPopularDoit();
     }
 
     function updatePage()
@@ -97,6 +98,7 @@
         getUserInfo();
         getDoitStatus();
         getDailyActions();
+        getPopularDoit();
     }
 
     function getUserInfo()
@@ -132,30 +134,37 @@
     function initDoughnut(data)
     {
         let dataset = [{
-            data : [19, 71]
+            data : [161, 71]
             ,backgroundColor : [color.jyBlue, color.mintSky]
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+        doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
     }
 
     function updateDoughnut(data)
     {
-        data = [19, 71];
+        let doughnutData1 = [];
+        for (let i=0; i<2; i++) doughnutData1.push(Math.floor(Math.random()*100));
+        let doughnutData2 = [];
+        for (let i=0; i<2; i++) doughnutData2.push(Math.floor(Math.random()*100));
+        let doughnutData3 = [];
+        for (let i=0; i<2; i++) doughnutData3.push(Math.floor(Math.random()*100));
+        let doughnutData4 = [];
+        for (let i=0; i<2; i++) doughnutData4.push(Math.floor(Math.random()*100));
 
-        doughnutCtx1.data.datasets.data = data;
+        doughnutCtx1.data.datasets[0].data = doughnutData1;
         doughnutCtx1.update();
 
-        doughnutCtx2.data.datasets.data = data;
+        doughnutCtx2.data.datasets[0].data = doughnutData2;
         doughnutCtx2.update();
 
-        doughnutCtx3.data.datasets.data = data;
+        doughnutCtx3.data.datasets[0].data = doughnutData3;
         doughnutCtx3.update();
 
-        doughnutCtx4.data.datasets.data = data;
+        doughnutCtx4.data.datasets[0].data = doughnutData4;
         doughnutCtx4.update();
     }
 
@@ -174,55 +183,40 @@
 
     function initDailyActionChart(data)
     {
-        let lineData = []
+        let barData = []
         let lineLabel = []
         for (var i = 0; i<31; i++)
         {
             lineLabel.push(i)
-            lineData.push(Math.floor(Math.random()*100));
+            barData.push(Math.floor(Math.random()*100));
         }
-        let lineDataset = [{
-            data : lineData,
+        let barDataset = [{
+            data : barData,
             barThickness : 10,
             backgroundColor: color.jyBlue
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.bar, lineLabel, lineDataset, chartOptions.noLegend);
+        dailyActionCtx = initChart(dailyActions, chartType.bar, lineLabel, barDataset, chartOptions.noLegend);
     }
 
     function updateDailyActionChart(data)
     {
-        let lineData = []
+        let barData = []
         for (var i = 0; i<31; i++)
-            lineData.push(Math.floor(Math.random()*100));
-        /*dailyChart.data.labels = getDayNames(selYear.val(), selMonth.val());*/
-        dailyActionCtx.data.datasets.data = lineData;
+            barData.push(Math.floor(Math.random()*100));
+        dailyActionCtx.data.datasets[0].data = barData;
         dailyActionCtx.update();
     }
 
-    function doughnutChart() {
-        let dataset = [{
-            data : [19, 71]
-            ,backgroundColor : [color.jyBlue, color.mintSky]
-        }]
+    function getPopularDoit()
+    {
+        let url = api.getEventType;
+        let errMsg = `인기두잇데이터${message.ajaxLoadError}`
 
-        initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        initChart(doughnut3, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+        ajaxRequestWithJsonData(false, url, null, getPopularDoitCallback, errMsg, false);
+    }
 
+    function getPopularDoitCallback(data)
+    {
 
-        let lineData = []
-        let lineLabel = []
-        for (var i = 0; i<31; i++)
-        {
-            lineLabel.push(i)
-            lineData.push(Math.floor(Math.random()*100));
-        }
-        let lineDataset = [{
-            data : lineData,
-            barThickness : 10,
-            backgroundColor: color.jyBlue
-        }];
-        initChart(dailyActionChart, chartType.bar, lineLabel, lineDataset, chartOptions.noLegend);
     }

@@ -20,8 +20,20 @@
     const cancelOpenDoit  = $('#cancelOpenDoit');
     const failOpenDoit    = $('#failOpenDoit');
     const doughnut2     = $('#doughnut2');
+    const applyDoit     = $('#applyDoit');
+    const cancelAttend  = $('#cancelAttend');
+    const actionCount   = $('#actionCount');
+    const avgAttend     = $('#avgAttend');
     const doughnut3     = $('#doughnut3');
+    const successDoit   = $('#successDoit');
+    const failDoit      = $('#failDoit');
+    const avgSuccess    = $('#avgSuccess');
+    const reviewCount   = $('#reviewCount');
     const doughnut4     = $('#doughnut4');
+    const yellowCount   = $('#yellowCount');
+    const redCount      = $('#redCount');
+    const reportCount   = $('#reportCount');
+    const userReportCount = $('#userReportCount');
     const dailyActions  = $('#dailyActions');
 
     /** 현재 연도-월-일 구하기 **/
@@ -186,6 +198,38 @@
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
+    function initDoughnut2(data)
+    {
+        let chartData = data.data.chart;
+        let dataset = [{
+            data : [chartData.general_cnt, chartData.promotion_cnt]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
+        }]
+
+        doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
+
+        setDoitJoinSummary(data);
+    }
+
+    function updateDoughnut2(data)
+    {
+        let chartData = data.data.chart;
+
+        doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx2.update();
+
+        setDoitJoinSummary(data);
+    }
+
+    function setDoitJoinSummary(data)
+    {
+        let summaryData = data.data.data;
+        applyDoit.html(numberWithCommas(summaryData.모집중));
+        cancelAttend.html(numberWithCommas(summaryData.진행중));
+        actionCount.html(numberWithCommas(summaryData.개설취소));
+        avgAttend.html(numberWithCommas(summaryData.모집실패));
+    }
+
     function getDoitClosedStatus()
     {
         let url = api.getDoitOpenStatus
@@ -197,6 +241,38 @@
         let callback = g_page_type === 'init' ? initDoughnut3 : updateDoughnut3;
 
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
+    }
+
+    function initDoughnut3(data)
+    {
+        let chartData = data.data.chart;
+        let dataset = [{
+            data : [chartData.general_cnt, chartData.promotion_cnt]
+            ,backgroundColor : [color.mintSky, color.jyBlue]
+        }]
+
+        doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
+
+        setDoitClosedSummary(data);
+    }
+
+    function updateDoughnut3(data)
+    {
+        let chartData = data.data.chart;
+
+        doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx3.update();
+
+        setDoitClosedSummary(data);
+    }
+
+    function setDoitClosedSummary(data)
+    {
+        let summaryData = data.data.data;
+        successDoit.html(numberWithCommas(summaryData.모집중));
+        failDoit.html(numberWithCommas(summaryData.진행중));
+        avgSuccess.html(`${Number(summaryData.개설취소).toFixed(1)}%`);
+        reviewCount.html(numberWithCommas(summaryData.모집실패));
     }
 
     function getReportStatus()
@@ -212,30 +288,6 @@
         ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
     }
 
-
-
-    function initDoughnut2(data)
-    {
-        let chartData = data.data.chart;
-        let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
-            ,backgroundColor : [color.mintSky, color.jyBlue]
-        }]
-
-        doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-    }
-
-    function initDoughnut3(data)
-    {
-        let chartData = data.data.chart;
-        let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
-            ,backgroundColor : [color.mintSky, color.jyBlue]
-        }]
-
-        doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
-    }
-
     function initDoughnut4(data)
     {
         let chartData = data.data.chart;
@@ -245,24 +297,8 @@
         }]
 
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-    }
 
-
-
-    function updateDoughnut2(data)
-    {
-        let chartData = data.data.chart;
-
-        doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        doughnutCtx2.update();
-    }
-
-    function updateDoughnut3(data)
-    {
-        let chartData = data.data.chart;
-
-        doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        doughnutCtx3.update();
+        setReportSummary(data);
     }
 
     function updateDoughnut4(data)
@@ -271,6 +307,17 @@
 
         doughnutCtx4.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
         doughnutCtx4.update();
+
+        setReportSummary(data);
+    }
+
+    function setReportSummary(data)
+    {
+        let summaryData = data.data.data;
+        yellowCount.html(numberWithCommas(summaryData.모집중));
+        redCount.html(numberWithCommas(summaryData.진행중));
+        reportCount.html(numberWithCommas(summaryData.개설취소));
+        userReportCount.html();
     }
 
     function getDailyActions()

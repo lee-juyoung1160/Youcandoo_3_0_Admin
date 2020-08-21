@@ -121,7 +121,7 @@
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default no-sort",
+				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
 					}
@@ -198,10 +198,13 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let checkDom 	= $(nRow).children().eq(0);
+		let checkDom 		= $(nRow).children().eq(0);
+		let joinMemberDom 	= $(nRow).children().eq(5);
 		/** 모집중,참여인원 0이면 체크박스 삭제 **/
 		if (aData.doit_status !== '모집중' || Number(aData.doit_member) > 0)
 			$(checkDom).children().prop('disabled', true);
+
+		$(joinMemberDom).attr('data-sort', aData.doit_member);
 	}
 
 	function onSubmitSearch()

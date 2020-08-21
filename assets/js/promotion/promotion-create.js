@@ -12,6 +12,7 @@
 	const intro		 	 = $("#intro");
 	const inputFile 	 = $("input:file");
 	const isBanner		 = $("input[name=radio-banner-open]");
+	const isGallery		 = $("input[name=radio-gallery-yn]");
 	const btnSubmit		 = $("#btnSubmit");
 
 	/** modal **/
@@ -78,6 +79,7 @@
 		budget.val('');
 		allowCount.val(3);
 		isBanner.eq(0).prop("checked", true);
+		isGallery.eq(0).prop("checked", true);
 		initNoticeArea();
 		$("input[name=radio-duration]").eq(0).prop("checked", true);
 		/** 리워드 제목과 탭 이름 같은 값으로 세팅 **/
@@ -913,6 +915,7 @@
 		formData.append("promotion-banner-image",paramBannerFile);
 		formData.append("promotion-list-image", paramIntroFile);
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
+		formData.append("allow-gallery-image", $('input:radio[name=radio-gallery-yn]:checked').val());
 
 		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;

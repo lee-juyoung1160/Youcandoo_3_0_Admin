@@ -533,7 +533,7 @@
 	{
 		let paramTag = [];
 		addedTags.find('li').each(function () {
-			paramTag.push($(this).text());
+			paramTag.push($(this).text().trim());
 		})
 		let paramIntroImage 	= $("#introImage")[0].files[0];
 		let paramIntroVideo 	= '';

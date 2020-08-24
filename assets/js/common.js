@@ -620,7 +620,7 @@
         activeMenu();
     }
 
-    /** 권한별 메뉴 리스트 **/
+    /** 권한별 메뉴 생성 **/
     function buildMenuByAuthCode(data)
     {
         let keys   	= Object.getOwnPropertyNames(data.data);
@@ -645,7 +645,7 @@
                             <span>${mainName}</span>
                             <i class="fas fa-chevron-right arrow-i"></i>
                         </div>
-                        <ul class="menu-btn-list ' +target+'">`
+                        <ul class="menu-btn-list ${target}">`
                 if (children)
                 {
                     let subKeys = Object.getOwnPropertyNames(children);
@@ -750,6 +750,7 @@
          *  재택근무로 추가된 로직. 원래는 아래 펑션(ip)만으로 처리했으나 권한까지 추가 됨.
          * **/
         let accessibleAuths = ['smg', 'mg'];
+        if ($("#env").val() === 'development') accessibleAuths.push('dev')
         return accessibleAuths.indexOf(sessionAuthCode.val()) === -1;
     }
 

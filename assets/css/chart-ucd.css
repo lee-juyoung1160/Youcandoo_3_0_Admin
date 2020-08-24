@@ -284,10 +284,11 @@ i.fa-user {
 .best-doit .user-num {
     width: 16%;
     margin-left: auto;
-    color: #666;
+    color: #555;
     font-size: 12px;
 }
 .best-doit .user-num i {
+    color: skyblue;
     font-size: 9px;
     cursor: inherit;
 }

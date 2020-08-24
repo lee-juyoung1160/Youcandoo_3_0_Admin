@@ -22,6 +22,7 @@
 	const actionType 	= $("#actionType");
 	const actionResource = $("#actionResource");
 	const actionDesc    = $("#actionDesc");
+	const allowGallery  = $("#allowGallery");
 
 	/** 참여자정보 탭 **/
 	const doitUser		= $("#doitUser");
@@ -360,6 +361,8 @@
 		actionResource.html(buildActionResource(detail));
 
 		actionDesc.html(detail.action_description);
+
+		allowGallery.html(detail.allow_gallery_image);
 
 		removeModifyBtn(detail);
 	}

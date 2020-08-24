@@ -17,6 +17,7 @@
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
 	const actionDesc 		= $("#actionDesc");
+	const galleryWrap 		= $("#galleryWrap");
 	const btnSubmit			= $("#btnSubmit");
 
 	const pathname 		= window.location.pathname;
@@ -74,7 +75,6 @@
 		doitTitle.html(detail.doit_title);
 		doitDesc.val(detail.doit_description);
 
-
 		let tags = detail.doit_tags;
 		let tagDom = '';
 		if (!isEmpty(tags))
@@ -123,6 +123,20 @@
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
+
+
+		let checkedY = detail.allow_gallery_image === 'Y' ? 'checked' : '';
+		let checkedN = detail.allow_gallery_image === 'N' ? 'checked' : '';
+		let radioGalleryEl =
+			`<input type="radio" id="c20" name="radio-gallery-yn" value="Y" ${checkedY}/>
+			<label for="c20">Y<span></span></label>
+
+			<input type="radio" id="c21" name="radio-gallery-yn" value="N" ${checkedN}/>
+			<label for="c21">N<span></span></label>`
+
+		radioGalleryEl = detail.promotion_allow_gallery_image === 'N' ?'<p class="detail-data">N</p>' : radioGalleryEl;
+
+		galleryWrap.html(radioGalleryEl);
 	}
 
 	function buildThumbnailDom()

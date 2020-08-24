@@ -22,7 +22,8 @@
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
 	const exampleDesc 		= $("#exampleDesc");
-	const openYn 			= $("input[name=radio-open-yn]");
+	const galleryWrap		= $("#galleryWrap");
+	/*const openYn 			= $("input[name=radio-open-yn]");*/
 	const btnSubmit			= $("#btnSubmit");
 
 	/** modal **/
@@ -90,7 +91,7 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
-		openYn.eq(0).prop('checked', true);
+		/*openYn.eq(0).prop('checked', true);*/
 	}
 
 	function onClickAddTag()
@@ -262,7 +263,7 @@
 
 	function buildOptionPromo(data)
 	{
-		let optionPromoDom = '<option value="">프로모션 선택</option>';
+		let optionPromoDom = '<option data-gallery="" value="">프로모션 선택</option>';
 		if (!isEmpty(data) && !isEmpty(data.data) && isSuccessResp(data))
 		{
 			let details = data.data;
@@ -274,17 +275,22 @@
 				{
 					let uuid  = details[i].promotion_uuid;
 					let title = details[i].promotion_title;
+					let gallery = details[i].allow_gallery_image;
 
-					optionPromoDom += '<option value="'+ uuid +'">'+ title +'</option>';
+					optionPromoDom += `<option data-gallery="${gallery}" value="${uuid}">${title}</option>`;
 				}
 			}
 		}
 		selPromo.html(optionPromoDom);
 		onChangeSelectOption(selPromo);
+
+		checkAllowGallery();
 	}
 
 	function onChangeSelPromo()
 	{
+		checkAllowGallery();
+
 		selectedReward.empty();
 
 		let param   = JSON.stringify({"promotion_uuid" : selPromo.val()});
@@ -315,6 +321,22 @@
 		}
 		selReward.html(optionRewardDom);
 		onChangeSelectOption(selReward);
+	}
+
+	function checkAllowGallery()
+	{
+		let selectedPromo  = $("#selPromo option:selected");
+		let isAllowGallery = $(selectedPromo).data('gallery');
+		let radioGalleryEl =
+			`<input type="radio" id="c20" name="radio-gallery-yn" value="Y" checked/>
+			<label for="c20">Y<span></span></label>
+
+			<input type="radio" id="c21" name="radio-gallery-yn" value="N"/>
+			<label for="c21">N<span></span></label>`
+
+		radioGalleryEl = isAllowGallery === 'N' ?'<p class="detail-data">N</p>' : radioGalleryEl;
+
+		galleryWrap.html(radioGalleryEl);
 	}
 
 	function onChangeSelReward()
@@ -531,9 +553,9 @@
 
 	function params()
 	{
-		let paramTag = [];
+		let paramTags = [];
 		addedTags.find('li').each(function () {
-			paramTag.push($(this).text().trim());
+			paramTags.push($(this).text().trim());
 		})
 		let paramIntroImage 	= $("#introImage")[0].files[0];
 		let paramIntroVideo 	= '';
@@ -553,7 +575,7 @@
 		formData.append('reward-uuid', selReward.val().trim());
 		formData.append('min-user', g_min_user_limit);
 		formData.append('max-user', g_max_user_limit);
-		formData.append('doit-tags', paramTag.toString());
+		formData.append('doit-tags', paramTags.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);
 		formData.append('intro-video-file', paramIntroVideo);
@@ -570,6 +592,10 @@
 		formData.append('doit-description', doitDesc.val().trim());
 		if (chkExtraReward.is(':checked'))
 			formData.append('group-reward-description', extraReward.val().trim());
+		let isAllowGallery = 'N';
+		if ($('input:radio[name=radio-gallery-yn]').length > 0)
+			isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
+		formData.append('allow-gallery-image', isAllowGallery);
 
 		return formData;
 	}

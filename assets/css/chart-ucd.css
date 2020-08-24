@@ -275,13 +275,14 @@ i.fa-user {
     background-color: #333;
 }
 .best-doit li .rank-title {
-    width: 70%;
+    width: 67%;
     color: #555;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.2em;
 }
 .best-doit .user-num {
+    width: 16%;
     margin-left: auto;
     color: #666;
     font-size: 12px;

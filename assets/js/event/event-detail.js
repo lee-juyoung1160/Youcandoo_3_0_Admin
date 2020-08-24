@@ -92,9 +92,9 @@
 		notice.html(detail.notice);
 		contentImg.attr('src', detail.image_url);
 		thumbnail.attr('src', detail.thumbnail_image_url);
-		period.html(detail.start_date+label.tilde+detail.end_date);
-		link.html('<a href="'+detail.link_url+'" target="_blank">'+detail.link_url+'</a>');
-		webUrl.html('<a href="'+detail.web_url+'" target="_blank">'+detail.web_url+'</a>');
+		period.html(`${detail.start_date} ${label.tilde} ${detail.end_date}`);
+		link.html(`<a href="${detail.link_url}" target="_blank">${detail.link_url}</a>`);
+		webUrl.html(`<a href="${detail.web_url}" target="_blank">${detail.web_url}</a>`);
 		exposure.html(detail.is_exposure === 'Y' ? label.y : label.n);
 	}
 

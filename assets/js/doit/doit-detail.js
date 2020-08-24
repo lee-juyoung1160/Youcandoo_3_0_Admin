@@ -238,7 +238,7 @@
 		let detail 	 = data.data;
 
 		doitTitle.html(detail.doit_title);
-		actionDate.html(detail.action_start_datetime+label.tilde+detail.action_end_datetime);
+		actionDate.html(`${detail.action_start_datetime} ${label.tilde} ${detail.action_end_datetime}`);
 
 		let rewardDom 	= '';
 		let separator   = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'
@@ -251,7 +251,7 @@
 		let dayofweek   = isEmpty(detail.action_dayofweek) ? label.nullValue : detail.action_dayofweek;
 		let minUser 	= Number(detail.min_user);
 		let maxUser 	= Number(detail.max_user);
-		let recruitCount = maxUser === 1 ? maxUser : minUser+label.tilde+maxUser;
+		let recruitCount = maxUser === 1 ? maxUser : `${minUser} ${label.tilde} ${maxUser}`;
 		let personReward = Number(detail.person_reward);
 		let groupReward = Number(detail.group_reward);
 		let totalReward =  personReward + groupReward;
@@ -344,7 +344,7 @@
 		let xtraReward = isEmpty(detail.group_reward_description) ? label.nullValue : detail.group_reward_description;
 		extraReward.html(xtraReward);
 
-		actionTime.html(detail.action_allow_start_time+label.tilde+detail.action_allow_end_time);
+		actionTime.html(`${detail.action_allow_start_time} ${label.tilde} ${detail.action_allow_end_time}`);
 
 		let optionDom = label.nullValue;
 		if (!isEmpty(detail.private_code))

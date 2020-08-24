@@ -82,12 +82,12 @@
 				,{title: "제목", 	data: "title",  		   width: "35%",	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailEvent + row.idx;
-						return '<a href="'+detailUrl+'">' + data + '</a>';
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
 				,{title: "기간", 	data: "start_date",  	   width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.start_date + label.tilde + row.end_date;
+						return `${row.start_date} ${label.tilde} ${row.end_date}`;
 					}
 				}
 				,{title: "노출여부",  data: "is_exposure",  	   width: "10%",  	className: "cursor-default no-sort",

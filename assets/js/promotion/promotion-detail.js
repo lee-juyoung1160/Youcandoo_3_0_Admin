@@ -112,7 +112,7 @@
 		promoName.html(detailPromo.promotion_title);
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
 		balance.html(numberWithCommas(detailPromo.remain_budget_ucd));
-		period.html(detailPromo.start_date+label.tilde+detailPromo.end_date);
+		period.html(`${detailPromo.start_date} ${label.tilde} ${detailPromo.end_date}`);
 		let notices = detailPromo.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
@@ -256,17 +256,17 @@
 				{title: "두잇명", 			data: "doit_title",    			width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit+row.idx;
-						return '<a href="'+detailUrl+'">' + data +'</a>';
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
 				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.doit_member + ' / ' + data;
+						return `${row.doit_member} ${label.slash} ${data}`;
 					}
 				}
 				,{title: "인증기간", 		data: "action_start_datetime",  width: "15%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return data + label.tilde + row.action_end_datetime;
+						return `${data} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",  			width: "10%",    className: "cursor-default" }

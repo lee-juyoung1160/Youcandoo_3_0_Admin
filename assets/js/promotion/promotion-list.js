@@ -102,7 +102,7 @@
 				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl 	= page.detailPromo + row.idx;
-						return '<a href="'+detailUrl+'">' + data + '</a>';
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
 				,{title: "프로모션 예산", data: "budget_ucd",     	width: "15%",    className: "cursor-default",
@@ -117,7 +117,7 @@
 				}
 				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.start_date+label.tilde+row.end_date;
+						return `${row.start_date} ${label.tilde} ${row.end_date}`;
 					}
 				}
 				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    className: "cursor-default no-sort",

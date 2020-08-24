@@ -179,7 +179,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		/** 기업명에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.key+'\',\''+aData.value+'\')');
+		$(nRow).attr('onClick', `setSelectedBiz("${aData.key}, ${aData.value}")`);
 	}
 
 	/** 모달에서 기업명 클릭 했을 때 **/
@@ -209,7 +209,7 @@
 	{
 		let totalBalance = Number(data.data.cash) + Number(data.data.point);
 		g_total_balance = totalBalance;
-		balance.html('기업 보유 UCD: '+numberWithCommas(totalBalance)+'UCD');
+		balance.html(`기업 보유 UCD: ${numberWithCommas(totalBalance)} UCD`);
 	}
 
 	function initModal()
@@ -242,11 +242,12 @@
 		if (noticeAddValidation())
 		{
 			let noticeDom = '';
-			noticeDom += '<li>';
-			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(noticeLen+1)+'</p>';
-			noticeDom += 	'<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요.">';
-			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
-			noticeDom += '</li>';
+			noticeDom +=
+				`<li>
+					<p class="cap input-notice-title">유의사항 ${noticeLen+1}</p>
+					<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요.">
+					<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>
+				</li>`
 
 			noticeArea.append(noticeDom);
 		}
@@ -258,7 +259,7 @@
 
 		if (noticeLen > 3)
 		{
-			sweetToast('유의사항은 '+message.maxAddFour);
+			sweetToast(`유의사항은 ${message.maxAddFour}`);
 			return false;
 		}
 
@@ -271,7 +272,7 @@
 		$(obj).parent().remove();
 
 		$(".input-notice-title").each(function (idx) {
-			$(this).text('유의사항 '+(idx+1));
+			$(this).text(`유의사항 ${idx+1}`);
 		});
 	}
 
@@ -282,11 +283,12 @@
 		let noticeTxt = [message.promotionNotice1, message.promotionNotice2, message.promotionNotice3];
 		for (let i=0; i<3; i++)
 		{
-			noticeDom += '<li>';
-			noticeDom += 	'<p class="cap input-notice-title">유의사항 '+(i+1)+'</p>';
-			noticeDom += 	'<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요." value="'+noticeTxt[i]+'">';
-			noticeDom += 	'<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>';
-			noticeDom += '</li>';
+			noticeDom +=
+				`<li>
+					<p class="cap input-notice-title">유의사항 ${i+1}</p>
+					<input type="text" name="promo-notice" placeholder="유의사항을 입력해주세요." value="${noticeTxt[i]}">
+					<i onclick="removeNotice(this)" class="far fa-times-circle" style="color: #ec5c5c;font-size: 21px;vertical-align: middle;margin-left: 5px;"></i>
+				</li>`
 		}
 
 		noticeArea.html(noticeDom);
@@ -344,7 +346,7 @@
 	{
 		if (count >= 5)
 		{
-			sweetToast('리워드는 '+message.maxAddFive);
+			sweetToast(`리워드는 ${message.maxAddFive}`);
 			return false;
 		}
 
@@ -362,10 +364,11 @@
 		let targetDom    = '#reward'+countId;
 		let title        = '리워드 옵션 명 입력';
 		let rewardTabDom = '';
-		rewardTabDom += '<li>';
-		rewardTabDom += 	'<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="'+targetDom+'">'+title+'</span>';
-		rewardTabDom += 	'<i onclick="deleteReward(this);" class="delete-btn far fa-times-circle delete-reward" data-target="'+targetDom+'"></i>';
-		rewardTabDom += '</li>';
+		rewardTabDom +=
+			`<li>
+				<span onclick="onClickRewardTab(this);" class="tag-name btn-reward-title reward-tab" data-target="${targetDom}">${title}</span>
+				<i onclick="deleteReward(this);" class="delete-btn far fa-times-circle delete-reward" data-target="${targetDom}"></i>
+			</li>`
 
 		rewardTabWrap.append(rewardTabDom);
 	}
@@ -628,12 +631,13 @@
 	function validation()
 	{
 		let bannerFile		= banner[0].files;
-		let introFile	= intro[0].files;
+		let introFile		= intro[0].files;
 		let promotionNotice = $("input[name=promo-notice]");
+		let msg;
 
 		if (isEmpty(bizName.val()))
 		{
-			sweetToast('기업명은 ' + message.required);
+			sweetToast(`기업명은 ${message.required}`);
 			scrollToTarget(bizName);
 			onClickBizName();
 			return false;
@@ -641,98 +645,106 @@
 
 		if (isEmpty(promoName.val()))
 		{
-			sweetToast('프로모션명은 ' + message.required);
+			sweetToast(`프로모션명은 ${message.required}`);
 			promoName.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(budget.val()))
 		{
-			sweetToast('예산은 ' + message.required);
+			sweetToast(`예산은 ${message.required}`);
 			budget.trigger('focus');
 			return false;
 		}
 
 		if (Number(budget.val()) > Number(g_total_balance))
 		{
-			sweetToast('예산은 ' + message.overTotalBalance);
+			sweetToast(`예산은 ${message.overTotalBalance}`);
 			budget.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
-			sweetToast('프로모션기간(시작일)은 ' + message.required);
+			sweetToast(`프로모션기간(시작일)은 ${message.required}`);
 			promoFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
-			sweetToast('프로모션기간(종료일)은 ' + message.required);
+			sweetToast(`프로모션기간(종료일)은 ${message.required}`);
 			promoTo.trigger('focus');
 			return false;
 		}
 
 		if (promotionNotice.length === 0)
 		{
-			sweetToast('유의사항을 ' + message.addOn);
+			sweetToast(`유의사항을 ${message.addOn}`);
 			return false;
 		}
 
 		if (promotionNotice.length > 0 && isEmptyNotice())
 		{
-			sweetToast('유의사항은 ' + message.required);
+			sweetToast(`유의사항은 ${message.required}`);
 			return false;
 		}
 
 		if (isEmpty(allowCount.val()))
 		{
-			sweetToast('프로모션 동시 참여 횟수는 ' + message.required);
+			sweetToast(`프로모션 동시 참여 횟수는 ${message.required}`);
 			allowCount.trigger('focus');
 			return false;
 		}
 
 		if (Number(allowCount.val()) > 5)
 		{
-			sweetToast('프로모션 동시 참여 횟수는 ' + message.maxJoinPromo);
+			sweetToast(`프로모션 동시 참여 횟수는 ${message.maxJoinPromo}`);
 			allowCount.trigger('focus');
 			return false;
 		}
 
 		if (bannerFile.length === 0)
 		{
-			sweetToast('배너 및 리스트 이미지는 ' + message.required);
+			sweetToast(`배너 및 리스트 이미지는 ${message.required}`);
 			return false;
 		}
 
 		if (introFile.length === 0)
 		{
-			sweetToast('소개 이미지는 ' + message.required);
+			sweetToast(`소개 이미지는 ${message.required}`);
 			return false;
 		}
 
 		if (isEmptyRewardTitle())
 		{
-			sweetToast('리워드 옵션명은 '+message.required+'\n리워드 조건의 리워드 옵션명을 '+message.doubleChk);
+			msg = `리워드 옵션명은 ${message.required}
+					리워드 조건의 리워드 옵션명을 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
 		if (isEmptyDuration())
 		{
-			sweetToast('인증 기간은 '+message.required+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			msg = `인증 기간은 ${message.required}
+					리워드 조건의 인증 기간을 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
 		if (isInvalidDuration())
 		{
-			sweetToast(message.invalidDuration+'\n리워드 조건의 인증 기간을 '+message.doubleChk);
+			msg = `${message.invalidDuration}
+					리워드 조건의 인증 기간을 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
 		if (isEmptyFrequency())
 		{
-			sweetToast('주간 빈도는 '+message.required+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
+			msg = `주간 빈도는 ${message.required}
+					리워드 조건의 주간 빈도를 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
@@ -744,19 +756,25 @@
 
 		if (isEmptyRewardUcd())
 		{
-			sweetToast('인당 UCD는 '+message.required+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
+			msg = `인당 UCD는 ${message.required}
+					리워드 조건의 인당 UCD 항목을 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
 		if (isInvalidJoinUserCount())
 		{
-			sweetToast(message.minOverMax+'\n리워드 조건의 참여자 수를 '+message.doubleChk);
+			msg = `${message.minOverMax}
+					리워드 조건의 참여자 수를 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 
 		if (isOverBudget())
 		{
-			sweetToast(message.overBudget+'\n리워드 조건의 인당 UCD 항목을 '+message.doubleChk);
+			msg = `${message.overBudget}
+					리워드 조건의 인당 UCD 항목을 ${message.doubleChk}`
+			sweetToast(msg);
 			return false;
 		}
 

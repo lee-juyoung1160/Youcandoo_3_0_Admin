@@ -284,7 +284,7 @@
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.action_start_datetime+label.tilde+row.action_end_datetime;
+						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
 			],
@@ -371,7 +371,7 @@
 				}
 				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.action_start_datetime+label.tilde+row.action_end_datetime;
+						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
 			],

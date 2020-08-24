@@ -174,7 +174,7 @@
 				}
 				,{title: "기간", 		data: "start_date",   		width: "24%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return data + label.tilde + row.end_date;
+						return `${data} ${label.tilde} ${row.end_date}`;
 					}
 				}
 				,{title: "프로모션 상태", data: "status",   			width: "10%",   className: "cursor-default",
@@ -256,7 +256,7 @@
 						let result = data;
 						if (row.division === '충전' || row.division === '취소')
 						{
-							let term 	= isEmpty(data) ? label.nullValue : data[0]+label.tilde+data[1];
+							let term 	= isEmpty(data) ? label.nullValue : `${$data[0]} ${label.tilde} ${data[1]}`;
 							let title   = isEmpty(data) ? label.nullValue : data[2];
 							let amount  = isEmpty(data) ? label.nullValue: data[3];
 

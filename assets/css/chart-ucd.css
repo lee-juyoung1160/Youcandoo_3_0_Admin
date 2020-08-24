@@ -249,7 +249,7 @@ i.fa-user {
 .best-doit li {
     position: relative;
     display: flex;
-    height: 70px;
+    height: 51px;
     align-items: center;
     border-top: 1px solid #f3f3f3;
 }
@@ -262,9 +262,10 @@ i.fa-user {
 }
 .best-doit li i.rank-first {
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: 4px;
+    left: 3px;
     color: orange;
+    font-size: 10px;
 }
 .best-doit li .rank em {
     display: block;
@@ -274,13 +275,21 @@ i.fa-user {
     background-color: #333;
 }
 .best-doit li .rank-title {
-    width: 90%;
+    width: 70%;
     color: #555;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.2em;
 }
-
+.best-doit .user-num {
+    margin-left: auto;
+    color: #666;
+    font-size: 12px;
+}
+.best-doit .user-num i {
+    font-size: 9px;
+    cursor: inherit;
+}
 /*  UCD */
 .dashboard-ucd .ucd-text {
     display: flex;

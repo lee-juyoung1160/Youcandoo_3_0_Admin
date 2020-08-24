@@ -35,6 +35,7 @@
     const reportCount   = $('#reportCount');
     const userReportCount = $('#userReportCount');
     const dailyActions  = $('#dailyActions');
+    const popularDoit   = $('#popularDoit');
 
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
@@ -42,7 +43,6 @@
         initMinMaxDate();
         setBaseDate();
         initPage();
-        /*doughnutChart();*/
 
         datePrev       .on('click', function () { onClickPrev(this); });
         dateNext       .on('click', function () { onClickNext(this); });
@@ -137,7 +137,10 @@
 
     function getUserInfoCallback(data)
     {
-    
+        newUser.html();
+        leaveUser.html();
+        banUser.html();
+        totalUser.html();
     }
     
     function getDoitOpenStatus()
@@ -280,8 +283,8 @@
 
     function getReportStatus()
     {
-        let url = api.getDoitOpenStatus
-        let errMsg = `두잇종료현황 데이터${message.ajaxLoadError}`;
+        let url = api.getReportStatus
+        let errMsg = `신고현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
             "to_date" : dateSelected.text()
@@ -318,10 +321,10 @@
     function setReportSummary(data)
     {
         let summaryData = data.data.data;
-        yellowCount.html(numberWithCommas(summaryData.모집중));
-        redCount.html(numberWithCommas(summaryData.진행중));
-        reportCount.html(numberWithCommas(summaryData.개설취소));
-        userReportCount.html();
+        yellowCount.html(numberWithCommas(summaryData.yellow_card_cnt));
+        redCount.html(numberWithCommas(summaryData.red_card_cnt));
+        reportCount.html(numberWithCommas(summaryData.report_cnt));
+        userReportCount.html(numberWithCommas(summaryData.action_cnt));
     }
 
     function getDailyActions()
@@ -371,13 +374,27 @@
 
     function getPopularDoit()
     {
-        let url = api.getEventType;
-        let errMsg = `인기두잇데이터${message.ajaxLoadError}`
+        let url = api.getPopularDoits;
+        let errMsg = `인기두잇 데이터${message.ajaxLoadError}`
 
         ajaxRequestWithJsonData(false, url, null, getPopularDoitCallback, errMsg, false);
     }
 
     function getPopularDoitCallback(data)
     {
+        let popularDoits = data.data;
+        let innerEl = '';
 
+        popularDoits.map((obj, idx) => {
+            let rankFirst = idx === 0 ? '<i class="fas fa-crown rank-first"></i>' : '';
+            innerEl +=
+                `<li class="clearfix">
+                    ${rankFirst}
+                    <strong class="rank"><em>${idx+1}</em></strong>
+                    <span class="rank-title">${obj.doit_title}</span>
+                    <p class="user-num"><i class="fas fa-user"></i>${numberWithCommas(obj.cnt)}</p>
+                </li>`
+        })
+
+        popularDoit.html(innerEl);
     }

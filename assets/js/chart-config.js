@@ -1,5 +1,5 @@
 
-const chartType = {
+    const chartType = {
         doughnut : 'doughnut'
         ,line : 'line'
         ,bar : 'bar'
@@ -54,7 +54,7 @@ const chartType = {
                     fontStyle: 'Roboto',
                     sidePadding: 20, /** Default is 20 (as a percentage) **/
                     maxFontSize: 25,
-                    minFontSize: 16, /** Default is 18 (in px), set to false and text will not wrap. **/
+                    minFontSize: false, /** Default is 18 (in px), set to false and text will not wrap. **/
                     lineHeight: 25 /** Default is 25 (in px), used for when text wraps **/
                 }
             }

@@ -133,6 +133,8 @@
 		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
 		,getDailyAction : baseApiUrl+'dashboard/action/date'
 		,getDoitOpenStatus : baseApiUrl+'dashboard/v2/doit/establish'
+		,getReportStatus : baseApiUrl+'dashboard/v2/doit/report'
+		,getPopularDoits : baseApiUrl+'dashboard/v2/doit/popular'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'

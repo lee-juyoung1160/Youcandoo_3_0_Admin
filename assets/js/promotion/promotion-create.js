@@ -35,7 +35,7 @@
 	const goalRate1	 	 = $("#goalRate1");
 	const inputRight	 = $(".input-right");
 	const rewardUcd		 = $(".reward-ucd");
-	const iconDeleteRow  = $(".icon-delete-row");
+	/*const iconDeleteRow  = $(".icon-delete-row");*/
 	const btnCreateRow   = $(".ucd-add-btn");
 
 	$( () => {

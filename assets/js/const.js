@@ -84,7 +84,8 @@
 		, y: 'Y'
 		, n: 'N'
 		, nullValue: '-'
-		, tilde: ' ~ '
+		, tilde: '~'
+		, slash: '/'
 		, lineBreak: '\n'
 		, pendingIcon: '<i class="far fa-calendar"></i>'
 		, progressIcon: '<i class="far fa-calendar-check"></i>'
@@ -131,7 +132,7 @@
 		,getUcdStat : baseApiUrl+'dashboard/ucd'
 		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
 		,getDailyAction : baseApiUrl+'dashboard/action/date'
-		,getDoitOpenStatus : baseApiUrl+'dashboard/doit/establish'
+		,getDoitOpenStatus : baseApiUrl+'dashboard/v2/doit/establish'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'

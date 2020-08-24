@@ -234,7 +234,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

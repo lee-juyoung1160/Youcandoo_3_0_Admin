@@ -77,14 +77,14 @@
 			columns: [
 				{title: "배너이미지",		data: "list_image_url",		width: "25%",
 					render: function (data) {
-						return '<img class="pro-banner" src="'+data+'" alt="">';
+						return `<img class="pro-banner" src="${data}" alt="">`;
 					}
 				}
 				,{title: "기업", 		data: "nickname",    		width: "15%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "20%" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
 					render: function (data) {
-						return '<i onclick="removeRow(this)" data-uuid="'+data+'" class="far fa-times-circle"></i>';
+						return `<i onclick="removeRow(this)" data-uuid="${data}" class="far fa-times-circle"></i>`;
 					}
 				}
 			],
@@ -235,7 +235,7 @@
 				},
 				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
 					render: function (data) {
-						return '<img class="pro-banner" src="'+data+'" alt="" onerror="onErrorImage(this);">';
+						return `<img class="pro-banner" src="${data}" alt="" onerror="onErrorImage(this);">`;
 					}
 				}
 				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
@@ -319,16 +319,17 @@
 				let bizName  = selectedData[i].nickname;
 				let title  = selectedData[i].promotion_title;
 
-				rowDom += '<tr role="row" id="'+uuid+'">';
-				rowDom += 	'<td>';
-				rowDom += 		'<img class="pro-banner" src="'+imageUrl+'" alt="" onerror="onErrorImage(this);">';
-				rowDom += 	'</td>';
-				rowDom += 	'<td>'+bizName+'</td>';
-				rowDom += 	'<td>'+title+'</td>';
-				rowDom += 	'<td class="cursor-default">';
-				rowDom += 		'<i onclick="removeRow(this)" data-uuid="'+uuid+'" class="far fa-times-circle"></i>';
-				rowDom += 	'</td>';
-				rowDom += '</tr>';
+				rowDom +=
+					`<tr role="row" id="${uuid}">
+						<td>
+							<img class="pro-banner" src="${imageUrl}" alt="" onerror="onErrorImage(this);">
+						</td>
+						<td>${bizName}</td>
+						<td>${title}</td>
+						<td class="cursor-default">
+							<i onclick="removeRow(this)" data-uuid="${uuid}" class="far fa-times-circle"></i>
+						</td>
+					</tr>`
 			}
 
 			let targetTableBody = bannerTable.find('tbody');
@@ -353,13 +354,15 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 
 		if (selectedData.length > vacancy)
 		{
-			sweetToast('배너는 '+message.maxAddFive+'\n추가할 수 있는 배너 수: '+vacancy);
+			let msg = `배너는 ${message.maxAddFive}
+						추가할 수 있는 배너 수: ${vacancy}`
+			sweetToast(msg);
 			return false;
 		}
 

@@ -112,18 +112,18 @@
 				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoit + row.idx;
-						return '<a href="'+detailUrl+'">' + row.doit_title + '</a>';
+						return `<a href="${detailUrl}">${row.doit_title}</a>`;
 					}
 				}
 				,{title: "인증 기간", 		data: "action_start_datetime",  width: "15%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return row.action_start_datetime+label.tilde+row.action_end_datetime;
+						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
 				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return numberWithCommas(row.doit_member) + '/' + numberWithCommas(row.max_user);
+						return `${numberWithCommas(row.doit_member)} ${label.slash} ${numberWithCommas(row.max_user)}`;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "7%",    className: "cursor-default" }

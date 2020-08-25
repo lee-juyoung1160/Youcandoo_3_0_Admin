@@ -135,7 +135,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		/** row 클릭 상세 이동 **/
-		$(nRow).attr('onClick', 'goDetail('+aData.idx+')');
+		$(nRow).attr('onClick', `goDetail(${aData.idx})`);
 	}
 
 	function goDetail(idx)

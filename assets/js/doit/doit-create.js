@@ -374,7 +374,7 @@
 			doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
 
 			let totalReward = Number(detail.person_reward) + Number(detail.group_reward);
-
+			let actionDayofweek = detail.action_dayofweek;
 			selectedRewardDom +=
 				`<li class="reward-type clearfix">
 					<p class="sub-title">
@@ -391,7 +391,7 @@
 					</div>
 					<div class="detail-data-wrap clearfix">
 						<p class="sub-tit">주간빈도</p>
-						<p class="detail-data">${detail.action_dayofweek}</p>
+						<p class="detail-data">${isEmpty(actionDayofweek) ? '-' : actionDayofweek}</p>
 					</div>
 					<div class="detail-data-wrap clearfix">
 						<p class="sub-tit">일일 인증 횟수</p>

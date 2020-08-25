@@ -441,7 +441,7 @@
 	function setPageRowAttributes(nRow, aData)
 	{
 		/** 닉네임에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedPage(\''+aData.title+'\',\''+aData.event_uuid+'\')');
+		$(nRow).attr('onClick', `setSelectedPage("${aData.title}","${aData.event_uuid}")`);
 	}
 
 	let g_page_uuid = pageUuid.val();

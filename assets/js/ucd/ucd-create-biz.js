@@ -105,7 +105,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		/** 기업명에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', 'setSelectedBiz(\''+aData.key+'\',\''+aData.value+'\')');
+		$(nRow).attr('onClick', `setSelectedBiz("${aData.key}", "${aData.value}")`);
 	}
 
 	/** 모달에서 기업명 클릭 했을 때 **/

@@ -32,7 +32,6 @@
 	const rewardsWrap 	 = $("#rewardsWrap");
 	const radioDuration  = $("input[name=radio-duration]");
 	const goalRange1	 = $("#goalRange1");
-	const goalRate1	 	 = $("#goalRate1");
 	const inputRight	 = $(".input-right");
 	const rewardUcd		 = $(".reward-ucd");
 	/*const iconDeleteRow  = $(".icon-delete-row");
@@ -42,7 +41,7 @@
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 목표달성률 rage slider 초기화 **/
-		initGoalRateRange(goalRange1, goalRate1);
+		initGoalRateRange(goalRange1);
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 리워드조건 첫번째값 표출 **/
@@ -94,7 +93,7 @@
 	}
 
 	/** 목표달성률 설정 레인지 슬라이더 **/
-	function initGoalRateRange(goalRangeDom, goalRateDom)
+	function initGoalRateRange(goalRangeDom)
 	{
 		goalRangeDom.ionRangeSlider({
 			skin: "round",
@@ -104,10 +103,8 @@
 			from: 85,
 			step: 1,
 			onStart: function(data) {
-				goalRateDom.prop("value", data.from);
 			},
 			onChange: function(data) {
-				goalRateDom.prop("value", data.from);
 			}
 		});
 	}
@@ -179,7 +176,7 @@
 	function setRowAttributes(nRow, aData)
 	{
 		/** 기업명에 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', `setSelectedBiz("${aData.key}, ${aData.value}")`);
+		$(nRow).attr('onClick', `setSelectedBiz("${aData.key}", "${aData.value}")`);
 	}
 
 	/** 모달에서 기업명 클릭 했을 때 **/
@@ -379,124 +376,122 @@
 		let domId     		= 'reward'+countId;
 		let title     		= '리워드 옵션 명 입력';
 		let goalRange 		= 'goalRange'+countId;
-		let goalRate  		= 'goalRate'+countId;
 		let rewardDom = '';
-		rewardDom += '<div id="'+domId+'" class="pro-reward-wrap">';
-		rewardDom += 	'<ul class="pro-reward">';
-		rewardDom += 		'<li>';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap">리워드 옵션명 (*)</p>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<div class="input-wrap">';
-		rewardDom += 						'<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="리워드 옵션명을 입력해주세요." value="'+title+'" maxlength="20">';
-		rewardDom += 						'<p class="length-count-wrap"><span class="count-input">0</span>/20</p>';
-		rewardDom += 					'</div>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
-		rewardDom += 		'<li>';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap" style="display: inline-block;">인증 기간 (*)</p> ';
-		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
-		rewardDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
-		rewardDom += 					'</i>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2" style="height: 40px; line-height: 40px;">';
-		rewardDom += 					'<div class="checkbox-wrap" style="display: inline-block;">';
-		rewardDom += 						'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+radioId+'" name="radio-duration-'+countId+'" value="1" checked>';
-		rewardDom += 						'<label for="rdo_'+radioId+'"><span></span>1일</label>';
-		rewardDom += 						'<input onchange="onChangeDuration(this);" type="radio" id="rdo_'+(++radioId)+'" name="radio-duration-'+countId+'" value=""> ';
-		rewardDom += 						'<label for="rdo_'+radioId+'"><span></span>7일 이상</label>';
-		rewardDom += 					'</div>';
-		rewardDom += 					'<p style="display: none;">';
-		rewardDom += 						'<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">';
-		rewardDom += 						'<span class="input-num-title"> 일</span>';
-		rewardDom += 					'</p>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
-		rewardDom += 		'<li>';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap">주간 빈도 (*)</p>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2">';
-		rewardDom += 					'<ul class="day-btn clearfix frequency-ul">';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">월</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">화</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">수</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">목</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">금</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">토</li>';
-		rewardDom += 						'<li onclick="toggleFrequency(this);" class="frequency disabled">일</li>';
-		rewardDom += 					'</ul>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
-		rewardDom += 		'<li>';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p> ';
-		rewardDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
-		rewardDom += 						'<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>';
-		rewardDom += 					'</i>';
-		rewardDom +=	 			'</div>';
-		rewardDom +=	 			'<div class="col-2">';
-		rewardDom += 					'<input id="'+goalRange+'" type="range" class="custom-range goal-range" readonly>';
-		rewardDom += 					'<input id="'+goalRate+'" class="input-num-box goal-rate" type="text" readonly>';
-		rewardDom += 					'<span class="input-num-title"> %</span>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
-		rewardDom += 		'<li>';
-		rewardDom += 			'<div class="col-wrap clearfix">';
-		rewardDom += 				'<div class="col-1">';
-		rewardDom += 					'<p class="cap">인당 UCD (*)</p>';
-		rewardDom += 				'</div>';
-		rewardDom += 				'<div class="col-2 pro-ucd-wrap">';
-		rewardDom += 					'<table>';
-		rewardDom += 						'<colgroup>';
-		rewardDom += 							'<col style="width: 35%;">';
-		rewardDom += 							'<col style="width: 15%;">';
-		rewardDom += 							'<col style="width: 15%;">';
-		rewardDom += 							'<col style="width: 25%;">';
-		rewardDom += 						'</colgroup>';
-		rewardDom += 						'<thead>';
-		rewardDom += 							'<tr>';
-		rewardDom += 								'<th rowspan="2">참여자 수(명)</th>';
-		rewardDom += 								'<th colspan="2">인당 UCD</th>';
-		rewardDom += 								'<th rowspan="2">총 UCD</th>';
-		rewardDom += 							'</tr>';
-		rewardDom += 							'<tr>';
-		rewardDom += 								'<th>개인</th>';
-		rewardDom += 								'<th>단체</th>';
-		rewardDom += 							'</tr>';
-		rewardDom += 						'</thead>';
-		rewardDom += 						'<tbody class="ucd-table-body">';
-		rewardDom += 							'<tr>';
-		rewardDom += 								'<td>';
-		rewardDom += 									'<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5">';
-		rewardDom += 									'<span class="date-margin-text"> ~ </span>';
-		rewardDom += 									'<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5">';
-		rewardDom += 								'</td>';
-		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>';
-		rewardDom += 								'<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>';
-		rewardDom += 								'<td><span class="text-right">-</span></td>';
-		rewardDom += 							'</tr>';
-		rewardDom += 						'</tbody>';
-		rewardDom += 					'</table>';
-		rewardDom += 				'</div>';
-		rewardDom += 			'</div>';
-		rewardDom += 		'</li>';
-		rewardDom += 	'</ul>';
-		rewardDom += '</div>';
+		rewardDom +=
+			`<div id="${domId}" class="pro-reward-wrap">
+				<ul class="pro-reward">
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="cap">리워드 옵션명 (*)</p>
+							</div>
+							<div class="col-2">
+								<div class="input-wrap">
+									<input onkeyup="checkInputLength(this); onKeyupRewardTitle(this);" type="text" class="length-input reward-title" placeholder="리워드 옵션명을 입력해주세요." value="${title}" maxlength="20">
+									<p class="length-count-wrap"><span class="count-input">0</span>/20</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="cap" style="display: inline-block;">인증 기간 (*)</p>
+								<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+									<span class="hover-text">* 최대 30일까지 가능합니다.</span>
+								</i>
+							</div>
+							<div class="col-2" style="height: 40px; line-height: 40px;">
+								<div class="checkbox-wrap" style="display: inline-block;">
+									<input onchange="onChangeDuration(this);" type="radio" id="rdo_${radioId}" name="radio-duration-${countId}" value="1" checked>
+									<label for="rdo_${radioId}"><span></span>1일</label>
+									<input onchange="onChangeDuration(this);" type="radio" id="rdo_${++radioId}" name="radio-duration-${countId}" value=""> 
+									<label for="rdo_${radioId}"><span></span>7일 이상</label>
+								</div>
+								<p style="display: none;">
+									<input onkeyup="initInputNumber(this); onKeyupDuration(this);" type="text" class="only-num duration" maxlength="2">
+										<span class="input-num-title"> 일</span>
+								</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="cap">주간 빈도 (*)</p>
+							</div>
+							<div class="col-2">
+								<ul class="day-btn clearfix frequency-ul">
+									<li onclick="toggleFrequency(this);" class="frequency disabled">월</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">화</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">수</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">목</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">금</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">토</li>
+									<li onclick="toggleFrequency(this);" class="frequency disabled">일</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="cap" style="display: inline-block;">목표달성률 (*)</p>
+								<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
+									<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
+								</i>
+							</div>
+							<div class="col-2">
+								<input id="${goalRange}" type="range" class="custom-range goal-range" readonly>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="cap">인당 UCD (*)</p>
+							</div>
+							<div class="col-2 pro-ucd-wrap">
+								<table>
+									<colgroup>
+										<col style="width: 35%;">
+										<col style="width: 15%;">
+										<col style="width: 15%;">
+										<col style="width: 25%;">
+									</colgroup>
+									<thead>
+										<tr>
+											<th rowspan="2">참여자 수(명)</th>
+											<th colspan="2">인당 UCD</th>
+											<th rowspan="2">총 UCD</th>
+										</tr>
+										<tr>
+											<th>개인</th>
+											<th>단체</th>
+										</tr>
+									</thead>
+									<tbody class="ucd-table-body">
+										<tr>
+											<td>
+												<input onkeyup="initInputNumber(this);" type="text" class="only-num input-left" maxlength="5">
+												<span class="date-margin-text"> ~ </span>
+												<input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num input-right" maxlength="5">
+											</td>
+											<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>
+											<td><input onkeyup="initInputNumber(this); calculateTotalUcd(this);" type="text" class="only-num reward-ucd" maxlength="5"></td>
+											<td><span class="text-right">-</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>`
 
 		rewardsWrap.append(rewardDom);
 
-		initGoalRateRange($('#'+goalRange), $('#'+goalRate));
+		initGoalRateRange($('#'+goalRange));
 
 		calculateInputLength();
 
@@ -952,7 +947,7 @@
 			let friday		 = 'N';
 			let saturday	 = 'N';
 			let sunday		 = 'N';
-			let goalRate 	 = $(rewardWrap[i]).find('.goal-rate');
+			let goalRate 	 = $(rewardWrap[i]).find('.goal-range');
 			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
 
 			/** 주간빈도 파라미터 **/

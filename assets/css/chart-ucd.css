@@ -1,5 +1,4 @@
 /* chart-common */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 .row,
 .row-custom {
     width: 100%;
@@ -169,7 +168,7 @@ i.fa-user {
 }
 .dashboard-main .date-pic {
     float: right;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Noto Sans KR";
     margin: 15px 15px 0 0;
 }
 .dashboard-main .date-pic i {
@@ -203,7 +202,7 @@ i.fa-user {
 }
 .dashboard-main .data-num {
     display: block;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Noto Sans KR";
     font-size: 23px;
     font-weight: 600;
 }

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap');
 /* loding css */
 .loading-back {
 	width: 100%;
@@ -632,7 +633,7 @@ textarea {
 	float: right;
 }
 .list-common-btn-wrap .btn-wrap button:last-child {
-	margin-left: 10px;
+	margin-left: 5px;
 }
 .list-common-btn-wrap a {
 	float: left;
@@ -676,7 +677,7 @@ textarea {
 	background-color: #e03030;
 }
 .list-common {
-	border-radius: 10px;
+	border-radius: 5px;
 	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;
@@ -766,7 +767,7 @@ input[type="checkbox"]:disabled + label span{
 	width: 25%;
 	float: left;
 	margin:5px 5px 0 0;
-	border-radius: 10px;
+	border-radius: 5px;
 	padding: 15px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	background-color: #ffffff;

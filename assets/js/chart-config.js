@@ -67,7 +67,7 @@
             tooltips : {
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        return convertNumberToKvalue(tooltipItem.value);
+                        return numberWithCommas(tooltipItem.value);
                     }
                 }
             },
@@ -85,7 +85,7 @@
             tooltips : {
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        return convertNumberToKvalue(tooltipItem.value);
+                        return numberWithCommas(tooltipItem.value);
                     }
                 }
             },
@@ -100,7 +100,12 @@
         }
     }
 
-    Chart.pluginService.register({
+    function noDataToDisplay(chartCtx)
+    {
+        chartCtx.options.elements.center.text = '-';
+    }
+
+    Chart.plugins.register({
         beforeDraw: function(chart) {
             if (chart.config.options.elements.center) {
                 /** Get ctx from string **/

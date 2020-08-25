@@ -153,8 +153,16 @@
                     }
                 },
                 {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort',
-                    render : function(data, type, full, meta) {
-                        return "<a class='line-clamp' href=\"javascript: openModal('"+data+"', '"+full.rating+"', '"+full.doit_title+"', '"+full.report_count+"', '"+full.is_blind+"', '"+full.created+"', '"+full.nickname+"')\">"+data+"</a>";
+                    render : function(data, type, row, meta) {
+                        return `<a class='line-clamp' 
+                                    data-detail="${row.review_text}"
+                                    data-title="${row.doit_title}"
+                                    data-rating="${row.rating}"
+                                    data-report="${row.report_count}"
+                                    data-nickname="${row.nickname}"
+                                    data-blind="${row.is_blind}"
+                                    data-created="${row.created}"    
+                                    onclick="openModal(this)">${data}</a>`
                     }
                 },
                 {title:"평점",         data: "rating",        width: '10%',   className: 'cursor-default no-sort',
@@ -188,17 +196,20 @@
     }
 
     /** 타이틀 클릭시 모달 이벤트 및 데이터 **/
-    function openModal (review_text, rating, doit_title, report_count, is_blind, created, nickname ) {
-        reviewTextEl.html(review_text);
-        doitTitleEl.html(doit_title);
-        reportCountEl.html(report_count);
-        nicknameEl.html(nickname);
-        createdEl.html(created);
-        isBlindEl.html(is_blind);
+    function openModal (obj) {
+        reviewTextEl.html($(obj).data('detail'));
+        doitTitleEl.html($(obj).data('title'));
+        reportCountEl.html($(obj).data('report'));
+        nicknameEl.html($(obj).data('nickname'));
+        createdEl.html($(obj).data('created'));
+        isBlindEl.html($(obj).data('blind'));
+
         modalLayout.fadeIn(500);
         modalDetail.fadeIn(500);
         overflowHidden();
+
         /** 모달 평점에 따른 별 추가 **/
+        let rating = $(obj).data('rating');
         let liList = starWrap.find('li');
         for(let i=0; i<liList.length; i++){
             let listObj = $(liList[i]);
@@ -224,7 +235,7 @@
     function onClickUpdateBlind()
     {
         if (blindValidation())
-            sweetConfirm('상태를 '+message.change, blindRequest);
+            sweetConfirm(`상태를 ${message.change}`, blindRequest);
     }
 
     function blindRequest()
@@ -268,7 +279,7 @@
 
         if (isEmpty(selectedData))
         {
-            sweetToast('대상을 목록에서 '+message.select);
+            sweetToast(`대상을 목록에서 ${message.select}`);
             return false;
         }
 

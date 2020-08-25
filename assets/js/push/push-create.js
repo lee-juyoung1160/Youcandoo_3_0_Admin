@@ -78,7 +78,7 @@
 			let pageName = reqPage.val() === 'notice' ? '공지사항' : '이벤트';
 			let label 	 = pageName + '(' + reqContent.val() + ')';
 
-			targetPageWrap.html('<p class="detail-data">'+label+'</p>');
+			targetPageWrap.html(`<p class="detail-data">${label}</p>`);
 
 			content.val(reqContent.val());
 		}
@@ -106,13 +106,16 @@
 			let notice 	  = $(this).data('notice');
 			let marketing = $(this).data('marketing');
 
-			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
-			moveUserDom +=     '<td>'+nick+'</td>';
-			moveUserDom +=     '<td>'+doit+'</td>';
-			moveUserDom +=     '<td>'+notice+'</td>';
-			moveUserDom +=     '<td>'+marketing+'</td>';
-			moveUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
-			moveUserDom += '</tr>';
+			moveUserDom +=
+				`<tr data-uuid="${profileId}" data-nick="${nick}" data-doit="${doit}" data-notice="${notice}" data-marketing="${marketing}">
+					<td>${nick}</td>
+					<td>${doit}</td>
+					<td>${notice}</td>
+					<td>${marketing}</td>
+					<td>
+						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
+					</td>
+				</tr>`
 		});
 
 		movedUserTableBody.append(moveUserDom);
@@ -217,19 +220,19 @@
 
 			for (let i=0; i<selectedData.length; i++)
 			{
-				let detail = selectedData[i];
-				let profileId = detail.profile_uuid;
-				let nick 	  = detail.nickname;
-				let doit 	  = detail.noti_doit;
-				let notice 	  = detail.noti_notice;
-				let marketing = detail.noti_marketing;
-				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
-				moveUserDom +=     '<td>'+nick+'</td>';
-				moveUserDom +=     '<td>'+doit+'</td>';
-				moveUserDom +=     '<td>'+notice+'</td>';
-				moveUserDom +=     '<td>'+marketing+'</td>';
-				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';
-				moveUserDom += '</tr>';
+				let { profile_uuid, nickname, noti_doit, noti_notice, noti_marketing } = selectedData[i];
+				moveUserDom +=
+					`<tr data-uuid="${profile_uuid}" 
+							data-nick="${nickname}" 
+							data-doit="${noti_doit}" 
+							data-notice="${noti_notice}" 
+							data-marketing="${noti_marketing}">
+						<td>${nickname}</td>
+						<td>${noti_doit}</td>
+						<td>${noti_notice}</td>
+						<td>${noti_marketing}</td>
+						<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>
+					</tr>`
 			}
 
 			movedUserTableBody.append(moveUserDom);
@@ -243,7 +246,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 
@@ -300,7 +303,7 @@
 
 		if (selectedRowLength === 0)
 		{
-			sweetToast('발송 대상을 '+message.addOn);
+			sweetToast(`발송 대상을 ${message.addOn}`);
 			return false;
 		}
 
@@ -319,13 +322,16 @@
 			let notice 	  = $(this).data('notice');
 			let marketing = $(this).data('marketing');
 
-			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-doit="'+doit+'" data-notice="'+notice+'" data-marketing="'+marketing+'">';
-			selectedUserDom +=     '<td>'+nick+'</td>';
-			selectedUserDom +=     '<td>'+doit+'</td>';
-			selectedUserDom +=     '<td>'+notice+'</td>';
-			selectedUserDom +=     '<td>'+marketing+'</td>';
-			selectedUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
-			selectedUserDom += '</tr>';
+			selectedUserDom +=
+				`<tr data-uuid="${profileId}" data-nick="${nick}" data-doit="${doit}" data-notice="${notice}" data-marketing="${marketing}">
+					<td>${nick}</td>
+					<td>${doit}</td>
+					<td>${notice}</td>
+					<td>${marketing}</td>
+					<td>
+						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
+					</td>
+				</tr>`
 		});
 
 		selectedUserCount.html(selectedRow.length);
@@ -531,7 +537,7 @@
 		let sendWhen = $("input[name=radio-when]:checked").val();
 		if (sendWhen === 'reserve' && isEmpty(sendTime.val()))
 		{
-			sweetToast('발송 시간은 ' + message.required);
+			sweetToast(`발송 시간은 ${message.required}`);
 			sendTime.trigger('focus');
 			return false;
 		}
@@ -540,20 +546,20 @@
 		let targetCount = selectedUserTableBody.find('tr').length;
 		if (sendWhom === 'individual' && targetCount === 0)
 		{
-			sweetToast('발송 대상은 ' + message.required);
+			sweetToast(`발송 대상은 ${message.required}`);
 			return false;
 		}
 
 		let checkedTargetPage = $("input[name=radio-target-page]:checked").val();
 		if (targetPage.length > 0 && checkedTargetPage === 'event' && isEmpty(inputPage.val()))
 		{
-			sweetToast('발송 구분은 ' + message.required);
+			sweetToast(`발송 구분은 ${message.required}`);
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			sweetToast('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}

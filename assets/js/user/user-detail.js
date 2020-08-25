@@ -1,11 +1,11 @@
 
 	const btnUcdModalOpen	= $("#btnUcdModalOpen");
 	/** 기본정보 **/
-	const profileId		= $("#profileId")
-	const nickname		= $("#nickname")
-	const balance		= $("#balance")
-	const cash			= $("#cash")
-	const point			= $("#point")
+	const profileIdEl	= $("#profileId")
+	const nicknameEl	= $("#nickname")
+	const balanceEl		= $("#balance")
+	const cashEl		= $("#cash")
+	const pointEl		= $("#point")
 	/** 회원정보 **/
 	const contact		= $("#contact");
 	const email			= $("#email");
@@ -142,12 +142,12 @@
 
 	function buildBasicProfile(data)
 	{
-		let detail = data.data;
-		profileId	.html(detail.profile_uuid);
-		nickname	.html(detail.nickname);
-		balance		.html(numberWithCommas(detail.total));
-		cash		.html(numberWithCommas(detail.cash));
-		point		.html(numberWithCommas(detail.point));
+		let { profile_uuid, nickname, total, cash, point } = data.data;
+		profileIdEl	.html(profile_uuid);
+		nicknameEl	.html(nickname);
+		balanceEl	.html(numberWithCommas(total));
+		cashEl		.html(numberWithCommas(cash));
+		pointEl		.html(numberWithCommas(point));
 	}
 
 	/** 회원정보 **/
@@ -344,7 +344,7 @@
 					return joinedDoitParams(d);
 				},
 				error: function (request, status) {
-					sweetError('두잇참여 '+label.list+message.ajaxLoadError);
+					sweetError(`두잇참여 ${label.list} ${message.ajaxLoadError}`);
 				}
 			},
 			columns: [
@@ -423,7 +423,7 @@
 	function getActions()
 	{
 		let url 	 = api.listUserAction;
-		let errMsg 	 = '인증정보 '+label.list+message.ajaxLoadError;
+		let errMsg 	 = `인증정보 ${label.list} ${message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(false, url, actionParams(), getActionsCallback, errMsg, false);
 	}
@@ -477,22 +477,24 @@
 				if (resourceType === 'voice')
 					actionImage = label.voiceImage;
 				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
-				let actionImageDom = '<img class="detail-img" src="'+actionImage+'" ';
-				actionImageDom += 'onclick="onClinkActionImage(this);"  ';
-				actionImageDom += 'onerror="onErrorImage(this);"  ';
-				actionImageDom += 'data-type="'+action.resource_type+'" ';
-				actionImageDom += 'data-uuid="'+action.action_uuid+'" ';
-				actionImageDom += 'data-url="'+action.url+'" ';
-				actionImageDom += 'data-cover="'+action.image_url+'" ';
-				actionImageDom += 'data-exurl="'+action.example_url+'" ';
-				actionImageDom += 'data-exdesc="'+action.example_description+'" ';
-				actionImageDom += 'data-title="'+action.doit_title+'" ';
-				actionImageDom += 'data-nickname="'+action.user_name+'" ';
-				actionImageDom += 'data-yellow="'+action.yellow_card+'" ';
-				actionImageDom += 'data-red="'+action.red_card+'" ';
-				actionImageDom += 'data-ydesc="'+action.yellow_card_description+'" ';
-				actionImageDom += 'data-rdesc="'+action.red_card_description+'" ';
-				actionImageDom += 'alt="인증 이미지입니다.">';
+				let actionImageDom =
+					`<img class="detail-img" 
+						src="${actionImage}"
+						onclick="onClinkActionImage(this);"
+						onerror="onErrorImage(this);"  ';
+						data-type="${action.resource_type}"
+						data-uuid="${action.action_uuid}"
+						data-url="${action.url}"
+						data-cover="${action.image_url}"
+						data-exurl="${action.example_url}"
+						data-exdesc="${action.example_description}"
+						data-title="${action.doit_title}"
+						data-nickname="${action.user_name}"
+						data-yellow="${action.yellow_card}"
+						data-red="${action.red_card}"
+						data-ydesc="${action.yellow_card_description}"
+						data-rdesc="${action.red_card_description}" 
+						alt="인증 이미지입니다.">`
 
 				let className = '';
 				if (action.yellow_card === 'Y')

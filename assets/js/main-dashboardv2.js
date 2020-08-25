@@ -165,18 +165,16 @@
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        setTotalCountInPie(doughnutCtx1, chartData.total_cnt);
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx1, chartData.total_cnt) : noDataToDisplay(doughnutCtx1);
         setDoitOpenSummary(data);
     }
 
     function updateDoitOpenStatus(data)
     {
         let chartData = data.data.chart;
-
         doughnutCtx1.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        setTotalCountInPie(doughnutCtx1, chartData.total_cnt);
         doughnutCtx1.update();
-
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx1, chartData.total_cnt) : noDataToDisplay(doughnutCtx1);
         setDoitOpenSummary(data);
     }
 
@@ -211,7 +209,7 @@
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        setTotalCountInPie(doughnutCtx2, chartData.total_cnt);
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx2, chartData.total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
@@ -220,9 +218,8 @@
         let chartData = data.data.chart;
 
         doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        setTotalCountInPie(doughnutCtx2, chartData.total_cnt);
         doughnutCtx2.update();
-
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx2, chartData.total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
@@ -257,7 +254,7 @@
         }]
 
         doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
-        setTotalCountInPie(doughnutCtx3, chartData.total_cnt);
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx3, chartData.total_cnt) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
@@ -266,9 +263,8 @@
         let chartData = data.data.chart;
 
         doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        setTotalCountInPie(doughnutCtx3, chartData.total_cnt);
         doughnutCtx3.update();
-
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx3, chartData.total_cnt) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
@@ -303,7 +299,7 @@
         }]
 
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        setTotalCountInPie(doughnutCtx4, chartData.total_cnt);
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx4, chartData.total_cnt) : noDataToDisplay(doughnutCtx4);
         setReportSummary(data);
     }
 
@@ -312,9 +308,8 @@
         let chartData = data.data.chart;
 
         doughnutCtx4.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
-        setTotalCountInPie(doughnutCtx4, chartData.total_cnt);
         doughnutCtx4.update();
-
+        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx4, chartData.total_cnt) : noDataToDisplay(doughnutCtx4);
         setReportSummary(data);
     }
 

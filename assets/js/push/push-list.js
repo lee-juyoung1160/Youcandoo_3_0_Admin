@@ -69,7 +69,7 @@
 				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
 				,{title: "내용", 		data: "send_message",  			width: "25%",   className: "cursor-default no-sort",
 					render: function (data) {
-						return '<a onclick="onClickDetail(this);" data-detail="'+data+'" class="line-clamp">' + data + '</a>';
+						return `<a onclick="onClickDetail(this);" data-detail="${data}" class="line-clamp">${data}</a>`;
 					}
 				}
 				,{title: "스토어", 		data: "store",    	  		  width: "8%",  	className: "cursor-default",
@@ -84,7 +84,7 @@
 				}
 				,{title: "도착페이지", 		data: "category_target",  width: "30%",   className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
-						return isEmpty(data) ? '-' : ('['+row.event_name+'] '+row.event_title);
+						return isEmpty(data) ? '-' : `[${row.event_name}] row.event_title`
 					}
 				}
 			],
@@ -156,9 +156,8 @@
 	function setRowAttributes(nRow, aData)
 	{
 		let checkDom = $(nRow).children().eq(0);
-		let isDel 	 = aData.is_del;
-		let isSent 	 = aData.send_yn;
-		if (isDel === 'Y' || isSent === 'Y')
+		let { is_del, send_yn } = aData;
+		if (is_del === 'Y' || send_yn === 'Y')
 			$(checkDom).children().prop('disabled', true);
 	}
 
@@ -220,7 +219,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 

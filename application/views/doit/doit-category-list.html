@@ -1,93 +1,74 @@
-<!--사용안함: 나중에 추가될 수 있음-->
-<!--
 <link rel="stylesheet" href="/assets/css/doit-category-list.css">
 <section class="doit-category-list-page">
-    <div class="inner">
+    <div class="inner clearfix">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">카테고리 목록</h2>
-            <a href="/doit/categoryListsCreate"><i class="fas fa-plus"></i>신규 등록</a>
+            <h2 class="main-title list-main-title">카테고리 관리</h2>
         </div>
 
-        <div class="list-common">
-            <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
-                <p class="list-common-title">검색어</p>
-                <div class="select-box">
-                    <label for="ex_select2">두잇명</label>
-                    <select id="ex_select2">
-                        <option selected>두잇명</option>
-                        <option>태그</option>
-                        <option>개설자</option>
-                        <option>두잇ID</option>
-                    </select>
-                </div>
-                <div class="search-wrap">
-                    <div class="search-box">
-                        <input type="search" placeholder="검색어를 입력해주세요.">
-                        <i class="search-btn fas fa-search"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="list-common-btn-wrap clearfix">
-            <div class="btn-wrap">
-                <button class="reset" type="reset">초기화</button>
-                <button class="search" type="button">검색</button>
-            </div>
-        </div>
-
-        <div class="table-wrap">
+        <div class="table-wrap category-list">
             <div class="top clearfix">
-                <div class="left-wrap clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
-                        <label for="selPageLength">10개씩 보기</label>
+                        <label for="selPageLength"></label>
                         <select id="selPageLength">
-                            <option value="10">10개씩 보기</option>
-                            <option value="20">20개씩 보기</option>
-                            <option value="30">30개씩 보기</option>
                         </select>
                     </div>
-                    <p>Total <strong class="data-num">10</strong></p>
                 </div>
                 <div class="btn-wrap">
-                    <button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
+                    <button id="btnDelete" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>카테고리 삭제</button>
                 </div>
             </div>
 
             <table>
                 <colgroup>
-                    <col style="width:35%;">
-                    <col style="width:35%;">
                     <col style="width:5%;">
-                    <col style="width:5%;">
-                    <col style="width:20%;">
+                    <col style="width:80%;">
+                    <col style="width:15%;">
                 </colgroup>
                 <thead>
                     <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c1" name="cc" />
+                                <label for="c1"><span></span></label>
+                            </div>
+                        </th>
                         <th>카테고리명</th>
-                        <th>태그수</th>
-                        <th colspan="2">노출순서</th>
                         <th>노출여부</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="/doit/categoryListsDetail">영어/외국어</a></td>
-                        <td>100</td>
-                        <td class="border-style"><i class="fas fa-sort-up"></i></td>
-                        <td><i class="fas fa-sort-down"></i></td>
-                        <td>비노출</td>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="cc" />
+                                <label for="c2"><span></span></label>
+                            </div>
+                        </td>
+                        <td>다이어트</td>
+                        <td>
+                            <div class="toggle-btn-wrap">
+                                <div class="toggle-btn on">
+                                    <input type="checkbox" class="checkbox">
+                                    <div class="knobs"></div>
+                                    <div class="layer"></div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <ul class="table-pagination clearfix">
-                <li><i class="fas fa-angle-double-left"></i></li>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li><i class="fas fa-angle-double-right"></i></li>
+        </div>
+        <div class="category-create">
+            <p class="list-common-title">신규 카테고리 등록</p>
+            <ul>
+                <li>
+                    sddfsdf
+                </li>
             </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
         </div>
     </div>
 </section>
--->

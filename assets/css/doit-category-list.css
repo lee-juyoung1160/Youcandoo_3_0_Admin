@@ -1,24 +1,17 @@
-/*doit-category-list css*/
-.doit-category-list-page .table-wrap table i {
-    font-size: 30px;
-    font-weight: 600;
+.category-list {
+    float: left;
+    width: 70%;
 }
-.fa-sort-up {
-    vertical-align: middle;
+.category-create {
+    float: right;
+    width: 28%;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
-.fa-sort-down {
-    vertical-align: super;
-}
-.border-style {
-    position: relative;
-}
-.border-style::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    top: 25%;
-    right: 0;
-    width: 1px;
-    height: 50%;
-    background-color: #e4e4e4;
+
+.category-create .completion-btn {
+    width: 100%;
 }

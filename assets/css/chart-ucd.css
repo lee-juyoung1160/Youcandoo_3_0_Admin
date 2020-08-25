@@ -73,7 +73,7 @@
 .top {
     display: flex;
     align-content: center;
-    padding: 10px 0 5px;
+    padding: 0 0 5px;
 }
 .top > .title {
     margin-right: auto;
@@ -248,7 +248,7 @@ i.fa-user {
 .best-doit li {
     position: relative;
     display: flex;
-    height: 52.5px;
+    height: 51px;
     align-items: center;
     border-top: 1px solid #f3f3f3;
 }

@@ -28,11 +28,12 @@ class Doit extends MY_Controller
     {
         $this->load->layout('doit/doit-recommend-list');
     }
-    /*
-public function categoryLists()
+
+public function category()
     {
         $this->load->layout('doit/doit-category-list');
     }
+    /*
 public function categoryListsCreate()
     {
         $this->load->layout('doit/doit-category-create');

@@ -147,6 +147,7 @@
         getDoitJoinStatus();
         getDoitClosedStatus();
         getReportStatus();
+        getPopularDoit();
     }
 
     function getUserInfo()
@@ -186,23 +187,23 @@
 
     function initDoitOpenStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx1 = initChart(doughnut1, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx1, chartData.total_cnt) : noDataToDisplay(doughnutCtx1);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx1, total_cnt) : noDataToDisplay(doughnutCtx1);
         setDoitOpenSummary(data);
     }
 
     function updateDoitOpenStatus(data)
     {
-        let chartData = data.data.chart;
-        doughnutCtx1.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
+        doughnutCtx1.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx1.update();
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx1, chartData.total_cnt) : noDataToDisplay(doughnutCtx1);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx1, total_cnt) : noDataToDisplay(doughnutCtx1);
         setDoitOpenSummary(data);
     }
 
@@ -230,24 +231,24 @@
 
     function initDoitJoinStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx2, chartData.total_cnt) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function updateDoitJoinStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
 
-        doughnutCtx2.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx2.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx2.update();
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx2, chartData.total_cnt) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
@@ -275,24 +276,24 @@
 
     function initDoitClosedStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx3, chartData.total_cnt) : noDataToDisplay(doughnutCtx3);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx3, total_cnt) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
     function updateDoitClosedStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
 
-        doughnutCtx3.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx3.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx3.update();
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx3, chartData.total_cnt) : noDataToDisplay(doughnutCtx3);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx3, total_cnt) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
@@ -320,43 +321,43 @@
 
     function initReportStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [chartData.general_cnt, chartData.promotion_cnt]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx4 = initChart(doughnut4, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx4, chartData.total_cnt) : noDataToDisplay(doughnutCtx4);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx4, total_cnt) : noDataToDisplay(doughnutCtx4);
         setReportSummary(data);
     }
 
     function updateReportStatus(data)
     {
-        let chartData = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
 
-        doughnutCtx4.data.datasets[0].data = [chartData.general_cnt, chartData.promotion_cnt];
+        doughnutCtx4.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx4.update();
-        Number(chartData.total_cnt) ? setTotalCountInPie(doughnutCtx4, chartData.total_cnt) : noDataToDisplay(doughnutCtx4);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx4, total_cnt) : noDataToDisplay(doughnutCtx4);
         setReportSummary(data);
     }
 
     function setReportSummary(data)
     {
-        let summaryData = data.data.data;
-        yellowCount.html(numberWithCommas(summaryData.yellow_card_cnt));
-        redCount.html(numberWithCommas(summaryData.red_card_cnt));
-        reportCount.html(numberWithCommas(summaryData.report_cnt));
+        let { yellow_card_cnt, red_card_cnt, report_cnt } = data.data.data;
+        yellowCount.html(numberWithCommas(yellow_card_cnt));
+        redCount.html(numberWithCommas(red_card_cnt));
+        reportCount.html(numberWithCommas(report_cnt));
         userReportCount.html(numberWithCommas(0));
     }
 
     function getDailyActions()
     {
-        let url = api.getReportStatus;
-        let errMsg = `월간 인증 현황 데이터${message.ajaxLoadError}`;
+        let url = api.getDailyAction;
+        let errMsg = `월간인증현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from" : dateSelected.text(),
-            "to" : dateSelected.text()
+            "month": yearEl.val(),
+            "year" : monthEl.val()
         });
         let callback = g_page_type === 'init' ? initDailyActionChart : updateDailyActionChart;
 
@@ -365,15 +366,12 @@
 
     function initDailyActionChart(data)
     {
-        let barData = []
-        let lineLabel = []
-        for (var i = 0; i<31; i++)
-        {
-            lineLabel.push(i)
-            barData.push(Math.floor(Math.random()*100));
-        }
+        console.log(data)
+        let datas = []
+        for (var i = 0; i<31; i++) datas.push(Math.floor(Math.random()*100));
+        let xLabel  = getDayNames(yearEl.val(), monthEl.val());
         let barDataset = [{
-            data : barData,
+            data : datas,
             lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,
@@ -381,15 +379,14 @@
             backgroundColor: color.black
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.line, lineLabel, barDataset, chartOptions.noLegend);
+        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, barDataset, chartOptions.noLegend);
     }
 
     function updateDailyActionChart(data)
     {
-        let barData = []
-        for (var i = 0; i<31; i++)
-            barData.push(Math.floor(Math.random()*100));
-        dailyActionCtx.data.datasets[0].data = barData;
+        let datas = []
+        for (var i = 0; i<31; i++) datas.push(Math.floor(Math.random()*100));
+        dailyActionCtx.data.datasets[0].data = datas;
         dailyActionCtx.update();
     }
 
@@ -411,16 +408,26 @@
         let popularDoits = data.data;
         let innerEl = '';
 
-        popularDoits.map((obj, idx) => {
+        popularDoits.map(({ doit_title, cnt }, idx) => {
             let rankFirst = idx === 0 ? '<i class="fas fa-crown rank-first"></i>' : '';
             innerEl +=
                 `<li class="clearfix">
                     ${rankFirst}
                     <strong class="rank"><em>${idx+1}</em></strong>
-                    <span class="rank-title">${obj.doit_title}</span>
-                    <p class="user-num"><i class="fas fa-user"></i>${numberWithCommas(obj.cnt)}</p>
+                    <span class="rank-title">${doit_title}</span>
+                    <p class="user-num"><i class="fas fa-user"></i>${numberWithCommas(cnt)}</p>
                 </li>`
         })
 
         popularDoit.html(innerEl);
+    }
+
+    function getDayNames(_year, _month)
+    {
+        let lastDayNum  = getLastDayNumber(Number(_year), Number(_month));
+        let dayNames    = [];
+        for (let i=1; i<=lastDayNum; i++)
+            dayNames.push(i+'일');
+
+        return dayNames;
     }

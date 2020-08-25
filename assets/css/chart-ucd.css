@@ -65,9 +65,9 @@
     font-size: 16px;
 }
 .sub-title {
-    margin-bottom: 5px;
-    color: #888;
-    font-size: 12px;
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 400;
 }
 
 .top {
@@ -137,7 +137,9 @@ i.fa-user {
     color: #999;
     font-size: 13px;
 }
-
+.full-right {
+    float: right;
+}
 
 .t-green {
     color: green;
@@ -192,11 +194,6 @@ i.fa-user {
     color: #555;
     font-size: 14px;
     font-weight: 500;
-}
-.sub-title {
-    color: #aaa;
-    font-size: 11px;
-    font-weight: 400;
 }
 .dashboard-main p.data-title {
     color: #333;

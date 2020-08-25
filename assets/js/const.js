@@ -132,8 +132,10 @@
 		,getUcdStat : baseApiUrl+'dashboard/ucd'
 		,getMonthlyDoit : baseApiUrl+'dashboard/doit/month'
 		,getDailyAction : baseApiUrl+'dashboard/action/date'
+		,getUserStatus : baseApiUrl+'dashboard/v2/doit/user'
 		,getDoitOpenStatus : baseApiUrl+'dashboard/v2/doit/establish'
 		,getReportStatus : baseApiUrl+'dashboard/v2/doit/report'
+		,getDailyActions : baseApiUrl+'dashboard/v2/doit/action'
 		,getPopularDoits : baseApiUrl+'dashboard/v2/doit/popular'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'

@@ -47,6 +47,18 @@
                     boxWidth: 12
                 }
             },
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return numberWithCommas(args.value);
+                    },
+                    fontSize: 14,
+                    fontColor: '#fff',
+                    fontFamily: "'Roboto', sans-serif",
+                    position: 'default',
+                    showActualPercentages: false
+                }
+            },
             elements: {
                 center: {
                     text: '',

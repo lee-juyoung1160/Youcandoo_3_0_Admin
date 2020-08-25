@@ -36,16 +36,21 @@
     const userReportCount = $('#userReportCount');
     const dailyActions  = $('#dailyActions');
     const popularDoit   = $('#popularDoit');
+    const yearEl  = $("#selYear");
+    const monthEl = $("#selMonth");
 
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
     $(() => {
         initMinMaxDate();
+        initSelectBox();
         setBaseDate();
         initPage();
 
-        datePrev       .on('click', function () { onClickPrev(this); });
-        dateNext       .on('click', function () { onClickNext(this); });
+        datePrev.on('click', function () { onClickPrev(this); });
+        dateNext.on('click', function () { onClickNext(this); });
+        yearEl  .on('change', function () { onChangeSelectBox(this); });
+        monthEl .on('change', function () { onChangeSelectBox(this); });
     })
 
     function initMinMaxDate()
@@ -54,6 +59,23 @@
         maxDate = getStringFormatToDate(d, '-');
         d.setMonth(d.getMonth() - 1)
         minDate = getStringFormatToDate(d, '-');
+    }
+
+    function initSelectBox()
+    {
+        let defaultYear  = 2020;
+        let defaultMonth = 7;
+        let d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth() + 1;
+
+        for (defaultYear; defaultYear <= year; defaultYear++)
+            yearEl.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
+
+        for (defaultMonth; defaultMonth <= month; defaultMonth++)
+            monthEl.prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
+
+        initSelectOption();
     }
 
     function setBaseDate()
@@ -100,6 +122,12 @@
         }
     }
 
+    function onChangeSelectBox()
+    {
+        g_page_type = 'update';
+        getDailyActions();
+    }
+
     function initPage()
     {
         getUserInfo();
@@ -119,13 +147,11 @@
         getDoitJoinStatus();
         getDoitClosedStatus();
         getReportStatus();
-        getDailyActions();
-        getPopularDoit();
     }
 
     function getUserInfo()
     {
-        let url = api.getEventType
+        let url = api.getUserStatus
         let errMsg = `상단 회원데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
@@ -137,10 +163,12 @@
 
     function getUserInfoCallback(data)
     {
-        newUser.html();
-        leaveUser.html();
-        banUser.html();
-        totalUser.html();
+        let { new_user, leave_user, gang_user, total_user } = data.data;
+
+        newUser.html(numberWithCommas(new_user));
+        leaveUser.html(numberWithCommas(leave_user));
+        banUser.html(numberWithCommas(gang_user));
+        totalUser.html(numberWithCommas(total_user));
     }
     
     function getDoitOpenStatus()
@@ -319,13 +347,13 @@
         yellowCount.html(numberWithCommas(summaryData.yellow_card_cnt));
         redCount.html(numberWithCommas(summaryData.red_card_cnt));
         reportCount.html(numberWithCommas(summaryData.report_cnt));
-        userReportCount.html(numberWithCommas(summaryData.action_cnt));
+        userReportCount.html(numberWithCommas(0));
     }
 
     function getDailyActions()
     {
-        let url = api.getEventType
-        let errMsg = `두잇현황 데이터${message.ajaxLoadError}`;
+        let url = api.getReportStatus;
+        let errMsg = `월간 인증 현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from" : dateSelected.text(),
             "to" : dateSelected.text()
@@ -346,11 +374,14 @@
         }
         let barDataset = [{
             data : barData,
-            barThickness : 10,
-            backgroundColor: color.jyBlue
+            lineTension: 0.1,
+            borderColor: color.jyBlue,
+            borderWidth : 2,
+            pointBackgroundColor: color.jyBlue,
+            backgroundColor: color.black
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.bar, lineLabel, barDataset, chartOptions.noLegend);
+        dailyActionCtx = initChart(dailyActions, chartType.line, lineLabel, barDataset, chartOptions.noLegend);
     }
 
     function updateDailyActionChart(data)

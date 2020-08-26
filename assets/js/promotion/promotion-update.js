@@ -257,8 +257,9 @@
 		let idx = $(obj).data('idx');
 		let reward = g_rewards[idx];
 		let ucdInfo = reward.ucd_info[0];
+		let actionDayOfWeek = isEmpty(reward.action_dayofweek) ? label.nullValue : reward.action_dayofweek;
 
-		let detailDom = '';
+		let detailDom =
 			`<li class="reward-1">
 				<div class="list-inner">
 					<p class="title">
@@ -277,7 +278,7 @@
 							<p class="sub-title">주간빈도</p>
 						</div>
 						<div class="col-2">
-							<p class="detail-data">${reward.action_dayofweek}</p>
+							<p class="detail-data">${actionDayOfWeek}</p>
 						</div>
 					</div>
 					<div class="col-wrap clearfix">

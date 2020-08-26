@@ -11,7 +11,10 @@
     border-radius: 5px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
-
 .category-create .completion-btn {
     width: 100%;
 }
+.category-create ul li {
+    padding: 10px 0;
+}
+

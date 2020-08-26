@@ -62,10 +62,23 @@
             </table>
         </div>
         <div class="category-create">
-            <p class="list-common-title">신규 카테고리 등록</p>
             <ul>
                 <li>
-                    sddfsdf
+                    <p class="list-common-title">카테고리명 (*)</p>
+                    <div class="input-wrap">
+                        <input id="" type="text" class="length-input" placeholder="카테고리명을 입력해주세요."style="width: 100%;">
+<!--                        <p class="length-count-wrap"><span class="count-input">0</span>/10</p>-->
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">노출여부 (*)</p>
+                    <div class="checkbox-wrap" id="galleryWrap">
+                        <input type="radio" id="c20" name="" value="Y"/>
+                        <label for="c20">Y<span></span></label>
+
+                        <input type="radio" id="c21" name="" value="N"/>
+                        <label for="c21">N<span></span></label>
+                    </div>
                 </li>
             </ul>
             <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>

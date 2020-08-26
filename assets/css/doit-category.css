@@ -1,10 +1,10 @@
 .category-list {
     float: left;
-    width: 70%;
+    width: 65%;
 }
 .category-create {
     float: right;
-    width: 28%;
+    width: 32%;
     margin-top: 30px;
     padding: 15px;
     background-color: #ffffff;
@@ -16,5 +16,9 @@
 }
 .category-create ul li {
     padding: 10px 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+.category-create ul li:last-child{
+    border-bottom: none;
 }
 

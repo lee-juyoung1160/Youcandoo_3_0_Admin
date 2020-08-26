@@ -356,8 +356,8 @@
         let url = api.getDailyAction;
         let errMsg = `월간인증현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "month": yearEl.val(),
-            "year" : monthEl.val()
+            "year": yearEl.val(),
+            "month" : monthEl.val()
         });
         let callback = g_page_type === 'init' ? initDailyActionChart : updateDailyActionChart;
 
@@ -366,11 +366,9 @@
 
     function initDailyActionChart(data)
     {
-        console.log(data)
-        let datas = []
-        for (var i = 0; i<31; i++) datas.push(Math.floor(Math.random()*100));
+        let datas = data.data.result;
         let xLabel  = getDayNames(yearEl.val(), monthEl.val());
-        let barDataset = [{
+        let dataset = [{
             data : datas,
             lineTension: 0.1,
             borderColor: color.jyBlue,
@@ -379,13 +377,15 @@
             backgroundColor: color.black
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, barDataset, chartOptions.noLegend);
+        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, dataset, chartOptions.noLegend);
     }
 
     function updateDailyActionChart(data)
     {
-        let datas = []
-        for (var i = 0; i<31; i++) datas.push(Math.floor(Math.random()*100));
+        let datas = data.data.result;
+        let xLabel  = getDayNames(yearEl.val(), monthEl.val());
+
+        dailyActionCtx.data.labels = xLabel;
         dailyActionCtx.data.datasets[0].data = datas;
         dailyActionCtx.update();
     }

@@ -107,17 +107,18 @@
 
     function buildMemo(data)
     {
-        let memoEl = '';
-        memoEl += '<div class="tooltip">';
+        let memoEl =
+            `<div class="tooltip">`
         if (!isEmpty(data))
             memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>';
         else
             memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
-        memoEl +=   '<div class="tooltip-hover-text" style="display: none;">';
-        memoEl +=       '<strong>memo</strong>';
-        memoEl +=       '<p>'+data+'</p>';
-        memoEl +=   '</div>';
-        memoEl += '</div>';
+        memoEl +=
+                `<div class="tooltip-hover-text" style="display: none;">
+                    <strong>memo</strong>
+                    <p>${data}</p>
+                </div>
+            </div>`
 
         return memoEl;
     }

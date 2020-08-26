@@ -137,36 +137,35 @@
 	function confirmContent()
 	{
 		let checkedLabel = $("input[name=radio-division]:checked").prop('labels');
-		let content = '';
-		content	+= 	'<ul class="modal-information">';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">기업명</p>';
-		content	+= 			'<p class="data-contents">'+bizName.val()+'</p>';
-		content	+= 		'<li>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">구분</p>';
-		content	+= 			'<p class="data-contents">'+$(checkedLabel).text()+'</p>';
-		content	+= 		'<li>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">'+$(checkedLabel).text()+' UCD</p>';
-		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
-		content	+= 		'<li>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">기간</p>';
-		content	+= 			'<p class="data-contents">'+promoFrom.val()+label.tilde+promoTo.val()+'</p>';
-		content	+= 		'<li>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">계약명</p>';
-		content	+= 			'<p class="data-contents">'+contractTitle.val().trim()+'</p>';
-		content	+= 		'<li>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">계약금액</p>';
-		content	+= 			'<p class="data-contents">'+numberWithCommas(contractAmount.val())+' 원</p>';
-		content	+= 		'<li>';
-		content += '</ul>'
-		content += '<p class="confirm-message">'+message.create+'</p>';
-
-		return content;
+		return (
+			`<ul class="modal-information">
+				<li>
+					<p class="sub-title">기업명</p>
+					<p class="data-contents">${bizName.val()}</p>
+				<li>
+				<li>
+					<p class="sub-title">구분</p>
+					<p class="data-contents">${$(checkedLabel).text()}</p>
+				<li>
+				<li>
+					<p class="sub-title">${$(checkedLabel).text()} UCD</p>
+					<p class="data-contents">${numberWithCommas(amount.val())} UCD</p>
+				<li>
+				<li>
+					<p class="sub-title">기간</p>
+					<p class="data-contents">${promoFrom.val()} ${label.tilde} ${promoTo.val()}</p>
+				<li>
+				<li>
+					<p class="sub-title">계약명</p>
+					<p class="data-contents">${contractTitle.val().trim()}</p>
+				<li>
+				<li>
+					<p class="sub-title">계약금액</p>
+					<p class="data-contents">${numberWithCommas(contractAmount.val())} 원</p>
+				<li>
+			</ul>
+			<p class="confirm-message">${message.create}</p>`
+		)
 	}
 
 	function createRequest()
@@ -207,49 +206,49 @@
 	{
 		if (isEmpty(bizName.val()))
 		{
-			sweetToast('기명명은 '+message.required);
+			sweetToast(`기명명은 ${message.required}`);
 			onClickBizName();
 			return false;
 		}
 
 		if (isEmpty(amount.val()))
 		{
-			sweetToast('UCD는 '+message.required);
+			sweetToast(`UCD는 ${message.required}`);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 100000000)
 		{
-			sweetToast('UCD는 '+message.maxAvailableBizUcd);
+			sweetToast(`UCD는 ${message.maxAvailableBizUcd}`);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoFrom.val()))
 		{
-			sweetToast('프로모션 기간(시작일)은 '+message.required);
+			sweetToast(`프로모션 기간(시작일)은 ${message.required}`);
 			promoFrom.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(promoTo.val()))
 		{
-			sweetToast('프로모션 기간(종료일)은 '+message.required);
+			sweetToast(`프로모션 기간(종료일)은 ${message.required}`);
 			promoTo.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractTitle.val()))
 		{
-			sweetToast('계약명은 '+message.required);
+			sweetToast(`계약명은 ${message.required}`);
 			contractTitle.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(contractAmount.val()))
 		{
-			sweetToast('계약 금액은 '+message.required);
+			sweetToast(`계약 금액은 ${message.required}`);
 			contractAmount.trigger('focus');
 			return false;
 		}

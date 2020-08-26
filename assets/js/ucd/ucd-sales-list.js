@@ -120,15 +120,11 @@
                         let term 	= isEmpty(data) ? label.nullValue : `${data[0]} ${label.tilde} ${data[1]}`;
                         let title   = isEmpty(data) ? label.nullValue : data[2];
                         let amount  = isEmpty(data) ? label.nullValue : data[3];
-                        return '<a onclick="btnModalOpen(this);" data-term="'+term+'" data-title="'+title+'" data-amount="'+amount+'">'+title+'</a>';
+                        return `<a onclick="btnModalOpen(this);" data-term="${term}" data-title="${title}" data-amount="${amount}">${title}</a>`
                     }
                 },
                 {title: "담당자", data: "created_user",      width: "10%",     className: "cursor-default no-sort", },
-                {title: "일시",   data: "created_datetime",  width: "15%",     className: "cursor-default",
-                    render: function (data) {
-                        return data;
-                    }
-                }
+                {title: "일시",   data: "created_datetime",  width: "15%",     className: "cursor-default" }
             ],
             language: {
                 emptyTable: message.emptyList

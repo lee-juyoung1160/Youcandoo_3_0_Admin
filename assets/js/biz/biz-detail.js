@@ -256,7 +256,7 @@
 						let result = data;
 						if (row.division === '충전' || row.division === '취소')
 						{
-							let term 	= isEmpty(data) ? label.nullValue : `${$data[0]} ${label.tilde} ${data[1]}`;
+							let term 	= isEmpty(data) ? label.nullValue : `${data[0]} ${label.tilde} ${data[1]}`;
 							let title   = isEmpty(data) ? label.nullValue : data[2];
 							let amount  = isEmpty(data) ? label.nullValue: data[3];
 
@@ -403,12 +403,12 @@
 			return false;
 		}
 
-		if (amount.val() > 100000000)
+		/*if (amount.val() > 100000000)
 		{
 			sweetToast(`UCD는 ${message.maxAvailableBizUcd}`);
 			amount.trigger('focus');
 			return false;
-		}
+		}*/
 
 		let _division = $("input[name=radio-division]:checked").val()
 		if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)

@@ -80,17 +80,18 @@
 			let nick = $(this).data('nick');
 			let total = $(this).data('total');
 
-			moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
-			moveUserDom +=     '<td>'
-			moveUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
-			moveUserDom += 	   '</td>';
-			moveUserDom += 	   '<td>';
-			moveUserDom += 	   	   '<div class="user-ucd">';
-			moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'UCD</strong>';
-			moveUserDom += 		   '</div>';
-			moveUserDom += 	   '</td>';
-			moveUserDom += 	   '<td><i onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
-			moveUserDom += '</tr>';
+			moveUserDom +=
+				`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
+					<td>
+						<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
+					</td>
+					<td>
+						<div class="user-ucd">
+							<strong>${numberWithCommas(total)}</strong>
+						</div>
+					</td>
+					<td><i onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
+				</tr>`
 		});
 
 		movedUserTableBody.append(moveUserDom);
@@ -111,23 +112,23 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",     orderable: false,
+				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "닉네임",	data: "nickname",    width: "65%", 	 orderable: false,   className: "cursor-default",
+				,{title: "닉네임",	data: "nickname",    width: "65%", 	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return '<div class="p-info">'+data+'<span class="p-id">'+row.profile_uuid+'</span></div>';
+						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`;
 					}
 				}
-				,{title: "보유UCD",	data: "ucd.total",   width: "30%", 	 orderable: false,   className: "cursor-default",
+				,{title: "보유UCD",	data: "ucd.total",   width: "30%", 	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let innerDom = '';
-						innerDom += '<div class="user-ucd">';
-						innerDom += 	'<strong>'+numberWithCommas(data)+'</strong>';
-						innerDom += '</div>';
-						return innerDom;
+						return (
+							`<div class="user-ucd">
+								<strong>${numberWithCommas(data)}</strong>
+							</div>`
+						)
 					}
 				}
 			],
@@ -197,17 +198,18 @@
 				let profileId = detail.profile_uuid;
 				let nick = detail.nickname;
 				let total = detail.ucd.total;
-				moveUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
-				moveUserDom +=     '<td>'
-				moveUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
-				moveUserDom += 	   '</td>';
-				moveUserDom += 	   '<td>';
-				moveUserDom += 	   	   '<div class="user-ucd">';
-				moveUserDom += 	       	   '<strong>'+numberWithCommas(total)+'</strong>';
-				moveUserDom += 		   '</div>';
-				moveUserDom += 	   '</td>';
-				moveUserDom += 	   '<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>';
-				moveUserDom += '</tr>';
+				moveUserDom +=
+					`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
+						<td>
+							<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
+						</td>
+						<td>
+							<div class="user-ucd">
+								<strong>${numberWithCommas(total)}</strong>
+							</div>
+						</td>
+						<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>
+					</tr>`
 			}
 
 			movedUserTableBody.append(moveUserDom);
@@ -221,7 +223,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast('대상을 목록에서 '+message.select);
+			sweetToast(`대상을 목록에서 ${message.select}`);
 			return false;
 		}
 
@@ -278,7 +280,7 @@
 
 		if (selectedRowLength === 0)
 		{
-			sweetToast('적립 대상을 '+message.addOn);
+			sweetToast(`적립 대상을 ${message.addOn}`);
 			return false;
 		}
 
@@ -295,17 +297,18 @@
 			let nick = $(this).data('nick');
 			let total = $(this).data('total');
 
-			selectedUserDom += '<tr data-uuid="'+profileId+'" data-nick="'+nick+'" data-total="'+total+'">';
-			selectedUserDom +=     '<td>'
-			selectedUserDom +=     	   '<div class="p-info">'+nick+'<span class="p-id">'+profileId+'</span></div>';
-			selectedUserDom += 	   '</td>';
-			selectedUserDom += 	   '<td>';
-			selectedUserDom += 	   	   '<div class="user-ucd">';
-			selectedUserDom += 	       	   '<strong>'+numberWithCommas(total)+'</strong>';
-			selectedUserDom += 		   '</div>';
-			selectedUserDom += 	   '</td>';
-			selectedUserDom += 	   '<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>';
-			selectedUserDom += '</tr>';
+			selectedUserDom +=
+				`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
+					<td>
+						<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
+					</td>
+					<td>
+						<div class="user-ucd">
+							<strong>${numberWithCommas(total)}</strong>
+						</div>
+					</td>
+					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
+				</tr>`
 		});
 
 		selectedUserCount.html(selectedRow.length);
@@ -332,11 +335,12 @@
 	function confirmContent()
 	{
 		let content = '';
-		content	+= 	'<ul class="modal-information">';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">적립 대상</p>';
-		content	+= 			'<div class="scroll-wrap">';
-		content	+= 				'<p class="data-content">';
+		content	+=
+			`<ul class="modal-information">
+				<li>
+					<p class="sub-title">적립 대상</p>
+					<div class="scroll-wrap">
+						<p class="data-content">`
 
 		selectedUserTableBody.find('tr').each(function (index) {
 			let nickname = $(this).data('nick');
@@ -344,16 +348,17 @@
 			content += ' @'+nickname
 		});
 
-		content	+= 				'</p>';
-		content	+= 			'</div>';
-		content	+= 		'</li>';
-		content	+= 		'<p></p>';
-		content	+= 		'<li>';
-		content	+= 			'<p class="sub-title">적립 UCD</p>';
-		content	+= 			'<p class="data-contents">'+numberWithCommas(amount.val())+' UCD</p>';
-		content	+= 		'</li>';
-		content += '</ul>'
-		content += '<p class="confirm-message">'+message.create+'</p>';
+		content	+=
+						`</p>
+					</div>
+				</li>
+				<p></p>
+				<li>
+					<p class="sub-title">적립 UCD</p>
+					<p class="data-contents">${numberWithCommas(amount.val())} UCD</p>
+				</li>
+			</ul>
+			<p class="confirm-message">${message.create}</p>`
 
 		return content;
 	}
@@ -402,28 +407,28 @@
 
 		if (count === 0)
 		{
-			sweetToast('충전대상을 '+message.addOn);
+			sweetToast(`충전대상을 ${message.addOn}`);
 			onClickModalOpen();
 			return false;
 		}
 
 		if (isEmpty(amount.val()))
 		{
-			sweetToast('UCD는 '+message.required);
+			sweetToast(`UCD는 ${message.required}`);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (amount.val() > 1000000)
 		{
-			sweetToast('UCD는 '+message.maxAvailableUserUcd);
+			sweetToast(`UCD는 ${message.maxAvailableUserUcd}`);
 			amount.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(content.val()))
 		{
-			sweetToast('내용은 '+message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}

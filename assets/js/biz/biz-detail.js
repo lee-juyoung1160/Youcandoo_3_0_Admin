@@ -403,12 +403,12 @@
 			return false;
 		}
 
-		/*if (amount.val() > 100000000)
+		if (amount.val() > 100000000)
 		{
 			sweetToast(`UCD는 ${message.maxAvailableBizUcd}`);
 			amount.trigger('focus');
 			return false;
-		}*/
+		}
 
 		let _division = $("input[name=radio-division]:checked").val()
 		if ((Number(_division) === 1 || Number(_division) === 2) && amount.val() > g_balance)

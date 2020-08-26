@@ -1,51 +1,26 @@
 
-	const search 			= $(".search");
-	const reset 			= $(".reset");
 	const dataTable			= $("#dataTable")
-	const keyword			= $("#keyword");
+	const categoryName		= $("#categoryName");
 	const selPageLength 	= $("#selPageLength");
 	const btnDelete			= $("#btnDelete");
-	/** modal **/
-	const btnOpenModal		= $("#btnOpenModal");
 	const btnSubmit			= $("#btnSubmit");
-	const modalCloseBtn 	= $(".close-btn");
-	const modalLayout 		= $(".modal-layout");
-	const modalContent 		= $(".modal-content");
-	const prohibition		= $("#prohibition");
 
 	$( () => {
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
+		/** 입력 폼 초기화 **/
+		/*initInputForm();*/
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
+		/*initPageLength(selPageLength);*/
 		/** 목록 불러오기 **/
-		buildGrid();
+		/*buildGrid();*/
 		/** 이벤트 **/
-		search			.on("click", function () { onSubmitSearch(); });
-		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
-		btnOpenModal	.on('click', function () { onClickModalOpen(); });
-		modalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout		.on('click', function () { modalFadeout(); });
-		btnSubmit		.on('click', function () { onSubmitProhibition(); });
-		btnDelete		.on("click", function () { deleteProhibition(); });
+		/*selPageLength	.on("change", function () { onSubmitSearch(); });
+		btnSubmit		.on('click', function () { onSubmitCategory(); });
+		btnDelete		.on("click", function () { deleteCategory(); });*/
 	});
 
-	function initSearchForm()
+	function initInputForm()
 	{
 		keyword.val('');
-	}
-
-	function onClickModalOpen()
-	{
-		modalFadein();
-		initModal();
-	}
-
-	function initModal()
-	{
-		prohibition.val('');
-		prohibition.trigger('focus');
 	}
 
 	function buildGrid()
@@ -63,15 +38,16 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     className: "cursor-default",
+				{title: '', 	data: "idx",   width: "5%",     className: "cursor-default",
 					render: function (data) {
-						return multiCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
 				}
 				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	className: "cursor-default" }
-				,{title: "등록일", 	data: "created_datetime",  width: "15%",    className: "cursor-default",
-					render: function (data) {
-						return data.substring(0, 10);
+				,{title: "노출여부", 	data: "word",    	  	   width: "80%",  	className: "cursor-default" }
+				,{title: "노여부",    data: "is_active",     	  width: "10%",     className: "cursor-default no-sort",
+					render: function (data, type, row, meta) {
+						return buildSwitch(row);
 					}
 				}
 			],
@@ -93,7 +69,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -102,9 +78,6 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				dataTable.on( 'page.dt', function () {
-					$("#checkAll").prop('checked', false);
-				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -122,8 +95,7 @@
 		let _page = (info.start / info.length) + 1;
 
 		let param = {
-			"keyword" : keyword.val().trim()
-			,"limit" : Number(selPageLength.val())
+			"limit" : Number(selPageLength.val())
 			,"page" : _page
 		}
 
@@ -131,6 +103,21 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function buildSwitch(data)
+	{
+		/** 노출여부 컬럼에 on off 스위치 **/
+		let checked   = data.is_active === 'Y' ? 'checked' : '';
+		return (
+			`<div class="toggle-btn-wrap">
+				<div class="toggle-btn on">
+					<input onclick="changeStatus(this)" data-userid="${data.userid}" type="radio" class="checkbox ${checked}">
+					<div class="knobs"></div>
+					<div class="layer"></div>
+				</div>
+			</div>`
+		)
 	}
 
 	function onSubmitSearch()
@@ -141,7 +128,7 @@
 	}
 
 	/** 금칙어 등록 **/
-	function onSubmitProhibition()
+	function onSubmitCategory()
 	{
 		if (validation())
 			sweetConfirm(message.create, createRequest);
@@ -149,42 +136,28 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createProhibition,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: addParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			},
-		});
+		let url = api.createProhibition;
+		let errMsg = label.submit+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, createParams(), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()
 	{
-		modalFadeout();
 		onSubmitSearch();
 	}
 
-	function addParams()
+	function createParams()
 	{
-		let inputValue = prohibition.val();
-		let inputValues = inputValue.split(",");
-		let paramValues = [];
-
-		/** 공백 제거 **/
-		for (let i=0; i<inputValues.length; i++)
-		{
-			if (!isEmpty(inputValues[i]))
-				paramValues.push(inputValues[i].trim());
-		}
-
 		let param = {
-			"word" : paramValues.toString()
+			"category_name" : categoryName.val().trim()
+			,"is_exposure" : $("input[name=radio-exposure]:checked").val()
+			,"create_user" : sessionUserId.val()
 		};
 
 		return JSON.stringify(param);
@@ -192,18 +165,18 @@
 
 	function validation()
 	{
-		if (isEmpty(prohibition.val().trim()))
+		if (isEmpty(categoryName.val().trim()))
 		{
-			sweetToast(`금칙어는 ${message.required}`)
-			prohibition.trigger('focus');
+			sweetToast(`카테고리명은 ${message.required}`);
+			categoryName.trigger('focus');
 			return false;
 		}
 
 		return true;
 	}
 
-	/** 금칙어 삭제 **/
-	function deleteProhibition()
+	/** 카테고리 삭제 **/
+	function deleteCategory()
 	{
 		if (delValidation())
 			sweetConfirm(message.delete, deleteRequest);

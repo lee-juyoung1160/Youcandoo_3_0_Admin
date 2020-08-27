@@ -470,7 +470,6 @@
             data : user,
             label : '누적 회원 수',
             yAxisID: 'leftY',
-            fill : false,
             lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,

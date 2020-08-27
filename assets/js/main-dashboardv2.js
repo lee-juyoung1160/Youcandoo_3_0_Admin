@@ -478,7 +478,7 @@
             backgroundColor: color.black
         }, {
             data : doit,
-            label : '두잇 개설 수',
+            label : '개설 두잇 수',
             yAxisID: 'rightY',
             lineTension: 0.1,
             borderColor: color.mintSky,

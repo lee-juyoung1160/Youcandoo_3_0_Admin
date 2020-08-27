@@ -85,6 +85,9 @@
             },
             scales: {
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                    },
                     ticks: {
                         beginAtZero: true
                     }
@@ -103,6 +106,9 @@
             },
             scales: {
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                    },
                     ticks: {
                         beginAtZero: true
                     }

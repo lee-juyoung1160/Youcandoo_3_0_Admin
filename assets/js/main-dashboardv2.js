@@ -161,7 +161,6 @@
         getDoitJoinStatus();
         getDoitClosedStatus();
         getReportStatus();
-        getPopularDoit();
     }
 
     function getUserInfo()
@@ -277,7 +276,7 @@
 
     function getDoitClosedStatus()
     {
-        let url = api.getDoitOpenStatus
+        let url = api.getDoitClosedStatus
         let errMsg = `두잇종료현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
@@ -290,34 +289,34 @@
 
     function initDoitClosedStatus(data)
     {
-        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
+        let { success, fail, total } = data.data.chart;
         let dataset = [{
-            data : [general_cnt, promotion_cnt]
+            data : [success, fail]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx3 = initChart(doughnut3, chartType.doughnut, chartLabels.successYn, dataset, chartOptions.doughnutOptions);
-        Number(total_cnt) ? setTotalCountInPie(doughnutCtx3, total_cnt) : noDataToDisplay(doughnutCtx3);
+        Number(total) ? setTotalCountInPie(doughnutCtx3, total) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
     function updateDoitClosedStatus(data)
     {
-        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
+        let { success, fail, total } = data.data.chart;
 
-        doughnutCtx3.data.datasets[0].data = [general_cnt, promotion_cnt];
+        doughnutCtx3.data.datasets[0].data = [success, fail];
         doughnutCtx3.update();
-        Number(total_cnt) ? setTotalCountInPie(doughnutCtx3, total_cnt) : noDataToDisplay(doughnutCtx3);
+        Number(total) ? setTotalCountInPie(doughnutCtx3, total) : noDataToDisplay(doughnutCtx3);
         setDoitClosedSummary(data);
     }
 
     function setDoitClosedSummary(data)
     {
-        let summaryData = data.data.data;
-        successDoit.html(numberWithCommas(summaryData.모집중));
-        failDoit.html(numberWithCommas(summaryData.진행중));
-        avgSuccess.html(`${Number(summaryData.개설취소).toFixed(1)}<em>%</em>`);
-        reviewCount.html(numberWithCommas(summaryData.모집실패));
+        let { success, fail, avg_goal_percent, review } = data.data.data;
+        successDoit.html(numberWithCommas(success));
+        failDoit.html(numberWithCommas(fail));
+        avgSuccess.html(`${Number(avg_goal_percent).toFixed(1)}<em>%</em>`);
+        reviewCount.html(numberWithCommas(review));
     }
 
     function getReportStatus()
@@ -380,10 +379,10 @@
 
     function initDailyActionChart(data)
     {
-        let datas = data.data.result;
+        let { result } = data.data;
         let xLabel  = getDayNames(yearEl.val(), monthEl.val());
         let dataset = [{
-            data : datas,
+            data : result,
             lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,
@@ -396,11 +395,11 @@
 
     function updateDailyActionChart(data)
     {
-        let datas = data.data.result;
+        let { result } = data.data;
         let xLabel  = getDayNames(yearEl.val(), monthEl.val());
 
         dailyActionCtx.data.labels = xLabel;
-        dailyActionCtx.data.datasets[0].data = datas;
+        dailyActionCtx.data.datasets[0].data = result;
         dailyActionCtx.update();
     }
 
@@ -488,7 +487,7 @@
 
         let options = {
             legend: {
-                align: 'end',
+                align: 'center',
                 position: 'top',
                 onClick: function(e, legendItem) {
                     let index = legendItem.datasetIndex;
@@ -518,7 +517,10 @@
                     },
                     ticks: {
                         beginAtZero: true,
-                        fontColor: '#3f6ccd'
+                        fontColor: '#3f6ccd',
+                        callback: function(value, index, values) {
+                            return convertNumberToKvalue(value);
+                        }
                     }
                 }, {
                     id: 'rightY',
@@ -529,7 +531,10 @@
                     },
                     ticks: {
                         beginAtZero: true,
-                        fontColor: '#38c3d1'
+                        fontColor: '#38c3d1',
+                        callback: function(value, index, values) {
+                            return convertNumberToKvalue(value);
+                        }
                     }
                 }]
             },

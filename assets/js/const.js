@@ -134,6 +134,7 @@
 		,getDailyAction : baseApiUrl+'dashboard/action/date'
 		,getUserStatus : baseApiUrl+'dashboard/v2/doit/user'
 		,getDoitOpenStatus : baseApiUrl+'dashboard/v2/doit/establish'
+		,getDoitClosedStatus : baseApiUrl+'dashboard/v2/doit/end'
 		,getReportStatus : baseApiUrl+'dashboard/v2/doit/report'
 		,getDailyActions : baseApiUrl+'dashboard/v2/doit/action'
 		,getPopularDoits : baseApiUrl+'dashboard/v2/doit/popular'

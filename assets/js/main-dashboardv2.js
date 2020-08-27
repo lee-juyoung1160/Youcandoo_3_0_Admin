@@ -70,10 +70,10 @@
         let month = d.getMonth() + 1;
 
         for (defaultYear; defaultYear <= year; defaultYear++)
-            yearEl.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
+            $(".select-year").prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
         for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            monthEl.prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
+            $(".select-month").prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
 
         initSelectOption();
     }

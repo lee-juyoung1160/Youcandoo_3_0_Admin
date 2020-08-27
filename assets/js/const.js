@@ -137,6 +137,7 @@
 		,getReportStatus : baseApiUrl+'dashboard/v2/doit/report'
 		,getDailyActions : baseApiUrl+'dashboard/v2/doit/action'
 		,getPopularDoits : baseApiUrl+'dashboard/v2/doit/popular'
+		,getDailyTotal : baseApiUrl+'dashboard/v2/daily/chart'
 		/** 마이페이지 **/
 		,getProfile : baseApiUrl+'admin/get'
 		,updateProfile : baseApiUrl+'admin/update/pwd'
@@ -188,6 +189,7 @@
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
+		,updateDoitCategory : baseApiUrl+'doit/set/category'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

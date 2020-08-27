@@ -149,19 +149,15 @@
 
 	function createRequest()
 	{
-		$.ajax({
-			url: api.createProhibition,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: addParams(),
-			success: function(data) {
-				sweetToastAndCallback(data, createSuccess);
-			},
-			error: function (request, status) {
-				sweetError(label.submit+message.ajaxError);
-			},
-		});
+		let url = api.createProhibition;
+		let errMsg = label.submit+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, createParams(), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()
@@ -170,7 +166,7 @@
 		onSubmitSearch();
 	}
 
-	function addParams()
+	function createParams()
 	{
 		let inputValue = prohibition.val();
 		let inputValues = inputValue.split(",");

@@ -6,6 +6,7 @@
     let doughnutCtx3;
     let doughnutCtx4;
     let dailyActionCtx;
+    let dailyTotalCtx;
     let g_page_type     = 'init';
     const datePrev      = $('#datePrev');
     const dateSelected  = $('#dateSelected');
@@ -36,8 +37,11 @@
     const userReportCount = $('#userReportCount');
     const dailyActions  = $('#dailyActions');
     const popularDoit   = $('#popularDoit');
+    const dailyTotal    = $('#dailyTotalUser');
     const yearEl  = $("#selYear");
     const monthEl = $("#selMonth");
+    const yearEl2 = $("#selYear2");
+    const monthEl2 = $("#selMonth2");
 
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
@@ -47,10 +51,12 @@
         setBaseDate();
         initPage();
 
-        datePrev.on('click', function () { onClickPrev(this); });
-        dateNext.on('click', function () { onClickNext(this); });
-        yearEl  .on('change', function () { onChangeSelectBox(this); });
-        monthEl .on('change', function () { onChangeSelectBox(this); });
+        datePrev .on('click', function () { onClickPrev(this); });
+        dateNext .on('click', function () { onClickNext(this); });
+        yearEl   .on('change', function () { onChangeSelectBoxForDailyActions(); });
+        monthEl  .on('change', function () { onChangeSelectBoxForDailyActions(); });
+        yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        monthEl2 .on('change', function () { onChangeSelectBoxForDailyTotal(); });
     })
 
     function initMinMaxDate()
@@ -122,10 +128,16 @@
         }
     }
 
-    function onChangeSelectBox()
+    function onChangeSelectBoxForDailyActions()
     {
         g_page_type = 'update';
         getDailyActions();
+    }
+
+    function onChangeSelectBoxForDailyTotal()
+    {
+        g_page_type = 'update';
+        getDailyTotalUser();
     }
 
     function initPage()
@@ -136,7 +148,9 @@
         getDoitClosedStatus();
         getReportStatus();
         getDailyActions();
+        initPopularDoitBaseDate();
         getPopularDoit();
+        getDailyTotalUser();
     }
 
     function updatePage()
@@ -395,6 +409,19 @@
         chartCtx.options.elements.center.text = numberWithCommas(data);
     }
 
+    function initPopularDoitBaseDate()
+    {
+        let d = new Date();
+        let year     = d.getFullYear();
+        let month    = d.getMonth() + 1;
+        let date     = d.getDate();
+        let hours    = d.getHours();
+        let minutes  = d.getMinutes();
+        let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}시 ${appendZero(minutes)}분 참여자 수 기준`
+
+        $("#basis").html(baseDate);
+    }
+
     function getPopularDoit()
     {
         let url = api.getPopularDoits;
@@ -421,6 +448,111 @@
 
         popularDoit.html(innerEl);
     }
+    
+    function getDailyTotalUser()
+    {
+        let url = api.getDailyTotal;
+        let errMsg = `일별 누적회원 데이터${message.ajaxLoadError}`
+        let param = JSON.stringify({
+            "year": yearEl2.val(),
+            "month" : monthEl2.val()
+        });
+        let callback = g_page_type === 'init' ? initDailyTotalUserChart : updateDailyTotalUserChart;
+
+        ajaxRequestWithJsonData(false, url, param, callback, errMsg, false);
+    }
+
+    function initDailyTotalUserChart(data)
+    {
+        let xLabel  = getDayNames(yearEl2.val(), monthEl2.val());
+        let { user, doit } = data.data.series;
+        let dataset = [{
+            data : user,
+            label : '누적 회원 수',
+            yAxisID: 'leftY',
+            fill : false,
+            lineTension: 0.1,
+            borderColor: color.jyBlue,
+            borderWidth : 2,
+            pointBackgroundColor: color.jyBlue,
+            backgroundColor: color.black
+        }, {
+            data : doit,
+            label : '두잇 개설 수',
+            yAxisID: 'rightY',
+            lineTension: 0.1,
+            borderColor: color.mintSky,
+            borderWidth : 2,
+            pointBackgroundColor: color.mintSky,
+            backgroundColor: color.black
+        }];
+
+        let options = {
+            legend: {
+                align: 'end',
+                position: 'top',
+                onClick: function(e, legendItem) {
+                    let index = legendItem.datasetIndex;
+                    let ci = this.chart;
+                    let meta = ci.getDatasetMeta(index);
+
+                    meta.dataset._scale.options.display = !meta.dataset._scale.options.display;
+                    meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+
+                    ci.update();
+                }
+            },
+            tooltips : {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return numberWithCommas(tooltipItem.value);
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    id: 'leftY',
+                    type: 'linear',
+                    position: 'left',
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontColor: '#3f6ccd'
+                    }
+                }, {
+                    id: 'rightY',
+                    type: 'linear',
+                    position: 'right',
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontColor: '#38c3d1'
+                    }
+                }]
+            },
+            maintainAspectRatio : false
+        }
+
+        dailyTotalCtx = initChart(dailyTotal, chartType.line, xLabel, dataset, options);
+    }
+
+    let defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
+
+    function updateDailyTotalUserChart(data)
+    {
+        let xLabel  = getDayNames(yearEl2.val(), monthEl2.val());
+        let { user, doit } = data.data.series;
+
+        dailyTotalCtx.data.labels = xLabel;
+        dailyTotalCtx.data.datasets[0].data = user;
+        dailyTotalCtx.data.datasets[1].data = doit;
+        dailyTotalCtx.update();
+    }
+    
 
     function getDayNames(_year, _month)
     {

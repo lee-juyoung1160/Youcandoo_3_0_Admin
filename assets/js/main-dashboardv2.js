@@ -22,8 +22,8 @@
     const failOpenDoit    = $('#failOpenDoit');
     const doughnut2     = $('#doughnut2');
     const applyDoit     = $('#applyDoit');
-    const cancelAttend  = $('#cancelAttend');
     const actionCount   = $('#actionCount');
+    const avgActions    = $('#avgActions');
     const avgAttend     = $('#avgAttend');
     const doughnut3     = $('#doughnut3');
     const successDoit   = $('#successDoit');
@@ -231,7 +231,7 @@
 
     function getDoitJoinStatus()
     {
-        let url = api.getDoitOpenStatus
+        let url = api.getDoitClosedStatus
         let errMsg = `두잇참여현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
@@ -244,34 +244,34 @@
 
     function initDoitJoinStatus(data)
     {
-        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
+        let { success, fail, total } = data.data.chart;
         let dataset = [{
-            data : [general_cnt, promotion_cnt]
+            data : [success, fail]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
+        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function updateDoitJoinStatus(data)
     {
-        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
+        let { success, fail, total } = data.data.chart;
 
-        doughnutCtx2.data.datasets[0].data = [general_cnt, promotion_cnt];
+        doughnutCtx2.data.datasets[0].data = [success, fail];
         doughnutCtx2.update();
-        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
+        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function setDoitJoinSummary(data)
     {
-        let summaryData = data.data.data;
-        applyDoit.html(numberWithCommas(summaryData.모집중));
-        cancelAttend.html(numberWithCommas(summaryData.진행중));
-        actionCount.html(numberWithCommas(summaryData.개설취소));
-        avgAttend.html(numberWithCommas(summaryData.모집실패));
+        let { success, fail, avg_goal_percent, review } = data.data.data;
+        applyDoit.html(numberWithCommas(success));
+        actionCount.html(numberWithCommas(fail));
+        avgActions.html(numberWithCommas(`${Number(avg_goal_percent).toFixed(1)}<em>%</em>`));
+        avgAttend.html(numberWithCommas(`${Number(review).toFixed(1)}<em>%</em>`));
     }
 
     function getDoitClosedStatus()

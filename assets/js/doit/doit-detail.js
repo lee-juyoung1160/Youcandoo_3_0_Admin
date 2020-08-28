@@ -1338,7 +1338,7 @@
 		let btnBlind;
 		let blindClass;
 
-		if (g_is_created_by_biz && (!g_doit_status === '모집실패' || !g_doit_status === '개설취소'))
+		if (g_is_created_by_biz && (g_doit_status !== '모집실패' && g_doit_status !== '개설취소'))
 			innerEl +=
 				`<div class="add-talk clearfix">
                     <div class="btn-wrap">

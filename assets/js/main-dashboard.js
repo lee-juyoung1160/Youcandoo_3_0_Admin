@@ -140,7 +140,7 @@
             backgroundColor: color.jyBlue
         }];
 
-        dailyActionChart = initChart(certMonthChart, chartType.bar, label, dataset, chartOptions.noLegend);
+        dailyActionChart = initChart(certMonthChart, chartType.bar, label, dataset, chartOptions.noLegendLineOption);
     }
 
     /** 모집중, 진행중, 완료, 취소된 두잇 **/
@@ -243,7 +243,7 @@
             backgroundColor: color.jyBlue
         }];
 
-        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.withLegend);
+        monthlyDoitChart = initChart(monthlyMixedChart, chartType.bar, label.monthNames, dataset, chartOptions.withLegendLineOption);
     }
 
     /** 가입자 현황 **/

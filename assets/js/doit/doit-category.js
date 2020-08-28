@@ -120,6 +120,24 @@
 		)
 	}
 
+	function changeStatus(obj)
+	{
+		let param   = JSON.stringify({"idx" : $(obj).data('idx')});
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, changeApi, param, changeStatusCallback, errMsg, false);
+	}
+
+	function changeStatusCallback(data)
+	{
+		sweetToastAndCallback(data, changeStatusSuccess);
+	}
+
+	function changeStatusSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
+	}
+
 	function onSubmitSearch()
 	{
 		let table = dataTable.DataTable();
@@ -127,7 +145,7 @@
 		table.ajax.reload();
 	}
 
-	/** 금칙어 등록 **/
+	/** 카테고리 등록 **/
 	function onSubmitCategory()
 	{
 		if (validation())

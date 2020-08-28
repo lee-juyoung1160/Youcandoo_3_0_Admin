@@ -128,14 +128,14 @@
         let xLabel  = getDayNames(selYear.val(), selMonth.val());
         let dataset = initDataset(data);
 
-        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.withLegend);
-        dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;
+        dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.withLegendLineOption);
+        /*dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;*/
     }
 
-    function ticksCallback(value, index, values)
+    /*function ticksCallback(value, index, values)
     {
         return convertNumberToKvalue(value);
-    }
+    }*/
 
     function buildSummary(data)
     {

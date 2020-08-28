@@ -390,7 +390,7 @@
             backgroundColor: color.black
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, dataset, chartOptions.noLegend);
+        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, dataset, chartOptions.noLegendLineOption);
     }
 
     function updateDailyActionChart(data)
@@ -475,14 +475,19 @@
             pointBackgroundColor: color.jyBlue,
             backgroundColor: color.black
         }, {
+            type : 'bar',
             data : doit,
             label : '개설 두잇 수',
             yAxisID: 'rightY',
+            barPercentage : 0.5,
+            /*barThickness : '1',*/
+            backgroundColor: color.mintSky
+            /*yAxisID: 'rightY',
             lineTension: 0.1,
             borderColor: color.mintSky,
             borderWidth : 2,
             pointBackgroundColor: color.mintSky,
-            backgroundColor: color.black
+            backgroundColor: color.black*/
         }];
 
         let options = {
@@ -494,7 +499,17 @@
                     let ci = this.chart;
                     let meta = ci.getDatasetMeta(index);
 
-                    meta.dataset._scale.options.display = !meta.dataset._scale.options.display;
+                    if (meta.type === 'bar')
+                    {
+                        let displayRightY = meta.controller.chart.options.scales.yAxes[1].display;
+                        meta.controller.chart.options.scales.yAxes[1].display = !displayRightY;
+                    }
+                    else
+                    {
+                        let displayLeftY = meta.controller.chart.options.scales.yAxes[0].display;
+                        meta.controller.chart.options.scales.yAxes[0].display = !displayLeftY;
+                    }
+
                     meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
 
                     ci.update();
@@ -543,8 +558,6 @@
 
         dailyTotalCtx = initChart(dailyTotal, chartType.line, xLabel, dataset, options);
     }
-
-    let defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
 
     function updateDailyTotalUserChart(data)
     {

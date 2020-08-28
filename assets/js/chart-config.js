@@ -71,7 +71,7 @@
                 }
             }
         },
-        withLegend: {
+        withLegendLineOption: {
             legend: {
                 align: 'end',
                 position: 'top'
@@ -89,13 +89,16 @@
                         display: false
                     },
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            return convertNumberToKvalue(value);
+                        }
                     }
                 }]
             },
             maintainAspectRatio : false
         },
-        noLegend: {
+        noLegendLineOption: {
             legend: false,
             tooltips : {
                 callbacks: {
@@ -110,7 +113,10 @@
                         display: false
                     },
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            return convertNumberToKvalue(value);
+                        }
                     }
                 }]
             },

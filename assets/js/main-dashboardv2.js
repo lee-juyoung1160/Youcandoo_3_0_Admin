@@ -233,7 +233,7 @@
 
     function getDoitJoinStatus()
     {
-        let url = api.getDoitClosedStatus
+        let url = api.getDoitJoinStatus
         let errMsg = `두잇참여현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
@@ -246,34 +246,34 @@
 
     function initDoitJoinStatus(data)
     {
-        let { success, fail, total } = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [success, fail]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function updateDoitJoinStatus(data)
     {
-        let { success, fail, total } = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
 
-        doughnutCtx2.data.datasets[0].data = [success, fail];
+        doughnutCtx2.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx2.update();
-        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function setDoitJoinSummary(data)
     {
-        let { success, fail, avg_goal_percent, review } = data.data.data;
-        applyDoit.html(numberWithCommas(success));
-        actionCount.html(numberWithCommas(fail));
-        avgActions.html(numberWithCommas(`${Number(avg_goal_percent).toFixed(1)}<em>%</em>`));
-        avgAttend.html(numberWithCommas(`${Number(review).toFixed(1)}<em>%</em>`));
+        let { request_cnt, action_cnt, join_percent, action_percent } = data.data.data;
+        applyDoit.html(numberWithCommas(request_cnt));
+        actionCount.html(numberWithCommas(action_cnt));
+        avgActions.html(numberWithCommas(`${Number(action_percent).toFixed(1)}<em>%</em>`));
+        avgAttend.html(numberWithCommas(`${Number(join_percent).toFixed(1)}<em>%</em>`));
     }
 
     function getDoitClosedStatus()

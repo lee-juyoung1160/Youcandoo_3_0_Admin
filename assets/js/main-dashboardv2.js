@@ -42,6 +42,7 @@
     const monthEl = $("#selMonth");
     const yearEl2 = $("#selYear2");
     const monthEl2 = $("#selMonth2");
+    const btnReloadPopular = $("#btnReloadPopular");
 
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
@@ -57,6 +58,7 @@
         monthEl  .on('change', function () { onChangeSelectBoxForDailyActions(); });
         yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
         monthEl2 .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        btnReloadPopular .on('click', function () { onCickReloadPopularDoit(); });
     })
 
     function initMinMaxDate()
@@ -408,15 +410,23 @@
         chartCtx.options.elements.center.text = numberWithCommas(data);
     }
 
+    function onCickReloadPopularDoit()
+    {
+        initPopularDoitBaseDate();
+        getPopularDoit();
+    }
+
     function initPopularDoitBaseDate()
     {
         let d = new Date();
-        let year     = d.getFullYear();
+        /*let year     = d.getFullYear();
         let month    = d.getMonth() + 1;
-        let date     = d.getDate();
+        let date     = d.getDate();*/
         let hours    = d.getHours();
         let minutes  = d.getMinutes();
-        let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}시 ${appendZero(minutes)}분 참여자 수 기준`
+        let seconds  = d.getSeconds();
+        /*let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`*/
+        let baseDate = `오늘 ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`
 
         $("#basis").html(baseDate);
     }

@@ -222,6 +222,7 @@
 		ajaxRequestWithJsonData(true, url, param, getDetailCallback, errMsg, false);
 	}
 
+	let g_doit_status;
 	let g_doitUuid;
 	let g_is_created_by_biz;
 	let g_biz_uuid;
@@ -229,7 +230,8 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let { doit_uuid, company_profile_uuid, created_profile_uuid } = data.data;
+			let { doit_status, doit_uuid, company_profile_uuid, created_profile_uuid } = data.data;
+			g_doit_status = doit_status;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			g_biz_uuid = company_profile_uuid;
 			g_doitUuid = doit_uuid;
@@ -374,7 +376,7 @@
 
 	function removeModifyBtn(detail)
 	{
-		if (isEmpty(detail.promotion_uuid) || detail.doit_status !== '모집중')
+		if (isEmpty(detail.promotion_uuid) || g_doit_status !== '모집중')
 			goUpdate.remove();
 	}
 
@@ -1355,7 +1357,7 @@
 		else
 			g_is_notice = 'N'
 
-		if (g_is_created_by_biz)
+		if (g_is_created_by_biz && (!g_doit_status === '모집실패' || !g_doit_status === '개설취소'))
 			innerEl +=
 				`<div class="add-talk clearfix">
                     ${btnWrap}

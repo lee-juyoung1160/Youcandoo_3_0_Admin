@@ -207,7 +207,7 @@
 		ucdInfo.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
-		//getDoitTalk();
+		getDoitTalk();
 	}
 
 	/****************
@@ -1330,8 +1330,25 @@
 		let btnBlind;
 		let blindClass;
 
+		if (true)
+			innerEl +=
+				`<div class="add-talk clearfix">
+                    <div class="btn-wrap">
+                        <button type="button" name="btn-talk-type" class="on" data-talktype="notice">공지</button>
+                        <button type="button" name="btn-talk-type" data-talktype="regular">일반</button>
+                    </div>
+                    <div class="question-text clearfix">
+                        <i class="question-mark far fa-question-circle"></i>
+                        <span>
+                            두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
+                        </span>
+                    </div>
+                    <textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+                    <button id="btnSubmitTalk" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
+                </div>`
+
 		if (isEmpty(notice) && talkLen === 0)
-			innerEl = '<p style="margin-top: 30px;" class="empty-message">두잇톡이 없습니다.</p>';
+			innerEl += '<p style="margin-top: 30px;" class="empty-message">두잇톡이 없습니다.</p>';
 
 		if (!isEmpty(notice))
 		{
@@ -1349,7 +1366,7 @@
 
 			blindClass = notice.is_blind === 'Y' ? 'blind' : '';
 
-			innerEl =
+			innerEl +=
 				`<div class="top-fix ${blindClass}">
 					<div class="top clearfix">
 						<p class="title">공지</p>

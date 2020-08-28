@@ -213,7 +213,6 @@
 	/****************
 	 * 두잇정보탭 관련
 	 * **************/
-	let g_doitUuid;
 	function getDetail()
 	{
 		let url 	= api.detailDoit;
@@ -223,11 +222,17 @@
 		ajaxRequestWithJsonData(true, url, param, getDetailCallback, errMsg, false);
 	}
 
+	let g_doitUuid;
+	let g_is_created_by_biz;
+	let g_biz_uuid;
 	function getDetailCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
-			g_doitUuid = data.data.doit_uuid;
+			let { doit_uuid, company_profile_uuid, created_profile_uuid } = data.data;
+			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
+			g_biz_uuid = company_profile_uuid;
+			g_doitUuid = doit_uuid;
 			buildDetail(data);
 		}
 		else
@@ -1318,6 +1323,7 @@
 		ajaxRequestWithJsonData(true, url, param, getDoitTalkSuccessCallback, errMsg, false);
 	}
 
+	let g_is_notice;
 	function getDoitTalkSuccessCallback(data)
 	{
 		let notice  = data.data.notice;
@@ -1329,22 +1335,32 @@
 		let createDay = '';
 		let btnBlind;
 		let blindClass;
+		let btnWrap = '';
 
-		if (true)
+		if (isEmpty(notice))
+		{
+			btnWrap +=
+				`<div class="btn-wrap">
+					<button onclick="onClickBtnTalkType(this);" type="button" class="on" data-isnotice="Y">공지</button>
+					<button onclick="onClickBtnTalkType(this);" type="button" data-isnotice="N">일반</button>
+				</div>
+				<div class="question-text clearfix">
+					<i class="question-mark far fa-question-circle"></i>
+					<span>
+						두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
+					</span>
+				</div>`
+			g_is_notice = 'Y'
+		}
+		else
+			g_is_notice = 'N'
+
+		if (g_is_created_by_biz)
 			innerEl +=
 				`<div class="add-talk clearfix">
-                    <div class="btn-wrap">
-                        <button type="button" name="btn-talk-type" class="on" data-talktype="notice">공지</button>
-                        <button type="button" name="btn-talk-type" data-talktype="regular">일반</button>
-                    </div>
-                    <div class="question-text clearfix">
-                        <i class="question-mark far fa-question-circle"></i>
-                        <span>
-                            두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
-                        </span>
-                    </div>
+                    ${btnWrap}
                     <textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
-                    <button id="btnSubmitTalk" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
+                    <button onclick="onSubmitTalk();" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
                 </div>`
 
 		if (isEmpty(notice) && talkLen === 0)
@@ -1460,6 +1476,61 @@
 
 		doitTalk.html(innerEl);
 	}
+
+	function onClickBtnTalkType(obj)
+	{
+		g_is_notice = $(obj).data('isnotice');
+
+		$(obj).siblings().removeClass('on');
+		$(obj).addClass('on');
+
+		let addTalk = $("#addTalk");
+		addTalk.val('');
+		addTalk.trigger('focus');
+	}
+
+	function onSubmitTalk()
+	{
+		if (addTalkValidation())
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function addTalkValidation()
+	{
+		let addTalk = $("#addTalk");
+		if (isEmpty(addTalk.val()))
+		{
+			sweetToast(`두잇톡은 ${message.required}`);
+			addTalk.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function createRequest()
+	{
+		let url = api.createDoitTalk;
+		let errMsg = label.submit+message.ajaxError;
+		let param = {
+			"doit_uuid" : g_doitUuid
+			,"profile_uuid" : g_biz_uuid
+			,"text_body" : $("#addTalk").val().trim()
+			,"is_notice" : g_is_notice
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, getDoitTalk);
+	}
+
+	/*function createSuccess(data)
+	{
+		sweetToastAndCallback(data, getDoitTalk);
+	}*/
 
 	let g_board_uuid;
 	let g_is_blind_talk;

@@ -192,6 +192,7 @@
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
 		,updateDoitCategory : baseApiUrl+'doit/set/category'
+		,createDoitTalk : baseApiUrl+'doit/board/register'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

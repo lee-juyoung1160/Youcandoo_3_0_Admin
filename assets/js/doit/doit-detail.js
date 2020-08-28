@@ -1325,7 +1325,7 @@
 		ajaxRequestWithJsonData(true, url, param, getDoitTalkSuccessCallback, errMsg, false);
 	}
 
-	let g_is_notice;
+	let g_is_notice = 'Y';
 	function getDoitTalkSuccessCallback(data)
 	{
 		let notice  = data.data.notice;
@@ -1337,30 +1337,20 @@
 		let createDay = '';
 		let btnBlind;
 		let blindClass;
-		let btnWrap = '';
-
-		if (isEmpty(notice))
-		{
-			btnWrap +=
-				`<div class="btn-wrap">
-					<button onclick="onClickBtnTalkType(this);" type="button" class="on" data-isnotice="Y">공지</button>
-					<button onclick="onClickBtnTalkType(this);" type="button" data-isnotice="N">일반</button>
-				</div>
-				<div class="question-text clearfix">
-					<i class="question-mark far fa-question-circle"></i>
-					<span>
-						두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
-					</span>
-				</div>`
-			g_is_notice = 'Y'
-		}
-		else
-			g_is_notice = 'N'
 
 		if (g_is_created_by_biz && (!g_doit_status === '모집실패' || !g_doit_status === '개설취소'))
 			innerEl +=
 				`<div class="add-talk clearfix">
-                    ${btnWrap}
+                    <div class="btn-wrap">
+						<button onclick="onClickBtnTalkType(this);" type="button" class="on" data-isnotice="Y">공지</button>
+						<button onclick="onClickBtnTalkType(this);" type="button" data-isnotice="N">일반</button>
+					</div>
+					<div class="question-text clearfix">
+						<i class="question-mark far fa-question-circle"></i>
+						<span>
+							두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
+						</span>
+					</div>
                     <textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
                     <button onclick="onSubmitTalk();" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
                 </div>`
@@ -1393,12 +1383,13 @@
 						</div>
 					</div>
 					<div class="contants-wrap clearfix">
-						<div style="white-space: pre" class="talk-text">${notice.text_body}</div>
+						<div style="white-space: pre-line" class="talk-text">${notice.text_body}</div>
 					</div>
 					<div class="bottom clearfix">
 						<span class="time">${notice.created_time}</span>
 						<ol class="clearfix">
 							<li><i class="fas fa-heart" style="color: red;"></i> <strong>${numberWithCommas(notice.like)}</strong></li>
+							<li><strong>신고:</strong> ${notice.report}</li>
 						</ol>
 					</div>
 				</div>`
@@ -1458,7 +1449,7 @@
 							</div>
 						</div>
 						<div class="contants-wrap clearfix">
-							<div style="white-space: pre" class="talk-text">${detail.text_body}</div>
+							<div style="white-space: pre-line" class="talk-text">${detail.text_body}</div>
 						</div>
 						<div class="bottom clearfix">
 							<span class="time">${detail.created_time}</span>

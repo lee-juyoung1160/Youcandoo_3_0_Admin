@@ -42,6 +42,7 @@
     const monthEl = $("#selMonth");
     const yearEl2 = $("#selYear2");
     const monthEl2 = $("#selMonth2");
+    const btnReloadPopular = $("#btnReloadPopular");
 
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
@@ -57,6 +58,7 @@
         monthEl  .on('change', function () { onChangeSelectBoxForDailyActions(); });
         yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
         monthEl2 .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        btnReloadPopular .on('click', function () { onCickReloadPopularDoit(); });
     })
 
     function initMinMaxDate()
@@ -231,7 +233,7 @@
 
     function getDoitJoinStatus()
     {
-        let url = api.getDoitClosedStatus
+        let url = api.getDoitJoinStatus
         let errMsg = `두잇참여현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "from_date" : dateSelected.text(),
@@ -244,34 +246,34 @@
 
     function initDoitJoinStatus(data)
     {
-        let { success, fail, total } = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
         let dataset = [{
-            data : [success, fail]
+            data : [general_cnt, promotion_cnt]
             ,backgroundColor : [color.mintSky, color.jyBlue]
         }]
 
         doughnutCtx2 = initChart(doughnut2, chartType.doughnut, chartLabels.doitType, dataset, chartOptions.doughnutOptions);
-        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function updateDoitJoinStatus(data)
     {
-        let { success, fail, total } = data.data.chart;
+        let { general_cnt, promotion_cnt, total_cnt } = data.data.chart;
 
-        doughnutCtx2.data.datasets[0].data = [success, fail];
+        doughnutCtx2.data.datasets[0].data = [general_cnt, promotion_cnt];
         doughnutCtx2.update();
-        Number(total) ? setTotalCountInPie(doughnutCtx2, total) : noDataToDisplay(doughnutCtx2);
+        Number(total_cnt) ? setTotalCountInPie(doughnutCtx2, total_cnt) : noDataToDisplay(doughnutCtx2);
         setDoitJoinSummary(data);
     }
 
     function setDoitJoinSummary(data)
     {
-        let { success, fail, avg_goal_percent, review } = data.data.data;
-        applyDoit.html(numberWithCommas(success));
-        actionCount.html(numberWithCommas(fail));
-        avgActions.html(numberWithCommas(`${Number(avg_goal_percent).toFixed(1)}<em>%</em>`));
-        avgAttend.html(numberWithCommas(`${Number(review).toFixed(1)}<em>%</em>`));
+        let { request_cnt, action_cnt, join_percent, action_percent } = data.data.data;
+        applyDoit.html(numberWithCommas(request_cnt));
+        actionCount.html(numberWithCommas(action_cnt));
+        avgActions.html(numberWithCommas(`${Number(action_percent).toFixed(1)}<em>%</em>`));
+        avgAttend.html(numberWithCommas(`${Number(join_percent).toFixed(1)}<em>%</em>`));
     }
 
     function getDoitClosedStatus()
@@ -408,15 +410,23 @@
         chartCtx.options.elements.center.text = numberWithCommas(data);
     }
 
+    function onCickReloadPopularDoit()
+    {
+        initPopularDoitBaseDate();
+        getPopularDoit();
+    }
+
     function initPopularDoitBaseDate()
     {
         let d = new Date();
-        let year     = d.getFullYear();
+        /*let year     = d.getFullYear();
         let month    = d.getMonth() + 1;
-        let date     = d.getDate();
+        let date     = d.getDate();*/
         let hours    = d.getHours();
         let minutes  = d.getMinutes();
-        let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}시 ${appendZero(minutes)}분 참여자 수 기준`
+        let seconds  = d.getSeconds();
+        /*let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`*/
+        let baseDate = `오늘 ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`
 
         $("#basis").html(baseDate);
     }

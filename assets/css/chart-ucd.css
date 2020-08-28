@@ -291,6 +291,14 @@ i.fa-user {
     font-size: 9px;
     cursor: inherit;
 }
+.fa-sync-alt {
+    color: #888;
+    transition: all .3s;
+}
+.fa-sync-alt:hover {
+    color: #006AFD;
+}
+
 /*  UCD */
 .dashboard-ucd .ucd-text {
     display: flex;

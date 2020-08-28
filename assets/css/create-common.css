@@ -105,12 +105,51 @@
 }
 
 /* 두잇톡 */
-.doitTalk .time-line,
-info-fix {
+.doitTalk .add-talk {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+}
+.doitTalk .add-talk .question-text {
+    float: right;
+    color: #777;
+    font-size: 13px;
+}
+.doitTalk .add-talk .question-text i {
+    cursor: inherit;
+    color: #777;
+    font-size: 13px;
+}
+.doitTalk .add-talk .btn-wrap {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 3px;
+    background-color: #f3f3f3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doitTalk .add-talk .btn-wrap button {
+    width: 130px;
+    height: 35px;
+    background-color: #f3f3f3;
+}
+.doitTalk .add-talk .btn-wrap button.on,
+.doitTalk .add-talk .btn-wrap button:hover {
+    color: #fff;
+    font-weight: 600;
+    background-color: dodgerblue;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doitTalk .time-line{
     position: relative;
     margin-top: 20px;
 }
 .doitTalk .top-fix {
+    margin-top: 20px;
     padding: 15px;
     background-color: #fff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);

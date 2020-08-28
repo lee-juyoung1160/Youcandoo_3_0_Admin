@@ -207,7 +207,7 @@
 		ucdInfo.hide();
 		$(obj).siblings().removeClass('active');
 		$(obj).addClass('active');
-		getDoitTalk();
+		//getDoitTalk();
 	}
 
 	/****************

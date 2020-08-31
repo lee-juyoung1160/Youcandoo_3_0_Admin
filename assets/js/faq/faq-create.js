@@ -8,8 +8,6 @@
 	$( () => {
 		/** faq 구분 **/
 		getFaqType();
-		/** 데이트피커 초기화 **/
-		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/

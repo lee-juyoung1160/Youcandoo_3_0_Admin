@@ -23,7 +23,6 @@
 	const exampleArea 		= $("#exampleArea");
 	const exampleDesc 		= $("#exampleDesc");
 	const galleryWrap		= $("#galleryWrap");
-	/*const openYn 			= $("input[name=radio-open-yn]");*/
 	const btnSubmit			= $("#btnSubmit");
 
 	/** modal **/
@@ -91,7 +90,6 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
-		/*openYn.eq(0).prop('checked', true);*/
 	}
 
 	function onClickAddTag()
@@ -371,7 +369,17 @@
 			g_duration = detail.action_duration;
 
 			/** 프로모션 종료일로 두잇 인증기간 시작일 최대 값 세팅 **/
-			doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
+			let todayYmd = getStringFormatToDate(new Date(), '-');
+			if (todayYmd === detail.end_date)
+			{
+				doitFrom.datepicker("option", "minDate", "today");
+				doitFrom.datepicker("option", "maxDate", "today");
+			}
+			else
+			{
+				doitFrom.datepicker("option", "minDate", "+1");
+				doitFrom.datepicker("option", "maxDate", new Date(detail.end_date));
+			}
 
 			let totalReward = Number(detail.person_reward) + Number(detail.group_reward);
 			let actionDayofweek = detail.action_dayofweek;

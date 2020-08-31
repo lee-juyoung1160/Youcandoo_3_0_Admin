@@ -1520,11 +1520,6 @@
 		sweetToastAndCallback(data, getDoitTalk);
 	}
 
-	/*function createSuccess(data)
-	{
-		sweetToastAndCallback(data, getDoitTalk);
-	}*/
-
 	let g_board_uuid;
 	let g_is_blind_talk;
 	function onSubmitBlindTalk(obj)

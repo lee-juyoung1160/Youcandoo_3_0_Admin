@@ -24,8 +24,6 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
-		/** 데이트피커 초기화 **/
-		initInputDatepicker();
 		/** 두잇 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
@@ -386,6 +384,10 @@
 		formData.append('intro-video-file', paramIntroVideo);
 		formData.append('private-code', accessCode);
 		formData.append('doit-description', doitDesc.val().trim());
+		let isAllowGallery = 'N';
+		if ($('input:radio[name=radio-gallery-yn]').length > 0)
+			isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
+		formData.append('allow-gallery-image', isAllowGallery);
 
 		return formData;
 	}

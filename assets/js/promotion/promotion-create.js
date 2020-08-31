@@ -952,7 +952,7 @@
 
 			/** 주간빈도 파라미터 **/
 			frequencyDom.each(function (freqidx) {
-				let frequencyYn = $(this).hasClass('active') ? 'Y' : 'N';
+				let frequencyYn = (!$(this).hasClass('disabled') && $(this).hasClass('active')) ? 'Y' : 'N';
 				if (freqidx === 0) monday = frequencyYn;
 				if (freqidx === 1) tuesday = frequencyYn;
 				if (freqidx === 2) wednesday = frequencyYn;

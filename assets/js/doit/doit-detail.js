@@ -1336,6 +1336,8 @@
 	let g_is_notice = 'Y';
 	function getDoitTalkSuccessCallback(data)
 	{
+		g_is_notice = 'Y';
+
 		let notice  = data.data.notice;
 		let creator = data.data.permission;
 		let details = data.data.data;
@@ -1344,6 +1346,7 @@
 		let i = 0;
 		let createDay = '';
 		let btnBlind;
+		let btnDel;
 		let blindClass;
 
 		if (g_is_created_by_biz && isPossibleTalk(g_doit_status))
@@ -1370,17 +1373,22 @@
 		{
 			g_has_notice = true;
 
+			btnDel = g_is_created_by_biz ?
+				`<button onclick="deleteDoitTalk(this)" data-uuid="${notice.board_uuid}" 
+					type="button" 
+					style="color: darkred; border-bottom: 1px solid darkred; margin-right: 10px;"><i class="fa fa-trash"></i> 공지삭제</button>` : ''
+
 			btnBlind = notice.is_blind === 'Y' ?
 				`<button onclick="onSubmitBlindTalk(this);" 
-							data-uuid="${notice.board_uuid}" 
-							data-blind="N"
-							type="button" 
-							class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
+						data-uuid="${notice.board_uuid}" 
+						data-blind="N"
+						type="button" 
+						class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
 				`<button onclick="onSubmitBlindTalk(this);" 
-							data-uuid="${notice.board_uuid}" 
-							data-blind="Y"
-							type="button" 
-							type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+						data-uuid="${notice.board_uuid}" 
+						data-blind="Y"
+						type="button" 
+						class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 
 			blindClass = notice.is_blind === 'Y' ? 'blind' : '';
 
@@ -1389,6 +1397,7 @@
 					<div class="top clearfix">
 						<p class="title">공지</p>
 						<div class="btn-wrap">
+							${btnDel}
 							${btnBlind}
 						</div>
 					</div>
@@ -1435,6 +1444,11 @@
 			}
 			else
 			{
+				btnDel = (g_is_created_by_biz && !isEmpty(detail.company_uuid)) ?
+					`<button onclick="deleteDoitTalk(this)" data-uuid="${detail.board_uuid}"
+					type="button" 
+					style="color: darkred; border-bottom: 1px solid darkred; margin-right: 10px;"><i class="fa fa-trash"></i> 톡삭제</button>` : ''
+				
 				btnBlind = detail.is_blind === 'Y' ?
 					`<button onclick="onSubmitBlindTalk(this);" 
 							data-uuid="${detail.board_uuid}" 
@@ -1455,6 +1469,7 @@
 						<div class="top clearfix">
 							<p class="nickname">${detail.nickname} ${crownIcon}</p>
 							<div class="btn-wrap">
+								${btnDel}
 								${btnBlind}
 							</div>
 						</div>
@@ -1494,7 +1509,7 @@
 
 	function onSubmitTalk()
 	{
-		let msg = g_has_notice ? '공지는 한 개만 등록 가능합니다.\n확인을 누르면 기존에 등록된 공지는 일반톡이 되고,\n현재 내용이 공지로 등록됩니다.' : message.create;
+		let msg = (g_has_notice && g_is_notice === 'Y') ? '공지는 한 개만 등록 가능합니다.\n확인을 누르면 기존에 등록된 공지는 일반톡이 되고,\n현재 내용이 공지로 등록됩니다.' : message.create;
 		if (addTalkValidation())
 			sweetConfirm(msg, createRequest);
 	}
@@ -1531,6 +1546,34 @@
 		sweetToastAndCallback(data, getDoitTalk);
 	}
 
+	function deleteDoitTalk(obj)
+	{
+		g_board_uuid = $(obj).data('uuid');
+		sweetConfirm(`${message.delete}`, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		let url = api.deleteDoitTalk;
+		let errMsg = label.modify+message.ajaxError;
+		let param = {
+			"board_uuid": g_board_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteReqSuccess);
+	}
+
+	function deleteReqSuccess()
+	{
+		g_has_notice = false;
+		getDoitTalk();
+	}
+
 	let g_board_uuid;
 	let g_is_blind_talk;
 	function onSubmitBlindTalk(obj)
@@ -1562,6 +1605,8 @@
 	{
 		getDoitTalk();
 	}
+
+
 
 	/** 수정페이지 이동 **/
 	function goUpdatePage()

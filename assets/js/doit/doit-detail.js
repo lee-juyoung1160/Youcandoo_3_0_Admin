@@ -1325,6 +1325,14 @@
 		ajaxRequestWithJsonData(true, url, param, getDoitTalkSuccessCallback, errMsg, false);
 	}
 
+	function isPossibleTalk(_doitStatus)
+	{
+		let stats = ['모집실패', '개설취소', '종료']
+
+		return stats.indexOf(_doitStatus) === -1;
+	}
+
+	let g_has_notice = false;
 	let g_is_notice = 'Y';
 	function getDoitTalkSuccessCallback(data)
 	{
@@ -1338,7 +1346,7 @@
 		let btnBlind;
 		let blindClass;
 
-		if (g_is_created_by_biz && (g_doit_status !== '모집실패' && g_doit_status !== '개설취소'))
+		if (g_is_created_by_biz && isPossibleTalk(g_doit_status))
 			innerEl +=
 				`<div class="add-talk clearfix">
                     <div class="btn-wrap">
@@ -1351,7 +1359,7 @@
 							두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.
 						</span>
 					</div>
-                    <textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+					<textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요." maxlength="800"></textarea>
                     <button onclick="onSubmitTalk();" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
                 </div>`
 
@@ -1360,6 +1368,8 @@
 
 		if (!isEmpty(notice))
 		{
+			g_has_notice = true;
+
 			btnBlind = notice.is_blind === 'Y' ?
 				`<button onclick="onSubmitBlindTalk(this);" 
 							data-uuid="${notice.board_uuid}" 
@@ -1484,8 +1494,9 @@
 
 	function onSubmitTalk()
 	{
+		let msg = g_has_notice ? '공지는 한 개만 등록 가능합니다.\n확인을 누르면 기존에 등록된 공지는 일반톡이 되고,\n현재 내용이 공지로 등록됩니다.' : message.create;
 		if (addTalkValidation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(msg, createRequest);
 	}
 
 	function addTalkValidation()

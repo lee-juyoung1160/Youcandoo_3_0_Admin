@@ -1,26 +1,29 @@
 
 	const dataTable			= $("#dataTable")
 	const categoryName		= $("#categoryName");
+	const radioExposure		= $("input[name=radio-exposure]");
 	const selPageLength 	= $("#selPageLength");
 	const btnDelete			= $("#btnDelete");
 	const btnSubmit			= $("#btnSubmit");
 
 	$( () => {
 		/** 입력 폼 초기화 **/
-		/*initInputForm();*/
+		initInputForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		/*initPageLength(selPageLength);*/
+		initPageLength(selPageLength);
 		/** 목록 불러오기 **/
-		/*buildGrid();*/
+		buildGrid();
 		/** 이벤트 **/
-		/*selPageLength	.on("change", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSubmit		.on('click', function () { onSubmitCategory(); });
-		btnDelete		.on("click", function () { deleteCategory(); });*/
+		btnDelete		.on("click", function () { deleteCategory(); });
 	});
 
 	function initInputForm()
 	{
-		keyword.val('');
+		categoryName.val('');
+		categoryName.trigger('focus');
+		radioExposure.eq(0).prop('checked', true);
 	}
 
 	function buildGrid()
@@ -38,13 +41,13 @@
 				}
 			},
 			columns: [
-				{title: '', 			data: "idx",   				width: "5%",     className: "cursor-default",
+				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default",
 					render: function (data) {
-						return singleCheckBoxDom(data);
+						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category_name",    	width: "80%",  	 className: "cursor-default" }
-				,{title: "노여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
+				,{title: "카테고리명", 	data: "category",    	width: "80%",  	 className: "cursor-default" }
+				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
@@ -68,7 +71,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'single',
+				style: 'multi',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -107,11 +110,11 @@
 	function buildSwitch(data)
 	{
 		/** 노출여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_active === 'Y' ? 'checked' : '';
+		let checked   = data.is_blind === 'Y' ? 'checked' : '';
 		return (
 			`<div class="toggle-btn-wrap">
 				<div class="toggle-btn on">
-					<input onclick="changeStatus(this)" data-userid="${data.userid}" type="radio" class="checkbox ${checked}">
+					<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
 					<div class="knobs"></div>
 					<div class="layer"></div>
 				</div>
@@ -171,10 +174,15 @@
 
 	function createParams()
 	{
+		let table = dataTable.DataTable();
+		let tableDatas = table.rows().data();
+		tableDatas.map((value, idx) => {
+			let { category, is_blind } = value;
+
+		})
 		let param = {
 			"category_name" : categoryName.val().trim()
-			,"is_exposure" : $("input[name=radio-exposure]:checked").val()
-			,"create_user" : sessionUserId.val()
+			,"category_is_blind" : $("input[name=radio-exposure]:checked").val()
 		};
 
 		return JSON.stringify(param);
@@ -236,15 +244,15 @@
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
 
-		let params = [];
+		let idxs = [];
 		for (let i=0; i<selectedData.length; i++)
 		{
 			let idx = selectedData[i].idx;
-			params.push(idx);
+			idxs.push(idx);
 		}
 
 		let delParam = {
-			"idx_list" : params
+			"idx_list" : idxs
 		};
 
 		return JSON.stringify(delParam)

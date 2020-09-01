@@ -21,8 +21,8 @@
                 </div>
             </div>
 
-            <table>
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:80%;">
                     <col style="width:15%;">
@@ -94,7 +94,7 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
         <div class="category-create">
@@ -102,17 +102,17 @@
                 <li>
                     <p class="list-common-title">카테고리명 (*)</p>
                     <div class="input-wrap">
-                        <input id="" type="text" class="length-input" placeholder="카테고리명을 입력해주세요."style="width: 100%;">
+                        <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요."style="width: 100%;">
 <!--                        <p class="length-count-wrap"><span class="count-input">0</span>/10</p>-->
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">노출여부 (*)</p>
                     <div class="checkbox-wrap" id="galleryWrap">
-                        <input type="radio" id="c20" name="" value="Y"/>
+                        <input type="radio" id="c20" name="radio-exposure" value="Y"/>
                         <label for="c20">Y<span></span></label>
 
-                        <input type="radio" id="c21" name="" value="N"/>
+                        <input type="radio" id="c21" name="radio-exposure" value="N"/>
                         <label for="c21">N<span></span></label>
                     </div>
                 </li>
@@ -121,3 +121,4 @@
         </div>
     </div>
 </section>
+<script defer src="/assets/js/doit/doit-category.js?version=<?php echo $this->config->item('version');?>"></script>

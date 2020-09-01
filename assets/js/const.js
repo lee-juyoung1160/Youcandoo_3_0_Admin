@@ -119,8 +119,10 @@
 	}
 
 	/** api url **/
-	const headers = { "Authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7" };
-	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
+	const headers = {
+		"Authorization" : btoa(JSON.stringify({ "authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7", "userid" : $("#session_userid").val()}))
+	};
+ 	const baseApiUrl = 'https://api.youcandoo.co.kr/v1.0/admin/';
 	const api = {
 		/** 공통 **/
 		getBizName : baseApiUrl+'keyword/getCompanyName'
@@ -191,7 +193,7 @@
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
-		,listDoitCategory : baseApiUrl+'doit/category/set'
+		,listDoitCategory : baseApiUrl+'doit/category/list'
 		,updateDoitCategory : baseApiUrl+'doit/category/list'
 		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
 		,createDoitTalk : baseApiUrl+'doit/board/register'

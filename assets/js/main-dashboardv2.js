@@ -476,9 +476,12 @@
         let xLabel  = getDayNames(yearEl2.val(), monthEl2.val());
         let { user, doit } = data.data.series;
         let dataset = [{
+            type : 'line',
             data : user,
             label : '누적 회원 수',
-            yAxisID: 'leftY',
+            yAxisID : 'leftY',
+            fill : false,
+            /*order : 1,*/
             lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,
@@ -489,8 +492,9 @@
             data : doit,
             label : '개설 두잇 수',
             yAxisID: 'rightY',
+            fill : false,
+            /*order : 2,*/
             barPercentage : 0.5,
-            /*barThickness : '1',*/
             backgroundColor: color.mintSky
             /*yAxisID: 'rightY',
             lineTension: 0.1,
@@ -501,6 +505,13 @@
         }];
 
         let options = {
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return '';
+                    }
+                }
+            },
             legend: {
                 align: 'center',
                 position: 'top',
@@ -526,6 +537,7 @@
                 }
             },
             tooltips : {
+                mode : 'label',
                 callbacks: {
                     label: function (tooltipItem, data) {
                         return numberWithCommas(tooltipItem.value);
@@ -566,7 +578,7 @@
             maintainAspectRatio : false
         }
 
-        dailyTotalCtx = initChart(dailyTotal, chartType.line, xLabel, dataset, options);
+        dailyTotalCtx = initChart(dailyTotal, chartType.bar, xLabel, dataset, options);
     }
 
     function updateDailyTotalUserChart(data)

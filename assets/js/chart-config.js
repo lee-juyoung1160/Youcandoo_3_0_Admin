@@ -72,6 +72,13 @@
             }
         },
         withLegendLineOption: {
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return '';
+                    }
+                }
+            },
             legend: {
                 align: 'end',
                 position: 'top'
@@ -99,6 +106,13 @@
             maintainAspectRatio : false
         },
         noLegendLineOption: {
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return '';
+                    }
+                }
+            },
             legend: false,
             tooltips : {
                 callbacks: {
@@ -130,7 +144,8 @@
     }
 
     Chart.plugins.register({
-        beforeDraw: function(chart) {
+        /*beforeDraw: function(chart) {*/
+            afterDraw: function(chart) {
             if (chart.config.options.elements.center) {
                 /** Get ctx from string **/
                 let ctx = chart.chart.ctx;

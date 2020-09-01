@@ -27,7 +27,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listProhibition,
+				url: api.listDoitCategory,
 				type: "POST",
 				headers: headers,
 				data: function (d) {
@@ -38,14 +38,13 @@
 				}
 			},
 			columns: [
-				{title: '', 	data: "idx",   width: "5%",     className: "cursor-default",
+				{title: '', 			data: "idx",   				width: "5%",     className: "cursor-default",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	className: "cursor-default" }
-				,{title: "노출여부", 	data: "word",    	  	   width: "80%",  	className: "cursor-default" }
-				,{title: "노여부",    data: "is_active",     	  width: "10%",     className: "cursor-default no-sort",
+				,{title: "카테고리명", 	data: "category_name",    	width: "80%",  	 className: "cursor-default" }
+				,{title: "노여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
@@ -154,7 +153,7 @@
 
 	function createRequest()
 	{
-		let url = api.createProhibition;
+		let url = api.updateDoitCategory;
 		let errMsg = label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, createParams(), createReqCallback, errMsg, false);
@@ -202,7 +201,7 @@
 
 	function deleteRequest()
 	{
-		let url 	= api.deleteProhibition;
+		let url 	= api.deleteDoitCategory;
 		let errMsg 	= label.delete+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);

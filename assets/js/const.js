@@ -191,7 +191,9 @@
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
-		,updateDoitCategory : baseApiUrl+'doit/set/category'
+		,listDoitCategory : baseApiUrl+'doit/category/set'
+		,updateDoitCategory : baseApiUrl+'doit/category/list'
+		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		/** 인증 **/
@@ -288,6 +290,7 @@
 		,listDoit : '/doit'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
+		,listDoitCategory: '/doit/category'
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'

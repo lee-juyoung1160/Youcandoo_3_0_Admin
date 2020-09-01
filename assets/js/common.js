@@ -731,18 +731,18 @@
     }
 
     /** 외부IP로 접근할 수 없는 페이지 **/
-    function accessDeniedExternalIp()
+    /*function accessDeniedExternalIp()
     {
         let pathName     = getPathName();
         let compareValue = pathName.split('/')[1];
 
         if (isOuterIp() && isAccessDeniedUcdUserBiz() && isPrivateMenu(compareValue))
-        /*if (isOuterIp() && isPrivateMenu(compareValue))*/
+        /!*if (isOuterIp() && isPrivateMenu(compareValue))*!/
         {
             alert(message.accessDenied);
             location.href = '/';
         }
-    }
+    }*/
 
     function isAccessDeniedUcdUserBiz()
     {
@@ -932,7 +932,7 @@
         $(document).ajaxStart(function () { fadeinLoader(); });
         $(document).ajaxComplete(function () { fadeoutLoader(); });
         getLeftMenuByAuthCode();
-        accessDeniedExternalIp();
+        /*ccessDeniedExternalIp();*/
         calculateInputLength();
     });
 

@@ -415,7 +415,7 @@
 				<div class="file">
 					<p class="cap">영상</p>
 					<video poster="${imageUrl}" controls onerror="onErrorImage(this)">
-						<source src="'+data.example_video_url+'" onerror="onErrorExamVideo();">
+						<source src="${data.example_video_url}" onerror="onErrorExamVideo();">
 					</video>
 				</div>`
 		}

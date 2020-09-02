@@ -28,8 +28,11 @@
 
 	function convertNumberToKvalue(_value)
 	{
-		_value = Number(_value);
-		return _value >= 100000 ? numberWithCommas(_value/1000)+'k' : numberWithCommas(_value);
+		_value = isNumber(_value) ? Number(_value) : _value;
+		if (_value > 0 && _value < 1) return '';
+		else if (_value > 1 && _value < 10000) return numberWithCommas(_value);
+		else if (_value >= 10000) return numberWithCommas(_value/1000)+'k';
+		else return _value;
 	}
 
 	function getLastDayNumber(_year, _month)

@@ -419,13 +419,9 @@
     function initPopularDoitBaseDate()
     {
         let d = new Date();
-        /*let year     = d.getFullYear();
-        let month    = d.getMonth() + 1;
-        let date     = d.getDate();*/
         let hours    = d.getHours();
         let minutes  = d.getMinutes();
         let seconds  = d.getSeconds();
-        /*let baseDate = `${year}.${appendZero(month)}.${appendZero(date)} ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`*/
         let baseDate = `오늘 ${appendZero(hours)}:${appendZero(minutes)}:${appendZero(seconds)} 참여자 수 기준`
 
         $("#basis").html(baseDate);

@@ -43,7 +43,6 @@
                 align: 'center',
                 position: 'left',
                 labels: {
-                    fontSize: 12,
                     boxWidth: 12
                 }
             },
@@ -80,8 +79,11 @@
                 }
             },
             legend: {
+                position: 'bottom',
                 align: 'end',
-                position: 'top'
+                labels: {
+                    boxWidth: 12
+                }
             },
             tooltips : {
                 callbacks: {

@@ -497,8 +497,11 @@
                 }
             },
             legend: {
-                align: 'center',
-                position: 'top',
+                position: 'bottom',
+                align: 'end',
+                labels: {
+                    boxWidth: 12
+                },
                 onClick: function(e, legendItem) {
                     let index = legendItem.datasetIndex;
                     let ci = this.chart;

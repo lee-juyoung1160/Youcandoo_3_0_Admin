@@ -129,13 +129,7 @@
         let dataset = initDataset(data);
 
         dailyChart  = initChart(dailyInfo, chartType.line, xLabel, dataset, chartOptions.withLegendLineOption);
-        /*dailyChart.options.scales.yAxes[0].ticks.callback = ticksCallback;*/
     }
-
-    /*function ticksCallback(value, index, values)
-    {
-        return convertNumberToKvalue(value);
-    }*/
 
     function buildSummary(data)
     {
@@ -227,6 +221,7 @@
     function updateDailyChart(data)
     {
         dailyChart.data.labels = getDayNames(selYear.val(), selMonth.val());
+        toggleLegend();
         dailyChart.data.datasets = initDataset(data);
         dailyChart.update();
     }
@@ -435,6 +430,7 @@
                 return [{
                     label: label.personal,
                     data: chartData.user,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.mintSky,
                     borderWidth : 2,
@@ -443,6 +439,7 @@
                 }, {
                     label: label.biz,
                     data: chartData.company,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.jyBlue,
                     borderWidth : 2,
@@ -453,6 +450,7 @@
                 return [{
                     label: label.regular,
                     data: chartData.doit,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.mintSky,
                     borderWidth : 2,
@@ -461,6 +459,7 @@
                 }, {
                     label: label.promotion,
                     data: chartData.promotion,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.jyBlue,
                     borderWidth : 2,
@@ -491,6 +490,7 @@
                 return [{
                     label: '상품교환',
                     data: chartData.ucd,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.jyBlue,
                     borderWidth : 2,
@@ -501,6 +501,7 @@
                 return [{
                     label: '취소',
                     data: chartData.ucd,
+                    fill: false,
                     lineTension: 0.1,
                     borderColor: color.jyBlue,
                     borderWidth : 2,
@@ -508,23 +509,27 @@
                     backgroundColor: color.black
                 }];
             default:
-                return [{
-                    label: label.personal,
-                    data: chartData.user,
-                    lineTension: 0.1,
-                    borderColor: color.jyBlue,
-                    borderWidth : 2,
-                    pointBackgroundColor: color.jyBlue,
-                    backgroundColor: color.black
-                }, {
-                    label: label.biz,
-                    data: chartData.company,
-                    lineTension: 0.1,
-                    borderColor: color.mintSky,
-                    borderWidth : 2,
-                    pointBackgroundColor: color.mintSky,
-                    backgroundColor: color.black
-                }];
+                return;
+        }
+    }
+
+    function toggleLegend()
+    {
+        switch(g_ucd_type) {
+            case 'create':
+                return dailyChart.options.legend.display = true;
+            case 'reward':
+                return dailyChart.options.legend.display = true;
+            case 'budget':
+                return dailyChart.options.legend.display = false;
+            case 'doit':
+                return dailyChart.options.legend.display = false;
+            case 'exchange':
+                return dailyChart.options.legend.display = false;
+            case 'cancel':
+                return dailyChart.options.legend.display = false;
+            default:
+                return dailyChart.options.legend.display = true;
         }
     }
 

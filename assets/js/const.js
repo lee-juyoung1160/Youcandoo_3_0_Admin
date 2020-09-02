@@ -194,7 +194,7 @@
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
 		,listDoitCategory : baseApiUrl+'doit/category/list'
-		,updateDoitCategory : baseApiUrl+'doit/category/list'
+		,updateDoitCategory : baseApiUrl+'doit/category/set'
 		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'

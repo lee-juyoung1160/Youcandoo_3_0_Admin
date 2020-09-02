@@ -176,13 +176,24 @@
 	{
 		let table = dataTable.DataTable();
 		let tableDatas = table.rows().data();
+		let params = [];
 		tableDatas.map((value, idx) => {
 			let { category, is_blind } = value;
-
+			let tableObj = {
+				"category_name" : category,
+				"is_blind" : is_blind
+			}
+			params.push(tableObj);
 		})
-		let param = {
+
+		let addObj = {
 			"category_name" : categoryName.val().trim()
-			,"category_is_blind" : $("input[name=radio-exposure]:checked").val()
+			,"is_blind" : $("input[name=radio-exposure]:checked").val()
+		};
+		params.push(addObj);
+
+		let param = {
+			"category_data" : params
 		};
 
 		return JSON.stringify(param);

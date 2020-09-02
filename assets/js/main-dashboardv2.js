@@ -368,8 +368,8 @@
 
     function getDailyActions()
     {
-        let url = api.getDailyAction;
-        let errMsg = `월간인증현황 데이터${message.ajaxLoadError}`;
+        let url = api.getDailyActions;
+        let errMsg = `인증현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
             "year": yearEl.val(),
             "month" : monthEl.val()
@@ -381,10 +381,8 @@
 
     function initDailyActionChart(data)
     {
-        let { result } = data.data;
-        let xLabel  = getDayNames(yearEl.val(), monthEl.val());
         let dataset = [{
-            data : result,
+            data : data.data,
             lineTension: 0.1,
             borderColor: color.jyBlue,
             borderWidth : 2,
@@ -392,16 +390,13 @@
             backgroundColor: color.black
         }];
 
-        dailyActionCtx = initChart(dailyActions, chartType.line, xLabel, dataset, chartOptions.noLegendLineOption);
+        dailyActionCtx = initChart(dailyActions, chartType.line, getDayNames(yearEl.val(), monthEl.val()), dataset, chartOptions.noLegendLineOption);
     }
 
     function updateDailyActionChart(data)
     {
-        let { result } = data.data;
-        let xLabel  = getDayNames(yearEl.val(), monthEl.val());
-
-        dailyActionCtx.data.labels = xLabel;
-        dailyActionCtx.data.datasets[0].data = result;
+        dailyActionCtx.data.labels = getDayNames(yearEl.val(), monthEl.val());
+        dailyActionCtx.data.datasets[0].data = data.data;
         dailyActionCtx.update();
     }
 
@@ -457,7 +452,7 @@
     function getDailyTotalUser()
     {
         let url = api.getDailyTotal;
-        let errMsg = `일별 누적회원 데이터${message.ajaxLoadError}`
+        let errMsg = `누적회원 및 개설 두잇 현황 데이터${message.ajaxLoadError}`
         let param = JSON.stringify({
             "year": yearEl2.val(),
             "month" : monthEl2.val()
@@ -469,8 +464,7 @@
 
     function initDailyTotalUserChart(data)
     {
-        let xLabel  = getDayNames(yearEl2.val(), monthEl2.val());
-        let { user, doit } = data.data.series;
+        let { user, doit } = data.data;
         let dataset = [{
             type : 'line',
             data : user,
@@ -492,12 +486,6 @@
             /*order : 2,*/
             barPercentage : 0.5,
             backgroundColor: color.mintSky
-            /*yAxisID: 'rightY',
-            lineTension: 0.1,
-            borderColor: color.mintSky,
-            borderWidth : 2,
-            pointBackgroundColor: color.mintSky,
-            backgroundColor: color.black*/
         }];
 
         let options = {
@@ -552,7 +540,8 @@
                         beginAtZero: true,
                         fontColor: '#3f6ccd',
                         callback: function(value, index, values) {
-                            return convertNumberToKvalue(value);
+                            if (Math.floor(value) === value)
+                                return convertNumberToKvalue(value);
                         }
                     }
                 }, {
@@ -566,7 +555,8 @@
                         beginAtZero: true,
                         fontColor: '#38c3d1',
                         callback: function(value, index, values) {
-                            return convertNumberToKvalue(value);
+                            if (Math.floor(value) === value)
+                                return convertNumberToKvalue(value);
                         }
                     }
                 }]
@@ -574,15 +564,14 @@
             maintainAspectRatio : false
         }
 
-        dailyTotalCtx = initChart(dailyTotal, chartType.bar, xLabel, dataset, options);
+        dailyTotalCtx = initChart(dailyTotal, chartType.bar, getDayNames(yearEl2.val(), monthEl2.val()), dataset, options);
     }
 
     function updateDailyTotalUserChart(data)
     {
-        let xLabel  = getDayNames(yearEl2.val(), monthEl2.val());
-        let { user, doit } = data.data.series;
+        let { user, doit } = data.data;
 
-        dailyTotalCtx.data.labels = xLabel;
+        dailyTotalCtx.data.labels = getDayNames(yearEl2.val(), monthEl2.val());
         dailyTotalCtx.data.datasets[0].data = user;
         dailyTotalCtx.data.datasets[1].data = doit;
         dailyTotalCtx.update();

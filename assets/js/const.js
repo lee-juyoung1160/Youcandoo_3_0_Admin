@@ -139,7 +139,7 @@
 		,getDoitJoinStatus : baseApiUrl+'dashboard/v2/doit/join'
 		,getDoitClosedStatus : baseApiUrl+'dashboard/v2/doit/end'
 		,getReportStatus : baseApiUrl+'dashboard/v2/doit/report'
-		,getDailyActions : baseApiUrl+'dashboard/v2/doit/action'
+		,getDailyActions : baseApiUrl+'dashboard/v2/daily/action'
 		,getPopularDoits : baseApiUrl+'dashboard/v2/doit/popular'
 		,getDailyTotal : baseApiUrl+'dashboard/v2/daily/chart'
 		/** 마이페이지 **/

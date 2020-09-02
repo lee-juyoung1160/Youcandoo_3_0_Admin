@@ -98,7 +98,8 @@
                     ticks: {
                         beginAtZero: true,
                         callback: function(value, index, values) {
-                            return convertNumberToKvalue(value);
+                            if (Math.floor(value) === value)
+                                return convertNumberToKvalue(value);
                         }
                     }
                 }]
@@ -129,7 +130,8 @@
                     ticks: {
                         beginAtZero: true,
                         callback: function(value, index, values) {
-                            return convertNumberToKvalue(value);
+                            if (Math.floor(value) === value)
+                                return convertNumberToKvalue(value);
                         }
                     }
                 }]

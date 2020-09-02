@@ -558,7 +558,7 @@
 		goalRangeDom.ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 80,
+			min: 50,
 			max: 100,
 			from: value,
 			step: 1,
@@ -748,7 +748,7 @@
 
 		rewardsWrap.append(rewardDom);
 
-		initGoalRateRange($('#'+goalRange), 85);
+		initGoalRateRange($('#'+goalRange), 80);
 
 		calculateInputLength();
 	}

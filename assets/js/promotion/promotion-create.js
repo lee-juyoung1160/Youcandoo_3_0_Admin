@@ -98,9 +98,9 @@
 		goalRangeDom.ionRangeSlider({
 			skin: "round",
 			type: "single",
-			min: 80,
+			min: 50,
 			max: 100,
-			from: 85,
+			from: 80,
 			step: 1,
 			onStart: function(data) {
 			},

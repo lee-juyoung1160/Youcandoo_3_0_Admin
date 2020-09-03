@@ -884,12 +884,6 @@
 			return false;
 		}
 
-		/*if (isOverFrequency())
-		{
-			alert('주간빈도는 '+message.overFrequency+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
-			return false;
-		}*/
-
 		if ($(".ucd-table-body").length > 0 && isEmptyRewardUcd())
 		{
 			msg = `인당 UCD는 ${message.required}
@@ -1005,22 +999,6 @@
 
 		return result;
 	}
-
-	/*function isOverFrequency()
-	{
-		let result = false;
-		let rewardDom = $("ul.pro-reward");
-		for (let i=0; i<rewardDom.length; i++)
-		{
-			let duration = $(rewardDom[i]).find('.duration').val();
-			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
-
-			if (Number(duration) < activeFrequencyLen)
-				result = true;
-		}
-
-		return result;
-	}*/
 
 	function isOverBudget()
 	{

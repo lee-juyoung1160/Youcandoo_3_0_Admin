@@ -132,7 +132,9 @@
 			<input type="radio" id="c21" name="radio-gallery-yn" value="N" ${checkedN}/>
 			<label for="c21">N<span></span></label>`
 
-		radioGalleryEl = detail.promotion_allow_gallery_image === 'N' ?'<p class="detail-data">N</p>' : radioGalleryEl;
+		let exampleType = detail.action_resource_type;
+		let promotionAllowGallert = detail.promotion_allow_gallery_image;
+		radioGalleryEl = (promotionAllowGallert === 'Y' && exampleType === 'image') ? radioGalleryEl : '<p class="detail-data">N</p>';
 
 		galleryWrap.html(radioGalleryEl);
 	}

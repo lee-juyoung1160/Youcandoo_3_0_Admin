@@ -34,8 +34,6 @@
 	const goalRange1	 = $("#goalRange1");
 	const inputRight	 = $(".input-right");
 	const rewardUcd		 = $(".reward-ucd");
-	/*const iconDeleteRow  = $(".icon-delete-row");
-	const btnCreateRow   = $(".ucd-add-btn");*/
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -65,8 +63,6 @@
 		$(".frequency")	.on('click', function () { toggleFrequency(this); });
 		inputRight		.on('keyup', function () { calculateTotalUcd(this); });
 		rewardUcd		.on('keyup', function () { calculateTotalUcd(this); });
-		/*iconDeleteRow	.on('click', () { deleteTableRow(this); });
-		btnCreateRow	.on('click', () { createTableRow(this); });*/
 		btnSubmit		.on('click', function () { onSubmitPromo(); });
 	});
 
@@ -567,38 +563,6 @@
 			$(obj).toggleClass('active');
 	}
 
-	/** 인당 UCD 테이블 row 삭제 버튼 이벤트 **/
-	/*function deleteTableRow(obj)
-	{
-		$(obj).parents('tr').remove();
-	}*/
-
-	/** 인당 UCD 테이블 row 생성하기 버튼 이벤트 **/
-	/*function createTableRow(obj)
-	{
-		let btnTrDom = $(obj).parents('tr');
-
-		if ($(btnTrDom).siblings().length >= 4)
-		{
-			alert('인당 UCD는 '+message.maxAddFour);
-			return;
-		}
-
-		let inputTrDom = '';
-		inputTrDom = '<tr>';
-		inputTrDom += 	'<td>';
-		inputTrDom += 		'<input type="text" class="only-num input-left" maxlength="5">';
-		inputTrDom += 		'<span class="date-margin-text"> ~ </span>';
-		inputTrDom += 		'<input onkeyup="calculateTotalUcd(this)" type="text" class="only-num input-right" maxlength="5">';
-		inputTrDom += 	'</td>';
-		inputTrDom += 	'<td><input onkeyup="calculateTotalUcd(this)" type="text" class="only-num reward-ucd" maxlength="5"></td>';
-		inputTrDom += 	'<td><span class="text-right"></span></td>';
-		inputTrDom += 	'<td><i onclick="deleteTableRow(this);" class="delete-btn far fa-times-circle icon-delete-row"></i></td>';
-		inputTrDom += '</tr>';
-
-		btnTrDom.before(inputTrDom);
-	}*/
-
 	function calculateTotalUcd(obj)
 	{
 		let trDom 	   = $(obj).closest('tr');
@@ -735,12 +699,6 @@
 			return false;
 		}
 
-		/*if (isOverFrequency())
-		{
-			alert('주간빈도는 '+message.overFrequency+'\n리워드 조건의 주간 빈도를 '+message.doubleChk);
-			return false;
-		}*/
-
 		if (isEmptyRewardUcd())
 		{
 			msg = `인당 UCD는 ${message.required}
@@ -856,22 +814,6 @@
 
 		return result;
 	}
-
-	/*function isOverFrequency()
-	{
-		let result = false;
-		let rewardDom = $("ul.pro-reward");
-		for (let i=0; i<rewardDom.length; i++)
-		{
-			let duration = $(rewardDom[i]).find('.duration').val();
-			let activeFrequencyLen = $(rewardDom[i]).find('.frequency.active').length;
-
-			if (Number(duration) < activeFrequencyLen)
-				result = true;
-		}
-
-		return result;
-	}*/
 
 	function isOverBudget()
 	{

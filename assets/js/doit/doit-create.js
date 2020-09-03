@@ -282,12 +282,12 @@
 		selPromo.html(optionPromoDom);
 		onChangeSelectOption(selPromo);
 
-		checkAllowGallery();
+		buildAllowGallery();
 	}
 
 	function onChangeSelPromo()
 	{
-		checkAllowGallery();
+		buildAllowGallery();
 
 		selectedReward.empty();
 
@@ -319,22 +319,6 @@
 		}
 		selReward.html(optionRewardDom);
 		onChangeSelectOption(selReward);
-	}
-
-	function checkAllowGallery()
-	{
-		let selectedPromo  = $("#selPromo option:selected");
-		let isAllowGallery = $(selectedPromo).data('gallery');
-		let radioGalleryEl =
-			`<input type="radio" id="c20" name="radio-gallery-yn" value="Y" checked/>
-			<label for="c20">Y<span></span></label>
-
-			<input type="radio" id="c21" name="radio-gallery-yn" value="N"/>
-			<label for="c21">N<span></span></label>`
-
-		radioGalleryEl = isAllowGallery === 'N' ?'<p class="detail-data">N</p>' : radioGalleryEl;
-
-		galleryWrap.html(radioGalleryEl);
 	}
 
 	function onChangeSelReward()
@@ -480,12 +464,13 @@
 			buildExampleVideo();
 		else if (exampleType === 'voice')
 			buildExampleVoice();
+
+		buildAllowGallery();
 	}
 
 	function buildExampleImage()
 	{
-		let fileDom = '';
-		fileDom +=
+		let fileDom =
 			`<div class="filebox preview-image">
 				<p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
 				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
@@ -505,7 +490,7 @@
 
 	function buildExampleVideo()
 	{
-		let fileDom = '';
+		let fileDom =
 			`<div class="wrap">
 				<p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>
 				<div class="filebox preview-image">
@@ -533,8 +518,7 @@
 
 	function buildExampleVoice()
 	{
-		let fileDom = '';
-		fileDom +=
+		let fileDom =
 			`<div class="filebox preview-image">
 				<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>
 				<input class="upload-name" value="파일선택" disabled="disabled" >
@@ -543,6 +527,23 @@
 			</div>`
 
 		exampleArea.html(fileDom);
+	}
+
+	function buildAllowGallery()
+	{
+		let selectedPromo  = $("#selPromo option:selected");
+		let isAllowGallery = $(selectedPromo).data('gallery');
+		let exampleType    = $("input[name=radio-example-type]:checked").val();
+		let radioGalleryEl =
+			`<input type="radio" id="r999" name="radio-gallery-yn" value="Y" checked/>
+			<label for="r999">Y<span></span></label>
+
+			<input type="radio" id="r998" name="radio-gallery-yn" value="N"/>
+			<label for="r998">N<span></span></label>`
+
+		radioGalleryEl = (isAllowGallery === 'Y' && exampleType === 'image') ? radioGalleryEl : '<p class="detail-data">N</p>';
+
+		galleryWrap.html(radioGalleryEl);
 	}
 
 	function onSubmitDoit()

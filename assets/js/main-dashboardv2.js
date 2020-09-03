@@ -65,8 +65,8 @@
     {
         let d = new Date();
         maxDate = getStringFormatToDate(d, '-');
-        d.setMonth(d.getMonth() - 1)
-        minDate = getStringFormatToDate(d, '-');
+        /*d.setMonth(d.getMonth() - 1)*/
+        minDate = getStringFormatToDate(new Date('2020-07-01'), '-');
     }
 
     function initSelectBox()
@@ -179,11 +179,11 @@
 
     function getUserInfoCallback(data)
     {
-        let { new_user, leave_user, gang_user, total_user } = data.data;
+        let { new_user, leave_user, bad_user, total_user } = data.data;
 
         newUser.html(numberWithCommas(new_user));
         leaveUser.html(numberWithCommas(leave_user));
-        banUser.html(numberWithCommas(gang_user));
+        banUser.html(numberWithCommas(bad_user));
         totalUser.html(numberWithCommas(total_user));
     }
     

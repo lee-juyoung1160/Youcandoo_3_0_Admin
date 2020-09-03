@@ -11,6 +11,9 @@
     const summaryWrap   = $('#summaryWrap');
     const grid          = $("#grid");
     let g_ucd_type      = 'create';
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
 
     /** 로드 바로 실행 **/
     $(() => {
@@ -32,9 +35,7 @@
 
     function initSelectBox()
     {
-        let d = new Date();
-        let year = d.getFullYear();
-        let month = d.getMonth() + 1;
+
 
         initSelectBoxYear(year);
         initSelectBoxMonth(month);
@@ -42,6 +43,7 @@
 
     function initSelectBoxYear(_year)
     {
+        selYear.empty();
         let defaultYear  = 2020;
         for (defaultYear; defaultYear <= _year; defaultYear++)
             selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
@@ -51,6 +53,7 @@
 
     function initSelectBoxMonth(_month)
     {
+        selMonth.empty();
         let i = 1;
         for (i; i <= 12; i++)
         {
@@ -194,8 +197,8 @@
 
     function onClickLiElement(obj)
     {
+        initSelectBox();
         toggleActive(obj);
-        initSelectOption();
         updatePage();
     }
 

@@ -12,14 +12,6 @@
     const grid          = $("#grid");
     let g_ucd_type      = 'create';
 
-    /** 현재 연도-월-일 구하기 **/
-    let date    = new Date();
-    let year    = date.getFullYear();
-    let month   = date.getMonth() + 1;
-    let day     = date.getDate();
-    let hours   = date.getHours();
-    let minutes = date.getMinutes();
-
     /** 로드 바로 실행 **/
     $(() => {
         initSelectBox();
@@ -38,17 +30,35 @@
         selMonth    .on('change', function () { updatePage(); });
     });
 
-    let defaultYear  = 2020;
-    let defaultMonth = 7;
     function initSelectBox()
     {
-        for (defaultYear; defaultYear <= year; defaultYear++)
+        let d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth() + 1;
+
+        initSelectBoxYear(year);
+        initSelectBoxMonth(month);
+    }
+
+    function initSelectBoxYear(_year)
+    {
+        let defaultYear  = 2020;
+        for (defaultYear; defaultYear <= _year; defaultYear++)
             selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
-        for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            selMonth.prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
+        onChangeSelectOption(selYear);
+    }
 
-        initSelectOption();
+    function initSelectBoxMonth(_month)
+    {
+        let i = 1;
+        for (i; i <= 12; i++)
+        {
+            let selected = i === Number(_month) ? 'selected' : '';
+            selMonth.prepend(`<option ${selected} value="${appendZero(i)}">${appendZero(i)}월</option>`);
+        }
+
+        onChangeSelectOption(selMonth);
     }
 
     /** 상단 UCD 누적 정보 **/

@@ -1,14 +1,9 @@
 
-	const tabDoit 		= $("#tabDoit");
-	const tabUser 		= $("#tabUser");
-	const tabAction		= $("#tabAction");
-	const tabReview		= $("#tabReview");
-	const tabUcd		= $("#tabUcd");
-	const tabTalk		= $("#tabTalk");
+	const ulTab 		= $("#ulTab");
+	const tabContent	= $(".tab-content");
 	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
-	const doitDetail	= $("#doitDetail");
 	const creator 		= $("#creator");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
@@ -25,7 +20,6 @@
 	const allowGallery  = $("#allowGallery");
 
 	/** 참여자정보 탭 **/
-	const doitUser		= $("#doitUser");
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const keyword		= $("#keyword")
@@ -38,7 +32,6 @@
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 
 	/** 인증정보 탭 **/
-	const doitAction	= $("#doitAction");
 	const btnWarnRed	= $("#btnWarnRed");
 	const btnWarnYellow	= $("#btnWarnYellow");
 	const actionWrap	= $("#actionWrap");
@@ -61,7 +54,6 @@
 	let g_warn_type;
 
 	/** 리뷰정보탭 **/
-	const doitReview		= $("#doitReview");
 	const reviewTable		= $("#reviewTable");
 	const btnBlind			= $("#btnBlind");
 	const btnUnBlind		= $("#btnUnBlind");
@@ -78,13 +70,12 @@
 	let g_blind_type;
 
 	/** UCD정보탭 **/
-	const ucdInfo		= $("#ucdInfo");
 	const ucdTable		= $("#ucdTable");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
-	/** 두잇톡 **/
-	const doitTalk		= $("#doitTalk");
-
+	/** 두잇톡탭 **/
+	const doitTalk 		= $("#doitTalk");
+	
 	/** modal 공통 **/
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
@@ -102,12 +93,7 @@
 		/** 두잇 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
-		tabDoit			.on("click", function () { onClickDoitTab(this); });
-		tabUser			.on("click", function () { onClickUserTab(this); });
-		tabAction		.on("click", function () { onClickActionTab(this); });
-		tabReview		.on("click", function () { onClickReviewTab(this); });
-		tabUcd			.on("click", function () { onClickUcdTab(this); });
-		tabTalk			.on("click", function () { onClickTalkTab(this); });
+		ulTab			.on("click", function (event) { onClickTab(event); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
 		reset			.on("click", function () { initSearchForm(); });
@@ -124,90 +110,34 @@
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
 	});
 
-	/** 두잇정보탭 **/
-	function onClickDoitTab(obj)
+	function onClickTab(e)
 	{
-		doitDetail.show();
-		doitUser.hide();
-		doitAction.hide();
-		doitReview.hide();
-		ucdInfo.hide();
-		doitTalk.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getDetail();
-	}
+		let clickedEl = $(e.target);
+		let target = $(clickedEl).data('target')
 
-	/** 참여자정보탭 **/
-	function onClickUserTab(obj)
-	{
-		doitUser.show();
-		doitDetail.hide();
-		doitAction.hide();
-		doitReview.hide();
-		ucdInfo.hide();
-		doitTalk.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getJoinMemberTotal();
-		getJoinMember();
-	}
+		clickedEl.siblings().removeClass('active');
+		clickedEl.addClass('active');
+		tabContent.hide();
+		$(target).show();
 
-	/** 인증정보탭 **/
-	function onClickActionTab(obj)
-	{
-		doitAction.show();
-		doitDetail.hide();
-		doitUser.hide();
-		doitReview.hide();
-		ucdInfo.hide();
-		doitTalk.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		currentPage = 1;
-		getInvolveAction();
-	}
-
-	/** 리뷰정보탭 **/
-	function onClickReviewTab(obj)
-	{
-		doitReview.show();
-		doitDetail.hide();
-		doitUser.hide();
-		doitAction.hide();
-		ucdInfo.hide();
-		doitTalk.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getInvolveReview();
-	}
-
-	/** UCD정보탭 **/
-	function onClickUcdTab(obj)
-	{
-		ucdInfo.show();
-		doitDetail.hide();
-		doitUser.hide();
-		doitAction.hide();
-		doitReview.hide();
-		doitTalk.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getUcdLog();
-	}
-
-	/** doitTalk탭 **/
-	function onClickTalkTab(obj)
-	{
-		doitTalk.show();
-		doitDetail.hide();
-		doitUser.hide();
-		doitAction.hide();
-		doitReview.hide();
-		ucdInfo.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getDoitTalk();
+		if (clickedEl.hasClass('doit'))
+			getDetail()
+		else if (clickedEl.hasClass('user'))
+		{
+			getJoinMemberTotal();
+			getJoinMember();
+		}
+		else if (clickedEl.hasClass('action'))
+		{
+			currentPage = 1;
+			getInvolveAction();
+		}
+		else if (clickedEl.hasClass('review'))
+			getInvolveReview();
+		else if (clickedEl.hasClass('ucd'))
+			getUcdLog();
+		else if (clickedEl.hasClass('talk'))
+			getDoitTalk();
 	}
 
 	/****************

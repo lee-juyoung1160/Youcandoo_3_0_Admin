@@ -5,13 +5,13 @@
         <div class="top-title">
             <h2 id="promoName" class="main-title"></h2>
         </div>
-        <ul class="table-btn-wrap pro-detail-tab  clearfix">
-            <li class="active" id="tabPromo">프로모션</li>
-            <li id="tabDoit">개설 두잇</li>
-            <li id="tabUcd">UCD 정보</li>
+        <ul class="table-btn-wrap pro-detail-tab  clearfix" id="ulTab">
+            <li class="active promotion" data-target="#promoDetail">프로모션</li>
+            <li class="doit" data-target="#involveDoit">개설 두잇</li>
+            <li class="ucd" data-target="#ucdInfo">UCD 정보</li>
         </ul>
         <div class="wrap">
-            <div id="promoDetail">
+            <div id="promoDetail" class="tab-content">
                 <ul class="enrollment clearfix">
                     <li>
                         <div class="col-wrap clearfix">
@@ -225,7 +225,7 @@
                 </div>
             </div>
 
-            <div id="involveDoit" class="table-wrap" style="display: none;">
+            <div id="involveDoit" class="table-wrap tab-content" style="display: none;">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
                         <p>Total <strong id="doitTotalCount" class="data-num"></strong></p>
@@ -287,7 +287,7 @@
             </div>
 
             <!--UCD 정보-->
-            <div id="ucdInfo" class="table-wrap" style="display: none;">
+            <div id="ucdInfo" class="table-wrap tab-content" style="display: none;">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
                         <p>Total <strong id="ucdTotalCount" class="data-num"></strong></p>

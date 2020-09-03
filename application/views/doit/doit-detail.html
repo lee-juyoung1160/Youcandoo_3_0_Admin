@@ -5,16 +5,16 @@
             <h2 id="doitTitle" class="main-title"></h2>
             <p class="main-title-date"><span id="actionDate"></span></p>
         </div>
-        <ul class="table-btn-wrap doit-detail-tab clearfix">
-            <li class="active" id="tabDoit">두잇 정보</li>
-            <li id="tabUser">참여자 정보</li>
-            <li id="tabAction">인증 정보</li>
-            <li id="tabReview">리뷰 정보</li>
-            <li id="tabUcd">UCD 정보</li>
-            <li id="tabTalk">두잇 톡</li>
+        <ul class="table-btn-wrap doit-detail-tab clearfix" id="ulTab">
+            <li class="active doit" data-target="#doitDetail">두잇 정보</li>
+            <li class="user" data-target="#doitUser">참여자 정보</li>
+            <li class="action" data-target="#doitAction">인증 정보</li>
+            <li class="review" data-target="#doitReview">리뷰 정보</li>
+            <li class="ucd" data-target="#ucdInfo">UCD 정보</li>
+            <li class="talk" data-target="#doitTalk">두잇 톡</li>
         </ul>
         <div class="wrap">
-            <div id="doitDetail">
+            <div id="doitDetail" class="tab-content">
                 <ul class="enrollment clearfix">
                     <li>
                         <div class="col-wrap clearfix">
@@ -233,7 +233,7 @@
             </div>
 
             <!--참여자정보탭-->
-            <div id="doitUser" style="display: none;">
+            <div id="doitUser" class="tab-content" style="display: none;">
                 <div class="table-wrap" style="margin-top: 0;">
                     <table>
                         <colgroup>
@@ -366,7 +366,7 @@
             </div>
 
             <!--인증정보탭-->
-            <div id="doitAction" class="table-wrap">
+            <div id="doitAction" class="table-wrap tab-content">
                 <div id="actionTopDom" class="top clearfix" style="display: none;">
                     <div class="right-wrap clearfix">
                         <p>Total <strong id="actionTotalCount" class="data-num"></strong></p>
@@ -613,7 +613,7 @@
             </div>
 
             <!--리뷰정보탭-->
-            <div id="doitReview" class="table-wrap review-list" style="display: none;">
+            <div id="doitReview" class="table-wrap review-list tab-content" style="display: none;">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
                         <p>Total <strong class="data-num"></strong></p>
@@ -778,7 +778,7 @@
             </div>
 
             <!--UCD 정보-->
-            <div id="ucdInfo" class="table-wrap" style="display: none;">
+            <div id="ucdInfo" class="table-wrap tab-content" style="display: none;">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
                         <p>Total <strong class="data-num"></strong></p>
@@ -839,7 +839,7 @@
             </div>
 
             <!--두잇 톡-->
-            <div id="doitTalk" class="doitTalk" style="display: none;">
+            <div id="doitTalk" class="doitTalk tab-content" style="display: none;">
 
                 <!--<div class="add-talk clearfix">
                     <div class="btn-wrap">

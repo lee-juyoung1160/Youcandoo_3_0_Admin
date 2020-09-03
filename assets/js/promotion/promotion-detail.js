@@ -1,11 +1,9 @@
 
-	const tabPromo 		= $("#tabPromo");
-	const tabDoit 		= $("#tabDoit");
-	const tabUcd 		= $("#tabUcd");
+	const ulTab 		= $("#ulTab");
+	const tabContent	= $(".tab-content");
 	const goUpdate		= $("#goUpdate");
 
 	/** 프로모션 탭 **/
-	const promoDetail	= $("#promoDetail");
 	const bizName 		= $("#bizName");
 	const promoName 	= $("#promoName");
 	const budget 		= $("#budget");
@@ -21,7 +19,6 @@
 	const rewardDetail  = $("#rewardDetail");
 
 	/** 두잇탭 **/
-	const involveDoit		= $("#involveDoit");
 	const doitTable			= $("#doitTable")
 	const selPageLengthForDoit 	= $("#selPageLengthForDoit");
 	const xlsxExport 		= $(".excel-btn");
@@ -41,46 +38,29 @@
 		/** 프로모션 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
-		tabPromo	.on("click", function () { onClickPromoTab(this); });
-		tabDoit		.on("click", function () { onClickDoitTab(this); });
-		tabUcd		.on("click", function () { onClickUcdTab(this); });
+		ulTab			.on("click", function (event) { onClickTab(event); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function() { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});
 
-	/** 프로모션탭 **/
-	function onClickPromoTab(obj)
+	function onClickTab(e)
 	{
-		promoDetail.show();
-		involveDoit.hide();
-		ucdInfo.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getDetail();
-	}
+		let clickedEl = $(e.target);
+		let target = $(clickedEl).data('target')
 
-	/** 개설두잇탭 **/
-	function onClickDoitTab(obj)
-	{
-		involveDoit.show();
-		promoDetail.hide();
-		ucdInfo.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getInvolveDoit();
-	}
+		clickedEl.siblings().removeClass('active');
+		clickedEl.addClass('active');
+		tabContent.hide();
+		$(target).show();
 
-	/** UCD정보탭 **/
-	function onClickUcdTab(obj)
-	{
-		ucdInfo.show();
-		involveDoit.hide();
-		promoDetail.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getUcdLog();
+		if (clickedEl.hasClass('promotion'))
+			getDetail()
+		else if (clickedEl.hasClass('doit'))
+			getInvolveDoit();
+		else if (clickedEl.hasClass('ucd'))
+			getUcdLog();
 	}
 
 	function getDetail()

@@ -79,16 +79,16 @@
             </ul>
             </div>
 
-            <ul class="table-btn-wrap biz-detail-tab clearfix">
-                <li class="active" id="tabPromo">프로모션 정보</li>
-                <li id="tabUcd">UCD 정보</li>
+            <ul class="table-btn-wrap biz-detail-tab clearfix" id="ulTab">
+                <li class="active promotion" data-target="#promoInfo">프로모션 정보</li>
+                <li class="ucd" data-target="#ucdInfo">UCD 정보</li>
             </ul>
 
             <!--프로모션 정보-->
-            <div id="promoInfo" class="table-wrap">
+            <div id="promoInfo" class="table-wrap tab-content">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
-                        <p>Total <strong id="promoTotalCount" class="data-num"></strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                         <div class="select-box">
                             <label for="selPageLengthForPromo"></label>
                             <select id="selPageLengthForPromo">
@@ -137,10 +137,10 @@
                 </ul>-->
             </div>
             <!--UCD 정보-->
-            <div id="ucdInfo" class="table-wrap" style="display: none;">
+            <div id="ucdInfo" class="table-wrap tab-content" style="display: none;">
                 <div class="top clearfix">
                     <div class="right-wrap clearfix">
-                        <p>Total <strong id="ucdTotalCount" class="data-num"></strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                         <div class="select-box">
                             <label for="selPageLengthForUcd"></label>
                             <select id="selPageLengthForUcd">

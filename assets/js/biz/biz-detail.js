@@ -9,14 +9,14 @@
 	const goUpdate		= $("#goUpdate");
 	const tabPromo		= $("#tabPromo");
 	const tabUcd		= $("#tabUcd");
+	const ulTab			= $("#ulTab");
+	const tabContent	= $(".tab-content");
 
 	/** 프로모션정보탭 **/
-	const promoInfo		= $("#promoInfo");
 	const promoTable	= $("#promoTable");
 	const selPageLengthForPromo	= $("#selPageLengthForPromo");
 
 	/** UCD정보탭 **/
-	const ucdInfo		= $("#ucdInfo");
 	const ucdTable		= $("#ucdTable");
 	const selPageLengthForUcd = $("#selPageLengthForUcd");
 
@@ -53,8 +53,7 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		modalFrom		.on('change', function () { onChangeModalFrom(); });
 		goUpdate		.on("click", function () { goUpdatePage(); })
-		tabPromo		.on("click", function () { onClickTabPromo(); });
-		tabUcd			.on("click", function () { onClickTabUcd(); });
+		ulTab			.on("click", function (event) { onClickTab(event); });
 		selPageLengthForPromo	.on("change", function () { getInvolvePromo(); });
 		selPageLengthForUcd		.on("change", function () { getUcdLog() });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
@@ -84,22 +83,16 @@
 		contractTitle.val('');
 	}
 
-	function onClickTabPromo()
+	function onClickTab(e)
 	{
-		promoInfo.show();
-		ucdInfo.hide();
-		tabUcd.removeClass('active');
-		tabPromo.addClass('active');
-		getInvolvePromo();
-	}
+		let clickedEl = $(e.target);
+		let target = $(clickedEl).data('target')
 
-	function onClickTabUcd()
-	{
-		ucdInfo.show();
-		promoInfo.hide();
-		tabPromo.removeClass('active');
-		tabUcd.addClass('active');
-		getUcdLog();
+		clickedEl.siblings().removeClass('active');
+		clickedEl.addClass('active');
+		tabContent.hide();
+		$(target).show();
+		clickedEl.hasClass('promotion') ? getInvolvePromo() : getUcdLog();
 	}
 
 	function getDetail()

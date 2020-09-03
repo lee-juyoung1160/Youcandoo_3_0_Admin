@@ -71,19 +71,35 @@
 
     function initSelectBox()
     {
-        let defaultYear  = 2020;
-        let defaultMonth = 7;
         let d = new Date();
         let year = d.getFullYear();
         let month = d.getMonth() + 1;
 
-        for (defaultYear; defaultYear <= year; defaultYear++)
+        initSelectBoxYear(year);
+        initSelectBoxMonth(month)
+    }
+
+    function initSelectBoxYear(_year)
+    {
+        let defaultYear  = 2020;
+        for (defaultYear; defaultYear <= _year; defaultYear++)
             $(".select-year").prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
-        for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            $(".select-month").prepend(`<option value="${appendZero(defaultMonth)}">${appendZero(defaultMonth)}월</option>`);
+        onChangeSelectOption(yearEl);
+        onChangeSelectOption(yearEl2);
+    }
 
-        initSelectOption();
+    function initSelectBoxMonth(_month)
+    {
+        let i = 1;
+        for (i; i <= 12; i++)
+        {
+            let selected = i === Number(_month) ? 'selected' : '';
+            $(".select-month").prepend(`<option ${selected} value="${appendZero(i)}">${appendZero(i)}월</option>`);
+        }
+
+        onChangeSelectOption(monthEl);
+        onChangeSelectOption(monthEl2);
     }
 
     function setBaseDate()
@@ -179,12 +195,12 @@
 
     function getUserInfoCallback(data)
     {
-        let { new_user, leave_user, bad_user, total_user } = data.data;
+        let { new_user, leave_user, bad_user, accumulate_user } = data.data;
 
         newUser.html(numberWithCommas(new_user));
         leaveUser.html(numberWithCommas(leave_user));
         banUser.html(numberWithCommas(bad_user));
-        totalUser.html(numberWithCommas(total_user));
+        totalUser.html(numberWithCommas(accumulate_user));
     }
     
     function getDoitOpenStatus()

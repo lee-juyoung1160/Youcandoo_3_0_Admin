@@ -115,12 +115,12 @@
                 <!-- 두잇정보 -->
                 <div class="doit-info">
                     <p class="enrollment-title">두잇 정보</p>
-                    <ol class="table-btn-wrap user-doit-tab clearfix">
-                        <li id="tabOpened" class="active">개설</li>
-                        <li id="tabJoined">참여</li>
+                    <ol class="table-btn-wrap user-doit-tab clearfix" id="olTab">
+                        <li class="active open" data-target="#openedWrap">개설</li>
+                        <li class="join" data-target="#joinedWrap">참여</li>
                     </ol>
                     <!--개설-->
-                    <div id="openedWrap" class="doit-01">
+                    <div id="openedWrap" class="doit-01 tab-content">
                         <div class="table-wrap" style="margin-top: 0;">
                         <table id="openedTable" style="margin-top: 0;">
                            <!--<colgroup>
@@ -179,7 +179,7 @@
                     </div>
                     </div>
                     <!--참여-->
-                    <div id="joinedWrap" class="doit-02" style="display: none; margin-top: 0;">
+                    <div id="joinedWrap" class="doit-02 tab-content" style="display: none; margin-top: 0;">
                         <div class="table-wrap" style="margin-top: 0;">
                             <table id="joinedTable" style="margin-top: 0;">
                                 <!--<colgroup>

@@ -13,11 +13,9 @@
 	/** 기기정보 **/
 	const deviceTable   = $("#deviceTable");
 	/** 두잇정보 **/
-	const tabOpened		= $("#tabOpened");
-	const tabJoined		= $("#tabJoined");
-	const openedWrap	= $("#openedWrap");
+	const olTab			= $("#olTab");
+	const tabContent	= $(".tab-content");
 	const openedTable	= $("#openedTable");
-	const joinedWrap	= $("#joinedWrap");
 	const joinedTable	= $("#joinedTable");
 	/** 인증정보 **/
 	const actionWrap   	= $("#actionWrap");
@@ -69,8 +67,7 @@
 		btnUcdModalOpen	.on("click", function () { onClickUcdModalOpen(); })
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		tabOpened		.on("click", function () { onClickTabOpened(this); });
-		tabJoined		.on("click", function () { onClickTabJoined(this); });
+		olTab			.on("click", function (event) { onClickTab(event); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
@@ -107,22 +104,16 @@
 		content.val('');
 	}
 
-	function onClickTabOpened(obj)
+	function onClickTab(e)
 	{
-		openedWrap.show();
-		joinedWrap.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getOpenedDoit();
-	}
+		let clickedEl = $(e.target);
+		let target = $(clickedEl).data('target')
 
-	function onClickTabJoined(obj)
-	{
-		joinedWrap.show();
-		openedWrap.hide();
-		$(obj).siblings().removeClass('active');
-		$(obj).addClass('active');
-		getJoinedDoit();
+		clickedEl.siblings().removeClass('active');
+		clickedEl.addClass('active');
+		tabContent.hide();
+		$(target).show();
+		clickedEl.hasClass('open') ? getOpenedDoit() : getJoinedDoit();
 	}
 
 	/** 기본정보 **/

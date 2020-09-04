@@ -122,12 +122,23 @@
 		)
 	}
 
+	let changeParams;
 	function changeStatus(obj)
 	{
-		let param   = JSON.stringify({"idx" : $(obj).data('idx')});
+		changeParams   = {
+			"idx" : $(obj).data('idx'),
+			"is_blind" : $(obj).hasClass('checked') ? 'N' : 'Y'
+		};
+
+		sweetConfirm(`상태를 ${message.change}`, changeRequest);
+	}
+
+	function changeRequest()
+	{
+		let url     = api.updateDoitCategory;
 		let errMsg 	= label.modify+message.ajaxError;
 
-		ajaxRequestWithJsonData(true, changeApi, param, changeStatusCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
 	}
 
 	function changeStatusCallback(data)
@@ -156,7 +167,7 @@
 
 	function createRequest()
 	{
-		let url = api.updateDoitCategory;
+		let url = api.createDoitCategory;
 		let errMsg = label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, createParams(), createReqCallback, errMsg, false);

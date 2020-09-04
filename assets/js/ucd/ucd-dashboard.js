@@ -35,8 +35,6 @@
 
     function initSelectBox()
     {
-
-
         initSelectBoxYear(year);
         initSelectBoxMonth(month);
     }
@@ -44,7 +42,9 @@
     function initSelectBoxYear(_year)
     {
         selYear.empty();
+
         let defaultYear  = 2020;
+
         for (defaultYear; defaultYear <= _year; defaultYear++)
             selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
@@ -54,7 +54,9 @@
     function initSelectBoxMonth(_month)
     {
         selMonth.empty();
+
         let i = 1;
+
         for (i; i <= 12; i++)
         {
             let selected = i === Number(_month) ? 'selected' : '';

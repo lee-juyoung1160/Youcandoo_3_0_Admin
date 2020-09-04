@@ -1511,7 +1511,7 @@
 		g_board_uuid = $(obj).data('uuid');
 		g_is_blind_talk = $(obj).data('blind');
 
-		sweetConfirm(`상태를 ${message.modify}`, updateBlindTalk);
+		sweetConfirm(`상태를 ${message.change}`, updateBlindTalk);
 	}
 
 	function updateBlindTalk()

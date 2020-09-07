@@ -35,4 +35,10 @@ class Marketing extends CI_Controller {
                 break;
         }
     }
+
+    public function Dynamiclink()
+        {
+            $this->load->layout('marketing/dynamiclink-list');
+        }
+
 }

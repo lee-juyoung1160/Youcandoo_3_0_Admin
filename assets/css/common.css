@@ -862,7 +862,7 @@ input[type="checkbox"]:disabled + label span{
 	background-color: #ffffff;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
-.table-wrap table thead th {
+.table-wrap table th {
 	padding: 13px 5px;
 	color: #007aff;
 	font-weight: 500;

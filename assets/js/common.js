@@ -13,13 +13,13 @@
     const sessionAuthCode = $("#session_authcode");
     const sideMenu        = $("#sideMenu");
 
-    selectEls   .on("change", function () { onChangeSelectOption(this); });
+    /*selectEls   .on("change", function () { onChangeSelectOption(this); });
     inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
     inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
     lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
     dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
     dateTo      .on("change", function () { onChangeSearchDateTo(this); });
-    datePicker  .prop("readonly", true);
+    datePicker  .prop("readonly", true);*/
 
     /** 숫자 카운팅 에니메이션 **/
     function countAnimation(obj)
@@ -929,10 +929,21 @@
     }*/
 
     $( () => {
-        $(document).ajaxStart(function () { fadeinLoader(); });
-        $(document).ajaxComplete(function () { fadeoutLoader(); });
+        /*$(document).ajaxStart(function () { fadeinLoader(); });
+        $(document).ajaxComplete(function () { fadeoutLoader(); });*/
         getLeftMenuByAuthCode();
-        /*ccessDeniedExternalIp();*/
+        /*accessDeniedExternalIp();*/
         calculateInputLength();
+
+        selectEls   .on("change", function () { onChangeSelectOption(this); });
+        inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+        inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+        lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
+        dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
+        dateTo      .on("change", function () { onChangeSearchDateTo(this); });
+        datePicker  .prop("readonly", true);
     });
+
+    $(document).ajaxStart(function () { fadeinLoader(); });
+    $(document).ajaxComplete(function () { fadeoutLoader(); });
 

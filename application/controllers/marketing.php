@@ -36,9 +36,9 @@ class Marketing extends CI_Controller {
         }
     }
 
-    public function Dynamiclink()
+    public function inflow()
         {
-            $this->load->layout('marketing/dynamiclink-list');
+            $this->load->layout('marketing/inflow');
         }
 
 }

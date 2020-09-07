@@ -171,24 +171,14 @@ i.fa-user {
     font-family: 'Roboto', "Noto Sans KR";
     margin: 15px 15px 0 0;
 }
-.dashboard-main .date-pic i {
-    float: left;
-    color: #333;
-    font-size: 26px;
-    transition: all .3s;
-}
-.dashboard-main .date-pic i:hover {
-    color: #007aff;
-}
-.dashboard-main .date-pic i.disabled {
-    color: #aaa;
-    cursor: inherit;
-}
 .dashboard-main .date-pic .date {
     float: left;
-    padding: 5px 20px;
-    margin: 0 10px;
 }
+.dashboard-main .date-pic .date input[type="text"] {
+    width: 150px;
+    background-color: #fff;
+}
+
 .dashboard-main .data-title {
     padding-bottom: 8px;
     color: #555;

@@ -8,9 +8,9 @@
     let dailyActionCtx;
     let dailyTotalCtx;
     let g_page_type     = 'init';
-    const datePrev      = $('#datePrev');
+    /*const datePrev      = $('#datePrev');*/
     const dateSelected  = $('#dateSelected');
-    const dateNext      = $('#dateNext');
+    /*const dateNext      = $('#dateNext');*/
     const newUser       = $('#newUser');
     const leaveUser     = $('#leaveUser');
     const banUser       = $('#banUser');
@@ -47,13 +47,20 @@
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
     $(() => {
-        initMinMaxDate();
+        initSearchDate();
+
+        /*initMinMaxDate();*/
         initSelectBox();
-        setBaseDate();
+        /*setBaseDate();*/
         initPage();
 
-        datePrev .on('click', function () { onClickPrev(this); });
-        dateNext .on('click', function () { onClickNext(this); });
+        /*datePrev .on('click', function () { onClickPrev(this); });
+        dateNext .on('click', function () { onClickNext(this); });*/
+        datePicker.datepicker({
+            onSelect: function (dateTxt , obj) {
+                console.log(dateTxt)
+            }
+        });
         yearEl   .on('change', function () { onChangeSelectBoxForDailyActions(); });
         monthEl  .on('change', function () { onChangeSelectBoxForDailyActions(); });
         yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
@@ -102,12 +109,30 @@
         onChangeSelectOption(monthEl2);
     }
 
-    function setBaseDate()
+    function initSearchDate()
     {
-        dateSelected.html(getStringFormatToDate(new Date(), '-'));
+        dateSelected.datepicker({
+            dateFormat: "yy-mm-dd"
+            ,minDate: '2020-07-01'
+            ,maxDate: 0
+            ,monthNames: label.monthNames
+            ,dayNames: label.dayNames
+            ,dayNamesMin: label.dayNames
+            ,onSelect: function (dateTxt , obj) {
+                updatePage();
+            }
+        });
+
+        setBaseDate();
     }
 
-    function toggleSideButton()
+    function setBaseDate()
+    {
+        datePicker.datepicker("setDate", "today");
+    }
+
+
+    /*function toggleSideButton()
     {
         let selectedDate = dateSelected.text();
 
@@ -144,7 +169,7 @@
             toggleSideButton();
             updatePage();
         }
-    }
+    }*/
 
     function onChangeSelectBoxForDailyActions()
     {
@@ -186,8 +211,8 @@
         let url = api.getUserStatus
         let errMsg = `상단 회원데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from_date" : dateSelected.text(),
-            "to_date" : dateSelected.text()
+            "from_date" : dateSelected.val(),
+            "to_date" : dateSelected.val()
         });
 
         ajaxRequestWithJsonData(false, url, param, getUserInfoCallback, errMsg, false);
@@ -208,8 +233,8 @@
         let url = api.getDoitOpenStatus
         let errMsg = `두잇개설현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from_date" : dateSelected.text(),
-            "to_date" : dateSelected.text()
+            "from_date" : dateSelected.val(),
+            "to_date" : dateSelected.val()
         });
         let callback = g_page_type === 'init' ? initDoitOpenStatus : updateDoitOpenStatus;
 
@@ -252,8 +277,8 @@
         let url = api.getDoitJoinStatus
         let errMsg = `두잇참여현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from_date" : dateSelected.text(),
-            "to_date" : dateSelected.text()
+            "from_date" : dateSelected.val(),
+            "to_date" : dateSelected.val()
         });
         let callback = g_page_type === 'init' ? initDoitJoinStatus : updateDoitJoinStatus;
 
@@ -297,8 +322,8 @@
         let url = api.getDoitClosedStatus
         let errMsg = `두잇종료현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from_date" : dateSelected.text(),
-            "to_date" : dateSelected.text()
+            "from_date" : dateSelected.val(),
+            "to_date" : dateSelected.val()
         });
         let callback = g_page_type === 'init' ? initDoitClosedStatus : updateDoitClosedStatus;
 
@@ -342,8 +367,8 @@
         let url = api.getReportStatus
         let errMsg = `신고현황 데이터${message.ajaxLoadError}`;
         let param = JSON.stringify({
-            "from_date" : dateSelected.text(),
-            "to_date" : dateSelected.text()
+            "from_date" : dateSelected.val(),
+            "to_date" : dateSelected.val()
         });
         let callback = g_page_type === 'init' ? initReportStatus : updateReportStatus;
 

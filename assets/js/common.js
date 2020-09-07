@@ -154,13 +154,13 @@
 
     function initMaxDateToday()
     {
-        datePicker.datepicker("option", "minDate", "-3M");
+        datePicker.datepicker("option", "minDate", "2020-07-01");
         datePicker.datepicker("option", "maxDate", "today");
     }
 
     function initMaxDateAfterThreeMonth()
     {
-        datePicker.datepicker("option", "minDate", "-3M");
+        datePicker.datepicker("option", "minDate", "2020-07-01");
         datePicker.datepicker("option", "maxDate", "+3M");
     }
     
@@ -690,7 +690,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/category'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/category', '/marketing/inflow'];
     function buildAccessibleMenus(_auth)
     {
         /**

@@ -126,6 +126,15 @@
 		}
 	}
 
+	function isOverFileSize(obj)
+	{
+		if (obj.files[0])
+		{
+			let maxSize = 2 * 1024 * 1024;
+			return obj.files[0].size >maxSize;
+		}
+	}
+
 	/** 인풋 숫자만 입력 가능 **/
 	function initInputNumber(obj)
 	{

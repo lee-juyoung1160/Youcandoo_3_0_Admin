@@ -238,6 +238,11 @@
             sweetToast(message.invalidFile);
             emptyFile(obj);
         }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
+            emptyFile(obj);
+        }
         else
         {
             /**
@@ -253,7 +258,7 @@
             let img    = new Image();
             img.src = window.URL.createObjectURL(obj.files[0]);
             img.onload = function() {
-                let infoMessage = '선택한 이미지 사이즈는 '+this.width+'x'+this.height+'입니다.\n업로드 가능한 이미지 사이즈를 확인해주세요.';
+                let infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다. 업로드 가능한 이미지 사이즈를 확인해주세요.`;
                 
                 if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
                 {
@@ -274,7 +279,7 @@
                     setFile(obj, 'image');
             }
 
-            setFile(obj, 'image');
+            //setFile(obj, 'image');
         }
     }
 
@@ -283,6 +288,11 @@
         if (!isAudio(obj) && obj.files[0])
         {
             sweetToast(message.invalidFile);
+            emptyFile(obj);
+        }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
             emptyFile(obj);
         }
         else
@@ -294,6 +304,11 @@
         if (!isVideo(obj) && obj.files[0])
         {
             sweetToast(message.invalidFile);
+            emptyFile(obj);
+        }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
             emptyFile(obj);
         }
         else

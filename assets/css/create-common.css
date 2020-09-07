@@ -243,11 +243,18 @@
     float: right;
 }
 .doitTalk .top .btn-wrap button {
-    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
     background: none;
     transition: all .3s;
+}
+.doitTalk .top .delete-btn {
+    margin-right: 10px;
+    color: darkred;
+    border-bottom: 1px solid darkred;
+}
+.doitTalk .top .delete-btn i {
+    color: darkred;
 }
 .doitTalk .top .btn-wrap button.eye-slash-btn {
     color: #f46600;
@@ -264,6 +271,7 @@
     line-height: 1.4em;
 }
 .doitTalk .contants-wrap .talk-text {
+    overflow-wrap: break-word;
     float: left;
     width: 85%;
     white-space:pre;

@@ -1306,7 +1306,7 @@
 			btnDel = g_is_created_by_biz ?
 				`<button onclick="deleteDoitTalk(this)" data-uuid="${notice.board_uuid}" 
 					type="button" 
-					style="color: darkred; border-bottom: 1px solid darkred; margin-right: 10px;"><i class="fa fa-trash"></i> 공지삭제</button>` : ''
+					class="delete-btn"><i class="fas fa-minus-circle"></i> 공지삭제</button>` : ''
 
 			btnBlind = notice.is_blind === 'Y' ?
 				`<button onclick="onSubmitBlindTalk(this);" 
@@ -1377,7 +1377,7 @@
 				btnDel = (g_is_created_by_biz && !isEmpty(detail.company_uuid)) ?
 					`<button onclick="deleteDoitTalk(this)" data-uuid="${detail.board_uuid}"
 					type="button" 
-					style="color: darkred; border-bottom: 1px solid darkred; margin-right: 10px;"><i class="fa fa-trash"></i> 톡삭제</button>` : ''
+					class="delete-btn"><i class="fas fa-minus-circle"></i> 톡삭제</button>` : ''
 				
 				btnBlind = detail.is_blind === 'Y' ?
 					`<button onclick="onSubmitBlindTalk(this);" 

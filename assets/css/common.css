@@ -1600,3 +1600,21 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	font-size: 13px;
 	background-color: #d9e7f5;
 }
+
+.inflow-page .question-tool {
+	position: relative;
+}
+.inflow-page .question-tool .hover-text {
+	position: absolute;
+	top: 13px;
+	left: -300px;
+	width: 410px;
+	font-size: 13px !important;
+	text-align: left;
+}
+.inflow-page .question-tool .hover-text b {
+	color: #428bca;
+}
+.inflow-page .question-tool:hover .hover-text{
+	display: block;
+}

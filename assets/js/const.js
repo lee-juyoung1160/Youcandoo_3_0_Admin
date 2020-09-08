@@ -295,6 +295,7 @@
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
 		,listDoitCategory: '/doit/category'
+		,updateDoitCategory: '/doit/category/update'
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'

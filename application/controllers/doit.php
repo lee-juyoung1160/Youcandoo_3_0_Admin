@@ -3,29 +3,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Doit extends MY_Controller {
 
-    public function doit($Route = "list")
+    public function index()
     {
-        switch ($Route) {
-            case "list":
-                $this->load->layout('doit/doit-list');
-                break;
-            case "create" :
-                $this->load->layout('doit/doit-create');
-                break;
-            case "detail":
-                $this->load->layout('doit/doit-detail');
-                break;
-            case "update":
-                $this->load->layout('doit/doit-update');
-                break;
-        }
+        $this->load->layout('doit/doit-list');
+    }
+
+    public function create()
+    {
+        $this->load->layout('doit/doit-create');
+    }
+
+    public function detail()
+    {
+        $this->load->layout('doit/doit-detail');
+    }
+
+    public function update()
+    {
+        $this->load->layout('doit/doit-update');
     }
 
     public function recommend()
     {
         $this->load->layout('doit/doit-recommend-list');
     }
-
 
     public function category($Route = "list")
     {
@@ -36,9 +37,7 @@ class Doit extends MY_Controller {
             case "create" :
                 $this->load->layout('doit/doit-category-create');
                 break;
-
         }
-
      }
 }
 

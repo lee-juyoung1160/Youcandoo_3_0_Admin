@@ -37,8 +37,8 @@ class Marketing extends CI_Controller {
     }
 
     public function inflow()
-        {
-            $this->load->layout('marketing/inflow');
-        }
+    {
+        $this->load->layout('marketing/inflow');
+    }
 
 }

@@ -690,7 +690,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/category'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/category', '/doit/category/create'];
     function buildAccessibleMenus(_auth)
     {
         /**

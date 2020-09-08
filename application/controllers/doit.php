@@ -1,27 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Doit extends MY_Controller
-{
+class Doit extends MY_Controller {
 
-    public function index()
+    public function doit($Route = "list")
     {
-        $this->load->layout('doit/doit-list');
-    }
-
-    public function create()
-    {
-        $this->load->layout('doit/doit-create');
-    }
-
-    public function detail()
-    {
-        $this->load->layout('doit/doit-detail');
-    }
-
-    public function update()
-    {
-        $this->load->layout('doit/doit-update');
+        switch ($Route) {
+            case "list":
+                $this->load->layout('doit/doit-list');
+                break;
+            case "create" :
+                $this->load->layout('doit/doit-create');
+                break;
+            case "detail":
+                $this->load->layout('doit/doit-detail');
+                break;
+            case "update":
+                $this->load->layout('doit/doit-update');
+                break;
+        }
     }
 
     public function recommend()
@@ -29,22 +26,19 @@ class Doit extends MY_Controller
         $this->load->layout('doit/doit-recommend-list');
     }
 
-public function category()
+
+    public function category($Route = "list")
     {
-        $this->load->layout('doit/doit-category-list');
-    }
-    /*
-public function categoryListsCreate()
-    {
-        $this->load->layout('doit/doit-category-create');
-    }
-public function categoryListsDetail()
-    {
-        $this->load->layout('doit/doit-category-detail');
-    }
-public function categoryListsUpdate()
-    {
-        $this->load->layout('doit/doit-category-update');
-    }
-    */
+        switch ($Route) {
+            case "list":
+                $this->load->layout('doit/doit-category-list');
+                break;
+            case "create" :
+                $this->load->layout('doit/doit-category-create');
+                break;
+
+        }
+
+     }
 }
+

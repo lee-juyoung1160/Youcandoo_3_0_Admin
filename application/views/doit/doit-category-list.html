@@ -1,8 +1,33 @@
-<link rel="stylesheet" href="/assets/css/doit-category.css">
+<link rel="stylesheet" href="/assets/css/doit-category-1.css">
 <section class="doit-category-list-page">
     <div class="inner clearfix">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">카테고리 관리</h2>
+            <h2 class="main-title list-main-title">두잇 카테고리</h2>
+            <a href="/doit/create"><i class="fas fa-plus"></i>카테고리 등록</a>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap search-wrap clearfix" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">카테고리명</label>
+                    <select id="search_type">
+                        <option value="doit_title">카테고리명</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
         </div>
 
 
@@ -22,9 +47,10 @@
             </div>
 
             <table id="dataTable">
-                <!--<colgroup>
+                <colgroup>
                     <col style="width:5%;">
-                    <col style="width:80%;">
+                    <col style="width:50%;">
+                    <col style="width:30%;">
                     <col style="width:15%;">
                 </colgroup>
                 <thead>
@@ -36,6 +62,7 @@
                             </div>
                         </th>
                         <th>카테고리명</th>
+                        <th>카테고리 이미지</th>
                         <th>노출여부</th>
                     </tr>
                 </thead>
@@ -48,6 +75,11 @@
                             </div>
                         </td>
                         <td>다이어트</td>
+                        <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
                         <td>
                             <div class="toggle-btn-wrap">
                                 <div class="toggle-btn on">
@@ -67,6 +99,11 @@
                         </td>
                         <td>영어</td>
                         <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
+                        <td>
                             <div class="toggle-btn-wrap">
                                 <div class="toggle-btn on">
                                     <input type="checkbox" class="checkbox">
@@ -85,6 +122,11 @@
                         </td>
                         <td>운동</td>
                         <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
+                        <td>
                             <div class="toggle-btn-wrap">
                                 <div class="toggle-btn on">
                                     <input type="checkbox" class="checkbox">
@@ -94,31 +136,9 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>-->
+                </tbody>
             </table>
-        </div>
-        <div class="category-create">
-            <ul>
-                <li>
-                    <p class="list-common-title">카테고리명 (*)</p>
-                    <div class="input-wrap">
-                        <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요."style="width: 100%;">
-<!--                        <p class="length-count-wrap"><span class="count-input">0</span>/10</p>-->
-                    </div>
-                </li>
-                <li>
-                    <p class="list-common-title">노출여부 (*)</p>
-                    <div class="checkbox-wrap" id="galleryWrap">
-                        <input type="radio" id="c20" name="radio-exposure" value="Y"/>
-                        <label for="c20">Y<span></span></label>
-
-                        <input type="radio" id="c21" name="radio-exposure" value="N"/>
-                        <label for="c21">N<span></span></label>
-                    </div>
-                </li>
-            </ul>
-            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
         </div>
     </div>
 </section>
-<script defer src="/assets/js/doit/doit-category.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--<script defer src="/assets/js/doit/doit-category.js?version=<?php echo $this->config->item('version');?>"></script>-->

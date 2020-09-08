@@ -221,6 +221,8 @@
 		,cancelPush : baseApiUrl+'push/cancel'
 		,listPushTargetUser : baseApiUrl+'push/user'
 		,listPushTargetPage : baseApiUrl+'push/event'
+		/** dynamic link **/
+		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'
 		,deleteNotice : baseApiUrl+'notice/delete'

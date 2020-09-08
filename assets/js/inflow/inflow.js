@@ -3,6 +3,16 @@
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
 	const keyword		= $("#keyword");
+	const legend =
+		`<i class="question-tool far fa-question-circle">
+			<span class="hover-text">
+				<b>CLICK:</b> 처리 방식 및 대상에 상관없이 동적 링크의 모든 클릭 횟수<br>
+				<b>REDIRECT:</b> App Store 또는 Play 스토어로 사용자를 리디렉션하여 앱을 설치 또는 업데이트하거나 기타 대상으로 리디렉션하려고 시도된 횟수<br>
+				<b>APP_INSTALL:</b> 실제 설치 횟수(Play 스토어만 지원)<br>
+				<b>APP_FIRST_OPEN:</b> 설치 후 처음 연 횟수<br>
+				<b>APP_RE_OPEN:</b> 동적 링크로 인해 앱이 다시 열린 횟수
+			</span>
+		</i>`
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -55,7 +65,7 @@
 			columns: [
 				{title: "플랫폼", 	data: "platform",    	width: "25%",	className: "cursor-default" }
 				,{title: "횟수", 	data: "count",    		width: "25%",	className: "cursor-default" }
-				,{title: "이벤트", 	data: "event",    		width: "25%",	className: "cursor-default" }
+				,{title: "이벤트"+legend, 	data: "event",    		width: "25%",	className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

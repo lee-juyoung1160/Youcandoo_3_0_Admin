@@ -15,7 +15,7 @@
 	function initComponent()
 	{
 		categoryName.trigger('focus');
-		title.val('');
+		categoryName.val('');
 		exposure.eq(0).prop('checked', true);
 	}
 
@@ -38,7 +38,7 @@
 		let formData  = new FormData();
 		formData.append('notice_title', title.val().trim());
 		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('notice_image', contentImage[0].files[0]);
+		formData.append('notice_image', categoryImage[0].files[0]);
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
@@ -51,7 +51,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listNotice;
+		location.href = page.listDoitCategory;
 	}
 
 	function validation()

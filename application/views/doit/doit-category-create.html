@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="8">
+                                <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="8">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/8</p>
                             </div>
                         </div>
@@ -26,8 +26,8 @@
                             <div class="filebox preview-image">
                                 <p class="cap">(이미지 사이즈: 100*100)</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
+                                <label for="categoryImage">업로드</label>
+                                <input type="file" id="categoryImage" class="upload-hidden" data-width="100" data-height="100" data-oper="eq">
                             </div>
                         </div>
                     </div>
@@ -39,10 +39,10 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap" id="galleryWrap">
-                                <input type="radio" id="c20" name="" value="Y"/>
+                                <input type="radio" id="c20" name="radio-exposure" value="Y"/>
                                 <label for="c20">Y<span></span></label>
 
-                                <input type="radio" id="c21" name="" value="N"/>
+                                <input type="radio" id="c21" name="radio-exposure" value="N"/>
                                 <label for="c21">N<span></span></label>
                             </div>
                         </div>

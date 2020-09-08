@@ -7,7 +7,12 @@
 
         <div class="list-common">
             <div class="list-wrap clearfix">
-                <p class="list-common-title">날짜</p>
+                <p class="list-common-title">
+                    날짜
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">오늘 날짜를 기준으로 최대 30일까지 검색 가능합니다.</span>
+                    </i>
+                </p>
                 <div class="date-wrap">
                     <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
@@ -17,7 +22,6 @@
                     <li class="btn_today">오늘</li>
                     <li class="btn_week">1주일</li>
                     <li class="btn_month">1개월</li>
-                    <li class="btn_long">3개월</li>
                 </ul>
             </div>
             <div class="list-wrap search-wrap clearfix">
@@ -45,17 +49,7 @@
         </div>
 
         <div class="table-wrap">
-            <div class="top clearfix">
-                <div class="right-wrap clearfix">
-                    <p>Total <strong class="data-num"></strong></p>
-                    <div class="select-box">
-                        <label for="selPageLength"></label>
-                        <select id="selPageLength">
-                        </select>
-                    </div>
-                </div>
 
-            </div>
             <table id="dataTable">
                 <colgroup>
                     <col style="width:25%;">

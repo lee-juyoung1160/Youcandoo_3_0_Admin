@@ -249,16 +249,16 @@
     transition: all .3s;
 }
 .doitTalk .top .delete-btn {
-    margin-right: 10px;
-    color: darkred;
-    border-bottom: 1px solid darkred;
+    margin-left: 10px;
+    color: #ec5c5c;
+    border-bottom: 1px solid #ec5c5c;
 }
 .doitTalk .top .delete-btn i {
-    color: darkred;
+    color: #ec5c5c;
 }
 .doitTalk .top .btn-wrap button.eye-slash-btn {
-    color: #f46600;
-    border-bottom: 1px solid #f46600;
+    color: coral;
+    border-bottom: 1px solid coral;
 }
 .doitTalk .top .btn-wrap button.eye-btn {
     color: #f39c12;

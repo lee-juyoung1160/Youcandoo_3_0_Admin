@@ -1306,7 +1306,7 @@
 			btnDel = g_is_created_by_biz ?
 				`<button onclick="deleteDoitTalk(this)" data-uuid="${notice.board_uuid}" 
 					type="button" 
-					class="delete-btn"><i class="fas fa-minus-circle"></i> 공지삭제</button>` : ''
+					class="delete-btn"><i class="fas fa-times-circle"></i> 공지삭제</button>` : ''
 
 			btnBlind = notice.is_blind === 'Y' ?
 				`<button onclick="onSubmitBlindTalk(this);" 
@@ -1327,8 +1327,8 @@
 					<div class="top clearfix">
 						<p class="title">공지</p>
 						<div class="btn-wrap">
-							${btnDel}
 							${btnBlind}
+							${btnDel}
 						</div>
 					</div>
 					<div class="contants-wrap clearfix">
@@ -1377,7 +1377,7 @@
 				btnDel = (g_is_created_by_biz && !isEmpty(detail.company_uuid)) ?
 					`<button onclick="deleteDoitTalk(this)" data-uuid="${detail.board_uuid}"
 					type="button" 
-					class="delete-btn"><i class="fas fa-minus-circle"></i> 톡삭제</button>` : ''
+					class="delete-btn"><i class="fas fa-times-circle"></i> 톡삭제</button>` : ''
 				
 				btnBlind = detail.is_blind === 'Y' ?
 					`<button onclick="onSubmitBlindTalk(this);" 
@@ -1399,8 +1399,8 @@
 						<div class="top clearfix">
 							<p class="nickname">${detail.nickname} ${crownIcon}</p>
 							<div class="btn-wrap">
-								${btnDel}
 								${btnBlind}
+								${btnDel}
 							</div>
 						</div>
 						<div class="contants-wrap clearfix">

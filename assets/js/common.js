@@ -127,19 +127,11 @@
         $(obj).addClass("active");
 
         if ($(obj).hasClass("btn_today"))
-        {
             datePicker.datepicker("setDate", "today");
-        }
         else if ($(obj).hasClass("btn_week"))
-        {
-            dateFrom.datepicker("setDate", "-7D");
-            dateTo.datepicker("setDate", "today");
-        }
+            initSearchDateRange();
         else if ($(obj).hasClass("btn_month"))
-        {
-            dateFrom.datepicker("setDate", "-1M");
-            dateTo.datepicker("setDate", "today");
-        }
+            initSearchDateRangeMonth();
         else if ($(obj).hasClass("btn_long"))
         {
             dateFrom.datepicker("setDate", "-3M");
@@ -166,7 +158,7 @@
     
     function initSearchDateRange()
     {
-        dateFrom.datepicker("setDate", "-7D");
+        dateFrom.datepicker("setDate", "-6D");
         dateTo.datepicker("setDate", "today");
     }
 
@@ -279,7 +271,7 @@
                     setFile(obj, 'image');
             }
 
-            //setFile(obj, 'image');
+            /*setFile(obj, 'image');*/
         }
     }
 
@@ -690,7 +682,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/category', '/doit/category/create'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/marketing/inflow', '/doit/category', '/doit/category/create', '/doit/category/update'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -714,7 +706,7 @@
             accessibleMenus.push(_auth + '/detail');
 
         /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
-        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin'];
+        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin', 'doit/category'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');

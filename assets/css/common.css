@@ -194,9 +194,9 @@ p.sub-title.important {
 	color: #007aff;
 }
 p.cap {
-	font-size: 15px;
+	font-size: 13px;
 	font-weight: 500;
-	color: #484848;
+	color: #666;
 	margin-bottom: 13px;
 }
 .cap.important {

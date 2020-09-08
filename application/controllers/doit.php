@@ -37,6 +37,12 @@ class Doit extends MY_Controller {
             case "create" :
                 $this->load->layout('doit/doit-category-create');
                 break;
+            case "detail" :
+                $this->load->layout('doit/doit-category-detail');
+                break;
+            case "update" :
+                $this->load->layout('doit/doit-category-update');
+                break;
         }
      }
 }

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
 <section class="category-create-page">
     <div class="inner">
-        <h2 class="main-title">카테고리 등록</h2>
+        <h2 class="main-title">카테고리 수정</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
@@ -10,10 +10,7 @@
                             <p class="sub-title important">카테고리명(*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="8">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/8</p>
-                            </div>
+                            <p class="detail-data" id="actionTime">운동/건강</p>
                         </div>
                     </div>
                 </li>
@@ -49,7 +46,7 @@
                     </div>
                 </li>
                 <li>
-                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                    <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
                 </li>
             </ul>
         </div>

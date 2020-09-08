@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
 <section class="category-create-page">
     <div class="inner">
-        <h2 class="main-title">카테고리 등록</h2>
+        <h2 class="main-title">카테고리 상세</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
@@ -10,10 +10,7 @@
                             <p class="sub-title important">카테고리명(*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="8">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/8</p>
-                            </div>
+                            <p class="detail-data" id="actionTime">운동/건강</p>
                         </div>
                     </div>
                 </li>
@@ -23,11 +20,8 @@
                             <p class="sub-title important">카테고리 이미지 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="filebox preview-image">
-                                <p class="cap">(이미지 사이즈: 100*100)</p>
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-height="0" data-oper="ge">
+                            <div class="img-wrap" style="width: 100px;">
+                                <img src="/assets/images/thumbnail.png" alt="운동/건강">
                             </div>
                         </div>
                     </div>
@@ -38,20 +32,18 @@
                             <p class="sub-title important">노출여부 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="checkbox-wrap" id="galleryWrap">
-                                <input type="radio" id="c20" name="" value="Y"/>
-                                <label for="c20">Y<span></span></label>
-
-                                <input type="radio" id="c21" name="" value="N"/>
-                                <label for="c21">N<span></span></label>
-                            </div>
+                            <p class="detail-data">Y</p>
                         </div>
                     </div>
                 </li>
-                <li>
-                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
-                </li>
             </ul>
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/doit/category">목록</a>
+                    <a class="update-btn" href="/doit/category/update" id="goUpdate">수정</a>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -1609,8 +1609,12 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	top: 13px;
 	left: -300px;
 	width: 410px;
-	font-size: 13px !important;
+	font-size: 12px !important;
 	text-align: left;
+}
+.inflow-page .question-tool .hover-text:before,
+.inflow-page .question-tool .hover-text:after{
+	display: none;
 }
 .inflow-page .question-tool .hover-text b {
 	color: #428bca;

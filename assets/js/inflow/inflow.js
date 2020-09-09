@@ -1,4 +1,5 @@
 
+	const dateToday 	= $(".dateToday");
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
@@ -25,7 +26,8 @@
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		dayButtons      .on("click", function () { onClickDayButtons(this); });
+		dateToday		.html(getStringFormatToDate(new Date(), '-'));
 	});
 
 	function initDatepicker()
@@ -38,13 +40,27 @@
 			,minDate: "-30d"
 			,maxDate: 0
 		});
+
+		dateFrom.datepicker("setDate", "-6d");
+	}
+
+	function onClickDayButtons(obj)
+	{
+		dayButtons.removeClass("active");
+		$(obj).addClass("active");
+
+		if ($(obj).hasClass("btn_today"))
+			datePicker.datepicker("setDate", "today");
+		else if ($(obj).hasClass("btn_week"))
+			datePicker.datepicker("setDate", "-6d");
+		else if ($(obj).hasClass("btn_month"))
+			datePicker.datepicker("setDate", "-30");
 	}
 
 	function initSearchForm()
 	{
 		keyword.val('');
 		initSelectOption();
-		initSearchDateRange();
 		initDayBtn();
 	}
 
@@ -128,10 +144,9 @@
 	function getPeriod()
 	{
 		let fromDate = dateFrom.datepicker('getDate');
-		let toDate = dateTo.datepicker('getDate');
-
+		let toDate = new Date();
 		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
-		diff = Math.ceil(diff / (1000 * 3600 * 24)) +1;
+		diff = Math.floor(diff / (1000 * 3600 * 24)) + 1;
 
 		return diff;
 	}

@@ -9,7 +9,7 @@
 		initComponent();
 		/** 이벤트 **/
 		categoryImage	.on('change', function () { onChangeValidationImage(this); });
-		/*btnSubmit		.on('click', function () { onSubmitCategory(); });*/
+		btnSubmit		.on('click', function () { onSubmitCategory(); });
 	});
 
 	function initComponent()
@@ -27,7 +27,7 @@
 
 	function createRequest()
 	{
-		let url 	= api.createNotice;
+		let url 	= api.createDoitCategory;
 		let errMsg 	= label.submit+message.ajaxError;
 
 		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
@@ -35,13 +35,15 @@
 
 	function params()
 	{
-		let formData  = new FormData();
+		/*let formData  = new FormData();
 		formData.append('notice_title', title.val().trim());
 		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
 		formData.append('notice_image', categoryImage[0].files[0]);
 		formData.append('create_user', sessionUserId.val());
 
-		return formData;
+		return formData;*/
+
+		return JSON.stringify({"category" : categoryName.val(), "is_blind" : $('input:radio[name=radio-exposure]:checked').val()});
 	}
 
 	function createReqCallback(data)
@@ -63,12 +65,13 @@
 			return false;
 		}
 
-		if (isEmpty(content.val()))
+		/*if (isEmpty(content.val()))
 		{
 			sweetToast(`카테고리 이미지 ${message.required}`);
 			content.trigger('focus');
 			return false;
-		}
+		}*/
+
 		return true;
 	}
 

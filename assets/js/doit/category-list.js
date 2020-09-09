@@ -1,5 +1,7 @@
 
 	const dataTable			= $("#dataTable")
+	const searchType 		= $("#search_type");
+	const keyword 			= $("#keyword");
 	const categoryName		= $("#categoryName");
 	const radioExposure		= $("input[name=radio-exposure]");
 	const selPageLength 	= $("#selPageLength");
@@ -12,8 +14,9 @@
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
 		initPageLength(selPageLength);
 		/** 목록 불러오기 **/
-		/*buildGrid();*/
+		buildGrid();
 		/** 이벤트 **/
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSubmit		.on('click', function () { onSubmitCategory(); });
 		btnDelete		.on("click", function () { deleteCategory(); });
@@ -41,13 +44,23 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default",
+				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default no-sort",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category",    	width: "80%",  	 className: "cursor-default" }
-				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default",
+				,{title: "카테고리명", 	data: "category",    	width: "50%",  	 className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl	= page.detailDoitCategory + row.idx;
+						return `<a href="${detailUrl}">${row.category}</a>`;
+					}
+				}
+				,{title: "이미지",    		data: "",  				width: "30%",    className: "cursor-default no-sort",
+					render: function (data, type, row, meta) {
+						return buildImage(row);
+					}
+				}
+				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
@@ -99,12 +112,23 @@
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
+			,"type" : searchType.val()
+			,"keyword" : keyword.val().trim()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function buildImage(data)
+	{
+		return (
+			`<div class="category-img">
+				<img src="/assets/images/thumbnail.png" alt="카테고리 이미지">
+			</div>`
+		)
 	}
 
 	function buildSwitch(data)

@@ -682,7 +682,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/marketing/inflow', '/doit/category', '/doit/category/create', '/doit/category/update'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -701,12 +701,12 @@
             accessibleMenus.push(_auth.replace('create', 'update'));
 
         /** 프로모션 목록, 두잇 목록 권한이 있으면 상세 권한 추가 **/
-        let customAccessiblePages1 = ['/promotion', '/doit'];
+        let customAccessiblePages1 = ['/promotion', '/doit', ];
         if (customAccessiblePages1.indexOf(_auth) !== -1)
             accessibleMenus.push(_auth + '/detail');
 
         /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
-        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin', 'doit/category'];
+        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin', '/doit/category'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');
@@ -934,6 +934,56 @@
                 $(script).attr('src', attrSrc+'?ver='+ver);
         }
     }*/
+
+    function s3FileUploadConfig()
+    {
+        const albumBucketName = "service.youcandoo.temp";
+        const bucketRegion = "ap-northeast-2";
+        const IdentityPoolId = "IDENTITY_POOL_ID";
+
+        AWS.config.update({
+            region: bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: IdentityPoolId
+            })
+        });
+    }
+
+    function addFile(albumName)
+    {
+        const albumBucketName = "service.youcandoo.temp";
+
+        let files = document.getElementById("photoupload").files;
+        if (!files.length) {
+            return alert("Please choose a file to upload first.");
+        }
+        let file = files[0];
+        let fileName = file.name;
+        let albumPhotosKey = encodeURIComponent(albumName) + "/";
+
+        let photoKey = albumPhotosKey + fileName;
+
+        // Use S3 ManagedUpload class as it supports multipart uploads
+        let upload = new AWS.S3.ManagedUpload({
+            params: {
+                Bucket: albumBucketName,
+                Key: photoKey,
+                Body: file,
+                ACL: "public-read"
+            }
+        });
+
+        let promise = upload.promise();
+
+        promise.then(
+            function(data) {
+                callback(albumName);
+            },
+            function(err) {
+                return alert("There was an error uploading your photo: ", err.message);
+            }
+        );
+    }
 
     $( () => {
         /*$(document).ajaxStart(function () { fadeinLoader(); });

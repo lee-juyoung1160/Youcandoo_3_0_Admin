@@ -37,11 +37,17 @@
 			,monthNames: label.monthNames
 			,dayNames: label.dayNames
 			,dayNamesMin: label.dayNames
-			,minDate: "-30d"
+			,minDate: "-29d"
 			,maxDate: 0
 		});
 
-		dateFrom.datepicker("setDate", "-6d");
+		datePicker.datepicker("setDate", "-6d");
+	}
+
+	function initDateRange()
+	{
+		datePicker.datepicker("option", "minDate", "-29d");
+		datePicker.datepicker("option", "maxDate", "today");
 	}
 
 	function onClickDayButtons(obj)
@@ -54,7 +60,7 @@
 		else if ($(obj).hasClass("btn_week"))
 			datePicker.datepicker("setDate", "-6d");
 		else if ($(obj).hasClass("btn_month"))
-			datePicker.datepicker("setDate", "-30");
+			datePicker.datepicker("setDate", "-29d");
 	}
 
 	function initSearchForm()
@@ -137,13 +143,12 @@
 	{
 		let table = dataTable.DataTable();
 		table.ajax.reload();
-		datePicker.datepicker("option", "minDate", "-30");
-		datePicker.datepicker("option", "maxDate", "today");
+		initDateRange();
 	}
 
 	function getPeriod()
 	{
-		let fromDate = dateFrom.datepicker('getDate');
+		let fromDate = datePicker.datepicker('getDate');
 		let toDate = new Date();
 		let diff = Math.abs(toDate.getTime() - fromDate.getTime());
 		diff = Math.floor(diff / (1000 * 3600 * 24)) + 1;

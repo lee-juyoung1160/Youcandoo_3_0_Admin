@@ -156,15 +156,17 @@
 	let g_doitUuid;
 	let g_is_created_by_biz;
 	let g_biz_uuid;
+	let g_doit_title;
 	function getDetailCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
-			let { doit_status, doit_uuid, company_profile_uuid, created_profile_uuid } = data.data;
+			let { doit_status, doit_uuid, company_profile_uuid, created_profile_uuid, doit_title } = data.data;
 			g_doit_status = doit_status;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			g_biz_uuid = company_profile_uuid;
 			g_doitUuid = doit_uuid;
+			g_doit_title = doit_title;
 			buildDetail(data);
 		}
 		else
@@ -1466,6 +1468,7 @@
 			,"profile_uuid" : g_biz_uuid
 			,"text_body" : $("#addTalk").val().trim()
 			,"is_notice" : g_is_notice
+			,"doit_title" : g_doit_title
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

@@ -286,6 +286,7 @@
 
     function updateDailyActionChartCallback(_data)
     {
+        dailyActionChart.data.labels = _data.data.day;
         dailyActionChart.data.datasets[0].data = _data.data.result;
         dailyActionChart.update();
     }

@@ -6,7 +6,7 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		/*getDetail();*/
+		getDetail();
 		/** 이벤트 **/
 		categoryImage.on('error', function () { onErrorImage(this) });
 		goUpdate	 .on('click', function () { goUpdatePage(); });
@@ -14,7 +14,7 @@
 
 	function getDetail()
 	{
-		let url 	= api.detailNotice;
+		let url 	= api.detailDoitCategory;
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
@@ -35,13 +35,13 @@
 
 	function buildDetail(data)
 	{
-		let detail = data.data;
-		let imgUrl = detail.notice_image_url;
-		imgUrl = isEmpty(detail.notice_image_url) ? label.noImage : imgUrl;
+		let { category, is_blind } = data.data;
+		/*let imgUrl = detail.notice_image_url;
+		imgUrl = isEmpty(detail.notice_image_url) ? label.noImage : imgUrl;*/
 
-		categoryName.html(detail.title);
-		categoryImage.attr('src', imgUrl);
-		exposure.html(detail.is_exposure);
+		categoryName.html(category);
+		/*categoryImage.attr('src', imgUrl);*/
+		exposure.html(is_blind);
 	}
 
 	function goUpdatePage()

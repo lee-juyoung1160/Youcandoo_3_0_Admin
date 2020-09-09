@@ -16,6 +16,7 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSubmit		.on('click', function () { onSubmitCategory(); });
 		btnDelete		.on("click", function () { deleteCategory(); });
@@ -48,7 +49,12 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category",    	width: "50%",  	 className: "cursor-default" }
+				,{title: "카테고리명", 	data: "category",    	width: "50%",  	 className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let detailUrl	= page.detailDoitCategory + row.idx;
+						return `<a href="${detailUrl}">${row.category}</a>`;
+					}
+				}
 				,{title: "이미지",    		data: "",  				width: "30%",    className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return buildImage(row);

@@ -1622,3 +1622,8 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .inflow-page .question-tool:hover .hover-text{
 	display: block;
 }
+.inflow-page .date-wrap .today {
+	color: #555;
+	font-size: 14px;
+	font-weight: 600;
+}

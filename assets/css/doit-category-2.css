@@ -5,3 +5,9 @@
     margin: 0 auto;
     border: 1px solid #f3f3f3;
 }
+.table-wrap table tbody tr td {
+    cursor: n-resize;
+}
+.table-wrap table tbody a {
+    cursor: pointer;
+}

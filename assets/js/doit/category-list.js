@@ -1,32 +1,49 @@
 
+	const search 		= $(".search");
+	const reset 		= $(".reset");
 	const dataTable			= $("#dataTable")
 	const searchType 		= $("#search_type");
 	const keyword 			= $("#keyword");
-	const categoryName		= $("#categoryName");
-	const radioExposure		= $("input[name=radio-exposure]");
-	const selPageLength 	= $("#selPageLength");
+	/*const selPageLength 	= $("#selPageLength");*/
 	const btnDelete			= $("#btnDelete");
+	const btnReorder		= $("#btnReorder");
 	const btnSubmit			= $("#btnSubmit");
 
 	$( () => {
 		/** 입력 폼 초기화 **/
-		initInputForm();
+		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
+		/*initPageLength(selPageLength);*/
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
+		search			.on("click", function () { onSubmitSearch(); });
+		reset			.on("click", function () { initSearchForm(); });
+		/*selPageLength	.on("change", function () { onSubmitSearch(); });*/
 		btnSubmit		.on('click', function () { onSubmitCategory(); });
 		btnDelete		.on("click", function () { deleteCategory(); });
+		btnReorder		.on("click", function () { onSubmitReorder(); });
+		dataTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
 	});
 
-	function initInputForm()
+	function addAttrDragonElement(el)
 	{
-		categoryName.val('');
-		categoryName.trigger('focus');
-		radioExposure.eq(0).prop('checked', true);
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*50)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*30)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		return $(el);
+	}
+
+	function initSearchForm()
+	{
+		keyword.val('');
 	}
 
 	function buildGrid()
@@ -44,7 +61,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default no-sort",
+				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
@@ -55,12 +72,12 @@
 						return `<a href="${detailUrl}">${row.category}</a>`;
 					}
 				}
-				,{title: "이미지",    		data: "",  				width: "30%",    className: "cursor-default no-sort",
+				,{title: "이미지",    		data: "",  				width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildImage(row);
 					}
 				}
-				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default no-sort",
+				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
@@ -78,7 +95,7 @@
 			processing: false,
 			serverSide: true,
 			paging: true,
-			pageLength: Number(selPageLength.val()),
+			pageLength: 30,
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -95,12 +112,18 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setBannerRowAttributes(nRow, aData)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	function setBannerRowAttributes(nRow, aData)
+	{
+		$(nRow).attr('data-category', aData.category);
 	}
 
 	function tableParams()
@@ -110,7 +133,7 @@
 		let _page = (info.start / info.length) + 1;
 
 		let param = {
-			"limit" : Number(selPageLength.val())
+			"limit" : info.length
 			,"page" : _page
 			,"type" : searchType.val()
 			,"keyword" : keyword.val().trim()
@@ -178,72 +201,7 @@
 	function onSubmitSearch()
 	{
 		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-	}
-
-	/** 카테고리 등록 **/
-	function onSubmitCategory()
-	{
-		if (validation())
-			sweetConfirm(message.create, createRequest);
-	}
-
-	function createRequest()
-	{
-		let url = api.createDoitCategory;
-		let errMsg = label.submit+message.ajaxError;
-
-		ajaxRequestWithJsonData(true, url, createParams(), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
-	}
-
-	function createSuccess()
-	{
-		onSubmitSearch();
-	}
-
-	function createParams()
-	{
-		let table = dataTable.DataTable();
-		let tableDatas = table.rows().data();
-		let params = [];
-		tableDatas.map((value, idx) => {
-			let { category, is_blind } = value;
-			let tableObj = {
-				"category_name" : category,
-				"is_blind" : is_blind
-			}
-			params.push(tableObj);
-		})
-
-		let addObj = {
-			"category_name" : categoryName.val().trim()
-			,"is_blind" : $("input[name=radio-exposure]:checked").val()
-		};
-		params.push(addObj);
-
-		let param = {
-			"category_data" : params
-		};
-
-		return JSON.stringify(param);
-	}
-
-	function validation()
-	{
-		if (isEmpty(categoryName.val().trim()))
-		{
-			sweetToast(`카테고리명은 ${message.required}`);
-			categoryName.trigger('focus');
-			return false;
-		}
-
-		return true;
 	}
 
 	/** 카테고리 삭제 **/
@@ -302,4 +260,58 @@
 		};
 
 		return JSON.stringify(delParam)
+	}
+
+	function onSubmitReorder()
+	{
+		sweetConfirm(message.change, reorderRequest);
+	}
+
+	function reorderRequest()
+	{
+		let rows = getBannerRows();
+		let categorys = [];
+		for (let i=0; i<rows.length; i++)
+		{
+			let category = $(rows[i]).data('category');
+			if (isEmpty(category)) continue;
+
+			categorys.push(category);
+		}
+
+		let param   = JSON.stringify({ "category_data" : categorys });
+		let url 	= api.reorderDoitCategory;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, param, reorderReqCallback, errMsg, false);
+	}
+
+	function reorderReqCallback(data)
+	{
+		sweetToastAndCallback(data, onSubmitSearch);
+	}
+
+	function reorderValidation()
+	{
+		let rows = getBannerRows();
+		let categorys = [];
+		for (let i=0; i<rows.length; i++)
+		{
+			let category = $(rows[i]).data('category');
+			if (isEmpty(category)) continue;
+
+			categorys.push(category);
+		}
+		if (categorys.length === 0)
+		{
+			sweetToast("정렬할 카테고리가 없습니다.");
+			return false;
+		}
+
+		return true;
+	}
+
+	function getBannerRows()
+	{
+		return dataTable.find('tbody').children();
 	}

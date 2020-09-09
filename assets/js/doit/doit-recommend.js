@@ -35,10 +35,10 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", "120px");
-		$(tdElement[1]).css("width", $(el).width() - 250);
-		$(tdElement[2]).css("width", "120px");
-		$(tdElement[3]).css("width", "10px");
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*65)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*15)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
 		return $(el);
 	}
 
@@ -56,22 +56,22 @@
 				}
 			},
 			columns: [
-				{title: "",		data: "doit_uuid",			width: "120px",   className: "",
+				{title: "",		data: "doit_uuid",		width: "10%",   className: "",
 					render: function (data, type, row, meta) {
 						return buildThumbnail(row);
 					}
 				}
-				,{title: "", 	data: "doit_uuid",    					  className: "",
+				,{title: "", 	data: "doit_uuid",    	width: "65%",   className: "",
 					render: function (data, type, row, meta) {
 						return buildRecommendDetail(row);
 					}
 				}
-				,{title: "", 	data: "doit_status",   className: "cursor-default",
+				,{title: "", 	data: "doit_status",    width: "15%",    className: "cursor-default",
 					render: function (data) {
 						return buildDoitStatus(data);
 					}
 				}
-				,{title: "", 	data: "doit_uuid", 		width: "10px",    className: "cursor-default",
+				,{title: "", 	data: "doit_uuid", 		width: "5%",    className: "cursor-default",
 					render: function (data) {
 						return `<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="${data}" class="far fa-times-circle"></i>`
 					}

@@ -37,10 +37,10 @@
 	function addAttrDragOnElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", "493px");
-		$(tdElement[1]).css("width", "296px");
-		$(tdElement[2]).css("width", "393px");
-		$(tdElement[3]).css("width", "98px");
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*40)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*25)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*25)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
 		return $(el);
 	}
 
@@ -75,13 +75,13 @@
 				}
 			},
 			columns: [
-				{title: "배너이미지",		data: "list_image_url",		width: "25%",
+				{title: "배너이미지",		data: "list_image_url",		width: "40%",
 					render: function (data) {
 						return `<img class="pro-banner" src="${data}" alt="">`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "15%" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "20%" }
+				,{title: "기업", 		data: "nickname",    		width: "25%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "25%" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return `<i onclick="removeRow(this)" data-uuid="${data}" class="far fa-times-circle"></i>`;

@@ -199,6 +199,7 @@
 		,updateDoitCategory : baseApiUrl+'doit/category/update'
 		,detailDoitCategory : baseApiUrl+'doit/category/getCategory'
 		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
+		,reorderDoitCategory : baseApiUrl+'doit/category/updateOrder'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		/** 인증 **/

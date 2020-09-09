@@ -1,0 +1,13 @@
+.category-img {
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 1px solid #f3f3f3;
+}
+.table-wrap table tbody tr {
+    cursor: n-resize;
+}
+.table-wrap table tbody a {
+    cursor: pointer;
+}

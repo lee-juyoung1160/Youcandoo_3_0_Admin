@@ -8,7 +8,7 @@
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
-		/*contentImage.on('change', function () { onChangeValidationImage(this); });*/
+		/*categoryImage.on('change', function () { onChangeValidationImage(this); });*/
 		btnSubmit	.on('click', function () { onSubmitUpdateCategory(); });
 	});
 

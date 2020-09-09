@@ -1,5 +1,5 @@
 
-	const dateToday 	= $(".dateToday");
+	const dateToday 	= $("#dateToday");
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")

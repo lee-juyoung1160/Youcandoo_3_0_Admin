@@ -152,10 +152,8 @@
 		/*,inactiveUser : baseApiUrl+'user/inactive'*/
 		,getUserProfile : baseApiUrl+'user/get/profile'
 		,getUserAccount : baseApiUrl+'user/get/account'
-		,listUserUcd : baseApiUrl+'user/get/ucd/history'
 		,listUserOpened : baseApiUrl+'user/get/doit/create'
 		,listUserJoined : baseApiUrl+'user/get/doit/join'
-		,listDevice : baseApiUrl+'user/get/device'
 		,listUserUsageUcd : baseApiUrl+'user/get/ucd/history'
 		,listUserAction : baseApiUrl+'user/get/action'
 		,listUserDevice : baseApiUrl+'user/get/device'

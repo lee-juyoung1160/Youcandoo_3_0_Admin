@@ -22,28 +22,35 @@
 	function onSubmitCategory()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
-	function createRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.createDoitCategory;
-		let errMsg 	= label.submit+message.ajaxError;
+		let url = 'https://api.testfile.co.kr:3443/file/upload/category';
+		let errMsg = label.submit+message.ajaxError;
+		let param  = new FormData();
+		param.append('category_img', categoryImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
 
-	function params()
+	function createRequest(data)
 	{
-		/*let formData  = new FormData();
-		formData.append('notice_title', title.val().trim());
-		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('notice_image', categoryImage[0].files[0]);
-		formData.append('create_user', sessionUserId.val());
+		if (isSuccessResp(data))
+		{
+			let url 	= api.createDoitCategory;
+			let errMsg 	= label.submit+message.ajaxError;
+			let param = {
+				"category" : categoryName.val(),
+				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
+				"icon_image_url" : data.image_urls['category_img']
+			}
 
-		return formData;*/
-
-		return JSON.stringify({"category" : categoryName.val(), "is_blind" : $('input:radio[name=radio-exposure]:checked').val()});
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function createReqCallback(data)
@@ -61,16 +68,16 @@
 		if (isEmpty(categoryName.val()))
 		{
 			sweetToast(`카테고리 명은 ${message.required}`);
-			title.trigger('focus');
+			categoryName.trigger('focus');
 			return false;
 		}
 
-		/*if (isEmpty(content.val()))
+		let categoryFile = categoryImage[0].files;
+		if (categoryFile.length === 0)
 		{
-			sweetToast(`카테고리 이미지 ${message.required}`);
-			content.trigger('focus');
+			sweetToast(`카테고리 이미지는 ${message.required}`);
 			return false;
-		}*/
+		}
 
 		return true;
 	}

@@ -20,7 +20,7 @@
 		let url 	= api.detailBiz;
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
-		ajaxRequestWithFormData(false, url, detailParams(), getDetailCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, detailParams(), getDetailCallback, errMsg, false);
 	}
 
 	function detailParams()

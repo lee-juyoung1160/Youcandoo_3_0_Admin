@@ -15,6 +15,8 @@
 	const modalContent 	= $(".modal-content");
 
 	$( () => {
+		/** 이벤트 **/
+		authCheck()
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
@@ -32,6 +34,13 @@
 		btnSubmit		.on('click', function () { onSubmitAppVersion(); });
 		btnDelete		.on("click", function () { deleteAppVersion(); });
 	});
+
+	function authCheck()
+	{
+		let creatableIds = ['grace', 'leo', 'david', 'serin'];
+		if (creatableIds.indexOf(sessionUserId.val()) === -1)
+			btnOpenModal.remove();
+	}
 
 	function validDigit(obj)
 	{

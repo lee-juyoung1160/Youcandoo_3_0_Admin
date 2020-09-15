@@ -967,6 +967,11 @@ input[type="checkbox"]:disabled + label span{
 	font-weight: 500;
 	line-height: 1.5em;
 }
+.detail-data a {
+	display: inline;
+	color: #00acd6;
+	border-bottom: 1px solid #00acd6;
+}
 .detail-data-img a {
 	border-bottom: 1px solid #505050;
 	transition: all .2s;

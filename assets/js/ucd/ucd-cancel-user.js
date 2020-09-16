@@ -16,6 +16,7 @@
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
 	const modalNickname	= $("#modalNickname");
+	const selMatch 		= $("#selMatch");
 	const dataTable		= $("#dataTable");
 	const btnMoveRight	= $("#btnMoveRight");
 	const btnAddUser	= $("#btnAddUser");
@@ -45,6 +46,7 @@
 	{
 		modalNickname.val('');
 		modalNickname.trigger('focus');
+		initSelectOption();
 	}
 
 	function onSubmitSearch()
@@ -181,6 +183,7 @@
 		let param = {
 			"limit" : _limit
 			,"page" : _page
+			,"keyword_type" : selMatch.val()
 			,"keyword" : modalNickname.val()
 		}
 		return JSON.stringify(param);

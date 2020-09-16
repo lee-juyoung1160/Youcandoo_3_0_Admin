@@ -2,7 +2,7 @@
     position: relative;
 }
 .ucd-give-ded-page .modal-content .search-box input[type="search"] {
-    width: 100%;
+    width: 70%;
 }
 .ucd-give-ded-page .modal-content .search-box .search-btn {
     position: absolute;

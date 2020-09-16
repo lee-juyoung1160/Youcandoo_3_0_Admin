@@ -1035,15 +1035,13 @@
 
 	function buildStar(rating)
 	{
-		let starEl = '';
+		let starEl = '<ol class="star-wrap" style="float: inherit;">';
 		for (let i=0; i<5; i++)
 		{
 			let active = i < Number(rating) ? 'on' : '';
-			starEl +=
-				`<ol class="star-wrap" style="float: inherit;">
-					<li class="${active}"><i class="fas fa-star" style="cursor:default;"></i></li>
-				</ol>`
+			starEl += `<li class="${active}"><i class="fas fa-star" style="cursor:default;"></i></li>`
 		}
+		starEl += '</ol>'
 
 		return starEl;
 	}

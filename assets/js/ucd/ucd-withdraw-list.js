@@ -3,6 +3,7 @@
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#searchType");
+	const selMatch 		= $("#selMatch");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 
@@ -139,6 +140,7 @@
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
+			,"keyword_type" : selMatch.val()
 			,"keyword" : keyword.val()
 		}
 

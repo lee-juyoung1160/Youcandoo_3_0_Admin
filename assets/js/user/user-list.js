@@ -4,6 +4,7 @@
 	const dataTable		= $("#dataTable")
 	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
+	const selMatch 		= $("#selMatch");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const userActive	= $("input[name=radio-user-active]");
@@ -63,6 +64,8 @@
 		onChangeSelectOption(dateType);
 		searchType.val(historyParams.search_type);
 		onChangeSelectOption(searchType);
+		selMatch.val(historyParams.keyword_type);
+		onChangeSelectOption(selMatch);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
 		userActive.each(function () {
@@ -167,6 +170,7 @@
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
+			,"keyword_type" : selMatch.val()
 			,"keyword" : keyword.val()
 			,"is_active" : $("input[name=radio-user-active]:checked").val()
 		}

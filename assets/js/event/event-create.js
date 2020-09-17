@@ -7,8 +7,8 @@
 	const content		= $("#content");
 	const noticeWrap	= $("#noticeWrap");
 	const notice		= $("#notice");
-	const webWrap		= $("#webWrap");
-	const webFile		= $("#webFile");
+	/*const webWrap		= $("#webWrap");
+	const webFile		= $("#webFile");*/
 	const contentImageWrap	= $("#contentImageWrap");
 	const contentImage	= $("#contentImage");
 	const thumbnail		= $("#thumbnail");
@@ -27,48 +27,11 @@
 		initComponent();
 		/** 이벤트 **/
 		selEventType.on('change', function () { onChangeEventType(this); });
-		webFile		.on('change', function () { onChangeWebFile(this); });
 		contentImage.on('change', function () { onChangeValidationImage(this); });
 		thumbnail	.on('change', function () { onChangeValidationImage(this); });
 		btnSubmit	.on('click', function () { onSubmitEvent(); });
 		eventFrom	.on('change', function () { onChangeFrom() });
 	});
-
-	function onChangeWebFile(obj)
-	{
-		let fileName;
-		if(window.File && window.FileReader) {
-			let siblingsDom = '.upload-name';
-			let file = obj.files[0];
-
-			if (obj.files && file) {
-				if (isHtml(obj)) {
-					fileName = file.name;
-					$(obj).siblings(siblingsDom).val(fileName);
-				}
-			} else
-				$(obj).siblings(siblingsDom).val('파일선택');
-		}
-
-		if (!isHtml(obj) && obj.files[0])
-		{
-			sweetToast(message.invalidFile);
-			$(obj).val(null);
-			$(obj).siblings('.upload-name').val('파일선택');
-		}
-	}
-
-	function isHtml(obj)
-	{
-		let file = obj.files[0];
-		if (file)
-		{
-			let fileType 	= file["type"];
-			let imageTypes 	= ["text/html"];
-
-			return $.inArray(fileType, imageTypes) >= 0;
-		}
-	}
 
 	function getEventType()
 	{
@@ -117,7 +80,6 @@
 		if (selectedValue === 'event')
 		{
 			linkWrap.hide();
-			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
 			contentImageWrap.show();
@@ -126,7 +88,6 @@
 		else if (selectedValue === 'announce')
 		{
 			linkWrap.hide();
-			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
 			contentImageWrap.show();
@@ -135,15 +96,6 @@
 		else if (selectedValue === 'link')
 		{
 			linkWrap.show();
-			webWrap.hide();
-			contentWrap.hide();
-			noticeWrap.hide();
-			contentImageWrap.hide();
-		}
-		else if (selectedValue === 'web')
-		{
-			webWrap.show();
-			linkWrap.hide();
 			contentWrap.hide();
 			noticeWrap.hide();
 			contentImageWrap.hide();
@@ -164,11 +116,9 @@
 	{
 		let thumbnailFile 	 = thumbnail[0].files;
 		let contentImageFile;
-		let htmlFile;
+
 		if (isDisplay(contentImageWrap))
 			contentImageFile = contentImage[0].files;
-		if (isDisplay(webWrap))
-			htmlFile 		 = webFile[0].files;
 
 		if (isEmpty(title.val()))
 		{
@@ -202,12 +152,6 @@
 		{
 			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			eventLink.trigger('focus');
-			return false;
-		}
-
-		if (isDisplay(webWrap) && htmlFile.length === 0)
-		{
-			sweetToast(`html 파일은 ${message.required}`);
 			return false;
 		}
 
@@ -259,8 +203,7 @@
 		let paramFile;
 		if (isDisplay(contentImageWrap))
 			paramFile = contentImage[0].files[0];
-		if (isDisplay(webWrap))
-			paramFile = webFile[0].files[0];
+
 		let formData  = new FormData();
 		formData.append('event-type', selEventType.val());
 		formData.append('event-title', title.val().trim());

@@ -6,11 +6,14 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
+	const selCategory	= $("#selCategory");
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {
+		/** 카테고리 목록 **/
+		getCategory();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -30,6 +33,30 @@
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
 	});
+
+	function getCategory()
+	{
+		let url = api.listCategory;
+		let errMsg = `카테고리 목록 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, false);
+	}
+
+	function getCategoryCallback(data)
+	{
+		let options = '<option value="">전체</option>';
+		let datas = data.data;
+		let i = 0;
+		for (i; i<datas.length; i++)
+		{
+			let { category } = datas[i];
+			options += `<option value="${category}">${category}</option>`
+		}
+
+		selCategory.html(options);
+
+		onChangeSelectOption(selCategory);
+	}
 
 	function initSearchForm()
 	{
@@ -64,6 +91,8 @@
 		onChangeSelectOption(dateType);
 		searchType.val(historyParams.search_type);
 		onChangeSelectOption(searchType);
+		selCategory.val(historyParams.doit_category);
+		onChangeSelectOption(selCategory);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
 		radioDoitType.each(function () {
@@ -188,6 +217,7 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status" : status
+			,"doit_category" : selCategory.val()
 			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
 		}
 

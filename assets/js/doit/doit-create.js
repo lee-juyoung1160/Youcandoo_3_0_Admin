@@ -1,4 +1,5 @@
 
+	const selCategory		= $("#selCategory");
 	const doitTitle			= $("#doitTitle");
 	const doitDesc 			= $("#doitDesc");
 	const inputTag			= $("#inputTag");
@@ -33,6 +34,8 @@
 	const modalBizName	= $("#modalBizName");
 
 	$( () => {
+		/** 카테고리 목록 **/
+		getCategory();
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
@@ -58,6 +61,30 @@
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
 	});
+
+	function getCategory()
+	{
+		let url = api.listCategory;
+		let errMsg = `카테고리 목록 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, false);
+	}
+
+	function getCategoryCallback(data)
+	{
+		let options = '';
+		let datas = data.data;
+		let i = 0;
+		for (i; i<datas.length; i++)
+		{
+			let { category } = datas[i];
+			options += `<option value="${category}">${category}</option>`
+		}
+
+		selCategory.html(options);
+
+		onChangeSelectOption(selCategory);
+	}
 
 	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
@@ -578,6 +605,7 @@
 		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
 			paramExampleVoice	= $("#exampleFile")[0].files[0];
 		let formData  = new FormData();
+		formData.append('doit-category', selCategory.val());
 		formData.append('doit-title', doitTitle.val().trim());
 		formData.append('company-uuid', g_biz_uuid);
 		formData.append('promotion-uuid', selPromo.val().trim());

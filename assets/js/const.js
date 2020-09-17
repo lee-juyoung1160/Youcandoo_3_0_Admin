@@ -201,6 +201,7 @@
 		,blindDoitCategory : baseApiUrl+'doit/category/updateIsBlind'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
+		,listCategory : baseApiUrl+'category/list'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

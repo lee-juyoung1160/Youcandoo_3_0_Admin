@@ -4,6 +4,7 @@
 	const dataTable		= $("#dataTable")
 	const dateType		= $("#dateType");
 	const searchType 	= $("#searchType");
+	const selMatch 		= $("#selMatch");
 	const keyword		= $("#keyword");
 	const selDivision1	= $("#selDivision1");
 	const selDivision2	= $("#selDivision2");
@@ -117,6 +118,7 @@
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
+			,"keyword_type" : selMatch.val()
 			,"keyword" : keyword.val()
 			,"division" : selDivision1.val()
 			,"title" : selDivision2.val()

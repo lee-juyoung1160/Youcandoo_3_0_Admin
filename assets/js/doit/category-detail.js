@@ -35,13 +35,12 @@
 
 	function buildDetail(data)
 	{
-		let { category, is_blind } = data.data;
-		/*let imgUrl = detail.notice_image_url;
-		imgUrl = isEmpty(detail.notice_image_url) ? label.noImage : imgUrl;*/
+		let { category, is_blind, icon_image_url } = data.data;
+		let imgUrl = isEmpty(icon_image_url) ? label.noImage : icon_image_url;
 
 		categoryName.html(category);
-		/*categoryImage.attr('src', imgUrl);*/
-		exposure.html(is_blind);
+		categoryImage.attr('src', imgUrl);
+		exposure.html(is_blind === 'Y' ? 'N' : 'Y');
 	}
 
 	function goUpdatePage()

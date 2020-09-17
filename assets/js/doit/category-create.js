@@ -27,8 +27,8 @@
 
 	function fileUploadReq()
 	{
-		let url = 'https://api.testfile.co.kr:3443/file/upload/category';
-		let errMsg = label.submit+message.ajaxError;
+		let url = fileApi.categoryImage;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('category_img', categoryImage[0].files[0]);
 

@@ -198,6 +198,7 @@
 		,detailDoitCategory : baseApiUrl+'doit/category/getCategory'
 		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
 		,reorderDoitCategory : baseApiUrl+'doit/category/updateOrder'
+		,blindDoitCategory : baseApiUrl+'doit/category/updateIsBlind'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		/** 인증 **/
@@ -278,6 +279,11 @@
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'
 		,listAppVersion : baseApiUrl+'version/list'
+	}
+
+	const fileUploadBaseUrl = 'https://fileuploader-1933246200.ap-northeast-2.elb.amazonaws.com/file/upload/';
+	const fileApi = {
+		categoryImage : fileUploadBaseUrl+'category'
 	}
 
 	/** page url **/

@@ -61,23 +61,23 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 			data: "idx",   			width: "5%",     className: "cursor-default",
+				{title: tableCheckAllDom(), 	data: "idx",   			width: "5%",     className: "cursor-default",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category",    	width: "50%",  	 className: "cursor-default",
+				,{title: "카테고리명", 	data: "category",    			width: "50%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoitCategory + row.idx;
 						return `<a href="${detailUrl}">${row.category}</a>`;
 					}
 				}
-				,{title: "이미지",    		data: "",  				width: "30%",    className: "cursor-default",
+				,{title: "이미지",    		data: "icon_image_url",  	width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return buildImage(row);
+						return buildImage(data);
 					}
 				}
-				,{title: "노출여부",    	data: "is_blind",  		width: "10%",    className: "cursor-default",
+				,{title: "노출여부",    	data: "is_blind",  				width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
@@ -94,8 +94,8 @@
 			},
 			processing: false,
 			serverSide: true,
-			paging: true,
-			pageLength: 30,
+			paging: false,
+			/*pageLength: 30,*/
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -133,9 +133,9 @@
 		let _page = (info.start / info.length) + 1;
 
 		let param = {
-			"limit" : info.length
-			,"page" : _page
-			,"type" : searchType.val()
+			/*"limit" : info.length
+			,"page" : _page*/
+			"type" : searchType.val()
 			,"keyword" : keyword.val().trim()
 		}
 
@@ -149,7 +149,7 @@
 	{
 		return (
 			`<div class="category-img">
-				<img src="/assets/images/thumbnail.png" alt="카테고리 이미지">
+				<img src="${data}" alt="카테고리 이미지" onerror="onErrorImage(this)">
 			</div>`
 		)
 	}
@@ -157,15 +157,15 @@
 	function buildSwitch(data)
 	{
 		/** 노출여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_blind === 'Y' ? 'checked' : '';
+		let checked   = data.is_blind === 'Y' ? '' : 'checked';
 		return (
 			`<div class="toggle-btn-wrap">
-				<div class="toggle-btn on">
-					<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
-					<div class="knobs"></div>
-					<div class="layer"></div>
-				</div>
-			</div>`
+						<div class="toggle-btn on">
+							<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+							<div class="knobs"></div>
+							<div class="layer"></div>
+						</div>
+					</div>`
 		)
 	}
 
@@ -174,7 +174,7 @@
 	{
 		changeParams   = {
 			"idx" : $(obj).data('idx'),
-			"is_blind" : $(obj).hasClass('checked') ? 'N' : 'Y'
+			"is_blind" : $(obj).hasClass('checked') ? 'Y' : 'N'
 		};
 
 		sweetConfirm(`상태를 ${message.change}`, changeRequest);
@@ -182,7 +182,7 @@
 
 	function changeRequest()
 	{
-		let url     = api.updateDoitCategory;
+		let url     = api.blindDoitCategory;
 		let errMsg 	= label.modify+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
@@ -223,7 +223,7 @@
 	{
 		sweetToastAndCallback(data, deleteSuccess);
 	}
-	
+
 	function deleteSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);

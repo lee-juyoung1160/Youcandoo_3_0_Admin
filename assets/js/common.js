@@ -248,30 +248,33 @@
             let needsWidth  = $(obj).data('width');
             let needsHeight = $(obj).data('height');
             let img    = new Image();
-            img.src = window.URL.createObjectURL(obj.files[0]);
-            img.onload = function() {
-                let infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다. 업로드 가능한 이미지 사이즈를 확인해주세요.`;
-                
-                if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
-                {
-                    sweetError(infoMessage);
-                    emptyFile(obj);
-                }
-                else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
-                {
-                    sweetError(infoMessage);
-                    emptyFile(obj);
-                }
-                else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
-                {
-                    sweetError(infoMessage);
-                    emptyFile(obj);
-                }
-                else
-                    setFile(obj, 'image');
-            }
 
-            /*setFile(obj, 'image');*/
+            if (obj.files[0])
+            {
+                img.src = window.URL.createObjectURL(obj.files[0]);
+                img.onload = function() {
+                    let infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다. 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+
+                    if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else
+                        setFile(obj, 'image');
+                }
+            }
+            else emptyFile(obj);
         }
     }
 

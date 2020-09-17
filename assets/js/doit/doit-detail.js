@@ -4,6 +4,7 @@
 	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
+	const category 		= $("#category");
 	const creator 		= $("#creator");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
@@ -177,6 +178,7 @@
 	{
 		let detail 	 = data.data;
 
+		category.html(detail.doit_category);
 		doitTitle.html(detail.doit_title);
 		actionDate.html(`${detail.action_start_datetime} ${label.tilde} ${detail.action_end_datetime}`);
 

@@ -1,5 +1,6 @@
 
 	const promotion 		= $("#promotion");
+	const selCategory		= $("#selCategory");
 	const doitTitle			= $("#doitTitle");
 	const doitDesc 			= $("#doitDesc");
 	const inputTag			= $("#inputTag");
@@ -24,14 +25,38 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** 카테고리 목록 **/
+		getCategory();
 		/** 두잇 상세정보 **/
-		getDetail();
+		/*getDetail();*/
 		/** 이벤트 **/
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
+
+	function getCategory()
+	{
+		let url = api.listCategory;
+		let errMsg = `카테고리 목록 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, getDetail);
+	}
+
+	function getCategoryCallback(data)
+	{
+		let options = '';
+		let datas = data.data;
+		let i = 0;
+		for (i; i<datas.length; i++)
+		{
+			let { category } = datas[i];
+			options += `<option value="${category}">${category}</option>`
+		}
+
+		selCategory.html(options);
+	}
 
 	function getDetail()
 	{
@@ -72,6 +97,8 @@
 		promotion.html(label.promotion + div + detail.company_name + div +detail.promotion_title);
 		doitTitle.html(detail.doit_title);
 		doitDesc.val(detail.doit_description);
+		selCategory.val(detail.doit_category);
+		onChangeSelectOption(selCategory);
 
 		let tags = detail.doit_tags;
 		let tagDom = '';
@@ -380,6 +407,7 @@
 
 		let formData  = new FormData();
 		formData.append('doit-uuid', g_doit_uuid);
+		formData.append('doit-category', selCategory.val());
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);

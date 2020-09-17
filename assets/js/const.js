@@ -222,7 +222,8 @@
 		,listPush : baseApiUrl+'push/list'
 		,cancelPush : baseApiUrl+'push/cancel'
 		,listPushTargetUser : baseApiUrl+'push/user'
-		,listPushTargetPage : baseApiUrl+'push/event'
+		,listPushTargetPageEvent : baseApiUrl+'push/event'
+		,listPushTargetPagePromo : baseApiUrl+'push/promotion'
 		/** dynamic link **/
 		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
 		/** 공지 **/

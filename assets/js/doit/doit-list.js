@@ -109,6 +109,7 @@
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
+				,{title: "카테고리", 			data: "doit_category",  		width: "10%",   className: "cursor-default no-sort" }
 				,{title: "두잇명", 			data: "doit_title",    			width: "30%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoit + row.idx;

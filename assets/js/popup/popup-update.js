@@ -1,20 +1,29 @@
 
-	const title 		= $("#title");
-	const content		= $("#content");
-	const contentImage	= $("#contentImage");
-	const reserveDate	= $("#reserveDate");
-	const exposure		= $("input[name=radio-exposure]");
-	const btnSubmit		= $("#btnSubmit");
+	const market	= $("input[name=radio-market]");
+	const title 	= $("#title");
+	/*const digit		= $("#digit");
+	const decimal	= $("#decimal");*/
+	const popupLink	= $("#popupLink");
+	const closeOpt	= $("input[name=radio-close-option]");
+	const popupFrom	= $("#popupFrom");
+	const popupTo	= $("#popupTo");
+	const exposure	= $("input[name=radio-exposure]");
+	const btnSubmit = $("#btnSubmit");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
+		initDateRangeLimit();
 		/** 상세 불러오기 **/
-		getDetail();
+		/*getDetail();*/
 		/** 이벤트 **/
-		contentImage.on('change', function () { onChangeValidationImage(this); });
-		btnSubmit	.on('click', function () { onSubmitUpdateNotice(); });
+		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
 	});
+
+	function initDateRangeLimit()
+	{
+		datePicker.datepicker("option", "minDate", "today");
+	}
 
 	function getDetail()
 	{
@@ -44,21 +53,18 @@
 
 		g_notice_uuid = detail.notice_uuid;
 
+		market.each(function () {
+			if ($(this).val() === detail.is_exposure)
+				$(this).prop('checked', true);
+		});
 		title.val(detail.title);
-		content.val(replaceSelectTextarea(detail.notice_contents));
-		if (!isEmpty(detail.notice_image_url))
-		{
-			let contentImageDom = '';
-			contentImageDom +=
-				`<div class="upload-display">
-					<div class="upload-thumb-wrap">
-						<img src="${detail.notice_image_url}" class="upload-thumb">
-					</div>
-				</div>`
-
-			contentImage.parent().prepend(contentImageDom);
-		}
-		reserveDate.val(detail.reservation_date);
+		popupLink.val();
+		closeOpt.each(function () {
+			if ($(this).val() === detail.is_exposure)
+				$(this).prop('checked', true);
+		});
+		popupFrom.val(detail.reservation_date);
+		popupTo.val(detail.reservation_date);
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
@@ -66,7 +72,7 @@
 		calculateInputLength();
 	}
 
-	function onSubmitUpdateNotice()
+	function onSubmitUpdatePopup()
 	{
 		if (validation())
 			sweetConfirm(message.modify, updateRequest);
@@ -77,7 +83,7 @@
 		let url 	= api.updateNotice;
 		let errMsg 	= label.modify+message.ajaxError;
 
-		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, params(), updateReqCallback, errMsg, false);
 	}
 
 	function params()

@@ -18,6 +18,7 @@
 	$( () => {
 		/** 데이트피커 초기화 **/
 		initDatepicker();
+		initDateRangeLimit();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
@@ -44,7 +45,7 @@
 		datePicker.datepicker("setDate", "-6d");
 	}
 
-	function initDateRange()
+	function initDateRangeLimit()
 	{
 		datePicker.datepicker("option", "minDate", "-29d");
 		datePicker.datepicker("option", "maxDate", "today");
@@ -143,7 +144,6 @@
 	{
 		let table = dataTable.DataTable();
 		table.ajax.reload();
-		initDateRange();
 	}
 
 	function getPeriod()

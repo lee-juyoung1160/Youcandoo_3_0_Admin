@@ -12,13 +12,13 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c3" name="radio-exposure" value="all"/>
+                                <input type="radio" id="c3" name="radio-market" value="all"/>
                                 <label for="c3">전체<span></span></label>
 
-                                <input type="radio" id="c4" name="radio-exposure" value="ios"/>
+                                <input type="radio" id="c4" name="radio-market" value="ios"/>
                                 <label for="c4">IOS<span></span></label>
 
-                                <input type="radio" id="c5" name="radio-exposure" value="aos"/>
+                                <input type="radio" id="c5" name="radio-market" value="aos"/>
                                 <label for="c5">AOS<span></span></label>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="eventLink" class="length-input" type="text" placeholder="https:// 포함해서 입력해주세요.">
+                                <input id="popupLink" class="length-input" type="text" placeholder="https:// 포함해서 입력해주세요.">
                             </div>
                         </div>
                     </div>
@@ -68,14 +68,14 @@
                 <li class="create-radio-wrap clearfix">
                     <div class="col-wrap">
                         <div class="col-1">
-                            <p class="sub-title">팝업 버튼 (*)</p>
+                            <p class="sub-title">닫기 옵션 (*)</p>
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c6" name="radio-exposure" value="all"/>
+                                <input type="radio" id="c6" name="radio-close-option" value="all"/>
                                 <label for="c6">다시 보지않기<span></span></label>
 
-                                <input type="radio" id="c7" name="radio-exposure" value="ios"/>
+                                <input type="radio" id="c7" name="radio-close-option" value="ios"/>
                                 <label for="c7">오늘 하루 보지  않기<span></span></label>
 
                             </div>
@@ -90,9 +90,9 @@
                         </div>
                         <div class="col-2">
                             <div class="date-wrap">
-                                <input id="eventFrom" type="text" class="datepicker">
+                                <input id="popupFrom" type="text" class="datepicker">
                                 <span class="date-margin-text"> ~ </span>
-                                <input id="eventTo" type="text" class="datepicker">
+                                <input id="popupTo" type="text" class="datepicker">
                             </div>
                         </div>
                     </div>
@@ -120,3 +120,4 @@
         </div>
     </div>
 </section>
+<script src="/assets/js/popup/popup-create.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -19,7 +19,7 @@
 		/** 이벤트 **/
 		digit     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		decimal     .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
+		/*btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });*/
 	});
 
 	function validDigit(obj)

@@ -359,7 +359,8 @@
 	{
 		modalTargetPageFadein();
 		initTargetPageModal();
-		getEventPage();
+		let selectedTarget = $("input[name=radio-target-page]:checked").val();
+		selectedTarget === 'event' ?  getEventPage() : getPromoPage();
 	}
 
 	function modalTargetPageFadein()
@@ -379,7 +380,7 @@
 	{
 		targetPageTable.DataTable({
 			ajax : {
-				url: api.listPushTargetPage,
+				url: api.listPushTargetPageEvent,
 				type:"POST",
 				global: false,
 				headers: headers,
@@ -421,7 +422,61 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setPageRowAttributes(nRow, aData);
+				setEventPageRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	function getPromoPage()
+	{
+		targetPageTable.DataTable({
+			ajax : {
+				url: api.listPushTargetPagePromo,
+				type:"POST",
+				global: false,
+				headers: headers,
+				data: function (d) {
+					return pageParams();
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "닉네임",	data: "nickname",    		width: "20%", 	 className: "cursor-default" }
+				,{title: "제목",		data: "promotion_title",    width: "40%", 	 className: "cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing : message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			ordering: false,
+			order: [],
+			info: false,
+			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setPromoPageRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -444,10 +499,16 @@
 		return JSON.stringify(param);
 	}
 
-	function setPageRowAttributes(nRow, aData)
+	function setEventPageRowAttributes(nRow, aData)
 	{
-		/** 닉네임에 클릭이벤트 추가 **/
+		/** row 클릭이벤트 추가 **/
 		$(nRow).attr('onClick', `setSelectedPage("${aData.title}","${aData.event_uuid}")`);
+	}
+
+	function setPromoPageRowAttributes(nRow, aData)
+	{
+		/** row 클릭이벤트 추가 **/
+		$(nRow).attr('onClick', `setSelectedPage("${aData.promotion_title}","${aData.promotion_uuid}")`);
 	}
 
 	let g_page_uuid = pageUuid.val();
@@ -471,7 +532,8 @@
 
 	function onChangeTargetPage(obj)
 	{
-		$(obj).val() === 'event' ? inputPage.parent().show() : inputPage.parent().hide();
+		let targetValue = $(obj).val();
+		(targetValue === 'event' || targetValue === 'promotion') ? inputPage.parent().show() : inputPage.parent().hide();
 	}
 
 	function onChangeSendWhen(obj)

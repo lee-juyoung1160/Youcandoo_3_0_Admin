@@ -60,6 +60,9 @@
 .add-btn {
     float: left;
 }
+.filebox:last-child {
+    margin-top: 0;
+}
 .excel-import {
     float: left;
     width: 150px;

@@ -57,9 +57,13 @@
     color: #007aff;
     padding-left: 5px;
 }
-
+.add-btn {
+    float: left;
+}
 .excel-import {
-    margin-top: 10px;
+    float: left;
+    width: 150px;
+    margin-left: 5px;
 }
 label.excel-btn {
     color: darkgreen;

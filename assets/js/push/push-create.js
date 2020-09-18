@@ -448,6 +448,11 @@
 			columns: [
 				{title: "닉네임",	data: "nickname",    		width: "20%", 	 className: "cursor-default" }
 				,{title: "제목",		data: "promotion_title",    width: "40%", 	 className: "cursor-default" }
+				,{title: "기간",		data: "start_date",    width: "35%", 	 className: "cursor-default" ,
+					render: function (data, type, row, meta) {
+						return `${row.start_date} ~ ${row.end_date}`
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList

@@ -61,20 +61,24 @@
 		exportExcel();
 	}
 
-	function readExcelData(event)
+	function readExcelData(obj, callback)
 	{
-		let input = event.target;
+		let result = [];
 		let reader = new FileReader();
+		reader.onload = function(e) {
+			let readData = []
+			let data = new Uint8Array(reader.result);
+			let workbook = XLSX.read(data, {type: 'array'});
 
-		reader.onload = () => {
-
-			let fileData = reader.result;
-			let wb = XLSX.read(fileData, {type : 'binary'});
-
-			wb.SheetNames.forEach( (sheet, index) => {
-				let rowObj =XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+			workbook.SheetNames.map( (name, index) => {
+				readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 }))
 			})
-		};
 
-		reader.readAsBinaryString(input.files[0]);
+			readData.map( (value) => {
+				result.push(value[0])
+			})
+
+			callback(result);
+		};
+		reader.readAsArrayBuffer(obj.files[0]);
 	}

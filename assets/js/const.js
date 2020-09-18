@@ -19,7 +19,7 @@
 		,notEqual : '일치하지 않습니다.'
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,invalidBrowser : '지원하지 않는 브라우져입니다.'
-		,overFileSize : '2MB 이하의 파일을 선택해주세요.'
+		,overFileSize : '10MB 이하의 파일을 선택해주세요.'
 		,maxJoinPromo : '최대 5회까지 등록 가능합니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
@@ -277,6 +277,7 @@
 		,doitCreateUcd : baseApiUrl+'ucd/dashboard/doit'
 		,exchangeUcd : baseApiUrl+'ucd/dashboard/exchange'
 		,cancelUcd : baseApiUrl+'ucd/dashboard/cancel'
+		,listUserWithXlsx : baseApiUrl+'ucd/excel/import'
 		/** app version **/
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'

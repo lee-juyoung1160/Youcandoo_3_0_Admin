@@ -55,7 +55,19 @@
 	{
 		return Number(_num) < 10 ? _num.toString().padStart(2, '0') : _num;
 	}
-	
+
+	function isXlsX(obj)
+	{
+		if (obj.files[0])
+		{
+			let file 		= obj.files[0];
+			let fileType 	= file["type"];
+			let imageTypes 	= ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+
+			return $.inArray(fileType, imageTypes) >= 0;
+		}
+	}
+
 	function isMobile()
 	{
 		let filter = "win16|win32|win64|mac|macintel";
@@ -130,7 +142,7 @@
 	{
 		if (obj.files[0])
 		{
-			let maxSize = 2 * 1024 * 1024;
+			let maxSize = 10 * 1024 * 1024;
 			return obj.files[0].size >maxSize;
 		}
 	}

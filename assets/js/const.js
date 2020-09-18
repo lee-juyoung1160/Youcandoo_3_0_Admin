@@ -283,7 +283,7 @@
 		,listAppVersion : baseApiUrl+'version/list'
 	}
 
-	const fileUploadBaseUrl = 'https://fileuploader-1933246200.ap-northeast-2.elb.amazonaws.com/file/upload/';
+	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
 	const fileApi = {
 		categoryImage : fileUploadBaseUrl+'category'
 	}

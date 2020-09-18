@@ -39,7 +39,10 @@
 	{
 		let creatableIds = ['grace', 'leo', 'david', 'serin'];
 		if (creatableIds.indexOf(sessionUserId.val()) === -1)
+		{
 			btnOpenModal.remove();
+			btnSubmit.remove();
+		}
 	}
 
 	function validDigit(obj)

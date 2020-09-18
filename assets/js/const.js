@@ -321,6 +321,7 @@
 		,createPush : '/marketing/push/create'
 		,listPush : '/marketing/push'
 
+		,listPopup : '/marketing/popup'
 		,updatePopup : '/marketing/popup/update/'
 
 		,listNotice : '/service/notice'

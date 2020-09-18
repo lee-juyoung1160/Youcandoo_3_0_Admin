@@ -1,8 +1,8 @@
 
 	const market	= $("input[name=radio-market]");
 	const title 	= $("#title");
-	/*const digit		= $("#digit");
-	const decimal	= $("#decimal");*/
+	const digit		= $("#digit");
+	const decimal	= $("#decimal");
 	const popupLink	= $("#popupLink");
 	const closeOpt	= $("input[name=radio-close-option]");
 	const popupFrom	= $("#popupFrom");
@@ -17,16 +17,26 @@
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
+		digit     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
+		decimal     .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		/*btnSubmit	.on('click', function () { onSubmitPopup(); });*/
 	});
+
+	function validDigit(obj)
+	{
+		let inputValue = $(obj).val();
+		let inputValueArr = inputValue.split("");
+		if (inputValueArr[0] == 0)
+			$(obj).val(0);
+	}
 
 	function initComponent()
 	{
 		market.eq(0).prop('checked', true);
 		title.trigger('focus');
 		title.val('');
-		/*digit.val('');
-		decimal.val('');*/
+		digit.val('');
+		decimal.val('');
 		popupLink.val('');
 		closeOpt.eq(0).prop('checked', true);
 		exposure.eq(0).prop('checked', true);
@@ -90,17 +100,24 @@
 			return false;
 		}
 
-		if (isEmpty(content.val()))
+		if (isEmpty(digit.val()))
 		{
-			sweetToast(`내용은 ${message.required}`);
-			content.trigger('focus');
+			sweetToast(`앱버전은 ${message.required}`);
+			digit.trigger('focus');
 			return false;
 		}
 
-		if (isEmpty(reserveDate.val()))
+		if (isEmpty(decimal.val()))
 		{
-			sweetToast(`예약일은 ${message.required}`);
-			reserveDate.trigger('focus');
+			sweetToast(`앱버전은 ${message.required}`);
+			decimal.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(popupLink.val()))
+		{
+			sweetToast(`링크는 ${message.required}`);
+			popupLink.trigger('focus');
 			return false;
 		}
 

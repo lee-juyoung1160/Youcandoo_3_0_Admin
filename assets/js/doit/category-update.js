@@ -94,25 +94,10 @@
 
 			let imageFile = categoryImage[0].files;
 			if (imageFile.length > 0)
-				param["icon_image_url"] = data.image_urls['category_img']
+				param["icon_image_url"] = data.image_urls['category_img'];
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}
-	}
-
-	function params()
-	{
-		let param = {
-			"idx" : g_idx,
-			"category" : categoryName.val(),
-			"is_blind" : $('input:radio[name=radio-exposure]:checked').val()
-		}
-
-		let imageFile = profileImage[0].files;
-		/*if (imageFile.length > 0)
-			param["icon_image_url"] =*/
-
-		return JSON.stringify(param);
 	}
 
 	function updateReqCallback(data)

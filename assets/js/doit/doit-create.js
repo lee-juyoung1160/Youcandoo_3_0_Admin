@@ -77,8 +77,8 @@
 		let i = 0;
 		for (i; i<datas.length; i++)
 		{
-			let { category } = datas[i];
-			options += `<option value="${category}">${category}</option>`
+			let { category, category_uuid } = datas[i];
+			options += `<option value="${category_uuid}">${category}</option>`
 		}
 
 		selCategory.html(options);
@@ -605,7 +605,8 @@
 		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
 			paramExampleVoice	= $("#exampleFile")[0].files[0];
 		let formData  = new FormData();
-		formData.append('doit-category', selCategory.val());
+		formData.append('doit-category', $("#selCategory option:checked").text());
+		formData.append('category-uuid', selCategory.val());
 		formData.append('doit-title', doitTitle.val().trim());
 		formData.append('company-uuid', g_biz_uuid);
 		formData.append('promotion-uuid', selPromo.val().trim());

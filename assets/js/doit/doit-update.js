@@ -51,8 +51,8 @@
 		let i = 0;
 		for (i; i<datas.length; i++)
 		{
-			let { category } = datas[i];
-			options += `<option value="${category}">${category}</option>`
+			let { category, category_uuid } = datas[i];
+			options += `<option value="${category_uuid}">${category}</option>`
 		}
 
 		selCategory.html(options);
@@ -97,7 +97,7 @@
 		promotion.html(label.promotion + div + detail.company_name + div +detail.promotion_title);
 		doitTitle.html(detail.doit_title);
 		doitDesc.val(detail.doit_description);
-		selCategory.val(detail.doit_category);
+		selCategory.val(detail.category_uuid);
 		onChangeSelectOption(selCategory);
 
 		let tags = detail.doit_tags;
@@ -407,7 +407,8 @@
 
 		let formData  = new FormData();
 		formData.append('doit-uuid', g_doit_uuid);
-		formData.append('doit-category', selCategory.val());
+		formData.append('doit-category', $("#selCategory option:checked").text());
+		formData.append('category-uuid', selCategory.val());
 		formData.append('doit-tags', paramTag.toString());
 		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
 		formData.append('intro-image-file', paramIntroImage);

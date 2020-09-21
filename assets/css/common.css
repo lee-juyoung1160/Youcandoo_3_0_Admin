@@ -147,7 +147,7 @@ h2.main-title {
 }
 .add-btn {
 	width: 80px;
-	height: 40px;
+	height: 35px;
 	color: #007aff;
 	border-radius: 5px;
 	border: 1px solid #007aff;
@@ -185,22 +185,31 @@ h2.main-title {
 	padding:8px 20px 8px 10px;
 }
 p.sub-title {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 14px;
 	margin-bottom: 10px;
-	color: #007aff;
+	color: #222;
 }
 p.sub-title.important {
-	color: #007aff;
+	color: #222;
 }
 p.cap {
 	font-size: 13px;
-	font-weight: 500;
+	font-weight: 400;
 	color: #666;
-	margin-bottom: 13px;
+	margin-bottom: 10px;
 }
 .cap.important {
-	color: #007aff;
+	display: inline-block;
+	padding: 5px 8px;
+	color: #fff;
+	background-color: #28a745;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.cap.important span {
+	font-weight: 600;
 }
 span.input-num-title {
 	font-size: 15px;
@@ -209,7 +218,7 @@ span.input-num-title {
 }
 i.question-mark {
 	font-size: 18px;
-	color: #484848;
+	color: #999;
 	vertical-align: middle;
 	position: relative;
 }
@@ -355,6 +364,8 @@ i.question-mark:hover .hover-text {
 	font-weight: 500;
 	color: #ff4c4c;
 }
+
+
 /* input common */
 input[type="text"],
 input[type="number"],
@@ -365,12 +376,13 @@ input[type="password"],
 input[type="email"]{
 	width: 450px;
 	height: 35px;
-	color: #545454;
-	border-radius: 5px;
-	border: 1px solid #ebebeb;
+	color: #333;
+	border-radius: 3px;
+	border: 1px solid #d2d6de;
 	padding: 0 10px;
 	font-size: 14px;
-	background-color: #f8f8f8;
+	font-weight: 500;
+	background-color: #fff;
 }
 input[type="search"] {
 	border-radius: 30px;
@@ -384,6 +396,9 @@ input[type="date"] {
 }
 input[type="time"] {
 	width: 150px;
+}
+input::placeholder {
+	color: #666;
 }
 input.datepicker {
 	width: 200px;
@@ -399,8 +414,11 @@ input.only-num-with-zero
 /*	float: left;*/
 /*	margin-right: 40px;*/
 /*}*/
+.filebox {
+	margin-bottom: 10px;
+}
 .filebox:last-child {
-	margin-top: 10px;
+	margin-bottom: 0;
 }
 .filebox input[type="file"] {
 	position: absolute;
@@ -414,7 +432,7 @@ input.only-num-with-zero
 }
 .filebox label {
 	display: inline-block;
-	padding: .5em .75em;
+	padding: 5px 8px;
 	color: #7d7d7d;
 	font-size: inherit;
 	line-height: normal;
@@ -428,11 +446,11 @@ input.only-num-with-zero
 .filebox .upload-name {
 	display: inline-block;
 	width: 180px;
-	height: 40px;
-	padding: 0 20px;
+	height: 35px;
+	padding: 0 10px;
 	margin-right: 4px;
 	color: #7d7d7d;
-	font-size: 15px;
+	font-size: 14px;
 	line-height: normal;
 	vertical-align: middle;
 	background-color: #f5f5f5;
@@ -470,35 +488,30 @@ input.only-num-with-zero
 input.tag-input {
 	width: 260px;
 }
-.hash-tag-list {
-	margin-top: 16px;
-}
 .hash-tag-list > li {
 	float: left;
 	font-size: 12px;
+	margin-top: 10px;
 	margin-right: 15px;
 	margin-bottom: 20px;
-	padding: 0.5rem;
-	border: 1px solid #007aff;
-	border-radius: 30px;
+	padding: 5px 8px;
+	border-radius: 10px;
 	color: #007aff;
-	background-color: #ffffff;
+	background-color: #b4dbed;
 }
 .hash-tag-list > li span,
 .hash-tag-list > li i {
-	font-size: 15px;
+	font-size: 13px;
+	font-weight: 600;
 }
 .hash-tag-list > li:last-child {
 	margin-right: 0;
 }
 .hash-tag-list > li .delete-btn {
 	position: absolute;
-	color: #7d7d7d;
+	color: #ec5c5c;
 	top: 30%;
 	right: 3px;
-}
-.hash-tag-list > li .delete-btn:hover {
-	color: #ec5c5c;
 }
 /* select common */
 select {
@@ -515,11 +528,12 @@ select::-ms-expand {
 	position: relative;
 	width: 150px;
 	height: 35px;
-	font-size: 13px;
+	font-size: 14px;
+	font-weight: 400;
 	color: #cccccc;
-	border: 1px solid #ebebeb;
-	border-radius: 5px;
-	background-color: #f8f8f8;
+	border: 1px solid #d2d6de;
+	border-radius: 3px;
+	background-color: #fff;
 	z-index: 1;
 }
 .select-box-none {
@@ -545,7 +559,7 @@ select::-ms-expand {
 	top: 0;
 	left: 5px;
 	padding: .8em .5em;
-	color: #999;
+	color: #333;
 	z-index: -1;
 }
 .select-box select {
@@ -568,7 +582,7 @@ input[type="radio"] {
 }
 input[type="checkbox"] + label,
 input[type="radio"] + label{
-	color: #7d7d7d;
+	color: #333;
 }
 input[type="checkbox"] + label span {
 	display: inline-block;
@@ -585,6 +599,7 @@ input[type="checkbox"]:checked + label span {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-image: url("../images/check-on.png");
+	border: 1px solid #007aff;
 }
 input[type="radio"] + label span {
 	display:inline-block;
@@ -600,8 +615,9 @@ input[type="radio"] + label span {
 input[type="radio"]:checked + label span {
 	background-size: 13px;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 50% 50%;
 	background-image: url("../images/radio-on.png");
+	border: 1px solid #007aff;
 }
 /*.checkbox-wrap {*/
 /*	margin-top: 25px;*/
@@ -615,12 +631,15 @@ textarea {
 	width: 100%;
 	height: 130px;
 	border: 0;
-	font-size: 15px;
-	padding: 20px;
-	color: #545454;
+	font-size: 14px;
+	padding: 15px 10px;
+	color: #333;
 	border-radius: 5px;
 	border: 1px solid #ebebeb;
-	background-color: #f8f8f8;
+	background-color: #fff;
+}
+textarea::placeholder {
+	color: #999;
 }
 
 /* list-common start */
@@ -683,10 +702,10 @@ textarea {
 	background-color: #ffffff;
 }
 .list-common-title {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 14px;
 	margin-bottom: 10px;
-	color: #007aff;
+	color: #222;
 }
 .list-common .list-wrap:first-child {
 	border-bottom: 1px solid #f1f1f1;
@@ -711,7 +730,7 @@ textarea {
 	cursor: pointer;
 	width: 50px;
 	height: 35px;
-	margin-right: 10px;
+	margin-right: 5px;
 	color: #007aff;
 	font-size: 14px;
 	text-align: center;
@@ -864,8 +883,8 @@ input[type="checkbox"]:disabled + label span{
 }
 .table-wrap table th {
 	padding: 13px 5px;
-	color: #007aff;
-	font-weight: 500;
+	color: #222;
+	font-weight: 600;
 	font-size: 14px;
 }
 .table-wrap table tbody tr:hover {
@@ -964,7 +983,7 @@ input[type="checkbox"]:disabled + label span{
 	overflow-wrap: break-word;
 	color: #404040;
 	font-size: 14px;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1.5em;
 }
 .detail-data a {
@@ -1398,10 +1417,13 @@ input[type="checkbox"]:disabled + label span{
 .detail-data-wrap .sub-tit {
 	width: 160px;
 	padding: 5px 0;
-	color: #888;
+	color: #666;
+	font-size: 14px;
+	font-weight: 600;
 }
 .detail-data-wrap .detail-data {
 	color: #333;
+	font-size: 14px;
 }
 .main-title-date {
 	color: #888;

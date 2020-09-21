@@ -201,7 +201,7 @@
 		rewardDom +=
 			`<p class="detail-data">${doitInfo}</p>
 			<div class="col-2-1" style="margin-top: 20px;">
-				<p class="sub-title"><i class="far fa-check-square" style="color:#007aff; "></i> 리워드 조건</p>
+				<p class="cap important">리워드 조건</p>
 				<div class="detail-data-wrap clearfix">
 					<p class="sub-tit">두잇 참여 인원</p>
 					<p class="detail-data">${recruitCount}명</p>
@@ -231,7 +231,7 @@
 		if (!isEmpty(detail.promotion_uuid))
 		{
 			rewardDom +=
-				`<p class="sub-title" style="margin-top: 40px;"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>
+				`<p class="cap important" style="margin-top: 40px;">남은 예산</p>
 				 <div class="fixed">
 				 	<p class="cap">남은 UCD는 
 						<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(balance)} UCD</span> 입니다.
@@ -263,7 +263,6 @@
 		{
 			introImageDom =
 				`<div class="file">
-					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<img class="detail-img main-banner" src="${introImg}" onerror="onErrorImage(this);" alt="썸네일 이미지입니다.">
 				</div>`
 
@@ -334,7 +333,6 @@
 			let imageUrl = data.example_image_url;
 			actionResourceDom +=
 				`<div class="file">
-					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다." onerror="onErrorImage(this);">
 				</div>`
 		}

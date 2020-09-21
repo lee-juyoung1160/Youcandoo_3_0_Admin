@@ -98,6 +98,9 @@
 .notice-input-list li:last-child {
     margin-bottom: 0;
 }
+.reward-type p.sub-title {
+    padding-top: 20px;
+}
 .reward-type .sub-title {
     margin-top: 40px;
 }

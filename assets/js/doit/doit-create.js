@@ -396,9 +396,8 @@
 			let actionDayofweek = detail.action_dayofweek;
 			selectedRewardDom +=
 				`<li class="reward-type clearfix">
-					<p class="sub-title">
-						<i class="far fa-check-square" style="color:#007aff; cursor:default;">
-						</i> 선택하신  프로모션 관련 리워드 조건입니다.
+					<p class="cap important" style="margin-top: 10px;">
+					 선택하신  프로모션 관련 리워드 조건입니다.
 					</p>
 					<div class="detail-data-wrap clearfix">
 						<p class="sub-tit">두잇 참여 인원</p>
@@ -548,9 +547,11 @@
 		let fileDom =
 			`<div class="filebox preview-image">
 				<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>
-				<input class="upload-name" value="파일선택" disabled="disabled" >
-				<label for="exampleFile">업로드</label>
-				<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">
+				<div>
+					<input class="upload-name" value="파일선택" disabled="disabled" >
+					<label for="exampleFile">업로드</label>
+					<input type="file" id="exampleFile" class="upload-hidden" onchange="onChangeValidationAudio(this)">
+				</div>
 			</div>`
 
 		exampleArea.html(fileDom);

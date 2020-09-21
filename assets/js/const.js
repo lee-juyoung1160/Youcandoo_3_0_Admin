@@ -226,6 +226,11 @@
 		,listPushTargetPagePromo : baseApiUrl+'push/promotion'
 		/** dynamic link **/
 		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
+		/** 팝업 **/
+		,createPopup : baseApiUrl+'marketing/popup/set'
+		,updatePopup : baseApiUrl+'marketing/popup/update'
+		,detailPopup : baseApiUrl+'marketing/popup/detail'
+		,listPopup : baseApiUrl+'marketing/popup/list'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'
 		,deleteNotice : baseApiUrl+'notice/delete'
@@ -322,6 +327,7 @@
 		,listPush : '/marketing/push'
 
 		,listPopup : '/marketing/popup'
+		,detailPopup : '/marketing/popup/detail/'
 		,updatePopup : '/marketing/popup/update/'
 
 		,listNotice : '/service/notice'

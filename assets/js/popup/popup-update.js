@@ -15,11 +15,11 @@
 		initInputTodayDatepicker();
 		initDateRangeLimit();
 		/** 상세 불러오기 **/
-		/*getDetail();*/
+		getDetail();
 		/** 이벤트 **/
 		digit     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		decimal     .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		/*btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });*/
+		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
 	});
 
 	function validDigit(obj)
@@ -37,7 +37,7 @@
 
 	function getDetail()
 	{
-		let url 	= api.detailNotice;
+		let url 	= api.detailPopup;
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(false, url, detailParams(), getDetailCallback, errMsg, false);
@@ -46,9 +46,9 @@
 	function detailParams()
 	{
 		const pathName	= getPathName();
-		const noticeIdx	= splitReverse(pathName, '/');
+		const popupIdx	= splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : noticeIdx});
+		return JSON.stringify({"idx" : popupIdx});
 	}
 
 	function getDetailCallback(data)
@@ -56,25 +56,30 @@
 		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
-	let g_notice_uuid;
+	let g_popup_uuid;
 	function buildDetail(data)
 	{
 		let detail = data.data;
 
-		g_notice_uuid = detail.notice_uuid;
+		g_popup_uuid = detail.popup_uuid;
 
 		market.each(function () {
-			if ($(this).val() === detail.is_exposure)
+			if ($(this).val() === detail.store)
 				$(this).prop('checked', true);
 		});
-		title.val(detail.title);
-		popupLink.val();
+		title.val(detail.popup_name);
+
+		let targetVer = detail.target_version.toString();
+		let splitTargetVer = targetVer.split('.');
+		digit.val(splitTargetVer[0]);
+		decimal.val(splitTargetVer[1]);
+		popupLink.val(detail.popup_url);
 		closeOpt.each(function () {
-			if ($(this).val() === detail.is_exposure)
+			if ($(this).val() === detail.close_type)
 				$(this).prop('checked', true);
 		});
-		popupFrom.val(detail.reservation_date);
-		popupTo.val(detail.reservation_date);
+		popupFrom.val(detail.start_date);
+		popupTo.val(detail.end_date);
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
@@ -90,7 +95,7 @@
 
 	function updateRequest()
 	{
-		let url 	= api.updateNotice;
+		let url 	= api.updatePopup;
 		let errMsg 	= label.modify+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, params(), updateReqCallback, errMsg, false);
@@ -98,16 +103,19 @@
 
 	function params()
 	{
-		let formData  = new FormData();
-		formData.append('notice_uuid', g_notice_uuid);
-		formData.append('notice_title', title.val().trim());
-		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
-		formData.append('reservation_date', reserveDate.val());
-		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('notice_image', contentImage[0].files[0]);
-		formData.append('create_user', sessionUserId.val());
+		let param = {
+			"popup_uuid": g_popup_uuid,
+			"store": $("input[name=radio-market]:checked").val(),
+			"popup_name": title.val().trim(),
+			"target_version": `${digit.val()}.${decimal.val()}`,
+			"popup_url": popupLink.val().trim(),
+			"close_type": $("input[name=radio-close-option]:checked").val(),
+			"start_date": popupFrom.val(),
+			"end_date": popupTo.val(),
+			"is_exposure": $("input[name=radio-exposure]:checked").val()
+		}
 
-		return formData;
+		return JSON.stringify(param);
 	}
 
 	function updateReqCallback(data)
@@ -117,7 +125,7 @@
 
 	function updateSuccess()
 	{
-		location.href = page.listNotice;
+		location.href = page.listPopup;
 	}
 
 	function validation()
@@ -146,6 +154,13 @@
 		if (isEmpty(popupLink.val()))
 		{
 			sweetToast(`링크는 ${message.required}`);
+			popupLink.trigger('focus');
+			return false;
+		}
+
+		if (!isDomainName(popupLink.val().trim()))
+		{
+			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			popupLink.trigger('focus');
 			return false;
 		}

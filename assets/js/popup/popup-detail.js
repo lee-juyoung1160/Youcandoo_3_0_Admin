@@ -10,14 +10,14 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		/*getDetail();*/
+		getDetail();
 		/** 이벤트 **/
 		goUpdate	.on('click', function () { goUpdatePage(); });
 	});
 
 	function getDetail()
 	{
-		let url 	= api.detailNotice;
+		let url 	= api.detailPopup;
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
@@ -25,10 +25,10 @@
 
 	function params()
 	{
-		const pathName		= getPathName();
-		const noticeIdx		= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const popupIdx	= splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : noticeIdx});
+		return JSON.stringify({"idx" : popupIdx});
 	}
 
 	function getDetailCallback(data)
@@ -40,12 +40,12 @@
 	{
 		let detail = data.data;
 
-		market.html(detail.title);
-		title.html(detail.title);
-		version.html(detail.notice_contents);
-		link.html(`<a href="${detail.title}" target="_blank">${detail.title}</a>`);
-		closeOpt.html(detail.notice_contents);
-		popupDate.html(detail.reservation_date);
+		market.html(detail.store);
+		title.html(detail.popup_name);
+		version.html(detail.target_version);
+		link.html(`<a href="${detail.popup_url}" target="_blank">${detail.popup_url}</a>`);
+		closeOpt.html(detail.close_type === 'always' ? '다시 보지 않기' : '오늘 하루 보지 않기');
+		popupDate.html(`${detail.start_date} ~ ${detail.end_date}`);
 		exposure.html(detail.is_exposure);
 	}
 

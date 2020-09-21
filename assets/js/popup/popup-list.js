@@ -2,7 +2,7 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	/*const searchType 	= $("#search_type");*/
+	const dateType 		= $("#dateType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	/*const btnDelete		= $("#btnDelete");*/
@@ -15,9 +15,9 @@
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
 		initPageLength(selPageLength);
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		//if (isBackAction()) setHistoryForm();
+		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
-		//buildGrid();
+		buildGrid();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -30,10 +30,9 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		/*exposure.eq(0).prop("checked", true);*/
-		/*initSelectOption();*/
+		initSelectOption();
 		initSearchDateRangeMonth();
-		initMaxDateToday();
+		initMaxDateAfterThreeMonth();
 		initDayBtn();
 	}
 
@@ -45,14 +44,10 @@
 		keyword.val(historyParams.keyword);
 		dateFrom.val(historyParams.fromDate);
 		dateTo.val(historyParams.toDate);
-		/*searchType.val(historyParams.searchType);
-		onChangeSelectOption(searchType);*/
+		dateType.val(historyParams.dateType);
+		onChangeSelectOption(dateType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
-		/*exposure.each(function () {
-			if ($(this).val() === historyParams.isExposure)
-				$(this).prop("checked", true);
-		});*/
 
 		_page = historyParams.page;
 	}
@@ -61,7 +56,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listNotice,
+				url: api.listPopup,
 				type: "POST",
 				headers: headers,
 				data: function (d) {
@@ -72,30 +67,30 @@
 				}
 			},
 			columns: [
-				{title: "", 				data: "idx",   				width: "5%",   className: "cursor-default no-sort",
+				/*{title: "", 				data: "idx",   				width: "5%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
-				},
-				{title: "No "+tooltipTop, 	data: "idx",    	  		width: "5%",	className: "cursor-default no-sort",
-					render: function (data, type, row, meta) {
-						let fixTopEl = '<i class="fas fas fa-bell" style="cursor:default;color:#ffc800;"></i>';
-						return row.is_top === 'Y' ?  fixTopEl : data;
+				},*/
+				{title: "기기 ", 		data: "store",    	  		width: "10%",	className: "cursor-default" }
+				,{title: "앱버전", 		data: "target_version",		width: "10%",  	className: "cursor-default no-sort" }
+				,{title: "팝업명", 		data: "popup_name",	  		width: "35%",  	className: "cursor-default",
+					render : function (data, type, row, meta) {
+						let detailUrl = page.detailPopup + row.idx;
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "제목", 			data: "title",    	  		width: "30%",  	className: "cursor-default",
+				,{title: "노출기간", 	data: "start_date",	  		width: "25%",  	className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailNotice + row.idx;
-						return '<a href="'+detailUrl+'">' + data + '</a>';
+						return `${row.start_date} ~ ${row.end_date}`;
 					}
 				}
-				,{title: "노출여부", 		data: "is_exposure",  		width: "5%",  	className: "cursor-default no-sort",
+				,{title: "노출여부", 	data: "is_exposure",  		width: "10%",  	className: "cursor-default no-sort",
 					render: function (data) {
 						return data === "Y" ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "작성자", 			data: "created_user",      width: "15%",  	className: "cursor-default no-sort" }
-				,{title: "작성일", 	    	data: "created_datetime",  width: "10%",    className: "cursor-default",
+				,{title: "등록일", 	    data: "create_date",  		width: "10%",   className: "cursor-default",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -118,10 +113,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: {
-				style: 'single',
-				selector: ':checkbox'
-			},
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -148,24 +140,14 @@
 			,"page" : _page
 			,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
-			/*,"searchType" : searchType.val()*/
+			,"dateType" : dateType.val()
 			,"keyword" : keyword.val()
-			,"isExposure" : $('input:radio[name=radio-exposure]:checked').val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	/** row deselect **/
-	function onDeselectRow(_table)
-	{
-		let table 		 = $(_table).DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-		if (isEmpty(selectedData))
-			disableStatusBtnTop();
 	}
 
 	function onSubmitSearch()

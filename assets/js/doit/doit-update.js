@@ -198,7 +198,6 @@
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom +=
 				`<div class="file">
-					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다.">
 				</div>`
 		}
@@ -208,7 +207,6 @@
 			imageUrl = isEmpty(imageUrl) ? label.noImage : imageUrl;
 			actionResourceDom +=
 				`<div class="file">
-					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<img class="detail-img main-banner" src="${imageUrl}" alt="썸네일 이미지입니다.">
 				</div>
 				<div class="file">

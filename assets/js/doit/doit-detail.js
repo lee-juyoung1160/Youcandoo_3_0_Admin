@@ -233,7 +233,7 @@
 			rewardDom +=
 				`<p class="cap important" style="margin-top: 40px;">남은 예산</p>
 				 <div class="fixed">
-				 	<p class="cap">남은 UCD는 
+				 	<p class="detail-data">남은 UCD는 
 						<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(balance)} UCD</span> 입니다.
 					</p>
 				 </div>`

@@ -212,9 +212,10 @@ p.cap {
 	font-weight: 600;
 }
 span.input-num-title {
-	font-size: 15px;
-	font-weight: 500;
+	margin-right: 5px;
 	color: #484848;
+	font-size: 14px;
+	font-weight: 500;
 }
 i.question-mark {
 	font-size: 18px;
@@ -340,17 +341,9 @@ i.question-mark:hover .hover-text {
 	padding: 15px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
-/*.modal-content .modal-information li:last-child {*/
-/*	border-bottom: 0;*/
-/*}*/
-.modal-content .modal-information .sub-title {
-	margin-bottom: 10px;
-	color: #007aff;
-	font-size: 15px;
-}
 .modal-content .modal-information .data-contents {
 	overflow-wrap: break-word;
-	font-size: 16px;
+	font-size: 14px;
 	color: #484848;
 	line-height: 1.4;
 }
@@ -619,13 +612,6 @@ input[type="radio"]:checked + label span {
 	background-image: url("../images/radio-on.png");
 	border: 1px solid #007aff;
 }
-/*.checkbox-wrap {*/
-/*	margin-top: 25px;*/
-/*}*/
-/*.radio-wrap {*/
-/*	margin-bottom: 20px;*/
-/*}*/
-/* textarea common */
 
 textarea {
 	width: 100%;
@@ -635,7 +621,7 @@ textarea {
 	padding: 15px 10px;
 	color: #333;
 	border-radius: 5px;
-	border: 1px solid #ebebeb;
+	border: 1px solid #d2d6de;
 	background-color: #fff;
 }
 textarea::placeholder {

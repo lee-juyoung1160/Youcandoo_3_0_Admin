@@ -32,15 +32,15 @@
     display: none;
     margin-top: 20px;
 }
-.doit-option-li input[type="checkbox"] + label span,
-.doit-option-li input[type="radio"] + label span,
-.method-li input[type="radio"] + label span,
-.method-li input[type="checkbox"] + label span,
-.doit-open input[type="radio"] + label span,
-.doit-open input[type="checkbox"] + label span,
-.create-radio-wrap input[type="radio"] + label span {
-    margin-left: 10px;
-}
+/*.doit-option-li input[type="checkbox"] + label span,*/
+/*.doit-option-li input[type="radio"] + label span,*/
+/*.method-li input[type="radio"] + label span,*/
+/*.method-li input[type="checkbox"] + label span,*/
+/*.doit-open input[type="radio"] + label span,*/
+/*.doit-open input[type="checkbox"] + label span,*/
+/*.create-radio-wrap input[type="radio"] + label span {*/
+/*    margin-left: 10px;*/
+/*}*/
 .method-li .radio-wrap {
     margin-bottom: 5px;
 }

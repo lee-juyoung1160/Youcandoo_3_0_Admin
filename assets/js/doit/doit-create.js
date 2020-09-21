@@ -425,9 +425,9 @@
 							${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(detail.person_reward)} UCD / 단체: ${numberWithCommas(detail.group_reward)} UCD)
 						</p>
 					</div>
-					<p class="sub-title"><i class="fas fa-coins" style="color:#007aff; "></i> 남은 예산</p>
+					<p class="cap important" style="margin-top: 10px;">남은 예산</p>
 					<div class="fixed">
-						<p class="cap">남은 UCD는 
+						<p class="detail-data">남은 UCD는 
 							<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(detail.remain_budget_ucd)} UCD</span> 입니다.
 						</p>
 					</div>

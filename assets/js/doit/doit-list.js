@@ -49,8 +49,8 @@
 		let i = 0;
 		for (i; i<datas.length; i++)
 		{
-			let { category } = datas[i];
-			options += `<option value="${category}">${category}</option>`
+			let { category, category_uuid } = datas[i];
+			options += `<option value="${category_uuid}">${category}</option>`
 		}
 
 		selCategory.html(options);

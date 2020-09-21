@@ -56,11 +56,6 @@
 
         /*datePrev .on('click', function () { onClickPrev(this); });
         dateNext .on('click', function () { onClickNext(this); });*/
-        datePicker.datepicker({
-            onSelect: function (dateTxt , obj) {
-                console.log(dateTxt)
-            }
-        });
         yearEl   .on('change', function () { onChangeSelectBoxForDailyActions(); });
         monthEl  .on('change', function () { onChangeSelectBoxForDailyActions(); });
         yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
@@ -113,7 +108,7 @@
     {
         dateSelected.datepicker({
             dateFormat: "yy-mm-dd"
-            ,minDate: '2020-07-01'
+            /*,minDate: '2020-07-01'*/
             ,maxDate: 0
             ,monthNames: label.monthNames
             ,dayNames: label.dayNames

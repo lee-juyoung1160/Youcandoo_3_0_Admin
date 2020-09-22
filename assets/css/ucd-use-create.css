@@ -75,7 +75,7 @@ label.excel-btn {
 }
 .excel-btn:hover {
     color: #fff;
-    background-color: darkgreen;
+    background-color: darkgreen !important;
 }
 .nickname-modal .modal-information {
     float: left;

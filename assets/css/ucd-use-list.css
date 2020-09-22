@@ -1,9 +1,3 @@
 .ucd-use-list-page .doit-list-option ul li:first-child {
     width: 32.3%;
 }
-.ucd-use-list-page .table-wrap .minus-pay td {
-    color: #c90614;
-}
-.ucd-use-list-page .table-wrap .minus-pay td a {
-    border-bottom: 1px solid #c90614;
-}

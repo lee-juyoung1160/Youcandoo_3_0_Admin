@@ -133,7 +133,7 @@
 }
 .table-btn-wrap.reward-tab-ul li {
     position: relative;
-    width: 198px;
+    width: 190px;
     color: #999;
     border-left: 1px solid #fff;
     background-color: #eee;
@@ -201,7 +201,6 @@
     width: 680px;
 }
 .pro-reward-wrap table th {
-    color: #007aff;
     font-weight: 500;
     text-align: center;
     background-color: #fff;

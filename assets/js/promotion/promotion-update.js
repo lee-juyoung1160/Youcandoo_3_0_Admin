@@ -351,7 +351,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">리워드 옵션명 (*)</p>';
+			detailDom += 					'<p class="detail-data">리워드 옵션명 (*)</p>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<div class="input-wrap">';
@@ -365,7 +365,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap" style="display: inline-block;">인증 기간 (*)</p> ';
+			detailDom += 					'<p class="detail-data" style="display: inline-block;">인증 기간 (*)</p> ';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최대 30일까지 가능합니다.</span>';
 			detailDom += 					'</i>';
@@ -401,7 +401,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">주간 빈도 (*)</p>';
+			detailDom += 					'<p class="detail-data">주간 빈도 (*)</p>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2">';
 			detailDom += 					'<ul class="day-btn clearfix frequency-ul">';
@@ -428,7 +428,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap" style="display: inline-block;">목표달성률 (*)</p> ';
+			detailDom += 					'<p class="detail-data" style="display: inline-block;">목표달성률 (*)</p> ';
 			detailDom += 					'<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">';
 			detailDom += 						'<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>';
 			detailDom += 					'</i>';
@@ -443,7 +443,7 @@
 			detailDom += 		'<li>';
 			detailDom += 			'<div class="col-wrap clearfix">';
 			detailDom += 				'<div class="col-1">';
-			detailDom += 					'<p class="cap">인당 UCD (*)</p>';
+			detailDom += 					'<p class="detail-data">인당 UCD (*)</p>';
 			detailDom += 				'</div>';
 			detailDom += 				'<div class="col-2 pro-ucd-wrap">';
 			detailDom += 					'<table>';

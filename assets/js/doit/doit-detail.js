@@ -201,7 +201,7 @@
 		rewardDom +=
 			`<p class="detail-data">${doitInfo}</p>
 			<div class="col-2-1" style="margin-top: 20px;">
-				<p class="cap important">리워드 조건</p>
+				<p class="point-cap">리워드 조건</p>
 				<div class="detail-data-wrap clearfix">
 					<p class="sub-tit">두잇 참여 인원</p>
 					<p class="detail-data">${recruitCount}명</p>
@@ -231,7 +231,7 @@
 		if (!isEmpty(detail.promotion_uuid))
 		{
 			rewardDom +=
-				`<p class="cap important" style="margin-top: 40px;">남은 예산</p>
+				`<p class="point-cap" style="margin-top: 40px;">남은 예산</p>
 				 <div class="fixed">
 				 	<p class="detail-data">남은 UCD는 
 						<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(balance)} UCD</span> 입니다.

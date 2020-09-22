@@ -154,10 +154,10 @@
 		let checkedN = detail.allow_gallery_image === 'N' ? 'checked' : '';
 		let radioGalleryEl =
 			`<input type="radio" id="c20" name="radio-gallery-yn" value="Y" ${checkedY}/>
-			<label for="c20">Y<span></span></label>
+			<label for="c20"><span></span>Y</label>
 
 			<input type="radio" id="c21" name="radio-gallery-yn" value="N" ${checkedN}/>
-			<label for="c21">N<span></span></label>`
+			<label for="c21"><span></span>N</label>`
 
 		let exampleType = detail.action_resource_type;
 		let promotionAllowGallert = detail.promotion_allow_gallery_image;
@@ -246,11 +246,11 @@
 		let introType = $(obj).val();
 		let introText = $("label[for='"+$(obj).attr("id")+"']").text();
 		let introFileDom = '';
-		introFileDom += `<p class="cap important">두잇 소개 방법 중 <span>${introText}</span>를(을) 선택하셨습니다.`
+		introFileDom += `<p class="cap important"><span>${introText}</span>`
 		if (introType === 'video')
-			introFileDom += '<span>영상</span> 및 썸네일을 업로드 해주세요!</p>';
+			introFileDom += ' 및 <span>썸네일</span>을 업로드 해주세요!</p>';
 		else
-			introFileDom += '<span>사진</span>을 업로드 해주세요!</p>';
+			introFileDom += '을 업로드 해주세요!</p>';
 
 		introFileDom +=
 			`<div class="filebox preview-image">

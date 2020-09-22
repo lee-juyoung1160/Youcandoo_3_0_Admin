@@ -148,14 +148,14 @@ h2.main-title {
 .add-btn {
 	width: 80px;
 	height: 35px;
-	color: #007aff;
+	color: #1da1f5;
 	border-radius: 5px;
-	border: 1px solid #007aff;
+	border: 1px solid #1da1f5;
 	background-color: #fff;
 }
 .add-btn:hover {
 	color: #ffffff;
-	background-color: #007aff;
+	background-color: #1da1f5;
 }
 .table-wrap .btn-wrap button.delete-btn {
 	background-color: #c90614;
@@ -201,15 +201,23 @@ p.cap {
 }
 .cap.important {
 	display: inline-block;
-	padding: 5px 8px;
-	color: #fff;
-	background-color: #28a745;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	padding-bottom: 5px;
+	color: #12ac70;
+	font-size: 13px;
+	font-weight: 500;
+	border-bottom: 1px solid #12ac70;
 }
 .cap.important span {
 	font-weight: 600;
+}
+.point-cap {
+	display: inline-block;
+	margin-bottom: 10px;
+	padding: 5px 8px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	background-color: #0061f2;
 }
 span.input-num-title {
 	margin-right: 5px;
@@ -267,7 +275,7 @@ i.question-mark:hover .hover-text {
 	margin-top: -10px;
 }
 .date-margin-text {
-	margin: 0 10px;
+	margin: 0 5px;
 }
 .more-info-btn {
 	width: 180px;
@@ -378,8 +386,7 @@ input[type="email"]{
 	background-color: #fff;
 }
 input[type="search"] {
-	border-radius: 30px;
-	padding: 0 50px;
+	padding: 0 30px;
 }
 input[type="number"] {
 	width: 150px;
@@ -401,6 +408,8 @@ input.only-num-with-zero
 {
 	width: 220px;
 }
+/*input[type="text"]:focus,*/
+/*textarea:focus {border:2px solid #007aff; }*/
 
 /* file common */
 /*.filebox {*/
@@ -425,23 +434,25 @@ input.only-num-with-zero
 }
 .filebox label {
 	display: inline-block;
-	padding: 5px 8px;
-	color: #7d7d7d;
+	padding: 5px 10px;
+	color: #1da1f5;
 	font-size: inherit;
 	line-height: normal;
 	vertical-align: middle;
-	background-color: #fdfdfd;
+	background-color: #fff;
 	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
+	border: 1px solid #1da1f5;
 	border-radius: .25em;
+}
+.filebox label:hover {
+	color: #fff;
+	background-color: #1da1f5;
 }
 .filebox .upload-name {
 	display: inline-block;
 	width: 180px;
 	height: 35px;
 	padding: 0 10px;
-	margin-right: 4px;
 	color: #7d7d7d;
 	font-size: 14px;
 	line-height: normal;
@@ -517,7 +528,7 @@ select::-ms-expand {
 }
 .select-box {
 	float: left;
-	margin-right: 20px;
+	margin-right: 10px;
 	position: relative;
 	width: 150px;
 	height: 35px;
@@ -739,7 +750,7 @@ textarea::placeholder {
 .list-common .search-wrap .search-box .search-btn {
 	position: absolute;
 	top: 50%;
-	left: 20px;
+	left: 10px;
 	transform: translateY(-50%);
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -1291,8 +1302,8 @@ input[type="checkbox"]:disabled + label span{
 }
 /* 글자수 체크 */
 .length-count-wrap {
-	color: #999;
-	font-size: 13px;
+	color: #aaa;
+	font-size: 12px;
 }
 .input-wrap .length-count-wrap {
 	position: absolute;

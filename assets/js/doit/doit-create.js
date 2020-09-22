@@ -396,8 +396,8 @@
 			let actionDayofweek = detail.action_dayofweek;
 			selectedRewardDom +=
 				`<li class="reward-type clearfix">
-					<p class="cap important" style="margin-top: 10px;">
-					 선택하신  프로모션 관련 리워드 조건입니다.
+					<p class="point-cap" style="margin-top: 10px;">
+					 리워드 조건
 					</p>
 					<div class="detail-data-wrap clearfix">
 						<p class="sub-tit">두잇 참여 인원</p>
@@ -425,7 +425,7 @@
 							${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(detail.person_reward)} UCD / 단체: ${numberWithCommas(detail.group_reward)} UCD)
 						</p>
 					</div>
-					<p class="cap important" style="margin-top: 10px;">남은 예산</p>
+					<p class="point-cap" style="margin-top: 10px;">남은 예산</p>
 					<div class="fixed">
 						<p class="detail-data">남은 UCD는 
 							<span style="font-size: 19px; font-weight: 600; color: #007aff;">${numberWithCommas(detail.remain_budget_ucd)} UCD</span> 입니다.
@@ -446,11 +446,11 @@
 		let introType = $(obj).val();
 		let introText = $("label[for='"+$(obj).prop("id")+"']").text();
 		let introFileDom = '';
-		introFileDom += `<p class="cap important">두잇 소개 방법 중 <span>${introText}</span>를(을) 선택하셨습니다.`;
+		introFileDom += `<p class="cap important"> <span>${introText}</span>`;
 		if (introType === 'video')
-			introFileDom += `<span>영상</span> 및 썸네일을 업로드 해주세요!</p>`;
+			introFileDom += ` 및 <span>썸네일</span>을 업로드 해주세요!</p>`;
 		else
-			introFileDom += `<span>사진</span>을 업로드 해주세요!</p>`;
+			introFileDom += `를 업로드 해주세요!</p>`;
 		introFileDom +=
 			`<div class="filebox preview-image">
 				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
@@ -498,7 +498,7 @@
 	{
 		let fileDom =
 			`<div class="filebox preview-image">
-				<p class="cap important">인증 방법 중 <span>사진</span>을 선택하셨습니다. <span>사진</span>을 업로드 해주세요!</p>
+				<p class="cap important"><span>이미지</span>을 업로드 해주세요!</p>
 				<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 				<input class="upload-name" value="파일선택" disabled="disabled" >
 				<label for="exampleFile">업로드</label>
@@ -518,7 +518,7 @@
 	{
 		let fileDom =
 			`<div class="wrap">
-				<p class="cap important">인증 방법 중 <span>영상</span>을 선택하셨습니다. <span>영상</span> 및 썸네일을 업로드 해주세요!</p>
+				<p class="cap important"><span>영상</span> 및 <span>썸네일</span>을 업로드 해주세요!</p>
 				<div class="filebox preview-image">
 					<p class="cap">썸네일 (* 이미지 사이즈: 650 x 650)</p>
 					<input class="upload-name" value="파일선택" disabled="disabled">
@@ -546,7 +546,7 @@
 	{
 		let fileDom =
 			`<div class="filebox preview-image">
-				<p class="cap important">인증 방법 중 <span>음성 녹음</span>을 선택하셨습니다. <span>음성 녹음</span>을 업로드 해주세요!</p>
+				<p class="cap important"><span>음성 녹음</span>을 업로드 해주세요!</p>
 				<div>
 					<input class="upload-name" value="파일선택" disabled="disabled" >
 					<label for="exampleFile">업로드</label>

@@ -48,7 +48,7 @@
 
 	function getCategory()
 	{
-		let url = api.listCategory;
+		let url = api.listAllCategory;
 		let errMsg = `카테고리 목록 ${message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, false);
@@ -56,7 +56,7 @@
 
 	function getCategoryCallback(data)
 	{
-		let options = '<option value="">전체</option>';
+		let options = '<option value="all">전체(미등록 제외)</option>';
 		let datas = data.data;
 		let i = 0;
 		for (i; i<datas.length; i++)
@@ -64,6 +64,7 @@
 			let { category, category_uuid } = datas[i];
 			options += `<option value="${category_uuid}">${category}</option>`
 		}
+		options += '<option value="">미등록</option>';
 
 		selCategory.html(options);
 
@@ -229,7 +230,7 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status" : status
-			,"doit_category" : selCategory.val()
+			,"category_uuid" : selCategory.val()
 			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
 		}
 
@@ -319,14 +320,14 @@
 	function onClickModalOpen()
 	{
 		modalFadein();
-		//buildCategoryModal();
+		buildCategoryModal();
 	}
 
 	function buildCategoryModal()
 	{
 		categoryTable.DataTable({
 			ajax : {
-				url: api.listDoit,
+				url: api.listDoitCategory,
 				type: "POST",
 				headers: headers,
 				global: false,
@@ -338,12 +339,12 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",				width: "5%",    className: "cursor-default",
+				{title: "", 			data: "idx",		width: "10%",    className: "cursor-default",
 					render: function (data) {
-						return singleCheckBoxDom(data);
+						return singleCheckBoxDom(`category_${data}`);
 					}
 				},
-				{title: "카테고리 명", 	data: "doit_category",  	width: "10%",   className: "cursor-default" }
+				{title: "카테고리 명", 	data: "category",  			width: "90%",   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -356,8 +357,8 @@
 			},
 			processing: false,
 			serverSide: true,
-			paging: true,
-			pageLength: 10,
+			paging: false,
+			/*pageLength: 10,*/
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],
@@ -366,14 +367,14 @@
 				style: 'single',
 				selector: ':checkbox'
 			},
+			/*scrollY: 220,
+			scrollCollapse: true,*/
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
-			destroy: false,
+			destroy: true,
 			initComplete: function () {
-				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
-				redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -386,9 +387,8 @@
 	function categoryTableParams(d)
 	{
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
-			,"company_uuid" : g_bizUuid
+			"type" : ""
+			,"keyword" : ""
 		}
 
 		return JSON.stringify(param);
@@ -396,5 +396,64 @@
 
 	function onSubmitChangeCategory()
 	{
+		const msg = `확인을 누르면 카테고리가 일괄 변경 됩니다.
+					${message.change}`;
 
+		if (changeCatValidation())
+			sweetConfirm(msg, changeRequest);
+	}
+
+	function changeCatValidation()
+	{
+		let doitTable = dataTable.DataTable();
+		let doitData  = doitTable.rows().data();
+		let cateTable 	 = categoryTable.DataTable();
+		let selectedData = cateTable.rows('.selected').data()[0];
+
+		if (doitData.length < 1)
+		{
+			sweetToast(`변경할 두잇 목록이 없습니다.`);
+			return false;
+		}
+
+		if (isEmpty(selectedData))
+		{
+			sweetToast(`카테고리를 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function changeRequest()
+	{
+		let url = api.changeDoitCategory;
+		let errMsg = label.modify+message.ajaxLoadError;
+
+		let doitTable = dataTable.DataTable();
+		let doitData  = doitTable.rows().data();
+		let cateTable 	 = categoryTable.DataTable();
+		let selectedData = cateTable.rows('.selected').data()[0];
+		let doits = [];
+		doitData.map((value) => {
+			let { doit_uuid } = value;
+			doits.push(doit_uuid);
+		})
+		let param = {
+			"category_uuid" : selectedData.category_uuid,
+			"doit_list" : doits
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), changeReqCallback, errMsg, false);
+	}
+
+	function changeReqCallback(data)
+	{
+		sweetToastAndCallback(data, changeSuccess);
+	}
+
+	function changeSuccess()
+	{
+		modalFadeout();
+		onSubmitSearch();
 	}

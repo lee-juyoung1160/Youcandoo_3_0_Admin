@@ -10,6 +10,13 @@
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
 	const btnDelete		= $("#btnDelete");
+	const btnCategory	= $("#btnCategory");
+
+	/** modal **/
+	const modalLayout	= $(".modal-layout");
+	const modalContent  = $(".modal-content");
+	const modalCloseBtn	= $(".close-btn");
+	const categoryTableTable = $("#categoryTableTable");
 
 	$( () => {
 		/** 카테고리 목록 **/
@@ -32,7 +39,22 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		btnDelete		.on("click", function () { deleteDoit(); });
+		btnCategory		.on("click", function () { onClickModalOpen(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 	});
+
+	function onClickModalOpen()
+	{
+		modalFadein();
+		getCategoryForCategoryChange();
+		//buildMovedUser();
+	}
+
+	function getCategoryForCategoryChange()
+	{
+
+	}
 
 	function getCategory()
 	{

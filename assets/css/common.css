@@ -1444,15 +1444,20 @@ table th, table td {
 	color: #666;
 	line-height: 1.4em;
 }
-.pro-banner-page .left-wrap .fa-question-circle {
+.pro-banner-page .left-wrap .fa-question-circle,
+.doit-list-page .left-wrap .fa-question-circle {
 	float: left;
-	padding: 3px 0;
 	color: #007aff;
 }
-.pro-banner-page .left-wrap span {
+.pro-banner-page .left-wrap span,
+.doit-list-page .left-wrap span{
 	float: left;
 	margin-left: 5px;
+	color: #666;
 	font-size: 15px;
+}
+.doit-list-page .modal-content .table-wrap table {
+	border-top: 2px solid #f3f3f3;
 }
 .pro-banner-page .table-wrap table tbody tr:hover {
 	cursor: n-resize;

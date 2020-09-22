@@ -129,3 +129,9 @@ table {
     background-color: #ffffff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
+i.question-mark {
+    color: #007aff;
+}
+.doit-list-page .modal-content .table-wrap table {
+    border-top: 1px solid #f3f3f3;
+}

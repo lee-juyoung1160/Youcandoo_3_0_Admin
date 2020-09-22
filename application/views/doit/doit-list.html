@@ -178,36 +178,52 @@
     <div class="modal-content">
         <div class="wrap">
             <i class="close-btn fas fa-times-circle"></i>
-            <p class="modal-title">기업명 검색</p>
+            <p class="modal-title">
+                두잇 카테고리 관리
+            </p>
+            <div class="left-wrap clearfix">
+                <i class="question-mark far fa-question-circle"></i>
+                <span>선택한 카테고리로 일괄 변경 됩니다.</span>
+            </div>
             <ul class="modal-information">
                 <li>
-                    <div class="search-wrap">
-                        <div class="search-box">
-                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요.">
-                            <i class="search-btn fas fa-search"></i>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="table-wrap">
-                        <table id="categoryTable">
-                            <!--<colgroup>
-                                <col style="width:100%;">
+                    <div class="table-wrap" style="margin-top: 0;">
+                        <table id="categoryTable" style="margin-top: 0;">
+                            <colgroup>
+                                <col style="width:10%;">
+                                <col style="width:90%;">
                             </colgroup>
                             <thead>
                             <tr>
-                                <th>기업명</th>
+                                <th></th>
+                                <th>카테고리 명</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>카카오키즈</td>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c10" name="cc" />
+                                        <label for="c10"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>학습</td>
                             </tr>
-                            </tbody>-->
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c10" name="cc" />
+                                        <label for="c10"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>기타</td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </li>
             </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">적용 완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

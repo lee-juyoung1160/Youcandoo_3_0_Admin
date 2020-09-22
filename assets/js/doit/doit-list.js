@@ -13,10 +13,11 @@
 	const btnCategory	= $("#btnCategory");
 
 	/** modal **/
+	const categoryTable = $("#categoryTable");
 	const modalLayout	= $(".modal-layout");
 	const modalContent  = $(".modal-content");
 	const modalCloseBtn	= $(".close-btn");
-	const categoryTableTable = $("#categoryTableTable");
+	const btnSubmit		= $("#btnSubmit");
 
 	$( () => {
 		/** 카테고리 목록 **/
@@ -42,19 +43,8 @@
 		btnCategory		.on("click", function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmit		.on('click', function () { onSubmitChangeCategory(); });
 	});
-
-	function onClickModalOpen()
-	{
-		modalFadein();
-		getCategoryForCategoryChange();
-		//buildMovedUser();
-	}
-
-	function getCategoryForCategoryChange()
-	{
-
-	}
 
 	function getCategory()
 	{
@@ -324,4 +314,87 @@
 		}
 
 		return true;
+	}
+
+	function onClickModalOpen()
+	{
+		modalFadein();
+		//buildCategoryModal();
+	}
+
+	function buildCategoryModal()
+	{
+		categoryTable.DataTable({
+			ajax : {
+				url: api.listDoit,
+				type: "POST",
+				headers: headers,
+				global: false,
+				data: function (d) {
+					return categoryTableParams(d);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "", 			data: "idx",				width: "5%",    className: "cursor-default",
+					render: function (data) {
+						return singleCheckBoxDom(data);
+					}
+				},
+				{title: "카테고리 명", 	data: "doit_category",  	width: "10%",   className: "cursor-default" }
+			],
+			language: {
+				emptyTable : message.emptyList
+				,zeroRecords: message.emptyList
+				,processing: message.searching
+				,paginate: {
+					previous: label.previous
+					,next: label.next
+				}
+			},
+			processing: false,
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			/*pagingType: "simple_numbers_no_ellipses",*/
+			ordering: false,
+			order: [],
+			info: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
+			lengthChange: false,
+			autoWidth: false,
+			searching: false,
+			fixedHeader: false,
+			destroy: false,
+			initComplete: function () {
+				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
+				redrawPage(this, _page);
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	function categoryTableParams(d)
+	{
+		let param = {
+			"limit" : d.length
+			,"page" : (d.start / d.length) + 1
+			,"company_uuid" : g_bizUuid
+		}
+
+		return JSON.stringify(param);
+	}
+
+	function onSubmitChangeCategory()
+	{
+
 	}

@@ -291,6 +291,14 @@
 
 	function onClickModalOpen()
 	{
+		let doitTable 	  = dataTable.DataTable();
+		let selectedDoit  = doitTable.rows('.selected').data();
+		if (isEmpty(selectedDoit))
+		{
+			sweetToast(`대상을 목록에서 ${message.select}`);
+			return;
+		}
+
 		modalFadein();
 		buildCategoryModal();
 	}
@@ -377,14 +385,6 @@
 
 	function changeCatValidation()
 	{
-		let doitTable 	  = dataTable.DataTable();
-		let selectedDoit  = doitTable.rows('.selected').data();
-		if (isEmpty(selectedDoit))
-		{
-			sweetToast(`변경할 두잇을 목록에서 ${message.select}`);
-			return false;
-		}
-
 		let cateTable 	 	 = categoryTable.DataTable();
 		let selectedCategory = cateTable.rows('.selected').data()[0];
 		if (isEmpty(selectedCategory))

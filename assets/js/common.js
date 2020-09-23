@@ -741,20 +741,6 @@
         }
     }
 
-    /** 외부IP로 접근할 수 없는 페이지 **/
-    /*function accessDeniedExternalIp()
-    {
-        let pathName     = getPathName();
-        let compareValue = pathName.split('/')[1];
-
-        if (isOuterIp() && isAccessDeniedUcdUserBiz() && isPrivateMenu(compareValue))
-        /!*if (isOuterIp() && isPrivateMenu(compareValue))*!/
-        {
-            alert(message.accessDenied);
-            location.href = '/';
-        }
-    }*/
-
     function isAccessDeniedUcdUserBiz()
     {
         /** 2020.08.20
@@ -939,61 +925,8 @@
         }
     }*/
 
-    function s3FileUploadConfig()
-    {
-        const albumBucketName = "service.youcandoo.temp";
-        const bucketRegion = "ap-northeast-2";
-        const IdentityPoolId = "IDENTITY_POOL_ID";
-
-        AWS.config.update({
-            region: bucketRegion,
-            credentials: new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: IdentityPoolId
-            })
-        });
-    }
-
-    function addFile(albumName)
-    {
-        const albumBucketName = "service.youcandoo.temp";
-
-        let files = document.getElementById("photoupload").files;
-        if (!files.length) {
-            return alert("Please choose a file to upload first.");
-        }
-        let file = files[0];
-        let fileName = file.name;
-        let albumPhotosKey = encodeURIComponent(albumName) + "/";
-
-        let photoKey = albumPhotosKey + fileName;
-
-        // Use S3 ManagedUpload class as it supports multipart uploads
-        let upload = new AWS.S3.ManagedUpload({
-            params: {
-                Bucket: albumBucketName,
-                Key: photoKey,
-                Body: file,
-                ACL: "public-read"
-            }
-        });
-
-        let promise = upload.promise();
-
-        promise.then(
-            function(data) {
-                callback(albumName);
-            },
-            function(err) {
-                return alert("There was an error uploading your photo: ", err.message);
-            }
-        );
-    }
-
     $( () => {
-        /*$(document).ajaxStart(function () { fadeinLoader(); });
-        $(document).ajaxComplete(function () { fadeoutLoader(); });*/
         getLeftMenuByAuthCode();
-        /*accessDeniedExternalIp();*/
         calculateInputLength();
 
         selectEls   .on("change", function () { onChangeSelectOption(this); });

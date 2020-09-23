@@ -497,7 +497,8 @@
 
     function toggleSingleCheckBox(obj)
     {
-        let chkBox = dataTable.find('input:checkbox');
+        let tableEl = obj.closest('table');
+        let chkBox = $(tableEl).find('input:checkbox');
         $(chkBox).each(function () {
             if (this.id !== obj.id)
                 $(this).prop('checked', false);

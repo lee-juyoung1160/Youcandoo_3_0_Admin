@@ -202,6 +202,8 @@
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		,listCategory : baseApiUrl+'category/list'
+		,listAllCategory : baseApiUrl+'category/all'
+		,changeDoitCategory : baseApiUrl+'doit/updateCategory'
 		/** 인증 **/
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'

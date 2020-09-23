@@ -9,8 +9,15 @@
 
 	function toggleStartButton()
 	{
-		const accessibleAuthCodes = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
+		console.log(getPathName())
+		let accessibleAuthCodes = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
 		let isAccessibleAuthCode  = accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1;
+
+		if (getPathName() === '/doit')
+		{
+			accessibleAuthCodes = ['mklee'];
+			isAccessibleAuthCode = accessibleAuthCodes === sessionUserId.val() && env.val() === 'development';
+		}
 
 		isAccessibleAuthCode ? btnStartNow.show() : btnStartNow.remove();
 	}

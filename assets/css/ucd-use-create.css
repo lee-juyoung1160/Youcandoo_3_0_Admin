@@ -1,20 +1,11 @@
-.ucd-give-ded-page .modal-content .search-box {
-    position: relative;
-}
+
 .ucd-give-ded-page .modal-content .search-box input[type="search"] {
     width: 70%;
 }
-.ucd-give-ded-page .modal-content .search-box .search-btn {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    color: #565656;
-    font-size: 20px;
+.ucd-give-ded-page .modal-content .search-wrap .search-box .search-btn {
+    left: 170px;
 }
+
 .modal-content .modal-information > li {
     border: none;
 }
@@ -39,7 +30,7 @@
 .btn-go-wrap {
     float: left;
     width: 50px;
-    height: 650px;
+    height: 630px;
     margin: 0 15px;
     background: none;
     border: 1px solid #ddd;
@@ -88,8 +79,9 @@ label.excel-btn {
 }
 .nickname-modal .user-select-wrap {
     overflow-y: scroll;
-    width: 590px;
+    width: 630px;
     border: 1px solid #ebebeb;
+    border-top: none;
 }
 .user-select-wrap li:first-child {
     padding-top: 0;

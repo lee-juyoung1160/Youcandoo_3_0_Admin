@@ -41,15 +41,6 @@
     padding-bottom: 15px;
     border-bottom:2px solid #eee;
 }
-.search-wrap .search-box input {
-    width: 100%;
-    padding: 0 40px 0 20px;
-}
-.search-wrap i {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-}
 
 table {
     width: 100%;

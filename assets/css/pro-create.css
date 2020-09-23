@@ -256,7 +256,6 @@
     top: 5px;
     content: '-';
 }
-
 .ucd-add-btn {
     display: block;
     width: 100%;
@@ -271,29 +270,6 @@
     background: #007aff;
 }
 
-.modal-content {
-    height: 450px;
-}
-.modal-content .search-box {
-    position: relative;
-}
-.modal-content .modal-title {
-    margin-bottom: 15px;
-}
-.modal-content .search-box input[type="search"] {
-    width: 100%;
-}
-.modal-content .search-box .search-btn {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    color: #565656;
-    font-size: 20px;
-}
 .modal-content .modal-information > li {
     border-bottom: none;
 }

@@ -171,9 +171,10 @@
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "5%",    className: "cursor-default" }
 				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
-				,{title: "비고", 				data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
-					render: function () {
-						return `<button id="" class="btn-danger" type="button">삭제</button>`
+				,{title: "비고", 			data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let disabled = (row.doit_status === '모집중' && Number(row.doit_member) === 0) ? '' : 'disabled';
+						return `<button id="" class="btn-danger" type="button" ${disabled}>삭제</button>`;
 					}
 				}
 			],

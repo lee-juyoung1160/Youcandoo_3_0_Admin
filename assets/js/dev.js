@@ -9,7 +9,6 @@
 
 	function toggleStartButton()
 	{
-		console.log(getPathName())
 		let accessibleAuthCodes = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
 		let isAccessibleAuthCode  = accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1;
 

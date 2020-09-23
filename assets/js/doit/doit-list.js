@@ -164,13 +164,18 @@
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
-				,{title: "참여인원/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default",
+				,{title: "참여/모집인원", 	data: "doit_member",    	 	width: "10%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${numberWithCommas(row.doit_member)} ${label.slash} ${numberWithCommas(row.max_user)}`;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "7%",    className: "cursor-default" }
 				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
+				,{title: "", 				data: "doit_uuid",    			width: "",   	className: "cursor-default",
+					render: function () {
+						return `<button id="" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>삭제</button>`
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -344,7 +349,7 @@
 						return singleCheckBoxDom(`category_${data}`);
 					}
 				},
-				{title: "카테고리 명", 	data: "category",  			width: "90%",   className: "cursor-default" }
+				{title: "카테고리 명", 	data: "category",  	width: "90%",   className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList

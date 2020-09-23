@@ -331,24 +331,25 @@ i.question-mark:hover .hover-text {
 }
 .modal-content .wrap .close-btn {
 	position: absolute;
-	top: 7px;
-	right: 6px;
-	color: #484848;
-	font-size: 36px;
+	top: 4px;
+	right: 10px;
+	color: #aaa;
+	font-size: 30px;
+	font-weight: 700;
 }
 .modal-content .wrap .close-btn:hover {
-	color: #007aff;
+	color: #666;
 }
 .modal-content .modal-title {
 	font-size: 20px;
 	color: #333;
 	font-weight: 500;
-	margin-bottom: 10px;
+	padding-bottom: 10px;
 }
 .modal-content .modal-information {
 	padding: 10px;
 	height: auto;
-	max-height: 400px;
+	max-height: 600px;
 	overflow-y: auto;
 }
 .modal-content .modal-information > li {
@@ -1665,7 +1666,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	font-weight: 600;
 }
 
-
+/* 스위트 알럿 */
 .swal2-content { white-space: pre-line; font-size: 15px; }
 .swal2-styled.swal2-confirm {
 	font-size: 15px;

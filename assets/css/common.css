@@ -311,7 +311,7 @@ i.question-mark:hover .hover-text {
 .modal-content {
 	display: none;
 	width: 600px;
-	padding: 30px;
+	padding: 15px;
 	border-radius: 5px;
 	position: fixed;
 	z-index: 999;
@@ -340,8 +340,8 @@ i.question-mark:hover .hover-text {
 	color: #007aff;
 }
 .modal-content .modal-title {
-	font-size: 23px;
-	color: #484848;
+	font-size: 20px;
+	color: #333;
 	font-weight: 500;
 	margin-bottom: 10px;
 }
@@ -1663,4 +1663,14 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	color: #555;
 	font-size: 14px;
 	font-weight: 600;
+}
+
+
+.swal2-content { white-space: pre-line; font-size: 15px; }
+.swal2-styled.swal2-confirm {
+	font-size: 15px;
+	background-color: #0061f2;
+}
+.swal2-styled.swal2-cancel {
+	font-size: 15px;
 }

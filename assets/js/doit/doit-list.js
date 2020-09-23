@@ -9,7 +9,6 @@
 	const selCategory	= $("#selCategory");
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
-	const btnDelete		= $("#btnDelete");
 	const btnCategory	= $("#btnCategory");
 
 	/** modal **/
@@ -39,7 +38,6 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
-		btnDelete		.on("click", function () { deleteDoit(); });
 		btnCategory		.on("click", function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -141,17 +139,17 @@
 				}
 			},
 			columns: [
-				{title: "", 				data: "idx",   					width: "4%",    className: "cursor-default no-sort",
+				{title: tableCheckAllDom(), data: "idx",   					width: "4%",    className: "cursor-default no-sort",
 					render: function (data) {
-						return singleCheckBoxDom(data);
+						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "두잇유형", 		data: "promotion_uuid", 		width: "5%",   className: "cursor-default",
+				{title: "두잇유형", 			data: "promotion_uuid", 		width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "카테고리", 			data: "doit_category",  		width: "9%",   className: "cursor-default no-sort" }
+				,{title: "카테고리", 		data: "doit_category",  		width: "9%",   className: "cursor-default no-sort" }
 				,{title: "두잇명", 			data: "doit_title",    			width: "25%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoit + row.idx;
@@ -173,8 +171,8 @@
 				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
 				,{title: "비고", 			data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let disabled = (row.doit_status === '모집중' && Number(row.doit_member) === 0) ? '' : 'disabled';
-						return `<button id="" class="btn-danger" type="button" ${disabled}>삭제</button>`;
+						let disabled = (row.promotion_uuid && row.doit_status === '모집중' && Number(row.doit_member) === 0) ? '' : 'disabled';
+						return `<button onclick="deleteDoit(this);" data-uuid="${data}" class="btn-danger" type="button" ${disabled}>삭제</button>`;
 					}
 				}
 			],
@@ -196,7 +194,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'single',
+				style: 'multi',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -205,7 +203,11 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
+				/*$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });*/
+				$(this).on( 'page.dt', function () {
+					_page = getCurrentPage(this);
+					$("#checkAll").prop('checked', false);
+				});
 				redrawPage(this, _page);
 				initTableSorter(this);
 			},
@@ -248,12 +250,7 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let checkDom 		= $(nRow).children().eq(0);
 		let joinMemberDom 	= $(nRow).children().eq(5);
-		/** 모집중,참여인원 0이면 체크박스 삭제 **/
-		if (aData.doit_status !== '모집중' || Number(aData.doit_member) > 0)
-			$(checkDom).children().prop('disabled', true);
-
 		$(joinMemberDom).attr('data-sort', aData.doit_member);
 	}
 
@@ -266,30 +263,20 @@
 		initMaxDateAfterThreeMonth();
 	}
 
-	function deleteDoit()
+	let g_doit_uuid;
+	function deleteDoit(obj)
 	{
-		if (delValidation())
-			sweetConfirm(message.delete, deleteRequest);
+		g_doit_uuid = $(obj).data('uuid');
+		sweetConfirm(message.delete, deleteRequest);
 	}
 
 	function deleteRequest()
 	{
 		let url 	= api.deleteDoit;
 		let errMsg 	= label.delete+message.ajaxError;
+		let param   = { "doit_uuid" : g_doit_uuid };
 
-		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"doit_uuid" : selectedData.doit_uuid
-		};
-
-		return JSON.stringify(param)
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
 	}
 
 	function deleteReqCallback(data)
@@ -300,27 +287,6 @@
 	function deleteSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
-	}
-
-	function delValidation()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		if (isEmpty(selectedData))
-		{
-			sweetToast(`삭제할 대상을 목록에서 ${message.select}`);
-			return false;
-		}
-
-		let doitStatus = selectedData.doit_status;
-		if (doitStatus !== '모집중' || (doitStatus === '모집중' && selectedData.doit_member > 0))
-		{
-			sweetToast(message.cantDeleteDoit);
-			return false;
-		}
-
-		return true;
 	}
 
 	function onClickModalOpen()
@@ -411,18 +377,17 @@
 
 	function changeCatValidation()
 	{
-		let doitTable = dataTable.DataTable();
-		let doitData  = doitTable.rows().data();
-		let cateTable 	 = categoryTable.DataTable();
-		let selectedData = cateTable.rows('.selected').data()[0];
-
-		if (doitData.length < 1)
+		let doitTable 	  = dataTable.DataTable();
+		let selectedDoit  = doitTable.rows('.selected').data();
+		if (isEmpty(selectedDoit))
 		{
-			sweetToast(`변경할 두잇 목록이 없습니다.`);
+			sweetToast(`변경할 두잇을 목록에서 ${message.select}`);
 			return false;
 		}
 
-		if (isEmpty(selectedData))
+		let cateTable 	 	 = categoryTable.DataTable();
+		let selectedCategory = cateTable.rows('.selected').data()[0];
+		if (isEmpty(selectedCategory))
 		{
 			sweetToast(`카테고리를 ${message.select}`);
 			return false;
@@ -435,18 +400,19 @@
 	{
 		let url = api.changeDoitCategory;
 		let errMsg = label.modify+message.ajaxLoadError;
-
-		let doitTable = dataTable.DataTable();
-		let doitData  = doitTable.rows().data();
-		let cateTable 	 = categoryTable.DataTable();
-		let selectedData = cateTable.rows('.selected').data()[0];
+		let doitTable 		 = dataTable.DataTable();
+		let selectedDoit  	 = doitTable.rows('.selected').data();
+		let cateTable 	 	 = categoryTable.DataTable();
+		let selectedCategory = cateTable.rows('.selected').data()[0];
 		let doits = [];
-		doitData.map((value) => {
+
+		selectedDoit.map((value) => {
 			let { doit_uuid } = value;
 			doits.push(doit_uuid);
 		})
+
 		let param = {
-			"category_uuid" : selectedData.category_uuid,
+			"category_uuid" : selectedCategory.category_uuid,
 			"doit_list" : doits
 		};
 

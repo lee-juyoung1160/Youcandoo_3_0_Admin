@@ -847,7 +847,7 @@
 		return result;
 	}
 
-	function params()
+	/*function params()
 	{
 		let paramBannerFile = banner[0].files[0];
 		let paramIntroFile 	= intro[0].files[0];
@@ -858,7 +858,7 @@
 		formData.append("promotion-start-date", promoFrom.val());
 		formData.append("promotion-end-date", promoTo.val());
 
-		/** 유의사항 파라미터 **/
+		/!** 유의사항 파라미터 **!/
 		let promotionNotice = $("input[name=promo-notice]");
 		let notice = [];
 		promotionNotice.each(function () {
@@ -871,6 +871,108 @@
 		formData.append("promotion-list-image", paramIntroFile);
 		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
 		formData.append("allow-gallery-image", $('input:radio[name=radio-gallery-yn]:checked').val());
+
+		let rewardSelectDoms = rewardTabWrap.find('li');
+		let rewardSelectDomLength = rewardSelectDoms.length;
+		let rewards = [];
+		for (let i=0; i<rewardSelectDomLength; i++)
+		{
+			let rewardWrap   = $(".pro-reward-wrap");
+			let title 		 = $(rewardWrap[i]).find('.reward-title');
+			let durationDom	 = $(rewardWrap[i]).find('.duration');
+			let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
+			let frequencyDom = $(rewardWrap[i]).find('.frequency');
+			let monday		 = 'N';
+			let tuesday		 = 'N';
+			let wednesday	 = 'N';
+			let thursday	 = 'N';
+			let friday		 = 'N';
+			let saturday	 = 'N';
+			let sunday		 = 'N';
+			let goalRate 	 = $(rewardWrap[i]).find('.goal-range');
+			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
+
+			/!** 주간빈도 파라미터 **!/
+			frequencyDom.each(function (freqidx) {
+				let frequencyYn = (!$(this).hasClass('disabled') && $(this).hasClass('active')) ? 'Y' : 'N';
+				if (freqidx === 0) monday = frequencyYn;
+				if (freqidx === 1) tuesday = frequencyYn;
+				if (freqidx === 2) wednesday = frequencyYn;
+				if (freqidx === 3) thursday = frequencyYn;
+				if (freqidx === 4) friday = frequencyYn;
+				if (freqidx === 5) saturday = frequencyYn;
+				if (freqidx === 6) sunday = frequencyYn;
+			});
+
+			/!** 인당 UCD 파라미터 **!/
+			let ucdInfos = [];
+			$(ucdTable).find('tr').each(function () {
+
+				let inputDom = $(this).find('input');
+
+				if (inputDom.length > 0)
+				{
+					let minDom   = $(inputDom)[0];
+					let maxDom   = $(inputDom)[1];
+					let personDom = $(inputDom)[2];
+					let groupDom  = $(inputDom)[3];
+
+					ucdInfos.push({
+						"min" : $(minDom).val()
+						,"max" : $(maxDom).val()
+						,"person_reward" : $(personDom).val()
+						,"group_reward" : $(groupDom).val()
+					});
+				}
+			})
+
+			rewards.push({
+				"title" 			: title.val().trim()
+				,"action-duration" 	: duration
+				,"goal-rate" 		: goalRate.val()
+				,"monday" 			: monday
+				,"tuesday" 			: tuesday
+				,"wednesday" 		: wednesday
+				,"thursday" 		: thursday
+				,"friday" 			: friday
+				,"saturday" 		: saturday
+				,"sunday" 			: sunday
+				,"ucd_info"			: JSON.stringify(ucdInfos)
+			});
+		}
+
+		formData.append("promotion-reward-condition", JSON.stringify(rewards));
+		return formData;
+	}*/
+
+	function onSubmitPromo()
+	{
+		if (validation())
+			sweetConfirm(message.create, fileUploadReq);
+	}
+
+	function fileUploadReq()
+	{
+		let url    = fileApi.promotion;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('promotion_banner_image', banner[0].files[0]);
+		param.append('promotion_intro_image', intro[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+	}
+
+	function createRequest(data)
+	{
+	    let url = api.createPromotion;
+	    let errMsg = label.submit+message.ajaxError;
+		let { promotion_banner_image, promotion_intro_image } = data.image_urls;
+
+		let noticeEls = $("input[name=promo-notice]");
+		let notices = [];
+		noticeEls.each(function () {
+			notices.push($(this).val().trim());
+		});
 
 		let rewardSelectDoms = rewardTabWrap.find('li');
 		let rewardSelectDomLength = rewardSelectDoms.length;
@@ -941,22 +1043,25 @@
 			});
 		}
 
-		formData.append("promotion-reward-condition", JSON.stringify(rewards));
-		return formData;
-	}
 
-	function onSubmitPromo()
-	{
-		if (validation())
-			sweetConfirm(message.create, createRequest);
-	}
+		let param = {
+			"nickname" : bizName.val(),
+			"promotion_title" : promoName.val().trim(),
+			"promotion_budget_ucd" : budget.val().trim(),
+			"promotion_start_date" : promoFrom.val(),
+			"promotion_end_date" : promoTo.val(),
+			"promotion_notice" : JSON.stringify(notices),
+			"promotion_allow_count" : allowCount.val(),
+			"promotion_banner_image" : promotion_banner_image,
+			"promotion_intro_image" : promotion_intro_image,
+			"is_banner" : $('input:radio[name=radio-banner-open]:checked').val(),
+			"allow_gallery_image" : $('input:radio[name=radio-gallery-yn]:checked').val(),
+			"promotion_reward_condition" : JSON.stringify(rewards)
+		}
 
-	function createRequest()
-	{
-	    let url = api.createPromotion;
-	    let errMsg = label.submit+message.ajaxError;
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 
-	    ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+	    /*ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);*/
 	}
 
 	function createReqCallback(data)

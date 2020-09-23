@@ -841,6 +841,10 @@ input[type="checkbox"]:disabled + label span{
 	font-size: 13px;
 	border-radius: 2px;
 }
+.table-wrap table button:disabled {
+	background-color: #ddd;
+	cursor: inherit;
+}
 
 /* 버튼 컬러 */
 .btn-warning {

@@ -29,18 +29,47 @@
 	function onSubmitNotice()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
-	function createRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.createNotice;
+		let url = fileApi.single;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('file', contentImage[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+	}
+
+	function createRequest(data)
+	{
+		if (isSuccessResp(data))
+		{
+			let url 	= api.createNotice;
+			let errMsg 	= label.submit+message.ajaxError;
+			let { file } = data.image_urls;
+			let param = {
+				"notice_title" : title.val().trim(),
+				"notice_contents" : replaceInputTextarea(content.val().trim()),
+				"reservation_date" : reserveDate.val(),
+				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+				"notice_image" : file,
+				"created_user" : sessionUserId.val()
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+
+		/*let url 	= api.createNotice;
 		let errMsg 	= label.submit+message.ajaxError;
 
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);*/
 	}
 
-	function params()
+	/*function params()
 	{
 		let formData  = new FormData();
 		formData.append('notice_title', title.val().trim());
@@ -48,10 +77,10 @@
 		formData.append('reservation_date', reserveDate.val());
 		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
 		formData.append('notice_image', contentImage[0].files[0]);
-		formData.append('create_user', sessionUserId.val());
+		formData.append('created_user', sessionUserId.val());
 
 		return formData;
-	}
+	}*/
 
 	function createReqCallback(data)
 	{

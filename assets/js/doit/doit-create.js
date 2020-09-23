@@ -577,18 +577,77 @@
 	function onSubmitDoit()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
-	function createRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.createDoit;
-		let errMsg 	= label.submit+message.ajaxError;
+		let introVideo   = $("#introVideo");
+		let exampleType  = $("input:radio[name=radio-example-type]:checked").val();
+		let exampleFile  = $("#exampleFile");
+		let exampleVideo = $("#exampleVideo");
+		let url    = fileApi.doit;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('doit_intro_img', $("#introImage")[0].files[0]);
+		param.append('doit_intro_vid', introVideo.length > 0 ? introVideo[0].files[0] : '');
+		param.append('doit_exam_img', (exampleType === 'image' || exampleType === 'video') ? exampleFile[0].files[0] : '');
+		param.append('doit_exam_vid', exampleType === 'video' ? exampleVideo[0].files[0] : '');
+		param.append('doit_exam_aud', exampleType === 'voice' ? exampleFile[0].files[0] : '');
 
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
 
-	function params()
+	function createRequest(data)
+	{
+		if (isSuccessResp(data))
+		{
+			let url 	= 'https://api.youcandoo.co.kr/v1.0/admin/doit/create_new';
+			let errMsg 	= label.submit+message.ajaxError;
+			let tags = [];
+			addedTags.find('li').each(function () {
+				tags.push($(this).text().trim());
+			})
+			let isAllowGallery = 'N';
+			if ($('input:radio[name=radio-gallery-yn]').length > 0)
+				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
+			let { doit_intro_img, doit_intro_vid, doit_exam_img, doit_exam_vid, doit_exam_aud } = data.image_urls;
+			let param = {
+				"doit_category" : $("#selCategory option:checked").text(),
+				"category_uuid" : selCategory.val(),
+				"doit_title" : doitTitle.val().trim(),
+				"doit_description" : doitDesc.val().trim(),
+				"company_uuid" : g_biz_uuid,
+				"promotion_uuid" : selPromo.val(),
+				"reward_uuid" : selReward.val(),
+				"min_user" : g_min_user_limit,
+				"max_user" : g_max_user_limit,
+				"doit_tags" : tags.toString(),
+				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
+				"intro_image_file" : doit_intro_img,
+				"intro_video_file" : doit_intro_vid,
+				"action_start_date" : doitFrom.val(),
+				"action_end_date" : doitTo.val(),
+				"action_allow_start_time" : startTime.val()+':00',
+				"action_allow_end_time" : endTime.val()+':59',
+				"private_code" : privateCode.val().trim(),
+				"action_example_resource_type" : $('input:radio[name=radio-example-type]:checked').val(),
+				"action_example_image_file" : doit_exam_img,
+				"action_example_video_file" : doit_exam_vid,
+				"action_example_voice_file" : doit_exam_aud,
+				"action_description" : exampleDesc.val().trim(),
+				"group_reward_description" : chkExtraReward.is(':checked') ? extraReward.val().trim() : '',
+				"allow_gallery_image" : isAllowGallery,
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+
+	}
+
+	/*function params()
 	{
 		let paramTags = [];
 		addedTags.find('li').each(function () {
@@ -637,7 +696,7 @@
 		formData.append('allow-gallery-image', isAllowGallery);
 
 		return formData;
-	}
+	}*/
 
 	function createReqCallback(data)
 	{

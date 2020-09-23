@@ -359,6 +359,27 @@
 			return false;
 		}
 
+		let introType = $('input:radio[name=radio-intro-type]:checked').val();
+		if (introResourceType !== introType)
+		{
+			let introImageFile = $("#introImage")[0].files;
+			if (introImageFile.length === 0)
+			{
+				sweetToast(`두잇 소개 이미지는 ${message.required}`);
+				return false;
+			}
+
+			if (introType === 'video')
+			{
+				let introVideoFile = $("#introVideo")[0].files;
+			    if (introVideoFile.length === 0)
+				{
+					sweetToast(`두잇 소개 영상은 ${message.required}`);
+					return false;
+				}
+			}
+		}
+
 		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
 		{
 			sweetToast(`참가코드를 ${message.input}`);
@@ -379,18 +400,72 @@
 	function onSubmitUpdateDoit()
 	{
 		if (validation())
-			sweetConfirm(message.modify, updateRequest);
+		{
+			let callback;
+			let introType = $('input:radio[name=radio-intro-type]:checked').val()
+			let imageFile = $("#introImage")[0].files;
+			if (introType === 'image')
+				callback = imageFile.length > 0 ? fileUploadReq : updateRequest;
+			else
+			{
+				let videoFile = $("#introVideo")[0].files;
+				callback = (videoFile.length > 0 || imageFile.length > 0) ? fileUploadReq : updateRequest;
+			}
+
+			sweetConfirm(message.modify, callback);
+		}
 	}
 
-	function updateRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.updateDoit;
-		let errMsg 	= label.modify+message.ajaxError;
+		let introVideo   = $("#introVideo");
+		let url    = fileApi.doit;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('doit_intro_img', $("#introImage")[0].files[0]);
+		param.append('doit_intro_vid', introVideo.length > 0 ? introVideo[0].files[0] : '');
 
-		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
 
-	function params()
+	function updateRequest(data)
+	{
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			let url 	= api.updateDoit;
+			let errMsg 	= label.modify+message.ajaxError;
+			let tags = [];
+			addedTags.find('li').each(function () {
+				tags.push($(this).text().trim());
+			})
+			let isAllowGallery = 'N';
+			if ($('input:radio[name=radio-gallery-yn]').length > 0)
+				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
+			let param = {
+				"doit_uuid" : g_doit_uuid,
+				"doit_category" : $("#selCategory option:checked").text(),
+				"category_uuid" : selCategory.val(),
+				"doit_tags" : tags.toString(),
+				"doit_description" : doitDesc.val().trim(),
+				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
+				"private_code" : privateCode.val().trim(),
+				"allow_gallery_image" : isAllowGallery
+			}
+
+			if (!isEmpty(data))
+			{
+				let { doit_intro_img, doit_intro_vid } = data.image_urls;
+				param["intro_image_file"] = doit_intro_img;
+				param["intro_video_file"] = doit_intro_vid;
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	/*function params()
 	{
 		let paramTag = [];
 		addedTags.find('li').each(function () {
@@ -419,7 +494,7 @@
 		formData.append('allow-gallery-image', isAllowGallery);
 
 		return formData;
-	}
+	}*/
 
 	function updateReqCallback(data)
 	{

@@ -69,18 +69,53 @@
 	function onSubmitUpdateNotice()
 	{
 		if (validation())
-			sweetConfirm(message.modify, updateRequest);
+		{
+			let imageFile = contentImage[0].files;
+			let requestFn = imageFile.length === 0 ? updateRequest : fileUploadReq;
+
+			sweetConfirm(message.modify, requestFn);
+		}
 	}
 
-	function updateRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.updateNotice;
-		let errMsg 	= label.modify+message.ajaxError;
+		let url = fileApi.single;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
 
-	function params()
+	function updateRequest(data)
+	{
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			let url 	= api.updateNotice;
+			let errMsg 	= label.modify+message.ajaxError;
+			let param = {
+				"notice_uuid" : g_notice_uuid,
+				"notice_title" : title.val().trim(),
+				"notice_contents" : replaceInputTextarea(content.val().trim()),
+				"reservation_date" : reserveDate.val(),
+				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+				"updated_user" : sessionUserId.val()
+			}
+
+			if (!isEmpty(data))
+			{
+				let { file } = data.image_urls;
+				param["notice_image"] = file;
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+
+	}
+
+	/*function params()
 	{
 		let formData  = new FormData();
 		formData.append('notice_uuid', g_notice_uuid);
@@ -92,7 +127,7 @@
 		formData.append('create_user', sessionUserId.val());
 
 		return formData;
-	}
+	}*/
 
 	function updateReqCallback(data)
 	{

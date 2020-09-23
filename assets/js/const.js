@@ -293,7 +293,10 @@
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
 	const fileApi = {
-		categoryImage : fileUploadBaseUrl+'category'
+		single : fileUploadBaseUrl+'single'
+		,category : fileUploadBaseUrl+'category'
+		,doit : fileUploadBaseUrl+'doit'
+		,promotion : fileUploadBaseUrl+'promotion'
 	}
 
 	/** page url **/

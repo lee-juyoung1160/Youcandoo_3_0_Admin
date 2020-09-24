@@ -187,37 +187,40 @@
 	function onSubmitEvent()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
-	function createRequest()
+	function fileUploadReq()
+	{
+		let url    = fileApi.event;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('event_thumbnail_img', thumbnail[0].files[0]);
+		if (isDisplay(contentImageWrap))
+			param.append('event_content_img', contentImage[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+	}
+
+	function createRequest(data)
 	{
 		let url 	= api.createEvent;
 		let errMsg 	= label.submit+message.ajaxError;
-
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
-	}
-
-	function params()
-	{
-		let paramFile;
-		if (isDisplay(contentImageWrap))
-			paramFile = contentImage[0].files[0];
-
-		let formData  = new FormData();
-		formData.append('event-type', selEventType.val());
-		formData.append('event-title', title.val().trim());
-		formData.append('event-contents', replaceInputTextarea(content.val().trim()));
-		formData.append('event-notice', replaceInputTextarea(notice.val().trim()));
-		formData.append('event-start-date', eventFrom.val());
-		formData.append('event-end-date', eventTo.val());
-		formData.append('event-link-url', eventLink.val().trim());
-		formData.append('event-image', paramFile);
-		formData.append('event-thumbnail-image', thumbnail[0].files[0]);
-		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('create_user', sessionUserId.val());
-
-		return formData;
+		let { event_thumbnail_img, event_content_img } = data.image_urls;
+		let param = {
+			"event_type" : selEventType.val(),
+			"event_title" : title.val().trim(),
+			"event_contents" : replaceInputTextarea(content.val().trim()),
+			"event_notice" : replaceInputTextarea(notice.val().trim()),
+			"event_start_date" : eventFrom.val(),
+			"event_end_date" : eventTo.val(),
+			"event_link_url" : eventLink.val().trim(),
+			"event_image" : event_content_img,
+			"event_thumbnail_image" : event_thumbnail_img,
+			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+			"create_user" : sessionUserId.val(),
+		}
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	let g_event_uuid;

@@ -248,38 +248,19 @@ i.question-mark:hover .hover-text {
 	display: none;
 	position: absolute;
 	z-index: 30;
-	top: -18px;
-	left: 35px;
+	top: -10px;
+	left: 20px;
 	width: 402px;
 	line-height: 1.2;
 	padding: 10px;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 600;
 	color: #5a5a5a;
-	background-color: #f8f8f8;
+	text-align: left;
+	background-color: #fff;
+	border-left: 3px solid #007aff;
 }
-.hover-text:after, .hover-text:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-.hover-text:after {
-	border-color: rgba(136, 183, 213, 0);
-	border-right-color: #f8f8f8;
-	border-width: 5px;
-	margin-top: -5px;
-}
-.hover-text:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-right-color: #f8f8f8;
-	border-width: 10px;
-	margin-top: -10px;
-}
+
 .date-margin-text {
 	margin: 0 5px;
 }
@@ -956,6 +937,11 @@ input[type="checkbox"]:disabled + label span{
 	color: #e83d2c;
 	border-bottom: 1px solid #e83d2c;
 }
+
+.table-wrap table tbody th {
+	padding: 0 20px;
+}
+
 .dataTables_empty {
 	text-align: center;
 }
@@ -1664,32 +1650,6 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	background-color: #d9e7f5;
 }
 
-.inflow-page .question-tool {
-	position: relative;
-}
-.inflow-page .question-tool .hover-text {
-	position: absolute;
-	top: 13px;
-	left: -300px;
-	width: 410px;
-	font-size: 12px !important;
-	text-align: left;
-}
-.inflow-page .question-tool .hover-text:before,
-.inflow-page .question-tool .hover-text:after{
-	display: none;
-}
-.inflow-page .question-tool .hover-text b {
-	color: #428bca;
-}
-.inflow-page .question-tool:hover .hover-text{
-	display: block;
-}
-.inflow-page .date-wrap .today {
-	color: #555;
-	font-size: 14px;
-	font-weight: 600;
-}
 
 /* 스위트 알럿 */
 .swal2-content { white-space: pre-line; font-size: 15px; }

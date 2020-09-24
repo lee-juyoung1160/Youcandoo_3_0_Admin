@@ -124,7 +124,7 @@
         let url     = getApiUrl();
         let errMsg  = `차트데이터${message.ajaxLoadError}`;
 
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), initPageCallback, errMsg, false);
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), initPageCallback, errMsg, false);
     }
 
     function initPageCallback(data)
@@ -220,7 +220,7 @@
         let url     = getApiUrl();
         let errMsg  = `차트데이터${message.ajaxLoadError}`;
 
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), updatePageCallback, errMsg, false);
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), updatePageCallback, errMsg, false);
     }
 
     function updatePageCallback(data)

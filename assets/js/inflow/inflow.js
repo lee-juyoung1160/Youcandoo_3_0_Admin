@@ -86,9 +86,10 @@
 				}
 			},
 			columns: [
-				{title: "플랫폼", 	data: "platform",    	width: "25%",	className: "cursor-default" }
-				,{title: "횟수", 	data: "count",    		width: "25%",	className: "cursor-default" }
-				,{title: "이벤트"+legend, 	data: "event",    		width: "25%",	className: "cursor-default" }
+				{title: "이벤트", 	data: "event",    	width: "25%",	className: "cursor-default" }
+				,{title: "AOS", 	data: "ANDROID",    width: "25%",	className: "cursor-default" }
+				,{title: "IOS", 	data: "IOS",    	width: "25%",	className: "cursor-default" }
+				,{title: "OTHER", 	data: "OTHER",    	width: "25%",	className: "cursor-default" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -114,7 +115,6 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -125,10 +125,6 @@
 
 	function tableParams()
 	{
-		/*let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _page = (info.start / info.length) + 1;*/
-
 		let param = {
 			"period" : getPeriod()
 			,"url" : keyword.val()

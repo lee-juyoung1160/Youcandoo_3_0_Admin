@@ -23,14 +23,6 @@
 		getCategory();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
-		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		if (isBackAction()) setHistoryForm();
-		/** 테이블 데이터 로드 **/
-		buildGrid();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -49,7 +41,7 @@
 		let url = api.listAllCategory;
 		let errMsg = `카테고리 목록 ${message.ajaxLoadError}`;
 
-		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, null, getCategoryCallback, errMsg, completeCallback);
 	}
 
 	function getCategoryCallback(data)
@@ -67,6 +59,18 @@
 		selCategory.html(options);
 
 		onChangeSelectOption(selCategory);
+	}
+
+	function completeCallback()
+	{
+		/** 상단 검색 폼 초기화 **/
+		initSearchForm();
+		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		initPageLength(selPageLength);
+		/** 뒤로가기 액션일때 검색폼 세팅 **/
+		if (isBackAction()) setHistoryForm();
+		/** 테이블 데이터 로드 **/
+		buildGrid();
 	}
 
 	function initSearchForm()

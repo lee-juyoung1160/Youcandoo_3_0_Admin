@@ -4,16 +4,13 @@
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
 	const keyword		= $("#keyword");
-	const legend =
-		`<i class="question-tool far fa-question-circle">
-			<span class="hover-text">
-				<b>CLICK:</b> 처리 방식 및 대상에 상관없이 동적 링크의 모든 클릭 횟수<br>
-				<b>REDIRECT:</b> App Store 또는 Play 스토어로 사용자를 리디렉션하여 앱을 설치 또는 업데이트하거나 기타 대상으로 리디렉션하려고 시도된 횟수<br>
-				<b>APP_INSTALL:</b> 실제 설치 횟수(Play 스토어만 지원)<br>
-				<b>APP_FIRST_OPEN:</b> 설치 후 처음 연 횟수<br>
-				<b>APP_RE_OPEN:</b> 동적 링크로 인해 앱이 다시 열린 횟수
-			</span>
-		</i>`
+	const tooltips = {
+		click : '클릭 <i class="question-mark far fa-question-circle"><span class="hover-text">처리 방식 및 대상에 상관없이 동적 링크의 모든 클릭 횟수</span></i>',
+		redirect : '리다이렉트 <i class="question-mark far fa-question-circle"><span class="hover-text">App Store 또는 Play 스토어로 사용자를 리디렉션하여 앱을 설치 또는 업데이트하거나 기타 대상으로 리디렉션하려고 시도된 횟수</span></i>',
+		install : '설치 <i class="question-mark far fa-question-circle"><span class="hover-text">실제 설치 횟수(Play 스토어만 지원)</span></i>',
+		first : '오픈 <i class="question-mark far fa-question-circle"><span class="hover-text">설치 후 앱을 처음 연 횟수</span></i>',
+		reopen : '재 오픈 <i class="question-mark far fa-question-circle"><span class="hover-text">동적 링크로 인해 앱이 다시 열린 횟수</span></i>'
+	}
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -86,10 +83,39 @@
 				}
 			},
 			columns: [
-				{title: "이벤트", 	data: "event",    	width: "25%",	className: "cursor-default" }
-				,{title: "AOS", 	data: "ANDROID",    width: "25%",	className: "cursor-default" }
-				,{title: "IOS", 	data: "IOS",    	width: "25%",	className: "cursor-default" }
-				,{title: "OTHER", 	data: "OTHER",    	width: "25%",	className: "cursor-default" }
+				{title: "이벤트", 	data: "event",    	width: "25%",	className: "cursor-default",
+					render: function (data) {
+						switch (data) {
+							case 'CLICK' :
+								return tooltips.click;
+							case 'REDIRECT' :
+								return tooltips.redirect;
+							case 'APP_INSTALL' :
+								return tooltips.install;
+							case 'APP_FIRST_OPEN' :
+								return tooltips.first;
+							case 'APP_RE_OPEN' :
+								return tooltips.reopen;
+							default :
+								return data;
+						}
+					}
+				}
+				,{title: "AOS", 	data: "ANDROID",    width: "25%",	className: "cursor-default" ,
+					render : function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "IOS", 	data: "IOS",    	width: "25%",	className: "cursor-default",
+					render : function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "OTHER", 	data: "OTHER",    	width: "25%",	className: "cursor-default",
+					render : function (data) {
+						return numberWithCommas(data);
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -103,7 +129,7 @@
 			processing: false,
 			serverSide: true,
 			paging: false,
-			pageLength: 30,
+			pageLength: 10,
 			/*pagingType: "simple_numbers_no_ellipses",*/
 			ordering: false,
 			order: [],

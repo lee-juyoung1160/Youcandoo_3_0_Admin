@@ -249,9 +249,9 @@
 						let result = data;
 						if (row.division === '충전' || row.division === '취소')
 						{
-							let term 	= isEmpty(data) ? label.nullValue : `${data[0]} ${label.tilde} ${data[1]}`;
-							let title   = isEmpty(data) ? label.nullValue : data[2];
-							let amount  = isEmpty(data) ? label.nullValue: data[3];
+							let term 	= isEmpty(data) ? label.dash : `${data[0]} ${label.tilde} ${data[1]}`;
+							let title   = isEmpty(data) ? label.dash : data[2];
+							let amount  = isEmpty(data) ? label.dash: data[3];
 
 							result = `<a onclick="btnModalDescOpen(this);" 
 										data-term="${term}" 

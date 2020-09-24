@@ -27,10 +27,10 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.categoryImage;
+		let url = fileApi.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('category_img', categoryImage[0].files[0]);
+		param.append('file', categoryImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -41,10 +41,11 @@
 		{
 			let url 	= api.createDoitCategory;
 			let errMsg 	= label.submit+message.ajaxError;
+			let { file } = data.image_urls;
 			let param = {
 				"category" : categoryName.val(),
 				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
-				"icon_image_url" : data.image_urls['category_img']
+				"icon_image_url" : file
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

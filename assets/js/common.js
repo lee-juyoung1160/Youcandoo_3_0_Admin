@@ -62,7 +62,7 @@
         else if (_status === 'progress') return label.progressIcon+' '+label.progress;
         else if (_status === 'end') return label.endIcon+' '+label.end;
         else if (_status === 'terminate') return label.terminateIcon+' '+label.terminate;
-        else return label.nullValue;
+        else return label.dash;
     }
 
     function fadeinLoader()

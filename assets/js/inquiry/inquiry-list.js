@@ -102,7 +102,7 @@
 				,{title: "처리자",  	 data: "admin_userid",    	width: "10%",  	orderable: false }
 				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,
 					render: function (data) {
-						return !isEmpty(data) ? label.memo : label.nullValue
+						return !isEmpty(data) ? label.memo : label.dash
 					}
 				}
 			],

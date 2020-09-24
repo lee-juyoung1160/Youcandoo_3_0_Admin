@@ -72,10 +72,10 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.categoryImage;
+		let url = fileApi.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('category_img', categoryImage[0].files[0]);
+		param.append('file', categoryImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
@@ -92,12 +92,16 @@
 				"is_blind" : $('input:radio[name=radio-exposure]:checked').val()
 			}
 
-			let imageFile = categoryImage[0].files;
-			if (imageFile.length > 0)
-				param["icon_image_url"] = data.image_urls['category_img'];
+			if (!isEmpty(data))
+			{
+				let { file } = data.image_urls;
+				param["icon_image_url"] = file;
+			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function updateReqCallback(data)

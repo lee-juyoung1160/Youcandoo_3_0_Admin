@@ -84,7 +84,7 @@
 		, fail: '실패'
 		, y: 'Y'
 		, n: 'N'
-		, nullValue: '-'
+		, dash: '-'
 		, tilde: '~'
 		, slash: '/'
 		, lineBreak: '\n'
@@ -293,7 +293,10 @@
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
 	const fileApi = {
-		categoryImage : fileUploadBaseUrl+'category'
+		single : fileUploadBaseUrl+'single'
+		,event : fileUploadBaseUrl+'event'
+		,doit : fileUploadBaseUrl+'doit'
+		,promotion : fileUploadBaseUrl+'promotion'
 	}
 
 	/** page url **/

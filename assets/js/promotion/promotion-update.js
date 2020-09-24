@@ -105,7 +105,7 @@
 			let bannerImgDom =
 				`<div class="upload-display">
 					<div class="upload-thumb-wrap">
-						<img src="${promoData.banner_image_url}" class="upload-thumb">
+						<img src="${promoData.banner_image_url}" class="upload-thumb" alt="">
 					</div>
 				</div>`
 
@@ -116,7 +116,7 @@
 			let introImgDom =
 				`<div class="upload-display">
 					<div class="upload-thumb-wrap">
-						<img src="${promoData.intro_image_url}" class="upload-thumb">
+						<img src="${promoData.intro_image_url}" class="upload-thumb" alt="">
 					</div>
 				</div>`
 
@@ -257,7 +257,7 @@
 		let idx = $(obj).data('idx');
 		let reward = g_rewards[idx];
 		let ucdInfo = reward.ucd_info[0];
-		let actionDayOfWeek = isEmpty(reward.action_dayofweek) ? label.nullValue : reward.action_dayofweek;
+		let actionDayOfWeek = isEmpty(reward.action_dayofweek) ? label.dash : reward.action_dayofweek;
 
 		let detailDom =
 			`<li class="reward-1">
@@ -838,14 +838,15 @@
 			return false;
 		}
 
-		if ($("#allowCount").length > 0 && isEmpty(allowCount.val()))
+		let allowCountEl = $("#allowCount")
+		if (allowCountEl.length > 0 && isEmpty(allowCount.val()))
 		{
 			sweetToast(`프로모션 동시 참여 횟수는 ${message.required}`);
 			allowCount.trigger('focus');
 			return false;
 		}
 
-		if ($("#allowCount").length > 0 && Number(allowCount.val()) > 5)
+		if (allowCountEl.length > 0 && Number(allowCount.val()) > 5)
 		{
 			sweetToast(`프로모션 동시 참여 횟수는 ${message.maxJoinPromo}`);
 			allowCount.trigger('focus');
@@ -860,7 +861,8 @@
 			return false;
 		}
 
-		if ($(".duration").length > 0 && isEmptyDuration())
+		let durationEl = $(".duration");
+		if (durationEl.length > 0 && isEmptyDuration())
 		{
 			msg = `인증 기간은 ${message.required}
 					리워드 조건의 인증 기간을 ${message.doubleChk}`
@@ -868,7 +870,7 @@
 			return false;
 		}
 
-		if ($(".duration").length > 0 && isInvalidDuration())
+		if (durationEl.length > 0 && isInvalidDuration())
 		{
 			msg = `${message.invalidDuration}
 					리워드 조건의 인증 기간을 ${message.doubleChk}`
@@ -884,7 +886,8 @@
 			return false;
 		}
 
-		if ($(".ucd-table-body").length > 0 && isEmptyRewardUcd())
+		let ucdTableBodyEl = $(".ucd-table-body");
+		if (ucdTableBodyEl.length > 0 && isEmptyRewardUcd())
 		{
 			msg = `인당 UCD는 ${message.required}
 					리워드 조건의 인당 UCD 항목을 ${message.doubleChk}`
@@ -892,7 +895,7 @@
 			return false;
 		}
 
-		if ($(".ucd-table-body").length > 0 && isInvalidJoinUserCount())
+		if (ucdTableBodyEl.length > 0 && isInvalidJoinUserCount())
 		{
 			msg = `${message.minOverMax}
 					리워드 조건의 참여자 수를 ${message.doubleChk}`
@@ -900,7 +903,7 @@
 			return false;
 		}
 
-		if ($(".ucd-table-body").length > 0 && isOverBudget())
+		if (ucdTableBodyEl.length > 0 && isOverBudget())
 		{
 			msg = `${message.overBudget}
 					리워드 조건의 인당 UCD 입력을 ${message.doubleChk}`
@@ -1031,113 +1034,6 @@
 		return result;
 	}
 
-	/*function params()
-	{
-		let paramBannerFile = banner[0].files[0];
-		let paramIntroFile 	= intro[0].files[0];
-		let formData  = new FormData();
-		formData.append("promotion-status", g_promo_status);
-		formData.append("promotion-uuid", g_promotion_uuid);
-		formData.append("promotion-banner-image",paramBannerFile);
-		formData.append("promotion-list-image", paramIntroFile);
-
-		/!** 유의사항 파라미터 **!/
-		let promotionNotice = $("input[name=promo-notice]");
-		let notice = [];
-		promotionNotice.each(function () {
-			notice.push($(this).val().trim());
-		});
-		formData.append("promotion_notice", JSON.stringify(notice));
-		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
-
-		if (g_promo_status === 'pending')
-		{
-			formData.append("promotion-title", promoName.val().trim());
-			formData.append("promotion-start-date", promoFrom.val());
-			formData.append("promotion-end-date", promoTo.val());
-			formData.append("promotion-allow-count", allowCount.val());
-
-			let rewardSelectDoms = rewardTabWrap.find('li');
-			let rewardSelectDomLength = rewardSelectDoms.length;
-			let rewards = [];
-			for (let i=0; i<rewardSelectDomLength; i++)
-			{
-				let rewardWrap   = $(".pro-reward-wrap");
-				let title 		 = $(rewardWrap[i]).find('.reward-title');
-				let durationDom	 = $(rewardWrap[i]).find('.duration');
-				let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
-				let frequencyDom = $(rewardWrap[i]).find('.frequency');
-				let monday		 = 'N';
-				let tuesday		 = 'N';
-				let wednesday	 = 'N';
-				let thursday	 = 'N';
-				let friday		 = 'N';
-				let saturday	 = 'N';
-				let sunday		 = 'N';
-				let goalRate 	 = $(rewardWrap[i]).find('.goal-range');
-				let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
-
-				/!** 인증기간 파라미터 **!/
-				durationDom.each(function () {
-					if ($(this).hasClass('active'))
-						duration = $(this).data('days');
-				});
-
-				/!** 주간빈도 파라미터 **!/
-				frequencyDom.each(function (freqidx) {
-					let frequencyYn = (!$(this).hasClass('disabled') && $(this).hasClass('active')) ? 'Y' : 'N';
-					if (freqidx === 0) monday = frequencyYn;
-					if (freqidx === 1) tuesday = frequencyYn;
-					if (freqidx === 2) wednesday = frequencyYn;
-					if (freqidx === 3) thursday = frequencyYn;
-					if (freqidx === 4) friday = frequencyYn;
-					if (freqidx === 5) saturday = frequencyYn;
-					if (freqidx === 6) sunday = frequencyYn;
-				});
-
-				/!** 인당 UCD 파라미터 **!/
-				let ucdInfos = [];
-				$(ucdTable).find('tr').each(function () {
-
-					let inputDom = $(this).find('input');
-
-					if (inputDom.length > 0)
-					{
-						let minDom   = $(inputDom)[0];
-						let maxDom   = $(inputDom)[1];
-						let personDom = $(inputDom)[2];
-						let groupDom  = $(inputDom)[3];
-
-						ucdInfos.push({
-							"min" : $(minDom).val()
-							,"max" : $(maxDom).val()
-							,"person_reward" : $(personDom).val()
-							,"group_reward" : $(groupDom).val()
-						});
-					}
-				})
-
-				rewards.push({
-					"title" 			: title.val()
-					,"action-duration" 	: duration
-					,"goal-rate" 		: goalRate.val()
-					,"monday" 			: monday
-					,"tuesday" 			: tuesday
-					,"wednesday" 		: wednesday
-					,"thursday" 		: thursday
-					,"friday" 			: friday
-					,"saturday" 		: saturday
-					,"sunday" 			: sunday
-					,"ucd_info"			: JSON.stringify(ucdInfos)
-				});
-			}
-
-			formData.append("promotion-reward-condition", JSON.stringify(rewards));
-		}
-
-		return formData;
-	}*/
-
 	function onSubmitUpdatePromo()
 	{
 		if (validation())
@@ -1242,7 +1138,6 @@
 					,"ucd_info"			: JSON.stringify(ucdInfos)
 				});
 			}
-
 
 			let param = {
 				"promotion_status" : g_promo_status,

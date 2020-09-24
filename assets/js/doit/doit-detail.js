@@ -189,8 +189,8 @@
 		let bizName 	= isEmpty(promotionId) ? '' : separator + detail.company_name;
 		let promoTitle 	= isEmpty(promotionId) ? '' : separator + detail.promotion_title;
 		let doitInfo 	= doitType + bizName + promoTitle;
-		let balance		= isEmpty(detail.remain_budget_ucd) ? label.nullValue : detail.remain_budget_ucd;
-		let dayofweek   = isEmpty(detail.action_dayofweek) ? label.nullValue : detail.action_dayofweek;
+		let balance		= isEmpty(detail.remain_budget_ucd) ? label.dash : detail.remain_budget_ucd;
+		let dayofweek   = isEmpty(detail.action_dayofweek) ? label.dash : detail.action_dayofweek;
 		let minUser 	= Number(detail.min_user);
 		let maxUser 	= Number(detail.max_user);
 		let recruitCount = maxUser === 1 ? maxUser : `${minUser} ${label.tilde} ${maxUser}`;
@@ -244,7 +244,7 @@
 
 		creator.html(detail.doit_permission);
 
-		let desc = isEmpty(detail.doit_description) ? label.nullValue : detail.doit_description;
+		let desc = isEmpty(detail.doit_description) ? label.dash : detail.doit_description;
 		doitDesc.html(desc);
 
 		let tags = detail.doit_tags;
@@ -258,7 +258,7 @@
 
 		let introType = detail.intro_resouce_type;
 		let introImg = introType === 'video' ? detail.doit_video_thumbnail_image_url : detail.doit_image_url;
-		let introImageDom = label.nullValue;
+		let introImageDom = label.dash;
 		if (!isEmpty(introImg))
 		{
 			introImageDom =
@@ -282,12 +282,12 @@
 		}
 		introWrap.html(introImageDom);
 
-		let xtraReward = isEmpty(detail.group_reward_description) ? label.nullValue : detail.group_reward_description;
+		let xtraReward = isEmpty(detail.group_reward_description) ? label.dash : detail.group_reward_description;
 		extraReward.html(xtraReward);
 
 		actionTime.html(`${detail.action_allow_start_time} ${label.tilde} ${detail.action_allow_end_time}`);
 
-		let optionDom = label.nullValue;
+		let optionDom = label.dash;
 		if (!isEmpty(detail.private_code))
 		{
 			optionDom =

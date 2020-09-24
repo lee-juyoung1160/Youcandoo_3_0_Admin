@@ -117,9 +117,9 @@
                 {title: "제목",   data: "title",             width: "10%",    className: "cursor-default" },
                 {title: "내용",   data: "description",       width: "30%",    className: "cursor-default no-sort",
                     render: function (data) {
-                        let term 	= isEmpty(data) ? label.nullValue : `${data[0]} ${label.tilde} ${data[1]}`;
-                        let title   = isEmpty(data) ? label.nullValue : data[2];
-                        let amount  = isEmpty(data) ? label.nullValue : data[3];
+                        let term 	= isEmpty(data) ? label.dash : `${data[0]} ${label.tilde} ${data[1]}`;
+                        let title   = isEmpty(data) ? label.dash : data[2];
+                        let amount  = isEmpty(data) ? label.dash : data[3];
                         return `<a onclick="btnModalOpen(this);" data-term="${term}" data-title="${title}" data-amount="${amount}">${title}</a>`
                     }
                 },

@@ -21,10 +21,8 @@
 	/** 두잇탭 **/
 	const doitTable			= $("#doitTable")
 	const selPageLengthForDoit 	= $("#selPageLengthForDoit");
-	const xlsxExport 		= $(".excel-btn");
 
 	/** Ucd정보탭 **/
-	const ucdInfo		= $("#ucdInfo");
 	const ucdTable		= $("#ucdTable")
 	const selPageLengthForUcd 	= $("#selPageLengthForUcd");
 
@@ -42,7 +40,6 @@
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function() { onClickUcdTab(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
-		/*xlsxExport	.on("click", () => { onClickExcelBtn(); });*/
 	});
 
 	function onClickTab(e)
@@ -93,7 +90,7 @@
 		budget.html(numberWithCommas(detailPromo.budget_ucd)+'원');
 		balance.html(numberWithCommas(detailPromo.remain_budget_ucd));
 		period.html(`${detailPromo.start_date} ${label.tilde} ${detailPromo.end_date}`);
-		let notices = detailPromo.promotion_notice;
+		let notices = isEmpty(detailPromo.promotion_notice) ? [] : detailPromo.promotion_notice;
 		let noticeDom = '';
 		for (let i=0; i<notices.length; i++)
 			noticeDom += '<p class="detail-data">- '+notices[i]+'</p>';
@@ -105,18 +102,21 @@
 		isGallery.html(detailPromo.allow_gallery_image);
 
 		let rewardLen = rewards.length;
-		let rewardTabDom = '';
-		for (let i=0; i<rewardLen; i++)
+		if (rewardLen)
 		{
-			let statusOn = i === 0 ? 'on' : '';
-			let reward = rewards[i];
-			rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
-			rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
-			rewardTabDom += '</li>';
-		}
+			let rewardTabDom = '';
+			for (let i=0; i<rewardLen; i++)
+			{
+				let statusOn = i === 0 ? 'on' : '';
+				let reward = rewards[i];
+				rewardTabDom += '<li onclick="onClickRewardTab(this);" data-idx="'+i+'" class="'+statusOn+'">';
+				rewardTabDom += 	'<span class="tag-name">'+reward.title+'</span>';
+				rewardTabDom += '</li>';
+			}
 
-		rewardTab.html(rewardTabDom);
-		onClickRewardTab(rewardTab.find('li').eq(0));
+			rewardTab.html(rewardTabDom);
+			onClickRewardTab(rewardTab.find('li').eq(0));
+		}
 
 		toggleModifyBtn(detailPromo);
 	}
@@ -149,71 +149,70 @@
 	function buildReward(obj)
 	{
 		let idx = $(obj).data('idx');
-		let reward = rewards[idx];
-		let ucdInfo = reward.ucd_info[0];
-
-		let detailDom = '';
-		detailDom += '<li class="reward-1">';
-		detailDom += 	'<div class="list-inner">';
-		detailDom += 		'<p class="title">';
-		detailDom += 			'<strong>'+reward.title+'</strong>';
-		detailDom += 		'</p>';
-		detailDom += 		'<div class="col-wrap clearfix">';
-		detailDom += 			'<div class="col-1">';
-		detailDom += 				'<p class="sub-title">인증기간</p>';
-		detailDom += 			'</div>';
-		detailDom += 			'<div class="col-2">';
-		detailDom += 				'<p class="detail-data">'+reward.action_duration+'일</p>';
-		detailDom += 			'</div>';
-		detailDom += 		'</div>';
-		detailDom += 		'<div class="col-wrap clearfix">';
-		detailDom += 			'<div class="col-1">';
-		detailDom += 				'<p class="sub-title">주간빈도</p>';
-		detailDom += 			'</div>';
-		detailDom += 			'<div class="col-2">';
-		let actionDayOfWeek = isEmpty(reward.action_dayofweek) ? '-' : reward.action_dayofweek;
-		detailDom += 				'<p class="detail-data">'+actionDayOfWeek+'</p>';
-		detailDom += 			'</div>';
-		detailDom += 		'</div>';
-		detailDom += 		'<div class="col-wrap clearfix">';
-		detailDom += 			'<div class="col-1">';
-		detailDom += 				'<p class="sub-title">목표달성률</p>';
-		detailDom += 			'</div>';
-		detailDom += 			'<div class="col-2">';
-		detailDom += 				'<p class="detail-data">'+reward.goal_percent+'%</p>';
-		detailDom += 			'</div>';
-		detailDom += 		'</div>';
-		detailDom += 		'<div class="col-wrap">';
-		detailDom += 			'<p class="sub-title" style="margin-bottom: 5px;">인당 UCD</p>';
-		detailDom += 			'<p class="detail-data">';
-		detailDom += 			'<table>';
-		detailDom += 				'<colgroup>';
-		detailDom += 					'<col style="width:35%;">';
-		detailDom += 					'<col style="width:20%;">';
-		detailDom += 					'<col style="width:20%;">';
-		detailDom += 				'</colgroup>';
-		detailDom += 				'<thead>';
-		detailDom += 					'<tr>';
-		detailDom += 						'<th rowspan="2">참여자 수(명)</th>';
-		detailDom += 						'<th colspan="2">인당 UCD</th>';
-		detailDom += 					'</tr>';
-		detailDom += 					'<tr>';
-		detailDom += 						'<th>개인</th>';
-		detailDom += 						'<th>단체</th>';
-		detailDom += 					'</tr>';
-		detailDom += 				'</thead>';
-		detailDom += 				'<tbody>';
-		detailDom += 					'<tr>';
-		detailDom += 						'<td>'+numberWithCommas(ucdInfo.min)+label.tilde+numberWithCommas(ucdInfo.max)+'</td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.person_reward)+'</span></td>';
-		detailDom += 						'<td><span class="text-right">'+numberWithCommas(ucdInfo.group_reward)+'</span></td>';
-		detailDom += 					'</tr>';
-		detailDom += 				'</tbody>';
-		detailDom += 			'</table>';
-		detailDom += 			'</p>';
-		detailDom += 		'</div>';
-		detailDom += 	'</div>';
-		detailDom += '</li>';
+		let { title, action_duration, goal_percent, action_dayofweek } = rewards[idx];
+		let ucdInfo = rewards[idx].ucd_info[0];
+		let actionDayOfWeek = isEmpty(action_dayofweek) ? '-' : action_dayofweek;
+		let detailDom =
+			`<li class="reward-1">
+				<div class="list-inner">
+					<p class="title">
+						<strong>${title}</strong>
+					</p>
+					<div class="col-wrap clearfix">
+						<div class="col-1">
+							<p class="sub-title">인증기간</p>
+						</div>
+						<div class="col-2">
+							<p class="detail-data">${action_duration}일</p>
+						</div>
+					</div>
+					<div class="col-wrap clearfix">
+						<div class="col-1">
+							<p class="sub-title">주간빈도</p>
+						</div>
+						<div class="col-2">
+							<p class="detail-data">${actionDayOfWeek}</p>
+						</div>
+					</div>
+					<div class="col-wrap clearfix">
+						<div class="col-1">
+							<p class="sub-title">목표달성률</p>
+						</div>
+						<div class="col-2">
+							<p class="detail-data">${goal_percent}%</p>
+						</div>
+					</div>
+					<div class="col-wrap">
+						<p class="sub-title" style="margin-bottom: 5px;">인당 UCD</p>
+						<p class="detail-data">
+							<table>
+								<colgroup>
+									<col style="width:35%;">
+									<col style="width:20%;">
+									<col style="width:20%;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th rowspan="2">참여자 수(명)</th>
+										<th colspan="2">인당 UCD</th>
+									</tr>
+									<tr>
+										<th>개인</th>
+										<th>단체</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${numberWithCommas(ucdInfo.min)} ~ ${numberWithCommas(ucdInfo.max)}</td>
+										<td><span class="text-right">${numberWithCommas(ucdInfo.person_reward)}</span></td>
+										<td><span class="text-right">${numberWithCommas(ucdInfo.group_reward)}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</p>
+					</div>
+				</div>
+			</li>`
 
 		rewardDetail.html(detailDom);
 	}
@@ -383,36 +382,3 @@
 	{
 		location.href = page.updatePromo+idx;
 	}
-
-	/*function onClickExcelBtn()
-	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.involveDoitPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("개설두잇목록", "개설두잇목록", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
-		let param = {
-			"limit" : 10000
-			,"page" : 1
-			,"promotion_idx" : idx
-		}
-
-		return JSON.stringify(param);
-	}*/

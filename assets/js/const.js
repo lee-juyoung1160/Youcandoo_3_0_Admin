@@ -84,7 +84,7 @@
 		, fail: '실패'
 		, y: 'Y'
 		, n: 'N'
-		, nullValue: '-'
+		, dash: '-'
 		, tilde: '~'
 		, slash: '/'
 		, lineBreak: '\n'

@@ -100,7 +100,7 @@
 		}
 
 		doitFromDate.setDate(doitFromDate.getDate() + (Number(duration) - 1));
-		let doitToDate = getStringFormatToDate(doitFromDate, label.nullValue);
+		let doitToDate = getStringFormatToDate(doitFromDate, label.dash);
 
 		doitTo.val(doitToDate);
 	}

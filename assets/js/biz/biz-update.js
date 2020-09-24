@@ -55,29 +55,47 @@
 	function onSubmitBiz()
 	{
 		if (validation())
-			sweetConfirm(message.modify, updateRequest);
+		{
+			let imageFile = profileImage[0].files;
+			let requestFn = imageFile.length === 0 ? updateRequest : fileUploadReq;
+			sweetConfirm(message.modify, requestFn);
+		}
 	}
 
-	function updateRequest()
+	function fileUploadReq()
 	{
-		let url 	= api.updateBiz;
-		let errMsg 	= label.submit+message.ajaxError;
+		let url = fileApi.single;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('file', profileImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, params(), updateReqCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
 
-	function params()
+	function updateRequest(data)
 	{
-		let pathName  = getPathName();
-		let bizIdx	  = splitReverse(pathName, '/');
-		let paramFile = profileImage[0].files[0];
-		let formData  = new FormData();
-		formData.append('company-idx', bizIdx);
-		formData.append('company-url', bizLink.val().trim());
-		formData.append('company-contents', bizDesc.val().trim());
-		formData.append('company-image', paramFile);
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			let url 	  = api.updateBiz;
+			let errMsg 	  = label.submit+message.ajaxError;
+			let pathName  = getPathName();
+			let bizIdx	  = splitReverse(pathName, '/');
+			let param = {
+				"company_idx" : bizIdx,
+				"company_url" : bizLink.val().trim(),
+				"company_contents" : bizDesc.val().trim(),
+			}
 
-		return formData;
+			if (!isEmpty(data))
+			{
+				let { file } = data.image_urls;
+				param["company_image"] = file;
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function updateReqCallback(data)

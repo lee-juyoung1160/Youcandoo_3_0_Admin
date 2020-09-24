@@ -82,15 +82,33 @@
 	function onSubmitBiz()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
-	function createRequest()
+	function fileUploadReq()
+	{
+		let url = fileApi.single;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('file', profileImage[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+	}
+
+	function createRequest(data)
 	{
 		let url 	= api.createBiz;
 		let errMsg 	= label.submit+message.ajaxError;
+		let { file } = data.image_urls;
+		let param = {
+			"company_name" : bizName.val().trim(),
+			"company_number" : bizNoFormatter(bizNo.val()),
+			"company_url" : homepage.val().trim(),
+			"company_contents" : bizDesc.val().trim(),
+			"company_image" : file,
+		}
 
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	function createReqCallback(data)
@@ -101,17 +119,4 @@
 	function createSuccess()
 	{
 		location.href = page.listBiz;
-	}
-
-	function params()
-	{
-		let paramFile = profileImage[0].files[0];
-		let formData  = new FormData();
-		formData.append('company-name', bizName.val().trim());
-		formData.append('company-number', bizNoFormatter(bizNo.val()));
-		formData.append('company-url', homepage.val().trim());
-		formData.append('company-contents', bizDesc.val().trim());
-		formData.append('company-image', paramFile);
-
-		return formData;
 	}

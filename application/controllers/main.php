@@ -10,6 +10,16 @@ class Main extends MY_Controller {
 
     public function login()
     {
-        $this->load->view('login');
+        $this->load->view('/login/login');
+    }
+
+    public function join()
+    {
+        $this->load->view('/login/join');
+    }
+
+    public function auth()
+    {
+        $this->load->view('/login/otp-auth');
     }
 }

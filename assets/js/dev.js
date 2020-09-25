@@ -14,8 +14,8 @@
 
 		if (getPathName() === '/doit')
 		{
-			accessibleAuthCodes = ['mklee'];
-			isAccessibleAuthCode = accessibleAuthCodes === sessionUserId.val() && env.val() === 'development';
+			accessibleAuthCodes = ['dev'];
+			isAccessibleAuthCode = (accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1 && env.val() === 'development');
 		}
 
 		isAccessibleAuthCode ? btnStartNow.show() : btnStartNow.remove();

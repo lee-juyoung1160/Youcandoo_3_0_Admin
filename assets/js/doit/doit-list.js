@@ -47,7 +47,9 @@
 	function getCategoryCallback(data)
 	{
 		let options = '<option value="">미등록</option>';
+		options += '<option value="all">전체(미등록 제외)</option>';
 		//let options = '<option value="all">전체(미등록 제외)</option>';
+		//options += '<option value="">미등록</option>';
 		let datas = data.data;
 		let i = 0;
 		for (i; i<datas.length; i++)
@@ -55,8 +57,6 @@
 			let { category, category_uuid } = datas[i];
 			options += `<option value="${category_uuid}">${category}</option>`
 		}
-		//options += '<option value="">미등록</option>';
-		options += '<option value="all">전체(미등록 제외)</option>';
 
 		selCategory.html(options);
 

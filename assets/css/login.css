@@ -131,7 +131,7 @@ section.login-pg {
 	border-bottom: 2px solid #abd6f1;
 }
 .login-pg .login-inner .wrap .col .error-msg {
-	display: block;
+	display: none;
 	padding-top: 5px;
 	font-size: 12px;
 	color: #e83d2c;

@@ -74,18 +74,23 @@
 				},
 				{title: "기기 ", 		data: "store",    	  		width: "10%",	className: "cursor-default" }
 				,{title: "앱버전", 		data: "target_version",		width: "10%",  	className: "cursor-default" }
-				,{title: "팝업명", 		data: "popup_name",	  		width: "35%",  	className: "cursor-default",
+				,{title: "팝업명", 		data: "popup_name",	  		width: "30%",  	className: "cursor-default",
 					render : function (data, type, row, meta) {
 						let detailUrl = page.detailPopup + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "노출기간", 	data: "start_date",	  		width: "25%",  	className: "cursor-default",
+				,{title: "노출기간", 	data: "start_date",	  		width: "20%",  	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ~ ${row.end_date}`;
 					}
 				}
-				,{title: "노출여부", 	data: "is_exposure",  		width: "10%",  	className: "cursor-default",
+				,{title: "등록일", 		data: "create_date",	  	width: "10%",  	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return data.substring(0, 10);
+					}
+				}
+				,{title: "노출여부", 	data: "is_exposure",  		width: "8%",  	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}

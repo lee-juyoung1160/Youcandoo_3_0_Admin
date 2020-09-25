@@ -8,6 +8,11 @@
 	const btnCancel  = $("#btnCancel");
 
 	$( () => {
+		userid		.trigger('focus');
+		password	.on("focusout", function () { onFocusoutPassword(this); });
+		repassword	.on("focusout", function () { onFocusoutConfirmPassword(this); });
+		username	.on("focusout", function () { onFocusoutUserName(this); });
+		useremail	.on("focusout", function () { onFocusoutUserEmail(this); });
 		btnCancel   .on("click", function () { goLogin(); });
 		btnSubmit   .on("click", function () { onSubmitJoin(); });
 
@@ -18,6 +23,34 @@
 
 	});
 
+	function onFocusoutPassword(obj)
+	{
+		let errEl = $(obj).parent().next();
+		let regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+		regExp.test($(obj).val()) ? errEl.hide() : errEl.show();
+	}
+
+	function onFocusoutConfirmPassword(obj)
+	{
+		let errEl = $(obj).parent().next();
+
+		password.val() === repassword.val() ? errEl.hide() : errEl.show();
+	}
+
+	function onFocusoutUserName(obj)
+	{
+		let errEl = $(obj).parent().next();
+
+		isEmpty(username.val()) ?  errEl.show() : errEl.hide();
+	}
+
+	function onFocusoutUserEmail(obj)
+	{
+		let errEl = $(obj).parent().next();
+
+		isEmail(useremail.val()) ?  errEl.hide() : errEl.show();
+	}
 
 	function onSubmitJoin()
 	{

@@ -48,9 +48,6 @@ class Marketing extends CI_Controller {
                 case "detail":
                     $this->load->layout('marketing/popup-detail');
                     break;
-                case "update":
-                    $this->load->layout('marketing/popup-update');
-                    break;
             }
         }
 

@@ -602,7 +602,7 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= 'https://api.youcandoo.co.kr/v1.0/admin/doit/create_new';
+			let url 	= api.createDoit;
 			let errMsg 	= label.submit+message.ajaxError;
 			let tags = [];
 			addedTags.find('li').each(function () {

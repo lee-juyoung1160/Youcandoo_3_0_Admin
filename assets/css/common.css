@@ -306,7 +306,7 @@ i.question-mark:hover .hover-text {
 	background-color: #ffffff;
 }
 .modal-content .completion-btn {
-	margin: 0 20px 15px 0;
+	margin: 10px 20px 15px 0;
 	font-size: 16px;
 }
 .modal-content .wrap .close-btn {

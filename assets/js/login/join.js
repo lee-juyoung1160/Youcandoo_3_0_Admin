@@ -1,15 +1,18 @@
 
-	/*const userid    = $("#userid");
-	const password  = $("#password");
-	const loginBtn  = $("#login-btn");
-	const joinBtn	= $("#join-btn");
+	const btnSubmit	 = $("#btnSubmit");
+	const btnCancel  = $("#btnCancel");
+	const userid     = $("#userid");
+	const password   = $("#password");
+	const repassword = $("#repassword");
+	const username 	 = $("#username");
+	const useremail  = $("#useremail");
 
 	$( () => {
-		loginBtn    .on("click", function () { onSubmitLogin(); });
-		userid      .on("keydown", function (event) { onKeydownEmail(event) });
+		btnCancel   .on("click", function () { goLogin(); });
+		/*userid      .on("keydown", function (event) { onKeydownEmail(event) });
 		password    .on("keydown", function (event) { onKeydownPassword(event) });
 
-		joinBtn		.on("click", function () { goJoin(); });
+		joinBtn		.on("click", function () { goJoin(); });*/
 
 	});
 
@@ -68,9 +71,9 @@
 		return true;
 	}
 
-	function goJoin()
+	function goLogin()
 	{
-		location.href = '/main/join';
+		location.href = '/main/login';
 	}
 
 	function toast(msg)
@@ -83,4 +86,4 @@
 			showConfirmButton: false,
 			timer: 1500
 		})
-	}*/
+	}

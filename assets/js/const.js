@@ -232,6 +232,7 @@
 		,createPopup : baseApiUrl+'marketing/popup/set'
 		,updatePopup : baseApiUrl+'marketing/popup/update'
 		,detailPopup : baseApiUrl+'marketing/popup/detail'
+		,deletePopup : baseApiUrl+'marketing/popup/delete'
 		,listPopup : baseApiUrl+'marketing/popup/list'
 		/** 공지 **/
 		,createNotice : baseApiUrl+'notice/create'

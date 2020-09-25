@@ -46,10 +46,8 @@
 
 	function getCategoryCallback(data)
 	{
-		let options = '<option value="">미등록</option>';
-		options += '<option value="all">전체(미등록 제외)</option>';
-		//let options = '<option value="all">전체(미등록 제외)</option>';
-		//options += '<option value="">미등록</option>';
+		let options = '<option value="all">전체</option>';
+		options += '<option value="">카테고리 미등록</option>';
 		let datas = data.data;
 		let i = 0;
 		for (i; i<datas.length; i++)

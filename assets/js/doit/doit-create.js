@@ -647,57 +647,6 @@
 
 	}
 
-	/*function params()
-	{
-		let paramTags = [];
-		addedTags.find('li').each(function () {
-			paramTags.push($(this).text().trim());
-		})
-		let paramIntroImage 	= $("#introImage")[0].files[0];
-		let paramIntroVideo 	= '';
-		if ($("#introVideo").length > 0)
-			paramIntroVideo 	= $("#introVideo")[0].files[0];
-		let paramExample		= $("#exampleFile")[0].files[0];
-		let paramExampleVideo 	= '';
-		if ($("#exampleVideo").length > 0)
-			paramExampleVideo	= $("#exampleVideo")[0].files[0];
-		let paramExampleVoice	= '';
-		if ($('input:radio[name=radio-example-type]:checked').val() === 'voice')
-			paramExampleVoice	= $("#exampleFile")[0].files[0];
-		let formData  = new FormData();
-		formData.append('doit-category', $("#selCategory option:checked").text());
-		formData.append('category-uuid', selCategory.val());
-		formData.append('doit-title', doitTitle.val().trim());
-		formData.append('company-uuid', g_biz_uuid);
-		formData.append('promotion-uuid', selPromo.val().trim());
-		formData.append('reward-uuid', selReward.val().trim());
-		formData.append('min-user', g_min_user_limit);
-		formData.append('max-user', g_max_user_limit);
-		formData.append('doit-tags', paramTags.toString());
-		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
-		formData.append('intro-image-file', paramIntroImage);
-		formData.append('intro-video-file', paramIntroVideo);
-		formData.append('action-start-date', doitFrom.val());
-		formData.append('action-end-date', doitTo.val());
-		formData.append('action-allow-start-time', startTime.val()+':00');
-		formData.append('action-allow-end-time', endTime.val()+':59');
-		formData.append('private-code', privateCode.val().trim());
-		formData.append('action-example-resource-type', $('input:radio[name=radio-example-type]:checked').val());
-		formData.append('action-example-image-file', paramExample);
-		formData.append('action-example-video-file', paramExampleVideo);
-		formData.append('action-example-voice-file', paramExampleVoice);
-		formData.append('action-description', exampleDesc.val().trim());
-		formData.append('doit-description', doitDesc.val().trim());
-		if (chkExtraReward.is(':checked'))
-			formData.append('group-reward-description', extraReward.val().trim());
-		let isAllowGallery = 'N';
-		if ($('input:radio[name=radio-gallery-yn]').length > 0)
-			isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
-		formData.append('allow-gallery-image', isAllowGallery);
-
-		return formData;
-	}*/
-
 	function createReqCallback(data)
 	{
 		sweetToastAndCallback(data, createSuccess);

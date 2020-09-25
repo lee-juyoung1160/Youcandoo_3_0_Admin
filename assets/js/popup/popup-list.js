@@ -5,7 +5,7 @@
 	const dateType 		= $("#dateType");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	/*const btnDelete		= $("#btnDelete");*/
+	const btnDelete		= $("#btnDelete");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -24,7 +24,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnDelete		.on("click", function () { deletePopup(); });*/
+		btnDelete		.on("click", function () { deletePopup(); });
 	});
 
 	function initSearchForm()
@@ -67,13 +67,13 @@
 				}
 			},
 			columns: [
-				/*{title: "", 				data: "idx",   				width: "5%",   className: "cursor-default no-sort",
+				{title: "", 			data: "idx",   				width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
-				},*/
+				},
 				{title: "기기 ", 		data: "store",    	  		width: "10%",	className: "cursor-default" }
-				,{title: "앱버전", 		data: "target_version",		width: "10%",  	className: "cursor-default no-sort" }
+				,{title: "앱버전", 		data: "target_version",		width: "10%",  	className: "cursor-default" }
 				,{title: "팝업명", 		data: "popup_name",	  		width: "35%",  	className: "cursor-default",
 					render : function (data, type, row, meta) {
 						let detailUrl = page.detailPopup + row.idx;
@@ -85,14 +85,9 @@
 						return `${row.start_date} ~ ${row.end_date}`;
 					}
 				}
-				,{title: "노출여부", 	data: "is_exposure",  		width: "10%",  	className: "cursor-default no-sort",
-					render: function (data) {
-						return data === "Y" ? label.exposure : label.unexpose;
-					}
-				}
-				,{title: "등록일", 	    data: "create_date",  		width: "10%",   className: "cursor-default",
-					render: function (data) {
-						return data.substring(0, 10);
+				,{title: "노출여부", 	data: "is_exposure",  		width: "10%",  	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return buildSwitch(row);
 					}
 				}
 			],
@@ -113,7 +108,10 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: false,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
@@ -122,7 +120,6 @@
 			initComplete: function () {
 				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
 				redrawPage(this, _page);
-				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			}
@@ -150,6 +147,47 @@
 		return JSON.stringify(param);
 	}
 
+	function buildSwitch(data)
+	{
+		/** 노출여부 컬럼에 on off 스위치 **/
+		let checked   = data.is_exposure === 'Y' ? 'checked' : '';
+		return (
+			`<div class="toggle-btn-wrap">
+						<div class="toggle-btn on">
+							<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+							<div class="knobs"></div>
+							<div class="layer"></div>
+						</div>
+					</div>`
+		)
+	}
+
+	let g_popup_idx;
+	let g_is_exposure;
+	function changeStatus(obj)
+	{
+		g_popup_idx = $(obj).data('idx');
+		g_is_exposure = $(obj).hasClass('checked') ? 'N' : 'Y';
+		sweetConfirm(`상태를 ${message.change}`, changeRequest);
+	}
+
+	function changeRequest()
+	{
+		let url     = api.updatePopup;
+		let errMsg 	= label.modify+message.ajaxError;
+		let param   = {
+			"idx" : g_popup_idx,
+			"is_exposure" : g_is_exposure
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), changeReqCallback, errMsg, false);
+	}
+
+	function changeReqCallback(data)
+	{
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
 	function onSubmitSearch()
 	{
 		_page = 1;
@@ -159,7 +197,7 @@
 		initMaxDateToday();
 	}
 
-	/*function deletePopup()
+	function deletePopup()
 	{
 		if (delValidation())
 			sweetConfirm(message.delete, deleteRequest);
@@ -167,7 +205,7 @@
 
 	function deleteRequest()
 	{
-		let url 	= api.deleteNotice;
+		let url 	= api.deletePopup;
 		let errMsg 	= label.delete+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
@@ -179,7 +217,7 @@
 		let selectedData = table.rows('.selected').data()[0];
 
 		let param = {
-			"notice_uuid" : selectedData.notice_uuid
+			"idx" : selectedData.idx
 		};
 
 		return JSON.stringify(param)
@@ -187,12 +225,7 @@
 
 	function deleteReqCallback(data)
 	{
-		sweetToastAndCallback(data, deleteSuccess);
-	}
-
-	function deleteSuccess()
-	{
-		tableReloadAndStayCurrentPage(dataTable);
+		sweetToastAndCallback(data, reqSuccess);
 	}
 
 	function delValidation()
@@ -207,4 +240,9 @@
 		}
 
 		return true;
-	}*/
+	}
+
+	function reqSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
+	}

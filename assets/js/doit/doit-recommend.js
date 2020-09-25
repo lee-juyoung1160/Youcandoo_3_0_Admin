@@ -248,7 +248,7 @@
 	{
 		return (
 			`<div class="doit-thumbnail">
-				<img src="${data.image_url}" onerror="onErrorImage(this);">
+				<img src="${data.doit_image_url}" onerror="onErrorImage(this);">
 			</div>`
 		)
 	}
@@ -306,7 +306,7 @@
 			for (let i=0; i<selectedData.length; i++)
 			{
 				let uuid 	  = selectedData[i].doit_uuid;
-				let imageUrl  = selectedData[i].image_url;
+				let imageUrl  = selectedData[i].doit_image_url;
 				let title 	  = selectedData[i].doit_title;
 				let tags 	  = selectedData[i].doit_tags;
 				tags = tags.split(',');

@@ -166,7 +166,8 @@ input::placeholder {
 	margin-top: 50px;
 	justify-content: center;
 }
-.login-pg .login-inner .wrap .btn-wrap button {
+.login-pg .login-inner .wrap .btn-wrap button,
+.login-pg .login-inner .wrap .btn-wrap a {
 	width: 165px;
 	height: 50px;
 	margin: 0 3px;
@@ -183,6 +184,7 @@ input::placeholder {
 }
 .login-pg .login-inner .wrap .btn-wrap .join-btn {
 	color: #666;
+	background-color: #eee;
 }
 .login-pg .login-inner .wrap .btn-wrap button:hover {
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.35);
@@ -190,18 +192,14 @@ input::placeholder {
 .login-pg .login-inner .wrap.login-content .col {
 	margin-bottom: 40px;
 }
-.login-pg .login-inner .wrap.login-content {
-	/*display: none;*/
-}
+
 .login-pg .login-inner .wrap.join-content {
-	display: none;
 	top: 15%;
 }
 .login-pg .login-inner .wrap.join-content .col {
 	margin-bottom: 20px;
 }
 .login-pg .login-inner .wrap.otp-content {
-	display: none;
 	top: 30%;
 }
 .login-pg .login-inner .wrap.otp-content .qr_box {

@@ -38,86 +38,6 @@
                 </div>
             </div>
 
-            <!--로그인-->
-            <div class="wrap login-content">
-                <h1 class="login-text">LOGIN</h1>
-                <form name="loginForm" action="/auth/login" method="post">
-                    <div class="col user-name-wrap">
-                        <p>아이디</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-id-badge"></i>
-                            <input id="userid" name="userid" type="text" placeholder="아이디를 입력해주세요.">
-                        </div>
-                    </div>
-                    <div class="col password-wrap">
-                        <p>비밀번호</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-lock"></i>
-                            <input id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요.">
-                        </div>
-                    </div>
-                </form>
-                <div class="btn-wrap">
-                    <button class="join-btn" type="button">회원가입</button>
-                    <button id="login-btn" class="submit-btn" type="submit">로그인</button>
-                </div>
-            </div>
-
-            <!--회원가입-->
-            <div class="wrap join-content">
-                <h1 class="login-text">JOIN</h1>
-                <form name="" action="" method="post">
-
-                    <div class="col user-id-wrap">
-                        <p>아이디</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-id-badge"></i>
-                            <input id="" name="userid" type="text" placeholder="아이디를 입력해주세요.">
-                        </div>
-                        <span class="error-msg">아이디를 확인해주세요.</span>
-                    </div>
-
-                    <div class="col password-wrap">
-                        <p>비밀번호 </p>
-                        <div class="input-wrap">
-                            <i class="fas fa-lock"></i>
-                            <input id="" name="password" type="password" placeholder="비밀번호를 입력해주세요.">
-                        </div>
-                        <span class="error-msg">영문 대소문자, 숫자, 특수문자를 포함한 최대 8자로 입력해주세요.</span>
-                    </div>
-
-                    <div class="col password-wrap">
-                        <p>비밀번호 확인</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-lock"></i>
-                            <input id="" name="password" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
-                        </div>
-                        <span class="error-msg">비밀번호가 일치하지 않습니다.</span>
-                    </div>
-
-                    <div class="col user-name-wrap">
-                        <p>이름</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-user"></i>
-                            <input type="text" placeholder="이름을 입력해주세요.">
-                        </div>
-                        <span class="error-msg">이름을 확인해주세요.</span>
-                    </div>
-
-                    <div class="col user-name-wrap">
-                        <p>이메일</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" placeholder="이메일을 입력해주세요.">
-                        </div>
-                        <span class="error-msg">이메일을 확인해주세요.</span>
-                    </div>
-                </form>
-                <div class="btn-wrap">
-                    <button class="submit-btn" type="submit">가입하기</button>
-                </div>
-            </div>
-
             <!--인증-->
             <div class="wrap otp-content">
                 <h1 class="login-text">
@@ -142,16 +62,8 @@
                     <button class="submit-btn" type="submit">완료</button>
                 </div>
             </div>
-
-
         </div>
     </section>
 </body>
 <script src="/assets/js/login/login.js?version=<?php echo $this->config->item('version');?>"></script>
-<script>
-    $(".join-btn").on('click', function(){
-        $('.login-content').hide();
-        $('.join-content').fadeIn();
-    });
-</script>
 </html>

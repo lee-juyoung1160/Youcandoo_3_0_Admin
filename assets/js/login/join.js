@@ -1,5 +1,5 @@
 
-	const userid    = $("#userid");
+	/*const userid    = $("#userid");
 	const password  = $("#password");
 	const loginBtn  = $("#login-btn");
 	const joinBtn	= $("#join-btn");
@@ -83,4 +83,4 @@
 			showConfirmButton: false,
 			timer: 1500
 		})
-	}
+	}*/

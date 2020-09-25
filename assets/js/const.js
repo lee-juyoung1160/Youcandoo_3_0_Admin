@@ -129,6 +129,8 @@
 		getBizName : baseApiUrl+'keyword/getCompanyName'
 		,getNickname : baseApiUrl+'user/getNickname'
 		,getBalance : baseApiUrl+'ucd/status/company'
+		/** 회원가입 **/
+		,join : baseApiUrl+'/auth/join'
 		/** 대시보드 **/
 		,getDoitStat : baseApiUrl+'dashboard/doit/status'
 		,getUserStat : baseApiUrl+'dashboard/user/status'

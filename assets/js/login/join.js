@@ -1,14 +1,16 @@
 
-	const btnSubmit	 = $("#btnSubmit");
-	const btnCancel  = $("#btnCancel");
 	const userid     = $("#userid");
 	const password   = $("#password");
 	const repassword = $("#repassword");
 	const username 	 = $("#username");
 	const useremail  = $("#useremail");
+	const btnSubmit	 = $("#btnSubmit");
+	const btnCancel  = $("#btnCancel");
 
 	$( () => {
 		btnCancel   .on("click", function () { goLogin(); });
+		btnSubmit   .on("click", function () { onSubmitJoin(); });
+
 		/*userid      .on("keydown", function (event) { onKeydownEmail(event) });
 		password    .on("keydown", function (event) { onKeydownPassword(event) });
 
@@ -16,55 +18,63 @@
 
 	});
 
-	function onKeydownEmail(event)
-	{
-		if (event.keyCode === 13)
-		{
-			if (isEmpty(userid.val()))
-			{
-				toast(message.emptyId);
-				userid.trigger('focus');
-				return;
-			}
 
-			password.trigger('focus');
-		}
-	}
-
-	function onKeydownPassword(event)
-	{
-		if (event.keyCode === 13)
-		{
-			if (isEmpty(password.val()))
-			{
-				toast(message.emptyPassword);
-				password.trigger('focus');
-				return;
-			}
-
-			onSubmitLogin();
-		}
-	}
-
-	function onSubmitLogin()
+	function onSubmitJoin()
 	{
 		if (validation())
-			document.loginForm.submit();
+			sweetConfirm(message.create, createRequest);
+	}
+
+	function createRequest()
+	{
+		let url = api.join;
+		let errMsg = label.submit+message.ajaxError;
+		let param = {
+
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback()
+	{
+
 	}
 
 	function validation()
 	{
 		if (isEmpty(userid.val()))
 		{
-			toast(message.emptyId);
+			toast(`아이디는 ${message.required}`);
 			userid.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(password.val()))
 		{
-			toast(message.emptyPassword);
+			toast(`비밀번호는 ${message.required}`);
 			password.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(repassword.val()))
+		{
+			toast(`비밀번호 확인은 ${message.required}`);
+			repassword.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(username.val()))
+		{
+			toast(`이름은 ${message.required}`);
+			username.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(useremail.val()))
+		{
+			toast(`이메일은 ${message.required}`);
+			useremail.trigger('focus');
 			return false;
 		}
 

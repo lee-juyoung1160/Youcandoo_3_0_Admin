@@ -827,7 +827,6 @@ input[type="checkbox"]:disabled + label span{
 	float: left;
 }
 .table-wrap .btn-wrap button {
-
 	padding: 10px;
 	color: #ffffff;
 	font-size: 14px;
@@ -835,6 +834,7 @@ input[type="checkbox"]:disabled + label span{
 	transition: all .3s;
 }
 .table-wrap table button {
+	margin: 0 2px;
 	padding: 3px 5px;
 	color: #ffffff;
 	font-size: 13px;
@@ -847,11 +847,11 @@ input[type="checkbox"]:disabled + label span{
 
 /* 버튼 컬러 */
 .btn-warning {
-	background-color: #f39c12;
+	background-color: #FFA83B;
 	border-color: #e08e0b;
 }
 .btn-warning:hover {
-	background-color: #e08e0b;
+	background-color: #ffa000;
 	border-color: #e08e0b;
 }
 .btn-danger {
@@ -870,6 +870,10 @@ input[type="checkbox"]:disabled + label span{
 .btn-info:hover {
 	background-color: #00acd6;
 	border: 1px solid #00acd6;
+}
+.btn-orange {
+	background-color: #f76400;
+	border-color: #f76400;
 }
 
 

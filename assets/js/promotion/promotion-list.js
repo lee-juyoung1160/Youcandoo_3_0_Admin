@@ -130,6 +130,11 @@
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}
 				}
+				,{title: "비고", 			data: "doit_uuid",    			width: "20%",   	className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return `<button class="btn-warning" type="button">오늘시작</button><button class="btn-orange" type="button">조기종료</button><button class="btn-danger" type="button">삭제</button>`;
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList

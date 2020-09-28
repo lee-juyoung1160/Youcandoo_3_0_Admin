@@ -106,7 +106,7 @@
 		onChangeSelectOption(dateType);
 		searchType.val(historyParams.search_type);
 		onChangeSelectOption(searchType);
-		selCategory.val(historyParams.doit_category);
+		selCategory.val(historyParams.category_uuid);
 		onChangeSelectOption(selCategory);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);

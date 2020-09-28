@@ -28,9 +28,9 @@
 	function addAttrDragOnElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*40)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*25)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*25)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*30)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*40)+'px');
 		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
 		return $(el);
 	}
@@ -49,13 +49,13 @@
 				}
 			},
 			columns: [
-				{title: "배너이미지",		data: "list_image_url",		width: "30%",
+				{title: "배너이미지",		data: "list_image_url",		width: "20%",
 					render: function (data) {
 						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
 				,{title: "기업", 		data: "nickname",    		width: "30%" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "30%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return `<i onclick="removeRow(this)" data-uuid="${data}" class="far fa-times-circle"></i>`;
@@ -193,8 +193,8 @@
 						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "40%" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "35%" }
+				,{title: "기업", 		data: "nickname",    		width: "30%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -310,7 +310,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast(`대상을 목록에서 ${message.select}`);
+			sweetToast(`추가할 프로모션을 ${message.select}`);
 			return false;
 		}
 

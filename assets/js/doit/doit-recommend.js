@@ -372,7 +372,7 @@
 
 		if (isEmpty(selectedData))
 		{
-			sweetToast(`대상을 목록에서 ${message.select}`);
+			sweetToast(`추가할 두잇을 ${message.select}`);
 			return false;
 		}
 

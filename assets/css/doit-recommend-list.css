@@ -45,16 +45,27 @@
 table {
     width: 100%;
 }
+table tr th {
+    padding: 15px 5px;
+    font-weight: 600;
+    border-bottom: 1px solid #f3f3f3;
+}
 table tr td {
-    padding: 15px 0;
+    padding: 15px 5px;
+    color: #505050;
+    font-size: 14px;
     background-color: #fff;
     border-bottom: 1px solid #f3f3f3;
 }
-
+table.pro-banner-list tr td {
+    text-align: center;
+}
+table.pro-shr-list tr
 .fa-times-circle {
     color: #ec5c5c;
     font-size: 19px;
 }
+
 .doit-thumbnail {
     overflow: hidden;
     width: 120px;
@@ -107,6 +118,9 @@ table.doit-shr-list tr td:first-child {
     width: 5px;
 }
 table.doit-shr-list tr td:nth-child(2) {
+    width: 60px;
+}
+table.pro-shr-list tr td:nth-child(2) {
     width: 60px;
 }
 
@@ -167,4 +181,10 @@ table.doit-shr-list .doit-num {
     margin-top: 5px;
     color: #ec5c5c;
     font-size: 12px;
+}
+.pro-thumbnail {
+    width: 180px;
+}
+.pro-shr-list .pro-thumbnail {
+    width: 100px;
 }

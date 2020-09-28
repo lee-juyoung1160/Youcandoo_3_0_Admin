@@ -47,23 +47,23 @@
                 </h1>
                 <form name="" action="" method="post">
                     <div class="qr_box">
-                        <span class="qr_img"><img src="data:image/jpeg;base64, iVBORw0KGgoAAAANSUhEUgAAAKoAAACqAQAAAAAVDekvAAABzElEQVR42u3WsY3sIBAG4LEIyLwNWKINMlqyGzC+BuyWyGgDiQbsjAB53s9dsNzqBQeXvCetZW3wBeBhhpkl/tvj6M1v/gc4EWmxaXXLaSR6dDLfWlwcbIq74aOTw6iDZRpSHrX4BU+zjIen9Tds+KS8Eo39jCjzg6eF4/0SfAPjvOP+9b6k4edcHnWkaab4WhA/56Q2ky1Ps87WV1u2cbAO5YPzRvKRvU6e9TT4uEskf+pkZqy6krpcvOmZtDZO4iQ+8KtzKaJOxjlFdnzhnBzZPma1G8UOb1h1lcsmTrQkZP7zSplqyyZmnHdePG+UZ/OMspHzwLyTYESZqrXbmFYTSMYPRCmr4NtYXYlWiXKO7IPt5FI7B6tTx1uGRx+jeF28Eiox11G2Maub1CnjVRqe4k4O1nO5T1w+0PZxEremxZc+MZsqyjbGMSNjXM6p7hBNzFhyeji1Uxhl5E7mK5UJMPiAD7R9jKYrBToEoiR6rt3Gn8PkRAn7eCTVyZgkpmT+w4ldi17GTEPfFeiaR12abYwRXebqJtEk4tHN6C7YgcQpqw9sZkwzjNa4SdXLiBL3mxaXZx1sJ2PO0+AIvfPbbWji95/hN/8//Acz03SuWSB6+wAAAABJRU5ErkJggg==" alt="qr코드"></span>
+                        <span class="qr_img"><img id="qrImg" src="data:image/jpeg;base64, iVBORw0KGgoAAAANSUhEUgAAAKoAAACqAQAAAAAVDekvAAABzElEQVR42u3WsY3sIBAG4LEIyLwNWKINMlqyGzC+BuyWyGgDiQbsjAB53s9dsNzqBQeXvCetZW3wBeBhhpkl/tvj6M1v/gc4EWmxaXXLaSR6dDLfWlwcbIq74aOTw6iDZRpSHrX4BU+zjIen9Tds+KS8Eo39jCjzg6eF4/0SfAPjvOP+9b6k4edcHnWkaab4WhA/56Q2ky1Ps87WV1u2cbAO5YPzRvKRvU6e9TT4uEskf+pkZqy6krpcvOmZtDZO4iQ+8KtzKaJOxjlFdnzhnBzZPma1G8UOb1h1lcsmTrQkZP7zSplqyyZmnHdePG+UZ/OMspHzwLyTYESZqrXbmFYTSMYPRCmr4NtYXYlWiXKO7IPt5FI7B6tTx1uGRx+jeF28Eiox11G2Maub1CnjVRqe4k4O1nO5T1w+0PZxEremxZc+MZsqyjbGMSNjXM6p7hBNzFhyeji1Uxhl5E7mK5UJMPiAD7R9jKYrBToEoiR6rt3Gn8PkRAn7eCTVyZgkpmT+w4ldi17GTEPfFeiaR12abYwRXebqJtEk4tHN6C7YgcQpqw9sZkwzjNa4SdXLiBL3mxaXZx1sJ2PO0+AIvfPbbWji95/hN/8//Acz03SuWSB6+wAAAABJRU5ErkJggg==" alt="qr코드"></span>
                     </div>
                     <div class="col otp-num-wrap">
                         <p>인증번호</p>
                         <div class="input-wrap">
                             <i class="fas fa-key"></i>
-                            <input id="" name="" type="text" placeholder="인증번호를 입력해주세요.">
+                            <input id="authNum" type="text" placeholder="인증번호를 입력해주세요.">
                         </div>
                         <span class="error-msg">인증번호를 확인해주세요.</span>
                     </div>
                 </form>
                 <div class="btn-wrap">
-                    <button class="submit-btn" type="submit">완료</button>
+                    <button id="btnSubmit" class="submit-btn" type="submit">완료</button>
                 </div>
             </div>
         </div>
     </section>
 </body>
-<script src="/assets/js/login/login.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/login/2fa.js?version=<?php echo $this->config->item('version');?>"></script>
 </html>

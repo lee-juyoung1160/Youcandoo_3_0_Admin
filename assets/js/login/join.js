@@ -126,3 +126,15 @@
 				callback();
 		})
 	}
+
+	function toast(msg)
+	{
+		Swal.fire({
+			toast: true,
+			position: 'center',
+			icon: 'warning',
+			title: msg,
+			showConfirmButton: false,
+			timer: 1500
+		})
+	}

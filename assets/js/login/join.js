@@ -16,12 +16,6 @@
 		useremail	.on("focusout", function () { validUserEmail(this); });
 		btnCancel   .on("click", function () { goLogin(); });
 		btnSubmit   .on("click", function () { onSubmitJoin(); });
-
-		/*userid      .on("keydown", function (event) { onKeydownEmail(event) });
-		password    .on("keydown", function (event) { onKeydownPassword(event) });
-
-		joinBtn		.on("click", function () { goJoin(); });*/
-
 	});
 
 	function validUserId(obj)
@@ -39,7 +33,6 @@
 		let regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
 		let regExp2 = /(\w)\1\1\1/;
 		regExp.test($(obj).val()) && (!regExp1.test($(obj).val()) && !regExp2.test($(obj).val())) ? errEl.hide() : errEl.show();
-		/*regExp.test($(obj).val()) ? errEl.hide() : errEl.show();*/
 	}
 
 	function validConfirmPassword(obj)
@@ -72,7 +65,10 @@
 		let url = api.join;
 		let errMsg = label.submit+message.ajaxError;
 		let param = {
-
+			"userid" : userid.val().trim(),
+			"password" : password.val().trim(),
+			"username" : username.val().trim(),
+			"useremail" : useremail.val().trim()
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

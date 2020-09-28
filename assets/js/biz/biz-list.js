@@ -2,14 +2,14 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	const dateType		= $("#date_type");
+	/*const dateType		= $("#date_type");*/
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
-		initSearchDatepicker();
+		/*initSearchDatepicker();*/
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
@@ -30,9 +30,9 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		initSearchDateRangeMonth();
+		/*initSearchDateRangeMonth();
 		initMaxDateToday();
-		initDayBtn();
+		initDayBtn();*/
 	}
 
 	let _page = 1;
@@ -41,10 +41,10 @@
 		let historyParams = getHistoryParam();
 
 		keyword.val(historyParams.keyword);
-		dateFrom.val(historyParams.fromDate);
+		/*dateFrom.val(historyParams.fromDate);
 		dateTo.val(historyParams.toDate);
 		dateType.val(historyParams.dateType);
-		onChangeSelectOption(dateType);
+		onChangeSelectOption(dateType);*/
 		searchType.val(historyParams.searchType);
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
@@ -60,6 +60,9 @@
 				url: api.listBiz,
 				type: "POST",
 				headers: headers,
+				dataSrc: function (json) {
+					return isSuccessResp(json) ?  json.data() : (fadeoutLoader(), sweetToast(json.msg));
+				},
 				data: function (d) {
 					return tableParams();
 				},
@@ -119,11 +122,11 @@
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
-			,"fromDate" : dateFrom.val()
+			/*,"fromDate" : dateFrom.val()
 			,"toDate" : dateTo.val()
+			,"dateType" : dateType.val()*/
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
-			,"dateType" : dateType.val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

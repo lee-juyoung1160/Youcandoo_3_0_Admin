@@ -175,7 +175,10 @@
 				,{title: "개설자", 			data: "nickname",    			width: "15%",   className: "cursor-default no-sort" }
 				,{title: "비고", 			data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let disabled = (row.promotion_uuid && row.doit_status === '모집중' && Number(row.doit_member) === 0) ? '' : 'disabled';
+						let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);
+						let isIng = row.doit_status === '모집중';
+						let hasJoinMember = Number(row.doit_member) > 0;
+						let disabled = (isCreatedByBiz && isIng && !hasJoinMember) ? '' : 'disabled';
 						return `<button onclick="deleteDoit(this);" data-uuid="${data}" class="btn-danger" type="button" ${disabled}>삭제</button>`;
 					}
 				}
@@ -207,7 +210,6 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				/*$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });*/
 				$(this).on( 'page.dt', function () {
 					_page = getCurrentPage(this);
 					$("#checkAll").prop('checked', false);

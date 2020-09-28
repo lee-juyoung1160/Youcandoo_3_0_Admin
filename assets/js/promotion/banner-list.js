@@ -15,6 +15,7 @@
 	$( () => {
 		/** 배너 테이블 데이터 로드 **/
 		buildBanners();
+		/*getPromo();*/
 		/** 배너추가 버튼 toggle disable **/
 		toggleDisabledBtnOpenModal();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

@@ -12,12 +12,12 @@
                         <div class="question-text clearfix">
                             <i class="question-mark far fa-question-circle"></i>
                             <span>
-                            최대 <b>3개</b>의 프로모션 배너를 등록할 수 있으며,<br><b>마우스 드래그 &amp; 드랍</b>으로 노출 순서를 지정할 수 있습니다.
+                            최대 <b>5개</b>의 프로모션 배너를 등록할 수 있으며,<br><b>마우스 드래그 &amp; 드랍</b>으로 노출 순서를 지정할 수 있습니다.
                         </span>
                         </div>
 
-                        <table class="recommend-list pro-banner-list" id="">
-                            <thead>
+                        <table class="recommend-list pro-banner-list" id="bannerTable">
+                            <!--<thead>
                             <tr>
                                 <th>배너</th>
                                 <th>기업명</th>
@@ -56,7 +56,7 @@
                                 <td>100억 프로젝트</td>
                                 <td><i class="far fa-times-circle"></i></td>
                             </tr>
-                            </tbody>
+                            </tbody>-->
                         </table>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
                                 <input id="keyword" type="search" style="width: 69%; padding: 0 10px;" placeholder="검색어를 입력해주세요.">
                             </div>
                         </div>
-                        <table class="pro-banner-list pro-shr-list" id="">
-                            <colgrop>
+                        <table class="pro-banner-list pro-shr-list" id="dataTable">
+                            <!--<colgrop>
                                 <col style="width: 5%;">
                                 <col style="width: 20%;">
                                 <col style="width: 40%;">
@@ -171,8 +171,7 @@
                                 <td>@야나두</td>
                                 <td>100억 프로젝트</td>
                             </tr>
-                            </tbody>
-
+                            </tbody>-->
                         </table>
                     </div>
                 </div>
@@ -182,7 +181,7 @@
         </div>
     </div>
 
-    <div class="modal-content banner-modal">
+    <!--<div class="modal-content banner-modal">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title">프로모션 배너 추가</p>
@@ -205,7 +204,7 @@
                 <li style="padding-top: 0;  border-bottom: none;">
                     <div class="table-wrap" style="margin-top: 0;">
                         <table id="dataTable" style="margin-top: 0;">
-                            <!--<colgroup>
+                            &lt;!&ndash;<colgroup>
                                 <col style="width:5%;">
                                 <col style="width:35%;">
                                 <col style="width:25%;">
@@ -233,7 +232,7 @@
                                 <td>@야나두</td>
                                 <td>프로젝트키1000억프로젝트</td>
                             </tr>
-                            </tbody>-->
+                            </tbody>&ndash;&gt;
                         </table>
                     </div>
                 </li>
@@ -241,7 +240,7 @@
             <button id="btnAdd" class="completion-btn" type="submit">추가</button>
         </div>
     </div>
-    <div class="modal-layout"></div>
+    <div class="modal-layout"></div>-->
 
 </section>
 <script src="/assets/js/promotion/banner-list.js?version=<?php echo $this->config->item('version');?>"></script>

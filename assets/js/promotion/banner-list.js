@@ -1,11 +1,6 @@
 
-	const btnOpenModal	= $("#btnOpenModal");
 	const bannerTable	= $("#bannerTable");
 	const btnSubmit		= $("#btnSubmit");
-	/** modal **/
-	const modalLayout	= $(".modal-layout");
-	const modalContent  = $(".modal-content");
-	const modalCloseBtn	= $(".close-btn");
 	const dataTable		= $("#dataTable");
 	const btnSearch		= $(".search-btn");
 	const searchType	= $("#searchType");
@@ -15,15 +10,10 @@
 	$( () => {
 		/** 배너 테이블 데이터 로드 **/
 		buildBanners();
-		/*getPromo();*/
-		/** 배너추가 버튼 toggle disable **/
-		toggleDisabledBtnOpenModal();
+		getPromo();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
-		modalCloseBtn	.on("click", function () { modalFadeout(); });
-		modalLayout		.on("click", function () { modalFadeout(); });
-		btnOpenModal	.on("click", function () { onClickModalOpen(); });
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
 		btnAdd			.on("click", function () { addBanners(); });
@@ -45,24 +35,7 @@
 		return $(el);
 	}
 
-	function onClickModalOpen()
-	{
-		modalFadein();
-		initModal();
-	}
-
 	let g_banners = [];
-	function initModal()
-	{
-		keyword.val('');
-		g_banners.length = 0;
-		bannerTable.find('tbody').children().each(function () {
-			g_banners.push(this.id);
-		});
-
-		getPromo();
-	}
-
 	function buildBanners()
 	{
 		bannerTable.DataTable({
@@ -76,13 +49,13 @@
 				}
 			},
 			columns: [
-				{title: "배너이미지",		data: "list_image_url",		width: "40%",
+				{title: "배너이미지",		data: "list_image_url",		width: "30%",
 					render: function (data) {
-						return `<img class="pro-banner" src="${data}" alt="">`;
+						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "25%" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "25%" }
+				,{title: "기업", 		data: "nickname",    		width: "30%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
 					render: function (data) {
 						return `<i onclick="removeRow(this)" data-uuid="${data}" class="far fa-times-circle"></i>`;
@@ -111,9 +84,6 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
-				let table = bannerTable.DataTable();
-				if (!table.data().any())
-					bannerTable.find('tbody').children().remove();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setBannerRowAttributes(nRow, aData);
@@ -135,36 +105,22 @@
 
 		$(targetId).remove();
 
-		toggleDisabledBtnOpenModal();
+		initDisableCheckbox();
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function getBannerRows()
 	{
-		return bannerTable.find('tbody').children();
+		let banners = bannerTable.DataTable();
+		return banners.data().any() ? bannerTable.find('tbody').children() : 0;
 	}
 
-	function toggleDisabledBtnOpenModal()
+	function initDisableCheckbox()
 	{
-		if (isFull())
-		{
-			btnOpenModal.addClass('disabled');
-			btnOpenModal.prop('disabled', true);
-		}
-		else
-		{
-			btnOpenModal.removeClass('disabled');
-			btnOpenModal.prop('disabled', false);
-		}
-	}
-
-	function isFull()
-	{
-		let result = false;
-		let rows = getBannerRows();
-		if (rows.length >= 5)
-			result = true;
-
-		return result;
+		g_banners.length = 0;
+		bannerTable.find('tbody').children().each(function () {
+			g_banners.push(this.id);
+		});
 	}
 
 	function onSubmitBanner()
@@ -194,7 +150,6 @@
 
 	function createSuccess()
 	{
-		toggleDisabledBtnOpenModal();
 		let table = bannerTable.DataTable();
 		table.ajax.reload();
 	}
@@ -214,7 +169,6 @@
 
 	function getPromo()
 	{
-		dataTable.empty();
 		dataTable.DataTable({
 			ajax : {
 				url: api.listNonBanner,
@@ -222,25 +176,25 @@
 				global: false,
 				headers: headers,
 				data: function (d) {
-					return modalParams();
+					return promoParams();
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "", 	data: "promotion_uuid",   width: "5%",     orderable: false,
+				{title: "", 			data: "promotion_uuid",   	width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "배너이미지",		data: "list_image_url",		width: "25%",    orderable: false,
+				{title: "배너이미지",		data: "list_image_url",		width: "20%",
 					render: function (data) {
-						return `<img class="pro-banner" src="${data}" alt="" onerror="onErrorImage(this);">`;
+						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "15%",    orderable: false }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "20%",    orderable: false }
+				,{title: "기업", 		data: "nickname",    		width: "40%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "35%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -290,7 +244,7 @@
 			$(checkDom).children().prop('disabled', true);
 	}
 
-	function modalParams()
+	function promoParams()
 	{
 		let param = {
 			"search_type" : searchType.val()
@@ -323,7 +277,9 @@
 				rowDom +=
 					`<tr role="row" id="${uuid}">
 						<td>
-							<img class="pro-banner" src="${imageUrl}" alt="" onerror="onErrorImage(this);">
+							<div class="pro-thumbnail">
+								<img class="pro-banner" src="${imageUrl}" alt="" onerror="onErrorImage(this);">
+							</div>	
 						</td>
 						<td>${bizName}</td>
 						<td>${title}</td>
@@ -336,9 +292,8 @@
 			let targetTableBody = bannerTable.find('tbody');
 			targetTableBody.append(rowDom);
 
-			modalFadeout();
-
-			toggleDisabledBtnOpenModal();
+			initDisableCheckbox();
+			tableReloadAndStayCurrentPage(dataTable);
 		}
 	}
 

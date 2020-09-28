@@ -93,11 +93,11 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",   				width: "5%",     className: "cursor-default no-sort",
+				/*{title: "", 			data: "idx",   				width: "5%",     className: "cursor-default no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
-				},
+				},*/
 				{title: "기업", 			data: "nickname",    		width: "15%",    className: "cursor-default" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
@@ -125,14 +125,14 @@
 						return getPromotionStatusName(data);
 					}
 				}
-				,{title: "공개 여부", 	data: "is_banner",    	width: "10%",    className: "cursor-default no-sort",
+				,{title: "공개 여부", 	data: "is_banner",    		width: "10%",    className: "cursor-default no-sort",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "비고", 			data: "doit_uuid",    			width: "20%",   	className: "cursor-default",
+				,{title: "비고", 		data: "promotion_uuid",    	width: "20%",    className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
-						return `<button class="btn-warning" type="button">오늘시작</button><button class="btn-orange" type="button">조기종료</button><button class="btn-danger" type="button">삭제</button>`;
+						return buildEditBtn(row);
 					}
 				}
 			],
@@ -168,7 +168,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -203,13 +202,85 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function buildEditBtn(data)
 	{
-		let checkDom = $(nRow).children().eq(0);
+		let promoStatus = data.status;
+		let promoUuid 	= data.promotion_uuid;
+		let env = $("#env");
+		let accessibleAuthCodes  = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
+		let isAccessibleAuthCode = accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1;
+		let btnEls = ''
+		let enabledOnProgress = promoStatus === 'progress' ? '' : 'disabled';
+		let enabledOnPending  = promoStatus === 'pending' ? '' : 'disabled';
 
-		/** 대기 상태가 아닌 경우 체크박스 삭제 **/
-		if (aData.status !== 'pending')
-			$(checkDom).children().prop('disabled', true);
+		if (isAccessibleAuthCode)
+		{
+			btnEls +=
+				`<button onclick="promoStart(this)" data-uuid="${promoUuid}" class="btn-warning" type="button" ${enabledOnPending}>오늘시작</button>`
+		}
+
+		btnEls +=
+			`<button onclick="promoEarlyClose(this)" data-uuid="${promoUuid}" class="btn-orange" type="button" ${enabledOnProgress}>조기종료</button>`
+		btnEls +=
+			`<button onclick="promoDelete(this)" data-uuid="${promoUuid}" class="btn-danger" type="button" ${enabledOnPending}>삭제</button>`
+
+		return btnEls;
+	}
+
+	let g_promo_uuid;
+	function promoStart(obj)
+	{
+		g_promo_uuid = $(obj).data("uuid");
+		sweetConfirm('확인을 누르면 진행중 상태로 변경됩니다.', startRequest);
+	}
+
+	function startRequest()
+	{
+		let url  	= api.startPromotion;
+		let param 	= { "promotion_uuid" : g_promo_uuid };
+		let errMsg	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reqCallback, errMsg, false);
+	}
+
+	function promoDelete(obj)
+	{
+		g_promo_uuid = $(obj).data("uuid");
+		sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		let url 	= api.deletePromotion;
+		let param 	= { "promotion_uuid" : g_promo_uuid };
+		let errMsg 	= label.delete+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url,  JSON.stringify(param), reqCallback, errMsg,false);
+	}
+
+	function promoEarlyClose(obj)
+	{
+		g_promo_uuid = $(obj).data("uuid");
+		sweetConfirm(message.close, closeRequest);
+	}
+
+	function closeRequest()
+	{
+		let url 	= api.closePromotion;
+		let param 	= { "promotion_uuid" : g_promo_uuid };
+		let errMsg 	= label.terminate+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url,  JSON.stringify(param), reqCallback, errMsg,false);
+	}
+
+	function reqCallback(data)
+	{
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
+	function reqSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function onSubmitSearch()
@@ -219,54 +290,4 @@
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		initMaxDateAfterThreeMonth();
-	}
-
-	function deletePromotion()
-	{
-		if (delValidation())
-			sweetConfirm(message.delete, deleteRequest);
-	}
-
-	function deleteRequest()
-	{
-		let url 	= api.deletePromotion;
-		let errMsg 	= label.delete+message.ajaxError;
-
-		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg,false);
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		let param = {
-			"promotion_uuid" : selectedData.promotion_uuid
-		};
-
-		return JSON.stringify(param)
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteSuccess);
-	}
-
-	function deleteSuccess()
-	{
-		tableReloadAndStayCurrentPage(dataTable);
-	}
-
-	function delValidation()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-
-		if (isEmpty(selectedData))
-		{
-			sweetToast(`삭제할 대상을 목록에서 ${message.select}`);
-			return false;
-		}
-
-		return true;
 	}

@@ -9,14 +9,8 @@
 
 	function toggleStartButton()
 	{
-		let accessibleAuthCodes = env.val() === 'development' ? ['dev', 'smg'] : ['smg'];
-		let isAccessibleAuthCode  = accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1;
-
-		if (getPathName() === '/doit')
-		{
-			accessibleAuthCodes = ['dev'];
-			isAccessibleAuthCode = (accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1 && env.val() === 'development');
-		}
+		let accessibleAuthCodes = ['dev'];
+		let isAccessibleAuthCode = (accessibleAuthCodes.indexOf(sessionAuthCode.val()) !== -1 && env.val() === 'development');
 
 		isAccessibleAuthCode ? btnStartNow.show() : btnStartNow.remove();
 	}
@@ -37,24 +31,13 @@
 
 	function startNowConfirmCallback()
 	{
-		let pathName     = getPathName();
 		let table 		 = $("#dataTable").DataTable();
 		let selectedData = table.rows('.selected').data()[0];
-		let param;
-		let url;
-		let errMsg		 = label.modify+message.ajaxError;
-		if (pathName.includes('doit'))
-		{
-			param 	= JSON.stringify({"doit_uuid" : selectedData.doit_uuid});
-			url 	= 'https://api.youcandoo.co.kr/v1.0/admin/doit/start';
-		}
-		else
-		{
-			param 	= JSON.stringify({"promotion_uuid" : selectedData.promotion_uuid});
-			url 	= 'https://api.youcandoo.co.kr/v1.0/admin/promotion/start';
-		}
+		let url 	= 'https://api.youcandoo.co.kr/v1.0/admin/doit/start';
+		let param 	= {"doit_uuid" : selectedData.doit_uuid};
+		let errMsg	= label.modify+message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, param, startNowSuccessCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), startNowSuccessCallback, errMsg, false);
 	}
 
 	function startNowSuccessCallback(data)

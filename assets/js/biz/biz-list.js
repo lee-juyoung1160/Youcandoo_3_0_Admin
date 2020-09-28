@@ -2,14 +2,11 @@
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
-	/*const dateType		= $("#date_type");*/
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 
 	$( () => {
-		/** 데이트피커 초기화 **/
-		/*initSearchDatepicker();*/
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
@@ -30,9 +27,6 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		/*initSearchDateRangeMonth();
-		initMaxDateToday();
-		initDayBtn();*/
 	}
 
 	let _page = 1;
@@ -41,10 +35,6 @@
 		let historyParams = getHistoryParam();
 
 		keyword.val(historyParams.keyword);
-		/*dateFrom.val(historyParams.fromDate);
-		dateTo.val(historyParams.toDate);
-		dateType.val(historyParams.dateType);
-		onChangeSelectOption(dateType);*/
 		searchType.val(historyParams.searchType);
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
@@ -61,7 +51,7 @@
 				type: "POST",
 				headers: headers,
 				dataSrc: function (json) {
-					return isSuccessResp(json) ?  json.data() : (fadeoutLoader(), sweetToast(json.msg));
+					return isSuccessResp(json) ?  json.data : (fadeoutLoader(), sweetToast(json.msg));
 				},
 				data: function (d) {
 					return tableParams();
@@ -122,9 +112,6 @@
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
-			/*,"fromDate" : dateFrom.val()
-			,"toDate" : dateTo.val()
-			,"dateType" : dateType.val()*/
 			,"searchType" : searchType.val()
 			,"keyword" : keyword.val()
 		}

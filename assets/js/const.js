@@ -8,6 +8,7 @@
 		,create : '등록하시겠습니까?'
 		,modify : '수정하시겠습니까?'
 		,delete : '삭제하시겠습니까?'
+		,close : '종료하시겠습니까?'
 		,change : '변경하시겠습니까?'
 		,cancel : '취소하시겠습니까?'
 		,send : '발송하시겠습니까?'
@@ -168,7 +169,6 @@
 		,listBizUcd : baseApiUrl+'biz/ucd'
 		/** 프로모션 **/
 		,createPromotion : baseApiUrl+'promotion/create'
-		,deletePromotion : baseApiUrl+'promotion/delete'
 		,detailPromotion : baseApiUrl+'promotion/getPromotion'
 		,involveDoitPromotion : baseApiUrl+'promotion/getDoit'
 		,updatePromotion : baseApiUrl+'promotion/update'
@@ -177,6 +177,9 @@
 		,listBanner : baseApiUrl+'promotion/banner/getExposure'
 		,listNonBanner : baseApiUrl+'promotion/banner/getNonExposure'
 		,updateBanner : baseApiUrl+'promotion/banner/set'
+		,startPromotion : baseApiUrl+'promotion/start'
+		,deletePromotion : baseApiUrl+'promotion/delete'
+		,closePromotion : baseApiUrl+'promotion/end'
 		/** 두잇 **/
 		,createDoit : baseApiUrl+'doit/create'
 		,deleteDoit : baseApiUrl+'doit/delete'

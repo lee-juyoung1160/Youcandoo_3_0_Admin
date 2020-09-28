@@ -256,7 +256,7 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let joinMemberDom 	= $(nRow).children().eq(5);
+		let joinMemberDom 	= $(nRow).children().eq(6);
 		$(joinMemberDom).attr('data-sort', aData.doit_member);
 	}
 

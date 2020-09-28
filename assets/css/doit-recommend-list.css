@@ -102,12 +102,14 @@ table.pro-shr-list tr
     font-size: 14px;
 }
 
-
+.doit-recommend-page .recommend-list thead,
+.doit-recommend-page .doit-shr-list thead {
+    display: none;
+}
 table.recommend-list tr td:first-child {
     width: 120px;
 }
-table.recommend-list tr td:first-child,
-table.recommend-list tr td:nth-child(2)
+table.recommend-list tr td
 {
     cursor: n-resize;
 }
@@ -183,8 +185,13 @@ table.doit-shr-list .doit-num {
     font-size: 12px;
 }
 .pro-thumbnail {
-    width: 180px;
+    width: 140px;
 }
 .pro-shr-list .pro-thumbnail {
-    width: 100px;
+    width: 92px;
 }
+.fa-times-circle {
+    color: #ec5c5c;
+    font-size: 19px;
+}
+

@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="/assets/css/common.css?version=<?php echo $this->config->item('version');?>">
+<section class="pro-banner-page">
+    <div class="inner">
+        <h2 class="main-title">프로모션 배너 관리</h2>
+        <div class="wrap">
+            <div class="table-wrap" style="margin-top: 0;">
+                <div class="main-top clearfix">
+                    <div class="left-wrap clearfix">
+                        <i class="question-mark far fa-question-circle"></i>
+                        <span>
+                        최대 <b>5개</b>의 배너를 등록할 수 있으며,<br><b>마우스 드래그 & 드랍</b>으로 노출 순서를 지정할 수 있습니다.
+                        </span>
+                    </div>
+                    <div style="float:right;">
+                        <!--비활성화 - .disabled -->
+                        <button id="btnOpenModal" type="button"><i class="fas fa-plus"></i> 배너 추가</button>
+                    </div>
+                </div>
+                 <table id="bannerTable">
+                   <!--<colgroup>
+                        <col style="width:5%;">
+                        <col style="width:40%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:5%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>배너</th>
+                            <th>기업명</th>
+                            <th>프로모션 명</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                            </td>
+                            <td>@야나두</td>
+                            <td>프로젝트키1000억프로젝트</td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                    </tbody>-->
+                </table>
+            </div>
+            <button id="btnSubmit" class="completion-btn" type="submit" style="margin: 30px 0 50px;">등록 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-content banner-modal">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">프로모션 배너 추가</p>
+            <ul class="modal-information">
+                <li>
+                    <div class="search-wrap clearfix">
+                        <div class="select-box">
+                            <label for="searchType">프로모션명</label>
+                            <select id="searchType">
+                                <option value="promotion_title">프로모션명</option>
+                                <option value="nickname">기업명</option>
+                            </select>
+                        </div>
+                        <div class="search-box">
+                            <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                            <i class="search-btn fas fa-search"></i>
+                        </div>
+                    </div>
+                </li>
+                <li style="padding-top: 0;  border-bottom: none;">
+                    <div class="table-wrap" style="margin-top: 0;">
+                        <table id="dataTable" style="margin-top: 0;">
+                            <!--<colgroup>
+                                <col style="width:5%;">
+                                <col style="width:35%;">
+                                <col style="width:25%;">
+                                <col style="width:30%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>배너</th>
+                                <th>기업명</th>
+                                <th>프로모션 명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c2" name="cc" />
+                                        <label for="c2"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img class="pro-banner" src="https://youcandoo.yanadoocdn.com/promotion/f1c9fd76236f33c9e2ba72bb4eaf3628/2595467a23fcf1d34054a6a789d3ebba.jpg" alt="">
+                                </td>
+                                <td>@야나두</td>
+                                <td>프로젝트키1000억프로젝트</td>
+                            </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </li>
+            </ul>
+            <button id="btnAdd" class="completion-btn" type="submit">추가</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+</section>
+<script src="/assets/js/promotion/banner-list.js?version=<?php echo $this->config->item('version');?>"></script>

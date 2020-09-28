@@ -153,10 +153,7 @@
 			ordering: false,
 			order: [],
 			info: false,
-			select: {
-				style: 'single',
-				selector: ':checkbox'
-			},
+			select: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,

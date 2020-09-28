@@ -9,10 +9,11 @@
 
 	$( () => {
 		userid		.trigger('focus');
-		password	.on("focusout", function () { onFocusoutPassword(this); });
-		repassword	.on("focusout", function () { onFocusoutConfirmPassword(this); });
-		username	.on("focusout", function () { onFocusoutUserName(this); });
-		useremail	.on("focusout", function () { onFocusoutUserEmail(this); });
+		userid		.on("focusout", function () { validUserId(this); });
+		password	.on("focusout", function () { validPassword(this); });
+		repassword	.on("focusout", function () { validConfirmPassword(this); });
+		username	.on("focusout", function () { validUserName(this); });
+		useremail	.on("focusout", function () { validUserEmail(this); });
 		btnCancel   .on("click", function () { goLogin(); });
 		btnSubmit   .on("click", function () { onSubmitJoin(); });
 
@@ -23,39 +24,47 @@
 
 	});
 
-	function onFocusoutPassword(obj)
+	function validUserId(obj)
 	{
 		let errEl = $(obj).parent().next();
-		let regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
-		regExp.test($(obj).val()) ? errEl.hide() : errEl.show();
+		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
 	}
 
-	function onFocusoutConfirmPassword(obj)
+	function validPassword(obj)
 	{
 		let errEl = $(obj).parent().next();
+		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
+		/*let regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;*/
+		let regExp  = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+		let regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
+		let regExp2 = /(\w)\1\1\1/;
+		regExp.test($(obj).val()) && (!regExp1.test($(obj).val()) && !regExp2.test($(obj).val())) ? errEl.hide() : errEl.show();
+		/*regExp.test($(obj).val()) ? errEl.hide() : errEl.show();*/
+	}
 
+	function validConfirmPassword(obj)
+	{
+		let errEl = $(obj).parent().next();
 		password.val() === repassword.val() ? errEl.hide() : errEl.show();
 	}
 
-	function onFocusoutUserName(obj)
+	function validUserName(obj)
 	{
 		let errEl = $(obj).parent().next();
-
-		isEmpty(username.val()) ?  errEl.show() : errEl.hide();
+		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
 	}
 
-	function onFocusoutUserEmail(obj)
+	function validUserEmail(obj)
 	{
 		let errEl = $(obj).parent().next();
-
-		isEmail(useremail.val()) ?  errEl.hide() : errEl.show();
+		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
+		isEmail($(obj).val()) ? errEl.hide() : errEl.show();
 	}
 
 	function onSubmitJoin()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			swConfirm(message.create, createRequest);
 	}
 
 	function createRequest()
@@ -76,38 +85,24 @@
 
 	function validation()
 	{
-		if (isEmpty(userid.val()))
-		{
-			toast(`아이디는 ${message.required}`);
-			userid.trigger('focus');
-			return false;
-		}
+		let joinForm = $(".join-content");
+		joinForm.removeClass('shake');
 
-		if (isEmpty(password.val()))
-		{
-			toast(`비밀번호는 ${message.required}`);
-			password.trigger('focus');
-			return false;
-		}
+		validUserId(userid);
+		validPassword(password);
+		validConfirmPassword(repassword);
+		validUserName(username);
+		validUserEmail(useremail);
 
-		if (isEmpty(repassword.val()))
-		{
-			toast(`비밀번호 확인은 ${message.required}`);
-			repassword.trigger('focus');
-			return false;
-		}
+		let cnt = 0;
+		$(".error-msg").each(function() {
+			if ($(this).css("display") !== 'none')
+				cnt++
+		})
 
-		if (isEmpty(username.val()))
+		if (cnt > 0)
 		{
-			toast(`이름은 ${message.required}`);
-			username.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(useremail.val()))
-		{
-			toast(`이메일은 ${message.required}`);
-			useremail.trigger('focus');
+			joinForm.addClass('shake');
 			return false;
 		}
 
@@ -119,14 +114,15 @@
 		location.href = '/main/login';
 	}
 
-	function toast(msg)
+	function swConfirm(msg, callback)
 	{
 		Swal.fire({
-			toast: true,
-			position: 'center',
-			icon: 'warning',
-			title: msg,
-			showConfirmButton: false,
-			timer: 1500
+			text: msg,
+			showCancelButton: true,
+			confirmButtonText: label.confirm,
+			cancelButtonText: label.cancel
+		}).then((result) => {
+			if (result.value)
+				callback();
 		})
 	}

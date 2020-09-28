@@ -29,7 +29,12 @@
 	function onSubmitNotice()
 	{
 		if (validation())
-			sweetConfirm(message.create, fileUploadReq);
+		{
+			let imageFile = contentImage[0].files;
+			let requestFn = imageFile.length === 0 ? createRequest : fileUploadReq;
+
+			sweetConfirm(message.create, requestFn);
+		}
 	}
 
 	function fileUploadReq()
@@ -44,43 +49,29 @@
 
 	function createRequest(data)
 	{
-		if (isSuccessResp(data))
+		if (isEmpty(data) || isSuccessResp(data))
 		{
 			let url 	= api.createNotice;
 			let errMsg 	= label.submit+message.ajaxError;
-			let { file } = data.image_urls;
 			let param = {
 				"notice_title" : title.val().trim(),
 				"notice_contents" : replaceInputTextarea(content.val().trim()),
 				"reservation_date" : reserveDate.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-				"notice_image" : file,
 				"created_user" : sessionUserId.val()
+			}
+
+			if (!isEmpty(data))
+			{
+				let { file } = data.image_urls;
+				param["notice_image"] = file;
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 		}
 		else
 			sweetToast(data.msg);
-
-		/*let url 	= api.createNotice;
-		let errMsg 	= label.submit+message.ajaxError;
-
-		ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);*/
 	}
-
-	/*function params()
-	{
-		let formData  = new FormData();
-		formData.append('notice_title', title.val().trim());
-		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
-		formData.append('reservation_date', reserveDate.val());
-		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('notice_image', contentImage[0].files[0]);
-		formData.append('created_user', sessionUserId.val());
-
-		return formData;
-	}*/
 
 	function createReqCallback(data)
 	{

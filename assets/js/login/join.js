@@ -1,19 +1,18 @@
 
 	const userid     = $("#userid");
+	const useremail  = $("#useremail");
 	const password   = $("#password");
 	const repassword = $("#repassword");
 	const username 	 = $("#username");
-	const useremail  = $("#useremail");
 	const btnSubmit	 = $("#btnSubmit");
 	const btnCancel  = $("#btnCancel");
 
 	$( () => {
 		userid		.trigger('focus');
-		userid		.on("focusout", function () { validUserId(this); });
+		userid		.on("keyup focusout", function () { validUserId(this); });
 		password	.on("focusout", function () { validPassword(this); });
 		repassword	.on("focusout", function () { validConfirmPassword(this); });
-		username	.on("focusout", function () { validUserName(this); });
-		useremail	.on("focusout", function () { validUserEmail(this); });
+		username	.on("keyup focusout", function () { validUserName(this); });
 		btnCancel   .on("click", function () { goLogin(); });
 		btnSubmit   .on("click", function () { onSubmitJoin(); });
 	});
@@ -28,7 +27,7 @@
 	{
 		let errEl = $(obj).parent().next();
 		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
-		/*let regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;*/
+
 		let regExp  = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
 		let regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
 		let regExp2 = /(\w)\1\1\1/;
@@ -47,13 +46,6 @@
 		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
 	}
 
-	function validUserEmail(obj)
-	{
-		let errEl = $(obj).parent().next();
-		isEmpty($(obj).val()) ? errEl.show() : errEl.hide();
-		isEmail($(obj).val()) ? errEl.hide() : errEl.show();
-	}
-
 	function onSubmitJoin()
 	{
 		if (validation())
@@ -62,21 +54,10 @@
 
 	function createRequest()
 	{
-		let url = api.join;
-		let errMsg = label.submit+message.ajaxError;
-		let param = {
-			"userid" : userid.val().trim(),
-			"password" : password.val().trim(),
-			"username" : username.val().trim(),
-			"useremail" : useremail.val().trim()
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback()
-	{
-
+		let userEmail = userid.val()+"@yanadoocorp.com";
+		useremail.val(userEmail);
+		/*document.useremail.value = `${userId}@yanadoocorp.com`;*/
+		document.joinForm.submit();
 	}
 
 	function validation()
@@ -88,7 +69,6 @@
 		validPassword(password);
 		validConfirmPassword(repassword);
 		validUserName(username);
-		validUserEmail(useremail);
 
 		let cnt = 0;
 		$(".error-msg").each(function() {
@@ -120,17 +100,5 @@
 		}).then((result) => {
 			if (result.value)
 				callback();
-		})
-	}
-
-	function toast(msg)
-	{
-		Swal.fire({
-			toast: true,
-			position: 'center',
-			icon: 'warning',
-			title: msg,
-			showConfirmButton: false,
-			timer: 1500
 		})
 	}

@@ -1,34 +1,16 @@
 
-	const qrImg     = $("#qrImg");
 	const authNum   = $("#authNum");
 	const btnSubmit	= $("#btnSubmit");
 
 	$( () => {
-		authNum.trigger('focus');
-
-		btnSubmit.on("click", function () { onSubmitAuthNum(); });
+		authNum		.trigger('focus');
+		btnSubmit	.on("click", function () { onSubmitAuthNum(); });
 	});
 
 	function onSubmitAuthNum()
 	{
 		if (validation())
-			createRequest();
-	}
-
-	function createRequest()
-	{
-		let url = api.join;
-		let errMsg = label.submit+message.ajaxError;
-		let param = {
-			"" : authNum.val().trim()
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback()
-	{
-
+			document.tfaForm.submit();
 	}
 
 	function validation()
@@ -42,19 +24,6 @@
 		return true;
 	}
 
-	function swConfirm(msg, callback)
-	{
-		Swal.fire({
-			text: msg,
-			showCancelButton: true,
-			confirmButtonText: label.confirm,
-			cancelButtonText: label.cancel
-		}).then((result) => {
-			if (result.value)
-				callback();
-		})
-	}
-
 	function toast(msg)
 	{
 		Swal.fire({
@@ -65,4 +34,9 @@
 			showConfirmButton: false,
 			timer: 1500
 		})
+	}
+
+	function onErrorImage(obj)
+	{
+		$(obj).attr('src', label.noImage);
 	}

@@ -227,6 +227,19 @@ input::placeholder {
 	transform: translate3d(0, 0, 0);
 	perspective: 1000px;
 }
+.email-wrap span {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	color: #333;
+	font-size: 13px;
+	font-weight: 600;
+}
+#useremail {
+	width: 210px;
+	left: 0;
+}
+
 
 
 

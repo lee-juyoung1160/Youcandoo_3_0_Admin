@@ -81,7 +81,7 @@ table.pro-shr-list tr
     float:left;
     padding: 5px 8px;
     color: #2A34DF;
-    margin-right: 5px;
+    margin: 0 5px 5px 0;
     font-size: 12px;
     font-weight: 500;
     background-color: #f1f1f1;
@@ -182,7 +182,7 @@ table.doit-shr-list .doit-num {
     display: block;
     margin-top: 5px;
     color: #ec5c5c;
-    font-size: 12px;
+    font-size: 11px;
 }
 .pro-thumbnail {
     width: 140px;

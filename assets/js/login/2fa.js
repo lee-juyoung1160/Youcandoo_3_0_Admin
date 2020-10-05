@@ -1,11 +1,29 @@
 
-	const authNum   = $("#authNum");
-	const btnSubmit	= $("#btnSubmit");
+	const qrImg  = $("#qrImg");
+	const otpNum = $("#otpNum");
+	const btnSubmit		= $("#btnSubmit");
+	const viewLoading	= $("#viewLoading");
 
 	$( () => {
-		authNum		.trigger('focus');
-		btnSubmit	.on("click", function () { onSubmitAuthNum(); });
+		fadeinLoader();
+		checkQrImageLoad();
+		otpNum.trigger('focus');
+		btnSubmit.on("click", function () { onSubmitAuthNum(); });
 	});
+
+	function checkQrImageLoad()
+	{
+		if (qrImg.prop("complete"))
+			fadeoutLoader();
+		else
+		{
+			qrImg.on("load", function () {
+				if (this.complete) fadeoutLoader();
+			}).on("error", function () {
+				onErrorImage(this);
+			});
+		}
+	}
 
 	function onSubmitAuthNum()
 	{
@@ -15,7 +33,7 @@
 
 	function validation()
 	{
-		if (isEmpty(authNum.val()))
+		if (isEmpty(otpNum.val()))
 		{
 			toast(`인증 번호는 ${message.required}`);
 			return false;
@@ -34,6 +52,16 @@
 			showConfirmButton: false,
 			timer: 1500
 		})
+	}
+
+	function fadeinLoader()
+	{
+		viewLoading.fadeIn(100);
+	}
+
+	function fadeoutLoader()
+	{
+		viewLoading.fadeOut(100);
 	}
 
 	function onErrorImage(obj)

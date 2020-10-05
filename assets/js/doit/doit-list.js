@@ -148,33 +148,36 @@
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "두잇유형", 			data: "promotion_uuid", 		width: "5%",   className: "cursor-default",
+				{title: "두잇유형", 			data: "promotion_uuid", 		width: "5%",    className: "cursor-default",
 					render: function (data) {
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "카테고리", 		data: "doit_category",  		width: "9%",   className: "cursor-default no-sort" }
-				,{title: "두잇명", 			data: "doit_title",    			width: "11%",   className: "cursor-default",
+				,{title: "카테고리", 		data: "doit_category",  		width: "9%",    className: "cursor-default no-sort" }
+				,{title: "두잇명", 			data: "doit_title",    			width: "13%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoit + row.idx;
-						return `<a href="${detailUrl}">${row.doit_title}</a>`;
+						return `<a class="line-clamp" title="${row.doit_title}" href="${detailUrl}">${row.doit_title}</a>`;
 					}
 				}
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "10%",   className: "cursor-default",
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "17%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
+						return `${row.action_start_datetime} ${row.action_allow_start_time} ${label.tilde} ${row.action_end_datetime} ${row.action_allow_end_time}`;
 					}
 				}
-				,{title: "인증요일", 		data: "action_dayofweek",  		width: "15%",   className: "cursor-default no-sort" }
-				,{title: "참여/모집인원", 	data: "doit_member",    	 	width: "6%",   className: "cursor-default",
+				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
+				,{title: "참여/모집인원", 	data: "doit_member",    	 	width: "8%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${numberWithCommas(row.doit_member)} ${label.slash} ${numberWithCommas(row.max_user)}`;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "5%",    className: "cursor-default" }
-				,{title: "개설자", 			data: "nickname",    			width: "11%",   className: "cursor-default no-sort" }
-				,{title: "개설일", 		data: "action_start_datetime",    		width: "5%",    className: "cursor-default" }
-				,{title: "비고", 			data: "doit_uuid",    			width: "3%",   	className: "cursor-default",
+				,{title: "개설자", 			data: "nickname",    			width: "8%",   className: "cursor-default no-sort",
+					render: function (data) {
+						return `<div class="line-clamp" style="max-width: 150px;" title="${data}">${data}</div>`;
+					}
+				}
+				,{title: "비고", 			data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);
 						let isIng = row.doit_status === '모집중';

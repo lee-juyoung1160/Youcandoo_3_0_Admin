@@ -47,17 +47,18 @@
                 </h1>
                 <form name="tfaForm" action="/auth/verify" method="post">
                     <div class="qr_box">
-                        <span class="qr_img"><img src="<?php if(null !== $qrcode_url) echo $qrcode_url?>" alt="qr코드"></span>
+                        <span class="qr_img"><img id="qrImg" src="<?php if(null !== $qrcode_url) echo $qrcode_url?>" alt="qr코드"></span>
                     </div>
                     <div class="col otp-num-wrap">
                         <p>인증번호</p>
                         <div class="input-wrap">
                             <i class="fas fa-key"></i>
-                            <input name="otp" id="authNum" type="text" placeholder="인증번호를 입력해주세요.">
+                            <input name="otp" id="otpNum" type="text" placeholder="인증번호를 입력해주세요.">
                         </div>
                         <span class="error-msg">인증번호를 확인해주세요.</span>
                     </div>
                     <input type="hidden" name="userid" value="<?php if(null !== $userid) echo $userid?>"/>
+                    <input type="hidden" name="username" value="<?php if(null !== $username) echo $username?>"/>
                     <input type="hidden" name="password" value="<?php if(null !== $password) echo $password?>"/>
                     <input type="hidden" name="useremail" value="<?php if(null !== $useremail) echo $useremail?>"/>
                     <input type="hidden" name="secret" value="<?php if(null !== $secret) echo $secret?>"/>
@@ -68,9 +69,17 @@
             </div>
         </div>
     </section>
+
+    <!-- loading html -->
+    <div class="loading-back" id="viewLoading" style="display: none;">
+        <div class="loading-wrap">
+            <div class="main_loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <span>Loading</span>
+        </div>
+    </div>
 </body>
 <script src="/assets/js/login/2fa.js?version=<?php echo $this->config->item('version');?>"></script>
-<script>
-    var secret = "<??>";
-</script>
 </html>

@@ -56,7 +56,6 @@
 	{
 		let userEmail = userid.val()+"@yanadoocorp.com";
 		useremail.val(userEmail);
-		/*document.useremail.value = `${userId}@yanadoocorp.com`;*/
 		document.joinForm.submit();
 	}
 

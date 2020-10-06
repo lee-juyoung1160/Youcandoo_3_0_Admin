@@ -2,14 +2,17 @@
 	const qrImg  	= $("#qrImg");
 	const otpNum 	= $("#otpNum");
 	const type 		= $("#type");
-	const secret 	= $("#secret");
-	const userid 	= $("#userid");
 	const username 	= $("#username");
 	const password 	= $("#password");
 	const useremail = $("#useremail");
 	const btnSubmit	= $("#btnSubmit");
 	const viewLoading	= $("#viewLoading");
-
+	if (type.val() !== 'join')
+	{
+		username.remove();
+		password.remove();
+		useremail.remove();
+	}
 	$( () => {
 		fadeinLoader();
 		checkQrImageLoad();
@@ -35,20 +38,14 @@
 	{
 		if (validation())
 		{
-			let form = new FormData();
-			form.append("secret", secret.val());
-			form.append("userid", userid.val());
-			form.append("otpNum", otpNum.val());
-			if (type.val() === 'join')
+			if (type.val() !== 'join')
 			{
-				form.append("username", username.val());
-				form.append("password", password.val());
-				form.append("useremail", useremail.val());
+				username.remove();
+				password.remove();
+				useremail.remove();
 			}
 
-			let request = new XMLHttpRequest();
-			request.open("POST", "/auth/mta");
-			request.send(form);
+			document.tfaForm.submit();
 		}
 	}
 

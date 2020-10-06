@@ -86,10 +86,16 @@
 					}
 				},
 				{title: "권한", 	 	   data: "auth_name",     	  width: "10%",     className: "cursor-default" }
-				,{title: "아이디", 	   data: "userid",     		  width: "10%",     className: "cursor-default" }
+				/*,{title: "아이디", 	   data: "userid",     		  width: "10%",     className: "cursor-default" }*/
 				,{title: "이름", 	   data: "name",     		  width: "10%",     className: "cursor-default" }
 				,{title: "이메일", 	   data: "email",     		  width: "15%",     className: "cursor-default" }
 				,{title: "최근접속일시", data: "recent_datetime",   width: "15%",     className: "cursor-default" }
+				,{title: "인증여부",    data: "mta_yn",   		  width: "5%",      className: "cursor-default no-sort" }
+				,{title: "승인여부",    data: "status",   		  width: "10%",      className: "cursor-default",
+					render: function (data) {
+						return `<button>${data}</button>`;
+					}
+				}
 				,{title: "사용여부",    data: "is_active",     	  width: "10%",     className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);

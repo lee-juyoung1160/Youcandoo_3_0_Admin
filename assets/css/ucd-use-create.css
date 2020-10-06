@@ -23,7 +23,6 @@
     width: 80px;
 }
 
-
 .nickname-modal {
     width: 1330px;
 }
@@ -56,7 +55,7 @@
 }
 .excel-import {
     float: left;
-    width: 150px;
+    width: 135px;
     margin-left: 5px;
 }
 label.excel-btn {
@@ -68,6 +67,19 @@ label.excel-btn {
     color: #fff;
     background-color: darkgreen !important;
 }
+.excel-form-down {
+    margin: 10px 0;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border-bottom: 1px solid;
+    transition: all .2s;
+}
+.excel-form-down:hover {
+    color: #666;
+}
+
 .nickname-modal .modal-information {
     float: left;
     max-height: inherit;

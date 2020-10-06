@@ -2,13 +2,14 @@
 	const btnModalOpen	= $("#btnModalOpen");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
-	const resultBox = $(".result_box");
+	const resultBox 	= $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
-	const target	= $("#target");
-	const amount	= $("#amount");
-	const content 	= $("#content");
-	const memo 		= $("#memo");
-	const btnSubmit	= $("#btnSubmit");
+	const target		= $("#target");
+	const amount		= $("#amount");
+	const content 		= $("#content");
+	const memo 			= $("#memo");
+	const btnSubmit		= $("#btnSubmit");
+	const btnXlsxImport	= $("#btnXlsxImport");
 
 	/** modal **/
 	const search 		= $(".search");
@@ -20,7 +21,6 @@
 	const dataTable		= $("#dataTable");
 	const btnMoveRight	= $("#btnMoveRight");
 	const btnAddUser	= $("#btnAddUser");
-	const btnXlsxImport	= $("#btnXlsxImport");
 	const movedUserTableBody = $("#movedUserTableBody")
 
 	$( () => {
@@ -484,11 +484,14 @@
 	function getExcelDataCallback(data)
 	{
 		let userDatas = data.data;
-		let selectedUserEl = '';
-		userDatas.map( (value) => {
-			let { account_uuid, nickname, profile_uuid, ucd } = value;
-			selectedUserEl +=
-				`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-total="${ucd}">
+
+		if (userDatas.length > 0)
+		{
+			let selectedUserEl = '';
+			userDatas.map( (value) => {
+				let { nickname, profile_uuid, ucd } = value;
+				selectedUserEl +=
+					`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-total="${ucd}">
 					<td>
 						<div class="p-info">${nickname}<span class="p-id">${profile_uuid}</span></div>
 					</td>
@@ -499,11 +502,18 @@
 					</td>
 					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
 				</tr>`
-		})
+			})
 
-		selectedUserCount.html(userDatas.length);
-		selectedUserTableBody.html(selectedUserEl);
-		resultBox.show();
+			selectedUserCount.html(userDatas.length);
+			selectedUserTableBody.html(selectedUserEl);
+			resultBox.show();
+		}
+		else
+		{
+			selectedUserCount.empty();
+			selectedUserTableBody.empty();
+			resultBox.hide();
+		}
 	}
 
 

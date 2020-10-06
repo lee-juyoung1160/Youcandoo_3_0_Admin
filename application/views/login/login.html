@@ -43,11 +43,14 @@
                 <h1 class="login-text">LOGIN</h1>
                 <form name="loginForm" action="/auth/login" method="post">
                     <div class="col user-name-wrap">
-                        <p>아이디</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-id-badge"></i>
-                            <input id="userid" name="userid" type="text" placeholder="아이디를 입력해주세요.">
+                        <p>이메일</p>
+                        <div class="email-wrap input-wrap clearfix">
+                            <i class="fas fa-envelope"></i>
+                            <input name="userid" id="userid" type="text" placeholder="이메일을 입력해주세요.">
+                            <input name="useremail" id="useremail" type="hidden">
+                            <span>@yanadoocorp.com</span>
                         </div>
+                        <span class="error-msg">이메일을 확인해주세요.</span>
                     </div>
                     <div class="col password-wrap">
                         <p>비밀번호</p>

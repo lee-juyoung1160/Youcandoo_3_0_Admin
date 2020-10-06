@@ -896,6 +896,9 @@ input[type="checkbox"]:disabled + label span{
 	font-weight: 600;
 	font-size: 14px;
 }
+.table-wrap table tbody tr.tr-waiting {
+	background-color: #DDFCEF;
+}
 .table-wrap table tbody tr:hover {
 	cursor: pointer;
 	/*box-shadow: -3px 1px 8px 4px rgba(0, 0, 0, .5);*/

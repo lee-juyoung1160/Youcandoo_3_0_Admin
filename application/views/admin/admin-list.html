@@ -2,16 +2,15 @@
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">운영자 관리</h2>
-            <a href="/admin/create"><i class="fas fa-plus"></i>운영자 등록</a>
+<!--            <a href="/admin/create"><i class="fas fa-plus"></i>운영자 등록</a>-->
         </div>
 
         <div class="list-common">
             <div class="list-wrap search-wrap only-search clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="search_type">아이디</label>
+                    <label for="search_type">이메일</label>
                     <select id="search_type">
-                        <option value="userid">아이디</option>
                         <option value="email">이메일</option>
                     </select>
                 </div>
@@ -73,77 +72,62 @@
             </div>
 
             <table id="dataTable">
-<!--                <colgroup>-->
-<!--                    <col style="width:5%;">-->
-<!--                    <col style="width:10%;">-->
-<!--                    <col style="width:15%;">-->
-<!--                    <col style="width:15%;">-->
-<!--                    <col style="width:30%;">-->
-<!--                    <col style="width:15%;">-->
-<!--                    <col style="width:10%;">-->
-<!--                </colgroup>-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>-->
-<!--                        <div class="checkbox-wrap">-->
-<!--                            <input type="checkbox" id="c5" name="cc" />-->
-<!--                            <label for="c5"><span></span></label>-->
-<!--                        </div>-->
-<!--                    </th>-->
-<!--                    <th>권한</th>-->
-<!--                    <th>아이디</th>-->
-<!--                    <th>이름</th>-->
-<!--                    <th>이메일</th>-->
-<!--                    <th>최근 접속일</th>-->
-<!--                    <th>사용여부</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <div class="checkbox-wrap">-->
-<!--                            <input type="checkbox" id="c6" name="cc" />-->
-<!--                            <label for="c6"><span></span></label>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                    <td>모니터링</td>-->
-<!--                    <td><a href="/admin/detail">admin12</a></td>-->
-<!--                    <td>김관리</td>-->
-<!--                    <td>ldh53511@gmail.com</td>-->
-<!--                    <td>2019/11/07</td>-->
-<!--                    <td>-->
-<!--                        <div class="toggle-btn-wrap">-->
-<!--                            <div class="toggle-btn on">-->
-<!--                                <input type="checkbox" class="checkbox">-->
-<!--                                <div class="knobs"></div>-->
-<!--                                <div class="layer"></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <div class="checkbox-wrap">-->
-<!--                            <input type="checkbox" id="c7" name="cc" />-->
-<!--                            <label for="c7"><span></span></label>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                    <td>모니터링</td>-->
-<!--                    <td><a href="/admin/detail">admin12</a></td>-->
-<!--                    <td>김관리</td>-->
-<!--                    <td>ldh53511@gmail.com</td>-->
-<!--                    <td>2019/11/07</td>-->
-<!--                    <td>-->
-<!--                        <div class="toggle-btn-wrap">-->
-<!--                            <div class="toggle-btn on">-->
-<!--                                <input type="checkbox" class="checkbox">-->
-<!--                                <div class="knobs"></div>-->
-<!--                                <div class="layer"></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
+                <colgroup>
+                    <col style="width:5%;">
+                    <col style="width:15%;">
+                    <col style="width:15%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c5" name="cc" />
+                            <label for="c5"><span></span></label>
+                        </div>
+                    </th>
+                    <th>권한</th>
+                    <th>이름</th>
+                    <th>이메일
+                        <i class="question-mark far fa-question-circle">
+                        <span class="hover-text" style="width:200px">
+                            @yanaadoocorp.com 생략
+                        </span>
+                        </i></th>
+                    <th>최근 접속일</th>
+                    <th>인증여부</th>
+                    <th>승인여부</th>
+                    <th>사용여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-waiting">
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c6" name="cc" />
+                            <label for="c6"><span></span></label>
+                        </div>
+                    </td>
+                    <td>모니터링</td>
+                    <td>김관리</td>
+                    <td>ldh53511</td>
+                    <td>2019-11-07</td>
+                    <td>Y</td>
+                    <td><button class="btn-info" type="button">승인</button></td>
+                    <td>
+                        <div class="toggle-btn-wrap">
+                            <div class="toggle-btn on">
+                                <input type="checkbox" class="checkbox">
+                                <div class="knobs"></div>
+                                <div class="layer"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
@@ -154,5 +138,26 @@
             </ul>-->
         </div>
     </div>
+
+    <div id="modalWarn" class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">운영자 승인</p>
+            <ul class="modal-information">
+                <li class="clearfix">
+                    <p class="sub-title">권한(*)</p>
+                    <div class="select-box active" style="width:100%;">
+                        <label for="selCauseBy">모니터링</label>
+                        <select id="selCauseBy">
+                            <option value="모니터링">모니터링</option>
+                            <option value="개발팀">개발팀</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            <button id="btnSubmitWarn" class="completion-btn" type="submit">승인완료</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
 </section>
 <script src="/assets/js/admin/admin-list.js?version=<?php echo $this->config->item('version');?>"></script>

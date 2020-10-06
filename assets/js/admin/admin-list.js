@@ -104,9 +104,9 @@
 				{title: "권한", 	 	   data: "auth_name",     	  width: "10%",     className: "cursor-default" }
 				/*,{title: "아이디", 	   data: "userid",     		  width: "10%",     className: "cursor-default" }*/
 				,{title: "이름", 	   data: "name",     		  width: "10%",     className: "cursor-default" }
-				,{title: "이메일", 	   data: "email",     	  	  width: "15%",     className: "cursor-default" }
+				,{title: "이메일", 	   data: "email",     	  	  width: "20%",     className: "cursor-default" }
 				,{title: "최근접속일시", data: "recent_datetime",   width: "15%",     className: "cursor-default" }
-				,{title: "승인여부",    data: "status",   		  width: "10%",     className: "cursor-default",
+				,{title: "승인여부",    data: "status",   		  width: "10%",     className: "cursor-default no-sort",
 					render: function (data, type, row, meta) {
 						return buildBtnApproval(row);
 					}

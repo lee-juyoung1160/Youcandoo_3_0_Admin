@@ -5,12 +5,10 @@
 	const joinBtn	= $("#join-btn");
 
 	$( () => {
-		loginBtn    .on("click", function () { onSubmitLogin(); });
-		userid      .on("keydown", function (event) { onKeydownEmail(event) });
-		password    .on("keydown", function (event) { onKeydownPassword(event) });
-
-		joinBtn		.on("click", function () { goJoin(); });
-
+		loginBtn.on("click", function () { onSubmitLogin(); });
+		userid  .on("keydown", function (event) { onKeydownEmail(event) });
+		password.on("keydown", function (event) { onKeydownPassword(event) });
+		joinBtn	.on("click", function () { goJoin(); });
 	});
 
 	function onKeydownEmail(event)

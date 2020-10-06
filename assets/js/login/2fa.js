@@ -1,7 +1,13 @@
 
-	const qrImg  = $("#qrImg");
-	const otpNum = $("#otpNum");
-	const btnSubmit		= $("#btnSubmit");
+	const qrImg  	= $("#qrImg");
+	const otpNum 	= $("#otpNum");
+	const type 		= $("#type");
+	const secret 	= $("#secret");
+	const userid 	= $("#userid");
+	const username 	= $("#username");
+	const password 	= $("#password");
+	const useremail = $("#useremail");
+	const btnSubmit	= $("#btnSubmit");
 	const viewLoading	= $("#viewLoading");
 
 	$( () => {
@@ -28,7 +34,22 @@
 	function onSubmitAuthNum()
 	{
 		if (validation())
-			document.tfaForm.submit();
+		{
+			let form = new FormData();
+			form.append("secret", secret.val());
+			form.append("userid", userid.val());
+			form.append("otpNum", otpNum.val());
+			if (type.val() === 'join')
+			{
+				form.append("username", username.val());
+				form.append("password", password.val());
+				form.append("useremail", useremail.val());
+			}
+
+			let request = new XMLHttpRequest();
+			request.open("POST", "/auth/mta");
+			request.send(form);
+		}
 	}
 
 	function validation()

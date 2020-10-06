@@ -66,7 +66,7 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category",    			width: "50%",  	 className: "cursor-default",
+				,{title: "카테고리명", 	data: "category",    			width: "40%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoitCategory + row.idx;
 						return `<a href="${detailUrl}">${row.category}</a>`;
@@ -75,6 +75,11 @@
 				,{title: "이미지",    		data: "icon_image_url",  	width: "30%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildImage(data);
+					}
+				}
+				,{title: "개설가능여부",    	data: "is_blind",  				width: "10%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return buildSwitch(row);
 					}
 				}
 				,{title: "노출여부",    	data: "is_blind",  				width: "10%",    className: "cursor-default",

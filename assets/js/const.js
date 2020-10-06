@@ -205,6 +205,7 @@
 		,deleteDoitCategory : baseApiUrl+'doit/category/delete'
 		,reorderDoitCategory : baseApiUrl+'doit/category/updateOrder'
 		,blindDoitCategory : baseApiUrl+'doit/category/updateIsBlind'
+		,establishDoitCategory : baseApiUrl+'doit/category/updateIsEstablish'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
 		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		,listCategory : baseApiUrl+'category/list'

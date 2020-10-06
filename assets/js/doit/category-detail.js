@@ -1,6 +1,7 @@
 
 	const categoryName 	= $("#categoryName");
 	const categoryImage	= $("#categoryImage");
+	const establish		= $("#establish");
 	const exposure		= $("#exposure");
 	const goUpdate		= $("#goUpdate");
 
@@ -35,11 +36,12 @@
 
 	function buildDetail(data)
 	{
-		let { category, is_blind, icon_image_url } = data.data;
+		let { category, is_blind, is_establish, icon_image_url } = data.data;
 		let imgUrl = isEmpty(icon_image_url) ? label.noImage : icon_image_url;
 
 		categoryName.html(category);
 		categoryImage.attr('src', imgUrl);
+		establish.html(is_establish);
 		exposure.html(is_blind === 'Y' ? 'N' : 'Y');
 	}
 

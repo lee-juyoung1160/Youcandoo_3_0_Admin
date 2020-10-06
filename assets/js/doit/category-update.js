@@ -1,6 +1,7 @@
 
 	const categoryName 	= $("#categoryName");
 	const categoryImage	= $("#categoryImage");
+	const establish		= $("input[name=radio-establish]");
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit		= $("#btnSubmit");
 
@@ -36,7 +37,7 @@
 	let g_idx;
 	function buildDetail(data)
 	{
-		let { idx, category, is_blind, icon_image_url } = data.data;
+		let { idx, category, is_blind, is_establish, icon_image_url } = data.data;
 		g_idx = idx;
 
 		categoryName.val(category);
@@ -53,6 +54,10 @@
 		}
 		exposure.each(function () {
 			if ($(this).val() === is_blind)
+				$(this).prop('checked', true);
+		});
+		establish.each(function () {
+			if ($(this).val() === is_establish)
 				$(this).prop('checked', true);
 		});
 
@@ -88,8 +93,9 @@
 			let errMsg 	= label.modify+message.ajaxError;
 			let param = {
 				"idx" : g_idx,
-				"category" : categoryName.val(),
-				"is_blind" : $('input:radio[name=radio-exposure]:checked').val()
+				"category" : categoryName.val().trim(),
+				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
+				"is_establish" : $('input:radio[name=radio-establish]:checked').val(),
 			}
 
 			if (!isEmpty(data))

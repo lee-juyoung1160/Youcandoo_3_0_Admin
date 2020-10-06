@@ -1,6 +1,7 @@
 
 	const categoryName 	= $("#categoryName");
 	const categoryImage	= $("#categoryImage");
+	const establish		= $("input[name=radio-establish]");
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit 	= $("#btnSubmit");
 
@@ -17,6 +18,7 @@
 		categoryName.trigger('focus');
 		categoryName.val('');
 		exposure.eq(0).prop('checked', true);
+		establish.eq(0).prop('checked', true);
 	}
 
 	function onSubmitCategory()
@@ -45,6 +47,7 @@
 			let param = {
 				"category" : categoryName.val(),
 				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
+				"is_establish" : $('input:radio[name=radio-establish]:checked').val(),
 				"icon_image_url" : file
 			}
 

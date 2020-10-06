@@ -77,14 +77,14 @@
 						return buildImage(data);
 					}
 				}
-				,{title: "개설가능여부",    	data: "is_blind",  				width: "10%",    className: "cursor-default",
+				,{title: "개설가능여부",    	data: "is_establish",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
 				}
 				,{title: "노출여부",    	data: "is_blind",  				width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return buildSwitch(row);
+						return buildSwitch2(row);
 					}
 				}
 			],
@@ -120,8 +120,6 @@
 				setBannerRowAttributes(nRow, aData)
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(this);
-				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -133,13 +131,7 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _page = (info.start / info.length) + 1;
-
 		let param = {
-			/*"limit" : info.length
-			,"page" : _page*/
 			"type" : searchType.val()
 			,"keyword" : keyword.val().trim()
 		}
@@ -161,8 +153,8 @@
 
 	function buildSwitch(data)
 	{
-		/** 노출여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_blind === 'Y' ? '' : 'checked';
+		/** 개설가능여부 컬럼에 on off 스위치 **/
+		let checked   = data.is_establish === 'Y' ? 'checked' : '';
 		return (
 			`<div class="toggle-btn-wrap">
 						<div class="toggle-btn on">
@@ -179,13 +171,46 @@
 	{
 		changeParams   = {
 			"idx" : $(obj).data('idx'),
-			"is_blind" : $(obj).hasClass('checked') ? 'Y' : 'N'
+			"is_establish" : $(obj).hasClass('checked') ? 'N' : 'Y'
 		};
 
 		sweetConfirm(`상태를 ${message.change}`, changeRequest);
 	}
 
 	function changeRequest()
+	{
+		let url     = api.establishDoitCategory;
+		let errMsg 	= label.modify+message.ajaxError;
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
+	}
+
+	function buildSwitch2(data)
+	{
+		/** 노출여부 컬럼에 on off 스위치 **/
+		let checked   = data.is_blind === 'Y' ? '' : 'checked';
+		return (
+			`<div class="toggle-btn-wrap">
+						<div class="toggle-btn on">
+							<input onclick="changeStatus2(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+							<div class="knobs"></div>
+							<div class="layer"></div>
+						</div>
+					</div>`
+		)
+	}
+
+	function changeStatus2(obj)
+	{
+		changeParams   = {
+			"idx" : $(obj).data('idx'),
+			"is_blind" : $(obj).hasClass('checked') ? 'Y' : 'N'
+		};
+
+		sweetConfirm(`상태를 ${message.change}`, changeRequest2);
+	}
+
+	function changeRequest2()
 	{
 		let url     = api.blindDoitCategory;
 		let errMsg 	= label.modify+message.ajaxError;

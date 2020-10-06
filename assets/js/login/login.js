@@ -2,15 +2,13 @@
 	const userid    = $("#userid");
 	const password  = $("#password");
 	const loginBtn  = $("#login-btn");
-	const joinBtn	= $("#join-btn");
+	/*const joinBtn	= $("#join-btn");*/
 
 	$( () => {
 		loginBtn    .on("click", function () { onSubmitLogin(); });
 		userid      .on("keydown", function (event) { onKeydownEmail(event) });
 		password    .on("keydown", function (event) { onKeydownPassword(event) });
-
-		joinBtn		.on("click", function () { goJoin(); });
-
+		/*joinBtn		.on("click", function () { goJoin(); });*/
 	});
 
 	function onKeydownEmail(event)

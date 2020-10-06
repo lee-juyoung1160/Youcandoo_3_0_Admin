@@ -2,13 +2,14 @@
 	const btnModalOpen	= $("#btnModalOpen");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
-	const resultBox = $(".result_box");
+	const resultBox 	= $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
-	const target	= $("#target");
-	const amount	= $("#amount");
-	const content 	= $("#content");
-	const memo 		= $("#memo");
-	const btnSubmit	= $("#btnSubmit");
+	const target		= $("#target");
+	const amount		= $("#amount");
+	const content 		= $("#content");
+	const memo 			= $("#memo");
+	const btnSubmit		= $("#btnSubmit");
+	const btnXlsxImport	= $("#btnXlsxImport");
 
 	/** modal **/
 	const search 		= $(".search");
@@ -34,6 +35,7 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
+		btnXlsxImport	.on("change", function () { onClickBtnImport(this) });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
@@ -437,5 +439,62 @@
 		}
 
 		return true;
+	}
+
+	function onClickBtnImport(obj)
+	{
+		if (!isXlsX(obj))
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			emptyFile(obj);
+			return ;
+		}
+
+		readExcelData(obj, getExcelData);
+		emptyFile(obj);
+	}
+
+	function getExcelData(data)
+	{
+		let url = api.listUserWithXlsx;
+		let errMsg = `회원목록${message.ajaxLoadError}`
+		let param = JSON.stringify({ "data" : data });
+
+		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+	}
+
+	function getExcelDataCallback(data)
+	{
+		let userDatas = data.data;
+
+		if (userDatas.length > 0)
+		{
+			let selectedUserEl = '';
+			userDatas.map( (value) => {
+				let { nickname, profile_uuid, ucd } = value;
+				selectedUserEl +=
+					`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-total="${ucd}">
+					<td>
+						<div class="p-info">${nickname}<span class="p-id">${profile_uuid}</span></div>
+					</td>
+					<td>
+						<div class="user-ucd">
+							<strong>${numberWithCommas(ucd)}</strong>
+						</div>
+					</td>
+					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
+				</tr>`
+			})
+
+			selectedUserCount.html(userDatas.length);
+			selectedUserTableBody.html(selectedUserEl);
+			resultBox.show();
+		}
+		else
+		{
+			selectedUserCount.empty();
+			selectedUserTableBody.empty();
+			resultBox.hide();
+		}
 	}
 

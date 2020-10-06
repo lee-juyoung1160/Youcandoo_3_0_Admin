@@ -1,11 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['redis_session']="10.0.107.43";
 $config['api_server_url']="internal-inner-yanadoo-youcandoo-api-46859644.ap-northeast-2.elb.amazonaws.com";
-$config['version'] = date("YmdHis"); 
 if(ENVIRONMENT!="production"){
     $config['api_server_url']="internal-dev-inner-yanadoo-youcandoo-api-431183415.ap-northeast-2.elb.amazonaws.com";
 }
+
+$config['version'] = date("YmdHis");
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

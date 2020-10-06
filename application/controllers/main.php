@@ -18,8 +18,8 @@ class Main extends MY_Controller {
         $this->load->view('/login/join');
     }
 
-    public function auth()
+    public function mta()
     {
-        $this->load->view('/login/otp-auth');
+        $this->load->view('/login/mta');
     }
 }

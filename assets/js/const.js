@@ -11,6 +11,7 @@
 		,close : '종료하시겠습니까?'
 		,change : '변경하시겠습니까?'
 		,cancel : '취소하시겠습니까?'
+		,approve : '승인하시겠습니까?'
 		,send : '발송하시겠습니까?'
 		,input : '입력해주세요.'
 		,doubleChk : '확인해주세요.'
@@ -268,6 +269,7 @@
 		,listAdmin : baseApiUrl+'admin/list'
 		,activeAdmin : baseApiUrl+'admin/active'
 		,inactiveAdmin : baseApiUrl+'admin/inactive'
+		,approveAdmin : baseApiUrl+'admin/approval'
 		/** 관리자 권한 **/
 		,createAuth : baseApiUrl+'auth/create'
 		,listAuth : baseApiUrl+'auth/list'

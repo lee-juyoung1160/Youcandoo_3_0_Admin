@@ -909,6 +909,12 @@
         history.back();
     }
 
+    function onClickUcdFormExport()
+    {
+        let data = [{ "PID(프로필 아이디)" : "PID-11A11AAA-AA1A-11A1-1A11-AA11AAA11AAA" }];
+        setExcelData("회원UCD일괄등록양식", "회원목록", data);
+    }
+
     /** js파일에 쿼리파라미터 추가하기 (브라우저 캐시 갱신) **/
     /*function scriptVersion()
     {

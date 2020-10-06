@@ -10,6 +10,7 @@
 	const memo 			= $("#memo");
 	const btnSubmit		= $("#btnSubmit");
 	const btnXlsxImport	= $("#btnXlsxImport");
+	const btnXlsxExport	= $("#btnXlsxExport");
 
 	/** modal **/
 	const search 		= $(".search");
@@ -35,7 +36,8 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
-		btnXlsxImport	.on("change", function () { onClickBtnImport(this) });
+		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxExport	.on("click", function () { onClickUcdFormExport(this); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 

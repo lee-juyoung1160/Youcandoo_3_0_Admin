@@ -1,58 +1,45 @@
 
-	const qrImg     = $("#qrImg");
-	const authNum   = $("#authNum");
-	const btnSubmit	= $("#btnSubmit");
+	const qrImg  = $("#qrImg");
+	const otpNum = $("#otpNum");
+	const btnSubmit		= $("#btnSubmit");
+	const viewLoading	= $("#viewLoading");
 
 	$( () => {
-		authNum.trigger('focus');
-
+		fadeinLoader();
+		checkQrImageLoad();
+		otpNum.trigger('focus');
 		btnSubmit.on("click", function () { onSubmitAuthNum(); });
 	});
+
+	function checkQrImageLoad()
+	{
+		if (qrImg.prop("complete"))
+			fadeoutLoader();
+		else
+		{
+			qrImg.on("load", function () {
+				if (this.complete) fadeoutLoader();
+			}).on("error", function () {
+				onErrorImage(this);
+			});
+		}
+	}
 
 	function onSubmitAuthNum()
 	{
 		if (validation())
-			createRequest();
-	}
-
-	function createRequest()
-	{
-		let url = api.join;
-		let errMsg = label.submit+message.ajaxError;
-		let param = {
-			"" : authNum.val().trim()
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback()
-	{
-
+			document.tfaForm.submit();
 	}
 
 	function validation()
 	{
-		if (isEmpty(authNum.val()))
+		if (isEmpty(otpNum.val()))
 		{
 			toast(`인증 번호는 ${message.required}`);
 			return false;
 		}
 
 		return true;
-	}
-
-	function swConfirm(msg, callback)
-	{
-		Swal.fire({
-			text: msg,
-			showCancelButton: true,
-			confirmButtonText: label.confirm,
-			cancelButtonText: label.cancel
-		}).then((result) => {
-			if (result.value)
-				callback();
-		})
 	}
 
 	function toast(msg)
@@ -65,4 +52,19 @@
 			showConfirmButton: false,
 			timer: 1500
 		})
+	}
+
+	function fadeinLoader()
+	{
+		viewLoading.fadeIn(100);
+	}
+
+	function fadeoutLoader()
+	{
+		viewLoading.fadeOut(100);
+	}
+
+	function onErrorImage(obj)
+	{
+		$(obj).attr('src', label.noImage);
 	}

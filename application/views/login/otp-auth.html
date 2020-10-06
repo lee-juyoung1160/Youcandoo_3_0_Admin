@@ -45,18 +45,23 @@
                     <sapn class="sub-text"><b>Google Authenticator</b> 앱 설치 후 인증해주세요.</sapn>
 <!--                    <sapn class="sub-text"><b>Google Authenticator</b> 앱에서 인증번호를 확인해 주세요.</sapn>-->
                 </h1>
-                <form name="" action="" method="post">
+                <form name="tfaForm" action="/auth/verify" method="post">
                     <div class="qr_box">
-                        <span class="qr_img"><img id="qrImg" src="data:image/jpeg;base64, iVBORw0KGgoAAAANSUhEUgAAAKoAAACqAQAAAAAVDekvAAABzElEQVR42u3WsY3sIBAG4LEIyLwNWKINMlqyGzC+BuyWyGgDiQbsjAB53s9dsNzqBQeXvCetZW3wBeBhhpkl/tvj6M1v/gc4EWmxaXXLaSR6dDLfWlwcbIq74aOTw6iDZRpSHrX4BU+zjIen9Tds+KS8Eo39jCjzg6eF4/0SfAPjvOP+9b6k4edcHnWkaab4WhA/56Q2ky1Ps87WV1u2cbAO5YPzRvKRvU6e9TT4uEskf+pkZqy6krpcvOmZtDZO4iQ+8KtzKaJOxjlFdnzhnBzZPma1G8UOb1h1lcsmTrQkZP7zSplqyyZmnHdePG+UZ/OMspHzwLyTYESZqrXbmFYTSMYPRCmr4NtYXYlWiXKO7IPt5FI7B6tTx1uGRx+jeF28Eiox11G2Maub1CnjVRqe4k4O1nO5T1w+0PZxEremxZc+MZsqyjbGMSNjXM6p7hBNzFhyeji1Uxhl5E7mK5UJMPiAD7R9jKYrBToEoiR6rt3Gn8PkRAn7eCTVyZgkpmT+w4ldi17GTEPfFeiaR12abYwRXebqJtEk4tHN6C7YgcQpqw9sZkwzjNa4SdXLiBL3mxaXZx1sJ2PO0+AIvfPbbWji95/hN/8//Acz03SuWSB6+wAAAABJRU5ErkJggg==" alt="qr코드"></span>
+                        <span class="qr_img"><img id="qrImg" src="<?php if(null !== $qrcode_url) echo $qrcode_url?>" alt="qr코드"></span>
                     </div>
                     <div class="col otp-num-wrap">
                         <p>인증번호</p>
                         <div class="input-wrap">
                             <i class="fas fa-key"></i>
-                            <input id="authNum" type="text" placeholder="인증번호를 입력해주세요.">
+                            <input name="otp" id="otpNum" type="text" placeholder="인증번호를 입력해주세요.">
                         </div>
                         <span class="error-msg">인증번호를 확인해주세요.</span>
                     </div>
+                    <input type="hidden" name="userid" value="<?php if(null !== $userid) echo $userid?>"/>
+                    <input type="hidden" name="username" value="<?php if(null !== $username) echo $username?>"/>
+                    <input type="hidden" name="password" value="<?php if(null !== $password) echo $password?>"/>
+                    <input type="hidden" name="useremail" value="<?php if(null !== $useremail) echo $useremail?>"/>
+                    <input type="hidden" name="secret" value="<?php if(null !== $secret) echo $secret?>"/>
                 </form>
                 <div class="btn-wrap">
                     <button id="btnSubmit" class="submit-btn" type="submit">완료</button>
@@ -64,6 +69,17 @@
             </div>
         </div>
     </section>
+
+    <!-- loading html -->
+    <div class="loading-back" id="viewLoading" style="display: none;">
+        <div class="loading-wrap">
+            <div class="main_loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <span>Loading</span>
+        </div>
+    </div>
 </body>
 <script src="/assets/js/login/2fa.js?version=<?php echo $this->config->item('version');?>"></script>
 </html>

@@ -8,15 +8,26 @@
 	const selPageLength = $("#selPageLength");
 	const btnDelete		= $("#btnDelete");
 
+	/** 승인 모달 **/
+	const modalApproval = $("#modalApproval");
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
+	const modalAuthCode = $("#md_auth_code");
+	const btnSubmitApproval = $("#btnSubmitApproval");
+
 	$( () => {
 		/** 권한 목록 불러오기 **/
-		//getAuthList();
+		getAuthList();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnDelete		.on("click", function () { deleteAdmin(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmitApproval	.on('click', function () { approvalAdmin(); });
 	});
 
 	function getAuthList()
@@ -44,19 +55,24 @@
 
 	function buildAuthList(data)
 	{
-		let details  = data.data;
-		let optionDom = '';
+		let details    = data.data;
+		let optionDom  = '<option value="">전체</option>';
+		let optionDom2 = '';
 		for (let i=0; i<details.length; i++)
 		{
 			let code = details[i].code;
 			let name = details[i].name;
 
-			optionDom += i ===0 ? `<option value="">전체</option>` : `<option value="${code}">${name}</option>`
+			optionDom += `<option value="${code}">${name}</option>`
+
+			optionDom2 += `<option value="${code}">${name}</option>`
 		}
 
 		authCode.html(optionDom);
-
 		onChangeSelectOption(authCode);
+
+		modalAuthCode.html(optionDom2);
+		onChangeSelectOption(modalAuthCode);
 	}
 
 	function initSearchForm()
@@ -80,7 +96,7 @@
 				}
 			},
 			columns: [
-				{title: "", 		data: "idx",   				width: "5%",     className: "cursor-default no-sort",
+				{title: "", 		data: "idx",   				width: "5%",        className: "cursor-default no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
@@ -88,12 +104,11 @@
 				{title: "권한", 	 	   data: "auth_name",     	  width: "10%",     className: "cursor-default" }
 				/*,{title: "아이디", 	   data: "userid",     		  width: "10%",     className: "cursor-default" }*/
 				,{title: "이름", 	   data: "name",     		  width: "10%",     className: "cursor-default" }
-				,{title: "이메일", 	   data: "getemail",     		  width: "15%",     className: "cursor-default" }
+				,{title: "이메일", 	   data: "email",     	  	  width: "15%",     className: "cursor-default" }
 				,{title: "최근접속일시", data: "recent_datetime",   width: "15%",     className: "cursor-default" }
-				,{title: "인증여부",    data: "mta_yn",   		  width: "5%",      className: "cursor-default no-sort" }
-				,{title: "승인여부",    data: "status",   		  width: "10%",      className: "cursor-default",
-					render: function (data) {
-						return `<button>${data}</button>`;
+				,{title: "승인여부",    data: "status",   		  width: "10%",     className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return buildBtnApproval(row);
 					}
 				}
 				,{title: "사용여부",    data: "is_active",     	  width: "10%",     className: "cursor-default no-sort",
@@ -132,6 +147,7 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -160,6 +176,60 @@
 		return JSON.stringify(param);
 	}
 
+	function setRowAttributes(nRow, aData)
+	{
+		if (aData.status !== '승인')
+			$(nRow).addClass('tr-waiting');
+	}
+
+	function buildBtnApproval(data)
+	{
+		let status = data.status;
+		let isApproval = status === '승인';
+		return isApproval ? status : `<button onclick="openModalApproval(this)" data-userid="${data.userid}" class="btn-info" type="button">${status}</button>`;
+	}
+
+	let approvalTarget;
+	function openModalApproval(obj)
+	{
+		approvalTarget = $(obj).data('userid');
+		modalApprovalFadein();
+	}
+
+	function modalApprovalFadein()
+	{
+		modalLayout.fadeIn();
+		modalContent.fadeIn();
+		overflowHidden();
+	}
+
+	/**********************
+	 *   관리자 승인 관련
+	 * *******************/
+	function approvalAdmin()
+	{
+		sweetConfirm(message.approve, approvalRequest);
+	}
+
+	function approvalRequest()
+	{
+		let url = api.approveAdmin;
+		let errMsg = '승인'+message.ajaxError;
+		let param = {
+			"userid" : approvalTarget,
+			"app_user" : sessionUserId.val(),
+			"auth_code" : modalAuthCode.val()
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
+	}
+
+	function approvalReqCallback(data)
+	{
+		modalFadeout();
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
 	function buildSwitch(data)
 	{
 		/** 사용여부 컬럼에 on off 스위치 **/
@@ -173,13 +243,6 @@
 				</div>
 			</div>`
 		)
-	}
-
-	function onSubmitSearch()
-	{
-		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
-		table.ajax.reload();
 	}
 
 	/**********************
@@ -253,6 +316,13 @@
 	function reqSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
+	}
+
+	function onSubmitSearch()
+	{
+		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 

@@ -72,7 +72,7 @@
             </div>
 
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:15%;">
                     <col style="width:15%;">
@@ -127,7 +127,7 @@
                         </div>
                     </td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div id="modalWarn" class="modal-content">
+    <div id="modalApproval" class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title">운영자 승인</p>
@@ -147,15 +147,13 @@
                 <li class="clearfix">
                     <p class="sub-title">권한(*)</p>
                     <div class="select-box active" style="width:100%;">
-                        <label for="selCauseBy">모니터링</label>
-                        <select id="selCauseBy">
-                            <option value="모니터링">모니터링</option>
-                            <option value="개발팀">개발팀</option>
+                        <label for="md_auth_code"></label>
+                        <select id="md_auth_code">
                         </select>
                     </div>
                 </li>
             </ul>
-            <button id="btnSubmitWarn" class="completion-btn" type="submit">승인완료</button>
+            <button id="btnSubmitApproval" class="completion-btn" type="submit">승인완료</button>
         </div>
     </div>
     <div class="modal-layout"></div>

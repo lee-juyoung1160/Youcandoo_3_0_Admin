@@ -445,6 +445,7 @@
 
 	function changeSuccess()
 	{
+		$("#checkAll").prop('checked', false);
 		modalFadeout();
 		onSubmitSearch();
 	}

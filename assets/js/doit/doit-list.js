@@ -143,7 +143,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), data: "idx",   					width: "4%",    className: "cursor-default no-sort",
+				{title: tableCheckAllDom(), data: "idx",   					width: "5%",    className: "cursor-default no-sort",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
@@ -153,30 +153,38 @@
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "카테고리", 		data: "doit_category",  		width: "9%",    className: "cursor-default no-sort" }
-				,{title: "두잇명", 			data: "doit_title",    			width: "13%",   className: "cursor-default",
+				,{title: "카테고리", 		data: "doit_category",  		width: "8%",    className: "cursor-default no-sort" }
+				,{title: "두잇명", 			data: "doit_title",    			width: "15%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.detailDoit + row.idx;
 						return `<a class="line-clamp" title="${row.doit_title}" href="${detailUrl}">${row.doit_title}</a>`;
 					}
 				}
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "17%",   className: "cursor-default",
-					render: function (data, type, row, meta) {
-						return `${row.action_start_datetime} ${row.action_allow_start_time} ${label.tilde} ${row.action_end_datetime} ${row.action_allow_end_time}`;
-					}
-				}
-				,{title: "인증요일", 		data: "action_dayofweek",  		width: "10%",   className: "cursor-default no-sort" }
+				,{title: "진행상태", 		data: "doit_status",    		width: "5%",    className: "cursor-default" }
 				,{title: "참여/모집인원", 	data: "doit_member",    	 	width: "8%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${numberWithCommas(row.doit_member)} ${label.slash} ${numberWithCommas(row.max_user)}`;
 					}
 				}
-
-				
-				,{title: "진행상태", 		data: "doit_status",    		width: "5%",    className: "cursor-default" }
-				,{title: "개설자", 			data: "nickname",    			width: "8%",   className: "cursor-default no-sort",
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "18%",   className: "cursor-default",
+					render: function (data, type, row, meta) {
+						let startDay = row.action_start_datetime;
+						let startTime = row.action_allow_start_time;
+						let endDay = row.action_end_datetime;
+						let endTime = row.action_allow_end_time;
+						let dayOfWeek = row.action_dayofweek;
+						return `${startDay} ${startTime} ~ ${endDay} ${endTime}`;
+					}
+				}
+				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%",   className: "cursor-default no-sort" }
+				,{title: "개설자", 			data: "nickname",    			width: "9%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return `<div class="line-clamp" style="max-width: 150px;" title="${data}">${data}</div>`;
+					}
+				}
+				,{title: "개설일", 			data: "created_datetime",    	width: "6%",    className: "cursor-default",
+					render: function (data) {
+						return data.substring(0, 10);
 					}
 				}
 				,{title: "비고", 			data: "doit_uuid",    			width: "5%",   	className: "cursor-default",
@@ -262,7 +270,7 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let joinMemberDom 	= $(nRow).children().eq(6);
+		let joinMemberDom 	= $(nRow).children().eq(5);
 		$(joinMemberDom).attr('data-sort', aData.doit_member);
 	}
 

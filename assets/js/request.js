@@ -23,6 +23,8 @@
                 _successCallback(data);
             },
             error: function (request, status) {
+                console.log(request)
+                console.log(status)
                 sweetError(_errorMsg);
             },
             complete: function (xhr, status) {

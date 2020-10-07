@@ -157,6 +157,7 @@
 	{
 		let table = bannerTable.DataTable();
 		table.ajax.reload();
+		onSubmitSearch();
 	}
 
 	function submitValidation()

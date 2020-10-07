@@ -438,6 +438,7 @@
 	{
 		let table = recommendedTable.DataTable();
 		table.ajax.reload();
+		onSubmitSearch();
 	}
 
 	/*function submitValidation()

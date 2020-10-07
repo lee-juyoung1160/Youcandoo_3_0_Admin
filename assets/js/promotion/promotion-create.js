@@ -1060,8 +1060,6 @@
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-
-	    /*ajaxRequestWithFormData(true, url, params(), createReqCallback, errMsg, false);*/
 	}
 
 	function createReqCallback(data)

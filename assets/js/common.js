@@ -686,7 +686,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/test'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard'];
     function buildAccessibleMenus(_auth)
     {
         /**

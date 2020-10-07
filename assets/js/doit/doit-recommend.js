@@ -368,7 +368,7 @@
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)
 
-		let vacancy = 3 - ids.length;
+		let vacancy = 5 - ids.length;
 
 		if (isEmpty(selectedData))
 		{
@@ -378,7 +378,7 @@
 
 		if (selectedData.length > vacancy)
 		{
-			let msg = `추천 두잇은 ${message.maxAddThree}
+			let msg = `추천 두잇은 ${message.maxAddFive}
 						추가할 수 있는 두잇 수: ${vacancy}`
 			sweetToast(msg);
 			return false;

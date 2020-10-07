@@ -1,63 +1,31 @@
 
 	let excelHandler = {
-		fileName : "통합 문서1"
-		,sheetName : "Sheet1"
-		,excelData : []
-		,getFileName : function() {
-			return this.fileName + ".xlsx";
-		}
-		,getSheetName : function() {
-			return this.sheetName;
-		}
-		,getData : function() {
-			return this.excelData;
-		}
-		,getWorksheet : function() {
-			return XLSX.utils.json_to_sheet(this.getData());
-		}
+		fileName : "sample.xlsx",
+		sheetName : "Sheet1",
+		jsonData : []
 	}
 
 	function exportExcel()
 	{
-		let wb;
-		let sheet;
-		let exportWorkbook;
-
 		/** workbook 생성 **/
-		wb = XLSX.utils.book_new();
+		let wb = XLSX.utils.book_new();
 		/** sheet 생성 **/
-		sheet = excelHandler.getWorksheet();
+		let sheet = XLSX.utils.json_to_sheet(excelHandler.jsonData);
 		/** 생성된 workbook에 sheet 붙이기 **/
-		XLSX.utils.book_append_sheet(wb, sheet, excelHandler.getSheetName());
-		/** 파일 만들기 **/
-		exportWorkbook = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+		XLSX.utils.book_append_sheet(wb, sheet, excelHandler.sheetName);
 		/** 파일 내보내기 **/
-		saveAs(
-			new Blob([s2ab(exportWorkbook)],{type:"application/octet-stream"}), excelHandler.getFileName()
-		);
+		XLSX.writeFile(wb, excelHandler.fileName);
 	}
 
-	function s2ab(s)
+	function setExcelData(_fileName, _sheetName, _data)
 	{
-		/** convert s to arrayBuffer **/
-		let buffer = new ArrayBuffer(s.length);
-		/** create uint8array as viewer **/
-		let view = new Uint8Array(buffer);
-		/** convert to octet **/
-		for (let i=0; i<s.length; i++)
-			view[i] = s.charCodeAt(i) & 0xFF;
+		if (!isEmpty(_fileName))
+			excelHandler.fileName = `${_fileName}.xlsx`;
+		if (!isEmpty(_sheetName))
+			excelHandler.sheetName = _sheetName;
+		if (!isEmpty(_data))
+			excelHandler.jsonData = _data;
 
-		return buffer;
-	}
-
-	function setExcelData(_fileName, _sheetName, data)
-	{
-		if (!isEmpty(_fileName)) excelHandler.fileName = _fileName;
-		if (!isEmpty(_sheetName)) excelHandler.sheetName = _sheetName;
-		if (!isEmpty(data))
-		{
-			excelHandler.excelData = data;
-		}
 		exportExcel();
 	}
 

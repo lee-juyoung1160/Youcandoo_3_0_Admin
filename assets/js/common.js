@@ -686,7 +686,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/test'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -911,7 +911,16 @@
 
     function onClickUcdFormExport()
     {
-        let data = [{ "PID(프로필 아이디)" : "PID-11A11AAA-AA1A-11A1-1A11-AA11AAA11AAA" }];
+        let data = [
+            { "PID" : "", "" : "<<<---여기부터"},
+            { "PID" : "", "" : "PID(프로필아이디)를" },
+            { "PID" : "", "" : "이런 방식으로(줄을 바꿔가며)" },
+            { "PID" : "", "" : "채우면 됩니다." },
+            { "PID" : "", "" : "아!" },
+            { "PID" : "", "" : "물론," },
+            { "PID" : "", "" : "첫행부터 채워도" },
+            { "PID" : "", "" : "괜찮아요." }
+        ];
         setExcelData("회원UCD일괄등록양식", "회원목록", data);
     }
 

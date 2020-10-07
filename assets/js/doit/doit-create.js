@@ -78,7 +78,8 @@
 		for (i; i<datas.length; i++)
 		{
 			let { category, category_uuid } = datas[i];
-			options += `<option value="${category_uuid}">${category}</option>`
+			let selected = category === '기타' ? 'selected' : '';
+			options += `<option value="${category_uuid}" ${selected}>${category}</option>`
 		}
 
 		selCategory.html(options);

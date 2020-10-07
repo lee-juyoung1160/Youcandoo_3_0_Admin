@@ -1,5 +1,5 @@
 
-	const market	= $("input[name=radio-market]");
+	/*const market	= $("input[name=radio-market]");
 	const title 	= $("#title");
 	const digit		= $("#digit");
 	const decimal	= $("#decimal");
@@ -11,12 +11,12 @@
 	const btnSubmit = $("#btnSubmit");
 
 	$( () => {
-		/** 데이트피커 초기화 **/
+		/!** 데이트피커 초기화 **!/
 		initInputTodayDatepicker();
 		initDateRangeLimit();
-		/** 상세 불러오기 **/
+		/!** 상세 불러오기 **!/
 		getDetail();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		digit     	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		decimal     .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
@@ -166,6 +166,4 @@
 		}
 
 		return true;
-	}
-
-
+	}*/

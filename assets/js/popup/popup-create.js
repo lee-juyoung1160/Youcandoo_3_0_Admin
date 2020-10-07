@@ -7,6 +7,8 @@
 	const closeOpt	= $("input[name=radio-close-option]");
 	const popupFrom	= $("#popupFrom");
 	const popupTo	= $("#popupTo");
+	const startTime	= $("#startTime");
+	const endTime	= $("#endTime");
 	const exposure	= $("input[name=radio-exposure]");
 	const btnSubmit = $("#btnSubmit");
 
@@ -76,8 +78,8 @@
 			"target_version": `${digit.val()}.${decimal.val()}`,
 			"popup_url": popupLink.val().trim(),
 			"close_type": $("input[name=radio-close-option]:checked").val(),
-			"start_date": popupFrom.val(),
-			"end_date": popupTo.val(),
+			"start_date": `${popupFrom.val()} ${startTime.val()}:00`,
+			"end_date": `${popupTo.val()} ${endTime.val()}:59`,
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
@@ -128,6 +130,20 @@
 		{
 			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			popupLink.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(startTime.val()))
+		{
+			sweetToast(`노출시간(시작)은 ${message.required}`);
+			startTime.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(endTime.val()))
+		{
+			sweetToast(`노출시간(종료)은 ${message.required}`);
+			endTime.trigger('focus');
 			return false;
 		}
 

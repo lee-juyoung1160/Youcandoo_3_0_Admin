@@ -172,7 +172,6 @@
 						let startTime = row.action_allow_start_time;
 						let endDay = row.action_end_datetime;
 						let endTime = row.action_allow_end_time;
-						let dayOfWeek = row.action_dayofweek;
 						return `${startDay} ${startTime} ~ ${endDay} ${endTime}`;
 					}
 				}

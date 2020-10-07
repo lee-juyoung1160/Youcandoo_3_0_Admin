@@ -9,7 +9,6 @@
 	const btnDelete		= $("#btnDelete");
 
 	/** 승인 모달 **/
-	const modalApproval = $("#modalApproval");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");

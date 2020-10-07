@@ -7,12 +7,7 @@
 	const useremail = $("#useremail");
 	const btnSubmit	= $("#btnSubmit");
 	const viewLoading	= $("#viewLoading");
-	if (type.val() !== 'join')
-	{
-		username.remove();
-		password.remove();
-		useremail.remove();
-	}
+
 	$( () => {
 		fadeinLoader();
 		checkQrImageLoad();

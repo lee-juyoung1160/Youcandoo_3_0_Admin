@@ -20,6 +20,6 @@ class Main extends MY_Controller {
 
     public function auth()
     {
-        $this->load->view('/login/otp-auth');
+        $this->load->view('/login/mfa');
     }
 }

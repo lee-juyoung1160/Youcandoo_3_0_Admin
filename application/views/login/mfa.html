@@ -45,7 +45,7 @@
                     <sapn class="sub-text"><b>Google Authenticator</b> 앱 설치 후 인증해주세요.</sapn>
 <!--                    <sapn class="sub-text"><b>Google Authenticator</b> 앱에서 인증번호를 확인해 주세요.</sapn>-->
                 </h1>
-                <form name="tfaForm" action="/auth/mta" method="post">
+                <form name="tfaForm" action="/auth/mfa" method="post">
                     <div class="qr_box">
                         <span class="qr_img"><img id="qrImg" src="<?php if(isset($qrcode_url)) echo $qrcode_url?>" alt="qr코드"></span>
                     </div>
@@ -82,5 +82,5 @@
         </div>
     </div>
 </body>
-<script src="/assets/js/login/2fa.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/login/mfa.js?version=<?php echo $this->config->item('version');?>"></script>
 </html>

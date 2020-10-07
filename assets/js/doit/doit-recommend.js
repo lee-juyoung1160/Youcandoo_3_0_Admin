@@ -9,17 +9,13 @@
 		/** 추천 두잇 데이터 로드 **/
 		buildRecommended();
 		getDoit();
+		initSortTable();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
 		btnAdd			.on("click", function () { addRecommend(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
 		btnSubmit		.on("click", function () { onSubmitRecommend(); });
-		recommendedTable.find('tbody').sortable({
-			helper: function (e, el) {
-				return addAttrDragonElement(el);
-			}
-		});
 	});
 
 	function disableSort()
@@ -30,6 +26,15 @@
 	function enableSort()
 	{
 		recommendedTable.find('tbody').sortable("option", "disabled", false);
+	}
+
+	function initSortTable()
+	{
+		recommendedTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
 	}
 
 	function addAttrDragonElement(el)
@@ -355,6 +360,8 @@
 
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(doitTable);
+			recommendedTable.find('tbody').sortable("destroy");
+			initSortTable();
 		}
 	}
 

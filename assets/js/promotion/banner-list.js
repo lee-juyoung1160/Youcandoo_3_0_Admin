@@ -11,6 +11,7 @@
 		/** 배너 테이블 데이터 로드 **/
 		buildBanners();
 		getPromo();
+		initSortTable();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
@@ -18,12 +19,16 @@
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
 		btnAdd			.on("click", function () { addBanners(); });
 		btnSubmit		.on("click", function () { onSubmitBanner(); });
+	});
+
+	function initSortTable()
+	{
 		bannerTable.find('tbody').sortable({
 			helper: function (e, el) {
 				return addAttrDragOnElement(el);
-			}
+			}``
 		});
-	});
+	}
 
 	function addAttrDragOnElement(el)
 	{
@@ -294,6 +299,8 @@
 
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(dataTable);
+			bannerTable.find('tbody').sortable("destroy");
+			initSortTable();
 		}
 	}
 

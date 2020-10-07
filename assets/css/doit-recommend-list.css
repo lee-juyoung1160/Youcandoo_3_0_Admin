@@ -51,7 +51,7 @@ table tr th {
     border-bottom: 1px solid #f3f3f3;
 }
 table tr td {
-    padding: 15px 5px;
+    padding: 10px 5px;
     color: #505050;
     font-size: 14px;
     background-color: #fff;
@@ -68,8 +68,8 @@ table.pro-shr-list tr
 
 .doit-thumbnail {
     overflow: hidden;
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -82,24 +82,24 @@ table.pro-shr-list tr
     padding: 5px 8px;
     color: #2A34DF;
     margin: 0 5px 5px 0;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 600;
     background-color: #f1f1f1;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
 .doit-detail-info .doit-tit {
-    padding: 10px 0;
+    padding: 5px 0;
     color: #333;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
 }
 .doit-leader,
 .doit-num {
     margin-top: 5px;
     color: #707070;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .doit-recommend-page .recommend-list thead,
@@ -169,7 +169,7 @@ table.doit-shr-list .doit-num {
     display: inline-block;
     padding: 3px 10px;
     color: #fff;
-    font-size: 15px;
+    font-size: 13px;
     background-color: #00c0ef;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;

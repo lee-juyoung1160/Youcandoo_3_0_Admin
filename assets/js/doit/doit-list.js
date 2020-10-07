@@ -172,7 +172,7 @@
 						let startTime = row.action_allow_start_time;
 						let endDay = row.action_end_datetime;
 						let endTime = row.action_allow_end_time;
-						return `${startDay} ${startTime} ~ ${endDay} ${endTime}`;
+						return `${startDay} ${startTime} ${label.tilde} ${endDay} ${endTime}`;
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%",   className: "cursor-default no-sort" }

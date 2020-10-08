@@ -855,11 +855,7 @@
 	function createReqCallback(data)
 	{
 		if (isSuccessResp(data))
-		{
 			balance.html(numberWithCommas(data.data.total));
-			cash.html(numberWithCommas(data.data.cash));
-			point.html(numberWithCommas(data.data.point));
-		}
 
 		sweetToastAndCallback(data, createSuccess);
 	}

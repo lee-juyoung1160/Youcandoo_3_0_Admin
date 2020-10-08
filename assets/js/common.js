@@ -14,14 +14,6 @@
     const sideMenu        = $("#sideMenu");
     const moveTop         = $('.move-top');
 
-    /*selectEls   .on("change", function () { onChangeSelectOption(this); });
-    inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
-    inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-    lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
-    dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
-    dateTo      .on("change", function () { onChangeSearchDateTo(this); });
-    datePicker  .prop("readonly", true);*/
-
     /** 숫자 카운팅 에니메이션 **/
     function countAnimation(obj)
     {

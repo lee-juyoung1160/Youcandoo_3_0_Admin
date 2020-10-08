@@ -62,6 +62,7 @@
 		/** 두잇 정보 **/
 		getOpenedDoit();
 		/** 인증 정보 **/
+		toggleDoitTitle();
 		getActions();
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
@@ -429,17 +430,29 @@
 
 	function onClickJoinDoitRow(_uuid, _title)
 	{
-		spDoitTitle.html(`│ ${_title}`);
-		btnRemoveDoitTitle.show();
+		toggleDoitTitle(_title);
 		getActions(_uuid);
 	}
 
 	/** 인증 정보 **/
 	function onClickRemoveDoitTitle()
 	{
-		spDoitTitle.html('│ 전체');
-		btnRemoveDoitTitle.hide();
+		toggleDoitTitle();
 		getActions();
+	}
+
+	function toggleDoitTitle(_title)
+	{
+		if (isEmpty(_title))
+		{
+			spDoitTitle.html('│ 전체');
+			btnRemoveDoitTitle.hide();
+		}
+		else
+		{
+			spDoitTitle.html(`│ ${_title}`);
+			btnRemoveDoitTitle.show();
+		}
 	}
 
 	function getActions(_doit_uuid)

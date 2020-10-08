@@ -31,7 +31,7 @@
 		/*,createReward : '리워드 조건을 생성해주세요'*/
 		,deleteTop : '상단고정을 해제하시겠습니까?'
 		,insertTop : '상단고정을 설정하시겠습니까?'
-		,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'
+		/*,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'*/
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 		,onlyAlphabet : '영문만 입력할 수 있습니다.'
 		,ajaxError : ` 처리 중, 일시적인 오류가 발생했습니다.
@@ -39,7 +39,7 @@
 		,ajaxLoadError: `을(를) 불러올 수 없습니다.
 						잠시 후 다시 시도해주세요.`
 		,compareMinMaxUser : '최소인원은 최대인원을 초과할 수 없습니다.'
-		,completePost : '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'
+		/*,completePost : '이미 답변이 등록된 문의 글입니다. 상세페이지로 이동합니다.'*/
 		,overBudget : '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overBalance : '보유 UCD를 초과할 수 없습니다.'
 		,overBalanceWithdraw : `보유 UCD가 출금(취소) UCD보다 작은 사용자가 포함돼있습니다.
@@ -89,7 +89,6 @@
 		, dash: '-'
 		, tilde: '~'
 		, slash: '/'
-		, lineBreak: '\n'
 		, pendingIcon: '<i class="far fa-calendar"></i>'
 		, progressIcon: '<i class="far fa-calendar-check"></i>'
 		, endIcon: '<i class="far fa-calendar-times" style="color:#aaa"></i>'

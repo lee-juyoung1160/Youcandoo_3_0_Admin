@@ -374,7 +374,6 @@
 				if (resourceType === 'voice')
 					actionImage = label.voiceImage;
 
-				console.log(action.example_description.split('"').join('\"'))
 				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
 				let actionImageDom =
 					`<img class="detail-img" 

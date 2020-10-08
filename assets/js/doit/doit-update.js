@@ -465,37 +465,6 @@
 			sweetToast(data.msg);
 	}
 
-	/*function params()
-	{
-		let paramTag = [];
-		addedTags.find('li').each(function () {
-			paramTag.push($(this).text().trim());
-		})
-		let paramIntroImage 	= $("#introImage")[0].files[0];
-		let paramIntroVideo 	= '';
-		if ($("#introVideo").length > 0)
-			paramIntroVideo 	= $("#introVideo")[0].files[0];
-
-		let accessCode = chkAccessUser.is(':checked') ? privateCode.val().trim() : '';
-
-		let formData  = new FormData();
-		formData.append('doit-uuid', g_doit_uuid);
-		formData.append('doit-category', $("#selCategory option:checked").text());
-		formData.append('category-uuid', selCategory.val());
-		formData.append('doit-tags', paramTag.toString());
-		formData.append('intro-resource-type', $('input:radio[name=radio-intro-type]:checked').val());
-		formData.append('intro-image-file', paramIntroImage);
-		formData.append('intro-video-file', paramIntroVideo);
-		formData.append('private-code', accessCode);
-		formData.append('doit-description', doitDesc.val().trim());
-		let isAllowGallery = 'N';
-		if ($('input:radio[name=radio-gallery-yn]').length > 0)
-			isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
-		formData.append('allow-gallery-image', isAllowGallery);
-
-		return formData;
-	}*/
-
 	function updateReqCallback(data)
 	{
 		sweetToastAndCallback(data, updateSuccess);

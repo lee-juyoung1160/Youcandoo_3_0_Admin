@@ -812,6 +812,9 @@
     {
         return JSON.parse(sessionStorage.getItem("param"));
     }
+    /**
+     * 여기까지 뒤로가기 액션 관련 끝
+     * **/
 
     /**
      *  alert 관련

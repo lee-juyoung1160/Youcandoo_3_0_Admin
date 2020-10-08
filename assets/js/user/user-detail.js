@@ -439,18 +439,21 @@
 	function setJoinDoitRowAttribute(nRow, aData)
 	{
 		/** row 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', `onClickJoinDoitRow("${aData.doit_uuid}", "${aData.doit_title}")`);
+		$(nRow).attr('onClick', `onClickJoinDoitRow("${aData.doit_uuid}", "${replaceDoubleQuotes(aData.doit_title)}")`);
 	}
 
+	let join_doit_uuid = '';
 	function onClickJoinDoitRow(_uuid, _title)
 	{
+		join_doit_uuid = _uuid;
 		toggleDoitTitle(_title);
-		getActions(_uuid);
+		getActions(join_doit_uuid);
 	}
 
 	/** 인증 정보 **/
 	function onClickRemoveDoitTitle()
 	{
+		join_doit_uuid = '';
 		toggleDoitTitle();
 		getActions();
 	}
@@ -589,6 +592,7 @@
 	let actionCurrentPage = 1;
 	function buildActionPagination(data)
 	{
+		console.log(data)
 		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / g_page_length);
 		let pageLength  = 6;
@@ -696,7 +700,7 @@
 
 		actionCurrentPage = $(obj).data('page');
 
-		getActions();
+		getActions(join_doit_uuid);
 	}
 
 	function onClinkActionImage(obj)

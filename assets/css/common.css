@@ -92,6 +92,7 @@ h2.list-main-title {
 .main-top a i {
 	margin-right: 5px;
 }
+
 /* CSS common */
 * body {
 	font-family: 'Noto Sans KR', 'sans-serifs' !important;
@@ -1026,6 +1027,56 @@ input[type="checkbox"]:disabled + label span{
 	width: 328px;
 	height: 210px;
 }
+
+/* card-warp */
+.card-warp {
+	margin-top: 10px;
+}
+.card-warp .card {
+	overflow: hidden;
+	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+}
+.card-warp .card .card-body {
+	padding: 15px;
+	background-color: #fff;
+}
+.card-warp .card .card-body .fa-plus-square {
+	color: #999;
+	font-size: 20px;
+}
+.card-warp .card .card-footer {
+	padding: 10px;
+	font-size: 14px;
+	background-color: rgba(31,45,65,.03);
+	border-top: 1px solid rgba(31,45,65,.125);
+}
+.card-warp .card .card-footer a {
+	position: relative;
+	color: #0061f2;
+}
+.card-warp .card .card-footer a:after {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 1px;
+	background-color: #0061f2;
+	transition: all .3s;
+	content: '';
+}
+.card-warp .card .card-footer a:hover:after {
+	width: 100%;
+}
+
+.card-warp .card .card-footer .btn-icon-wrap {
+	float: right;
+}
+.card-warp .card .card-footer .btn-icon-wrap i {
+	font-size: 16px;
+	margin-left: 5px;
+}
+
 
 /* cert-contents common */
 .table-wrap .btn-wrap button.yellow-btn {

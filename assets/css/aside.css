@@ -1,5 +1,5 @@
 /*aside start*/
-aside {
+aside.side-menu {
     position: fixed;
     z-index: 40;
     top: 0;
@@ -12,31 +12,31 @@ aside {
     border-bottom: 1px solid #e0e0e0;
     background-color: #ffffff;
 }
-aside .icon-wrap {
+aside.side-menu .icon-wrap {
     float: right;
 }
-aside .icon-wrap .col-1,
-aside .icon-wrap .col-2 {
+aside.side-menu .icon-wrap .col-1,
+aside.side-menu .icon-wrap .col-2 {
     float: left;
 }
-aside .icon-wrap .admin-user {
+aside.side-menu .icon-wrap .admin-user {
     margin-right: 40px;
 }
-aside .icon-wrap .admin-user a i {
+aside.side-menu .icon-wrap .admin-user a i {
     margin-right: 5px;
 }
-aside .side-menu-wrap .icon-wrap i {
+aside.side-menu .side-menu-wrap .icon-wrap i {
     font-size: 18px;
     vertical-align: inherit;
 }
-aside .side-menu-wrap .icon-wrap #power-off:hover {
+aside.side-menu .side-menu-wrap .icon-wrap #power-off:hover {
     color: #c90614;
 }
-aside .side-menu-wrap .icon-wrap #notice {
+aside.side-menu .side-menu-wrap .icon-wrap #notice {
     position: relative;
     margin-right: 18px;
 }
-aside .side-menu-wrap .icon-wrap #notice .on-notice {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .on-notice {
     display: none;
     position: absolute;
     top: 0;
@@ -46,10 +46,10 @@ aside .side-menu-wrap .icon-wrap #notice .on-notice {
     border-radius: 50%;
     background-color: #ff4c4c;
 }
-aside .side-menu-wrap .icon-wrap #notice .on-notice.active {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .on-notice.active {
     display: block;
 }
-aside .side-menu-wrap .icon-wrap #notice .notice-list {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .notice-list {
     display: none;
     position: absolute;
     z-index: 999;
@@ -66,12 +66,12 @@ aside .side-menu-wrap .icon-wrap #notice .notice-list {
 aside .side-menu-wrap .icon-wrap #notice .notice-list.active {
     display: block;
 }
-aside .side-menu-wrap .icon-wrap #notice .notice-list li {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .notice-list li {
     font-weight: 500;
     padding: 7px;
     border-bottom: 1px solid #d6d6d6;
 }
-aside .side-menu-wrap .icon-wrap #notice .notice-list li:hover {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .notice-list li:hover {
     font-weight: 900;
     color: #007aff;
     background-color: #d9e7f5;
@@ -82,10 +82,10 @@ aside .side-menu-wrap .icon-wrap #notice .notice-list li:hover {
     -o-transition: box-shadow .2s linear,text-indent .2s linear;
     transition: box-shadow .2s linear,text-indent .2s linear;
 }
-aside .side-menu-wrap .icon-wrap #notice .notice-list li:last-child {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .notice-list li:last-child {
     border-bottom: 0;
 }
-aside .side-menu-wrap .icon-wrap #notice .notice-list li a {
+aside.side-menu .side-menu-wrap .icon-wrap #notice .notice-list li a {
     display: block;
     width: 100%;
     height: 100%;
@@ -93,4 +93,28 @@ aside .side-menu-wrap .icon-wrap #notice .notice-list li a {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* move top */
+.move-top {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    color: #333;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    z-index: 1000;
+    transition: all .3s;
+}
+.move-top:hover {
+    color: #fff;
+    background-color: #0061f2;
 }

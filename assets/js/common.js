@@ -12,6 +12,7 @@
     const sessionUserIp   = $("#session_userip");
     const sessionAuthCode = $("#session_authcode");
     const sideMenu        = $("#sideMenu");
+    const moveTop         = $('.move-top');
 
     /*selectEls   .on("change", function () { onChangeSelectOption(this); });
     inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
@@ -924,6 +925,19 @@
         setExcelData("회원UCD일괄등록양식", "회원목록", data);
     }
 
+    function toggleShowFloatingButton()
+    {
+        let sectionHeight = $("section").height() * 0.15;
+        let top = $(window).scrollTop();
+
+        top > sectionHeight ? moveTop.fadeIn() : moveTop.fadeOut();
+    }
+
+    function moveScrollTop()
+    {
+        $("html, body").animate({ scrollTop : 0 }, 400);
+    }
+
     /** js파일에 쿼리파라미터 추가하기 (브라우저 캐시 갱신) **/
     /*function scriptVersion()
     {
@@ -944,6 +958,7 @@
         getLeftMenuByAuthCode();
         calculateInputLength();
 
+        moveTop     .on("click", function () { moveScrollTop(this); });
         selectEls   .on("change", function () { onChangeSelectOption(this); });
         inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
         inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
@@ -952,7 +967,7 @@
         dateTo      .on("change", function () { onChangeSearchDateTo(this); });
         datePicker  .prop("readonly", true);
     });
-
-    $(document).ajaxStart(function () { fadeinLoader(); });
-    $(document).ajaxComplete(function () { fadeoutLoader(); });
+    $(window)   .on("scroll", function () { toggleShowFloatingButton(); });
+    $(document) .ajaxStart(function () { fadeinLoader(); });
+    $(document) .ajaxComplete(function () { fadeoutLoader(); });
 

@@ -339,32 +339,39 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   	width: "25%",    className: "cursor-default" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",   	width: "10%",    className: "cursor-default",
+				{title: "두잇명", 		data: "doit_title",   		width: "25%" }
+				,{title: "진행상태", 	data: "doit_status",    	width: "5%" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",   		width: "8%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "적립 UCD", 	data: "use_ucd",   		width: "10%",    className: "cursor-default",
+				,{title: "적립 UCD", 	data: "use_ucd",   			width: "8%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    className: "cursor-default",
+				,{title: "목표달성률(%)", data: "goal_percent",   	width: "8%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    className: "cursor-default",
+				,{title: "평균달성률(%)", data: "avg_percent",   		width: "8%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
+				,{title: "인증기간", 	data: "action_start_datetime",  width: "15%",
 					render: function (data, type, row, meta) {
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
+				,{title: "인증 가능 시간", data: "action_allow_start_time", width: "12%",
+					render: function(data, type, row, meta) {
+						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
+					}
+				}
+				,{title: "인증요일", 	data: "action_dayofweek",  		width: "8%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -392,6 +399,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setJoinDoitRowAttribute(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -410,24 +418,36 @@
 		return JSON.stringify(param);
 	}
 
+	function setJoinDoitRowAttribute(nRow, aData)
+	{
+		/** row 클릭이벤트 추가 **/
+		$(nRow).attr('onClick', `onClickJoinDoitRow("${aData.doit_uuid}", "${aData.doit_title}")`);
+	}
+
+	function onClickJoinDoitRow(_uuid)
+	{
+		getActions(_uuid);
+	}
+
 	/** 인증 정보 **/
-	function getActions()
+	function getActions(_doit_uuid)
 	{
 		let url 	 = api.listUserAction;
 		let errMsg 	 = `인증정보 ${label.list} ${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, actionParams(), getActionsCallback, errMsg, false);
-	}
-
-	function actionParams()
-	{
 		let param = {
 			"limit" : g_page_length
 			,"page" : actionCurrentPage
 			,"profile_uuid" : g_profile_uuid
+			,"doit_all" : true
 		}
 
-		return JSON.stringify(param);
+		if (!isEmpty(_doit_uuid))
+		{
+			param.doit_all = false;
+			param["doit_uuid"] = _doit_uuid;
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getActionsCallback, errMsg, false);
 	}
 
 	function getActionsCallback(data)
@@ -458,7 +478,6 @@
 			for (let i=0; i<dataLen; i++)
 			{
 				let action    = actions[i];
-				let actionId  = "action_"+i;
 				let successYn = action.success === 'Y' ? label.success : label.fail;
 				let resourceType = action.resource_type;
 				let warnImageDom = '';
@@ -478,8 +497,8 @@
 						data-url="${action.url}"
 						data-cover="${action.image_url}"
 						data-exurl="${action.example_url}"
-						data-exdesc="${action.example_description}"
-						data-title="${action.doit_title}"
+						data-exdesc="${replaceDoubleQuotes(action.example_description)}"
+						data-title="${replaceDoubleQuotes(action.doit_title)}"
 						data-nickname="${action.user_name}"
 						data-yellow="${action.yellow_card}"
 						data-red="${action.red_card}"
@@ -656,7 +675,6 @@
 
 	function buildDetailModal(obj)
 	{
-		let uuid 		= $(obj).data('uuid');
 		let type 		= $(obj).data('type');
 		let actionUrl 	= $(obj).data('url');
 		let coverUrl 	= $(obj).data('cover');

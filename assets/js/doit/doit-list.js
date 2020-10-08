@@ -168,16 +168,12 @@
 				}
 				,{title: "인증 기간", 		data: "action_start_datetime",  width: "12%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let startDay = row.action_start_datetime;
-						let endDay = row.action_end_datetime;
-						return `${startDay} ${label.tilde} ${endDay}`;
+						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
-				,{title: "인증 시간", 		data: "action_allow_start_time", width: "9%",   className: "cursor-default no-sort",
+				,{title: "인증 가능 시간", 	data: "action_allow_start_time", width: "9%",   className: "cursor-default no-sort",
 					render: function(data, type, row, meta) {
-						let startTime = row.action_allow_start_time;
-						let endTime = row.action_allow_end_time;
-						return `${startTime} ${label.tilde} ${endTime}`;
+						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%",   className: "cursor-default no-sort" }

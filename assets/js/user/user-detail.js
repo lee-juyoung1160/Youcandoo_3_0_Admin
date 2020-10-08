@@ -445,6 +445,7 @@
 	let join_doit_uuid = '';
 	function onClickJoinDoitRow(_uuid, _title)
 	{
+		actionCurrentPage = 1;
 		join_doit_uuid = _uuid;
 		toggleDoitTitle(_title);
 		getActions(join_doit_uuid);
@@ -453,6 +454,7 @@
 	/** 인증 정보 **/
 	function onClickRemoveDoitTitle()
 	{
+		actionCurrentPage = 1;
 		join_doit_uuid = '';
 		toggleDoitTitle();
 		getActions();

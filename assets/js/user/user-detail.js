@@ -343,40 +343,40 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   		width: "20%" }
-				,{title: "진행상태", 	data: "doit_status",    	width: "5%" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",   		width: "8%",
+				{title: "두잇명", 		data: "doit_title",   				width: "19%" }
+				,{title: "진행상태", 	data: "doit_status",    			width: "5%" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",   				width: "8%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "적립 UCD", 	data: "use_ucd",   			width: "8%",
+				,{title: "적립 UCD", 	data: "use_ucd",   					width: "8%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   	width: "8%",
+				,{title: "목표달성률(%)", data: "goal_percent",   			width: "8%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   		width: "8%",
+				,{title: "평균달성률(%)", data: "avg_percent",   				width: "8%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", 	data: "action_start_datetime",  width: "14%",
+				,{title: "인증기간", 	data: "action_start_datetime",  	width: "14%",
 					render: function (data, type, row, meta) {
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
-				,{title: "인증 가능 시간", data: "action_allow_start_time", width: "12%",
+				,{title: "인증 가능 시간", data: "action_allow_start_time", 	width: "12%",
 					render: function(data, type, row, meta) {
 						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
 					}
 				}
-				,{title: "인증요일", 	data: "action_dayofweek",  		width: "10%" }
-				,{title: "인증방법", 	data: "action_resource_type",  	width: "5%",
+				,{title: "인증요일", 	data: "action_dayofweek",  			width: "10%" }
+				,{title: "인증방법", 	data: "action_resource_type",  		width: "5%",
 					render: function (data) {
 						switch (data) {
 							case 'image':
@@ -390,6 +390,7 @@
 						}
 					}
 				}
+				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%" }
 			],
 			language: {
 				emptyTable : message.emptyList

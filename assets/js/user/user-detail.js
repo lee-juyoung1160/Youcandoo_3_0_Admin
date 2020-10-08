@@ -18,8 +18,10 @@
 	const openedTable	= $("#openedTable");
 	const joinedTable	= $("#joinedTable");
 	/** 인증정보 **/
-	const actionWrap   	= $("#actionWrap");
+	const actionWrap   		= $("#actionWrap");
 	const actionPagination	= $(".action_paginate");
+	const spDoitTitle		= $("#spDoitTitle");
+	const btnRemoveDoitTitle = $("#btnRemoveDoitTitle");
 	/** UCD 사용내역 **/
 	const usageHisTable	= $("#usageHisTable");
 
@@ -69,6 +71,7 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		olTab			.on("click", function (event) { onClickTab(event); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
+		btnRemoveDoitTitle	.on("click", function () { onClickRemoveDoitTitle(); });
 	});
 
 	function moveSection()
@@ -361,7 +364,7 @@
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", 	data: "action_start_datetime",  width: "15%",
+				,{title: "인증기간", 	data: "action_start_datetime",  width: "14%",
 					render: function (data, type, row, meta) {
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
@@ -371,7 +374,7 @@
 						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
 					}
 				}
-				,{title: "인증요일", 	data: "action_dayofweek",  		width: "8%" }
+				,{title: "인증요일", 	data: "action_dayofweek",  		width: "10%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -424,12 +427,21 @@
 		$(nRow).attr('onClick', `onClickJoinDoitRow("${aData.doit_uuid}", "${aData.doit_title}")`);
 	}
 
-	function onClickJoinDoitRow(_uuid)
+	function onClickJoinDoitRow(_uuid, _title)
 	{
+		spDoitTitle.html(`│ ${_title}`);
+		btnRemoveDoitTitle.show();
 		getActions(_uuid);
 	}
 
 	/** 인증 정보 **/
+	function onClickRemoveDoitTitle()
+	{
+		spDoitTitle.html('│ 전체');
+		btnRemoveDoitTitle.hide();
+		getActions();
+	}
+
 	function getActions(_doit_uuid)
 	{
 		let url 	 = api.listUserAction;

@@ -390,7 +390,11 @@
 						}
 					}
 				}
-				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%" }
+				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%",
+					render: function (data, type, row, meta) {
+						return row.action_resource_type === 'image' ? data : label.dash;
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList

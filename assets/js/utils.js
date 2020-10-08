@@ -193,6 +193,11 @@
 		return str.split(searchStr).join(replaceStr);
 	}
 
+	function replaceDoubleQuotes(value)
+	{
+		return value.split('"').join('&quot;');
+	}
+
 	function replaceInputTextarea(value)
 	{
 		return value.replace(/(?:\r\n|\r|\n)/g, "<br>");

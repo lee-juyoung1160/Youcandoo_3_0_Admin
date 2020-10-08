@@ -156,7 +156,7 @@
                     render : function(data, type, row, meta) {
                         return `<a class='line-clamp' 
                                     data-detail="${row.review_text}"
-                                    data-title="${row.doit_title.split('"').join('\"')}"
+                                    data-title="${replaceDoubleQuotes(row.doit_title)}"
                                     data-rating="${row.rating}"
                                     data-report="${row.report_count}"
                                     data-nickname="${row.nickname}"

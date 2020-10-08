@@ -373,6 +373,8 @@
 					actionImage = label.noImage;
 				if (resourceType === 'voice')
 					actionImage = label.voiceImage;
+
+				console.log(action.example_description.split('"').join('\"'))
 				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
 				let actionImageDom =
 					`<img class="detail-img" 
@@ -384,8 +386,8 @@
 						data-url="${action.url}"
 						data-cover="${action.image_url}"
 						data-exurl="${action.example_url}"
-						data-exdesc="${action.example_description}"
-						data-title="${action.doit_title}"
+						data-exdesc="${replaceDoubleQuotes(action.example_description)}"
+						data-title="${replaceDoubleQuotes(action.doit_title)}"
 						data-nickname="${action.user_name}"
 						data-yellow="${action.yellow_card}"
 						data-red="${action.red_card}"

@@ -166,13 +166,18 @@
 						return `${numberWithCommas(row.doit_member)} ${label.slash} ${numberWithCommas(row.max_user)}`;
 					}
 				}
-				,{title: "인증 기간", 		data: "action_start_datetime",  width: "18%",   className: "cursor-default",
+				,{title: "인증 기간", 		data: "action_start_datetime",  width: "12%",   className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let startDay = row.action_start_datetime;
-						let startTime = row.action_allow_start_time;
 						let endDay = row.action_end_datetime;
+						return `${startDay} ${label.tilde} ${endDay}`;
+					}
+				}
+				,{title: "인증 시간", 		data: "action_allow_start_time", width: "9%",   className: "cursor-default no-sort",
+					render: function(data, type, row, meta) {
+						let startTime = row.action_allow_start_time;
 						let endTime = row.action_allow_end_time;
-						return `${startDay} ${startTime} ${label.tilde} ${endDay} ${endTime}`;
+						return `${startTime} ${label.tilde} ${endTime}`;
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%",   className: "cursor-default no-sort" }

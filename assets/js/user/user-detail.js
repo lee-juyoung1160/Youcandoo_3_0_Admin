@@ -343,7 +343,7 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   		width: "25%" }
+				{title: "두잇명", 		data: "doit_title",   		width: "20%" }
 				,{title: "진행상태", 	data: "doit_status",    	width: "5%" }
 				,{title: "리워드 UCD", 	data: "reward_ucd",   		width: "8%",
 					render: function (data) {
@@ -376,6 +376,20 @@
 					}
 				}
 				,{title: "인증요일", 	data: "action_dayofweek",  		width: "10%" }
+				,{title: "인증방법", 	data: "action_resource_type",  	width: "5%",
+					render: function (data) {
+						switch (data) {
+							case 'image':
+								return '사진';
+							case 'video':
+								return '영상';
+							case 'voice':
+								return '음성';
+							default:
+								return '';
+						}
+					}
+				}
 			],
 			language: {
 				emptyTable : message.emptyList

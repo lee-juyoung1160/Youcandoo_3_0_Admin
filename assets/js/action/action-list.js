@@ -422,7 +422,7 @@
 							${actionImageDom}
 						</div>
 						<div class="text-wrap">
-							<p class="title">${action.doit_title}</p>
+							<p class="title" title="${action.doit_title}">${action.doit_title}</p>
 							<span>${action.user_name}</span>
 							<p class="date">${action.action_datetime}</p>
 							<i>${warnImageDom}</i>

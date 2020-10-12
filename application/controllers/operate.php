@@ -13,8 +13,16 @@ class Operate extends MY_Controller {
         $this->load->layout('operate/main-dashboard-v2');
     }
 
-    public function account()
+    public function account($Route = "list")
     {
-        $this->load->layout('operate/account-list');
+        switch ($Route) {
+            case "list":
+                $this->load->layout('operate/account-list');
+                break;
+            case "detail":
+                $data['profile_uuid'] = $this->input->post('uuid');
+                $this->load->layout('operate/account-detail', $data);
+                break;
+        }
     }
 }

@@ -61,8 +61,9 @@
 			},
 			columns: [
 				{title: "닉네임", 		data: "nickname",   	width: "20%" }
-				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "30%" }
-				,{title: "TOKEN", 		data: "account_token",  width: "35%" }
+				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "no-sort" }
+				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "22%", className: "no-sort" }
+				,{title: "TOKEN", 		data: "account_token",  width: "22%", className: "no-sort" }
 				,{title: "사용구분", 	data: "is_active", 		width: "10%",
 					render: function (data) {
 						return data === 'Y' ? '사용' : '미사용';
@@ -95,6 +96,7 @@
 			initComplete: function () {
 				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });
 				redrawPage(this, _page);
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

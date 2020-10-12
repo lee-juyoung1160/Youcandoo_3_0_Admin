@@ -703,7 +703,7 @@
             accessibleMenus.push(_auth + '/detail');
 
         /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
-        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/service/notice', '/service/faq', '/admin', '/doit/category', '/marketing/popup'];
+        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/marketing/popup', '/service/notice', '/service/faq', '/admin', '/doit/category', '/operate/account'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');

@@ -298,7 +298,7 @@
 		,deleteAppVersion : baseApiUrl+'version/delete'
 		,listAppVersion : baseApiUrl+'version/list'
 		/** 계정 **/
-		,listAccount : baseApiUrl+'operate/account'
+		,listAccount : baseApiUrl+'account/list'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

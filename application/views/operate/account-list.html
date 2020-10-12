@@ -12,7 +12,17 @@
                     <label for="search_type">닉네임</label>
                     <select id="search_type">
                         <option value="nickname">닉네임</option>
-                        <option value="profile_uuid">프로필 ID</option>
+                        <option value="account_uuid">Account ID</option>
+                        <option value="account_token">Account Token</option>
+                        <option value="profile_uuid">Profile ID</option>
+                    </select>
+                </div>
+
+                <div class="select-box">
+                    <label>키워드를 포함하는</label>
+                    <select id="keyword_type">
+                        <option value="match">키워드와 일치하는</option>
+                        <option value="like">키워드를 포함하는</option>
                     </select>
                 </div>
 
@@ -44,15 +54,7 @@
                 </div>
                 <div class="btn-wrap">
                     <div class="btn-inner">
-                        <!--
-                           dev:
-                           1.이미 이용정지인 경우  이용정지 제거 버튼 노출 (.delete-btn)
-                           2. 비활성화 .btn-disabled 추가
-                       -->
-                        <!--<button id="btnModalBanUserOpen" class="stop-btn btn-disabled" type="button"><i class="fas fa-hand-paper"></i>이용정지</button>-->
-<!--                        <button class="delete-btn" type="button"><i class="fas fa-minus-circle"></i>이용정지 해제</button>-->
                     </div>
-                    <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                 </div>
             </div>
 
@@ -103,4 +105,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/js/user/user-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/account/account-list.js?version=<?php echo $this->config->item('version');?>"></script>

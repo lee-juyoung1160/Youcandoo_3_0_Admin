@@ -297,6 +297,8 @@
 		,createAppVersion : baseApiUrl+'version/create'
 		,deleteAppVersion : baseApiUrl+'version/delete'
 		,listAppVersion : baseApiUrl+'version/list'
+		/** 계정 **/
+		,listAccount : baseApiUrl+'operate/account'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
@@ -363,6 +365,8 @@
 		,createAdmin : '/admin/create'
 
 		,listAuth : '/admin/auth'
+
+		,detailAccount : '/operate/account/detail/'
 	}
 
 	const innerIps = ['220.85.113.234'];

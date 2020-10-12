@@ -200,7 +200,7 @@ p.sub-title {
 p.sub-title.important {
 	color: #222;
 }
-p.cap {
+.cap {
 	font-size: 13px;
 	font-weight: 400;
 	color: #666;
@@ -282,7 +282,7 @@ i.question-mark:hover .hover-text {
 	cursor: pointer;
 	width: 100%;
 	height: 100%;
-	z-index: 998;
+	z-index: 9999;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -296,7 +296,7 @@ i.question-mark:hover .hover-text {
 	/*padding: 15px;*/
 	border-radius: 5px;
 	position: fixed;
-	z-index: 999;
+	z-index: 10000;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -1040,6 +1040,11 @@ input[type="checkbox"]:disabled + label span{
 .card-warp .card .card-body {
 	padding: 15px;
 	background-color: #fff;
+	cursor: pointer;
+	transition: all .3s;
+}
+.card-warp .card .card-body .row {
+	display: flex;
 }
 .card-warp .card .card-body .fa-plus-square {
 	color: #999;
@@ -1072,9 +1077,39 @@ input[type="checkbox"]:disabled + label span{
 .card-warp .card .card-footer .btn-icon-wrap {
 	float: right;
 }
-.card-warp .card .card-footer .btn-icon-wrap i {
+.card-warp .card .card-footer .btn-icon-wrap .btn-open {
 	font-size: 16px;
 	margin-left: 5px;
+}
+
+.card-warp .card-body-open {
+	padding: 10px;
+	border-top: 1px solid #f3f3f3;
+}
+
+.card-warp .badge {
+	display: inline-block;
+	margin: 0 5px 10px;
+	padding: 3px 5px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 5px;
+}
+.badge-green {
+	color: #fff;
+	background-color: #00ac69;
+}
+.badge-secondary {
+	color: #6900c7;
+	border: 1px solid #6900c7;
+	box-sizing: border-box;
+}
+.card-warp .sub-title {
+	margin: 0 5px 10px;
 }
 
 
@@ -1631,7 +1666,13 @@ th[role=columnheader]:not(.no-sort):hover:after {
 
 
 /* 스위트 알럿 */
-.swal2-content { white-space: pre-line; font-size: 15px; }
+.swal2-container {
+	z-index: 99999;
+}
+.swal2-content {
+	white-space: pre-line;
+	font-size: 15px;
+}
 .swal2-styled.swal2-confirm {
 	font-size: 15px;
 	background-color: #0061f2;

@@ -1,5 +1,4 @@
 
-	const btnUcdModalOpen	= $("#btnUcdModalOpen");
 	/** 기본정보 **/
 	const profileIdEl	= $("#profileId")
 	const nicknameEl	= $("#nickname")
@@ -37,12 +36,6 @@
 	const modalDoitTitle	= $("#modalDoitTitle");
 	const modalNickname		= $("#modalNickname");
 	const modalWarnWrap		= $("#modalWarnWrap");
-	/** ucd 적립 모달 **/
-	const modalUcd 	= $("#modalUcd");
-	const amount	= $("#amount");
-	const content	= $("#content");
-	const memo		= $("#memo");
-	const btnSubmit	= $("#btnSubmit");
 	/** 푸시토큰 모달 **/
 	const modalTokenInfo = $("#modalTokenInfo");
 	const deviceToken 	 = $("#deviceToken");
@@ -67,11 +60,9 @@
 		/** UCD 사용내역 **/
 		getUsageHistoryUcd();
 		/** 이벤트 **/
-		btnUcdModalOpen	.on("click", function () { onClickUcdModalOpen(); })
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		olTab			.on("click", function (event) { onClickTab(event); });
-		btnSubmit		.on("click", function () { onSubmitUcd(); });
 		btnRemoveDoitTitle	.on("click", function () { onClickRemoveDoitTitle(); });
 	});
 
@@ -86,26 +77,6 @@
 			}, 300);
 			e.preventDefault(); e.stopPropagation();
 		});
-	}
-
-	function onClickUcdModalOpen()
-	{
-		ucdModalFadein();
-		initUcdModal();
-	}
-
-	function ucdModalFadein()
-	{
-		modalLayout.fadeIn();
-		modalUcd.fadeIn();
-		overflowHidden();
-	}
-
-	function initUcdModal()
-	{
-		amount.val('');
-		amount.trigger('focus');
-		content.val('');
 	}
 
 	function onClickTab(e)
@@ -888,72 +859,3 @@
 			$(nRow).addClass('minus-pay');
 	}
 
-	function onSubmitUcd()
-	{
-		if (validation())
-			sweetConfirm(message.create, createRequest);
-	}
-
-	function createRequest()
-	{
-		let url 	= api.createUserUcd;
-		let errMsg 	= label.submit+message.ajaxError;
-
-		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
-	}
-
-	function ucdParams()
-	{
-		let param = {
-			"profile_uuid" : [g_profile_uuid]
-			,"division" : 0
-			,"ucd_type" : "point"
-			,"amount" : amount.val()
-			,"description" : content.val().trim()
-			,"memo" : memo.val().trim()
-			,"created_user" : sessionUserId.val()
-			,"page_type" : ""
-		}
-
-		return JSON.stringify(param);
-	}
-
-	function createReqCallback(data)
-	{
-		if (isSuccessResp(data))
-			balance.html(numberWithCommas(data.data.total));
-
-		sweetToastAndCallback(data, createSuccess);
-	}
-
-	function createSuccess()
-	{
-		getUsageHistoryUcd();
-		modalFadeout();
-	}
-
-	function validation()
-	{
-		if (isEmpty(amount.val()))
-		{
-			sweetToast('UCD는 '+message.required);
-			amount.trigger('focus');
-			return false;
-		}
-
-		if (amount.val() > 1000000)
-		{
-			sweetToast('UCD는 '+message.maxAvailableUserUcd);
-			amount.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(content.val()))
-		{
-			sweetToast('내용은 '+message.required);
-			content.trigger('focus');
-			return false;
-		}
-
-		return true;
-	}

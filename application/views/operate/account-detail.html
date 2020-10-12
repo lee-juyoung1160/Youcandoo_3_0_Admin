@@ -519,69 +519,13 @@
         <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
             <div class="btn-wrap">
                 <a class="list-btn" onclick="historyBack();">이전</a>
-                <a class="list-btn" href="/user">목록</a>
+                <a class="list-btn" href="/operate/account">목록</a>
             </div>
         </div>
 
     </div>
 
-    <div class="modal-wrap">
-
-        <div id="modalUcd" class="modal-content modal-01">
-            <div class="wrap">
-                <i class="close-btn">×</i>
-                <p class="modal-title">회원 UCD 충전 등록</p>
-                <ul class="modal-information">
-
-                    <li>
-                        <p class="sub-title">
-                            UCD(point) *
-                            <i class="question-mark far fa-question-circle">
-                                <span class="hover-text" style="width:250px;">최대 1백만UCD까지 가능합니다.</span>
-                            </i>
-                        </p>
-                        <input id="amount" type="text" class="only-num" maxlength="7">
-                        <span class="input-num-title">UCD</span>
-                    </li>
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">내용(*)</p>
-                            </div>
-                            <div class="col-2 clearfix">
-                                <textarea id="content" cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-wrap clearfix">
-                            <div class="col-1">
-                                <p class="sub-title important">메모</p>
-                            </div>
-                            <div class="col-2 clearfix">
-                                <textarea id="memo" cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
-            </div>
-        </div>
-
-        <div id="modalTokenInfo" class="modal-content modal-02" style="width: 700px; word-break: break-all;">
-            <div class="wrap">
-                <i class="close-btn">×</i>
-                <p class="modal-title">푸시토큰</p>
-                <ul class="modal-information">
-                    <li id="deviceToken">
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="modal-layout"></div>
-
-    </div>
     <input type="hidden" id="profile_uuid" value="<?php if(isset($profile_uuid)) echo $profile_uuid ?>"/>
 </section>
-<script src="/assets/js/user/user-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/account/account-detail.js?version=<?php echo $this->config->item('version');?>"></script>
 

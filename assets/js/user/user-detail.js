@@ -598,7 +598,6 @@
 	let actionCurrentPage = 1;
 	function buildActionPagination(data)
 	{
-		console.log(data)
 		let totalCount  = data.recordsTotal;
 		let last		= Math.ceil(totalCount / g_page_length);
 		let pageLength  = 6;

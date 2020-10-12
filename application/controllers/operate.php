@@ -13,4 +13,8 @@ class Operate extends MY_Controller {
         $this->load->layout('operate/main-dashboard-v2');
     }
 
+    public function account()
+    {
+        $this->load->layout('operate/account-list');
+    }
 }

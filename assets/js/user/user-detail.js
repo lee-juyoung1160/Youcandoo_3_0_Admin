@@ -569,22 +569,21 @@
 				if (i===0 || i%6 === 0)
 					actionDom += '<ul class="cert-contents clearfix">';
 
-				actionDom += '<li>';
-				actionDom += 	'<div class="top clearfix">';
-				actionDom += 		'<span class="success-text">'+successYn+'</span>';
-				actionDom += 		'<i class="warning-icon fas fa-exclamation-triangle">';
-				actionDom +=        '<span>신고 : <span class="cert-data-num">'+action.report_count+'</span></span></i>';
-				actionDom += 	'</div>';
-				actionDom += 	'<div class="thumbnail-wrap">';
-				actionDom += 		actionImageDom;
-				actionDom += 	'</div>';
-				actionDom += 	'<div class="text-wrap">';
-				actionDom += 		'<p class="title">'+action.doit_title+'</p>';
-				actionDom += 		'<span>'+action.user_name+'</span>';
-				actionDom += 		'<p class="date">'+action.action_datetime+'</p>';
-				actionDom += 		'<i>'+warnImageDom+'</i>';
-				actionDom += 	'</div>';
-				actionDom += '</li>';
+				actionDom +=
+					`<li>
+						<div class="top clearfix">
+							<span class="success-text">${successYn}</span>
+							<i class="warning-icon fas fa-exclamation-triangle">
+							<span>신고 : <span class="cert-data-num">${action.report_count}</span></span></i>
+						</div>
+						<div class="thumbnail-wrap">${actionImageDom}</div>
+						<div class="text-wrap">
+							<p class="title" title="${action.doit_title}">${action.doit_title}</p>
+							<span>${action.user_name}</span>
+							<p class="date">${action.action_datetime}</p>
+							<i>${warnImageDom}</i>
+						</div>
+					</li>`
 
 				if (i>0 && (i+1)%6 === 0)
 					actionDom += '</ul>';

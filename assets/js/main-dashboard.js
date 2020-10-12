@@ -64,20 +64,23 @@
         baseDate.text(dateTxt);
     }
 
-    let defaultYear  = 2020;
-    let defaultMonth = 7;
     function initSelectBox()
     {
+        let defaultYear  = 2020;
+        let i = 1;
         for (defaultYear; defaultYear <= year; defaultYear++)
+            $(".select-year").prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
+
+        onChangeSelectOption($("#doit-year-select"));
+        onChangeSelectOption($("#cert-year-select"));
+
+        for (i; i <= 12; i++)
         {
-            yearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
-            certYearSelectBox.prepend(new Option( defaultYear + "년", defaultYear.toString()));
+            let selectedMonth = i === month;
+            certMonthSelectBox.prepend(new Option( appendZero(i) + "월", appendZero(i), false, selectedMonth));
         }
 
-        for (defaultMonth; defaultMonth <= month; defaultMonth++)
-            certMonthSelectBox.prepend(new Option( appendZero(defaultMonth) + "월", appendZero(defaultMonth)));
-
-        initSelectOption();
+        onChangeSelectOption($("#cert-month-select"));
     }
 
     /** UCD 정보 **/

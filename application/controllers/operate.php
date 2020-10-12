@@ -8,9 +8,12 @@ class Operate extends MY_Controller {
         $this->load->layout('operate/version-list');
     }
 
-    public function dashboard()
+    public function dashboard($version = "")
     {
-        $this->load->layout('operate/main-dashboard-v2');
+        if (empty($version))
+            $this->load->layout('main-dashboard');
+        else
+            $this->load->layout('main-dashboard-v2');
     }
 
     public function account($Route = "list")

@@ -36,7 +36,7 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
-		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxImport	.on("change", function () { onChangeBtnImport(this); });
 		btnXlsxExport	.on("click", function () { onClickUcdFormExport(this); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
@@ -443,7 +443,7 @@
 		return true;
 	}
 
-	function onClickBtnImport(obj)
+	function onChangeBtnImport(obj)
 	{
 		if (!isXlsX(obj))
 		{
@@ -452,20 +452,24 @@
 			return ;
 		}
 
-		readExcelData(obj, getExcelData);
+		readExcelData(obj, getUserDataFromXlsx);
 		emptyFile(obj);
 	}
 
-	function getExcelData(data)
+	function getUserDataFromXlsx(data)
 	{
+		resultBox.hide();
+		selectedUserCount.empty();
+		selectedUserTableBody.empty();
+		let deduplicateData = Array.from(new Set(data))
 		let url = api.listUserWithXlsx;
 		let errMsg = `회원목록${message.ajaxLoadError}`
-		let param = JSON.stringify({ "data" : data });
+		let param = JSON.stringify({ "data" : deduplicateData });
 
-		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, param, buildUserDataFromXlsx, errMsg, false);
 	}
 
-	function getExcelDataCallback(data)
+	function buildUserDataFromXlsx(data)
 	{
 		let userDatas = data.data;
 
@@ -476,20 +480,20 @@
 				let { nickname, profile_uuid, ucd } = value;
 				selectedUserEl +=
 					`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-total="${ucd}">
-					<td>
-						<div class="p-info">${nickname}<span class="p-id">${profile_uuid}</span></div>
-					</td>
-					<td>
-						<div class="user-ucd">
-							<strong>${numberWithCommas(ucd)}</strong>
-						</div>
-					</td>
-					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
-				</tr>`
+						<td>
+							<div class="p-info">${nickname}<span class="p-id">${profile_uuid}</span></div>
+						</td>
+						<td>
+							<div class="user-ucd">
+								<strong>${numberWithCommas(ucd)}</strong>
+							</div>
+						</td>
+						<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
+					</tr>`
 			})
 
-			selectedUserCount.html(userDatas.length);
 			selectedUserTableBody.html(selectedUserEl);
+			selectedUserCount.html(userDatas.length);
 			resultBox.show();
 		}
 		else
@@ -499,4 +503,3 @@
 			resultBox.hide();
 		}
 	}
-

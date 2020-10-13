@@ -379,7 +379,7 @@
 					<li>
 						<div class="col-wrap clearfix">
 							<div class="col-1">
-								<p class="cap">리워드 옵션명 (*)</p>
+								<p class="detail-data">리워드 옵션명 (*)</p>
 							</div>
 							<div class="col-2">
 								<div class="input-wrap">
@@ -392,7 +392,7 @@
 					<li>
 						<div class="col-wrap clearfix">
 							<div class="col-1">
-								<p class="cap" style="display: inline-block;">인증 기간 (*)</p>
+								<p class="detail-data" style="display: inline-block;">인증 기간 (*)</p>
 								<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
 									<span class="hover-text">* 최대 30일까지 가능합니다.</span>
 								</i>
@@ -414,7 +414,7 @@
 					<li>
 						<div class="col-wrap clearfix">
 							<div class="col-1">
-								<p class="cap">주간 빈도 (*)</p>
+								<p class="detail-data">주간 빈도 (*)</p>
 							</div>
 							<div class="col-2">
 								<ul class="day-btn clearfix frequency-ul">
@@ -432,7 +432,7 @@
 					<li>
 						<div class="col-wrap clearfix">
 							<div class="col-1">
-								<p class="cap" style="display: inline-block;">목표달성률 (*)</p>
+								<p class="detail-data" style="display: inline-block;">목표달성률 (*)</p>
 								<i class="question-mark far fa-question-circle" style="vertical-align: inherit; margin-left: 5px;">
 									<span class="hover-text">* 최소 80%, 최대가 100% 입니다.</span>
 								</i>
@@ -445,7 +445,7 @@
 					<li>
 						<div class="col-wrap clearfix">
 							<div class="col-1">
-								<p class="cap">인당 UCD (*)</p>
+								<p class="detail-data">인당 UCD (*)</p>
 							</div>
 							<div class="col-2 pro-ucd-wrap">
 								<table>
@@ -847,104 +847,6 @@
 		return result;
 	}
 
-	/*function params()
-	{
-		let paramBannerFile = banner[0].files[0];
-		let paramIntroFile 	= intro[0].files[0];
-		let formData  = new FormData();
-		formData.append("nickname", bizName.val());
-		formData.append("promotion-title", promoName.val().trim());
-		formData.append("promotion-budget-ucd", budget.val().trim());
-		formData.append("promotion-start-date", promoFrom.val());
-		formData.append("promotion-end-date", promoTo.val());
-
-		/!** 유의사항 파라미터 **!/
-		let promotionNotice = $("input[name=promo-notice]");
-		let notice = [];
-		promotionNotice.each(function () {
-			notice.push($(this).val().trim());
-		});
-		formData.append("promotion_notice", JSON.stringify(notice));
-
-		formData.append("promotion-allow-count", allowCount.val());
-		formData.append("promotion-banner-image",paramBannerFile);
-		formData.append("promotion-list-image", paramIntroFile);
-		formData.append("is-banner", $('input:radio[name=radio-banner-open]:checked').val());
-		formData.append("allow-gallery-image", $('input:radio[name=radio-gallery-yn]:checked').val());
-
-		let rewardSelectDoms = rewardTabWrap.find('li');
-		let rewardSelectDomLength = rewardSelectDoms.length;
-		let rewards = [];
-		for (let i=0; i<rewardSelectDomLength; i++)
-		{
-			let rewardWrap   = $(".pro-reward-wrap");
-			let title 		 = $(rewardWrap[i]).find('.reward-title');
-			let durationDom	 = $(rewardWrap[i]).find('.duration');
-			let duration	 = isEmpty($(rewardWrap[i]).find('input[type=radio]:checked').val()) ? durationDom.val() : 1;
-			let frequencyDom = $(rewardWrap[i]).find('.frequency');
-			let monday		 = 'N';
-			let tuesday		 = 'N';
-			let wednesday	 = 'N';
-			let thursday	 = 'N';
-			let friday		 = 'N';
-			let saturday	 = 'N';
-			let sunday		 = 'N';
-			let goalRate 	 = $(rewardWrap[i]).find('.goal-range');
-			let ucdTable	 = $(rewardWrap[i]).find('.ucd-table-body');
-
-			/!** 주간빈도 파라미터 **!/
-			frequencyDom.each(function (freqidx) {
-				let frequencyYn = (!$(this).hasClass('disabled') && $(this).hasClass('active')) ? 'Y' : 'N';
-				if (freqidx === 0) monday = frequencyYn;
-				if (freqidx === 1) tuesday = frequencyYn;
-				if (freqidx === 2) wednesday = frequencyYn;
-				if (freqidx === 3) thursday = frequencyYn;
-				if (freqidx === 4) friday = frequencyYn;
-				if (freqidx === 5) saturday = frequencyYn;
-				if (freqidx === 6) sunday = frequencyYn;
-			});
-
-			/!** 인당 UCD 파라미터 **!/
-			let ucdInfos = [];
-			$(ucdTable).find('tr').each(function () {
-
-				let inputDom = $(this).find('input');
-
-				if (inputDom.length > 0)
-				{
-					let minDom   = $(inputDom)[0];
-					let maxDom   = $(inputDom)[1];
-					let personDom = $(inputDom)[2];
-					let groupDom  = $(inputDom)[3];
-
-					ucdInfos.push({
-						"min" : $(minDom).val()
-						,"max" : $(maxDom).val()
-						,"person_reward" : $(personDom).val()
-						,"group_reward" : $(groupDom).val()
-					});
-				}
-			})
-
-			rewards.push({
-				"title" 			: title.val().trim()
-				,"action-duration" 	: duration
-				,"goal-rate" 		: goalRate.val()
-				,"monday" 			: monday
-				,"tuesday" 			: tuesday
-				,"wednesday" 		: wednesday
-				,"thursday" 		: thursday
-				,"friday" 			: friday
-				,"saturday" 		: saturday
-				,"sunday" 			: sunday
-				,"ucd_info"			: JSON.stringify(ucdInfos)
-			});
-		}
-
-		formData.append("promotion-reward-condition", JSON.stringify(rewards));
-		return formData;
-	}*/
-
 	function onSubmitPromo()
 	{
 		if (validation())
@@ -1071,5 +973,4 @@
 	{
 		location.href = page.listPromo;
 	}
-
 

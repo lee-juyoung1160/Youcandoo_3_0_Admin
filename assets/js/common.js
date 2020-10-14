@@ -679,7 +679,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/test'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/test', '/doit/recommend/create', '/doit/recommend/update'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -698,12 +698,22 @@
             accessibleMenus.push(_auth.replace('create', 'update'));
 
         /** 프로모션 목록, 두잇 목록 권한이 있으면 상세 권한 추가 **/
-        let customAccessiblePages1 = ['/promotion', '/doit', ];
+        let customAccessiblePages1 = ['/promotion', '/doit'];
         if (customAccessiblePages1.indexOf(_auth) !== -1)
             accessibleMenus.push(_auth + '/detail');
 
         /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
-        let customAccessiblePages2 = ['/user', '/biz', '/marketing/event', '/marketing/push', '/marketing/popup', '/service/notice', '/service/faq', '/admin', '/doit/category', '/operate/account'];
+        let customAccessiblePages2 =
+               ['/user',
+                '/biz',
+                '/marketing/event',
+                '/marketing/push',
+                '/marketing/popup',
+                '/service/notice',
+                '/service/faq',
+                '/admin',
+                '/doit/category',
+                '/operate/account'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');

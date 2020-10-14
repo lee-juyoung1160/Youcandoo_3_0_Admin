@@ -500,17 +500,16 @@ input.tag-input {
 .hash-tag-list > li {
 	float: left;
 	font-size: 12px;
-	margin-top: 10px;
-	margin-right: 15px;
-	margin-bottom: 20px;
+	margin-top: 3px;
+	margin-right: 5px;
 	padding: 5px 8px;
 	border-radius: 10px;
 	color: #007aff;
-	background-color: #b4dbed;
+	background-color: #d9e7f5;
 }
 .hash-tag-list > li span,
 .hash-tag-list > li i {
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 600;
 }
 .hash-tag-list > li:last-child {
@@ -806,6 +805,7 @@ input[type="checkbox"]:disabled + label span{
 }
 .table-wrap .top .right-wrap {
 	float: right;
+	text-align: right;
 }
 .table-wrap .top .right-wrap p {
 	float: left;
@@ -875,6 +875,9 @@ input[type="checkbox"]:disabled + label span{
 .btn-orange {
 	background-color: #f76400;
 	border-color: #f76400;
+}
+.btn-excel {
+	background-color: darkgreen;
 }
 
 
@@ -1034,26 +1037,44 @@ input[type="checkbox"]:disabled + label span{
 }
 .card-warp .card {
 	overflow: hidden;
+	margin-bottom: 20px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	border-radius: 5px;
 }
 .card-warp .card .card-body {
-	padding: 15px;
+	position: relative;
 	background-color: #fff;
 	cursor: pointer;
-	transition: all .3s;
+}
+.card-warp .card .line-blue {
+	border-left: 5px solid #3F6CCD;
+}
+.card-warp .card .line-aqua {
+	border-left: 5px solid #38C3D1;
+}
+.card-warp .card .card-body .row:first-child {
+	padding-top: 10px;
+}
+.card-warp .card .card-body .right-wrap {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 10px;
 }
 .card-warp .card .card-body .row {
-	display: flex;
+	width: 100%;
+	padding: 5px 10px;
 }
-.card-warp .card .card-body .fa-plus-square {
-	color: #999;
-	font-size: 20px;
+.card-warp .card .card-body .col {
+	padding: 0 10px;
+}
+.card-warp .card .card-body i {
+	color: #00c0ef;
 }
 .card-warp .card .card-footer {
 	padding: 10px;
 	font-size: 14px;
-	background-color: rgba(31,45,65,.03);
+	background-color: #f3f3f3;
 	border-top: 1px solid rgba(31,45,65,.125);
 }
 .card-warp .card .card-footer a {
@@ -1077,41 +1098,77 @@ input[type="checkbox"]:disabled + label span{
 .card-warp .card .card-footer .btn-icon-wrap {
 	float: right;
 }
+.card-warp .card .card-footer .btn-icon-wrap i {
+	margin-left: 5px;
+}
 .card-warp .card .card-footer .btn-icon-wrap .btn-open {
 	font-size: 16px;
 	margin-left: 5px;
 }
-
+.flex-container {
+	display: flex;
+}
 .card-warp .card-body-open {
+	display: none;
 	padding: 10px;
 	border-top: 1px solid #f3f3f3;
 }
 
+
 .card-warp .badge {
-	display: inline-block;
-	margin: 0 5px 10px;
-	padding: 3px 5px;
+	padding: 4px 7px;
 	font-size: 13px;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	border-radius: 5px;
 }
 .badge-green {
 	color: #fff;
 	background-color: #00ac69;
 }
-.badge-secondary {
-	color: #6900c7;
-	border: 1px solid #6900c7;
-	box-sizing: border-box;
+.badge-orange {
+	color: #fff;
+	background-color: orange;
+}
+.badge-gray {
+	color: #fff;
+	background-color: #aaa;
 }
 .card-warp .sub-title {
 	margin: 0 5px 10px;
+	font-size: 17px;
 }
+.card-warp .cap {
+	margin: 10px 0;
+}
+.item-box {
+	margin: 0 5px;
+	padding: 4px;
+	font-size: 13px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+}
+.item-box strong {
+	font-weight: 600;
+}
+.item-box span {
+	color: #777;
+}
+.card-warp .cap .item {
+	margin-right: 8px;
+}
+.personnel-num {
+	width: 150px;
+	font-family: 'Roboto', "Noto Sans KR";
 
+	letter-spacing: -0.5px;
+}
+.personnel-num strong {
+	font-size: 35px;
+	font-weight: 800;
+}
 
 /* cert-contents common */
 .table-wrap .btn-wrap button.yellow-btn {
@@ -1245,7 +1302,7 @@ input[type="checkbox"]:disabled + label span{
 	transform: scale(1.08);
 }
 .modal-content.confirm-modal-detail {
-	width: 1070px;
+	width: 1100px;
 	height: 745px;
 }
 .modal-content.confirm-modal-detail .modal-information {

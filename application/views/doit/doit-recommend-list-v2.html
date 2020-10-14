@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="/assets/css/doit-category.css?version=<?php echo $this->config->item('version');?>">
+<section class="doit-recommend-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">추천 두잇 관리 2</h2>
+            <a href="/doit/recommend/create"><i class="fas fa-plus"></i>추천 두잇 등록</a>
+        </div>
+        <div class="wrap">
+
+
+
+            <div class="table-wrap category-list">
+                <div class="top clearfix">
+                    <div class="btn-wrap">
+                        <button id="btnDelete" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>추천 두잇 삭제</button>
+                        <button id="btnReorder" class="btn-info" type="button"><i class="fas fa-exchange-alt"></i> 순서변경 적용</button>
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">드래그 앤 드랍으로 노출순서를 지정할 수 있으며,<br> 순서변경적용 버튼 클릭 시 변경내용이 반영됩니다.</span>
+                        </i>
+                    </div>
+                </div>
+
+                <table id="dataTable">
+                    <colgroup>
+                        <col style="width:5%;">
+                        <col style="width:75%;">
+                        <col style="width:20%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c1" name="cc" />
+                                    <label for="c1"><span></span></label>
+                                </div>
+                            </th>
+                            <th>추천 두잇 명</th>
+                            <th>노출여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇1</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇2</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/js/plugins/tablesort.min.js"></script>
+<script src="/assets/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/doit/doit-recommend.js?version=<?php echo $this->config->item('version');?>"></script>

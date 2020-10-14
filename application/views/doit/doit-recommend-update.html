@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="/assets/css/common.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/css/doit-recommend-list.css">
+<section class="doit-recommend-page">
+    <div class="inner">
+        <h2 class="main-title">추천 두잇 </h2>
+        <div class="wrap">
+
+
+
+            <div class="row clearfix">
+
+                <div class="col-1">
+                    <div class="enrollment" style="border-top: 3px solid #007aff;">
+                        <p class="enrollment-title">추천 두잇 리스트</p>
+                        <div class="question-text clearfix">
+                            <i class="question-mark far fa-question-circle"></i>
+                            <span>
+                            최대 <b>5개</b>의 추천 두잇을 등록할 수 있으며,<br><b>마우스 드래그 &amp; 드랍</b>으로 노출 순서를 지정할 수 있습니다.
+                        </span>
+                        </div>
+
+                        <table class="recommend-list" id="recommendedTable">
+                            <!--<tbody>
+                            <tr>
+                                <td>
+                                    <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="doit-detail-info">
+                                        <ul class="tag clearfix">
+                                            <li>#고양이</li>
+                                            <li>#짱기요미</li>
+                                            <li>#심쿵발쿵</li>
+                                        </ul>
+                                        <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                        <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                        <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-times-circle"></i></td>
+                            </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <button id="btnAdd" type="button" class="btn-go-wrap"><i class="fas fa-chevron-left"></i></button>
+                </div>
+
+                <div class="col-3">
+                    <div class="enrollment">
+                        <p class="list-common-title">두잇 검색</p>
+                        <div class="search-wrap">
+                            <div class="search-box">
+                                <input id="keyword" type="search" placeholder="두잇명을 입력해주세요.">
+                                <i class="search-btn fas fa-search"></i>
+                            </div>
+                        </div>
+                        <table class="doit-shr-list" id="doitTable">
+                            <!--<tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                               <input type="checkbox" id="c1" name="cc" />
+                                         <label for="c1"><span></span></label>
+                                      </div>
+                                </td>
+                                <td>
+                                    <div class="doit-thumbnail">
+                                        <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="doit-detail-info">
+                                        <p class="doit-tit">그렇게 쳐다보면 무셥쨔나</p>
+                                        <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                        <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <button id="btnSubmit" class="completion-btn" type="submit" style="margin: 30px 0 50px;">등록 완료</button>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/js/plugins/tablesort.min.js"></script>
+<script src="/assets/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/doit/doit-recommend.js?version=<?php echo $this->config->item('version');?>"></script>

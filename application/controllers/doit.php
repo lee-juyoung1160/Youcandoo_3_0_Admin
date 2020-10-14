@@ -23,9 +23,22 @@ class Doit extends MY_Controller {
         $this->load->layout('doit/doit-update');
     }
 
-    public function recommend()
+    public function recommend($Route = "")
     {
-        $this->load->layout('doit/doit-recommend-list');
+        switch ($Route) {
+            case "":
+                $this->load->layout('doit/doit-recommend-list');
+                break;
+            case "v2" :
+                $this->load->layout('doit/doit-recommend-list-v2');
+                break;
+            case "create" :
+                $this->load->layout('doit/doit-recommend-create');
+                break;
+            case "update" :
+                $this->load->layout('doit/doit-recommend-update');
+                break;
+        }
     }
 
     public function category($Route = "list")

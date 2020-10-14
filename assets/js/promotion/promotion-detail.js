@@ -38,7 +38,7 @@
 		/** 이벤트 **/
 		ulTab			.on("click", function (event) { onClickTab(event); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
-		selPageLengthForUcd	.on("change", function() { onClickUcdTab(); });
+		selPageLengthForUcd	.on("change", function() { getUcdLog(); });
 		goUpdate	.on('click', function () { goUpdatePage(); })
 	});
 

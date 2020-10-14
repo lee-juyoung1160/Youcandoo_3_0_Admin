@@ -18,7 +18,9 @@
 	const doitTo	    	= $("#doitTo");
 	const startTime	    	= $("#startTime");
 	const endTime	    	= $("#endTime");
-	const chkAccessUser 	= $("input[name=chkAccessUser]");
+	/*const chkAccessUser 	= $("input[name=chkAccessUser]");*/
+	const selPrivate 		= $("#selPrivate");
+	const privateDesc 		= $("#privateDesc");
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
@@ -40,6 +42,8 @@
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
+		/** 두잇 공개 범위 영역 초기화 **/
+		onChangeSelPrivate(selPrivate);
 		/** 소개 파일 영역 초기화 **/
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
@@ -56,7 +60,8 @@
 		selPromo		.on('change', function () { onChangeSelPromo(); });
 		selReward		.on('change', function () { onChangeSelReward(); });
 		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
-		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
+		/*chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });*/
+		selPrivate		.on('change', function () { onChangeSelPrivate(this) });
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
@@ -189,6 +194,35 @@
 	function toggleActive(obj)
 	{
 		$(obj).toggleClass('active');
+	}
+	
+	function onChangeSelPrivate(obj)
+	{
+		let type = $(obj).val();
+		let innerEl = '';
+		if (type === '')
+		{
+			innerEl +=
+				`<ul class="cap" style="margin-top: 10px;">
+					<li>- 참여자, 인증, 두잇톡 전체 공개</li>
+					<li>- 누구나 두잇 참여 가능</li>
+				</ul>`
+		}
+		else
+		{
+			innerEl +=
+				`<ul class="cap" style="margin-top: 10px;">
+					<li>- 참여자, 인증, 두잇톡 전체 공개</li>
+					<li>- 참여 코드를 아는 사람만 참여 가능</li>
+				</ul>
+
+				<div class="code-wrap">
+					<span class="input-num-title margin-left-text">* 참가코드</span>
+					<input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
+				</div>`
+		}
+
+		privateDesc.html(innerEl);
 	}
 
 	function onKeyupSearchBiz()
@@ -609,6 +643,7 @@
 			addedTags.find('li').each(function () {
 				tags.push($(this).text().trim());
 			})
+			let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';
 			let isAllowGallery = 'N';
 			if ($('input:radio[name=radio-gallery-yn]').length > 0)
 				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
@@ -631,7 +666,7 @@
 				"action_end_date" : doitTo.val(),
 				"action_allow_start_time" : startTime.val()+':00',
 				"action_allow_end_time" : endTime.val()+':59',
-				"private_code" : privateCode.val().trim(),
+				"private_code" : privateCode,
 				"action_example_resource_type" : $('input:radio[name=radio-example-type]:checked').val(),
 				"action_example_image_file" : doit_exam_img,
 				"action_example_video_file" : doit_exam_vid,
@@ -779,14 +814,15 @@
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
+		let privateCode = $("#privateCode");
+		if (privateCode.length > 0 && isEmpty(privateCode.val()))
 		{
 			sweetToast(`참가코드를 ${message.input}`);
 			privateCode.trigger('focus');
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
+		if (privateCode.length > 0 && privateCode.val().trim().length !== 4)
 		{
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');

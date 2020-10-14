@@ -210,14 +210,25 @@
                 <li class="doit-option-li">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">두잇옵션 (*)</p>
+                            <p class="sub-title important">두잇 공개 범위 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="c2" name="chkAccessUser" />
-                                <label class="code-btn" for="c2"><span></span>참여자 제한</label>
+                            <div>
+                                <div class="select-box" style="float: inherit;">
+                                    <label>누구나 공개 두잇</label>
+                                    <select>
+                                        <option value="">누구나 공개 두잇</option>
+                                        <option value="">우리끼리 공개 두잇</option>
+                                    </select>
+                                </div>
+
+                                <ul class="cap" style="margin-top: 10px;">
+                                    <li>- 참여자, 인증, 두잇톡 전체 공개</li>
+                                    <li>- 누구나 두잇 참여 가능</li>
+                                </ul>
+
                                 <div class="code-wrap">
-                                    <span class="input-num-title margin-left-text">참가코드</span>
+                                    <span class="input-num-title margin-left-text">* 참가코드</span>
                                     <input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
                                 </div>
 <!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->

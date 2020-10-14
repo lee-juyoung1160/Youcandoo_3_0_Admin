@@ -58,5 +58,10 @@ class Doit extends MY_Controller {
                 break;
         }
      }
+
+     public function test()
+     {
+         $this->load->layout('doit/doit-list-test');
+     }
 }
 

@@ -197,6 +197,13 @@
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
+		,listDoitRecommendv2 : baseApiUrl+'doit/recommend/v2/list'
+		,listDoitRecommended : baseApiUrl+'doit/recommend/v2/doitList'
+		,listDoitRecommendSearch : baseApiUrl+'doit/recommend/v2/doitSearch'
+		,createDoitRecommend : baseApiUrl+'doit/recommend/v2/create'
+		,updateDoitRecommendv2 : baseApiUrl+'doit/recommend/v2/update'
+		,reorderDoitRecommend : baseApiUrl+'doit/recommend/v2/updateOrder'
+		,exposureDoitRecommend : baseApiUrl+'doit/recommend/v2/updateIsEstablish'
 		,listDoitCategory : baseApiUrl+'doit/category/list'
 		,createDoitCategory : baseApiUrl+'doit/category/set'
 		,updateDoitCategory : baseApiUrl+'doit/category/update'
@@ -367,6 +374,8 @@
 		,listAuth : '/admin/auth'
 
 		,detailAccount : '/operate/account/detail/'
+
+		,listDoitRecommendv2 : '/doit/recommend/v2'
 	}
 
 	const innerIps = ['220.85.113.234'];

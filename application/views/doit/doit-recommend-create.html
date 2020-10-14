@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap" style="position:relative; width: 450px;">
-                                <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
+                                <input id="recommendTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
                             </div>
                         </div>
@@ -26,10 +26,10 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c20" name="radio-exposure" value="N"/>
+                                <input type="radio" id="c20" name="radio-exposure" value="Y"/>
                                 <label for="c20"><span></span>Y</label>
 
-                                <input type="radio" id="c21" name="radio-exposure" value="Y"/>
+                                <input type="radio" id="c21" name="radio-exposure" value="N"/>
                                 <label for="c21"><span></span>N</label>
                             </div>
                         </div>
@@ -49,6 +49,7 @@
 
                         <div class="scroll-wrap" style="overflow-y: scroll; max-height: 520px;">
                             <table class="recommend-list" id="recommendedTable">
+                                <tbody></tbody>
                             <!--<tbody>
                             <tr>
                                 <td>
@@ -127,4 +128,4 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/js/doit/doit-recommend.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/doit/doit-recommend-create.js?version=<?php echo $this->config->item('version');?>"></script>

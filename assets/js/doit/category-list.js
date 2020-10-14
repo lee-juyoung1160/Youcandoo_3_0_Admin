@@ -117,14 +117,14 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setBannerRowAttributes(nRow, aData)
+				setRowAttributes(nRow, aData)
 			},
 			drawCallback: function (settings) {
 			}
 		});
 	}
 
-	function setBannerRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
 		$(nRow).attr('data-category', aData.category);
 	}
@@ -157,12 +157,12 @@
 		let checked   = data.is_establish === 'Y' ? 'checked' : '';
 		return (
 			`<div class="toggle-btn-wrap">
-						<div class="toggle-btn on">
-							<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
-							<div class="knobs"></div>
-							<div class="layer"></div>
-						</div>
-					</div>`
+				<div class="toggle-btn on">
+					<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+					<div class="knobs"></div>
+					<div class="layer"></div>
+				</div>
+			</div>`
 		)
 	}
 
@@ -191,12 +191,12 @@
 		let checked   = data.is_blind === 'Y' ? '' : 'checked';
 		return (
 			`<div class="toggle-btn-wrap">
-						<div class="toggle-btn on">
-							<input onclick="changeStatus2(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
-							<div class="knobs"></div>
-							<div class="layer"></div>
-						</div>
-					</div>`
+				<div class="toggle-btn on">
+					<input onclick="changeStatus2(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+					<div class="knobs"></div>
+					<div class="layer"></div>
+				</div>
+			</div>`
 		)
 	}
 

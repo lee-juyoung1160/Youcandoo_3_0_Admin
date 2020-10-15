@@ -51,7 +51,7 @@
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "큐레이션", 	data: "title",    			width: "60%",  	 className: "cursor-default",
+				,{title: "큐레이션명", 	data: "title",    			width: "60%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.updateDoitRecommend + row.idx;
 						return `<a href="${detailUrl}">${row.title}</a>`;

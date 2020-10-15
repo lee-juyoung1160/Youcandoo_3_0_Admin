@@ -129,8 +129,8 @@
                 </div>
             </div>
 
-            <div class="card-warp doit-card-warp">
-                <div class="card">
+            <div id="listWrap" class="card-warp doit-card-warp">
+                <!--<div class="card">
                     <div class="card-body line-blue">
                         <div class="row">
                             <div class="flex-container">
@@ -291,8 +291,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
+            </div>
+
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
             </div>
 
         </div>
@@ -350,8 +353,3 @@
 </section>
 <script src="/assets/js/doit/doit-list-v2.js?version=<?php echo $this->config->item('version');?>"></script>
 <!--<script src="/assets/js/dev.js?version=<?php echo $this->config->item('version');?>"></script>-->
-<!--<script>-->
-<!--    $('.card-body').on('click', function(){-->
-<!--        $('.card-body-open').slideToggle(200);-->
-<!--    });-->
-<!--</script>-->

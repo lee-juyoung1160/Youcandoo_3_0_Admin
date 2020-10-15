@@ -1045,7 +1045,7 @@ input[type="checkbox"]:disabled + label span{
 .card-warp .card .card-body {
 	position: relative;
 	background-color: #fff;
-	cursor: pointer;
+	/*cursor: pointer;*/
 }
 .card-warp .card .line-blue {
 	border-left: 5px solid #3F6CCD;
@@ -1060,29 +1060,44 @@ input[type="checkbox"]:disabled + label span{
 	position: absolute;
 	right: 0;
 	top: 0;
+	width: 420px;
 	padding: 10px;
+}
+.card-warp .card .card-body .right-wrap .col {
+	border-left: 1px solid #ddd;
+}
+.card-warp .card .card-body .right-wrap .col-info {
+	width: 270px;
 }
 .card-warp .card .card-body .row {
 	width: 100%;
 	padding: 5px 10px;
 }
 .card-warp .card .card-body .col {
-	padding: 0 10px;
+	padding: 0 15px;
 }
 .card-warp .card .card-body i {
 	color: #00c0ef;
 }
-.card-warp .card .card-footer {
-	padding: 10px;
-	font-size: 14px;
-	background-color: #f3f3f3;
-	border-top: 1px solid rgba(31,45,65,.125);
-}
-.card-warp .card .card-footer a {
+
+.card-warp .card .btn-icon-wrap {
+	float: right;
 	position: relative;
+	width: 130px;
+	text-align: right;
+}
+.card-warp .card .btn-icon-wrap i {
+	margin-left: 5px;
+	color: #333;
+}
+
+.card-warp .card .view-detail {
+	position: absolute;
+	right: 0;
+	bottom: 0;
 	color: #0061f2;
 }
-.card-warp .card .card-footer a:after {
+.card-warp .card .view-detail:after {
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -1092,20 +1107,13 @@ input[type="checkbox"]:disabled + label span{
 	transition: all .3s;
 	content: '';
 }
-.card-warp .card .card-footer a:hover:after {
+.card-warp .card .view-detail i {
+	color: #0061f2;
+}
+.card-warp .card .view-detail:hover:after {
 	width: 100%;
 }
 
-.card-warp .card .card-footer .btn-icon-wrap {
-	float: right;
-}
-.card-warp .card .card-footer .btn-icon-wrap i {
-	margin-left: 5px;
-}
-.card-warp .card .card-footer .btn-icon-wrap .btn-open {
-	font-size: 16px;
-	margin-left: 5px;
-}
 .flex-container {
 	display: flex;
 }

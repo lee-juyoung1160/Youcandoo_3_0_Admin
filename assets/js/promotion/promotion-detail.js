@@ -238,6 +238,7 @@
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
+				,{title: "리워드옵션", 		data: "reward_title",  			width: "10%",    className: "cursor-default" }
 				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${row.doit_member} ${label.slash} ${data}`;

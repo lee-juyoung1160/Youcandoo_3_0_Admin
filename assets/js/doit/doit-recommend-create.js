@@ -336,5 +336,12 @@
 			return false;
 		}
 
+		let rows = recommendedTable.find('tbody').children();
+		if (rows.length === 0)
+		{
+			sweetToast(`두잇을 ${message.addOn}`);
+			return false;
+		}
+
 		return true;
 	}

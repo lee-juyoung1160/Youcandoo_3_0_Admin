@@ -3,14 +3,20 @@
 	const btnDelete			= $("#btnDelete");
 	const btnReorder		= $("#btnReorder");
 	const btnSubmit			= $("#btnSubmit");
+	/** modal **/
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
 
 	$( () => {
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		btnSubmit	.on('click', function () { onSubmitRecommend(); });
-		btnDelete	.on("click", function () { deleteRecommend(); });
-		btnReorder	.on("click", function () { onSubmitReorder(); });
+		btnSubmit		.on('click', function () { onSubmitRecommend(); });
+		btnDelete		.on("click", function () { deleteRecommend(); });
+		btnReorder		.on("click", function () { onSubmitReorder(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 		dataTable.find('tbody').sortable({
 			helper: function (e, el) {
 				return addAttrDragonElement(el);
@@ -45,12 +51,17 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "큐레이션", 	data: "title",    		width: "80%",  	 className: "cursor-default" }
-				/*,{title: "이미지",    	data: "icon_image_url",  	width: "30%",    className: "cursor-default",
+				,{title: "큐레이션", 	data: "title",    			width: "60%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return buildImage(data);
+						let detailUrl	= page.updateDoitRecommend + row.idx;
+						return `<a href="${detailUrl}">${row.title}</a>`;
 					}
-				}*/
+				}
+				,{title: "추천 두잇 목록",    	data: "idx",  		width: "20%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return `<a onclick="viewRecommends(${data})">목록보기</a>`;
+					}
+				}
 				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
@@ -86,22 +97,38 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setBannerRowAttributes(nRow, aData)
+				setRowAttributes(nRow, aData)
 			},
 			drawCallback: function (settings) {
 			}
 		});
 	}
 
-	function setBannerRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
-		$(nRow).attr('data-idx', aData.idx);
+		$(nRow).attr('data-uuid', aData.recommend_uuid);
+	}
+
+	function viewRecommends(idx)
+	{
+		/*let url = api.detailDoitRecommend;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = { "idx" : idx };
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), viewRecommendsCallback, errMsg, false);*/
+
+		modalFadein();
+	}
+
+	function viewRecommendsCallback(data)
+	{
+
 	}
 
 	function buildSwitch(data)
 	{
 		/** 개설가능여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_establish === 'Y' ? 'checked' : '';
+		let checked   = data.is_exposure === 'Y' ? 'checked' : '';
 		return (
 			`<div class="toggle-btn-wrap">
 				<div class="toggle-btn on">
@@ -118,7 +145,7 @@
 	{
 		changeParams   = {
 			"idx" : $(obj).data('idx'),
-			"is_establish" : $(obj).hasClass('checked') ? 'N' : 'Y'
+			"is_exposure" : $(obj).hasClass('checked') ? 'N' : 'Y'
 		};
 
 		sweetConfirm(`상태를 ${message.change}`, changeRequest);
@@ -126,7 +153,7 @@
 
 	function changeRequest()
 	{
-		let url     = api.establishDoitCategory;
+		let url     = api.exposureDoitRecommend;
 		let errMsg 	= label.modify+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
@@ -187,26 +214,27 @@
 
 	function onSubmitReorder()
 	{
-		sweetConfirm(message.change, reorderRequest);
+		if (reorderValidation())
+			sweetConfirm(message.change, reorderRequest);
 	}
 
 	function reorderRequest()
 	{
-		let rows = getBannerRows();
+		let rows = getRows();
 		let recommends = [];
 		for (let i=0; i<rows.length; i++)
 		{
-			let category = $(rows[i]).data('idx');
-			if (isEmpty(category)) continue;
+			let recommend = $(rows[i]).data("uuid");
+			if (isEmpty(recommend)) continue;
 
-			recommends.push(category);
+			recommends.push(recommend);
 		}
 
-		let param   = JSON.stringify({ "recommends" : recommends });
-		let url 	= api.reorderDoitCategory;
+		let param   = { "recommend_list" : recommends };
+		let url 	= api.reorderDoitRecommend;
 		let errMsg 	= label.modify+message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, param, reorderReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
 	}
 
 	function reorderReqCallback(data)
@@ -216,25 +244,25 @@
 
 	function reorderValidation()
 	{
-		let rows = getBannerRows();
-		let categorys = [];
+		let rows = getRows();
+		let recommends = [];
 		for (let i=0; i<rows.length; i++)
 		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
+			let recommend = $(rows[i]).data("uuid");
+			if (isEmpty(recommend)) continue;
 
-			categorys.push(category);
+			recommends.push(recommend);
 		}
-		if (categorys.length === 0)
+		if (recommends.length === 0)
 		{
-			sweetToast("정렬할 카테고리가 없습니다.");
+			sweetToast("정렬할 추천 두잇이 없습니다.");
 			return false;
 		}
 
 		return true;
 	}
 
-	function getBannerRows()
+	function getRows()
 	{
 		return dataTable.find('tbody').children();
 	}

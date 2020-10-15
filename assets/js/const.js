@@ -194,16 +194,20 @@
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
+		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
 		,updateDoitRecommend : baseApiUrl+'doit/recommend/set'
+		/** 추천두잇 v2 **/
 		,listDoitRecommendv2 : baseApiUrl+'doit/recommend/v2/list'
 		,listDoitRecommended : baseApiUrl+'doit/recommend/v2/doitList'
 		,listDoitRecommendSearch : baseApiUrl+'doit/recommend/v2/doitSearch'
 		,createDoitRecommend : baseApiUrl+'doit/recommend/v2/create'
+		,detailDoitRecommend : baseApiUrl+'doit/recommend/v2/detail'
 		,updateDoitRecommendv2 : baseApiUrl+'doit/recommend/v2/update'
 		,reorderDoitRecommend : baseApiUrl+'doit/recommend/v2/updateOrder'
 		,exposureDoitRecommend : baseApiUrl+'doit/recommend/v2/updateIsEstablish'
+
 		,listDoitCategory : baseApiUrl+'doit/category/list'
 		,createDoitCategory : baseApiUrl+'doit/category/set'
 		,updateDoitCategory : baseApiUrl+'doit/category/update'
@@ -376,6 +380,7 @@
 		,detailAccount : '/operate/account/detail/'
 
 		,listDoitRecommendv2 : '/doit/recommend/v2'
+		,updateDoitRecommend : '/doit/recommend/update/'
 	}
 
 	const innerIps = ['220.85.113.234'];

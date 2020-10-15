@@ -174,6 +174,7 @@
 			"page" : _page
 			,"limit" : info.length
 			,"doit_title" : keyword.val()
+			,"recommend_uuid" : ""
 		}
 
 		return JSON.stringify(param);

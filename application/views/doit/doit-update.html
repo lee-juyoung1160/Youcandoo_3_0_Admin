@@ -156,27 +156,24 @@
                             <p class="sub-title important">두잇 공개 범위 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div>
-                                <div class="select-box" style="float: inherit;">
-                                    <label>누구나 공개 두잇</label>
-                                    <select id="selPrivate">
-                                        <option value="">누구나 공개 두잇</option>
-                                        <option value="pr">우리끼리 공개 두잇</option>
-                                    </select>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="chkAccessUser" />
+                                <label class="code-btn" for="c2"><span></span>참여자 제한</label>
+                                <div class="code-wrap">
+                                    <span class="input-num-title margin-left-text">참가코드</span>
+                                    <input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
                                 </div>
-
-                                <div id="privateDesc">
-                                </div>
-                                <!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->
-                                <!--                                    <input type="checkbox" id="c3" name="cc" />-->
-                                <!--                                    <label for="c3">두잇 비공개<span></span></label>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="checkbox-wrap" style="margin-top: 15px;">-->
-                                <!--                                    <input type="checkbox" id="c4" name="cc" />-->
-                                <!--                                    <label class="doit-option-contents-btn" for="c4">인증 콘텐츠 비공개<span></span></label>-->
-                                <!--                                </div>-->
-                                <!--                            </div>-->
                             </div>
+                            <!--<div class="select-box" style="float: inherit;">
+                                <label>누구나 공개 두잇</label>
+                                <select id="selPrivate">
+                                    <option value="">누구나 공개 두잇</option>
+                                    <option value="pr">우리끼리 공개 두잇</option>
+                                </select>
+                            </div>
+
+                            <div id="privateDesc">
+                            </div>-->
                         </div>
                     </div>
                 </li>

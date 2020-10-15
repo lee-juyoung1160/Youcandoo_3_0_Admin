@@ -212,6 +212,20 @@
 		tableReloadAndStayCurrentPage(dataTable);
 	}
 
+	function delValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		if (isEmpty(selectedData))
+		{
+			sweetToast(`대상을 목록에서 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
 	function onSubmitReorder()
 	{
 		if (reorderValidation())

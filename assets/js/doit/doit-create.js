@@ -18,9 +18,9 @@
 	const doitTo	    	= $("#doitTo");
 	const startTime	    	= $("#startTime");
 	const endTime	    	= $("#endTime");
-	/*const chkAccessUser 	= $("input[name=chkAccessUser]");*/
-	const selPrivate 		= $("#selPrivate");
-	const privateDesc 		= $("#privateDesc");
+	const chkAccessUser 	= $("input[name=chkAccessUser]");
+	/*const selPrivate 		= $("#selPrivate");
+	const privateDesc 		= $("#privateDesc");*/
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
@@ -43,7 +43,7 @@
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 두잇 공개 범위 영역 초기화 **/
-		onChangeSelPrivate(selPrivate);
+		/*onChangeSelPrivate(selPrivate);*/
 		/** 소개 파일 영역 초기화 **/
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
@@ -60,8 +60,8 @@
 		selPromo		.on('change', function () { onChangeSelPromo(); });
 		selReward		.on('change', function () { onChangeSelReward(); });
 		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
-		/*chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });*/
-		selPrivate		.on('change', function () { onChangeSelPrivate(this) });
+		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
+		/*selPrivate		.on('change', function () { onChangeSelPrivate(this) });*/
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
@@ -643,7 +643,7 @@
 			addedTags.find('li').each(function () {
 				tags.push($(this).text().trim());
 			})
-			let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';
+			/*let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';*/
 			let isAllowGallery = 'N';
 			if ($('input:radio[name=radio-gallery-yn]').length > 0)
 				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
@@ -666,7 +666,8 @@
 				"action_end_date" : doitTo.val(),
 				"action_allow_start_time" : startTime.val()+':00',
 				"action_allow_end_time" : endTime.val()+':59',
-				"private_code" : privateCode,
+				/*"private_code" : privateCode,*/
+				"private_code" : privateCode.val().trim(),
 				"action_example_resource_type" : $('input:radio[name=radio-example-type]:checked').val(),
 				"action_example_image_file" : doit_exam_img,
 				"action_example_video_file" : doit_exam_vid,
@@ -814,7 +815,21 @@
 			return false;
 		}
 
-		let privateCode = $("#privateCode");
+		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
+		{
+			sweetToast(`참가코드를 ${message.input}`);
+			privateCode.trigger('focus');
+			return false;
+		}
+
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
+		{
+			sweetToast(message.minimumPassCode);
+			privateCode.trigger('focus');
+			return false;
+		}
+
+		/*let privateCode = $("#privateCode");
 		if (privateCode.length > 0 && isEmpty(privateCode.val()))
 		{
 			sweetToast(`참가코드를 ${message.input}`);
@@ -827,7 +842,7 @@
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');
 			return false;
-		}
+		}*/
 
 		if (example.length === 0)
 		{

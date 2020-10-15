@@ -13,9 +13,9 @@
 	const extraReward		= $("#extraReward");
 	const actionDate	    = $("#actionDate");
 	const actionTime	    = $("#actionTime");
-	/*const chkAccessUser 	= $("input[name=chkAccessUser]");*/
-	const selPrivate 		= $("#selPrivate");
-	const privateDesc 		= $("#privateDesc");
+	const chkAccessUser 	= $("input[name=chkAccessUser]");
+	/*const selPrivate 		= $("#selPrivate");
+	const privateDesc 		= $("#privateDesc");*/
 	const privateCode 		= $("#privateCode");
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
@@ -34,8 +34,8 @@
 		/** 이벤트 **/
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
-		selPrivate		.on('change', function () { onChangeSelPrivate(this) });
-		/*chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });*/
+		/*selPrivate		.on('change', function () { onChangeSelPrivate(this) });*/
+		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
 
@@ -140,10 +140,16 @@
 			extraRewardWrap.remove();
 		actionDate.html(`${detail.action_start_datetime} ${label.tilde} ${detail.action_end_datetime}`);
 		actionTime.html(`${detail.action_allow_start_time.substring(0, 5)} ${label.tilde} ${detail.action_allow_end_time.substring(0, 5)}`);
-		onChangeSelPrivate(selPrivate);
+		/*onChangeSelPrivate(selPrivate);
 		if (!isEmpty(detail.private_code))
-			privateCode.val(detail.private_code);
+			privateCode.val(detail.private_code);*/
+		if (!isEmpty(detail.private_code))
+		{
+			chkAccessUser.prop("checked", true);
+			toggleActive($(".code-wrap"));
 
+			privateCode.val(detail.private_code);
+		}
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
@@ -227,6 +233,11 @@
 		}
 
 		return actionResourceDom;
+	}
+
+	function toggleActive(obj)
+	{
+		$(obj).toggleClass('active');
 	}
 
 	function onChangeSelPrivate(obj)
@@ -403,7 +414,21 @@
 			}
 		}
 
-		let privateCode = $("#privateCode");
+		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
+		{
+			sweetToast(`참가코드를 ${message.input}`);
+			privateCode.trigger('focus');
+			return false;
+		}
+
+		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
+		{
+			sweetToast(message.minimumPassCode);
+			privateCode.trigger('focus');
+			return false;
+		}
+
+		/*let privateCode = $("#privateCode");
 		if (privateCode.length > 0 && isEmpty(privateCode.val()))
 		{
 			sweetToast(`참가코드를 ${message.input}`);
@@ -416,7 +441,7 @@
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');
 			return false;
-		}
+		}*/
 
 		return true;
 	}
@@ -462,7 +487,7 @@
 			addedTags.find('li').each(function () {
 				tags.push($(this).text().trim());
 			})
-			let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';
+			/*let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';*/
 			let isAllowGallery = 'N';
 			if ($('input:radio[name=radio-gallery-yn]').length > 0)
 				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
@@ -473,7 +498,8 @@
 				"doit_tags" : tags.toString(),
 				"doit_description" : doitDesc.val().trim(),
 				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
-				"private_code" : privateCode,
+				/*"private_code" : privateCode,*/
+				"private_code" : privateCode.val().trim(),
 				"allow_gallery_image" : isAllowGallery
 			}
 

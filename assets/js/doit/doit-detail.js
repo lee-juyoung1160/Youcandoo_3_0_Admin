@@ -866,15 +866,8 @@
 			{
 				for (i=1; i<=pageLength; i++)
 				{
-					if (lastPage > 1 && currentPage === i)
-						pageDom += `<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="${i}">${i}</a>`
-					else
-					{
-						pageDom += pageLength === i ?
-								`<span class="ellipsis">…</span>
-								<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${lastPage}">${lastPage}</a>` :
-								`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>`
-					}
+					current = lastPage > 1 && currentPage === i ? 'current' : '';
+					pageDom += `<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${i}">${i}</a>`
 				}
 			}
 			else if (currentPage >= 5 && currentPage <= lastPage - 4)
@@ -908,21 +901,11 @@
 			{
 				for (i=1; i<=pageLength; i++)
 				{
-					if (i === 1)
-					{
-						pageDom +=
-							`<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
-							<span class="ellipsis">…</span>`
-					}
-
-					if (i >= pageLength - 4)
-					{
-						let current = currentPage === lastPage-(pageLength-i) ? 'current' : '';
-							pageDom +=
-								`<a onclick="onClickPageNum(this);" 
-									class="paginate_button ${current}" 
-									data-page="${(lastPage-(pageLength-i))}">${(lastPage-(pageLength-i))}</a>`
-					}
+					let current = currentPage === lastPage-(pageLength-i) ? 'current' : '';
+					let pageNum = i >= pageLength - 4 ? (lastPage-(pageLength-i)) : i;
+					pageDom += i === 2 ?
+						`<span class="ellipsis">…</span>` :
+						`<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${pageNum}">${pageNum}</a>`
 				}
 			}
 		}

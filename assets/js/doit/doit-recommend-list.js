@@ -46,9 +46,9 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   		width: "5%",     className: "cursor-default",
+				{title: "", 	data: "idx",   		width: "5%",     className: "cursor-default",
 					render: function (data) {
-						return multiCheckBoxDom(data);
+						return singleCheckBoxDom(data);
 					}
 				}
 				,{title: "큐레이션", 	data: "title",    			width: "60%",  	 className: "cursor-default",
@@ -86,7 +86,7 @@
 			order: [],
 			info: false,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			lengthChange: false,
@@ -184,7 +184,7 @@
 
 	function deleteRequest()
 	{
-		let url 	= api.deleteNotice;
+		let url 	= api.deleteDoitRecommend;
 		let errMsg 	= label.delete+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
@@ -194,7 +194,6 @@
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data()[0];
-
 		let param = {
 			"idx" : selectedData.idx
 		};

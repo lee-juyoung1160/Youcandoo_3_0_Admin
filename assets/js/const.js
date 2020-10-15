@@ -205,6 +205,7 @@
 		,createDoitRecommend : baseApiUrl+'doit/recommend/v2/create'
 		,detailDoitRecommend : baseApiUrl+'doit/recommend/v2/detail'
 		,updateDoitRecommendv2 : baseApiUrl+'doit/recommend/v2/update'
+		,deleteDoitRecommend : baseApiUrl+'doit/recommend/v2//delete'
 		,reorderDoitRecommend : baseApiUrl+'doit/recommend/v2/updateOrder'
 		,exposureDoitRecommend : baseApiUrl+'doit/recommend/v2/updateIsEstablish'
 

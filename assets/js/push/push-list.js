@@ -71,7 +71,7 @@
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "발송일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
+				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
 				,{title: "푸시 본문", 	data: "send_message",  			width: "20%",   className: "cursor-default no-sort",
 					render: function (data) {
 						return `<a onclick="onClickDetail(this);" data-detail="${data}" class="line-clamp">${data}</a>`;

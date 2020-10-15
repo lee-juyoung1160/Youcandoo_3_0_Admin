@@ -1090,6 +1090,10 @@ input[type="checkbox"]:disabled + label span{
 	margin-left: 5px;
 	color: #333;
 }
+.card-warp .card .btn-icon-wrap i.disabled {
+	color: #ddd;
+	cursor: none;
+}
 
 .card-warp .card .view-detail {
 	position: absolute;
@@ -1137,13 +1141,17 @@ input[type="checkbox"]:disabled + label span{
 	color: #fff;
 	background-color: #00ac69;
 }
-.badge-orange {
+.badge-yellow {
 	color: #fff;
 	background-color: orange;
 }
 .badge-gray {
 	color: #fff;
 	background-color: #aaa;
+}
+.badge-orange{
+	color: #fff;
+	background-color: #f76400;
 }
 .card-warp .sub-title {
 	margin: 0 5px 10px;

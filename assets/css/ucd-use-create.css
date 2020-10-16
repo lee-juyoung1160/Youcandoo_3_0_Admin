@@ -55,8 +55,7 @@
 }
 .excel-import {
     float: left;
-    width: 135px;
-    margin-left: 5px;
+    margin: 0 5px;
 }
 label.excel-btn {
     color: darkgreen;

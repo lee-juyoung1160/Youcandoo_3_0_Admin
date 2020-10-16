@@ -10,7 +10,6 @@
 	$( () => {
 		/** 추천 두잇 데이터 로드 **/
 		getDetail();
-		getDoit();
 		initSortTable();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
@@ -70,31 +69,27 @@
 		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
+	let g_recommend_uuid;
 	function buildDetail(data)
 	{
 		let { title, is_exposure, recommend_uuid } = data.data.recommend;
 
+		g_recommend_uuid = recommend_uuid;
 		recommendTitle.val(title);
 		checkInputLength(recommendTitle);
 		exposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
 		});
+		getDoitSearch();
+		buildRecommended(data.data.recommend_doit);
 	}
 
 	let g_recommend = [];
-	function buildRecommended()
+	function buildRecommended(_data)
 	{
 		recommendedTable.DataTable({
-			ajax : {
-				url: api.listDoitRecommend,
-				type:"POST",
-				headers: headers,
-				data: "",
-				error: function (request, status) {
-					sweetError(label.list+message.ajaxLoadError);
-				}
-			},
+			data: _data,
 			columns: [
 				{title: "",		data: "doit_uuid",		width: "10%",   className: "",
 					render: function (data, type, row, meta) {
@@ -127,7 +122,7 @@
 				}
 			},
 			processing: false,
-			serverSide: true,
+			serverSide: false,
 			paging: false,
 			ordering: false,
 			order: [],
@@ -215,16 +210,16 @@
 		tableReloadAndStayCurrentPage(doitTable);
 	}
 
-	function getDoit()
+	function getDoitSearch()
 	{
 		doitTable.DataTable({
 			ajax : {
-				url: api.listDoitNonRecommend,
+				url: api.listDoitRecommendSearch,
 				type:"POST",
 				global: false,
 				headers: headers,
 				data: function (d) {
-					return doitParams();
+					return doitSearchParams();
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
@@ -312,7 +307,7 @@
 			$(checkDom).children().prop('disabled', true);
 	}
 
-	function doitParams()
+	function doitSearchParams()
 	{
 		let table = doitTable.DataTable();
 		let info = table.page.info();
@@ -322,6 +317,7 @@
 			"page" : _page
 			,"limit" : info.length
 			,"doit_title" : keyword.val()
+			,"recommend_uuid" : g_recommend_uuid
 		}
 
 		return JSON.stringify(param);
@@ -335,9 +331,9 @@
 
 	function addRecommend()
 	{
-		if (addValidation())
+		/*if (addValidation())
 		{
-			$(".dataTables_empty").parent().remove();
+			$(".dataTables_empty").parent().remove();*/
 
 			let table 		 = doitTable.DataTable();
 			let selectedData = table.rows('.selected').data();
@@ -397,10 +393,10 @@
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
 			initSortTable();
-		}
+		/*}*/
 	}
 
-	function addValidation()
+	/*function addValidation()
 	{
 		let table 		 = doitTable.DataTable();
 		let selectedData = table.rows('.selected').data();
@@ -410,7 +406,7 @@
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)
 
-		let vacancy = 5 - ids.length;
+		let vacancy = 10 - ids.length;
 
 		if (isEmpty(selectedData))
 		{
@@ -427,7 +423,7 @@
 		}
 
 		return true;
-	}
+	}*/
 
 	function getRecommendRows()
 	{
@@ -443,7 +439,6 @@
 		});
 	}
 
-
 	function onSubmitRecommend()
 	{
 		/*if (submitValidation())*/
@@ -457,11 +452,16 @@
 		for (let i=0; i<rows.length; i++)
 			ids.push(rows[i].id)
 
-		let param   = JSON.stringify({ "recommend_list" : ids });
-		let url 	= api.updateDoitRecommend;
+		let param   = {
+			"recommend_uuid" : g_recommend_uuid,
+			"title" : recommendTitle.val().trim(),
+			"is_exposure" : $("input[name=radio-exposure]:checked").val(),
+			"doit_uuid" : ids
+		};
+		let url 	= api.updateDoitRecommendv2;
 		let errMsg 	= label.modify+message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, param, createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	function createReqCallback(data)
@@ -471,19 +471,23 @@
 
 	function createSuccess()
 	{
-		let table = recommendedTable.DataTable();
-		table.ajax.reload();
-		onSubmitSearch();
+		location.href = page.listDoitRecommendv2;
 	}
 
-	/*function submitValidation()
+	function submitValidation()
 	{
-		let rows = getRecommendRows();
+		if (isEmpty(recommendTitle.val()))
+		{
+			sweetToast(`큐레이션명은 ${message.required}`);
+			return false;
+		}
+
+		let rows = recommendedTable.find('tbody').children();
 		if (rows.length === 0)
 		{
-			sweetToast("두잇을 "+message.addOn);
+			sweetToast(`두잇을 ${message.addOn}`);
 			return false;
 		}
 
 		return true;
-	}*/
+	}

@@ -186,6 +186,7 @@
 				nickname,
 				doit_member,
 				max_user,
+				created_datetime,
 				action_start_datetime,
 				action_end_datetime,
 				action_allow_start_time,
@@ -233,7 +234,7 @@
 							<div class="flex-container">
 								<div class="col col-info">
 									<p class="cap">개설자: ${nickname}</p>
-									<p class="cap">개설일: 2020-02-02</p>
+									<p class="cap">개설일: ${created_datetime.substring(0, 10)}</p>
 									<div class="personnel-num">
 										<p class="cap"><i class="fas fa-users"></i> 참여/모집인원 :</p>
 										<strong>${doit_member}</strong> /${max_user}

@@ -294,7 +294,6 @@
 		});
 	}
 
-
 	function onSubmitRecommend()
 	{
 		if (submitValidation())
@@ -333,7 +332,7 @@
 	{
 		if (isEmpty(recommendTitle.val()))
 		{
-			sweetToast(`추천명은 ${message.required}`);
+			sweetToast(`큐레이션명은 ${message.required}`);
 			return false;
 		}
 

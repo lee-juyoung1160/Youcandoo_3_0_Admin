@@ -89,6 +89,9 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
+				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				if (!hasDataOnDatatable(this))
+					removeEmptyRowFromTable();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setBannerRowAttributes(nRow, aData);
@@ -116,8 +119,7 @@
 
 	function getBannerRows()
 	{
-		let banners = bannerTable.DataTable();
-		return banners.data().any() ? bannerTable.find('tbody').children() : 0;
+		return bannerTable.find('tbody').children();
 	}
 
 	function initDisableCheckbox()
@@ -156,7 +158,7 @@
 	function createSuccess()
 	{
 		let table = bannerTable.DataTable();
-		table.ajax.reload();
+		table.ajax.reload(removeEmptyRowFromTable, false);
 		onSubmitSearch();
 	}
 
@@ -245,7 +247,7 @@
 	{
 		let checkDom = $(nRow).children().eq(0);
 
-		/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
+		/** 이미 배너 목록에 있는 경우 체크박스 disable **/
 		if (g_banners.indexOf(aData.promotion_uuid) !== -1)
 			$(checkDom).children().prop('disabled', true);
 	}

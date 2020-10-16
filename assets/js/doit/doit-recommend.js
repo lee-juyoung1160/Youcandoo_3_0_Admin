@@ -104,6 +104,9 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
+				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				if (!hasDataOnDatatable(this))
+					removeEmptyRowFromTable();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRecommendedRowAttributes(nRow, aData);
@@ -396,8 +399,7 @@
 
 	function getRecommendRows()
 	{
-		let recommended = recommendedTable.DataTable();
-		return recommended.data().any() ? recommendedTable.find('tbody').children() : 0;
+		return recommendedTable.find('tbody').children();
 	}
 
 	function initDisableCheckbox()
@@ -437,7 +439,7 @@
 	function createSuccess()
 	{
 		let table = recommendedTable.DataTable();
-		table.ajax.reload();
+		table.ajax.reload(removeEmptyRowFromTable, false);
 		onSubmitSearch();
 	}
 

@@ -563,6 +563,19 @@
         $(numEl).html(info.recordsTotal);
     }
 
+    /** 테이터 테이블 데이터 존재 여부 **/
+    function hasDataOnDatatable(_table)
+    {
+        let table = $(_table).DataTable();
+        return table.data().any();
+    }
+
+    /** 테이블 조회결과 없을 때 row 삭제 **/
+    function removeEmptyRowFromTable()
+    {
+        $(".dataTables_empty").parent().remove();
+    }
+
     function initTableSorter(_table)
     {
         $(".no-sort").each(function () {

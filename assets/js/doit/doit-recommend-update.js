@@ -8,9 +8,8 @@
 	const doitTable		= $("#doitTable");
 
 	$( () => {
-		/** 추천 두잇 데이터 로드 **/
+		/** 상세 불러오기 **/
 		getDetail();
-		initSortTable();
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam("");
 		/** 이벤트 **/
@@ -83,6 +82,7 @@
 		});
 		getDoitSearch();
 		buildRecommended(data.data.recommend_doit);
+		initSortTable();
 	}
 
 	let g_recommend = [];
@@ -134,6 +134,9 @@
 			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
+				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				if (!hasDataOnDatatable(this))
+					removeEmptyRowFromTable();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRecommendedRowAttributes(nRow, aData);
@@ -331,9 +334,9 @@
 
 	function addRecommend()
 	{
-		/*if (addValidation())
+		if (addValidation())
 		{
-			$(".dataTables_empty").parent().remove();*/
+			$(".dataTables_empty").parent().remove();
 
 			let table 		 = doitTable.DataTable();
 			let selectedData = table.rows('.selected').data();
@@ -393,10 +396,10 @@
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
 			initSortTable();
-		/*}*/
+		}
 	}
 
-	/*function addValidation()
+	function addValidation()
 	{
 		let table 		 = doitTable.DataTable();
 		let selectedData = table.rows('.selected').data();
@@ -423,12 +426,11 @@
 		}
 
 		return true;
-	}*/
+	}
 
 	function getRecommendRows()
 	{
-		let recommended = recommendedTable.DataTable();
-		return recommended.data().any() ? recommendedTable.find('tbody').children() : 0;
+		return recommendedTable.find('tbody').children();
 	}
 
 	function initDisableCheckbox()
@@ -441,8 +443,8 @@
 
 	function onSubmitRecommend()
 	{
-		/*if (submitValidation())*/
-		sweetConfirm(message.create, createRequest);
+		if (submitValidation())
+			sweetConfirm(message.create, createRequest);
 	}
 
 	function createRequest()
@@ -482,10 +484,10 @@
 			return false;
 		}
 
-		let rows = recommendedTable.find('tbody').children();
+		let rows = getRecommendRows();
 		if (rows.length === 0)
 		{
-			sweetToast(`두잇을 ${message.addOn}`);
+			sweetToast(`추천 두잇을 ${message.addOn}`);
 			return false;
 		}
 

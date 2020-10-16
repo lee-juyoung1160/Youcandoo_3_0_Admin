@@ -188,8 +188,8 @@
 
 	function addRecommend()
 	{
-		/*if (addValidation())
-		{*/
+		if (addValidation())
+		{
 			let table 		 = doitTable.DataTable();
 			let selectedData = table.rows('.selected').data();
 			let rowDom = '';
@@ -248,10 +248,10 @@
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
 			initSortTable();
-		/*}*/
+		}
 	}
 
-	/*function addValidation()
+	function addValidation()
 	{
 		let table 		 = doitTable.DataTable();
 		let selectedData = table.rows('.selected').data();
@@ -278,13 +278,12 @@
 		}
 
 		return true;
-	}*/
+	}
 
-	/*function getRecommendRows()
+	function getRecommendRows()
 	{
-		let recommended = recommendedTable.DataTable();
-		return recommended.data().any() ? recommendedTable.find('tbody').children() : 0;
-	}*/
+		return recommendedTable.find('tbody').children();
+	}
 
 	function initDisableCheckbox()
 	{
@@ -339,7 +338,7 @@
 		let rows = recommendedTable.find('tbody').children();
 		if (rows.length === 0)
 		{
-			sweetToast(`두잇을 ${message.addOn}`);
+			sweetToast(`추천 두잇을 ${message.addOn}`);
 			return false;
 		}
 

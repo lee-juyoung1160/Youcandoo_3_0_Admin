@@ -124,7 +124,7 @@
 	const headers = {
 		"Authorization" : btoa(JSON.stringify({ "authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7", "userid" : $("#session_userid").val()}))
 	};
- 	const baseApiUrl = 'https://adminapi.youcandoo.co.kr/v1.0/admin/';
+ 	const baseApiUrl = 'https://adminapi.youcandoo.co.kr/';
 	const api = {
 		/** 공통 **/
 		getBizName : baseApiUrl+'keyword/getCompanyName'
@@ -310,7 +310,7 @@
 		,deleteAppVersion : baseApiUrl+'version/delete'
 		,listAppVersion : baseApiUrl+'version/list'
 		/** 계정 **/
-		,listAccount : baseApiUrl+'account/list'
+		,listAccount : baseApiUrl+'admin/account/list'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

@@ -481,6 +481,7 @@
 		if (isEmpty(recommendTitle.val()))
 		{
 			sweetToast(`큐레이션명은 ${message.required}`);
+			recommendTitle.trigger('focus');
 			return false;
 		}
 

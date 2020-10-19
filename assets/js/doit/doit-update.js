@@ -14,8 +14,7 @@
 	const actionDate	    = $("#actionDate");
 	const actionTime	    = $("#actionTime");
 	const chkAccessUser 	= $("input[name=chkAccessUser]");
-	/*const selPrivate 		= $("#selPrivate");
-	const privateDesc 		= $("#privateDesc");*/
+	/*const publicYn 		= $("input[name=radio-public]");*/
 	const privateCode 		= $("#privateCode");
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
@@ -29,12 +28,10 @@
 	$( () => {
 		/** 카테고리 목록 **/
 		getCategory();
-		/** 두잇 상세정보 **/
-		/*getDetail();*/
 		/** 이벤트 **/
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
-		/*selPrivate		.on('change', function () { onChangeSelPrivate(this) });*/
+		/*publicYn		.on('change', function () { onChangePublicYn(this) });*/
 		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
@@ -240,7 +237,7 @@
 		$(obj).toggleClass('active');
 	}
 
-	function onChangeSelPrivate(obj)
+	function onChangePublicYn(obj)
 	{
 		let type = $(obj).val();
 		let innerEl = '';
@@ -265,8 +262,6 @@
 					<input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
 				</div>`
 		}
-
-		privateDesc.html(innerEl);
 	}
 
 	function removeTagDom(obj)

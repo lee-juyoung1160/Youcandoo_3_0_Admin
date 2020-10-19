@@ -19,8 +19,7 @@
 	const startTime	    	= $("#startTime");
 	const endTime	    	= $("#endTime");
 	const chkAccessUser 	= $("input[name=chkAccessUser]");
-	/*const selPrivate 		= $("#selPrivate");
-	const privateDesc 		= $("#privateDesc");*/
+	/*const publicYn 		= $("input[name=radio-public]");*/
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
@@ -42,8 +41,6 @@
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
-		/** 두잇 공개 범위 영역 초기화 **/
-		/*onChangeSelPrivate(selPrivate);*/
 		/** 소개 파일 영역 초기화 **/
 		onChangeIntroType(introFileType.eq(0));
 		/** 인증예시 파일 영역 초기화 **/
@@ -61,7 +58,7 @@
 		selReward		.on('change', function () { onChangeSelReward(); });
 		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
 		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
-		/*selPrivate		.on('change', function () { onChangeSelPrivate(this) });*/
+		/*publicYn		.on('change', function () { onChangePublicYn(this) });*/
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
@@ -196,7 +193,7 @@
 		$(obj).toggleClass('active');
 	}
 	
-	function onChangeSelPrivate(obj)
+	function onChangePublicYn(obj)
 	{
 		let type = $(obj).val();
 		let innerEl = '';
@@ -221,8 +218,6 @@
 					<input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
 				</div>`
 		}
-
-		privateDesc.html(innerEl);
 	}
 
 	function onKeyupSearchBiz()

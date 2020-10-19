@@ -881,7 +881,6 @@ input[type="checkbox"]:disabled + label span{
 	background-color: darkgreen;
 }
 
-
 .table-wrap .btn-wrap button i {
 	margin-right: 10px;
 }
@@ -1183,7 +1182,7 @@ input[type="checkbox"]:disabled + label span{
 	letter-spacing: -0.5px;
 }
 .personnel-num strong {
-	font-size: 35px;
+	font-size: 30px;
 	font-weight: 800;
 }
 

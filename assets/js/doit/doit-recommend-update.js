@@ -344,35 +344,30 @@
 
 			for (let i=0; i<selectedData.length; i++)
 			{
-				let uuid 	  = selectedData[i].doit_uuid;
-				let imageUrl  = selectedData[i].doit_image_url;
-				let title 	  = selectedData[i].doit_title;
-				let tags 	  = selectedData[i].doit_tags;
-				tags = tags.split(',');
-				let nickname  = selectedData[i].nickname;
-				let memberCnt = selectedData[i].member_count;
-
-				rowDom +=
-					`<tr id="${uuid}">
-						<td>
-							<div class="doit-thumbnail">
-								<img src="${imageUrl}" alt="" onerror="onErrorImage(this);">
-							</div>
-						</td>
-						<td>
-							<div class="doit-detail-info">
-								<ul class="tag clearfix">`
+				let { doit_uuid, doit_image_url, doit_title, doit_tags, nickname, member_count } = selectedData[i].doit_uuid;
+				let tags  = doit_tags.split(',');
+				let tagEl = '';
 				for (let j=0; j<tags.length; j++)
 				{
 					let tag = tags[j];
 					if (!isEmpty(tag))
-						rowDom += 	`<li>${tag}</li>`
+						tagEl += `<li>${tag}</li>`
 				}
 				rowDom +=
-								`</ul>
-								<p class="doit-tit">${title}</p>
+					`<tr id="${doit_uuid}">
+						<td>
+							<div class="doit-thumbnail">
+								<img src="${doit_image_url}" alt="" onerror="onErrorImage(this);">
+							</div>
+						</td>
+						<td>
+							<div class="doit-detail-info">
+								<ul class="tag clearfix">
+									tagEl
+								</ul>
+								<p class="doit-tit">${doit_title}</p>
 								<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>
-								<p class="doit-num"><strong>참여자 수: </strong><span>${memberCnt}</span></p>
+								<p class="doit-num"><strong>참여자 수: </strong><span>${member_count}</span></p>
 						</td>
 						<td>
 							<div class="doit-state">
@@ -383,7 +378,7 @@
 							<i onclick="removeRow(this);" 
 								onmouseenter="disableSort();" 
 								onmouseleave="enableSort();" 
-								data-uuid="${uuid}" 
+								data-uuid="${doit_uuid}" 
 								class="far fa-times-circle"></i>
 						</td>
 					</tr>`

@@ -1,8 +1,10 @@
 
-	const dataTable			= $("#dataTable")
-	const btnDelete			= $("#btnDelete");
-	const btnReorder		= $("#btnReorder");
-	const btnSubmit			= $("#btnSubmit");
+	const previewTitle	= $("#previewTable")
+	const previewTableBody	= $("#previewTableBody")
+	const dataTable		= $("#dataTable")
+	const btnDelete		= $("#btnDelete");
+	const btnReorder	= $("#btnReorder");
+	const btnSubmit		= $("#btnSubmit");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -51,10 +53,10 @@
 						return singleCheckBoxDom(data);
 					}
 				}
-				,{title: "큐레이션명", 	data: "title",    			width: "60%",  	 className: "cursor-default",
+				,{title: "큐레이션명", 	data: "title",    			width: "60%",  	 className: "cursor-default" }
+				,{title: "미리보기", 	data: "recommend_uuid", 	width: "10%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						let detailUrl	= page.updateDoitRecommend + row.idx;
-						return `<a href="${detailUrl}">${row.title}</a>`;
+						return `<a onclick="viewRecommends(this);" data-uuid="${data}" data-title="${row.title}"">미리보기</a>`;
 					}
 				}
 				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
@@ -62,9 +64,10 @@
 						return buildSwitch(row);
 					}
 				}
-				,{title: "수정",    	data: "idx",  		width: "20%",    className: "cursor-default",
+				,{title: "수정",    	data: "idx",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return `<button class="btn-orange" type="button">수정</button>`;
+						let detailUrl	= page.updateDoitRecommend + row.idx;
+						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
 					}
 				}
 			],
@@ -109,20 +112,54 @@
 		$(nRow).attr('data-uuid', aData.recommend_uuid);
 	}
 
-	function viewRecommends(idx)
+	function viewRecommends(obj)
 	{
-		/*let url = api.detailDoitRecommend;
-		let errMsg = label.list + message.ajaxLoadError;
-		let param = { "idx" : idx };
+		let url 	= api.listDoitRecommended;
+		let errMsg 	= label.list + message.ajaxLoadError;
+		let param 	= { "recommend_uuid" : $(obj).data("uuid") };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), viewRecommendsCallback, errMsg, false);*/
-
-		modalFadein();
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildPreview, errMsg, false);
+		previewTitle.html($(obj).data("title"));
 	}
 
-	function viewRecommendsCallback(data)
+	function buildPreview(data)
 	{
+		let previews = data.data;
+		let i = 0;
+		let trEl = '';
+		for (i; i<previews.length; i++)
+		{
+			let { doit_image_url, doit_title, doit_tags, nickname, member_count } = previews[i];
+			let tags = doit_tags.split(',');
+			let tagEl = '';
+			for (let j=0; j<tags.length; j++)
+			{
+				let tag = tags[j];
+				if (!isEmpty(tag))
+					tagEl += `<li>${tag}</li>`
+			}
+			trEl +=
+				`<tr>
+					<td>
+						<div class="doit-thumbnail">
+							<img src="${doit_image_url}" alt="" onerror="onErrorImage(this)">
+						</div>
+					</td>
+					<td>
+						<div class="doit-detail-info">
+							<ul class="tag clearfix">
+								${tagEl}
+							</ul>
+							<p class="doit-tit">${doit_title}</p>
+							<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>
+							<p class="doit-num"><strong>참여자 수: </strong><span>${member_count}명</span></p>
+						</div>
+					</td>
+					<td><i style="display: none;" class="far fa-times-circle"></i></td>
+				</tr>`
+		}
 
+		previewTableBody.html(trEl);
 	}
 
 	function buildSwitch(data)

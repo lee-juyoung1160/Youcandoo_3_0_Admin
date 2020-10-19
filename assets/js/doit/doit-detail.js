@@ -290,9 +290,11 @@
 		let optionDom = '';
 		if (!isEmpty(detail.private_code))
 		{
+			let privateType = detail.doit_private_type === 'Y' ? '비공개' : '공개';
 			optionDom =
 				`<p class="detail-data">비밀 두잇 </p>
-				 <p class="detail-data">참여 코드 : ${detail.private_code}</p>`
+				 <p class="detail-data">참여 코드 : ${detail.private_code}</p>
+				 <p class="detail-data">참여자 리스트/두잇톡/인증 ${privateType}</p>`
 		}
 		else
 		{

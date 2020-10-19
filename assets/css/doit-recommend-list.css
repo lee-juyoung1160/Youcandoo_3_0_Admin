@@ -205,8 +205,11 @@ table.doit-shr-list .doit-num {
     font-size: 19px;
 }
 
-
 .modal-content .recommend-list td i {
     display: none;
 }
 
+.table-wrap table tbody tr.selected,
+.table-wrap table tbody tr:nth-child(even).selected {
+    background-color: #d9e7f9;
+}

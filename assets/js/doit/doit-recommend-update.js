@@ -344,7 +344,7 @@
 
 			for (let i=0; i<selectedData.length; i++)
 			{
-				let { doit_uuid, doit_image_url, doit_title, doit_tags, nickname, member_count } = selectedData[i].doit_uuid;
+				let { doit_uuid, doit_image_url, doit_title, doit_tags, nickname, member_count } = selectedData[i];
 				let tags  = doit_tags.split(',');
 				let tagEl = '';
 				for (let j=0; j<tags.length; j++)
@@ -368,6 +368,7 @@
 								<p class="doit-tit">${doit_title}</p>
 								<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>
 								<p class="doit-num"><strong>참여자 수: </strong><span>${member_count}</span></p>
+							</div>	
 						</td>
 						<td>
 							<div class="doit-state">

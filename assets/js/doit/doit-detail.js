@@ -287,12 +287,16 @@
 
 		actionTime.html(`${detail.action_allow_start_time} ${label.tilde} ${detail.action_allow_end_time}`);
 
-		let optionDom = label.dash;
+		let optionDom = '';
 		if (!isEmpty(detail.private_code))
 		{
 			optionDom =
-				`<p class="detail-data">참여자 제한 </p>
-				 <p class="detail-data">참가자 코드 : ${detail.private_code}</p>`
+				`<p class="detail-data">비밀 두잇 </p>
+				 <p class="detail-data">참여 코드 : ${detail.private_code}</p>`
+		}
+		else
+		{
+			optionDom = `<p class="detail-data">공개 두잇 </p>`
 		}
 		options.html(optionDom);
 

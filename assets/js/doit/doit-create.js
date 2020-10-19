@@ -18,8 +18,7 @@
 	const doitTo	    	= $("#doitTo");
 	const startTime	    	= $("#startTime");
 	const endTime	    	= $("#endTime");
-	const chkAccessUser 	= $("input[name=chkAccessUser]");
-	/*const publicYn 		= $("input[name=radio-public]");*/
+	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
@@ -57,8 +56,7 @@
 		selPromo		.on('change', function () { onChangeSelPromo(); });
 		selReward		.on('change', function () { onChangeSelReward(); });
 		chkExtraReward	.on('change', function () { toggleActive(ucdAreWrap); });
-		chkAccessUser	.on('change', function () { toggleActive($(".code-wrap")); });
-		/*publicYn		.on('change', function () { onChangePublicYn(this) });*/
+		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
@@ -116,6 +114,7 @@
 		buildOptionPromo();
 		buildOptionReward();
 		inputTag.val('');
+		publicYn.eq(0).prop('checked', true);
 		introFileType.eq(0).prop('checked', true);
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
@@ -191,33 +190,6 @@
 	function toggleActive(obj)
 	{
 		$(obj).toggleClass('active');
-	}
-	
-	function onChangePublicYn(obj)
-	{
-		let type = $(obj).val();
-		let innerEl = '';
-		if (type === '')
-		{
-			innerEl +=
-				`<ul class="cap" style="margin-top: 10px;">
-					<li>- 참여자, 인증, 두잇톡 전체 공개</li>
-					<li>- 누구나 두잇 참여 가능</li>
-				</ul>`
-		}
-		else
-		{
-			innerEl +=
-				`<ul class="cap" style="margin-top: 10px;">
-					<li>- 참여자, 인증, 두잇톡 전체 공개</li>
-					<li>- 참여 코드를 아는 사람만 참여 가능</li>
-				</ul>
-
-				<div class="code-wrap">
-					<span class="input-num-title margin-left-text">* 참가코드</span>
-					<input id="privateCode" class="code-input only-num-with-zero" type="text" placeholder="숫자 4자리" maxlength="4" style="width: 100px;">
-				</div>`
-		}
 	}
 
 	function onKeyupSearchBiz()
@@ -638,7 +610,7 @@
 			addedTags.find('li').each(function () {
 				tags.push($(this).text().trim());
 			})
-			/*let privateCode = $("#privateCode").length > 0 ? $("#privateCode").val().trim() : '';*/
+			let isPublic = $("input[name=radio-puclic]:checked").val() === 'Y';
 			let isAllowGallery = 'N';
 			if ($('input:radio[name=radio-gallery-yn]').length > 0)
 				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();
@@ -661,8 +633,7 @@
 				"action_end_date" : doitTo.val(),
 				"action_allow_start_time" : startTime.val()+':00',
 				"action_allow_end_time" : endTime.val()+':59',
-				/*"private_code" : privateCode,*/
-				"private_code" : privateCode.val().trim(),
+				"private_code" : isPublic ? '' : privateCode.val().trim(),
 				"action_example_resource_type" : $('input:radio[name=radio-example-type]:checked').val(),
 				"action_example_image_file" : doit_exam_img,
 				"action_example_video_file" : doit_exam_vid,
@@ -810,34 +781,20 @@
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && isEmpty(privateCode.val()))
+		let isPrivate = $("input[name=radio-public]:checked").val() === 'N';
+		if (isPrivate && isEmpty(privateCode.val()))
 		{
 			sweetToast(`참가코드를 ${message.input}`);
 			privateCode.trigger('focus');
 			return false;
 		}
 
-		if (chkAccessUser.is(':checked') && privateCode.val().trim().length !== 4)
+		if (isPrivate && privateCode.val().trim().length !== 4)
 		{
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');
 			return false;
 		}
-
-		/*let privateCode = $("#privateCode");
-		if (privateCode.length > 0 && isEmpty(privateCode.val()))
-		{
-			sweetToast(`참가코드를 ${message.input}`);
-			privateCode.trigger('focus');
-			return false;
-		}
-
-		if (privateCode.length > 0 && privateCode.val().trim().length !== 4)
-		{
-			sweetToast(message.minimumPassCode);
-			privateCode.trigger('focus');
-			return false;
-		}*/
 
 		if (example.length === 0)
 		{

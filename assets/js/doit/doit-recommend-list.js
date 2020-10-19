@@ -57,14 +57,14 @@
 						return `<a href="${detailUrl}">${row.title}</a>`;
 					}
 				}
-				,{title: "추천 두잇 목록",    	data: "idx",  		width: "20%",    className: "cursor-default",
-					render: function (data, type, row, meta) {
-						return `<a onclick="viewRecommends(${data})">목록보기</a>`;
-					}
-				}
 				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
+					}
+				}
+				,{title: "수정",    	data: "idx",  		width: "20%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return `<button class="btn-orange" type="button">수정</button>`;
 					}
 				}
 			],

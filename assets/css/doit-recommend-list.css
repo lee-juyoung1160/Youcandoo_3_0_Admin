@@ -13,6 +13,14 @@
     float: right;
     width: 43%;
 }
+h3.title {
+    padding: 0 0 10px; color: #404040; font-size: 19px;font-weight: 600;
+}
+h3.title span {
+    display: block;
+    padding-bottom: 5px;
+    color: #0061f2;font-size: 12px;
+}
 .enrollment {
     min-height: 622px;
     -webkit-border-radius: 5px;
@@ -110,6 +118,10 @@ table.recommend-list tr td:first-child {
 table.recommend-list tr td
 {
     cursor: n-resize;
+}
+.doit-recommend-list-page table.recommend-list tr td
+{
+    cursor: inherit;
 }
 table.recommend-list tr td:last-child {
     width: 10px;

@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['redis_session']="10.0.107.43";
-
+$config['version'] = date("YmdHis");
 $config['api_server_url']="https://adminapi.youcandoo.co.kr";
 if(ENVIRONMENT!="production"){
     $config['api_server_url']="10.0.16.138";

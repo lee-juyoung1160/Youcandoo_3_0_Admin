@@ -14,6 +14,24 @@
     const sideMenu        = $("#sideMenu");
     const moveTop         = $('.move-top');
 
+    $(window)   .on("scroll", function () { toggleShowFloatingButton(); });
+    $(document) .ajaxStart(function () { fadeinLoader(); });
+    $(document) .ajaxComplete(function () { fadeoutLoader(); });
+
+    $( () => {
+        getLeftMenuByAuthCode();
+        calculateInputLength();
+
+        moveTop     .on("click", function () { moveScrollTop(this); });
+        selectEls   .on("change", function () { onChangeSelectOption(this); });
+        inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+        inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+        lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
+        dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
+        dateTo      .on("change", function () { onChangeSearchDateTo(this); });
+        datePicker  .prop("readonly", true);
+    });
+
     /** 숫자 카운팅 에니메이션 **/
     function countAnimation(obj)
     {
@@ -972,20 +990,86 @@
         }
     }*/
 
-    $( () => {
-        getLeftMenuByAuthCode();
-        calculateInputLength();
+    function paginate(_currentPage, _lastPage)
+    {
+        let pageButtonLength  = 7;
+        let i, current, pageNum;
+        let pageDom = '';
 
-        moveTop     .on("click", function () { moveScrollTop(this); });
-        selectEls   .on("change", function () { onChangeSelectOption(this); });
-        inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
-        inputNumberWithZero .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-        lengthInput .on("propertychange change keyup paste input", function () { checkInputLength(this); });
-        dateFrom    .on("change", function () { onChangeSearchDateFrom(this); });
-        dateTo      .on("change", function () { onChangeSearchDateTo(this); });
-        datePicker  .prop("readonly", true);
-    });
-    $(window)   .on("scroll", function () { toggleShowFloatingButton(); });
-    $(document) .ajaxStart(function () { fadeinLoader(); });
-    $(document) .ajaxComplete(function () { fadeoutLoader(); });
+        pageDom += _currentPage === 1 ?
+            `<a class="paginate_button previous disabled" id="dataTable_previous">${label.previous}</a><span>` :
+            `<a onclick="onClickPageNum(this)" 
+				class="paginate_button previous" 
+				data-page="${(_currentPage-1)}" id="dataTable_previous">${label.previous}</a><span>`
+
+        if (_lastPage <= pageButtonLength)
+        {
+            for (i=1; i<=_lastPage; i++)
+            {
+                current = _lastPage > 1 && _currentPage === i ? 'current' : '';
+                pageDom += `<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${i}">${i}</a>`
+            }
+        }
+        else
+        {
+            if (_currentPage < 5)
+            {
+                for (i=1; i<=pageButtonLength; i++)
+                {
+                    current = _lastPage > 1 && _currentPage === i ? 'current' : '';
+                    pageNum = i === pageButtonLength ? _lastPage : i;
+                    pageDom += i === pageButtonLength - 1 ?
+                        `<span class="ellipsis">…</span>` :
+                        `<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${pageNum}">${pageNum}</a>`
+                }
+            }
+            else if (_currentPage >= 5 && _currentPage <= _lastPage - 4)
+            {
+                for (i=1; i<=_lastPage; i++)
+                {
+                    if (i === 1)
+                    {
+                        pageDom +=
+                            `<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${i}">${i}</a>
+							<span class="ellipsis">…</span>`
+                    }
+
+                    if (_currentPage === i)
+                    {
+                        pageDom +=
+                            `<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${(i - 1)}">${(i - 1)}</a>
+							<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="${i}">${i}</a>
+							<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${(i + 1)}">${(i + 1)}</a>`
+                    }
+
+                    if (_lastPage === i)
+                    {
+                        pageDom +=
+                            `<span class="ellipsis">…</span>
+							<a onclick="onClickPageNum(this);" class="paginate_button" data-page="${_lastPage}">${_lastPage}</a>`
+                    }
+                }
+            }
+            else if (_currentPage > _lastPage - 4)
+            {
+                for (i=1; i<=pageButtonLength; i++)
+                {
+                    current = _currentPage === _lastPage-(pageButtonLength-i) ? 'current' : '';
+                    pageNum = i >= pageButtonLength - 4 ? (_lastPage-(pageButtonLength-i)) : i;
+                    pageDom += i === 2 ?
+                        `<span class="ellipsis">…</span>` :
+                        `<a onclick="onClickPageNum(this);" class="paginate_button ${current}" data-page="${pageNum}">${pageNum}</a>`
+                }
+            }
+        }
+
+        pageDom += _lastPage === _currentPage ?
+            `</span><a class="paginate_button next disabled" id="dataTable_next">${label.next}</a>` :
+            `</span><a onclick="onClickPageNum(this)" 
+						class="paginate_button next" 
+						data-page="${(_currentPage+1)}" 
+						id="dataTable_next">${label.next}</a>`
+
+        return pageDom;
+    }
 

@@ -33,7 +33,7 @@
 	{
 		let table 		 = $("#dataTable").DataTable();
 		let selectedData = table.rows('.selected').data()[0];
-		let url 	= 'https://api.youcandoo.co.kr/v1.0/admin/doit/start';
+		let url 	= 'https://adminapi.youcandoo.co.kr/doit/start';
 		let param 	= {"doit_uuid" : selectedData.doit_uuid};
 		let errMsg	= label.modify+message.ajaxError;
 

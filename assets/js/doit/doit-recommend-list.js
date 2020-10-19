@@ -1,5 +1,5 @@
 
-	const previewTitle	= $("#previewTable")
+	const previewTitle	= $("#previewTitle")
 	const previewTableBody	= $("#previewTableBody")
 	const dataTable		= $("#dataTable")
 	const btnDelete		= $("#btnDelete");
@@ -29,9 +29,10 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*80)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
 		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
 		return $(el);
 	}
 
@@ -48,15 +49,9 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "idx",   		width: "5%",     className: "cursor-default",
-					render: function (data) {
-						return singleCheckBoxDom(data);
-					}
-				}
-				,{title: "큐레이션명", 	data: "title",    			width: "60%",  	 className: "cursor-default" }
-				,{title: "미리보기", 	data: "recommend_uuid", 	width: "10%",  	 className: "cursor-default",
+				{title: "큐레이션명", 	data: "title",    			width: "70%",  	 className: "cursor-default",
 					render: function (data, type, row, meta) {
-						return `<a onclick="viewRecommends(this);" data-uuid="${data}" data-title="${row.title}"">미리보기</a>`;
+						return `<a onclick="onClickTitle(this);" data-uuid="${row.recommend_uuid}">${data}</a>`;
 					}
 				}
 				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
@@ -68,6 +63,11 @@
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.updateDoitRecommend + row.idx;
 						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
+					}
+				}
+				,{title: "",    	data: "idx",  		width: "5%",    className: "cursor-default",
+					render: function (data, type, row, meta) {
+						return `<i class="far fa-times-circle" onclick="deleteRecommend(${data})"></i>`;
 					}
 				}
 			],
@@ -90,36 +90,48 @@
 			info: false,
 			select: {
 				style: 'single',
-				selector: ':checkbox'
+				selector: 'a'
 			},
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
 			destroy: false,
-			initComplete: function () {
+			initComplete: function (settings, json) {
 			},
-			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData)
+			fnRowCallback: function( nRow, aData, displayNum, displayIndex, dataIndex ) {
+				setRowAttributes(nRow, aData, dataIndex)
 			},
 			drawCallback: function (settings) {
 			}
 		});
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData, dataIndex)
 	{
+		if (dataIndex === 0)
+		{
+			let table = dataTable.DataTable();
+			table.row(dataIndex).select();
+			onClickTitle($(nRow).children().eq(0).children());
+		}
+
 		$(nRow).attr('data-uuid', aData.recommend_uuid);
 	}
 
-	function viewRecommends(obj)
+	function onClickTitle(obj)
+	{
+		previewTitle.html($(obj).text());
+		viewRecommend($(obj).data("uuid"));
+	}
+
+	function viewRecommend(uuid)
 	{
 		let url 	= api.listDoitRecommended;
 		let errMsg 	= label.list + message.ajaxLoadError;
-		let param 	= { "recommend_uuid" : $(obj).data("uuid") };
+		let param 	= { "recommend_uuid" : uuid };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildPreview, errMsg, false);
-		previewTitle.html($(obj).data("title"));
 	}
 
 	function buildPreview(data)
@@ -213,29 +225,20 @@
 	}
 
 	/** 추천두잇 삭제 **/
-	function deleteRecommend()
+	let g_delete_idx;
+	function deleteRecommend(idx)
 	{
-		if (delValidation())
-			sweetConfirm(message.delete, deleteRequest);
+		g_delete_idx = idx;
+		sweetConfirm(message.delete, deleteRequest);
 	}
 
 	function deleteRequest()
 	{
 		let url 	= api.deleteDoitRecommend;
 		let errMsg 	= label.delete+message.ajaxError;
+		let param 	= { "idx" : g_delete_idx };
 
-		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
-	}
-
-	function delParams()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data()[0];
-		let param = {
-			"idx" : selectedData.idx
-		};
-
-		return JSON.stringify(param)
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
 	}
 
 	function deleteReqCallback(data)
@@ -246,20 +249,6 @@
 	function deleteSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
-	}
-
-	function delValidation()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		if (isEmpty(selectedData))
-		{
-			sweetToast(`대상을 목록에서 ${message.select}`);
-			return false;
-		}
-
-		return true;
 	}
 
 	function onSubmitReorder()

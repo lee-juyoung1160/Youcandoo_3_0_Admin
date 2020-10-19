@@ -420,7 +420,7 @@
 
     function isSuccessResp(data)
     {
-        return getStatusCode(data) === 30000;
+        return getStatusCode(data) === 0;
     }
 
     function invalidResp(data)

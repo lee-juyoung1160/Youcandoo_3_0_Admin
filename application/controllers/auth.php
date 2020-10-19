@@ -137,7 +137,7 @@ class Auth extends CI_Controller {
         }
 
         // 중복여부
-        if(!($this->curl(array("userid" => $UserID), "/v1.0/admin/getExistsAdminUser"))){
+        if(!($this->curl(array("userid" => $UserID), "/admin/getExistsAdminUser"))){
             return;
         }
 
@@ -177,7 +177,7 @@ class Auth extends CI_Controller {
                     "useremail"=>$this->input->post("useremail"),
                     "secret"=>$Secret
                 );
-                if($this->curl($Body, "/v1.0/admin/admin/create")){
+                if($this->curl($Body, "/admin/create")){
                     alert("회원가입 되었습니다.","/main/login");
                 }
             }
@@ -201,21 +201,32 @@ class Auth extends CI_Controller {
     }
 
     private function curl($Body, $Url){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->config->item("api_server_url").$Url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,
-            array("Content-Type : application/json", "Authorization : 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7"));
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($Body));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $this->config->item('api_server_url').$Url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($Body),
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: 9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7",
+                "Content-Type: application/json"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
         $ResponseObj = json_decode($response);
 
-        $Success = ($ResponseObj->status == 30000);
-        if($ResponseObj->status != 30000) {
+        $Success = ($ResponseObj->status == 0);
+        if($ResponseObj->status != 0) {
             alert($ResponseObj->msg);
         }
         return (isset($ResponseObj->data))? $ResponseObj->data: $Success;
@@ -250,7 +261,7 @@ class Auth extends CI_Controller {
 
         $Body = array("userid" => $UserID, "ip" => $LoginIP, "secret"=>$Secret);
 
-        return $this->curl($Body, "/v1.0/admin/setLoginInfo");
+        return $this->curl($Body, "/admin/setLoginInfo");
     }
 
     /**
@@ -258,7 +269,7 @@ class Auth extends CI_Controller {
      */
     public function updateFailCount($UserID, $Count)
     {
-        return $this->curl(array("userid" => $UserID, "count" => $Count), "/v1.0/admin/setFailCount");
+        return $this->curl(array("userid" => $UserID, "count" => $Count), "/admin/setFailCount");
     }
 
     /**
@@ -266,6 +277,6 @@ class Auth extends CI_Controller {
      */
     public function getAdminUserData($UserID)
     {
-        return $this->curl(array("userid" => $UserID), "/v1.0/admin/getAdminUserData");
+        return $this->curl(array("userid" => $UserID), "/admin/getAdminUserData");
     }
 }

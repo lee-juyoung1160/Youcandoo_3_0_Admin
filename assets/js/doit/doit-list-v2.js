@@ -8,7 +8,8 @@
 	const selCategory	= $("#selCategory");
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
-	/*const btnCategory	= $("#btnCategory");*/
+	const chkAll		= $("#chkAll");
+	const btnCategory	= $("#btnCategory");
 	const listWrap		= $("#listWrap");
 	const pagination	= $("#dataTable_paginate");
 
@@ -32,7 +33,8 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
-		/*btnCategory		.on("click", function () { onClickModalOpen(); });*/
+		chkAll			.on("click", function () { toggleChkAll(this); });
+		btnCategory		.on("click", function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmit		.on('click', function () { onSubmitChangeCategory(); });
@@ -180,6 +182,7 @@
 		{
 			let { idx,
 				promotion_uuid,
+				doit_uuid,
 				doit_status,
 				doit_title,
 				doit_category,
@@ -192,16 +195,25 @@
 				action_allow_start_time,
 				action_allow_end_time,
 				action_dayofweek } = data.data[i];
-			let lineColor = isEmpty(promotion_uuid) ? 'line-aqua' : 'line-blue';
+			let lineColor  = isEmpty(promotion_uuid) ? 'line-aqua' : 'line-blue';
 			let doitTypeEl = isEmpty(promotion_uuid) ? `<strong>일반</strong>` : `<strong>프로모션</strong> / <span>XXX프로모션</span>`;
+			let isCreatedByBiz = (!isEmpty(promotion_uuid) && nickname.indexOf('@') !== -1);
+			let isRecruiting = doit_status === '모집중';
+			let hasJoinMember = Number(doit_member) > 0;
+			let btnUpdate  = isCreatedByBiz && isRecruiting
+				? `<i onclick="location.href = '${page.updateDoit}${idx}'" class="fas fa-edit"></i>`
+				: `<i class="fas fa-edit disabled"></i>`;
+			let btnDelete  = isCreatedByBiz && isRecruiting && !hasJoinMember
+				? `<i onclick="deleteDoit('${doit_uuid}')" class="fas fa-trash-alt"></i>`
+				: `<i class="fas fa-trash-alt disabled"></i>`;
 			listEl +=
 				`<div class="card">
 					<div class="card-body ${lineColor}">
 						<div class="row">
 							<div class="flex-container">
 								<div class="checkbox-wrap">
-									<input type="checkbox" id="${idx}" name="cc" />
-									<label for="${idx}"><span></span></label>
+									<input onclick="toggleChkSep()" type="checkbox" id="${doit_uuid}" data-uuid="${doit_uuid}" name="chk-doit" />
+									<label for="${doit_uuid}"><span></span></label>
 								</div>
 								<span class="badge ${getStatusColor(doit_status)}">${doit_status}</span>
 								<span class="item-box">${doitTypeEl}</span>
@@ -241,9 +253,9 @@
 									</div>
 								</div>
 								<div class="btn-icon-wrap col">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-alt"></i>
-									<a href="#" class="view-detail">View Detail <i class="fas fa-arrow-right"></i></a>
+									${btnUpdate}
+									${btnDelete}
+									<a href="${page.detailDoit}${idx}" class="view-detail">상세보기 <i class="fas fa-arrow-right"></i></a>
 								</div>
 							</div>
 						</div>
@@ -252,6 +264,28 @@
 		}
 
 		listWrap.html(listEl);
+		toggleChkSep();
+	}
+
+	function toggleChkAll(obj)
+	{
+		let chkEl = $('input[name="chk-doit"]')
+		if ($(obj).is(':checked'))
+			chkEl.prop('checked', true);
+		else
+			chkEl.prop('checked', false);
+	}
+
+	function toggleChkSep()
+	{
+		let chkCnt = 0;
+		let chkEl  = listWrap.find('[name=chk-doit]');
+		chkEl.each(function () {
+			if ($(this).is(':checked'))
+				chkCnt++;
+		})
+
+		chkCnt === chkEl.length ? chkAll.prop('checked', true) : chkAll.prop('checked', false);
 	}
 
 	function getStatusColor(status)
@@ -302,9 +336,9 @@
 	}
 
 	let g_doit_uuid;
-	function deleteDoit(obj)
+	function deleteDoit(uuid)
 	{
-		g_doit_uuid = $(obj).data('uuid');
+		g_doit_uuid = uuid;
 		sweetConfirm(message.delete, deleteRequest);
 	}
 
@@ -319,23 +353,17 @@
 
 	function deleteReqCallback(data)
 	{
-		sweetToastAndCallback(data, deleteSuccess);
-	}
-
-	function deleteSuccess()
-	{
-		tableReloadAndStayCurrentPage(dataTable);
+		sweetToastAndCallback(data, onSubmitSearch);
 	}
 
 	function onClickModalOpen()
 	{
-		/*let doitTable 	  = dataTable.DataTable();
-		let selectedDoit  = doitTable.rows('.selected').data();
-		if (isEmpty(selectedDoit))
+		let chkEl = listWrap.find('input[name=chk-doit]:checked');
+		if (chkEl.length === 0)
 		{
 			sweetToast(`대상을 목록에서 ${message.select}`);
 			return;
-		}*/
+		}
 
 		modalFadein();
 		buildCategoryModal();
@@ -350,7 +378,7 @@
 				headers: headers,
 				global: false,
 				data: function (d) {
-					return categoryTableParams(d);
+					return categoryTableParams();
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
@@ -402,7 +430,7 @@
 		});
 	}
 
-	function categoryTableParams(d)
+	function categoryTableParams()
 	{
 		let param = {
 			"type" : ""
@@ -414,7 +442,7 @@
 
 	function onSubmitChangeCategory()
 	{
-		const msg = `확인을 누르면 카테고리가 일괄 변경 됩니다.
+		const msg = `확인을 누르면 선택한 두잇의 카테고리가 일괄 변경 됩니다.
 					${message.change}`;
 
 		if (changeCatValidation())
@@ -436,22 +464,20 @@
 
 	function changeRequest()
 	{
-		let url = api.changeDoitCategory;
-		let errMsg = label.modify+message.ajaxLoadError;
-		let doitTable 		 = dataTable.DataTable();
-		let selectedDoit  	 = doitTable.rows('.selected').data();
+		let url 	= api.changeDoitCategory;
+		let errMsg  = label.modify+message.ajaxLoadError;
+		let selectedDoit     = listWrap.find('input[name=chk-doit]:checked');
 		let cateTable 	 	 = categoryTable.DataTable();
 		let selectedCategory = cateTable.rows('.selected').data()[0];
-		let doits = [];
+		let doitUuids = [];
 
-		selectedDoit.map((value) => {
-			let { doit_uuid } = value;
-			doits.push(doit_uuid);
+		selectedDoit.each(function() {
+			doitUuids.push(this.id);
 		})
 
 		let param = {
 			"category_uuid" : selectedCategory.category_uuid,
-			"doit_list" : doits
+			"doit_list" : doitUuids
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), changeReqCallback, errMsg, false);
@@ -464,7 +490,6 @@
 
 	function changeSuccess()
 	{
-		$("#checkAll").prop('checked', false);
 		modalFadeout();
 		onSubmitSearch();
 	}

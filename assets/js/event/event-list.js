@@ -85,6 +85,7 @@
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
+				,{title: "조회수", 	data: "views",    	  	   width: "5%",		className: "cursor-default" }
 				,{title: "기간", 	data: "start_date",  	   width: "20%",    className: "cursor-default",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ${label.tilde} ${row.end_date}`;
@@ -134,6 +135,8 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				let viewsEl = $(nRow).children().eq(3);
+				$(viewsEl).attr('data-sort', aData.views);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

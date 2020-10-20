@@ -1091,7 +1091,7 @@ input[type="checkbox"]:disabled + label span{
 }
 .card-warp .card .btn-icon-wrap i.disabled {
 	color: #ddd;
-	cursor: none;
+	cursor: inherit;
 }
 
 .card-warp .card .view-detail {

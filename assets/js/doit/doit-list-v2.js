@@ -219,7 +219,7 @@
 								<span class="item-box">${doitTypeEl}</span>
 								<span class="item-box"><i class="fas fa-sort-amount-down-alt"></i> ${doit_category}</span>
 								<span class="item-box"><i class="fas fa-images"></i> 갤러리 허용</span>
-								<span class="item-box"><i class="fas fa-unlock-alt"></i> 참여코드 : 0326</span>
+								<span class="item-box"><i class="fas fa-unlock-alt"></i> 비밀두잇(0326) / <i class="fas fa-eye-slash"></i> 컨텐츠 비공개</span>
 							</div>
 						</div>
 						<div class="row">

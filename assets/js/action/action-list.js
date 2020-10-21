@@ -13,13 +13,15 @@
 	const pagination	= $("#dataTable_paginate");
 	const btnWarnRed	= $("#btnWarnRed");
 	const btnWarnYellow	= $("#btnWarnYellow");
+	const btnReport		= $("#btnReport");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	/** 경고장 발송 modal **/
+	/** 경고장/신고 발송 modal **/
 	const modalWarn		= $("#modalWarn");
+	const modalWarnTitle	= $("#modalWarnTitle");
 	const causeBy		= $("#selCauseBy");
 	const btnSubmitWarn	= $("#btnSubmitWarn");
 	/** 상세보기 modal **/
@@ -50,6 +52,7 @@
 		dayButtons      .on('click', function () { onClickActiveAloneDayBtn(this); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
+		btnReport		.on('click', function () { g_warn_type = ''; onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
@@ -248,6 +251,8 @@
 
 	function modalWarnFadein()
 	{
+		let title = isEmpty(g_warn_type) ? '신고 발송' : '경고장 발송';
+		modalWarnTitle.html(title);
 		modalWarn.fadeIn();
 		modalLayout.fadeIn();
 		overflowHidden();
@@ -262,12 +267,16 @@
 
 	function onSubmitWarn()
 	{
-		sweetConfirm(`경고장을 ${message.send}`, warnRequest);
+		let prefixTxt = isEmpty(g_warn_type) ? '신고를' : '경고장을';
+		sweetConfirm(`${prefixTxt} ${message.send}`, warnRequest);
 	}
 
 	function warnRequest()
 	{
-		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
+		let url;
+		if (g_warn_type === 'Y')  url = api.setYellow
+		else if (g_warn_type === 'R') url = api.setRed;
+		else url = api.setReport;
 		let errMsg = label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, warnParams(), warnReqCallback, errMsg, false);

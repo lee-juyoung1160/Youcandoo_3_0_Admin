@@ -226,6 +226,7 @@
 		,listAction : baseApiUrl+'action/list'
 		,setYellow : baseApiUrl+'action/set/yellow'
 		,setRed : baseApiUrl+'action/set/red'
+		,setReport : baseApiUrl+'action/set/report'
 		,cancelYellow : baseApiUrl+'action/cancel/yellow'
 		,cancelRed : baseApiUrl+'action/cancel/red'
 		/** 리뷰 **/

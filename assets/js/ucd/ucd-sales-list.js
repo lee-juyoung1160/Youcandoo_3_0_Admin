@@ -107,15 +107,15 @@
                 },
             },
             columns: [
-                {title: "기업명", data: "nickname",          width: "10%",    className: "cursor-default" },
-                {title: "구분",   data: "division",          width: "10%",    className: "cursor-default" },
-                {title: "금액",   data: "amount",            width: "10%",    className: "cursor-default",
+                {title: "기업명", data: "nickname",          width: "10%" },
+                {title: "구분",   data: "division",          width: "10%" },
+                {title: "금액",   data: "amount",            width: "10%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 },
-                {title: "제목",   data: "title",             width: "10%",    className: "cursor-default" },
-                {title: "내용",   data: "description",       width: "30%",    className: "cursor-default no-sort",
+                {title: "제목",   data: "title",             width: "10%" },
+                {title: "내용",   data: "description",       width: "30%",    className: "no-sort",
                     render: function (data) {
                         let term 	= isEmpty(data) ? label.dash : `${data[0]} ${label.tilde} ${data[1]}`;
                         let title   = isEmpty(data) ? label.dash : data[2];
@@ -123,8 +123,8 @@
                         return `<a onclick="btnModalOpen(this);" data-term="${term}" data-title="${title}" data-amount="${amount}">${title}</a>`
                     }
                 },
-                {title: "담당자", data: "created_user",      width: "10%",     className: "cursor-default no-sort", },
-                {title: "일시",   data: "created_datetime",  width: "15%",     className: "cursor-default" }
+                {title: "담당자", data: "created_user",      width: "10%",     className: "no-sort" },
+                {title: "일시",   data: "created_datetime",  width: "15%" }
             ],
             language: {
                 emptyTable: message.emptyList

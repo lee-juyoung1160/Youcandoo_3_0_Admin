@@ -83,7 +83,7 @@
 				}
 			},
 			columns: [
-				{title: "이벤트", 	data: "event",    	width: "25%",	className: "cursor-default",
+				{title: "이벤트", 	data: "event",    	width: "25%",
 					render: function (data) {
 						switch (data) {
 							case 'CLICK' :
@@ -101,17 +101,17 @@
 						}
 					}
 				}
-				,{title: "AOS", 	data: "ANDROID",    width: "25%",	className: "cursor-default" ,
+				,{title: "AOS", 	data: "ANDROID",    width: "25%",
 					render : function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "IOS", 	data: "IOS",    	width: "25%",	className: "cursor-default",
+				,{title: "IOS", 	data: "IOS",    	width: "25%",
 					render : function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "OTHER", 	data: "OTHER",    	width: "25%",	className: "cursor-default",
+				,{title: "OTHER", 	data: "OTHER",    	width: "25%",
 					render : function (data) {
 						return numberWithCommas(data);
 					}

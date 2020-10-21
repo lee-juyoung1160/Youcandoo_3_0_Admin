@@ -55,39 +55,39 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",   			width: "5%",    className: "cursor-default no-sort",
+				{title: "", 				data: "idx",   					width: "5%",    className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "발송여부", 		data: "push_status",    width: "8%",  	className: "cursor-default" }
-				,{title: "발송대상 ", 	data: "push_type", 	  	width: "8%",   className: "cursor-default",
+				{title: "발송여부", 			data: "push_status",    		width: "8%" }
+				,{title: "발송대상 ", 		data: "push_type", 	  			width: "8%",
 					render: function (data) {
 						return data === 'all' ? '전체' : '개인';
 					}
 				}
-				,{title: "등록일", 		data: "created_datetime",  		width: "8%",   className: "cursor-default",
+				,{title: "등록일", 			data: "created_datetime",		width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "15%",   className: "cursor-default" }
-				,{title: "푸시 본문", 	data: "send_message",  			width: "20%",   className: "cursor-default no-sort",
+				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "15%" }
+				,{title: "푸시 본문", 		data: "send_message",  			width: "20%",   className: "no-sort",
 					render: function (data) {
 						return `<a onclick="onClickDetail(this);" data-detail="${data}" class="line-clamp">${data}</a>`;
 					}
 				}
-				,{title: "스토어", 		data: "store",    	  		  width: "8%",  	className: "cursor-default",
+				,{title: "스토어", 			data: "store",    	  			width: "8%",
 					render: function (data) {
 						return data === 'all' ? '전체' : data;
 					}
 				}
-				,{title: "구분", 		data: "category",  			  width: "8%",   className: "cursor-default",
+				,{title: "구분", 		data: "category",  			  		width: "8%",
 					render: function (data) {
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  width: "30%",   className: "cursor-default no-sort",
+				,{title: "도착페이지", 		data: "category_target",  		width: "30%",   className: "no-sort",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '-' : `[${row.target_name}] ${row.target_title}`
 					}

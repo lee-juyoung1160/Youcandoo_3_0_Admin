@@ -604,6 +604,13 @@
         new Tablesort($(_table)[0]);
     }
 
+    function uncheckedCheckAllAfterMovePage(_table)
+    {
+        $(_table).on( 'page.dt', function () {
+            $("#checkAll").prop('checked', false);
+        });
+    }
+
     /**
      *  뒤로가기/이전버튼 이벤트에서 활성 페이지 유지를 위한 메서드
      * **/

@@ -419,21 +419,21 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",    	width: "20%",   className: "cursor-default" }
-				,{title: "프로필ID", 		data: "profile_uuid",   width: "25%",   className: "cursor-default" }
-				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    className: "cursor-default" }
-				,{title: "인증한 횟수", 		data: "total",    		width: "8%",    className: "cursor-default" }
-				,{title: "성공", 	  		data: "success",    	width: "5%",    className: "cursor-default" }
-				,{title: "실패",  	  		data: "fail",   		width: "5%",    className: "cursor-default" }
-				,{title: "신고",  	  		data: "report",   		width: "5%",    className: "cursor-default" }
-				,{title: "옐로카드",    		data: "yellow",   		width: "5%",    className: "cursor-default" }
-				,{title: "레드카드",    		data: "red",   			width: "5%",    className: "cursor-default" }
-				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",    className: "cursor-default",
+				{title: "닉네임", 			data: "nickname",    	width: "20%" }
+				,{title: "프로필ID", 		data: "profile_uuid",   width: "25%" }
+				,{title: "총 인증 횟수", 		data: "todo",    		width: "8%" }
+				,{title: "인증한 횟수", 		data: "total",    		width: "8%" }
+				,{title: "성공", 	  		data: "success",    	width: "5%" }
+				,{title: "실패",  	  		data: "fail",   		width: "5%" }
+				,{title: "신고",  	  		data: "report",   		width: "5%" }
+				,{title: "옐로카드",    		data: "yellow",   		width: "5%" }
+				,{title: "레드카드",    		data: "red",   			width: "5%" }
+				,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",    className: "cursor-default",
+				,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -884,28 +884,28 @@
 						return multiCheckBoxDom(data);
 					}
 				},
-				{title: "리뷰내용", 		data: "review_text",	width: "30%",   className: "cursor-default",
+				{title: "리뷰내용", 		data: "review_text",	width: "30%",
 					render: function (data, type, row, meta) {
 						return buildReviewDetail(row);
 					}
 				}
-				,{title: "평점", 		data: "rating",    		width: "10%",   className: "cursor-default",
+				,{title: "평점", 		data: "rating",    		width: "10%",
 					render: function (data) {
 						return buildStar(data);
 					}
 				}
-				,{title: "신고", 		data: "report_count",   width: "10%",   className: "cursor-default" }
-				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",   className: "cursor-default",
+				,{title: "신고", 		data: "report_count",   width: "10%" }
+				,{title: "블라인드 여부", data: "is_blind",    	width: "10%",
 					render: function (data) {
 						return data === 'Y' ? label.blind : label.unblind;
 					}
 				}
-				,{title: "작성날짜", 	data: "created",    	width: "15%",   className: "cursor-default",
+				,{title: "작성날짜", 	data: "created",    	width: "15%",
 				 	render: function (data) {
 						return data.substring(0, 10)
 					}
 				 }
-				,{title: "작성자", 		data: "nickname",    	width: "15%",   className: "cursor-default" }
+				,{title: "작성자", 		data: "nickname",    	width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -1094,16 +1094,16 @@
 				}
 			},
 			columns: [
-				{title: "구분",    data: "division",   		width: "10%",     className: "cursor-default" }
-				,{title: "금액",   data: "amount",   		width: "15%",     className: "cursor-default",
+				{title: "구분",    data: "division",   		width: "10%" }
+				,{title: "금액",   data: "amount",   		width: "15%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
 					}
 				}
-				,{title: "제목",   data: "title",  			width: "15%",     className: "cursor-default" }
-				,{title: "내용",   data: "description",   	width: "25%",     className: "cursor-default" }
-				,{title: "닉네임", data: "nickname",   		width: "15%",     className: "cursor-default" }
-				,{title: "일시",   data: "created",   		width: "15%",     className: "cursor-default" }
+				,{title: "제목",   data: "title",  			width: "15%" }
+				,{title: "내용",   data: "description",   	width: "25%" }
+				,{title: "닉네임", data: "nickname",   		width: "15%" }
+				,{title: "일시",   data: "created",   		width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList

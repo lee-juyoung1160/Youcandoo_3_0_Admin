@@ -63,13 +63,13 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     className: "cursor-default",
+				{title: tableCheckAllDom(), 	data: "idx",   width: "5%",     className: "",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	className: "cursor-default" }
-				,{title: "등록일", 	data: "created_datetime",  width: "15%",    className: "cursor-default",
+				,{title: "금칙어", 	data: "word",    	  	   width: "80%",  	className: "" }
+				,{title: "등록일", 	data: "created_datetime",  width: "15%",    className: "",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
@@ -84,27 +84,25 @@
 					,next: label.next
 				}
 			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
 			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
+			destroy: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
+			ordering: false,
+			order: [],
+			info: false,
+			processing: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
 			fixedHeader: false,
-			destroy: false,
 			initComplete: function () {
-				dataTable.on( 'page.dt', function () {
-					$("#checkAll").prop('checked', false);
-				});
+				uncheckedCheckAllAfterMovePage(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

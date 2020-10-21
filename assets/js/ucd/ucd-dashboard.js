@@ -302,10 +302,10 @@
                     let tot = Number(user)+Number(company);
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(tot)}</td>
-                            <td class="cursor-default">${numberWithCommas(user)}</td>
-                            <td class="cursor-default">${numberWithCommas(company)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(tot)}</td>
+                            <td>${numberWithCommas(user)}</td>
+                            <td>${numberWithCommas(company)}</td>
                         </tr>`
                 }
 
@@ -325,12 +325,12 @@
                     let tot = Number(doit)+Number(promotion);
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(tot)}</td>
-                            <td class="cursor-default">${numberWithCommas(doit)}</td>
-                            <td class="cursor-default">${numberWithCommas(promotion)}</td>
-                            <td class="cursor-default">${numberWithCommas(member)}</td>
-                            <td class="cursor-default">${numberWithCommas(avg)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(tot)}</td>
+                            <td>${numberWithCommas(doit)}</td>
+                            <td>${numberWithCommas(promotion)}</td>
+                            <td>${numberWithCommas(member)}</td>
+                            <td>${numberWithCommas(avg)}</td>
                         </tr>`
                 }
 
@@ -345,8 +345,8 @@
                     let row = rows[i];
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(row.ucd)}</td>
                         </tr>`
                 }
 
@@ -360,10 +360,10 @@
                     let row = rows[i];
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(row.total_ucd)}</td>
-                            <td class="cursor-default">${numberWithCommas(row.doit_ucd)}</td>
-                            <td class="cursor-default">${numberWithCommas(row.promotion_ucd)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(row.total_ucd)}</td>
+                            <td>${numberWithCommas(row.doit_ucd)}</td>
+                            <td>${numberWithCommas(row.promotion_ucd)}</td>
                         </tr>`
                 }
 
@@ -377,10 +377,10 @@
                     let row = rows[i];
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
-                            <td class="cursor-default">${numberWithCommas(row.member)}</td>
-                            <td class="cursor-default">${numberWithCommas(row.avg)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(row.ucd)}</td>
+                            <td>${numberWithCommas(row.member)}</td>
+                            <td>${numberWithCommas(row.avg)}</td>
                         </tr>`
                 }
 
@@ -394,8 +394,8 @@
                     let row = rows[i];
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(row.ucd)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(row.ucd)}</td>
                         </tr>`
                 }
 
@@ -412,10 +412,10 @@
                     let tot = Number(user)+Number(company);
                     rowEl +=
                         `<tr>
-                            <td class="cursor-default">${row.created_date}</td>
-                            <td class="cursor-default">${numberWithCommas(tot)}</td>
-                            <td class="cursor-default">${numberWithCommas(user)}</td>
-                            <td class="cursor-default">${numberWithCommas(company)}</td>
+                            <td>${row.created_date}</td>
+                            <td>${numberWithCommas(tot)}</td>
+                            <td>${numberWithCommas(user)}</td>
+                            <td>${numberWithCommas(company)}</td>
                         </tr>`
                 }
 

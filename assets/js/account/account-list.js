@@ -60,11 +60,11 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 		data: "nickname",   	width: "20%" }
-				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "no-sort" }
-				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "22%", className: "no-sort" }
-				,{title: "TOKEN", 		data: "account_token",  width: "22%", className: "no-sort" }
-				,{title: "사용구분", 	data: "is_active", 		width: "10%",
+				{title: "닉네임", 		data: "nickname",   	width: "20%", className: "cursor-pointer" }
+				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "cursor-pointer no-sort" }
+				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "22%", className: "cursor-pointer no-sort" }
+				,{title: "TOKEN", 		data: "account_token",  width: "22%", className: "cursor-pointer no-sort" }
+				,{title: "사용구분", 	data: "is_active", 		width: "10%", className: "cursor-pointer",
 					render: function (data) {
 						return data === 'Y' ? '사용' : '미사용';
 					}

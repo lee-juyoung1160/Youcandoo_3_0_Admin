@@ -385,12 +385,12 @@
 				}
 			},
 			columns: [
-				{title: "", 			data: "idx",		width: "10%",    className: "cursor-default",
+				{title: "", 			data: "idx",		width: "10%",
 					render: function (data) {
 						return singleCheckBoxDom(`category_${data}`);
 					}
 				},
-				{title: "카테고리 명", 	data: "category",  	width: "90%",   className: "cursor-default" }
+				{title: "카테고리 명", 	data: "category",  	width: "90%" }
 			],
 			language: {
 				emptyTable : message.emptyList

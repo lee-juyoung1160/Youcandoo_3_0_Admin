@@ -91,22 +91,22 @@
 		recommendedTable.DataTable({
 			data: _data,
 			columns: [
-				{title: "",		data: "doit_uuid",		width: "10%",   className: "",
+				{title: "",		data: "doit_uuid",		width: "10%",
 					render: function (data, type, row, meta) {
 						return buildThumbnail(row);
 					}
 				}
-				,{title: "", 	data: "doit_uuid",    	width: "65%",   className: "",
+				,{title: "", 	data: "doit_uuid",    	width: "65%",
 					render: function (data, type, row, meta) {
 						return buildRecommendDetail(row);
 					}
 				}
-				,{title: "", 	data: "doit_status",    width: "15%",    className: "cursor-default",
+				,{title: "", 	data: "doit_status",    width: "15%",
 					render: function (data) {
 						return buildDoitStatus(data);
 					}
 				}
-				,{title: "", 	data: "doit_uuid", 		width: "5%",    className: "cursor-default",
+				,{title: "", 	data: "doit_uuid", 		width: "5%",
 					render: function (data) {
 						return `<i onclick="removeRow(this);" onmouseenter="disableSort();" onmouseleave="enableSort();" data-uuid="${data}" class="far fa-times-circle"></i>`
 					}
@@ -375,7 +375,7 @@
 								<span class="icon-state">모집중</span>
 							</div>
 						</td>
-						<td class="cursor-default">
+						<td>
 							<i onclick="removeRow(this);" 
 								onmouseenter="disableSort();" 
 								onmouseleave="enableSort();" 

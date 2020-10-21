@@ -8,7 +8,6 @@
 	const selPageLength = $("#selPageLength");
 	const isBanner 		= $("input[name=radio-banner]");
 	const status 		= $("input[name=chk-status]");
-	const btnDelete		= $("#btnDelete");
 
 	$( () => {
 		/** 데이트피커 초기화 **/
@@ -28,7 +27,6 @@
 		status			.on("click", function () { onChangeChkStatus(this); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnDelete		.on("click", function () { deletePromotion(); });
 	});
 
 	function initSearchForm()
@@ -93,44 +91,44 @@
 				}
 			},
 			columns: [
-				/*{title: "", 			data: "idx",   				width: "5%",     className: "cursor-default no-sort",
+				/*{title: "", 			data: "idx",   				width: "5%",     className: "no-sort",
 					render: function (data) {
 						return singleCheckBoxDom(data);
 					}
 				},*/
-				{title: "기업", 			data: "nickname",    		width: "15%",    className: "cursor-default" }
-				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",    className: "cursor-default",
+				{title: "기업", 			data: "nickname",    		width: "15%" }
+				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",
 					render: function (data, type, row, meta) {
 						let detailUrl 	= page.detailPromo + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "프로모션 예산", data: "budget_ucd",     	width: "15%",    className: "cursor-default",
+				,{title: "프로모션 예산", data: "budget_ucd",     	width: "15%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",    className: "cursor-default",
+				,{title: "잔여예산", 	data: "remain_budget_ucd", 	width: "15%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",    className: "cursor-default",
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ${label.tilde} ${row.end_date}`;
 					}
 				}
-				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    className: "cursor-default no-sort",
+				,{title: "프로모션 상태", data: "status",   	 		width: "10%",    className: "no-sort",
 					render: function (data) {
 						return getPromotionStatusName(data);
 					}
 				}
-				,{title: "공개 여부", 	data: "is_banner",    		width: "10%",    className: "cursor-default no-sort",
+				,{title: "공개 여부", 	data: "is_banner",    		width: "10%",    className: "no-sort",
 					render: function (data) {
 						return data === 'Y' ? label.exposure : label.unexpose;
 					}
 				}
-				,{title: "비고", 		data: "promotion_uuid",    	width: "20%",    className: "cursor-default no-sort",
+				,{title: "비고", 		data: "promotion_uuid",    	width: "20%",    className: "no-sort",
 					render: function (data, type, row, meta) {
 						return buildEditBtn(row);
 					}

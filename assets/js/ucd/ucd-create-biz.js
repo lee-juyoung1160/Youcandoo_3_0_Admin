@@ -16,6 +16,8 @@
 	const dataTable		= $("#dataTable")
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initInputDatepicker();
 		/** 컴퍼넌트 초기화 **/
@@ -68,28 +70,11 @@
 			columns: [
 				{title: "기업명",	data: "value",	className: "cursor-pointer" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
 			scrollY: 200,
 			scrollCollapse: true,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},

@@ -26,6 +26,8 @@
 
     /** 로드 시점 **/
     document.addEventListener("DOMContentLoaded", function () {
+        /** dataTable default config **/
+        initTableDefault();
         /** 데이트피커 초기화 **/
         initSearchDatepicker();
         /** 상단 검색 폼 초기화 **/
@@ -109,23 +111,14 @@
     function getReviewListData() {
         $(reviewTable).DataTable({
             /** 테이블 옵션 기능 **/
-            searching: false, /** 검색 **/
-            lengthChange: false, /** 블록 단위 변경기능 **/
-            info: false, /** 페이징 상태에 대한 정보 표시  **/
-            padding: false, /** 열 너비 계산 **/
-            ordering: false, /** 원하는 순서대로 데이터 표시 **/
+            serverSide: true, /** true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음) **/
             paging: true, /** 페이징 **/
-            destroy: false, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
+            pageLength: Number(limits.value),
             select: {
                 style: 'multi',
                 selector: ':checkbox'
             },
-            pageLength: Number(limits.value),
-            serverSide: true, /** true = 서버쪽으로 페이지네이션 처리 요청(페이지 이동시 서버호출함), false = 전체 데이터를 불러워서 datatable 을 이용하여 웹에서 페이지네이션 처리(페이지 이동시 서버호출하지 않음) **/
-            processing: false,
-            order: [],
-            autoWidth: false,
-            fixedHeader:false,
+            destroy: false, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
             initComplete: function () {
                 initTableSorter(this);
             },
@@ -183,15 +176,7 @@
                     }
                 },
                 {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort' }
-            ],language: {
-                emptyTable: message.emptyList
-                , zeroRecords: message.emptyList
-                , processing: message.searching
-                , paginate: {
-                    previous: label.previous
-                    , next: label.next
-                }
-            }
+            ]
         });
     }
 

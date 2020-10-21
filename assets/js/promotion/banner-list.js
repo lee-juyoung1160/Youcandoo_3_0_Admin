@@ -8,6 +8,8 @@
 	const btnAdd		= $("#btnAdd");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 배너 테이블 데이터 로드 **/
 		buildBanners();
 		getPromo();
@@ -67,26 +69,9 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
 				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
@@ -204,33 +189,14 @@
 				,{title: "기업", 		data: "nickname",    		width: "30%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 5,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
 			scrollY: '420px',
 			scrollCollapse: true,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},

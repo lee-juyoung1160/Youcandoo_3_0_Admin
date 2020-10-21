@@ -9,6 +9,9 @@
 	let g_recommend = [];
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
+
 		initForm();
 		initSortTable();
 		/** 추천 두잇 데이터 로드 **/
@@ -99,31 +102,13 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 5,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},

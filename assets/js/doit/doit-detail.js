@@ -86,6 +86,8 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** n개씩보기 셀렉트 박스 초기화 **/
 		initPageLength(selPageLengthForUser);
 		initPageLength(selPageLengthForReview);
@@ -439,28 +441,10 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForUser.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -907,31 +891,13 @@
 				 }
 				,{title: "작성자", 		data: "nickname",    	width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForReview.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 				$(this).on( 'page.dt', function () {
@@ -1105,28 +1071,10 @@
 				,{title: "닉네임", data: "nickname",   		width: "15%" }
 				,{title: "일시",   data: "created",   		width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForUcd.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},

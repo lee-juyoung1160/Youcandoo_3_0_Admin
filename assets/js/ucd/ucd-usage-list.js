@@ -14,6 +14,8 @@
 	/*const xlsxExport 	= $(".excel-btn");*/
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -69,28 +71,10 @@
 				,{title: "내용", 	data: "description", width: "30%",    className: "no-sort" }
 				,{title: "일시", 	data: "created",     width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
 				initTableSorter(this);

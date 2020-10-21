@@ -557,6 +557,7 @@
     function initTableDefault()
     {
         $.extend( true, $.fn.dataTable.defaults, {
+            /*pagingType: "simple_numbers_no_ellipses",*/
             ordering: false,
             order: [],
             info: false,
@@ -565,6 +566,15 @@
             autoWidth: false,
             searching: false,
             fixedHeader: false,
+            language: {
+                emptyTable: message.emptyList
+                ,zeroRecords: message.emptyList
+                ,processing: message.searching
+                ,paginate: {
+                    previous: label.previous
+                    ,next: label.next
+                }
+            }
         });
     }
 

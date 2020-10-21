@@ -13,8 +13,9 @@
 	const modalContent 		= $(".modal-content");
 	const prohibition		= $("#prohibition");
 
-	initTableDefault();
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
@@ -76,32 +77,14 @@
 					}
 				}
 			],
-			language: {
-				emptyTable: message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			destroy: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			/*ordering: false,
-			order: [],
-			info: false,
-			processing: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,*/
+			destroy: false,
 			initComplete: function () {
 				uncheckedCheckAllAfterMovePage(this);
 			},

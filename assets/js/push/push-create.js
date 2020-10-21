@@ -35,6 +35,8 @@
 	const reqContent		= $("#req_content");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
 		/** 발송일 초기화 **/
@@ -160,30 +162,13 @@
 				,{title: "공지알림",		data: "noti_notice",       width: "15%" }
 				,{title: "마케팅알림",	data: "noti_marketing",    width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -395,29 +380,12 @@
 				{title: "구분",	data: "event_name",    width: "20%", 	 className: "cursor-pointer" }
 				,{title: "제목",	data: "title",    	   width: "40%", 	 className: "cursor-pointer" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
 			scrollY: 200,
 			scrollCollapse: true,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -454,29 +422,12 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
 			scrollY: 200,
 			scrollCollapse: true,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},

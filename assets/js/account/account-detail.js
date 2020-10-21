@@ -44,6 +44,8 @@
 	const g_profile_uuid = $("#profile_uuid").val();
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 우측 메뉴클릭 스크롤 **/
 		moveSection();
 		/** 기본정보 **/
@@ -165,28 +167,10 @@
 				}
 				,{title: "등록일시", 	data: "datetime",   	width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
 			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -254,28 +238,10 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -367,28 +333,10 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -808,27 +756,10 @@
 				,{title: "내용", 	data: "description",width: "30%" }
 				,{title: "일시", 	data: "created",   	width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
 			destroy: true,
 			initComplete: function () {
 			},

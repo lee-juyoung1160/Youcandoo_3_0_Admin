@@ -10,10 +10,10 @@
 	const btnSubmit			= $("#btnSubmit");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 입력 폼 초기화 **/
 		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		/*initPageLength(selPageLength);*/
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -88,31 +88,12 @@
 					}
 				}
 			],
-			language: {
-				emptyTable: message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 30,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
 			},

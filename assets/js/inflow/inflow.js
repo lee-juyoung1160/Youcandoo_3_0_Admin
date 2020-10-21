@@ -13,6 +13,8 @@
 	}
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initDatepicker();
 		initDateRangeLimit();
@@ -117,28 +119,9 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			pageLength: 10,
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
 			},

@@ -30,6 +30,8 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** n개씩보기 셀렉트 박스 초기화 **/
 		initPageLength(selPageLengthForDoit);
 		initPageLength(selPageLengthForUcd);
@@ -252,28 +254,10 @@
 				,{title: "진행상태", 		data: "doit_status",  			width: "10%" }
 				,{title: "개설자", 			data: "nickname",  				width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForDoit.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -322,28 +306,10 @@
                 ,{title: "내용", data: "description",   	width: "25%" }
                 ,{title: "일시", data: "created",   		width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForUcd.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},

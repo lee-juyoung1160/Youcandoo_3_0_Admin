@@ -40,6 +40,8 @@
 	const modalContractAmount = $("#modalContractAmount");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** n개씩보기 셀렉트 박스 초기화 **/
 		initPageLength(selPageLengthForPromo);
 		initPageLength(selPageLengthForUcd);
@@ -176,28 +178,10 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForPromo.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},
@@ -264,28 +248,10 @@
 				}
 				,{title: "일시", data: "created",   		width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLengthForUcd.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: false,
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader:false,
 			destroy: true,
 			initComplete: function () {
 			},

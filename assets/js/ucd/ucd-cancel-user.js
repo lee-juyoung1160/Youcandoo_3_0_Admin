@@ -25,6 +25,8 @@
 	const movedUserTableBody = $("#movedUserTableBody")
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
@@ -140,30 +142,13 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing : message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: 8,
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 				dataTable.on( 'page.dt', function () {

@@ -9,6 +9,8 @@
 	const btnDelete		= $("#btnDelete");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
 		/** 상단 검색 폼 초기화 **/
@@ -102,31 +104,13 @@
 					}
 				}
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function () {
 				$(this).on('page.dt', function (e, settings) { _page = getCurrentPage(this); });

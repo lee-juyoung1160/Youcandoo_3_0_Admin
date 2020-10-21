@@ -22,6 +22,8 @@
 
 	let currentPage = 1;
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 카테고리 목록 **/
 		getCategory();
 		/** 데이트피커 초기화 **/
@@ -392,33 +394,12 @@
 				},
 				{title: "카테고리 명", 	data: "category",  	width: "90%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 10,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
 			},
-			/*scrollY: 220,
-			scrollCollapse: true,*/
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 			},

@@ -11,6 +11,8 @@
 	const modalContent 	= $(".modal-content");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -71,31 +73,12 @@
 					}
 				}
 			],
-			language: {
-				emptyTable: message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: false,
-			/*pageLength: 30,*/
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'single',
 				selector: 'a'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: false,
 			initComplete: function (settings, json) {
 			},

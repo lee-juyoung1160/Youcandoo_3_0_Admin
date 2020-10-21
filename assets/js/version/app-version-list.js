@@ -15,6 +15,8 @@
 	const modalContent 	= $(".modal-content");
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefault();
 		/** 이벤트 **/
 		authCheck()
 		/** 상단 검색 폼 초기화 **/
@@ -102,31 +104,13 @@
 				}
 				,{title: "등록일시",  data: "datetime",     	  width: "15%" }
 			],
-			language: {
-				emptyTable : message.emptyList
-				,zeroRecords: message.emptyList
-				,processing: message.searching
-				,paginate: {
-					previous: label.previous
-					,next: label.next
-				}
-			},
-			processing: false,
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			/*pagingType: "simple_numbers_no_ellipses",*/
-			ordering: false,
-			order: [],
-			info: false,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
 			},
-			lengthChange: false,
-			autoWidth: false,
-			searching: false,
-			fixedHeader: false,
 			destroy: true,
 			initComplete: function () {
 				dataTable.on( 'page.dt', function () {

@@ -1417,8 +1417,8 @@ input[type="checkbox"]:disabled + label span{
 	font-size: 15px;
 	text-align: center;
 }
-.cursor-default {
-	cursor: default;
+.cursor-pointer {
+	cursor: pointer;
 }
 /* 리뷰목록 */
 .review-list td button {

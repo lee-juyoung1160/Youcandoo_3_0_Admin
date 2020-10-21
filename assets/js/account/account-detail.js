@@ -156,14 +156,14 @@
 				}
 			},
 			columns: [
-				{title: "기기구분", 		data: "device_type",   	width: "10%",    className: "cursor-default" }
-				,{title: "단말기ID", 	data: "client_id",   	width: "25%",    className: "cursor-default" }
-				,{title: "푸시토큰", 	data: "device_token",   width: "55%",    className: "cursor-default",
+				{title: "기기구분", 		data: "device_type",   	width: "10%" }
+				,{title: "단말기ID", 	data: "client_id",   	width: "25%" }
+				,{title: "푸시토큰", 	data: "device_token",   width: "55%",
 					render: function (data) {
 						return '<a onclick="onClickTokenModalOpen(this);" data-token="'+data+'" class="os-token">'+data+'</a>';
 					}
 				}
-				,{title: "등록일시", 	data: "datetime",   	width: "15%",    className: "cursor-default" }
+				,{title: "등록일시", 	data: "datetime",   	width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -222,33 +222,33 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   	width: "25%",    className: "cursor-default" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",    className: "cursor-default",
+				{title: "두잇명", 		data: "doit_title",   	width: "25%" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",    className: "cursor-default",
+				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",    className: "cursor-default",
+				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",    className: "cursor-default",
+				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",    className: "cursor-default",
+				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", data: "action_start_datetime",  width: "20%",    className: "cursor-default",
+				,{title: "인증기간", data: "action_start_datetime",  width: "20%",
 					render: function (data, type, row, meta) {
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
@@ -314,40 +314,40 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   				width: "19%" }
-				,{title: "진행상태", 	data: "doit_status",    			width: "5%" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",   				width: "8%",
+				{title: "두잇명", 		data: "doit_title",   				width: "19%",	className: "cursor-pointer" }
+				,{title: "진행상태", 	data: "doit_status",    			width: "5%",	className: "cursor-pointer" }
+				,{title: "리워드 UCD", 	data: "reward_ucd",   				width: "8%",	className: "cursor-pointer",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "적립 UCD", 	data: "use_ucd",   					width: "8%",
+				,{title: "적립 UCD", 	data: "use_ucd",   					width: "8%",	className: "cursor-pointer",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "목표달성률(%)", data: "goal_percent",   			width: "8%",
+				,{title: "목표달성률(%)", data: "goal_percent",   			width: "8%",	className: "cursor-pointer",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "평균달성률(%)", data: "avg_percent",   				width: "8%",
+				,{title: "평균달성률(%)", data: "avg_percent",   				width: "8%",	className: "cursor-pointer",
 					render: function (data) {
 						return Math.floor(Number(data));
 					}
 				}
-				,{title: "인증기간", 	data: "action_start_datetime",  	width: "14%",
+				,{title: "인증기간", 	data: "action_start_datetime",  	width: "14%",	className: "cursor-pointer",
 					render: function (data, type, row, meta) {
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
-				,{title: "인증 가능 시간", data: "action_allow_start_time", 	width: "12%",
+				,{title: "인증 가능 시간", data: "action_allow_start_time", 	width: "12%",	className: "cursor-pointer",
 					render: function(data, type, row, meta) {
 						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
 					}
 				}
-				,{title: "인증요일", 	data: "action_dayofweek",  			width: "10%" }
-				,{title: "인증방법", 	data: "action_resource_type",  		width: "5%",
+				,{title: "인증요일", 	data: "action_dayofweek",  			width: "10%",	className: "cursor-pointer" }
+				,{title: "인증방법", 	data: "action_resource_type",  		width: "5%",	className: "cursor-pointer",
 					render: function (data) {
 						switch (data) {
 							case 'image':
@@ -361,7 +361,7 @@
 						}
 					}
 				}
-				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%",
+				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%",	className: "cursor-pointer",
 					render: function (data, type, row, meta) {
 						return row.action_resource_type === 'image' ? data : label.dash;
 					}
@@ -797,16 +797,16 @@
 				}
 			},
 			columns: [
-				{title: "유형", 		data: "ucd_type",   width: "10%",    className: "cursor-default" }
-				,{title: "구분", 	data: "division",   width: "10%",    className: "cursor-default" }
-				,{title: "금액", 	data: "amount",		width: "10%",    className: "cursor-default",
+				{title: "유형", 		data: "ucd_type",   width: "10%" }
+				,{title: "구분", 	data: "division",   width: "10%" }
+				,{title: "금액", 	data: "amount",		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "제목", 	data: "title",   	width: "15%",    className: "cursor-default" }
-				,{title: "내용", 	data: "description",width: "30%",    className: "cursor-default" }
-				,{title: "일시", 	data: "created",   	width: "15%",    className: "cursor-default" }
+				,{title: "제목", 	data: "title",   	width: "15%" }
+				,{title: "내용", 	data: "description",width: "30%" }
+				,{title: "일시", 	data: "created",   	width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList

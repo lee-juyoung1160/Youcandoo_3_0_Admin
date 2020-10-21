@@ -123,12 +123,12 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "회원",	data: "nickname",    width: "65%", 	 className: "cursor-default",
+				,{title: "회원",		data: "nickname",    width: "65%",
 					render: function (data, type, row, meta) {
 						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`
 					}
 				}
-				,{title: "보유UCD",	data: "ucd.total",   width: "30%", 	 className: "cursor-default",
+				,{title: "보유UCD",	data: "ucd.total",   width: "30%",
 					render: function (data) {
 						return (
 							`<div class="user-ucd">

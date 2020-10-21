@@ -150,15 +150,15 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%", className: 'cursor-default',
+				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "닉네임",		data: "nickname",    	   width: "40%", 	 className: 'cursor-default' }
-				,{title: "두잇알림",		data: "noti_doit",    	   width: "15%", 	 className: 'cursor-default' }
-				,{title: "공지알림",		data: "noti_notice",       width: "15%", 	 className: 'cursor-default' }
-				,{title: "마케팅알림",	data: "noti_marketing",    width: "15%", 	 className: 'cursor-default' }
+				,{title: "닉네임",		data: "nickname",    	   width: "40%" }
+				,{title: "두잇알림",		data: "noti_doit",    	   width: "15%" }
+				,{title: "공지알림",		data: "noti_notice",       width: "15%" }
+				,{title: "마케팅알림",	data: "noti_marketing",    width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -392,8 +392,8 @@
 				}
 			},
 			columns: [
-				{title: "구분",	data: "event_name",    width: "20%", 	 className: "cursor-default" }
-				,{title: "제목",	data: "title",    	   width: "40%", 	 className: "cursor-default" }
+				{title: "구분",	data: "event_name",    width: "20%", 	 className: "cursor-pointer" }
+				,{title: "제목",	data: "title",    	   width: "40%", 	 className: "cursor-pointer" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -446,9 +446,9 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",	data: "nickname",    		width: "20%", 	 className: "cursor-default" }
-				,{title: "제목",		data: "promotion_title",    width: "40%", 	 className: "cursor-default" }
-				,{title: "기간",		data: "start_date",    width: "35%", 	 className: "cursor-default" ,
+				{title: "닉네임",	data: "nickname",    		width: "20%", 	 className: "cursor-pointer" }
+				,{title: "제목",		data: "promotion_title",    width: "40%", 	 className: "cursor-pointer" }
+				,{title: "기간",		data: "start_date",    		width: "35%", 	 className: "cursor-pointer" ,
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ~ ${row.end_date}`
 					}
@@ -537,6 +537,9 @@
 
 	function onChangeTargetPage(obj)
 	{
+		g_page_uuid = '';
+		inputPage.val('');
+
 		let targetValue = $(obj).val();
 		(targetValue === 'event' || targetValue === 'promotion') ? inputPage.parent().show() : inputPage.parent().hide();
 	}

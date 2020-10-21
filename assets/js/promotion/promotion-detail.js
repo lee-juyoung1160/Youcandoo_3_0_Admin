@@ -232,25 +232,25 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 			data: "doit_title",    			width: "30%",    className: "cursor-default",
+				{title: "두잇명", 			data: "doit_title",    			width: "30%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit+row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "리워드옵션", 		data: "reward_title",  			width: "10%",    className: "cursor-default" }
-				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "10%",    className: "cursor-default",
+				,{title: "리워드옵션", 		data: "reward_title",  			width: "10%" }
+				,{title: "참여인원/모집인원", 	data: "max_user",    			width: "10%",
 					render: function (data, type, row, meta) {
 						return `${row.doit_member} ${label.slash} ${data}`;
 					}
 				}
-				,{title: "인증기간", 		data: "action_start_datetime",  width: "15%",    className: "cursor-default",
+				,{title: "인증기간", 		data: "action_start_datetime",  width: "15%",
 					render: function (data, type, row, meta) {
 						return `${data} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
-				,{title: "진행상태", 		data: "doit_status",  			width: "10%",    className: "cursor-default" }
-				,{title: "개설자", 			data: "nickname",  				width: "15%",    className: "cursor-default" }
+				,{title: "진행상태", 		data: "doit_status",  			width: "10%" }
+				,{title: "개설자", 			data: "nickname",  				width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList
@@ -312,15 +312,15 @@
 				}
 			},
 			columns: [
-				{title: "구분", data: "division",   		width: "10%",     className: "cursor-default" }
-                ,{title: "금액", data: "amount",   		width: "10%",     className: "cursor-default",
+				{title: "구분", data: "division",   		width: "10%" }
+                ,{title: "금액", data: "amount",   		width: "10%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "제목", data: "title",  		width: "15%",     className: "cursor-default" }
-                ,{title: "내용", data: "description",   	width: "25%",     className: "cursor-default" }
-                ,{title: "일시", data: "created",   		width: "15%",     className: "cursor-default" }
+                ,{title: "제목", data: "title",  		width: "15%" }
+                ,{title: "내용", data: "description",   	width: "25%" }
+                ,{title: "일시", data: "created",   		width: "15%" }
 			],
 			language: {
 				emptyTable : message.emptyList

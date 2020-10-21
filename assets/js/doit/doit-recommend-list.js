@@ -32,7 +32,7 @@
 		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
 		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
 		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
 		return $(el);
 	}
 
@@ -49,23 +49,23 @@
 				}
 			},
 			columns: [
-				{title: "큐레이션명", 	data: "title",    			width: "70%",  	 className: "cursor-default",
+				{title: "큐레이션명", 	data: "title",    		width: "70%",
 					render: function (data, type, row, meta) {
 						return `<a onclick="onClickTitle(this);" data-uuid="${row.recommend_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",    className: "cursor-default",
+				,{title: "노출여부",    	data: "is_exposure",  	width: "10%",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
 				}
-				,{title: "수정",    	data: "idx",  		width: "10%",    className: "cursor-default",
+				,{title: "수정",    		data: "idx",  			width: "10%",
 					render: function (data, type, row, meta) {
 						let detailUrl	= page.updateDoitRecommend + row.idx;
 						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
 					}
 				}
-				,{title: "",    	data: "idx",  		width: "5%",    className: "cursor-default",
+				,{title: "",    		data: "idx",  			width: "5%",
 					render: function (data, type, row, meta) {
 						return `<i class="far fa-times-circle" onclick="deleteRecommend(${data})"></i>`;
 					}

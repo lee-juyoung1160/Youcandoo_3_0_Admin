@@ -48,17 +48,17 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 		data: "nickname",    	   width: "15%",    className: "cursor-default" }
-				,{title: "유형", 		data: "ucd_type",          width: "10%",    className: "cursor-default" }
-				,{title: "출금액", 		data: "amount",    		   width: "10%",    className: "cursor-default",
+				{title: "닉네임", 		data: "nickname",    	   width: "15%" }
+				,{title: "유형", 		data: "ucd_type",          width: "10%" }
+				,{title: "출금액", 		data: "amount",    		   width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "내용", 		data: "description", 	   width: "30%",    className: "cursor-default no-sort" }
-				,{title: "담당자", 		data: "created_user",      width: "10%",    className: "cursor-default"}
-				,{title: "출금일시", 		data: "created_datetime",  width: "15%",    className: "cursor-default" }
-				,{title: "메모", 		data: "memo",              width: "5%",     className: "cursor-default no-sort",
+				,{title: "내용", 		data: "description", 	   		width: "30%",    className: "no-sort" }
+				,{title: "담당자", 		data: "created_user",      		width: "10%" }
+				,{title: "출금일시", 		data: "created_datetime",  	width: "15%" }
+				,{title: "메모", 		data: "memo",              		width: "5%",     className: "no-sort",
 					render: function (data) {
 						return buildMemo(data);
 					}

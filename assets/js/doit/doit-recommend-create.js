@@ -231,7 +231,7 @@
 								<span class="icon-state">모집중</span>
 							</div>
 						</td>
-						<td class="cursor-default">
+						<td>
 							<i onclick="removeRow(this);" 
 								onmouseenter="disableSort();" 
 								onmouseleave="enableSort();" 

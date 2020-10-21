@@ -26,7 +26,7 @@
 		bannerTable.find('tbody').sortable({
 			helper: function (e, el) {
 				return addAttrDragOnElement(el);
-			}``
+			}
 		});
 	}
 
@@ -61,7 +61,7 @@
 				}
 				,{title: "기업", 		data: "nickname",    		width: "30%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
-				,{title: "", 			data: "promotion_uuid",    	width: "5%",   className: "cursor-default",
+				,{title: "", 			data: "promotion_uuid",    	width: "5%",
 					render: function (data) {
 						return `<i onclick="removeRow(this)" data-uuid="${data}" class="far fa-times-circle"></i>`;
 					}
@@ -291,7 +291,7 @@
 						</td>
 						<td>${bizName}</td>
 						<td>${title}</td>
-						<td class="cursor-default">
+						<td>
 							<i onclick="removeRow(this)" data-uuid="${uuid}" class="far fa-times-circle"></i>
 						</td>
 					</tr>`

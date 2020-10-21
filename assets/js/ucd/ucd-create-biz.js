@@ -66,7 +66,7 @@
 				}
 			},
 			columns: [
-				{title: "기업명",	data: "value",    orderable: false }
+				{title: "기업명",	data: "value",	className: "cursor-pointer" }
 			],
 			language: {
 				emptyTable : message.emptyList

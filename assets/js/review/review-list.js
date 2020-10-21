@@ -147,7 +147,7 @@
                     sweetError(label.list+message.ajaxLoadError);
                 }
             },columns: [
-                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",  className: 'cursor-default no-sort',
+                {title: tableCheckAllDom(), 	data: "idx",   width: "5%",  className: 'no-sort',
                     render: function (data) {
                         return multiCheckBoxDom(data);
                     }
@@ -165,24 +165,24 @@
                                     onclick="openModal(this)">${data}</a>`
                     }
                 },
-                {title:"평점",         data: "rating",        width: '10%',   className: 'cursor-default no-sort',
+                {title:"평점",         data: "rating",        width: '10%',   className: 'no-sort',
                     render: function (data) {
                         return buildStar(data);
                     }
                 },
-                {title:"두잇명",        data: "doit_title",    width: '25%',   className: 'cursor-default' },
-                {title:"신고",          data: "report_count",  width: '10%',  className: 'cursor-default' },
-                {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'cursor-default no-sort',
+                {title:"두잇명",        data: "doit_title",    width: '25%' },
+                {title:"신고",          data: "report_count",  width: '10%' },
+                {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'no-sort',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성날짜",      data: "created",        width: '10%',   className: 'cursor-default',
+                {title:"작성날짜",      data: "created",        width: '10%',
                     render: function (data) {
                         return data.substring(0, 10);
                     }
                 },
-                {title:"작성자",        data: "nickname",      width: '15%',   className: 'cursor-default no-sort' }
+                {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort' }
             ],language: {
                 emptyTable: message.emptyList
                 , zeroRecords: message.emptyList

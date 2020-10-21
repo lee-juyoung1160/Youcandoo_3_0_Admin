@@ -134,8 +134,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				let viewsEl = $(nRow).children().eq(3);
-				$(viewsEl).attr('data-sort', aData.views);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

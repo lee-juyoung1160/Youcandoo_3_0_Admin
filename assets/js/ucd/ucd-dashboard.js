@@ -255,7 +255,7 @@
             case 'reward':
                 return {
                     text : ['전체', '일반 두잇', '프로모션 두잇', '적립받은 회원 수', '인당 평균 적립액']
-                    ,data : [Number(summaryData.total_ucd), Number(summaryData.promotion_ucd), Number(summaryData.doit_ucd), Number(summaryData.member), Number(summaryData.avg)]
+                    ,data : [Number(summaryData.total_ucd), Number(summaryData.doit_ucd), Number(summaryData.promotion_ucd), Number(summaryData.member), Number(summaryData.avg)]
                 };
             case 'budget':
                 return {

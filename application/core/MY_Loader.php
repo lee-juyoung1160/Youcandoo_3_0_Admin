@@ -3,15 +3,22 @@
 class MY_Loader extends CI_Loader {
     
     public function view($view, $vars = array(), $return = FALSE) {
-        return $this->_ci_load(array('_ci_view' => $view.'.html', '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+
+        if (method_exists($this, '_ci_object_to_array'))
+        {
+            return $this->_ci_load(array('_ci_view' => $view.'.html', '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+        } else {
+            return $this->_ci_load(array('_ci_view' => $view.'.html', '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
+        }
+
+
+//        return $this->_ci_load(array('_ci_view' => $view.'.html', '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+
     }
 
     public function layout($template_name, $vars = array())
     {
         $CI =& get_instance();
-        $CI->load->library('session');
-        $CI->load->helper('url');
-        $CI->load->helper('cookie');
         $SessionData = $CI->session->userdata("user_data");
         if(empty($SessionData))
         {
@@ -25,7 +32,6 @@ class MY_Loader extends CI_Loader {
             );
             set_cookie($cookie);
             redirect("/main/login", "refresh");
-
             return;
         }
 

@@ -13,6 +13,7 @@
 	const modalContent 		= $(".modal-content");
 	const prohibition		= $("#prohibition");
 
+	initTableDefault();
 	$( () => {
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
@@ -93,14 +94,14 @@
 				style: 'multi',
 				selector: ':checkbox'
 			},
-			ordering: false,
+			/*ordering: false,
 			order: [],
 			info: false,
 			processing: false,
 			lengthChange: false,
 			autoWidth: false,
 			searching: false,
-			fixedHeader: false,
+			fixedHeader: false,*/
 			initComplete: function () {
 				uncheckedCheckAllAfterMovePage(this);
 			},

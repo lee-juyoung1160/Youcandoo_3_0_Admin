@@ -553,6 +553,21 @@
             $("#checkAll").prop('checked', false);
     }
 
+    /** 테이블 기본환경 설정 **/
+    function initTableDefault()
+    {
+        $.extend( true, $.fn.dataTable.defaults, {
+            ordering: false,
+            order: [],
+            info: false,
+            processing: false,
+            lengthChange: false,
+            autoWidth: false,
+            searching: false,
+            fixedHeader: false,
+        });
+    }
+
     /** 테이블 현재 페이지 리로드 **/
     function tableReloadAndStayCurrentPage(tableObj)
     {

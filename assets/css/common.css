@@ -904,9 +904,7 @@ input[type="checkbox"]:disabled + label span{
 .table-wrap table tbody tr:nth-child(even).tr-waiting {
 	background-color: #E3E3FC;
 }
-
 .table-wrap table tbody tr:hover {
-	cursor: pointer;
 	/*box-shadow: -3px 1px 8px 4px rgba(0, 0, 0, .5);*/
 	background-color: #d9e7f9;
 }
@@ -915,9 +913,6 @@ input[type="checkbox"]:disabled + label span{
 }
 .table-wrap table tbody tr:nth-child(even) {
 	background-color: #f9f9f9;
-}
-.table-wrap table tr {
-	cursor: default;
 }
 .table-wrap table th,
 .table-wrap table td {
@@ -928,6 +923,9 @@ input[type="checkbox"]:disabled + label span{
 	padding: 10px 5px;
 	line-height: 1.4;
 	font-size: 14px;
+}
+.table-wrap table td.cursor-pointer {
+	cursor: pointer;
 }
 .table-wrap table tfoot {
 	border-top: 2px solid #ddd;
@@ -1417,9 +1415,7 @@ input[type="checkbox"]:disabled + label span{
 	font-size: 15px;
 	text-align: center;
 }
-.cursor-pointer {
-	cursor: pointer;
-}
+
 /* 리뷰목록 */
 .review-list td button {
 	background: none;

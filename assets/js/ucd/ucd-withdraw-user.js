@@ -376,7 +376,6 @@
 			,"amount" : amount.val().trim()
 			,"description" : content.val().trim()
 			,"memo" : memo.val().trim()
-			,"created_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

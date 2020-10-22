@@ -102,7 +102,6 @@
 			,"contents" : replaceInputTextarea(content.val().trim())
 			,"faq_type" : selFaqType.val()
 			,"is_exposure" : $('input:radio[name=radio-exposure]:checked').val()
-			,"updated_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

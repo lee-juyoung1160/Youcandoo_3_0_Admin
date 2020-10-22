@@ -218,7 +218,6 @@
 			"event_image" : event_content_img,
 			"event_thumbnail_image" : event_thumbnail_img,
 			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-			"create_user" : sessionUserId.val(),
 		}
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}

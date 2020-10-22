@@ -58,7 +58,6 @@
 				"notice_contents" : replaceInputTextarea(content.val().trim()),
 				"reservation_date" : reserveDate.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-				"created_user" : sessionUserId.val()
 			}
 
 			if (!isEmpty(data))

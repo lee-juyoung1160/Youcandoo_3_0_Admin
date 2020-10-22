@@ -538,7 +538,6 @@
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
 		formData.append('push_message', content.val().trim());
 		formData.append('push_image', contentImage[0].files[0]);
-		formData.append('created_user', sessionUserId.val());
 
 		return formData;
 	}

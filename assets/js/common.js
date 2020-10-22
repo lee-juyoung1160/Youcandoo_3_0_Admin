@@ -742,7 +742,11 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/dashboard', '/doit/test', '/doit/recommend/create', '/doit/recommend/update'];
+    let accessibleMenus = [
+        '/', '/admin/mypage',
+        '/operate/dashboard',
+        '/doit/test',
+        '/ucd/withdraw/user-v2'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -776,6 +780,7 @@
                 '/service/faq',
                 '/admin',
                 '/doit/category',
+                '/doit/recommend',
                 '/operate/account'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {

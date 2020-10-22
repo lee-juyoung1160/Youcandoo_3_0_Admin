@@ -171,7 +171,6 @@
 			,"end_date" : promoTo.val()
 			,"contract_name" : contractTitle.val().trim()
 			,"contract_price" : contractAmount.val()
-			,"created_user" : sessionUserId.val()
 		}
 
 		return JSON.stringify(param);

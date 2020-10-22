@@ -842,7 +842,6 @@
 			,"amount" : amount.val()
 			,"description" : content.val().trim()
 			,"memo" : memo.val().trim()
-			,"created_user" : sessionUserId.val()
 			,"page_type" : ""
 		}
 

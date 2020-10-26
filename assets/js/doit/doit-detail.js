@@ -35,12 +35,14 @@
 	/** 인증정보 탭 **/
 	const btnWarnRed	= $("#btnWarnRed");
 	const btnWarnYellow	= $("#btnWarnYellow");
+	const btnReport		= $("#btnReport");
 	const actionWrap	= $("#actionWrap");
 	const actionTopDom	= $("#actionTopDom");
 	const pagination	= $("#dataTable_paginate");
 	const actionTotalCount		 = $("#actionTotalCount");
 	const selPageLengthForAction = $("#selPageLengthForAction");
 	/** 경고장 발송 modal **/
+	const modalWarnTitle	= $("#modalWarnTitle");
 	const modalWarn			= $("#modalWarn");
 	const causeBy			= $("#selCauseBy");
 	const btnSubmitWarn		= $("#btnSubmitWarn");
@@ -102,6 +104,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
+		btnReport		.on('click', function () { g_warn_type = ''; onClickBtnWarn(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlindReview(); });
@@ -629,7 +632,7 @@
 
 		let hasYellowCount = 0;
 		checkedElement.each(function () {
-			if ($(this).hasClass('yellow-card'))
+			if ($(this).data('is-yellow') === 'Y')
 				hasYellowCount++;
 		});
 		if (g_warn_type === 'Y' && hasYellowCount > 0)
@@ -643,6 +646,8 @@
 
 	function modalWarnFadein()
 	{
+		let title = isEmpty(g_warn_type) ? '신고 발송' : '경고장 발송';
+		modalWarnTitle.html(title);
 		modalLayout.fadeIn();
 		modalWarn.fadeIn();
 		overflowHidden();
@@ -657,13 +662,17 @@
 
 	function onSubmitWarn()
 	{
-		sweetConfirm('경고장을 '+message.send, sendRequest);
+		let prefixTxt = isEmpty(g_warn_type) ? '신고를' : '경고장을';
+		sweetConfirm(`${prefixTxt} ${message.send}`, sendRequest);
 	}
 
 	function sendRequest()
 	{
-		let url  = g_warn_type === 'Y' ? api.setYellow : api.setRed;
-		let errMsg 	= '리워드 '+label.list+message.ajaxLoadError;
+		let url;
+		if (g_warn_type === 'Y')  url = api.setYellow
+		else if (g_warn_type === 'R') url = api.setRed;
+		else url = api.setReport;
+		let errMsg = label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, warnParams(), sendReqCallback, errMsg, false);
 	}

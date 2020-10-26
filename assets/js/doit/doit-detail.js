@@ -900,9 +900,7 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				$(this).on( 'page.dt', function () {
-					$("#checkAll").prop('checked', false);
-				});
+				uncheckedCheckAllAfterMovePage(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

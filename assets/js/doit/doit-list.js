@@ -210,7 +210,7 @@
 			initComplete: function () {
 				$(this).on( 'page.dt', function () {
 					_page = getCurrentPage(this);
-					$("#checkAll").prop('checked', false);
+					uncheckedCheckAll();
 				});
 				redrawPage(this, _page);
 				initTableSorter(this);
@@ -411,7 +411,7 @@
 
 	function changeSuccess()
 	{
-		$("#checkAll").prop('checked', false);
+		uncheckedCheckAll();
 		modalFadeout();
 		onSubmitSearch();
 	}

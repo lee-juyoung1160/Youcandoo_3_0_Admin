@@ -31,8 +31,8 @@
                                             </div>
 
                                         </div>
-                                        <table>
-                                            <colgroup>
+                                        <table id="selectedUserTable">
+                                            <!--<colgroup>
                                                 <col style="width:65%">
                                                 <col style="width:30%">
                                                 <col style="width:5%">
@@ -44,21 +44,21 @@
                                                 <th></th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="p-info">구구갸갸
-                                                        <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
-                                                    </div>
-                                                </td>
-                                                <td>12312321</td>
-                                                <td><i class="far fa-times-circle"></i></td>
-                                            </tr>
-                                            </tbody>
+                                            <tbody id="selectedUserTableBody">
+                                                &lt;!&ndash;<tr>
+                                                    <td>
+                                                        <div class="p-info">구구갸갸
+                                                            <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>12312321</td>
+                                                    <td><i class="far fa-times-circle"></i></td>
+                                                </tr>&ndash;&gt;
+                                            </tbody>-->
                                         </table>
                                     </div>
 
-                                    <button id="btnAdd" type="button" class="btn-go-wrap"><i class="fas fa-chevron-left"></i></button>
+                                    <button id="btnAddUser" type="button" class="btn-go-wrap"><i class="fas fa-chevron-left"></i></button>
 
                                     <div class="scroll-wrap" style="float: left; width: 50%;">
 
@@ -72,46 +72,46 @@
                                                 </select>
                                             </div>
                                             <div class="search-box" style="position:relative;">
-                                                <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요." style="width: 70%;">
+                                                <input id="nickname" type="search" placeholder="닉네임을 입력해주세요." style="width: 70%;">
                                                 <i class="search-btn fas fa-search search"></i>
                                             </div>
                                         </div>
 
-                                        <table>
-                                        <colgroup>
-                                            <col style="width:5%">
-                                            <col style="width:65%">
-                                            <col style="width:30%">
-                                        </colgroup>
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <div class="checkbox-wrap">
-                                                    <input type="checkbox" id="c4" name="cc" />
-                                                    <label for="c4"><span></span></label>
-                                                </div>
-                                            </th>
-                                            <th>회원</th>
-                                            <th>보유 UCD</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="checkbox-wrap">
-                                                    <input type="checkbox" id="c5" name="cc" />
-                                                    <label for="c5"><span></span></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="p-info">구구갸갸
-                                                    <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
-                                                </div>
-                                            </td>
-                                            <td>12312321</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                        <table id="dataTable">
+                                            <!--<colgroup>
+                                                <col style="width:5%">
+                                                <col style="width:65%">
+                                                <col style="width:30%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c4" name="cc" />
+                                                            <label for="c4"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>회원</th>
+                                                    <th>보유 UCD</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap">
+                                                        <input type="checkbox" id="c5" name="cc" />
+                                                        <label for="c5"><span></span></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="p-info">구구갸갸
+                                                        <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
+                                                    </div>
+                                                </td>
+                                                <td>12312321</td>
+                                            </tr>
+                                            </tbody>-->
+                                        </table>
                                     </div>
 
                                 </div>
@@ -162,136 +162,10 @@
             </ul>
         </div>
 
-        <!--닉네임 검색 모달-->
-        <div class="modal-content nickname-modal">
-            <div class="wrap">
-                <i class="close-btn">×</i>
-                <p class="modal-title">UCD 출금 대상 등록</p>
-
-                <ul class="modal-information user-search-wrap">
-                    <li>
-                        <div class="search-wrap">
-                            <div class="select-box">
-                                <label>키워드를 포함하는</label>
-                                <select id="selMatch">
-                                    <option value="like">키워드를 포함하는</option>
-                                    <option value="match">키워드와 일치하는</option>
-                                </select>
-                            </div>
-                            <div class="search-box">
-                                <input id="modalNickname" type="search" placeholder="닉네임을 입력해주세요.">
-                                <i class="search-btn fas fa-search search" style="left: 500px;"></i>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="table-wrap">
-                            <table id="dataTable">
-                                <!--<colgroup>
-                                    <col style="width:5%;">
-                                    <col style="width:15%;">
-                                    <col style="width:30%;">
-                                    <col style="width:50%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c5" name="cc" />
-                                            <label for="c5"><span></span></label>
-                                        </div>
-                                    </th>
-                                    <th>회원유형</th>
-                                    <th>닉네임</th>
-                                    <th>보유UCD</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input type="checkbox" id="c6" name="cc" />
-                                            <label for="c6"><span></span></label>
-                                        </div>
-                                    </td>
-                                    <td>일반</td>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                </tr>-->
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                </ul>
-                <button id="btnMoveRight" type="button" class="btn-go-wrap"><i class="fas fa-chevron-right"></i></button>
-                <ul class="modal-information user-select-wrap">
-                    <li>
-                        <div class="table-wrap">
-                            <table>
-                                <colgroup>
-                                    <col style="width:65%;">
-                                    <col style="width:30%;">
-                                    <col style="width:5%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>닉네임</th>
-                                    <th>보유UCD</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="movedUserTableBody">
-                                <!--<tr>
-                                    <td>베리모카모카베리</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                    <td><i class="far fa-times-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                    <td><i class="far fa-times-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>베리모카</td>
-                                    <td>
-                                        <div class="user-ucd">
-                                            <strong>30,000UCD</strong>
-                                            (ⓒ1000 / ⓟ20,000)
-                                        </div>
-                                    </td>
-                                    <td><i class="far fa-times-circle"></i></td>
-                                </tr>-->
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                </ul>
-
-                <button id="btnAddUser" class="completion-btn" type="submit">등록 완료</button>
-            </div>
-        </div>
-        <div class="modal-layout"></div>
     </div>
 </section>
-<script src="/assets/js/plugins/tablesort.min.js"></script>
-<script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
 <script src="/assets/js/plugins/xlsx.full.min.js"></script>
 <script src="/assets/js/export-excel.js?version=<?php echo $this->config->item('version');?>"></script>
-<script src="/assets/js/ucd/ucd-withdraw-user.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/ucd/ucd-withdraw-user-v2.js?version=<?php echo $this->config->item('version');?>"></script>

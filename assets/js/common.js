@@ -550,7 +550,7 @@
         if (element.length === count)
             $('input[name="'+chkName+'"]').prop('checked', true);
         else
-            $("#checkAll").prop('checked', false);
+            uncheckedCheckAll();
     }
 
     /** 테이블 기본환경 설정 **/
@@ -632,8 +632,13 @@
     function uncheckedCheckAllAfterMovePage(_table)
     {
         $(_table).on( 'page.dt', function () {
-            $("#checkAll").prop('checked', false);
+            uncheckedCheckAll();
         });
+    }
+
+    function uncheckedCheckAll()
+    {
+        $("#checkAll").prop('checked', false);
     }
 
     /**

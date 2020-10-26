@@ -113,10 +113,7 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				dataTable.on( 'page.dt', function () {
-					$("#checkAll").prop('checked', false);
-				});
-
+				uncheckedCheckAllAfterMovePage(this);
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {

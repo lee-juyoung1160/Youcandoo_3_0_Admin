@@ -62,11 +62,15 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 		data: "nickname",   	width: "20%", className: "cursor-pointer" }
-				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "cursor-pointer no-sort" }
-				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "22%", className: "cursor-pointer no-sort" }
-				,{title: "TOKEN", 		data: "account_token",  width: "22%", className: "cursor-pointer no-sort" }
-				,{title: "사용구분", 	data: "is_active", 		width: "10%", className: "cursor-pointer",
+				{title: "닉네임", 		data: "nickname",   	width: "20%",
+					render: function (data, type, row, meta) {
+						return `<a onclick="moveDetail(this);" data-uuid="${row.profile_uuid}" data-target="${page.detailAccount}">${data}</a>`;
+					}
+				}
+				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "no-sort" }
+				,{title: "ACCOUNT ID", 	data: "account_uuid",   width: "22%", className: "no-sort" }
+				,{title: "TOKEN", 		data: "account_token",  width: "22%", className: "no-sort" }
+				,{title: "사용구분", 	data: "is_active", 		width: "10%",
 					render: function (data) {
 						return data === 'Y' ? '사용' : '미사용';
 					}
@@ -83,7 +87,6 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -106,14 +109,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		/** row 클릭 상세 이동 **/
-		$(nRow).attr('data-uuid', aData.profile_uuid);
-		$(nRow).attr('data-target', page.detailAccount);
-		$(nRow).attr('onClick', `moveDetail(this)`);
 	}
 
 	function onSubmitSearch()

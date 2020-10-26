@@ -146,3 +146,24 @@ label.excel-btn {
     color: #333;
 }
 
+
+
+
+
+
+
+
+.twin-table table {
+    flaot: left;
+    border: 1px solid #f3f3f3;
+}
+.twin-table .table-wrap > div:first-child {
+    width: 40%;
+}
+.twin-table .table-wrap > div:first-child table {
+    border-top: 2px solid #007aff;
+}
+.twin-table .table-wrap > div:last-child {
+    width: 50%;
+}
+

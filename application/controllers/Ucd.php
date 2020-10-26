@@ -22,6 +22,9 @@ class Ucd extends MY_Controller {
             case "list":
                 $this->load->layout('ucd/ucd-withdraw-list');
                 break;
+             case "user-v2" :
+                $this->load->layout('ucd/ucd-withdraw-user-v2');
+                break;
         }
     }
 

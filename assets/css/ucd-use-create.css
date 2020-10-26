@@ -167,3 +167,14 @@ label.excel-btn {
     width: 50%;
 }
 
+.top {
+    margin-bottom: 40px;
+}
+.top .user-select-title {
+    float: left;
+    padding-top: 15px;
+}
+.top .file-wrap {
+    float: right;
+}
+

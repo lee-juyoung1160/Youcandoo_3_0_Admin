@@ -74,7 +74,7 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 8,
+			pageLength: 10,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
@@ -193,7 +193,7 @@
 			],
 			serverSide: false,
 			paging: true,
-			pageLength: 8,
+			pageLength: 10,
 			select: false,
 			destroy: true,
 			initComplete: function () {

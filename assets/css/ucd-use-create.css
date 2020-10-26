@@ -177,11 +177,14 @@ label.excel-btn {
 .top .file-wrap {
     float: right;
 }
-.search-box {
-    position: relative;
-}
-.search-btn {
+
+.search-box .search {
     position: absolute;
-    left: 170px;
+    right: 0;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    background-color: #0061f2;
+    border-radius: 5px;
 }
 

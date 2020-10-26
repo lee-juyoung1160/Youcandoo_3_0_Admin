@@ -1,0 +1,172 @@
+<link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/css/ucd-use-create.css?version=<?php echo $this->config->item('version');?>">
+<section class="ucd-give-ded-page">
+    <div class="inner">
+        <h2 class="main-title">UCD 취소 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">취소 대상(*)</p>
+                        </div>
+                        <div class="col-2">
+
+
+                            <div class="twin-table">
+                                <div class="table-wrap clearfix">
+
+                                    <div class="scroll-wrap" style="float: left; width: 40%;">
+                                        <div class="top clearfix">
+                                            <p class="user-select-title">취소 대상 <em id="selectedUserCount">0</em>명</p>
+                                            <div class="file-wrap clearfix">
+                                                <div class="filebox excel-import">
+                                                    <button type="button" id="btnXlsxExport" class="excel-form-down"><i class="fas fa-file-excel"></i> 양식 다운로드</button>
+                                                    <label for="btnXlsxImport" class="excel-btn">
+                                                        <i class="fas fa-file-excel"></i>
+                                                        엑셀 불러오기
+                                                    </label>
+                                                    <input type="file" id="btnXlsxImport" class="upload-hidden" accept=".xlsx">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <table id="selectedUserTable">
+                                            <!--<colgroup>
+                                                <col style="width:65%">
+                                                <col style="width:30%">
+                                                <col style="width:5%">
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>회원</th>
+                                                <th>보유 UCD</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="selectedUserTableBody">
+                                                &lt;!&ndash;<tr>
+                                                    <td>
+                                                        <div class="p-info">구구갸갸
+                                                            <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>12312321</td>
+                                                    <td><i class="far fa-times-circle"></i></td>
+                                                </tr>&ndash;&gt;
+                                            </tbody>-->
+                                        </table>
+                                    </div>
+
+                                    <button id="btnAddUser" type="button" class="btn-go-wrap"><i class="fas fa-chevron-left"></i></button>
+
+                                    <div class="scroll-wrap" style="float: left; width: 50%;">
+
+                                        <div class="search-wrap">
+                                            <p class="list-common-title">회원 검색</p>
+                                            <div class="select-box">
+                                                <label>키워드를 포함하는</label>
+                                                <select id="selMatch">
+                                                    <option value="like">키워드를 포함하는</option>
+                                                    <option value="match">키워드와 일치하는</option>
+                                                </select>
+                                            </div>
+                                            <div class="search-box" style="position:relative;">
+                                                <input id="nickname" type="search" placeholder="닉네임을 입력해주세요." style="width: 63%;">
+                                                <i class="search-btn fas fa-search" style="position: absolute; left: 170px;"></i>
+                                                <button class="search" type="button">검색</button>
+                                            </div>
+                                        </div>
+
+                                        <table id="dataTable">
+                                            <!--<colgroup>
+                                                <col style="width:5%">
+                                                <col style="width:65%">
+                                                <col style="width:30%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="checkbox-wrap">
+                                                            <input type="checkbox" id="c4" name="cc" />
+                                                            <label for="c4"><span></span></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>회원</th>
+                                                    <th>보유 UCD</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap">
+                                                        <input type="checkbox" id="c5" name="cc" />
+                                                        <label for="c5"><span></span></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="p-info">구구갸갸
+                                                        <span class="p-id">PID-27B32CFF-FE2A-11C3-1A38-DA81DBD01AEE</span>
+                                                    </div>
+                                                </td>
+                                                <td>12312321</td>
+                                            </tr>
+                                            </tbody>-->
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">
+                                취소 UCD (*)
+                                <i class="question-mark far fa-question-circle">
+                                    <span class="hover-text">최대 일백만UCD(1,000,000UCD)까지 가능합니다.</span>
+                                </i>
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <input id="amount" type="text" class="only-num" maxlength="7">
+                            <span class="input-num-title">UCD</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea id="content" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">메모</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea id="memo" placeholder="메모를 입력해주세요." class="length-input" name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/plugins/xlsx.full.min.js"></script>
+<script src="/assets/js/export-excel.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/ucd/ucd-cancel-user-v2.js?version=<?php echo $this->config->item('version');?>"></script>

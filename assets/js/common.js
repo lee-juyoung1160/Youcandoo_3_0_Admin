@@ -750,8 +750,7 @@
     let accessibleMenus = [
         '/', '/admin/mypage',
         '/operate/dashboard',
-        '/doit/test',
-        '/ucd/withdraw/user-v2'];
+        '/doit/test'];
     function buildAccessibleMenus(_auth)
     {
         /**

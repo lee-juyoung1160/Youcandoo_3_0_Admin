@@ -17,13 +17,10 @@ class Ucd extends MY_Controller {
     {
         switch ($Route) {
             case "user" :
-                $this->load->layout('ucd/ucd-withdraw-user');
+                $this->load->layout('ucd/ucd-withdraw-user-v2');
                 break;
             case "list":
                 $this->load->layout('ucd/ucd-withdraw-list');
-                break;
-             case "user-v2" :
-                $this->load->layout('ucd/ucd-withdraw-user-v2');
                 break;
         }
     }
@@ -40,7 +37,7 @@ class Ucd extends MY_Controller {
     {
         switch ($Route) {
             case "user" :
-                $this->load->layout('ucd/ucd-cancel-user');
+                $this->load->layout('ucd/ucd-cancel-user-v2');
                 break;
             case "list":
                 $this->load->layout('ucd/ucd-cancel-list');
@@ -56,7 +53,7 @@ class Ucd extends MY_Controller {
                 $this->load->layout('ucd/ucd-create-biz');
                 break;
             case "user":
-                $this->load->layout('ucd/ucd-create-user');
+                $this->load->layout('ucd/ucd-create-user-v2');
                 break;
         }
     }

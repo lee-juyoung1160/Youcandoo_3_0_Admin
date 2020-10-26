@@ -164,7 +164,7 @@ label.excel-btn {
     border-top: 2px solid #007aff;
 }
 .twin-table .table-wrap > div:last-child {
-    width: 50%;
+    width: 40%;
 }
 
 .top {
@@ -176,5 +176,12 @@ label.excel-btn {
 }
 .top .file-wrap {
     float: right;
+}
+.search-box {
+    position: relative;
+}
+.search-btn {
+    position: absolute;
+    left: 170px;
 }
 

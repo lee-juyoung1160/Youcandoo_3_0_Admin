@@ -457,8 +457,12 @@
 			if (!isEmpty(data))
 			{
 				let { doit_intro_img, doit_intro_vid } = data.image_urls;
-				param["intro_image_file"] = doit_intro_img;
-				param["intro_video_file"] = doit_intro_vid;
+
+				if (!isEmpty(doit_intro_img))
+					param["intro_image_file"] = doit_intro_img;
+
+				if (!isEmpty(doit_intro_vid))
+					param["intro_video_file"] = doit_intro_vid;
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);

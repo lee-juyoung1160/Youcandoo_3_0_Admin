@@ -10,15 +10,7 @@
                             <p class="sub-title important">구분 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="select-box">
-                                <label for="selEventType"></label>
-                                <select id="selEventType">
-                                    <!--<option value="event">이벤트(기본)</option>
-                                    <option value="event">이벤트(링크)</option>
-                                    <option value="event">이벤트(웹페이지)</option>
-                                    <option value="event">결과발표</option>-->
-                                </select>
-                            </div>
+                            <p class="detail-data" id="type"></p>
                         </div>
                     </div>
                 </li>
@@ -76,25 +68,6 @@
                     </div>
                 </li>
                 <!-- e: 유의사항 - 이벤트(기본), 결과발표 경우에 노출 -->
-
-                <!-- s: 웹페이지, 웹페이지 경우에 노출 -->
-                <li id="webWrap">
-                    <div class="col-wrap clearfix">
-                        <div class="col-1">
-                            <p class="sub-title important">html 파일 (*)</p>
-                        </div>
-                        <div class="col-2">
-                            <div class="filebox preview-image">
-                                <p class="cap">등록된 html 파일 경로 :</p>
-                                <p class="cap" id="webUrl"></p>
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="webFile">업로드</label>
-                                <input type="file" id="webFile" class="upload-hidden">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <!-- e: 웹페이지, 웹페이지 경우에 노출 -->
 
                 <!-- s: 본문이미지 - 이벤트(기본), 결과발표 경우에 노출 -->
                 <li id="contentImgWrap">

@@ -7,8 +7,6 @@
 	const content		= $("#content");
 	const noticeWrap	= $("#noticeWrap");
 	const notice		= $("#notice");
-	/*const webWrap		= $("#webWrap");
-	const webFile		= $("#webFile");*/
 	const contentImageWrap	= $("#contentImageWrap");
 	const contentImage	= $("#contentImage");
 	const thumbnail		= $("#thumbnail");

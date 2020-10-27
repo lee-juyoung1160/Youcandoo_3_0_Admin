@@ -114,20 +114,6 @@
 
 	}
 
-	/*function params()
-	{
-		let formData  = new FormData();
-		formData.append('notice_uuid', g_notice_uuid);
-		formData.append('notice_title', title.val().trim());
-		formData.append('notice_contents', replaceInputTextarea(content.val().trim()));
-		formData.append('reservation_date', reserveDate.val());
-		formData.append('is_exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('notice_image', contentImage[0].files[0]);
-		formData.append('create_user', sessionUserId.val());
-
-		return formData;
-	}*/
-
 	function updateReqCallback(data)
 	{
 		sweetToastAndCallback(data, updateSuccess);

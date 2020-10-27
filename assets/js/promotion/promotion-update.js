@@ -1158,8 +1158,12 @@
 			if (!isEmpty(data))
 			{
 				let { promotion_banner_image, promotion_intro_image } = data.image_urls;
-				param["promotion_banner_image"] = promotion_banner_image
-				param["promotion_intro_image"] = promotion_intro_image
+
+				if (!isEmpty(promotion_banner_image))
+					param["promotion_banner_image"] = promotion_banner_image
+
+				if (!isEmpty(promotion_intro_image))
+					param["promotion_intro_image"] = promotion_intro_image
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);

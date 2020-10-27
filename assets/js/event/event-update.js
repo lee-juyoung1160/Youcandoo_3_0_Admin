@@ -1,5 +1,5 @@
-/*사용안함: 나중에 추가될 수 있음*/
-	/*const selEventType 	= $("#selEventType");
+
+	const type 	        = $("#type");
 	const title 		= $("#title");
 	const linkWrap		= $("#linkWrap");
 	const eventLink		= $("#eventLink");
@@ -7,9 +7,6 @@
 	const content		= $("#content");
 	const noticeWrap	= $("#noticeWrap");
 	const notice		= $("#notice");
-	const webWrap		= $("#webWrap");
-	const webUrl		= $("#webUrl");
-	const webFile		= $("#webFile");
 	const contentImgWrap = $("#contentImgWrap");
 	const contentImg	= $("#contentImg");
 	const thumbnail		= $("#thumbnail");
@@ -19,14 +16,12 @@
 	const exposure		= $("input[name=radio-exposure]");
 	const btnSubmit 	= $("#btnSubmit");
 
-	$(document).ready(function () {
-		/!** 이벤트 구분 **!/
-		getEventType();
-		/!** 데이트피커 초기화 **!/
+	$(() => {
+		/** 상세 **/
+        getDetail();
+		/** 데이트피커 초기화 **/
 		initInputTodayDatepicker();
-		/!** 이벤트 **!/
-		selEventType.on('change', function () { onChangeEventType(this); });
-		webFile		.on('change', function () { onChangeWebFile(this); });
+		/** 이벤트 **/
 		contentImg	.on('change', function () { onChangeValidationImage(this); });
 		thumbnail	.on('change', function () { onChangeValidationImage(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdateEvent(); });
@@ -35,22 +30,10 @@
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailEvent,
-			type: "POST",
-			data: detailParams(),
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					alert(invalidResp(data))
-			},
-			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
-			}
-		});
+        let url 	= api.detailEvent;
+        let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, detailParams(), buildDetail, errMsg, false);
 	}
 
 	function detailParams()
@@ -61,130 +44,51 @@
 		return JSON.stringify({"idx" : eventIdx});
 	}
 
+	let g_event_uuid;
+	let g_event_type;
 	function buildDetail(data)
 	{
-		let detail 	  = data.data;
+		let detail = data.data;
+
+		g_event_type = detail.event_type;
+        g_event_uuid = detail.event_uuid;
 
 		toggleComponent(detail.event_type);
-		selEventType.val(detail.event_type);
-		title.val(detail.title);
+
+        type.html(detail.event_name);
+        title.val(detail.title);
 		content.val(replaceSelectTextarea(detail.contents));
 		notice.val(replaceSelectTextarea(detail.notice));
 		if (!isEmpty(detail.image_url))
 		{
-			let contentImgDom = '';
-			contentImgDom += '<div class="upload-display">';
-			contentImgDom += 	'<div class="upload-thumb-wrap">';
-			contentImgDom += 		'<img src="'+detail.image_url+'" class="upload-thumb">';
-			contentImgDom += 	'</div>';
-			contentImgDom += '</div>';
+			let contentImgDom =
+			    `<div class="upload-display">
+			        <div class="upload-thumb-wrap">
+			            <img src="${detail.image_url}" class="upload-thumb" onerror="onErrorImage(this)">
+                    </div>
+			    </div>`;
 
 			contentImg.parent().prepend(contentImgDom);
 		}
 		if (!isEmpty(detail.thumbnail_image_url))
 		{
-			let thumbnailDom = '';
-			thumbnailDom += '<div class="upload-display">';
-			thumbnailDom += 	'<div class="upload-thumb-wrap">';
-			thumbnailDom += 		'<img src="'+detail.thumbnail_image_url+'" class="upload-thumb">';
-			thumbnailDom += 	'</div>';
-			thumbnailDom += '</div>';
+			let thumbnailDom =
+			    `<div class="upload-display">
+			        <div class="upload-thumb-wrap">
+                        <img src="${detail.thumbnail_image_url}" class="upload-thumb" onerror="onErrorImage(this)">
+			        </div>
+			    </div>`;
 
 			thumbnail.parent().prepend(thumbnailDom);
 		}
 		eventFrom.val(detail.start_date);
 		eventTo.val(detail.end_date);
 		eventLink.val(detail.link_url);
-		if (!isEmpty(detail.web_url))
-			webUrl.html('<a href="'+detail.web_url+'" target="_blank">'+detail.web_url+'</a>');
 		exposure.each(function () {
 			if ($(this).val() === detail.is_exposure)
 				$(this).prop('checked', true);
-		})
-	}
-
-	function onChangeWebFile(obj)
-	{
-		let fileName;
-		if(window.File && window.FileReader) {
-			let siblingsDom = '.upload-name';
-			let file = obj.files[0];
-
-			if (obj.files && file) {
-				if (isHtml(obj)) {
-					fileName = file.name;
-					$(obj).siblings(siblingsDom).val(fileName);
-				}
-			} else
-				$(obj).siblings(siblingsDom).val('파일선택');
-		}
-
-		if (!isHtml(obj) && obj.files[0])
-		{
-			sweetToast(message.invalidFile);
-			$(obj).val(null);
-			$(obj).siblings('.upload-name').val('파일선택');
-		}
-	}
-
-	function isHtml(obj)
-	{
-		let file = obj.files[0];
-		if (file)
-		{
-			let fileType 	= file["type"];
-			let imageTypes 	= ["text/html"];
-
-			if ($.inArray(fileType, imageTypes) >= 0)
-				return true;
-		}
-	}
-
-	function getEventType()
-	{
-		$.ajax({
-			url: api.getEventType,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildEventType(data);
-				else
-					alert(invalidResp(data));
-			},
-			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxLoadError);
-			},
-			complete: function (xhr, status) {
-				getDetail();
-			}
 		});
-	}
-
-	function buildEventType(data)
-	{
-		let detailData 	= data.data;
-		let dataLen 	= detailData.length;
-		let optionDom 	= '';
-
-		for (let i=0; i<dataLen; i++)
-		{
-			let value = detailData[i].type;
-			let name  = detailData[i].event_name;
-
-			optionDom += '<option value="'+value+'">'+name+'</option>';
-		}
-
-		selEventType.html(optionDom);
-		onChangeSelectOption(selEventType);
-	}
-
-	function onChangeEventType(obj)
-	{
-		let selectedValue = $(obj).val();
-
-		toggleComponent(selectedValue);
+		calculateInputLength();
 	}
 
 	function toggleComponent(selectedValue)
@@ -192,7 +96,6 @@
 		if (selectedValue === 'event')
 		{
 			linkWrap.hide();
-			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
 			contentImgWrap.show();
@@ -201,7 +104,6 @@
 		else if (selectedValue === 'announce')
 		{
 			linkWrap.hide();
-			webWrap.hide();
 			contentWrap.show();
 			noticeWrap.show();
 			contentImgWrap.show();
@@ -210,16 +112,6 @@
 		else if (selectedValue === 'link')
 		{
 			linkWrap.show();
-			webWrap.hide();
-			contentWrap.hide();
-			noticeWrap.hide();
-			contentImgWrap.hide();
-			dateWrap.show();
-		}
-		else if (selectedValue === 'web')
-		{
-			webWrap.show();
-			linkWrap.hide();
 			contentWrap.hide();
 			noticeWrap.hide();
 			contentImgWrap.hide();
@@ -234,59 +126,56 @@
 
 	function isDisplay(obj)
 	{
-		if ($(obj).css('display') === 'none')
-			return false;
-
-		return true;
+        return !($(obj).css('display') === 'none');
 	}
 
 	function validation()
 	{
 		if (isEmpty(title.val()))
 		{
-			alert('제목은 ' + message.required);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(contentWrap) && isEmpty(content.val()))
 		{
-			alert('내용은 ' + message.required);
+			sweetToast(`내용은 ${message.required}`);
 			content.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
 		{
-			alert('유의사항은 ' + message.required);
+			sweetToast(`유의사항은 ${message.required}`);
 			notice.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && isEmpty(eventLink.val()))
 		{
-			alert('링크는 ' + message.required);
+			sweetToast(`링크는 ${message.required}`);
 			eventLink.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(linkWrap) && !isDomainName(eventLink.val().trim()))
 		{
-			alert('링크 형식을 ' + message.doubleChk);
+			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			eventLink.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventFrom.val()))
 		{
-			alert('기간(시작일)은 ' + message.required);
+			sweetToast(`기간(시작일)은 ${message.required}`);
 			eventFrom.trigger('focus');
 			return false;
 		}
 
 		if (isDisplay(dateWrap) && isEmpty(eventTo.val()))
 		{
-			alert('기간(종료일)은 ' + message.required);
+			sweetToast(`기간(종료일)은 ${message.required}`);
 			eventTo.trigger('focus');
 			return false;
 		}
@@ -298,50 +187,67 @@
 	{
 		if (validation())
 		{
-			if (confirm(message.modify))
-			{
-				$.ajax({
-					url: api.updateEvent,
-					type: "POST",
-					processData: false,
-					contentType: false,
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listEvent
-					},
-					error: function (request, status) {
-						alert(label.modify+message.ajaxError);
-					}
-				});
-			}
+			let callback;
+			let thumbnailImg = thumbnail[0].files;
+			let contentImg 	 = $("#contentImg")[0].files;
+			callback = (thumbnailImg.length > 0 || contentImg.length > 0) ? fileUploadReq : updateRequest;
+
+			sweetConfirm(message.modify, callback);
 		}
 	}
 
-	function params()
+	function fileUploadReq()
 	{
-		let paramThumbnailFile 	= thumbnail[0].files[0];
-		let paramFile;
-		if (isDisplay(contentImgWrap))
-			paramFile = contentImg[0].files[0];
-		if (isDisplay(webWrap))
-			paramFile = webFile[0].files[0];
-		let formData  = new FormData();
-		formData.append('event-type', selEventType.val());
-		formData.append('event-title', title.val().trim());
-		formData.append('event-contents', replaceInputTextarea(content.val().trim()));
-		formData.append('event-notice', replaceInputTextarea(notice.val().trim()));
-		formData.append('event-start-date', eventFrom.val());
-		formData.append('event-end-date', eventTo.val());
-		formData.append('event-link-url', eventLink.val().trim());
-		formData.append('event-image', paramFile);
-		formData.append('event-thumbnail-image', paramThumbnailFile);
-		formData.append('is-exposure', $('input:radio[name=radio-exposure]:checked').val());
-		formData.append('create_user', sessionUserId.val());
+		let url    = fileApi.event;
+		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('event_thumbnail_img', thumbnail[0].files[0]);
+		param.append('event_content_img', isDisplay(contentImgWrap) ? contentImg[0].files[0] : '');
 
-		return formData;
-	}*/
+		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+	}
 
+	function updateRequest(data)
+	{
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			let url 	= api.updateEvent;
+			let errMsg 	= label.modify+message.ajaxError;
+			let param = {
+				"event_uuid" : g_event_uuid,
+				"event_type" : g_event_type,
+				"event_title" : title.val().trim(),
+				"event_contents" : replaceInputTextarea(content.val().trim()),
+				"event_notice" : replaceInputTextarea(notice.val().trim()),
+				"event_link_url" : eventLink.val().trim(),
+				"event_start_date" : eventFrom.val(),
+				"event_end_date" : eventTo.val(),
+				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+			}
+
+			if (!isEmpty(data))
+			{
+				let { event_thumbnail_img, event_content_img } = data.image_urls;
+
+				if (!isEmpty(event_thumbnail_img))
+					param["event_thumbnail_image"] = event_thumbnail_img;
+
+				if (!isEmpty(event_content_img))
+					param["event_image"] = event_content_img;
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function updateReqCallback(data)
+	{
+		sweetToastAndCallback(data, updateSuccess);
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.listEvent;
+	}

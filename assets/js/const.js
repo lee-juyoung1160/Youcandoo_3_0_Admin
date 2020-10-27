@@ -235,6 +235,7 @@
 		/** 이벤트 **/
 		,createEvent : baseApiUrl+'event/create'
 		,deleteEvent : baseApiUrl+'event/delete'
+		,updateEvent : baseApiUrl+'event/update'
 		,detailEvent : baseApiUrl+'event/detail'
 		,listEvent : baseApiUrl+'event/list'
 		,getEventType : baseApiUrl+'event/type'
@@ -350,6 +351,7 @@
 
 		,listEvent : '/marketing/event'
 		,detailEvent : '/marketing/event/detail/'
+		,updateEvent : '/marketing/event/update/'
 
 		,createPush : '/marketing/push/create'
 		,listPush : '/marketing/push'

@@ -1,5 +1,5 @@
 
-	const selectedUserCount 	= $("#selectedUserCount");
+	const selectedUserCount = $("#selectedUserCount");
 	const selectedUserTable = $("#selectedUserTable");
 	const amount		= $("#amount");
 	const content 		= $("#content");

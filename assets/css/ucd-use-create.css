@@ -29,14 +29,15 @@
 .btn-go-wrap {
     float: left;
     width: 50px;
-    height: 630px;
-    margin: 0 15px;
+    height: 350px;
+    margin: 130px 20px 0;
     background: none;
     border: 1px solid #ddd;
     border-radius: 30px;
     transition: all .3s;
 }
 .btn-go-wrap:hover {
+    background-color: #007aff;
     border: 1px solid #007aff;
 }
 .btn-go-wrap i {
@@ -44,8 +45,8 @@
     transition: all .3s;
 }
 .btn-go-wrap:hover i{
-    color: #007aff;
-    padding-left: 5px;
+    color: #fff;
+    padding-right: 5px;
 }
 .add-btn {
     float: left;
@@ -67,7 +68,7 @@ label.excel-btn {
     background-color: darkgreen !important;
 }
 .excel-form-down {
-    margin: 10px 0;
+    margin: 10px;
     color: #888;
     font-size: 13px;
     font-weight: 500;
@@ -79,30 +80,30 @@ label.excel-btn {
     color: #666;
 }
 
-.nickname-modal .modal-information {
-    float: left;
-    max-height: inherit;
-    height: 650px;
-}
-.nickname-modal .user-search-wrap {
-    overflow: hidden;
-    width: 600px;
-}
-.nickname-modal .user-select-wrap {
-    overflow-y: scroll;
-    width: 630px;
-    border: 1px solid #ebebeb;
-    border-top: none;
-}
-.user-select-wrap li:first-child {
-    padding-top: 0;
-}
-.nickname-modal .table-wrap table td {
-    padding: 8px 0;
-}
-.nickname-modal .table-wrap table {
-    margin-top: 0;
-}
+/*.nickname-modal .modal-information {*/
+/*    float: left;*/
+/*    max-height: inherit;*/
+/*    height: 650px;*/
+/*}*/
+/*.nickname-modal .user-search-wrap {*/
+/*    overflow: hidden;*/
+/*    width: 600px;*/
+/*}*/
+/*.nickname-modal .user-select-wrap {*/
+/*    overflow-y: scroll;*/
+/*    width: 630px;*/
+/*    border: 1px solid #ebebeb;*/
+/*    border-top: none;*/
+/*}*/
+/*.user-select-wrap li:first-child {*/
+/*    padding-top: 0;*/
+/*}*/
+/*.nickname-modal .table-wrap table td {*/
+/*    padding: 8px 0;*/
+/*}*/
+/*.nickname-modal .table-wrap table {*/
+/*    margin-top: 0;*/
+/*}*/
 .user-select-wrap ol li {
     padding: 10px 0;
     border-bottom: 1px solid #ddd;

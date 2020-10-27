@@ -1149,6 +1149,7 @@
 		let blindClass;
 
 		if (g_is_created_by_biz && isPossibleTalk(g_doit_status))
+		{
 			innerEl +=
 				`<div class="add-talk clearfix">
                     <div class="btn-wrap">
@@ -1164,6 +1165,7 @@
 					<textarea id="addTalk" cols="30" rows="10" placeholder="내용을 입력해주세요." maxlength="800"></textarea>
                     <button onclick="onSubmitTalk();" class="completion-btn" type="submit" style="margin-top: 15px;">등록 완료</button>
                 </div>`
+		}
 
 		if (isEmpty(notice) && talkLen === 0)
 			innerEl += '<p style="margin-top: 30px;" class="empty-message">두잇톡이 없습니다.</p>';
@@ -1285,10 +1287,13 @@
 					</div>
 				</li>`
 			}
+
+			if (i === (talkLen - 1))
+				innerEl += `</ul>`
 		}
 
-	/*<div class="talk-img">
-		<img src="${detail.img}" alt="">
+		/*<div class="talk-img">
+			<img src="${detail.img}" alt="">
 		</div>*/
 
 		doitTalk.html(innerEl);

@@ -189,7 +189,7 @@
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "비고", 			data: "doit_uuid",    			width: "5%",
+				,{title: "비고", 			data: "doit_uuid",    			width: "5%",	className: "no-sort",
 					render: function (data, type, row, meta) {
 						let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);
 						let isIng = row.doit_status === '모집중';

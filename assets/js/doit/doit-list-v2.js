@@ -72,7 +72,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
+		setPageLength();
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
 		/** 테이블 데이터 로드 **/
@@ -92,6 +92,16 @@
 		initSearchDateRange();
 		initMaxDateAfterThreeMonth();
 		initDayBtn();
+	}
+
+	function setPageLength()
+	{
+		let options = '';
+		options += '<option value="10">10개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+
+		selPageLength.html(options);
+		onChangeSelectOption(selPageLength);
 	}
 
 	function setHistoryForm()
@@ -177,6 +187,8 @@
 
 	function buildList(data)
 	{
+		listWrap.empty();
+
 		let listEl = '';
 		let len = data.data.length;
 		let i = 0;
@@ -184,13 +196,19 @@
 		{
 			let { idx,
 				promotion_uuid,
+				promotion_title,
 				doit_uuid,
+				doit_thumbnail_image_url,
 				doit_status,
+				doit_private_type,
+				private_code,
 				doit_title,
 				doit_category,
+				doit_tags,
 				nickname,
 				doit_member,
 				max_user,
+				allow_gallery_image,
 				created_datetime,
 				action_start_datetime,
 				action_end_datetime,
@@ -198,7 +216,19 @@
 				action_allow_end_time,
 				action_dayofweek } = data.data[i];
 			let lineColor  = isEmpty(promotion_uuid) ? 'line-aqua' : 'line-blue';
-			let doitTypeEl = isEmpty(promotion_uuid) ? `<strong>일반</strong>` : `<strong>프로모션</strong> / <span>XXX프로모션</span>`;
+			let doitTypeEl = isEmpty(promotion_uuid) ? `<strong>일반</strong>` : `<strong>프로모션</strong> / <span>${promotion_title}</span>`;
+			let isAllowGallery = allow_gallery_image === 'Y' ? '갤러리 허용' : '갤러리 비허용';
+			let privateContentEl = doit_private_type === 'Y' ? `<i class="fas fa-eye-slash"></i> 컨텐츠 비공개` : `<i class="fas fa-eye"></i> 컨텐츠 공개`;
+			let privateEl = isEmpty(private_code)
+				? ''
+				: `<span class="item-box"><i class="fas fa-unlock-alt"></i> 비밀두잇(${private_code}) / ${privateContentEl}</span>`;
+			let tags = doit_tags.split(',');
+			let tagEl = '';
+			for (let tag of tags)
+			{
+				if (isEmpty(tag)) continue;
+				tagEl += `<li><span class="tag-name">${tag}</span></li>`;
+			}
 			let isCreatedByBiz = (!isEmpty(promotion_uuid) && nickname.indexOf('@') !== -1);
 			let isRecruiting = doit_status === '모집중';
 			let hasJoinMember = Number(doit_member) > 0;
@@ -220,21 +250,19 @@
 								<span class="badge ${getStatusColor(doit_status)}">${doit_status}</span>
 								<span class="item-box">${doitTypeEl}</span>
 								<span class="item-box"><i class="fas fa-sort-amount-down-alt"></i> ${doit_category}</span>
-								<span class="item-box"><i class="fas fa-images"></i> 갤러리 허용</span>
-								<span class="item-box"><i class="fas fa-unlock-alt"></i> 비밀두잇(0326) / <i class="fas fa-eye-slash"></i> 컨텐츠 비공개</span>
+								<span class="item-box"><i class="fas fa-images"></i> ${isAllowGallery}</span>
+								${privateEl}
 							</div>
 						</div>
 						<div class="row">
 							<div class="flex-container">
 								<p class="thumbnail-wrap" style="width: 80px; margin-left: 37px;">
-									<img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/9093eadb2df870d06e3acf06086a8644.jpg" alt="">
+									<img src="${doit_thumbnail_image_url}" alt="" onerror="onErrorImage(this)">
 								</p>
 								<div class="col">
 									<p class="sub-title">${doit_title}</p>
 									<ul class="hash-tag-list clearfix">
-										<li><span class="tag-name">#두잇태그최대열자까지</span></li>
-										<li><span class="tag-name">#두잇태그최대열자까지</span></li>
-										<li><span class="tag-name">#두잇태그최대열자까지</span></li>
+										${tagEl}
 									</ul>
 									<div class="cap">
 										<span class="item"><i class="fas fa-calendar-alt"></i> ${action_start_datetime} ~ ${action_end_datetime}</span>

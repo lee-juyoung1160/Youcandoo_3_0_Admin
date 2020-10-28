@@ -59,9 +59,9 @@ class Doit extends MY_Controller {
         }
      }
 
-     public function test()
+     public function v2()
      {
-         $this->load->layout('doit/doit-list-test');
+         $this->load->layout('doit/doit-list-v2');
      }
 }
 

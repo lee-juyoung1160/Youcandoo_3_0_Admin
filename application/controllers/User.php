@@ -16,6 +16,6 @@ class User extends MY_Controller {
     public function detail()
     {
         $data['profile_uuid'] = $this->input->post('uuid');
-        $this->load->layout('user/user-detail', $data);
+        $this->load->layout('user/user-detail', $data); 
     }
 }

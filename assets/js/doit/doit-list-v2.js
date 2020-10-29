@@ -10,6 +10,7 @@
 	const radioDoitType	= $("input[name=radio-doit-type]");
 	const chkAll		= $("#chkAll");
 	const btnCategory	= $("#btnCategory");
+	const selSort		= $("#selSort");
 	const listWrap		= $("#listWrap");
 	const pagination	= $("#dataTable_paginate");
 
@@ -36,6 +37,7 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { onChangeChkStatus(this); });
 		chkAll			.on("click", function () { toggleChkAll(this); });
+		selSort			.on("change", function () { onSubmitSearch(); });
 		btnCategory		.on("click", function () { onClickModalOpen(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -123,6 +125,8 @@
 		onChangeSelectOption(searchType);
 		selCategory.val(historyParams.category_uuid);
 		onChangeSelectOption(selCategory);
+		selSort.val(historyParams.sort+','+historyParams.sort_type);
+		onChangeSelectOption(selSort);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
 		radioDoitType.each(function () {
@@ -159,6 +163,10 @@
 				status.push($(this).val())
 		})
 
+		let sorts = selSort.val().split(',');
+		let sortValue = sorts[0];
+		let sortType  = sorts[1];
+
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : currentPage
@@ -168,6 +176,8 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status" : status
+			,"sort" : sortValue
+			,"sort_type" : sortType
 			,"category_uuid" : selCategory.val()
 			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
 		}

@@ -63,5 +63,17 @@ class Doit extends MY_Controller {
      {
          $this->load->layout('doit/doit-list-v2');
      }
+
+     public function talk($Route = "")
+     {
+         switch ($Route) {
+             case "":
+                 $this->load->layout('doit/doit-talk-list');
+                 break;
+             case "detail" :
+                 $this->load->layout('doit/doit-talk-detail');
+                 break;
+         }
+      }
 }
 

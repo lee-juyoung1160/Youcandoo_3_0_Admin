@@ -747,10 +747,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = [
-        '/', '/admin/mypage',
-        '/operate/dashboard',
-        '/doit/test'];
+    let accessibleMenus = ['/', '/admin/mypage'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -785,6 +782,7 @@
                 '/admin',
                 '/doit/category',
                 '/doit/recommend',
+                '/doit/talk',
                 '/operate/account'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {

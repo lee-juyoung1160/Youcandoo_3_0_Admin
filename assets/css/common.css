@@ -1738,6 +1738,15 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	background-color: #d9e7f5;
 }
 
+.doit-talk-list-page  .tooltip-hover-text {
+	display: none;
+	left: initial;
+	right: -250px;
+}
+.doit-talk-list-page  .tooltip-hover-text p {
+	white-space: pre-line;
+}
+
 
 /* 스위트 알럿 */
 .swal2-container {

@@ -28,4 +28,11 @@ class Operate extends MY_Controller {
                 break;
         }
     }
+
+    public function log()
+    {
+        $this->load->layout('operate/log-dashboard');
+    }
+
+
 }

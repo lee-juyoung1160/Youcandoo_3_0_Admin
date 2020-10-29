@@ -30,9 +30,9 @@
                 <div class="select-box">
                     <label for="search_type">작성자</label>
                     <select id="search_type">
-                        <option value="">작성자</option>
+                        <option value="nickname">작성자</option>
                         <option value="doit_title">두잇명</option>
-                        <option value="">내용</option>
+                        <option value="comment">내용</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -49,13 +49,13 @@
                 <li>
                     <p class="list-common-title">신고 여부</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="aa" value=""/>
+                        <input type="radio" id="r2" name="radio-report" value="all"/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="aa" value=""/>
+                        <input type="radio" id="r3" name="radio-report" value="Y"/>
                         <label for="r3"><span></span>Y</label>
 
-                        <input type="radio" id="r4" name="aa" value=""/>
+                        <input type="radio" id="r4" name="radio-report" value="N"/>
                         <label for="r4"><span></span>N</label>
                     </div>
                 </li>
@@ -172,58 +172,9 @@
         </div>
     </div>
 
-    <div class="modal-content">
-        <div class="wrap">
-            <i class="close-btn">×</i>
-            <p class="modal-title">
-                두잇 카테고리 관리
-            </p>
-            <ul class="modal-information">
-                <li>
-                    <div class="table-wrap" style="margin-top: 0;">
-                        <table id="categoryTable" style="margin-top: 0;">
-                            <!--<colgroup>
-                                <col style="width:10%;">
-                                <col style="width:90%;">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>카테고리 명</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c12" name="cc" />
-                                        <label for="c12"><span></span></label>
-                                    </div>
-                                </td>
-                                <td>학습</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrap">
-                                        <input type="checkbox" id="c13" name="cc" />
-                                        <label for="c13"><span></span></label>
-                                    </div>
-                                </td>
-                                <td>기타</td>
-                            </tr>
-                            </tbody>-->
-                        </table>
-                    </div>
-                </li>
-            </ul>
-            <button id="btnSubmit" class="completion-btn" type="submit">적용 완료</button>
-        </div>
-    </div>
-    <div class="modal-layout"></div>
-
 </section>
 <script src="/assets/js/plugins/tablesort.min.js"></script>
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/js/dev.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/doit/doit-talk-list.js?version=<?php echo $this->config->item('version');?>"></script>

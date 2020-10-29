@@ -115,7 +115,7 @@
 				,{title: "제목", 	data: "title",   			width: "30%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailFaq + row.idx;
-						return '<a href="'+detailUrl+'">' + data + '</a>';
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
 				,{title: "노출여부", data: "is_exposure",  		width: "10%",   className: "no-sort",

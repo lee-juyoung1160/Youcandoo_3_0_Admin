@@ -194,6 +194,8 @@
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
+		,detailTalk : baseApiUrl+'doit/talk/detail'
+		,listComment : baseApiUrl+'doit/talk/commentDetail'
 		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'

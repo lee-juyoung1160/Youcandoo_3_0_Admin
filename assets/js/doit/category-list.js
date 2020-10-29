@@ -68,7 +68,7 @@
 				}
 				,{title: "카테고리명", 	data: "category",    			width: "40%",
 					render: function (data, type, row, meta) {
-						let detailUrl	= page.detailDoitCategory + row.idx;
+						let detailUrl = page.detailDoitCategory + row.idx;
 						return `<a href="${detailUrl}">${row.category}</a>`;
 					}
 				}

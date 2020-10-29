@@ -158,7 +158,7 @@
 				,{title: "카테고리", 		data: "doit_category",  		width: "8%",    className: "no-sort" }
 				,{title: "두잇명", 			data: "doit_title",    			width: "15%",
 					render: function (data, type, row, meta) {
-						let detailUrl	= page.detailDoit + row.idx;
+						let detailUrl = page.detailDoit + row.idx;
 						return `<a class="line-clamp" title="${row.doit_title}" href="${detailUrl}">${row.doit_title}</a>`;
 					}
 				}
@@ -208,7 +208,7 @@
 			},
 			destroy: false,
 			initComplete: function () {
-				$(this).on( 'page.dt', function () {
+				$(this).on('page.dt', function () {
 					_page = getCurrentPage(this);
 					uncheckedCheckAll();
 				});

@@ -41,6 +41,29 @@
 		initDayBtn();
 	}
 
+	let _page = 1;
+	function setHistoryForm()
+	{
+		let historyParams = getHistoryParam();
+
+		dateFrom.val(historyParams.from_date);
+		dateTo.val(historyParams.to_date);
+		keyword.val(historyParams.keyword);
+		searchType.val(historyParams.search_type);
+		dateType.val(historyParams.date_type);
+		onChangeSelectOption(dateType);
+		searchType.val(historyParams.search_type);
+		onChangeSelectOption(searchType);
+		selPageLength.val(historyParams.limit);
+		onChangeSelectOption(selPageLength);
+		isReport.each(function () {
+			if ($(this).val() === historyParams.is_report)
+				$(this).prop("checked", true);
+		});
+
+		_page = historyParams.page;
+	}
+
 	function buildGrid()
 	{
 		dataTable.DataTable({
@@ -70,18 +93,19 @@
 				,{title: "구분",    		data: "divide",  		width: "5%" }
 				,{title: "내용",    		data: "idx",  			width: "30%",
 					render: function (data, type, row, meta) {
-						let detailUrl	= page.updateDoitRecommend + row.idx;
+						let detailUrl = page.updateDoitRecommend + row.idx;
 						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
 					}
 				}
 				,{title: "신고",    		data: "report",  		width: "5%" }
-				,{title: "두잇명",    	data: "idx",  			width: "15%",
+				,{title: "두잇명",    	data: "doit_title",  	width: "15%",
 					render: function (data, type, row, meta) {
-						return `<a onclick="moveDetail(this);" data-uuid="${row.board_uuid}">${data}</a>`;
+						let detailUrl = page.detailDoit + row.doit_idx;
+						return `<a href="${detailUrl}" >${data}</a>`;
 					}
 				}
 				,{title: "블라인드",    	data: "is_blind",  			width: "5%" }
-				,{title: "등록일",    	data: "created_datetime",  	width: "10%" }
+				,{title: "등록일시",    	data: "created_datetime",  	width: "10%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -92,11 +116,18 @@
 			},
 			destroy: false,
 			initComplete: function (settings, json) {
+				$(this).on('page.dt', function () {
+					_page = getCurrentPage(this);
+					uncheckedCheckAll();
+				});
+				redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData, displayNum, displayIndex, dataIndex ) {
 				/*setRowAttributes(nRow, aData, dataIndex)*/
 			},
 			drawCallback: function (settings) {
+				buildTotalCount(this);
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -126,21 +157,6 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
-	}
-
-	function buildSwitch(data)
-	{
-		/** 개설가능여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_exposure === 'Y' ? 'checked' : '';
-		return (
-			`<div class="toggle-btn-wrap">
-				<div class="toggle-btn on">
-					<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
-					<div class="knobs"></div>
-					<div class="layer"></div>
-				</div>
-			</div>`
-		)
 	}
 
 	let changeParams;
@@ -202,6 +218,9 @@
 
 	function onSubmitSearch()
 	{
+		_page = 1;
 		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
+		initMaxDateToday();
 	}

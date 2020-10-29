@@ -125,6 +125,8 @@
 		onChangeSelectOption(searchType);
 		selCategory.val(historyParams.category_uuid);
 		onChangeSelectOption(selCategory);
+		selSort.val(historyParams.sort+','+historyParams.sort_type);
+		onChangeSelectOption(selSort);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
 		radioDoitType.each(function () {

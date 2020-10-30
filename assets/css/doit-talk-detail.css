@@ -63,6 +63,7 @@
 .open-box .container {
     padding: 10px;
     font-size: 14px;
+    background-color: #eee;
 }
 .comment-wrap {
     padding-left: 100px;
@@ -101,14 +102,24 @@
     color: #666;
 }
 .btn-blind {
-    color: #f46600;
+    color: coral;
     font-size: 14px;
     font-weight: 600;
     background: none;
-    border-bottom: 1px solid #f46600;
+    border-bottom: 1px solid coral;
 }
 .btn-blind i {
     color: #f46600 !important;
+}
+.btn-no-blind {
+    color: #f39c12;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    border-bottom: 1px solid #f39c12;
+}
+.btn-no-blind i {
+    color: #f39c12;
 }
 .btn-comment {
     margin-left: 15px;

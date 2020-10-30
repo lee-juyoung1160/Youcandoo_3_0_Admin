@@ -1321,12 +1321,12 @@ input[type="checkbox"]:disabled + label span{
 	transform: scale(1.08);
 }
 .modal-content.confirm-modal-detail {
-	width: 1130px;
-	height: 745px;
+	width: 1070px;
+	max-height: 800px;
 }
 .modal-content.confirm-modal-detail .modal-information {
 	float: left;
-	max-height: 700px;
+	max-height: 740px;
 }
 .modal-content.confirm-modal-detail .audio-contents {
 	position: relative;
@@ -1342,6 +1342,12 @@ input[type="checkbox"]:disabled + label span{
 	width: 100%;
 	height: 350px;
 	background-color: #000;
+}
+.modal-content.confirm-modal-detail .modal-information .text-wrap {
+	margin: 20px 0;
+	color: #666;
+	font-size: 14px;
+	line-height: 1.2em;
 }
 .modal-content.confirm-modal-detail ul li:first-child video {
 	height: 650px;

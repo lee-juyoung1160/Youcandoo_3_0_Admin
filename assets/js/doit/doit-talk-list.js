@@ -8,6 +8,8 @@
 	const isReport 		= $("input[name=radio-report]");
 	const selPageLength	= $("#selPageLength");
 	const btnBlind		= $("#btnBlind");
+	const btnUnBlind	= $("#btnUnBlind");
+	let g_is_blind;
 
 	$( () => {
 		/** dataTable default config **/
@@ -28,7 +30,8 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnBlind      	.on("click", function () { onClickBlind(); });*/
+		/*btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
+		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });*/
 	});
 
 	function initSearchForm()
@@ -85,11 +88,11 @@
 					}
 				},
 				{title: "유형",    		data: "talk_type",		width: "5%" }
-				/*,{title: "구분",    		data: "divide",  		width: "5%" }*/
 				,{title: "내용",    		data: "contents",		width: "30%",
 					render: function (data, type, row, meta) {
 						return (
-							`<a onclick="moveDetail(this);" 
+							`<a onclick="moveDetail(this);"
+								onmouseenter="" 
 								class="line-clamp" 
 								style="max-width: 480px" 
 								data-uuid="${row.board_uuid}" 
@@ -146,11 +149,6 @@
 		});
 	}
 
-	function setRowAttributes(nRow, aData, dataIndex)
-	{
-		$(nRow).attr('data-uuid', aData.recommend_uuid);
-	}
-
 	function tableParams()
 	{
 		let param = {
@@ -169,62 +167,61 @@
 		return JSON.stringify(param);
 	}
 
-	let changeParams;
-	function changeStatus(obj)
+	/** 블라인드 처리 **/
+	function toggleBlind()
 	{
-		changeParams   = {
-			"idx" : $(obj).data('idx'),
-			"is_exposure" : $(obj).hasClass('checked') ? 'N' : 'Y'
+		if (blindValidation())
+			sweetConfirm(message.delete, blindRequest);
+	}
+
+	function blindValidation()
+	{
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		if (isEmpty(selectedData))
+		{
+			sweetToast(`대상을 목록에서 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function blindRequest()
+	{
+		let url 	= api.blindTalk;
+		let errMsg 	= label.modify+message.ajaxError;
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		let boards = [];
+		let comments = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let { board_idx, comment_idx } = selectedData[i];
+			if (!isEmpty(board_idx)) boards.push(board_idx);
+			if (!isEmpty(comment_idx)) comments.push(comment_idx);
+		}
+
+		let params = {
+			"board_list" : boards,
+			"comment_list" : comments,
+			"is_blind" : g_is_blind
 		};
 
-		sweetConfirm(`상태를 ${message.change}`, changeRequest);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(params), blindReqCallback, errMsg, false);
 	}
 
-	function changeRequest()
+	function blindReqCallback(data)
 	{
-		let url     = api.exposureDoitRecommend;
-		let errMsg 	= label.modify+message.ajaxError;
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
+		sweetToastAndCallback(data, blindSuccess);
 	}
 
-	function changeStatusCallback(data)
-	{
-		sweetToastAndCallback(data, changeStatusSuccess);
-	}
-
-	function changeStatusSuccess()
+	function blindSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
 	}
-
-	/** 추천두잇 삭제 **/
-	let g_delete_idx;
-	function deleteRecommend(idx)
-	{
-		g_delete_idx = idx;
-		sweetConfirm(message.delete, deleteRequest);
-	}
-
-	function deleteRequest()
-	{
-		let url 	= api.deleteDoitRecommend;
-		let errMsg 	= label.delete+message.ajaxError;
-		let param 	= { "idx" : g_delete_idx };
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteSuccess);
-	}
-
-	function deleteSuccess()
-	{
-		tableReloadAndStayCurrentPage(dataTable);
-	}
-
 
 	function onSubmitSearch()
 	{

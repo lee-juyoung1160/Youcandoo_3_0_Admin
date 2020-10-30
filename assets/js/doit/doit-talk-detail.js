@@ -68,8 +68,7 @@
 	function getCommentsCallback(data)
 	{
 		buildComments(data);
-		if (data.data.length > 0)
-			buildPagination(data);
+		buildPagination(data);
 	}
 
 	function buildComments(data)
@@ -80,7 +79,7 @@
 			let comments = data.data;
 			if (comments.length > 0)
 			{
-				for (let { board_comment_uuid, nickname, contents, comment_count, is_blind, created} of comments)
+				for (let { comment_idx, board_comment_uuid, nickname, contents, comment_count, is_blind, created} of comments)
 				{
 					let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
 					let btnBlind = is_blind === 'Y'
@@ -131,9 +130,9 @@
 
 	function buildPagination(data)
 	{
-		let totalCount  = data.size;
+		let totalCount  = data.data.length;
 		let lastPage	= Math.ceil(totalCount / selPageLength.val());
-
+console.log(lastPage)
 		pagination.html(paginate(currentPage, lastPage));
 	}
 
@@ -144,13 +143,13 @@
 
 		currentPage = $(obj).data('page');
 
-		getDetail();
+		getComments();
 	}
 
 	function onChangeSelPageLength()
 	{
 		currentPage = 1;
-		getDetail();
+		getComments();
 	}
 
 	let g_board_comment_uuid;
@@ -183,7 +182,7 @@
 			`<div class="open-box">
 				<div class="container">
 					<ul class="comment-wrap">`
-						for (let { nickname, contents, is_blind, created } of data.data)
+						for (let { comment_idx, nickname, contents, is_blind, created } of data.data)
 						{
 							let btnBlindEl = is_blind === 'Y'
 								? `<button type="button" class="btn-blind btn-no-blind"><i class="fas fa-eye"></i> 블라인드해제</button>`

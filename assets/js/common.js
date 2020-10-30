@@ -1102,7 +1102,7 @@
             }
         }
 
-        pageDom += _lastPage === _currentPage ?
+        pageDom += _lastPage === _currentPage || Number(_lastPage) === 0 ?
             `</span><a class="paginate_button next disabled" id="dataTable_next">${label.next}</a>` :
             `</span><a onclick="onClickPageNum(this)" 
 						class="paginate_button next" 

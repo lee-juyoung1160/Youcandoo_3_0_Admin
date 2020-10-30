@@ -236,7 +236,7 @@
 			columns: [
 				{title: "두잇명", 			data: "doit_title",    			width: "30%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailDoit+row.idx;
+						let detailUrl = page.detailDoit + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}

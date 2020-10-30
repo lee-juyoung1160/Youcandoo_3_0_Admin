@@ -24,8 +24,9 @@
 
 
 .enrollment-title {
+    display: inline-block;
+    float: left;
     color: #333;
-    padding: 50px 0 10px;
     font-size: 18px;
     font-weight: 600;
 }

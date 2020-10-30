@@ -9,6 +9,7 @@
 	const selPageLength	= $("#selPageLength");
 	const commentWarp 	= $("#commentWarp");
 	const pagination	= $("#dataTable_paginate");
+	const g_board_uuid  = $("#board_uuid").val();
 	let currentPage = 1;
 
 	$( () => {
@@ -28,7 +29,7 @@
 		let url 	= api.detailTalk;
 		let errMsg 	= `두잇톡 ${label.detailContent}${message.ajaxError}`;
 		let param   = {
-			"board_uuid" : "BRI-89B26258-3B5A-5BE2-A66A-CF2C2B41DFBA"
+			"board_uuid" : g_board_uuid
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDeatilCallback, errMsg, false);
@@ -56,7 +57,7 @@
 		let url 	= api.listComment;
 		let errMsg 	= `댓글 목록 ${message.ajaxLoadError}`;
 		let param   = {
-			"board_uuid" : "BRI-89B26258-3B5A-5BE2-A66A-CF2C2B41DFBA"
+			"board_uuid" : g_board_uuid
 			,"page" : currentPage
 			,"limit" : Number(selPageLength.val())
 		}
@@ -67,7 +68,8 @@
 	function getCommentsCallback(data)
 	{
 		buildComments(data);
-		buildPagination(data);
+		if (data.data.length > 0)
+			buildPagination(data);
 	}
 
 	function buildComments(data)
@@ -76,11 +78,13 @@
 		if (isSuccessResp(data))
 		{
 			let comments = data.data;
-			for (let { board_comment_uuid, nickname, contents, comment_count, created} of comments)
+			if (comments.length > 0)
 			{
-				let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
-				commentEl +=
-					`<div class="card">
+				for (let { board_comment_uuid, nickname, contents, comment_count, created} of comments)
+				{
+					let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
+					commentEl +=
+						`<div class="card">
 						<div class="card-body line-aqua">
 							<div class="row">
 								<div class="flex-container left-wrap">
@@ -110,18 +114,21 @@
 							</div>
 						</div>
 					</div>`
+				}
 			}
+			else
+				commentEl += `<p class="empty-message">작성된 댓글이 없습니다.</p>`
 		}
 		else
 			sweetError(invalidResp(data));
 
-		totalCount.html(data.data.size);
+		totalCount.html(data.size);
 		commentWarp.html(commentEl);
 	}
 
 	function buildPagination(data)
 	{
-		let totalCount  = data.comment.size;
+		let totalCount  = data.size;
 		let lastPage	= Math.ceil(totalCount / selPageLength.val());
 
 		pagination.html(paginate(currentPage, lastPage));

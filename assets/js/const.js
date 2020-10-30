@@ -346,6 +346,7 @@
 		,listDoitCategory : '/doit/category'
 		,detailDoitCategory : '/doit/category/detail/'
 		,updateDoitCategory : '/doit/category/update/'
+		,detailTalk: '/doit/talk/detail'
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'

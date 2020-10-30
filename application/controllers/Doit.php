@@ -71,7 +71,8 @@ class Doit extends MY_Controller {
                  $this->load->layout('doit/doit-talk-list');
                  break;
              case "detail" :
-                 $this->load->layout('doit/doit-talk-detail');
+                 $data['board_uuid'] = $this->input->post('uuid');
+                 $this->load->layout('doit/doit-talk-detail', $data);
                  break;
          }
       }

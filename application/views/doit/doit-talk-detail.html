@@ -106,11 +106,6 @@
                 </div>
             </div>
 
-
-
-
-
-
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
                     <a class="list-btn" onclick="historyBack();">이전</a>
@@ -119,6 +114,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="board_uuid" value="<?php if(isset($board_uuid)) echo $board_uuid ?>"/>
 </section>
 
 <script src="/assets/js/doit/doit-talk-detail.js?version=<?php echo $this->config->item('version');?>"></script>

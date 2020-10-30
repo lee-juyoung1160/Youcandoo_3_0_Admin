@@ -84,28 +84,42 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				},
-				{title: "작성자",    	data: "nickname",  		width: "15%",
+				{title: "유형",    		data: "talk_type",		width: "5%" }
+				/*,{title: "구분",    		data: "divide",  		width: "5%" }*/
+				,{title: "내용",    		data: "contents",		width: "30%",
 					render: function (data, type, row, meta) {
-						return `<a onclick="moveDetail(this);" data-uuid="${row.profile_uuid}" data-target="${page.detailAccount}">${data}</a>`;
+						return (
+							`<a onclick="moveDetail(this);" 
+								class="line-clamp" 
+								style="max-width: 480px" 
+								data-uuid="${row.board_uuid}" 
+								data-target="${page.detailTalk}">${data}</a>`
+						)
 					}
 				}
-				,{title: "유형",    		data: "type",  			width: "5%" }
-				,{title: "구분",    		data: "divide",  		width: "5%" }
-				,{title: "내용",    		data: "idx",  			width: "30%",
+				,{title: "작성자",    	data: "nickname",  		width: "15%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.updateDoitRecommend + row.idx;
-						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
+						return (
+							data.includes('@')
+								? data
+								: `<a onclick="moveDetail(this);" data-uuid="${row.profile_uuid}" data-target="${page.detailAccount}">${data}</a>`
+						)
 					}
 				}
 				,{title: "신고",    		data: "report",  		width: "5%" }
+				,{title: "댓글",    		data: "comment",  		width: "5%" }
+				,{title: "블라인드",    	data: "is_blind",  		width: "5%",
+					render: function (data) {
+						return data === 'Y' ? label.blind : label.unblind;
+					}
+				}
 				,{title: "두잇명",    	data: "doit_title",  	width: "15%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.doit_idx;
 						return `<a href="${detailUrl}" >${data}</a>`;
 					}
 				}
-				,{title: "블라인드",    	data: "is_blind",  			width: "5%" }
-				,{title: "등록일시",    	data: "created_datetime",  	width: "10%" }
+				,{title: "등록일시",    	data: "created",  		width: "10%" }
 			],
 			serverSide: true,
 			paging: true,

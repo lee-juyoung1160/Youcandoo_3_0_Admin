@@ -1,4 +1,11 @@
 
+	const typeEl 		= $("#type");
+	const nicknameEl 	= $("#nickname");
+	const likeEl 		= $("#like");
+	const reportEl 		= $("#report");
+	const contentEl 	= $("#content");
+	const doitTitleEl 	= $("#doitTitle");
+	const commentWarp 	= $("#commentWarp");
 
 	$( () => {
 		/** 상세 **/
@@ -28,11 +35,53 @@
 	function buildDeatail(_data)
 	{
 		let { board_uuid, doit_title, is_notice, like, nickname, report, text_body } = _data.data;
+
+		typeEl.html(is_notice === 'Y' ? '공지' : '일반');
+		nicknameEl.html(nickname);
+		likeEl.html(numberWithCommas(like));
+		reportEl.html(numberWithCommas(report));
+		contentEl.html(text_body);
+		doitTitleEl.html(`<a href="${page.detailDoit}">${doit_title}</a>`);
+
+		let commentEl = '';
 		let comments = _data.comment.data;
 		for (let { board_comment_uuid, nickname, comment_text, comment_count, created} of comments)
 		{
-			console.log(nickname)
+			let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
+			commentEl +=
+				`<div class="card">
+					<div class="card-body line-aqua">
+						<div class="row">
+							<div class="flex-container left-wrap">
+								<div class="col">
+									<strong class="nickname">${nickname}</strong>
+								</div>
+								<div class="col">
+									<p class="comment-1">${comment_text}</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<button type="button" class="btn-comment" ${hasComment}>
+								<i class="fas fa-comment"></i> <span>${numberWithCommas(comment_count)}</span>
+							</button>
+						</div>
+	
+						<div class="right-wrap">
+							<div class="flex-container">
+								<div class="col">
+									<span class="date">${created}</span>
+								</div>
+								<div class="col">
+									<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>`
 		}
+
+		commentWarp.html(commentEl);
 	}
 
 	let g_board_comment_uuid;

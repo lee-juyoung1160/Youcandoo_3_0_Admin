@@ -195,7 +195,7 @@
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
 		,detailTalk : baseApiUrl+'doit/talk/detail'
-		,listChildComment : baseApiUrl+'doit/talk/commentDetail'
+		,listLargeComment : baseApiUrl+'doit/talk/commentDetail'
 		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'

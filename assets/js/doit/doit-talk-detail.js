@@ -6,6 +6,7 @@
 	const contentEl 	= $("#content");
 	const doitTitleEl 	= $("#doitTitle");
 	const commentWarp 	= $("#commentWarp");
+	let currentPage = 1;
 
 	$( () => {
 		/** 상세 **/
@@ -62,7 +63,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<button type="button" class="btn-comment" ${hasComment}>
+							<button onclick="viewLargeComments('${board_comment_uuid}')" type="button" class="btn-comment" ${hasComment}>
 								<i class="fas fa-comment"></i> <span>${numberWithCommas(comment_count)}</span>
 							</button>
 						</div>
@@ -85,15 +86,15 @@
 	}
 
 	let g_board_comment_uuid;
-	function onClickComment(obj)
+	function viewLargeComments(uuid)
 	{
-		g_board_comment_uuid = "BCU-132A269B-480C-34DD-4DE8-70C824C96C48"//$(obj).data('uuid');
-		detailChildCommentRequest();
+		g_board_comment_uuid = uuid;//"BCU-132A269B-480C-34DD-4DE8-70C824C96C48";
+		getLargeCommentsRequest();
 	}
 
-	function detailChildCommentRequest()
+	function getLargeCommentsRequest()
 	{
-		let url = api.listChildComment;
+		let url = api.listLargeComment;
 		let errMsg 	= `대댓글 ${message.ajaxLoadError}`;
 		let param = {
 			"board_comment_uuid": g_board_comment_uuid,
@@ -101,5 +102,10 @@
 			"limit": "10"
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDeatilCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildLargeComments, errMsg, false);
+	}
+
+	function buildLargeComments(data)
+	{
+		console.log(data)
 	}

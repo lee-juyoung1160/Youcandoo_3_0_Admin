@@ -21,7 +21,7 @@
 		/** 뒤로가기 액션일때 검색폼 세팅 **/
 		if (isBackAction()) setHistoryForm();
 		/** 목록 불러오기 **/
-		/*buildGrid();*/
+		buildGrid();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -68,7 +68,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listDoitRecommendv2,
+				url: api.listTalk,
 				type: "POST",
 				headers: headers,
 				data: function (d) {
@@ -139,17 +139,13 @@
 
 	function tableParams()
 	{
-		let table = dataTable.DataTable();
-		let info = table.page.info();
-		let _page = (info.start / info.length) + 1;
-
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
+			,"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
-			,"keyword_type" : selMatch.val()
 			,"keyword" : keyword.val()
 		}
 

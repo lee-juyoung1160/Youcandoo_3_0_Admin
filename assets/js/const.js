@@ -194,8 +194,10 @@
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
+		,listTalk : baseApiUrl+'doit/talk/list'
 		,detailTalk : baseApiUrl+'doit/talk/detail'
-		,listLargeComment : baseApiUrl+'doit/talk/commentDetail'
+		,listComment : baseApiUrl+'doit/talk/commentDetail'
+		,listLargeComment : baseApiUrl+'doit/talk/commentsDetail'
 		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'

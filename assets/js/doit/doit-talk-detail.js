@@ -5,13 +5,19 @@
 	const reportEl 		= $("#report");
 	const contentEl 	= $("#content");
 	const doitTitleEl 	= $("#doitTitle");
+	const totalCount	= $(".data-num");
+	const selPageLength	= $("#selPageLength");
 	const commentWarp 	= $("#commentWarp");
+	const pagination	= $("#dataTable_paginate");
 	let currentPage = 1;
 
 	$( () => {
+		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		initPageLength(selPageLength);
 		/** 상세 **/
 		getDetail();
 		/** 이벤트 **/
+		selPageLength.on('change', function () { onChangeSelPageLength() });
 	});
 
 	/** 기본정보 **/
@@ -21,16 +27,23 @@
 		let errMsg 	= `두잇톡 ${label.detailContent}${message.ajaxError}`;
 		let param   = {
 			"board_uuid" : "BRI-89B26258-3B5A-5BE2-A66A-CF2C2B41DFBA"
-			,"page" : 1
-			,"limit" : 10
+			,"page" : currentPage
+			,"limit" : Number(selPageLength.val())
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDeatilCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDeatilCallback, errMsg, false);
 	}
 
 	function getDeatilCallback(data)
 	{
-		isSuccessResp(data) ? buildDeatail(data) : sweetError(invalidResp(data));
+		if (isSuccessResp(data))
+		{
+			totalCount.html(data.comment.size);
+			buildDeatail(data)
+			buildPagination(data);
+		}
+		else
+			sweetError(invalidResp(data));
 	}
 
 	function buildDeatail(_data)
@@ -63,7 +76,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<button onclick="viewLargeComments('${board_comment_uuid}')" type="button" class="btn-comment" ${hasComment}>
+							<button onclick="viewLargeComments(this)" id="${board_comment_uuid}" type="button" class="btn-comment" ${hasComment}>
 								<i class="fas fa-comment"></i> <span>${numberWithCommas(comment_count)}</span>
 							</button>
 						</div>
@@ -85,10 +98,36 @@
 		commentWarp.html(commentEl);
 	}
 
-	let g_board_comment_uuid;
-	function viewLargeComments(uuid)
+	function buildPagination(data)
 	{
-		g_board_comment_uuid = uuid;//"BCU-132A269B-480C-34DD-4DE8-70C824C96C48";
+		let totalCount  = data.comment.size;
+		let lastPage	= Math.ceil(totalCount / selPageLength.val());
+
+		pagination.html(paginate(currentPage, lastPage));
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		currentPage = $(obj).data('page');
+
+		getDetail();
+	}
+
+	function onChangeSelPageLength()
+	{
+		currentPage = 1;
+		getDetail();
+	}
+
+	let g_board_comment_uuid;
+	let g_comment_element;
+	function viewLargeComments(obj)
+	{
+		g_board_comment_uuid = obj.id;
+		g_comment_element = $(obj).closest('.card');
 		getLargeCommentsRequest();
 	}
 
@@ -107,5 +146,34 @@
 
 	function buildLargeComments(data)
 	{
-		console.log(data)
+		$(".open-box").remove();
+
+		let largeCommentsEl =
+			`<div class="open-box">
+				<div class="container">
+					<ul class="comment-wrap">`
+						for (let { nickname, comment_text, is_blind, created } of data.data)
+						{
+							let btnBlindEl = is_blind === 'Y' ? `<i class="fas fa-eye"></i> 블라인드해제` : `<i class="fas fa-eye-slash"></i> 블라인드처리`
+							largeCommentsEl +=
+								`<li>
+									<div class="left-wrap">
+										└
+										<strong class="nickname">${nickname}</strong>
+										<p class="comment-2">${comment_text}</p>
+									</div>
+									<div class="right-wrap">
+										<span class="date">${created}</span>
+										<button type="button" class="btn-blind">
+											${btnBlindEl}
+										</button>
+									</div>
+								</li>`
+						}
+		largeCommentsEl	+=
+					`</ul>
+				</div>
+			</div>`
+
+		g_comment_element.append(largeCommentsEl);
 	}

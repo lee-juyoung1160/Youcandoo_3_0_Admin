@@ -229,9 +229,7 @@
 				</div>
 				<div class="detail-data-wrap clearfix">
 					<p class="sub-tit">1인 지급 최대 UCD</p>
-					<p class="detail-data">
-						${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(personReward)} UCD / 단체: ${numberWithCommas(groupReward)} UCD)
-					</p>
+					<p class="detail-data">${numberWithCommas(totalReward)} UCD (개인: ${numberWithCommas(personReward)} UCD / 단체: ${numberWithCommas(groupReward)} UCD)</p>
 				</div>`
 		if (!isEmpty(detail.promotion_uuid))
 		{

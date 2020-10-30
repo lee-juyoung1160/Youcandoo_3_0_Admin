@@ -42,14 +42,14 @@
 
 	function buildDetail(_data)
 	{
-		let { board_uuid, idx, doit_title, talk_type, like, nickname, report, contents } = _data.data;
+		let { doit_idx, doit_title, talk_type, like, nickname, report, contents } = _data.data;
 
 		typeEl.html(talk_type);
 		nicknameEl.html(nickname);
 		likeEl.html(numberWithCommas(like));
 		reportEl.html(numberWithCommas(report));
 		contentEl.html(contents);
-		doitTitleEl.html(`<a href="${page.detailDoit}${idx}">${doit_title}</a>`);
+		doitTitleEl.html(`<a href="${page.detailDoit}${doit_idx}">${doit_title}</a>`);
 	}
 
 	function getComments()
@@ -80,40 +80,43 @@
 			let comments = data.data;
 			if (comments.length > 0)
 			{
-				for (let { board_comment_uuid, nickname, contents, comment_count, created} of comments)
+				for (let { board_comment_uuid, nickname, contents, comment_count, is_blind, created} of comments)
 				{
 					let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
+					let btnBlind = is_blind === 'Y'
+						? `<button type="button" class="btn-blind btn-no-blind"><i class="fas fa-eye"></i> 블라인드해제</button>`
+						: `<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>`
 					commentEl +=
 						`<div class="card">
-						<div class="card-body line-aqua">
-							<div class="row">
-								<div class="flex-container left-wrap">
-									<div class="col">
-										<strong class="nickname">${nickname}</strong>
+							<div class="card-body line-aqua">
+								<div class="row">
+									<div class="flex-container left-wrap">
+										<div class="col">
+											<strong class="nickname">${nickname}</strong>
+										</div>
+										<div class="col">
+											<p class="comment-1">${contents}</p>
+										</div>
 									</div>
-									<div class="col">
-										<p class="comment-1">${contents}</p>
+								</div>
+								<div class="row">
+									<button onclick="viewLargeComments(this)" id="${board_comment_uuid}" type="button" class="btn-comment" ${hasComment}>
+										<i class="fas fa-comment"></i> <span>${numberWithCommas(comment_count)}</span>
+									</button>
+								</div>
+			
+								<div class="right-wrap">
+									<div class="flex-container">
+										<div class="col">
+											<span class="date">${created}</span>
+										</div>
+										<div class="col">
+											${btnBlind}
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<button onclick="viewLargeComments(this)" id="${board_comment_uuid}" type="button" class="btn-comment" ${hasComment}>
-									<i class="fas fa-comment"></i> <span>${numberWithCommas(comment_count)}</span>
-								</button>
-							</div>
-		
-							<div class="right-wrap">
-								<div class="flex-container">
-									<div class="col">
-										<span class="date">${created}</span>
-									</div>
-									<div class="col">
-										<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>`
+						</div>`
 				}
 			}
 			else
@@ -183,8 +186,8 @@
 						for (let { nickname, contents, is_blind, created } of data.data)
 						{
 							let btnBlindEl = is_blind === 'Y'
-								? `<i class="fas fa-eye"></i> 블라인드해제`
-								: `<i class="fas fa-eye-slash"></i> 블라인드처리`;
+								? `<button type="button" class="btn-blind btn-no-blind"><i class="fas fa-eye"></i> 블라인드해제</button>`
+								: `<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>`;
 							largeCommentsEl +=
 								`<li>
 									<div class="left-wrap">
@@ -194,9 +197,7 @@
 									</div>
 									<div class="right-wrap">
 										<span class="date">${created}</span>
-										<button type="button" class="btn-blind">
-											${btnBlindEl}
-										</button>
+										${btnBlindEl}
 									</div>
 								</li>`
 						}
@@ -206,4 +207,23 @@
 			</div>`
 
 		g_comment_element.append(largeCommentsEl);
+	}
+
+	function toggleBlind(idx)
+	{
+		let url = api.blindComment;
+		let errMsg = `블라인드 ${message.ajaxError}`;
+		let param = { "idx" : idx }
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), toggleBlindCallback, errMsg, false);
+	}
+
+	function toggleBlindCallback(data)
+	{
+		sweetToastAndCallback(data, toggleSuccess);
+	}
+
+	function toggleSuccess()
+	{
+		location.href = page.listTalk;
 	}

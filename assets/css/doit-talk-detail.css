@@ -91,8 +91,13 @@
     display: flex;
     width: 1000px;
 }
-.comment-wrap li  .left-wrap .nickname {
-    min-width: 130px;
+.comment-wrap li .left-wrap .nickname {
+    max-width: 200px;
+    min-width: inherit;
+    color: #444;
+}
+.comment-wrap li .left-wrap .comment-2 {
+    color: #666;
 }
 .btn-blind {
     color: #f46600;
@@ -112,4 +117,15 @@
 .btn-comment span {
     color: #666;
     border-bottom: 1px solid #666;
+    font-weight: 600;
+}
+.btn-comment:disabled,
+.btn-comment:disabled i,
+.btn-comment:disabled span {
+    cursor: initial;
+}
+.btn-comment:disabled span {
+    border-bottom: none;
+    color: #999;
+    font-weight: 400;
 }

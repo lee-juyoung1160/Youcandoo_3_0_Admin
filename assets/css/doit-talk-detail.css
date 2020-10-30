@@ -1,0 +1,111 @@
+.doit-talk-detail-page .enrollment {
+    padding: 0;
+
+}
+.doit-talk-detail-page .enrollment table {
+    width: 100%;
+}
+.doit-talk-detail-page .enrollment table th,
+.doit-talk-detail-page .enrollment table td {
+    padding: 15px;
+    font-size: 14px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+.doit-talk-detail-page .enrollment table th {
+    width: 5%;
+    font-weight: 600;
+}
+.doit-talk-detail-page .enrollment table a {
+    display: inline;
+    color: #00acd6;
+    border-bottom: 1px solid #00acd6;
+}
+
+
+.enrollment-title {
+    color: #333;
+    padding: 50px 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.card p {
+    color: #404040;
+    font-size: 14px;
+    line-height: 1.5em;
+}
+.comment-1 {
+    /*max-width: 900px;*/
+}
+.left-wrap {
+    width: 1150px;
+}
+.left-wrap .nickname {
+    min-width: 300px;
+}
+.date {
+    color: #aaa;
+}
+.nickname {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.doit-talk-detail-page .card-warp .card-body .right-wrap {
+    width: 330px;
+}
+.btn-comment {
+    margin-right: 15px;
+}
+
+
+.open-box .container {
+    padding: 10px;
+    font-size: 14px;
+}
+.comment-wrap {
+    padding-left: 100px;
+}
+.comment-wrap li {
+    display: flex;
+    position: relative;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.comment-wrap li .nickname {
+    margin: 0 15px;
+}
+.comment-wrap li .comment-2 {
+    width: 900px;
+}
+.comment-wrap li .right-wrap {
+    position: absolute;
+    right: 0;
+}
+.comment-wrap li .right-wrap button {
+    margin: 0 20px;
+}
+.comment-wrap li .right-wrap .date {
+    padding: 0 15px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.btn-blind {
+    color: #f46600;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    border-bottom: 1px solid #f46600;
+}
+.btn-blind i {
+    color: #f46600 !important;
+}
+.btn-comment {
+    margin-left: 15px;
+    margin-bottom: 10px;
+    background: none;
+}
+.btn-comment span {
+    color: #666;
+    border-bottom: 1px solid #666;
+}

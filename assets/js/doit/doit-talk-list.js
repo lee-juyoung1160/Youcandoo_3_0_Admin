@@ -30,8 +30,8 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
-		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });*/
+		btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
+		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });
 	});
 
 	function initSearchForm()
@@ -171,7 +171,7 @@
 	function toggleBlind()
 	{
 		if (blindValidation())
-			sweetConfirm(message.delete, blindRequest);
+			sweetConfirm(message.change, blindRequest);
 	}
 
 	function blindValidation()
@@ -205,8 +205,8 @@
 		}
 
 		let params = {
-			"board_list" : boards,
-			"comment_list" : comments,
+			"board_idx" : boards,
+			"comment_idx" : comments,
 			"is_blind" : g_is_blind
 		};
 

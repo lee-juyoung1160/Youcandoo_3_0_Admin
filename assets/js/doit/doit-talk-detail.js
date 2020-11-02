@@ -82,12 +82,13 @@
 				for (let { comment_idx, board_comment_uuid, nickname, contents, comment_count, is_blind, created} of comments)
 				{
 					let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
-					let btnBlind = is_blind === 'Y'
-						? `<button type="button" class="btn-blind btn-no-blind"><i class="fas fa-eye"></i> 블라인드해제</button>`
-						: `<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>`
+					let blindYn = is_blind === 'Y' ? 'N' : 'Y';
+					let blindText = is_blind === 'Y' ? '블라인드해제' : '블라인드처리';
+					let blindClass = is_blind === 'Y' ? 'blind' : '';
+					let blindIcon = is_blind === 'Y' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
 					commentEl +=
 						`<div class="card">
-							<div class="card-body line-aqua">
+							<div class="card-body line-aqua ${blindClass}">
 								<div class="row">
 									<div class="flex-container left-wrap">
 										<div class="col">
@@ -110,7 +111,14 @@
 											<span class="date">${created}</span>
 										</div>
 										<div class="col">
-											${btnBlind}
+											<button onclick="toggleBlind(this)" 
+													data-idx="${comment_idx}" 
+													data-blind="${blindYn}"
+													data-type="parent"
+													type="button"
+													class="btn-blind ${blindClass}">
+												${blindIcon} ${blindText}
+											</button>
 										</div>
 									</div>
 								</div>
@@ -130,9 +138,9 @@
 
 	function buildPagination(data)
 	{
-		let totalCount  = data.data.length;
+		let totalCount  = data.size;
 		let lastPage	= Math.ceil(totalCount / selPageLength.val());
-console.log(lastPage)
+
 		pagination.html(paginate(currentPage, lastPage));
 	}
 
@@ -166,9 +174,7 @@ console.log(lastPage)
 		let url = api.listLargeComment;
 		let errMsg 	= `대댓글 ${message.ajaxLoadError}`;
 		let param = {
-			"board_comment_uuid": g_board_comment_uuid,
-			"page": 1,
-			"limit": 100
+			"board_comment_uuid": g_board_comment_uuid
 		}
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildLargeComments, errMsg, false);
@@ -184,11 +190,12 @@ console.log(lastPage)
 					<ul class="comment-wrap">`
 						for (let { comment_idx, nickname, contents, is_blind, created } of data.data)
 						{
-							let btnBlindEl = is_blind === 'Y'
-								? `<button type="button" class="btn-blind btn-no-blind"><i class="fas fa-eye"></i> 블라인드해제</button>`
-								: `<button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>`;
+							let blindYn = is_blind === 'Y' ? 'N' : 'Y';
+							let blindText = is_blind === 'Y' ? '블라인드해제' : '블라인드처리';
+							let blindClass = is_blind === 'Y' ? 'blind' : '';
+							let blindIcon = is_blind === 'Y' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
 							largeCommentsEl +=
-								`<li>
+								`<li class="${blindClass}">
 									<div class="left-wrap">
 										└
 										<strong class="nickname">${nickname}</strong>
@@ -196,7 +203,14 @@ console.log(lastPage)
 									</div>
 									<div class="right-wrap">
 										<span class="date">${created}</span>
-										${btnBlindEl}
+										<button onclick="toggleBlind(this)" 
+												data-idx="${comment_idx}" 
+												data-blind="${blindYn}" 
+												data-type="child"
+												type="button"
+												class="btn-blind ${blindClass}">
+											${blindIcon} ${blindText}
+										</button>
 									</div>
 								</li>`
 						}
@@ -208,11 +222,26 @@ console.log(lastPage)
 		g_comment_element.append(largeCommentsEl);
 	}
 
-	function toggleBlind(idx)
+	let g_blind_idx;
+	let g_blind_yn;
+	let g_comment_type;
+	function toggleBlind(obj)
+	{
+		g_blind_idx = $(obj).data('idx');
+		g_blind_yn = $(obj).data('blind');
+		g_comment_type = $(obj).data('type');
+
+		sweetConfirm(message.change, blindRequest);
+	}
+
+	function blindRequest()
 	{
 		let url = api.blindComment;
 		let errMsg = `블라인드 ${message.ajaxError}`;
-		let param = { "idx" : idx }
+		let param = {
+			"idx" : g_blind_idx,
+			"is_blind" : g_blind_yn
+		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), toggleBlindCallback, errMsg, false);
 	}
@@ -224,5 +253,5 @@ console.log(lastPage)
 
 	function toggleSuccess()
 	{
-		location.href = page.listTalk;
+		g_comment_type === 'parent' ? getComments() : getLargeCommentsRequest();
 	}

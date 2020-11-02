@@ -77,6 +77,9 @@
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
+.comment-wrap li.blind {
+    background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 3px, #f9f9f9 0, #f9f9f9 6px);
+}
 .comment-wrap li .nickname {
     margin: 0 15px;
 }
@@ -114,14 +117,14 @@
 .btn-blind i {
     color: #f46600 !important;
 }
-.btn-no-blind {
+.btn-blind.blind {
     color: #f39c12;
     font-size: 14px;
     font-weight: 600;
     background: none;
     border-bottom: 1px solid #f39c12;
 }
-.btn-no-blind i {
+.btn-blind.blind i {
     color: #f39c12 !important;
 }
 .btn-comment {

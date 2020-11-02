@@ -21,6 +21,7 @@
 	const actionPagination	= $(".action_paginate");
 	const spDoitTitle		= $("#spDoitTitle");
 	const btnRemoveDoitTitle = $("#btnRemoveDoitTitle");
+	const g_page_length  	= 12;
 	/** UCD 사용내역 **/
 	const usageHisTable	= $("#usageHisTable");
 
@@ -40,9 +41,6 @@
 	const modalTokenInfo = $("#modalTokenInfo");
 	const deviceToken 	 = $("#deviceToken");
 
-	const g_page_length  = 12;
-	const g_profile_uuid = $("#profile_uuid").val();
-
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
@@ -50,17 +48,8 @@
 		moveSection();
 		/** 기본정보 **/
 		getBasicProfile();
-		/** 회원정보 **/
-		getUserAccount();
-		/** 기기정보 **/
-		getDeviceInfo();
-		/** 두잇 정보 **/
-		getOpenedDoit();
-		/** 인증 정보 **/
+
 		toggleDoitTitle();
-		getActions();
-		/** UCD 사용내역 **/
-		getUsageHistoryUcd();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -96,16 +85,30 @@
 	/** 기본정보 **/
 	function getBasicProfile()
 	{
-		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
+		const idx 	= getPathName().split('/').reverse()[0];
+		let param   = {"idx" : idx};
 		let url 	= api.getUserProfile;
 		let errMsg 	= '기본정보 '+label.detailContent+message.ajaxError;
 
-		ajaxRequestWithJsonData(false, url, param, getBasicProfileCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBasicProfileCallback, errMsg, false);
 	}
 
+	let g_profile_uuid;
 	function getBasicProfileCallback(data)
 	{
 		isSuccessResp(data) ? buildBasicProfile(data) : sweetError(invalidResp(data));
+
+		g_profile_uuid = data.data.profile_uuid;
+		/** 회원정보 **/
+		getUserAccount();
+		/** 기기정보 **/
+		getDeviceInfo();
+		/** 두잇 정보 **/
+		getOpenedDoit();
+		/** 인증 정보 **/
+		getActions();
+		/** UCD 사용내역 **/
+		getUsageHistoryUcd();
 	}
 
 	function buildBasicProfile(data)

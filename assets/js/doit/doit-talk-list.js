@@ -82,7 +82,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "",   	width: "5%",
+				{title: tableCheckAllDom(), 	data: "is_del",   	width: "5%",
 					render: function (data, type, row, meta) {
 						return multiCheckBoxDom(meta.row);
 					}
@@ -103,7 +103,11 @@
 					}
 				}
 				,{title: "신고",    		data: "report",  		width: "5%" }
-				,{title: "댓글",    		data: "comment",  		width: "5%" }
+				,{title: "댓글",    		data: "comment",  		width: "5%",
+					render: function (data, type, row, meta) {
+						return row.talk_type === '대댓글' ? '-' : data;
+					}
+				}
 				,{title: "블라인드",    	data: "is_blind",  		width: "5%",
 					render: function (data) {
 						return data === 'Y' ? label.blind : label.unblind;
@@ -134,7 +138,7 @@
 				redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData, displayNum, displayIndex, dataIndex ) {
-				/*setRowAttributes(nRow, aData, dataIndex)*/
+				setRowAttributes(nRow, aData, dataIndex)
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -159,6 +163,12 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData, dataIndex)
+	{
+		if (aData.is_del === 'Y')
+			$(nRow).addClass('f-red');
 	}
 
 	/** 블라인드 처리 **/

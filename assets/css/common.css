@@ -1507,6 +1507,12 @@ input[type="checkbox"]:disabled + label span{
 .table-wrap .minus-pay td {
 	color: #e83d2c;
 }
+.table-wrap .f-red td {
+	color: #e83d2c;
+}
+.table-wrap .f-red td a {
+	border-color: #e83d2c;
+}
 .table-wrap .th-row th {
 	vertical-align: middle;
 }

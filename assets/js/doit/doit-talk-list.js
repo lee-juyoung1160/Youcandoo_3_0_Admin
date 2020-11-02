@@ -86,18 +86,11 @@
 					render: function (data, type, row, meta) {
 						return multiCheckBoxDom(meta.row);
 					}
-				},
-				{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "30%",
+				}
+				,{title: "유형",    		data: "talk_type",		width: "5%" }
+				,{title: "내용",    		data: "contents",		width: "25%",
 					render: function (data, type, row, meta) {
-						return (
-							`<a onclick="moveDetail(this);"
-								onmouseenter="" 
-								class="line-clamp" 
-								style="max-width: 480px" 
-								data-uuid="${row.board_uuid}" 
-								data-target="${page.detailTalk}">${data}</a>`
-						)
+						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 480px">${data}</a>`
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",
@@ -116,6 +109,7 @@
 						return data === 'Y' ? label.blind : label.unblind;
 					}
 				}
+				,{title: "삭제여부",    	data: "is_del",  		width: "5%" }
 				,{title: "두잇명",    	data: "doit_title",  	width: "15%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.doit_idx;
@@ -200,8 +194,7 @@
 		for (let i=0; i<selectedData.length; i++)
 		{
 			let { board_idx, comment_idx } = selectedData[i];
-			if (!isEmpty(board_idx)) boards.push(board_idx);
-			if (!isEmpty(comment_idx)) comments.push(comment_idx);
+			isEmpty(comment_idx) ? boards.push(board_idx) : comments.push(comment_idx);
 		}
 
 		let params = {

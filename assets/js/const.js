@@ -349,7 +349,7 @@
 		,detailDoitCategory : '/doit/category/detail/'
 		,updateDoitCategory : '/doit/category/update/'
 		,listTalk: '/doit/talk'
-		,detailTalk: '/doit/talk/detail'
+		,detailTalk: '/doit/talk/detail/'
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'

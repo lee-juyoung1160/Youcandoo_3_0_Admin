@@ -9,12 +9,13 @@
 	const selPageLength	= $("#selPageLength");
 	const commentWarp 	= $("#commentWarp");
 	const pagination	= $("#dataTable_paginate");
-	const g_board_uuid  = $("#board_uuid").val();
+	const pathname 		= window.location.pathname;
+	const idx 			= pathname.split('/').reverse()[0];
 	let currentPage = 1;
 
 	$( () => {
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
+		/** n개씩 보기 초기화 **/
+		setPageLength();
 		/** 상세 **/
 		getDetail();
 		/** 댓글 **/
@@ -23,14 +24,23 @@
 		selPageLength.on('change', function () { onChangeSelPageLength() });
 	});
 
+	function setPageLength()
+	{
+		let options = '';
+		options += '<option value="10">10개씩 보기</ooption>';
+		options += '<option selected value="30">30개씩 보기</ooption>';
+		options += '<option value="50">50개씩 보기</ooption>';
+
+		selPageLength.html(options);
+		onChangeSelectOption(selPageLength);
+	}
+
 	/** 기본정보 **/
 	function getDetail()
 	{
 		let url 	= api.detailTalk;
 		let errMsg 	= `두잇톡 ${label.detailContent}${message.ajaxError}`;
-		let param   = {
-			"board_uuid" : g_board_uuid
-		}
+		let param   = { "idx" : idx };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDeatilCallback, errMsg, false);
 	}
@@ -57,7 +67,7 @@
 		let url 	= api.listComment;
 		let errMsg 	= `댓글 목록 ${message.ajaxLoadError}`;
 		let param   = {
-			"board_uuid" : g_board_uuid
+			"idx" : idx
 			,"page" : currentPage
 			,"limit" : Number(selPageLength.val())
 		}

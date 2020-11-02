@@ -101,6 +101,7 @@
 		let uuid 		= $(obj).data('uuid');
 		let type 		= $(obj).data('type');
 		let actionUrl 	= $(obj).data('url');
+		let actionDesc	= $(obj).data('desc');
 		let coverUrl 	= $(obj).data('cover');
 		let title 		= $(obj).data('title');
 		let nickname 	= $(obj).data('nickname');
@@ -116,7 +117,7 @@
 		if (type === 'image')
 		{
 			className = 'img-contents';
-			actionDom += `<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);">`
+			actionDom += `<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);"><div class="text-wrap">${actionDesc}</div>`
 			exampleDom += `<img src="${exampleUrl}" alt="예시이미지" onerror="onErrorImage(this);">`
 		}
 		else if (type === 'video')
@@ -125,7 +126,8 @@
 			actionDom +=
 				`<video poster="${coverUrl}" controls onerror="onErrorImage(this);">
 					<source src="${actionUrl}" onerror="onErrorActionVideo();">
-				</video>`
+				</video>
+				<div class="text-wrap">${actionDesc}</div>`
 			exampleDom +=
 				`<video controls>
 					<source src="${exampleUrl}" onerror="onErrorExamVideo()">
@@ -138,7 +140,8 @@
 				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
 				<audio controls>
 					<source src="${actionUrl}" onerror="onErrorActionAudio();">
-				</audio>`
+				</audio>
+				<div class="text-wrap">${actionDesc}</div>`
 			exampleDom +=
 				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
 				<audio controls>
@@ -392,6 +395,7 @@
 						data-type="${action.resource_type}"
 						data-uuid="${action.action_uuid}"
 						data-url="${action.url}"
+						data-desc="${action.description}"
 						data-cover="${action.image_url}"
 						data-exurl="${action.example_url}"
 						data-exdesc="${replaceDoubleQuotes(action.example_description)}"

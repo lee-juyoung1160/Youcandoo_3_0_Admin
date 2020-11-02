@@ -99,17 +99,12 @@
                         </div>
 
                     </div>-->
-                    <p class="empty-message">작성된 댓글이 없습니다.</p>
+                    <!--<p class="empty-message">작성된 댓글이 없습니다.</p>-->
                 </div>
 
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                 </div>
             </div>
-
-
-
-
-
 
             <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
                 <div class="btn-wrap">
@@ -119,6 +114,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="board_uuid" value="<?php if(isset($board_uuid)) echo $board_uuid ?>"/>
 </section>
 
 <script src="/assets/js/doit/doit-talk-detail.js?version=<?php echo $this->config->item('version');?>"></script>

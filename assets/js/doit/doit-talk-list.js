@@ -88,7 +88,7 @@
 					}
 				}
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "25%",
+				,{title: "내용",    		data: "contents",		width: "22%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 480px">${data}</a>`
 					}
@@ -98,7 +98,7 @@
 						return (
 							data.includes('@')
 								? data
-								: `<a onclick="moveDetail(this);" data-uuid="${row.profile_uuid}" data-target="${page.detailAccount}">${data}</a>`
+								: `<a href="${page.detailUser}${row.user_idx}">${data}</a>`
 						)
 					}
 				}
@@ -114,7 +114,7 @@
 					}
 				}
 				,{title: "삭제여부",    	data: "is_del",  		width: "5%" }
-				,{title: "두잇명",    	data: "doit_title",  	width: "15%",
+				,{title: "두잇명",    	data: "doit_title",  	width: "17%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.doit_idx;
 						return `<a href="${detailUrl}" >${data}</a>`;

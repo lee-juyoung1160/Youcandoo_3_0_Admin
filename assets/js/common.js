@@ -659,7 +659,7 @@
     }
 
     /** 상세페이지 이동 **/
-    function moveDetail(obj)
+    /*function moveDetail(obj)
     {
         let target = $(obj).data('target');
         let param   = $(obj).data('uuid');
@@ -669,7 +669,7 @@
         form.append($("<input/>", {type: 'hidden', name: 'uuid', value: param}));
         form.appendTo("body");
         form.submit();
-    }
+    }*/
 
     /** 사이드 메뉴 세팅 **/
     function getLeftMenuByAuthCode()

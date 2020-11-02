@@ -23,8 +23,7 @@ class Operate extends MY_Controller {
                 $this->load->layout('operate/account-list');
                 break;
             case "detail":
-                $data['profile_uuid'] = $this->input->post('uuid');
-                $this->load->layout('operate/account-detail', $data);
+                $this->load->layout('operate/account-detail');
                 break;
         }
     }

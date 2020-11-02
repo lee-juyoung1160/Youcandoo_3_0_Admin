@@ -108,7 +108,7 @@
 				},*/
 				{title: "닉네임", 		data: "nickname",   	width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a onclick="moveDetail(this);" data-uuid="${row.profile_uuid}" data-target="${page.detailUser}">${data}</a>`;
+						return `<a href="${page.detailUser}${row.idx}">${data}</a>`;
 					}
 				}
 				,{title: "프로필 ID", 	data: "profile_uuid",   width: "35%" }

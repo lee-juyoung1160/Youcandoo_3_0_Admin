@@ -78,7 +78,7 @@
     border-bottom: 1px solid #ddd;
 }
 .comment-wrap li.blind {
-    background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 3px, #f9f9f9 0, #f9f9f9 6px);
+    background: repeating-linear-gradient(-45deg, #f1f1f1, #f1f1f1 3px, #f5f5f5 0, #f5f5f5 6px);
 }
 .comment-wrap li .nickname {
     margin: 0 15px;

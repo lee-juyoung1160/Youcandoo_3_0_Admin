@@ -1009,7 +1009,7 @@ input[type="checkbox"]:disabled + label span{
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.5em;
-	white-space:pre;
+	white-space:pre-line;
 }
 .detail-data a {
 	display: inline;
@@ -1350,7 +1350,7 @@ input[type="checkbox"]:disabled + label span{
 	line-height: 1.2em;
 }
 .modal-content.confirm-modal-detail ul li:first-child video {
-	height: 650px;
+	height: 606px;
 }
 
 .modal-content.confirm-modal-detail .img-contents img {

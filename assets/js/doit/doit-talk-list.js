@@ -90,7 +90,7 @@
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
 				,{title: "내용",    		data: "contents",		width: "22%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 480px">${data}</a>`
+						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 380px">${data}</a>`
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",

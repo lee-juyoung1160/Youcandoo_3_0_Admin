@@ -10,6 +10,7 @@
 	const radioDoitType	= $("input[name=radio-doit-type]");
 	const chkAll		= $("#chkAll");
 	const btnCategory	= $("#btnCategory");
+	const btnXlsxOut	= $("#btnXlsxOut");
 	const selSort		= $("#selSort");
 	const listWrap		= $("#listWrap");
 	const pagination	= $("#dataTable_paginate");

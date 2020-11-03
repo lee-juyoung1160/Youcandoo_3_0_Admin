@@ -1242,57 +1242,47 @@
 				createDay = detail.created_date;
 			}
 
-			if (detail.is_del === 'Y')
-			{
-				innerEl +=
-					`<div class="time-line-body delete-box">
-						<i class="fas fa-exclamation-circle"></i> 삭제된 두잇톡입니다.
-					</div>`
-			}
-			else
-			{
-				btnDel = (g_is_created_by_biz && !isEmpty(detail.company_uuid)) ?
-					`<button onclick="deleteDoitTalk(this)" data-uuid="${detail.board_uuid}"
-					type="button" 
-					class="delete-btn"><i class="fas fa-times-circle"></i> 톡삭제</button>` : ''
-				
-				btnBlind = detail.is_blind === 'Y' ?
-					`<button onclick="onSubmitBlindTalk(this);" 
-							data-uuid="${detail.board_uuid}" 
-							data-blind="N"
-							type="button" 
-							class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
-					`<button onclick="onSubmitBlindTalk(this);" 
-							data-uuid="${detail.board_uuid}" 
-							data-blind="Y"
-							type="button" 
-							type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			btnDel = (g_is_created_by_biz && !isEmpty(detail.company_uuid)) ?
+				`<button onclick="deleteDoitTalk(this)" data-uuid="${detail.board_uuid}"
+				type="button" 
+				class="delete-btn"><i class="fas fa-times-circle"></i> 톡삭제</button>` : ''
 
-				blindClass = detail.is_blind === 'Y' ? 'blind' : '';
-				let crownIcon = creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
+			btnBlind = detail.is_blind === 'Y' ?
+				`<button onclick="onSubmitBlindTalk(this);" 
+						data-uuid="${detail.board_uuid}" 
+						data-blind="N"
+						type="button" 
+						class="eye-btn"><i class="fas fa-eye"></i> 블라인드 해제</button>` :
+				`<button onclick="onSubmitBlindTalk(this);" 
+						data-uuid="${detail.board_uuid}" 
+						data-blind="Y"
+						type="button" 
+						type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 
-				innerEl +=
-					`<div class="time-line-body ${blindClass}">
-						<div class="top clearfix">
-							<p class="nickname">${detail.nickname} ${crownIcon}</p>
-							<div class="btn-wrap">
-								${btnBlind}
-								${btnDel}
-							</div>
-						</div>
-						<div class="contants-wrap clearfix">
-							<div style="white-space: pre-line" class="talk-text">${detail.text_body}</div>
-						</div>
-						<div class="bottom clearfix">
-							<span class="time">${detail.created_time}</span>
-							<ol class="clearfix">
-								<li><i class="fas fa-heart" style="color: red;"></i> <strong>${detail.like}</strong></li>
-								<li><strong>신고:</strong> ${detail.report}</li>
-							</ol>
+			blindClass = detail.is_blind === 'Y' ? 'blind' : '';
+			let crownIcon = creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
+
+			innerEl +=
+				`<div class="time-line-body ${blindClass}">
+					<div class="top clearfix">
+						<p class="nickname">${detail.nickname} ${crownIcon}</p>
+						<div class="btn-wrap">
+							${btnBlind}
+							${btnDel}
 						</div>
 					</div>
-				</li>`
-			}
+					<div class="contants-wrap clearfix">
+						<div style="white-space: pre-line" class="talk-text">${detail.text_body}</div>
+					</div>
+					<div class="bottom clearfix">
+						<span class="time">${detail.created_time}</span>
+						<ol class="clearfix">
+							<li><i class="fas fa-heart" style="color: red;"></i> <strong>${detail.like}</strong></li>
+							<li><strong>신고:</strong> ${detail.report}</li>
+						</ol>
+					</div>
+				</div>
+			</li>`
 
 			if (i === (talkLen - 1))
 				innerEl += `</ul>`

@@ -150,7 +150,7 @@
 .reward-tab-ul li span {
     display: block;
     overflow: hidden;
-    max-width: 135px;
+    width: 135px;
     margin: 0 auto;
     text-overflow: ellipsis;
     white-space: nowrap;

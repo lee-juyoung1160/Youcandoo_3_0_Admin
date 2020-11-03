@@ -466,6 +466,7 @@
 						data-type="${action.resource_type}"
 						data-uuid="${action.action_uuid}"
 						data-url="${action.url}"
+						data-desc="${action.description}"
 						data-cover="${action.image_url}"
 						data-exurl="${action.example_url}"
 						data-exdesc="${replaceDoubleQuotes(action.example_description)}"
@@ -647,6 +648,7 @@
 	{
 		let type 		= $(obj).data('type');
 		let actionUrl 	= $(obj).data('url');
+		let actionDesc	= $(obj).data('desc');
 		let coverUrl 	= $(obj).data('cover');
 		let title 		= $(obj).data('title');
 		let nickname 	= $(obj).data('nickname');
@@ -663,35 +665,41 @@
 		{
 			className = 'img-contents';
 
-			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
+			actionDom += 	`<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);"><div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
+			exampleDom += 	`<img src="${exampleUrl}" alt="예시이미지" onerror="onErrorImage(this);">`;
 		}
 		else if (type === 'video')
 		{
 			className = 'video-contents';
 
-			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
-			actionDom += 	'</video>';
+			actionDom +=
+				`<video poster="${coverUrl}" controls onerror="onErrorImage(this);">
+					<source src="${actionUrl}" onerror="onErrorActionVideo();">
+				</video>
+				<div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<video controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo()">';
-			exampleDom += 	'</video>';
+			exampleDom +=
+				`<video controls>
+					<source src="${exampleUrl}" onerror="onErrorExamVideo()">
+				</video>`;
 		}
 		else if (type === 'voice')
 		{
 			className = 'audio-contents';
 
-			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			actionDom += 	'<audio controls>';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
-			actionDom += 	'</audio>';
+			actionDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${actionUrl}" onerror="onErrorActionAudio();">
+				</audio>
+				<div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			exampleDom += 	'<audio controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
-			exampleDom += 	'</audio>';
+			exampleDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${exampleUrl}" onerror="onErrorExamAudio();">
+				</audio>`;
 		}
 
 		/** 인증게시물 **/

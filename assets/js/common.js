@@ -819,8 +819,8 @@
         /** 2020.08.20
          *  재택근무로 추가된 로직. 원래는 아래 펑션(ip)만으로 처리했으나 권한까지 추가 됨.
          * **/
-        let accessibleAuths = ['smg', 'mg'];
-        if ($("#env").val() === 'development') accessibleAuths.push('dev')
+        let accessibleAuths = ['smg', 'mg', 'dev'];
+        /*if ($("#env").val() === 'development') accessibleAuths.push('dev')*/
         return accessibleAuths.indexOf(sessionAuthCode.val()) === -1;
     }
 

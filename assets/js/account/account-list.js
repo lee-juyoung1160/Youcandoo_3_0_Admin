@@ -64,7 +64,7 @@
 			columns: [
 				{title: "닉네임", 		data: "nickname",   	width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailUser}${row.idx}">${data}</a>`;
+						return `<a href="${page.detailAccount}${row.idx}">${data}</a>`;
 					}
 				}
 				,{title: "PROFILE ID", 	data: "profile_uuid",   width: "22%", className: "no-sort" }

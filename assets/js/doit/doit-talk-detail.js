@@ -52,10 +52,12 @@
 
 	function buildDetail(_data)
 	{
-		let { doit_idx, doit_title, talk_type, like, nickname, report, contents } = _data.data;
+		let { doit_idx, doit_title, talk_type, like, nickname, user_idx, report, contents } = _data.data;
+
+		let createUser = nickname.includes('@') ? nickname : `<a href="${page.detailUser}${user_idx}">${nickname}</a>`;
 
 		typeEl.html(talk_type);
-		nicknameEl.html(nickname);
+		nicknameEl.html(createUser);
 		likeEl.html(numberWithCommas(like));
 		reportEl.html(numberWithCommas(report));
 		contentEl.html(contents);

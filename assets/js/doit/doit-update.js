@@ -439,7 +439,7 @@
 			addedTags.find('li').each(function () {
 				tags.push($(this).text().trim());
 			})
-			let isPublic = $("input[name=radio-puclic]:checked").val() === 'Y';
+			let isPublic = $("input[name=radio-public]:checked").val() === 'Y';
 			let isAllowGallery = 'N';
 			if ($('input:radio[name=radio-gallery-yn]').length > 0)
 				isAllowGallery = $('input:radio[name=radio-gallery-yn]:checked').val();

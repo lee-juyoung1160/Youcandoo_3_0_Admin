@@ -546,7 +546,7 @@
 
 	function xlsxOutCallback(data)
 	{
-		let xlsxData = [];
+		/*let xlsxData = [];
 		for ( let { doit_status,
 				doit_type,
 				promotion_title,
@@ -584,7 +584,7 @@
 			}
 
 			xlsxData.push(replaceHeaderData)
-		}
+		}*/
 
-		setExcelData("두잇목록", "두잇목록", xlsxData);
+		setExcelData("두잇목록", "두잇목록", data.data);
 	}

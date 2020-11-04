@@ -97,7 +97,7 @@
                                                         <div class="flex-container clearfix">
                                                             <div class="left-wrap">
                                                                 └
-                                                                <strong class="nickname">깐깐찡어깐깐찡어깐깐찡어깐깐찡어어</strong>
+                                                                <strong class="nickname">깐깐찡어</strong>
                                                                 <p class="comment-2">조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ</p>
                                                             </div>
                                                             <div class="right-wrap">
@@ -273,8 +273,15 @@
                             </div>
                         </div>
                     </li>
-
+                    <button type="button" class="view-more">더보기 <i class="fas fa-caret-down"></i></button>
                 </ul>
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
@@ -323,12 +330,25 @@
     <div id="modalCreateTalk" class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
-            <p class="modal-title">인증 이미지</p>
+            <p class="modal-title">두잇톡 등록</p>
             <ul class="modal-information">
                 <li class="clearfix">
-                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/2ede7555527ef683a7d20a041943584d.jpg" alt="">
+                    <div class="add-talk clearfix">
+                       <div class="btn-wrap">
+                           <button type="button" class="on">공지</button>
+                           <button type="button">일반</button>
+                       </div>
+<!--                       <div class="question-text clearfix">-->
+<!--                           <i class="question-mark far fa-question-circle"></i>-->
+<!--                           <span>-->
+<!--                               두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.-->
+<!--                           </span>-->
+<!--                       </div>-->
+                       <textarea name="" id="" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+                   </div>
                 </li>
             </ul>
+            <button id="btnSubmitWarn" class="completion-btn" type="submit">등록</button>
         </div>
     </div>
 

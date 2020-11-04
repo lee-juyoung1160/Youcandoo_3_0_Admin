@@ -185,7 +185,7 @@
     width: 1050px;
 }
 .doit-detail-page .top-fix .comments .comment-wrap .left-wrap .comment-2 {
-    width: 980px;
+    width: 950px;
 }
 
 /*인증*/
@@ -209,6 +209,9 @@
     width: 730px;
 }
 /*대댓글*/
+.doit-detail-page .comments .comment-wrap {
+    margin-top: 10px;
+}
 .doit-detail-page .comments .comment-wrap li {
     border-bottom: none;
     border-top: 1px solid #ddd;
@@ -226,21 +229,30 @@
 }
 .doit-detail-page .card-warp .card .card-body .icon-heart i {
     color: red;
+    cursor: default;
 }
 .doit-detail-page .card-warp .card .card-body .icon-triangle {
     color: #555;
 }
 .doit-detail-page .card-warp .card .card-body .icon-triangle i {
     color: orangered;
+    cursor: default;
 }
 .doit-detail-page .card-warp .card .card-body .icon-auth-card img {
     width: 20px;
     margin-left: 5px;
 }
 .doit-detail-page .talk-img {
+    overflow: hidden;
     width: 60px;
     height: 60px;
     cursor: pointer;
+}
+.doit-detail-page .talk-img img {
+    transition: all .2s;
+}
+.doit-detail-page .talk-img:hover img {
+    transform: scale(1.1);
 }
 .doit-detail-page .card button {
     margin-left: 5px;
@@ -264,9 +276,61 @@
 }
 
 
+
+
+/* 두잇톡등록 */
+
+.doit-detail-page .add-talk .question-text {
+    float: right;
+    color: #777;
+    font-size: 13px;
+}
+.doit-detail-page .add-talk .question-text i {
+    cursor: inherit;
+    color: #777;
+    font-size: 13px;
+}
+.doit-detail-page .add-talk .btn-wrap {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 3px;
+    background-color: #f3f3f3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doit-detail-page .add-talk .btn-wrap button {
+    width: 130px;
+    height: 35px;
+    background-color: #f3f3f3;
+}
+.doit-detail-page .add-talk .btn-wrap button.on,
+.doit-detail-page .add-talk .btn-wrap button:hover {
+    color: #fff;
+    font-weight: 600;
+    background-color: dodgerblue;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doit-detail-page .view-more {
+    float: right;
+    width: 85%;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    background-color: #fff;
+    border: 1px solid #f3f3f3;
+    transition: all .3s;
+}
+.doit-detail-page .view-more:hover {
+    color: #0061f2;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+}
+
 /* 임시 */
 .doit-detail-page .doitTalk .time-line-body ,
 .doit-detail-page .doitTalk .top-fix {
+    padding: 0;
     box-shadow: none;
     background: none;
     border: none;

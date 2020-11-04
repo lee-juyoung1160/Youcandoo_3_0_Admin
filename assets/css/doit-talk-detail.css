@@ -68,7 +68,7 @@
     padding-left: 100px;
 }
 .comment-wrap li {
-    /*display: flex;*/
+    display: flex;
     position: relative;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
@@ -90,6 +90,9 @@
     padding: 0 15px;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
+}
+.doit-detail-page .comment-wrap li {
+    display: block;
 }
 .comment-wrap li  .left-wrap {
     display: flex;

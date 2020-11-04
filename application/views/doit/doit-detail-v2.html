@@ -21,7 +21,7 @@
             <!--두잇 톡-->
             <div id="doitTalk" class="doitTalk tab-content">
                 <div class="main-top" style="margin-top: 20px;">
-                    <button id="btnUcdModalOpen" type="button" style="float: right;">
+                    <button id="btnCreateTalk" type="button" style="float: right;">
                         <i class="fas fa-plus"></i> 두잇 톡 등록
                     </button>
                     <div class="doit-list-option">
@@ -228,7 +228,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="talk-img">
-                                                        <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/2ede7555527ef683a7d20a041943584d.jpg" alt="">
+                                                        <img id="btnImage" src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/2ede7555527ef683a7d20a041943584d.jpg" alt="">
                                                     </div>
                                                     <p class="comment-1">여러분~ 조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ 여러분~ 조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ여러분~ 조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ</p>
                                                 </div>
@@ -242,9 +242,9 @@
                                         </div>
                                         <div class="right-wrap">
                                                     <span class="date">2020-12-01 00:00:00</span>
-                                                    <button type="button" class="btn-warning"><i class="fas fa-exclamation-triangle"></i>옐로카드</button>
-                                                    <button type="button" class="btn-danger"><i class="fas fa-exclamation-triangle"></i>레드카드</button>
-                                                    <button type="button" class="btn-blind"><i class="fas fa-exclamation-triangle"></i>신고</button>
+                                                    <button id="btnRedCard" type="button" class="btn-warning"><i class="fas fa-exclamation-triangle"></i>옐로카드</button>
+                                                    <button id="btnYellowCard" type="button" class="btn-danger"><i class="fas fa-exclamation-triangle"></i>레드카드</button>
+                                                    <button id="btnReport" type="button" class="btn-blind"><i class="fas fa-exclamation-triangle"></i>신고</button>
                                             <button type="button" class="delete-btn"><i class="fas fa-times-circle"></i></button>
                                         </div>
                                     </div>
@@ -307,7 +307,7 @@
     </div>
 
     <!--인증이미지 확대 모달-->
-    <div id="modalWarn" class="modal-content">
+    <div id="modalActionDetail" class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title">인증 이미지</p>
@@ -320,7 +320,7 @@
     </div>
 
     <!--톡등록 모달-->
-    <div id="modalWarn" class="modal-content">
+    <div id="modalCreateTalk" class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title">인증 이미지</p>
@@ -334,6 +334,40 @@
 
     <div class="modal-layout"></div>
 </section>
+<script>
+    const modalCloseBtn = $(".close-btn");
+    const modalLayout 	= $(".modal-layout");
+    const modalContent 	= $(".modal-content");
+
+    $("#btnCreateTalk").on('click', function () { modalCreateTalkOpen() });
+    $("#btnImage").on('click', function () { modalActionDetailOpen() });
+    $("#btnYellowCard").on('click', function () { modalWarnOpen() });
+    $("#btnRedCard").on('click', function () { modalWarnOpen() });
+    $("#btnReport").on('click', function () { modalWarnOpen() });
+    modalCloseBtn	.on('click', function () { modalFadeout(); });
+    modalLayout		.on('click', function () { modalFadeout(); });
+
+    function modalWarnOpen()
+    {
+        modalLayout.fadeIn();
+        $("#modalWarn").fadeIn();
+        overflowHidden();
+    }
+
+    function modalCreateTalkOpen()
+    {
+        modalLayout.fadeIn();
+        $("#modalCreateTalk").fadeIn();
+        overflowHidden();
+    }
+
+    function modalActionDetailOpen()
+    {
+        modalLayout.fadeIn();
+        $("#modalActionDetail").fadeIn();
+        overflowHidden();
+    }
+</script>
 <!--<script src="/assets/js/plugins/tablesort.min.js"></script>-->
 <!--<script src="/assets/js/plugins/tablesort.number.min.js"></script>-->
 <!--<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>-->

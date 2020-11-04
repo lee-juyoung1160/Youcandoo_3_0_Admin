@@ -317,10 +317,11 @@
     float: right;
     width: 85%;
     margin-bottom: 20px;
-    padding: 10px 0;
+    padding: 15px 0;
     background-color: #fff;
     border: 1px solid #f3f3f3;
-    transition: all .3s;
+    border-radius: 30px;
+    transition: all .2s;
 }
 .doit-detail-page .view-more:hover {
     color: #0061f2;

@@ -783,7 +783,8 @@
                 '/doit/category',
                 '/doit/recommend',
                 '/doit/talk',
-                '/operate/account'];
+                '/operate/account',
+                '/gift'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');

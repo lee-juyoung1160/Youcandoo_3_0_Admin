@@ -879,6 +879,7 @@ input[type="checkbox"]:disabled + label span{
 }
 .btn-excel {
 	background-color: darkgreen;
+	border: 1px solid darkgreen;
 }
 
 .table-wrap .btn-wrap button i {

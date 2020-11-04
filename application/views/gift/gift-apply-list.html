@@ -47,14 +47,14 @@
             <ul class="clearfix">
                 <li>
                     <p class="list-common-title">승인 여부</p>
-                    <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-doit-type" value=""/>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="r2" name="checkbox-doit-type" value=""/>
                         <label for="r2"><span></span>대기</label>
 
-                        <input type="radio" id="r3" name="radio-doit-type" value="doit"/>
+                        <input type="checkbox" id="r3" name="checkbox-doit-type" value="doit"/>
                         <label for="r3"><span></span>완료</label>
 
-                        <input type="radio" id="r4" name="radio-doit-type" value="promotion"/>
+                        <input type="checkbox" id="r4" name="checkbox-doit-type" value="promotion"/>
                         <label for="r4"><span></span>취소</label>
                     </div>
                 </li>
@@ -78,27 +78,33 @@
                         </select>
                     </div>
                 </div>
+                <div class="btn-wrap">
+                    <button id="" class="btn-info" type="button"><i class="fas fa-check-circle"></i> 승인</button>
+                    <button id="" class="btn-danger" type="button"><i class="fas fa-ban"></i>승인 취소</button>
+                </div>
             </div>
 
             <table id="dataTable">
                 <colgroup>
                     <col style="width:5%;">
                     <col style="width:15%;">
+                    <col style="width:20%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
                     <col style="width:15%;">
-                    <col style="width:20%;">
-                    <col style="width:20%;">
-                    <col style="width:10%;">
-                    <col style="width:10%;">
+                    <col style="width:15%;">
                 </colgroup>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>신청자</th>
                     <th>상품명</th>
                     <th>수량</th>
                     <th>상품 UCD</th>
                     <th>승인여부</th>
-                    <th>승인여부</th>
-                    <th>사용여부</th>
+                    <th>신청일</th>
+                    <th>승인일</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -109,21 +115,43 @@
                             <label for="c6"><span></span></label>
                         </div>
                     </td>
-                    <td>모니터링</td>
-                    <td>김관리</td>
-                    <td>ldh53511</td>
-                    <td>2019-11-07</td>
-                    <td>Y</td>
-                    <td><button class="btn-info" type="button">승인</button></td>
+                    <td><a href="#">깐깐찡어</a></td>
+                    <td>스타벅스 아메리카노 Tall</td>
+                    <td>1</td>
+                    <td>5,300</td>
+                    <td>대기</td>
+                    <td>2019-11-07 00:00:00</td>
+                    <td>2019-11-07 00:00:00</td>
+                </tr>
+                <tr class="f-red">
                     <td>
-                        <div class="toggle-btn-wrap">
-                            <div class="toggle-btn on">
-                                <input type="checkbox" class="checkbox">
-                                <div class="knobs"></div>
-                                <div class="layer"></div>
-                            </div>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c6" name="cc" />
+                            <label for="c6"><span></span></label>
                         </div>
                     </td>
+                    <td><a href="#">베리네모카</a></td>
+                    <td>스타벅스 아메리카노 Tall</td>
+                    <td>1</td>
+                    <td>5,300</td>
+                    <td>취소</td>
+                    <td>2019-11-07 00:00:00</td>
+                    <td>2019-11-07 00:00:00</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c6" name="cc" />
+                            <label for="c6"><span></span></label>
+                        </div>
+                    </td>
+                    <td><a href="#">열심히사는물고기</a></td>
+                    <td>스타벅스 아메리카노 Tall</td>
+                    <td>1</td>
+                    <td>5,300</td>
+                    <td>완료</td>
+                    <td>2019-11-07 00:00:00</td>
+                    <td>2019-11-07 00:00:00</td>
                 </tr>
                 </tbody>
             </table>

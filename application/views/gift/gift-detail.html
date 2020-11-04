@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
 <section class="gift-create-page">
     <div class="inner">
-        <h2 class="main-title">상품 등록</h2>
+        <h2 class="main-title">상품 상세</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
                 <li>
@@ -20,10 +20,7 @@
                             <p class="sub-title important">상품명 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" placeholder="상품명을 입력해주세요." maxlength="25">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
-                            </div>
+                            <p class="detail-data">스타벅스 아메리카도 TAll</p>
                         </div>
                     </div>
                 </li>
@@ -33,10 +30,7 @@
                             <p class="sub-title important">상품 UCD (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="input-wrap">
-                                <input type="text" class="only-num">
-                                <span class="input-num-title"> UCD</span>
-                            </div>
+                            <p class="detail-data">5,400 UCD</p>
                         </div>
                     </div>
                 </li>
@@ -61,13 +55,7 @@
                             <p class="sub-title important">노출여부 (*)</p>
                         </div>
                         <div class="col-2">
-                            <div class="checkbox-wrap">
-                                <input type="radio" id="c20" name="radio-exposure" value="N"/>
-                                <label for="c20"><span></span>Y</label>
-
-                                <input type="radio" id="c21" name="radio-exposure" value="Y"/>
-                                <label for="c21"><span></span>N</label>
-                            </div>
+                            <p class="detail-data">Y</p>
                         </div>
                     </div>
                 </li>
@@ -75,6 +63,13 @@
                     <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
                 </li>
             </ul>
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/gift">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
+                </div>
+            </div>
         </div>
     </div>
 

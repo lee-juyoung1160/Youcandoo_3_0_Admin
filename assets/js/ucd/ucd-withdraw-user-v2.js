@@ -248,7 +248,7 @@
 
 	function getExcelDataCallback(data)
 	{
-		selectedUsers = data.data;
+		if (!isEmpty(data.data)) selectedUsers = data.data;
 		buildSelectedUser();
 		calculateSelectedCount();
 	}
@@ -256,8 +256,78 @@
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(confirmContent(), createRequest);
+			/*sweetConfirmWithContent(confirmContent(), createRequest);*/
+			sweetConfirmWithContent(confirmContent(), chunkRequestData);
 	}
+
+	/**
+	 * 임시로직: 100건씩 호출
+	 * **/
+	let chunkData = [];
+	function chunkRequestData()
+	{
+		let uuids = [];
+		selectedUsers.map( (value) => {
+			let { profile_uuid } = value;
+			uuids.push(profile_uuid);
+		});
+
+		chunkData = chunkArray(uuids, 100);
+		fadeinLoader();
+		chunkRequest();
+	}
+
+	let reqCount = 0;
+	function chunkRequest()
+	{
+		let param = {
+			"profile_uuid" : chunkData[reqCount]
+			,"division" : 1
+			,"amount" : amount.val().trim()
+			,"description" : content.val().trim()
+			,"memo" : memo.val().trim()
+		}
+
+		$.ajax({
+			global: false,
+			url: api.createUserUcd,
+			type: "POST",
+			headers: headers,
+			contentType: 'text/plain',
+			dataType: 'json',
+			data: JSON.stringify(param),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					if (reqCount === chunkData.length - 1)
+					{
+						reqCount = 0;
+						fadeoutLoader();
+						createReqCallback(data);
+					}
+					else
+					{
+						reqCount++;
+						chunkRequest()
+					}
+				}
+				else
+				{
+					fadeoutLoader();
+					sweetError(invalidResp(data))
+				}
+			},
+			error: function (request, status) {
+				fadeoutLoader();
+				sweetError(label.submit+message.ajaxError);
+			},
+			complete: function (xhr, status) {
+			}
+		});
+	}
+	/**
+	 * 임시로직: 100건씩 호출
+	 * **/
 
 	function confirmContent()
 	{
@@ -288,15 +358,15 @@
 		return content;
 	}
 
-	function createRequest()
+	/*function createRequest()
 	{
 		let url 	= api.createUserUcd;
 		let errMsg 	= label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
-	}
+	}*/
 
-	function ucdParams()
+	/*function ucdParams()
 	{
 		let uuids = [];
 		selectedUsers.map( (value) => {
@@ -313,7 +383,7 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 
 	function createReqCallback(data)
 	{

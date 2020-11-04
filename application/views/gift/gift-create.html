@@ -4,7 +4,7 @@
         <h2 class="main-title">상품 등록</h2>
         <div class="wrap">
             <ul class="enrollment clearfix">
-                <li>
+                <!--<li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">상품코드(*)</p>
@@ -13,7 +13,7 @@
                             <p class="detail-data">a00001</p>
                         </div>
                     </div>
-                </li>
+                </li>-->
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" placeholder="상품명을 입력해주세요." maxlength="25">
+                                <input id="giftName" type="text" class="length-input" placeholder="상품명을 입력해주세요." maxlength="25">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-2">
                             <div class="input-wrap">
-                                <input type="text" class="only-num">
+                                <input id="price" type="text" class="only-num" maxlength="7">
                                 <span class="input-num-title"> UCD</span>
                             </div>
                         </div>
@@ -49,8 +49,8 @@
                             <div class="filebox preview-image">
                                 <p class="cap">이미지 사이즈: 240*240</p>
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                                <label for="giftImage">업로드</label>
+                                <input type="file" id="giftImage" class="upload-hidden" data-width="240" data-height="240" data-oper="eq">
                             </div>
                         </div>
                     </div>
@@ -62,10 +62,10 @@
                         </div>
                         <div class="col-2">
                             <div class="checkbox-wrap">
-                                <input type="radio" id="c20" name="radio-exposure" value="N"/>
+                                <input type="radio" id="c20" name="radio-exposure" value="Y"/>
                                 <label for="c20"><span></span>Y</label>
 
-                                <input type="radio" id="c21" name="radio-exposure" value="Y"/>
+                                <input type="radio" id="c21" name="radio-exposure" value="N"/>
                                 <label for="c21"><span></span>N</label>
                             </div>
                         </div>
@@ -79,3 +79,4 @@
     </div>
 
 </section>
+<script src="/assets/js/gift/gift-create.js?version=<?php echo $this->config->item('version');?>"></script>

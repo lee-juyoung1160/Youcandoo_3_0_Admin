@@ -68,9 +68,9 @@
 						return multiCheckBoxDom(data);
 					}
 				}
-				,{title: "카테고리명", 	data: "category",    			width: "40%",
+				,{title: "카테고리명", 	data: "category",    			width: "10%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailDoitCategory + row.idx;
+						let detailUrl = page.detailGift + row.idx;
 						return `<a href="${detailUrl}">${row.category}</a>`;
 					}
 				}
@@ -79,12 +79,17 @@
 						return buildImage(data);
 					}
 				}
-				,{title: "개설가능여부",    	data: "is_establish",  		width: "10%",
+				,{title: "개설가능여부",    	data: "is_establish",  		width: "40%",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}
 				}
 				,{title: "노출여부",    	data: "is_blind",  				width: "10%",
+					render: function (data, type, row, meta) {
+						return buildSwitch2(row);
+					}
+				}
+				,{title: "노출여부",    	data: "is_blind",  				width: "15%",
 					render: function (data, type, row, meta) {
 						return buildSwitch2(row);
 					}

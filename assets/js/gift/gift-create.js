@@ -1,24 +1,24 @@
 
-	const categoryName 	= $("#categoryName");
-	const categoryImage	= $("#categoryImage");
-	const establish		= $("input[name=radio-establish]");
-	const exposure		= $("input[name=radio-exposure]");
-	const btnSubmit 	= $("#btnSubmit");
+	const giftName 	= $("#giftName");
+	const giftImage	= $("#giftImage");
+	const price		= $("#price");
+	const exposure	= $("input[name=radio-exposure]");
+	const btnSubmit = $("#btnSubmit");
 
 	$( () => {
 		/** 컴퍼넌트 초기화 **/
 		initComponent();
 		/** 이벤트 **/
-		categoryImage	.on('change', function () { onChangeValidationImage(this); });
-		btnSubmit		.on('click', function () { onSubmitCategory(); });
+		giftImage	.on('change', function () { onChangeValidationImage(this); });
+		btnSubmit	.on('click', function () { onSubmitCategory(); });
 	});
 
 	function initComponent()
 	{
-		categoryName.trigger('focus');
-		categoryName.val('');
+		giftName.trigger('focus');
+		giftName.val('');
+		price.val('');
 		exposure.eq(0).prop('checked', true);
-		establish.eq(0).prop('checked', true);
 	}
 
 	function onSubmitCategory()
@@ -32,7 +32,7 @@
 		let url = fileApi.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', categoryImage[0].files[0]);
+		param.append('file', giftImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -41,14 +41,14 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= api.createDoitCategory;
+			let url 	= api.createGift;
 			let errMsg 	= label.submit+message.ajaxError;
 			let { file } = data.image_urls;
 			let param = {
-				"category" : categoryName.val(),
-				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
-				"is_establish" : $('input:radio[name=radio-establish]:checked').val(),
-				"icon_image_url" : file
+				"gift_name" : giftName.val(),
+				"gift_ucd" : price.val(),
+				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+				"gift_image" : file
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -64,22 +64,29 @@
 
 	function createSuccess()
 	{
-		location.href = page.listDoitCategory;
+		location.href = page.listGift;
 	}
 
 	function validation()
 	{
-		if (isEmpty(categoryName.val()))
+		if (isEmpty(giftName.val()))
 		{
-			sweetToast(`카테고리 명은 ${message.required}`);
-			categoryName.trigger('focus');
+			sweetToast(`상품명은 ${message.required}`);
+			giftName.trigger('focus');
 			return false;
 		}
 
-		let categoryFile = categoryImage[0].files;
-		if (categoryFile.length === 0)
+		if (isEmpty(price.val()))
 		{
-			sweetToast(`카테고리 이미지는 ${message.required}`);
+			sweetToast(`금액은 ${message.required}`);
+			price.trigger('focus');
+			return false;
+		}
+
+		let giftFile = giftImage[0].files;
+		if (giftFile.length === 0)
+		{
+			sweetToast(`상품 이미지는 ${message.required}`);
 			return false;
 		}
 

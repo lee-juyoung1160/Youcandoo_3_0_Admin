@@ -1,21 +1,21 @@
 
-	const categoryName 	= $("#categoryName");
-	const categoryImage	= $("#categoryImage");
-	const establish		= $("#establish");
-	const exposure		= $("#exposure");
-	const goUpdate		= $("#goUpdate");
+	const giftName 	= $("#giftName");
+	const giftImage	= $("#giftImage");
+	const price		= $("#price");
+	const exposure	= $("input[name=radio-exposure]");
+	const btnSubmit = $("#btnSubmit");
 
 	$( () => {
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
-		categoryImage.on('error', function () { onErrorImage(this) });
-		goUpdate	 .on('click', function () { goUpdatePage(); });
+		giftImage	.on('error', function () { onErrorImage(this) });
+		goUpdate	.on('click', function () { goUpdatePage(); });
 	});
 
 	function getDetail()
 	{
-		let url 	= api.detailDoitCategory;
+		let url 	= api.detailGift;
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
@@ -23,10 +23,10 @@
 
 	function params()
 	{
-		const pathName		= getPathName();
-		const categoryIdx	= splitReverse(pathName, '/');
+		const pathName	= getPathName();
+		const giftIdx	= splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : categoryIdx});
+		return JSON.stringify({"idx" : giftIdx});
 	}
 
 	function getDetailCallback(data)
@@ -36,21 +36,21 @@
 
 	function buildDetail(data)
 	{
-		let { category, is_blind, is_establish, icon_image_url } = data.data;
-		let imgUrl = isEmpty(icon_image_url) ? label.noImage : icon_image_url;
+		let { gift_name, gitf_ucd, is_exposure, gift_image_url } = data.data;
+		let imgUrl = isEmpty(gift_image_url) ? label.noImage : gift_image_url;
 
-		categoryName.html(category);
-		categoryImage.attr('src', imgUrl);
-		establish.html(is_establish);
-		exposure.html(is_blind === 'Y' ? 'N' : 'Y');
+		giftName.html(gift_name);
+		giftImage.attr('src', imgUrl);
+		price.html(gitf_ucd);
+		exposure.html(is_exposure === 'Y' ? 'N' : 'Y');
 	}
 
 	function goUpdatePage()
 	{
 		const pathName	= getPathName();
-		const categoryIdx	= splitReverse(pathName, '/');
+		const giftIdx	= splitReverse(pathName, '/');
 
-		location.href = page.updateDoitCategory+categoryIdx;
+		location.href = page.updateGift+giftIdx;
 	}
 
 

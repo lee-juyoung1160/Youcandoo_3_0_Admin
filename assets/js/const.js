@@ -358,6 +358,10 @@
 		,listTalk: '/doit/talk'
 		,detailTalk: '/doit/talk/detail/'
 
+		,listGift : '/gift'
+		,detailGift : '/gift/detail/'
+		,updateGift : '/gift/update/'
+
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'
 		,listUcdWithdraw : '/ucd/withdraw'

@@ -283,6 +283,11 @@
 		,detailQna : baseApiUrl+'qna/detail'
 		,listQna : baseApiUrl+'qna/list'
 		,getQnaType : baseApiUrl+'qna/type'*/
+		/** 상품 **/
+		,createGift : baseApiUrl+'gift/create'
+		,updateGift : baseApiUrl+'gift/update'
+		,detailGift : baseApiUrl+'gift/detail'
+		,listGift : baseApiUrl+'gift/list'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

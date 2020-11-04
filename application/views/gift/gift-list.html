@@ -12,8 +12,8 @@
                 <div class="select-box">
                     <label for="search_type">상품명</label>
                     <select id="search_type">
-                        <option value="">상품명</option>
-                        <option value="">상품코드</option>
+                        <option value="gift_name">상품명</option>
+                        <option value="gift_uuid">상품코드</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -51,7 +51,7 @@
             </div>
 
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:40%;">
@@ -99,7 +99,7 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
 
@@ -110,3 +110,4 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/gift/gift-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,7 +1,8 @@
 
+	/*const giftCode 	= $("#giftCode");*/
 	const giftName 	= $("#giftName");
 	const giftImage	= $("#giftImage");
-	const price		= $("#price");
+	const giftUcd	= $("#giftUcd");
 	const exposure	= $("input[name=radio-exposure]");
 	const btnSubmit = $("#btnSubmit");
 
@@ -34,14 +35,14 @@
 		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
 	}
 
-	let g_idx;
+	let g_gift_uuid;
 	function buildDetail(data)
 	{
-		let { idx, gift_name, is_exposure, gift_ucd, gift_image_url } = data.data;
-		g_idx = idx;
+		let { gift_uuid, gift_name, is_exposure, gift_ucd, gift_image_url } = data.data;
 
+		g_gift_uuid = gift_uuid;
 		giftName.val(gift_name);
-		price.val(gift_ucd);
+		giftUcd.val(gift_ucd);
 		if (!isEmpty(gift_image_url))
 		{
 			let imageEL =
@@ -89,9 +90,9 @@
 			let url 	= api.updateGift;
 			let errMsg 	= label.modify+message.ajaxError;
 			let param = {
-				"gift_uuid" : g_idx,
+				"gift_uuid" : g_gift_uuid,
 				"gift_name" : giftName.val().trim(),
-				"gift_ucd" : price.val().trim(),
+				"gift_ucd" : giftUcd.val().trim(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 
@@ -125,9 +126,9 @@
 			return false;
 		}
 
-		if (isEmpty(price.val())) {
+		if (isEmpty(giftUcd.val())) {
 			sweetToast(`금액 ${message.required}`);
-			price.trigger('focus');
+			giftUcd.trigger('focus');
 			return false;
 		}
 

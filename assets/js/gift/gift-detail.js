@@ -1,9 +1,10 @@
 
+	const giftCode 	= $("#giftCode");
 	const giftName 	= $("#giftName");
 	const giftImage	= $("#giftImage");
-	const price		= $("#price");
-	const exposure	= $("input[name=radio-exposure]");
-	const btnSubmit = $("#btnSubmit");
+	const giftUcd	= $("#giftUcd");
+	const exposure	= $("#exposure");
+	const goUpdate 	= $("#goUpdate");
 
 	$( () => {
 		/** 상세 불러오기 **/
@@ -36,13 +37,13 @@
 
 	function buildDetail(data)
 	{
-		let { gift_name, gitf_ucd, is_exposure, gift_image_url } = data.data;
-		let imgUrl = isEmpty(gift_image_url) ? label.noImage : gift_image_url;
+		let { gift_uuid, gift_name, gift_ucd, is_exposure, gift_image_url } = data.data;
 
+		giftCode.html(gift_uuid);
 		giftName.html(gift_name);
-		giftImage.attr('src', imgUrl);
-		price.html(gitf_ucd);
-		exposure.html(is_exposure === 'Y' ? 'N' : 'Y');
+		giftUcd.html(gift_ucd);
+		giftImage.attr('src', gift_image_url);
+		exposure.html(is_exposure);
 	}
 
 	function goUpdatePage()

@@ -286,8 +286,10 @@
 		/** 상품 **/
 		,createGift : baseApiUrl+'gift/create'
 		,updateGift : baseApiUrl+'gift/update'
-		,detailGift : baseApiUrl+'gift/detail'
+		,detailGift : baseApiUrl+'gift/get'
+		,deleteGift : baseApiUrl+'gift/delete'
 		,listGift : baseApiUrl+'gift/list'
+		,reorderGift : baseApiUrl+'gift/sort'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

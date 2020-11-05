@@ -102,9 +102,18 @@
 		tableReloadAndStayCurrentPage(dataTable);
 	}
 
-	function getBannerRows()
+	function getBannerRowsId()
 	{
-		return bannerTable.find('tbody').children();
+		let rows = bannerTable.find('tbody').children();
+		let ids	= [];
+		for (let i=0; i<rows.length; i++)
+		{
+			if (isEmpty(rows[i].id)) continue;
+
+			ids.push(rows[i].id)
+		}
+
+		return ids;
 	}
 
 	function initDisableCheckbox()
@@ -123,11 +132,7 @@
 
 	function createRequest()
 	{
-		let rows 	= getBannerRows();
-		let ids 	= [];
-		for (let i=0; i<rows.length; i++)
-			ids.push(rows[i].id)
-
+		let ids 	= getBannerRowsId();
 		let param   = JSON.stringify({ "promotion_list" : ids });
 		let url 	= api.updateBanner;
 		let errMsg 	= label.modify+message.ajaxError;
@@ -149,8 +154,8 @@
 
 	function submitValidation()
 	{
-		let rows = getBannerRows();
-		if (rows.length === 0)
+		let ids = getBannerRowsId();
+		if (ids.length === 0)
 		{
 			sweetToast("배너를 "+message.addOn);
 			onClickModalOpen();
@@ -277,12 +282,8 @@
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
-		let bannerRows 	 = getBannerRows();
-		let ids = [];
-		for (let i=0; i<bannerRows.length; i++)
-			ids.push(bannerRows[i].id)
-
-		let vacancy 	 = 5 - ids.length;
+		let bannerRows 	 = getBannerRowsId();
+		let vacancy = 5 - bannerRows.length;
 
 		if (isEmpty(selectedData))
 		{

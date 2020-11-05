@@ -4,10 +4,8 @@
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword 		= $("#keyword");
-	const selPageLength = $("#selPageLength");
 	/*const btnDelete		= $("#btnDelete");*/
 	const btnReorder	= $("#btnReorder");
-	const btnSubmit		= $("#btnSubmit");
 
 	$( () => {
 		/** dataTable default config **/
@@ -20,9 +18,7 @@
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
-		btnSubmit		.on('click', function () { onSubmitCategory(); });
-		/*btnDelete		.on("click", function () { deleteCategory(); });*/
+		/*btnDelete		.on("click", function () { deleteGift(); });*/
 		btnReorder		.on("click", function () { onSubmitReorder(); });
 		dataTable.find('tbody').sortable({
 			helper: function (e, el) {
@@ -34,10 +30,10 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*40)+'px');
-		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*25)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*15)+'px');
 		$(tdElement[4]).css("width", Math.ceil(($(el).width()/100)*15)+'px');
 		return $(el);
 	}
@@ -63,60 +59,50 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "idx",   			width: "5%",
+				/*{title: tableCheckAllDom(), 	data: "idx",   		width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
-				}
-				,{title: "카테고리명", 	data: "category",    			width: "10%",
+				},*/
+				{title: "상품코드", 		data: "gift_uuid",    		width: "25%" }
+				,{title: "상품명", 		data: "gift_name",    		width: "20%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailGift + row.idx;
-						return `<a href="${detailUrl}">${row.category}</a>`;
+						let detailUrl = page.detailGift+row.idx;
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "이미지",    		data: "icon_image_url",  	width: "30%",
+				,{title: "금액(UCD)",	data: "gift_ucd",  			width: "20%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "이미지",    	data: "gift_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
 						return buildImage(data);
 					}
 				}
-				,{title: "개설가능여부",    	data: "is_establish",  		width: "40%",
+				,{title: "노출여부",    	data: "is_exposure",  		width: "15%",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
-					}
-				}
-				,{title: "노출여부",    	data: "is_blind",  				width: "10%",
-					render: function (data, type, row, meta) {
-						return buildSwitch2(row);
-					}
-				}
-				,{title: "노출여부",    	data: "is_blind",  				width: "15%",
-					render: function (data, type, row, meta) {
-						return buildSwitch2(row);
 					}
 				}
 			],
 			serverSide: true,
 			paging: false,
-			select: {
+			/*select: {
 				style: 'multi',
 				selector: ':checkbox'
-			},
+			},*/
+			select: false,
 			destroy: false,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				/*setRowAttributes(nRow, aData)*/
+				setRowAttributes(nRow, aData)
 			},
 			drawCallback: function (settings) {
-				buildTotalCount(this);
-				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
-	}
-
-	function setRowAttributes(nRow, aData)
-	{
-		$(nRow).attr('data-category', aData.category);
 	}
 
 	function tableParams()
@@ -132,23 +118,25 @@
 		return JSON.stringify(param);
 	}
 
+	function setRowAttributes(nRow, aData)
+	{
+		$(nRow).prop('id', aData.gift_uuid);
+		$(nRow).attr('data-exposure', aData.is_exposure);
+	}
+
 	function buildImage(data)
 	{
-		return (
-			`<div class="category-img">
-				<img src="${data}" alt="카테고리 이미지" onerror="onErrorImage(this)">
-			</div>`
-		)
+		return `<div class="category-img"><img src="${data}" alt="" onerror="onErrorImage(this)"></div>`
 	}
 
 	function buildSwitch(data)
 	{
-		/** 개설가능여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_establish === 'Y' ? 'checked' : '';
+		/** 노출여부 컬럼에 on off 스위치 **/
+		let checked = data.is_exposure === 'Y' ? 'checked' : '';
 		return (
 			`<div class="toggle-btn-wrap">
 				<div class="toggle-btn on">
-					<input onclick="changeStatus(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
+					<input onclick="changeStatus(this)" data-uuid="${data.gift_uuid}" type="radio" class="checkbox ${checked}">
 					<div class="knobs"></div>
 					<div class="layer"></div>
 				</div>
@@ -156,12 +144,13 @@
 		)
 	}
 
+	/** 노출여부 변경 **/
 	let changeParams;
 	function changeStatus(obj)
 	{
 		changeParams   = {
-			"idx" : $(obj).data('idx'),
-			"is_establish" : $(obj).hasClass('checked') ? 'N' : 'Y'
+			"gift_uuid" : $(obj).data('uuid'),
+			"is_exposure" : $(obj).hasClass('checked') ? 'N' : 'Y'
 		};
 
 		sweetConfirm(`상태를 ${message.change}`, changeRequest);
@@ -169,40 +158,7 @@
 
 	function changeRequest()
 	{
-		let url     = api.establishDoitCategory;
-		let errMsg 	= label.modify+message.ajaxError;
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
-	}
-
-	function buildSwitch2(data)
-	{
-		/** 노출여부 컬럼에 on off 스위치 **/
-		let checked   = data.is_blind === 'Y' ? '' : 'checked';
-		return (
-			`<div class="toggle-btn-wrap">
-				<div class="toggle-btn on">
-					<input onclick="changeStatus2(this)" data-idx="${data.idx}" type="radio" class="checkbox ${checked}">
-					<div class="knobs"></div>
-					<div class="layer"></div>
-				</div>
-			</div>`
-		)
-	}
-
-	function changeStatus2(obj)
-	{
-		changeParams   = {
-			"idx" : $(obj).data('idx'),
-			"is_blind" : $(obj).hasClass('checked') ? 'Y' : 'N'
-		};
-
-		sweetConfirm(`상태를 ${message.change}`, changeRequest2);
-	}
-
-	function changeRequest2()
-	{
-		let url     = api.blindDoitCategory;
+		let url     = api.updateGift;
 		let errMsg 	= label.modify+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(changeParams), changeStatusCallback, errMsg, false);
@@ -224,8 +180,8 @@
 		table.ajax.reload();
 	}
 
-	/** 카테고리 삭제 **/
-	function deleteCategory()
+	/** 상품 삭제 **/
+	/*function deleteGift()
 	{
 		if (delValidation())
 			sweetConfirm(message.delete, deleteRequest);
@@ -233,7 +189,7 @@
 
 	function deleteRequest()
 	{
-		let url 	= api.deleteDoitCategory;
+		let url 	= api.deleteGift;
 		let errMsg 	= label.delete+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, delParams(), deleteReqCallback, errMsg, false);
@@ -280,8 +236,9 @@
 		};
 
 		return JSON.stringify(delParam)
-	}
+	}*/
 
+	/** 상품 정렬 **/
 	function onSubmitReorder()
 	{
 		sweetConfirm(message.change, reorderRequest);
@@ -289,18 +246,9 @@
 
 	function reorderRequest()
 	{
-		let rows = getBannerRows();
-		let categorys = [];
-		for (let i=0; i<rows.length; i++)
-		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
-
-			categorys.push(category);
-		}
-
-		let param   = JSON.stringify({ "category_data" : categorys });
-		let url 	= api.reorderDoitCategory;
+		let uuids 	= getRowsUuid();
+		let param   = JSON.stringify({ "gift_list" : uuids });
+		let url 	= api.reorderGift;
 		let errMsg 	= label.modify+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, param, reorderReqCallback, errMsg, false);
@@ -313,25 +261,28 @@
 
 	function reorderValidation()
 	{
-		let rows = getBannerRows();
-		let categorys = [];
-		for (let i=0; i<rows.length; i++)
+		let uuids = getRowsUuid();
+		if (uuids.length === 0)
 		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
-
-			categorys.push(category);
-		}
-		if (categorys.length === 0)
-		{
-			sweetToast("정렬할 카테고리가 없습니다.");
+			sweetToast("정렬할 상품(노출된 상품)이 없습니다.");
 			return false;
 		}
 
 		return true;
 	}
 
-	function getBannerRows()
+	function getRowsUuid()
 	{
-		return dataTable.find('tbody').children();
+		let rows = dataTable.find('tbody').children();
+		let uuids = [];
+		for (let i=0; i<rows.length; i++)
+		{
+			let uuid = rows[i].id;
+			let exposure = $(rows[i]).data('exposure');
+
+			if (isEmpty(uuid) || exposure === 'N') continue;
+			uuids.push(uuid);
+		}
+
+		return uuids;
 	}

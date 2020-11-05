@@ -280,17 +280,8 @@
 
 	function reorderRequest()
 	{
-		let rows = getBannerRows();
-		let categorys = [];
-		for (let i=0; i<rows.length; i++)
-		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
-
-			categorys.push(category);
-		}
-
-		let param   = JSON.stringify({ "category_data" : categorys });
+		let categories = getRowsId();
+		let param   = JSON.stringify({ "category_data" : categories });
 		let url 	= api.reorderDoitCategory;
 		let errMsg 	= label.modify+message.ajaxError;
 
@@ -304,16 +295,8 @@
 
 	function reorderValidation()
 	{
-		let rows = getBannerRows();
-		let categorys = [];
-		for (let i=0; i<rows.length; i++)
-		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
-
-			categorys.push(category);
-		}
-		if (categorys.length === 0)
+		let categories = getRowsId();
+		if (categories.length === 0)
 		{
 			sweetToast("정렬할 카테고리가 없습니다.");
 			return false;
@@ -322,7 +305,18 @@
 		return true;
 	}
 
-	function getBannerRows()
+	function getRowsId()
 	{
-		return dataTable.find('tbody').children();
+		let rows = dataTable.find('tbody').children();
+		let categories = [];
+
+		for (let i=0; i<rows.length; i++)
+		{
+			let category = $(rows[i]).data('category');
+			if (isEmpty(category)) continue;
+
+			categories.push(category);
+		}
+
+		return categories;
 	}

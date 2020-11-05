@@ -25,7 +25,7 @@
 		/*buildGrid();*/
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
-		search			.on("click", function () { onSubmitSearch(); });
+		/*search			.on("click", function () { onSubmitSearch(); });*/
 		reset			.on("click", function () { initSearchForm(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		/*btnApproval	.on("click", function () { onClickApproval(); });*/
@@ -76,9 +76,9 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "승인여부",    	data: "gift_image_url",  	width: "10%" }
-				,{title: "신청일시",    	data: "is_exposure",  		width: "15%" }
-				,{title: "승인일시",    	data: "is_exposure",  		width: "15%" }
+				,{title: "승인여부",    	data: "is_approval",  		width: "10%" }
+				,{title: "신청일시",    	data: "gift_name",  		width: "15%" }
+				,{title: "승인일시",    	data: "gift_name",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -130,17 +130,8 @@
 
 	function approvalRequest()
 	{
-		let rows = getBannerRows();
-		let gifts = [];
-		for (let i=0; i<rows.length; i++)
-		{
-			let gift = $(rows[i]).data('gift');
-			if (isEmpty(gift)) continue;
-
-			gifts.push(gift);
-		}
-
-		let param   = JSON.stringify({ "category_data" : gifts });
+		let uuids = getCheckedRowsUuid();
+		let param   = JSON.stringify({ "uuid" : uuids });
 		let url 	= api.reorderGift;
 		let errMsg 	= label.modify+message.ajaxError;
 
@@ -154,16 +145,8 @@
 
 	function reorderValidation()
 	{
-		let rows = getBannerRows();
-		let gifts = [];
-		for (let i=0; i<rows.length; i++)
-		{
-			let gift = $(rows[i]).data('gift');
-			if (isEmpty(gift)) continue;
-
-			gifts.push(gift);
-		}
-		if (gifts.length === 0)
+		let uuids = getCheckedRowsUuid();
+		if (uuids.length === 0)
 		{
 			sweetToast("정렬할 상품이 없습니다.");
 			return false;

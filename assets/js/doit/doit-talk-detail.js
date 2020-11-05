@@ -70,7 +70,6 @@
 		let errMsg 	= `댓글 목록 ${message.ajaxLoadError}`;
 		let param   = {
 			"idx" : idx
-			,"comment_type" : "board"
 			,"page" : currentPage
 			,"limit" : Number(selPageLength.val())
 		}

@@ -153,8 +153,8 @@
 			columns: [
 				{title: "프로모션명", 	data: "promotion_title",   	width: "24%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailPromo+row.idx;
-						return '<a href="'+detailUrl+'">' + data + '</a>';
+						let detailUrl = page.detailPromo + row.idx;
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
 				,{title: "프로모션 예산", data: "budget_ucd",   		width: "15%",

@@ -117,15 +117,24 @@
                         <select id="selPageLength">
                         </select>
                     </div>
+                    <div class="select-box">
+                    <label for="selSort">참여자 순</label>
+                    <select id="selSort">
+                        <option value="created_datetime,desc">등록일 최신 순</option>
+                        <option value="created_datetime,asc">등록일 최신 역 순</option>
+                        <option value="doit_member,desc">참여자 순</option>
+                        <option value="action_datetime,desc">인증기간 최신 순</option>
+                    </select>
+                    </div>
                 </div>
                 <div class="btn-wrap">
                     <div class="checkbox-wrap" style="display: inline-block; ">
                         <input type="checkbox" id="chkAll" name="chk-doit" />
                         <label for="chkAll"><span></span></label>
                     </div>
-                    <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
                     <button id="btnStartNow" type="button" style="display:none;background-color: #FFA83B;"><i class="fas fa-star"></i>오늘 시작</button>
                     <button id="btnCategory" class="btn-info" type="button"><i class="fas fa-sort-amount-down-alt"></i>카테고리 관리</button>
+                    <button id="btnXlsxOut" class="btn-excel" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
 
@@ -351,7 +360,9 @@
     <div class="modal-layout"></div>
 
 </section>
-<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
-<script src="/assets/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/js/doit/doit-list-v2.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/plugins/xlsx.full.min.js"></script>
+<script defer src="/assets/js/export-excel.js"></script>
+<script defer src="/assets/js/doit/doit-list-v2.js?version=<?php echo $this->config->item('version');?>"></script>
 <!--<script src="/assets/js/dev.js?version=<?php echo $this->config->item('version');?>"></script>-->

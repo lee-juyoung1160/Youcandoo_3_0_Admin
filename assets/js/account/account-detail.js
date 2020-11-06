@@ -21,6 +21,7 @@
 	const actionPagination	= $(".action_paginate");
 	const spDoitTitle		= $("#spDoitTitle");
 	const btnRemoveDoitTitle = $("#btnRemoveDoitTitle");
+	const g_page_length  	= 12;
 	/** UCD 사용내역 **/
 	const usageHisTable	= $("#usageHisTable");
 
@@ -40,9 +41,6 @@
 	const modalTokenInfo = $("#modalTokenInfo");
 	const deviceToken 	 = $("#deviceToken");
 
-	const g_page_length  = 12;
-	const g_profile_uuid = $("#profile_uuid").val();
-
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
@@ -50,17 +48,8 @@
 		moveSection();
 		/** 기본정보 **/
 		getBasicProfile();
-		/** 회원정보 **/
-		getUserAccount();
-		/** 기기정보 **/
-		getDeviceInfo();
-		/** 두잇 정보 **/
-		getOpenedDoit();
-		/** 인증 정보 **/
+
 		toggleDoitTitle();
-		getActions();
-		/** UCD 사용내역 **/
-		getUsageHistoryUcd();
 		/** 이벤트 **/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -96,16 +85,30 @@
 	/** 기본정보 **/
 	function getBasicProfile()
 	{
-		let param   = JSON.stringify({"profile_uuid" : g_profile_uuid});
+		const idx 	= getPathName().split('/').reverse()[0];
+		let param   = {"idx" : idx};
 		let url 	= api.getUserProfile;
 		let errMsg 	= '기본정보 '+label.detailContent+message.ajaxError;
 
-		ajaxRequestWithJsonData(false, url, param, getBasicProfileCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBasicProfileCallback, errMsg, false);
 	}
 
+	let g_profile_uuid;
 	function getBasicProfileCallback(data)
 	{
 		isSuccessResp(data) ? buildBasicProfile(data) : sweetError(invalidResp(data));
+
+		g_profile_uuid = data.data.profile_uuid;
+		/** 회원정보 **/
+		getUserAccount();
+		/** 기기정보 **/
+		getDeviceInfo();
+		/** 두잇 정보 **/
+		getOpenedDoit();
+		/** 인증 정보 **/
+		getActions();
+		/** UCD 사용내역 **/
+		getUsageHistoryUcd();
 	}
 
 	function buildBasicProfile(data)
@@ -463,6 +466,7 @@
 						data-type="${action.resource_type}"
 						data-uuid="${action.action_uuid}"
 						data-url="${action.url}"
+						data-desc="${action.description}"
 						data-cover="${action.image_url}"
 						data-exurl="${action.example_url}"
 						data-exdesc="${replaceDoubleQuotes(action.example_description)}"
@@ -644,6 +648,7 @@
 	{
 		let type 		= $(obj).data('type');
 		let actionUrl 	= $(obj).data('url');
+		let actionDesc	= $(obj).data('desc');
 		let coverUrl 	= $(obj).data('cover');
 		let title 		= $(obj).data('title');
 		let nickname 	= $(obj).data('nickname');
@@ -660,35 +665,41 @@
 		{
 			className = 'img-contents';
 
-			actionDom += 	'<img src="'+actionUrl+'" alt="인증이미지" onerror="onErrorImage(this);">';
+			actionDom += 	`<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);"><div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<img src="'+exampleUrl+'" alt="예시이미지" onerror="onErrorImage(this);">';
+			exampleDom += 	`<img src="${exampleUrl}" alt="예시이미지" onerror="onErrorImage(this);">`;
 		}
 		else if (type === 'video')
 		{
 			className = 'video-contents';
 
-			actionDom += 	'<video poster="'+coverUrl+'" controls onerror="onErrorImage(this);">';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionVideo();">';
-			actionDom += 	'</video>';
+			actionDom +=
+				`<video poster="${coverUrl}" controls onerror="onErrorImage(this);">
+					<source src="${actionUrl}" onerror="onErrorActionVideo();">
+				</video>
+				<div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<video controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamVideo()">';
-			exampleDom += 	'</video>';
+			exampleDom +=
+				`<video controls>
+					<source src="${exampleUrl}" onerror="onErrorExamVideo()">
+				</video>`;
 		}
 		else if (type === 'voice')
 		{
 			className = 'audio-contents';
 
-			actionDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			actionDom += 	'<audio controls>';
-			actionDom += 		'<source src="'+actionUrl+'" onerror="onErrorActionAudio();">';
-			actionDom += 	'</audio>';
+			actionDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${actionUrl}" onerror="onErrorActionAudio();">
+				</audio>
+				<div class="text-wrap">${actionDesc}</div>`;
 
-			exampleDom += 	'<img style="width:100%;" src="'+label.voiceImage+'" onerror="onErrorImage(this);">';
-			exampleDom += 	'<audio controls>';
-			exampleDom += 		'<source src="'+exampleUrl+'" onerror="onErrorExamAudio();">';
-			exampleDom += 	'</audio>';
+			exampleDom +=
+				`<img style="width:100%;" src="${label.voiceImage}" onerror="onErrorImage(this);">
+				<audio controls>
+					<source src="${exampleUrl}" onerror="onErrorExamAudio();">
+				</audio>`;
 		}
 
 		/** 인증게시물 **/

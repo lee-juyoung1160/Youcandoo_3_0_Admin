@@ -194,6 +194,12 @@
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
+		,listTalk : baseApiUrl+'doit/talk/list'
+		,detailTalk : baseApiUrl+'doit/talk/detail'
+		,listComment : baseApiUrl+'doit/talk/commentDetail'
+		,listLargeComment : baseApiUrl+'doit/talk/commentsDetail'
+		,blindTalk : baseApiUrl+'doit/talk/update'
+		,blindComment : baseApiUrl+'doit/talk/commentUpdate'
 		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
@@ -277,6 +283,13 @@
 		,detailQna : baseApiUrl+'qna/detail'
 		,listQna : baseApiUrl+'qna/list'
 		,getQnaType : baseApiUrl+'qna/type'*/
+		/** 상품 **/
+		,createGift : baseApiUrl+'gift/create'
+		,updateGift : baseApiUrl+'gift/update'
+		,detailGift : baseApiUrl+'gift/get'
+		,deleteGift : baseApiUrl+'gift/delete'
+		,listGift : baseApiUrl+'gift/list'
+		,reorderGift : baseApiUrl+'gift/sort'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'
@@ -313,6 +326,8 @@
 		,listAppVersion : baseApiUrl+'version/list'
 		/** 계정 **/
 		,listAccount : baseApiUrl+'admin/account/list'
+		/** 엑셀다운로드 **/
+		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
@@ -342,6 +357,12 @@
 		,listDoitCategory : '/doit/category'
 		,detailDoitCategory : '/doit/category/detail/'
 		,updateDoitCategory : '/doit/category/update/'
+		,listTalk: '/doit/talk'
+		,detailTalk: '/doit/talk/detail/'
+
+		,listGift : '/gift'
+		,detailGift : '/gift/detail/'
+		,updateGift : '/gift/update/'
 
 		,listUcdSales : '/ucd/sales'
 		,listUcdUsage : '/ucd/usage'

@@ -63,7 +63,7 @@
 				}
 				,{title: "수정",    		data: "idx",  			width: "10%",
 					render: function (data, type, row, meta) {
-						let detailUrl	= page.updateDoitRecommend + row.idx;
+						let detailUrl = page.updateDoitRecommend + row.idx;
 						return `<button onclick="location.href = '${detailUrl}'" class="btn-orange" type="button">수정</button>`;
 					}
 				}

@@ -1,0 +1,342 @@
+.doit-talk-detail-page .enrollment {
+    padding: 0;
+
+}
+.doit-talk-detail-page .enrollment table {
+    width: 100%;
+}
+.doit-talk-detail-page .enrollment table th,
+.doit-talk-detail-page .enrollment table td {
+    padding: 15px;
+    font-size: 14px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+.doit-talk-detail-page .enrollment table th {
+    /*width: 5%;*/
+    font-weight: 600;
+}
+.doit-talk-detail-page .enrollment table a {
+    display: inline;
+    color: #00acd6;
+    border-bottom: 1px solid #00acd6;
+}
+
+.enrollment-title {
+    display: inline-block;
+    float: left;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+.card p {
+    color: #404040;
+    font-size: 14px;
+    line-height: 1.5em;
+}
+.left-wrap {
+    width: 1150px;
+}
+.left-wrap .nickname {
+    min-width: 300px;
+}
+.date {
+    color: #aaa;
+}
+.nickname {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.doit-talk-detail-page .card-warp .card-body .right-wrap {
+    width: 330px;
+}
+.doit-talk-detail-page .card-warp .card-body.blind {
+    background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 3px, #f9f9f9 0, #f9f9f9 6px);
+}
+.btn-comment {
+    margin-right: 15px;
+}
+
+
+.open-box .container {
+    padding: 10px;
+    font-size: 14px;
+    background-color: #eee;
+}
+.comment-wrap {
+    padding-left: 100px;
+}
+.comment-wrap li {
+    display: flex;
+    position: relative;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.comment-wrap li.blind {
+    background: repeating-linear-gradient(-45deg, #f1f1f1, #f1f1f1 3px, #f5f5f5 0, #f5f5f5 6px);
+}
+.comment-wrap li .nickname {
+    margin: 0 15px;
+}
+.comment-wrap li .right-wrap {
+    position: absolute;
+    right: 0;
+}
+.right-wrap button {
+    margin: 0 5px;
+}
+.doit-detail-page .right-wrap .date {
+    padding: 0 15px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.doit-detail-page .comment-wrap li {
+    display: block;
+}
+.comment-wrap li  .left-wrap {
+    display: flex;
+    width: 1000px;
+}
+.comment-wrap li .left-wrap .nickname {
+    max-width: 200px;
+    min-width: inherit;
+    color: #444;
+}
+.comment-wrap li .left-wrap .comment-2 {
+    color: #666;
+}
+.btn-blind {
+    color: coral;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    border-bottom: 1px solid coral;
+}
+.btn-blind i {
+    color: #f46600 !important;
+}
+.btn-blind.blind {
+    color: #f39c12;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    border-bottom: 1px solid #f39c12;
+}
+.btn-blind.blind i {
+    color: #f39c12 !important;
+}
+.delete-btn {
+    background: none;
+}
+.delete-btn i {
+    color: #ec5c5c !important;
+}
+.btn-comment {
+    margin-left: 15px;
+    margin-bottom: 10px;
+    background: none;
+}
+.btn-comment span {
+    color: #666;
+    border-bottom: 1px solid #666;
+    font-weight: 600;
+}
+.btn-comment:disabled,
+.btn-comment:disabled i,
+.btn-comment:disabled span {
+    cursor: initial;
+}
+.btn-comment:disabled span {
+    border-bottom: none;
+    color: #999;
+    font-weight: 400;
+}
+
+.doit-detail-page .type-name {
+    display: inline-block;
+    padding: 3px 10px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #0061f2;
+    border-radius: 20px;
+}
+.doit-detail-page .comment-wrap {
+    padding-left: 30px;
+}
+.doit-detail-page .card-warp .card .card-body .right-wrap {
+    width: initial;
+}
+
+
+/*공지*/
+.doit-detail-page .top-fix .left-wrap {
+    width: 1500px;
+}
+.doit-detail-page .top-fix .left-wrap .comment-1 {
+    width: 1300px;
+}
+.doit-detail-page .top-fix .comment-wrap .left-wrap {
+    width: 1100px;
+}
+.doit-detail-page .top-fix .comment-wrap .left-wrap .comment-2 {
+    width: 950px;
+}
+/*공지 대댓글*/
+.doit-detail-page .top-fix .comments .comment-wrap .left-wrap {
+    width: 1050px;
+}
+.doit-detail-page .top-fix .comments .comment-wrap .left-wrap .comment-2 {
+    width: 950px;
+}
+
+/*인증*/
+.doit-detail-page .auth-box .left-wrap {
+    width: 1300px;
+}
+.doit-detail-page .auth-box .left-wrap .comment-1 {
+    width: 1100px;
+}
+/*일반*/
+.doit-detail-page .left-wrap {
+    width: 950px;
+}
+.doit-detail-page .left-wrap .comment-1 {
+    width: 790px;
+}
+.doit-detail-page .comment-wrap .left-wrap {
+    width: 880px;
+}
+.doit-detail-page .comment-wrap .left-wrap .comment-2 {
+    width: 730px;
+}
+/*대댓글*/
+.doit-detail-page .comments .comment-wrap {
+    margin-top: 10px;
+}
+.doit-detail-page .comments .comment-wrap li {
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+}
+.doit-detail-page .comments .comment-wrap .left-wrap {
+    width: 850px;
+}
+.doit-detail-page .comments .comment-wrap .left-wrap .comment-2 {
+    width: 700px;
+}
+
+.doit-detail-page .card-warp .card .card-body .icon-heart {
+    color: #555;
+    margin: 0 5px;
+}
+.doit-detail-page .card-warp .card .card-body .icon-heart i {
+    color: red;
+    cursor: default;
+}
+.doit-detail-page .card-warp .card .card-body .icon-triangle {
+    color: #555;
+}
+.doit-detail-page .card-warp .card .card-body .icon-triangle i {
+    color: orangered;
+    cursor: default;
+}
+.doit-detail-page .card-warp .card .card-body .icon-auth-card img {
+    width: 20px;
+    margin-left: 5px;
+}
+.doit-detail-page .talk-img {
+    overflow: hidden;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+.doit-detail-page .talk-img img {
+    transition: all .2s;
+}
+.doit-detail-page .talk-img:hover img {
+    transform: scale(1.1);
+}
+.doit-detail-page .card button {
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+}
+.doit-detail-page button.btn-warning {
+    color: #FFA83B;
+    border-bottom: 1px solid #FFA83B;
+}
+.doit-detail-page button.btn-warning i {
+    color: #FFA83B !important;
+}
+.doit-detail-page button.btn-danger {
+    color: #d73925;
+    border-bottom: 1px solid #d73925;
+}
+.doit-detail-page button.btn-danger i {
+    color: #d73925 !important;
+}
+
+
+
+
+/* 두잇톡등록 */
+
+.doit-detail-page .add-talk .question-text {
+    float: right;
+    color: #777;
+    font-size: 13px;
+}
+.doit-detail-page .add-talk .question-text i {
+    cursor: inherit;
+    color: #777;
+    font-size: 13px;
+}
+.doit-detail-page .add-talk .btn-wrap {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 3px;
+    background-color: #f3f3f3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doit-detail-page .add-talk .btn-wrap button {
+    width: 130px;
+    height: 35px;
+    background-color: #f3f3f3;
+}
+.doit-detail-page .add-talk .btn-wrap button.on,
+.doit-detail-page .add-talk .btn-wrap button:hover {
+    color: #fff;
+    font-weight: 600;
+    background-color: dodgerblue;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.doit-detail-page .view-more {
+    float: right;
+    width: 85%;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    background-color: #fff;
+    border: 1px solid #f3f3f3;
+    border-radius: 30px;
+    transition: all .2s;
+}
+.doit-detail-page .view-more:hover {
+    color: #0061f2;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 임시 */
+.doit-detail-page .doitTalk .time-line-body ,
+.doit-detail-page .doitTalk .top-fix {
+    padding: 0;
+    box-shadow: none;
+    background: none;
+    border: none;
+    border-radius: none;
+}

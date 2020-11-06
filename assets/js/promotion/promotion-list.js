@@ -101,7 +101,7 @@
 				{title: "기업", 			data: "nickname",    		width: "15%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "30%",
 					render: function (data, type, row, meta) {
-						let detailUrl 	= page.detailPromo + row.idx;
+						let detailUrl = page.detailPromo + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}

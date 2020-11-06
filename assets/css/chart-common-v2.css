@@ -34,6 +34,14 @@
     margin-right: 0.8%;
 }
 
+.row-2 .col {
+    width: 49.5%;
+}
+.row-2 .col:first-child {
+    margin-right: 0.5%;
+}
+
+
 .box {
     margin-bottom: 10px;
     border-radius: 5px;
@@ -69,7 +77,12 @@
     font-size: 11px;
     font-weight: 400;
 }
-
+.data-title {
+    padding-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
 .top {
     display: flex;
     align-content: center;
@@ -178,17 +191,8 @@ i.fa-user {
     width: 110px;
     background-color: #fff;
 }
-
-.dashboard-main .data-title {
-    padding-bottom: 8px;
-    color: #555;
-    font-size: 14px;
-    font-weight: 500;
-}
 .dashboard-main p.data-title {
-    color: #333;
     margin-bottom: 10px;
-    /*border-bottom: 1px solid #ddd;*/
 }
 .dashboard-main .data-num {
     display: block;
@@ -403,3 +407,32 @@ i.fa-user {
     box-shadow:none;
 }
 
+
+/* log */
+.dashboard-log .tab li {
+    position: relative;
+    cursor: pointer;
+}
+.dashboard-log .tab li .box-title {
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0;
+    border-radius: 5px;
+}
+.dashboard-log .tab li:hover .box-title,
+.dashboard-log .tab li.on .box-title {
+    color: #fff;
+    background-color: #0061f2;
+}
+.box-top .data-title {
+    float:left;
+    width: 90%;
+}
+.box-top .btn-more {
+    float:right;
+    width: 10%;
+    text-align: right;
+    color: #333;
+    font-size: 14px;
+}

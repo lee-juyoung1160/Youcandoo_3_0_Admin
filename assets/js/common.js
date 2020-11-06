@@ -659,7 +659,7 @@
     }
 
     /** 상세페이지 이동 **/
-    function moveDetail(obj)
+    /*function moveDetail(obj)
     {
         let target = $(obj).data('target');
         let param   = $(obj).data('uuid');
@@ -669,7 +669,7 @@
         form.append($("<input/>", {type: 'hidden', name: 'uuid', value: param}));
         form.appendTo("body");
         form.submit();
-    }
+    }*/
 
     /** 사이드 메뉴 세팅 **/
     function getLeftMenuByAuthCode()
@@ -747,10 +747,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = [
-        '/', '/admin/mypage',
-        '/operate/dashboard',
-        '/doit/test'];
+    let accessibleMenus = ['/', '/admin/mypage', '/doit/detail2'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -785,7 +782,9 @@
                 '/admin',
                 '/doit/category',
                 '/doit/recommend',
-                '/operate/account'];
+                '/doit/talk',
+                '/operate/account',
+                '/gift'];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');
@@ -821,8 +820,8 @@
         /** 2020.08.20
          *  재택근무로 추가된 로직. 원래는 아래 펑션(ip)만으로 처리했으나 권한까지 추가 됨.
          * **/
-        let accessibleAuths = ['smg', 'mg'];
-        if ($("#env").val() === 'development') accessibleAuths.push('dev')
+        let accessibleAuths = ['smg', 'mg', 'dev'];
+        /*if ($("#env").val() === 'development') accessibleAuths.push('dev')*/
         return accessibleAuths.indexOf(sessionAuthCode.val()) === -1;
     }
 
@@ -1104,7 +1103,7 @@
             }
         }
 
-        pageDom += _lastPage === _currentPage ?
+        pageDom += _lastPage === _currentPage || Number(_lastPage) === 0 ?
             `</span><a class="paginate_button next disabled" id="dataTable_next">${label.next}</a>` :
             `</span><a onclick="onClickPageNum(this)" 
 						class="paginate_button next" 

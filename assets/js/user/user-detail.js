@@ -864,7 +864,7 @@
 	function createReqCallback(data)
 	{
 		if (isSuccessResp(data))
-			balance.html(numberWithCommas(data.data.total));
+			balanceEl.html(numberWithCommas(data.data.total));
 
 		sweetToastAndCallback(data, createSuccess);
 	}

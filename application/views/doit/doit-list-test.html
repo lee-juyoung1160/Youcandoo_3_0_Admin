@@ -1,0 +1,357 @@
+<section class="doit-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">두잇 관리</h2>
+            <a href="/doit/create" style="width: 170px;"><i class="fas fa-plus"></i>프로모션 두잇 등록</a>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="date_type">등록일</label>
+                    <select id="date_type">
+                        <option value="created_datetime">등록일</option>
+                        <option value="action_start_datetime">시작일</option>
+                        <option value="action_end_datetime">종료일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">두잇명</label>
+                    <select id="search_type">
+                        <option value="doit_title">두잇명</option>
+                        <option value="doit_tags">태그</option>
+                        <option value="nickname">개설자</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li style="width: 55%;">
+                    <p class="list-common-title">진행 상태</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="chk-status" value="모집중"/>
+                        <label for="c1"><span></span>모집중</label>
+
+                        <input type="checkbox" id="c2" name="chk-status" value="모집실패"/>
+                        <label for="c2"><span></span>모집실패</label>
+
+                        <input type="checkbox" id="c3" name="chk-status" value="개설취소"/>
+                        <label for="c3"><span></span>개설취소</label>
+
+                        <input type="checkbox" id="c4" name="chk-status" value="진행중"/>
+                        <label for="c4"><span></span>진행중</label>
+
+                        <input type="checkbox" id="c5" name="chk-status" value="진행종료"/>
+                        <label for="c5"><span></span>진행종료</label>
+
+                        <input type="checkbox" id="c6" name="chk-status" value="결과발표"/>
+                        <label for="c6"><span></span>결과발표</label>
+
+                        <input type="checkbox" id="c7" name="chk-status" value="종료"/>
+                        <label for="c7"><span></span>종료</label>
+                    </div>
+                </li>
+                <li style="width: 25.2%">
+                    <p class="list-common-title">두잇 유형</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="radio-doit-type" value=""/>
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-doit-type" value="doit"/>
+                        <label for="r3"><span></span>일반</label>
+
+                        <input type="radio" id="r4" name="radio-doit-type" value="promotion"/>
+                        <label for="r4"><span></span>프로모션</label>
+                    </div>
+                </li>
+                <li style="width: 19%;">
+                    <p class="list-common-title">카테고리</p>
+                    <div class="select-box list-select-box">
+                        <label></label>
+                        <select id="selCategory">
+                            <!--<option value="">전체</option>
+                            <option value="">건강</option>
+                            <option value="">다이어트</option>-->
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <div class="checkbox-wrap" style="display: inline-block; ">
+                        <input type="checkbox" id="chkAll" name="chk-doit" />
+                        <label for="chkAll"><span></span></label>
+                    </div>
+                    <!--<button class="excel-btn" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>-->
+                    <button id="btnStartNow" type="button" style="display:none;background-color: #FFA83B;"><i class="fas fa-star"></i>오늘 시작</button>
+                    <button id="btnCategory" class="btn-info" type="button"><i class="fas fa-sort-amount-down-alt"></i>카테고리 관리</button>
+                </div>
+            </div>
+
+            <div id="listWrap" class="card-warp doit-card-warp">
+                <!--<div class="card">
+                    <div class="card-body line-blue">
+                        <div class="row">
+                            <div class="flex-container">
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c0" name="cc" />
+                                    <label for="c0"><span></span></label>
+                                </div>
+                                <span class="badge badge-green">진행중</span>
+                                <span class="item-box"><strong>프로모션</strong> / <span>2020년 추석 맞이 보름달 프로모션 (리워드 옵션 명)</span></span>
+                                <span class="item-box"><i class="fas fa-sort-amount-down-alt"></i> 학습/자기계발</span>
+                                <span class="item-box"><i class="fas fa-images"></i> 갤러리 허용</span>
+                                <span class="item-box"><i class="fas fa-unlock-alt"></i> 참여코드 : 0326</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="flex-container">
+                                <p class="thumbnail-wrap" style="width: 80px; margin-left: 37px;">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/9093eadb2df870d06e3acf06086a8644.jpg" alt="">
+                                </p>
+                                <div class="col">
+                                    <p class="sub-title">두잇명 최대 이십오자 입력 최대 이십오자 입력</p>
+                                    <ul class="hash-tag-list clearfix">
+                                        <li><span class="tag-name">#두잇태그최대열자까지</span></li>
+                                        <li><span class="tag-name">#두잇태그최대열자까지</span></li>
+                                        <li><span class="tag-name">#두잇태그최대열자까지</span></li>
+                                    </ul>
+                                    <div class="cap">
+                                        <span class="item"><i class="fas fa-calendar-alt"></i> 2020-10-12 ~ 2020-10-15</span>
+                                        <span class="item"><i class="fas fa-clock"></i> 00:00:00 ~ 00:00:00</span>
+                                        <span class="item"><i class="fas fa-calendar-day"></i> 월, 화, 수, 목, 금</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-wrap">
+                            <div class="flex-container">
+                                <div class="col col-info">
+                                    <p class="cap">개설자: 깐깐찡어깐깐찡어깐깐찡어깐깐찡어</p>
+                                    <p class="cap">개설일: 2020-02-02</p>
+                                    <div class="personnel-num">
+                                        <p class="cap"><i class="fas fa-users"></i> 참여/모집인원 :</p>
+                                        <strong>999</strong> /1000
+                                    </div>
+                                </div>
+                                <div class="btn-icon-wrap col">
+                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-trash-alt"></i>
+                                    <a href="#" class="view-detail">View Detail <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body line-aqua">
+                        <div class="row">
+                            <div class="flex-container">
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c0" name="cc" />
+                                    <label for="c0"><span></span></label>
+                                </div>
+                                <span class="badge badge-orange">모집중</span>
+                                <span class="item-box"><strong>일반</strong></span>
+                                <span class="item-box"><i class="fas fa-sort-amount-down-alt"></i> 라이프스타일</span>
+                                <span class="item-box"><i class="fas fa-images"></i> 갤러리 비허용</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="flex-container">
+                                <p class="thumbnail-wrap" style="width: 80px; margin-left: 37px;">
+                                    <img src="https://youcandoo.yanadoocdn.com/action/836a2aac7ec61f4db04549ee8b6c5df4/7295734b0482e105751432699fe46371.jpg" alt="">
+                                </p>
+                                <div class="col">
+                                    <p class="sub-title">내 고양이 자랑하기</p>
+                                    <ul class="hash-tag-list clearfix">
+                                        <li><span class="tag-name">#반려동물</span></li>
+                                        <li><span class="tag-name">#기요미</span></li>
+                                        <li><span class="tag-name">#사지말고입양해요</span></li>
+                                    </ul>
+                                    <div class="cap">
+                                        <span class="item"><i class="fas fa-calendar-alt"></i> 2020-10-12 ~ 2020-10-15</span>
+                                        <span class="item"><i class="fas fa-clock"></i> 00:00:00 ~ 00:00:00</span>
+                                        <span class="item"><i class="fas fa-calendar-day"></i> 월, 수, 금</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-wrap">
+                            <div class="flex-container">
+                                <div class="col col-info">
+                                    <p class="cap">개설자: 깐깐찡어깐깐찡어깐깐찡어깐깐찡어</p>
+                                    <p class="cap">개설일: 2020-02-02</p>
+                                    <div class="personnel-num">
+                                        <p class="cap"><i class="fas fa-users"></i> 참여/모집인원 :</p>
+                                        <strong>999</strong> /1000
+                                    </div>
+                                </div>
+                                <div class="btn-icon-wrap col">
+                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-trash-alt"></i>
+                                    <a href="#" class="view-detail">View Detail <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body line-aqua">
+                        <div class="row">
+                            <div class="flex-container">
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c0" name="cc" />
+                                    <label for="c0"><span></span></label>
+                                </div>
+                                <span class="badge badge-gray">종료</span>
+                                <span class="item-box"><strong>일반</strong></span>
+                                <span class="item-box"><i class="fas fa-sort-amount-down-alt"></i> 라이프스타일</span>
+                                <span class="item-box"><i class="fas fa-images"></i> 갤러리 비허용</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="flex-container">
+                                <p class="thumbnail-wrap" style="width: 80px; margin-left: 37px;">
+                                    <img src="https://youcandoo.yanadoocdn.com/action/836a2aac7ec61f4db04549ee8b6c5df4/7295734b0482e105751432699fe46371.jpg" alt="">
+                                </p>
+                                <div class="col">
+                                    <p class="sub-title">내 고양이 자랑하기</p>
+                                    <ul class="hash-tag-list clearfix">
+                                        <li><span class="tag-name">#반려동물</span></li>
+                                        <li><span class="tag-name">#기요미</span></li>
+                                        <li><span class="tag-name">#사지말고입양해요</span></li>
+                                    </ul>
+                                    <div class="cap">
+                                        <span class="item"><i class="fas fa-calendar-alt"></i> 2020-10-12 ~ 2020-10-15</span>
+                                        <span class="item"><i class="fas fa-clock"></i> 00:00:00 ~ 00:00:00</span>
+                                        <span class="item"><i class="fas fa-calendar-day"></i> 월, 수, 금</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-wrap">
+                            <div class="flex-container">
+                                <div class="col col-info">
+                                    <p class="cap">개설자: 깐깐찡어깐깐찡어깐깐찡어깐깐찡어</p>
+                                    <p class="cap">개설일: 2020-02-02</p>
+                                    <div class="personnel-num">
+                                        <p class="cap"><i class="fas fa-users"></i> 참여/모집인원 :</p>
+                                        <strong>999</strong> /1000
+                                    </div>
+                                </div>
+                                <div class="btn-icon-wrap col">
+                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-trash-alt"></i>
+                                    <a href="#" class="view-detail">View Detail <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">
+                두잇 카테고리 관리
+            </p>
+            <ul class="modal-information">
+                <li>
+                    <div class="table-wrap" style="margin-top: 0;">
+                        <table id="categoryTable" style="margin-top: 0;">
+                            <!--<colgroup>
+                                <col style="width:10%;">
+                                <col style="width:90%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>카테고리 명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c12" name="cc" />
+                                        <label for="c12"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>학습</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c13" name="cc" />
+                                        <label for="c13"><span></span></label>
+                                    </div>
+                                </td>
+                                <td>기타</td>
+                            </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </li>
+            </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">적용 완료</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+</section>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/doit/doit-list-v2.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--<script src="/assets/js/dev.js?version=<?php echo $this->config->item('version');?>"></script>-->

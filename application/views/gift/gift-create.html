@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/assets/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<section class="gift-create-page">
+    <div class="inner">
+        <h2 class="main-title">상품 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <!--<li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품코드(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data">a00001</p>
+                        </div>
+                    </div>
+                </li>-->
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-wrap">
+                                <input id="giftName" type="text" class="length-input" placeholder="상품명을 입력해주세요." maxlength="25">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품 UCD (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-wrap">
+                                <input id="price" type="text" class="only-num" maxlength="7">
+                                <span class="input-num-title"> UCD</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품 이미지 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="filebox preview-image">
+                                <p class="cap">이미지 사이즈: 240*240</p>
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="giftImage">업로드</label>
+                                <input type="file" id="giftImage" class="upload-hidden" data-width="240" data-height="240" data-oper="eq">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">노출여부 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c20" name="radio-exposure" value="Y"/>
+                                <label for="c20"><span></span>Y</label>
+
+                                <input type="radio" id="c21" name="radio-exposure" value="N"/>
+                                <label for="c21"><span></span>N</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/js/gift/gift-create.js?version=<?php echo $this->config->item('version');?>"></script>

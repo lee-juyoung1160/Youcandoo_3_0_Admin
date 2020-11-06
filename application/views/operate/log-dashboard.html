@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="/assets/css/plugins/chart.min.css">
+<link rel="stylesheet" href="/assets/css/chart-common-v2.css?version=<?php echo $this->config->item('version');?>">
+<section class="dashboard-log chart-pg">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">Log Dashboard</h2>
+        </div>
+        <div class="wrap">
+
+            <ul class="tab row row-4">
+                <li class="col box on">
+                    <p class="box-title">API</p>
+                </li>
+                <li class="col box">
+                    <p class="box-title">Auth</p>
+                </li>
+                <li class="col box">
+                    <p class="box-title">Homepage</p>
+                </li>
+                <li class="col box">
+                    <p class="box-title">Admin</p>
+                </li>
+            </ul>
+
+            <div class="row box" style="width: 99.3%;">
+                <div class="content-inner">
+                    <div class="top clearfix">
+                        <p class="data-title">URL</p>
+                        <div class="right-wrap clearfix">
+                            <div class="select-box">
+                                <label for="selYear2"></label>
+                                <select id="selYear2" class="select-year">
+                                </select>
+                            </div>
+                            <div class="select-box">
+                                <label for="selMonth2"></label>
+                                <select id="selMonth2" class="select-month">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas id="dailyTotalUser" height="400"></canvas>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row row-2">
+                <div class="col box">
+                    <div class="content-inner">
+                        <div class="box-top clearfix">
+                            <p class="data-title">URL</p>
+                            <a href="#" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                        <div class="box-contents">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner">
+                        <div class="box-top clearfix">
+                            <p class="data-title">PHP Error</p>
+                            <a href="#" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-2">
+                <div class="col box">
+                    <div class="content-inner">
+                        <div class="box-top clearfix">
+                            <p class="data-title">Process Time</p>
+                            <a href="#" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col box">
+                    <div class="content-inner">
+                        <div class="box-top clearfix">
+                            <p class="data-title">Apache Error</p>
+                            <a href="#" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/chart.min.js"></script>
+<script src="/assets/js/plugins/chartjs-plugin-labels.js"></script>
+<script src="/assets/js/chart-config.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/main-dashboardv2.js?version=<?php echo $this->config->item('version');?>"></script>

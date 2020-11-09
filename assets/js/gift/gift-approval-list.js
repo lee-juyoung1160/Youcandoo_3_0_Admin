@@ -29,10 +29,13 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
+		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnSubmit      .on("click", function () { onSubmitUpdateMemo(); });
 	});
 
 	function initSearchForm()
@@ -134,11 +137,17 @@
 		memoEl +=
 			`<div class="tooltip">`
 		if (!isEmpty(memo))
-			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>';
+			memoEl +=
+				`<i onmouseover="mouseoverMemo(this);" 
+					onmouseleave="mouseoutMemo(this);" 
+					class="fas fa-check-circle tooltip-mark on" 
+					style="cursor:pointer;"></i>
+				<i class="fas fa-edit" onclick="onClickUpdateMemo(this)" data-memo="${memo}" id="${data.exchange_uuid}"></i>`;
 		else
-			memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
+			memoEl +=
+				`<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>`;
 		memoEl +=
-			`<div class="tooltip-hover-text" style="display: none;">
+				`<div class="tooltip-hover-text" style="display: none;">
 					<strong>memo</strong>
 					<p>${memo}</p>
 				</div>
@@ -149,19 +158,23 @@
 
 	function mouseoverMemo(obj)
 	{
-		$(obj).siblings().show();
+		console.log($(obj).closest('.tooltip-hover-text'))
+		$(obj).siblings('.tooltip-hover-text').show();
 	}
 
 	function mouseoutMemo(obj)
 	{
-		$(obj).siblings().hide();
+		$(obj).siblings('.tooltip-hover-text').hide();
 	}
 
 	let g_exchange_uuid;
-	function onClickUpdateMemo(data)
+	function onClickUpdateMemo(obj)
 	{
-		g_exchange_uuid = data.exchange_uuid;
-		modalMemo.val(data.memo);
+		let memo = $(obj).data('memo');
+
+		g_exchange_uuid = obj.id;
+		modalMemo.val(memo);
+		modalMemo.trigger('focus');
 		modalFadein();
 	}
 
@@ -184,7 +197,13 @@
 
 	function approvalReqCallback(data)
 	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		sweetToastAndCallback(data, approvalReqSuccess);
+	}
+
+	function approvalReqSuccess()
+	{
+		modalFadeout();
+		onSubmitSearch();
 	}
 
 	function getSelectedRowsUuid()

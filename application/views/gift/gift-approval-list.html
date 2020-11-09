@@ -11,6 +11,7 @@
                     <label for="date_type">신청일</label>
                     <select id="date_type">
                         <option value="created_datetime">신청일</option>
+                        <option value="app_datetime">승인일</option>
                     </select>
                 </div>
                 <div class="date-wrap">
@@ -160,6 +161,20 @@
             </ul>-->
         </div>
     </div>
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">메모</p>
+            <ul class="modal-information">
+                <li>
+                    <textarea id="memo" placeholder="메모를 입력해주세요." name="text" cols="30" rows="10"></textarea>
+                </li>
+            </ul>
+            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
 
 </section>
 <script src="/assets/js/plugins/tablesort.min.js"></script>

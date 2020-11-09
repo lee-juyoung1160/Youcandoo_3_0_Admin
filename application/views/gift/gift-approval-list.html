@@ -1,7 +1,7 @@
 <section class="gift-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">상품 신청 내역</h2>
+            <h2 class="main-title list-main-title">상품 승인 내역</h2>
         </div>
 
         <div class="list-common">
@@ -43,23 +43,23 @@
             </div>
         </div>
 
-        <!--<div class="doit-list-option">
+        <div class="doit-list-option">
             <ul class="clearfix">
                 <li>
                     <p class="list-common-title">상태</p>
                     <div class="checkbox-wrap">
-                        <input type="checkbox" id="r2" name="chk-approval-status" value="대기"/>
-                        <label for="r2"><span></span>승인대기</label>
+                        <input type="checkbox" id="r2" name="approval-status" value="대기"/>
+                        <label for="r2"><span></span>대기</label>
 
-                        <input type="checkbox" id="r3" name="chk-approval-status" value="승인"/>
-                        <label for="r3"><span></span>승인완료</label>
+                        <input type="checkbox" id="r3" name="approval-status" value="승인"/>
+                        <label for="r3"><span></span>승인</label>
 
-                        <input type="checkbox" id="r4" name="chk-approval-status" value="취소"/>
-                        <label for="r4"><span></span>승인취소</label>
+                        <input type="checkbox" id="r4" name="approval-status" value="취소"/>
+                        <label for="r4"><span></span>취소</label>
                     </div>
                 </li>
             </ul>
-        </div>-->
+        </div>
 
         <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
@@ -77,10 +77,6 @@
                         <select id="selPageLength">
                         </select>
                     </div>
-                </div>
-                <div class="btn-wrap">
-                    <button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i> 승인</button>
-                    <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i>승인 취소</button>
                 </div>
             </div>
 
@@ -165,23 +161,9 @@
         </div>
     </div>
 
-    <div class="modal-content">
-        <div class="wrap">
-            <i class="close-btn">×</i>
-            <p class="modal-title" id="modalTitle"></p>
-            <ul class="modal-information">
-                <li>
-                    <textarea id="memo" placeholder="메모를 입력해주세요." name="text" cols="30" rows="10"></textarea>
-                </li>
-            </ul>
-            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
-        </div>
-    </div>
-    <div class="modal-layout"></div>
-
 </section>
 <script src="/assets/js/plugins/tablesort.min.js"></script>
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/js/gift/gift-apply-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/js/gift/gift-approval-list.js?version=<?php echo $this->config->item('version');?>"></script>

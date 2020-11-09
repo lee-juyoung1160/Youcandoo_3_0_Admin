@@ -1760,6 +1760,13 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	white-space: pre-line;
 }
 
+.gift-approval .tooltip-hover-text {
+	right: 100px;
+}
+.gift-approval td i {
+	margin: 0 5px;
+}
+
 
 /* 스위트 알럿 */
 .swal2-container {

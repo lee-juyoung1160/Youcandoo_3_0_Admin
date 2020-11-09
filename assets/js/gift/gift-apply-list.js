@@ -189,7 +189,7 @@
 		let errMsg 	= label.approval+message.ajaxError;
 		let uuids = getSelectedRowsUuid();
 		let param   = {
-			"exchange_uuid" : uuids,
+			"exchange_list" : uuids,
 			"memo" : modalMemo.val()
 		};
 
@@ -198,7 +198,13 @@
 
 	function approvalReqCallback(data)
 	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		sweetToastAndCallback(data, approvalReqSuccess);
+	}
+
+	function approvalReqSuccess()
+	{
+		modalFadeout();
+		onSubmitSearch();
 	}
 
 	function getSelectedRowsUuid()

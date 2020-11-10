@@ -162,7 +162,6 @@
 
 	function mouseoverMemo(obj)
 	{
-		console.log($(obj).closest('.tooltip-hover-text'))
 		$(obj).siblings('.tooltip-hover-text').show();
 	}
 

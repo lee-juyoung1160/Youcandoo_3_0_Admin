@@ -85,14 +85,12 @@
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			select: {
-				style: 'multi',
-				selector: ':checkbox'
-			},
+			select: false,
 			destroy: false,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -128,6 +126,12 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		if (aData.exchange_status === '취소')
+			$(nRow).addClass('minus-pay');
 	}
 
 	function buildMemo(data)

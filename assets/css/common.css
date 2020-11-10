@@ -1766,6 +1766,9 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .gift-approval td i {
 	margin: 0 5px;
 }
+.gift-approval td i.fa-edit {
+	color: #333;
+}
 
 
 /* 스위트 알럿 */

@@ -84,7 +84,7 @@ class Auth extends CI_Controller {
 //        );
 //        set_cookie($cookie);
         // Session Set
-        session_start();
+//        session_start();
 
         # 임시처리, 추후 로직 수정 예정 by.leo
         $LoginIP="";

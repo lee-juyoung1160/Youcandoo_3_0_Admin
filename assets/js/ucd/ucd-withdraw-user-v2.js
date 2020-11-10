@@ -158,13 +158,14 @@
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
-
+		let users = [];
 		for (let i=0; i<selectedData.length; i++)
 		{
 			let { nickname, profile_uuid, ucd } = selectedData[i];
 			let userInfo = { "nickname" : nickname, "profile_uuid" : profile_uuid, "ucd" : ucd.total };
-			selectedUsers.push(userInfo);
+			users.push(userInfo);
 		}
+		selectedUsers = users.concat(selectedUsers);
 
 		buildSelectedUser();
 		calculateSelectedCount();

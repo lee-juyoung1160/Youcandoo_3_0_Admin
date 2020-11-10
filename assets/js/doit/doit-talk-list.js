@@ -87,10 +87,10 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				}
-				,{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "22%",
+				,{title: "유형",    		data: "talk_type",		width: "4%" }
+				,{title: "내용",    		data: "contents",		width: "24%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 380px">${data}</a>`
+						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px">${data}</a>`
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",
@@ -102,7 +102,7 @@
 						)
 					}
 				}
-				,{title: "신고",    		data: "report",  		width: "5%" }
+				,{title: "신고",    		data: "report",  		width: "4%" }
 				,{title: "댓글",    		data: "comment",  		width: "5%",
 					render: function (data, type, row, meta) {
 						return row.talk_type === '대댓글' ? '-' : data;

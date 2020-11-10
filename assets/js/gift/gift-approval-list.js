@@ -149,7 +149,8 @@
 				<i class="fas fa-edit" onclick="onClickUpdateMemo(this)" data-memo="${memo}" id="${data.exchange_uuid}"></i>`;
 		else
 			memoEl +=
-				`<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>`;
+				`<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>
+				<i class="fas fa-edit" onclick="onClickUpdateMemo(this)" data-memo="${memo}" id="${data.exchange_uuid}"></i>`;
 		memoEl +=
 				`<div class="tooltip-hover-text" style="display: none;">
 					<strong>memo</strong>
@@ -173,12 +174,13 @@
 	let g_exchange_uuid;
 	function onClickUpdateMemo(obj)
 	{
+		modalFadein();
+
 		let memo = $(obj).data('memo');
 
 		g_exchange_uuid = obj.id;
 		modalMemo.val(memo);
 		modalMemo.trigger('focus');
-		modalFadein();
 	}
 
 	function onSubmitUpdateMemo()

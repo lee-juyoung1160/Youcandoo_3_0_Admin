@@ -60,16 +60,16 @@
 			},
 			columns: [
 				{title: "닉네임", 	data: "nickname",    width: "20%" }
-				,{title: "유형", 	data: "ucd_type",    width: "8%" }
-				,{title: "구분", 	data: "division",    width: "8%" }
-				,{title: "금액", 	data: "amount",    	 width: "10%",
+				,{title: "유형", 	data: "ucd_type",    width: "7%" }
+				,{title: "구분", 	data: "division",    width: "7%" }
+				,{title: "금액", 	data: "amount",    	 width: "7%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
 				,{title: "제목", 	data: "title",    	 width: "10%" }
-				,{title: "내용", 	data: "description", width: "30%",    className: "no-sort" }
-				,{title: "일시", 	data: "created",     width: "15%" }
+				,{title: "내용", 	data: "description", width: "35%",    className: "no-sort" }
+				,{title: "일시", 	data: "created",     width: "10%" }
 			],
 			serverSide: true,
 			paging: true,

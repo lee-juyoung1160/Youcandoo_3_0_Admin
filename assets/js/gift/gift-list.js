@@ -65,7 +65,7 @@
 					}
 				},*/
 				{title: "상품코드", 		data: "gift_uuid",    		width: "25%" }
-				,{title: "상품명", 		data: "gift_name",    		width: "20%",
+				,{title: "상품명", 		data: "gift_name",    		width: "25%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailGift+row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
@@ -81,7 +81,7 @@
 						return buildImage(data);
 					}
 				}
-				,{title: "노출여부",    	data: "is_exposure",  		width: "15%",
+				,{title: "노출여부",    	data: "is_exposure",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return buildSwitch(row);
 					}

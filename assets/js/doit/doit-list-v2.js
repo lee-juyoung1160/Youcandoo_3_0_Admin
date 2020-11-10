@@ -242,12 +242,12 @@
 				tagEl += `<li><span class="tag-name">${tag}</span></li>`;
 			}
 			let isCreatedByBiz = (!isEmpty(promotion_uuid) && nickname.indexOf('@') !== -1);
+			/*let hasJoinMember = Number(doit_member) > 0;*/
 			let isRecruiting = doit_status === '모집중';
-			let hasJoinMember = Number(doit_member) > 0;
-			let btnUpdate  = isCreatedByBiz && isRecruiting
+			let btnUpdate = isCreatedByBiz && isRecruiting
 				? `<i onclick="location.href = '${page.updateDoit}${idx}'" class="fas fa-edit"></i>`
 				: `<i class="fas fa-edit disabled"></i>`;
-			let btnDelete  = isCreatedByBiz && isRecruiting && !hasJoinMember
+			let btnDelete = isRecruiting
 				? `<i onclick="deleteDoit('${doit_uuid}')" class="fas fa-trash-alt"></i>`
 				: `<i class="fas fa-trash-alt disabled"></i>`;
 			listEl +=

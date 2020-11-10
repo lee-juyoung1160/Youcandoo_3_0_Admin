@@ -191,10 +191,10 @@
 				}
 				,{title: "비고", 			data: "doit_uuid",    			width: "5%",	className: "no-sort",
 					render: function (data, type, row, meta) {
-						let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);
-						let isIng = row.doit_status === '모집중';
-						let hasJoinMember = Number(row.doit_member) > 0;
-						let disabled = (isCreatedByBiz && isIng && !hasJoinMember) ? '' : 'disabled';
+						/*let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);*/
+						/*let hasJoinMember = Number(row.doit_member) > 0;*/
+						let isRecruiting = row.doit_status === '모집중';
+						let disabled = isRecruiting ? '' : 'disabled';
 						return `<button onclick="deleteDoit(this);" data-uuid="${data}" class="btn-danger" type="button" ${disabled}>삭제</button>`;
 					}
 				}

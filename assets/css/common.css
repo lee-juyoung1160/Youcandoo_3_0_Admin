@@ -1767,12 +1767,16 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .gift-approval td i {
 	margin: 0 5px;
 }
-.gift-approval td i.fa-edit {
+.gift-approval td i.fa-edit,
+.gift-approval .tooltip-hover-text {
 	color: #333;
+}
+.gift-approval .tooltip-hover-text p {
+	white-space: pre-line;
 }
 
 
-/* 스위트 알럿 */
+	/* 스위트 알럿 */
 .swal2-container {
 	z-index: 99999;
 }

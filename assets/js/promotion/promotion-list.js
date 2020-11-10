@@ -37,7 +37,7 @@
 		isBanner.eq(0).prop("checked", true);
 		status.prop("checked", true);
 		initSelectOption();
-		initSearchDateRangeMonth();
+		initSearchDateRangeThreeMonth();
 		initMaxDateAfterThreeMonth();
 		initDayBtn();
 	}

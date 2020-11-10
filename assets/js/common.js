@@ -179,6 +179,12 @@
         dateTo.datepicker("setDate", "today");
     }
 
+    function initSearchDateRangeThreeMonth()
+    {
+        dateFrom.datepicker("setDate", "-3M");
+        dateTo.datepicker("setDate", "today");
+    }
+
     function initSearchDateRangeToday()
     {
         dateFrom.datepicker("setDate", "today");

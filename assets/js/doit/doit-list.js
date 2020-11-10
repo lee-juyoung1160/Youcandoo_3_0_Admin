@@ -85,7 +85,7 @@
 		doitStatus.eq(3).prop('checked', true);
 		radioDoitType.eq(0).prop('checked', true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeThreeMonth();
 		initMaxDateAfterThreeMonth();
 		initDayBtn();
 	}

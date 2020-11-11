@@ -41,7 +41,7 @@
 
 		giftCode.html(gift_uuid);
 		giftName.html(gift_name);
-		giftUcd.html(gift_ucd);
+		giftUcd.html(numberWithCommas(gift_ucd));
 		giftImage.attr('src', gift_image_url);
 		exposure.html(is_exposure);
 	}

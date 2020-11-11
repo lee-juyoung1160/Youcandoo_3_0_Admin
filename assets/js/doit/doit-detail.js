@@ -248,7 +248,7 @@
 		creator.html(detail.doit_permission);
 
 		let desc = isEmpty(detail.doit_description) ? label.dash : detail.doit_description;
-		doitDesc.html(desc);
+		doitDesc.html(replaceDoubleQuotes(desc));
 
 		let tags = detail.doit_tags;
 		let tagDom = '';
@@ -309,7 +309,7 @@
 
 		actionResource.html(buildActionResource(detail));
 
-		actionDesc.html(detail.action_description);
+		actionDesc.html(replaceDoubleQuotes(detail.action_description));
 
 		allowGallery.html(detail.allow_gallery_image);
 

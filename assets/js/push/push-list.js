@@ -62,35 +62,41 @@
 						return singleCheckBoxDom(data);
 					}
 				},
-				{title: "발송여부", 			data: "push_status",    		width: "8%" }
-				,{title: "발송대상 ", 		data: "push_type", 	  			width: "8%",
+				{title: "발송여부", 			data: "push_status",    		width: "5%" }
+				,{title: "발송대상 ", 		data: "push_type", 	  			width: "5%",
 					render: function (data) {
 						return data === 'all' ? '전체' : '개인';
 					}
 				}
-				,{title: "등록일", 			data: "created_datetime",		width: "8%",
+				,{title: "등록일", 			data: "created_datetime",		width: "7%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "15%" }
-				,{title: "푸시 본문", 		data: "send_message",  			width: "20%",   className: "no-sort",
+				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "10%" }
+				,{title: "고유 ID", 			data: "message_id",  			width: "15%", 	className: "no-sort",
+					render: function (data) {
+						return `<div title="${data}" class="line-clamp">${data}</div>`;
+					}
+				}
+				,{title: "푸시 본문", 		data: "send_message",  			width: "15%",   className: "no-sort",
 					render: function (data) {
 						return `<a onclick="onClickDetail(this);" data-detail="${data}" class="line-clamp">${data}</a>`;
 					}
 				}
-				,{title: "스토어", 			data: "store",    	  			width: "8%",
+				,{title: "스토어", 			data: "store",    	  			width: "5%",
 					render: function (data) {
 						return data === 'all' ? '전체' : data;
 					}
 				}
-				,{title: "구분", 		data: "category",  			  		width: "8%",
+				,{title: "구분", 		data: "category",  			  		width: "5%",
 					render: function (data) {
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  		width: "30%",   className: "no-sort",
+				,{title: "도착페이지", 		data: "category_target",  		width: "20%",   className: "no-sort",
 					render: function (data, type, row, meta) {
+					console.log($(this))
 						return isEmpty(data) ? '-' : `[${row.target_name}] ${row.target_title}`
 					}
 				}

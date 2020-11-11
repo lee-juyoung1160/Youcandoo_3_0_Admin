@@ -159,7 +159,7 @@
 				,{title: "두잇명", 			data: "doit_title",    			width: "15%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.idx;
-						return `<a class="line-clamp" title="${row.doit_title}" href="${detailUrl}">${row.doit_title}</a>`;
+						return `<a class="line-clamp" title="${replaceDoubleQuotes(row.doit_title)}" href="${detailUrl}">${replaceDoubleQuotes(row.doit_title)}</a>`;
 					}
 				}
 				,{title: "진행상태", 		data: "doit_status",    		width: "5%" }

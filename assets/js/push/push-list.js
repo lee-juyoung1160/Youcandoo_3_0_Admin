@@ -94,7 +94,7 @@
 						return getPushCategory(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  		width: "20%",   className: "no-sort",
+				,{title: "도착페이지", 		data: "category_target",  		width: "25%",   className: "no-sort",
 					render: function (data, type, row, meta) {
 					console.log($(this))
 						return isEmpty(data) ? '-' : `[${row.target_name}] ${row.target_title}`

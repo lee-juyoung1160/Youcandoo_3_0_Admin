@@ -174,6 +174,7 @@
 		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
 
 		modalTitle.html(title);
+		modalMemo.trigger('focus');
 		modalMemo.val("");
 	}
 

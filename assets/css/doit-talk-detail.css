@@ -331,6 +331,11 @@
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 }
 
+.doit-detail-page .comment-wrap i.fa-comment {
+    margin: 10px 0 0 20px;
+    color: #00c0ef;
+}
+
 /* 임시 */
 .doit-detail-page .doitTalk .time-line-body ,
 .doit-detail-page .doitTalk .top-fix {

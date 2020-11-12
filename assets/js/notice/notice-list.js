@@ -9,18 +9,20 @@
 	const btnDelete		= $("#btnDelete");
 	const btnTop		= $("#btnTop");
 	const tooltipTop	= '<i class="question-mark far fa-question-circle"><span class="hover-text">상단고정은 최대 3개까지<br>등록이 가능합니다.</span></i>';
+	let _page = 1;
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
-		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		if (isBackAction()) setHistoryForm();
+		/** 상단 검색 폼 초기화
+		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
+		 * **/
+		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
@@ -43,7 +45,6 @@
 		initDayBtn();
 	}
 
-	let _page = 1;
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();

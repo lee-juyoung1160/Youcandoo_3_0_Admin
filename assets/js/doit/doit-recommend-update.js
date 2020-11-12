@@ -12,8 +12,6 @@
 		initTableDefault();
 		/** 상세 불러오기 **/
 		getDetail();
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam("");
 		/** 이벤트 **/
 		btnAdd			.on("click", function () { addRecommend(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
@@ -84,6 +82,7 @@
 		});
 		getDoitSearch();
 		buildRecommended(data.data.recommend_doit);
+		/** 테이블 drag and drop 정렬 초기화 **/
 		initSortTable();
 	}
 
@@ -358,6 +357,7 @@
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
+			/** 테이블 drag and drop 정렬 초기화 **/
 			initSortTable();
 		}
 	}

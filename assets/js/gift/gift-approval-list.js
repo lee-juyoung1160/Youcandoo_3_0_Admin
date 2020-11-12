@@ -20,12 +20,10 @@
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		/** 입력 폼 초기화 **/
-		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
-		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		if (isBackAction()) setHistoryForm();
+		/** 상단 검색 폼 초기화 **/
+		initSearchForm();
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/

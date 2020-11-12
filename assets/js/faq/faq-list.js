@@ -8,6 +8,7 @@
 	const faqType 		= $("#selFaqType");
 	const exposure		= $("input[name=radio-exposure]");
 	const btnDelete		= $("#btnDelete");
+	let _page = 1;
 
 	$( () => {
 		/** dataTable default config **/
@@ -30,14 +31,13 @@
 		initSelectOption();
 	}
 
-	let _page = 1;
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
 		keyword.val(historyParams.keyword);
 		searchType.val(historyParams.search_type);
-		onChangeSelectOption(faqType);
-		faqType.val(historyParams.searchType);
+		onChangeSelectOption(searchType);
+		faqType.val(historyParams.faq_type);
 		onChangeSelectOption(faqType);
 		exposure.each(function () {
 			if ($(this).val() === historyParams.is_exposure)
@@ -81,12 +81,13 @@
 
 	function completeCallback()
 	{
-		/** 상단 검색 폼 초기화 **/
-		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
+		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
-		/** 뒤로가기 액션일때 검색폼 세팅 **/
-		if (isBackAction()) setHistoryForm();
+		/** 상단 검색 폼 초기화
+		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
+		 * **/
+		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 **/
 		buildGrid();
 	}

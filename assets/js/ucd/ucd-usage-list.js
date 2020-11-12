@@ -18,10 +18,10 @@
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
-		/** n개씩 보기 초기화 (initSearchForm 이후에 와야 함) **/
-		initPageLength(selPageLength);
 		/** 테이블 데이터 로드 **/
 		buildGrid();
 		/** 이벤트 **/

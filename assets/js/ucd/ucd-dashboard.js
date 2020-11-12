@@ -20,8 +20,6 @@
         initSelectBox();
         getSummaryUcd();
         initPage();
-        /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-        setHistoryParam("");
         /** 월단위 셀렉박스 이벤트 **/
         issuanceUcd .on('click', function () { g_ucd_type = 'create'; onClickLiElement(this); });
         rewardUcd   .on('click', function () { g_ucd_type = 'reward'; onClickLiElement(this); });

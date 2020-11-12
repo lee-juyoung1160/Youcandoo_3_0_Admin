@@ -516,10 +516,9 @@
     {
         let tableEl = obj.closest('table');
         let chkBox = $(tableEl).find('input:checkbox');
-        $(chkBox).each(function () {
-            if (this.id !== obj.id)
-                $(this).prop('checked', false);
-        })
+
+        $(chkBox).prop('checked', false);
+        $(obj).prop('checked', true);
     }
 
     function onClickChkAll(obj)

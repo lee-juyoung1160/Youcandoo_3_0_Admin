@@ -10,12 +10,12 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
-		/** 배너 테이블 데이터 로드 **/
+		/** 배너 테이블(왼쪽) 데이터 로드 **/
 		buildBanners();
+		/** 전체 프로모션(오른쪽) 데이터 로드 **/
 		getPromo();
+		/** 테이블 drag and drop 정렬 초기화 **/
 		initSortTable();
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam("");
 		/** 이벤트 **/
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
@@ -274,6 +274,7 @@
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(dataTable);
 			bannerTable.find('tbody').sortable("destroy");
+			/** 테이블 drag and drop 정렬 초기화 **/
 			initSortTable();
 		}
 	}

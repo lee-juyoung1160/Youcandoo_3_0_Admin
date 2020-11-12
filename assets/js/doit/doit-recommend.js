@@ -8,12 +8,12 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
-		/** 추천 두잇 데이터 로드 **/
+		/** 추천 두잇(왼쪽) 데이터 로드 **/
 		buildRecommended();
+		/** 모든 두잇 목록(오른쪽) **/
 		getDoit();
+		/** 테이블 drag and drop 정렬 초기화 **/
 		initSortTable();
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam("");
 		/** 이벤트 **/
 		btnAdd			.on("click", function () { addRecommend(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
@@ -331,6 +331,7 @@
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
+			/** 테이블 drag and drop 정렬 초기화 **/
 			initSortTable();
 		}
 	}

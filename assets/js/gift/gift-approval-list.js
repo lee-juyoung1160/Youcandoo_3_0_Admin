@@ -32,6 +32,7 @@
 		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
@@ -65,18 +66,18 @@
 				}
 			},
 			columns: [
-				{title: "상태",    		data: "exchange_status",  	width: "5%" }
+				{title: "상태",    		data: "exchange_status",  	width: "5%",	className: 'no-sort' }
 				,{title: "신청자", 		data: "nickname",    		width: "20%" }
 				,{title: "상품명", 		data: "gift_name",    		width: "20%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",
+				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
+				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
 				,{title: "신청일시",    	data: "created_datetime",  	width: "10%" }
 				,{title: "승인일시",    	data: "app_datetime",  		width: "10%" }
-				,{title: "메모",    		data: "memo",  				width: "10%",
+				,{title: "메모",    		data: "memo",  				width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return buildMemo(row);
 					}
@@ -88,6 +89,7 @@
 			select: false,
 			destroy: false,
 			initComplete: function () {
+				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);

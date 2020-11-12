@@ -120,6 +120,7 @@
             },
             destroy: false, /** 기존 테이블을 삭제하고 새 옵션으로 바꿈 **/
             initComplete: function () {
+                uncheckedCheckAllAfterMovePage(this);
                 initTableSorter(this);
             },
             fnRowCallback: function (nRow, aData) {
@@ -279,5 +280,6 @@
         let table = $(reviewTable).DataTable();
         table.page.len(Number(limits.value));
         table.ajax.reload();
+        uncheckedCheckAll();
         initMaxDateToday();
     }

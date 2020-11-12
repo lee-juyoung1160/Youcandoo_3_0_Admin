@@ -131,10 +131,8 @@
 			},
 			destroy: false,
 			initComplete: function (settings, json) {
-				$(this).on('page.dt', function () {
-					_page = getCurrentPage(this);
-					uncheckedCheckAll();
-				});
+				$(this).on('page.dt', function () { _page = getCurrentPage(this); });
+				uncheckedCheckAllAfterMovePage(this);
 				redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData, displayNum, displayIndex, dataIndex ) {
@@ -232,5 +230,6 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
+		uncheckedCheckAll();
 		initMaxDateToday();
 	}

@@ -208,10 +208,8 @@
 			},
 			destroy: false,
 			initComplete: function () {
-				$(this).on('page.dt', function () {
-					_page = getCurrentPage(this);
-					uncheckedCheckAll();
-				});
+				$(this).on('page.dt', function () { _page = getCurrentPage(this); });
+				uncheckedCheckAllAfterMovePage(this);
 				redrawPage(this, _page);
 				initTableSorter(this);
 			},
@@ -264,6 +262,7 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
+		uncheckedCheckAll();
 		initMaxDateAfterThreeMonth();
 	}
 

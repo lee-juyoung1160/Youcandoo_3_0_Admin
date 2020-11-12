@@ -120,6 +120,7 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
+		uncheckedCheckAll();
 	}
 
 	/** 금칙어 등록 **/

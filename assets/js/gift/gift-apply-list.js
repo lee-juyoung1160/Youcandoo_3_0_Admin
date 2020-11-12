@@ -93,6 +93,7 @@
 			},
 			destroy: false,
 			initComplete: function () {
+				uncheckedCheckAllAfterMovePage(this);
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -136,7 +137,9 @@
 	function onSubmitSearch()
 	{
 		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
+		uncheckedCheckAll();
 	}
 
 	function onClickApproval()

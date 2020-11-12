@@ -76,7 +76,10 @@
 				,{title: "발송(예약)일시", 	data: "reserve_send_datetime",  width: "10%" }
 				,{title: "고유 ID", 			data: "message_id",  			width: "15%", 	className: "no-sort",
 					render: function (data) {
-						return `<div title="${data}" class="line-clamp">${data}</div>`;
+						return `<div>
+								 	<input type="text" class="input-copy" disabled>
+								 	<i class="fas fa-copy"></i>
+								</div>`;
 					}
 				}
 				,{title: "푸시 본문", 		data: "send_message",  			width: "15%",   className: "no-sort",

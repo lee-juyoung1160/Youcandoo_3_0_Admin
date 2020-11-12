@@ -77,8 +77,8 @@
 				,{title: "고유 ID", 			data: "message_id",  			width: "15%", 	className: "no-sort",
 					render: function (data) {
 						return `<div>
-								 	<input type="text" class="input-copy" disabled>
-								 	<i class="fas fa-copy"></i>
+								 	<input type="text" class="input-copy" value="${data}" readonly>
+								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
 								</div>`;
 					}
 				}
@@ -99,7 +99,6 @@
 				}
 				,{title: "도착페이지", 		data: "category_target",  		width: "25%",   className: "no-sort",
 					render: function (data, type, row, meta) {
-					console.log($(this))
 						return isEmpty(data) ? '-' : `[${row.target_name}] ${row.target_title}`
 					}
 				}

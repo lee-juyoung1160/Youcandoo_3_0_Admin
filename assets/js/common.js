@@ -1020,6 +1020,13 @@
         $("html, body").animate({ scrollTop : 0 }, 400);
     }
 
+    function copyToClipboard(obj)
+    {
+        $(obj).siblings('input.input-copy').trigger('select');
+        document.execCommand("copy");
+
+        sweetToast('클립보드에 복사 됨.');
+    }
     /** js파일에 쿼리파라미터 추가하기 (브라우저 캐시 갱신) **/
     /*function scriptVersion()
     {

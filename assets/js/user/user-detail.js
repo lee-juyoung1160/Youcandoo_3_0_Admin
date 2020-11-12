@@ -194,7 +194,10 @@
 				,{title: "단말기ID", 	data: "client_id",   	width: "25%" }
 				,{title: "푸시토큰", 	data: "device_token",   width: "55%",
 					render: function (data) {
-						return '<a onclick="onClickTokenModalOpen(this);" data-token="'+data+'" class="os-token">'+data+'</a>';
+						return `<div>
+								 	<input type="text" class="input-copy" style="width: 450px" value="${data}" readonly>
+								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+								</div>`;
 					}
 				}
 				,{title: "등록일시", 	data: "datetime",   	width: "15%" }

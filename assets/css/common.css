@@ -416,17 +416,13 @@ input.only-num-with-zero
 }
 input.input-copy {
 	overflow: hidden;
-	width: 150px;
 	height: 20px;
 	padding: 0;
+	color: #505050;
 	border: none;
 	background: none;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
-input.input-copy:disabled {
-	color: #333;
-	border: none;
 }
 	/*input[type="text"]:focus,*/
 /*textarea:focus {border:2px solid #007aff; }*/

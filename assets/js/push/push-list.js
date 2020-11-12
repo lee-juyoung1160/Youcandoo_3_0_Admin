@@ -77,7 +77,7 @@
 				,{title: "고유 ID", 			data: "message_id",  			width: "15%", 	className: "no-sort",
 					render: function (data) {
 						return `<div>
-								 	<input type="text" class="input-copy" value="${data}" readonly>
+								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly>
 								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
 								</div>`;
 					}

@@ -1,3 +1,4 @@
+/*
 
 	const btnModalOpen	= $("#btnModalOpen");
 	const selectedUserCount 	= $("#selectedUserCount");
@@ -12,7 +13,7 @@
 	const btnXlsxImport	= $("#btnXlsxImport");
 	const btnXlsxExport	= $("#btnXlsxExport");
 
-	/** modal **/
+	/!** modal **!/
 	const search 		= $(".search");
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -25,11 +26,11 @@
 	const movedUserTableBody = $("#movedUserTableBody")
 
 	$( () => {
-		/** dataTable default config **/
+		/!** dataTable default config **!/
 		initTableDefault();
-		/** 컴퍼넌트 초기화 **/
+		/!** 컴퍼넌트 초기화 **!/
 		initComponent();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event); });
 		search    		.on("click", function () { onSubmitSearch(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
@@ -67,7 +68,7 @@
 		$(obj).toggleClass('on');
 	}
 
-	/** 기업 검색 **/
+	/!** 기업 검색 **!/
 	function onClickModalOpen()
 	{
 		modalFadein();
@@ -502,3 +503,4 @@
 			resultBox.hide();
 		}
 	}
+*/

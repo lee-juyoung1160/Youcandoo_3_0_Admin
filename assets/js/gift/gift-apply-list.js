@@ -67,7 +67,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), 	data: "",   		width: "5%",
+				{title: tableCheckAllDom(), 	data: "",   		width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return multiCheckBoxDom(meta.row);
 					}
@@ -80,7 +80,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신청일시",    	data: "created_datetime",  	width: "15%"	,className: 'no-sort' }
+				,{title: "신청일시",    	data: "created_datetime",  	width: "15%" }
 			],
 			serverSide: true,
 			paging: true,

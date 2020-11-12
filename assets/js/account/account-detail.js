@@ -17,11 +17,11 @@
 	const openedTable	= $("#openedTable");
 	const joinedTable	= $("#joinedTable");
 	/** 인증정보 **/
-	const actionWrap   		= $("#actionWrap");
-	const actionPagination	= $(".action_paginate");
-	const spDoitTitle		= $("#spDoitTitle");
-	const btnRemoveDoitTitle = $("#btnRemoveDoitTitle");
-	const g_page_length  	= 12;
+	const actionWrap   			= $("#actionWrap");
+	const actionPagination		= $(".action_paginate");
+	const spDoitTitle			= $("#spDoitTitle");
+	const btnRemoveDoitTitle 	= $("#btnRemoveDoitTitle");
+	const g_action_page_length 	= 12;
 	/** UCD 사용내역 **/
 	const usageHisTable	= $("#usageHisTable");
 
@@ -37,9 +37,6 @@
 	const modalDoitTitle	= $("#modalDoitTitle");
 	const modalNickname		= $("#modalNickname");
 	const modalWarnWrap		= $("#modalWarnWrap");
-	/** 푸시토큰 모달 **/
-	const modalTokenInfo = $("#modalTokenInfo");
-	const deviceToken 	 = $("#deviceToken");
 
 	$( () => {
 		/** dataTable default config **/
@@ -162,10 +159,13 @@
 			},
 			columns: [
 				{title: "기기구분", 		data: "device_type",   	width: "10%" }
-				,{title: "단말기ID", 	data: "client_id",   	width: "25%" }
-				,{title: "푸시토큰", 	data: "device_token",   width: "55%",
+				,{title: "단말기ID", 	data: "client_id",   	width: "30%" }
+				,{title: "푸시토큰", 	data: "device_token",   width: "40%",
 					render: function (data) {
-						return '<a onclick="onClickTokenModalOpen(this);" data-token="'+data+'" class="os-token">'+data+'</a>';
+						return `<div>
+								 	<input type="text" class="input-copy" style="width: 350px" value="${data}" readonly>
+								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+								</div>`;
 					}
 				}
 				,{title: "등록일시", 	data: "datetime",   	width: "15%" }
@@ -183,14 +183,6 @@
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
-	}
-
-	function onClickTokenModalOpen(obj)
-	{
-		modalLayout.fadeIn();
-		modalTokenInfo.fadeIn();
-		deviceToken.html($(obj).data('token'));
-		overflowHidden();
 	}
 
 	/** 두잇 개설정보 **/
@@ -406,7 +398,7 @@
 		let url 	 = api.listUserAction;
 		let errMsg 	 = `인증정보 ${label.list} ${message.ajaxLoadError}`;
 		let param = {
-			"limit" : g_page_length
+			"limit" : g_action_page_length
 			,"page" : actionCurrentPage
 			,"profile_uuid" : g_profile_uuid
 			,"doit_all" : true
@@ -522,103 +514,9 @@
 	function buildActionPagination(data)
 	{
 		let totalCount  = data.recordsTotal;
-		let last		= Math.ceil(totalCount / g_page_length);
-		let pageLength  = 6;
-		if (last <= 10)
-			pageLength = last
-		let i;
+		let lastPage	= Math.ceil(totalCount / g_action_page_length);
 
-		let pageDom = '';
-		if (actionCurrentPage === 1)
-			pageDom += '<a class="paginate_button previous disabled" id="dataTable_previous">';
-		else
-			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button previous" data-page="'+(actionCurrentPage-1)+'" id="dataTable_previous">';
-		pageDom +=     label.previous;
-		pageDom += '</a>';
-		pageDom += '<span>';
-		if (last <= 10)
-		{
-			for (i=1; i<=pageLength; i++)
-			{
-				if (last > 1 && actionCurrentPage === i)
-					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
-				else
-					pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-			}
-		}
-		else
-		{
-			if (actionCurrentPage < 5)
-			{
-				for (i=1; i<=pageLength; i++)
-				{
-					if (last > 1 && actionCurrentPage === i)
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+i+'">'+i+'</a>';
-					else
-					{
-						if (pageLength === i)
-						{
-							pageDom += '<span class="ellipsis">…</span>';
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
-						}
-						else
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-					}
-				}
-			}
-			else if (actionCurrentPage >= 5 && actionCurrentPage <= last - 4)
-			{
-				for (i=1; i<=last; i++)
-				{
-					if (i === 1)
-					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-						pageDom += '<span class="ellipsis">…</span>';
-					}
-
-					if (actionCurrentPage === i)
-					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i - 1) + '">' + (i - 1) + '</a>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="' + i + '">' + i + '</a>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="' + (i + 1) + '">' + (i + 1) + '</a>';
-					}
-
-					if (last === i)
-					{
-						pageDom += '<span class="ellipsis">…</span>';
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+last+'">'+last+'</a>';
-					}
-				}
-			}
-			else if (actionCurrentPage > last - 4)
-			{
-				for (i=1; i<=pageLength; i++)
-				{
-					if (i === 1)
-					{
-						pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+i+'">'+i+'</a>';
-						pageDom += '<span class="ellipsis">…</span>';
-					}
-
-					if (i >= pageLength - 4)
-					{
-						if (actionCurrentPage === last-(pageLength-i))
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button current" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
-						else
-							pageDom += '<a onclick="onClickPageNum(this);" class="paginate_button" data-page="'+(last-(pageLength-i))+'">'+(last-(pageLength-i))+'</a>';
-					}
-				}
-			}
-		}
-		pageDom += '</span>';
-		if (last === actionCurrentPage)
-			pageDom += '<a class="paginate_button next disabled" id="dataTable_next">';
-		else
-			pageDom += '<a onclick="onClickPageNum(this)" class="paginate_button next" data-page="'+(actionCurrentPage+1)+'" id="dataTable_next">';
-		pageDom += 	   label.next;
-		pageDom += '</a>';
-
-		actionPagination.html(pageDom);
+		actionPagination.html(paginate(actionCurrentPage, lastPage));
 	}
 
 	function onClickPageNum(obj)

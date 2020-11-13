@@ -173,38 +173,36 @@
     bottom: 5px;
     width: 5px;
     background: #d9e7f5;
-    left: 11.9%;
+    left: 120px;
 }
 .doitTalk .time-line-info {
     position: relative;
     float: left;
-    width: 15%;
+    width: 120px;
 }
 .doitTalk .time-line-info .date {
     color: #0061f2;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 }
 .doitTalk .time-line-info .icon {
     position: absolute;
     top: 0;
-    right: 15%;
+    left: 118px;
     z-index: 100;
 }
 .doitTalk .time-line-info .icon span {
     display: block;
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
-    border: 5px solid #007aff;
+    width: 10px;
+    height: 10px;
+    background-color: #007aff;
     border-radius: 50%;
 
 }
 .doitTalk .time-line-body {
     position: relative;
     float: right;
-    width: 85%;
-    margin-bottom: 20px;
+    width: 90%;
     padding: 15px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #fff;

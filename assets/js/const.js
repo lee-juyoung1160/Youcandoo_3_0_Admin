@@ -194,14 +194,25 @@
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
+		/** 두잇상세: 두잇톡 v1 **/
 		,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
+		,createDoitTalk : baseApiUrl+'doit/board/register'
+		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
+		/** 두잇상세: 두잇톡 v2 **/
+		,listDoitTalkV2 : baseApiUrl+'doit/talk/v2/list'
+		,listCommentsV2 : baseApiUrl+'doit/talk/v2/comment/list'
+		,noticeDoitTalkV2 : baseApiUrl+'doit/talk/v2/notice/get'
+		,updateBlindTalkV2 : baseApiUrl+'doit/talk/updateBlind'
+		,createTalkV2 : baseApiUrl+'doit/talk/v2/register'
+		,deleteTalkV2 : baseApiUrl+'doit/talk/v2/delete'
+		/** 두잇톡 관리 **/
 		,listTalk : baseApiUrl+'doit/talk/list'
 		,detailTalk : baseApiUrl+'doit/talk/detail'
 		,listComment : baseApiUrl+'doit/talk/commentDetail'
 		,listLargeComment : baseApiUrl+'doit/talk/commentsDetail'
-		,blindTalk : baseApiUrl+'doit/talk/update'
 		,blindComment : baseApiUrl+'doit/talk/commentUpdate'
+		,blindTalk : baseApiUrl+'doit/talk/update'
 		/** 추천두잇 v1 **/
 		,listDoitRecommend : baseApiUrl+'doit/recommend/list'
 		,listDoitNonRecommend : baseApiUrl+'doit/recommend/doit'
@@ -216,7 +227,7 @@
 		,deleteDoitRecommend : baseApiUrl+'doit/recommend/v2//delete'
 		,reorderDoitRecommend : baseApiUrl+'doit/recommend/v2/updateOrder'
 		,exposureDoitRecommend : baseApiUrl+'doit/recommend/v2/updateIsEstablish'
-
+		/** 두잇 카테고리 **/
 		,listDoitCategory : baseApiUrl+'doit/category/list'
 		,createDoitCategory : baseApiUrl+'doit/category/set'
 		,updateDoitCategory : baseApiUrl+'doit/category/update'
@@ -225,8 +236,6 @@
 		,reorderDoitCategory : baseApiUrl+'doit/category/updateOrder'
 		,blindDoitCategory : baseApiUrl+'doit/category/updateIsBlind'
 		,establishDoitCategory : baseApiUrl+'doit/category/updateIsEstablish'
-		,createDoitTalk : baseApiUrl+'doit/board/register'
-		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
 		,listCategory : baseApiUrl+'category/list'
 		,listAllCategory : baseApiUrl+'category/all'
 		,changeDoitCategory : baseApiUrl+'doit/updateCategory'

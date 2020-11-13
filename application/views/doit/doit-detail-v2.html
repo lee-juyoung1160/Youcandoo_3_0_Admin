@@ -17,7 +17,6 @@
 
         <div class="wrap">
 
-
             <!--두잇 톡-->
             <div id="doitTalk" class="doitTalk tab-content">
                 <div class="main-top" style="margin-top: 20px;">
@@ -28,13 +27,13 @@
                         <ul class="clearfix">
                             <li style="width: 40%">
                                 <div class="radio-wrap">
-                                    <input type="radio" id="r2" name="rr" value=""/>
+                                    <input type="radio" id="r2" name="radio-view-type" value="all"/>
                                     <label for="r2"><span></span>전체보기</label>
 
-                                    <input type="radio" id="r3" name="rr" value=""/>
-                                    <label for="r3"><span></span>인증만 보기</label>
+                                    <!--<input type="radio" id="r3" name="rr" value="action"/>
+                                    <label for="r3"><span></span>인증만 보기</label>-->
 
-                                    <input type="radio" id="r4" name="rr" value=""/>
+                                    <input type="radio" id="r4" name="radio-view-type" value="board"/>
                                     <label for="r4"><span></span>톡만 보기</label>
                                 </div>
                             </li>
@@ -42,12 +41,9 @@
                     </div>
                 </div>
 
-
-
-
                 <!-- 상단공지 -->
-                <div class="top-fix">
-                    <div class="card-warp">
+                <div id="noticeTalk" class="top-fix">
+                    <!--<div class="card-warp">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -108,12 +104,11 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
-
-                <ul class="time-line">
-
+                <!--일반톡-->
+                <ul id="generalTalk" class="time-line">
                     <li class="talk-box clearfix">
                         <div class="time-line-info">
                             <div class="date">2020-08-20</div>
@@ -148,7 +143,7 @@
                                         <div class="container">
                                             <ul class="comment-wrap">
                                                 <li>
-                                                        <div class="flex-container clearfix">
+                                                    <div class="flex-container clearfix">
                                                         <div class="left-wrap">
                                                             └
                                                             <strong class="nickname">깐깐찡어깐깐찡어깐깐찡어깐깐찡어어</strong>
@@ -231,19 +226,13 @@
                     <button type="button" class="view-more">더보기 <i class="fas fa-caret-down"></i></button>
                 </ul>
 
-
-
-
-
-
-
             </div>
         </div>
     </div>
 
 
     <!--경고장 모달-->
-    <div id="modalWarn" class="modal-content action-modal">
+    <!--<div id="modalWarn" class="modal-content action-modal">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title" id="modalWarnTitle">경고장 발송</p>
@@ -266,7 +255,7 @@
             </ul>
             <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
         </div>
-    </div>
+    </div>-->
 
     <!--인증이미지 확대 모달-->
     <div id="modalActionDetail" class="modal-content">
@@ -290,8 +279,8 @@
                 <li class="clearfix">
                     <div class="add-talk clearfix">
                        <div class="btn-wrap">
-                           <button type="button" class="on">공지</button>
-                           <button type="button">일반</button>
+                           <button id="btnNotice" type="button" class="on">공지</button>
+                           <button id="btnGeneral" type="button">일반</button>
                        </div>
 <!--                       <div class="question-text clearfix">-->
 <!--                           <i class="question-mark far fa-question-circle"></i>-->
@@ -299,19 +288,23 @@
 <!--                               두잇톡을 공지로 등록하는 경우, 상단에 노출됩니다.-->
 <!--                           </span>-->
 <!--                       </div>-->
-                       <textarea name="" id="" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+                       <textarea id="talkContent" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
                    </div>
                 </li>
             </ul>
-            <button id="btnSubmitWarn" class="completion-btn" type="submit">등록</button>
+            <button id="btnSubmitTalk" class="completion-btn" type="submit">등록</button>
         </div>
     </div>
 
     <div class="modal-layout"></div>
 </section>
+<script src="/assets/js/plugins/tablesort.min.js"></script>
+<script src="/assets/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/doit/doit-detail-v2.js?version=<?php echo $this->config->item('version');?>"></script>
 <script>
-    const modalCloseBtn = $(".close-btn");
-    const modalLayout 	= $(".modal-layout");
+    /*const modalLayout 	= $(".modal-layout");
     const modalContent 	= $(".modal-content");
 
     $("#btnCreateTalk").on('click', function () { modalCreateTalkOpen() });
@@ -319,8 +312,6 @@
     $("#btnYellowCard").on('click', function () { modalWarnOpen() });
     $("#btnRedCard").on('click', function () { modalWarnOpen() });
     $("#btnReport").on('click', function () { modalWarnOpen() });
-    modalCloseBtn	.on('click', function () { modalFadeout(); });
-    modalLayout		.on('click', function () { modalFadeout(); });
 
     function modalWarnOpen()
     {
@@ -341,7 +332,7 @@
         modalLayout.fadeIn();
         $("#modalActionDetail").fadeIn();
         overflowHidden();
-    }
+    }*/
 </script>
 <!--<script src="/assets/js/plugins/tablesort.min.js"></script>-->
 <!--<script src="/assets/js/plugins/tablesort.number.min.js"></script>-->

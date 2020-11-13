@@ -335,6 +335,10 @@
     margin: 10px 0 0 20px;
     color: #00c0ef;
 }
+.doit-detail-page .mansion {
+    color: darkblue;
+    margin-right: 5px;
+}
 
 /* 임시 */
 .doit-detail-page .doitTalk .time-line-body ,

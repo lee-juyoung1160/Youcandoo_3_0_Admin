@@ -1309,7 +1309,10 @@
 
 	function onSubmitTalk()
 	{
-		let msg = (g_has_notice && g_is_notice === 'Y') ? '공지는 한 개만 등록 가능합니다.\n확인을 누르면 기존에 등록된 공지는 일반톡이 되고,\n현재 내용이 공지로 등록됩니다.' : message.create;
+		let msg = (g_has_notice && g_is_notice === 'Y')
+			? '공지는 한 개만 등록 가능합니다.\n확인을 누르면 기존에 등록된 공지는 일반톡이 되고,\n현재 내용이 공지로 등록됩니다.'
+			: message.create;
+
 		if (addTalkValidation())
 			sweetConfirm(msg, createRequest);
 	}

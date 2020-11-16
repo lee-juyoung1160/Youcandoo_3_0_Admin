@@ -1452,7 +1452,7 @@
 			`<div class="open-box">
 				<div class="container">
 					<ul class="comment-wrap">`
-		for (let { comment_idx, nickname, comment, is_blind, created, mention_user_nickname } of data.data)
+		for (let { comment_idx, nickname, comment, is_blind, created } of data.data)
 		{
 			let commentType = g_board_talk_type === 'board' ? 'board_comment' : 'action_comment';
 			let isBlind = is_blind === 'Y';
@@ -1460,14 +1460,13 @@
 			let blindText = isBlind ? '블라인드해제' : '블라인드처리';
 			let blindClass = isBlind ? 'blind' : '';
 			let blindIcon = isBlind ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-			let commentTxt = isEmpty(mention_user_nickname) ? comment : `@${mention_user_nickname} ${comment}`;
 			commentsEl +=
 						`<li class="${blindClass}">
 							<div class="flex-container clearfix">
 								<div class="left-wrap">
 									└
 									<strong class="nickname">${nickname}</strong>
-									<p class="comment-2">${commentTxt}</p>
+									<p class="comment-2">${comment}</p>
 								</div>
 								<div class="right-wrap">
 									<span class="date">${created}</span>

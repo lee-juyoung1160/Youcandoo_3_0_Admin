@@ -159,7 +159,7 @@
 	}
 
 	let g_doit_status;
-	let g_doitUuid;
+	let g_doit_uuid;
 	let g_is_created_by_biz;
 	let g_biz_uuid;
 	let g_doit_title;
@@ -171,7 +171,7 @@
 			g_doit_status = doit_status;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			g_biz_uuid = company_profile_uuid;
-			g_doitUuid = doit_uuid;
+			g_doit_uuid = doit_uuid;
 			g_doit_title = doit_title;
 			buildDetail(data);
 		}
@@ -385,7 +385,7 @@
 	function getJoinMemberTotal()
 	{
 		let url 	= api.totalJoinMember;
-		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
+		let param   = JSON.stringify({"doit_uuid" : g_doit_uuid});
 		let errMsg 	= label.detailContent+message.ajaxLoadError;
 
 		ajaxRequestWithJsonData(true, url, param, getJoinMemberTotalCallback, errMsg, false);
@@ -463,7 +463,7 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"doit_uuid" : g_doitUuid
+			,"doit_uuid" : g_doit_uuid
 			,"nickname": keyword.val()
 		}
 
@@ -728,7 +728,7 @@
 			"page" : currentPage
 			,"limit" : selPageLengthForAction.val()
 			,"search_type" : "doit_uuid"
-			,"keyword" : g_doitUuid
+			,"keyword" : g_doit_uuid
 		}
 
 		return JSON.stringify(param);
@@ -947,7 +947,7 @@
 			,"from_date" : ""
 			,"to_date" : ""
 			,"search_type" : "doit_uuid"
-			,"keyword" : g_doitUuid
+			,"keyword" : g_doit_uuid
 			,"rating_list" : [1,2,3,4,5]
 			,"is_report" : "ALL"
 			,"is_blind" : "ALL"
@@ -1106,7 +1106,7 @@
 		let param = {
 			"limit" : d.length
 			,"page" : (d.start / d.length) + 1
-			,"doit_uuid" : g_doitUuid
+			,"doit_uuid" : g_doit_uuid
 		}
 
 		return JSON.stringify(param);
@@ -1124,7 +1124,7 @@
 	function getDoitTalk()
 	{
 		let url = api.listDoitTalk;
-		let param   = JSON.stringify({"doit_uuid" : g_doitUuid});
+		let param   = JSON.stringify({"doit_uuid" : g_doit_uuid});
 		let errMsg 	= `두잇톡 ${label.list+message.ajaxLoadError}`;
 
 		ajaxRequestWithJsonData(true, url, param, getDoitTalkSuccessCallback, errMsg, false);
@@ -1257,7 +1257,7 @@
 						data-uuid="${detail.board_uuid}" 
 						data-blind="Y"
 						type="button" 
-						type="button" class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+						class="eye-slash-btn"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 
 			blindClass = detail.is_blind === 'Y' ? 'blind' : '';
 			let crownIcon = creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
@@ -1335,7 +1335,7 @@
 		let url = api.createDoitTalk;
 		let errMsg = label.submit+message.ajaxError;
 		let param = {
-			"doit_uuid" : g_doitUuid
+			"doit_uuid" : g_doit_uuid
 			,"profile_uuid" : g_biz_uuid
 			,"text_body" : $("#addTalk").val().trim()
 			,"is_notice" : g_is_notice

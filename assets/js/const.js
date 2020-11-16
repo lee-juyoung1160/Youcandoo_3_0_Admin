@@ -203,7 +203,7 @@
 		,listDoitTalkV2 : baseApiUrl+'doit/talk/v2/list'
 		,listCommentsV2 : baseApiUrl+'doit/talk/v2/comment/list'
 		,noticeDoitTalkV2 : baseApiUrl+'doit/talk/v2/notice/get'
-		,updateBlindTalkV2 : baseApiUrl+'doit/talk/updateBlind'
+		,updateBlindTalkV2 : baseApiUrl+'doit/talk/v2/updateBlind'
 		,createTalkV2 : baseApiUrl+'doit/talk/v2/register'
 		,deleteTalkV2 : baseApiUrl+'doit/talk/v2/delete'
 		/** 두잇톡 관리 **/

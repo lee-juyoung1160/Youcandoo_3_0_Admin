@@ -5,6 +5,7 @@
 	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
+	const talkType 		= $("input[name=chk-talk-type]");
 	const isReport 		= $("input[name=radio-report]");
 	const selPageLength	= $("#selPageLength");
 	const btnBlind		= $("#btnBlind");
@@ -32,6 +33,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		talkType      	.on("click", function () { atLeastOneChecked(this); });
 		btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
 		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });
 	});
@@ -39,6 +41,10 @@
 	function initSearchForm()
 	{
 		keyword.val('');
+		talkType.eq(0).prop("checked", true);
+		talkType.eq(1).prop("checked", true);
+		talkType.eq(2).prop("checked", true);
+		talkType.eq(3).prop("checked", true);
 		isReport.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRangeToday();
@@ -60,6 +66,10 @@
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
+		talkType.each(function () {
+			if ($(this).val() === historyParams.talk_type)
+				$(this).prop("checked", true);
+		});
 		isReport.each(function () {
 			if ($(this).val() === historyParams.is_report)
 				$(this).prop("checked", true);
@@ -148,6 +158,12 @@
 
 	function tableParams()
 	{
+		let talkTypes = [];
+		talkType.each(function () {
+			if ($(this).is(":checked"))
+				talkTypes.push($(this).val());
+		});
+
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
@@ -156,6 +172,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
+			,"talk_type" : talkTypes
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

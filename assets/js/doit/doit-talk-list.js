@@ -71,7 +71,7 @@
 				$(this).prop("checked", true);
 		});
 		isReport.each(function () {
-			if ($(this).val() === historyParams.is_report)
+			if ($(this).val() === historyParams.report_yn)
 				$(this).prop("checked", true);
 		});
 
@@ -173,6 +173,7 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"talk_type" : talkTypes
+			,"report_yn" : $("input[name=radio-report]:checked").val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

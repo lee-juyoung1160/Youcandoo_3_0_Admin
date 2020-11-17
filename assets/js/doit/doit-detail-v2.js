@@ -1457,8 +1457,9 @@
 			`<div class="open-box">
 				<div class="container">
 					<ul class="comment-wrap">`
-		for (let { comment_idx, nickname, comment, is_blind, created } of data.data)
+		for (let { comment_idx, nickname, profile_uuid, comment, is_blind, created } of data.data)
 		{
+			let crownIcon = g_doit_creator === profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
 			let commentType = g_board_talk_type === 'board' ? 'board_comment' : 'action_comment';
 			let isBlind = is_blind === 'Y';
 			let blindYn = isBlind ? 'N' : 'Y';
@@ -1470,7 +1471,7 @@
 							<div class="flex-container clearfix">
 								<div class="left-wrap">
 									└
-									<strong class="nickname">${nickname}</strong>
+									<strong class="nickname">${nickname} ${crownIcon}</strong>
 									<p class="comment-2">${comment}</p>
 								</div>
 								<div class="right-wrap">

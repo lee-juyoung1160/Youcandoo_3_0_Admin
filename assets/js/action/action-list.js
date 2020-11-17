@@ -47,7 +47,7 @@
 		$("body")  .on('keydown', function (event) { onKeydownSearch(event); });
 		search			.on('click', function () { onSubmitSearch(); });
 		reset			.on('click', function () { initSearchForm(); });
-		status			.on('click', function () { onChangeChkStatus(this); });
+		status			.on('click', function () { atLeastOneChecked(this); });
 		selPageLength	.on('change', function () { currentPage  = 1; getActions(); });
 		dayButtons      .on('click', function () { onClickActiveAloneDayBtn(this); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
@@ -67,17 +67,6 @@
 		initSearchDateRangeToday();
 		initMaxDateToday();
 		initDayBtn();
-	}
-
-	/** 인증상태 체크박스 최소 하나 선택 **/
-	function onChangeChkStatus(obj)
-	{
-		let checkedCount = $("input[name=chk-status]:checked").length;
-		if (checkedCount === 0)
-		{
-			sweetToast(message.minimumChecked);
-			$(obj).prop("checked", true);
-		}
 	}
 
 	/************************

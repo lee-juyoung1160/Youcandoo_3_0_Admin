@@ -27,7 +27,7 @@
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		status			.on("click", function () { onChangeChkStatus(this); });
+		status			.on("click", function () { atLeastOneChecked(this); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
@@ -67,16 +67,6 @@
 		onChangeSelectOption(selPageLength);
 
 		_page = historyParams.page;
-	}
-
-	function onChangeChkStatus(obj)
-	{
-		let checkedCount = $("input[name=chk-status]:checked").length;
-		if (checkedCount === 0)
-		{
-			sweetToast(message.minimumChecked);
-			$(obj).prop("checked", true);
-		}
 	}
 
 	function buildGrid()

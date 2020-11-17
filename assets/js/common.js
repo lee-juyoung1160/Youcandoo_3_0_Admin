@@ -76,6 +76,17 @@
         else return label.dash;
     }
 
+    /** 체크박스 최소 1개 체크 검사 **/
+    function atLeastOneChecked(obj)
+    {
+        let checkedCount = $("input[name='"+obj.name+"']:checked").length;
+        if (checkedCount === 0)
+        {
+            sweetToast(message.minimumChecked);
+            $(obj).prop("checked", true);
+        }
+    }
+
     function fadeinLoader()
     {
         viewLoading.fadeIn(100);

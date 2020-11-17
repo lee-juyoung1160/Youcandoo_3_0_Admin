@@ -1412,7 +1412,7 @@
 		{
 			actionEl =
 				`<div class="audio-contents">
-					<img style="width:100%;" src="/assets/images/voice.jpg">
+					<img style="width:100%;" src="${label.voiceImage}">
 					<audio controls style="width:540px;">
 						<source src="${actionUrl}" onerror="onErrorActionAudio();">
 					</audio>

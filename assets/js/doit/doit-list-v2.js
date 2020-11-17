@@ -36,7 +36,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		doitStatus		.on("click", function () { onChangeChkStatus(this); });
+		doitStatus		.on("click", function () { atLeastOneChecked(this); });
 		chkAll			.on("click", function () { toggleChkAll(this); });
 		selSort			.on("change", function () { onSubmitSearch(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
@@ -138,16 +138,6 @@
 		});
 
 		currentPage = historyParams.page;
-	}
-
-	function onChangeChkStatus(obj)
-	{
-		let checkedCount = $("input[name=chk-status]:checked").length;
-		if (checkedCount === 0)
-		{
-			sweetToast(message.minimumChecked);
-			$(obj).prop("checked", true);
-		}
 	}
 
 	function getList()

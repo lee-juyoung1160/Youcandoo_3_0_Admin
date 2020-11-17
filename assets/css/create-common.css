@@ -203,6 +203,7 @@
     position: relative;
     float: right;
     width: 90%;
+    margin-bottom: 20px;
     padding: 15px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #fff;

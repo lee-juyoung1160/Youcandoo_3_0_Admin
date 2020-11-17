@@ -138,6 +138,7 @@
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		uncheckedCheckAll();
+		initMaxDateToday();
 	}
 
 	function onClickApproval()

@@ -1389,6 +1389,7 @@
 	{
 		modalLayout.fadeIn();
 		modalViewActionOnTalk.fadeIn();
+		overflowHidden();
 		buildViewActionOnTalk(obj);
 	}
 

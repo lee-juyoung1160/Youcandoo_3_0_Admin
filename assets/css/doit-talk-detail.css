@@ -353,3 +353,23 @@
 .doit-detail-page .doitTalk .time-line-body {
     margin-bottom: 0;
 }
+
+.audio-contents {
+    position: relative;
+}
+.audio-contents audio {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    margin-left: -270px;
+}
+.video-contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+#modalViewActionOnTalk.modal-content .modal-information {
+    max-height: 750px;
+    overflow-y: initial;
+}

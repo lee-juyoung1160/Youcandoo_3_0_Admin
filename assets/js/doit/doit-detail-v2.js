@@ -1365,7 +1365,7 @@
 											<span class="icon-triangle"><i class="fas fa-exclamation-triangle"></i> ${reportCnt}</span>
 										</div>
 										<div class="right-wrap">
-											<span class="date">${createTime}</span>
+											<span class="date">${detail.created}</span>
 											${blindBtn}
 											${deleteBtn}
 										</div>

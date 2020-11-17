@@ -1191,13 +1191,13 @@
 							</button>`;
 			let deleteBtn = (g_is_created_by_biz)
 				? `<button onclick="g_is_notice = 'Y'; deleteTalk(this)" data-uuid="${board_uuid}" type="button" class="delete-btn">
-						<i class="fas fa-times-circle"></i> 톡삭제
+						<i class="fas fa-times-circle"></i>
 					</button>`
 				: '';
 			let noticeEl =
 				`<div class="card-warp">
 					<div class="card">
-						<div class="card-body">
+						<div class="card-body ${blindClass}">
 							<div class="row">
 								<p class="type-name">공지</p>
 							</div>
@@ -1267,7 +1267,7 @@
 			{
 				let isBoard	 	= detail.talk_type === 'board';
 				let isAction 	= detail.talk_type === 'action';
-				let isBlind 	= detail.is_blind === 'Y';
+				let isBlind 	= detail.board_is_blind === 'Y';
 				let uuid		= isBoard ? detail.board_uuid : detail.action_uuid;
 				let description = isBoard ? detail.board_description : detail.action_description;
 				let commentCnt 	= isBoard ? detail.board_comment : detail.action_comment;
@@ -1275,6 +1275,7 @@
 				let likeCnt 	= isBoard ? detail.board_like : detail.action_like;
 				let reportCnt 	= isBoard ? detail.board_report : detail.action_report;
 				let isDel 		= isBoard ? detail.board_is_del : detail.action_is_del;
+				let delClass	= isDel === 'Y' ? 'del' : '';
 				let thumbnail	= '';
 				if (isAction)
 				{
@@ -1320,7 +1321,7 @@
 				let crownIcon = g_doit_creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
 				let deleteBtn = (g_is_created_by_biz && g_doit_creator === detail.profile_uuid && isDel === 'N')
 					? `<button onclick="g_is_notice = 'N'; deleteTalk(this)" data-uuid="${detail.board_uuid}" type="button" class="delete-btn">
-							<i class="fas fa-times-circle"></i> 톡삭제
+							<i class="fas fa-times-circle"></i>
 						</button>`
 					: '';
 				innerEl +=
@@ -1343,7 +1344,7 @@
 						`<div class="time-line-body">
 							<div class="card-warp">
 								<div class="card">
-									<div class="card-body">
+									<div class="card-body ${blindClass} ${delClass}">
 										<div class="row">
 											<div class="flex-container left-wrap">
 												<div class="col">

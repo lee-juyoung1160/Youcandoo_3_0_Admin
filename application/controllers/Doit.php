@@ -15,12 +15,8 @@ class Doit extends MY_Controller {
 
     public function detail()
     {
-        $this->load->layout('doit/doit-detail');
+        $this->load->layout('doit/doit-detail-v2');
     }
-    public function detail2()
-        {
-            $this->load->layout('doit/doit-detail-v2');
-        }
 
     public function update()
     {

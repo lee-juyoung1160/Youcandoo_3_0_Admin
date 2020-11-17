@@ -1274,8 +1274,9 @@
 				let hasComment = Number(commentCnt) > 0 ? '' : 'disabled';
 				let likeCnt 	= isBoard ? detail.board_like : detail.action_like;
 				let reportCnt 	= isBoard ? detail.board_report : detail.action_report;
-				let isDel 		= isBoard ? detail.board_is_del : detail.action_is_del;
-				let delClass	= isDel === 'Y' ? 'del' : '';
+				let delYn 		= isBoard ? detail.board_is_del : detail.action_is_del;
+				let isDel		= delYn === 'Y';
+				let delClass	= isDel ? 'del' : '';
 				let thumbnail	= '';
 				if (isAction)
 				{
@@ -1309,7 +1310,7 @@
 				let blindText = isBlind ? '블라인드해제' : '블라인드처리';
 				let blindClass = isBlind ? 'blind' : '';
 				let blindIcon = isBlind ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-				let blindBtn = isBoard
+				let blindBtn = isBoard && !isDel
 					? `<button onclick="g_is_notice = 'N'; onSubmitBlindTalk(this)" 
 								data-idx="${detail.board_idx}" 
 								data-blind="${blindYn}"
@@ -1401,16 +1402,21 @@
 		if (actionType === 'video')
 		{
 			actionEl =
-				`<video controls>
-					<source src="${actionUrl}" onerror="onErrorExamVideo();">
-				</video>`
+				`<div class="video-contents">
+					<video controls>
+						<source src="${actionUrl}" onerror="onErrorExamVideo();">
+					</video>
+				</div>`
 		}
 		else if (actionType === 'voice')
 		{
 			actionEl =
-				`<audio controls>
-					<source src="${actionUrl}" onerror="onErrorActionAudio();">
-				</audio>`
+				`<div class="audio-contents">
+					<img style="width:100%;" src="/assets/images/voice.jpg">
+					<audio controls style="width:100%;">
+						<source src="${actionUrl}" onerror="onErrorActionAudio();">
+					</audio>
+				</div>`
 		}
 		else
 		{

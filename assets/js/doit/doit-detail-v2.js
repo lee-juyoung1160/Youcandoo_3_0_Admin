@@ -1376,13 +1376,11 @@
 					</li>`
 			}
 			innerEl += buildTalkPagination();
+			innerEl +=
+				`</ul>`
 		}
 		else
-			innerEl +=
-				'<p style="margin-top: 30px;" class="empty-message">두잇톡이 없습니다.</p>';
-
-		innerEl +=
-			`</ul>`;
+			innerEl = '<p style="margin-top: 30px;" class="empty-message">두잇톡이 없습니다.</p>';
 
 		generalTalk.html(innerEl);
 	}
@@ -1489,7 +1487,7 @@
 						</li>`
 		}
 		commentsEl	+=
-			`</ul>
+					`</ul>
 				</div>
 			</div>`
 

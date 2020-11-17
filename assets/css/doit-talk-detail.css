@@ -52,8 +52,12 @@
 .doit-talk-detail-page .card-warp .card-body .right-wrap {
     width: 330px;
 }
-.doit-talk-detail-page .card-warp .card-body.blind {
+.card-warp .card-body.blind {
     background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 3px, #f9f9f9 0, #f9f9f9 6px);
+}
+.card-warp .card-body.del .comment-1 {
+    color: orangered;
+    text-decoration: line-through;
 }
 .btn-comment {
     margin-right: 15px;
@@ -88,9 +92,19 @@
     margin: 0 5px;
 }
 .doit-detail-page .right-wrap .date {
-    padding: 0 15px;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    padding: 0 15px
+}
+.doit-detail-page .right-wrap .date + button {
+    position: relative;
+}
+.doit-detail-page .right-wrap .date + button:after {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+    content: '';
 }
 .doit-detail-page .comment-wrap li {
     display: block;
@@ -175,9 +189,9 @@
 .doit-detail-page .top-fix .left-wrap {
     width: 1500px;
 }
-/*.doit-detail-page .top-fix .left-wrap .comment-1 {*/
-/*    width: 1228px;*/
-/*}*/
+.doit-detail-page .comment-1 {
+    white-space: pre-wrap;
+}
 .doit-detail-page .top-fix .comment-wrap .left-wrap {
     width: 1100px;
 }
@@ -263,20 +277,6 @@
     font-size: 14px;
     font-weight: 600;
     background: none;
-}
-.doit-detail-page button.btn-warning {
-    color: #FFA83B;
-    border-bottom: 1px solid #FFA83B;
-}
-.doit-detail-page button.btn-warning i {
-    color: #FFA83B !important;
-}
-.doit-detail-page button.btn-danger {
-    color: #d73925;
-    border-bottom: 1px solid #d73925;
-}
-.doit-detail-page button.btn-danger i {
-    color: #d73925 !important;
 }
 
 

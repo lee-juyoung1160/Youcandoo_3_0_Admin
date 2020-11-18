@@ -5,6 +5,7 @@
 	const reportEl 		= $("#report");
 	const contentEl 	= $("#content");
 	const doitTitleEl 	= $("#doitTitle");
+	const delYnEl	 	= $("#delYn");
 	const totalCount	= $(".data-num");
 	const selPageLength	= $("#selPageLength");
 	const commentWarp 	= $("#commentWarp");
@@ -60,6 +61,7 @@
 		nicknameEl.html(createUser);
 		likeEl.html(numberWithCommas(like));
 		reportEl.html(numberWithCommas(report));
+		delYnEl.html(is_del);
 		contentEl.html(contents);
 		doitTitleEl.html(`<a href="${page.detailDoit}${doit_idx}">${doit_title}</a>`);
 	}

@@ -1528,6 +1528,9 @@ input[type="checkbox"]:disabled + label span{
 	text-decoration: line-through;
 	border:none;
 }
+.table-wrap .f-red td a:hover {
+	border:none;
+}
 
 .table-wrap .th-row th {
 	vertical-align: middle;

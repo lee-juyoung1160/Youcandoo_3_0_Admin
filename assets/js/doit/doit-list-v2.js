@@ -537,45 +537,5 @@
 
 	function xlsxOutCallback(data)
 	{
-		/*let xlsxData = [];
-		for ( let { doit_status,
-				doit_type,
-				promotion_title,
-				doit_category,
-				doit_title,
-				action_date,
-				action_time,
-				allow_gallery_image,
-				private_code_type,
-				private_code,
-				doit_private_type,
-				doit_tags,
-				doit_member,
-				max_user,
-				nickname,
-				created_datetime } of data.data )
-		{
-			let replaceHeaderData = {
-				"상태" : doit_status,
-				"유형" : doit_type,
-				"프로모션명" : promotion_title,
-				"카테고리" : doit_category,
-				"두잇명" : doit_title,
-				"인증기간" : action_date,
-				"인증시간" : action_time,
-				"갤러리허용" : allow_gallery_image,
-				"두잇공개여부" : private_code_type,
-				"참여코드" : private_code,
-				"비공개옵션" : doit_private_type,
-				"태그" : doit_tags,
-				"참여인원" : doit_member,
-				"최대모집인원" : max_user,
-				"개설자" : nickname,
-				"개설일시" : created_datetime
-			}
-
-			xlsxData.push(replaceHeaderData)
-		}*/
-
 		setExcelData("두잇목록", "두잇목록", data.data);
 	}

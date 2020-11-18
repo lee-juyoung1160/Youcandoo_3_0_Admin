@@ -40,6 +40,7 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnApproval		.on("click", function () { onClickApproval(); });
 		btnReject		.on("click", function () { onClickReject(); });
+		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmit		.on("click", function () { onSubmitOnModal(); });
 	});
 
@@ -229,4 +230,27 @@
 		}
 
 		return uuids;
+	}
+
+	function onClickXlsxOut()
+	{
+		let url = api.xlsxOutGiftApply;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = {
+			"limit" : Number(selPageLength.val())
+			,"page" : _page
+			,"date_type" : dateType.val()
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
+			,"keyword" : keyword.val().trim()
+			,"status" : ["대기"]
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+	}
+
+	function xlsxOutCallback(data)
+	{
+		setExcelData("상품신청내역", "상품신청내역", data.data);
 	}

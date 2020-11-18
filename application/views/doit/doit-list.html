@@ -117,11 +117,20 @@
                         <select id="selPageLength">
                         </select>
                     </div>
+                    <div class="select-box">
+                        <label for="selSort">참여자 순</label>
+                        <select id="selSort">
+                            <option value="created_datetime,desc">등록일 최신 순</option>
+                            <option value="created_datetime,asc">등록일 최신 역 순</option>
+                            <option value="doit_member,desc">참여자 순</option>
+                            <option value="action_datetime,desc">인증기간 최신 순</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="btn-wrap">
                     <button id="btnStartNow" type="button" style="display:none;background-color: #FFA83B;"><i class="fas fa-star"></i>오늘 시작</button>
                     <button id="btnCategory" class="btn-info" type="button"><i class="fas fa-sort-amount-down-alt"></i>카테고리 관리</button>
-<!--                    <button class="btn-excel" type="button"><i class="fas fa-table"></i>엑셀 다운로드</button>-->
+                    <button id="btnXlsxOut" class="btn-excel" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -228,5 +237,7 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/plugins/xlsx.full.min.js"></script>
+<script defer src="/assets/js/export-excel.js"></script>
 <script defer src="/assets/js/doit/doit-list.js?version=<?php echo $this->config->item('version');?>"></script>
 <script defer src="/assets/js/dev.js?version=<?php echo $this->config->item('version');?>"></script>

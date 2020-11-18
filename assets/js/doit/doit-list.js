@@ -10,6 +10,8 @@
 	const doitStatus	= $("input[name=chk-status]");
 	const radioDoitType	= $("input[name=radio-doit-type]");
 	const btnCategory	= $("#btnCategory");
+	const btnXlsxOut	= $("#btnXlsxOut");
+	const selSort		= $("#selSort");
 
 	/** modal **/
 	const categoryTable = $("#categoryTable");
@@ -33,6 +35,8 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		doitStatus		.on("click", function () { atLeastOneChecked(this); });
 		btnCategory		.on("click", function () { onClickModalOpen(); });
+		selSort			.on("change", function () { onSubmitSearch(); });
+		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmit		.on('click', function () { onSubmitChangeCategory(); });
@@ -136,7 +140,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), data: "idx",   					width: "5%",    className: "no-sort",
+				{title: tableCheckAllDom(), data: "idx",   					width: "5%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
@@ -146,7 +150,7 @@
 						return isEmpty(data) ? label.regular : label.promotion;
 					}
 				}
-				,{title: "카테고리", 		data: "doit_category",  		width: "8%",    className: "no-sort" }
+				,{title: "카테고리", 		data: "doit_category",  		width: "8%" }
 				,{title: "두잇명", 			data: "doit_title",    			width: "15%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.idx;
@@ -164,13 +168,13 @@
 						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
 					}
 				}
-				,{title: "인증 가능 시간", 	data: "action_allow_start_time", width: "9%",   className: "no-sort",
+				,{title: "인증 가능 시간", 	data: "action_allow_start_time", width: "9%",
 					render: function(data, type, row, meta) {
 						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
 					}
 				}
-				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%",   className: "no-sort" }
-				,{title: "개설자", 			data: "nickname",    			width: "9%",   className: "no-sort",
+				,{title: "인증요일", 		data: "action_dayofweek",  		width: "8%" }
+				,{title: "개설자", 			data: "nickname",    			width: "9%",
 					render: function (data) {
 						return `<div class="line-clamp" style="max-width: 150px;" title="${data}">${data}</div>`;
 					}
@@ -180,7 +184,7 @@
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "비고", 			data: "doit_uuid",    			width: "5%",	className: "no-sort",
+				,{title: "비고", 			data: "doit_uuid",    			width: "5%",
 					render: function (data, type, row, meta) {
 						/*let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);*/
 						/*let hasJoinMember = Number(row.doit_member) > 0;*/
@@ -202,7 +206,7 @@
 				$(this).on('page.dt', function () { _page = getCurrentPage(this); });
 				uncheckedCheckAllAfterMovePage(this);
 				redrawPage(this, _page);
-				initTableSorter(this);
+				/*initTableSorter(this);*/
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -222,6 +226,10 @@
 				status.push($(this).val())
 		})
 
+		let sorts = selSort.val().split(',');
+		let sortValue = sorts[0];
+		let sortType  = sorts[1];
+
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
@@ -231,6 +239,8 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status" : status
+			,"sort" : sortValue
+			,"sort_type" : sortType
 			,"category_uuid" : selCategory.val()
 			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
 		}
@@ -404,4 +414,38 @@
 		uncheckedCheckAll();
 		modalFadeout();
 		onSubmitSearch();
+	}
+
+	function onClickXlsxOut()
+	{
+		let url = api.xlsxOutDoit;
+		let errMsg = label.list + message.ajaxLoadError;
+		let status = [];
+		doitStatus.each(function () {
+			if ($(this).is(":checked"))
+				status.push($(this).val())
+		})
+
+		let sorts = selSort.val().split(',');
+		let sortValue = sorts[0];
+		let sortType  = sorts[1];
+		let param = {
+			"date_type" : dateType.val()
+			,"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
+			,"keyword" : keyword.val()
+			,"status" : status
+			,"sort" : sortValue
+			,"sort_type" : sortType
+			,"category_uuid" : selCategory.val()
+			,"doit_type" : $("input[name=radio-doit-type]:checked").val()
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+	}
+
+	function xlsxOutCallback(data)
+	{
+		setExcelData("두잇목록", "두잇목록", data.data);
 	}

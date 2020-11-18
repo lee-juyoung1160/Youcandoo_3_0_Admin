@@ -190,13 +190,14 @@
     width: 1500px;
 }
 .doit-detail-page .comment-1 {
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 .doit-detail-page .top-fix .comment-wrap .left-wrap {
     width: 1100px;
 }
 .doit-detail-page .top-fix .comment-wrap .left-wrap .comment-2 {
     width: 950px;
+    word-break: break-all;
 }
 /*공지 대댓글*/
 .doit-detail-page .top-fix .comments .comment-wrap .left-wrap {
@@ -225,6 +226,7 @@
 }
 .doit-detail-page .comment-wrap .left-wrap .comment-2 {
     width: 730px;
+    word-break: break-all;
 }
 /*대댓글*/
 .doit-detail-page .comments .comment-wrap {
@@ -348,7 +350,7 @@
     box-shadow: none;
     background: none;
     border: none;
-    border-radius: none;
+    border-radius: unset;
 }
 .doit-detail-page .doitTalk .time-line-body {
     margin-bottom: 0;

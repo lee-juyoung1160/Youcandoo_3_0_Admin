@@ -1325,6 +1325,15 @@
 							<i class="fas fa-times-circle"></i>
 						</button>`
 					: '';
+				let isYellowCard = detail.yellow_card === 'Y';
+				let isRedCard = detail.red_card === 'Y';
+				let cardIcon = '';
+				if (isYellowCard)
+					cardIcon = `<span class="icon-auth-card"><img src="${label.yellowCardImage}" alt=""></span>`;
+				if (isRedCard)
+					cardIcon = `<span class="icon-auth-card"><img src="${label.redCardImage}" alt=""></span>`;
+				if (isRedCard && isYellowCard)
+					cardIcon = `<span class="icon-auth-card"><img src="${label.redYellowCardImage}" alt=""></span>`;
 				innerEl +=
 					`<li class="talk-box clearfix">`;
 
@@ -1362,6 +1371,7 @@
 											</button>
 											<span class="icon-heart"><i class="fas fa-heart"></i> ${likeCnt}</span>
 											<span class="icon-triangle"><i class="fas fa-exclamation-triangle"></i> ${reportCnt}</span>
+											${cardIcon}
 										</div>
 										<div class="right-wrap">
 											<span class="date">${detail.created}</span>

@@ -5,6 +5,7 @@
 	const reportEl 		= $("#report");
 	const contentEl 	= $("#content");
 	const doitTitleEl 	= $("#doitTitle");
+	const delYnEl	 	= $("#delYn");
 	const totalCount	= $(".data-num");
 	const selPageLength	= $("#selPageLength");
 	const commentWarp 	= $("#commentWarp");
@@ -52,7 +53,7 @@
 
 	function buildDetail(_data)
 	{
-		let { doit_idx, doit_title, talk_type, like, nickname, user_idx, report, contents } = _data.data;
+		let { doit_idx, doit_title, talk_type, like, nickname, user_idx, report, contents, is_del } = _data.data;
 
 		let createUser = nickname.includes('@') ? nickname : `<a href="${page.detailUser}${user_idx}">${nickname}</a>`;
 
@@ -60,6 +61,7 @@
 		nicknameEl.html(createUser);
 		likeEl.html(numberWithCommas(like));
 		reportEl.html(numberWithCommas(report));
+		delYnEl.html(is_del);
 		contentEl.html(contents);
 		doitTitleEl.html(`<a href="${page.detailDoit}${doit_idx}">${doit_title}</a>`);
 	}

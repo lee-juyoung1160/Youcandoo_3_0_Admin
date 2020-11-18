@@ -8,6 +8,7 @@
 	const selPageLength	= $("#selPageLength");
 	const btnApproval	= $("#btnApproval");
 	const btnReject		= $("#btnReject");
+	const btnXlsxOut	= $("#btnXlsxOut");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
@@ -237,9 +238,7 @@
 		let url = api.xlsxOutGiftApply;
 		let errMsg = label.list + message.ajaxLoadError;
 		let param = {
-			"limit" : Number(selPageLength.val())
-			,"page" : _page
-			,"date_type" : dateType.val()
+			"date_type" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()

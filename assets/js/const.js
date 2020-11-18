@@ -343,7 +343,7 @@
 		,listAccount : baseApiUrl+'admin/account/list'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
-		,xlsxOutGiftApply : baseApiUrl+'excel/download/gift/apply'
+		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

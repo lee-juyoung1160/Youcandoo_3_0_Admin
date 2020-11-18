@@ -72,7 +72,11 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				},
-				{title: "신청자", 		data: "nickname",    		width: "25%" }
+				{title: "신청자", 		data: "nickname",    		width: "25%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
+					}
+				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
 				,{title: "신청수량",    	data: "gift_qty",  			width: "10%",	className: 'no-sort' }
 				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',

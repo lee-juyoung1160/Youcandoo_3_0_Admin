@@ -344,6 +344,8 @@
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
 		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
+		,xlsXOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
+		,xlsXOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

@@ -447,5 +447,5 @@
 
 	function xlsxOutCallback(data)
 	{
-		setExcelData("두잇목록", "두잇목록", data.data);
+		setExcelData(`${xlsxName.doitList}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.doitList, data.data);
 	}

@@ -21,10 +21,12 @@
 	/** 두잇탭 **/
 	const doitTable			= $("#doitTable")
 	const selPageLengthForDoit 	= $("#selPageLengthForDoit");
+	const btnXlsxOutForDoit 	= $("#btnXlsxOutForDoit");
 
 	/** Ucd정보탭 **/
 	const ucdTable		= $("#ucdTable")
 	const selPageLengthForUcd 	= $("#selPageLengthForUcd");
+	const btnXlsxOutForUcd 	= $("#btnXlsxOutForUcd");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
@@ -38,10 +40,12 @@
 		/** 프로모션 상세정보 **/
 		getDetail();
 		/** 이벤트 **/
-		ulTab			.on("click", function (event) { onClickTab(event); });
+		ulTab				.on("click", function (event) { onClickTab(event); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function() { getUcdLog(); });
-		goUpdate	.on('click', function () { goUpdatePage(); })
+		btnXlsxOutForDoit	.on("click", function () { onClickXlsxOutForDoit(); });
+		btnXlsxOutForUcd	.on("click", function () { onClickXlsxOutForUcd(); });
+		goUpdate			.on('click', function () { goUpdatePage(); })
 	});
 
 	function onClickTab(e)
@@ -77,6 +81,7 @@
 	}
 
 	let g_promotion_uuid;
+	let g_promotion_title;
 	let rewards;
 	function buildPromoDetail(data)
 	{
@@ -86,6 +91,7 @@
 		rewards 		= details.reward;
 
 		g_promotion_uuid = detailPromo.promotion_uuid;
+		g_promotion_title = detailPromo.promotion_title;
 
 		bizName.html(detailPromo.nickname);
 		promoName.html(detailPromo.promotion_title);
@@ -348,4 +354,33 @@
 	function goUpdatePage()
 	{
 		location.href = page.updatePromo+idx;
+	}
+
+
+	function onClickXlsxOutForDoit()
+	{
+		let url = api.xlsXOutPromoDoit;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = { "promotion_idx" : idx }
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutForDoitCallback, errMsg, false);
+	}
+
+	function xlsxOutForDoitCallback(data)
+	{
+		setExcelData(`${g_promotion_title} 개설 두잇`, xlsxName.promoDoit, data.data);
+	}
+
+	function onClickXlsxOutForUcd()
+	{
+		let url = api.xlsXOutPromoUcd;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = { "promotion_uuid" : g_promotion_uuid }
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutForUcdCallback, errMsg, false);
+	}
+
+	function xlsxOutForUcdCallback(data)
+	{
+		setExcelData(`${g_promotion_title} UCD 정보`, xlsxName.promoUcd, data.data);
 	}

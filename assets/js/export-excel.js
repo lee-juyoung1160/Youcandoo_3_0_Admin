@@ -50,3 +50,10 @@
 		};
 		reader.readAsArrayBuffer(obj.files[0]);
 	}
+
+	const xlsxName = {
+		doitList : '두잇목록',
+		giftApply : '상품 신청 내역',
+		promoDoit : '개설 두잇',
+		promoUcd : 'UCD 정보',
+	}

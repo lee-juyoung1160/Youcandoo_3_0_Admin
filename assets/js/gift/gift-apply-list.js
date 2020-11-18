@@ -251,5 +251,5 @@
 
 	function xlsxOutCallback(data)
 	{
-		setExcelData("상품신청내역", "상품신청내역", data.data);
+		setExcelData(`${xlsxName.giftApply}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.giftApply, data.data);
 	}

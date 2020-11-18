@@ -30,6 +30,7 @@
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
+	let g_xlsx_type;
 
 	$( () => {
 		/** dataTable default config **/
@@ -43,8 +44,8 @@
 		ulTab				.on("click", function (event) { onClickTab(event); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function() { getUcdLog(); });
-		btnXlsxOutForDoit	.on("click", function () { onClickXlsxOutForDoit(); });
-		btnXlsxOutForUcd	.on("click", function () { onClickXlsxOutForUcd(); });
+		btnXlsxOutForDoit	.on("click", function () { g_xlsx_type = 'doit'; onClickXlsxOut(); });
+		btnXlsxOutForUcd	.on("click", function () { g_xlsx_type = 'ucd'; onClickXlsxOut(); });
 		goUpdate			.on('click', function () { goUpdatePage(); })
 	});
 
@@ -356,31 +357,21 @@
 		location.href = page.updatePromo+idx;
 	}
 
-
-	function onClickXlsxOutForDoit()
+	function onClickXlsxOut()
 	{
-		let url = api.xlsXOutPromoDoit;
+		let isDoit = g_xlsx_type === 'doit';
+		let url = isDoit ? api.xlsXOutPromoDoit : api.xlsXOutPromoUcd;
 		let errMsg = label.list + message.ajaxLoadError;
-		let param = { "promotion_idx" : idx }
+		let param = isDoit? { "promotion_idx" : idx } : { "promotion_uuid" : g_promotion_uuid };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutForDoitCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
 	}
 
-	function xlsxOutForDoitCallback(data)
+	function xlsxOutCallback(data)
 	{
-		setExcelData(`${g_promotion_title} 개설 두잇`, xlsxName.promoDoit, data.data);
-	}
+		let isDoit = g_xlsx_type === 'doit';
+		let filename = isDoit ? `${g_promotion_title} 개설 두잇` : `${g_promotion_title} UCD 정보`;
+		let sheetname = isDoit ? xlsxName.promoDoit : xlsxName.promoUcd;
 
-	function onClickXlsxOutForUcd()
-	{
-		let url = api.xlsXOutPromoUcd;
-		let errMsg = label.list + message.ajaxLoadError;
-		let param = { "promotion_uuid" : g_promotion_uuid }
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutForUcdCallback, errMsg, false);
-	}
-
-	function xlsxOutForUcdCallback(data)
-	{
-		setExcelData(`${g_promotion_title} UCD 정보`, xlsxName.promoUcd, data.data);
+		setExcelData(filename, sheetname, data.data);
 	}

@@ -343,6 +343,8 @@
 		,listAccount : baseApiUrl+'admin/account/list'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
+		,xlsXOutDoitMember : baseApiUrl+'excel/download/doit_member'
+		,xlsXOutDoitReview : baseApiUrl+'excel/download/doit_review'
 		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
 		,xlsXOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
 		,xlsXOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'

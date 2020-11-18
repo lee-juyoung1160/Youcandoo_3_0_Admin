@@ -619,7 +619,7 @@
         let info = table.page.info();
         let numEl = $(_table).parent().siblings().find(".data-num")
 
-        $(numEl).html(info.recordsTotal);
+        $(numEl).html(numberWithCommas(info.recordsTotal));
     }
 
     /** 테이터 테이블 데이터 존재 여부 **/
@@ -763,7 +763,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/doit/detail2'];
+    let accessibleMenus = ['/', '/admin/mypage'];
     function buildAccessibleMenus(_auth)
     {
         /**

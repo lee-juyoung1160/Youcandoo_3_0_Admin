@@ -98,8 +98,8 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				}
-				,{title: "유형",    		data: "talk_type",		width: "4%" }
-				,{title: "내용",    		data: "contents",		width: "24%",
+				,{title: "유형",    		data: "talk_type",		width: "5%" }
+				,{title: "내용",    		data: "contents",		width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px">${data}</a>`
 					}
@@ -113,7 +113,7 @@
 						)
 					}
 				}
-				,{title: "신고",    		data: "report",  		width: "4%" }
+				,{title: "신고",    		data: "report",  		width: "5%" }
 				,{title: "댓글",    		data: "comment",  		width: "5%",
 					render: function (data, type, row, meta) {
 						return row.talk_type === '대댓글' ? '-' : data;
@@ -124,8 +124,7 @@
 						return data === 'Y' ? label.blind : label.unblind;
 					}
 				}
-				,{title: "삭제여부",    	data: "is_del",  		width: "5%" }
-				,{title: "두잇명",    	data: "doit_title",  	width: "17%",
+				,{title: "두잇명",    	data: "doit_title",  	width: "20%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.doit_idx;
 						return `<a href="${detailUrl}" >${data}</a>`;

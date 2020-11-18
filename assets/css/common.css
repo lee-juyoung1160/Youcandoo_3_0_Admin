@@ -1021,6 +1021,7 @@ input[type="checkbox"]:disabled + label span{
 	font-weight: 400;
 	line-height: 1.5em;
 	white-space:pre-line;
+	word-break: break-all;
 }
 .detail-data a {
 	display: inline;

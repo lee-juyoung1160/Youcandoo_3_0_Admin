@@ -1320,7 +1320,7 @@
 						</button>`
 					: '';
 				let crownIcon = g_doit_creator === detail.profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
-				let deleteBtn = (g_is_created_by_biz && g_doit_creator === detail.profile_uuid && isDel === 'N')
+				let deleteBtn = (g_is_created_by_biz && g_doit_creator === detail.profile_uuid && !isDel)
 					? `<button onclick="g_is_notice = 'N'; deleteTalk(this)" data-uuid="${detail.board_uuid}" type="button" class="delete-btn">
 							<i class="fas fa-times-circle"></i>
 						</button>`
@@ -1329,7 +1329,6 @@
 					`<li class="talk-box clearfix">`;
 
 				let createDate = detail.created_date;
-				let createTime = detail.created_time;
 				if (createDay !== createDate)
 				{
 					innerEl +=

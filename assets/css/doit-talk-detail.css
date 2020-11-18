@@ -33,6 +33,7 @@
     color: #404040;
     font-size: 14px;
     line-height: 1.5em;
+    word-break: break-all;
 }
 .left-wrap {
     width: 1150px;
@@ -191,6 +192,7 @@
 }
 .doit-detail-page .comment-1 {
     white-space: pre-line;
+    word-break: break-all;
 }
 .doit-detail-page .top-fix .comment-wrap .left-wrap {
     width: 1100px;

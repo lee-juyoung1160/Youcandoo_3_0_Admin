@@ -48,7 +48,7 @@
 						return `<div style="max-width: 650px;" class="line-clamp">${data}</div>`;
 					}
 				}
-				,{title: "작성일", 	data: "created_datetime",  	width: "10%",
+				,{title: "등록일", 	data: "created_datetime",  	width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

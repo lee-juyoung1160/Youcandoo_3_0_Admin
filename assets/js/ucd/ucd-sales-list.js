@@ -6,6 +6,7 @@
     const limits     = document.getElementById('selPageLength');
     const searchBtn  = document.querySelector('.search');
     const resetBtn   = document.querySelector('.reset');
+    const btnXlsxOut = $("#btnXlsxOut");
     const dataTable  = $('#biz-sales-table');
     /** modal **/
     const modalCloseBtn = $(".close-btn");
@@ -29,17 +30,17 @@
         getBizListData();
         /** 이벤트 **/
         $("body")  .on("keydown", function (event) { onKeydownSearch(event) });
+        /** 검색 필드 reset **/
+        resetBtn        .addEventListener('click', () => { initSearchForm(); });
+        /** 검색시 테이블 호출 **/
+        searchBtn       .addEventListener('click', () => { onSubmitSearch(); });
+        /** n개씩 보기 selectbox 이벤트 **/
+        limits          .addEventListener('change', () => { onSubmitSearch(); });
         dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
         modalCloseBtn	.on('click', function () { modalFadeout(); });
         modalLayout		.on('click', function () { modalFadeout(); });
+        btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
     });
-
-    /** 검색 필드 reset **/
-    resetBtn    .addEventListener('click', () => { initSearchForm(); });
-    /** 검색시 테이블 호출 **/
-    searchBtn   .addEventListener('click', () => { onSubmitSearch(); });
-    /** n개씩 보기 selectbox 이벤트 **/
-    limits      .addEventListener('change', () => { onSubmitSearch(); });
 
     function initSearchForm() {
         keyword.value = "";
@@ -147,4 +148,23 @@
         table.page.len(Number(limits.value));
         table.ajax.reload();
         initMaxDateToday();
+    }
+
+    function onClickXlsxOut()
+    {
+        let url = api.xlsXOutUcdSales;
+        let errMsg = label.list + message.ajaxLoadError;
+        let param = {
+            "from_date": formDate.value,
+            "to_date": toDate.value,
+            "search_type": searchType.value,
+            "keyword": keyword.value
+        }
+
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+    }
+
+    function xlsxOutCallback(data)
+    {
+        setExcelData(`${xlsxName.ucdSales}_${formDate.value}~${toDate.value}`, xlsxName.ucdSales, data.data);
     }

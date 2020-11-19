@@ -125,7 +125,7 @@
 					}
 				}
 				,{title: "작성자", 	data: "created_user",      	width: "15%",    className: "no-sort" }
-				,{title: "작성일", 	data: "created_datetime",  	width: "15%",
+				,{title: "등록일", 	data: "created_datetime",  	width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

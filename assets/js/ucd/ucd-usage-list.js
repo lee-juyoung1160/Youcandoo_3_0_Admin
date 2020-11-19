@@ -9,9 +9,7 @@
 	const selDivision1	= $("#selDivision1");
 	const selDivision2	= $("#selDivision2");
 	const selPageLength = $("#selPageLength");
-	const ucdType 		= $("input[name=radio-type]");
-	const userDivision	= $("input[name=radio-user-division]");
-	/*const xlsxExport 	= $(".excel-btn");*/
+	const btnXlsxOut 	= $("#btnXlsxOut");
 
 	$( () => {
 		/** dataTable default config **/
@@ -30,14 +28,12 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		/*xlsxExport		.on("click", function () { onClickExcelBtn(); });*/
+		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 	});
 
 	function initSearchForm()
 	{
 		keyword.val('');
-		ucdType.eq(0).prop("checked", true);
-		userDivision.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -60,16 +56,16 @@
 			},
 			columns: [
 				{title: "닉네임", 	data: "nickname",    width: "20%" }
-				,{title: "유형", 	data: "ucd_type",    width: "7%" }
-				,{title: "구분", 	data: "division",    width: "7%" }
-				,{title: "금액", 	data: "amount",    	 width: "7%",
+				/*,{title: "유형", 	data: "ucd_type",    width: "7%" }*/
+				,{title: "구분", 	data: "division",    width: "5%" }
+				,{title: "금액", 	data: "amount",    	 width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
 				,{title: "제목", 	data: "title",    	 width: "10%" }
 				,{title: "내용", 	data: "description", width: "35%",    className: "no-sort" }
-				,{title: "일시", 	data: "created",     width: "10%" }
+				,{title: "사용일시",  data: "created",     width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -106,7 +102,7 @@
 			,"keyword" : keyword.val()
 			,"division" : selDivision1.val()
 			,"title" : selDivision2.val()
-			,"ucd_type" : $("input[name=radio-type]:checked").val()
+			,"ucd_type" : "all"
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
@@ -129,44 +125,27 @@
 		initMaxDateToday();
 	}
 
-	/*function onClickExcelBtn()
+	function onClickXlsxOut()
 	{
-		getExcelData();
-	}
-
-	function getExcelData()
-	{
-		$.ajax({
-			url: api.listPromotion,
-			type: "POST",
-			dataType: "json",
-			headers: headers,
-			data: excelParams(),
-			success: function(data) {
-				setExcelData("UCD 사용내역", "UCD 사용내역", data.data);
-			},
-			error: function (request, status) {
-				alert(label.download+message.ajaxError);
-			}
-		});
-	}
-
-	function excelParams()
-	{
+		let url = api.xlsXOutUcdUsage;
+		let errMsg = label.list + message.ajaxLoadError;
 		let param = {
-			"limit" : 20000
-			,"page" : 0
-			,"dateType" : dateType.val()
+			"dateType" : dateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
+			,"keyword_type" : selMatch.val()
 			,"keyword" : keyword.val()
 			,"division" : selDivision1.val()
 			,"title" : selDivision2.val()
-			,"ucd_type" : $("input[name=radio-type]:checked").val()
-			,"user_type" : $("input[name=radio-user-division]:checked").val()
+			,"ucd_type" : "all"
 		}
 
-		return JSON.stringify(param);
-	}*/
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+	}
+
+	function xlsxOutCallback(data)
+	{
+		setExcelData(`${xlsxName.ucdUsage}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.ucdUsage, data.data);
+	}
 

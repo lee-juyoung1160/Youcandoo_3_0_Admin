@@ -146,7 +146,7 @@
                         return multiCheckBoxDom(data);
                     }
                 },
-                {title:"리뷰내용",      data: "review_text",    width: '25%',  className: 'no-sort',
+                {title:"리뷰내용",      data: "review_text",    width: '20%',  className: 'no-sort',
                     render : function(data, type, row, meta) {
                         return `<a class='line-clamp' 
                                     data-detail="${row.review_text}"
@@ -164,19 +164,15 @@
                         return buildStar(data);
                     }
                 },
-                {title:"두잇명",        data: "doit_title",    width: '25%' },
-                {title:"신고",          data: "report_count",  width: '10%' },
+                {title:"두잇명",        data: "doit_title",    width: '20%' },
+                {title:"신고",          data: "report_count",  width: '5%' },
                 {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'no-sort',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성날짜",      data: "created",        width: '10%',
-                    render: function (data) {
-                        return data.substring(0, 10);
-                    }
-                },
-                {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort' }
+                {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort' },
+                {title:"작성일시",      data: "created",       width: '15%' }
             ]
         });
     }

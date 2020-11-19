@@ -6,6 +6,7 @@
 	const selMatch 		= $("#selMatch");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
+	const btnXlsxOut 	= $("#btnXlsxOut");
 
 	$( () => {
 		/** dataTable default config **/
@@ -24,6 +25,7 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 	});
 
 	function initSearchForm()
@@ -50,8 +52,8 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 		data: "nickname",    	   width: "15%" }
-				,{title: "유형", 		data: "ucd_type",          width: "10%" }
+				{title: "닉네임", 		data: "nickname",    	   width: "25%" }
+				/*,{title: "유형", 		data: "ucd_type",          width: "10%" }*/
 				,{title: "출금액", 		data: "amount",    		   width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
@@ -140,4 +142,24 @@
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		initMaxDateToday();
+	}
+
+	function onClickXlsxOut()
+	{
+		let url = api.xlsXOutUcdWithdraw;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = {
+			"from_date" : dateFrom.val()
+			,"to_date" : dateTo.val()
+			,"search_type" : searchType.val()
+			,"keyword_type" : selMatch.val()
+			,"keyword" : keyword.val()
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+	}
+
+	function xlsxOutCallback(data)
+	{
+		setExcelData(`${xlsxName.ucdWithdraw}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.ucdWithdraw, data.data);
 	}

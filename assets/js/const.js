@@ -350,6 +350,11 @@
 		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
 		,xlsXOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
 		,xlsXOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'
+		,xlsXOutUcdSales : baseApiUrl+'excel/download/ucd_sales'
+		,xlsXOutUcdUsage : baseApiUrl+'excel/download/ucd_usage'
+		,xlsXOutUcdWithdraw : baseApiUrl+'excel/download/ucd_withdraw'
+		,xlsXOutUcdCharge : baseApiUrl+'excel/download/ucd_charge'
+		,xlsXOutUcdCancel : baseApiUrl+'excel/download/ucd_cancel'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

@@ -1106,7 +1106,7 @@
 				{title: "구분",    data: "division",   		width: "10%" }
 				,{title: "금액",   data: "amount",   		width: "15%",
 					render: function (data, type, row, meta) {
-						return numberWithCommas(data)+'(ⓒ'+numberWithCommas(row.cash)+' / ⓟ'+numberWithCommas(row.point)+')';
+						return numberWithCommas(data);
 					}
 				}
 				,{title: "제목",   data: "title",  			width: "15%" }

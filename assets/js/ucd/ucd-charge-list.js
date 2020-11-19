@@ -2,15 +2,11 @@
     const search 		= $(".search");
     const reset 		= $(".reset");
     const dataTable		= $("#dataTable")
-    const dateType		= $("#dateType");
     const searchType 	= $("#searchType");
     const selMatch 		= $("#selMatch");
     const keyword		= $("#keyword");
-    const selDivision1	= $("#selDivision1");
-    const selDivision2	= $("#selDivision2");
     const selPageLength = $("#selPageLength");
-    const ucdType 		= $("input[name=radio-type]");
-    const userDivision	= $("input[name=radio-user-division]");
+    const btnXlsxOut 	= $("#btnXlsxOut");
 
     $( () => {
         /** dataTable default config **/
@@ -29,13 +25,12 @@
         reset			.on("click", function () { initSearchForm(); });
         selPageLength	.on("change", function () { onSubmitSearch(); });
         dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+        btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
     });
 
     function initSearchForm()
     {
         keyword.val('');
-        ucdType.eq(0).prop("checked", true);
-        userDivision.eq(0).prop("checked", true);
         initSelectOption();
         initSearchDateRange();
         initMaxDateToday();
@@ -57,8 +52,8 @@
                 }
             },
             columns: [
-                {title: "닉네임", 	data: "nickname",           width: "20%" }
-                ,{title: "유형", 	data: "ucd_type",           width: "10%" }
+                {title: "닉네임", 	data: "nickname",           width: "25%" }
+                /*,{title: "유형", 	data: "ucd_type",           width: "10%" }*/
                 ,{title: "금액", 	data: "amount",    	        width: "10%",
                     render: function (data) {
                         return numberWithCommas(data);
@@ -127,15 +122,11 @@
         let param = {
             "limit" : Number(selPageLength.val())
             ,"page" : _page
-            ,"dateType" : dateType.val()
             ,"from_date" : dateFrom.val()
             ,"to_date" : dateTo.val()
             ,"search_type" : searchType.val()
             ,"keyword_type" : selMatch.val()
             ,"keyword" : keyword.val()
-            ,"division" : selDivision1.val()
-            ,"title" : selDivision2.val()
-            ,"ucd_type" : $("input[name=radio-type]:checked").val()
         }
 
         /** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
@@ -150,4 +141,24 @@
         table.page.len(Number(selPageLength.val()));
         table.ajax.reload();
         initMaxDateToday();
+    }
+
+    function onClickXlsxOut()
+    {
+        let url = api.xlsXOutUcdCharge;
+        let errMsg = label.list + message.ajaxLoadError;
+        let param = {
+            "from_date" : dateFrom.val()
+            ,"to_date" : dateTo.val()
+            ,"search_type" : searchType.val()
+            ,"keyword_type" : selMatch.val()
+            ,"keyword" : keyword.val()
+        }
+
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+    }
+
+    function xlsxOutCallback(data)
+    {
+        setExcelData(`${xlsxName.ucdCharge}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.ucdCharge, data.data);
     }

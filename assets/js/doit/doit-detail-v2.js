@@ -753,7 +753,7 @@
 		let url 	= api.listAction;
 		let errMsg 	= '인증 '+label.list+message.ajaxLoadError;
 
-		ajaxRequestWithJsonData(false, url, actionParams(), getInvolveActionCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, actionParams(), getInvolveActionCallback, errMsg, false);
 	}
 
 	function actionParams()

@@ -285,6 +285,7 @@
 		,updateFaq : baseApiUrl+'faq/update'
 		,listFaq : baseApiUrl+'faq/list'
 		,getFaqType : baseApiUrl+'faq/type'
+		,reorderFaq : baseApiUrl+'faq/update/order'
 		/** 금칙어 **/
 		,createProhibition : baseApiUrl+'prohibition/create'
 		,deleteProhibition : baseApiUrl+'prohibition/delete'
@@ -345,6 +346,7 @@
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
 		,xlsXOutDoitMember : baseApiUrl+'excel/download/doit_member'
 		,xlsXOutDoitReview : baseApiUrl+'excel/download/doit_review'
+		,xlsXOutDoitUcd : baseApiUrl+'excel/download/doit_ucd'
 		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
 		,xlsXOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
 		,xlsXOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'

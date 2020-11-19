@@ -38,6 +38,9 @@ class Service extends MY_Controller {
             case "detail":
                 $this->load->layout('service/faq-detail');
                 break;
+            case "sort":
+                $this->load->layout('service/faq-sort');
+                break;
         }
     }
 

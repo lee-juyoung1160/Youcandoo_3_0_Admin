@@ -806,6 +806,9 @@
             accessibleMenus.push(_auth + '/create');
             accessibleMenus.push(_auth + '/update');
             accessibleMenus.push(_auth + '/detail');
+
+            if (_auth === '/service/faq')
+                accessibleMenus.push(_auth + '/sort');
         }
 
         if (_auth === '/ucd/sales') accessibleMenus.push('/ucd/create/biz');

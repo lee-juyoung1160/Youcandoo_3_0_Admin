@@ -31,6 +31,7 @@
 	const saving 		= $("#saving");
 	const joinUserTable		= $("#joinUserTable")
 	const selPageLengthForUser   = $("#selPageLengthForUser");
+	const btnXlsxOutForUser   = $("#btnXlsxOutForUser");
 
 	/** 인증정보 탭 **/
 	const btnWarnRed	= $("#btnWarnRed");
@@ -61,6 +62,7 @@
 	const btnBlind			= $("#btnBlind");
 	const btnUnBlind		= $("#btnUnBlind");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
+	const btnXlsxOutForReview   = $("#btnXlsxOutForReview");
 	/** 리뷰상세 modal **/
 	const modalDetailReview		= $("#modalDetailReview");
 	const modalReviewContent	= $("#modalReviewContent");
@@ -75,6 +77,7 @@
 	/** UCD정보탭 **/
 	const ucdTable		= $("#ucdTable");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
+	const btnXlsxOutForUcd	= $("#btnXlsxOutForUcd");
 
 	/** 두잇톡 탭 **/
 	const btnCreateTalk = $("#btnCreateTalk");
@@ -102,6 +105,7 @@
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
+	let g_xlsx_type;
 
 	$( () => {
 		/** dataTable default config **/
@@ -135,6 +139,9 @@
 		btnGeneral		.on('click', function () { onClickBtnTalkType(this) });
 		btnCreateTalk	.on('click', function () { modalCreateTalkOpen() });
 		btnSubmitTalk	.on('click', function () { onSubmitTalk() });
+		btnXlsxOutForUser		.on("click", function () { g_xlsx_type = 'user'; onClickXlsxOut(); });
+		btnXlsxOutForReview		.on("click", function () { g_xlsx_type = 'review'; onClickXlsxOut(); });
+		btnXlsxOutForUcd		.on("click", function () { g_xlsx_type = 'ucd'; onClickXlsxOut(); });
 	});
 
 	function onClickTab(e)
@@ -926,11 +933,7 @@
 						return data === 'Y' ? label.blind : label.unblind;
 					}
 				}
-				,{title: "작성날짜", 	data: "created",    	width: "15%",
-					render: function (data) {
-						return data.substring(0, 10)
-					}
-				}
+				,{title: "작성일시", 	data: "created",    	width: "15%" }
 				,{title: "작성자", 		data: "nickname",    	width: "15%" }
 			],
 			serverSide: true,
@@ -1666,4 +1669,58 @@
 	function goUpdatePage()
 	{
 		location.href = page.updateDoit+idx;
+	}
+
+	function onClickXlsxOut()
+	{
+		let url;
+		let errMsg = label.list + message.ajaxLoadError;
+		let param = {};
+		if (g_xlsx_type === 'user')
+		{
+			url = api.xlsXOutDoitMember;
+			param["doit_uuid"] = g_doit_uuid;
+			param["nickname"] = "";
+		}
+		else if (g_xlsx_type === 'review')
+		{
+			url = api.xlsXOutDoitReview;
+			param["from_date"] = "";
+			param["to_date"] = "";
+			param["search_type"] = "doit_uuid";
+			param["keyword"] = g_doit_uuid;
+			param["rating_list"] = [1,2,3,4,5];
+			param["is_report"] = "ALL";
+			param["is_blind"] = "ALL";
+		}
+		else
+		{
+			url = api.xlsXOutDoitUcd;
+			param["doit_uuid"] = g_doit_uuid;
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+	}
+
+	function xlsxOutCallback(data)
+	{
+		let filename;
+		let sheetname;
+		if (g_xlsx_type === 'user')
+		{
+			filename = `${g_doit_title}_참여자 정보`;
+			sheetname = '참여자 정보';
+		}
+		else if (g_xlsx_type === 'review')
+		{
+			filename = `${g_doit_title}_리뷰 정보`;
+			sheetname = '리뷰 정보';
+		}
+		else
+		{
+			filename = `${g_doit_title}_UCD 정보`;
+			sheetname = 'UCD 정보';
+		}
+
+		setExcelData(filename, sheetname, data.data);
 	}

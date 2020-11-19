@@ -1,0 +1,21 @@
+<section class="faq-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">FAQ 정렬</h2>
+            <a href="/service/faq/create"><i class="fas fa-plus"></i>FAQ 등록</a>
+            <a href="/service/faq" style="margin-right: 10px;"><i class="fa fa-list"></i>FAQ 목록</a>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="btn-wrap">
+                    <button id="btnReorder" class="btn-info" type="button"><i class="fas fa-exchange-alt"></i>순서변경 적용</button>
+                </div>
+            </div>
+            <table id="dataTable">
+            </table>
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/js/faq/faq-sort.js?version=<?php echo $this->config->item('version');?>"></script>

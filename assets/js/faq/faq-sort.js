@@ -19,10 +19,9 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*55)+'px');
-		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*33)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*33)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*33)+'px');
 		return $(el);
 	}
 
@@ -41,14 +40,9 @@
 				}
 			},
 			columns: [
-				{title: "구분", 		data: "faq_type",   		width: "10%" }
-				,{title: "제목", 	data: "title",   			width: "30%" }
-				,{title: "내용", 	data: "contents",   		width: "45%",
-					render: function (data) {
-						return `<div style="max-width: 650px;" class="line-clamp">${data}</div>`;
-					}
-				}
-				,{title: "등록일", 	data: "created_datetime",  	width: "10%",
+				{title: "구분", 		data: "faq_type",   		width: "33%" }
+				,{title: "제목", 	data: "title",   			width: "33%" }
+				,{title: "등록일", 	data: "created_datetime",  	width: "33%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

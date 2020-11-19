@@ -612,14 +612,21 @@
         pagination.toggle(obj.api().page.info().pages > 0);
     }
 
-    /** 테이블 상단 total count **/
+    /** 테이블 상단 total count 세팅 **/
     function buildTotalCount(_table)
     {
-        let table = $(_table).DataTable();
-        let info = table.page.info();
         let numEl = $(_table).parent().siblings().find(".data-num")
 
-        $(numEl).html(numberWithCommas(info.recordsTotal));
+        $(numEl).html(numberWithCommas(getTotalRecordsFromDataTable(_table)));
+    }
+
+    /** 데이터 테이블에서 total count 가져오기 **/
+    function getTotalRecordsFromDataTable(_table)
+    {
+        let table = _table.DataTable();
+        let info = table.page.info();
+
+        return info.recordsTotal;
     }
 
     /** 테이터 테이블 데이터 존재 여부 **/

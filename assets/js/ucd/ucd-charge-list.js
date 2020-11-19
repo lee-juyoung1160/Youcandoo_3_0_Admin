@@ -145,6 +145,15 @@
 
     function onClickXlsxOut()
     {
+        let totalRecords = getTotalRecordsFromDataTable(dataTable);
+        if (totalRecords > label.maxDownLoadXlsxCount)
+        {
+            let msg = `최대 ${numberWithCommas(label.maxDownLoadXlsxCount)}건까지 다운로드 가능합니다.
+						현재 ${numberWithCommas(totalRecords)}건`
+            sweetToast(msg);
+            return false;
+        }
+
         let url = api.xlsXOutUcdCharge;
         let errMsg = label.list + message.ajaxLoadError;
         let param = {

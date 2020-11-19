@@ -84,7 +84,8 @@
 
 	function onSubmitReorder()
 	{
-		sweetConfirm(message.change, reorderRequest);
+		if (reorderValidation())
+			sweetConfirm(message.change, reorderRequest);
 	}
 
 	function reorderRequest()

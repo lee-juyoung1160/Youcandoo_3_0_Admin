@@ -50,6 +50,7 @@
 	/** 상세보기 modal **/
 	const modalDetailAction	= $("#modalDetailAction");
 	const modalActionDom	= $("#modalActionDom");
+	const modalActionDesc	= $("#modalActionDesc");
 	const modalExample		= $("#modalExample");
 	const modalExampleDesc	= $("#modalExampleDesc");
 	const modalDoitTitle	= $("#modalDoitTitle");
@@ -544,7 +545,7 @@
 		{
 			className = 'img-contents';
 
-			actionDom += `<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);"><div class="text-wrap">${actionDesc}</div>`;
+			actionDom += `<img src="${actionUrl}" alt="인증이미지" onerror="onErrorImage(this);">`;
 
 			exampleDom += `<img src="${exampleUrl}" alt="예시이미지" onerror="onErrorImage(this);">`;
 		}
@@ -555,8 +556,7 @@
 			actionDom +=
 				`<video poster="${coverUrl}" controls onerror="onErrorImage(this);">
 					<source src="${actionUrl}" onerror="onErrorActionVideo();">
-				</video>
-				<div class="text-wrap">${actionDesc}</div>`
+				</video>`
 
 			exampleDom +=
 				`<video controls>
@@ -571,8 +571,7 @@
 				`<img style="width:100%;" src="${label.voiceImage}" alt="" onerror="onErrorImage(this);">
 				<audio controls>
 					<source src="${actionUrl}" onerror="onErrorActionAudio();">
-				</audio>
-				<div class="text-wrap">${actionDesc}</div>`
+				</audio>`
 
 			exampleDom +=
 				`<img style="width:100%;" src="${label.voiceImage}" alt="" onerror="onErrorImage(this);">
@@ -584,6 +583,7 @@
 		/** 인증게시물 **/
 		modalActionDom.attr('class', className);
 		modalActionDom.html(actionDom);
+		modalActionDesc.html(actionDesc);
 
 		/** 두잇명 **/
 		modalDoitTitle.html(title);

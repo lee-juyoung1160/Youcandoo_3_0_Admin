@@ -71,7 +71,7 @@
 
 		if (password.val() !== passwordChk.val())
 		{
-			sweetToast(`비밀번호를 ${message.doubleChk}`);
+			sweetToast(`비밀번호와 비밀번호 확인이 ${message.notEqual}`);
 			passwordChk.trigger('focus');
 			return false;
 		}

@@ -1,9 +1,10 @@
+/*
 
 	const ulTab 		= $("#ulTab");
 	const tabContent	= $(".tab-content");
 	const goUpdate      = $("#goUpdate");
 
-	/** 두잇정보 탭 **/
+	/!** 두잇정보 탭 **!/
 	const category 		= $("#category");
 	const creator 		= $("#creator");
 	const doitTitle 	= $("#doitTitle");
@@ -20,7 +21,7 @@
 	const actionDesc    = $("#actionDesc");
 	const allowGallery  = $("#allowGallery");
 
-	/** 참여자정보 탭 **/
+	/!** 참여자정보 탭 **!/
 	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const keyword		= $("#keyword")
@@ -32,7 +33,7 @@
 	const joinUserTable		= $("#joinUserTable")
 	const selPageLengthForUser   = $("#selPageLengthForUser");
 
-	/** 인증정보 탭 **/
+	/!** 인증정보 탭 **!/
 	const btnWarnRed	= $("#btnWarnRed");
 	const btnWarnYellow	= $("#btnWarnYellow");
 	const btnReport		= $("#btnReport");
@@ -41,12 +42,12 @@
 	const pagination	= $("#dataTable_paginate");
 	const actionTotalCount		 = $("#actionTotalCount");
 	const selPageLengthForAction = $("#selPageLengthForAction");
-	/** 경고장 발송 modal **/
+	/!** 경고장 발송 modal **!/
 	const modalWarnTitle	= $("#modalWarnTitle");
 	const modalWarn			= $("#modalWarn");
 	const causeBy			= $("#selCauseBy");
 	const btnSubmitWarn		= $("#btnSubmitWarn");
-	/** 상세보기 modal **/
+	/!** 상세보기 modal **!/
 	const modalDetailAction	= $("#modalDetailAction");
 	const modalActionDom	= $("#modalActionDom");
 	const modalExample		= $("#modalExample");
@@ -56,12 +57,12 @@
 	const modalWarnWrap		= $("#modalWarnWrap");
 	let g_warn_type;
 
-	/** 리뷰정보탭 **/
+	/!** 리뷰정보탭 **!/
 	const reviewTable		= $("#reviewTable");
 	const btnBlind			= $("#btnBlind");
 	const btnUnBlind		= $("#btnUnBlind");
 	const selPageLengthForReview	= $("#selPageLengthForReview");
-	/** 리뷰상세 modal **/
+	/!** 리뷰상세 modal **!/
 	const modalDetailReview		= $("#modalDetailReview");
 	const modalReviewContent	= $("#modalReviewContent");
 	const modalReviewTitle		= $("#modalReviewTitle");
@@ -72,14 +73,14 @@
 	const modalReviewBlind		= $("#modalReviewBlind");
 	let g_blind_type;
 
-	/** UCD정보탭 **/
+	/!** UCD정보탭 **!/
 	const ucdTable		= $("#ucdTable");
 	const selPageLengthForUcd	= $("#selPageLengthForUcd");
 
-	/** 두잇톡탭 **/
+	/!** 두잇톡탭 **!/
 	const doitTalk 		= $("#doitTalk");
 	
-	/** modal 공통 **/
+	/!** modal 공통 **!/
 	const modalCloseBtn 	= $(".close-btn");
 	const modalLayout 		= $(".modal-layout");
 	const modalContent 		= $(".modal-content");
@@ -88,16 +89,16 @@
 	const idx 			= pathname.split('/').reverse()[0];
 
 	$( () => {
-		/** dataTable default config **/
+		/!** dataTable default config **!/
 		initTableDefault();
-		/** n개씩보기 셀렉트 박스 초기화 **/
+		/!** n개씩보기 셀렉트 박스 초기화 **!/
 		initPageLength(selPageLengthForUser);
 		initPageLength(selPageLengthForReview);
 		initPageLength(selPageLengthForUcd);
 		initActionPageLength(selPageLengthForAction);
-		/** 두잇 상세정보 **/
+		/!** 두잇 상세정보 **!/
 		getDetail();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		ulTab			.on("click", function (event) { onClickTab(event); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		search			.on("click", function () { getJoinMember(); });
@@ -146,9 +147,9 @@
 			getDoitTalk();
 	}
 
-	/****************
+	/!****************
 	 * 두잇정보탭 관련
-	 * **************/
+	 * **************!/
 	function getDetail()
 	{
 		let url 	= api.detailDoit;
@@ -374,9 +375,9 @@
 		return actionResourceDom;
 	}
 
-	/****************
+	/!****************
 	 * 참여자정보탭 관련
-	 * **************/
+	 * **************!/
 	function initSearchForm()
 	{
 		keyword.val('');
@@ -470,11 +471,11 @@
 		return JSON.stringify(param);
 	}
 
-	/****************
+	/!****************
 	 * 인증정보탭 관련
-	 * **************/
+	 * **************!/
 
-	/** 인증상세 모달 **/
+	/!** 인증상세 모달 **!/
 	function onClinkActionImage(obj)
 	{
 		modalDetailFadein();
@@ -547,16 +548,16 @@
 				</audio>`
 		}
 
-		/** 인증게시물 **/
+		/!** 인증게시물 **!/
 		modalActionDom.attr('class', className);
 		modalActionDom.html(actionDom);
 
-		/** 두잇명 **/
+		/!** 두잇명 **!/
 		modalDoitTitle.html(title);
-		/** 작성자 **/
+		/!** 작성자 **!/
 		modalNickname.html(nickname);
 
-		/** 경고장 영역 **/
+		/!** 경고장 영역 **!/
 		let warnDom = '';
 		if (red === 'Y' || yellow === 'Y')
 		{
@@ -582,7 +583,7 @@
 		else	warnDom += `<p class="data-contents">발송 된 경고장이 없습니다.</p>`
 		modalWarnWrap.html(warnDom);
 
-		/** 인증예시 **/
+		/!** 인증예시 **!/
 		modalExample.attr('class', className);
 		modalExample.html(exampleDom);
 		modalExampleDesc.html(exampleDesc);
@@ -597,7 +598,7 @@
 		sweetConfirm('경고장 발송을 '+message.cancel, cancelRequest);
 	}
 
-	/** 경고장 취소 **/
+	/!** 경고장 취소 **!/
 	function cancelRequest()
 	{
 		let url 	= cancelApi;
@@ -618,7 +619,7 @@
 		getInvolveAction();
 	}
 
-	/** 경고장 발송 **/
+	/!** 경고장 발송 **!/
 	function onClickBtnWarn()
 	{
 		if (isCheckedTarget())
@@ -713,7 +714,7 @@
 		getInvolveAction();
 	}
 
-	/** 인증 목록 **/
+	/!** 인증 목록 **!/
 	function getInvolveAction()
 	{
 		let url 	= api.listAction;
@@ -752,7 +753,7 @@
 		let totalCount = data.recordsTotal;
 		let actionDom  = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
-		/** total count **/
+		/!** total count **!/
 		actionTotalCount.html(totalCount);
 
 		if (totalCount > 0)
@@ -773,7 +774,7 @@
 					actionImage = label.noImage;
 				if (resourceType === 'voice')
 					actionImage = label.voiceImage;
-				/** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **/
+				/!** 이미지 클릭 > 상세보기 모달을 위해 이벤트 및 필요한 속성들 추가 **!/
 				let actionImageDom =
 					`<img class="detail-img" 
 						src="${actionImage}"
@@ -860,9 +861,9 @@
 		getInvolveAction();
 	}
 
-	/****************
+	/!****************
 	 * 리뷰정보탭 관련
-	 * **************/
+	 * **************!/
 	function getInvolveReview()
 	{
 		reviewTable.DataTable({
@@ -1055,9 +1056,9 @@
 		return true;
 	}
 
-	/**
+	/!**
 	 * UCD정보탭관련
-	 * **/
+	 * **!/
 	function getUcdLog()
 	{
 		ucdTable.DataTable({
@@ -1118,9 +1119,9 @@
 			$(nRow).addClass('minus-pay');
 	}
 
-	/**
+	/!**
 	 * 두잇톡 탭 관련
-	 * **/
+	 * **!/
 	function getDoitTalk()
 	{
 		let url = api.listDoitTalk;
@@ -1288,9 +1289,9 @@
 				innerEl += `</ul>`
 		}
 
-		/*<div class="talk-img">
+		/!*<div class="talk-img">
 			<img src="${detail.img}" alt="">
-		</div>*/
+		</div>*!/
 
 		doitTalk.html(innerEl);
 	}
@@ -1412,8 +1413,9 @@
 
 
 
-	/** 수정페이지 이동 **/
+	/!** 수정페이지 이동 **!/
 	function goUpdatePage()
 	{
 		location.href = page.updateDoit+idx;
 	}
+*/

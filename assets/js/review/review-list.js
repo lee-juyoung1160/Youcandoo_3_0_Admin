@@ -164,14 +164,22 @@
                         return buildStar(data);
                     }
                 },
-                {title:"두잇명",        data: "doit_title",    width: '20%' },
+                {title:"두잇명",        data: "doit_title",    width: '20%',
+                    render: function (data, type, row, meta) {
+                        return `<a href="${page.detailDoit}${row.doit_idx}">${data}</a>`
+                    }
+                },
                 {title:"신고",          data: "report_count",  width: '5%' },
                 {title:"블라인드 여부",  data: "is_blind",      width: '10%',   className: 'no-sort',
                     render: function (data) {
                         return data === 'Y' ? label.blind : label.unblind;
                     }
                 },
-                {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort' },
+                {title:"작성자",        data: "nickname",      width: '15%',   className: 'no-sort',
+                    render: function (data, type, row, meta) {
+                        return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`
+                    }
+                },
                 {title:"작성일시",      data: "created",       width: '15%' }
             ]
         });

@@ -1104,7 +1104,7 @@
 			},
 			columns: [
 				{title: "구분",    data: "division",   		width: "10%" }
-				,{title: "금액",   data: "amount",   		width: "15%",
+				,{title: "UCD",   data: "amount",   		width: "15%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}

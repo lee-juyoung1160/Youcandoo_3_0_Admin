@@ -76,7 +76,24 @@
 			return false;
 		}
 
+		if (!isValidPassword())
+		{
+			sweetToast(`비밀번호 형식을 ${message.doubleChk}`);
+			password.trigger('focus');
+			return false;
+		}
+
 		return true;
+	}
+
+	function isValidPassword()
+	{
+		let passwd  = password.val().trim();
+		let regExp  = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+		let regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
+		let regExp2 = /(\w)\1\1\1/;
+
+		return regExp.test(passwd) && (!regExp1.test(passwd) && !regExp2.test(passwd));
 	}
 
 	function onSubmitProfile()
@@ -104,9 +121,10 @@
 
 	function updateParams()
 	{
+		let passwd = CryptoJS.SHA512(password.val().trim());
 		let param = {
 			"userid" : sessionUserId.val()
-			,"password" : password.val().trim()
+			,"password" : passwd.toString()
 		}
 
 		return JSON.stringify(param);

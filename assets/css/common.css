@@ -1515,6 +1515,9 @@ input[type="checkbox"]:disabled + label span{
 	float: right;
 	margin-top: 10px;
 }
+.sort-table tr td {
+	cursor: n-resize;
+}
 /* minus pay */
 .table-wrap .minus-pay td {
 	color: #e83d2c;

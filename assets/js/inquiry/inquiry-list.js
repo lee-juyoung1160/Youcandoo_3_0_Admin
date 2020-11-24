@@ -106,25 +106,25 @@
 				}
 			},
 			columns: [
-				{title: "문의구분",  data: "qna_name",    		width: "10%" }
-                ,{title: "답변상태",    data: "status",  			width: "10%",
+				{title: "문의구분",   data: "qna_name",    		width: "10%" }
+                ,{title: "답변상태",  data: "status",  			width: "10%",
                     render: function (data) {
                         return data === "0" ? "답변대기" : "답변완료";
                     }
                 }
-				,{title: "제목",  	 data: "title",    			width: "30%",
+				,{title: "제목",  	 data: "title",    			width: "25%",
                     render: function (data, type, row, meta) {
 				        return `<a href="${page.detailInquiry}">${row.idx}</a>`;
                     }
                 }
-				,{title: "작성자", 	 data: "nickname",			width: "10%" }
-				,{title: "등록일시", 	 data: "created_datetime",  width: "15%",
+				,{title: "작성자", 	 data: "nickname",			width: "15%" }
+				,{title: "등록일시",   data: "created_datetime",  width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
 				,{title: "처리자",  	 data: "admin_userid",    	width: "10%" }
-				,{title: "메모",  	 data: "memo",    			width: "10%",
+				,{title: "메모",  	 data: "memo",    			width: "5%",
 					render: function (data) {
 						return !isEmpty(data) ? label.memo : label.dash
 					}
@@ -149,11 +149,11 @@
 		});
 	}
 
-	function tableParams(d)
+	function tableParams()
 	{
 		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
+			"limit" : Number(selPageLength.val())
+			,"page" : _page
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()

@@ -1,53 +1,41 @@
-/*사용안함: 나중에 추가될 수 있음*/
-	/*const nickname 	= $("#nickname");
+
+    const nickname 	= $("#nickname");
 	const regDate	= $("#regDate");
 	const title		= $("#title");
 	const content	= $("#content");
-	const comment	= $("#summernote");
+	const comment	= $("#answer");
+	const attachment = $("#attachment");
 	const memo		= $("#memo");
 	const btnSubmit	= $("#btnSubmit");
 	let idx;
 
 	$(document).ready(function () {
-		/!** 상세 불러오기 **!/
-		getDetail();
-
-		btnSubmit.on('click', function () { onSubmitQna(); });
+		/** 상세 불러오기 **/
+		/*getDetail();*/
+        /** 이벤트 **/
+		/*btnSubmit.on('click', function () { onSubmitAnswer(); });*/
 	});
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailQna,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					alert(invalidResp(data))
-			},
-			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
-			}
-		});
+        let url = api.detailInquiry;
+        let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, detailParams(), getDetailCallback, errMsg, false);
 	}
 
-	function params()
+	function detailParams()
 	{
-		const pathName	= getPathName();
-		const qnaIdx	= splitReverse(pathName, '/');
-		let param = {
-			"idx" : qnaIdx
-			,"userid" : sessionUserId.val()
-			,"comment" : comment.summernote('code')
-			,"memo" : memo.val().trim()
-		}
+        const pathName	= getPathName();
+        const qnaIdx	= splitReverse(pathName, '/');
 
-		return JSON.stringify(param);
+        return JSON.stringify({"idx" : qnaIdx});
 	}
+
+    function getDetailCallback(data)
+    {
+        isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
+    }
 
 	function buildDetail(data)
 	{
@@ -64,43 +52,78 @@
 		content.html(detailData.contents);
 	}
 
-	function onSubmitQna()
+	function onSubmitAnswer()
 	{
 		if (validation())
 		{
-			if (confirm(message.create))
-			{
-				$.ajax({
-					url: api.commentQna,
-					type: "POST",
-					headers: headers,
-					dataType: 'json',
-					data: params(),
-					success: function(data) {
-						alert(getStatusMessage(data));
-						if (isSuccessResp(data))
-							location.href = page.listInquiry
-						else
-							alert(invalidResp(data))
-					},
-					error: function (request, status) {
-						alert(label.submit+message.ajaxError);
-					}
-				});
-			}
+            let callback;
+            let attachment = attachment[0].files;
+            callback = (attachment.length > 0) ? fileUploadReq : answerRequest;
+
+            sweetConfirm(message.modify, callback);
 		}
 	}
-	
-	function validation()
-	{
-		if (isEmpty(comment.val()))
-		{
-			alert('답변내용은 '+message.required);
-			comment.trigger('focus');
-			return false;
-		}
 
-		return true;
-	}*/
+    function validation()
+    {
+        if (isEmpty(comment.val()))
+        {
+            alert('답변내용은 '+message.required);
+            comment.trigger('focus');
+            return false;
+        }
+
+        return true;
+    }
+
+    function fileUploadReq()
+    {
+        let url    = fileApi.event;
+        let errMsg = `이미지 등록 ${message.ajaxError}`;
+        let param  = new FormData();
+        param.append('single', attachment[0].files[0]);
+
+        ajaxRequestWithFormData(true, url, param, answerRequest, errMsg, false);
+    }
+
+    function answerRequest(data)
+    {
+        if (isEmpty(data) || isSuccessResp(data))
+        {
+            let url 	= api.answerInquiry;
+            let errMsg 	= message.ajaxError;
+            let param = {
+                "event_uuid" : g_event_uuid,
+                "event_type" : g_event_type,
+                "event_title" : title.val().trim(),
+                "event_start_date" : eventFrom.val(),
+                "event_end_date" : eventTo.val()
+            }
+
+            if (!isEmpty(data))
+            {
+                let { file } = data.image_urls;
+
+                if (!isEmpty(file))
+                    param["event_thumbnail_image"] = file;
+            }
+
+            ajaxRequestWithJsonData(true, url, JSON.stringify(param), answerReqCallback, errMsg, false);
+        }
+        else
+            sweetToast(data.msg);
+    }
+
+    function answerReqCallback()
+    {
+        sweetToastAndCallback(data, answerSuccess);
+    }
+
+    function answerSuccess()
+    {
+        location.href = page.listInquiry;
+    }
+	
+
 
 

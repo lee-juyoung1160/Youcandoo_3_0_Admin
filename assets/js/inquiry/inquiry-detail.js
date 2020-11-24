@@ -1,5 +1,5 @@
-/*사용안함: 나중에 추가될 수 있음*/
-/*	const nickname 		= $("#nickname");
+
+	const nickname 		= $("#nickname");
 	const regDate		= $("#regDate");
 	const title			= $("#title");
 	const content		= $("#content");
@@ -9,37 +9,30 @@
 	const memo			= $("#memo");
 
 	$(document).ready(function () {
-		/!** 상세 불러오기 **!/
-		getDetail();
+		/** 상세 불러오기 **/
+		/*getDetail();*/
 	});
 
 	function getDetail()
 	{
-		$.ajax({
-			url: api.detailQna,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			data: params(),
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildDetail(data);
-				else
-					alert(invalidResp(data))
-			},
-			error: function (request, status) {
-				alert(label.detailContent+message.ajaxLoadError);
-			}
-		});
+	    let url = api.detailInquiry;
+        let errMsg 	= label.detailContent+message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
 	}
 
-	function params()
-	{
-		const pathName		= getPathName();
-		const qnaIdx		= splitReverse(pathName, '/');
+    function params()
+    {
+        const pathName	 = getPathName();
+        const inquiryIdx = splitReverse(pathName, '/');
 
-		return JSON.stringify({"idx" : qnaIdx});
-	}
+        return JSON.stringify({"idx" : inquiryIdx});
+    }
+
+	function getDetailCallback(data)
+    {
+        isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
+    }
 
 	function buildDetail(data)
 	{
@@ -53,6 +46,6 @@
 		admin.html(detailData.admin_userid);
 		commentDate.html(detailData.comment_datetime);
 		memo.html(detailData.memo);
-	}*/
+	}
 
 

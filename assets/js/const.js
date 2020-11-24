@@ -292,10 +292,10 @@
 		,deleteProhibition : baseApiUrl+'prohibition/delete'
 		,listProhibition : baseApiUrl+'prohibition/list'
 		/** 1:1 문의 **/
-		/*,commentQna : baseApiUrl+'qna/comment'
-		,detailQna : baseApiUrl+'qna/detail'
+		,answerInquiry : baseApiUrl+'qna/comment'
+		,detailInquiry : baseApiUrl+'qna/detail'
 		,listInquiry : baseApiUrl+'qna/list'
-		,getInquiryType : baseApiUrl+'inquiry/type'*/
+		,getInquiryType : baseApiUrl+'inquiry/type'
 		/** 상품 **/
 		,createGift : baseApiUrl+'gift/create'
 		,updateGift : baseApiUrl+'gift/update'
@@ -418,7 +418,7 @@
 		,updateFaq : '/service/faq/update/'
 
 		,listInquiry : '/service/inquiry'
-		,commentInquiry : '/service/inquiry/update/'
+		,answerInquiry : '/service/inquiry/update/'
 		,detailInquiry : '/service/inquiry/detail/'
 
 		,listProhibition : '/service/prohibition'

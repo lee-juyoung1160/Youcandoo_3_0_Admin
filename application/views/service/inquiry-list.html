@@ -70,7 +70,7 @@
             </ul>
         </div>
 
-        <div class="list-common-btn-wrap clearfix">
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
                 <button class="reset">초기화</button>
                 <button class="search">검색</button>
@@ -79,16 +79,22 @@
 
         <div class="table-wrap">
             <div class="top clearfix">
-                <div class="left-wrap clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
                         <label for="selPageLength"></label>
                         <select id="selPageLength">
-                            <!--<option value="10">10개씩 보기</option>
-                            <option value="20">20개씩 보기</option>
-                            <option value="30">30개씩 보기</option>-->
                         </select>
                     </div>
-                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selSort">개설일 최신 순</label>
+                        <select id="selSort">
+                            <option value="created_datetime,desc">개설일 최신 순</option>
+                            <option value="created_datetime,asc">개설일 최신 역 순</option>
+                            <option value="doit_member,desc">참여자 순</option>
+                            <option value="action_datetime,desc">인증시작 최신 순</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <table id="dataTable">
@@ -115,7 +121,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="tr-waiting">
                         <td>2</td>
                         <td>berry</td>
                         <td>두잇인증</td>
@@ -127,7 +133,15 @@
                         Dev:
                         상세페이지에 메모가 있을 경우에만 i태그 노출
                         -->
-                        <td><i class="fas fa-thumbtack"></i></td>
+                        <td>
+                            <div class="tooltip">
+                                <i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>
+                                <div class="tooltip-hover-text" style="display: none;">
+                                    <strong>memo</strong>
+                                    <p>돈 돌려드릴게요.</p>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -135,9 +149,17 @@
                         <td>두잇인증</td>
                         <td><a href="/service/inquiry/detail">인증이 갑자기 안돼요</a></td>
                         <td>2019/11/07</td>
-                        <td>대기</td>
+                        <td>완료</td>
                         <td>admin</td>
-                        <td></td>
+                        <td>
+                            <div class="tooltip">
+                                <i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>
+                                <div class="tooltip-hover-text" style="display: none;">
+                                    <strong>memo</strong>
+                                    <p>돈 돌려드릴게요.</p>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

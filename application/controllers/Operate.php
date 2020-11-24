@@ -16,10 +16,10 @@ class Operate extends MY_Controller {
             $this->load->layout('main-dashboard-v2');
     }
 
-    public function account($Route = "list")
+    public function account($Route = "")
     {
         switch ($Route) {
-            case "list":
+            case "":
                 $this->load->layout('operate/account-list');
                 break;
             case "detail":

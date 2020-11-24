@@ -8,6 +8,11 @@ class Doit extends MY_Controller {
         $this->load->layout('doit/doit-list');
     }
 
+    public function v2()
+    {
+        $this->load->layout('doit/doit-list-v2');
+    }
+
     public function create()
     {
         $this->load->layout('doit/doit-create');
@@ -41,10 +46,10 @@ class Doit extends MY_Controller {
         }
     }
 
-    public function category($Route = "list")
+    public function category($Route = "")
     {
         switch ($Route) {
-            case "list":
+            case "":
                 $this->load->layout('doit/doit-category-list');
                 break;
             case "create" :
@@ -57,11 +62,6 @@ class Doit extends MY_Controller {
                 $this->load->layout('doit/doit-category-update');
                 break;
         }
-     }
-
-     public function v2()
-     {
-         $this->load->layout('doit/doit-list-v2');
      }
 
      public function talk($Route = "")

@@ -13,34 +13,31 @@ class Ucd extends MY_Controller {
         $this->load->layout('ucd/ucd-usage-list');
     }
 
-    public function withdraw($Route = "list")
+    public function withdraw($Route = "")
     {
         switch ($Route) {
+            case "":
+                $this->load->layout('ucd/ucd-withdraw-list');
+                break;
             case "user" :
                 $this->load->layout('ucd/ucd-withdraw-user-v2');
-                break;
-            case "list":
-                $this->load->layout('ucd/ucd-withdraw-list');
                 break;
         }
     }
 
-    public function charge($Route = "list")
+    public function charge()
     {
-        switch ($Route) {
-            case "list":
-                $this->load->layout('ucd/ucd-charge-list');
-                break;
-        }
+        $this->load->layout('ucd/ucd-charge-list');
     }
-    public function cancel($Route = "list")
+
+    public function cancel($Route = "")
     {
         switch ($Route) {
+            case "":
+                $this->load->layout('ucd/ucd-cancel-list');
+                break;
             case "user" :
                 $this->load->layout('ucd/ucd-cancel-user-v2');
-                break;
-            case "list":
-                $this->load->layout('ucd/ucd-cancel-list');
                 break;
         }
     }

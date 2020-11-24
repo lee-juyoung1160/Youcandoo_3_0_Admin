@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Marketing extends CI_Controller {
 
-    public function event($Route = "list")
+    public function event($Route = "")
     {
         switch ($Route) {
-            case "list":
+            case "":
                 $this->load->layout('marketing/event-list');
                 break;
             case "create" :
@@ -21,10 +21,10 @@ class Marketing extends CI_Controller {
         }
     }
 
-    public function push($Route = "list")
+    public function push($Route = "")
     {
         switch ($Route) {
-            case "list":
+            case "":
                 $this->load->layout('marketing/push-list');
                 break;
             case "create" :
@@ -36,10 +36,10 @@ class Marketing extends CI_Controller {
         }
     }
 
-    public function popup($Route = "list")
+    public function popup($Route = "")
         {
             switch ($Route) {
-                case "list":
+                case "":
                     $this->load->layout('marketing/popup-list');
                     break;
                 case "create" :

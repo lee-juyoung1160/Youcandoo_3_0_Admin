@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Service extends MY_Controller {
 
-    public function notice($Route="list")
+    public function notice($Route="")
     {
         switch ($Route)
         {
-            case "list" :
+            case "" :
                 $this->load->layout('service/notice-list');
                 break;
             case "create":
@@ -22,11 +22,11 @@ class Service extends MY_Controller {
         }
     }
 
-    public function faq($Route="list")
+    public function faq($Route="")
     {
         switch ($Route)
         {
-            case "list" :
+            case "" :
                 $this->load->layout('service/faq-list');
                 break;
             case "create":
@@ -65,11 +65,11 @@ class Service extends MY_Controller {
     }
 
 
-    public function inquiry($Route="list")
+    public function inquiry($Route="")
     {
         switch ($Route)
         {
-            case "list" :
+            case "" :
                 $this->load->layout('service/inquiry-list');
                 break;
             case "update":

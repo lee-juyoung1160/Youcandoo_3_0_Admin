@@ -8,13 +8,16 @@
 	const selPageLength = $("#selPageLength");
 	const status		= $("input[name=radio-status]");
 
-	$(document).ready(function () {
-        /** dataTable default config **/
-        initTableDefault();
-		/** 문의구분 셀렉트 박스 **/
-		/*getInquiryType();*/
+	$(() => {
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
+        /** dataTable default config **/
+        initTableDefault();
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		/** 문의구분 셀렉트 박스 **/
+		/*getInquiryType();*/
+
         initSearchForm()
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });

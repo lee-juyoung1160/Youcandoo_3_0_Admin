@@ -291,11 +291,11 @@
 		,createProhibition : baseApiUrl+'prohibition/create'
 		,deleteProhibition : baseApiUrl+'prohibition/delete'
 		,listProhibition : baseApiUrl+'prohibition/list'
-		/** QNA **/
+		/** 1:1 문의 **/
 		/*,commentQna : baseApiUrl+'qna/comment'
 		,detailQna : baseApiUrl+'qna/detail'
-		,listQna : baseApiUrl+'qna/list'
-		,getQnaType : baseApiUrl+'qna/type'*/
+		,listInquiry : baseApiUrl+'qna/list'
+		,getInquiryType : baseApiUrl+'inquiry/type'*/
 		/** 상품 **/
 		,createGift : baseApiUrl+'gift/create'
 		,updateGift : baseApiUrl+'gift/update'

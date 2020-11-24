@@ -64,7 +64,7 @@ class Service extends MY_Controller {
         $this->load->layout('service/version-list');
     }
 
-/*
+
     public function inquiry($Route="list")
     {
         switch ($Route)
@@ -80,6 +80,6 @@ class Service extends MY_Controller {
                 break;
         }
     }
-    */
+
 
 }

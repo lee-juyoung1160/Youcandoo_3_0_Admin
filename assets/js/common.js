@@ -770,7 +770,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage'];
+    let accessibleMenus = ['/', '/admin/mypage', '/service/inquiry'];
     function buildAccessibleMenus(_auth)
     {
         /**

@@ -1,65 +1,65 @@
-/*사용안함: 나중에 추가될 수 있음*/
-	/*const search 		= $(".search");
+
+	const search 		= $(".search");
 	const reset 		= $(".reset");
 	const dataTable		= $("#dataTable")
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
-	const selQnaType	= $("#selQnaType");
+	const selInquiryType = $("#selInquiryType");
 	const selPageLength = $("#selPageLength");
 	const status		= $("input[name=radio-status]");
-	const dataNum		= $(".data-num");
 
 	$(document).ready(function () {
-		/!** 문의구분 셀렉트 박스 **!/
-		getQnaType();
-		/!** 데이트피커 초기화 **!/
+        /** dataTable default config **/
+        initTableDefault();
+		/** 문의구분 셀렉트 박스 **/
+		/*getInquiryType();*/
+		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		/!** 상단 검색 폼 초기화 **!/
-		initSearchForm();
-		/!** 목록 불러오기 **!/
-		buildGrid();
-		/!** 이벤트 **!/
-		$("body")    	.on("keydown", function (event) { onKeydownSearch(event) });
+        initSearchForm()
+		/** 이벤트 **/
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
-	function getQnaType()
+	function getInquiryType()
 	{
-		$.ajax({
-			url: api.getQnaType,
-			type: "POST",
-			headers: headers,
-			dataType: 'json',
-			success: function(data) {
-				if (isSuccessResp(data))
-					buildQnaType(data);
-				else
-					alert(invalidResp(data));
-			},
-			error: function (request, status) {
-				alert('구분 '+label.list+message.ajaxLoadError);
-			}
-		});
+	    let url = api.getInquiryType;
+        let errMsg = `문의구분 목록 ${message.ajaxLoadError}`;
+
+        ajaxRequestWithJsonData(false, url, null, getInquiryTypeCallback, errMsg, completeCallback);
 	}
 
-	function buildQnaType(data)
-	{
-		let details = data.data;
-		let optionDom = '<option value="">전체</option>';
-		for (let i=0; i<details.length; i++)
-		{
-			let value = details[i].type;
-			let name  = details[i].qna_name;
+    function getInquiryTypeCallback(data)
+    {
+        let options = '<option value="all">전체</option>';
+        let datas = data.data;
+        let i = 0;
+        for (i; i<datas.length; i++)
+        {
+            let { category, category_uuid } = datas[i];
+            options += `<option value="${category_uuid}">${category}</option>`
+        }
 
-			optionDom += '<option value="'+value+'">'+name+'</option>';
-		}
+        selInquiryType.html(options);
 
-		selQnaType.html(optionDom);
-		onChangeSelectOption(selQnaType);
-	}
+        onChangeSelectOption(selInquiryType);
+    }
+
+    function completeCallback()
+    {
+        /** n개씩 보기 초기화 **/
+        initPageLength(selPageLength);
+        /** 상단 검색 폼 초기화
+         *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+         *  뒤로가기로 페이지 진입 > 이전 값 세팅
+         * **/
+        isBackAction() ? setHistoryForm() : initSearchForm();
+        /** 테이블 데이터 로드 **/
+        buildGrid();
+    }
 
 	function initSearchForm()
 	{
@@ -70,11 +70,32 @@
 		initDayBtn();
 	}
 
+    let _page = 1;
+    function setHistoryForm()
+    {
+        let historyParams = getHistoryParam();
+
+        dateFrom.val(historyParams.from_date);
+        dateTo.val(historyParams.to_date);
+        keyword.val(historyParams.keyword);
+        searchType.val(historyParams.search_type);
+        selInquiryType.val(historyParams.date_type);
+        onChangeSelectOption(selInquiryType);
+        selPageLength.val(historyParams.limit);
+        onChangeSelectOption(selPageLength);
+        status.each(function () {
+            if ($(this).val() === historyParams.doit_type)
+                $(this).prop("checked", true);
+        });
+
+        _page = historyParams.page;
+    }
+
 	function buildGrid()
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listQna,
+				url: api.listInquiry,
 				type: "POST",
 				headers: headers,
 				data: function (d) {
@@ -85,22 +106,25 @@
 				}
 			},
 			columns: [
-				{title: "No ", 	 	data: "idx",				width: "5%",    orderable: false }
-				,{title: "작성자", 	 data: "nickname",			width: "10%",   orderable: false }
-				,{title: "문의구분",  data: "qna_name",    		width: "10%",  	orderable: false }
-				,{title: "제목",  	 data: "title",    			width: "30%",  	orderable: false }
-				,{title: "등록일", 	 data: "created_datetime",  width: "15%",   orderable: false,
+				{title: "문의구분",  data: "qna_name",    		width: "10%" }
+                ,{title: "답변상태",    data: "status",  			width: "10%",
+                    render: function (data) {
+                        return data === "0" ? "답변대기" : "답변완료";
+                    }
+                }
+				,{title: "제목",  	 data: "title",    			width: "30%",
+                    render: function (data, type, row, meta) {
+				        return `<a href="${page.detailInquiry}">${row.idx}</a>`;
+                    }
+                }
+				,{title: "작성자", 	 data: "nickname",			width: "10%" }
+				,{title: "등록일시", 	 data: "created_datetime",  width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
-				},
-				{title: "답변상태",    data: "status",  			width: "10%",  	orderable: false,
-					render: function (data) {
-						return data === "0" ? "답변대기" : "답변완료";
-					}
 				}
-				,{title: "처리자",  	 data: "admin_userid",    	width: "10%",  	orderable: false }
-				,{title: "메모",  	 data: "memo",    			width: "10%",  	orderable: false,
+				,{title: "처리자",  	 data: "admin_userid",    	width: "10%" }
+				,{title: "메모",  	 data: "memo",    			width: "10%",
 					render: function (data) {
 						return !isEmpty(data) ? label.memo : label.dash
 					}
@@ -110,17 +134,18 @@
 			paging: true,
 			pageLength: Number(selPageLength.val()),
 			select: false,
-			destroy: true,
+			destroy: false,
 			initComplete: function () {
-				let table = dataTable.DataTable();
-				let info = table.page.info();
-
-				/!** 목록 상단 totol count **!/
-				dataNum.html(info.recordsTotal);
+                $(this).on('page.dt', function () { _page = getCurrentPage(this); });
+                redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
-			}
+			},
+            drawCallback: function (settings) {
+                buildTotalCount(this);
+                toggleBtnPreviousAndNextOnTable(this);
+            }
 		});
 	}
 
@@ -133,7 +158,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"qna_type" : selQnaType.val()
+			,"qna_type" : selInquiryType.val()
 			,"status" : $("input:radio[name=radio-status]:checked").val()
 		}
 
@@ -142,15 +167,15 @@
 
 	function setRowAttributes(nRow, aData)
 	{
-		let titleDom  = $(nRow).children().eq(3);
-		let detailUrl = aData.status === '0' ? '/service/inquiry/update/'+aData.idx : '/service/inquiry/detail/'+aData.idx;
 
-		/!** 제목에 a 태그 추가 **!/
-		$(titleDom).html('<a href="'+detailUrl+'">'+aData.title+'</a>');
 	}
 
 	function onSubmitSearch()
 	{
-		buildGrid();
-	}*/
+        _page = 1;
+        let table = dataTable.DataTable();
+        table.page.len(Number(selPageLength.val()));
+        table.ajax.reload();
+        initMaxDateToday();
+	}
 

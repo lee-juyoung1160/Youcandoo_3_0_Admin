@@ -1,4 +1,3 @@
-<!--
 <section class="inquiry-list-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -26,7 +25,7 @@
                     <label for="search_type">제목/내용</label>
                     <select id="search_type">
                         <option value="contents">제목/내용</option>
-                        &lt;!&ndash;<option value="nickname">작성자</option>&ndash;&gt;
+                        <!--<option value="nickname">작성자</option>-->
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -43,28 +42,28 @@
                 <li>
                     <p class="list-common-title">문의 구분</p>
                     <div class="select-box list-select-box">
-                        <label for="selQnaType">전체</label>
-                        <select id="selQnaType">
-                            &lt;!&ndash;<option value="">전체</option>
+                        <label for="selInquiryType"></label>
+                        <select id="selInquiryType">
+                            <!--<option value="">전체</option>
                             <option value="doit">두잇인증</option>
                             <option value="">채팅</option>
                             <option value="">캐시</option>
                             <option value="">일반</option>
                             <option value="">결제</option>
-                            <option value="">회원정보</option>&ndash;&gt;
+                            <option value="">회원정보</option>-->
                         </select>
                     </div>
                 </li>
                 <li>
                     <p class="list-common-title">답변 상태</p>
                     <div class="radio-wrap">
-                        <input type="radio" id="r2" name="radio-status" value="2"/>
+                        <input type="radio" id="r2" name="radio-status" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="radio-status" value="1"/>
+                        <input type="radio" id="r3" name="radio-status" value="complete"/>
                         <label for="r3"><span></span>완료</label>
 
-                        <input type="radio" id="r4" name="radio-status" value="0"/>
+                        <input type="radio" id="r4" name="radio-status" value="pending"/>
                         <label for="r4"><span></span>대기</label>
                     </div>
                 </li>
@@ -82,18 +81,18 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="select-box">
-                        <label for="selPageLength">10개씩 보기</label>
+                        <label for="selPageLength"></label>
                         <select id="selPageLength">
-                            <option value="10">10개씩 보기</option>
+                            <!--<option value="10">10개씩 보기</option>
                             <option value="20">20개씩 보기</option>
-                            <option value="30">30개씩 보기</option>
+                            <option value="30">30개씩 보기</option>-->
                         </select>
                     </div>
                     <p>Total <strong class="data-num"></strong></p>
                 </div>
             </div>
             <table id="dataTable">
-                &lt;!&ndash;<colgroup>
+                <colgroup>
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -120,36 +119,40 @@
                         <td>2</td>
                         <td>berry</td>
                         <td>두잇인증</td>
-                        <td><a href="/inquiry/create">인증이 갑자기 안되요</a></td>
+                        <td><a href="/service/inquiry/update">인증이 갑자기 안돼요</a></td>
                         <td>2019/11/07</td>
                         <td>대기</td>
                         <td>admin</td>
-                        &lt;!&ndash;
+                        <!--
                         Dev:
                         상세페이지에 메모가 있을 경우에만 i태그 노출
-                        &ndash;&gt;
+                        -->
                         <td><i class="fas fa-thumbtack"></i></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>berry</td>
                         <td>두잇인증</td>
-                        <td><a href="/inquiry/detail">인증이 갑자기 안되요</a></td>
+                        <td><a href="/service/inquiry/detail">인증이 갑자기 안돼요</a></td>
                         <td>2019/11/07</td>
                         <td>대기</td>
                         <td>admin</td>
                         <td></td>
                     </tr>
-                </tbody>&ndash;&gt;
+                </tbody>
             </table>
-            &lt;!&ndash;<ul class="table-pagination clearfix">
+            <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>
                 <li class="active">1</li>
                 <li>2</li>
                 <li>3</li>
                 <li><i class="fas fa-angle-double-right"></i></li>
-            </ul>&ndash;&gt;
+            </ul>-->
         </div>
     </div>
 </section>
-<script src="/assets/js/inquiry/inquiry-list.js"></script>-->
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/plugins/xlsx.full.min.js"></script>
+<script defer src="/assets/js/export-excel.js"></script>
+<script src="/assets/js/inquiry/inquiry-list.js?version=<?php echo $this->config->item('version');?>"></script>

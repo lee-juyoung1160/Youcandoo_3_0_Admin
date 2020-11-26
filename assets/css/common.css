@@ -1088,7 +1088,7 @@ input[type="checkbox"]:disabled + label span{
 	padding: 5px 10px;
 }
 .card-warp .card .card-body .col {
-	padding: 0 15px;
+	padding: 0 10px;
 }
 .card-warp .card .card-body i {
 	color: #00c0ef;

@@ -34,4 +34,9 @@ class Gift extends MY_Controller
         $this->load->layout('gift/gift-approval-list');
     }
 
+    public function send()
+    {
+        $this->load->layout('gift/gift-send-list');
+    }
+
 }

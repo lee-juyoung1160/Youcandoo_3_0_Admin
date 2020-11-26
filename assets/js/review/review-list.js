@@ -7,6 +7,7 @@
     const days          = document.querySelector('.day-btn');
     const ratingLists   = document.getElementsByName('chk-grade');
     const reviewTable   = document.getElementById('review-table');
+    const btnXlsxOut	= $("#btnXlsxOut");
     /** by.leo **/
     const btnBlind		= $("#btnBlind");
     const btnUnBlind	= $("#btnUnBlind");
@@ -39,6 +40,7 @@
         /** 이벤트 **/
         $("body")   .on("keydown", function (event) {onKeydownSearch(event)});
         dayButtons  .on("click", function () {onClickActiveAloneDayBtn(this);});
+        btnXlsxOut	.on("click", function () { onClickXlsxOut(); });
         /** by.leo **/
         btnBlind	.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlind(); });
         btnUnBlind	.on('click', function () { g_blind_type = 'N'; onClickUpdateBlind(); });
@@ -286,4 +288,33 @@
         table.ajax.reload();
         uncheckedCheckAll();
         initMaxDateToday();
+    }
+
+    function onClickXlsxOut()
+    {
+        let url = api.xlsXOutReview;
+        let errMsg = label.list + message.ajaxLoadError;
+        let report  = document.querySelector('.report input[name=radio-report]:checked');
+        let blind   = document.querySelector('.blind input[name=radio-blind]:checked');
+        let checked = [];
+        Array.from(ratingLists).map(function (element) {
+            if (element.checked)
+                checked.push(element.value);
+        });
+        let param = {
+            "from_date": dateFrom[0].value,
+            "to_date": dateTo[0].value,
+            "search_type": searchType.value,
+            "keyword": keyword.value,
+            "rating_list": checked,
+            "is_report": report.value,
+            "is_blind": blind.value
+        }
+
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
+    }
+
+    function xlsxOutCallback(data)
+    {
+        setExcelData(`${xlsxName.reviewList}_${dateFrom[0].value}~${dateTo[0].value}`, xlsxName.reviewList, data.data);
     }

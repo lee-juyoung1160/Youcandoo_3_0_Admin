@@ -61,4 +61,5 @@
 		ucdWithdraw : 'UCD 출금내역',
 		ucdCharge : 'UCD 충전내역',
 		ucdCancel : 'UCD 취소내역',
+		reviewList : '리뷰목록'
 	}

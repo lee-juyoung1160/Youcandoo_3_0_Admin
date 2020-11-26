@@ -356,6 +356,7 @@
 		,xlsXOutUcdWithdraw : baseApiUrl+'excel/download/ucd_withdraw'
 		,xlsXOutUcdCharge : baseApiUrl+'excel/download/ucd_charge'
 		,xlsXOutUcdCancel : baseApiUrl+'excel/download/ucd_cancel'
+		,xlsXOutReview : baseApiUrl+'excel/download/review'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

@@ -89,7 +89,7 @@
                     <td>2</td>
                     <td>5,300</td>
                     <td>2019-11-07 00:00:00</td>
-                    <td><a href="#">보기</a></td>
+                    <td><a onclick="modalOpen()">보기</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -121,4 +121,15 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script>
+    const modalCloseBtn = $(".close-btn");
+    const modalLayout 	= $(".modal-layout");
+    const modalContent 	= $(".modal-content");
+    modalCloseBtn	.on('click', function () { modalFadeout(); });
+    modalLayout		.on('click', function () { modalFadeout(); });
+    function modalOpen()
+    {
+        modalFadein();
+    }
+</script>
 <!--<script defer src="/assets/js/gift/gift-approval-list.js?version=<?php echo $this->config->item('version');?>"></script>-->

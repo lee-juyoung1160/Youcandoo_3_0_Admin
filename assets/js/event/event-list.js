@@ -90,7 +90,7 @@
 				}
 				,{title: "기간", 	data: "start_date",  	   width: "20%",
 					render: function (data, type, row, meta) {
-						return `${row.start_date} ${label.tilde} ${row.end_date}`;
+						return row.event_type === '결과발표' ? label.dash : `${row.start_date} ${label.tilde} ${row.end_date}`;
 					}
 				}
 				,{title: "노출여부",  data: "is_exposure",  	   width: "10%",  	className: "no-sort",

@@ -310,6 +310,8 @@
 		,updateMemoGift : baseApiUrl+'gift/exchange/memo'
 		,getBalanceGift : baseApiUrl+'gift/exchange/biz/get'
 		,sendGift : baseApiUrl+'gift/exchange/send'
+		,resendGift : baseApiUrl+'gift/exchange/resend'
+		,refundGift : baseApiUrl+'gift/exchange/cancel'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

@@ -91,6 +91,7 @@
                     <col style="width:10%;">
                     <col style="width:15%;">
                     <col style="width:10%;">
+                    <col style="width:10%;">
                 </colgroup>
                 <thead>
                 <tr>
@@ -99,8 +100,9 @@
                     <th>상품명</th>
                     <th>신청 수량</th>
                     <th>금액(UCD)</th>
-                    <th>발송일</th>
+                    <th>발송일시</th>
                     <th>상세내역</th>
+                    <th>재발송/취소</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -112,6 +114,10 @@
                     <td>5,300</td>
                     <td>2019-11-07 00:00:00</td>
                     <td><a onclick="modalDetailOpen()">보기</a></td>
+                    <td>
+                        <button class="btn-info" type="button">재발송</button>
+                        <button class="btn-danger" type="button">취소</button>
+                    </td>
                 </tr>
                 <tr class="minus-pay">
                     <td>취소</td>
@@ -121,6 +127,10 @@
                     <td>5,300</td>
                     <td>2019-11-07 00:00:00</td>
                     <td><a onclick="modalDetailOpen()">보기</a></td>
+                    <td>
+                        <button class="btn-info" type="button" disabled>재발송</button>
+                        <button class="btn-danger" type="button" disabled>취소</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>

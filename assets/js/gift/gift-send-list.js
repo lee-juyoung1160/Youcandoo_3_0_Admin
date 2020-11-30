@@ -15,8 +15,6 @@
 	const modalContent 	= $(".modal-content");
 	const modalContentWrap	= $("#modalContentWrap");
 
-	let g_exchange_uuid;
-
 	$( () => {
 		/** 잔액 **/
 		initBalance();
@@ -80,7 +78,7 @@
 				}
 			},
 			columns: [
-				{title: "상태",    		data: "exchange_status",  	width: "5%",	className: 'no-sort' }
+				{title: "상태",    		data: "exchange_status",  	width: "5%" }
 				,{title: "신청자", 		data: "nickname",    		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
@@ -93,22 +91,25 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "상세내역",    	data: "exchange_uuid",  	width: "10%",
+				,{title: "상세내역",    	data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return `<a onclick="modalDetailOpen();">보기</a>`;
 					}
 				}
 				,{title: "발송일시",    	data: "created_datetime",  	width: "10%" }
-				,{title: "재발송",   data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
+				,{title: "재발송/취소",   data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
-						return `<button onclick="onClickResendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>재발송</button>`;
-					}
-				}
-				,{title: "취소",   data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
-					render: function (data, type, row, meta) {
-						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
-						return `<button onclick="onClickResendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>재발송</button>`;
+						let disabled = row.send_status === '취소' ? 'disabled' : '';
+						return `<button onclick="onSubmitResendGift(this);" 
+										data-sendid="${data}"
+										data-sendtype="all"
+										class="btn-info" 
+										type="button" ${disabled}>재발송</button>
+								<button onclick="onSubmitRefundGift(this);" 
+										data-sendid="${data}"
+										data-sendtype="all"
+										class="btn-danger" 
+										type="button" ${disabled}>취소</button>`;
 					}
 				}
 			],
@@ -245,8 +246,12 @@
 					</li>
 				</ol>
 				<div class="btn-wrap">
-					<button class="btn-danger" type="button"><i class="fas fa-ban"></i> 발송 취소</button>
-					<button class="btn-info" type="button"><i class="fas fa-reply-all"></i> 재발송</button>
+					<button onclick="onSubmitResendGift(this);" data-sendid="" data-sendtype="one" class="btn-danger" type="button">
+						<i class="fas fa-ban"></i> 발송 취소
+					</button>
+					<button onclick="onSubmitRefundGift(this);" data-sendid="" data-sendtype="one" class="btn-info" type="button">
+						<i class="fas fa-reply-all"></i> 재발송
+					</button>
 				</div>
 			</div>`
 		}
@@ -266,23 +271,54 @@
 		});
 	}
 
-	function onClickResendGift(obj)
+	let g_send_id;
+	let g_send_type;
+	function onSubmitResendGift(obj)
 	{
-		g_exchange_uuid = $(obj).data('uuid');
+		g_send_type = $(obj).data('sendtype');
+		g_send_id = $(obj).data('sendid');
 
-		sweetConfirm(message.send, resendAllGiftRequest);
+		sweetConfirm(message.send, resendGiftRequest);
 	}
 
-	function resendAllGiftRequest()
+	function resendGiftRequest()
 	{
-		let url = api.sendGift;
+		let url = api.resendGift;
 		let errMsg = label.send+message.ajaxError;
-		let param = { "exchange_uuid" : g_exchange_uuid };
+		let param = g_send_type === 'all' ? { "exchange_uuid" : g_send_id } : { "tr_id" : g_send_id };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendAllSuccessCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendSuccessCallback, errMsg, false);
 	}
 
-	function resendAllSuccessCallback(data)
+	function resendSuccessCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			sweetToast(data.msg);
+			tableReloadAndStayCurrentPage(dataTable);
+		}
+		else
+		 	sweetToast(data.api_message);
+	}
+
+	function onSubmitRefundGift(obj)
+	{
+		g_send_type = $(obj).data('sendtype');
+		g_send_id = $(obj).data('uuid');
+
+		sweetConfirm(message.cancel, refundGiftRequest);
+	}
+
+	function refundGiftRequest()
+	{
+		let url = api.refundGift;
+		let errMsg = label.cancel+message.ajaxError;
+		let param = g_send_type === 'all' ? { "exchange_uuid" : g_send_id } : { "tr_id" : g_send_id };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), refundSuccessCallback, errMsg, false);
+	}
+
+	function refundSuccessCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
@@ -291,7 +327,7 @@
 			tableReloadAndStayCurrentPage(dataTable);
 		}
 		else
-		 	sweetToast(data.api_message);
+			sweetToast(data.api_message);
 	}
 
 	function onSubmitSearch()

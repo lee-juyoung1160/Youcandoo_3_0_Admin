@@ -308,6 +308,7 @@
 		,approvalGift : baseApiUrl+'gift/exchange/confirm'
 		,rejectGift : baseApiUrl+'gift/exchange/reject'
 		,updateMemoGift : baseApiUrl+'gift/exchange/memo'
+		,getBalanceGift : baseApiUrl+'gift/exchange/biz/get'
 		,sendGift : baseApiUrl+'gift/exchange/send'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'

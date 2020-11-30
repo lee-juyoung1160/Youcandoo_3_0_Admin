@@ -7,7 +7,7 @@
 	const keyword 		= $("#keyword");
 	const approvalStatus	= $("input[name=approval-status]");
 	const selPageLength	= $("#selPageLength");
-	const balance		= $("#balance");
+	const balanceEl		= $("#balance");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
@@ -16,7 +16,11 @@
 	const modalMemo		= $("#memo");
 	const btnSubmit		= $("#btnSubmit");
 
+	let g_exchange_uuid;
+
 	$( () => {
+		/** 잔액 **/
+		initBalance();
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
@@ -37,6 +41,20 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnSubmit      .on("click", function () { onSubmitUpdateMemo(); });
 	});
+
+	function initBalance()
+	{
+		let url = api.getBalanceGift;
+		let errMsg = `잔액 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, initBalanceSuccessCallback, errMsg, false);
+	}
+
+	function initBalanceSuccessCallback(data)
+	{
+		let { money } = data.data;
+		balanceEl.html(numberWithCommas(money));
+	}
 
 	function initSearchForm()
 	{
@@ -150,11 +168,17 @@
 
 	function onClickSendGift(obj)
 	{
+		g_exchange_uuid = $(obj).data('uuid');
+
+		sweetConfirm(message.send, sendGiftRequest);
+	}
+
+	function sendGiftRequest()
+	{
 		let url = api.sendGift;
 		let errMsg = label.send+message.ajaxError;
-		let param = {
-			"exchange_uuid" : $(obj).data('uuid')
-		}
+		let param = { "exchange_uuid" : g_exchange_uuid };
+
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
 	}
 
@@ -163,6 +187,7 @@
 		if (isSuccessResp(data))
 		{
 			sweetToast(data.msg);
+			initBalance();
 			tableReloadAndStayCurrentPage(dataTable);
 		}
 		else
@@ -206,7 +231,6 @@
 		$(obj).siblings('.tooltip-hover-text').hide();
 	}
 
-	let g_exchange_uuid;
 	function onClickUpdateMemo(obj)
 	{
 		modalFadein();

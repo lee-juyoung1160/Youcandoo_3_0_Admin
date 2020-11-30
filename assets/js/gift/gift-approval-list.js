@@ -7,6 +7,7 @@
 	const keyword 		= $("#keyword");
 	const approvalStatus	= $("input[name=approval-status]");
 	const selPageLength	= $("#selPageLength");
+	const balance		= $("#balance");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");

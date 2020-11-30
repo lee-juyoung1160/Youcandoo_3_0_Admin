@@ -84,11 +84,20 @@
 						return buildMemo(row);
 					}
 				}
+				,{title: "발송",    		data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
+					render: function (data, type, row, meta) {
+						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
+						return `<button class="btn-info" type="button" ${disabled}>발송</button>`;
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			select: false,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			destroy: false,
 			initComplete: function () {
 				initTableSorter(this);

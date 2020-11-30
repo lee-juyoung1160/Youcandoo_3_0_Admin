@@ -39,7 +39,8 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnSubmit      .on("click", function () { onSubmitUpdateMemo(); });
+		approvalStatus	.on("click", function () { atLeastOneChecked(this); });
+		btnSubmit       .on("click", function () { onSubmitUpdateMemo(); });
 	});
 
 	function initBalance()
@@ -83,7 +84,7 @@
 				}
 			},
 			columns: [
-				{title: "상태",    		data: "exchange_status",  	width: "5%",	className: 'no-sort' }
+				{title: "상태",    		data: "exchange_status",  	width: "10%",	className: 'no-sort' }
 				,{title: "신청자", 		data: "nickname",    		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
@@ -98,7 +99,7 @@
 				}
 				,{title: "신청일시",    	data: "created_datetime",  	width: "10%" }
 				,{title: "승인(취소)일시",    	data: "app_datetime",  		width: "10%" }
-				,{title: "메모",    		data: "memo",  				width: "10%",	className: 'no-sort',
+				,{title: "메모",    		data: "memo",  				width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return buildMemo(row);
 					}

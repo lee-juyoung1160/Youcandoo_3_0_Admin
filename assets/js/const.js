@@ -310,8 +310,11 @@
 		,updateMemoGift : baseApiUrl+'gift/exchange/memo'
 		,getBalanceGift : baseApiUrl+'gift/exchange/biz/get'
 		,sendGift : baseApiUrl+'gift/exchange/send'
+		,listSendGift : baseApiUrl+'gift/exchange/sendList'
+		,detailSendGift : baseApiUrl+'gift/exchange/couponDetail'
 		,resendGift : baseApiUrl+'gift/exchange/resend'
-		,refundGift : baseApiUrl+'gift/exchange/cancel'
+		,refundAllGift : baseApiUrl+'gift/exchange/cancel'
+		,refundGift : baseApiUrl+'gift/exchange/couponCancel'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

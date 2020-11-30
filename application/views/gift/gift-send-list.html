@@ -12,7 +12,7 @@
                 <div class="select-box">
                     <label for="date_type">발송일</label>
                     <select id="date_type">
-                        <option value="send_datetime">발송일</option>
+                        <option value="send_created">발송일</option>
                         <option value="created_datetime">신청일</option>
                     </select>
                 </div>
@@ -51,12 +51,14 @@
                 <li>
                     <p class="list-common-title">발송 상태</p>
                     <div class="checkbox-wrap">
+                        <input type="checkbox" id="r3" name="chk-send-status" value="발송완료"/>
+                        <label for="r3"><span></span>발송완료</label>
 
-                        <input type="checkbox" id="r3" name="chk-send-status" value="완료"/>
-                        <label for="r3"><span></span>완료</label>
+                        <input type="checkbox" id="r4" name="chk-send-status" value="부분취소"/>
+                        <label for="r4"><span></span>부분취소</label>
 
-                        <input type="checkbox" id="r4" name="chk-send-status" value="취소"/>
-                        <label for="r4"><span></span>취소</label>
+                        <input type="checkbox" id="r5" name="chk-send-status" value="발송취소"/>
+                        <label for="r5"><span></span>발송취소</label>
                     </div>
                 </li>
             </ul>
@@ -83,7 +85,7 @@
             </div>
 
             <table id="dataTable" class="gift-approval">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:10%;">
                     <col style="width:15%;">
                     <col style="width:30%;">
@@ -132,7 +134,7 @@
                         <button class="btn-danger" type="button" disabled>취소</button>
                     </td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>

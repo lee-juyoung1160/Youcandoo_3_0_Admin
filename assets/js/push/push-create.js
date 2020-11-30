@@ -361,8 +361,16 @@
 		modalPage.trigger('focus');
 	}
 
+	function destroyTargetPageTable()
+	{
+		let table = targetPageTable.DataTable();
+		table.destroy();
+		targetPageTable.empty();
+	}
+
 	function getEventPage()
 	{
+		destroyTargetPageTable();
 		targetPageTable.DataTable({
 			ajax : {
 				url: api.listPushTargetPageEvent,
@@ -400,6 +408,7 @@
 
 	function getPromoPage()
 	{
+		destroyTargetPageTable();
 		targetPageTable.DataTable({
 			ajax : {
 				url: api.listPushTargetPagePromo,

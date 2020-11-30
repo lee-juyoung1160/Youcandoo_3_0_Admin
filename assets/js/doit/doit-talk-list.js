@@ -185,6 +185,15 @@
 	{
 		if (aData.is_del === 'Y')
 			$(nRow).addClass('f-red');
+		else
+		{
+			if (aData.talk_type === '공지')
+				$(nRow).addClass('notice-color');
+			else if (aData.talk_type === '댓글')
+				$(nRow).addClass('comment-color');
+			else if (aData.talk_type === '답글')
+				$(nRow).addClass('comment2-color');
+		}
 	}
 
 	/** 블라인드 처리 **/

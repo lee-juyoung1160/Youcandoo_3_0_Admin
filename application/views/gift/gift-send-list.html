@@ -1,3 +1,18 @@
+<link type="text/css" rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
+<style>
+    .swiper-container {
+        position: relative;
+        width: 100%;
+        height: 300px;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        height: 100%;
+        background: #fff;
+    }
+
+</style>
 <section class="gift-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -44,6 +59,22 @@
             </div>
         </div>
 
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">발송 상태</p>
+                    <div class="checkbox-wrap">
+
+                        <input type="checkbox" id="r3" name="approval-status" value="승인"/>
+                        <label for="r3"><span></span>완료</label>
+
+                        <input type="checkbox" id="r4" name="approval-status" value="취소"/>
+                        <label for="r4"><span></span>취소</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
                 <button class="search">검색</button>
@@ -61,10 +92,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="btn-wrap">
+                    <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i>발송 취소</button>
+                    <button id="btnReject" class="btn-info" type="button"><i class="fas fa-reply-all"></i>재발송</button>
+                </div>
             </div>
 
             <table id="dataTable" class="gift-approval">
                 <colgroup>
+                    <col style="width:5%;">
+                    <col style="width:10%;">
                     <col style="width:15%;">
                     <col style="width:30%;">
                     <col style="width:10%;">
@@ -74,6 +111,8 @@
                 </colgroup>
                 <thead>
                 <tr>
+                    <th></th>
+                    <th>발송 상태</th>
                     <th>신청자</th>
                     <th>상품명</th>
                     <th>신청 수량</th>
@@ -84,6 +123,28 @@
                 </thead>
                 <tbody>
                 <tr>
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c6" name="cc" />
+                            <label for="c6"><span></span></label>
+                        </div>
+                    </td>
+                    <td>완료</td>
+                    <td><a href="#">깐깐찡어</a></td>
+                    <td>스타벅스 아메리카노 Tall</td>
+                    <td>2</td>
+                    <td>5,300</td>
+                    <td>2019-11-07 00:00:00</td>
+                    <td><a onclick="modalOpen()">보기</a></td>
+                </tr>
+                <tr class="minus-pay">
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="c7" name="cc" />
+                            <label for="c7"><span></span></label>
+                        </div>
+                    </td>
+                    <td>취소</td>
                     <td><a href="#">깐깐찡어</a></td>
                     <td>스타벅스 아메리카노 Tall</td>
                     <td>2</td>
@@ -109,7 +170,17 @@
             <p class="modal-title">상세 내역</p>
             <ul class="modal-information">
                 <li>
-                    헤헤
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">상세 내역 1</div>
+                            <div class="swiper-slide">상세 내역 2</div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+<!--                        &lt;!&ndash; Add Arrows &ndash;&gt;
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>-->
+                    </div>
                 </li>
             </ul>
         </div>
@@ -121,6 +192,9 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<!-- Initialize Swiper -->
+<script src="/assets/js/swiper.min.js">
+
 <script>
     const modalCloseBtn = $(".close-btn");
     const modalLayout 	= $(".modal-layout");
@@ -131,5 +205,24 @@
     {
         modalFadein();
     }
+</script>
+<script>
+
+    let swiper = new Swiper('.swiper-container', {
+
+        spaceBetween: 10,
+
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+     /*   navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },*/
+
+    });
+
 </script>
 <!--<script defer src="/assets/js/gift/gift-approval-list.js?version=<?php echo $this->config->item('version');?>"></script>-->

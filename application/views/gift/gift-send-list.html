@@ -192,8 +192,7 @@
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
-<!-- Initialize Swiper -->
-<script src="/assets/js/swiper.min.js">
+<script src="/assets/js/plugins/swiper.min.js"></script>
 
 <script>
     const modalCloseBtn = $(".close-btn");
@@ -204,25 +203,26 @@
     function modalOpen()
     {
         modalFadein();
+        initSwipe();
     }
-</script>
-<script>
 
-    let swiper = new Swiper('.swiper-container', {
+    function initSwipe()
+    {
+        let swiper = new Swiper('.swiper-container', {
 
-        spaceBetween: 10,
+            spaceBetween: 10,
 
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
 
-     /*   navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },*/
+            /*   navigation: {
+                   nextEl: '.swiper-button-next',
+                   prevEl: '.swiper-button-prev',
+               },*/
 
-    });
-
+        });
+    }
 </script>
 <!--<script defer src="/assets/js/gift/gift-approval-list.js?version=<?php echo $this->config->item('version');?>"></script>-->

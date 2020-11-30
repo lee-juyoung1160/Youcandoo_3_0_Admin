@@ -86,6 +86,7 @@
 		, terminate: '종료'
 		, success: '성공'
 		, fail: '실패'
+		, send: '발송'
 		, y: 'Y'
 		, n: 'N'
 		, dash: '-'
@@ -307,6 +308,7 @@
 		,approvalGift : baseApiUrl+'gift/exchange/confirm'
 		,rejectGift : baseApiUrl+'gift/exchange/reject'
 		,updateMemoGift : baseApiUrl+'gift/exchange/memo'
+		,sendGift : baseApiUrl+'gift/exchange/send'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

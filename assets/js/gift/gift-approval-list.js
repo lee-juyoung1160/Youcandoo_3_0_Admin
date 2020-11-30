@@ -87,7 +87,7 @@
 				,{title: "발송",    		data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
-						return `<button class="btn-info" type="button" ${disabled}>발송</button>`;
+						return `<button onclick="onClickSendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>발송</button>`;
 					}
 				}
 			],
@@ -145,6 +145,27 @@
 	{
 		if (aData.exchange_status === '취소')
 			$(nRow).addClass('minus-pay');
+	}
+
+	function onClickSendGift(obj)
+	{
+		let url = api.sendGift;
+		let errMsg = label.send+message.ajaxError;
+		let param = {
+			"exchange_uuid" : $(obj).data('uuid')
+		}
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
+	}
+
+	function sendSuccessCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			sweetToast(data.msg);
+			tableReloadAndStayCurrentPage(dataTable);
+		}
+		else
+		 	sweetToast(data.api_message);
 	}
 
 	function buildMemo(data)

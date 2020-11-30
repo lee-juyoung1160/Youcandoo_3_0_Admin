@@ -963,7 +963,8 @@ input[type="checkbox"]:disabled + label span{
 	color: #e83d2c;
 	border-bottom: 1px solid #e83d2c;
 }
-.table-wrap .minus-pay td button:disabled {
+.table-wrap .minus-pay td button:disabled
+{
 	color: #fff;
 	border: 1px solid #ddd;
 }

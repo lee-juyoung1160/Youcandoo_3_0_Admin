@@ -377,3 +377,28 @@
     max-height: 750px;
     overflow-y: initial;
 }
+
+
+.talk-table tr.notice-color td:nth-child(2),
+.talk-table tr.notice-color td:nth-child(3) a {
+    color: coral;
+}
+.talk-table tr.notice-color td:nth-child(3) a {
+    border-bottom: 1px solid coral;
+}
+
+.talk-table tr.comment-color td:nth-child(2),
+.talk-table tr.comment-color td:nth-child(3) a {
+    color: #00ac69;
+}
+.talk-table tr.comment-color td:nth-child(3) a {
+    border-bottom: 1px solid #00ac69;
+}
+
+.talk-table tr.comment2-color td:nth-child(2),
+.talk-table tr.comment2-color td:nth-child(3) a {
+    color: plum;
+}
+.talk-table tr.comment2-color td:nth-child(3) a {
+    border-bottom: 1px solid plum;
+}

@@ -1,19 +1,5 @@
 <link type="text/css" rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
 <link type="text/css" rel="stylesheet" href="/assets/css/gift.css">
-<style>
-    .swiper-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
-    }
-
-    .swiper-slide {
-        width: 100%;
-        height: 100%;
-        background: #fff;
-    }
-
-</style>
 <section class="gift-send-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -94,15 +80,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="btn-wrap">
-                    <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i>발송 취소</button>
-                    <button id="btnReject" class="btn-info" type="button"><i class="fas fa-reply-all"></i>재발송</button>
-                </div>
             </div>
 
             <table id="dataTable" class="gift-approval">
                 <colgroup>
-                    <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:15%;">
                     <col style="width:30%;">
@@ -113,7 +94,6 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th></th>
                     <th>발송 상태</th>
                     <th>신청자</th>
                     <th>상품명</th>
@@ -125,12 +105,6 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c6" name="cc" />
-                            <label for="c6"><span></span></label>
-                        </div>
-                    </td>
                     <td>완료</td>
                     <td><a href="#">깐깐찡어</a></td>
                     <td>스타벅스 아메리카노 Tall</td>
@@ -140,12 +114,6 @@
                     <td><a onclick="modalOpen()">보기</a></td>
                 </tr>
                 <tr class="minus-pay">
-                    <td>
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" id="c7" name="cc" />
-                            <label for="c7"><span></span></label>
-                        </div>
-                    </td>
                     <td>취소</td>
                     <td><a href="#">깐깐찡어</a></td>
                     <td>스타벅스 아메리카노 Tall</td>
@@ -175,6 +143,9 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide gift-send-detail">
+                                <span class="gift-send-thum">
+                                    <img src="https://youcandoo.yanadoocdn.com/gift/22862a3e83c4772aa8f6c1a561ccb90a/a6c05406790eabf90cf8cc1d57ecc947.jpg" alt="">
+                                </span>
                                 <ol>
                                     <li>
                                         <div class="col-wrap clearfix">
@@ -226,8 +197,21 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">발송 상태</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">발송 완료</p>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ol>
-
+                                <div class="btn-wrap">
+                                    <button class="btn-danger" type="button"><i class="fas fa-ban"></i> 발송 취소</button>
+                                    <button class="btn-info" type="button"><i class="fas fa-reply-all"></i> 재발송</button>
+                                </div>
 
                             </div>
                         </div>

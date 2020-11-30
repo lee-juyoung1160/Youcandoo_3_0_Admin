@@ -312,7 +312,8 @@
 		,sendGift : baseApiUrl+'gift/exchange/send'
 		,listSendGift : baseApiUrl+'gift/exchange/sendList'
 		,detailSendGift : baseApiUrl+'gift/exchange/couponDetail'
-		,resendGift : baseApiUrl+'gift/exchange/resend'
+		,resendAllGift : baseApiUrl+'gift/exchange/resend'
+		,resendGift : baseApiUrl+'gift/exchange/couponResend'
 		,refundAllGift : baseApiUrl+'gift/exchange/cancel'
 		,refundGift : baseApiUrl+'gift/exchange/couponCancel'
 		/** 관리자 **/

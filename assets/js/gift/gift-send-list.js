@@ -18,6 +18,7 @@
 	$( () => {
 		/** 잔액 **/
 		initBalance();
+		/** swipe initialize **/
 		initSwipe();
 		/** dataTable default config **/
 		initTableDefault();
@@ -39,6 +40,12 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		sendStatus		.on("click", function () { atLeastOneChecked(this); });
 	});
+
+	let swipe;
+	function initSwipe()
+	{
+		swipe = new Swiper('.swiper-container');
+	}
 
 	function initBalance()
 	{
@@ -178,7 +185,7 @@
 	function initModalContent()
 	{
 		let modalContentEl = '';
-		for (let i=0; i<2; i++)
+		for (let i=0; i<9; i++)
 		{
 			modalContentEl +=
 				`<div class="swiper-slide gift-send-detail">
@@ -260,22 +267,17 @@
 
 		modalContentWrap.html(modalContentEl);
 
-		updateSwipe();
+		buildSwipe();
 	}
 
-	let swipe;
-	function initSwipe()
+	function buildSwipe()
 	{
-		swipe = new Swiper('.swiper-container');
-	}
-
-	function updateSwipe()
-	{
-		swipe.update({
+		swipe.destroy(true, true);
+		swipe = new Swiper('.swiper-container', {
 			spaceBetween: 10,
-			pagination: {
+			pagination : {
 				el: '.swiper-pagination',
-				clickable: true,
+				clickable: true
 			}
 		});
 	}
@@ -294,7 +296,12 @@
 	{
 		let url = api.resendGift;
 		let errMsg = label.send+message.ajaxError;
-		let param = g_send_type === 'all' ? { "exchange_uuid" : g_send_id } : { "tr_id" : g_send_id };
+		let param = { "exchange_uuid" : g_send_id, "tr_id" : g_send_id };
+		if (g_send_type === 'all')
+		{
+			url = api.resendAllGift;
+			param =  { "exchange_uuid" : g_send_id };
+		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendSuccessCallback, errMsg, false);
 	}

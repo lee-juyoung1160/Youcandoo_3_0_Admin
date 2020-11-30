@@ -12,7 +12,7 @@
                 <div class="select-box">
                     <label for="date_type">발송일</label>
                     <select id="date_type">
-                        <option value="app_datetime">발송일</option>
+                        <option value="send_datetime">발송일</option>
                         <option value="created_datetime">신청일</option>
                     </select>
                 </div>
@@ -52,10 +52,10 @@
                     <p class="list-common-title">발송 상태</p>
                     <div class="checkbox-wrap">
 
-                        <input type="checkbox" id="r3" name="approval-status" value="승인"/>
+                        <input type="checkbox" id="r3" name="chk-send-status" value="완료"/>
                         <label for="r3"><span></span>완료</label>
 
-                        <input type="checkbox" id="r4" name="approval-status" value="취소"/>
+                        <input type="checkbox" id="r4" name="chk-send-status" value="취소"/>
                         <label for="r4"><span></span>취소</label>
                     </div>
                 </li>
@@ -72,7 +72,7 @@
         <div class="table-wrap">
             <div class="top clearfix">
                 <div class="right-wrap clearfix">
-                    <p class="balance-num">비즈콘 잔액: <span>999,999,000</span>원</p>
+                    <p class="balance-num">잔액: <span id="balance"></span>원</p>
                     <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
                         <label for="selPageLength"></label>
@@ -111,7 +111,7 @@
                     <td>2</td>
                     <td>5,300</td>
                     <td>2019-11-07 00:00:00</td>
-                    <td><a onclick="modalOpen()">보기</a></td>
+                    <td><a onclick="modalDetailOpen()">보기</a></td>
                 </tr>
                 <tr class="minus-pay">
                     <td>취소</td>
@@ -120,7 +120,7 @@
                     <td>2</td>
                     <td>5,300</td>
                     <td>2019-11-07 00:00:00</td>
-                    <td><a onclick="modalOpen()">보기</a></td>
+                    <td><a onclick="modalDetailOpen()">보기</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -141,8 +141,8 @@
             <ul class="modal-information">
                 <li>
                     <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide gift-send-detail">
+                        <div class="swiper-wrapper" id="modalContentWrap">
+                            <!--<div class="swiper-slide gift-send-detail">
                                 <span class="gift-send-thum">
                                     <img src="https://youcandoo.yanadoocdn.com/gift/22862a3e83c4772aa8f6c1a561ccb90a/a6c05406790eabf90cf8cc1d57ecc947.jpg" alt="">
                                 </span>
@@ -213,7 +213,7 @@
                                     <button class="btn-info" type="button"><i class="fas fa-reply-all"></i> 재발송</button>
                                 </div>
 
-                            </div>
+                            </div>-->
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
@@ -230,30 +230,4 @@
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
 <script src="/assets/js/plugins/swiper.min.js"></script>
-
-<script>
-    const modalCloseBtn = $(".close-btn");
-    const modalLayout 	= $(".modal-layout");
-    const modalContent 	= $(".modal-content");
-    modalCloseBtn	.on('click', function () { modalFadeout(); });
-    modalLayout		.on('click', function () { modalFadeout(); });
-    function modalOpen()
-    {
-        modalFadein();
-        initSwipe();
-    }
-
-    function initSwipe()
-    {
-        let swiper = new Swiper('.swiper-container', {
-
-            spaceBetween: 10,
-
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-    }
-</script>
-<!--<script defer src="/assets/js/gift/gift-approval-list.js?version=<?php echo $this->config->item('version');?>"></script>-->
+<script defer src="/assets/js/gift/gift-send-list.js?version=<?php echo $this->config->item('version');?>"></script>

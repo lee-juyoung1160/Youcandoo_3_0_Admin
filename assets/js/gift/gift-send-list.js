@@ -5,7 +5,7 @@
 	const dateType		= $("#date_type")
 	const searchType 	= $("#search_type");
 	const keyword 		= $("#keyword");
-	const approvalStatus	= $("input[name=approval-status]");
+	const sendStatus	= $("input[name=chk-send-status]");
 	const selPageLength	= $("#selPageLength");
 	const balanceEl		= $("#balance");
 
@@ -13,8 +13,7 @@
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const modalMemo		= $("#memo");
-	const btnSubmit		= $("#btnSubmit");
+	const modalContentWrap	= $("#modalContentWrap");
 
 	let g_exchange_uuid;
 
@@ -30,7 +29,7 @@
 		/** 상단 검색 폼 초기화 **/
 		initSearchForm();
 		/** 목록 불러오기 **/
-		buildGrid();
+		/*buildGrid();*/
 		/** 이벤트 **/
 		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
 		search			.on("click", function () { onSubmitSearch(); });
@@ -39,7 +38,6 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnSubmit      .on("click", function () { onSubmitUpdateMemo(); });
 	});
 
 	function initBalance()
@@ -59,9 +57,8 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		approvalStatus.eq(0).prop('checked', false);
-		approvalStatus.eq(1).prop('checked', true);
-		approvalStatus.eq(2).prop('checked', true);
+		sendStatus.eq(0).prop('checked', true);
+		sendStatus.eq(1).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -96,17 +93,22 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신청일시",    	data: "created_datetime",  	width: "10%" }
-				,{title: "승인(취소)일시",    	data: "app_datetime",  		width: "10%" }
-				,{title: "메모",    		data: "memo",  				width: "10%",	className: 'no-sort',
+				,{title: "상세내역",    	data: "exchange_uuid",  	width: "10%",
 					render: function (data, type, row, meta) {
-						return buildMemo(row);
+						return `<a onclick="modalDetailOpen();">보기</a>`;
 					}
 				}
-				,{title: "발송",    		data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
+				,{title: "발송일시",    	data: "created_datetime",  	width: "10%" }
+				,{title: "재발송",   data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
-						return `<button onclick="onClickSendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>발송</button>`;
+						return `<button onclick="onClickResendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>재발송</button>`;
+					}
+				}
+				,{title: "취소",   data: "exchange_uuid",  	width: "10%",	className: 'no-sort',
+					render: function (data, type, row, meta) {
+						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
+						return `<button onclick="onClickResendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>재발송</button>`;
 					}
 				}
 			],
@@ -135,7 +137,7 @@
 		let _page = (info.start / info.length) + 1;
 
 		let status = [];
-		approvalStatus.each(function () {
+		sendStatus.each(function () {
 			if ($(this).is(":checked"))
 				status.push($(this).val())
 		})
@@ -163,23 +165,124 @@
 			$(nRow).addClass('minus-pay');
 	}
 
-	function onClickSendGift(obj)
+	function modalDetailOpen()
+	{
+		initModalContent();
+		initSwipe();
+		modalFadein();
+	}
+
+	function initModalContent()
+	{
+		let modalContentEl = '';
+		for (let i=0; i<2; i++)
+		{
+			modalContentEl +=
+				`<div class="swiper-slide gift-send-detail">
+				<span class="gift-send-thum">
+					<img src="https://youcandoo.yanadoocdn.com/gift/22862a3e83c4772aa8f6c1a561ccb90a/a6c05406790eabf90cf8cc1d57ecc947.jpg" alt="">
+				</span>
+				<ol>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">상품코드</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">0002224446</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">상품명</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">스타벅스 아메리카노 Tall</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">판매단가</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">4,900원</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">수신자 번호</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">010-****-1160</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">유효기간 만료일</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">2022-12-31</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="col-wrap clearfix">
+							<div class="col-1">
+								<p class="sub-title">발송 상태</p>
+							</div>
+							<div class="col-2">
+								<p class="detail-data">발송 완료</p>
+							</div>
+						</div>
+					</li>
+				</ol>
+				<div class="btn-wrap">
+					<button class="btn-danger" type="button"><i class="fas fa-ban"></i> 발송 취소</button>
+					<button class="btn-info" type="button"><i class="fas fa-reply-all"></i> 재발송</button>
+				</div>
+			</div>`
+		}
+
+		modalContentWrap.html(modalContentEl);
+	}
+
+	let swiper;
+	function initSwipe()
+	{
+		swiper = new Swiper('.swiper-container', {
+			spaceBetween: 10,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			}
+		});
+	}
+
+	function onClickResendGift(obj)
 	{
 		g_exchange_uuid = $(obj).data('uuid');
 
-		sweetConfirm(message.send, sendGiftRequest);
+		sweetConfirm(message.send, resendAllGiftRequest);
 	}
 
-	function sendGiftRequest()
+	function resendAllGiftRequest()
 	{
 		let url = api.sendGift;
 		let errMsg = label.send+message.ajaxError;
 		let param = { "exchange_uuid" : g_exchange_uuid };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendAllSuccessCallback, errMsg, false);
 	}
 
-	function sendSuccessCallback(data)
+	function resendAllSuccessCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
@@ -189,97 +292,6 @@
 		}
 		else
 		 	sweetToast(data.api_message);
-	}
-
-	function buildMemo(data)
-	{
-		let memo = data.memo;
-		let memoEl = '';
-		memoEl +=
-			`<div class="tooltip">`
-		if (!isEmpty(memo))
-			memoEl +=
-				`<i onmouseover="mouseoverMemo(this);" 
-					onmouseleave="mouseoutMemo(this);" 
-					class="fas fa-check-circle tooltip-mark on" 
-					style="cursor:pointer;"></i>
-				<i class="fas fa-edit" onclick="onClickUpdateMemo(this)" data-memo="${memo}" id="${data.exchange_uuid}"></i>`;
-		else
-			memoEl +=
-				`<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>
-				<i class="fas fa-edit" onclick="onClickUpdateMemo(this)" data-memo="${memo}" id="${data.exchange_uuid}"></i>`;
-		memoEl +=
-				`<div class="tooltip-hover-text" style="display: none;">
-					<strong>memo</strong>
-					<p>${memo}</p>
-				</div>
-			</div>`
-
-		return memoEl;
-	}
-
-	function mouseoverMemo(obj)
-	{
-		$(obj).siblings('.tooltip-hover-text').show();
-	}
-
-	function mouseoutMemo(obj)
-	{
-		$(obj).siblings('.tooltip-hover-text').hide();
-	}
-
-	function onClickUpdateMemo(obj)
-	{
-		modalFadein();
-
-		let memo = $(obj).data('memo');
-
-		g_exchange_uuid = obj.id;
-		modalMemo.val(memo);
-		modalMemo.trigger('focus');
-	}
-
-	function onSubmitUpdateMemo()
-	{
-		sweetConfirm(message.modify, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		let url 	= api.updateMemoGift;
-		let errMsg 	= label.modify+message.ajaxError;
-		let param   = {
-			"exchange_uuid" : g_exchange_uuid,
-			"memo" : modalMemo.val()
-		};
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
-	}
-
-	function approvalReqCallback(data)
-	{
-		sweetToastAndCallback(data, approvalReqSuccess);
-	}
-
-	function approvalReqSuccess()
-	{
-		modalFadeout();
-		onSubmitSearch();
-	}
-
-	function getSelectedRowsUuid()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		let uuids = [];
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let uuid = selectedData[i].exchange_uuid;
-			uuids.push(uuid);
-		}
-
-		return uuids;
 	}
 
 	function onSubmitSearch()

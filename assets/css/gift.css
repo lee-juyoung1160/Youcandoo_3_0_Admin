@@ -1,0 +1,23 @@
+.balance-num {
+    padding: 0 10px;
+    background-color: #fff;
+    border-radius: 30px;
+    border: 1px solid #00acd6;
+}
+.balance-num span {
+    color: #000;
+    font-weight: 700;
+}
+
+.gift-send-detail ol li {
+    padding: 5px 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+.gift-send-detail ol li .col-wrap .col-1 {
+    float: left;
+    width: 20%;
+}
+.gift-send-detail ol li .col-wrap .col-2 {
+    float: left;
+    width: 80%;
+}

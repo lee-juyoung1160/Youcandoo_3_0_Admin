@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="/assets/css/gift.css">
 <style>
     .swiper-container {
         position: relative;
@@ -13,7 +14,7 @@
     }
 
 </style>
-<section class="gift-page">
+<section class="gift-send-page">
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title list-main-title">상품 발송 내역</h2>
@@ -85,6 +86,7 @@
         <div class="table-wrap">
             <div class="top clearfix">
                 <div class="right-wrap clearfix">
+                    <p class="balance-num">비즈콘 잔액: <span>999,999,000</span>원</p>
                     <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
                         <label for="selPageLength"></label>
@@ -172,14 +174,65 @@
                 <li>
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">상세 내역 1</div>
-                            <div class="swiper-slide">상세 내역 2</div>
+                            <div class="swiper-slide gift-send-detail">
+                                <ol>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">상품코드</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">0002224446</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">상품명</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">스타벅스 아메리카노 Tall</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">판매단가</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">4,900원</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">수신자 번호</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">010-****-1160</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="col-wrap clearfix">
+                                            <div class="col-1">
+                                                <p class="sub-title">유효기간 만료일</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="detail-data">2022-12-31</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+
+
+                            </div>
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
-<!--                        &lt;!&ndash; Add Arrows &ndash;&gt;
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>-->
                     </div>
                 </li>
             </ul>
@@ -216,12 +269,6 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
-
-            /*   navigation: {
-                   nextEl: '.swiper-button-next',
-                   prevEl: '.swiper-button-prev',
-               },*/
-
         });
     }
 </script>

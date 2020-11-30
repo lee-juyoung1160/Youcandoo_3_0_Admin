@@ -1662,7 +1662,10 @@
 
 	function deleteTalkReqSuccess()
 	{
-		g_is_notice === 'Y' ? getNoticeTalk() : getTalk();
+		if (g_is_notice === 'Y')
+			getNoticeTalk();
+
+		getTalk();
 	}
 
 	/** 수정페이지 이동 **/

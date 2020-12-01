@@ -209,6 +209,7 @@
 		,updateBlindTalkV2 : baseApiUrl+'doit/talk/v2/updateBlind'
 		,createTalkV2 : baseApiUrl+'doit/talk/v2/register'
 		,deleteTalkV2 : baseApiUrl+'doit/talk/v2/delete'
+		,createComments : baseApiUrl+'doit/talk/v2/comment/create'
 		/** 두잇톡 관리 **/
 		,listTalk : baseApiUrl+'doit/talk/list'
 		,detailTalk : baseApiUrl+'doit/talk/detail'

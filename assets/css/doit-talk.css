@@ -433,3 +433,10 @@
     font-weight: 600;
     margin-left: 20px;
 }
+.comment-input .btn-posting {
+    color: #0061f2;
+    font-weight: 700;
+}
+.comment-wrap .writing-comment {
+    margin-left: 15px;
+}

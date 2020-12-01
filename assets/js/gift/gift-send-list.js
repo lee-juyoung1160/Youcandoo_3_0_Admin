@@ -103,7 +103,7 @@
 				}
 				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						return `<a onclick="modalDetailOpen();">보기</a>`;
+						return `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`;
 					}
 				}
 				,{title: "발송일시",    	data: "send_created_date", 	width: "10%" }
@@ -176,22 +176,39 @@
 			$(nRow).addClass('minus-pay');
 	}
 
-	function modalDetailOpen()
+	function modalDetailOpen(obj)
 	{
+		g_send_id = $(obj).data('uuid');
+		requestModalDetailContent(obj);
 		modalFadein();
-		initModalContent();
 	}
 
-	function initModalContent()
+	function requestModalDetailContent(obj)
+	{
+		let url = api.detailSendGift;
+		let errMsg = `발송 상세${message.ajaxError}`;
+		let param = { "exchange_uuid" : $(obj).data('uuid') };
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildModalContent, errMsg, false );
+	}
+
+	function buildModalContent(data)
 	{
 		let modalContentEl = '';
-		for (let i=0; i<9; i++)
+		for (let { goodsCd, goodsNm, sellPriceAmt, recverTelNo, sendStatusCd, pinStatusNm, validPrdEndDt, tr_id } of data.data)
 		{
+			let btnEl = pinStatusNm === '발행'
+				? `<div class="btn-wrap">
+						<button onclick="onSubmitRefundGift(this);" data-uuid="${g_send_id}" data-trid="${tr_id}" class="btn-danger" type="button">
+							<i class="fas fa-ban"></i> 발송 취소
+						</button>
+						<button onclick="onSubmitResendGift(this);" data-uuid="${g_send_id}" data-trid="${tr_id}" class="btn-info" type="button">
+							<i class="fas fa-reply-all"></i> 재발송
+						</button>
+					</div>`
+				: '';
 			modalContentEl +=
 				`<div class="swiper-slide gift-send-detail">
-					<span class="gift-send-thum">
-						<img src="https://youcandoo.yanadoocdn.com/gift/22862a3e83c4772aa8f6c1a561ccb90a/a6c05406790eabf90cf8cc1d57ecc947.jpg" alt="">
-					</span>
 					<ol>
 						<li>
 							<div class="col-wrap clearfix">
@@ -199,7 +216,17 @@
 									<p class="sub-title">상품코드</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">0002224446</p>
+									<p class="detail-data">${goodsCd}</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="col-wrap clearfix">
+								<div class="col-1">
+									<p class="sub-title">거래코드</p>
+								</div>
+								<div class="col-2">
+									<p class="detail-data">${tr_id}</p>
 								</div>
 							</div>
 						</li>
@@ -209,7 +236,7 @@
 									<p class="sub-title">상품명</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">스타벅스 아메리카노 Tall</p>
+									<p class="detail-data">${goodsNm}</p>
 								</div>
 							</div>
 						</li>
@@ -219,7 +246,7 @@
 									<p class="sub-title">판매단가</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">4,900원</p>
+									<p class="detail-data">${numberWithCommas(sellPriceAmt)}</p>
 								</div>
 							</div>
 						</li>
@@ -229,7 +256,7 @@
 									<p class="sub-title">수신자 번호</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">010-****-1160</p>
+									<p class="detail-data">${recverTelNo}</p>
 								</div>
 							</div>
 						</li>
@@ -239,7 +266,7 @@
 									<p class="sub-title">유효기간 만료일</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">2022-12-31</p>
+									<p class="detail-data">${formattingToCouponExpireDate(validPrdEndDt)}</p>
 								</div>
 							</div>
 						</li>
@@ -249,19 +276,12 @@
 									<p class="sub-title">발송 상태</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">발송 완료</p>
+									<p class="detail-data">${sendStatusCd} (${pinStatusNm})</p>
 								</div>
 							</div>
 						</li>
 					</ol>
-					<div class="btn-wrap">
-						<button onclick="onSubmitResendGift(this);" data-uuid="" data-trid="" class="btn-danger" type="button">
-							<i class="fas fa-ban"></i> 발송 취소
-						</button>
-						<button onclick="onSubmitRefundGift(this);" data-uuid="" data-trid="" class="btn-info" type="button">
-							<i class="fas fa-reply-all"></i> 재발송
-						</button>
-					</div>
+					${btnEl}
 				</div>`
 		}
 
@@ -300,18 +320,7 @@
 		if (!isEmpty(g_tr_id))
 			param["tr_id"] = g_tr_id;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendSuccessCallback, errMsg, false);
-	}
-
-	function resendSuccessCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			sweetToast(data.msg);
-			tableReloadAndStayCurrentPage(dataTable);
-		}
-		else
-		 	sweetToast(data.api_message);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendAndRefundSuccessCallback, errMsg, false);
 	}
 
 	function onSubmitRefundGift(obj)
@@ -330,19 +339,19 @@
 		if (!isEmpty(g_tr_id))
 			param["tr_id"] = g_tr_id;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), refundSuccessCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendAndRefundSuccessCallback, errMsg, false);
 	}
 
-	function refundSuccessCallback(data)
+	function resendAndRefundSuccessCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			sweetToast(data.msg);
-			initBalance();
-			tableReloadAndStayCurrentPage(dataTable);
-		}
-		else
-			sweetToast(data.api_message);
+		isSuccessResp(data) ? sweetToastAndCallback(data, pageRefresh) : sweetToast(data.api_message);
+	}
+
+	function pageRefresh()
+	{
+		modalFadeout();
+		initBalance();
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function onSubmitSearch()
@@ -351,4 +360,9 @@
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		initMaxDateToday();
+	}
+
+	function formattingToCouponExpireDate(x)
+	{
+		return `${x.substring(0, 4)}-${x.substring(4, 6)}-${x.substring(6, 8)} ${x.substring(8, 10)}:${x.substring(10, 12)}:${x.substring(12, 14)}`;
 	}

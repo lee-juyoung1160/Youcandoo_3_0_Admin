@@ -1056,7 +1056,7 @@ input[type="checkbox"]:disabled + label span{
 	margin-top: 10px;
 }
 .card-warp .card {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin-bottom: 20px;
 	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
 	border-radius: 5px;

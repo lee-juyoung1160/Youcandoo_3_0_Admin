@@ -402,3 +402,34 @@
 .talk-table tr.comment2-color td:nth-child(3) a {
     border-bottom: 1px solid plum;
 }
+.comment-input-wrap {
+    display: inline-block;
+    position: relative;
+    margin-left: 15px;
+}
+.writing-comment {
+    /*float: left;*/
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #777;
+    font-size: 13px;
+    border-bottom: 1px solid #777;
+    cursor: pointer;
+}
+.comment-input {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 550px;
+    padding: 20px 10px;
+    background-color: #fff;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    z-index: 100;
+}
+.comment-input .close-btn {
+    color: #888 !important;
+    font-weight: 600;
+    margin-left: 20px;
+}

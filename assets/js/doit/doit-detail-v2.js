@@ -175,7 +175,7 @@
 		{
 			viewType.eq(0).prop('checked', true);
 			initTalkPageNum();
-			getDoitTalk();
+			/*getDoitTalk();*/
 		}
 	}
 
@@ -512,6 +512,7 @@
 	/** 인증상세 모달 **/
 	function onClinkActionImage(obj)
 	{
+		console.log(obj)
 		modalDetailFadein();
 		buildDetailModal(obj);
 	}
@@ -811,7 +812,7 @@
 				let actionImageDom =
 					`<img class="detail-img" 
 						src="${actionImage}"
-						onclick="onClinkActionImage(this);"
+						onclick="onClinkActionImage(${action});"
 						onerror="onErrorImage(this);"
 						data-type="${action.resource_type}"
 						data-uuid="${action.action_uuid}"

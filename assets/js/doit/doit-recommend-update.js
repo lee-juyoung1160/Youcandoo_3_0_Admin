@@ -382,7 +382,7 @@
 
 		if (selectedData.length > vacancy)
 		{
-			let msg = `추천 두잇은 ${message.maxAddFive}
+			let msg = `추천 두잇은 ${message.maxAddTen}
 						추가할 수 있는 두잇 수: ${vacancy}`
 			sweetToast(msg);
 			return false;

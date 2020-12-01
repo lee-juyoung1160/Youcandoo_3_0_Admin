@@ -24,6 +24,7 @@
 		,invalidBrowser : '지원하지 않는 브라우져입니다.'
 		,overFileSize : '10MB 이하의 파일을 선택해주세요.'
 		,maxJoinPromo : '최대 5회까지 등록 가능합니다.'
+		,maxAddTen : '최대 10개까지 등록 가능합니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'

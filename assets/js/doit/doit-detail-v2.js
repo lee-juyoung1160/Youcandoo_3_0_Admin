@@ -512,7 +512,6 @@
 	/** 인증상세 모달 **/
 	function onClinkActionImage(obj)
 	{
-		console.log(obj)
 		modalDetailFadein();
 		buildDetailModal(obj);
 	}
@@ -812,7 +811,7 @@
 				let actionImageDom =
 					`<img class="detail-img" 
 						src="${actionImage}"
-						onclick="onClinkActionImage(${action});"
+						onclick="onClinkActionImage(this);"
 						onerror="onErrorImage(this);"
 						data-type="${action.resource_type}"
 						data-uuid="${action.action_uuid}"

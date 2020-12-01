@@ -329,7 +329,7 @@
 						<td>
 							<div class="doit-detail-info">
 								<ul class="tag clearfix">
-									tagEl
+									${tagEl}
 								</ul>
 								<p class="doit-tit">${doit_title}</p>
 								<p class="doit-leader"><strong>개설자 : </strong><span>${nickname}</span></p>

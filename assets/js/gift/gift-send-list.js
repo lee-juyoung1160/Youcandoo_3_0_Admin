@@ -111,13 +111,13 @@
 					render: function (data, type, row, meta) {
 						let disabled = row.exchange_status === '발송취소' ? 'disabled' : '';
 						return `<button onclick="onSubmitResendGift(this);" 
-										data-sendid="${data}"
-										data-sendtype="all"
+										data-uuid="${data}"
+										data-trid=""
 										class="btn-info" 
 										type="button" ${disabled}>재발송</button>
 								<button onclick="onSubmitRefundGift(this);" 
-										data-sendid="${data}"
-										data-sendtype="all"
+										data-uuid="${data}"
+										data-trid=""
 										class="btn-danger" 
 										type="button" ${disabled}>발송취소</button>`;
 					}
@@ -255,10 +255,10 @@
 						</li>
 					</ol>
 					<div class="btn-wrap">
-						<button onclick="onSubmitResendGift(this);" data-sendid="" data-sendtype="one" class="btn-danger" type="button">
+						<button onclick="onSubmitResendGift(this);" data-uuid="" data-trid="" class="btn-danger" type="button">
 							<i class="fas fa-ban"></i> 발송 취소
 						</button>
-						<button onclick="onSubmitRefundGift(this);" data-sendid="" data-sendtype="one" class="btn-info" type="button">
+						<button onclick="onSubmitRefundGift(this);" data-uuid="" data-trid="" class="btn-info" type="button">
 							<i class="fas fa-reply-all"></i> 재발송
 						</button>
 					</div>
@@ -283,11 +283,11 @@
 	}
 
 	let g_send_id;
-	let g_send_type;
+	let g_tr_id;
 	function onSubmitResendGift(obj)
 	{
-		g_send_type = $(obj).data('sendtype');
-		g_send_id = $(obj).data('sendid');
+		g_send_id = $(obj).data('uuid');
+		g_tr_id = $(obj).data('trid');
 
 		sweetConfirm(message.send, resendGiftRequest);
 	}
@@ -296,12 +296,9 @@
 	{
 		let url = api.resendGift;
 		let errMsg = label.send+message.ajaxError;
-		let param = { "exchange_uuid" : g_send_id, "tr_id" : g_send_id };
-		if (g_send_type === 'all')
-		{
-			url = api.resendAllGift;
-			param =  { "exchange_uuid" : g_send_id };
-		}
+		let param = { "exchange_uuid" : g_send_id };
+		if (!isEmpty(g_tr_id))
+			param["tr_id"] = g_tr_id;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendSuccessCallback, errMsg, false);
 	}
@@ -319,8 +316,8 @@
 
 	function onSubmitRefundGift(obj)
 	{
-		g_send_type = $(obj).data('sendtype');
 		g_send_id = $(obj).data('uuid');
+		g_tr_id = $(obj).data('trid');
 
 		sweetConfirm(message.cancel, refundGiftRequest);
 	}
@@ -329,12 +326,9 @@
 	{
 		let url = api.refundGift;
 		let errMsg = label.cancel+message.ajaxError;
-		let param = { "exchange_uuid" : g_send_id, "tr_id" : g_send_id };
-		if (g_send_type === 'all')
-		{
-			url = api.refundAllGift;
-			param = { "exchange_uuid" : g_send_id };
-		}
+		let param = { "exchange_uuid" : g_send_id };
+		if (!isEmpty(g_tr_id))
+			param["tr_id"] = g_tr_id;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), refundSuccessCallback, errMsg, false);
 	}

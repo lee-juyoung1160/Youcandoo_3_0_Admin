@@ -39,6 +39,7 @@
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
+		initReserveDatepicker();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		/** 상단 검색 폼 초기화 **/
@@ -188,12 +189,20 @@
 		if (modalValidation())
 		{
 			modalSendReserveFadein();
+			initModalSendReserve();
 		}
 	}
 
 	function modalSendReserveFadein()
 	{
+		modalSendReserve.fadeIn();
+		modalLayout.fadeIn();
+		overflowHidden();
+	}
 
+	function initModalSendReserve()
+	{
+		reserveDatePicker.datepicker("setDate", "today");
 	}
 
 	function onSubmitSendGift(obj)

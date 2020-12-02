@@ -161,7 +161,7 @@
             return false;
         }
 
-        let url = api.xlsXOutUcdSales;
+        let url = api.xlsxOutUcdSales;
         let errMsg = label.list + message.ajaxLoadError;
         let param = {
             "from_date": formDate.value,

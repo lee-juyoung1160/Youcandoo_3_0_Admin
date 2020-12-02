@@ -136,7 +136,7 @@
 			return false;
 		}
 
-		let url = api.xlsXOutUcdUsage;
+		let url = api.xlsxOutUcdUsage;
 		let errMsg = label.list + message.ajaxLoadError;
 		let param = {
 			"dateType" : dateType.val()

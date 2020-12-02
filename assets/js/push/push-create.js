@@ -345,7 +345,12 @@
 		modalTargetPageFadein();
 		initTargetPageModal();
 		let selectedTarget = $("input[name=radio-target-page]:checked").val();
-		selectedTarget === 'event' ?  getEventPage() : getPromoPage();
+		if (selectedTarget === 'event')
+			getEventPage()
+		else if (selectedTarget === 'promotion')
+			getPromoPage();
+		else if (selectedTarget === 'doit')
+			getDoitPage();
 	}
 
 	function modalTargetPageFadein()
@@ -398,7 +403,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setEventPageRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -441,7 +446,50 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setPromoPageRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	function getDoitPage()
+	{
+		destroyTargetPageTable();
+		targetPageTable.DataTable({
+			ajax : {
+				url: api.listPushTargetPageDoit,
+				type:"POST",
+				global: false,
+				headers: headers,
+				data: function (d) {
+					return pageParams();
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "진행상태",	data: "doit_status",   			width: "10%", 	 className: "cursor-pointer" }
+				,{title: "두잇명",	data: "doit_title",    			width: "50%", 	 className: "cursor-pointer" }
+				,{title: "인증기간",	data: "action_start_datetime",  width: "30%", 	 className: "cursor-pointer",
+					render: function (data, type, row, meta) {
+						return `${row.action_start_datetime} ~ ${row.action_end_datetime}`
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -464,23 +512,41 @@
 		return JSON.stringify(param);
 	}
 
-	function setEventPageRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
 		/** row 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', `setSelectedPage("${aData.title}","${aData.event_uuid}")`);
+		let selectedTarget = $("input[name=radio-target-page]:checked").val();
+		let title, uuid;
+		if (selectedTarget === 'event')
+		{
+			title = aData.title;
+			uuid = aData.event_uuid;
+		}
+		else if (selectedTarget === 'promotion')
+		{
+			title = aData.promotion_title;
+			uuid = aData.promotion_uuid;
+		}
+		else if (selectedTarget === 'doit')
+		{
+			title = aData.doit_title;
+			uuid = aData.doit_uuid;
+		}
+
+		$(nRow).attr('onClick', `setSelectedPage("${title}","${uuid}")`);
 	}
 
-	function setPromoPageRowAttributes(nRow, aData)
+	/*function setPromoPageRowAttributes(nRow, aData)
 	{
-		/** row 클릭이벤트 추가 **/
+		/!** row 클릭이벤트 추가 **!/
 		$(nRow).attr('onClick', `setSelectedPage("${aData.promotion_title}","${aData.promotion_uuid}")`);
-	}
+	}*/
 
 	let g_page_uuid = pageUuid.val();
-	function setSelectedPage(_page_title, _uuid)
+	function setSelectedPage(_pageTitle, _uuid)
 	{
 		g_page_uuid = _uuid;
-		inputPage.val(_page_title);
+		inputPage.val(_pageTitle);
 		modalFadeout();
 	}
 
@@ -501,7 +567,7 @@
 		inputPage.val('');
 
 		let targetValue = $(obj).val();
-		(targetValue === 'event' || targetValue === 'promotion') ? inputPage.parent().show() : inputPage.parent().hide();
+		(['event', 'promotion', 'doit'].indexOf(targetValue) !== -1) ? inputPage.parent().show() : inputPage.parent().hide();
 	}
 
 	function onChangeSendWhen(obj)

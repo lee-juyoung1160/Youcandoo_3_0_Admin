@@ -1180,6 +1180,7 @@
 			let { board_idx, board_uuid, nickname, text_body, comment_count, like_count, report_count, created, is_blind, is_del } = data.data;
 			g_has_notice = true;
 			let hasComment = Number(comment_count) > 0 ? '' : 'disabled';
+			let isDel = is_del === 'Y';
 			let isBlind = is_blind === 'Y';
 			let blindYn = isBlind ? 'N' : 'Y';
 			let blindText = isBlind ? '블라인드해제' : '블라인드처리';
@@ -1197,12 +1198,17 @@
 						<i class="fas fa-times-circle"></i>
 					</button>`
 				: '';
-			let commentsBtn = g_is_created_by_biz
+			let commentsBtn = (g_is_created_by_biz && !isBlind && !isDel)
 				? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
-							<input type="text">
-							<button type="button" class="btn-posting" onclick="onSubmitComments();">게시</button>
+							<input type="text" class="comment-value">
+							<input type="hidden" class="uuid-key-value" value="board_uuid">
+							<input type="hidden" class="uuid-value" value="${board_uuid}">
+							<input type="hidden" class="parent-uuid-value" value="">
+							<input type="hidden" class="mention-nickname-value" value="">
+							<input type="hidden" class="mention-profile-uuid-value" value="">
+							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
 						</div>
 					</div>`
@@ -1282,6 +1288,7 @@
 				let isBoard	 	= detail.talk_type === 'board';
 				let isAction 	= detail.talk_type === 'action';
 				let isBlind 	= detail.board_is_blind === 'Y';
+				let uuidKey		= isBoard ? 'board_uuid' : 'action_uuid';
 				let uuid		= isBoard ? detail.board_uuid : detail.action_uuid;
 				let description = isBoard ? detail.board_description : detail.action_description;
 				let commentCnt 	= isBoard ? detail.board_comment : detail.action_comment;
@@ -1339,12 +1346,17 @@
 							<i class="fas fa-times-circle"></i>
 						</button>`
 					: '';
-				let commentsBtn = g_is_created_by_biz
+				let commentsBtn = (g_is_created_by_biz && !isBlind && !isDel)
 					? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
-							<input type="text">
-							<button type="button" class="btn-posting" onclick="onSubmitComments();">게시</button>
+							<input type="text" class="comment-value">
+							<input type="hidden" class="uuid-key-value" value="${uuidKey}">
+							<input type="hidden" class="uuid-value" value="${uuid}">
+							<input type="hidden" class="parent-uuid-value" value="">
+							<input type="hidden" class="mention-nickname-value" value="">
+							<input type="hidden" class="mention-profile-uuid-value" value="">
+							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
 							<i class="close-btn" onclick="onCloseCommentsInput(this);">×</i>
 						</div>
 					</div>`
@@ -1504,7 +1516,7 @@
 			`<div class="open-box">
 				<div class="container">
 					<ul class="comment-wrap">`
-		for (let { comment_idx, nickname, profile_uuid, comment, is_blind, created } of data.data)
+		for (let { comment_idx, comment_uuid, nickname, profile_uuid, comment, is_blind, created } of data.data)
 		{
 			let crownIcon = g_doit_creator === profile_uuid ? '<i class="fas fa-crown" style="color: #FBBC05;"></i>' : '';
 			let commentType = g_board_talk_type === 'board' ? 'board_comment' : 'action_comment';
@@ -1517,8 +1529,13 @@
 				? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">답글달기</span>
 						<div class="comment-input">
-							<input type="text">
-							<button type="button" class="btn-posting" onclick="onSubmitComments();">게시</button>
+							<input type="text" class="comment-value">
+							<input type="hidden" class="uuid-key-value" value="">
+							<input type="hidden" class="uuid-value" value="">
+							<input type="hidden" class="parent-uuid-value" value="${comment_uuid}">
+							<input type="hidden" class="mention-nickname-value" value="${nickname}">
+							<input type="hidden" class="mention-profile-uuid-value" value="${profile_uuid}">
+							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
 							<i class="close-btn" onclick="onCloseCommentsInput(this);">×</i>
 						</div>
 					</div>`
@@ -1550,7 +1567,9 @@
 				</div>
 			</div>`
 
-		g_target_comment_element.append(commentsEl);
+		g_target_comment_element.append(commentsEl)
+
+		g_target_comment_element.find('.fa-comment').next().html(numberWithCommas(data.data.length));
 	}
 
 	function buildTalkPagination()
@@ -1566,13 +1585,84 @@
 
 	function onClickViewMore()
 	{
-		g_talk_page_num += 1;
+		g_talk_page_num++
 		getTalk();
 	}
 
 	function initTalkPageNum()
 	{
 		g_talk_page_num = 1;
+	}
+
+	/** 댓글, 답글 등록 **/
+	let g_comments_value;
+	let g_uuid_key;
+	let g_uuid_value;
+	let g_parent_uuid_value;
+	let g_mention_nickname_value;
+	let g_mention_profile_uuid_value;
+	let isComments = false;
+	function onSubmitComments(obj)
+	{
+
+		g_uuid_key = $(obj).siblings('.uuid-key-value').val();
+		g_uuid_value = $(obj).siblings('.uuid-value').val();
+		if (isEmpty(g_uuid_key))
+		{
+			isComments = true;
+			/** 답글일 때. 부모 글(톡) element를 찾아서 처리. **/
+			g_uuid_key = $(obj).parents('.open-box').siblings('.card-body').find('.uuid-key-value').val();
+			g_uuid_value = $(obj).parents('.open-box').siblings('.card-body').find('.uuid-value').val();
+		}
+		g_parent_uuid_value = $(obj).siblings('.parent-uuid-value').val();
+		g_mention_nickname_value = $(obj).siblings('.mention-nickname-value').val();
+		g_mention_profile_uuid_value = $(obj).siblings('.mention-profile-uuid-value').val();
+		g_comments_value = $(obj).siblings('.comment-value').val();
+		g_comments_value = (isComments && !isEmpty(g_mention_profile_uuid_value) && g_doit_creator !== g_mention_profile_uuid_value)
+			? `@${g_mention_nickname_value} ${g_comments_value}`
+			: g_comments_value;
+
+		sweetConfirm(message.create, createCommentsRequest);
+	}
+
+	function createCommentsRequest()
+	{
+		let url = api.createComments;
+		let errMsg = label.submit+message.ajaxError;
+		let param = {
+			"profile_uuid" : g_doit_creator,
+			"comments" : g_comments_value,
+		}
+		param[g_uuid_key] = g_uuid_value;
+		if (!isEmpty(g_parent_uuid_value))
+			param["parents_comment_uuid"] = g_parent_uuid_value;
+		if (!isEmpty(g_mention_nickname_value))
+		{
+			let mention = [{
+				"profile_nickname" : g_mention_nickname_value,
+				"profile_uuid" : g_mention_profile_uuid_value
+			}]
+
+			param["mention"] = mention;
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createCommentsReqCallback, errMsg, false);
+	}
+
+	function createCommentsReqCallback(data)
+	{
+		sweetToastAndCallback(data, createCommentsSuccess);
+	}
+
+	function createCommentsSuccess()
+	{
+		if(isComments)
+			getComment();
+		else
+		{
+			getNoticeTalk();
+			getTalk();
+		}
 	}
 
 	/** 톡 블라인드 관련 **/
@@ -1609,7 +1699,7 @@
 	function updateBlindTalkSuccess()
 	{
 		if (g_blind_talk_type === 'board')
-			g_is_notice === 'Y' ? getNoticeTalk() : getTalk()
+			g_is_notice === 'Y' ? getNoticeTalk() : getTalk();
 		else
 			getComment();
 	}

@@ -88,6 +88,7 @@
 		, success: '성공'
 		, fail: '실패'
 		, send: '발송'
+		, reserve: '예약'
 		, y: 'Y'
 		, n: 'N'
 		, dash: '-'
@@ -269,6 +270,7 @@
 		,listPushTargetUser : baseApiUrl+'push/user'
 		,listPushTargetPageEvent : baseApiUrl+'push/event'
 		,listPushTargetPagePromo : baseApiUrl+'push/promotion'
+		,listPushTargetPageDoit : baseApiUrl+'push/doit'
 		/** dynamic link **/
 		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
 		/** 팝업 **/
@@ -311,13 +313,14 @@
 		,listApplyGift : baseApiUrl+'gift/exchange/list'
 		,approvalGift : baseApiUrl+'gift/exchange/confirm'
 		,rejectGift : baseApiUrl+'gift/exchange/reject'
+		,reserveGift : baseApiUrl+'gift/exchange/reservationSend'
 		,updateMemoGift : baseApiUrl+'gift/exchange/memo'
 		,getBalanceGift : baseApiUrl+'gift/exchange/biz/get'
 		,sendGift : baseApiUrl+'gift/exchange/send'
 		,listSendGift : baseApiUrl+'gift/exchange/sendList'
 		,detailSendGift : baseApiUrl+'gift/exchange/couponDetail'
 		,resendGift : baseApiUrl+'gift/exchange/resend'
-		,refundGift : baseApiUrl+'gift/exchange/cancel'
+		/*,refundGift : baseApiUrl+'gift/exchange/cancel'*/
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

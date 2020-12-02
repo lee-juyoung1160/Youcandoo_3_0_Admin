@@ -142,3 +142,27 @@
 .user-ucd strong {
     color: #333;
 }
+
+.add-btn {
+    float: left;
+}
+
+label.excel-btn {
+    margin-left: 10px;
+    color: darkgreen;
+    border: 1px solid darkgreen;
+    transition: all .3s;
+}
+label.excel-btn:hover {
+    color: #fff;
+    background-color: darkgreen;
+}
+.excel-form-down {
+    margin: 10px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border-bottom: 1px solid;
+    transition: all .2s;
+}

@@ -155,7 +155,7 @@
             return false;
         }
 
-        let url = api.xlsXOutUcdCancel;
+        let url = api.xlsxOutUcdCancel;
         let errMsg = label.list + message.ajaxLoadError;
         let param = {
             "from_date" : dateFrom.val()

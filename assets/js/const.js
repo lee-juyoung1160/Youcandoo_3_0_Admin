@@ -271,6 +271,7 @@
 		,listPushTargetPageEvent : baseApiUrl+'push/event'
 		,listPushTargetPagePromo : baseApiUrl+'push/promotion'
 		,listPushTargetPageDoit : baseApiUrl+'push/doit'
+		,getTargetUserFromXlsx : baseApiUrl+'excel/import/profile'
 		/** dynamic link **/
 		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
 		/** 팝업 **/
@@ -359,18 +360,18 @@
 		,listAccount : baseApiUrl+'admin/account/list'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
-		,xlsXOutDoitMember : baseApiUrl+'excel/download/doit_member'
-		,xlsXOutDoitReview : baseApiUrl+'excel/download/doit_review'
-		,xlsXOutDoitUcd : baseApiUrl+'excel/download/doit_ucd'
+		,xlsxOutDoitMember : baseApiUrl+'excel/download/doit_member'
+		,xlsxOutDoitReview : baseApiUrl+'excel/download/doit_review'
+		,xlsxOutDoitUcd : baseApiUrl+'excel/download/doit_ucd'
 		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
-		,xlsXOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
-		,xlsXOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'
-		,xlsXOutUcdSales : baseApiUrl+'excel/download/ucd_sales'
-		,xlsXOutUcdUsage : baseApiUrl+'excel/download/ucd_usage'
-		,xlsXOutUcdWithdraw : baseApiUrl+'excel/download/ucd_withdraw'
-		,xlsXOutUcdCharge : baseApiUrl+'excel/download/ucd_charge'
-		,xlsXOutUcdCancel : baseApiUrl+'excel/download/ucd_cancel'
-		,xlsXOutReview : baseApiUrl+'excel/download/review'
+		,xlsxOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
+		,xlsxOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'
+		,xlsxOutUcdSales : baseApiUrl+'excel/download/ucd_sales'
+		,xlsxOutUcdUsage : baseApiUrl+'excel/download/ucd_usage'
+		,xlsxOutUcdWithdraw : baseApiUrl+'excel/download/ucd_withdraw'
+		,xlsxOutUcdCharge : baseApiUrl+'excel/download/ucd_charge'
+		,xlsxOutUcdCancel : baseApiUrl+'excel/download/ucd_cancel'
+		,xlsxOutReview : baseApiUrl+'excel/download/review'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

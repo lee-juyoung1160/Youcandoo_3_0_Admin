@@ -1816,13 +1816,13 @@
 		let param = {};
 		if (g_xlsx_type === 'user')
 		{
-			url = api.xlsXOutDoitMember;
+			url = api.xlsxOutDoitMember;
 			param["doit_uuid"] = g_doit_uuid;
 			param["nickname"] = "";
 		}
 		else if (g_xlsx_type === 'review')
 		{
-			url = api.xlsXOutDoitReview;
+			url = api.xlsxOutDoitReview;
 			param["from_date"] = "";
 			param["to_date"] = "";
 			param["search_type"] = "doit_uuid";
@@ -1833,7 +1833,7 @@
 		}
 		else
 		{
-			url = api.xlsXOutDoitUcd;
+			url = api.xlsxOutDoitUcd;
 			param["doit_uuid"] = g_doit_uuid;
 		}
 

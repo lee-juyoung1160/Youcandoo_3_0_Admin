@@ -365,7 +365,9 @@
 									<p class="sub-title">발송 상태</p>
 								</div>
 								<div class="col-2">
-									<p class="detail-data">쿠폰 발송 전 또는 조회할 수 없는 쿠폰입니다.</p>
+									<p class="detail-data">쿠폰 발송 전 또는 조회할 수 없는 쿠폰입니다.
+										만약 예약발송일시 기준으로 30분이 지났다면 KT 비즈에 문의해주세요.
+									</p>
 								</div>
 							</div>
 						</li>

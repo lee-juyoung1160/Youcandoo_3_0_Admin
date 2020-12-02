@@ -292,7 +292,7 @@
 
     function onClickXlsxOut()
     {
-        let url = api.xlsXOutReview;
+        let url = api.xlsxOutReview;
         let errMsg = label.list + message.ajaxLoadError;
         let report  = document.querySelector('.report input[name=radio-report]:checked');
         let blind   = document.querySelector('.blind input[name=radio-blind]:checked');

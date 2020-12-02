@@ -4,7 +4,7 @@
 	const goUpdate      = $("#goUpdate");
 
 	/** 두잇정보 탭 **/
-	const category 		= $("#category");
+	/*const category 		= $("#category");
 	const creator 		= $("#creator");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
@@ -18,7 +18,7 @@
 	const actionType 	= $("#actionType");
 	const actionResource = $("#actionResource");
 	const actionDesc    = $("#actionDesc");
-	const allowGallery  = $("#allowGallery");
+	const allowGallery  = $("#allowGallery");*/
 
 	/** 참여자정보 탭 **/
 	const search 		= $(".search");
@@ -182,7 +182,7 @@
 	/****************
 	 * 두잇정보탭 관련
 	 * **************/
-	function getDetail()
+	/*function getDetail()
 	{
 		let url 	= api.detailDoit;
 		let param   = JSON.stringify({"idx" : idx});
@@ -407,7 +407,7 @@
 		}
 
 		return actionResourceDom;
-	}
+	}*/
 
 	/****************
 	 * 참여자정보탭 관련

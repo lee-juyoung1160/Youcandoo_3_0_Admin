@@ -111,6 +111,8 @@
 		, detailContent: '상세 내용'
 		, download: '다운로드'
 		, average: '평균'
+		, gifticon: '기프티콘'
+		, gift: '일반상품'
 		, previous: '<i class="fas fa-angle-double-left"></i>'
 		, next: '<i class="fas fa-angle-double-right"></i>'
 		, memo: '<i class="fas fa-thumbtack"></i>'

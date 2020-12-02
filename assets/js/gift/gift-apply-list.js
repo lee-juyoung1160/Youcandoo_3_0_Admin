@@ -8,19 +8,33 @@
 	const selPageLength	= $("#selPageLength");
 	const btnApproval	= $("#btnApproval");
 	const btnReject		= $("#btnReject");
+	const btnSendReserve = $("#btnSendReserve");
+	const balanceEl		= $("#balance");
 	const btnXlsxOut	= $("#btnXlsxOut");
 
+	/** 예약발송 모달 **/
+	const modalSendReserve = $("#modalSendReserve");
+	const reserveDatePicker	= $("#reserveDatePicker");
+	const selHour		 = $("#selHour");
+	const selMinute		 = $("#selMinute");
+	const reserveMemo	 = $("#reserveMemo");
+	const btnSubmitReserve = $("#btnSubmitReserve");
+	/** 메모모달 **/
+	const modalMemo		 = $("#modalMemo");
+	const modalMemoTitle = $("#modalMemoTitle");
+	const memoEl		 = $("#memo");
+	const btnSubmitMemo	 = $("#btnSubmitMemo");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const modalTitle	= $("#modalTitle");
-	const modalMemo		= $("#memo");
-	const btnSubmit		= $("#btnSubmit");
+
 
 	let g_memo_type;
 
 	$( () => {
+		/** 잔액 **/
+		initBalance();
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
@@ -32,18 +46,30 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
+		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnApproval		.on("click", function () { onClickApproval(); });
-		btnReject		.on("click", function () { onClickReject(); });
+		btnApproval		.on("click", function () { onClickBtnApproval(); });
+		btnReject		.on("click", function () { onClickBtnReject(); });
+		btnSendReserve	.on("click", function () { onClickBtnSendReserve(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
-		btnSubmit		.on("click", function () { onSubmitOnModal(); });
+		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
 	});
+
+	function initReserveDatepicker()
+	{
+		reserveDatePicker.datepicker({
+			dateFormat: "yy-mm-dd"
+			,monthNames: label.monthNames
+			,dayNames: label.dayNames
+			,dayNamesMin: label.dayNames
+			,minDate: 0
+		});
+	}
 
 	function initSearchForm()
 	{
@@ -52,6 +78,20 @@
 		initSearchDateRange();
 		initMaxDateToday();
 		initDayBtn();
+	}
+
+	function initBalance()
+	{
+		let url = api.getBalanceGift;
+		let errMsg = `잔액 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, initBalanceSuccessCallback, errMsg, false);
+	}
+
+	function initBalanceSuccessCallback(data)
+	{
+		let { money } = data.data;
+		balanceEl.html(numberWithCommas(money));
 	}
 
 	function buildGrid()
@@ -74,16 +114,21 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				},
-				{title: "신청자", 		data: "nickname",    		width: "25%",
-					render: function (data, type, row, meta) {
-						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
+				{title: "상품유형", 		data: "goods_code",    		width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.gift : label.gifticon;
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "10%",	className: 'no-sort' }
+				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
 				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
+					}
+				}
+				,{title: "신청자", 		data: "nickname",    		width: "25%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
 					}
 				}
 				,{title: "신청일시",    	data: "created_datetime",  	width: "15%" }
@@ -138,33 +183,80 @@
 		return JSON.stringify(param);
 	}
 
-	function onSubmitSearch()
+	function onClickBtnSendReserve()
 	{
-		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
-		table.ajax.reload();
-		uncheckedCheckAll();
-		initMaxDateToday();
+		if (modalValidation())
+		{
+			modalSendReserveFadein();
+		}
 	}
 
-	function onClickApproval()
+	function modalSendReserveFadein()
+	{
+
+	}
+
+	function onSubmitSendGift(obj)
+	{
+		g_exchange_uuid = $(obj).data('uuid');
+
+		sweetConfirm(message.send, sendGiftRequest);
+	}
+
+	function sendGiftRequest()
+	{
+		let url = api.sendGift;
+		let errMsg = label.send+message.ajaxError;
+		let param = { "exchange_uuid" : g_exchange_uuid };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
+	}
+
+	function sendSuccessCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			sweetToast(data.msg);
+			tableReloadAndStayCurrentPage(dataTable);
+		}
+		else
+			sweetToast(data.api_message);
+	}
+
+	function onClickBtnApproval()
 	{
 		if (modalValidation())
 		{
 			g_memo_type = 'approval';
-			modalFadein();
-			initModal();
+			modalMemoFadein();
+			initModalMemo();
 		}
 	}
 
-	function onClickReject()
+	function onClickBtnReject()
 	{
 		if (modalValidation())
 		{
 			g_memo_type = 'reject';
-			modalFadein();
-			initModal();
+			modalMemoFadein();
+			initModalMemo();
 		}
+	}
+
+	function modalMemoFadein()
+	{
+		modalMemo.fadeIn();
+		modalLayout.fadeIn();
+		overflowHidden();
+	}
+
+	function initModalMemo()
+	{
+		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
+
+		modalMemoTitle.html(title);
+		memoEl.trigger('focus');
+		memoEl.val("");
 	}
 
 	function modalValidation()
@@ -179,16 +271,7 @@
 		return true;
 	}
 
-	function initModal()
-	{
-		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
-
-		modalTitle.html(title);
-		modalMemo.trigger('focus');
-		modalMemo.val("");
-	}
-
-	function onSubmitOnModal()
+	function onSubmitModalMemo()
 	{
 		let mgs = g_memo_type === 'approval' ? message.approve : message.reject;
 		sweetConfirm(mgs, approvalRequest);
@@ -198,10 +281,10 @@
 	{
 		let url 	= g_memo_type === 'approval' ? api.approvalGift : api.rejectGift;
 		let errMsg 	= label.approval+message.ajaxError;
-		let uuids = getSelectedRowsUuid();
+		let uuids 	= getSelectedRowsUuid();
 		let param   = {
 			"exchange_list" : uuids,
-			"memo" : modalMemo.val()
+			"memo" : memoEl.val()
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
@@ -231,6 +314,14 @@
 		}
 
 		return uuids;
+	}
+
+	function onSubmitSearch()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+		uncheckedCheckAll();
+		initMaxDateToday();
 	}
 
 	function onClickXlsxOut()

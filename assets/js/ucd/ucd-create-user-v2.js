@@ -26,7 +26,7 @@
 		search    		.on("click", function () { onSubmitSearch(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
-		btnXlsxExport	.on("click", function () { onClickUcdFormExport(this); });
+		btnXlsxExport	.on("click", function () { onClickUcdFormExport(); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 

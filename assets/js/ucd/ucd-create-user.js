@@ -40,7 +40,7 @@
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
 		btnXlsxImport	.on("change", function () { onChangeBtnImport(this); });
-		btnXlsxExport	.on("click", function () { onClickUcdFormExport(this); });
+		btnXlsxExport	.on("click", function () { onClickUcdFormExport(); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 

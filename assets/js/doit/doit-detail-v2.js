@@ -1622,6 +1622,13 @@
 			? `@${g_mention_nickname_value} ${g_comments_value}`
 			: g_comments_value;
 
+		if (isEmpty(g_comments_value))
+		{
+			sweetToast(`댓글(댭글)은 ${message.required}`);
+			$(obj).siblings('.comment-value').trigger('focus');
+			return;
+		}
+
 		sweetConfirm(message.create, createCommentsRequest);
 	}
 

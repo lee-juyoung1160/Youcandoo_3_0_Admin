@@ -4,6 +4,7 @@
 	const sendTime		= $("#sendTime");
 	const targetUser	= $("input[name=radio-target-user]");
 	const btnModalUserOpen	= $("#btnModalUserOpen");
+	const btnXlsxExport	= $("#btnXlsxExport");
 	const btnAddUser	= $("#btnAddUser");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
@@ -54,6 +55,7 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on('click', function () { onClickToggleOpen(this); });
+		btnXlsxExport	.on("click", function () { onClickUcdFormExport(); });
 		modalPage		.on('keyup', function () { onKeyupSearchPage(); });
 		inputPage		.on('click', function () { onClickPage(); });
 		contentImage	.on('change', function () { onChangeValidationImage(this); });

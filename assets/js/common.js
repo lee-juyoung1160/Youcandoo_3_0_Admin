@@ -1027,7 +1027,7 @@
             { "PID" : "", "" : "첫행부터 채워도" },
             { "PID" : "", "" : "괜찮아요." }
         ];
-        setExcelData("회원UCD일괄등록양식", "회원목록", data);
+        setExcelData("회원일괄등록양식", "회원목록", data);
     }
 
     function toggleShowFloatingButton()

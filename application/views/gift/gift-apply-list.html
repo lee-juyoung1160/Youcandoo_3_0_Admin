@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="/assets/css/gift.css?version=<?php echo $this->config->item('version');?>">
 <section class="gift-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -62,6 +63,7 @@
         </div>-->
 
         <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+
             <div class="btn-wrap">
                 <button class="search">검색</button>
                 <button class="reset" type="reset">초기화</button>
@@ -71,6 +73,7 @@
         <div class="table-wrap">
             <div class="top clearfix">
                 <div class="right-wrap clearfix">
+                    <p class="balance-num">잔액: <span id="balance"></span>원</p>
                     <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
                         <label for="selPageLength"></label>
@@ -79,8 +82,9 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i> 승인</button>
-                    <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i> 취소</button>
+                    <button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>승인</button>
+                    <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i>취소</button>
+                    <button id="btnApproval" class="btn-warning" type="button"><i class="fas fa-clock"></i>예약발송</button>
                     <button id="btnXlsxOut" class="btn-excel" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
@@ -169,13 +173,58 @@
     <div class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
-            <p class="modal-title" id="modalTitle"></p>
+            <p class="modal-title" id="">예약발송</p>
             <ul class="modal-information">
                 <li>
+                    <p class="sub-title">예약 발송 시간</p>
+                    <div class="clearfix">
+                        <div class="input-wrap"><input id="doitFrom" type="text" class="datepicker"></div>
+                        <div class="select-wrap clearfix">
+                            <div class="select-box">
+                                <label for="">09</label>
+                                <select name="" id="">
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                    <option>16</option>
+                                    <option>17</option>
+                                    <option>18</option>
+                                </select>
+                            </div>
+                            <div class="select-box">
+                                <label for="">00</label>
+                                <select name="" id="">
+                                    <option>00</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <p class="cap">
+                    * 예약 가능한 발송 건수:<br>
+                    * 예약 가능 날짜 : 신청일로 부터 15일까지 예약가능<br>
+                    * 예약발송일 기준 판매종료/예약종로/가격변동이 있는 상품의 경우, 예약발송이 불가 할 수 있습니다
+                    </p>
+                </li>
+                <li>
+                    <p class="sub-title">메모</p>
                     <textarea id="memo" placeholder="메모를 입력해주세요." name="text" cols="30" rows="10"></textarea>
                 </li>
             </ul>
-            <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+            <div class="btn-wrap">
+                <button id="btnSubmit" class="completion-btn" type="submit">예약발송</button>
+                <button class="defult-btn" type="submit">취소</button>
+            </div>
         </div>
     </div>
     <div class="modal-layout"></div>

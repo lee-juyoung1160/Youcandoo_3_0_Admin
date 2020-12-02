@@ -13,6 +13,7 @@
 	/** 메모 모달 **/
 	const modalMemo 	= $("#modalMemo");
 	const memoEl		= $("#memo");
+	const btnSubmitMemo	= $("#btnSubmitMemo");
 	/** modal 공통 **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -39,6 +40,7 @@
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		btnSubmitMemo	.on('click', function () { onSubmitUpdateMemo(); });
 	});
 
 	let swipe;
@@ -77,7 +79,7 @@
 						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
 					}
 				}
-				,{title: "상품명", 		data: "gift_name",    		width: "20%" }
+				,{title: "상품명", 		data: "gift_name",    		width: "15%" }
 				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
 				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
@@ -94,7 +96,8 @@
 						return buildMemo(row);
 					}
 				}
-				,{title: "발송일시",    	data: "send_created_date", 	width: "10%" }
+				,{title: "예약일시",    	data: "reservation_datetime", 	width: "10%" }
+				,{title: "예약발송등록일시",   data: "send_created_date", 	width: "10%" }
 				,{title: "재발송",   	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						let disabled = isEmpty(row.goods_code) ? 'disabled' : '';
@@ -103,11 +106,6 @@
 										data-trid=""
 										class="btn-info" 
 										type="button" ${disabled}>재발송</button>`
-								/*<button onclick="onSubmitRefundGift(this);"
-										data-uuid="${data}"
-										data-trid=""
-										class="btn-danger" 
-										type="button" ${disabled}>발송취소</button>*/
 					}
 				}
 			],
@@ -134,12 +132,6 @@
 		let info = table.page.info();
 		let _page = (info.start / info.length) + 1;
 
-		/*let status = [];
-		sendStatus.each(function () {
-			if ($(this).is(":checked"))
-				status.push($(this).val())
-		})*/
-
 		let param = {
 			"limit" : Number(selPageLength.val())
 			,"page" : _page
@@ -148,7 +140,6 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val().trim()
-			/*,"status" : status*/
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
@@ -213,7 +204,7 @@
 
 	function onSubmitUpdateMemo()
 	{
-		sweetConfirm(message.modify, updateMemoRequest);
+		sweetConfirm(message.create, updateMemoRequest);
 	}
 
 	function updateMemoRequest()
@@ -222,7 +213,7 @@
 		let errMsg 	= label.modify+message.ajaxError;
 		let param   = {
 			"exchange_uuid" : g_exchange_uuid,
-			"memo" : modalMemo.val()
+			"memo" : memoEl.val().trim()
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateMemoReqCallback, errMsg, false);
@@ -265,17 +256,19 @@
 	function buildModalContent(data)
 	{
 		let modalContentEl = '';
-		for (let { goodsCd, goodsNm, sellPriceAmt, recverTelNo, sendStatusCd, pinStatusNm, validPrdEndDt, tr_id } of data.data)
+		for (let { coupon_bool, goodsCd, goodsNm, sellPriceAmt, recverTelNo, sendStatusCd, pinStatusNm, validPrdEndDt, tr_id } of data.data)
 		{
-			let btnEl = pinStatusNm === '발행'
-				? `<div class="btn-wrap">
+			if (coupon_bool)
+			{
+				let btnEl = pinStatusNm === '발행'
+					? `<div class="btn-wrap">
 						<button onclick="onSubmitResendGift(this);" data-uuid="${g_send_id}" data-trid="${tr_id}" class="btn-info" type="button">
 							<i class="fas fa-reply-all"></i> 재발송
 						</button>
 					</div>`
-				: '';
-			modalContentEl +=
-				`<div class="swiper-slide gift-send-detail">
+					: '';
+				modalContentEl +=
+					`<div class="swiper-slide gift-send-detail">
 					<ol>
 						<li>
 							<div class="col-wrap clearfix">
@@ -350,6 +343,35 @@
 					</ol>
 					${btnEl}
 				</div>`
+			}
+			else
+			{
+				modalContentEl +=
+					`<div class="swiper-slide gift-send-detail">
+					<ol>
+						<li>
+							<div class="col-wrap clearfix">
+								<div class="col-1">
+									<p class="sub-title">거래코드</p>
+								</div>
+								<div class="col-2">
+									<p class="detail-data">${tr_id}</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="col-wrap clearfix">
+								<div class="col-1">
+									<p class="sub-title">발송 상태</p>
+								</div>
+								<div class="col-2">
+									<p class="detail-data">쿠폰 발송 전 또는 조회할 수 없는 쿠폰입니다.</p>
+								</div>
+							</div>
+						</li>
+					</ol>
+				</div>`
+			}
 		}
 
 		modalContentWrap.html(modalContentEl);

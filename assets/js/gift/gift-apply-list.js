@@ -33,6 +33,7 @@
 	let g_memo_type;
 
 	$( () => {
+		initReserveTimes();
 		/** 잔액 **/
 		initBalance();
 		/** dataTable default config **/
@@ -56,10 +57,32 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnApproval		.on("click", function () { g_memo_type = 'approval'; onClickBtnApprovalOrReject(); });
 		btnReject		.on("click", function () { g_memo_type = 'reject'; onClickBtnApprovalOrReject(); });
-		btnSendReserve	.on("click", function () { onClickBtnSendReserve(); });
+		btnSendReserve	.on("click", function () { g_memo_type = ''; onClickBtnSendReserve(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
+		btnSubmitReserve .on("click", function () { onSubmitReserve(); });
 	});
+
+	function initReserveTimes()
+	{
+		let hourOptions = '';
+		for (let i=9; i<=18; i++)
+		{
+			let hours = appendZero(i);
+			hourOptions += `<option value="${hours}">${i}시</option>`;
+		}
+		selHour.html(hourOptions);
+		initSelectOption(selHour);
+
+		let minuteOptions = '';
+		for (let i=0; i<=59; i++)
+		{
+			let minutes = appendZero(i);
+			minuteOptions += `<option value="${minutes}">${minutes}분</option>`;
+		}
+		selMinute.html(minuteOptions);
+		initSelectOption(selMinute);
+	}
 
 	function initReserveDatepicker()
 	{
@@ -205,31 +228,37 @@
 		reserveDatePicker.datepicker("setDate", "today");
 	}
 
-	function onSubmitSendGift(obj)
+	function onSubmitReserve()
 	{
-		g_exchange_uuid = $(obj).data('uuid');
-
-		sweetConfirm(message.send, sendGiftRequest);
+		sweetConfirm(message.send, reserveRequest);
 	}
 
-	function sendGiftRequest()
+	function reserveRequest()
 	{
-		let url = api.sendGift;
-		let errMsg = label.send+message.ajaxError;
-		let param = { "exchange_uuid" : g_exchange_uuid };
+		let url = api.reserveGift;
+		let errMsg = label.reserve+label.send+message.ajaxError;
+		let uuids = getSelectedRowsUuid();
+		let reserveDate = replaceAll(reserveDatePicker.val(), '-', '');
+		let param = {
+			"exchange_list" : uuids,
+			"reservation_date" : reserveDate,
+			"reservation_time" : selHour.val()+selMinute.val(),
+			"memo" : reserveMemo.val().trim()
+		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reserveReqSuccessCallback, errMsg, false);
 	}
 
-	function sendSuccessCallback(data)
+	function reserveReqSuccessCallback(data)
 	{
 		if (isSuccessResp(data))
-		{
-			sweetToast(data.msg);
-			tableReloadAndStayCurrentPage(dataTable);
-		}
+			sweetToastAndCallback(data, reqSuccess);
 		else
-			sweetToast(data.api_message);
+		{
+			let statusFromGift = [39101, 39102, 39103, 39104, 39105, 39106, 39107, 39108];
+			let msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
+			sweetToast(msg);
+		}
 	}
 
 	function onClickBtnApprovalOrReject()
@@ -270,7 +299,7 @@
 		let uuids 	= getSelectedRowsUuid();
 		let param   = {
 			"exchange_list" : uuids,
-			"memo" : memoEl.val()
+			"memo" : memoEl.val().trim()
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), memoReqCallback, errMsg, false);
@@ -278,13 +307,14 @@
 
 	function memoReqCallback(data)
 	{
-		sweetToastAndCallback(data, memoReqSuccess);
+		sweetToastAndCallback(data, reqSuccess);
 	}
 
-	function memoReqSuccess()
+	function reqSuccess()
 	{
 		modalFadeout();
 		onSubmitSearch();
+		initBalance();
 	}
 
 	function modalValidation()
@@ -292,12 +322,26 @@
 		let uuids = getSelectedRowsUuid();
 		if (uuids.length === 0)
 		{
-			sweetToast("대상을 선택해주세요.");
+			sweetToast(`대상을 ${message.select}`);
 			return false;
 		}
 
-		console.log(modalSendReserve.is(':visible'))
-		console.log(modalMemo.is(':visible'))
+		let msg
+		if (isEmpty(g_memo_type) && isCheckedGift())
+		{
+			msg = `일반 상품은 승인 대상이 아닙니다. 
+					체크 해제 후 다시 시도해주세요.`
+			sweetToast(msg);
+			return false;
+		}
+
+		if (!isEmpty(g_memo_type) && isCheckedGifticon())
+		{
+			msg = `기프티콘은 승인 대상이 아닙니다. 
+					체크 해제 후 다시 시도해주세요.`
+			sweetToast(msg);
+			return false;
+		}
 
 		return true;
 	}

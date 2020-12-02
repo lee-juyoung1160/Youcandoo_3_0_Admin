@@ -70,6 +70,7 @@
 .completion-btn {
     display: inline-block;
     float: initial;
+    margin-right: 0 !important;
 }
 .defult-btn {
     display: inline-block;

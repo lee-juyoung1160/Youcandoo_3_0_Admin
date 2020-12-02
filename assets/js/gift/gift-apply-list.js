@@ -54,8 +54,8 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnApproval		.on("click", function () { onClickBtnApproval(); });
-		btnReject		.on("click", function () { onClickBtnReject(); });
+		btnApproval		.on("click", function () { g_memo_type = 'approval'; onClickBtnApprovalOrReject(); });
+		btnReject		.on("click", function () { g_memo_type = 'reject'; onClickBtnApprovalOrReject(); });
 		btnSendReserve	.on("click", function () { onClickBtnSendReserve(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
@@ -232,21 +232,10 @@
 			sweetToast(data.api_message);
 	}
 
-	function onClickBtnApproval()
+	function onClickBtnApprovalOrReject()
 	{
 		if (modalValidation())
 		{
-			g_memo_type = 'approval';
-			modalMemoFadein();
-			initModalMemo();
-		}
-	}
-
-	function onClickBtnReject()
-	{
-		if (modalValidation())
-		{
-			g_memo_type = 'reject';
 			modalMemoFadein();
 			initModalMemo();
 		}
@@ -268,25 +257,13 @@
 		memoEl.val("");
 	}
 
-	function modalValidation()
-	{
-		let uuids = getSelectedRowsUuid();
-		if (uuids.length === 0)
-		{
-			sweetToast("대상을 선택해주세요.");
-			return false;
-		}
-
-		return true;
-	}
-
 	function onSubmitModalMemo()
 	{
 		let mgs = g_memo_type === 'approval' ? message.approve : message.reject;
-		sweetConfirm(mgs, approvalRequest);
+		sweetConfirm(mgs, memoRequest);
 	}
 
-	function approvalRequest()
+	function memoRequest()
 	{
 		let url 	= g_memo_type === 'approval' ? api.approvalGift : api.rejectGift;
 		let errMsg 	= label.approval+message.ajaxError;
@@ -296,18 +273,65 @@
 			"memo" : memoEl.val()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), memoReqCallback, errMsg, false);
 	}
 
-	function approvalReqCallback(data)
+	function memoReqCallback(data)
 	{
-		sweetToastAndCallback(data, approvalReqSuccess);
+		sweetToastAndCallback(data, memoReqSuccess);
 	}
 
-	function approvalReqSuccess()
+	function memoReqSuccess()
 	{
 		modalFadeout();
 		onSubmitSearch();
+	}
+
+	function modalValidation()
+	{
+		let uuids = getSelectedRowsUuid();
+		if (uuids.length === 0)
+		{
+			sweetToast("대상을 선택해주세요.");
+			return false;
+		}
+
+		console.log(modalSendReserve.is(':visible'))
+		console.log(modalMemo.is(':visible'))
+
+		return true;
+	}
+
+	function isCheckedGift()
+	{
+		let result = false;
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let goodsCode = selectedData[i].goods_code;
+			if (isEmpty(goodsCode))
+				result = true;
+		}
+
+		return result;
+	}
+
+	function isCheckedGifticon()
+	{
+		let result = false;
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let goodsCode = selectedData[i].goods_code;
+			if (!isEmpty(goodsCode))
+				result = true;
+		}
+
+		return result;
 	}
 
 	function getSelectedRowsUuid()

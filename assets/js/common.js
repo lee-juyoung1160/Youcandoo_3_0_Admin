@@ -540,7 +540,10 @@
         if ($(obj).is(':checked'))
         {
             $('input[name="'+chkName+'"]').prop('checked', true);
-            table.rows().select();
+            let checkboxElsInTableBody = $(tableEl).children('tbody').find('input[name="'+chkName+'"]');
+            checkboxElsInTableBody.each(function (index) {
+                table.row(index).select();
+            })
         }
         else
         {

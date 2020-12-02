@@ -271,7 +271,7 @@
 		,listPushTargetPageEvent : baseApiUrl+'push/event'
 		,listPushTargetPagePromo : baseApiUrl+'push/promotion'
 		,listPushTargetPageDoit : baseApiUrl+'push/doit'
-		,getTargetUserFromXlsx : baseApiUrl+'excel/import/profile'
+		,listTargetUserWithXlsx : baseApiUrl+'excel/import/profile'
 		/** dynamic link **/
 		,listInflow : baseApiUrl+'marketing/dynamiclink/get'
 		/** 팝업 **/

@@ -1015,7 +1015,7 @@
         history.back();
     }
 
-    function onClickUcdFormExport()
+    function onClickUserAddFormExport()
     {
         let data = [
             { "PID" : "", "" : "<<<---여기부터"},

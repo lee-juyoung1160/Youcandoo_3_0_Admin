@@ -4,6 +4,7 @@
 	const sendTime		= $("#sendTime");
 	const targetUser	= $("input[name=radio-target-user]");
 	const btnModalUserOpen	= $("#btnModalUserOpen");
+	const btnXlsxImport	= $("#btnXlsxImport");
 	const btnXlsxExport	= $("#btnXlsxExport");
 	const btnAddUser	= $("#btnAddUser");
 	const selectedUserCount 	= $("#selectedUserCount");
@@ -55,7 +56,8 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on('click', function () { onClickToggleOpen(this); });
-		btnXlsxExport	.on("click", function () { onClickUcdFormExport(); });
+		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxExport	.on("click", function () { onClickUserAddFormExport(); });
 		modalPage		.on('keyup', function () { onKeyupSearchPage(); });
 		inputPage		.on('click', function () { onClickPage(); });
 		contentImage	.on('change', function () { onChangeValidationImage(this); });
@@ -538,12 +540,6 @@
 		$(nRow).attr('onClick', `setSelectedPage("${title}","${uuid}")`);
 	}
 
-	/*function setPromoPageRowAttributes(nRow, aData)
-	{
-		/!** row 클릭이벤트 추가 **!/
-		$(nRow).attr('onClick', `setSelectedPage("${aData.promotion_title}","${aData.promotion_uuid}")`);
-	}*/
-
 	let g_page_uuid = pageUuid.val();
 	function setSelectedPage(_pageTitle, _uuid)
 	{
@@ -575,6 +571,59 @@
 	function onChangeSendWhen(obj)
 	{
 		$(obj).val() === 'reserve' ? sendDate.parent().show() : sendDate.parent().hide();
+	}
+
+	function onClickBtnImport(obj)
+	{
+		if (!isXlsX(obj))
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			emptyFile(obj);
+			return ;
+		}
+
+		readExcelData(obj, getExcelData);
+		emptyFile(obj);
+	}
+
+	function getExcelData(data)
+	{
+		let url = api.listTargetUserWithXlsx;
+		let errMsg = `회원목록${message.ajaxLoadError}`
+		let param = JSON.stringify({ "data" : data });
+
+		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+	}
+
+	function getExcelDataCallback(data) {
+		if (!isEmpty(data.data))
+		{
+			buildSelectedUserFromXlsx(data);
+			resultBox.show();
+		}
+		calculateSelectedCount();
+	}
+
+	function buildSelectedUserFromXlsx(data)
+	{
+		let selectedUserDom = '';
+		for (let { profile_uuid, nickname, noti_doit, noti_notice, noti_marketing } of data.data)
+		{
+			selectedUserDom +=
+				`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-doit="${noti_doit}" data-notice="${noti_notice}" data-marketing="${noti_marketing}">
+					<td>${nickname}</td>
+					<td>${noti_doit}</td>
+					<td>${noti_notice}</td>
+					<td>${noti_marketing}</td>
+					<td>
+						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
+					</td>
+				</tr>`
+		}
+
+		selectedUserCount.html(data.data.length);
+
+		selectedUserTableBody.html(selectedUserDom);
 	}
 
 	function onSubmitPush()

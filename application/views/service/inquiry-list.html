@@ -6,7 +6,7 @@
 
         <div class="list-common">
             <div class="list-wrap clearfix">
-                <p class="list-common-title">등록날짜</p>
+                <p class="list-common-title">등록일</p>
                 <div class="date-wrap">
                     <input type="text" class="datepicker date_from">
                     <span class="date-margin-text"> ~ </span>
@@ -22,10 +22,11 @@
             <div class="list-wrap search-wrap clearfix">
                 <p class="list-common-title">검색어</p>
                 <div class="select-box">
-                    <label for="search_type">제목/내용</label>
+                    <label for="search_type">제목</label>
                     <select id="search_type">
-                        <option value="contents">제목/내용</option>
-                        <!--<option value="nickname">작성자</option>-->
+                        <option value="title">제목</option>
+                        <option value="contents">내용</option>
+                        <option value="nickname">작성자</option>
                     </select>
                 </div>
                 <div class="search-wrap">
@@ -44,13 +45,15 @@
                     <div class="select-box list-select-box">
                         <label for="selInquiryType"></label>
                         <select id="selInquiryType">
-                            <!--<option value="">전체</option>
-                            <option value="doit">두잇인증</option>
-                            <option value="">채팅</option>
-                            <option value="">캐시</option>
-                            <option value="">일반</option>
-                            <option value="">결제</option>
-                            <option value="">회원정보</option>-->
+                            <option value="">전체</option>
+                            <option value="회원정보">회원정보</option>
+                            <option value="이용안내">이용안내</option>
+                            <option value="두잇 참여/개설">두잇 참여/개설</option>
+                            <option value="UCD">UCD</option>
+                            <option value="오류/불편사항">오류/불편사항</option>
+                            <option value="프로모션/이벤트">프로모션/이벤트</option>
+                            <option value="제휴">제휴</option>
+                            <option value="기타">기타</option>
                         </select>
                     </div>
                 </li>
@@ -60,10 +63,10 @@
                         <input type="radio" id="r2" name="radio-status" value=""/>
                         <label for="r2"><span></span>전체</label>
 
-                        <input type="radio" id="r3" name="radio-status" value="complete"/>
+                        <input type="radio" id="r3" name="radio-status" value="완료"/>
                         <label for="r3"><span></span>완료</label>
 
-                        <input type="radio" id="r4" name="radio-status" value="pending"/>
+                        <input type="radio" id="r4" name="radio-status" value="대기"/>
                         <label for="r4"><span></span>대기</label>
                     </div>
                 </li>
@@ -72,8 +75,8 @@
 
         <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
-                <button class="reset">초기화</button>
-                <button class="search">검색</button>
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
             </div>
         </div>
 
@@ -86,7 +89,7 @@
                         <select id="selPageLength">
                         </select>
                     </div>
-                    <div class="select-box">
+                    <!--<div class="select-box">
                         <label for="selSort">개설일 최신 순</label>
                         <select id="selSort">
                             <option value="created_datetime,desc">개설일 최신 순</option>
@@ -94,11 +97,11 @@
                             <option value="doit_member,desc">참여자 순</option>
                             <option value="action_datetime,desc">인증시작 최신 순</option>
                         </select>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <table id="dataTable">
-                <colgroup>
+                <!--<colgroup>
                     <col style="width:5%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -129,10 +132,10 @@
                         <td>2019/11/07</td>
                         <td>대기</td>
                         <td>admin</td>
-                        <!--
+                        &lt;!&ndash;
                         Dev:
                         상세페이지에 메모가 있을 경우에만 i태그 노출
-                        -->
+                        &ndash;&gt;
                         <td>
                             <div class="tooltip">
                                 <i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>
@@ -161,7 +164,7 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                </tbody>-->
             </table>
             <!--<ul class="table-pagination clearfix">
                 <li><i class="fas fa-angle-double-left"></i></li>

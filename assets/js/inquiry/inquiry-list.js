@@ -13,21 +13,27 @@
 		initSearchDatepicker();
         /** dataTable default config **/
         initTableDefault();
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
 		/** 문의구분 셀렉트 박스 **/
 		/*getInquiryType();*/
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		/** 상단 검색 폼 초기화
+		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
+		 * **/
+		isBackAction() ? setHistoryForm() : initSearchForm();
+		/** 테이블 데이터 로드 **/
+		buildGrid();
 
-        initSearchForm()
 		/** 이벤트 **/
-		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
+		$("body")  		.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 	});
 
-	function getInquiryType()
+	/*function getInquiryType()
 	{
 	    let url = api.getInquiryType;
         let errMsg = `문의구분 목록 ${message.ajaxLoadError}`;
@@ -53,16 +59,16 @@
 
     function completeCallback()
     {
-        /** n개씩 보기 초기화 **/
+        /!** n개씩 보기 초기화 **!/
         initPageLength(selPageLength);
-        /** 상단 검색 폼 초기화
+        /!** 상단 검색 폼 초기화
          *  메뉴클릭으로 페이지 진입 > 초기값 세팅
          *  뒤로가기로 페이지 진입 > 이전 값 세팅
-         * **/
+         * **!/
         isBackAction() ? setHistoryForm() : initSearchForm();
-        /** 테이블 데이터 로드 **/
+        /!** 테이블 데이터 로드 **!/
         buildGrid();
-    }
+    }*/
 
 	function initSearchForm()
 	{
@@ -82,12 +88,12 @@
         dateTo.val(historyParams.to_date);
         keyword.val(historyParams.keyword);
         searchType.val(historyParams.search_type);
-        selInquiryType.val(historyParams.date_type);
+        selInquiryType.val(historyParams.qna_type);
         onChangeSelectOption(selInquiryType);
         selPageLength.val(historyParams.limit);
         onChangeSelectOption(selPageLength);
         status.each(function () {
-            if ($(this).val() === historyParams.doit_type)
+            if ($(this).val() === historyParams.status)
                 $(this).prop("checked", true);
         });
 
@@ -105,28 +111,37 @@
 					return tableParams(d);
 				},
 				error: function (request, status) {
-					alert(label.list+message.ajaxLoadError);
+					sweetToast(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "문의구분",   data: "qna_name",    		width: "10%" }
-                ,{title: "답변상태",  data: "status",  			width: "10%",
-                    render: function (data) {
-                        return data === "0" ? "답변대기" : "답변완료";
-                    }
-                }
+				{title: "문의구분",   data: "qna_type",    		width: "10%" }
+                ,{title: "답변상태",  data: "status",  			width: "5%" }
 				,{title: "제목",  	 data: "title",    			width: "25%",
                     render: function (data, type, row, meta) {
-				        return `<a href="${page.detailInquiry}">${row.idx}</a>`;
+				        return `<a href="${page.detailInquiry}${row.idx}">${data}</a>`;
                     }
                 }
-				,{title: "작성자", 	 data: "nickname",			width: "15%" }
-				,{title: "등록일시",   data: "created_datetime",  width: "15%",
-					render: function (data) {
-						return data.substring(0, 10);
+				,{title: "작성자", 	 data: "profile_uuid",		width: "20%",
+					render: function (data, type, row, meta) {
+						return isEmpty(data) ? row.name : row.nickname;
 					}
 				}
-				,{title: "처리자",  	 data: "admin_userid",    	width: "10%" }
+				,{title: "등록일시",   data: "created_datetime",  width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "답변자",  	 data: "userid",    		width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "답변일시",   data: "comment_datetime",  width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
 				,{title: "메모",  	 data: "memo",    			width: "5%",
 					render: function (data) {
 						return !isEmpty(data) ? label.memo : label.dash

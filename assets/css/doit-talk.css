@@ -423,19 +423,28 @@
     top: 20px;
     width: 550px;
     padding: 20px 10px;
-    background-color: #fff;
+    background-color: #efefef;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-    z-index: 100;
+    z-index: 101;
 }
 .comment-input .close-btn {
+    float: right;
+    margin-bottom: 10px;
     color: #888 !important;
     font-weight: 600;
-    margin-left: 20px;
 }
 .comment-input .btn-posting {
+    float: right;
+    margin-top: 10px;
     color: #0061f2;
     font-weight: 700;
+}
+.comment-input .length-count-wrap {
+    float: left;
+    color: #666;
+    margin-top: 10px;
+    font-size: 12px;
 }
 .comment-wrap .writing-comment {
     margin-left: 15px;

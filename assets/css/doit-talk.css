@@ -200,6 +200,7 @@
 .doit-detail-page .top-fix .comment-wrap .left-wrap .comment-2 {
     width: 760px;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 /*공지 대댓글*/
 .doit-detail-page .top-fix .comments .comment-wrap .left-wrap {
@@ -207,6 +208,7 @@
 }
 .doit-detail-page .top-fix .comments .comment-wrap .left-wrap .comment-2 {
     width: 950px;
+    white-space: pre-wrap;
 }
 
 /*인증*/
@@ -229,6 +231,7 @@
 .doit-detail-page .comment-wrap .left-wrap .comment-2 {
     width: 730px;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 /*대댓글*/
 .doit-detail-page .comments .comment-wrap {
@@ -243,6 +246,7 @@
 }
 .doit-detail-page .comments .comment-wrap .left-wrap .comment-2 {
     width: 700px;
+    white-space: pre-wrap;
 }
 
 .doit-detail-page .card-warp .card .card-body .icon-heart {

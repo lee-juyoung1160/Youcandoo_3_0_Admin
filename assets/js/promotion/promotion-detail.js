@@ -360,7 +360,7 @@
 	function onClickXlsxOut()
 	{
 		let isDoit = g_xlsx_type === 'doit';
-		let url = isDoit ? api.xlsXOutPromoDoit : api.xlsXOutPromoUcd;
+		let url = isDoit ? api.xlsxOutPromoDoit : api.xlsxOutPromoUcd;
 		let errMsg = label.list + message.ajaxLoadError;
 		let param = isDoit? { "promotion_idx" : idx } : { "promotion_uuid" : g_promotion_uuid };
 

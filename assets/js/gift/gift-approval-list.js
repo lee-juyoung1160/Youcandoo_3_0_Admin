@@ -7,7 +7,6 @@
 	const keyword 		= $("#keyword");
 	const approvalStatus	= $("input[name=approval-status]");
 	const selPageLength	= $("#selPageLength");
-	const balanceEl		= $("#balance");
 
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
@@ -19,8 +18,6 @@
 	let g_exchange_uuid;
 
 	$( () => {
-		/** 잔액 **/
-		initBalance();
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
@@ -43,26 +40,11 @@
 		btnSubmit       .on("click", function () { onSubmitUpdateMemo(); });
 	});
 
-	function initBalance()
-	{
-		let url = api.getBalanceGift;
-		let errMsg = `잔액 ${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, initBalanceSuccessCallback, errMsg, false);
-	}
-
-	function initBalanceSuccessCallback(data)
-	{
-		let { money } = data.data;
-		balanceEl.html(numberWithCommas(money));
-	}
-
 	function initSearchForm()
 	{
 		keyword.val('');
-		approvalStatus.eq(0).prop('checked', false);
+		approvalStatus.eq(0).prop('checked', true);
 		approvalStatus.eq(1).prop('checked', true);
-		approvalStatus.eq(2).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -84,7 +66,12 @@
 				}
 			},
 			columns: [
-				{title: "상태",    		data: "exchange_status",  	width: "10%",	className: 'no-sort' }
+				/*{title: tableCheckAllDom(), 	data: "",   		width: "5%",	className: 'no-sort',
+					render: function (data, type, row, meta) {
+						return multiCheckBoxDom(meta.row);
+					}
+				},*/
+				{title: "상태",    		data: "exchange_status",  	width: "5%",	className: 'no-sort' }
 				,{title: "신청자", 		data: "nickname",    		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
@@ -97,17 +84,11 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신청일시",    	data: "created_datetime",  	width: "10%" }
-				,{title: "승인(취소)일시",    	data: "app_datetime",  		width: "10%" }
+				,{title: "신청일시",    	data: "created_datetime",  	width: "12%" }
+				,{title: "승인(취소)일시",    	data: "app_datetime",  		width: "12%" }
 				,{title: "메모",    		data: "memo",  				width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return buildMemo(row);
-					}
-				}
-				,{title: "발송",    		data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
-					render: function (data, type, row, meta) {
-						let disabled = row.exchange_status === '승인' ? '' : 'disabled';
-						return `<button onclick="onSubmitSendGift(this);" data-uuid="${data}" class="btn-info" type="button" ${disabled}>발송</button>`;
 					}
 				}
 			],
@@ -164,34 +145,6 @@
 			$(nRow).addClass('minus-pay');
 	}
 
-	function onSubmitSendGift(obj)
-	{
-		g_exchange_uuid = $(obj).data('uuid');
-
-		sweetConfirm(message.send, sendGiftRequest);
-	}
-
-	function sendGiftRequest()
-	{
-		let url = api.sendGift;
-		let errMsg = label.send+message.ajaxError;
-		let param = { "exchange_uuid" : g_exchange_uuid };
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendSuccessCallback, errMsg, false);
-	}
-
-	function sendSuccessCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			sweetToast(data.msg);
-			initBalance();
-			tableReloadAndStayCurrentPage(dataTable);
-		}
-		else
-		 	sweetToast(data.api_message);
-	}
-
 	function buildMemo(data)
 	{
 		let memo = data.memo;
@@ -242,10 +195,10 @@
 
 	function onSubmitUpdateMemo()
 	{
-		sweetConfirm(message.modify, updateRequest);
+		sweetConfirm(message.modify, updateMemoRequest);
 	}
 
-	function updateRequest()
+	function updateMemoRequest()
 	{
 		let url 	= api.updateMemoGift;
 		let errMsg 	= label.modify+message.ajaxError;
@@ -254,39 +207,23 @@
 			"memo" : modalMemo.val()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateMemoReqCallback, errMsg, false);
 	}
 
-	function approvalReqCallback(data)
+	function updateMemoReqCallback(data)
 	{
-		sweetToastAndCallback(data, approvalReqSuccess);
+		sweetToastAndCallback(data, updateMemoReqSuccess);
 	}
 
-	function approvalReqSuccess()
+	function updateMemoReqSuccess()
 	{
 		modalFadeout();
-		onSubmitSearch();
-	}
-
-	function getSelectedRowsUuid()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		let uuids = [];
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let uuid = selectedData[i].exchange_uuid;
-			uuids.push(uuid);
-		}
-
-		return uuids;
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function onSubmitSearch()
 	{
 		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		initMaxDateToday();
 	}

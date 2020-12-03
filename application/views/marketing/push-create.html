@@ -43,6 +43,16 @@
                                     <i class="fas fa-plus"></i>
                                     <span>추가하기</span>
                                 </button>
+                                <div class="file-wrap clearfix">
+                                    <div class="filebox excel-import">
+                                        <label for="btnXlsxImport" class="excel-btn">
+                                            <i class="fas fa-file-excel"></i>
+                                            엑셀 불러오기
+                                        </label>
+                                        <input type="file" id="btnXlsxImport" class="upload-hidden" accept=".xlsx">
+                                        <button type="button" id="btnXlsxExport" class="excel-form-down"><i class="fas fa-file-excel"></i> 양식 다운로드</button>
+                                    </div>
+                                </div>
                                 <div class="result_box" style="margin-top: 10px;">
                                     <div class="btn-open-result">
                                         <p class="user-select-title">발송 대상 <em id="selectedUserCount">0</em>명</p>
@@ -96,8 +106,8 @@
                                 <input type="radio" id="c11" name="radio-target-page" class="type-btn" value="promotion"/>
                                 <label for="c11"><span></span>프로모션</label>
 
-                                <!--<input type="radio" id="c12" name="radio-target-page" class="type-btn" value="enforce"/>
-                                <label for="c12"><span></span>강제</label>-->
+                                <input type="radio" id="c12" name="radio-target-page" class="type-btn" value="doit"/>
+                                <label for="c12"><span></span>두잇</label>
                             </div>
                             <div class="text-wrap" style="margin-top: 15px; display: none">
                                 <input id="targetPage" class="more-info" type="text" placeholder="클릭 후 도착 페이지를 선택해주세요." readonly="">
@@ -276,7 +286,8 @@
     <input type="hidden" id="req_content" value="<?php if(null !== $req_content) echo $req_content?>"/>
 </section>
 <script src="/assets/js/plugins/tablesort.min.js"></script>
-<script src="/assets/js/plugins/tablesort.number.min.js"></script>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/plugins/xlsx.full.min.js"></script>
+<script src="/assets/js/export-excel.js"></script>
 <script defer src="/assets/js/push/push-create.js?version=<?php echo $this->config->item('version');?>"></script>

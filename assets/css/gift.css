@@ -48,3 +48,35 @@
 .gift-send-detail .btn-wrap button i {
     margin-right: 5px;
 }
+
+.gift-page .input-wrap {
+    float: left;
+    width: 200px;
+    margin-right: 10px;
+}
+.gift-page .select-wrap {
+    float: left;
+    width: 230px;
+}
+.gift-page .select-wrap .select-box {
+    float: left;
+    width: 100px;
+}
+.modal-content .btn-wrap {
+    float: right;
+    text-align: right;
+    margin-right: 20px;
+}
+.completion-btn {
+    display: inline-block;
+    float: initial;
+    margin-right: 0 !important;
+}
+.defult-btn {
+    display: inline-block;
+    width: 150px;
+    height: 45px;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #aaa;
+}

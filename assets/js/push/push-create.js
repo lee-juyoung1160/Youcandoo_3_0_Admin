@@ -4,6 +4,8 @@
 	const sendTime		= $("#sendTime");
 	const targetUser	= $("input[name=radio-target-user]");
 	const btnModalUserOpen	= $("#btnModalUserOpen");
+	const btnXlsxImport	= $("#btnXlsxImport");
+	const btnXlsxExport	= $("#btnXlsxExport");
 	const btnAddUser	= $("#btnAddUser");
 	const selectedUserCount 	= $("#selectedUserCount");
 	const selectedUserTableBody = $("#selectedUserTableBody");
@@ -54,6 +56,8 @@
 		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
 		btnOpenResult	.on('click', function () { onClickToggleOpen(this); });
+		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxExport	.on("click", function () { onClickUserAddFormExport(); });
 		modalPage		.on('keyup', function () { onKeyupSearchPage(); });
 		inputPage		.on('click', function () { onClickPage(); });
 		contentImage	.on('change', function () { onChangeValidationImage(this); });
@@ -345,7 +349,12 @@
 		modalTargetPageFadein();
 		initTargetPageModal();
 		let selectedTarget = $("input[name=radio-target-page]:checked").val();
-		selectedTarget === 'event' ?  getEventPage() : getPromoPage();
+		if (selectedTarget === 'event')
+			getEventPage()
+		else if (selectedTarget === 'promotion')
+			getPromoPage();
+		else if (selectedTarget === 'doit')
+			getDoitPage();
 	}
 
 	function modalTargetPageFadein()
@@ -398,7 +407,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setEventPageRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -441,7 +450,50 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setPromoPageRowAttributes(nRow, aData);
+				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	function getDoitPage()
+	{
+		destroyTargetPageTable();
+		targetPageTable.DataTable({
+			ajax : {
+				url: api.listPushTargetPageDoit,
+				type:"POST",
+				global: false,
+				headers: headers,
+				data: function (d) {
+					return pageParams();
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "진행상태",	data: "doit_status",   			width: "10%", 	 className: "cursor-pointer" }
+				,{title: "두잇명",	data: "doit_title",    			width: "50%", 	 className: "cursor-pointer" }
+				,{title: "인증기간",	data: "action_start_datetime",  width: "30%", 	 className: "cursor-pointer",
+					render: function (data, type, row, meta) {
+						return `${row.action_start_datetime} ~ ${row.action_end_datetime}`
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			scrollY: 200,
+			scrollCollapse: true,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -464,23 +516,35 @@
 		return JSON.stringify(param);
 	}
 
-	function setEventPageRowAttributes(nRow, aData)
+	function setRowAttributes(nRow, aData)
 	{
 		/** row 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', `setSelectedPage("${aData.title}","${aData.event_uuid}")`);
-	}
+		let selectedTarget = $("input[name=radio-target-page]:checked").val();
+		let title, uuid;
+		if (selectedTarget === 'event')
+		{
+			title = aData.title;
+			uuid = aData.event_uuid;
+		}
+		else if (selectedTarget === 'promotion')
+		{
+			title = aData.promotion_title;
+			uuid = aData.promotion_uuid;
+		}
+		else if (selectedTarget === 'doit')
+		{
+			title = aData.doit_title;
+			uuid = aData.doit_uuid;
+		}
 
-	function setPromoPageRowAttributes(nRow, aData)
-	{
-		/** row 클릭이벤트 추가 **/
-		$(nRow).attr('onClick', `setSelectedPage("${aData.promotion_title}","${aData.promotion_uuid}")`);
+		$(nRow).attr('onClick', `setSelectedPage("${title}","${uuid}")`);
 	}
 
 	let g_page_uuid = pageUuid.val();
-	function setSelectedPage(_page_title, _uuid)
+	function setSelectedPage(_pageTitle, _uuid)
 	{
 		g_page_uuid = _uuid;
-		inputPage.val(_page_title);
+		inputPage.val(_pageTitle);
 		modalFadeout();
 	}
 
@@ -501,12 +565,65 @@
 		inputPage.val('');
 
 		let targetValue = $(obj).val();
-		(targetValue === 'event' || targetValue === 'promotion') ? inputPage.parent().show() : inputPage.parent().hide();
+		(['event', 'promotion', 'doit'].indexOf(targetValue) !== -1) ? inputPage.parent().show() : inputPage.parent().hide();
 	}
 
 	function onChangeSendWhen(obj)
 	{
 		$(obj).val() === 'reserve' ? sendDate.parent().show() : sendDate.parent().hide();
+	}
+
+	function onClickBtnImport(obj)
+	{
+		if (!isXlsX(obj))
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			emptyFile(obj);
+			return ;
+		}
+
+		readExcelData(obj, getExcelData);
+		emptyFile(obj);
+	}
+
+	function getExcelData(data)
+	{
+		let url = api.listTargetUserWithXlsx;
+		let errMsg = `회원목록${message.ajaxLoadError}`
+		let param = JSON.stringify({ "data" : data });
+
+		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+	}
+
+	function getExcelDataCallback(data) {
+		if (!isEmpty(data.data))
+		{
+			buildSelectedUserFromXlsx(data);
+			resultBox.show();
+		}
+		calculateSelectedCount();
+	}
+
+	function buildSelectedUserFromXlsx(data)
+	{
+		let selectedUserDom = '';
+		for (let { profile_uuid, nickname, noti_doit, noti_notice, noti_marketing } of data.data)
+		{
+			selectedUserDom +=
+				`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-doit="${noti_doit}" data-notice="${noti_notice}" data-marketing="${noti_marketing}">
+					<td>${nickname}</td>
+					<td>${noti_doit}</td>
+					<td>${noti_notice}</td>
+					<td>${noti_marketing}</td>
+					<td>
+						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
+					</td>
+				</tr>`
+		}
+
+		selectedUserCount.html(data.data.length);
+
+		selectedUserTableBody.html(selectedUserDom);
 	}
 
 	function onSubmitPush()

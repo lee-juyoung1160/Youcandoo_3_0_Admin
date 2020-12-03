@@ -8,23 +8,39 @@
 	const selPageLength	= $("#selPageLength");
 	const btnApproval	= $("#btnApproval");
 	const btnReject		= $("#btnReject");
+	const btnSendReserve = $("#btnSendReserve");
+	const balanceEl		= $("#balance");
 	const btnXlsxOut	= $("#btnXlsxOut");
 
+	/** 예약발송 모달 **/
+	const modalSendReserve = $("#modalSendReserve");
+	const reserveDatePicker	= $("#reserveDatePicker");
+	const selHour		 = $("#selHour");
+	const selMinute		 = $("#selMinute");
+	const reserveMemo	 = $("#reserveMemo");
+	const btnSubmitReserve = $("#btnSubmitReserve");
+	/** 메모모달 **/
+	const modalMemo		 = $("#modalMemo");
+	const modalMemoTitle = $("#modalMemoTitle");
+	const memoEl		 = $("#memo");
+	const btnSubmitMemo	 = $("#btnSubmitMemo");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const modalTitle	= $("#modalTitle");
-	const modalMemo		= $("#memo");
-	const btnSubmit		= $("#btnSubmit");
+
 
 	let g_memo_type;
 
 	$( () => {
+		initReserveTimes();
+		/** 잔액 **/
+		initBalance();
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
+		initReserveDatepicker();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		/** 상단 검색 폼 초기화 **/
@@ -32,18 +48,52 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
+		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
-		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnApproval		.on("click", function () { onClickApproval(); });
-		btnReject		.on("click", function () { onClickReject(); });
+		btnApproval		.on("click", function () { g_memo_type = 'approval'; onClickBtnApprovalOrReject(); });
+		btnReject		.on("click", function () { g_memo_type = 'reject'; onClickBtnApprovalOrReject(); });
+		btnSendReserve	.on("click", function () { g_memo_type = ''; onClickBtnSendReserve(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
-		btnSubmit		.on("click", function () { onSubmitOnModal(); });
+		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
+		btnSubmitReserve .on("click", function () { onSubmitReserve(); });
 	});
+
+	function initReserveTimes()
+	{
+		let hourOptions = '';
+		for (let i=9; i<=18; i++)
+		{
+			let hours = appendZero(i);
+			hourOptions += `<option value="${hours}">${i}시</option>`;
+		}
+		selHour.html(hourOptions);
+		initSelectOption(selHour);
+
+		let minuteOptions = '';
+		for (let i=0; i<=59; i++)
+		{
+			let minutes = appendZero(i);
+			minuteOptions += `<option value="${minutes}">${minutes}분</option>`;
+		}
+		selMinute.html(minuteOptions);
+		initSelectOption(selMinute);
+	}
+
+	function initReserveDatepicker()
+	{
+		reserveDatePicker.datepicker({
+			dateFormat: "yy-mm-dd"
+			,monthNames: label.monthNames
+			,dayNames: label.dayNames
+			,dayNamesMin: label.dayNames
+			,minDate: 0
+		});
+	}
 
 	function initSearchForm()
 	{
@@ -52,6 +102,20 @@
 		initSearchDateRange();
 		initMaxDateToday();
 		initDayBtn();
+	}
+
+	function initBalance()
+	{
+		let url = api.getBalanceGift;
+		let errMsg = `잔액 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, initBalanceSuccessCallback, errMsg, false);
+	}
+
+	function initBalanceSuccessCallback(data)
+	{
+		let { money } = data.data;
+		balanceEl.html(numberWithCommas(money));
 	}
 
 	function buildGrid()
@@ -74,16 +138,21 @@
 						return multiCheckBoxDom(meta.row);
 					}
 				},
-				{title: "신청자", 		data: "nickname",    		width: "25%",
-					render: function (data, type, row, meta) {
-						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
+				{title: "상품유형", 		data: "goods_code",    		width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.gift : label.gifticon;
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "10%",	className: 'no-sort' }
+				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
 				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
+					}
+				}
+				,{title: "신청자", 		data: "nickname",    		width: "25%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
 					}
 				}
 				,{title: "신청일시",    	data: "created_datetime",  	width: "15%" }
@@ -138,33 +207,114 @@
 		return JSON.stringify(param);
 	}
 
-	function onSubmitSearch()
-	{
-		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
-		table.ajax.reload();
-		uncheckedCheckAll();
-		initMaxDateToday();
-	}
-
-	function onClickApproval()
+	function onClickBtnSendReserve()
 	{
 		if (modalValidation())
 		{
-			g_memo_type = 'approval';
-			modalFadein();
-			initModal();
+			modalSendReserveFadein();
+			initModalSendReserve();
 		}
 	}
 
-	function onClickReject()
+	function modalSendReserveFadein()
+	{
+		modalSendReserve.fadeIn();
+		modalLayout.fadeIn();
+		overflowHidden();
+	}
+
+	function initModalSendReserve()
+	{
+		reserveDatePicker.datepicker("setDate", "today");
+	}
+
+	function onSubmitReserve()
+	{
+		sweetConfirm(message.send, reserveRequest);
+	}
+
+	function reserveRequest()
+	{
+		let url = api.reserveGift;
+		let errMsg = label.reserve+label.send+message.ajaxError;
+		let uuids = getSelectedRowsUuid();
+		let reserveDate = replaceAll(reserveDatePicker.val(), '-', '');
+		let param = {
+			"exchange_list" : uuids,
+			"reservation_date" : reserveDate,
+			"reservation_time" : selHour.val()+selMinute.val(),
+			"memo" : reserveMemo.val().trim()
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reserveReqSuccessCallback, errMsg, false);
+	}
+
+	function reserveReqSuccessCallback(data)
+	{
+		if (isSuccessResp(data))
+			sweetToastAndCallback(data, reqSuccess);
+		else
+		{
+			let statusFromGift = [39101, 39102, 39103, 39104, 39105, 39106, 39107, 39108];
+			let msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
+			sweetToast(msg);
+		}
+	}
+
+	function onClickBtnApprovalOrReject()
 	{
 		if (modalValidation())
 		{
-			g_memo_type = 'reject';
-			modalFadein();
-			initModal();
+			modalMemoFadein();
+			initModalMemo();
 		}
+	}
+
+	function modalMemoFadein()
+	{
+		modalMemo.fadeIn();
+		modalLayout.fadeIn();
+		overflowHidden();
+	}
+
+	function initModalMemo()
+	{
+		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
+
+		modalMemoTitle.html(title);
+		memoEl.trigger('focus');
+		memoEl.val("");
+	}
+
+	function onSubmitModalMemo()
+	{
+		let mgs = g_memo_type === 'approval' ? message.approve : message.reject;
+		sweetConfirm(mgs, memoRequest);
+	}
+
+	function memoRequest()
+	{
+		let url 	= g_memo_type === 'approval' ? api.approvalGift : api.rejectGift;
+		let errMsg 	= label.approval+message.ajaxError;
+		let uuids 	= getSelectedRowsUuid();
+		let param   = {
+			"exchange_list" : uuids,
+			"memo" : memoEl.val().trim()
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), memoReqCallback, errMsg, false);
+	}
+
+	function memoReqCallback(data)
+	{
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
+	function reqSuccess()
+	{
+		modalFadeout();
+		onSubmitSearch();
+		initBalance();
 	}
 
 	function modalValidation()
@@ -172,50 +322,60 @@
 		let uuids = getSelectedRowsUuid();
 		if (uuids.length === 0)
 		{
-			sweetToast("대상을 선택해주세요.");
+			sweetToast(`대상을 ${message.select}`);
+			return false;
+		}
+
+		let msg
+		if (isEmpty(g_memo_type) && isCheckedGift())
+		{
+			msg = `일반 상품은 승인 대상이 아닙니다. 
+					체크 해제 후 다시 시도해주세요.`
+			sweetToast(msg);
+			return false;
+		}
+
+		if (!isEmpty(g_memo_type) && isCheckedGifticon())
+		{
+			msg = `기프티콘은 승인 대상이 아닙니다. 
+					체크 해제 후 다시 시도해주세요.`
+			sweetToast(msg);
 			return false;
 		}
 
 		return true;
 	}
 
-	function initModal()
+	function isCheckedGift()
 	{
-		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
+		let result = false;
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
 
-		modalTitle.html(title);
-		modalMemo.trigger('focus');
-		modalMemo.val("");
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let goodsCode = selectedData[i].goods_code;
+			if (isEmpty(goodsCode))
+				result = true;
+		}
+
+		return result;
 	}
 
-	function onSubmitOnModal()
+	function isCheckedGifticon()
 	{
-		let mgs = g_memo_type === 'approval' ? message.approve : message.reject;
-		sweetConfirm(mgs, approvalRequest);
-	}
+		let result = false;
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
 
-	function approvalRequest()
-	{
-		let url 	= g_memo_type === 'approval' ? api.approvalGift : api.rejectGift;
-		let errMsg 	= label.approval+message.ajaxError;
-		let uuids = getSelectedRowsUuid();
-		let param   = {
-			"exchange_list" : uuids,
-			"memo" : modalMemo.val()
-		};
+		for (let i=0; i<selectedData.length; i++)
+		{
+			let goodsCode = selectedData[i].goods_code;
+			if (!isEmpty(goodsCode))
+				result = true;
+		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalReqCallback, errMsg, false);
-	}
-
-	function approvalReqCallback(data)
-	{
-		sweetToastAndCallback(data, approvalReqSuccess);
-	}
-
-	function approvalReqSuccess()
-	{
-		modalFadeout();
-		onSubmitSearch();
+		return result;
 	}
 
 	function getSelectedRowsUuid()
@@ -231,6 +391,14 @@
 		}
 
 		return uuids;
+	}
+
+	function onSubmitSearch()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+		uncheckedCheckAll();
+		initMaxDateToday();
 	}
 
 	function onClickXlsxOut()

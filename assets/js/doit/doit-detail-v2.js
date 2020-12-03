@@ -1203,7 +1203,7 @@
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
-							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<textarea class="length-input comment-value" maxlength="200" onkeyup="checkInputLength(this);"></textarea>
 							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="board_uuid">
 							<input type="hidden" class="uuid-value" value="${board_uuid}">
@@ -1352,7 +1352,7 @@
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
-							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<textarea class="length-input comment-value" maxlength="200" onkeyup="checkInputLength(this);"></textarea>
 							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="${uuidKey}">
 							<input type="hidden" class="uuid-value" value="${uuid}">
@@ -1437,7 +1437,7 @@
 	{
 		$(".comment-input").hide();
 		$(obj).siblings().show();
-		$(obj).siblings().children('input').trigger('focus');
+		$(obj).siblings().children('textarea').trigger('focus');
 	}
 
 	function onCloseCommentsInput(obj)
@@ -1532,7 +1532,7 @@
 						<span class="writing-comment" onclick="viewCommentsInput(this);">답글달기</span>
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
-							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<textarea class="length-input comment-value" maxlength="200" onkeyup="checkInputLength(this);"></textarea>
 							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="">
 							<input type="hidden" class="uuid-value" value="">

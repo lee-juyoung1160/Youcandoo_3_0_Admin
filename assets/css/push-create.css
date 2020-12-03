@@ -80,14 +80,13 @@
 .nickname-modal .modal-information {
     float: left;
     max-height: inherit;
-    height: 550px;
+    height: 620px;
 }
 .nickname-modal .user-search-wrap {
     overflow: hidden;
     width: 600px;
 }
 .nickname-modal .user-select-wrap {
-    overflow-y: scroll;
     width: 627px;
     border: 1px solid #ebebeb;
 }

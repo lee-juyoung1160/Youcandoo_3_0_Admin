@@ -1641,7 +1641,7 @@
 		let errMsg = label.submit+message.ajaxError;
 		let param = {
 			"profile_uuid" : g_doit_creator,
-			"comments" : g_comments_value,
+			"comments" : g_comments_value.trim(),
 		}
 		param[g_uuid_key] = g_uuid_value;
 		if (!isEmpty(g_parent_uuid_value))

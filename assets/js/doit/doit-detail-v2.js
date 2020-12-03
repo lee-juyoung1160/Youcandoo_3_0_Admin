@@ -1204,7 +1204,7 @@
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
 							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
-							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
+							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="board_uuid">
 							<input type="hidden" class="uuid-value" value="${board_uuid}">
 							<input type="hidden" class="parent-uuid-value" value="">
@@ -1353,7 +1353,7 @@
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
 							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
-							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
+							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="${uuidKey}">
 							<input type="hidden" class="uuid-value" value="${uuid}">
 							<input type="hidden" class="parent-uuid-value" value="">
@@ -1533,7 +1533,7 @@
 						<div class="comment-input">
 							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
 							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
-							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
+							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 							<input type="hidden" class="uuid-key-value" value="">
 							<input type="hidden" class="uuid-value" value="">
 							<input type="hidden" class="parent-uuid-value" value="${comment_uuid}">

@@ -1202,14 +1202,15 @@
 				? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
-							<input type="text" class="comment-value">
+							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
+							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
 							<input type="hidden" class="uuid-key-value" value="board_uuid">
 							<input type="hidden" class="uuid-value" value="${board_uuid}">
 							<input type="hidden" class="parent-uuid-value" value="">
 							<input type="hidden" class="mention-nickname-value" value="">
 							<input type="hidden" class="mention-profile-uuid-value" value="">
 							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
-							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
 						</div>
 					</div>`
 				: '';
@@ -1350,14 +1351,15 @@
 					? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
-							<input type="text" class="comment-value">
+							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
+							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
 							<input type="hidden" class="uuid-key-value" value="${uuidKey}">
 							<input type="hidden" class="uuid-value" value="${uuid}">
 							<input type="hidden" class="parent-uuid-value" value="">
 							<input type="hidden" class="mention-nickname-value" value="">
 							<input type="hidden" class="mention-profile-uuid-value" value="">
 							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
-							<i class="close-btn" onclick="onCloseCommentsInput(this);">×</i>
 						</div>
 					</div>`
 					: '';
@@ -1529,14 +1531,15 @@
 				? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">답글달기</span>
 						<div class="comment-input">
-							<input type="text" class="comment-value">
+							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
+							<textarea id="exampleDesc" class="length-input comment-value" maxlength="200"></textarea>
+							<p class="length-count-wrap"><span class="count-input">0</span>/150</p>
 							<input type="hidden" class="uuid-key-value" value="">
 							<input type="hidden" class="uuid-value" value="">
 							<input type="hidden" class="parent-uuid-value" value="${comment_uuid}">
 							<input type="hidden" class="mention-nickname-value" value="${nickname}">
 							<input type="hidden" class="mention-profile-uuid-value" value="${profile_uuid}">
 							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
-							<i class="close-btn" onclick="onCloseCommentsInput(this);">×</i>
 						</div>
 					</div>`
 				: '';

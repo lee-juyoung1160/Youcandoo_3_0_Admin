@@ -7,8 +7,8 @@
 	const btnXlsxImport	= $("#btnXlsxImport");
 	const btnXlsxExport	= $("#btnXlsxExport");
 	const btnAddUser	= $("#btnAddUser");
-	const selectedUserCount 	= $("#selectedUserCount");
-	const selectedUserTableBody = $("#selectedUserTableBody");
+	const selectedUserCount = $("#selectedUserCount");
+	const selectedUserTable = $("#selectedUserTable");
 	const resultBox 	= $(".result_box");
 	const btnOpenResult = $(".btn-open-result");
 	const targetPageWrap	= $("#targetPageWrap");
@@ -26,7 +26,7 @@
 	const modalTargetUser	= $("#modalTargetUser");
 	const targetUserTable	= $("#targetUserTable");
 	const btnMoveRight		= $("#btnMoveRight");
-	const movedUserTableBody = $("#movedUserTableBody")
+	const movedUserTable	= $("#movedUserTable");
 	const modalNickname		= $("#modalNickname");
 	const modalTargetPage	= $("#modalTargetPage");
 	const targetPageTable	= $("#targetPageTable");
@@ -35,6 +35,7 @@
 	const reqPage			= $("#req_page");
 	const pageUuid			= $("#page_uuid");
 	const reqContent		= $("#req_content");
+	let selectedUsers = [];
 
 	$( () => {
 		/** dataTable default config **/
@@ -93,41 +94,12 @@
 	function onClickBtnModalUserOpen()
 	{
 		modalTargetUserFadein();
-		initTargetUserModal();
+		initModalTargetUser();
 		getUsers();
-		buildMovedUser();
+		buildSelectedUser(movedUserTable);
 	}
 
-	function buildMovedUser()
-	{
-		movedUserTableBody.empty();
-
-		let selectedRow = selectedUserTableBody.find('tr');
-
-		let moveUserDom = '';
-		$(selectedRow).each(function () {
-			let profileId = $(this).data('uuid');
-			let nick 	  = $(this).data('nick');
-			let doit 	  = $(this).data('doit');
-			let notice 	  = $(this).data('notice');
-			let marketing = $(this).data('marketing');
-
-			moveUserDom +=
-				`<tr data-uuid="${profileId}" data-nick="${nick}" data-doit="${doit}" data-notice="${notice}" data-marketing="${marketing}">
-					<td>${nick}</td>
-					<td>${doit}</td>
-					<td>${notice}</td>
-					<td>${marketing}</td>
-					<td>
-						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
-					</td>
-				</tr>`
-		});
-
-		movedUserTableBody.append(moveUserDom);
-	}
-
-	function initTargetUserModal()
+	function initModalTargetUser()
 	{
 		modalNickname.val('');
 		modalNickname.trigger('focus');
@@ -175,6 +147,7 @@
 			},
 			destroy: true,
 			initComplete: function () {
+				uncheckedCheckAllAfterMovePage(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -199,32 +172,61 @@
 		return JSON.stringify(param);
 	}
 
+	function buildSelectedUser(_table)
+	{
+		let table = _table.DataTable();
+		table.destroy();
+		_table.empty();
+		_table.DataTable({
+			data: selectedUsers,
+			columns: [
+				{title: "닉네임",			data: "nickname",	width: "45%",
+					render: function (data, type, row, meta) {
+						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`
+					}
+				}
+				,{title: "두잇 알림",		data: "noti_doit",    		width: "15%" }
+				,{title: "공지 알림",		data: "noti_notice",    	width: "15%" }
+				,{title: "마케팅 알림",	data: "noti_marketing",    	width: "15%" }
+				,{title: "",			data: "noti_marketing",    	width: "5%",
+					render: function (data, type, row, meta) {
+						return `<i style="color: #ec5c5c;" data-row="${meta.row}" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>`
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				if (!hasDataOnDatatable(this))
+					removeEmptyRowFromTable();
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+			}
+		});
+	}
+
 	function onClickMoveRightUser()
 	{
 		if (moveValidation())
 		{
 			let table 		 = $("#targetUserTable").DataTable();
 			let selectedData = table.rows('.selected').data();
-			let moveUserDom = '';
-
+			let users = [];
 			for (let i=0; i<selectedData.length; i++)
 			{
 				let { profile_uuid, nickname, noti_doit, noti_notice, noti_marketing } = selectedData[i];
-				moveUserDom +=
-					`<tr data-uuid="${profile_uuid}" 
-							data-nick="${nickname}" 
-							data-doit="${noti_doit}" 
-							data-notice="${noti_notice}" 
-							data-marketing="${noti_marketing}">
-						<td>${nickname}</td>
-						<td>${noti_doit}</td>
-						<td>${noti_notice}</td>
-						<td>${noti_marketing}</td>
-						<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>
-					</tr>`
+				let userInfo = { "profile_uuid" : profile_uuid, "nickname" : nickname, "noti_doit" : noti_doit, "noti_notice" : noti_notice, "noti_marketing" : noti_marketing };
+				users.push(userInfo);
 			}
+			selectedUsers = users.concat(selectedUsers);
 
-			movedUserTableBody.append(moveUserDom);
+			buildSelectedUser(movedUserTable);
 		}
 	}
 
@@ -254,17 +256,16 @@
 		let table 		 = $("#targetUserTable").DataTable();
 		let selectedData = table.rows('.selected').data();
 
-		let movedUser = [];
-		$("#movedUserTableBody").find('tr').each(function () {
-			movedUser.push($(this).data("uuid"));
-		});
+		let selectedUsersId = [];
+		selectedUsers.map((value) => {
+			selectedUsersId.push(value.profile_uuid);
+		})
 
 		for (let i=0; i<selectedData.length; i++)
 		{
-			let detail = selectedData[i];
-			let profileId = detail.profile_uuid;
+			let { profile_uuid } = selectedData[i];
 
-			if (movedUser.indexOf(profileId) !== -1)
+			if (selectedUsersId.indexOf(profile_uuid) !== -1)
 				result = true;
 		}
 
@@ -273,14 +274,21 @@
 
 	function removeRow(obj)
 	{
+		let idx = $(obj).data('row');
+		selectedUsers.splice(idx, 1);
+
 		$(obj).closest('tr').remove();
+
+		buildSelectedUser(selectedUserTable);
+		buildSelectedUser(movedUserTable);
 	}
 
 	function onClickAddUser()
 	{
 		if (addUserValidation())
 		{
-			buildSelectedUser();
+			buildSelectedUser(selectedUserTable);
+			calculateSelectedCount();
 			modalFadeout();
 			resultBox.show();
 		}
@@ -288,7 +296,7 @@
 
 	function addUserValidation()
 	{
-		let selectedRowLength = movedUserTableBody.find('tr').length;
+		let selectedRowLength = movedUserTable.find('tbody').children().length;
 
 		if (selectedRowLength === 0)
 		{
@@ -299,43 +307,10 @@
 		return true;
 	}
 
-	function buildSelectedUser()
-	{
-		let selectedRow = movedUserTableBody.find('tr');
-		let selectedUserDom = '';
-
-		$(selectedRow).each(function () {
-			let profileId = $(this).data('uuid');
-			let nick 	  = $(this).data('nick');
-			let doit 	  = $(this).data('doit');
-			let notice 	  = $(this).data('notice');
-			let marketing = $(this).data('marketing');
-
-			selectedUserDom +=
-				`<tr data-uuid="${profileId}" data-nick="${nick}" data-doit="${doit}" data-notice="${notice}" data-marketing="${marketing}">
-					<td>${nick}</td>
-					<td>${doit}</td>
-					<td>${notice}</td>
-					<td>${marketing}</td>
-					<td>
-						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
-					</td>
-				</tr>`
-		});
-
-		selectedUserCount.html(selectedRow.length);
-
-		selectedUserTableBody.html(selectedUserDom);
-	}
-
 	function calculateSelectedCount()
 	{
-		let count = selectedUserTableBody.find('tr').length;
-
-		if (count === 0)
-			resultBox.hide();
-
-		selectedUserCount.html(count);
+		let count = selectedUsers.length;
+		selectedUserCount.html(count.toString());
 	}
 
 	function onClickToggleOpen(obj)
@@ -598,32 +573,11 @@
 	function getExcelDataCallback(data) {
 		if (!isEmpty(data.data))
 		{
-			buildSelectedUserFromXlsx(data);
+			selectedUsers = data.data;
+			buildSelectedUser(selectedUserTable);
 			resultBox.show();
 		}
 		calculateSelectedCount();
-	}
-
-	function buildSelectedUserFromXlsx(data)
-	{
-		let selectedUserDom = '';
-		for (let { profile_uuid, nickname, noti_doit, noti_notice, noti_marketing } of data.data)
-		{
-			selectedUserDom +=
-				`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-doit="${noti_doit}" data-notice="${noti_notice}" data-marketing="${noti_marketing}">
-					<td>${nickname}</td>
-					<td>${noti_doit}</td>
-					<td>${noti_notice}</td>
-					<td>${noti_marketing}</td>
-					<td>
-						<i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>
-					</td>
-				</tr>`
-		}
-
-		selectedUserCount.html(data.data.length);
-
-		selectedUserTableBody.html(selectedUserDom);
 	}
 
 	function onSubmitPush()
@@ -652,11 +606,12 @@
 		if (sendTargetUserType === 'individual')
 		{
 
-			selectedUserTableBody.find('tr').each(function () {
-				profileIds.push($(this).data('uuid'));
+			selectedUsers.map(value => {
+				let { profile_uuid } = value;
+				profileIds.push(profile_uuid);
 			});
 
-			profileIds = JSON.stringify(profileIds)
+			//profileIds = JSON.stringify(profileIds)
 		}
 		formData.append('push_profile', profileIds);
 		formData.append('push_category', sendTargetPageType);
@@ -689,8 +644,7 @@
 		}
 
 		let sendWhom 	= $("input[name=radio-target-user]:checked").val();
-		let targetCount = selectedUserTableBody.find('tr').length;
-		if (sendWhom === 'individual' && targetCount === 0)
+		if (sendWhom === 'individual' && selectedUsers.length === 0)
 		{
 			sweetToast(`발송 대상은 ${message.required}`);
 			return false;

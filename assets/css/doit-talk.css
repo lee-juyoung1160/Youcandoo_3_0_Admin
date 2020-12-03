@@ -426,7 +426,7 @@
     background-color: #fff;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-    z-index: 100;
+    z-index: 101;
 }
 .comment-input .close-btn {
     color: #888 !important;

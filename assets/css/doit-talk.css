@@ -291,7 +291,9 @@
 
 
 /* 두잇톡등록 */
-
+.doit-detail-page .inner {
+    margin-bottom: 200px;
+}
 .doit-detail-page .add-talk .question-text {
     float: right;
     color: #777;

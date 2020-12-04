@@ -31,19 +31,11 @@
                 <div class="list-wrap search-wrap clearfix">
                     <p class="list-common-title">검색어</p>
                     <div class="select-box">
-                        <label for="date_type">uniqued</label>
-                        <select id="date_type">
+                        <label for="se1">uniqueid</label>
+                        <select id="se1">
                             <option value="uniqued">uniqued</option>
-                            <option value="ip">ip</option>
-                            <option value="account_token">account_token</option>
-                        </select>
-                    </div>
-
-                    <div class="select-box">
-                        <label>키워드를 포함하는</label>
-                        <select id="selMatch">
-                            <option value="like">키워드를 포함하는</option>
-                            <option value="match">키워드와 일치하는</option>
+                            <option value="requestURL">requestURL</option>
+                            <option value="remote_ip">remote_ip</option>
                         </select>
                     </div>
 
@@ -59,16 +51,16 @@
             <div class="doit-list-option">
                 <ul class="clearfix">
                     <li>
-                        <p class="list-common-title">구분</p>
+                        <p class="list-common-title">상태</p>
                         <div class="radio-wrap">
-                            <input type="radio" id="r11" name="radio-user-active" value="">
-                            <label for="r11"><span></span>전체</label>
+                            <input type="radio" id="r20" name="radio-user-active" value="">
+                            <label for="r20"><span></span>전체</label>
 
-                            <input type="radio" id="r3" name="radio-user-active" value="Y">
-                            <label for="r3"><span></span>성공</label>
+                            <input type="radio" id="r21" name="radio-user-active" value="Y">
+                            <label for="r21"><span></span>정상</label>
 
-                            <input type="radio" id="r4" name="radio-user-active" value="N">
-                            <label for="r4"><span></span>실패</label>
+                            <input type="radio" id="r22" name="radio-user-active" value="N">
+                            <label for="r22"><span></span>실패</label>
                         </div>
                     </li>
                 </ul>
@@ -85,8 +77,8 @@
                     <div class="right-wrap clearfix">
                         <p>Total <strong class="data-num"></strong></p>
                         <div class="select-box">
-                            <label for="selPageLength"></label>
-                            <select id="selPageLength">
+                            <label for="se3"></label>
+                            <select id="se3">
                             </select>
                         </div>
                     </div>
@@ -94,22 +86,36 @@
                 </div>
                 <table id="dataTable">
                     <colgroup>
-                        <col style="width:25%;">
-                        <col style="width:25%;">
-                        <col style="width:25%;">
-                        <col style="width:25%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
+                        <col style="width:10%;">
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>닉네임</th>
-                        <th>ProfileID</th>
-                        <th>token</th>
-                        <th>Apache status</th>
+                        <th>uniqueid</th>
+                        <th>requestURL</th>
+                        <th>method</th>
+                        <th>Apache user_agent</th>
+                        <th>status</th>
+                        <th>process</th>
+                        <th>time</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><a href="#">베리베리베리베리베리베리베리베리</a></td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                        <td>
+                            <div>
+                                <input type="text" class="input-copy" style="width: 150px" value="000000000000000000000" readonly="">
+                                <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                            </div>
+                        </td>
                         <td>000000000000</td>
                         <td>000000000000</td>
                         <td>000000000000</td>
@@ -148,19 +154,11 @@
                         <label for="date_type">uniqued</label>
                         <select id="date_type">
                             <option value="uniqued">uniqued</option>
-                            <option value="ip">ip</option>
-                            <option value="account_token">account_token</option>
+                            <option value="Account_token">Account_token</option>
+                            <option value="Request">Request</option>
+                            <option value="Response">Response</option>
                         </select>
                     </div>
-
-                    <div class="select-box">
-                        <label>키워드를 포함하는</label>
-                        <select id="selMatch">
-                            <option value="like">키워드를 포함하는</option>
-                            <option value="match">키워드와 일치하는</option>
-                        </select>
-                    </div>
-
                     <div class="search-wrap">
                         <div class="search-box">
                             <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -170,24 +168,6 @@
                 </div>
             </div>
 
-            <div class="doit-list-option">
-                <ul class="clearfix">
-                    <li>
-                        <p class="list-common-title">구분</p>
-                        <div class="radio-wrap">
-                            <input type="radio" id="r11" name="radio-user-active" value="">
-                            <label for="r11"><span></span>전체</label>
-
-                            <input type="radio" id="r3" name="radio-user-active" value="Y">
-                            <label for="r3"><span></span>성공</label>
-
-                            <input type="radio" id="r4" name="radio-user-active" value="N">
-                            <label for="r4"><span></span>실패</label>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
             <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
                 <div class="btn-wrap">
                     <button class="search">검색</button>
@@ -195,37 +175,40 @@
                 </div>
             </div>
             <div class="table-wrap">
-            <div class="top clearfix">
-                <div class="right-wrap clearfix">
-                    <p>Total <strong class="data-num"></strong></p>
-                    <div class="select-box">
-                        <label for="selPageLength"></label>
-                        <select id="selPageLength">
-                        </select>
-                    </div>
-                </div>
 
-            </div>
             <table id="dataTable">
                 <colgroup>
-                    <col style="width:25%;">
-                    <col style="width:25%;">
-                    <col style="width:25%;">
-                    <col style="width:25%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
                 </colgroup>
                 <thead>
                     <tr>
+                        <th>uniqueid</th>
                         <th>닉네임</th>
-                        <th>ProfileID</th>
-                        <th>token</th>
-                        <th>Apache status</th>
+                        <th>profileID</th>
+                        <th>Token</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="#">베리베리베리베리베리베리베리베리</a></td>
                         <td>000000000000</td>
-                        <td>000000000000</td>
+                        <td><a href="#">베리베리</a></td>
+                        <td>
+                            <div>
+                                <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                                <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                                <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                            </div>
+                        </td>
                         <td>000000000000</td>
                     </tr>
                 </tbody>

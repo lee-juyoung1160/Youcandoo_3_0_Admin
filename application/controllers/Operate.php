@@ -33,5 +33,11 @@ class Operate extends MY_Controller {
         $this->load->layout('operate/log-dashboard');
     }
 
+    public function logs()
+    {
+        $this->load->layout('operate/log-list');
+    }
+
+
 
 }

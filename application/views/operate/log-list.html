@@ -1,0 +1,190 @@
+<link type="text/css" rel="stylesheet" href="/assets/css/plugins/jsoneditor.min.css">
+<link rel="stylesheet" href="/assets/css/log.css?version=<?php echo $this->config->item('version');?>">
+<section class="log-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">Log 내역</h2>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="date_type">uniqued</label>
+                    <select id="date_type">
+                        <option value="uniqued">uniqued</option>
+                        <option value="ip">ip</option>
+                        <option value="account_token">account_token</option>
+                        <option value="status">status</option>
+                    </select>
+                </div>
+
+                <div class="select-box">
+                    <label>키워드를 포함하는</label>
+                    <select id="selMatch">
+                        <option value="like">키워드를 포함하는</option>
+                        <option value="match">키워드와 일치하는</option>
+                    </select>
+                </div>
+
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <ol class="table-btn-wrap log-tab clearfix">
+            <li class="active">Apache</li>
+            <li>PHP</li>
+        </ol>
+        <article class="Apache">
+            <div class="table-wrap">
+                <div class="top clearfix">
+                    <div class="right-wrap clearfix">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <div class="select-box">
+                            <label for="selPageLength"></label>
+                            <select id="selPageLength">
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <table id="dataTable">
+                    <colgroup>
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>닉네임</th>
+                        <th>ProfileID</th>
+                        <th>token</th>
+                        <th>Apache status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="#">베리베리베리베리베리베리베리베리</a></td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<ul class="table-pagination clearfix">
+                    <li><i class="fas fa-angle-double-left"></i></li>
+                    <li class="active">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li><i class="fas fa-angle-double-right"></i></li>
+                </ul>-->
+            </div>
+        </article>
+
+        <article class="php clearfix">
+            <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <table id="dataTable">
+                <colgroup>
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>닉네임</th>
+                        <th>ProfileID</th>
+                        <th>token</th>
+                        <th>Apache status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">베리베리베리베리베리베리베리베리</a></td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                        <td>000000000000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+            <div class="jsoneditor-wrap">
+                <ol class="php-tab clearfix">
+                    <li class="active">tab1</li>
+                    <li>tab2</li>
+                </ol>
+                <div id="jsoneditor"></div>
+            </div>
+        </article>
+    </div>
+</section>
+<script src="/assets/js/plugins/tablesort.min.js"></script>
+<script src="/assets/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script src="/assets/js/plugins/jsoneditor.min.js"></script>
+<script>
+    // create the editor
+    const container = document.getElementById("jsoneditor")
+    const options = {}
+    const editor = new JSONEditor(container, options)
+
+    // set json
+    const initialJson = {
+        "Array": [1, 2, 3],
+        "Boolean": true,
+        "Null": null,
+        "Number": 123,
+        "Object": {"a": "b", "c": "d"},
+        "String": "Hello World"
+    }
+    editor.set(initialJson)
+
+    // get json
+    const updatedJson = editor.get()
+</script>

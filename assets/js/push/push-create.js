@@ -611,7 +611,7 @@
 				profileIds.push(profile_uuid);
 			});
 
-			//profileIds = JSON.stringify(profileIds)
+			profileIds = JSON.stringify(profileIds)
 		}
 		formData.append('push_profile', profileIds);
 		formData.append('push_category', sendTargetPageType);

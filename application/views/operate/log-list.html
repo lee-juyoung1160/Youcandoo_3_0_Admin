@@ -6,13 +6,13 @@
             <h2 class="main-title list-main-title">Log 내역</h2>
         </div>
 
-        <ol class="table-btn-wrap log-tab clearfix">
-            <li class="active">Apache</li>
-            <li>PHP</li>
+        <ol class="table-btn-wrap log-tab clearfix" id="olTab">
+            <li class="active" data-target="#apache">Apache</li>
+            <li data-target="#php">PHP</li>
         </ol>
 
 
-        <article class="apache">
+        <article class="apache" id="apache">
             <div class="list-common">
                 <div class="list-wrap clearfix">
                     <p class="list-common-title">날짜</p>
@@ -126,7 +126,7 @@
             </div>
         </article>
 
-        <article class="php clearfix">
+        <article class="php clearfix" id="php" style="display: none;">
             <div class="list-common">
                 <div class="list-wrap clearfix">
                     <p class="list-common-title">날짜</p>
@@ -272,4 +272,20 @@
 
     // get json
     const updatedJson = editor.get()
+
+    $("#olTab").on('click', function (event) {
+        toggleView(event);
+    })
+
+    function toggleView(event)
+    {
+        let target = event.target;
+        let targetContent = $(target).data('target');
+
+        $("#olTab").children().removeClass('active');
+        $(target).addClass('active');
+
+        $("article").hide();
+        $(targetContent).show();
+    }
 </script>

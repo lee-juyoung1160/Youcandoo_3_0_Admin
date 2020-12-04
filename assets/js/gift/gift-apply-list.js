@@ -8,17 +8,17 @@
 	const selPageLength	= $("#selPageLength");
 	const btnApproval	= $("#btnApproval");
 	const btnReject		= $("#btnReject");
-	const btnSendReserve = $("#btnSendReserve");
-	const balanceEl		= $("#balance");
+	/*const btnSendReserve = $("#btnSendReserve");*/
+	/*const balanceEl		= $("#balance");*/
 	const btnXlsxOut	= $("#btnXlsxOut");
 
 	/** 예약발송 모달 **/
-	const modalSendReserve = $("#modalSendReserve");
+	/*const modalSendReserve = $("#modalSendReserve");
 	const reserveDatePicker	= $("#reserveDatePicker");
 	const selHour		 = $("#selHour");
 	const selMinute		 = $("#selMinute");
 	const reserveMemo	 = $("#reserveMemo");
-	const btnSubmitReserve = $("#btnSubmitReserve");
+	const btnSubmitReserve = $("#btnSubmitReserve");*/
 	/** 메모모달 **/
 	const modalMemo		 = $("#modalMemo");
 	const modalMemoTitle = $("#modalMemoTitle");
@@ -33,14 +33,14 @@
 	let g_memo_type;
 
 	$( () => {
-		initReserveTimes();
+		/*initReserveTimes();*/
 		/** 잔액 **/
-		initBalance();
+		/*initBalance();*/
 		/** dataTable default config **/
 		initTableDefault();
 		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		initReserveDatepicker();
+		/*initReserveDatepicker();*/
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		/** 상단 검색 폼 초기화 **/
@@ -57,13 +57,13 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		btnApproval		.on("click", function () { g_memo_type = 'approval'; onClickBtnApprovalOrReject(); });
 		btnReject		.on("click", function () { g_memo_type = 'reject'; onClickBtnApprovalOrReject(); });
-		btnSendReserve	.on("click", function () { g_memo_type = ''; onClickBtnSendReserve(); });
+		/*btnSendReserve	.on("click", function () { g_memo_type = ''; onClickBtnSendReserve(); });*/
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
-		btnSubmitReserve .on("click", function () { onSubmitReserve(); });
+		/*btnSubmitReserve .on("click", function () { onSubmitReserve(); });*/
 	});
 
-	function initReserveTimes()
+	/*function initReserveTimes()
 	{
 		let hourOptions = '';
 		for (let i=9; i<=18; i++)
@@ -82,9 +82,9 @@
 		}
 		selMinute.html(minuteOptions);
 		initSelectOption(selMinute);
-	}
+	}*/
 
-	function initReserveDatepicker()
+	/*function initReserveDatepicker()
 	{
 		reserveDatePicker.datepicker({
 			dateFormat: "yy-mm-dd"
@@ -93,7 +93,7 @@
 			,dayNamesMin: label.dayNames
 			,minDate: 0
 		});
-	}
+	}*/
 
 	function initSearchForm()
 	{
@@ -104,7 +104,7 @@
 		initDayBtn();
 	}
 
-	function initBalance()
+	/*function initBalance()
 	{
 		let url = api.getBalanceGift;
 		let errMsg = `잔액 ${message.ajaxLoadError}`;
@@ -116,7 +116,7 @@
 	{
 		let { money } = data.data;
 		balanceEl.html(numberWithCommas(money));
-	}
+	}*/
 
 	function buildGrid()
 	{
@@ -207,7 +207,7 @@
 		return JSON.stringify(param);
 	}
 
-	function onClickBtnSendReserve()
+	/*function onClickBtnSendReserve()
 	{
 		if (modalValidation())
 		{
@@ -259,7 +259,7 @@
 			let msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
 			sweetToast(msg);
 		}
-	}
+	}*/
 
 	function onClickBtnApprovalOrReject()
 	{
@@ -314,7 +314,7 @@
 	{
 		modalFadeout();
 		onSubmitSearch();
-		initBalance();
+		/*initBalance();*/
 	}
 
 	function modalValidation()
@@ -326,7 +326,7 @@
 			return false;
 		}
 
-		let msg
+		/*let msg
 		if (isEmpty(g_memo_type) && isCheckedGift())
 		{
 			msg = `일반 상품은 승인 대상이 아닙니다. 
@@ -341,12 +341,12 @@
 					체크 해제 후 다시 시도해주세요.`
 			sweetToast(msg);
 			return false;
-		}
+		}*/
 
 		return true;
 	}
 
-	function isCheckedGift()
+	/*function isCheckedGift()
 	{
 		let result = false;
 		let table 		 = dataTable.DataTable();
@@ -376,7 +376,7 @@
 		}
 
 		return result;
-	}
+	}*/
 
 	function getSelectedRowsUuid()
 	{

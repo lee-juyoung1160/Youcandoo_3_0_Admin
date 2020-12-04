@@ -1,3 +1,6 @@
+.log-tab {
+    margin-top: 20px;
+}
 .log-tab li {
     width: calc(100%/2);
 }
@@ -10,10 +13,9 @@
     width: 48%;
     margin-top: 30px;
 }
-
 .php-tab li {
     float: left;
-    padding: 8px 15px;
+    padding: 10px 15px;
     background-color: #fff;
     cursor: pointer;
     transition: all .3s;

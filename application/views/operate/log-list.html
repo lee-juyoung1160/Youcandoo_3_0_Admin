@@ -29,7 +29,6 @@
                         <option value="uniqued">uniqued</option>
                         <option value="ip">ip</option>
                         <option value="account_token">account_token</option>
-                        <option value="status">status</option>
                     </select>
                 </div>
 
@@ -50,6 +49,24 @@
             </div>
         </div>
 
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">구분</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r11" name="radio-user-active" value="">
+                        <label for="r11"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-user-active" value="Y">
+                        <label for="r3"><span></span>성공</label>
+
+                        <input type="radio" id="r4" name="radio-user-active" value="N">
+                        <label for="r4"><span></span>실패</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
             <div class="btn-wrap">
                 <button class="search">검색</button>
@@ -61,52 +78,6 @@
             <li class="active">Apache</li>
             <li>PHP</li>
         </ol>
-        <article class="Apache">
-            <div class="table-wrap">
-                <div class="top clearfix">
-                    <div class="right-wrap clearfix">
-                        <p>Total <strong class="data-num"></strong></p>
-                        <div class="select-box">
-                            <label for="selPageLength"></label>
-                            <select id="selPageLength">
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-                <table id="dataTable">
-                    <colgroup>
-                        <col style="width:25%;">
-                        <col style="width:25%;">
-                        <col style="width:25%;">
-                        <col style="width:25%;">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>닉네임</th>
-                        <th>ProfileID</th>
-                        <th>token</th>
-                        <th>Apache status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><a href="#">베리베리베리베리베리베리베리베리</a></td>
-                        <td>000000000000</td>
-                        <td>000000000000</td>
-                        <td>000000000000</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--<ul class="table-pagination clearfix">
-                    <li><i class="fas fa-angle-double-left"></i></li>
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li><i class="fas fa-angle-double-right"></i></li>
-                </ul>-->
-            </div>
-        </article>
 
         <article class="php clearfix">
             <div class="table-wrap">
@@ -155,8 +126,8 @@
         </div>
             <div class="jsoneditor-wrap">
                 <ol class="php-tab clearfix">
-                    <li class="active">tab1</li>
-                    <li>tab2</li>
+                    <li class="active">Request</li>
+                    <li>Response</li>
                 </ol>
                 <div id="jsoneditor"></div>
             </div>

@@ -1329,7 +1329,7 @@
 							<i class="fas fa-times-circle"></i>
 						</button>`
 					: '';
-				let commentsBtn = (g_is_created_by_biz && g_doit_creator !== detail.profile_uuid && !isBlind && !isDel)
+				let commentsBtn = (g_is_created_by_biz && !isBlind && !isDel)
 					? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">

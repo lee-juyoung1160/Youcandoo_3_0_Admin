@@ -1,20 +1,35 @@
 
-    const nickname 	= $("#nickname");
-	const regDate	= $("#regDate");
-	const title		= $("#title");
-	const content	= $("#content");
-	const comment	= $("#comment");
+    const nicknameEl = $("#nickname");
+	/*const regDate	= $("#regDate");*/
+	const titleEl	 = $("#title");
+	const contentEl	 = $("#content");
+	const commentEl	 = $("#comment");
 	const attachment = $("#attachment");
-	const memo		= $("#memo");
-	const btnSubmit	= $("#btnSubmit");
+	const memoEl	 = $("#memo");
+	const btnSubmit	 = $("#btnSubmit");
+    /* 상세모달 */
+	const modalContentWrap	 = $("#modalContentWrap");
+    const modalCloseBtn = $(".close-btn");
+    const modalLayout 	= $(".modal-layout");
+    const modalContent 	= $(".modal-content");
+
+    let swipe;
 	let idx;
 
 	$(document).ready(function () {
+	    initSwipe();
 		/** 상세 불러오기 **/
 		getDetail();
         /** 이벤트 **/
-		/*btnSubmit.on('click', function () { onSubmitAnswer(); });*/
+        modalCloseBtn	.on('click', function () { modalFadeout(); });
+        modalLayout		.on('click', function () { modalFadeout(); });
+		btnSubmit.on('click', function () { onSubmitAnswer(); });
 	});
+
+    function initSwipe()
+    {
+        swipe = new Swiper('.swiper-container');
+    }
 
 	function getDetail()
 	{
@@ -37,48 +52,90 @@
         isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
     }
 
+    let g_qna_uuid;
 	function buildDetail(data)
 	{
-	    console.log(data)
-		let { qna_uuid, status, title, contents, } = data.data;
+		let { qna_uuid, status, title, contents, nickname, is_resource } = data.data;
 
-		if (detailData.status === '1')
-		{
-			alert(message.completePost);
-			location.href = page.detailInquiry+detailData.idx;
-		}
-		nickname.html(detailData.nickname);
-		regDate.html(detailData.created_datetime);
-		title.html(detailData.title);
-		content.html(detailData.contents);
+		if (status !== '대기')
+			location.href = page.detailInquiry+idx;
+
+        g_qna_uuid = qna_uuid;
+        nicknameEl.html(nickname);
+		titleEl.html(title);
+		contentEl.html(contents);
+		let attach = is_resource === 'Y' ? buildAttachment(data) : '-';
+		attachment.html(attach);
 	}
+
+	let attachments;
+	function buildAttachment(data)
+    {
+        attachments = data.data.image_url;
+        let images = '';
+        for (let i=0; i<attachments.length; i++)
+        {
+            images +=
+                `<p class="img-wrap">
+                    <img onclick="viewAttachment();" src="${attachments[i]}" alt="">
+                </p>`
+        }
+
+        return images;
+    }
+
+    function viewAttachment()
+    {
+        let images = '';
+        for (let i=0; i<attachments.length; i++)
+        {
+            images +=
+                `<div class="swiper-slide">
+                    <img src="${attachments[i]}" alt="">
+                </div>`;
+        }
+
+        modalContentWrap.html(images);
+        modalFadein();
+        buildSwipe();
+    }
+
+    function buildSwipe()
+    {
+        swipe.destroy(true, true);
+        swipe = new Swiper('.swiper-container', {
+            pagination : {
+                el: '.swiper-pagination'
+            }
+        });
+    }
 
 	function onSubmitAnswer()
 	{
 		if (validation())
-            sweetConfirm(message.modify, answerRequest);
+            sweetConfirm(message.create, answerRequest);
 	}
 
     function validation()
     {
-        if (isEmpty(comment.val()))
+        if (isEmpty(commentEl.val()))
         {
             alert('답변내용은 '+message.required);
-            comment.trigger('focus');
+            commentEl.trigger('focus');
             return false;
         }
 
         return true;
     }
 
-    function answerRequest(data)
+    function answerRequest()
     {
         let url 	= api.answerInquiry;
         let errMsg 	= message.ajaxError;
         let param = {
-            "qna_uuid" : g_event_uuid,
-            "comments" : g_event_type,
-            "event_title" : title.val().trim(),
+            "qna_uuid" : g_qna_uuid,
+            "comment" : commentEl.val().trim(),
+            "memo" : memoEl.val().trim(),
         }
 
         ajaxRequestWithJsonData(true, url, JSON.stringify(param), answerReqCallback, errMsg, false);
@@ -91,7 +148,7 @@
 
     function answerSuccess()
     {
-        location.href = page.listInquiry;
+        history.back();
     }
 	
 

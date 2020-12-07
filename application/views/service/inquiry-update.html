@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <!--<li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
                             <p class="sub-title important">등록일시</p>
@@ -26,7 +26,7 @@
                             <p class="detail-data" id="regDate"></p>
                         </div>
                     </div>
-                </li>
+                </li>-->
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">
@@ -53,8 +53,8 @@
                         <div class="col-1">
                             <p class="sub-title important">첨부파일</p>
                         </div>
-                        <div class="col-2 clearfix">
-                            <p class="img-wrap">
+                        <div class="col-2 clearfix" id="attachment">
+                            <!--<p class="img-wrap">
                                 <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/c3f6c02cd27d7f4c1f3c9a001b059c84.jpg" alt="">
                             </p>
                             <p class="img-wrap">
@@ -62,7 +62,7 @@
                             </p>
                             <p class="img-wrap">
                                 <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/c3f6c02cd27d7f4c1f3c9a001b059c84.jpg" alt="">
-                            </p>
+                            </p>-->
                         </div>
                     </div>
                 </li>
@@ -76,7 +76,7 @@
                             <p class="sub-title important">답변 내용 (*)</p>
                         </div>
                         <div class="col-2 clearfix">
-                            <textarea id="answer" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
+                            <textarea id="comment" placeholder="내용을 입력해주세요." name="text" cols="30" rows="10" style="float: left;"></textarea>
                         </div>
                     </div>
                 </li>
@@ -106,12 +106,12 @@
                 <li>
                     <div class="swiper-container">
                         <div class="swiper-wrapper" id="modalContentWrap">
-                            <div class="swiper-slide">
-                                <img src="https://purplejam.kr/content/images/2020/03/-----5.jpg" alt="">
+                            <!--<div class="swiper-slide">
+                                <img src="https://purplejam.kr/content/images/2020/03/-&#45;&#45;&#45;&#45;5.jpg" alt="">
                             </div>
                             <div class="swiper-slide">
-                                <img src="https://purplejam.kr/content/images/2020/03/-----5.jpg" alt="">
-                            </div>
+                                <img src="https://purplejam.kr/content/images/2020/03/-&#45;&#45;&#45;&#45;5.jpg" alt="">
+                            </div>-->
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
@@ -124,10 +124,3 @@
 </section>
 <script src="/assets/js/plugins/swiper.min.js"></script>
 <script src="/assets/js/inquiry/inquiry-update.js?version=<?php echo $this->config->item('version');?>"></script>
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: {
-            el: '.swiper-pagination',
-        },
-    });
-</script>

@@ -5,6 +5,7 @@
 	const dateType		= $("#date_type")
 	const searchType 	= $("#search_type");
 	const keyword 		= $("#keyword");
+	const status		= $("input[name=chk-send-status]");
 	const selPageLength	= $("#selPageLength");
 
 	/** 상세보기 모달 **/
@@ -37,6 +38,7 @@
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
+		status			.on("click", function () { atLeastOneChecked(this); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
@@ -52,6 +54,8 @@
 	function initSearchForm()
 	{
 		keyword.val('');
+		status.eq(0).prop('checked', true);
+		status.eq(1).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -131,6 +135,11 @@
 		let table = dataTable.DataTable();
 		let info = table.page.info();
 		let _page = (info.start / info.length) + 1;
+		let sendStatus = [];
+		status.each(function () {
+			if ($(this).is(":checked"))
+				sendStatus.push($(this).val())
+		})
 
 		let param = {
 			"limit" : Number(selPageLength.val())
@@ -140,6 +149,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val().trim()
+			,"status" : sendStatus
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

@@ -75,7 +75,7 @@
 		initSelectOption(selHour);
 
 		let minuteOptions = '';
-		for (let i=0; i<=59; i++)
+		for (let i=0; i<=59; i+=10)
 		{
 			let minutes = appendZero(i);
 			minuteOptions += `<option value="${minutes}">${minutes}분</option>`;

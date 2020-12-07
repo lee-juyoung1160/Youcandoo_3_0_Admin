@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
 <link rel="stylesheet" href="/assets/css/create-common.css">
 <link rel="stylesheet" href="/assets/css/inquiry-create.css">
 <section class="inquiry-create-page">
@@ -52,7 +53,13 @@
                         <div class="col-1">
                             <p class="sub-title important">첨부파일</p>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 clearfix">
+                            <p class="img-wrap">
+                                <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/c3f6c02cd27d7f4c1f3c9a001b059c84.jpg" alt="">
+                            </p>
+                            <p class="img-wrap">
+                                <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/c3f6c02cd27d7f4c1f3c9a001b059c84.jpg" alt="">
+                            </p>
                             <p class="img-wrap">
                                 <img src="https://youcandoo.yanadoocdn.com/doit/836a2aac7ec61f4db04549ee8b6c5df4/c3f6c02cd27d7f4c1f3c9a001b059c84.jpg" alt="">
                             </p>
@@ -89,5 +96,38 @@
             </ul>
         </div>
     </div>
+
+    <!--상세보기 모달-->
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">첨부파일</p>
+            <ul class="modal-information">
+                <li>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper" id="modalContentWrap">
+                            <div class="swiper-slide">
+                                <img src="https://purplejam.kr/content/images/2020/03/-----5.jpg" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://purplejam.kr/content/images/2020/03/-----5.jpg" alt="">
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
 </section>
+<script src="/assets/js/plugins/swiper.min.js"></script>
 <script src="/assets/js/inquiry/inquiry-update.js?version=<?php echo $this->config->item('version');?>"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+</script>

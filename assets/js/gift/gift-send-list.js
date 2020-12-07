@@ -92,7 +92,7 @@
 				}
 				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						return `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`;
+						return row.exchange_status === '예약완료' ? '-' : `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`;
 					}
 				}
 				,{title: "메모",    		data: "",  				width: "5%",	className: 'no-sort',
@@ -104,7 +104,7 @@
 				,{title: "예약발송등록일시",   data: "send_created_date", 	width: "10%" }
 				,{title: "재발송",   	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						let disabled = isEmpty(row.goods_code) ? 'disabled' : '';
+						let disabled = (row.exchange_status === '예약완료') ? 'disabled' : '';
 						return `<button onclick="onSubmitResendGift(this);" 
 										data-uuid="${data}"
 										data-trid=""

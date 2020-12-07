@@ -145,7 +145,7 @@
 				}
 				,{title: "메모",  	 data: "memo",    			width: "5%",
 					render: function (data) {
-						return !isEmpty(data) ? label.memo : label.dash
+						return buildMemo(data);
 					}
 				}
 			],
@@ -159,7 +159,6 @@
                 redrawPage(this, _page);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
 			},
             drawCallback: function (settings) {
                 buildTotalCount(this);
@@ -184,9 +183,32 @@
 		return JSON.stringify(param);
 	}
 
-	function setRowAttributes(nRow, aData)
+	function buildMemo(data)
 	{
+		let memoEl =
+			`<div class="tooltip">`
+		if (!isEmpty(data))
+			memoEl +=   '<i onmouseover="mouseoverMemo(this);" onmouseleave="mouseoutMemo(this);" class="fas fa-check-circle tooltip-mark on" style="cursor:pointer;"></i>';
+		else
+			memoEl +=   '<i class="fas fa-check-circle tooltip-mark" style="cursor: default;"></i>';
+		memoEl +=
+			`<div class="tooltip-hover-text" style="display: none;">
+                    <strong>memo</strong>
+                    <p>${data}</p>
+                </div>
+            </div>`
 
+		return memoEl;
+	}
+
+	function mouseoverMemo(obj)
+	{
+		$(obj).siblings().show();
+	}
+
+	function mouseoutMemo(obj)
+	{
+		$(obj).siblings().hide();
 	}
 
 	function onSubmitSearch()

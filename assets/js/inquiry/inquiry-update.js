@@ -13,23 +13,17 @@
     const modalLayout 	= $(".modal-layout");
     const modalContent 	= $(".modal-content");
 
-    let swipe;
 	let idx;
 
 	$(document).ready(function () {
-	    initSwipe();
 		/** 상세 불러오기 **/
 		getDetail();
+        commentEl.trigger('focus');
         /** 이벤트 **/
         modalCloseBtn	.on('click', function () { modalFadeout(); });
         modalLayout		.on('click', function () { modalFadeout(); });
 		btnSubmit.on('click', function () { onSubmitAnswer(); });
 	});
-
-    function initSwipe()
-    {
-        swipe = new Swiper('.swiper-container');
-    }
 
 	function getDetail()
 	{
@@ -68,46 +62,28 @@
 		attachment.html(attach);
 	}
 
-	let attachments;
 	function buildAttachment(data)
     {
-        attachments = data.data.image_url;
+        let attachments = data.data.image_url;
         let images = '';
         for (let i=0; i<attachments.length; i++)
         {
             images +=
                 `<p class="img-wrap">
-                    <img onclick="viewAttachment();" src="${attachments[i]}" alt="">
+                    <img onclick="viewAttachment(this);" src="${attachments[i]}" alt="">
                 </p>`
         }
 
         return images;
     }
 
-    function viewAttachment()
+    function viewAttachment(obj)
     {
-        let images = '';
-        for (let i=0; i<attachments.length; i++)
-        {
-            images +=
-                `<div class="swiper-slide">
-                    <img src="${attachments[i]}" alt="">
-                </div>`;
-        }
+        let imageUrl = $(obj).prop('src');
+        let images = `<img src="${imageUrl}" alt="">`;
 
         modalContentWrap.html(images);
         modalFadein();
-        buildSwipe();
-    }
-
-    function buildSwipe()
-    {
-        swipe.destroy(true, true);
-        swipe = new Swiper('.swiper-container', {
-            pagination : {
-                el: '.swiper-pagination'
-            }
-        });
     }
 
 	function onSubmitAnswer()

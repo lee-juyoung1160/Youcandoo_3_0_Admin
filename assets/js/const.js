@@ -434,7 +434,7 @@
 		,updateFaq : '/service/faq/update/'
 
 		,listInquiry : '/service/inquiry'
-		,answerInquiry : '/service/inquiry/update/'
+		,updateInquiry : '/service/inquiry/update/'
 		,detailInquiry : '/service/inquiry/detail/'
 
 		,listProhibition : '/service/prohibition'

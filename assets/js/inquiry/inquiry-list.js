@@ -119,7 +119,8 @@
                 ,{title: "답변상태",  data: "status",  			width: "5%" }
 				,{title: "제목",  	 data: "title",    			width: "25%",
                     render: function (data, type, row, meta) {
-				        return `<a href="${page.detailInquiry}${row.idx}">${data}</a>`;
+						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
+				        return `<a href="${baseUrl}${row.idx}">${data}</a>`;
                     }
                 }
 				,{title: "작성자", 	 data: "profile_uuid",		width: "20%",

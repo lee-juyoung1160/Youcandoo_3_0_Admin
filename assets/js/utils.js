@@ -47,6 +47,16 @@
 		return new Date(_year, _month, 0).getDate();
 	}
 
+	function getCurrentHours()
+	{
+		return new Date().getHours();
+	}
+
+	function getCurrentMinutes()
+	{
+		return new Date().getMinutes();
+	}
+
 	function getStringFormatToDate(_date, separator)
 	{
 		let yyyy 	= _date.getFullYear().toString();

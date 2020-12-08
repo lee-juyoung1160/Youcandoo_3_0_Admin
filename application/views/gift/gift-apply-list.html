@@ -73,7 +73,7 @@
         <div class="table-wrap">
             <div class="top clearfix">
                 <div class="right-wrap clearfix">
-                    <!--<p class="balance-num">잔액: <span id="balance"></span>원</p>-->
+                    <p class="balance-num">잔액: <span id="balance"></span>원</p>
                     <p>Total <strong class="data-num"></strong></p>
                     <div class="select-box">
                         <label for="selPageLength"></label>
@@ -84,7 +84,7 @@
                 <div class="btn-wrap">
                     <button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>승인</button>
                     <button id="btnReject" class="btn-danger" type="button"><i class="fas fa-ban"></i>취소</button>
-                    <!--<button id="btnSendReserve" class="btn-warning" type="button"><i class="fas fa-clock"></i>예약발송</button>-->
+                    <button id="btnSendReserve" class="btn-warning" type="button"><i class="fas fa-clock"></i>예약발송</button>
                     <button id="btnXlsxOut" class="btn-excel" type="button"><i class="fas fa-table"></i>엑셀 다운받기</button>
                 </div>
             </div>
@@ -177,7 +177,7 @@
             <p class="modal-title">예약발송</p>
             <ul class="modal-information">
                 <li>
-                    <p class="sub-title">예약 발송 시간</p>
+                    <p class="sub-title">예약 발송 일시</p>
                     <div class="clearfix">
                         <div class="input-wrap">
                             <input id="reserveDatePicker" type="text" style="width: 200px;">
@@ -186,7 +186,7 @@
                             <div class="select-box">
                                 <label for="selHour"></label>
                                 <select id="selHour">
-                                    <!--<option value="09">9시</option>
+                                    <option value="09">9시</option>
                                     <option value="10">10시</option>
                                     <option value="11">11시</option>
                                     <option value="12">12시</option>
@@ -195,18 +195,18 @@
                                     <option value="15">15시</option>
                                     <option value="16">16시</option>
                                     <option value="17">17시</option>
-                                    <option value="18">18시</option>-->
+                                    <option value="18">18시</option>
                                 </select>
                             </div>
                             <div class="select-box">
                                 <label for="selMinute"></label>
                                 <select id="selMinute">
-                                    <!--<option value="00">00분</option>
+                                    <option value="00">00분</option>
                                     <option value="10">10분</option>
                                     <option value="20">20분</option>
                                     <option value="30">30분</option>
                                     <option value="40">40분</option>
-                                    <option value="50">50분</option>-->
+                                    <option value="50">50분</option>
                                 </select>
                             </div>
                         </div>
@@ -214,8 +214,7 @@
                 </li>
                 <li>
                     <p class="cap">
-                    * 예약 가능한 발송 건수:<br>
-                    * 예약 가능 날짜 : 신청일로 부터 +15일까지 예약가능<br>
+                    * 예약발송일시는 현재시간 이후로만 가능합니다.<br>
                     * 예약발송일 기준 판매종료/예약종로/가격변동이 있는 상품의 경우, 예약발송이 불가 할 수 있습니다
                     </p>
                 </li>

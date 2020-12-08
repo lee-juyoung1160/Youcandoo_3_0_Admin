@@ -35,6 +35,7 @@
 		,insertTop : '상단고정을 설정하시겠습니까?'
 		/*,overCntTop : '상단고정은 최대 3개까지 설정할 수 있습니다.'*/
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
+		,compareReserveDatetime: '예약발송일시는 현재시간 이후로 설정해야 합니다.'
 		,onlyAlphabet : '영문만 입력할 수 있습니다.'
 		,ajaxError : ` 처리 중, 일시적인 오류가 발생했습니다.
 					잠시 후 다시 시도해주세요.`

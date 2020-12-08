@@ -326,7 +326,7 @@
 		let msg
 		if (isEmpty(g_memo_type) && hasGeneralGift())
 		{
-			msg = `일반 상품은 승인 대상이 아닙니다. 
+			msg = `일반 상품은 자동발송 대상이 아닙니다. 
 					체크 해제 후 다시 시도해주세요.`
 			sweetToast(msg);
 			return false;

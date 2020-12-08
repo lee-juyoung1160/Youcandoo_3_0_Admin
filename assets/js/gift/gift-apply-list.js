@@ -310,7 +310,7 @@
 	function reqSuccess()
 	{
 		modalFadeout();
-		onSubmitSearch();
+		tableReloadAndStayCurrentPage(dataTable);
 		initBalance();
 	}
 
@@ -393,6 +393,7 @@
 	function onSubmitSearch()
 	{
 		let table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		uncheckedCheckAll();
 		initMaxDateToday();

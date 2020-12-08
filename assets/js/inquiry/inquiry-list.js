@@ -180,6 +180,8 @@
 			,"status" : $("input:radio[name=radio-status]:checked").val()
 		}
 
+		setHistoryParam(param);
+
 		return JSON.stringify(param);
 	}
 

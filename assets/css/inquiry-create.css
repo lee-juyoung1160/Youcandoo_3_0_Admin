@@ -21,6 +21,7 @@
     overflow: hidden;
     float: left;
     width: 150px;
+    height: 150px;
     margin-left: 10px;
     cursor: pointer;
 }
@@ -34,6 +35,5 @@
     width: 800px;
 }
 .inquiry-create-page .modal-content .modal-information {
-    overflow-y: initial;
-    max-height: initial;
+    max-height: 800px;
 }

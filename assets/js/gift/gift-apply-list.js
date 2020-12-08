@@ -5,6 +5,7 @@
 	const dateType		= $("#date_type")
 	const searchType 	= $("#search_type");
 	const keyword 		= $("#keyword");
+	const giftType 		= $("input[name=radio-gift-type]");
 	const selPageLength	= $("#selPageLength");
 	const btnApproval	= $("#btnApproval");
 	const btnReject		= $("#btnReject");
@@ -76,6 +77,7 @@
 	function initSearchForm()
 	{
 		keyword.val('');
+		giftType.eq(0).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -176,6 +178,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val().trim()
+			,"gift_type" : $("input[name=radio-gift-type]:checked").val()
 			,"status" : ["대기"]
 		}
 
@@ -409,6 +412,7 @@
 			,"to_date" : dateTo.val()
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val().trim()
+			,"gift_type" : $("input[name=radio-gift-type]:checked").val()
 			,"status" : ["대기"]
 		}
 

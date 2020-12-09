@@ -1201,6 +1201,8 @@
 				`<div class="card-warp">
 					<div class="card">
 						<div class="card-body ${blindClass}">
+							<input type="hidden" class="uuid-key-value" value="board_uuid">
+							<input type="hidden" class="uuid-value" value="${board_uuid}">
 							<div class="row">
 								<p class="type-name">공지</p>
 							</div>
@@ -1609,7 +1611,7 @@
 
 		if (isEmpty(g_comments_value))
 		{
-			sweetToast(`댓글(댭글)은 ${message.required}`);
+			sweetToast(`댓글(답글)은 ${message.required}`);
 			$(obj).siblings('.comment-value').trigger('focus');
 			return;
 		}

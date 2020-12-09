@@ -106,6 +106,8 @@
 		, regular: '일반'
 		, promotion: '프로모션'
 		, personal: '개인'
+		, member: '회원'
+		, guest: '비회원'
 		, biz: '기업'
 		, image: '사진'
 		, video: '영상'

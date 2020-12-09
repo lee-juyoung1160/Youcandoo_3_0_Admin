@@ -117,12 +117,17 @@
 			columns: [
 				{title: "문의구분",   data: "qna_type",    		width: "10%" }
                 ,{title: "답변상태",  data: "status",  			width: "5%" }
-				,{title: "제목",  	 data: "title",    			width: "25%",
+				,{title: "제목",  	 data: "title",    			width: "20%",
                     render: function (data, type, row, meta) {
 						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
 				        return `<a href="${baseUrl}${row.idx}">${data}</a>`;
                     }
                 }
+				, {title: "회원구분", data: "profile_uuid", width: "5%",
+					render: function (data) {
+						return isEmpty(data) ? label.guest : label.member;
+					}
+				}
 				,{title: "작성자", 	 data: "profile_uuid",		width: "20%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? row.name : row.nickname;
@@ -133,12 +138,12 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "답변자",  	 data: "userid",    		width: "10%",
+				,{title: "처리자",  	 data: "userid",    		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "답변일시",   data: "comment_datetime",  width: "10%",
+				,{title: "처리일시",   data: "comment_datetime",  width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}

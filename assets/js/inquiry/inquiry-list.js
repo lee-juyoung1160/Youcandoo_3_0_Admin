@@ -120,7 +120,7 @@
 				,{title: "제목",  	 data: "title",    			width: "20%",
                     render: function (data, type, row, meta) {
 						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
-				        return `<a href="${baseUrl}${row.idx}">${data}</a>`;
+				        return `<a href="${baseUrl}${row.idx}" class="line-clamp" style="max-width: 280px">${data}</a>`;
                     }
                 }
 				, {title: "회원구분", data: "profile_uuid", width: "5%",

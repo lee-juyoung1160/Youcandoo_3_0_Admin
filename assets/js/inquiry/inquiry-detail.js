@@ -3,6 +3,9 @@
 	/*const regDate	= $("#regDate");*/
 	const titleEl	 = $("#title");
 	const contentEl	 = $("#content");
+	const appVersion = $("#appVersion");
+	const osVersion	 = $("#osVersion");
+	const deviceEl	 = $("#deviceEl");
 	const attachment = $("#attachment");
 	const commentEl	 = $("#comment");
 	const memoEl	 = $("#memo");
@@ -47,7 +50,7 @@
 
 	function buildDetail(data)
 	{
-		let { status, title, contents, nickname, is_resource, userid, comment, memo, comment_datetime } = data.data;
+		let { status, title, contents, nickname, app_version, os_version, device, is_resource, userid, comment, memo, comment_datetime } = data.data;
 
 		if (status === '대기')
 			location.href = page.updateInquiry+idx;

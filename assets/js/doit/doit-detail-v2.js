@@ -1605,16 +1605,17 @@
 		g_mention_nickname_value = $(obj).siblings('.mention-nickname-value').val();
 		g_mention_profile_uuid_value = $(obj).siblings('.mention-profile-uuid-value').val();
 		g_comments_value = $(obj).siblings('.comment-value').val();
-		g_comments_value = (isComments && !isEmpty(g_mention_profile_uuid_value) && g_doit_creator !== g_mention_profile_uuid_value)
-			? `@${g_mention_nickname_value} ${g_comments_value}`
-			: g_comments_value;
-
 		if (isEmpty(g_comments_value))
 		{
 			sweetToast(`댓글(답글)은 ${message.required}`);
 			$(obj).siblings('.comment-value').trigger('focus');
 			return;
 		}
+		g_comments_value = (isComments && !isEmpty(g_mention_profile_uuid_value) && g_doit_creator !== g_mention_profile_uuid_value)
+			? `@${g_mention_nickname_value} ${g_comments_value}`
+			: g_comments_value;
+
+
 
 		sweetConfirm(message.create, createCommentsRequest);
 	}

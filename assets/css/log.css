@@ -1,27 +1,5 @@
-.log-tab {
-    margin-top: 20px;
-}
-.log-tab li {
-    width: calc(100%/2);
-}
-.php .table-wrap {
-    float: left;
-    width: 48%;
-}
+
 .php .jsoneditor-wrap {
-    float: right;
-    width: 48%;
-    margin-top: 30px;
+    width: 100%;
 }
-.php-tab li {
-    float: left;
-    padding: 10px 15px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all .3s;
-}
-.php-tab li.active, .php-tab li:hover {
-    color: #fff;
-    font-weight: 600;
-    background-color: #3883fa;
-}
+

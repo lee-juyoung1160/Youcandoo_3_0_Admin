@@ -31,7 +31,7 @@
 	const modalContent 	= $(".modal-content");
 
 
-	let g_memo_type;
+	let g_approval_type;
 
 	$( () => {
 		/** 잔액 **/
@@ -55,9 +55,9 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
-		btnApproval		.on("click", function () { g_memo_type = 'approval'; onClickBtnApprovalOrReject(); });
-		btnReject		.on("click", function () { g_memo_type = 'reject'; onClickBtnApprovalOrReject(); });
-		btnSendReserve	.on("click", function () { g_memo_type = ''; onClickBtnSendReserve(); });
+		btnApproval		.on("click", function () { g_approval_type = 'approval'; onClickBtnApprovalOrReject(); });
+		btnReject		.on("click", function () { g_approval_type = 'reject'; onClickBtnApprovalOrReject(); });
+		btnSendReserve	.on("click", function () { g_approval_type = ''; onClickBtnSendReserve(); });
 		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
 		btnSubmitReserve .on("click", function () { onSubmitReserve(); });
@@ -279,7 +279,7 @@
 
 	function initModalMemo()
 	{
-		title = g_memo_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
+		title = g_approval_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
 
 		modalMemoTitle.html(title);
 		memoEl.trigger('focus');
@@ -288,13 +288,13 @@
 
 	function onSubmitModalMemo()
 	{
-		let mgs = g_memo_type === 'approval' ? message.approve : message.reject;
+		let mgs = g_approval_type === 'approval' ? message.approve : message.reject;
 		sweetConfirm(mgs, memoRequest);
 	}
 
 	function memoRequest()
 	{
-		let url 	= g_memo_type === 'approval' ? api.approvalGift : api.rejectGift;
+		let url 	= g_approval_type === 'approval' ? api.approvalGift : api.rejectGift;
 		let errMsg 	= label.approval+message.ajaxError;
 		let uuids 	= getSelectedRowsUuid();
 		let param   = {
@@ -327,7 +327,7 @@
 		}
 
 		let msg
-		if (isEmpty(g_memo_type) && hasGeneralGift())
+		if (isEmpty(g_approval_type) && hasGeneralGift())
 		{
 			msg = `일반 상품은 자동발송 대상이 아닙니다. 
 					체크 해제 후 다시 시도해주세요.`
@@ -335,7 +335,7 @@
 			return false;
 		}
 
-		if (!isEmpty(g_memo_type) && hasGifticon())
+		if (g_approval_type === 'approval' && hasGifticon())
 		{
 			msg = `기프티콘은 승인 대상이 아닙니다. 
 					체크 해제 후 다시 시도해주세요.`

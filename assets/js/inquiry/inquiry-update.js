@@ -1,6 +1,8 @@
 
     const nicknameEl = $("#nickname");
-	/*const regDate	= $("#regDate");*/
+	const appVersion = $("#appVersion");
+	const osVersion  = $("#osVersion");
+	const deviceEl   = $("#device");
 	const titleEl	 = $("#title");
 	const contentEl	 = $("#content");
 	const commentEl	 = $("#comment");
@@ -49,13 +51,16 @@
     let g_qna_uuid;
 	function buildDetail(data)
 	{
-		let { qna_uuid, status, title, contents, nickname, is_resource } = data.data;
+		let { qna_uuid, status, title, contents, nickname, app_version, os_version, device, is_resource } = data.data;
 
 		if (status !== '대기')
 			location.href = page.detailInquiry+idx;
 
         g_qna_uuid = qna_uuid;
         nicknameEl.html(nickname);
+        appVersion.html(app_version);
+        osVersion.html(os_version);
+        deviceEl.html(device);
 		titleEl.html(title);
 		contentEl.html(contents);
 		let attach = is_resource === 'Y' ? buildAttachment(data) : '-';

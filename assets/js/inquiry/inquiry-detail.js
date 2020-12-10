@@ -5,7 +5,7 @@
 	const contentEl	 = $("#content");
 	const appVersion = $("#appVersion");
 	const osVersion	 = $("#osVersion");
-	const deviceEl	 = $("#deviceEl");
+	const deviceEl	 = $("#device");
 	const attachment = $("#attachment");
 	const commentEl	 = $("#comment");
 	const memoEl	 = $("#memo");
@@ -56,6 +56,9 @@
 			location.href = page.updateInquiry+idx;
 
 		nicknameEl.html(nickname);
+		appVersion.html(app_version);
+		osVersion.html(os_version);
+		deviceEl.html(device);
 		titleEl.html(title);
 		contentEl.html(contents);
 		let attach = is_resource === 'Y' ? buildAttachment(data) : '-';

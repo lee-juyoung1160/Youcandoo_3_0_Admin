@@ -1,6 +1,6 @@
 <link type="text/css" rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
 <link rel="stylesheet" href="/assets/css/create-common.css">
-<link rel="stylesheet" href="/assets/css/inquiry-create.css">
+<link rel="stylesheet" href="/assets/css/inquiry-create.css?version=<?php echo $this->config->item('version');?>">
 <section class="inquiry-create-page">
     <div class="inner">
         <h2 class="main-title">1:1 문의 답변</h2>
@@ -17,16 +17,27 @@
                         </div>
                     </div>
                 </li>
-                <!--<li>
+                <li class="device-info">
                     <div class="col-wrap clearfix">
                         <div class="col-1">
-                            <p class="sub-title important">등록일시</p>
+                            <p class="sub-title important">기기정보</p>
                         </div>
-                        <div class="col-2">
-                            <p class="detail-data" id="regDate"></p>
+                        <div class="col-2 clearfix">
+                            <dl class="clearfix">
+                                <dt>앱버전: </dt>
+                                <dd>1.70</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>os버전: </dt>
+                                <dd>14.2</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>기기: </dt>
+                                <dd>iphone</dd>
+                            </dl>
                         </div>
                     </div>
-                </li>-->
+                </li>
                 <li>
                     <div class="col-wrap clearfix">
                         <div class="col-1">

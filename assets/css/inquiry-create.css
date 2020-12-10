@@ -37,3 +37,18 @@
 .inquiry-create-page .modal-content .modal-information {
     max-height: 800px;
 }
+.device-info dl {
+    float: left;
+    color: #404040;
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 20px;
+}
+.device-info dl dt,
+.device-info dl dd {
+    display: inline;
+}
+.device-info dl dt {
+    margin-right: 5px;
+    font-weight: 700;
+}

@@ -2,4 +2,16 @@
 .php .jsoneditor-wrap {
     width: 100%;
 }
+.tab li {
+    float: left;
+    padding: 10px 13px;
+    color: #fff;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: all .3s;
+}
+.tab li.on,
+.tab li:hover {
+    background-color: #3883fa;
+}
 

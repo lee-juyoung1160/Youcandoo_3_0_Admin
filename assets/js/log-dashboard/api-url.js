@@ -1,7 +1,7 @@
 
 	const search 		= $(".search");
 	const reset 		= $(".reset");
-	const dataTable		= $("#dataTable")
+	const dataTable		= $("#dataTable");
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");

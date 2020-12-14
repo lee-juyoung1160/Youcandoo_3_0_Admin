@@ -10,7 +10,9 @@
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
-	const jsonContainer = document.getElementById("jsonEditor");
+	const modalTab 		= $("#modalTab");
+	const reqEditor		= document.getElementById("requestEditor");
+	const respEditor	= document.getElementById("responseEditor");
 	let jsonEditor;
 
 	$( () => {
@@ -24,8 +26,6 @@
 		initSearchForm();
 		/** 목록 **/
 		buildGrid();
-		/** jsonEditor 초기화 **/
-		initJsonEditor();
 		/** 이벤트 **/
 		$("body")  		.on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
@@ -34,6 +34,7 @@
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		modalTab		.on('click', function (event) { onClickModalTab(event.target); });
 	});
 
 	function initSearchForm()
@@ -61,15 +62,30 @@
 				}
 			},
 			columns: [
-				{title: "unique_id", 		data: "uniqueid",   		width: "22%" }
-				,{title: "account_token", 	data: "account_token",   	width: "22%",
+				{title: "unique_id", 		data: "uniqueid",   		width: "15%",
 					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
+						return data.length > 1
+							? `<div>
+                                 <input type="text" class="input-copy" style="width: 150px" value="${data}" readonly="">
+                                 <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+							   </div>`
+							: label.dash;
 					}
 				}
-				,{title: "url", 			data: "apache_request",   	width: "15%" }
+				,{title: "account_token", 	data: "account_token",   	width: "15%",
+					render: function (data) {
+						return isEmpty(data)
+							? label.dash
+							: `<div>
+                                 <input type="text" class="input-copy" style="width: 150px" value="${data}" readonly="">
+                                 <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+							   </div>`;
+					}
+				}
+				,{title: "url", 			data: "apache_request",   	width: "20%" }
 				,{title: "remote_ip", 		data: "remote_ip",  		width: "10%" }
 				,{title: "status", 			data: "apache_status",  	width: "5%" }
+				,{title: "process_time", 	data: "process_time",  		width: "10%" }
 				,{title: "@timestamp", 		data: "@timestamp",      	width: "15%" }
 				,{title: "응답/요청", 		data: "uniqueid",      		width: "5%",
 					render: function (data, type, row, meta) {
@@ -137,24 +153,39 @@
 		setJsonEditor(data);
 	}
 
-	function initJsonEditor()
-	{
-		/*const editorOptions = {
-			"search" : false
-			,"navigationBar" : false
-		};
-		jsonEditor = new JSONEditor(jsonContainer, editorOptions);*/
-	}
-
 	function setJsonEditor(data)
 	{
-		jsonContainer.innerHTML = '';
+		reqEditor.innerHTML = '';
+		respEditor.innerHTML = '';
 		const editorOptions = {
 			"mode" : "text"
 			,"search" : false
 		};
-		jsonEditor = new JSONEditor(jsonContainer, editorOptions);
-		jsonEditor.set(data.data);
+
+		jsonEditor = new JSONEditor(reqEditor, editorOptions);
+		jsonEditor.set(data.data.php_request);
+
+		jsonEditor = new JSONEditor(respEditor, editorOptions);
+		jsonEditor.set(data.data.php_response);
+	}
+
+	function onClickModalTab(target)
+	{
+		toggleOnAndOffModalTab(target);
+		toggleShowAndHideModalTabContents(target);
+	}
+
+	function toggleOnAndOffModalTab(target)
+	{
+		$(target).siblings().removeClass('on');
+		$(target).addClass('on');
+	}
+
+	function toggleShowAndHideModalTabContents(target)
+	{
+		$(target).parent().siblings().hide()
+		let targetContent = $(target).data('target');
+		$(targetContent).show();
 	}
 
 	function onSubmitSearch()

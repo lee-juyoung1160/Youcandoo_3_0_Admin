@@ -71,14 +71,20 @@
 				}
 			},
 			columns: [
-				{title: "unique_id", 		data: "uniqueid",   		width: "20%",
+				{title: "unique_id", 		data: "uniqueid",   		width: "25%",
 					render: function (data, type, row, meta) {
-						return `<a onclick="">${data}</a>`;
+						return data.length > 1 ? `<a onclick="viewDetail(this);" id="${data}">${data}</a>` : label.dash;
 					}
 				}
-				,{title: "process", 	data: "process",   			width: "10%" }
-				,{title: "remote_ip", 	data: "remote_ip",  		width: "10%",   className: "no-sort" }
-				,{title: "@timestamp", 	data: "@timestamp",      	width: "15%",    className: "no-sort" }
+				,{title: "account_token", 	data: "account_token",   	width: "25%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "url", 			data: "apache_request",   	width: "15%" }
+				,{title: "remote_ip", 		data: "remote_ip",  		width: "10%" }
+				,{title: "status", 			data: "apache_status",  	width: "5%" }
+				,{title: "@timestamp", 		data: "@timestamp",      	width: "15%" }
 			],
 			serverSide: true,
 			paging: true,

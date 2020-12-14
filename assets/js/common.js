@@ -828,10 +828,10 @@
         if (_auth === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
         if (_auth === '/operate/log')
         {
-            accessibleMenus.push(_auth+'/url');
-            accessibleMenus.push(_auth+'/php');
-            accessibleMenus.push(_auth+'/apache');
-            accessibleMenus.push(_auth+'/process');
+            accessibleMenus.push(_auth+'/api_url');
+            accessibleMenus.push(_auth+'/api_php_error');
+            accessibleMenus.push(_auth+'/api_apache_error');
+            accessibleMenus.push(_auth+'/api_process_time');
         }
     }
 

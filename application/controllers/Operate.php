@@ -28,23 +28,23 @@ class Operate extends MY_Controller {
         }
     }
 
-    public function log($Route = "main")
+    public function log($Route = "")
     {
         switch ($Route) {
-            case "main":
+            case "":
                 $this->load->layout('operate/log-dashboard');
                 break;
-            case "url":
-                $this->load->layout('operate/log-list');
+            case "api_url":
+                $this->load->layout('operate/log-api-url');
                 break;
-            case "php":
-                $this->load->layout('operate/log-php');
+            case "api_php_error":
+                $this->load->layout('operate/log-api-url');
                 break;
-            case "apache":
-                $this->load->layout('operate/log-apache');
+            case "api_apache_error":
+                $this->load->layout('operate/log-api-url');
                 break;
-            case "process":
-                $this->load->layout('operate/log-process');
+            case "api_process_time":
+                $this->load->layout('operate/log-api-url');
                 break;
         }
     }

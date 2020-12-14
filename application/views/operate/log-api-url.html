@@ -3,12 +3,10 @@
 <section class="log-list-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title list-main-title">Log 내역</h2>
+            <h2 class="main-title list-main-title">Log(Api Url)</h2>
         </div>
 
-
-
-        <article class="php clearfix" id="php">
+        <article class="php clearfix">
             <div class="list-common">
                 <div class="list-wrap clearfix">
                     <p class="list-common-title">날짜</p>
@@ -27,12 +25,12 @@
                 <div class="list-wrap search-wrap clearfix">
                     <p class="list-common-title">검색어</p>
                     <div class="select-box">
-                        <label for="date_type">uniqued</label>
-                        <select id="date_type">
+                        <label for="search_type">uniqued</label>
+                        <select id="search_type">
+                            <option value="php_request">Request</option>
                             <option value="uniqued">uniqued</option>
-                            <option value="Account_token">Account_token</option>
-                            <option value="Request">Request</option>
-                            <option value="Response">Response</option>
+                            <option value="account_token">Account_token</option>
+                            <option value="response">Response</option>
                         </select>
                     </div>
                     <div class="search-wrap">
@@ -119,7 +117,7 @@
         </article>
     </div>
 
-    <div class="modal-content" id="">
+    <div class="modal-content">
         <div class="wrap">
             <i class="close-btn">×</i>
             <p class="modal-title">상세보기</p>
@@ -158,20 +156,4 @@
 
     // get json
     const updatedJson = editor.get()
-
-    $("#olTab").on('click', function (event) {
-        toggleView(event);
-    })
-
-    function toggleView(event)
-    {
-        let target = event.target;
-        let targetContent = $(target).data('target');
-
-        $("#olTab").children().removeClass('active');
-        $(target).addClass('active');
-
-        $("article").hide();
-        $(targetContent).show();
-    }
 </script>

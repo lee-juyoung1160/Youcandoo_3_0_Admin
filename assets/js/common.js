@@ -773,7 +773,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/logs'];
+    let accessibleMenus = ['/', '/admin/mypage', '/operate/log/url'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -826,6 +826,13 @@
         if (_auth === '/ucd/charge') accessibleMenus.push('/ucd/create/user');
         if (_auth === '/ucd/cancel') accessibleMenus.push('/ucd/cancel/user');
         if (_auth === '/ucd/withdraw') accessibleMenus.push('/ucd/withdraw/user');
+        if (_auth === '/operate/log')
+        {
+            accessibleMenus.push(_auth+'/url');
+            accessibleMenus.push(_auth+'/php');
+            accessibleMenus.push(_auth+'/apache');
+            accessibleMenus.push(_auth+'/process');
+        }
     }
 
     /** 권한 별 접근 가능 페이지 **/

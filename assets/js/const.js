@@ -363,6 +363,7 @@
 		,listAccount : baseApiUrl+'admin/account/list'
 		/** 로그 대시보드 **/
 		,listApiUrl : baseApiUrl+'logdashboard/api/log/list'
+		,detailApiUrl : baseApiUrl+'logdashboard/api/log/phpDetail'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
 		,xlsxOutDoitMember : baseApiUrl+'excel/download/doit_member'

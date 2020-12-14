@@ -6,7 +6,12 @@
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
 	const status		= $("input[name=radio-status]");
+	/** modal **/
+	const modalCloseBtn = $(".close-btn");
+	const modalLayout 	= $(".modal-layout");
+	const modalContent 	= $(".modal-content");
 	const jsonContainer = document.getElementById("jsonEditor");
+	let jsonEditor;
 
 	$( () => {
 		/** dataTable default config **/
@@ -19,7 +24,7 @@
 		initSearchForm();
 		/** 목록 **/
 		buildGrid();
-
+		/** jsonEditor 초기화 **/
 		initJsonEditor();
 		/** 이벤트 **/
 		$("body")  		.on("keydown", function (event) { onKeydownSearch(event) });
@@ -27,24 +32,9 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		modalCloseBtn	.on('click', function () { modalFadeout(); });
+		modalLayout		.on('click', function () { modalFadeout(); });
 	});
-
-	function initJsonEditor()
-	{
-		const options = {}
-		const editor = new JSONEditor(jsonContainer, options)
-		const jsonData = {
-			"Array": [1, 2, 3],
-			"Boolean": true,
-			"Null": null,
-			"Number": 123,
-			"Object": {"a": "b", "c": "d"},
-			"String": "Hello World"
-		}
-		editor.set(jsonData)
-
-		/*const updatedJson = editor.get()*/
-	}
 
 	function initSearchForm()
 	{
@@ -71,12 +61,8 @@
 				}
 			},
 			columns: [
-				{title: "unique_id", 		data: "uniqueid",   		width: "25%",
-					render: function (data, type, row, meta) {
-						return data.length > 1 ? `<a onclick="viewDetail(this);" id="${data}">${data}</a>` : label.dash;
-					}
-				}
-				,{title: "account_token", 	data: "account_token",   	width: "25%",
+				{title: "unique_id", 		data: "uniqueid",   		width: "22%" }
+				,{title: "account_token", 	data: "account_token",   	width: "22%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
@@ -85,6 +71,11 @@
 				,{title: "remote_ip", 		data: "remote_ip",  		width: "10%" }
 				,{title: "status", 			data: "apache_status",  	width: "5%" }
 				,{title: "@timestamp", 		data: "@timestamp",      	width: "15%" }
+				,{title: "응답/요청", 		data: "uniqueid",      		width: "5%",
+					render: function (data, type, row, meta) {
+						return data.length > 1 ? `<a onclick="viewDetail(this);" id="${data}">보기</a>` : label.dash;
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,
@@ -120,6 +111,50 @@
 		}
 
 		return JSON.stringify(param);
+	}
+
+	function viewDetail(obj)
+	{
+		let url = api.detailApiUrl;
+		let errMsg = message.ajaxError;
+		let param = {
+			"uniqueid" : obj.id
+			,"page" : 1
+			,"limit" : 1
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), viewDetailSuccess, errMsg, false);
+	}
+
+	function viewDetailSuccess(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+	}
+
+	function buildDetail(data)
+	{
+		modalFadein();
+		setJsonEditor(data);
+	}
+
+	function initJsonEditor()
+	{
+		/*const editorOptions = {
+			"search" : false
+			,"navigationBar" : false
+		};
+		jsonEditor = new JSONEditor(jsonContainer, editorOptions);*/
+	}
+
+	function setJsonEditor(data)
+	{
+		jsonContainer.innerHTML = '';
+		const editorOptions = {
+			"mode" : "text"
+			,"search" : false
+		};
+		jsonEditor = new JSONEditor(jsonContainer, editorOptions);
+		jsonEditor.set(data.data);
 	}
 
 	function onSubmitSearch()

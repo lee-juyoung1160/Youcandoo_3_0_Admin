@@ -361,6 +361,8 @@
 		,listAppVersion : baseApiUrl+'version/list'
 		/** 계정 **/
 		,listAccount : baseApiUrl+'admin/account/list'
+		/** 로그 대시보드 **/
+		,listApiUrl : baseApiUrl+'logdashboard/api/log/list'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
 		,xlsxOutDoitMember : baseApiUrl+'excel/download/doit_member'

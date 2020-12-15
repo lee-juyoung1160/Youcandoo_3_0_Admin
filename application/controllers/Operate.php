@@ -38,22 +38,15 @@ class Operate extends MY_Controller {
                 $this->load->layout('operate/log-api-url');
                 break;
             case "api_php_error":
-                $this->load->layout('operate/log-api-url');
+                $this->load->layout('operate/log-api-php-error');
                 break;
             case "api_apache_error":
-                $this->load->layout('operate/log-api-url');
+                $this->load->layout('operate/log-api-apache-error');
                 break;
-            case "api_process_time":
-                $this->load->layout('operate/log-api-url');
+            case "api_process":
+                $this->load->layout('operate/log-api-process');
                 break;
         }
     }
-
-    public function logs()
-    {
-        $this->load->layout('operate/log-list');
-    }
-
-
 
 }

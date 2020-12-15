@@ -8,18 +8,18 @@
         </div>
         <div class="wrap">
 
-            <ul class="tab row row-4">
-                <li class="col box on">
-                    <p class="box-title">API</p>
+            <ul class="tab row row-4" id="ulTab">
+                <li class="col box on" data-alias="api">
+                    <p class="box-title" data-alias="api">API</p>
                 </li>
-                <li class="col box">
-                    <p class="box-title">Auth</p>
+                <li class="col box" data-alias="auth">
+                    <p class="box-title" data-alias="auth">Auth</p>
                 </li>
-                <li class="col box">
-                    <p class="box-title">Homepage</p>
+                <li class="col box" data-alias="homepage">
+                    <p class="box-title" data-alias="homepage">Homepage</p>
                 </li>
-                <li class="col box">
-                    <p class="box-title">Admin</p>
+                <li class="col box" data-alias="admin">
+                    <p class="box-title" data-alias="admin">Admin</p>
                 </li>
             </ul>
 
@@ -48,120 +48,182 @@
                 </div>
             </div>
 
-            <div class="row row-2">
-                <div class="col box">
-                    <div class="content-inner">
-                        <div class="box-top clearfix">
-                            <p class="data-title">URL
-                                <i id="btnReloadPopular" class="fas fa-sync-alt"></i>
-                                <span class="sub-title" id="">오늘 15:54:29 기준</span>
-                            </p>
-                            <a href="/operate/log/api_url" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <div class="box-contents">
-                            <table>
-                                <colgroup>
-                                    <col style="width: 10%">
-                                    <col style="width: 65%">
-                                    <col style="width: 25%">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>URL </th>
-                                    <th>Time</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                <td><strong class="rank"><em>1</em></strong></td>
-                                <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
+            <div id="topTenWrap">
+                <!--<div class="row row-2">
+                    <div class="col box">
+                        <div class="content-inner">
+                            <div class="box-top clearfix">
+                                <p class="data-title">URL
+                                    <i id="btnReloadUrl" class="fas fa-sync-alt"></i>
+                                    <span class="sub-title"></span>
+                                </p>
+                                <a href="/operate/log/api_url" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                            <div class="box-contents">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 65%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>URL</th>
+                                        <th>Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="topTenUrl">
+                                    <tr>
                                     <td><strong class="rank"><em>1</em></strong></td>
                                     <td>/v1.2/doit/list/recruit/member/0/30</td>
                                     <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                <tr>
-                                    <td><strong class="rank"><em>1</em></strong></td>
-                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
-                                    <td>2020-12-15 15:38:37</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col box">
-                    <div class="content-inner">
-                        <div class="box-top clearfix">
-                            <p class="data-title">PHP Error</p>
-                            <a href="/operate/log/api_php_error" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="rank"><em>1</em></strong></td>
+                                        <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                        <td>2020-12-15 15:38:37</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col box">
+                        <div class="content-inner">
+                            <div class="box-top clearfix">
+                                <p class="data-title">PHP Error
+                                    <i id="btnReloadTopTenPhp" class="fas fa-sync-alt"></i>
+                                    <span class="sub-title"></span>
+                                </p>
+                                <a href="/operate/log/api_php_error" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                            <div class="box-contents">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 65%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>URL</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="topTenPhp">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <!--<div class="row row-2">
+                    <div class="col box">
+                        <div class="content-inner">
+                            <div class="box-top clearfix">
+                                <p class="data-title">Process Time
+                                    <i id="btnReloadTopTenProcess" class="fas fa-sync-alt"></i>
+                                    <span class="sub-title"></span>
+                                </p>
+                                <a href="/operate/log/api_process_time" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                            <div class="box-contents">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 65%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>URL</th>
+                                        <th>Process</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="topTenProcess">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col box">
+                        <div class="content-inner">
+                            <div class="box-top clearfix">
+                                <p class="data-title">Apache Error
+                                    <i id="btnReloadTopTenApache" class="fas fa-sync-alt"></i>
+                                    <span class="sub-title"></span>
+                                </p>
+                                <a href="/operate/log/api_apache_error" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                            <div class="box-contents">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 65%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>URL</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="topTenApache">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
             </div>
-            <div class="row row-2">
-                <div class="col box">
-                    <div class="content-inner">
-                        <div class="box-top clearfix">
-                            <p class="data-title">Process Time</p>
-                            <a href="/operate/log/api_process_time" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col box">
-                    <div class="content-inner">
-                        <div class="box-top clearfix">
-                            <p class="data-title">Apache Error</p>
-                            <a href="/operate/log/api_apache_error" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
         </div>
     </div>
 </section>
 <script src="/assets/js/plugins/chart.min.js"></script>
 <script src="/assets/js/plugins/chartjs-plugin-labels.js"></script>
 <script defer src="/assets/js/chart-config.js?version=<?php echo $this->config->item('version');?>"></script>
-<script defer src="/assets/js/main-dashboardv2.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer src="/assets/js/log-dashboard/log-dashboard-main.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,20 +1,110 @@
 
-    const search 		= $(".search");
-    const reset 		= $(".reset");
-    const dataTable		= $("#dataTable");
-    const searchType 	= $("#search_type");
-    const keyword		= $("#keyword");
+    const ulTab		    = $("#ulTab");
+    const topTenWrap    = $("#topTenWrap");
+
+    let g_alias = 'api'
 
     $( () => {
-        getChartData();
+        initPage();
         /** 이벤트 **/
-        search			.on("click", function () { onSubmitSearch(); });
-        reset			.on("click", function () { initSearchForm(); });
-        selPageLength	.on("change", function () { onSubmitSearch(); });
-        modalCloseBtn	.on('click', function () { modalFadeout(); });
-        modalLayout		.on('click', function () { modalFadeout(); });
-        modalTab		.on('click', function (event) { onClickModalTab(event.target); });
+        ulTab.on("click", function (event) { onClickTab(event.target); });
     });
+
+    function initPage()
+    {
+        //getChartData();
+        getTopTen();
+    }
+
+    function onClickTab(target)
+    {
+        g_alias = $(target).data('alias');
+        getTopTen();
+    }
+
+
+
+    function getTopTen()
+    {
+        let url = api.listApiPopular;
+        let errMsg = `페이지 하단 데이터 ${message.ajaxError}`;
+        let param = {
+            "alias" : g_alias
+            ,"limit" : 10
+        }
+
+        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getTopTenSuccessCallback, errMsg, false);
+    }
+
+    function getTopTenSuccessCallback(data)
+    {
+        isSuccessResp(data) ? buildTopTen(data) : sweetToast(invalidResp(data));
+    }
+
+    function buildTopTen(data)
+    {
+        let topTenEl = '';
+        let keys = Object.getOwnPropertyNames(data.data);
+
+        for (let i=0; i<keys.length; i++)
+        {
+            let key = keys[i];
+            let pageUrl = `/operate/log/${g_alias}_${key}`;
+            let keyData = data.data[key];
+            let columnNames = Object.getOwnPropertyNames(keyData[0]);
+
+            if (i===0 || i%2 === 0)
+                topTenEl += '<div class="row row-2">';
+
+            topTenEl +=
+                `<div class="col box">
+                    <div class="content-inner">
+                        <div class="box-top clearfix">
+                            <p class="data-title">${key.toUpperCase()}</p>
+                            <a href="${pageUrl}" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                        <div class="box-contents">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 10%">
+                                    <col style="width: 40%">
+                                    <col style="width: 45%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th></th>`
+                                        columnNames.map(value => {
+                                            topTenEl += `<th>${value}</th>`;
+                                        });
+                                    `</tr>
+                                </thead>
+                                <tbody>`
+                                    for (let j=0; j<keyData.length; j++)
+                                    {
+                                        let rowData = keyData[j];
+                                        let rowKeys = Object.getOwnPropertyNames(rowData);
+
+                                        topTenEl +=
+                                            `<tr>
+                                                <td><strong class="rank"><em>${j+1}</em></strong></td>`
+                                                rowKeys.map(value => {
+                                                    topTenEl += `<td>${rowData[value]}</td>`
+                                                });
+                                            `</tr>`
+                                    }
+                    topTenEl +=
+                                `</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`
+
+            if ((i+1)%2 === 0)
+                topTenEl += '</div>';
+        }
+
+        topTenWrap.html(topTenEl);
+    }
 
     function getChartData()
     {

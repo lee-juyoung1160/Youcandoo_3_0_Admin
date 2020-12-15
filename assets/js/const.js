@@ -362,6 +362,7 @@
 		/** 계정 **/
 		,listAccount : baseApiUrl+'admin/account/list'
 		/** 로그 대시보드 **/
+		,listApiPopular : baseApiUrl+'logdashboard/api/log/popular'
 		,listApiUrl : baseApiUrl+'logdashboard/api/log/list'
 		,detailApiUrl : baseApiUrl+'logdashboard/api/log/phpDetail'
 		/** 엑셀다운로드 **/

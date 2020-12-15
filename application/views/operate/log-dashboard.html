@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/assets/css/plugins/chart.min.css">
 <link rel="stylesheet" href="/assets/css/chart-common-v2.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/css/log.css?version=<?php echo $this->config->item('version');?>">
 <section class="dashboard-log chart-pg">
     <div class="inner">
         <div class="main-top clearfix">
@@ -51,17 +52,78 @@
                 <div class="col box">
                     <div class="content-inner">
                         <div class="box-top clearfix">
-                            <p class="data-title">URL</p>
+                            <p class="data-title">URL
+                                <i id="btnReloadPopular" class="fas fa-sync-alt"></i>
+                                <span class="sub-title" id="">오늘 15:54:29 기준</span>
+                            </p>
                             <a href="/operate/log/api_url" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
                         </div>
                         <div class="box-contents">
                             <table>
+                                <colgroup>
+                                    <col style="width: 10%">
+                                    <col style="width: 65%">
+                                    <col style="width: 25%">
+                                </colgroup>
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th></th>
+                                    <th>URL </th>
+                                    <th>Time</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+                                <tr>
+                                <td><strong class="rank"><em>1</em></strong></td>
+                                <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="rank"><em>1</em></strong></td>
+                                    <td>/v1.2/doit/list/recruit/member/0/30</td>
+                                    <td>2020-12-15 15:38:37</td>
+                                </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>

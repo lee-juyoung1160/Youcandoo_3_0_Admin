@@ -433,6 +433,10 @@ i.fa-user {
     float:right;
     width: 10%;
     text-align: right;
+    color: #888;
+    font-size: 13px;
+    transition: all .3s;
+}
+.box-top .btn-more:hover {
     color: #333;
-    font-size: 14px;
 }

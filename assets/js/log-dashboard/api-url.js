@@ -85,7 +85,11 @@
 				,{title: "url", 			data: "apache_request",   	width: "20%" }
 				,{title: "remote_ip", 		data: "remote_ip",  		width: "10%" }
 				,{title: "status", 			data: "apache_status",  	width: "5%" }
-				,{title: "process_time", 	data: "process_time",  		width: "10%" }
+				,{title: "process", 		data: "process",  			width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
 				,{title: "@timestamp", 		data: "@timestamp",      	width: "15%" }
 				,{title: "응답/요청", 		data: "uniqueid",      		width: "5%",
 					render: function (data, type, row, meta) {

@@ -1,33 +1,81 @@
 
     const ulTab		    = $("#ulTab");
+    const yearEl2       = $("#selYear2");
+    const monthEl2      = $("#selMonth2");
+    const dailyTotal    = $('#dailyTotalUser');
+    let dailyTotalCtx;
     const topTenWrap    = $("#topTenWrap");
 
-    let g_alias = 'api'
+    let g_page_type = 'init';
+    let g_alias     = 'api'
 
     $( () => {
+        initSelectBox();
         initPage();
         /** 이벤트 **/
         ulTab.on("click", function (event) { onClickTab(event.target); });
+        yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        monthEl2 .on('change', function () { onChangeSelectBoxForDailyTotal(); });
     });
+
+    function initSelectBox()
+    {
+        let d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth() + 1;
+
+        initSelectBoxYear(year);
+        initSelectBoxMonth(month)
+    }
+
+    function initSelectBoxYear(_year)
+    {
+        let defaultYear  = 2020;
+        for (defaultYear; defaultYear <= _year; defaultYear++)
+            $(".select-year").prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
+
+        onChangeSelectOption(yearEl2);
+    }
+
+    function initSelectBoxMonth(_month)
+    {
+        let i = 1;
+        for (i; i <= 12; i++)
+        {
+            let selected = i === Number(_month) ? 'selected' : '';
+            $(".select-month").prepend(`<option ${selected} value="${appendZero(i)}">${appendZero(i)}월</option>`);
+        }
+
+        onChangeSelectOption(monthEl2);
+    }
 
     function initPage()
     {
-        //getChartData();
+        getChartData();
         getTopTen();
     }
 
     function onClickTab(target)
     {
+        if ($(target).prop('tagName') === 'P')
+            target = $(target).parent('li');
+
         g_alias = $(target).data('alias');
+
+        toggleOnAndOffTab(target);
         getTopTen();
     }
 
-
+    function toggleOnAndOffTab(target)
+    {
+        $(target).siblings().removeClass('on');
+        $(target).addClass('on');
+    }
 
     function getTopTen()
     {
         let url = api.listApiPopular;
-        let errMsg = `페이지 하단 데이터 ${message.ajaxError}`;
+        let errMsg = `top 10 ${message.ajaxError}`;
         let param = {
             "alias" : g_alias
             ,"limit" : 10
@@ -104,6 +152,12 @@
         }
 
         topTenWrap.html(topTenEl);
+    }
+
+    function onChangeSelectBoxForDailyTotal()
+    {
+        g_page_type = 'update';
+        getChartData();
     }
 
     function getChartData()

@@ -405,6 +405,7 @@
 		,listDoit : '/doit'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
+		,createRecommendDoit : '/doit/recommend/create'
 		,listDoitCategory : '/doit/category'
 		,detailDoitCategory : '/doit/category/detail/'
 		,updateDoitCategory : '/doit/category/update/'

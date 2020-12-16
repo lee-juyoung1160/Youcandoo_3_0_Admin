@@ -2,9 +2,8 @@
 	const previewTitle	= $("#previewTitle")
 	const previewTableBody	= $("#previewTableBody")
 	const dataTable		= $("#dataTable")
-	const btnDelete		= $("#btnDelete");
 	const btnReorder	= $("#btnReorder");
-	const btnSubmit		= $("#btnSubmit");
+	const btnCreate		= $("#btnCreate");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -16,8 +15,7 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		btnSubmit		.on('click', function () { onSubmitRecommend(); });
-		btnDelete		.on("click", function () { deleteRecommend(); });
+		btnCreate		.on("click", function () { onClickCreate(); });
 		btnReorder		.on("click", function () { onSubmitReorder(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
@@ -287,4 +285,22 @@
 	function getRows()
 	{
 		return dataTable.find('tbody').children();
+	}
+
+	function onClickCreate()
+	{
+		if (createValidation())
+			location.href = page.createRecommendDoit;
+	}
+
+	function createValidation()
+	{
+		let rows = getRows();
+		if (rows.length === 10)
+		{
+			sweetToast(message.maxAddTen);
+			return false;
+		}
+
+		return true;
 	}

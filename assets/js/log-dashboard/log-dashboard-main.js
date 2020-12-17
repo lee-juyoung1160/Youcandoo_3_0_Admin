@@ -78,6 +78,7 @@
         let errMsg = `top 10 ${message.ajaxError}`;
         let param = {
             "alias" : g_alias
+            ,"search_type" : "all"
             ,"limit" : 10
         }
 

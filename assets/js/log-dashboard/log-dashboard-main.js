@@ -108,7 +108,9 @@
                 `<div class="col box">
                     <div class="content-inner">
                         <div class="box-top clearfix">
-                            <p class="data-title">${key.toUpperCase()}</p>
+                            <p class="data-title">${key.toUpperCase()}
+                                <span class="sub-title">최근 30일 기준</span>
+                            </p>
                             <a href="${pageUrl}" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
                         </div>
                         <div class="box-contents">

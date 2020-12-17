@@ -40,7 +40,7 @@
 	{
 		keyword.val('');
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initMaxDateToday();
 		initDayBtn();
 	}

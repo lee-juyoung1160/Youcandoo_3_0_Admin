@@ -42,7 +42,7 @@
 		keyword.val('');
 		status.eq(0).prop("checked", true);
 		initSelectOption();
-		initSearchDateRange();
+		initSearchDateRangeMonth();
 		initMaxDateToday();
 		initDayBtn();
 	}

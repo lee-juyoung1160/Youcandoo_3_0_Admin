@@ -128,6 +128,8 @@
 			,"data_type" : searchType.val()
 			,"keyword" : keyword.val()
 			,"status_type" : $('input:radio[name=radio-status]:checked').val()
+			,"sort" : "time"
+			,"orderby" : "desc"
 		}
 
 		return JSON.stringify(param);

@@ -5,7 +5,6 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const selPageLength = $("#selPageLength");
-	const status		= $("input[name=radio-status]");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -40,7 +39,6 @@
 	function initSearchForm()
 	{
 		keyword.val('');
-		status.eq(0).prop("checked", true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -127,7 +125,9 @@
 			,"to_date" : dateTo.val()
 			,"data_type" : searchType.val()
 			,"keyword" : keyword.val()
-			,"status_type" : $('input:radio[name=radio-status]:checked').val()
+			,"status_type" : "N"
+			,"sort" : "time"
+			,"orderby" : "desc"
 		}
 
 		return JSON.stringify(param);

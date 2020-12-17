@@ -81,7 +81,7 @@
             ,"limit" : 10
         }
 
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getTopTenSuccessCallback, errMsg, false);
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTopTenSuccessCallback, errMsg, false);
     }
 
     function getTopTenSuccessCallback(data)

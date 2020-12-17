@@ -12,16 +12,32 @@
 }
 .tab li {
     float: left;
+    position: relative;
     padding: 10px 13px;
     color: #fff;
-    background-color: #ddd;
+    background-color: #eee;
     cursor: pointer;
     transition: all .3s;
 }
 .tab li.on,
 .tab li:hover {
-    background-color: #3883fa;
+    background-color: #0061f2;
 }
+
+.tab li .view-all {
+    position: absolute;
+    right: 10px;
+    top:40%;
+    font-size: 12px;
+    letter-spacing: -1px;
+    text-decoration: underline;
+    opacity: .7;
+    transition: all .3s;
+}
+.tab li .view-all:hover {
+    opacity: 1;
+}
+
 
 .box-contents table {
     width: 100%;

@@ -684,19 +684,6 @@
         return (info.start / info.length) + 1;
     }
 
-    /** 상세페이지 이동 **/
-    /*function moveDetail(obj)
-    {
-        let target = $(obj).data('target');
-        let param   = $(obj).data('uuid');
-        let form   = $("<form></form>");
-        form.prop("method", "post");
-        form.prop("action", target);
-        form.append($("<input/>", {type: 'hidden', name: 'uuid', value: param}));
-        form.appendTo("body");
-        form.submit();
-    }*/
-
     /** 사이드 메뉴 세팅 **/
     function getLeftMenuByAuthCode()
     {
@@ -773,7 +760,7 @@
         accessDeniedAuth();
     }
 
-    let accessibleMenus = ['/', '/admin/mypage', '/operate/log/url'];
+    let accessibleMenus = ['/', '/admin/mypage'];
     function buildAccessibleMenus(_auth)
     {
         /**
@@ -831,7 +818,7 @@
             accessibleMenus.push(_auth+'/api_url');
             accessibleMenus.push(_auth+'/api_php_error');
             accessibleMenus.push(_auth+'/api_apache_error');
-            accessibleMenus.push(_auth+'/api_process_time');
+            accessibleMenus.push(_auth+'/api_process');
         }
     }
 

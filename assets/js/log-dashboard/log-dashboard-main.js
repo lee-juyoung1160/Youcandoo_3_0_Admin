@@ -57,7 +57,10 @@
 
     function onClickTab(target)
     {
-        if ($(target).prop('tagName') === 'P')
+        let targetTagName = $(target).prop('tagName');
+        if (targetTagName === 'A')
+            return;
+        else if (targetTagName === 'P')
             target = $(target).parent('li');
 
         g_alias = $(target).data('alias');

@@ -34,6 +34,9 @@ class Operate extends MY_Controller {
             case "":
                 $this->load->layout('operate/log-dashboard');
                 break;
+            case "api_list":
+                $this->load->layout('operate/log-api-list');
+                break;
             case "api_url":
                 $this->load->layout('operate/log-api-url');
                 break;

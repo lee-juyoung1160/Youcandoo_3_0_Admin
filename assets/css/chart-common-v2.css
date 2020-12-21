@@ -406,37 +406,3 @@ i.fa-user {
 .dashboard-ucd .table-wrap table {
     box-shadow:none;
 }
-
-
-/* log */
-.dashboard-log .tab li {
-    position: relative;
-    cursor: pointer;
-}
-.dashboard-log .tab li .box-title {
-    padding: 10px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    margin-bottom: 0;
-    border-radius: 5px;
-}
-.dashboard-log .tab li:hover .box-title,
-.dashboard-log .tab li.on .box-title {
-    color: #fff;
-    background-color: #0061f2;
-}
-.box-top .data-title {
-    float:left;
-    width: 90%;
-}
-.box-top .btn-more {
-    float:right;
-    width: 10%;
-    text-align: right;
-    color: #888;
-    font-size: 13px;
-    transition: all .3s;
-}
-.box-top .btn-more:hover {
-    color: #333;
-}

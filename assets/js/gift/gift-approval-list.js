@@ -1,3 +1,4 @@
+/*
 
 	const search 		= $(".search");
 	const reset 		= $(".reset");
@@ -8,7 +9,7 @@
 	const approvalStatus	= $("input[name=approval-status]");
 	const selPageLength	= $("#selPageLength");
 
-	/** modal **/
+	/!** modal **!/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
 	const modalContent 	= $(".modal-content");
@@ -18,18 +19,18 @@
 	let g_exchange_uuid;
 
 	$( () => {
-		/** dataTable default config **/
+		/!** dataTable default config **!/
 		initTableDefault();
-		/** 데이트피커 초기화 **/
+		/!** 데이트피커 초기화 **!/
 		initSearchDatepicker();
-		/** n개씩 보기 초기화 **/
+		/!** n개씩 보기 초기화 **!/
 		initPageLength(selPageLength);
-		/** 상단 검색 폼 초기화 **/
+		/!** 상단 검색 폼 초기화 **!/
 		initSearchForm();
-		/** 목록 불러오기 **/
+		/!** 목록 불러오기 **!/
 		buildGrid();
-		/** 이벤트 **/
-		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
+		/!** 이벤트 **!/
+		/!*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*!/
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -66,11 +67,11 @@
 				}
 			},
 			columns: [
-				/*{title: tableCheckAllDom(), 	data: "",   		width: "5%",	className: 'no-sort',
+				/!*{title: tableCheckAllDom(), 	data: "",   		width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return multiCheckBoxDom(meta.row);
 					}
-				},*/
+				},*!/
 				{title: "상태",    		data: "exchange_status",  	width: "5%",	className: 'no-sort' }
 				,{title: "신청자", 		data: "nickname",    		width: "20%",
 					render: function (data, type, row, meta) {
@@ -133,7 +134,7 @@
 			,"status" : status
 		}
 
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		/!** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **!/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
@@ -228,3 +229,4 @@
 		table.ajax.reload();
 		initMaxDateToday();
 	}
+*/

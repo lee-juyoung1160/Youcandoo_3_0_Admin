@@ -288,7 +288,7 @@
 
 	function onSubmitModalMemo()
 	{
-		let mgs = g_approval_type === 'approval' ? message.approve : message.reject;
+		let mgs = g_approval_type === 'approval' ? `상품을 ${message.send}` : `신청을 ${message.cancel}`;
 		sweetConfirm(mgs, memoRequest);
 	}
 

@@ -6,6 +6,7 @@
 	const searchType 	= $("#search_type");
 	const keyword 		= $("#keyword");
 	const status		= $("input[name=chk-send-status]");
+	const giftType		= $("input[name=radio-gift-type]");
 	const selPageLength	= $("#selPageLength");
 
 	/** 상세보기 모달 **/
@@ -56,6 +57,8 @@
 		keyword.val('');
 		status.eq(0).prop('checked', true);
 		status.eq(1).prop('checked', true);
+		status.eq(2).prop('checked', true);
+		giftType.eq(0).prop('checked', true);
 		initSelectOption();
 		initSearchDateRange();
 		initMaxDateToday();
@@ -77,22 +80,29 @@
 				}
 			},
 			columns: [
-				{title: "상품유형",    	data: "exchange_status",  	width: "10%" }
-				,{title: "상품명", 		data: "gift_name",    		width: "10%" }
+				{title: "상품유형",    	data: "gift_type",  		width: "7%" }
+				,{title: "상품명", 		data: "gift_name",    		width: "13%" }
 				,{title: "신청자", 		data: "nickname",    		width: "15%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
+						return `<a class="line-clamp" style="max-width: 210px;" href="${page.detailUser}${row.user_idx}">${data}</a>`;
 					}
 				}
 				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
+				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "7%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
+				,{title: "상태",    		data: "exchange_status",  	width: "5%" }
+				,{title: "발송/취소일시",   data: "app_datetime", 		width: "12%" }
+				,{title: "예약일시",    	data: "reservation_datetime", 	width: "12%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
 				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						return row.exchange_status === '예약완료' ? '-' : `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`;
+						return row.exchange_status === '발송완료' ? `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>` : label.dash;
 					}
 				}
 				,{title: "메모",    		data: "",  				width: "5%",	className: 'no-sort',
@@ -100,21 +110,15 @@
 						return buildMemo(row);
 					}
 				}
-				,{title: "상태",    		data: "exchange_status",  	width: "5%" }
-				,{title: "예약일시",    	data: "reservation_datetime", 	width: "12%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
-				,{title: "발송/취소일시",   data: "send_created_date", 	width: "12%" }
-				,{title: "재발송",   		data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
+				,{title: "재발송",   		data: "exchange_uuid",  	width: "7%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						let disabled = (row.exchange_status !== '발송완료') ? 'disabled' : '';
-						return `<button onclick="onSubmitResendGift(this);" 
-										data-uuid="${data}"
-										data-trid=""
-										class="btn-info" 
-										type="button" ${disabled}>재발송</button>`
+						return (row.exchange_status === '발송완료')
+							?`<button onclick="onSubmitResendGift(this);" 
+									data-uuid="${data}"
+									data-trid=""
+									class="btn-info" 
+									type="button">재발송</button>`
+							: label.dash;
 					}
 				}
 			],
@@ -127,6 +131,7 @@
 				initTableSorter(this);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -155,12 +160,19 @@
 			,"search_type" : searchType.val()
 			,"keyword" : keyword.val().trim()
 			,"status" : sendStatus
+			,"gift_type" : $("input[name=radio-gift-type]:checked").val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		if (aData.exchange_status === '취소')
+			$(nRow).addClass('minus-pay');
 	}
 
 	function buildMemo(data)

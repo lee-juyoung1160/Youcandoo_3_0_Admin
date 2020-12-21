@@ -279,7 +279,7 @@
 
 	function initModalMemo()
 	{
-		title = g_approval_type === 'approval' ? "메모(승인)" : "메모(승인취소)";
+		title = g_approval_type === 'approval' ? "메모(일반상품 발송)" : "메모(신청취소)";
 
 		modalMemoTitle.html(title);
 		memoEl.trigger('focus');
@@ -329,16 +329,16 @@
 		let msg
 		if (isEmpty(g_approval_type) && hasGeneralGift())
 		{
-			msg = `일반 상품은 자동발송 대상이 아닙니다. 
-					체크 해제 후 다시 시도해주세요.`
+			msg = `예약 발송은 기프티콘만 가능합니다.
+					일반상품 체크 해제 후 다시 시도해주세요.`;
 			sweetToast(msg);
 			return false;
 		}
 
 		if (g_approval_type === 'approval' && hasGifticon())
 		{
-			msg = `기프티콘은 승인 대상이 아닙니다. 
-					체크 해제 후 다시 시도해주세요.`
+			msg = `상품 발송은 일반상품만 가능합니다.
+					기프티콘 체크 해제 후 다시 시도해주세요.`
 			sweetToast(msg);
 			return false;
 		}

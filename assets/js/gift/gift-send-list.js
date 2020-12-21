@@ -94,7 +94,13 @@
 					}
 				}
 				,{title: "상태",    		data: "exchange_status",  	width: "5%" }
-				,{title: "발송/취소일시",   data: "app_datetime", 		width: "12%" }
+				,{title: "발송/취소일시",   data: "app_datetime", 		width: "12%",
+					render: function (data, type, row, meta) {
+						return row.gift_type === '기프티콘'
+							? row.gifticon_send_datetime
+							: row.general_send_datetime;
+					}
+				}
 				,{title: "예약일시",    	data: "reservation_datetime", 	width: "12%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;

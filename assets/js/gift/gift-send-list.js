@@ -102,7 +102,9 @@
 				}
 				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						return row.exchange_status === '발송완료' ? `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>` : label.dash;
+						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
+							? `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`
+							: label.dash;
 					}
 				}
 				,{title: "메모",    		data: "",  				width: "5%",	className: 'no-sort',
@@ -112,7 +114,7 @@
 				}
 				,{title: "재발송",   		data: "exchange_uuid",  	width: "7%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
-						return (row.exchange_status === '발송완료')
+						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
 							?`<button onclick="onSubmitResendGift(this);" 
 									data-uuid="${data}"
 									data-trid=""

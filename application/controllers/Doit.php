@@ -15,7 +15,7 @@ class Doit extends MY_Controller {
 
     public function detail()
     {
-        $this->load->layout('doit/doit-detail-v2');
+        $this->load->layout('doit/doit-detail');
     }
 
     public function update()
@@ -30,7 +30,7 @@ class Doit extends MY_Controller {
                 $this->load->layout('doit/doit-list-v2');
                 break;
             case "detail" :
-                $this->load->layout('doit/doit-detail-v2');
+                $this->load->layout('doit/doit-detail');
                 break;
         }
     }

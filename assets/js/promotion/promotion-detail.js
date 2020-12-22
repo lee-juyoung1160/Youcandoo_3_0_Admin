@@ -26,11 +26,9 @@
 	/** Ucd정보탭 **/
 	const ucdTable		= $("#ucdTable")
 	const selPageLengthForUcd 	= $("#selPageLengthForUcd");
-	const btnXlsxOutForUcd 	= $("#btnXlsxOutForUcd");
 
 	const pathname 		= window.location.pathname;
 	const idx 			= pathname.split('/').reverse()[0];
-	let g_xlsx_type;
 
 	$( () => {
 		/** dataTable default config **/
@@ -44,8 +42,7 @@
 		ulTab				.on("click", function (event) { onClickTab(event); });
 		selPageLengthForDoit.on("change", function () { getInvolveDoit(); });
 		selPageLengthForUcd	.on("change", function() { getUcdLog(); });
-		btnXlsxOutForDoit	.on("click", function () { g_xlsx_type = 'doit'; onClickXlsxOut(); });
-		btnXlsxOutForUcd	.on("click", function () { g_xlsx_type = 'ucd'; onClickXlsxOut(); });
+		btnXlsxOutForDoit	.on("click", function () { onClickXlsxOut(); });
 		goUpdate			.on('click', function () { goUpdatePage(); })
 	});
 
@@ -359,19 +356,17 @@
 
 	function onClickXlsxOut()
 	{
-		let isDoit = g_xlsx_type === 'doit';
-		let url = isDoit ? api.xlsxOutPromoDoit : api.xlsxOutPromoUcd;
+		let url = api.xlsxOutPromoDoit;
 		let errMsg = label.list + message.ajaxLoadError;
-		let param = isDoit? { "promotion_idx" : idx } : { "promotion_uuid" : g_promotion_uuid };
+		let param = { "promotion_idx" : idx };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
 	}
 
 	function xlsxOutCallback(data)
 	{
-		let isDoit = g_xlsx_type === 'doit';
-		let filename = isDoit ? `${g_promotion_title} 개설 두잇` : `${g_promotion_title} UCD 정보`;
-		let sheetname = isDoit ? xlsxName.promoDoit : xlsxName.promoUcd;
+		let filename = `${g_promotion_title} 개설 두잇`;
+		let sheetname = xlsxName.promoDoit;
 
 		setExcelData(filename, sheetname, data.data);
 	}

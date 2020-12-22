@@ -11,7 +11,6 @@
 	const btnReject		= $("#btnReject");
 	const btnSendReserve = $("#btnSendReserve");
 	const balanceEl		= $("#balance");
-	const btnXlsxOut	= $("#btnXlsxOut");
 
 	/** 예약발송 모달 **/
 	const modalSendReserve = $("#modalSendReserve");
@@ -58,7 +57,6 @@
 		btnApproval		.on("click", function () { g_approval_type = 'approval'; onClickBtnApprovalOrReject(); });
 		btnReject		.on("click", function () { g_approval_type = 'reject'; onClickBtnApprovalOrReject(); });
 		btnSendReserve	.on("click", function () { g_approval_type = ''; onClickBtnSendReserve(); });
-		btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
 		btnSubmitMemo	.on("click", function () { onSubmitModalMemo(); });
 		btnSubmitReserve .on("click", function () { onSubmitReserve(); });
 	});
@@ -400,26 +398,4 @@
 		table.ajax.reload();
 		uncheckedCheckAll();
 		initMaxDateToday();
-	}
-
-	function onClickXlsxOut()
-	{
-		let url = api.xlsxOutGiftApply;
-		let errMsg = label.list + message.ajaxLoadError;
-		let param = {
-			"date_type" : dateType.val()
-			,"from_date" : dateFrom.val()
-			,"to_date" : dateTo.val()
-			,"search_type" : searchType.val()
-			,"keyword" : keyword.val().trim()
-			,"gift_type" : $("input[name=radio-gift-type]:checked").val()
-			,"status" : ["대기"]
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
-	}
-
-	function xlsxOutCallback(data)
-	{
-		setExcelData(`${xlsxName.giftApply}_${dateFrom.val()}~${dateTo.val()}`, xlsxName.giftApply, data.data);
 	}

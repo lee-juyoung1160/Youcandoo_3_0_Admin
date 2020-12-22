@@ -9,6 +9,11 @@ class Gift extends MY_Controller
         $this->load->layout('gift/gift-list');
     }
 
+    public function dashboard()
+    {
+        $this->load->layout('gift/gift-dashboard');
+    }
+
     public function create()
     {
         $this->load->layout('gift/gift-create');

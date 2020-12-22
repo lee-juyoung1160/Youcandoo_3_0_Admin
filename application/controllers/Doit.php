@@ -8,11 +8,6 @@ class Doit extends MY_Controller {
         $this->load->layout('doit/doit-list');
     }
 
-    public function v2()
-    {
-        $this->load->layout('doit/doit-list-v2');
-    }
-
     public function create()
     {
         $this->load->layout('doit/doit-create');
@@ -26,6 +21,18 @@ class Doit extends MY_Controller {
     public function update()
     {
         $this->load->layout('doit/doit-update');
+    }
+
+    public function v2($Route = "")
+    {
+        switch ($Route) {
+            case "":
+                $this->load->layout('doit/doit-list-v2');
+                break;
+            case "detail" :
+                $this->load->layout('doit/doit-detail-v2');
+                break;
+        }
     }
 
     // 추천두잇관리

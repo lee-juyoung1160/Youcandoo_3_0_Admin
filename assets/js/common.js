@@ -779,7 +779,7 @@
             accessibleMenus.push(_auth.replace('create', 'update'));
 
         /** 프로모션 목록, 두잇 목록 권한이 있으면 상세 권한 추가 **/
-        let customAccessiblePages1 = ['/promotion', '/doit'];
+        let customAccessiblePages1 = ['/promotion', '/doit', '/doit/v2'];
         if (customAccessiblePages1.indexOf(_auth) !== -1)
             accessibleMenus.push(_auth + '/detail');
 

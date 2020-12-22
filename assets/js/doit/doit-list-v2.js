@@ -288,7 +288,7 @@
 								<div class="btn-icon-wrap col">
 									${btnUpdate}
 									${btnDelete}
-									<a href="${page.detailDoit}${idx}" class="view-detail">상세보기 <i class="fas fa-arrow-right"></i></a>
+									<a href="/doit/v2/detail/${idx}" class="view-detail">상세보기 <i class="fas fa-arrow-right"></i></a>
 								</div>
 							</div>
 						</div>

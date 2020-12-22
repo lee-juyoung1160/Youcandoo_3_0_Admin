@@ -10,7 +10,7 @@
     const saving 		= $("#saving");
     const joinUserTable		= $("#joinUserTable")
     const selPageLengthForUser   = $("#selPageLengthForUser");
-    const btnXlsxOutForUser   = $("#btnXlsxOutForUser");
+    /*const btnXlsxOutForUser   = $("#btnXlsxOutForUser");*/
 
     /****************
      * 참여자정보탭 관련
@@ -61,7 +61,14 @@
             },
             columns: [
                 {title: "닉네임", 			data: "nickname",    	width: "20%" }
-                ,{title: "프로필ID", 		data: "profile_uuid",   width: "25%" }
+                ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
+                    render: function (data) {
+                        return `<div>
+								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly>
+								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+								</div>`;
+                    }
+                }
                 ,{title: "총 인증 횟수", 		data: "todo",    		width: "8%" }
                 ,{title: "인증한 횟수", 		data: "total",    		width: "8%" }
                 ,{title: "성공", 	  		data: "success",    	width: "5%" }

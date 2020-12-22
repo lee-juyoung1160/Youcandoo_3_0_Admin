@@ -44,7 +44,7 @@
 		btnGeneral		.on('click', function () { onClickBtnTalkType(this) });
 		btnCreateTalk	.on('click', function () { modalCreateTalkOpen() });
 		btnSubmitTalk	.on('click', function () { onSubmitTalk() });
-		btnXlsxOutForUser		.on('click', function () { g_xlsx_type = 'user'; onClickXlsxOut(); });
+		/*btnXlsxOutForUser		.on('click', function () { g_xlsx_type = 'user'; onClickXlsxOut(); });*/
 		btnXlsxOutForReview		.on('click', function () { g_xlsx_type = 'review'; onClickXlsxOut(); });
 		btnXlsxOutForUcd		.on('click', function () { g_xlsx_type = 'ucd'; onClickXlsxOut(); });
 	});
@@ -96,13 +96,14 @@
 		let url;
 		let errMsg = label.list + message.ajaxLoadError;
 		let param = {};
-		if (g_xlsx_type === 'user')
+		/*if (g_xlsx_type === 'user')
 		{
 			url = api.xlsxOutDoitMember;
 			param["doit_uuid"] = g_doit_uuid;
 			param["nickname"] = "";
 		}
-		else if (g_xlsx_type === 'review')
+		else*/
+		if (g_xlsx_type === 'review')
 		{
 			url = api.xlsxOutDoitReview;
 			param["from_date"] = "";

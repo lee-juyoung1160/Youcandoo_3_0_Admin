@@ -37,19 +37,19 @@ class Marketing extends CI_Controller {
     }
 
     public function popup($Route = "")
-        {
-            switch ($Route) {
-                case "":
-                    $this->load->layout('marketing/popup-list');
-                    break;
-                case "create" :
-                    $this->load->layout('marketing/popup-create');
-                    break;
-                case "detail":
-                    $this->load->layout('marketing/popup-detail');
-                    break;
-            }
+    {
+        switch ($Route) {
+            case "":
+                $this->load->layout('marketing/popup-list');
+                break;
+            case "create" :
+                $this->load->layout('marketing/popup-create');
+                break;
+            case "detail":
+                $this->load->layout('marketing/popup-detail');
+                break;
         }
+    }
 
     public function inflow()
     {

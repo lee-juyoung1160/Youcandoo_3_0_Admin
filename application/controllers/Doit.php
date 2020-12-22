@@ -28,13 +28,17 @@ class Doit extends MY_Controller {
         $this->load->layout('doit/doit-update');
     }
 
-    public function recommend($Route = "")
+    // 추천두잇관리
+    public function recommend()
+    {
+        $this->load->layout('doit/doit-recommend-list');
+    }
+
+    // 추천두잇관리(그룹)
+    public function recommends($Route = "")
     {
         switch ($Route) {
             case "":
-                $this->load->layout('doit/doit-recommend-list');
-                break;
-            case "v2" :
                 $this->load->layout('doit/doit-recommend-list-v2');
                 break;
             case "create" :

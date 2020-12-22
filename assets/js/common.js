@@ -796,6 +796,7 @@
                 '/admin',
                 '/doit/category',
                 '/doit/recommend',
+                '/doit/recommends',
                 '/doit/talk',
                 '/operate/account',
                 '/gift'];

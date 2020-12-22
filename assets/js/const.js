@@ -405,7 +405,9 @@
 		,listDoit : '/doit'
 		,detailDoit : '/doit/detail/'
 		,updateDoit : '/doit/update/'
-		,createRecommendDoit : '/doit/recommend/create'
+		,listDoitRecommendv2 : '/doit/recommends'
+		,updateDoitRecommend : '/doit/recommends/update/'
+		,createRecommendDoit : '/doit/recommends/create'
 		,listDoitCategory : '/doit/category'
 		,detailDoitCategory : '/doit/category/detail/'
 		,updateDoitCategory : '/doit/category/update/'
@@ -455,9 +457,6 @@
 		,listAuth : '/admin/auth'
 
 		,detailAccount : '/operate/account/detail/'
-
-		,listDoitRecommendv2 : '/doit/recommend/v2'
-		,updateDoitRecommend : '/doit/recommend/update/'
 	}
 
 	const innerIps = ['220.85.113.234'];

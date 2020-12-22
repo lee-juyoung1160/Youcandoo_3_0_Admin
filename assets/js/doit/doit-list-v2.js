@@ -92,6 +92,7 @@
 		doitStatus.eq(1).prop('checked', true);
 		doitStatus.eq(2).prop('checked', true);
 		doitStatus.eq(3).prop('checked', true);
+		doitStatus.eq(4).prop('checked', true);
 		radioDoitType.eq(0).prop('checked', true);
 		initSelectOption();
 		initSearchDateRangeThreeMonth();
@@ -329,6 +330,8 @@
 			case '모집실패':
 				return 'badge-orange'
 			case '개설취소':
+				return 'badge-orange'
+			case '개설취소(운영)':
 				return 'badge-orange'
 			case '진행중':
 				return 'badge-green'

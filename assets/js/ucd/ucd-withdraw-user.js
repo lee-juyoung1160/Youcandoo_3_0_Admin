@@ -1,109 +1,40 @@
-/*
 
-	const btnModalOpen	= $("#btnModalOpen");
-	const selectedUserCount 	= $("#selectedUserCount");
-	const selectedUserTableBody = $("#selectedUserTableBody");
-	const resultBox 	= $(".result_box");
-	const btnOpenResult = $(".btn-open-result");
-	const target		= $("#target");
+	const selectedUserCount = $("#selectedUserCount");
+	const selectedUserTable = $("#selectedUserTable");
 	const amount		= $("#amount");
 	const content 		= $("#content");
 	const memo 			= $("#memo");
 	const btnSubmit		= $("#btnSubmit");
 	const btnXlsxImport	= $("#btnXlsxImport");
 	const btnXlsxExport	= $("#btnXlsxExport");
-
-	/!** modal **!/
+	const btnAddUser	= $("#btnAddUser");
 	const search 		= $(".search");
-	const modalCloseBtn = $(".close-btn");
-	const modalLayout 	= $(".modal-layout");
-	const modalContent 	= $(".modal-content");
-	const modalNickname	= $("#modalNickname");
+	const nickname		= $("#nickname");
 	const selMatch		= $("#selMatch");
 	const dataTable		= $("#dataTable");
-	const btnMoveRight	= $("#btnMoveRight");
-	const btnAddUser	= $("#btnAddUser");
-	const movedUserTableBody = $("#movedUserTableBody")
+	let selectedUsers 	= [];
 
 	$( () => {
-		/!** dataTable default config **!/
+		/** dataTable default config **/
 		initTableDefault();
-		/!** 컴퍼넌트 초기화 **!/
-		initComponent();
-		/!** 이벤트 **!/
+		/** 선택된 회원목록 초기화 **/
+		buildSelectedUser(selectedUsers);
+		/** 회원목록 **/
+		getUser();
+		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event); });
 		search    		.on("click", function () { onSubmitSearch(); });
-		modalCloseBtn	.on('click', function () { modalFadeout(); });
-		modalLayout		.on('click', function () { modalFadeout(); });
-		btnModalOpen	.on('click', function () { onClickModalOpen(); });
-		btnMoveRight	.on('click', function () { onClickMoveRightUser(); });
 		btnAddUser		.on('click', function () { onClickAddUser(); });
-		btnOpenResult	.on("click", function () { onClickToggleOpen(this); });
 		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
 		btnXlsxExport	.on("click", function () { onClickUserAddFormExport(); });
 		btnSubmit		.on("click", function () { onSubmitUcd(); });
 	});
 
-	function initComponent()
-	{
-		amount.trigger('focus');
-	}
-
-	function initModal()
-	{
-		modalNickname.val('');
-		modalNickname.trigger('focus');
-		initSelectOption();
-	}
-
 	function onSubmitSearch()
 	{
+		uncheckedCheckAll();
 		let table = dataTable.DataTable();
 		table.ajax.reload();
-	}
-
-	function onClickToggleOpen(obj)
-	{
-		$(obj).next('.table-wrap').slideToggle();
-		$(obj).toggleClass('on');
-	}
-
-	/!** 기업 검색 **!/
-	function onClickModalOpen()
-	{
-		modalFadein();
-		initModal();
-		getUser();
-		buildMovedUser();
-	}
-
-	function buildMovedUser()
-	{
-		movedUserTableBody.empty();
-
-		let selectedRow = selectedUserTableBody.find('tr');
-
-		let moveUserDom = '';
-		$(selectedRow).each(function () {
-			let profileId = $(this).data('uuid');
-			let nick = $(this).data('nick');
-			let total = $(this).data('total');
-
-			moveUserDom +=
-				`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
-					<td>
-						<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
-					</td>
-					<td>
-						<div class="user-ucd">
-							<strong>${numberWithCommas(total)}</strong>
-						</div>
-					</td>
-					<td><i onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
-				</tr>`
-		});
-
-		movedUserTableBody.append(moveUserDom);
 	}
 
 	function getUser()
@@ -143,7 +74,7 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 8,
+			pageLength: 10,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
@@ -170,51 +101,25 @@
 			"limit" : _limit
 			,"page" : _page
 			,"keyword_type" : selMatch.val()
-			,"keyword" : modalNickname.val()
+			,"keyword" : nickname.val()
 		}
 		return JSON.stringify(param);
 	}
 
-	function onClickMoveRightUser()
+	function onClickAddUser()
 	{
-		if (moveValidation())
-		{
-			let table 		 = dataTable.DataTable();
-			let selectedData = table.rows('.selected').data();
-			let moveUserDom = '';
-
-			for (let i=0; i<selectedData.length; i++)
-			{
-				let detail = selectedData[i];
-				let profileId = detail.profile_uuid;
-				let nick = detail.nickname;
-				let total = detail.ucd.total;
-
-				moveUserDom +=
-					`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
-						<td>
-							<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
-						<td>
-							<div class="user-ucd">
-								<strong>${numberWithCommas(total)}</strong>
-							</div>
-						</td>
-						<td><i onclick="removeRow(this);" class="far fa-times-circle"></i></td>
-					</tr>`
-			}
-
-			movedUserTableBody.append(moveUserDom);
-		}
+		if (addUserValidation())
+			addUsers();
 	}
 
-	function moveValidation()
+	function addUserValidation()
 	{
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
 
-		if (isEmpty(selectedData))
+		if (selectedData.length === 0)
 		{
-			sweetToast(`대상을 목록에서 ${message.select}`);
+			sweetToast(`출금 대상을 ${message.addOn}`);
 			return false;
 		}
 
@@ -233,95 +138,197 @@
 		let table 		 = dataTable.DataTable();
 		let selectedData = table.rows('.selected').data();
 
-		let movedUser = [];
-		$("#movedUserTableBody").find('tr').each(function () {
-			movedUser.push($(this).data("uuid"));
-		});
+		let selectedUsersId = [];
+		selectedUsers.map((value) => {
+			selectedUsersId.push(value.profile_uuid);
+		})
 
 		for (let i=0; i<selectedData.length; i++)
 		{
-			let detail = selectedData[i];
-			let profileId = detail.profile_uuid;
+			let { profile_uuid } = selectedData[i];
 
-			if (movedUser.indexOf(profileId) !== -1)
+			if (selectedUsersId.indexOf(profile_uuid) !== -1)
 				result = true;
 		}
 
 		return result;
 	}
 
-	function removeRow(obj)
+	function addUsers()
 	{
-		$(obj).closest('tr').remove();
-	}
-
-	function onClickAddUser()
-	{
-		if (addUserValidation())
+		let table 		 = dataTable.DataTable();
+		let selectedData = table.rows('.selected').data();
+		let users = [];
+		for (let i=0; i<selectedData.length; i++)
 		{
-			buildSelectedUser();
-			modalFadeout();
-			resultBox.show();
+			let { nickname, profile_uuid, ucd } = selectedData[i];
+			let userInfo = { "nickname" : nickname, "profile_uuid" : profile_uuid, "ucd" : ucd.total };
+			users.push(userInfo);
 		}
-	}
+		selectedUsers = users.concat(selectedUsers);
 
-	function addUserValidation()
-	{
-		let selectedRowLength = movedUserTableBody.find('tr').length;
-
-		if (selectedRowLength === 0)
-		{
-			sweetToast(`출금 대상을 ${message.addOn}`);
-			return false;
-		}
-
-		return true;
+		buildSelectedUser();
+		calculateSelectedCount();
 	}
 
 	function buildSelectedUser()
 	{
-		let selectedRow = movedUserTableBody.find('tr');
-		let selectedUserDom = '';
-
-		$(selectedRow).each(function () {
-			let profileId = $(this).data('uuid');
-			let nick = $(this).data('nick');
-			let total = $(this).data('total');
-
-			selectedUserDom +=
-				`<tr data-uuid="${profileId}" data-nick="${nick}" data-total="${total}">
-					<td>
-						<div class="p-info">${nick}<span class="p-id">${profileId}</span></div>
-					</td>
-					<td>
-						<div class="user-ucd">
-							<strong>${numberWithCommas(total)}</strong>
-						</div>
-					</td>
-					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
-				</tr>`
+		selectedUserTable.DataTable({
+			data: selectedUsers,
+			columns: [
+				{title: "회원",			data: "nickname",	width: "65%",
+					render: function (data, type, row, meta) {
+						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`
+					}
+				}
+				,{title: "보유 UCD",		data: "ucd",    	width: "30%",
+					render: function (data) {
+						return `${numberWithCommas(data)}`;
+					}
+				}
+				,{title: "", 	data: "", 		width: "5%",
+					render: function (data, type, row, meta) {
+						return `<i style="color: #ec5c5c;" data-row="${meta.row}" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>`
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				if (!hasDataOnDatatable(this))
+					removeEmptyRowFromTable();
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+			}
 		});
+	}
 
-		selectedUserCount.html(selectedRow.length);
+	function removeRow(obj)
+	{
+		let idx = $(obj).data('row');
+		selectedUsers.splice(idx, 1);
 
-		selectedUserTableBody.html(selectedUserDom);
+		$(obj).closest('tr').remove();
+
+		buildSelectedUser();
 	}
 
 	function calculateSelectedCount()
 	{
-		let count = selectedUserTableBody.find('tr').length;
+		let count = selectedUsers.length;
+		selectedUserCount.html(count.toString());
+	}
 
-		if (count === 0)
-			resultBox.hide();
+	function onClickBtnImport(obj)
+	{
+		if (!isXlsX(obj))
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			emptyFile(obj);
+			return ;
+		}
 
-		selectedUserCount.html(count);
+		readExcelData(obj, getExcelData);
+		emptyFile(obj);
+	}
+
+	function getExcelData(data)
+	{
+		let url = api.listUserWithXlsx;
+		let errMsg = `회원목록${message.ajaxLoadError}`
+		let param = JSON.stringify({ "data" : data });
+
+		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+	}
+
+	function getExcelDataCallback(data)
+	{
+		if (!isEmpty(data.data)) selectedUsers = data.data;
+		buildSelectedUser();
+		calculateSelectedCount();
 	}
 
 	function onSubmitUcd()
 	{
 		if (validation())
-			sweetConfirmWithContent(confirmContent(), createRequest);
+			/*sweetConfirmWithContent(confirmContent(), createRequest);*/
+			sweetConfirmWithContent(confirmContent(), chunkRequestData);
 	}
+
+	/**
+	 * 임시로직: 100건씩 호출
+	 * **/
+	let chunkData = [];
+	function chunkRequestData()
+	{
+		let uuids = [];
+		selectedUsers.map( (value) => {
+			let { profile_uuid } = value;
+			uuids.push(profile_uuid);
+		});
+
+		chunkData = chunkArray(uuids, 100);
+		fadeinLoader();
+		chunkRequest();
+	}
+
+	let reqCount = 0;
+	function chunkRequest()
+	{
+		let param = {
+			"profile_uuid" : chunkData[reqCount]
+			,"division" : 1
+			,"amount" : amount.val().trim()
+			,"description" : content.val().trim()
+			,"memo" : memo.val().trim()
+		}
+
+		$.ajax({
+			global: false,
+			url: api.createUserUcd,
+			type: "POST",
+			headers: headers,
+			contentType: 'text/plain',
+			dataType: 'json',
+			data: JSON.stringify(param),
+			success: function(data) {
+				if (isSuccessResp(data))
+				{
+					if (reqCount === chunkData.length - 1)
+					{
+						reqCount = 0;
+						fadeoutLoader();
+						createReqCallback(data);
+					}
+					else
+					{
+						reqCount++;
+						chunkRequest()
+					}
+				}
+				else
+				{
+					fadeoutLoader();
+					sweetError(invalidResp(data))
+				}
+			},
+			error: function (request, status) {
+				fadeoutLoader();
+				sweetError(label.submit+message.ajaxError);
+			},
+			complete: function (xhr, status) {
+			}
+		});
+	}
+	/**
+	 * 임시로직: 100건씩 호출
+	 * **/
 
 	function confirmContent()
 	{
@@ -333,11 +340,9 @@
 					<div class="scroll-wrap">
 						<p class="data-contents">`
 
-		selectedUserTableBody.find('tr').each(function (index) {
-			let nickname = $(this).data('nick');
-			let balance  = $(this).data('total');
-
-			content += ` @ ${nickname}(${numberWithCommas(balance)})`
+		selectedUsers.map( (value) => {
+			let { nickname, ucd } = value;
+			content += ` @ ${nickname}(${numberWithCommas(ucd)})`
 		});
 
 		content	+=
@@ -354,19 +359,20 @@
 		return content;
 	}
 
-	function createRequest()
+	/*function createRequest()
 	{
 		let url 	= api.createUserUcd;
 		let errMsg 	= label.submit+message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, ucdParams(), createReqCallback, errMsg, false);
-	}
+	}*/
 
-	function ucdParams()
+	/*function ucdParams()
 	{
 		let uuids = [];
-		selectedUserTableBody.find('tr').each(function () {
-			uuids.push($(this).data('uuid'));
+		selectedUsers.map( (value) => {
+			let { profile_uuid } = value;
+			uuids.push(profile_uuid);
 		});
 
 		let param = {
@@ -378,7 +384,7 @@
 		}
 
 		return JSON.stringify(param);
-	}
+	}*/
 
 	function createReqCallback(data)
 	{
@@ -392,12 +398,9 @@
 
 	function validation()
 	{
-		let count = selectedUserTableBody.find('tr').length;
-
-		if (count === 0)
+		if (selectedUsers.length === 0)
 		{
 			sweetToast(`출금대상을 ${message.addOn}`);
-			onClickModalOpen();
 			return false;
 		}
 
@@ -425,6 +428,7 @@
 		if (isOverBalance())
 		{
 			sweetToast(message.overBalanceWithdraw);
+			amount.trigger('focus');
 			return false;
 		}
 
@@ -435,69 +439,12 @@
 	{
 		let result = false;
 		let withdraw = Number(amount.val());
-		selectedUserTableBody.children().each(function () {
-			let balance = $(this).data('total');
-			if (withdraw > balance)
+
+		selectedUsers.map( (value) => {
+			let { ucd } = value;
+			if (withdraw > ucd)
 				result = true;
 		});
 
 		return result;
 	}
-
-	function onClickBtnImport(obj)
-	{
-		if (!isXlsX(obj))
-		{
-			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
-			emptyFile(obj);
-			return ;
-		}
-
-		readExcelData(obj, getExcelData);
-		emptyFile(obj);
-	}
-
-	function getExcelData(data)
-	{
-		let url = api.listUserWithXlsx;
-		let errMsg = `회원목록${message.ajaxLoadError}`
-		let param = JSON.stringify({ "data" : data });
-
-		ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
-	}
-
-	function getExcelDataCallback(data)
-	{
-		let userDatas = data.data;
-
-		if (userDatas.length > 0)
-		{
-			let selectedUserEl = '';
-			userDatas.map( (value) => {
-				let { nickname, profile_uuid, ucd } = value;
-				selectedUserEl +=
-					`<tr data-uuid="${profile_uuid}" data-nick="${nickname}" data-total="${ucd}">
-					<td>
-						<div class="p-info">${nickname}<span class="p-id">${profile_uuid}</span></div>
-					</td>
-					<td>
-						<div class="user-ucd">
-							<strong>${numberWithCommas(ucd)}</strong>
-						</div>
-					</td>
-					<td><i style="color: #ec5c5c;" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i></td>
-				</tr>`
-			})
-
-			selectedUserCount.html(userDatas.length);
-			selectedUserTableBody.html(selectedUserEl);
-			resultBox.show();
-		}
-		else
-		{
-			selectedUserCount.empty();
-			selectedUserTableBody.empty();
-			resultBox.hide();
-		}
-	}
-*/

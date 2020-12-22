@@ -6,7 +6,6 @@
     const limits     = document.getElementById('selPageLength');
     const searchBtn  = document.querySelector('.search');
     const resetBtn   = document.querySelector('.reset');
-    const btnXlsxOut = $("#btnXlsxOut");
     const dataTable  = $('#biz-sales-table');
     /** modal **/
     const modalCloseBtn = $(".close-btn");
@@ -39,7 +38,6 @@
         dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
         modalCloseBtn	.on('click', function () { modalFadeout(); });
         modalLayout		.on('click', function () { modalFadeout(); });
-        btnXlsxOut		.on("click", function () { onClickXlsxOut(); });
     });
 
     function initSearchForm() {
@@ -148,32 +146,4 @@
         table.page.len(Number(limits.value));
         table.ajax.reload();
         initMaxDateToday();
-    }
-
-    function onClickXlsxOut()
-    {
-        let totalRecords = getTotalRecordsFromDataTable(dataTable);
-        if (totalRecords > label.maxDownLoadXlsxCount)
-        {
-            let msg = `최대 ${numberWithCommas(label.maxDownLoadXlsxCount)}건까지 다운로드 가능합니다.
-						현재 ${numberWithCommas(totalRecords)}건`
-            sweetToast(msg);
-            return false;
-        }
-
-        let url = api.xlsxOutUcdSales;
-        let errMsg = label.list + message.ajaxLoadError;
-        let param = {
-            "from_date": formDate.value,
-            "to_date": toDate.value,
-            "search_type": searchType.value,
-            "keyword": keyword.value
-        }
-
-        ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
-    }
-
-    function xlsxOutCallback(data)
-    {
-        setExcelData(`${xlsxName.ucdSales}_${formDate.value}~${toDate.value}`, xlsxName.ucdSales, data.data);
     }

@@ -20,7 +20,7 @@ class Ucd extends MY_Controller {
                 $this->load->layout('ucd/ucd-withdraw-list');
                 break;
             case "user" :
-                $this->load->layout('ucd/ucd-withdraw-user-v2');
+                $this->load->layout('ucd/ucd-withdraw-user');
                 break;
         }
     }
@@ -37,7 +37,7 @@ class Ucd extends MY_Controller {
                 $this->load->layout('ucd/ucd-cancel-list');
                 break;
             case "user" :
-                $this->load->layout('ucd/ucd-cancel-user-v2');
+                $this->load->layout('ucd/ucd-cancel-user');
                 break;
         }
     }
@@ -50,7 +50,7 @@ class Ucd extends MY_Controller {
                 $this->load->layout('ucd/ucd-create-biz');
                 break;
             case "user":
-                $this->load->layout('ucd/ucd-create-user-v2');
+                $this->load->layout('ucd/ucd-create-user');
                 break;
         }
     }

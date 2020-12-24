@@ -1,23 +1,24 @@
 
-    const selYear       = $('#selYear');
+    /*const selYear       = $('#selYear');
     const selMonth      = $('#selMonth');
     const dailyInfo     = $('#dailyInfo');
-    const summaryWrap   = $('#summaryWrap');
-    const grid          = $("#grid");
-    const d = new Date();
+    const summaryWrap   = $('#summaryWrap');*/
+    /*const d = new Date();
     const year = d.getFullYear();
-    const month = d.getMonth() + 1;
+    const month = d.getMonth() + 1;*/
+    const grid          = $("#grid");
 
     /** 로드 바로 실행 **/
     $(() => {
-        initSelectBox();
-        initPage();
+        /*initSelectBox();*/
+        /*initPage();*/
+        buildGrid();
         /** 월단위 셀렉박스 이벤트 **/
-        selYear     .on('change', function () { updatePage(); });
-        selMonth    .on('change', function () { updatePage(); });
+        /*selYear     .on('change', function () { updatePage(); });
+        selMonth    .on('change', function () { updatePage(); });*/
     });
 
-    function initSelectBox()
+    /*function initSelectBox()
     {
         initSelectBoxYear(year);
         initSelectBoxMonth(month);
@@ -48,7 +49,7 @@
         }
 
         onChangeSelectOption(selMonth);
-    }
+    }*/
 
     function initPage()
     {

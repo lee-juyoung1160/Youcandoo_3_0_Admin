@@ -35,7 +35,7 @@
 		/** 목록 불러오기 **/
 		buildGrid();
 		/** 이벤트 **/
-		/*$("body")  .on("keydown", function (event) { onKeydownSearch(event) });*/
+		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -81,10 +81,10 @@
 			},
 			columns: [
 				{title: "상품유형",    	data: "gift_type",  		width: "7%" }
-				,{title: "상품명", 		data: "gift_name",    		width: "13%" }
-				,{title: "신청자", 		data: "nickname",    		width: "15%",
+				,{title: "상품명", 		data: "gift_name",    		width: "15%" }
+				,{title: "신청자", 		data: "nickname",    		width: "13%",
 					render: function (data, type, row, meta) {
-						return `<a class="line-clamp" style="max-width: 210px;" href="${page.detailUser}${row.user_idx}">${data}</a>`;
+						return `<a class="line-clamp" style="max-width: 200px;" href="${page.detailUser}${row.user_idx}">${data}</a>`;
 					}
 				}
 				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }

@@ -6,22 +6,32 @@
             <h2 class="main-title list-main-title">상품현황</h2>
             <span class="today-date" id="today-date"></span>
         </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix" style="padding-bottom: 0; border-bottom: none;">
+                <p class="list-common-title">날짜</p>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+        </div>
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
         <div class="wrap">
             <div class="row">
-                
-                <div class="top clearfix">
-                    <div class="right-wrap clearfix">
-                        <div class="select-box">
-                            <label for="selYear"></label>
-                            <select id="selYear"></select>
-                        </div>
-                        <div class="select-box">
-                            <label for="selMonth"></label>
-                            <select id="selMonth"></select>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="box">
                     <div class="table-wrap">
                         <table id="dataTable">

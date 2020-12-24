@@ -1,7 +1,7 @@
 
     const search 	= $(".search");
     const reset 	= $(".reset");
-    const searchType = $("#searchType");
+    const searchType = $("#search_type");
     const keyword   = $("#keyword");
     const sendCount = $("#sendCount");
     const sendAmount = $("#sendAmount");

@@ -325,6 +325,7 @@
 		,detailSendGift : baseApiUrl+'gift/exchange/couponDetail'
 		,resendGift : baseApiUrl+'gift/exchange/resend'
 		/*,refundGift : baseApiUrl+'gift/exchange/cancel'*/
+		,dashboardGift : baseApiUrl+'gift/dashboard/payment'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'
 		,deleteAdmin : baseApiUrl+'admin/delete'

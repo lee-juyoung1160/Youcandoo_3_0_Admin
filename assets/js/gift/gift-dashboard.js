@@ -1,6 +1,8 @@
 
     const search 	= $(".search");
     const reset 	= $(".reset");
+    const searchType = $("#searchType");
+    const keyword   = $("#keyword");
     const sendCount = $("#sendCount");
     const sendAmount = $("#sendAmount");
     const tableBody = $("#tableBody");
@@ -22,6 +24,8 @@
 
     function initSearchForm()
     {
+        keyword.val('');
+        initSelectOption();
         initSearchDateRange();
         initMaxDateToday();
         initDayBtn();
@@ -34,6 +38,8 @@
         let param = {
             "from_date" : dateFrom.val()
             ,"to_date" : dateTo.val()
+            ,"search_type" : searchType.val()
+            ,"keyword" : keyword.val()
         }
         ajaxRequestWithJsonData(true, url, JSON.stringify(param), getListSuccessCallback, errMsg, false);
     }

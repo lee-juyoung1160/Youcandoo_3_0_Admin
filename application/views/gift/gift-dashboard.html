@@ -24,26 +24,26 @@
 
                 <div class="box">
                     <div class="table-wrap">
-                        <table id="dataTable">
+                        <table>
                             <colgroup></colgroup>
                             <thead>
                             <tr>
                                 <th>상품</th>
                                 <th>발송건 수</th>
-                                <th>금액</th>
+                                <th>금액(UCD)</th>
                             </tr>
                             <tr style="background-color: #f3f3f3";>
                                 <th>total</th>
-                                <th>1000</th>
-                                <th>1000</th>
+                                <th id="sendCount"></th>
+                                <th id="sendAmount"></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody id="tableBody">
+                            <!--<tr>
                                 <td>2020-01-01</td>
                                 <td>3,000,000</td>
                                 <td>3,000,000</td>
-                            </tr>
+                            </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -53,4 +53,4 @@
     </div>
 </section>
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
-<!--<script defer src="/assets/js/gift/gift-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>-->
+<script defer src="/assets/js/gift/gift-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

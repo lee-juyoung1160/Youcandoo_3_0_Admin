@@ -1,23 +1,27 @@
 
     const selYear   = $('#selYear');
     const selMonth  = $('#selMonth');
-    const dataTable = $("#dataTable");
+    const sendCount = $("#sendCount");
+    const sendAmount = $("#sendAmount");
+    const tableBody = $("#tableBody");
     const d = new Date();
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
 
     /** 로드 바로 실행 **/
     $(() => {
-        /** 셀렉트박스 초기화 **/
-        initSelectBox();
-        /** dataTable default config **/
-        initTableDefault();
-        /** 목록 불러오기 **/
-        buildGrid();
+        /** 페이 초기화 **/
+        initPage();
         /** 이벤트 **/
-        selYear     .on('change', function () { onChangeSelectBox(); });
-        selMonth    .on('change', function () { onChangeSelectBox(); });
+        selYear     .on('change', function () { getList(); });
+        selMonth    .on('change', function () { getList(); });
     });
+
+    function initPage()
+    {
+        initSelectBox();
+        getList();
+    }
 
     function initSelectBox()
     {
@@ -52,55 +56,37 @@
         onChangeSelectOption(selMonth);
     }
 
-    function onChangeSelectBox()
+    function getList()
     {
-        let table = dataTable.DataTable();
-        table.ajax.reload();
-    }
-
-    function buildGrid()
-    {
-        dataTable.DataTable({
-            ajax : {
-                url: api.dashboardGift,
-                type: "POST",
-                headers: headers,
-                data: function (d) {
-                    return tableParams();
-                },
-                error: function (request, status) {
-                    sweetError(label.list+message.ajaxLoadError);
-                }
-            },
-            columns: [
-                {title: "상품", 		data: "gift_name",   		width: "33%" }
-                ,{title: "발송건 수", data: "total_gift_qty",   	width: "33%" }
-                ,{title: "금액",	    data: "total_gift_ucd",  	width: "33%",
-                    render: function (data) {
-                        return numberWithCommas(data);
-                    }
-                }
-            ],
-            serverSide: true,
-            paging: false,
-            select: false,
-            destroy: false,
-            initComplete: function () {
-            },
-            fnRowCallback: function( nRow, aData ) {
-            },
-            drawCallback: function (settings) {
-            }
-        });
-    }
-
-    function tableParams()
-    {
+        let url = api.dashboardGift;
+        let errMsg = label.list+message.ajaxLoadError;
         let param = {
             "year" : selYear.val()
             ,"month": selMonth.val()
         }
-
-        return JSON.stringify(param);
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), getListSuccessCallback, errMsg, false);
     }
 
+    function getListSuccessCallback(data)
+    {
+        isSuccessResp(data) ? buildGrid(data) : sweetToast(invalidResp(data));
+    }
+
+    function buildGrid(data)
+    {
+        sendCount.html(numberWithCommas(data.GiftTotalCount));
+        sendAmount.html(numberWithCommas(data.GiftTotalUcd));
+
+        let trEl = '';
+        for (let { gift_name, total_gift_qty, total_gift_ucd } of data.data)
+        {
+            trEl +=
+                `<tr>
+                    <td>${gift_name}</td>
+                    <td>${total_gift_qty}</td>
+                    <td>${numberWithCommas(total_gift_ucd)}</td>
+                </tr>`
+        }
+
+        tableBody.html(trEl);
+    }

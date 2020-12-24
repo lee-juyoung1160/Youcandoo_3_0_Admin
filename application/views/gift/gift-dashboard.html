@@ -8,70 +8,21 @@
         </div>
         <div class="wrap">
             <div class="row">
-                <div class="box">
-                    <div class="content">
-                        <div class="top clearfix">
-                            <p class="title">월 간 현황</p>
-                            <div class="right-wrap clearfix">
-                                <div class="select-box">
-                                    <label for="selYear"></label>
-                                    <select id="selYear">
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <label for="selMonth"></label>
-                                    <select id="selMonth">
-                                    </select>
-                                </div>
-                            </div>
+                
+                <div class="top clearfix">
+                    <div class="right-wrap clearfix">
+                        <div class="select-box">
+                            <label for="selYear">2020년</label>
+                            <select id="selYear"><option value="2020">2020년</option></select>
                         </div>
-
-                        <div class="row">
-                            <div class="col col-1">
-                                <canvas id="dailyInfo" height="400"></canvas>
-                            </div>
-                            <div class="col col-2">
-                                <div class="month-data" id="summaryWrap">
-                                    <!--<dl>
-                                        <dt class="title">전체</dt>
-                                        <dd class="ucd-text total-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘">
-                                            <span id="totalUcd"></span>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt class="title">개인충전</dt>
-                                        <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘">
-                                            <span id="userUcd"></span>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt class="title">기업충전</dt>
-                                        <dd class="ucd-text"><img src="/assets/images/icon_ucd_s.png" alt="아이콘">
-                                            <span id="bizUcd"></span>
-                                        </dd>
-                                    </dl>-->
-                                </div>
-                            </div>
+                        <div class="select-box">
+                            <label for="selMonth">12월</label>
+                            <select id="selMonth"><option selected="" value="12">12월</option><option value="11">11월</option><option value="10">10월</option><option value="09">09월</option><option value="08">08월</option><option value="07">07월</option><option value="06">06월</option><option value="05">05월</option><option value="04">04월</option><option value="03">03월</option><option value="02">02월</option><option value="01">01월</option></select>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="box">
-<!--                    <div class="content" style="padding-bottom: 0;">-->
-<!--                        <div class="top" style="margin-bottom: 0;">-->
-<!--                            <div class="title">기간 별 현황</div>-->
-<!--                            <div class="right-wrap clearfix">-->
-<!--                                <div class="date-wrap">-->
-<!--                                    <span class="date-margin-text"> 기간검색 </span>-->
-<!--                                    <input type="text" class="datepicker date_from">-->
-<!--                                    <span class="date-margin-text"> ~ </span>-->
-<!--                                    <input type="text" class="datepicker date_to">-->
-<!--                                    <button type="button" class="search">검색</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="table-wrap">
                         <table id="grid">
                             <colgroup></colgroup>

@@ -50,12 +50,12 @@
 
 	function buildDetail(data)
 	{
-		let { status, title, contents, nickname, app_version, os_version, device, is_resource, userid, comment, memo, comment_datetime } = data.data;
+		let { status, title, contents, nickname, user_idx, app_version, os_version, device, is_resource, userid, comment, memo, comment_datetime } = data.data;
 
 		if (status === '대기')
 			location.href = page.updateInquiry+idx;
 
-		nicknameEl.html(nickname);
+		nicknameEl.html(isEmpty(user_idx) ? nickname : `<a href="${page.detailUser}${user_idx}">${nickname}</a>`);
 		appVersion.html(app_version);
 		osVersion.html(os_version);
 		deviceEl.html(device);

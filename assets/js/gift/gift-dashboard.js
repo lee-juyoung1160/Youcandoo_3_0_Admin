@@ -13,12 +13,14 @@
         /** 이벤트 **/
         $("body")  .on("keydown", function (event) { onKeydownSearch(event) });
         search			.on("click", function () { onSubmitSearch(); });
+        dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
     });
 
     function initPage()
     {
         initSearchDateRange();
         initMaxDateToday();
+        initDayBtn();
         getList();
     }
 

@@ -51,13 +51,13 @@
     let g_qna_uuid;
 	function buildDetail(data)
 	{
-		let { qna_uuid, status, title, contents, nickname, app_version, os_version, device, is_resource } = data.data;
+		let { qna_uuid, status, title, contents, nickname, user_idx, app_version, os_version, device, is_resource } = data.data;
 
 		if (status !== '대기')
 			location.href = page.detailInquiry+idx;
 
         g_qna_uuid = qna_uuid;
-        nicknameEl.html(nickname);
+        nicknameEl.html(isEmpty(user_idx) ? nickname : `<a href="${page.detailUser}${user_idx}">${nickname}</a>`);
         appVersion.html(app_version);
         osVersion.html(os_version);
         deviceEl.html(device);

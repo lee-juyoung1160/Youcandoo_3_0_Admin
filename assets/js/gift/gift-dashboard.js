@@ -1,59 +1,30 @@
 
-    const selYear   = $('#selYear');
-    const selMonth  = $('#selMonth');
+    const search 	= $(".search");
+    const reset 	= $(".reset");
     const sendCount = $("#sendCount");
     const sendAmount = $("#sendAmount");
     const tableBody = $("#tableBody");
-    const d = new Date();
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
 
     /** 로드 바로 실행 **/
     $(() => {
+        /** 데이트피커 초기화 **/
+        initSearchDatepicker();
         /** 페이 초기화 **/
-        initPage();
+        initSearchForm();
+        /** 목록 **/
+        getList();
         /** 이벤트 **/
-        selYear     .on('change', function () { getList(); });
-        selMonth    .on('change', function () { getList(); });
+        $("body")  .on("keydown", function (event) { onKeydownSearch(event) });
+        search			.on("click", function () { onSubmitSearch(); });
+        reset			.on("click", function () { initSearchForm(); });
+        dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
     });
 
-    function initPage()
+    function initSearchForm()
     {
-        initSelectBox();
-        getList();
-    }
-
-    function initSelectBox()
-    {
-        initSelectBoxYear(year);
-        initSelectBoxMonth(month);
-    }
-
-    function initSelectBoxYear(_year)
-    {
-        selYear.empty();
-
-        let defaultYear  = 2020;
-
-        for (defaultYear; defaultYear <= _year; defaultYear++)
-            selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
-
-        onChangeSelectOption(selYear);
-    }
-
-    function initSelectBoxMonth(_month)
-    {
-        selMonth.empty();
-
-        let i = 1;
-
-        for (i; i <= 12; i++)
-        {
-            let selected = i === Number(_month) ? 'selected' : '';
-            selMonth.prepend(`<option ${selected} value="${appendZero(i)}">${appendZero(i)}월</option>`);
-        }
-
-        onChangeSelectOption(selMonth);
+        initSearchDateRange();
+        initMaxDateToday();
+        initDayBtn();
     }
 
     function getList()
@@ -61,8 +32,8 @@
         let url = api.dashboardGift;
         let errMsg = label.list+message.ajaxLoadError;
         let param = {
-            "year" : selYear.val()
-            ,"month": selMonth.val()
+            "from_date" : dateFrom.val()
+            ,"to_date" : dateTo.val()
         }
         ajaxRequestWithJsonData(true, url, JSON.stringify(param), getListSuccessCallback, errMsg, false);
     }
@@ -89,4 +60,10 @@
         }
 
         tableBody.html(trEl);
+    }
+
+    function onSubmitSearch()
+    {
+        getList();
+        initMaxDateToday();
     }

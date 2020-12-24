@@ -1,5 +1,6 @@
 
-    const search 		= $(".search");
+    const search 	= $(".search");
+    const reset 	= $(".reset");
     const sendCount = $("#sendCount");
     const sendAmount = $("#sendAmount");
     const tableBody = $("#tableBody");
@@ -9,19 +10,21 @@
         /** 데이트피커 초기화 **/
         initSearchDatepicker();
         /** 페이 초기화 **/
-        initPage();
+        initSearchForm();
+        /** 목록 **/
+        getList();
         /** 이벤트 **/
         $("body")  .on("keydown", function (event) { onKeydownSearch(event) });
         search			.on("click", function () { onSubmitSearch(); });
+        reset			.on("click", function () { initSearchForm(); });
         dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
     });
 
-    function initPage()
+    function initSearchForm()
     {
         initSearchDateRange();
         initMaxDateToday();
         initDayBtn();
-        getList();
     }
 
     function getList()

@@ -368,18 +368,9 @@
 		,detailApiUrl : baseApiUrl+'logdashboard/api/log/phpDetail'
 		/** 엑셀다운로드 **/
 		,xlsxOutDoit : baseApiUrl+'excel/download/doit'
-		,xlsxOutDoitMember : baseApiUrl+'excel/download/doit_member'
 		,xlsxOutDoitReview : baseApiUrl+'excel/download/doit_review'
-		,xlsxOutDoitUcd : baseApiUrl+'excel/download/doit_ucd'
-		,xlsxOutGiftApply : baseApiUrl+'excel/download/exchange'
 		,xlsxOutPromoDoit : baseApiUrl+'excel/download/promotion_doit'
-		,xlsxOutPromoUcd : baseApiUrl+'excel/download/promotion_ucd'
-		,xlsxOutUcdSales : baseApiUrl+'excel/download/ucd_sales'
-		,xlsxOutUcdUsage : baseApiUrl+'excel/download/ucd_usage'
-		,xlsxOutUcdWithdraw : baseApiUrl+'excel/download/ucd_withdraw'
-		,xlsxOutUcdCharge : baseApiUrl+'excel/download/ucd_charge'
-		,xlsxOutUcdCancel : baseApiUrl+'excel/download/ucd_cancel'
-		,xlsxOutReview : baseApiUrl+'excel/download/review'
+		,xlsxOutLeaderRank : baseApiUrl+'excel/download/rank_leader'
 	}
 
 	const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

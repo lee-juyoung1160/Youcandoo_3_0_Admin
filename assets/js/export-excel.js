@@ -53,13 +53,5 @@
 
 	const xlsxName = {
 		doitList : '두잇목록',
-		giftApply : '상품 신청 내역',
 		promoDoit : '개설 두잇',
-		promoUcd : 'UCD 정보',
-		ucdSales : 'UCD 매출내역',
-		ucdUsage : 'UCD 사용내역',
-		ucdWithdraw : 'UCD 출금내역',
-		ucdCharge : 'UCD 충전내역',
-		ucdCancel : 'UCD 취소내역',
-		reviewList : '리뷰목록'
 	}

@@ -47,8 +47,8 @@
     /** 현재 연도-월-일 구하기 **/
     /** 로드 바로 실행 **/
     $(() => {
+        buildBtnXlsxOut();
         initSearchDate();
-
         /*initMinMaxDate();*/
         initSelectBox();
         /*setBaseDate();*/
@@ -625,4 +625,34 @@
             dayNames.push(i+'일');
 
         return dayNames;
+    }
+
+    function buildBtnXlsxOut()
+    {
+        if (sessionAuthCode.val() === 'dev')
+        {
+            let btnXlsxEl =
+                `<button class="btn-excel"
+                        type="button"
+                        style="margin: 12px 12px 0 0; border-radius: 5px; background-color: darkgreen; background-image: none; width: 100px;"
+                        onclick="onClickXlsxOut();">
+                    <i class="fas fa-table" style="margin-right: 10px;"></i>리더 랭킹
+                </button>`;
+
+            $(".main-top").append(btnXlsxEl);
+        }
+    }
+
+    function onClickXlsxOut()
+    {
+        let url = api.xlsxOutLeaderRank;
+        let errMsg = label.list + message.ajaxLoadError;
+
+        ajaxRequestWithJsonData(true, url, null, xlsxOutCallback, errMsg, false);
+    }
+
+    function xlsxOutCallback(data)
+    {
+        let fileName = '리더 랭킹';
+        setExcelData(fileName, fileName, data.data);
     }

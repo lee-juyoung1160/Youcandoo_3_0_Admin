@@ -52,7 +52,7 @@
     function initPage()
     {
         getChartData();
-        //getTopTen();
+        getTopTen();
     }
 
     function onClickTab(target)
@@ -125,7 +125,7 @@
                                 <span class="sub-title">${topTenDesc}</span>
                             </p>
                         </div>
-                        <div class="box-contents">`
+                        <div class="box-contents">`;
                         if (keyData.length > 0)
                         {
                             let columnNames = Object.getOwnPropertyNames(keyData[0]);
@@ -156,16 +156,21 @@
                                                 rowKeys.map(value => {
                                                     topTenEl += `<td>${rowData[value]}</td>`
                                                 });
-                                            `</tr>`
+                                            `</tr>`;
                                     }
                             topTenEl +=
                                 `</tbody>
-                            </table>`
+                            </table>`;
+                        }
+                        else
+                        {
+                            topTenEl +=
+                                `<p class="no-contents">목록이 없습니다.</p>`;
                         }
                     topTenEl +=
                         `</div>
                     </div>
-                </div>`
+                </div>`;
 
             if ((i+1)%2 === 0)
                 topTenEl += '</div>';

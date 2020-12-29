@@ -10,7 +10,6 @@
 /*    display: none;*/
 /*    margin-top: 20px;*/
 /*}*/
-
 .reward-li .input-wrap {
     display: none;
     margin-top: 20px;
@@ -397,4 +396,10 @@
     color: #484848;
     font-size: 23px;
     font-weight: 600;
+}
+
+.main-title-date .badge {
+    padding: 5px;
+    font-size: 13px;
+    font-weight: 400;
 }

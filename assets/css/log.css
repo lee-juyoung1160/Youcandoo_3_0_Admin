@@ -105,4 +105,12 @@
     text-align: center;
     background-color: #333;
 }
+.no-contents {
+    height: 100%;
+    min-height: 443px;
+    line-height: 443px;
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+}
 

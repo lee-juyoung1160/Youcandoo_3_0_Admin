@@ -1,7 +1,7 @@
 
     const ulTab		    = $("#ulTab");
-    const yearEl2       = $("#selYear2");
-    const monthEl2      = $("#selMonth2");
+    const selYear       = $("#selYear");
+    const selMonth      = $("#selMonth");
     const dailyTotal    = $('#dailyTotalUser');
     let dailyTotalCtx;
     const topTenWrap    = $("#topTenWrap");
@@ -14,8 +14,8 @@
         initPage();
         /** 이벤트 **/
         ulTab.on("click", function (event) { onClickTab(event.target); });
-        yearEl2  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
-        monthEl2 .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        selYear  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        selMonth .on('change', function () { onChangeSelectBoxForDailyTotal(); });
     });
 
     function initSelectBox()
@@ -34,7 +34,7 @@
         for (defaultYear; defaultYear <= _year; defaultYear++)
             $(".select-year").prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
 
-        onChangeSelectOption(yearEl2);
+        onChangeSelectOption(selYear);
     }
 
     function initSelectBoxMonth(_month)
@@ -46,7 +46,7 @@
             $(".select-month").prepend(`<option ${selected} value="${appendZero(i)}">${appendZero(i)}월</option>`);
         }
 
-        onChangeSelectOption(monthEl2);
+        onChangeSelectOption(selMonth);
     }
 
     function initPage()
@@ -104,6 +104,16 @@
             let pageUrl = `/operate/log/${g_alias}_${key}`;
             let keyData = data.data[key];
             let columnNames = Object.getOwnPropertyNames(keyData[0]);
+            let topTenTitle = key.toUpperCase();
+            let topTenDesc;
+            if (topTenTitle === 'PROCESS')
+                topTenDesc = `${selMonth.val()}월에 ${key} time 가장 오래걸린 URL`;
+            else if (topTenTitle === 'APACHE_ERROR')
+                topTenDesc = `${selMonth.val()}월에 가장 많은 ${key}가 발생한 URL`;
+            else if (topTenTitle === 'PHP_ERROR')
+                topTenDesc = `${selMonth.val()}월에 가장 많은 ${key}가 발생한 URL`;
+            else
+                topTenDesc = `${selMonth.val()}월에 가장 많이 조회한 URL`;
 
             if (i===0 || i%2 === 0)
                 topTenEl += '<div class="row row-2">';
@@ -112,10 +122,9 @@
                 `<div class="col box">
                     <div class="content-inner">
                         <div class="box-top clearfix">
-                            <p class="data-title">${key.toUpperCase()}
-                                <span class="sub-title">최근 30일 기준</span>
+                            <p class="data-title">${topTenTitle}
+                                <span class="sub-title">${topTenDesc}</span>
                             </p>
-                            <a href="${pageUrl}" class="btn-more">더보기 <i class="fas fa-chevron-right"></i></a>
                         </div>
                         <div class="box-contents">
                             <table>
@@ -171,8 +180,8 @@
         let url = api.getDailyTotal;
         let errMsg = `차트 데어터${message.ajaxLoadError}`
         let param = JSON.stringify({
-            "year": yearEl2.val(),
-            "month" : monthEl2.val()
+            "year": selYear.val(),
+            "month" : selMonth.val()
         });
         let callback = g_page_type === 'init' ? initDailyTotalUserChart : updateDailyTotalUserChart;
 
@@ -284,14 +293,14 @@
             maintainAspectRatio : false
         }
 
-        dailyTotalCtx = initChart(dailyTotal, chartType.bar, getDayNames(yearEl2.val(), monthEl2.val()), dataset, options);
+        dailyTotalCtx = initChart(dailyTotal, chartType.bar, getDayNames(selYear.val(), selMonth.val()), dataset, options);
     }
 
     function updateDailyTotalUserChart(data)
     {
         let { user, doit } = data.data;
 
-        dailyTotalCtx.data.labels = getDayNames(yearEl2.val(), monthEl2.val());
+        dailyTotalCtx.data.labels = getDayNames(selYear.val(), selMonth.val());
         dailyTotalCtx.data.datasets[0].data = user;
         dailyTotalCtx.data.datasets[1].data = doit;
         dailyTotalCtx.update();

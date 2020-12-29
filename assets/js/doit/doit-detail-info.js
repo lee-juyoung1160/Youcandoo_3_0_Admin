@@ -2,6 +2,7 @@
 	/** 두잇정보 탭 **/
 	const category 		= $("#category");
 	const creator 		= $("#creator");
+	const doitStatus 	= $("#doitStatus");
 	const doitTitle 	= $("#doitTitle");
 	const doitDesc 		= $("#doitDesc");
 	const doitTags 		= $("#doitTags");
@@ -55,9 +56,11 @@
 	{
 		let detail 	 = data.data;
 
-		category.html(detail.doit_category);
 		doitTitle.html(detail.doit_title);
+		doitStatus.addClass(getStatusColor(detail.doit_status));
+		doitStatus.html(detail.doit_status);
 		actionDate.html(`${detail.action_start_datetime} ${label.tilde} ${detail.action_end_datetime}`);
+		category.html(detail.doit_category);
 
 		let rewardDom 	= '';
 		let separator   = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;'
@@ -244,4 +247,28 @@
 		}
 
 		return actionResourceDom;
+	}
+
+	function getStatusColor(status)
+	{
+		switch (status) {
+			case '모집중':
+				return 'badge-yellow'
+			case '모집실패':
+				return 'badge-orange'
+			case '개설취소':
+				return 'badge-orange'
+			case '개설취소(운영)':
+				return 'badge-orange'
+			case '진행중':
+				return 'badge-green'
+			case '진행종료':
+				return 'badge-gray'
+			case '결과발표':
+				return 'badge-gray'
+			case '종료':
+				return 'badge-gray'
+			default:
+				return ''
+		}
 	}

@@ -14,8 +14,8 @@
         initPage();
         /** 이벤트 **/
         ulTab.on("click", function (event) { onClickTab(event.target); });
-        selYear  .on('change', function () { onChangeSelectBoxForDailyTotal(); });
-        selMonth .on('change', function () { onChangeSelectBoxForDailyTotal(); });
+        selYear  .on('change', function () { onChangeSelectBox(); });
+        selMonth .on('change', function () { onChangeSelectBox(); });
     });
 
     function initSelectBox()
@@ -52,7 +52,7 @@
     function initPage()
     {
         getChartData();
-        getTopTen();
+        //getTopTen();
     }
 
     function onClickTab(target)
@@ -81,8 +81,8 @@
         let errMsg = `top 10 ${message.ajaxError}`;
         let param = {
             "alias" : g_alias
-            ,"search_type" : "all"
-            ,"limit" : 10
+            ,"year" : selYear.val()
+            ,"month" : selMonth.val()
         }
 
         ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTopTenSuccessCallback, errMsg, false);
@@ -103,7 +103,6 @@
             let key = keys[i];
             let pageUrl = `/operate/log/${g_alias}_${key}`;
             let keyData = data.data[key];
-            let columnNames = Object.getOwnPropertyNames(keyData[0]);
             let topTenTitle = key.toUpperCase();
             let topTenDesc;
             if (topTenTitle === 'PROCESS')
@@ -126,12 +125,16 @@
                                 <span class="sub-title">${topTenDesc}</span>
                             </p>
                         </div>
-                        <div class="box-contents">
-                            <table>
+                        <div class="box-contents">`
+                        if (keyData.length > 0)
+                        {
+                            let columnNames = Object.getOwnPropertyNames(keyData[0]);
+                            topTenEl +=
+                            `<table>
                                 <colgroup>
                                     <col style="width: 10%">
-                                    <col style="width: 40%">
-                                    <col style="width: 45%">
+                                    <col style="width: 60%">
+                                    <col style="width: 25%">
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -155,10 +158,12 @@
                                                 });
                                             `</tr>`
                                     }
-                    topTenEl +=
+                            topTenEl +=
                                 `</tbody>
-                            </table>
-                        </div>
+                            </table>`
+                        }
+                    topTenEl +=
+                        `</div>
                     </div>
                 </div>`
 
@@ -169,10 +174,11 @@
         topTenWrap.html(topTenEl);
     }
 
-    function onChangeSelectBoxForDailyTotal()
+    function onChangeSelectBox()
     {
         g_page_type = 'update';
         getChartData();
+        getTopTen();
     }
 
     function getChartData()

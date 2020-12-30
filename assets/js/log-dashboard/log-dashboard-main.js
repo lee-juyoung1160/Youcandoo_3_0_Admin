@@ -133,8 +133,8 @@
                             `<table>
                                 <colgroup>
                                     <col style="width: 5%">
-                                    <col style="width: 40%">
-                                    <col style="width: 15%">
+                                    <col style="width: 60%">
+                                    <col style="width: 25%">
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -154,8 +154,8 @@
                                             `<tr>
                                                 <td><strong class="rank"><em>${j+1}</em></strong></td>`
                                                 rowKeys.map((value,index ) => {
-                                                    let columnValue = (topTenTitle === 'PROCESS' && index === 0)
-                                                        ? `<a class="process-link" onclick="moveList(this);" id="${rowData.uniqueid}">${rowData[value]}</a>`
+                                                    let columnValue = (topTenTitle === 'PROCESS' && index === 2)
+                                                        ? `<a class="process-link" onclick="moveList(this);" id="${rowData[value]}">보기</a>`
                                                         : rowData[value];
                                                     topTenEl += `<td>${columnValue}</td>`
                                                 });

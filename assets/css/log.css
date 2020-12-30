@@ -113,4 +113,8 @@
     font-size: 13px;
     text-align: center;
 }
+.process-link {
+    color: #00acd6;
+    border-bottom: 1px solid #00acd6;
+}
 

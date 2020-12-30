@@ -6,6 +6,7 @@
 	const keyword		= $("#keyword");
 	const status		= $("input[name=radio-status]");
 	const selPageLength = $("#selPageLength");
+	const uniqueId		= $("#unique_id");
 	/** modal **/
 	const modalCloseBtn = $(".close-btn");
 	const modalLayout 	= $(".modal-layout");
@@ -39,7 +40,7 @@
 
 	function initSearchForm()
 	{
-		keyword.val('');
+		keyword.val(uniqueId.val());
 		status.eq(0).prop('checked', true);
 		initSelectOption();
 		initSearchDateRangeMonth();

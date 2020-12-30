@@ -449,6 +449,8 @@
 		,listAuth : '/admin/auth'
 
 		,detailAccount : '/operate/account/detail/'
+
+		,listApiLog : '/operate/log/api_list'
 	}
 
 	const innerIps = ['220.85.113.234'];

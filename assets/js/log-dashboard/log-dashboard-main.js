@@ -132,9 +132,9 @@
                             topTenEl +=
                             `<table>
                                 <colgroup>
-                                    <col style="width: 10%">
-                                    <col style="width: 60%">
-                                    <col style="width: 25%">
+                                    <col style="width: 5%">
+                                    <col style="width: 40%">
+                                    <col style="width: 15%">
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -153,8 +153,11 @@
                                         topTenEl +=
                                             `<tr>
                                                 <td><strong class="rank"><em>${j+1}</em></strong></td>`
-                                                rowKeys.map(value => {
-                                                    topTenEl += `<td>${rowData[value]}</td>`
+                                                rowKeys.map((value,index ) => {
+                                                    let columnValue = (topTenTitle === 'PROCESS' && index === 0)
+                                                        ? `<a class="process-link" onclick="moveList(this);" id="${rowData.uniqueid}">${rowData[value]}</a>`
+                                                        : rowData[value];
+                                                    topTenEl += `<td>${columnValue}</td>`
                                                 });
                                             `</tr>`;
                                     }
@@ -177,6 +180,16 @@
         }
 
         topTenWrap.html(topTenEl);
+    }
+
+    function moveList(obj)
+    {
+        let form   = $("<form></form>");
+        form.prop("method", "post");
+        form.prop("action", page.listApiLog);
+        form.append($("<input/>", { type: 'hidden', name: 'unique_id', value: obj.id }));
+        form.appendTo("body");
+        form.trigger('submit');
     }
 
     function onChangeSelectBox()

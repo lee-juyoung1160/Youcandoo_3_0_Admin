@@ -35,7 +35,7 @@ class Operate extends MY_Controller {
                 $this->load->layout('operate/log-dashboard');
                 break;
             case "api_list":
-                $data['unique_id'] = $this->input->post('unique_id');
+                $data['url'] = $this->input->post('url');
                 $this->load->layout('operate/log-api-list', $data);
                 break;
             case "api_url":

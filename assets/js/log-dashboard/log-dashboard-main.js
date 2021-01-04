@@ -158,7 +158,7 @@
                                                 <td><strong class="rank"><em>${j+1}</em></strong></td>`
                                                 rowKeys.map((value,index ) => {
                                                     let columnValue = (topTenTitle === 'PROCESS' && index === 2)
-                                                        ? `<a class="process-link" onclick="moveList(this);" id="${rowData[value]}">보기</a>`
+                                                        ? `<a class="process-link" onclick="moveList(this);" data-url="${rowData.URL}">보기</a>`
                                                         : rowData[value];
                                                     topTenEl += `<td>${columnValue}</td>`
                                                 });
@@ -190,7 +190,7 @@
         let form   = $("<form></form>");
         form.prop("method", "post");
         form.prop("action", page.listApiLog);
-        form.append($("<input/>", { type: 'hidden', name: 'unique_id', value: obj.id }));
+        form.append($("<input/>", { type: 'hidden', name: 'url', value: $(obj).data('url') }));
         form.appendTo("body");
         form.trigger('submit');
     }

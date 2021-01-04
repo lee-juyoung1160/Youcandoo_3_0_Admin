@@ -42,6 +42,12 @@
 		return (_value >= 10000 ? numberWithCommas(_value/1000)+'k' : numberWithCommas(_value))
 	}
 
+	function convertLinkToUrl(val)
+	{
+		let regURL = new RegExp("(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)","gi");
+		return val.replace(regURL,"<a href='$1://$2' target='_blank'>$1://$2</a>");
+	}
+
 	function getLastDayNumber(_year, _month)
 	{
 		return new Date(_year, _month, 0).getDate();

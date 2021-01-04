@@ -89,6 +89,7 @@
 	function setBannerRowAttributes(nRow, aData)
 	{
 		$(nRow).prop('id', aData.promotion_uuid);
+		g_banners.push(aData.promotion_uuid);
 	}
 
 	function removeRow(obj)
@@ -158,7 +159,6 @@
 		if (ids.length === 0)
 		{
 			sweetToast("배너를 "+message.addOn);
-			onClickModalOpen();
 			return false;
 		}
 

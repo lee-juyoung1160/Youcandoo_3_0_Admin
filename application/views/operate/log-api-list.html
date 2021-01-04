@@ -25,11 +25,11 @@
                 <div class="list-wrap search-wrap clearfix">
                     <p class="list-common-title">검색어</p>
                     <div class="select-box">
-                        <label for="search_type">unique_id</label>
+                        <label for="search_type"></label>
                         <select id="search_type">
+                            <option value="apache_request">url</option>
                             <option value="uniqueid">unique_id</option>
                             <option value="remote_ip">ip</option>
-                            <option value="apache_request">url</option>
                             <option value="php_request">request</option>
                             <option value="php_response">response</option>
                         </select>
@@ -145,7 +145,7 @@
         </div>
     </div>
     <div class="modal-layout"></div>
-    <input type="hidden" id="unique_id" value="<?php if(null !== $unique_id) echo $unique_id?>"/>
+    <input type="hidden" id="url" value="<?php if(null !== $url) echo $url?>"/>
 </section>
 <script src="/assets/js/plugins/tablesort.min.js"></script>
 <script src="/assets/js/plugins/tablesort.number.min.js"></script>

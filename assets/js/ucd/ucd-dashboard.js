@@ -44,7 +44,10 @@
         let defaultYear  = 2020;
 
         for (defaultYear; defaultYear <= _year; defaultYear++)
-            selYear.prepend(`<option value="${defaultYear}">${defaultYear}년</option>`);
+        {
+            let selected = defaultYear === Number(_year) ? 'selected' : '';
+            selYear.prepend(`<option ${selected} value="${defaultYear}">${defaultYear}년</option>`);
+        }
 
         onChangeSelectOption(selYear);
     }

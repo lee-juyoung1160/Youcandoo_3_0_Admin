@@ -244,7 +244,7 @@
 		form.append($("<input/>", {type: 'hidden', name: 'page_uuid', value: g_event_uuid}));
 		form.append($("<input/>", {type: 'hidden', name: 'req_content', value: title.val().trim()}));
 		form.appendTo("body");
-		form.submit();
+		form.trigger('submit');
 	}
 
 	function redirectList()

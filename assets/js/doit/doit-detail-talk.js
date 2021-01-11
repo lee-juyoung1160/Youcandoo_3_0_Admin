@@ -66,12 +66,26 @@
 						<i class="fas fa-times-circle"></i>
 					</button>`
                 : '';
+            let commentsBtn = (g_is_created_by_biz && !isBlind && isPossibleTalk(g_doit_status))
+                ? `<div class="comment-input-wrap">
+						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
+						<div class="comment-input">
+							<i class="close-btn" onclick="onCloseCommentsInput(this)">×</i>
+							<textarea class="length-input comment-value" maxlength="200" onkeyup="checkInputLength(this);"></textarea>
+							<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
+							<input type="hidden" class="uuid-key-value" value="board_uuid">
+							<input type="hidden" class="uuid-value" value="${board_uuid}">
+							<input type="hidden" class="parent-uuid-value" value="">
+							<input type="hidden" class="mention-nickname-value" value="">
+							<input type="hidden" class="mention-profile-uuid-value" value="">
+							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
+						</div>
+                    </div>`
+                : '';
             let noticeEl =
                 `<div class="card-warp">
 					<div class="card">
 						<div class="card-body ${blindClass}">
-							<input type="hidden" class="uuid-key-value" value="board_uuid">
-							<input type="hidden" class="uuid-value" value="${board_uuid}">
 							<div class="row">
 								<p class="type-name">공지</p>
 							</div>
@@ -91,6 +105,7 @@
 								</button>
 								<span class="icon-heart"><i class="fas fa-heart"></i> ${like_count}</span>
 								<span class="icon-triangle"><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
+								${commentsBtn}
 							</div>
 							<div class="right-wrap">
 								<span class="date">${created}</span>
@@ -120,7 +135,7 @@
 
     function isPossibleTalk(_doitStatus)
     {
-        let stats = ['모집실패', '개설취소', '종료']
+        let stats = ['모집실패', '개설취소', '개설취소(운영)', '종료'];
 
         return stats.indexOf(_doitStatus) === -1;
     }
@@ -200,7 +215,7 @@
 							<i class="fas fa-times-circle"></i>
 						</button>`
                     : '';
-                let commentsBtn = (g_is_created_by_biz && !isBlind && !isDel)
+                let commentsBtn = (g_is_created_by_biz && !isBlind && !isDel && isPossibleTalk(g_doit_status))
                     ? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">댓글달기</span>
 						<div class="comment-input">
@@ -214,7 +229,7 @@
 							<input type="hidden" class="mention-profile-uuid-value" value="">
 							<button type="button" class="btn-posting" onclick="onSubmitComments(this);">게시</button>
 						</div>
-					</div>`
+                    </div>`
                     : '';
                 let isYellowCard = detail.yellow_card === 'Y';
                 let isRedCard = detail.red_card === 'Y';
@@ -380,7 +395,7 @@
             let blindText = isBlind ? '블라인드해제' : '블라인드처리';
             let blindClass = isBlind ? 'blind' : '';
             let blindIcon = isBlind ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            let commentsBtn = (g_is_created_by_biz && g_doit_creator !== profile_uuid)
+            let commentsBtn = (g_is_created_by_biz && (g_doit_creator !== profile_uuid) && isPossibleTalk(g_doit_status))
                 ? `<div class="comment-input-wrap">
 						<span class="writing-comment" onclick="viewCommentsInput(this);">답글달기</span>
 						<div class="comment-input">

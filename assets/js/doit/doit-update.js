@@ -15,6 +15,10 @@
 	const actionTime	    = $("#actionTime");
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
+	const chkApplyJoin 		= $("#chkApplyJoin");
+	const chkApplyQuestion 	= $("#chkApplyQuestion");
+	const txtApplyQuestion 	= $("#txtApplyQuestion");
+	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
 	const actionDesc 		= $("#actionDesc");
@@ -150,7 +154,6 @@
 		{
 			publicYn.eq(0).prop("checked", true);
 		}
-		buildApplyDom(detail);
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
@@ -182,51 +185,6 @@
 				</div>
 			</div>`
 		$("#introImage").parent().prepend(introImgDom);
-	}
-
-	function buildApplyDom(detail)
-	{
-		let applyDom = '';
-		if (g_is_created_by_biz && g_doit_status === '모집중')
-		{
-			applyDom +=
-				`<div class="checkbox-wrap">
-					<input type="checkbox" id="chkApplyJoin"/>
-					<label for="chkApplyJoin"><span></span>참여 신청 받기</label>
-					<i class="question-mark far fa-question-circle">
-						<span class="hover-text">두잇 참여 시, 리더의 승인이 필요해요.</span>
-					</i>
-				</div>
-				<div class="checkbox-wrap" style="margin-top: 10px;">
-					<input type="checkbox" id="chkApplyQuestion"/>
-					<label for="chkApplyQuestion"><span></span>참여자에게 질문 하기</label>
-					<i class="question-mark far fa-question-circle">
-						<span class="hover-text">새로운 참여자에게 물어볼 질문을 적어 주세요.</span>
-					</i>
-					<div class="textarea-wrap" style="margin-top: 5px;">
-						<textarea id="txtApplyQuestion" class="length-input" maxLength="100"></textarea>
-						<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
-					</div>
-				</div>
-	
-				<div class="checkbox-wrap" style="margin-top: 10px;">
-					<input type="checkbox" id="chkApplyQuestionPrivate"/>
-					<label for="chkApplyQuestionPrivate"><span></span>참여자의 답변 비공개</label>
-					<i class="question-mark far fa-question-circle">
-						<span class="hover-text">승인 완료와 함께 참여자의 답변이 두잇톡에 공개돼요.</span>
-					</i>
-				</div>`
-		}
-		else
-		{
-			applyDom +=
-				`<p class="detail-data">참여자 신청 받기 </p>
-				<p class="detail-data">질문<span class="cap" style="display:block;margin-bottom: 0;">질문은 쑐라쑐라 쑐라쑐라 블라블라?</span>
-				</p>
-				<p class="detail-data">참여자 답변 공개</p>`
-		}
-
-		$("#applyOptions").html(applyDom);
 	}
 
 	function getStringValueForActionType(param)

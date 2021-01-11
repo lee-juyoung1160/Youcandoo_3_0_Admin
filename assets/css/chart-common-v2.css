@@ -20,7 +20,6 @@
 .row .col-2 {
     width: 15%;
 }
-
 .row-4 .col {
     width: 24.2%;
     margin-right: 0.8%;
@@ -367,7 +366,6 @@ i.fa-user {
 .dashboard-ucd .tab li.on .box-title {
     color: #fff;
     background-color: #0061f2;
-    /*background: linear-gradient(to left,rgba(3,201,243,1),rgba(0,122,255,1));*/
 }
 .dashboard-ucd .tab li:hover .bg-icon,
 .dashboard-ucd .tab li.on .bg-icon {

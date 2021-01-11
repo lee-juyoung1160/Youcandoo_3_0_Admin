@@ -20,6 +20,11 @@
 	const endTime	    	= $("#endTime");
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
+	const chkApplyJoin 		= $("#chkApplyJoin");
+	const chkApplyQuestion 	= $("#chkApplyQuestion");
+	const txtApplyQuestion 	= $("#txtApplyQuestion");
+	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
+
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
 	const exampleDesc 		= $("#exampleDesc");
@@ -59,6 +64,7 @@
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
+		chkApplyQuestion.on('change', function () { toggleApplyQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
 	});
 
@@ -85,6 +91,11 @@
 		selCategory.html(options);
 
 		onChangeSelectOption(selCategory);
+	}
+
+	function toggleApplyQuestion(obj)
+	{
+		txtApplyQuestion.prop('disabled', !$(obj).is(':checked'));
 	}
 
 	/** 인증기간 종료일 자동 세팅 **/
@@ -119,6 +130,10 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
+		chkApplyJoin.prop('checked', true);
+		chkApplyQuestion.prop('checked', false);
+		txtApplyQuestion.prop('disabled', true);
+		chkApplyQuestionPrivate.prop('checked', false);
 	}
 
 	function onClickAddTag()
@@ -776,6 +791,13 @@
 		{
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');
+			return false;
+		}
+
+		if (chkApplyQuestion.is(':checked') && isEmpty(txtApplyQuestion.val().trim()))
+		{
+			sweetToast(`참여 질문은 ${message.required}`);
+			txtApplyQuestion.trigger('focus');
 			return false;
 		}
 

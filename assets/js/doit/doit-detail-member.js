@@ -9,9 +9,6 @@
     const forecast 		= $("#forecast");
     const saving 		= $("#saving");
     const doitMemberBtnWrap	= $("#doitMemberBtnWrap");
-    const btnApproval	= $("#btnApproval");
-    const btnReject		= $("#btnReject");
-    const btnBan 		= $("#btnBan");
     const joinUserTable		= $("#joinUserTable")
     const selPageLengthForUser   = $("#selPageLengthForUser");
     /*const btnXlsxOutForUser   = $("#btnXlsxOutForUser");*/
@@ -151,9 +148,9 @@
         if (g_is_created_by_biz && g_doit_status === '모집중')
         {
             const buttons =
-                `<button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
-                <button id="btnReject" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
-                <button id="btnBan" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴</button>`;
+                `<button onclick="onClickBtnApproval()" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
+                <button onclick="onClickBtnReject()" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
+                <button onclick="onClickBtnBan()" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴</button>`;
 
             doitMemberBtnWrap.html(buttons)
         }

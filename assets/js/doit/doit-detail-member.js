@@ -8,6 +8,10 @@
     const avg 			= $("#avg");
     const forecast 		= $("#forecast");
     const saving 		= $("#saving");
+    const doitMemberBtnWrap	= $("#doitMemberBtnWrap");
+    const btnApproval	= $("#btnApproval");
+    const btnReject		= $("#btnReject");
+    const btnBan 		= $("#btnBan");
     const joinUserTable		= $("#joinUserTable")
     const selPageLengthForUser   = $("#selPageLengthForUser");
     /*const btnXlsxOutForUser   = $("#btnXlsxOutForUser");*/
@@ -60,7 +64,12 @@
                 }
             },
             columns: [
-                {title: "닉네임", 			data: "nickname",    	width: "20%" }
+                {title: tableCheckAllDom(), data: "",   			width: "5%",    visible: false,
+                    render: function (data, type, row, meta) {
+                        return multiCheckBoxDom(meta.row);
+                    }
+                }
+                ,{title: "닉네임", 			data: "nickname",    	width: "20%" }
                 ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
                     render: function (data) {
                         return `<div>
@@ -69,21 +78,26 @@
 								</div>`;
                     }
                 }
-                ,{title: "총 인증 횟수", 		data: "todo",    		width: "8%" }
-                ,{title: "인증한 횟수", 		data: "total",    		width: "8%" }
-                ,{title: "성공", 	  		data: "success",    	width: "5%" }
-                ,{title: "실패",  	  		data: "fail",   		width: "5%" }
-                ,{title: "신고",  	  		data: "report",   		width: "5%" }
-                ,{title: "옐로카드",    		data: "yellow",   		width: "5%" }
-                ,{title: "레드카드",    		data: "red",   			width: "5%" }
-                ,{title: "평균달성률(%)", 	data: "avg_percent",    width: "8%",
+                ,{title: "총 인증 횟수", 		data: "todo",    		width: "8%",    visible: false }
+                ,{title: "인증한 횟수", 		data: "total",    		width: "8%",    visible: false }
+                ,{title: "성공", 	  		data: "success",    	width: "5%",    visible: false }
+                ,{title: "실패",  	  		data: "fail",   		width: "5%",    visible: false }
+                ,{title: "신고",  	  		data: "report",   		width: "5%",    visible: false }
+                ,{title: "옐로카드",    		data: "yellow",   		width: "5%",    visible: false }
+                ,{title: "레드카드",    		data: "red",   			width: "5%",    visible: false }
+                ,{title: "평균달성률(%)", 	    data: "avg_percent",    width: "8%",    visible: false,
                     render: function (data) {
                         return Math.floor(Number(data));
                     }
                 }
-                ,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",
+                ,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",    visible: false,
                     render: function (data) {
                         return numberWithCommas(data);
+                    }
+                }
+                ,{title: "신청정보", 		    data: "",   width: "10%",    visible: false,
+                    render: function (data) {
+                        return `<a onclick="">보기</a>`;
                     }
                 }
             ],
@@ -93,6 +107,8 @@
             select: false,
             destroy: true,
             initComplete: function () {
+                appendButtons();
+                toggleColumns();
             },
             fnRowCallback: function( nRow, aData ) {
             },
@@ -113,4 +129,54 @@
         }
 
         return JSON.stringify(param);
+    }
+
+    function onClickBtnApproval()
+    {
+
+    }
+
+    function onClickBtnReject()
+    {
+
+    }
+
+    function onClickBtnBan()
+    {
+
+    }
+
+    function appendButtons()
+    {
+        if (g_is_created_by_biz && g_doit_status === '모집중')
+        {
+            const buttons =
+                `<button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
+                <button id="btnReject" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
+                <button id="btnBan" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴</button>`;
+
+            doitMemberBtnWrap.html(buttons)
+        }
+    }
+
+    function toggleColumns()
+    {
+        const table = joinUserTable.DataTable();
+        if (g_is_created_by_biz && g_doit_status === '모집중')
+        {
+            table.column(0).visible(true);
+            table.column(12).visible(true);
+        }
+        else
+        {
+            table.column(3).visible(true);
+            table.column(4).visible(true);
+            table.column(5).visible(true);
+            table.column(6).visible(true);
+            table.column(7).visible(true);
+            table.column(8).visible(true);
+            table.column(9).visible(true);
+            table.column(10).visible(true);
+            table.column(11).visible(true);
+        }
     }

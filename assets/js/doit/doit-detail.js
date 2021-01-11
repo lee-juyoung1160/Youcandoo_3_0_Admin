@@ -24,26 +24,31 @@
 		/** 이벤트 **/
 		ulTab			.on('click', function (event) { onClickTab(event); });
 		goUpdate		.on('click', function () { goUpdatePage(); })
-		selPageLengthForUser	.on('change', function () { getJoinMember(); });
-		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
-		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
-		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+
+		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		search			.on('click', function () { getJoinMember(); });
 		reset			.on('click', function () { initSearchForm(); });
+
+		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
 		btnReport		.on('click', function () { g_warn_type = ''; onClickBtnWarn(); });
 		btnSubmitWarn	.on('click', function () { onSubmitWarn(); });
+
+		selPageLengthForReview	.on('change', function () { getInvolveReview(); });
+		btnXlsxOutForReview		.on('click', function () { onClickXlsxOut(); });
 		btnBlind		.on('click', function () { g_blind_type = 'Y'; onClickUpdateBlindReview(); });
 		btnUnBlind		.on('click', function () { g_blind_type = 'N'; onClickUpdateBlindReview(); });
+
+		selPageLengthForUcd		.on('change', function () { getUcdLog(); });
+
 		viewType		.on('change', function () { onChangeViewType(); });
 		btnNotice		.on('click', function () { onClickBtnTalkType(this) });
 		btnGeneral		.on('click', function () { onClickBtnTalkType(this) });
 		btnCreateTalk	.on('click', function () { modalCreateTalkOpen() });
 		btnSubmitTalk	.on('click', function () { onSubmitTalk() });
-		btnXlsxOutForReview		.on('click', function () { onClickXlsxOut(); });
 	});
 
 	/** 탭 클릭 **/

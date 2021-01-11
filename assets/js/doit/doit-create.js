@@ -24,7 +24,6 @@
 	const chkApplyQuestion 	= $("#chkApplyQuestion");
 	const txtApplyQuestion 	= $("#txtApplyQuestion");
 	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
-
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
 	const exampleDesc 		= $("#exampleDesc");

@@ -11,6 +11,13 @@
     const doitMemberBtnWrap	= $("#doitMemberBtnWrap");
     const joinUserTable		= $("#joinUserTable")
     const selPageLengthForUser   = $("#selPageLengthForUser");
+    const modalApplyDetail    = $("#modalApplyDetail");
+    const modalApplyNickname  = $("#modalApplyNickname");
+    const modalApplyQuestion  = $("#modalApplyQuestion");
+    const modalApplyAnswer    = $("#modalApplyAnswer");
+    const modalApplyCreated   = $("#modalApplyCreated");
+    const modalApprovalCreate = $("#modalApprovalCreate");
+
     /*const btnXlsxOutForUser   = $("#btnXlsxOutForUser");*/
 
     /****************
@@ -66,6 +73,7 @@
                         return multiCheckBoxDom(meta.row);
                     }
                 }
+                ,{title: "참여상태",    		data: "",   width: "10%",    visible: false }
                 ,{title: "닉네임", 			data: "nickname",    	width: "20%" }
                 ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
                     render: function (data) {
@@ -93,8 +101,10 @@
                     }
                 }
                 ,{title: "신청정보", 		    data: "",   width: "10%",    visible: false,
-                    render: function (data) {
-                        return `<a onclick="">보기</a>`;
+                    render: function (data, type, row, meta) {
+                        return `<a onclick="viewApplyDetail(this)"
+                                   data-nickname="${row.nickname}"
+                                   >보기</a>`;
                     }
                 }
             ],
@@ -128,18 +138,87 @@
         return JSON.stringify(param);
     }
 
+    function viewApplyDetail(obj)
+    {
+        modalApplyNickname.html();
+        modalApplyQuestion.html();
+        modalApplyAnswer.html();
+        modalApplyCreated.html();
+        modalApprovalCreate.html();
+
+        modalLayout.fadeIn();
+        modalApplyDetail.fadeIn();
+        overflowHidden();
+    }
+
+    function joinUserValidation()
+    {
+        let table 	 	 = joinUserTable.DataTable();
+        let selectedData = table.rows('.selected').data()[0];
+        if (isEmpty(selectedData))
+        {
+            sweetToast(`대상을 ${message.select}`);
+            return false;
+        }
+
+        return true;
+    }
+
+    function hasPendingUser()
+    {
+        let result = false;
+        let table 		 = joinUserTable.DataTable();
+        let selectedData = table.rows('.selected').data();
+
+        for (let i=0; i<selectedData.length; i++)
+        {
+            let goodsCode = selectedData[i].goods_code;
+            if (isEmpty(goodsCode))
+                result = true;
+        }
+
+        return result;
+    }
+
+    function hasApprovalUser()
+    {
+        let result = false;
+        let table 		 = joinUserTable.DataTable();
+        let selectedData = table.rows('.selected').data();
+
+        for (let i=0; i<selectedData.length; i++)
+        {
+            let goodsCode = selectedData[i].goods_code;
+            if (!isEmpty(goodsCode))
+                result = true;
+        }
+
+        return result;
+    }
+
     function onClickBtnApproval()
     {
-
+        if (joinUserValidation() && hasApprovalUser())
+            sweetConfirm(message.approve, approvalUserRequest);
     }
 
     function onClickBtnReject()
     {
-
+        if (joinUserValidation() && hasApprovalUser())
+            sweetConfirm(message.reject, approvalUserRequest);
     }
 
     function onClickBtnBan()
     {
+        if (joinUserValidation() && hasPendingUser())
+            sweetConfirm(message.ban, approvalUserRequest);
+    }
+
+    function approvalUserRequest()
+    {
+        let url = "";
+        let errMsg = message.ajaxError;
+
 
     }
 
@@ -162,11 +241,11 @@
         if (g_is_created_by_biz && g_doit_status === '모집중')
         {
             table.column(0).visible(true);
-            table.column(12).visible(true);
+            table.column(1).visible(true);
+            table.column(13).visible(true);
         }
         else
         {
-            table.column(3).visible(true);
             table.column(4).visible(true);
             table.column(5).visible(true);
             table.column(6).visible(true);
@@ -175,5 +254,6 @@
             table.column(9).visible(true);
             table.column(10).visible(true);
             table.column(11).visible(true);
+            table.column(12).visible(true);
         }
     }

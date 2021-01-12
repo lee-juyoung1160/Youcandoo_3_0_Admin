@@ -22,6 +22,7 @@
 	const privateCode 		= $("#privateCode");
 	const chkApplyJoin 		= $("#chkApplyJoin");
 	const chkApplyQuestion 	= $("#chkApplyQuestion");
+	const txtApplyQuestionWrap 	 = $("#txtApplyQuestionWrap");
 	const txtApplyQuestion 	= $("#txtApplyQuestion");
 	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
 	const exampleType 		= $("input[name=radio-example-type]");
@@ -94,7 +95,15 @@
 
 	function toggleApplyQuestion(obj)
 	{
-		txtApplyQuestion.prop('disabled', !$(obj).is(':checked'));
+		if ($(obj).is(':checked'))
+			txtApplyQuestionWrap.show()
+		else
+		{
+			txtApplyQuestionWrap.hide();
+			txtApplyQuestion.val('');
+		}
+
+		txtApplyQuestion.trigger('focus');
 	}
 
 	/** 인증기간 종료일 자동 세팅 **/
@@ -131,7 +140,6 @@
 		exampleType.eq(0).prop('checked', true);
 		chkApplyJoin.prop('checked', true);
 		chkApplyQuestion.prop('checked', false);
-		txtApplyQuestion.prop('disabled', true);
 		chkApplyQuestionPrivate.prop('checked', false);
 	}
 
@@ -638,6 +646,10 @@
 				"action_description" : exampleDesc.val().trim(),
 				"group_reward_description" : chkExtraReward.is(':checked') ? extraReward.val().trim() : '',
 				"allow_gallery_image" : isAllowGallery,
+				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
+				"is_question" : chkApplyQuestion.is(':checked') ? 'Y' : 'N',
+				"doit_question" : chkApplyQuestion.is(':checked') ? txtApplyQuestion.val().trim() : '',
+				"is_open_answer" : chkApplyQuestionPrivate.is('checked') ? 'N' : 'Y'
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

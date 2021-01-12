@@ -17,6 +17,7 @@
 	const privateCode 		= $("#privateCode");
 	const chkApplyJoin 		= $("#chkApplyJoin");
 	const chkApplyQuestion 	= $("#chkApplyQuestion");
+	const txtApplyQuestionWrap 	= $("#txtApplyQuestionWrap");
 	const txtApplyQuestion 	= $("#txtApplyQuestion");
 	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
 	const actionType 		= $("#actionType");
@@ -35,6 +36,7 @@
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
+		chkApplyQuestion.on('change', function () { toggleApplyQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
 
@@ -154,6 +156,11 @@
 		{
 			publicYn.eq(0).prop("checked", true);
 		}
+		/*chkApplyJoin.prop('checked', detail.is_apply === 'Y');
+		chkApplyQuestion.prop('checked', detail.is_question === 'Y');
+		txtApplyQuestion.val(detail.doit_question);
+		chkApplyQuestionPrivate.prop('checked', detail.is_open_answer === 'N');
+		toggleApplyQuestion(chkApplyQuestion);*/
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
@@ -407,6 +414,19 @@
 		return true;
 	}
 
+	function toggleApplyQuestion(obj)
+	{
+		if ($(obj).is(':checked'))
+			txtApplyQuestionWrap.show()
+		else
+		{
+			txtApplyQuestionWrap.hide();
+			txtApplyQuestion.val('');
+		}
+
+		txtApplyQuestion.trigger('focus');
+	}
+
 	function onSubmitUpdateDoit()
 	{
 		if (validation())
@@ -460,7 +480,11 @@
 				"doit_description" : doitDesc.val().trim(),
 				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
 				"private_code" : isPublic ? '' : privateCode.val().trim(),
-				"allow_gallery_image" : isAllowGallery
+				"allow_gallery_image" : isAllowGallery,
+				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
+				"is_question" : chkApplyQuestion.is(':checked') ? 'Y' : 'N',
+				"doit_question" : chkApplyQuestion.is(':checked') ? txtApplyQuestion.val().trim() : '',
+				"is_open_answer" : chkApplyQuestionPrivate.is('checked') ? 'N' : 'Y'
 			}
 
 			if (!isEmpty(data))

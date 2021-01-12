@@ -2,6 +2,7 @@
 	const ulTab 		= $("#ulTab");
 	const tabContent	= $(".tab-content");
 	const goUpdate      = $("#goUpdate");
+	const reset 		= $(".reset");
 
 	/** modal 공통 **/
 	const modalCloseBtn 	= $(".close-btn");
@@ -26,10 +27,10 @@
 		goUpdate		.on('click', function () { goUpdatePage(); })
 		modalCloseBtn	.on('click', function () { modalFadeout(); });
 		modalLayout		.on('click', function () { modalFadeout(); });
+		reset			.on('click', function () { initSearchForm(); });
 
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
-		search			.on('click', function () { getJoinMember(); });
-		reset			.on('click', function () { initSearchForm(); });
+		searchJoinMember.on('click', function () { getJoinMember(); });
 
 		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
@@ -50,6 +51,12 @@
 		btnCreateTalk	.on('click', function () { modalCreateTalkOpen() });
 		btnSubmitTalk	.on('click', function () { onSubmitTalk() });
 	});
+
+	function initSearchForm()
+	{
+		keywordJoinMember.val('');
+		searchApplyMember.val('');
+	}
 
 	/** 탭 클릭 **/
 	function onClickTab(e)

@@ -47,6 +47,7 @@
 			g_biz_uuid = company_profile_uuid;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			buildDetail(data);
+			toggleDoitMemberButtons();
 		}
 		else
 			sweetError(invalidResp(data));
@@ -270,5 +271,15 @@
 				return 'badge-gray'
 			default:
 				return ''
+		}
+	}
+
+	function toggleDoitMemberButtons()
+	{
+		if (!g_is_created_by_biz || g_doit_status !== '모집중')
+		{
+			btnApproval.remove();
+			btnReject.remove();
+			btnBan.remove();
 		}
 	}

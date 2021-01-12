@@ -165,7 +165,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <!--<li>
                         <div class="col-wrap clearfix">
                             <div class="col-1">
                                 <p class="sub-title important">신청 조건 (*)</p>
@@ -176,7 +176,7 @@
                                 <p class="detail-data">참여자 답변 공개</p>
                             </div>
                         </div>
-                    </li>
+                    </li>-->
                     <li>
                         <div class="col-wrap clearfix">
                             <div class="col-1">
@@ -287,7 +287,7 @@
                         <p class="list-common-title">닉네임 검색</p>
                         <div class="search-wrap">
                             <div class="search-box">
-                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <input id="keywordJoinMember" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="search-btn fas fa-search"></i>
                             </div>
                         </div>
@@ -311,10 +311,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="btn-wrap" id="doitMemberBtnWrap">
+                        <div class="btn-wrap">
+                            <button id="btnBan" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴하기</button>
                             <!--<button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
                             <button id="btnReject" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
-                            <button id="btnBan" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴</button>-->
+                            -->
                         </div>
                     </div>
 
@@ -1219,7 +1220,8 @@
 <script defer src="/assets/js/plugins/xlsx.full.min.js"></script>
 <script defer src="/assets/js/export-excel.js?version=<?php echo $this->config->item('version');?>"></script>
 <script defer src="/assets/js/doit/doit-detail-info.js?version=<?php echo $this->config->item('version');?>"></script>
-<script defer src="/assets/js/doit/doit-detail-member.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer src="/assets/js/doit/doit-detail-apply-member.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer src="/assets/js/doit/doit-detail-join-member.js?version=<?php echo $this->config->item('version');?>"></script>
 <script defer src="/assets/js/doit/doit-detail-action.js?version=<?php echo $this->config->item('version');?>"></script>
 <script defer src="/assets/js/doit/doit-detail-review.js?version=<?php echo $this->config->item('version');?>"></script>
 <script defer src="/assets/js/doit/doit-detail-ucd.js?version=<?php echo $this->config->item('version');?>"></script>

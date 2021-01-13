@@ -96,11 +96,34 @@
 }
 
 .table-btn-wrap.doit-detail-tab li {
-    width: calc(100%/6);
+    width: calc(100%/7);
 }
 .thumb-list p.sub-title {
     display: inline-block;
     margin-right: 10px;
+}
+.line-clamp-wrap {
+    position: relative;
+}
+.line-clamp-wrap .line-clamp {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.line-clamp-wrap .line-clamp:hover {
+    color: #4876EA;
+}
+.line-clamp-wrap .tooltip-hover-text {
+    display: none;
+}
+.line-clamp-wrap .tooltip-hover-text i {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    padding: 0 10px;
+}
+.line-clamp-wrap .tooltip-hover-text p {
+    background-color: #fff;
+    padding-top: 20px;
 }
 
 /* 두잇톡 */

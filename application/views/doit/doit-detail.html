@@ -8,6 +8,7 @@
         </div>
         <ul class="table-btn-wrap doit-detail-tab clearfix" id="ulTab">
             <li class="doit active" data-target="#doitDetail">두잇 정보</li>
+            <li class="apply" data-target="#doitUserApply">참여 신청자 (11)</li>
             <li class="user" data-target="#doitUser">참여자 정보</li>
             <li class="review" data-target="#doitReview">리뷰 정보</li>
             <li class="ucd" data-target="#ucdInfo">UCD 정보</li>
@@ -165,18 +166,18 @@
                             </div>
                         </div>
                     </li>
-                    <!--<li>
+                    <li>
                         <div class="col-wrap clearfix">
                             <div class="col-1">
                                 <p class="sub-title important">신청 조건 (*)</p>
                             </div>
                             <div class="col-2">
                                 <p class="detail-data">참여자 신청 받기 </p>
-                                <p class="detail-data">질문<span class="cap" style="display:block;margin-bottom: 0;">질문은 쑐라쑐라 쑐라쑐라 블라블라?</span></p>
-                                <p class="detail-data">참여자 답변 공개</p>
+                                <p class="detail-data">공개 질문<span class="cap" style="display:block;margin-bottom: 0;">: 질문은 쑐라쑐라 쑐라쑐라 블라블라?</span></p>
+                                <p class="detail-data">비공개 질문<span class="cap" style="display:block;margin-bottom: 0;">: 질문은 쑐라쑐라 쑐라쑐라 블라블라?</span></p>
                             </div>
                         </div>
-                    </li>-->
+                    </li>
                     <li>
                         <div class="col-wrap clearfix">
                             <div class="col-1">
@@ -250,6 +251,113 @@
                 </div>
             </div>
 
+            <!--참여 신청자 탭-->
+            <div id="doitUserApply" class="tab-content" style="display: none;">
+                <div class="list-common" style="margin-top: 20px;">
+                    <div class="list-wrap search-wrap clearfix" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
+                        <p class="list-common-title">닉네임 검색</p>
+                        <div class="search-wrap">
+                            <div class="search-box">
+                                <input id="keywordJoinMember" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="search-btn fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+                    <div class="btn-wrap">
+                        <button class="search" type="button">검색</button>
+                        <button class="reset" type="reset">초기화</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="top clearfix">
+                        <div class="right-wrap clearfix">
+                            <p>Total <strong class="data-num"></strong></p>
+                            <div class="select-box">
+                                <label for="selPageLengthForUser"></label>
+                                <select id="selPageLengthForUser">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn-wrap">
+                            <button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
+                            <button id="btnReject" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
+                        </div>
+                    </div>
+
+                    <table id="">
+                        <colgroup>
+                            <col style="width:5%;">
+                            <col style="width:15%;">
+                            <col style="width:20%;">
+                            <col style="width:25%;">
+                            <col style="width:25%;">
+                            <col style="width:10%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c5" name="cc" />
+                                    <label for="c5"><span></span></label>
+                                </div>
+                            </th>
+                            <th>닉네임</th>
+                            <th>프로필아이디</th>
+                            <th>질문</th>
+                            <th>답변</th>
+                            <th>신청일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="c6" name="cc" />
+                                        <label for="c6"><span></span></label>
+                                    </div>
+                                </td>
+                                <td><a href="#">베리베리베리베리베리베리</a></td>
+                                <td><div>
+                                    <input type="text" class="input-copy" style="width: 150px" value="PID-18D00E29-8885-6F8D-EB7B-7247B7C1F352" readonly="">
+                                    <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                                </div></td>
+                                <td class="line-clamp-wrap">
+                                    <div class="line-clamp">
+                                        당신의 2021년 목표는 무엇인지 구체적으로 서술해주세요.
+                                    </div>
+                                    <div class="tooltip-hover-text">
+                                        <i class="fas fa-times"></i>
+                                        <p>당신의 2021년 목표는 무엇인지 구체적으로 서술해주세요.</p>
+                                    </div>
+                                </td>
+                                <td class="line-clamp-wrap">
+                                    <div class="line-clamp">
+                                    2021년에는 꼬오오오옥오오오오오오오오옷 꼬오오오오오오옥 토익 만점을 받을꺼에요오오오오오오오오오오오오오오오ㅗㅇ.
+                                    </div>
+                                    <div class="tooltip-hover-text">
+                                        <i class="fas fa-times"></i>
+                                        <p>2021년에는 꼬오오오옥오오오오오오오오옷 꼬오오오오오오옥 토익 만점을 받을꺼에요오오오오오오오오오오오오오오오ㅗㅇ.</p>
+                                    </div>
+                                </td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--<ul class="table-pagination clearfix">
+                        <li><i class="fas fa-angle-double-left"></i></li>
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li><i class="fas fa-angle-double-right"></i></li>
+                    </ul>-->
+                </div>
+
+            </div>
+
             <!--참여자정보탭-->
             <div id="doitUser" class="tab-content" style="display: none;">
                 <div class="table-wrap" style="margin-top: 0;">
@@ -313,9 +421,6 @@
                         </div>
                         <div class="btn-wrap">
                             <button id="btnBan" class="btn-danger" type="button"><i class="fas fa-ban"></i>강퇴하기</button>
-                            <!--<button id="btnApproval" class="btn-info" type="button"><i class="fas fa-check-circle"></i>참여 승인</button>
-                            <button id="btnReject" class="btn-warning" type="button"><i class="fas fa-hand-paper"></i>참여 거절</button>
-                            -->
                         </div>
                     </div>
 

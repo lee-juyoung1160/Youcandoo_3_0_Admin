@@ -71,6 +71,17 @@
         return JSON.stringify(param);
     }
 
+    function viewDetail(obj)
+    {
+        $(".tooltip-hover-text").hide();
+        $(obj).siblings().show();
+    }
+
+    function closeTooltip(obj)
+    {
+        $(obj).parent().hide();
+    }
+
     function applyUserValidation()
     {
         let table 	 	 = applyUserTable.DataTable();

@@ -16,10 +16,10 @@
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
 	const chkApplyJoin 		= $("#chkApplyJoin");
-	const chkApplyQuestion 	= $("#chkApplyQuestion");
-	const txtApplyQuestionWrap 	= $("#txtApplyQuestionWrap");
-	const txtApplyQuestion 	= $("#txtApplyQuestion");
-	const chkApplyQuestionPrivate = $("#chkApplyQuestionPrivate");
+	const chkPrivateQuestion 	= $("#chkPrivateQuestion");
+	const privateQuestion 	= $("#privateQuestion");
+	const chkPublicQuestion = $("#chkPublicQuestion");
+	const publicQuestion 	= $("#publicQuestion");
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
 	const actionDesc 		= $("#actionDesc");
@@ -36,9 +36,24 @@
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
-		chkApplyQuestion.on('change', function () { toggleApplyQuestion(this); });
+		chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
+		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
+
+	function toggleQuestion(obj)
+	{
+		const textAreaWrap = $(obj).siblings('.textarea-wrap');
+		if ($(obj).is(':checked'))
+			$(textAreaWrap).show()
+		else
+		{
+			$(textAreaWrap).hide();
+			$(textAreaWrap).children('textarea').val('');
+		}
+
+		$(textAreaWrap).children('textarea').trigger('focus');
+	}
 
 	function getCategory()
 	{
@@ -156,11 +171,6 @@
 		{
 			publicYn.eq(0).prop("checked", true);
 		}
-		/*chkApplyJoin.prop('checked', detail.is_apply === 'Y');
-		chkApplyQuestion.prop('checked', detail.is_question === 'Y');
-		txtApplyQuestion.val(detail.doit_question);
-		chkApplyQuestionPrivate.prop('checked', detail.is_open_answer === 'N');
-		toggleApplyQuestion(chkApplyQuestion);*/
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
@@ -414,19 +424,6 @@
 		return true;
 	}
 
-	function toggleApplyQuestion(obj)
-	{
-		if ($(obj).is(':checked'))
-			txtApplyQuestionWrap.show()
-		else
-		{
-			txtApplyQuestionWrap.hide();
-			txtApplyQuestion.val('');
-		}
-
-		txtApplyQuestion.trigger('focus');
-	}
-
 	function onSubmitUpdateDoit()
 	{
 		if (validation())
@@ -482,9 +479,6 @@
 				"private_code" : isPublic ? '' : privateCode.val().trim(),
 				"allow_gallery_image" : isAllowGallery,
 				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
-				"is_question" : chkApplyQuestion.is(':checked') ? 'Y' : 'N',
-				"doit_question" : chkApplyQuestion.is(':checked') ? txtApplyQuestion.val().trim() : '',
-				"is_open_answer" : chkApplyQuestionPrivate.is('checked') ? 'N' : 'Y'
 			}
 
 			if (!isEmpty(data))

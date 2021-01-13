@@ -47,7 +47,7 @@
 			g_biz_uuid = company_profile_uuid;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			buildDetail(data);
-			toggleDoitMemberButtons();
+			modifyDynamicUi();
 		}
 		else
 			sweetError(invalidResp(data));
@@ -274,6 +274,13 @@
 		}
 	}
 
+	function modifyDynamicUi()
+	{
+		toggleApplyUserTab();
+		toggleDoitMemberButtons();
+		resizeTab();
+	}
+
 	function toggleDoitMemberButtons()
 	{
 		if (!g_is_created_by_biz || g_doit_status !== '모집중')
@@ -282,4 +289,19 @@
 			btnReject.remove();
 			btnBan.remove();
 		}
+	}
+
+	function toggleApplyUserTab()
+	{
+		if (g_doit_status !== '모집중')
+			$(".apply").remove();
+	}
+
+	function resizeTab()
+	{
+		let tabEls = $(".doit-detail-tab li");
+		let tabLength = tabEls.length;
+		let tabWidth = `calc(100%/${tabLength})`;
+
+		$(tabEls).css('width', tabWidth)
 	}

@@ -32,6 +32,9 @@
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		searchJoinMember.on('click', function () { getJoinMember(); });
 
+		selPageLengthForApplyUser	.on('change', function () { getJoinMember(); });
+		searchApplyMember.on('click', function () { getJoinMember(); });
+
 		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });
 		btnWarnRed		.on('click', function () { g_warn_type = 'R'; onClickBtnWarn(); });
@@ -55,7 +58,7 @@
 	function initSearchForm()
 	{
 		keywordJoinMember.val('');
-		searchApplyMember.val('');
+		keywordApplyMember.val('');
 	}
 
 	/** 탭 클릭 **/
@@ -90,6 +93,10 @@
 			viewType.eq(0).prop('checked', true);
 			initTalkPageNum();
 			getDoitTalk();
+		}
+		else if (clickedEl.hasClass('apply'))
+		{
+
 		}
 	}
 

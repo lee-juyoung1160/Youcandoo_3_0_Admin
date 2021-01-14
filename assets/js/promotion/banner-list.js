@@ -61,7 +61,7 @@
 						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "30%" }
+				,{title: "기업명", 		data: "nickname",    		width: "30%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
 				,{title: "", 			data: "promotion_uuid",    	width: "5%",
 					render: function (data) {
@@ -191,7 +191,7 @@
 						return `<div class="pro-thumbnail"><img src="${data}" onerror="onErrorImage(this);" alt=""></div>`;
 					}
 				}
-				,{title: "기업", 		data: "nickname",    		width: "30%" }
+				,{title: "기업명", 		data: "nickname",    		width: "30%" }
 				,{title: "프로모션명", 	data: "promotion_title",    width: "40%" }
 			],
 			serverSide: true,

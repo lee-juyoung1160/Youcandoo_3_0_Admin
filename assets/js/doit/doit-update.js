@@ -15,11 +15,11 @@
 	const actionTime	    = $("#actionTime");
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
-	const chkApplyJoin 		= $("#chkApplyJoin");
+	/*const chkApplyJoin 		= $("#chkApplyJoin");
 	const chkPrivateQuestion 	= $("#chkPrivateQuestion");
 	const privateQuestion 	= $("#privateQuestion");
 	const chkPublicQuestion = $("#chkPublicQuestion");
-	const publicQuestion 	= $("#publicQuestion");
+	const publicQuestion 	= $("#publicQuestion");*/
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
 	const actionDesc 		= $("#actionDesc");
@@ -36,8 +36,8 @@
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
-		chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
-		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });
+		/*chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
+		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });*/
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
 
@@ -175,7 +175,6 @@
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
 
-
 		let checkedY = detail.allow_gallery_image === 'Y' ? 'checked' : '';
 		let checkedN = detail.allow_gallery_image === 'N' ? 'checked' : '';
 		let radioGalleryEl =
@@ -190,6 +189,8 @@
 		radioGalleryEl = (promotionAllowGallert === 'Y' && exampleType === 'image') ? radioGalleryEl : '<p class="detail-data">N</p>';
 
 		galleryWrap.html(radioGalleryEl);
+
+		calculateInputLength();
 	}
 
 	function buildThumbnailDom()
@@ -478,7 +479,6 @@
 				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
 				"private_code" : isPublic ? '' : privateCode.val().trim(),
 				"allow_gallery_image" : isAllowGallery,
-				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
 			}
 
 			if (!isEmpty(data))

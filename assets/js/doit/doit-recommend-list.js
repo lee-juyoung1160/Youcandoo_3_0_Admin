@@ -49,7 +49,7 @@
 				}
 			},
 			columns: [
-				{title: "그룹명", 	data: "title",    		width: "70%",
+				{title: "큐레이션명", 		data: "title",    		width: "70%",
 					render: function (data, type, row, meta) {
 						return `<a onclick="onClickTitle(this);" data-uuid="${row.recommend_uuid}">${data}</a>`;
 					}

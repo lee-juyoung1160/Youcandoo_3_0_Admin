@@ -20,11 +20,11 @@
 	const endTime	    	= $("#endTime");
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
-	const chkApplyJoin 		= $("#chkApplyJoin");
+	/*const chkApplyJoin 		= $("#chkApplyJoin");
 	const chkPrivateQuestion 	= $("#chkPrivateQuestion");
 	const privateQuestion 	= $("#privateQuestion");
 	const chkPublicQuestion = $("#chkPublicQuestion");
-	const publicQuestion 	= $("#publicQuestion");
+	const publicQuestion 	= $("#publicQuestion");*/
 	const exampleType 		= $("input[name=radio-example-type]");
 	const exampleArea 		= $("#exampleArea");
 	const exampleDesc 		= $("#exampleDesc");
@@ -64,8 +64,8 @@
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
-		chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
-		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });
+		/*chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
+		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });*/
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
 	});
 
@@ -94,7 +94,7 @@
 		onChangeSelectOption(selCategory);
 	}
 
-	function toggleQuestion(obj)
+	/*function toggleQuestion(obj)
 	{
 		const textAreaWrap = $(obj).siblings('.textarea-wrap');
 		if ($(obj).is(':checked'))
@@ -106,7 +106,7 @@
 		}
 
 		$(textAreaWrap).children('textarea').trigger('focus');
-	}
+	}*/
 
 	/** 인증기간 종료일 자동 세팅 **/
 	function onChangeDateFrom()
@@ -140,9 +140,9 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
-		chkApplyJoin.prop('checked', true);
+		/*chkApplyJoin.prop('checked', true);
 		chkPrivateQuestion.prop('checked', false);
-		chkPublicQuestion.prop('checked', false);
+		chkPublicQuestion.prop('checked', false);*/
 	}
 
 	function onClickAddTag()
@@ -648,7 +648,6 @@
 				"action_description" : exampleDesc.val().trim(),
 				"group_reward_description" : chkExtraReward.is(':checked') ? extraReward.val().trim() : '',
 				"allow_gallery_image" : isAllowGallery,
-				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -804,7 +803,7 @@
 			return false;
 		}
 
-		if (chkPrivateQuestion.is(':checked') && isEmpty(privateQuestion.val().trim()))
+		/*if (chkPrivateQuestion.is(':checked') && isEmpty(privateQuestion.val().trim()))
 		{
 			sweetToast(`참여 질문은 ${message.required}`);
 			privateQuestion.trigger('focus');
@@ -816,7 +815,7 @@
 			sweetToast(`참여 질문은 ${message.required}`);
 			publicQuestion.trigger('focus');
 			return false;
-		}
+		}*/
 
 		if (example.length === 0)
 		{

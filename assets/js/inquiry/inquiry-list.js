@@ -13,8 +13,6 @@
 		initSearchDatepicker();
         /** dataTable default config **/
         initTableDefault();
-		/** 문의구분 셀렉트 박스 **/
-		/*getInquiryType();*/
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		/** 상단 검색 폼 초기화
@@ -78,20 +76,19 @@
 				}
 			},
 			columns: [
-				{title: "문의구분",   data: "qna_type",    		width: "10%" }
-                ,{title: "답변상태",  data: "status",  			width: "5%" }
+				{title: "문의구분",    data: "qna_type",    		width: "10%" }
 				,{title: "제목",  	 data: "title",    			width: "20%",
                     render: function (data, type, row, meta) {
 						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
 				        return `<a href="${baseUrl}${row.idx}" class="line-clamp" style="max-width: 280px">${data}</a>`;
                     }
                 }
-				, {title: "회원구분", data: "profile_uuid", width: "5%",
+				, {title: "회원구분",  data: "profile_uuid", 		width: "5%",
 					render: function (data) {
 						return isEmpty(data) ? label.guest : label.member;
 					}
 				}
-				,{title: "작성자", 	 data: "user_idx",		width: "20%",
+				,{title: "닉네임", 	 data: "user_idx",			width: "20%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? row.name : `<a href="${page.detailUser}${data}" class="line-clamp" style="max-width: 280px">${row.nickname}</a>`;
 					}
@@ -101,7 +98,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "처리자",  	 data: "userid",    		width: "10%",
+				,{title: "담당자",  	 data: "userid",    		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
@@ -111,7 +108,8 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "메모",  	 data: "memo",    			width: "5%",
+				,{title: "답변상태",  data: "status",  			width: "5%" }
+				,{title: "메모",  	data: "memo",    			width: "5%",
 					render: function (data) {
 						return buildMemo(data);
 					}

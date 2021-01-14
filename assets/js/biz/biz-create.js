@@ -29,7 +29,7 @@
 
 		if (isEmpty(bizName.val()))
 		{
-			sweetToast(`회사명은 ${message.required}`);
+			sweetToast(`기업명은 ${message.required}`);
 			bizName.trigger('focus');
 			return false;
 		}

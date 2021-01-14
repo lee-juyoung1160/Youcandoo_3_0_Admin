@@ -64,8 +64,8 @@
 				}
 			},
 			columns: [
-				{title: "고유 ID", 	data: "company_uuid",   width: "25%",	className: "cursor-pointer" }
-				,{title: "회사명", 	data: "nickname",   	width: "30%",	className: "cursor-pointer" }
+				{title: "비즈 ID", 	data: "company_uuid",   width: "25%",	className: "cursor-pointer" }
+				,{title: "기업명", 	data: "nickname",   	width: "30%",	className: "cursor-pointer" }
 				,{title: "등록일", 	data: "created",   		width: "15%",	className: "cursor-pointer",
 					render: function (data) {
 						return data.substring(0, 10);

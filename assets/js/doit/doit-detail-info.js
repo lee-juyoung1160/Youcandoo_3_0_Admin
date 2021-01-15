@@ -12,8 +12,11 @@
 	const actionDate 	= $("#actionDate");
 	const actionTime 	= $("#actionTime");
 	const options 		= $("#options");
+	const isApplyJoin	= $("#isApplyJoin");
+	const privateQuestion = $("#privateQuestion");
+	const publicQuestion  = $("#publicQuestion");
 	const actionType 	= $("#actionType");
-	const actionResource = $("#actionResource");
+	const actionResource  = $("#actionResource");
 	const actionDesc    = $("#actionDesc");
 	const allowGallery  = $("#allowGallery");
 
@@ -180,6 +183,18 @@
 			optionDom = `<p class="detail-data">공개 두잇 </p>`
 		}
 		options.html(optionDom);
+
+		isApplyJoin.html(`참여자 신청 받기 : ${detail.is_apply}`);
+		if (detail.is_apply === 'Y')
+		{
+			detail.is_private_question === 'Y' ? privateQuestion.html() : privateQuestion.parent().remove();
+			detail.is_public_question === 'Y' ? publicQuestion.html() : publicQuestion.parent().remove();
+		}
+		else
+		{
+			privateQuestion.parent().remove();
+			publicQuestion.parent().remove();
+		}
 
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 

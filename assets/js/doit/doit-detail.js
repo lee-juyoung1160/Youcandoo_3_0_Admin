@@ -29,11 +29,12 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		reset			.on('click', function () { initSearchForm(); });
 
+		selPageLengthForApplyUser	.on('change', function () { getJoinMember(); });
+		searchApplyMember.on('click', function () { getJoinMember(); });
+
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		searchJoinMember.on('click', function () { getJoinMember(); });
-
-		/*selPageLengthForApplyUser	.on('change', function () { getJoinMember(); });
-		searchApplyMember.on('click', function () { getJoinMember(); });*/
+		btnBan.on('click', function () { onClickBtnBan(); });
 
 		selPageLengthForAction	.on('change', function () { onChangePageLengthForAction(); });
 		btnWarnYellow	.on('click', function () { g_warn_type = 'Y'; onClickBtnWarn(); });

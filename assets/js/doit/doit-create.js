@@ -64,6 +64,7 @@
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
 		exampleType		.on('change', function () { onChangeExampleType(this); });
 		doitFrom		.on('change', function () { onChangeDateFrom(); });
+		chkApplyJoin	.on('change', function () { toggleApplyJoin(this); });
 		chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
 		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
@@ -92,6 +93,24 @@
 		selCategory.html(options);
 
 		onChangeSelectOption(selCategory);
+	}
+
+	function toggleApplyJoin(obj)
+	{
+		if (!$(obj).is(':checked'))
+		{
+			chkPrivateQuestion.prop('checked', false);
+			chkPrivateQuestion.prop('disabled', true);
+			toggleQuestion(chkPrivateQuestion);
+			chkPublicQuestion.prop('checked', false);
+			chkPublicQuestion.prop('disabled', true);
+			toggleQuestion(chkPublicQuestion);
+		}
+		else
+		{
+			chkPrivateQuestion.prop('disabled', false);
+			chkPublicQuestion.prop('disabled', false);
+		}
 	}
 
 	function toggleQuestion(obj)

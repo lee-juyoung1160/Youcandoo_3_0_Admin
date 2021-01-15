@@ -15,11 +15,11 @@
 	const actionTime	    = $("#actionTime");
 	const publicYn 			= $("input[name=radio-public]");
 	const privateCode 		= $("#privateCode");
-	/*const chkApplyJoin 		= $("#chkApplyJoin");
+	const chkApplyJoin 		= $("#chkApplyJoin");
 	const chkPrivateQuestion 	= $("#chkPrivateQuestion");
 	const privateQuestion 	= $("#privateQuestion");
 	const chkPublicQuestion = $("#chkPublicQuestion");
-	const publicQuestion 	= $("#publicQuestion");*/
+	const publicQuestion 	= $("#publicQuestion");
 	const actionType 		= $("#actionType");
 	const actionResource 	= $("#actionResource");
 	const actionDesc 		= $("#actionDesc");
@@ -36,10 +36,29 @@
 		btnAddTag		.on('click', function () { onClickAddTag(); });
 		introFileType	.on('change', function () { onChangeIntroType(this); });
 		publicYn		.on('change', function () { toggleActive($(".code-wrap")); });
-		/*chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
-		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });*/
+		chkApplyJoin	.on('change', function () { toggleApplyJoin(this); });
+		chkPrivateQuestion	.on('change', function () { toggleQuestion(this); });
+		chkPublicQuestion	.on('change', function () { toggleQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateDoit(); });
 	});
+
+	function toggleApplyJoin(obj)
+	{
+		if (!$(obj).is(':checked'))
+		{
+			chkPrivateQuestion.prop('checked', false);
+			chkPrivateQuestion.prop('disabled', true);
+			toggleQuestion(chkPrivateQuestion);
+			chkPublicQuestion.prop('checked', false);
+			chkPublicQuestion.prop('disabled', true);
+			toggleQuestion(chkPublicQuestion);
+		}
+		else
+		{
+			chkPrivateQuestion.prop('disabled', false);
+			chkPublicQuestion.prop('disabled', false);
+		}
+	}
 
 	function toggleQuestion(obj)
 	{
@@ -47,10 +66,7 @@
 		if ($(obj).is(':checked'))
 			$(textAreaWrap).show()
 		else
-		{
 			$(textAreaWrap).hide();
-			$(textAreaWrap).children('textarea').val('');
-		}
 
 		$(textAreaWrap).children('textarea').trigger('focus');
 	}
@@ -479,6 +495,11 @@
 				"intro_resource_type" : $('input:radio[name=radio-intro-type]:checked').val(),
 				"private_code" : isPublic ? '' : privateCode.val().trim(),
 				"allow_gallery_image" : isAllowGallery,
+				"is_apply" : chkApplyJoin.is(':checked') ? 'Y' : 'N',
+				"is_public_question" : chkPublicQuestion.is(':checked') ? 'Y' : 'N',
+				"public_question" : chkPublicQuestion.is(':checked') ? publicQuestion.val().trim() : '',
+				"is_private_question" : chkPrivateQuestion.is(':checked') ? 'Y' : 'N',
+				"private_question" : chkPrivateQuestion.is(':checked') ? privateQuestion.val().trim() : '',
 			}
 
 			if (!isEmpty(data))

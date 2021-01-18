@@ -50,19 +50,19 @@
                 type:"POST",
                 headers: headers,
                 data: function (d) {
-                    return tableParams(d);
+                    return joinUserTableParams(d);
                 },
                 error: function (request, status) {
                     sweetError(label.list+message.ajaxLoadError);
                 }
             },
             columns: [
-                /*{title: tableCheckAllDom(), data: "nickname",   	width: "5%",
+                {title: tableCheckAllDom(), data: "nickname",   	width: "5%",
                     render: function (data, type, row, meta) {
                         return multiCheckBoxDom(meta.row);
                     }
-                }*/
-                {title: "닉네임", 			data: "nickname",    	width: "15%" }
+                }
+                ,{title: "닉네임", 			data: "nickname",    	width: "15%" }
                 ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
                     render: function (data) {
                         return `<div>
@@ -88,13 +88,13 @@
                         return numberWithCommas(data);
                     }
                 }
-                /*,{title: "신청정보", 		    data: "nickname",       width: "5%",
+                ,{title: "신청정보", 		    data: "nickname",       width: "5%",
                     render: function (data, type, row, meta) {
                         return `<a onclick="viewApplyDetail(this)"
                                    data-nickname=""
                                    >보기</a>`;
                     }
-                }*/
+                }
             ],
             serverSide: true,
             paging: true,
@@ -102,7 +102,7 @@
             select: false,
             destroy: true,
             initComplete: function () {
-                //toggleJoinTableColumns();
+                toggleJoinTableColumns();
             },
             fnRowCallback: function( nRow, aData ) {
             },
@@ -113,7 +113,7 @@
         });
     }
 
-    function tableParams(d)
+    function joinUserTableParams(d)
     {
         let param = {
             "limit" : d.length
@@ -168,6 +168,9 @@
     function toggleJoinTableColumns()
     {
         const table = joinUserTable.DataTable();
-        if (!g_is_created_by_biz || g_doit_status !== '모집중')
+        if (!g_is_created_by_biz || g_doit_status !== '모집중' || g_is_apply !== 'Y')
+        {
             table.column(0).visible(false);
+            table.column(12).visible(false);
+        }
     }

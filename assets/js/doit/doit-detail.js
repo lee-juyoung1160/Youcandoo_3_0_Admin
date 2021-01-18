@@ -16,6 +16,7 @@
 		/** dataTable default config **/
 		initTableDefault();
 		/** n개씩보기 셀렉트 박스 초기화 **/
+		initPageLength(selPageLengthForApplyUser);
 		initPageLength(selPageLengthForUser);
 		initPageLength(selPageLengthForReview);
 		initPageLength(selPageLengthForUcd);
@@ -29,8 +30,8 @@
 		modalLayout		.on('click', function () { modalFadeout(); });
 		reset			.on('click', function () { initSearchForm(); });
 
-		selPageLengthForApplyUser	.on('change', function () { getJoinMember(); });
-		searchApplyMember.on('click', function () { getJoinMember(); });
+		selPageLengthForApplyUser	.on('change', function () { getApplyMember(); });
+		searchApplyMember.on('click', function () { getApplyMember(); });
 
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		searchJoinMember.on('click', function () { getJoinMember(); });
@@ -96,9 +97,7 @@
 			getDoitTalk();
 		}
 		else if (clickedEl.hasClass('apply'))
-		{
-
-		}
+			getApplyMember();
 	}
 
 	/** 수정페이지 이동 **/

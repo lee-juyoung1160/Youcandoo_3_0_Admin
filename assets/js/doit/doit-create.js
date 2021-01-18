@@ -829,14 +829,14 @@
 
 		if (chkPrivateQuestion.is(':checked') && isEmpty(privateQuestion.val().trim()))
 		{
-			sweetToast(`참여 질문은 ${message.required}`);
+			sweetToast(`비공개 질문을 ${message.input}`);
 			privateQuestion.trigger('focus');
 			return false;
 		}
 
 		if (chkPublicQuestion.is(':checked') && isEmpty(publicQuestion.val().trim()))
 		{
-			sweetToast(`참여 질문은 ${message.required}`);
+			sweetToast(`공개 질문을 ${message.input}`);
 			publicQuestion.trigger('focus');
 			return false;
 		}

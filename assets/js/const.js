@@ -204,11 +204,16 @@
 		,listJoinMember : baseApiUrl+'doit/get/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
+		/** 두잇상세: 신청자탭 **/
+		,listApplyMember : baseApiUrl+'doit/member/apply/member'
+		,approvalDoitMember : baseApiUrl+'doit/member/apply/confirm'
+		,rejectDoitMember : baseApiUrl+'doit/member/apply/reject'
+		,banDoitMember : baseApiUrl+'doit/member/apply/retire'
 		/** 두잇상세: 두잇톡 v1 **/
-		,listDoitTalk : baseApiUrl+'doit/board/list'
+		/*,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
 		,createDoitTalk : baseApiUrl+'doit/board/register'
-		,deleteDoitTalk : baseApiUrl+'doit/board/delete'
+		,deleteDoitTalk : baseApiUrl+'doit/board/delete'*/
 		/** 두잇상세: 두잇톡 v2 **/
 		,listDoitTalkV2 : baseApiUrl+'doit/talk/v2/list'
 		,listCommentsV2 : baseApiUrl+'doit/talk/v2/comment/list'

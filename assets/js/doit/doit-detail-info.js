@@ -38,17 +38,19 @@
 	let g_doit_creator;
 	let g_biz_uuid;
 	let g_is_created_by_biz;
+	let g_is_apply;
 	function getDetailCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
-			let { doit_uuid, doit_status, doit_title, company_profile_uuid, created_profile_uuid } = data.data;
+			let { doit_uuid, doit_status, doit_title, company_profile_uuid, created_profile_uuid, is_apply } = data.data;
 			g_doit_uuid = doit_uuid;
 			g_doit_title = doit_title;
 			g_doit_status = doit_status;
 			g_doit_creator = created_profile_uuid;
 			g_biz_uuid = company_profile_uuid;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
+			g_is_apply = is_apply;
 			buildDetail(data);
 			modifyDynamicUi();
 		}
@@ -187,8 +189,8 @@
 		isApplyJoin.html(`참여자 신청 받기 : ${detail.is_apply}`);
 		if (detail.is_apply === 'Y')
 		{
-			detail.is_private_question === 'Y' ? privateQuestion.html() : privateQuestion.parent().remove();
-			detail.is_public_question === 'Y' ? publicQuestion.html() : publicQuestion.parent().remove();
+			detail.is_private_question === 'Y' ? privateQuestion.html(`: ${detail.private_question}`) : privateQuestion.parent().remove();
+			detail.is_public_question === 'Y' ? publicQuestion.html(`: ${detail.public_question}`) : publicQuestion.parent().remove();
 		}
 		else
 		{
@@ -298,7 +300,7 @@
 
 	function toggleDoitMemberButtons()
 	{
-		if (!g_is_created_by_biz || g_doit_status !== '모집중')
+		if (!g_is_created_by_biz || g_doit_status !== '모집중' || g_is_apply !== 'Y')
 		{
 			btnApproval.remove();
 			btnReject.remove();
@@ -308,7 +310,7 @@
 
 	function toggleApplyUserTab()
 	{
-		if (g_doit_status !== '모집중')
+		if (g_doit_status !== '모집중' || g_is_apply !== 'Y')
 			$(".apply").remove();
 	}
 

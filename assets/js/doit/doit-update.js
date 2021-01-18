@@ -48,27 +48,23 @@
 		{
 			chkPrivateQuestion.prop('checked', false);
 			chkPrivateQuestion.prop('disabled', true);
-			toggleQuestion(chkPrivateQuestion);
 			chkPublicQuestion.prop('checked', false);
 			chkPublicQuestion.prop('disabled', true);
-			toggleQuestion(chkPublicQuestion);
 		}
 		else
 		{
 			chkPrivateQuestion.prop('disabled', false);
 			chkPublicQuestion.prop('disabled', false);
 		}
+
+		toggleQuestion(chkPrivateQuestion);
+		toggleQuestion(chkPublicQuestion);
 	}
 
 	function toggleQuestion(obj)
 	{
 		const textAreaWrap = $(obj).siblings('.textarea-wrap');
-		if ($(obj).is(':checked'))
-			$(textAreaWrap).show()
-		else
-			$(textAreaWrap).hide();
-
-		$(textAreaWrap).children('textarea').trigger('focus');
+		$(obj).is(':checked') ? $(textAreaWrap).show() : $(textAreaWrap).hide();
 	}
 
 	function getCategory()
@@ -187,6 +183,12 @@
 		{
 			publicYn.eq(0).prop("checked", true);
 		}
+		chkApplyJoin.prop('checked', detail.is_apply === 'Y');
+		chkPrivateQuestion.prop('checked', detail.is_private_question === 'Y');
+		privateQuestion.val(detail.private_question);
+		chkPublicQuestion.prop('checked', detail.is_public_question === 'Y');
+		publicQuestion.val(detail.public_question);
+		toggleApplyJoin(chkApplyJoin);
 		actionType.html(getStringValueForActionType(detail.action_resource_type));
 		actionResource.html(buildActionResource(detail));
 		actionDesc.html(detail.action_description);
@@ -435,6 +437,20 @@
 		{
 			sweetToast(message.minimumPassCode);
 			privateCode.trigger('focus');
+			return false;
+		}
+
+		if (chkPrivateQuestion.is(':checked') && isEmpty(privateQuestion.val().trim()))
+		{
+			sweetToast(`비공개 질문을 ${message.input}`);
+			privateQuestion.trigger('focus');
+			return false;
+		}
+
+		if (chkPublicQuestion.is(':checked') && isEmpty(publicQuestion.val().trim()))
+		{
+			sweetToast(`공개 질문을 ${message.input}`);
+			publicQuestion.trigger('focus');
 			return false;
 		}
 

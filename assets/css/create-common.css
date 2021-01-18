@@ -136,7 +136,7 @@
 .question-wrap .question-box {
     position: relative;
     width: 50%;
-    min-height: 100px;
+    min-height: 140px;
     padding: 15px;
 }
 .question-wrap .question-box span {

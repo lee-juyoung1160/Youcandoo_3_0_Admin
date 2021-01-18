@@ -114,6 +114,8 @@
 }
 .line-clamp-wrap .tooltip-hover-text {
     display: none;
+    white-space: pre-line;
+    word-break: break-all;
 }
 .line-clamp-wrap .tooltip-hover-text i {
     position: absolute;
@@ -124,6 +126,42 @@
 .line-clamp-wrap .tooltip-hover-text p {
     background-color: #fff;
     padding-top: 20px;
+}
+
+.question-wrap {
+    margin-top: 20px;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+}
+.question-wrap .question-box {
+    position: relative;
+    width: 50%;
+    min-height: 100px;
+    padding: 15px;
+}
+.question-wrap .question-box span {
+    position: absolute;
+    top:0;
+    left: 10px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #007aff;
+    background-color: #d9e7f5;
+}
+.question-wrap .question-box p {
+    margin-top: 30px;
+    font-weight: 600;
+    line-height: 1.5em;
+    white-space: pre-line;
+    word-break: break-all;
+}
+.question-wrap .question-box:first-child {
+    float: left;
+    border-right: 1px solid #f3f3f3;
+}
+.question-wrap .question-box:last-child {
+    float: right;
 }
 
 /* 두잇톡 */

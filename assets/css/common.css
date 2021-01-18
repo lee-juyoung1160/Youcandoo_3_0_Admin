@@ -351,6 +351,7 @@ i.question-mark:hover .hover-text {
 }
 .modal-content .modal-information .data-contents {
 	overflow-wrap: break-word;
+	white-space: pre-line;
 	font-size: 14px;
 	color: #484848;
 	line-height: 1.4;

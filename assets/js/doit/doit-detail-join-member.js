@@ -9,13 +9,15 @@
     const saving 		= $("#saving");
     const btnBan 		= $("#btnBan");
     const joinUserTable		= $("#joinUserTable");
-    const selPageLengthForUser   = $("#selPageLengthForUser");
-    const modalApplyDetail    = $("#modalApplyDetail");
-    const modalApplyNickname  = $("#modalApplyNickname");
-    const modalApplyQuestion  = $("#modalApplyQuestion");
-    const modalApplyAnswer    = $("#modalApplyAnswer");
-    const modalApplyCreated   = $("#modalApplyCreated");
-    const modalApprovalCreate = $("#modalApprovalCreate");
+    const selPageLengthForUser  = $("#selPageLengthForUser");
+    const modalApplyDetail      = $("#modalApplyDetail");
+    const modalApplyNickname    = $("#modalApplyNickname");
+    const modalPrivateQuestion  = $("#modalPrivateQuestion");
+    const modalPrivateAnswer    = $("#modalPrivateAnswer");
+    const modalPublicQuestion   = $("#modalPublicQuestion");
+    const modalPublicAnswer     = $("#modalPublicAnswer");
+    const modalApplyCreated     = $("#modalApplyCreated");
+    const modalApprovalCreate   = $("#modalApprovalCreate");
 
     function getJoinMemberTotal()
     {
@@ -57,7 +59,7 @@
                 }
             },
             columns: [
-                {title: tableCheckAllDom(), data: "nickname",   	width: "5%",
+                {title: tableCheckAllDom(), data: "profile_uuid",   width: "5%",
                     render: function (data, type, row, meta) {
                         return multiCheckBoxDom(meta.row);
                     }
@@ -88,11 +90,18 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "신청정보", 		    data: "nickname",       width: "5%",
+                ,{title: "신청정보", 		    data: "profile_uuid",       width: "5%",
                     render: function (data, type, row, meta) {
-                        return `<a onclick="viewApplyDetail(this)"
-                                   data-nickname=""
-                                   >보기</a>`;
+                        return g_is_apply === 'Y'
+                            ?`<a onclick="viewApplyDetail(this)" 
+                                 data-nickname="${row.nickname}"
+                                 data-applydate="${row.apply_date}"
+                                 data-joindate="${row.join_date}"
+                                 data-privateque="${replaceDoubleQuotes(row.private_question)}"
+                                 data-pubilcque="${replaceDoubleQuotes(row.public_question)}"
+                                 data-privateans="${replaceDoubleQuotes(row.private_answer)}"
+                                 data-privateans="${replaceDoubleQuotes(row.public_answer)}">보기</a>`
+                            : label.dash;
                     }
                 }
             ],
@@ -127,21 +136,53 @@
 
     function viewApplyDetail(obj)
     {
-        modalApplyNickname.html();
-        modalApplyQuestion.html();
-        modalApplyAnswer.html();
-        modalApplyCreated.html();
-        modalApprovalCreate.html();
+        let nickname = $(obj).data('nickname');
+        let applyDate = $(obj).data('applydate');
+        let joinDate = $(obj).data('joindate');
+        let privateQ = $(obj).data('privateque');
+        let publicQ = $(obj).data('publicque');
+        let privateA = $(obj).data('privateans');
+        let publicA = $(obj).data('publicans');
+
+        if (isEmpty(privateQ))
+        {
+            modalPrivateQuestion.parent().hide();
+            modalPrivateAnswer.parent().hide();
+        }
+        else
+        {
+            modalPrivateQuestion.parent().show();
+            modalPrivateAnswer.parent().show();
+        }
+
+        if (isEmpty(publicQ))
+        {
+            modalPublicQuestion.parent().hide();
+            modalPublicAnswer.parent().hide();
+        }
+        else
+        {
+            modalPublicQuestion.parent().show();
+            modalPublicAnswer.parent().show();
+        }
+
+        modalApplyNickname.html(nickname);
+        modalPrivateQuestion.html(privateQ);
+        modalPrivateAnswer.html(privateA);
+        modalPublicQuestion.html(publicQ);
+        modalPublicAnswer.html(publicA);
+        modalApplyCreated.html(joinDate);
+        modalApprovalCreate.html(applyDate);
 
         modalLayout.fadeIn();
         modalApplyDetail.fadeIn();
         overflowHidden();
     }
 
-    function joinUserValidation()
+    function banUserValidation()
     {
         let table 	 	 = joinUserTable.DataTable();
-        let selectedData = table.rows('.selected').data()[0];
+        let selectedData = table.rows('.selected').data();
         if (isEmpty(selectedData))
         {
             sweetToast(`대상을 ${message.select}`);
@@ -153,24 +194,49 @@
 
     function onClickBtnBan()
     {
-        if (joinUserValidation())
+        if (banUserValidation())
             sweetConfirm(message.ban, banUserRequest);
     }
 
     function banUserRequest()
     {
-        let url = "";
+        let url = api.banDoitMember;
         let errMsg = message.ajaxError;
+        let param = {
+            "doit_uuid" : g_doit_uuid,
+            "profile_uuid" : banUserParams()
+        }
 
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), banUserSuccessCallback, errMsg, false);
+    }
 
+    function banUserSuccessCallback(data)
+    {
+        sweetToastAndCallback(data, banUserSuccess);
+    }
+
+    function banUserSuccess()
+    {
+        tableReloadAndStayCurrentPage(joinUserTable);
+    }
+
+    function banUserParams()
+    {
+        let table = joinUserTable.DataTable();
+        let selectedData = table.rows('.selected').data();
+        let params = [];
+        for (let i=0; i<selectedData.length; i++)
+        {
+            let profileUuid = selectedData[i].profile_uuid;
+            params.push(profileUuid);
+        }
+
+        return params;
     }
 
     function toggleJoinTableColumns()
     {
         const table = joinUserTable.DataTable();
-        if (!g_is_created_by_biz || g_doit_status !== '모집중' || g_is_apply !== 'Y')
-        {
+        if (g_doit_status !== '모집중' || (g_doit_status === '모집중' && !g_is_created_by_biz))
             table.column(0).visible(false);
-            table.column(12).visible(false);
-        }
     }

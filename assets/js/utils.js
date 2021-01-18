@@ -222,7 +222,7 @@
 
 	function replaceDoubleQuotes(value)
 	{
-		return value.split('"').join('&quot;');
+		return isEmpty(value) ? '' : value.split('"').join('&quot;');
 	}
 
 	function replaceInputTextarea(value)

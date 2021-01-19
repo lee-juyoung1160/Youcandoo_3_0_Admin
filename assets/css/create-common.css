@@ -129,6 +129,8 @@
 }
 
 .question-wrap {
+    overflow-y: scroll;
+    max-height: 200px;
     margin-top: 20px;
     box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
     background-color: #ffffff;

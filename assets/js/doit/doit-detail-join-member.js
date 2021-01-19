@@ -46,6 +46,8 @@
 
     function getJoinMember()
     {
+        applyUserTable.empty();
+
         joinUserTable.DataTable({
             ajax : {
                 url: api.listJoinMember,
@@ -61,7 +63,7 @@
             columns: [
                 {title: tableCheckAllDom(), data: "profile_uuid",   width: "5%",
                     render: function (data, type, row, meta) {
-                        return multiCheckBoxDom(meta.row+9999);
+                        return multiCheckBoxDom(meta.row);
                     }
                 }
                 ,{title: "닉네임", 			data: "nickname",    	width: "15%" }

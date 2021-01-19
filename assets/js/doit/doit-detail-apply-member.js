@@ -11,6 +11,8 @@
 
     function getApplyMember()
     {
+        joinUserTable.empty();
+
         applyUserTable.DataTable({
             ajax : {
                 url: api.listApplyMember,

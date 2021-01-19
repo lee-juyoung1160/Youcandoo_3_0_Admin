@@ -834,9 +834,25 @@
 			return false;
 		}
 
+		let privateQuestionLength = privateQuestion.val().trim().split('\n').length;
+		if (chkPrivateQuestion.is(':checked') && privateQuestionLength > 5)
+		{
+			sweetToast(`질문은 5줄 이하로 ${message.input}`);
+			privateQuestion.trigger('focus');
+			return false;
+		}
+
 		if (chkPublicQuestion.is(':checked') && isEmpty(publicQuestion.val().trim()))
 		{
 			sweetToast(`공개 질문을 ${message.input}`);
+			publicQuestion.trigger('focus');
+			return false;
+		}
+
+		let publicQuestionLength = publicQuestion.val().trim().split('\n').length;
+		if (chkPublicQuestion.is(':checked') && publicQuestionLength > 5)
+		{
+			sweetToast(`질문은 5줄 이하로 ${message.input}`);
 			publicQuestion.trigger('focus');
 			return false;
 		}

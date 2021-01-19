@@ -205,6 +205,7 @@
 		,listJoinMember : baseApiUrl+'doit/member/join/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
+		,getDoitUser : baseApiUrl+'doit/get/count'
 		/** 두잇상세: 신청자탭 **/
 		,listApplyMember : baseApiUrl+'doit/member/apply/member'
 		,approvalDoitMember : baseApiUrl+'doit/member/apply/confirm'

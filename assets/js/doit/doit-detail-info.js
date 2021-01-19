@@ -52,6 +52,8 @@
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			g_is_apply = is_apply;
 			buildDetail(data);
+			/** 참여신청자, 참여자 카운트 - 상단탭 표출용  **/
+			getDoitMemberCount();
 			modifyDynamicUi();
 		}
 		else

@@ -589,6 +589,7 @@
         modalCreateTalk.fadeIn();
         overflowHidden();
         initModalCreateTalk();
+        checkInputLength(talkContent);
     }
 
     function initModalCreateTalk()

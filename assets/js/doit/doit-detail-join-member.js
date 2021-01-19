@@ -61,7 +61,7 @@
             columns: [
                 {title: tableCheckAllDom(), data: "profile_uuid",   width: "5%",
                     render: function (data, type, row, meta) {
-                        return multiCheckBoxDom(meta.row);
+                        return multiCheckBoxDom(`${meta.row}_1`);
                     }
                 }
                 ,{title: "닉네임", 			data: "nickname",    	width: "15%" }
@@ -108,7 +108,10 @@
             serverSide: true,
             paging: true,
             pageLength: Number(selPageLengthForUser.val()),
-            select: false,
+            select: {
+                style: 'multi',
+                selector: ':checkbox'
+            },
             destroy: true,
             initComplete: function () {
                 toggleJoinTableColumns();
@@ -217,6 +220,7 @@
 
     function banUserSuccess()
     {
+        getDoitMemberCount();
         tableReloadAndStayCurrentPage(joinUserTable);
     }
 

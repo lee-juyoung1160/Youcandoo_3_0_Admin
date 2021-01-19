@@ -76,6 +76,8 @@
 		tabContent.hide();
 		$(target).show();
 
+		getDoitMemberCount();
+
 		if (clickedEl.hasClass('doit'))
 			getDetail()
 		else if (clickedEl.hasClass('user'))
@@ -100,6 +102,28 @@
 		}
 		else if (clickedEl.hasClass('apply'))
 			getApplyMember();
+	}
+
+	function getDoitMemberCount()
+	{
+		let url = api.getDoitUser
+		let errMsg = `신청자/참여자 ${message.ajaxError}`;
+		let param = { "doit_uuid" : g_doit_uuid };
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDoitMemberCountCallback, errMsg, false);
+	}
+
+	function getDoitMemberCountCallback(data)
+	{
+		isSuccessResp(data) ? setDoitMemberCount(data) : sweetToast(data.msg);
+	}
+
+	function setDoitMemberCount(data)
+	{
+		let { apply_count, member_count } = data.data;
+
+		$(".apply").html(`참여 신청 정보(${apply_count})`);
+		$(".user").html(`참여자 정보(${member_count})`);
 	}
 
 	/** 수정페이지 이동 **/

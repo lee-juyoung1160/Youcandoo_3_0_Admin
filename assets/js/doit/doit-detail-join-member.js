@@ -61,7 +61,7 @@
             columns: [
                 {title: tableCheckAllDom(), data: "profile_uuid",   width: "5%",
                     render: function (data, type, row, meta) {
-                        return multiCheckBoxDom(`${meta.row}_1`);
+                        return multiCheckBoxDom(meta.row+9999);
                     }
                 }
                 ,{title: "닉네임", 			data: "nickname",    	width: "15%" }
@@ -100,7 +100,7 @@
                                  data-privateque="${replaceDoubleQuotes(row.private_question)}"
                                  data-pubilcque="${replaceDoubleQuotes(row.public_question)}"
                                  data-privateans="${replaceDoubleQuotes(row.private_answer)}"
-                                 data-privateans="${replaceDoubleQuotes(row.public_answer)}">보기</a>`
+                                 data-publicans="${replaceDoubleQuotes(row.public_answer)}">보기</a>`
                             : label.dash;
                     }
                 }
@@ -143,7 +143,7 @@
         let applyDate = $(obj).data('applydate');
         let joinDate = $(obj).data('joindate');
         let privateQ = $(obj).data('privateque');
-        let publicQ = $(obj).data('publicque');
+        let publicQ = $(obj).data('pubilcque');
         let privateA = $(obj).data('privateans');
         let publicA = $(obj).data('publicans');
 

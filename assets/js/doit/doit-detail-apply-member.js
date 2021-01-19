@@ -85,7 +85,7 @@
 
     function buildDetailAnswer(data)
     {
-        return `<div class="line-clamp" style="max-width: 280px;" onclick="viewDetailAnswer(this);">${data}</div>
+        return `<div class="line-clamp" onclick="viewDetailAnswer(this);">${data}</div>
                 <div class="tooltip-hover-text">
                     <i class="fas fa-times" onclick="closeTooltip(this);"></i>
                     <p>${data}</p>

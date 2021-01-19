@@ -31,7 +31,9 @@
 		reset			.on('click', function () { initSearchForm(); });
 
 		selPageLengthForApplyUser	.on('change', function () { getApplyMember(); });
-		searchApplyMember.on('click', function () { getApplyMember(); });
+		searchApplyMember		.on('click', function () { getApplyMember(); });
+		btnApproval		.on('click', function () { g_is_approval_member = 'Y'; onClickBtnApproval(); });
+		btnReject		.on('click', function () { g_is_approval_member = 'N'; onClickBtnApproval(); });
 
 		selPageLengthForUser	.on('change', function () { getJoinMember(); });
 		searchJoinMember.on('click', function () { getJoinMember(); });

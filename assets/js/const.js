@@ -201,14 +201,15 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,getReward : baseApiUrl+'promotion/getReward'
-		,listJoinMember : baseApiUrl+'doit/get/member'
+		/*,listJoinMember : baseApiUrl+'doit/get/member'*/
+		,listJoinMember : baseApiUrl+'doit/member/join/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
 		/** 두잇상세: 신청자탭 **/
 		,listApplyMember : baseApiUrl+'doit/member/apply/member'
 		,approvalDoitMember : baseApiUrl+'doit/member/apply/confirm'
 		,rejectDoitMember : baseApiUrl+'doit/member/apply/reject'
-		,banDoitMember : baseApiUrl+'doit/member/apply/retire'
+		,banDoitMember : baseApiUrl+'doit/member/retire'
 		/** 두잇상세: 두잇톡 v1 **/
 		/*,listDoitTalk : baseApiUrl+'doit/board/list'
 		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'

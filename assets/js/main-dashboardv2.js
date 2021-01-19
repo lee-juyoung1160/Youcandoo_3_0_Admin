@@ -650,8 +650,9 @@
     {
         let url = api.xlsxOutLeaderRank;
         let errMsg = label.list + message.ajaxLoadError;
+        let param = { "date" : dateSelected.val() }
 
-        ajaxRequestWithJsonData(true, url, null, xlsxOutCallback, errMsg, false);
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), xlsxOutCallback, errMsg, false);
     }
 
     function xlsxOutCallback(data)

@@ -100,7 +100,7 @@
         $(obj).parent().hide();
     }
 
-    function applyUserValidation()
+    function approvalUserValidation()
     {
         let table 	 	 = applyUserTable.DataTable();
         let selectedData = table.rows('.selected').data()[0];
@@ -113,56 +113,48 @@
         return true;
     }
 
-    function hasPendingUser()
-    {
-        let result = false;
-        let table 		 = applyUserTable.DataTable();
-        let selectedData = table.rows('.selected').data();
-
-        for (let i=0; i<selectedData.length; i++)
-        {
-            let goodsCode = selectedData[i].goods_code;
-            if (isEmpty(goodsCode))
-                result = true;
-        }
-
-        return result;
-    }
-
-    function hasApprovalUser()
-    {
-        let result = false;
-        let table 		 = applyUserTable.DataTable();
-        let selectedData = table.rows('.selected').data();
-
-        for (let i=0; i<selectedData.length; i++)
-        {
-            let goodsCode = selectedData[i].goods_code;
-            if (!isEmpty(goodsCode))
-                result = true;
-        }
-
-        return result;
-    }
-
+    let g_is_approval_member;
     function onClickBtnApproval()
     {
-        if (applyUserValidation())
-            sweetConfirm(message.approve, approvalUserRequest);
-    }
-
-    function onClickBtnReject()
-    {
-        if (applyUserValidation())
-            sweetConfirm(message.reject, approvalUserRequest);
+        let confirmMsg = g_is_approval_member === 'Y' ? message.approve : message.reject;
+        if (approvalUserValidation())
+            sweetConfirm(confirmMsg, approvalUserRequest);
     }
 
     function approvalUserRequest()
     {
-        let url = "";
+        let url = g_is_approval_member === 'Y' ? api.approvalDoitMember : api.rejectDoitMember;
         let errMsg = message.ajaxError;
+        let param = {
+            "doit_uuid" : g_doit_uuid,
+            "profile_uuid" : approvalUserParams()
+        }
 
+        ajaxRequestWithJsonData(true, url, JSON.stringify(param), approvalUserSuccessCallback, errMsg, false);
+    }
 
+    function approvalUserSuccessCallback(data)
+    {
+        sweetToastAndCallback(data, approvalUserSuccess);
+    }
+
+    function approvalUserSuccess()
+    {
+        tableReloadAndStayCurrentPage(applyUserTable);
+    }
+
+    function approvalUserParams()
+    {
+        let table = applyUserTable.DataTable();
+        let selectedData = table.rows('.selected').data();
+        let params = [];
+        for (let i=0; i<selectedData.length; i++)
+        {
+            let profileUuid = selectedData[i].profile_uuid;
+            params.push(profileUuid);
+        }
+
+        return params;
     }
 
     function buildQuestionBox(data)

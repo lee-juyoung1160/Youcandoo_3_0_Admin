@@ -101,7 +101,7 @@
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
 				,{title: "내용",    		data: "contents",		width: "25%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px">${data}</a>`
+						return `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px;">${data}</a>`
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",
@@ -127,7 +127,7 @@
 				,{title: "두잇명",    	data: "doit_title",  	width: "20%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailDoit + row.doit_idx;
-						return `<a href="${detailUrl}" >${data}</a>`;
+						return `<a href="${detailUrl}" class="line-clamp" style="max-width: 280px;">${data}</a>`;
 					}
 				}
 				,{title: "등록일시",    	data: "created",  		width: "10%" }

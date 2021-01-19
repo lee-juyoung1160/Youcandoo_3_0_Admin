@@ -12,8 +12,6 @@
 		initTableDefault();
 		/** 배너 테이블(왼쪽) 데이터 로드 **/
 		buildBanners();
-		/** 전체 프로모션(오른쪽) 데이터 로드 **/
-		getPromo();
 		/** 테이블 drag and drop 정렬 초기화 **/
 		initSortTable();
 		/** 이벤트 **/
@@ -77,6 +75,9 @@
 				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
 				if (!hasDataOnDatatable(this))
 					removeEmptyRowFromTable();
+
+				/** 전체 프로모션(오른쪽) 데이터 로드 **/
+				getPromo();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setBannerRowAttributes(nRow, aData);

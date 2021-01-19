@@ -143,7 +143,7 @@
 				}
 			},
 			columns: [
-				{title: tableCheckAllDom(), data: "idx",   					width: "5%",
+				{title: tableCheckAllDom(), data: "idx",   					width: "1%",
 					render: function (data) {
 						return multiCheckBoxDom(data);
 					}
@@ -187,7 +187,15 @@
 					}
 				}
 				,{title: "인증요일", 		data: "action_dayofweek",  			width: "10%" }
-				,{title: "삭제", 			data: "doit_uuid",    			width: "6%",
+				,{title: "두잇 ID", 			data: "doit_uuid",    			width: "5%",
+					render: function (data, type, row, meta) {
+						return `<div>
+									<input type="text" class="input-copy" style="opacity: 0; width: 1px;" value="${data}">
+									<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+								</div>`
+					}
+				}
+				,{title: "삭제", 			data: "doit_uuid",    			width: "5%",
 					render: function (data, type, row, meta) {
 						/*let isCreatedByBiz = (!isEmpty(row.promotion_uuid) && row.nickname.indexOf('@') !== -1);*/
 						/*let hasJoinMember = Number(row.doit_member) > 0;*/

@@ -167,12 +167,7 @@
 }
 
 /* 두잇톡 */
-.doitTalk .add-talk {
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.05);
-}
+
 .doitTalk .add-talk .question-text {
     float: right;
     color: #777;

@@ -127,12 +127,19 @@
 					}
 				}
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "25%",
+				,{title: "내용",    		data: "contents",		width: "25%", class: "line-clamp-wrap",
 					render: function (data, type, row, meta) {
 						const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk';
 						return isTalk
-							? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px;">${data}</a>`
-							: data
+						? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px;">${data}</a>`
+							:
+						 `<div class="line-clamp" onclick="viewDetail(this);">
+							${data}
+							</div>
+							<div class="tooltip-hover-text">
+								<i class="fas fa-times" onclick="closeTooltip(this);"></i>
+								<p>${data}</p>
+							</div>`
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",

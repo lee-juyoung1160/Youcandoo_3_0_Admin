@@ -102,31 +102,7 @@
     display: inline-block;
     margin-right: 10px;
 }
-.line-clamp-wrap {
-    position: relative;
-}
-.line-clamp-wrap .line-clamp {
-    text-decoration: underline;
-    cursor: pointer;
-}
-.line-clamp-wrap .line-clamp:hover {
-    color: #4876EA;
-}
-.line-clamp-wrap .tooltip-hover-text {
-    display: none;
-    white-space: pre-line;
-    word-break: break-all;
-}
-.line-clamp-wrap .tooltip-hover-text i {
-    position: absolute;
-    top: 5px;
-    right: 0;
-    padding: 0 10px;
-}
-.line-clamp-wrap .tooltip-hover-text p {
-    background-color: #fff;
-    padding-top: 20px;
-}
+
 
 .question-wrap {
     overflow-y: scroll;

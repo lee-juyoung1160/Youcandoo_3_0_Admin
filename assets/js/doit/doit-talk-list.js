@@ -6,7 +6,7 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const talkDivision	= $("input[name=radio-talk-division]");
-	const talkTypeWrap	= $("#talkTypeWrap");
+	const talkType 		= $("input[name=chk-talk-type]");
 	const isReport 		= $("input[name=radio-report]");
 	const selPageLength	= $("#selPageLength");
 	const btnBlind		= $("#btnBlind");
@@ -35,7 +35,7 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		talkDivision   	.on("change", function () { onChangeTalkDivision(this); });
-		$("input[name=chk-talk-type]").on("click", function () { atLeastOneChecked(this); });
+		talkType		.on("click", function () { atLeastOneChecked(this); });
 		btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
 		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });
 	});
@@ -43,30 +43,29 @@
 	function onChangeTalkDivision(obj)
 	{
 		let isTalk = $(obj).val() === 'talk';
-		let talkTypeEl = '';
 		if (isTalk)
 		{
-			talkTypeEl +=
-				`<input onclick="atLeastOneChecked(this);" type="checkbox" id="c10" name="chk-talk-type" value="공지" checked/>
-				<label for="c10"><span></span>공지</label>
-	
-				<input onclick="atLeastOneChecked(this);" type="checkbox" id="c11" name="chk-talk-type" value="일반" checked/>
-				<label for="c11"><span></span>일반</label>`
+			talkType.eq(0).show();
+			talkType.eq(0).next().show();
+			talkType.eq(1).show();
+			talkType.eq(1).next().show();
+		}
+		else
+		{
+			talkType.eq(0).hide();
+			talkType.eq(0).next().hide();
+			talkType.eq(1).hide();
+			talkType.eq(1).next().hide();
 		}
 
-		talkTypeEl +=
-			`<input onclick="atLeastOneChecked(this);" type="checkbox" id="c12" name="chk-talk-type" value="댓글" checked/>
-			<label for="c12"><span></span>댓글</label>
-
-			<input onclick="atLeastOneChecked(this);" type="checkbox" id="c13" name="chk-talk-type" value="답글" checked/>
-			<label for="c13"><span></span>답글</label>`
-
-		talkTypeWrap.html(talkTypeEl);
+		talkType.eq(0).prop("checked", true);
+		talkType.eq(1).prop("checked", true);
+		talkType.eq(2).prop("checked", true);
+		talkType.eq(3).prop("checked", true);
 	}
 
 	function initSearchForm()
 	{
-		const talkType = $("input[name=chk-talk-type]");
 		keyword.val('');
 		talkDivision.eq(0).prop("checked", true);
 		talkType.eq(0).prop("checked", true);
@@ -94,9 +93,16 @@
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
-		$("input[name=chk-talk-type]").each(function () {
-			if ($(this).val() === historyParams.talk_type)
+		talkDivision.each(function () {
+			if ($(this).val() === historyParams.talk_division)
 				$(this).prop("checked", true);
+		});
+		onChangeTalkDivision($("input[name=radio-talk-division]:checked"));
+		talkType.each(function () {
+			if (historyParams.talk_type.indexOf($(this).val()) !== -1)
+				$(this).prop("checked", true);
+			else
+				$(this).prop("checked", false);
 		});
 		isReport.each(function () {
 			if ($(this).val() === historyParams.report_yn)
@@ -186,7 +192,7 @@
 	function tableParams()
 	{
 		let talkTypes = [];
-		$("input[name=chk-talk-type]").each(function () {
+		talkType.each(function () {
 			if ($(this).is(":checked"))
 				talkTypes.push($(this).val());
 		});
@@ -204,6 +210,7 @@
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		param["talk_division"] = $("input[name=radio-talk-division]:checked").val()
 		setHistoryParam(param);
 
 		return JSON.stringify(param);

@@ -127,19 +127,9 @@
 					}
 				}
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "25%", class: "line-clamp-wrap",
+				,{title: "내용",    		data: "contents",		width: "20%",
 					render: function (data, type, row, meta) {
-						const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk';
-						return isTalk
-						? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px;">${data}</a>`
-							:
-						 `<div class="line-clamp" onclick="viewDetail(this);">
-							${data}
-							</div>
-							<div class="tooltip-hover-text">
-								<i class="fas fa-times" onclick="closeTooltip(this);"></i>
-								<p>${data}</p>
-							</div>`
+						return buildComment(row);
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",
@@ -168,7 +158,7 @@
 						return `<a href="${detailUrl}" class="line-clamp" style="max-width: 280px;">${data}</a>`;
 					}
 				}
-				,{title: "등록일시",    	data: "created",  		width: "10%" }
+				,{title: "등록일시",    	data: "created",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -232,6 +222,33 @@
 			else if (aData.talk_type === '답글')
 				$(nRow).addClass('comment2-color');
 		}
+
+		const isActionTalk = $("input[name=radio-talk-division]:checked").val() === 'action';
+		if (isActionTalk)
+			$(nRow).children().eq(2).addClass('line-clamp-wrap');
+	}
+
+	function buildComment(row)
+	{
+		const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk';
+		return isTalk
+				? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp">${row.contents}</a>`
+				: `<div class="line-clamp" onclick="viewDetailComment(this);">${row.contents}</div>
+					<div class="tooltip-hover-text">
+						<i class="fas fa-times" onclick="closeTooltip(this);"></i>
+						<p>${row.contents}</p>
+					</div>`
+	}
+
+	function viewDetailComment(obj)
+	{
+		$(".tooltip-hover-text").hide();
+		$(obj).siblings().show();
+	}
+
+	function closeTooltip(obj)
+	{
+		$(obj).parent().hide();
 	}
 
 	/** 블라인드 처리 **/

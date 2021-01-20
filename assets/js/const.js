@@ -226,6 +226,7 @@
 		,createComments : baseApiUrl+'doit/talk/v2/comment/create'
 		/** 두잇톡 관리 **/
 		,listTalk : baseApiUrl+'doit/talk/list'
+		,listActionTalk : baseApiUrl+'doit/talk/action/list'
 		,detailTalk : baseApiUrl+'doit/talk/detail'
 		,listComment : baseApiUrl+'doit/talk/commentDetail'
 		,listLargeComment : baseApiUrl+'doit/talk/commentsDetail'

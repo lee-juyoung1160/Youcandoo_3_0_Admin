@@ -558,5 +558,5 @@
 
 	function updateSuccess()
 	{
-		location.href = page.listDoit;
+		location.href = page.detailDoit+idx;
 	}

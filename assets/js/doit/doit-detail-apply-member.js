@@ -108,10 +108,19 @@
     function approvalUserValidation()
     {
         let table 	 	 = applyUserTable.DataTable();
-        let selectedData = table.rows('.selected').data()[0];
+        let selectedData = table.rows('.selected').data();
+        let selectedDataLength = selectedData.length;
         if (isEmpty(selectedData))
         {
             sweetToast(`대상을 ${message.select}`);
+            return false;
+        }
+
+        if (g_is_approval_member === 'Y' && selectedDataLength + g_join_member_count > g_max_user)
+        {
+            const msg = `최대 ${g_max_user}명까지 참여할 수 있는 두잇입니다.
+                        승인할 수 있는 참여자 수 : ${g_max_user - g_join_member_count}명`;
+            sweetToast(msg);
             return false;
         }
 

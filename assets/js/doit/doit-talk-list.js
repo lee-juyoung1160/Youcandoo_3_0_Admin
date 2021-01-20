@@ -5,6 +5,8 @@
 	const dateType		= $("#date_type");
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
+	const talkDivision	= $("input[name=radio-talk-division]");
+	const talkTypeWrap	= $("#talkTypeWrap");
 	const talkType 		= $("input[name=chk-talk-type]");
 	const isReport 		= $("input[name=radio-report]");
 	const selPageLength	= $("#selPageLength");
@@ -33,14 +35,41 @@
 		reset			.on("click", function () { initSearchForm(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
+		talkDivision   	.on("change", function () { onChangeTalkDivision(this); });
 		talkType      	.on("click", function () { atLeastOneChecked(this); });
 		btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
 		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });
 	});
 
+	function onChangeTalkDivision(obj)
+	{
+		let isTalk = $(obj).val() === 'talk';
+		let talkTypeEl = '';
+		if (isTalk)
+		{
+			talkTypeEl +=
+				`<input type="checkbox" id="c10" name="chk-talk-type" value="공지" checked/>
+				<label for="c10"><span></span>공지</label>
+	
+				<input type="checkbox" id="c11" name="chk-talk-type" value="일반" checked/>
+				<label for="c11"><span></span>일반</label>`
+		}
+
+		talkTypeEl +=
+			`<input type="checkbox" id="c12" name="chk-talk-type" value="댓글" checked/>
+			<label for="c12"><span></span>댓글</label>
+
+			<input type="checkbox" id="c13" name="chk-talk-type" value="답글" checked/>
+			<label for="c13"><span></span>답글</label>`
+
+		talkTypeWrap.html(talkTypeEl);
+	}
+
 	function initSearchForm()
 	{
+		const talkType = $("input[name=chk-talk-type]");
 		keyword.val('');
+		talkDivision.eq(0).prop("checked", true);
 		talkType.eq(0).prop("checked", true);
 		talkType.eq(1).prop("checked", true);
 		talkType.eq(2).prop("checked", true);

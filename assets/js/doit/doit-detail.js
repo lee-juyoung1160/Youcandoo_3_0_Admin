@@ -118,9 +118,12 @@
 		isSuccessResp(data) ? setDoitMemberCount(data) : sweetToast(data.msg);
 	}
 
+	let g_join_member_count = 0;
 	function setDoitMemberCount(data)
 	{
 		let { apply_count, member_count } = data.data;
+
+		g_join_member_count = member_count;
 
 		$(".apply").html(`참여 신청 정보(${apply_count})`);
 		$(".user").html(`참여자 정보(${member_count})`);

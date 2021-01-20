@@ -39,11 +39,12 @@
 	let g_biz_uuid;
 	let g_is_created_by_biz;
 	let g_is_apply;
+	let g_max_user;
 	function getDetailCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
-			let { doit_uuid, doit_status, doit_title, company_profile_uuid, created_profile_uuid, is_apply } = data.data;
+			let { doit_uuid, doit_status, doit_title, company_profile_uuid, created_profile_uuid, is_apply, max_user } = data.data;
 			g_doit_uuid = doit_uuid;
 			g_doit_title = doit_title;
 			g_doit_status = doit_status;
@@ -51,6 +52,7 @@
 			g_biz_uuid = company_profile_uuid;
 			g_is_created_by_biz = company_profile_uuid === created_profile_uuid;
 			g_is_apply = is_apply;
+			g_max_user = max_user;
 			buildDetail(data);
 			/** 참여신청자, 참여자 카운트 - 상단탭 표출용  **/
 			getDoitMemberCount();

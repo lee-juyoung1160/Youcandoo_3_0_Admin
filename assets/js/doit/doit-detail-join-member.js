@@ -149,33 +149,11 @@
         let privateA = $(obj).data('privateans');
         let publicA = $(obj).data('publicans');
 
-        if (isEmpty(privateQ))
-        {
-            modalPrivateQuestion.parent().hide();
-            modalPrivateAnswer.parent().hide();
-        }
-        else
-        {
-            modalPrivateQuestion.parent().show();
-            modalPrivateAnswer.parent().show();
-        }
-
-        if (isEmpty(publicQ))
-        {
-            modalPublicQuestion.parent().hide();
-            modalPublicAnswer.parent().hide();
-        }
-        else
-        {
-            modalPublicQuestion.parent().show();
-            modalPublicAnswer.parent().show();
-        }
-
         modalApplyNickname.html(nickname);
-        modalPrivateQuestion.html(privateQ);
-        modalPrivateAnswer.html(privateA);
-        modalPublicQuestion.html(publicQ);
-        modalPublicAnswer.html(publicA);
+        modalPrivateQuestion.html(isEmpty(privateQ) ? label.dash : privateQ);
+        modalPrivateAnswer.html(isEmpty(privateA) ? label.dash : privateA);
+        modalPublicQuestion.html(isEmpty(publicQ) ? label.dash : publicQ);
+        modalPublicAnswer.html(isEmpty(publicA) ? label.dash : publicA);
         modalApplyCreated.html(joinDate);
         modalApprovalCreate.html(applyDate);
 
@@ -222,6 +200,7 @@
 
     function banUserSuccess()
     {
+        getJoinMemberTotal();
         getDoitMemberCount();
         tableReloadAndStayCurrentPage(joinUserTable);
     }

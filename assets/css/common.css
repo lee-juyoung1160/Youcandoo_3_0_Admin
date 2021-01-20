@@ -99,6 +99,7 @@ h2.list-main-title {
 }
 section {
 	width: 100%;
+	min-height: 100vh;
 	padding-top: 50px;
 	padding-left: 250px;
 	position: relative;
@@ -1505,6 +1506,8 @@ input[type="checkbox"]:disabled + label span{
 }
 .line-clamp-wrap .tooltip-hover-text {
 	display: none;
+	right: initial !important;
+	left: 0 !important;
 	white-space: pre-line;
 	word-break: break-all;
 }
@@ -1516,7 +1519,6 @@ input[type="checkbox"]:disabled + label span{
 }
 .line-clamp-wrap .tooltip-hover-text p {
 	background-color: #fff;
-	padding-top: 20px;
 }
 
 /* 리뷰 평점(별) */

@@ -384,7 +384,7 @@
     overflow-y: initial;
 }
 
-
+/*톡 테이블*/
 .talk-table tr.notice-color td:nth-child(2),
 .talk-table tr.notice-color td:nth-child(3) a {
     color: coral;
@@ -408,6 +408,23 @@
 .talk-table tr.comment2-color td:nth-child(3) a {
     border-bottom: 1px solid plum;
 }
+
+/*인증테이블*/
+.auth-table tr.notice-color td:nth-child(1),
+.auth-table tr.notice-color td:nth-child(2) .line-clamp {
+    color: coral;
+}
+
+.auth-table tr.comment-color td:nth-child(1),
+.auth-table tr.comment-color td:nth-child(2) .line-clamp {
+    color: #00ac69;
+}
+
+.auth-table tr.comment2-color td:nth-child(1),
+.auth-table tr.comment2-color td:nth-child(2) .line-clamp {
+    color: plum;
+}
+
 .comment-input-wrap {
     display: inline-block;
     position: relative;

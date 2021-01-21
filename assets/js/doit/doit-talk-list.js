@@ -6,7 +6,7 @@
 	const searchType 	= $("#search_type");
 	const keyword		= $("#keyword");
 	const talkDivision	= $("input[name=radio-talk-division]");
-	const talkTypeWrap	= $("#talkTypeWrap");
+	const talkType 		= $("input[name=chk-talk-type]");
 	const isReport 		= $("input[name=radio-report]");
 	const selPageLength	= $("#selPageLength");
 	const btnBlind		= $("#btnBlind");
@@ -35,7 +35,7 @@
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		dayButtons      .on("click", function () { onClickActiveAloneDayBtn(this); });
 		talkDivision   	.on("change", function () { onChangeTalkDivision(this); });
-		$("input[name=chk-talk-type]").on("click", function () { atLeastOneChecked(this); });
+		talkType		.on("click", function () { atLeastOneChecked(this); });
 		btnBlind      	.on("click", function () { g_is_blind = 'Y'; toggleBlind(); });
 		btnUnBlind      .on("click", function () { g_is_blind = 'N'; toggleBlind(); });
 	});
@@ -43,30 +43,29 @@
 	function onChangeTalkDivision(obj)
 	{
 		let isTalk = $(obj).val() === 'talk';
-		let talkTypeEl = '';
 		if (isTalk)
 		{
-			talkTypeEl +=
-				`<input onclick="atLeastOneChecked(this);" type="checkbox" id="c10" name="chk-talk-type" value="공지" checked/>
-				<label for="c10"><span></span>공지</label>
-	
-				<input onclick="atLeastOneChecked(this);" type="checkbox" id="c11" name="chk-talk-type" value="일반" checked/>
-				<label for="c11"><span></span>일반</label>`
+			talkType.eq(0).show();
+			talkType.eq(0).next().show();
+			talkType.eq(1).show();
+			talkType.eq(1).next().show();
+		}
+		else
+		{
+			talkType.eq(0).hide();
+			talkType.eq(0).next().hide();
+			talkType.eq(1).hide();
+			talkType.eq(1).next().hide();
 		}
 
-		talkTypeEl +=
-			`<input onclick="atLeastOneChecked(this);" type="checkbox" id="c12" name="chk-talk-type" value="댓글" checked/>
-			<label for="c12"><span></span>댓글</label>
-
-			<input onclick="atLeastOneChecked(this);" type="checkbox" id="c13" name="chk-talk-type" value="답글" checked/>
-			<label for="c13"><span></span>답글</label>`
-
-		talkTypeWrap.html(talkTypeEl);
+		talkType.eq(0).prop("checked", true);
+		talkType.eq(1).prop("checked", true);
+		talkType.eq(2).prop("checked", true);
+		talkType.eq(3).prop("checked", true);
 	}
 
 	function initSearchForm()
 	{
-		const talkType = $("input[name=chk-talk-type]");
 		keyword.val('');
 		talkDivision.eq(0).prop("checked", true);
 		talkType.eq(0).prop("checked", true);
@@ -94,9 +93,16 @@
 		onChangeSelectOption(searchType);
 		selPageLength.val(historyParams.limit);
 		onChangeSelectOption(selPageLength);
-		$("input[name=chk-talk-type]").each(function () {
-			if ($(this).val() === historyParams.talk_type)
+		talkDivision.each(function () {
+			if ($(this).val() === historyParams.talk_division)
 				$(this).prop("checked", true);
+		});
+		onChangeTalkDivision($("input[name=radio-talk-division]:checked"));
+		talkType.each(function () {
+			if (historyParams.talk_type.indexOf($(this).val()) !== -1)
+				$(this).prop("checked", true);
+			else
+				$(this).prop("checked", false);
 		});
 		isReport.each(function () {
 			if ($(this).val() === historyParams.report_yn)
@@ -127,19 +133,9 @@
 					}
 				}
 				,{title: "유형",    		data: "talk_type",		width: "5%" }
-				,{title: "내용",    		data: "contents",		width: "25%", class: "line-clamp-wrap",
+				,{title: "내용",    		data: "contents",		width: "20%",
 					render: function (data, type, row, meta) {
-						const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk';
-						return isTalk
-						? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp" style="max-width: 320px;">${data}</a>`
-							:
-						 `<div class="line-clamp" onclick="viewDetail(this);">
-							${data}
-							</div>
-							<div class="tooltip-hover-text">
-								<i class="fas fa-times" onclick="closeTooltip(this);"></i>
-								<p>${data}</p>
-							</div>`
+						return buildComment(row);
 					}
 				}
 				,{title: "작성자",    	data: "nickname",  		width: "15%",
@@ -168,7 +164,7 @@
 						return `<a href="${detailUrl}" class="line-clamp" style="max-width: 280px;">${data}</a>`;
 					}
 				}
-				,{title: "등록일시",    	data: "created",  		width: "10%" }
+				,{title: "등록일시",    	data: "created",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -196,7 +192,7 @@
 	function tableParams()
 	{
 		let talkTypes = [];
-		$("input[name=chk-talk-type]").each(function () {
+		talkType.each(function () {
 			if ($(this).is(":checked"))
 				talkTypes.push($(this).val());
 		});
@@ -214,6 +210,7 @@
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
+		param["talk_division"] = $("input[name=radio-talk-division]:checked").val()
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
@@ -232,6 +229,33 @@
 			else if (aData.talk_type === '답글')
 				$(nRow).addClass('comment2-color');
 		}
+
+		const isActionTalk = $("input[name=radio-talk-division]:checked").val() === 'action';
+		if (isActionTalk)
+			$(nRow).children().eq(2).addClass('line-clamp-wrap');
+	}
+
+	function buildComment(row)
+	{
+		const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk';
+		return isTalk
+				? `<a href="${page.detailTalk}${row.board_idx}" onmouseenter="" class="line-clamp">${row.contents}</a>`
+				: `<div class="line-clamp" onclick="viewDetailComment(this);">${row.contents}</div>
+					<div class="tooltip-hover-text">
+						<i class="fas fa-times" onclick="closeTooltip(this);"></i>
+						<p>${row.contents}</p>
+					</div>`
+	}
+
+	function viewDetailComment(obj)
+	{
+		$(".tooltip-hover-text").hide();
+		$(obj).siblings().show();
+	}
+
+	function closeTooltip(obj)
+	{
+		$(obj).parent().hide();
 	}
 
 	/** 블라인드 처리 **/
@@ -299,4 +323,22 @@
 		table.ajax.reload();
 		uncheckedCheckAll();
 		initMaxDateToday();
+		toggleButtonsAndColumns();
+	}
+
+	function toggleButtonsAndColumns()
+	{
+		const table = dataTable.DataTable();
+		if ($("input[name=radio-talk-division]:checked").val() === 'action')
+		{
+			table.column(0).visible(false);
+			btnBlind.hide();
+			btnUnBlind.hide();
+		}
+		else
+		{
+			table.column(0).visible(true);
+			btnBlind.show();
+			btnUnBlind.show();
+		}
 	}

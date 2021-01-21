@@ -232,7 +232,7 @@
 
 		const isActionTalk = $("input[name=radio-talk-division]:checked").val() === 'action';
 		if (isActionTalk)
-			$(nRow).children().eq(2).addClass('line-clamp-wrap');
+			$(nRow).children().eq(1).addClass('line-clamp-wrap');
 	}
 
 	function buildComment(row)
@@ -324,6 +324,7 @@
 		uncheckedCheckAll();
 		initMaxDateToday();
 		toggleButtonsAndColumns();
+		toggleTableClass();
 	}
 
 	function toggleButtonsAndColumns()
@@ -341,4 +342,11 @@
 			btnBlind.show();
 			btnUnBlind.show();
 		}
+	}
+
+	function toggleTableClass()
+	{
+		const isTalk = $("input[name=radio-talk-division]:checked").val() === 'talk'
+		dataTable.removeClass('auth-table talk-table');
+		isTalk ? dataTable.addClass('talk-table') : dataTable.addClass('auth-table');
 	}

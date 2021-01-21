@@ -69,10 +69,11 @@
                 ,{title: "닉네임", 			data: "nickname",    	width: "15%" }
                 ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
                     render: function (data) {
-                        return `<div>
-								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly>
-								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
-								</div>`;
+                        return `<div class="line-clamp">${data}</div>`;
+                        /*<div>
+                            <input type="text" className="input-copy" style="width: 150px" value="${data}" readOnly>
+                                <i className="fas fa-copy" onClick="copyToClipboard(this);"></i>
+                        </div>*/
                     }
                 }
                 ,{title: "총 인증 수", 		data: "todo",    		width: "5%" }

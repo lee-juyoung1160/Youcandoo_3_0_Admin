@@ -323,4 +323,22 @@
 		table.ajax.reload();
 		uncheckedCheckAll();
 		initMaxDateToday();
+		toggleButtonsAndColumns();
+	}
+
+	function toggleButtonsAndColumns()
+	{
+		const table = dataTable.DataTable();
+		if ($("input[name=radio-talk-division]:checked").val() === 'action')
+		{
+			table.column(0).visible(false);
+			btnBlind.hide();
+			btnUnBlind.hide();
+		}
+		else
+		{
+			table.column(0).visible(true);
+			btnBlind.show();
+			btnUnBlind.show();
+		}
 	}

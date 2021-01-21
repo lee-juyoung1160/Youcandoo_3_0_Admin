@@ -70,19 +70,13 @@
                 ,{title: "프로필ID", 		    data: "profile_uuid",   width: "15%",
                     render: function (data) {
                         return `<div class="line-clamp">${data}</div>`;
-                        /*<div>
-                            <input type="text" className="input-copy" style="width: 150px" value="${data}" readOnly>
-                                <i className="fas fa-copy" onClick="copyToClipboard(this);"></i>
-                        </div>*/
                     }
                 }
-                ,{title: "총 인증 수", 		data: "todo",    		width: "5%" }
+                ,{title: "총 인증 수", 		data: "todo",    		width: "6%" }
                 ,{title: "인증한 횟수", 		data: "total",    		width: "7%" }
-                ,{title: "성공", 	  		data: "success",    	width: "5%" }
-                ,{title: "실패",  	  		data: "fail",   		width: "5%" }
-                ,{title: "신고",  	  		data: "report",   		width: "5%" }
-                ,{title: "옐로카드",    		data: "yellow",   		width: "5%" }
-                ,{title: "레드카드",    		data: "red",   			width: "5%" }
+                ,{title: "성공", 	  		data: "success",    	width: "6%" }
+                ,{title: "실패",  	  		data: "fail",   		width: "6%" }
+                ,{title: "옐로카드",    		data: "yellow",   		width: "6%" }
                 ,{title: "평균달성률(%)", 	    data: "avg_percent",    width: "8%",
                     render: function (data) {
                         return Math.floor(Number(data));
@@ -91,6 +85,11 @@
                 ,{title: "적립리워드(UCD)",  	data: "total_reward",   width: "8%",
                     render: function (data) {
                         return numberWithCommas(data);
+                    }
+                }
+                ,{title: "참여일",    		data: "join_date",   	width: "8%",
+                    render: function (data) {
+                        return data.substring(0, 10);
                     }
                 }
                 ,{title: "신청정보", 		    data: "profile_uuid",       width: "5%",

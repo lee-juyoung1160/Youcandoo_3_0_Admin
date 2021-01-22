@@ -183,8 +183,8 @@
 			},
 			columns: [
 				{title: "", 			data: "promotion_uuid",   	width: "5%",
-					render: function (data) {
-						return multiCheckBoxDom(data);
+					render: function (data, type, row, meta) {
+						return multiCheckBoxDom(meta.row);
 					}
 				},
 				{title: "배너이미지",		data: "list_image_url",		width: "20%",

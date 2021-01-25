@@ -397,23 +397,6 @@
         $(obj).parent().children('.upload-display').remove();
     }
 
-    /*function initSummerNote()
-    {
-        $('#summernote').summernote({
-            lang: 'ko-KR',
-            placeholder: '내용을 입력해주세요.',
-            /!*height: 120,*!/
-            toolbar: [
-                ['font', ['bold', 'underline', 'clear']],
-                /!*['color', ['color']],*!/
-                ['para', ['paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-    }*/
-
     function getStatusCode(data)
     {
         return data.status;

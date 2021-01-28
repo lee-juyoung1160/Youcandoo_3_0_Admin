@@ -129,8 +129,8 @@
 			},
 			columns: [
 				{title: tableCheckAllDom(), 	data: "profile_uuid",   width: "5%",
-					render: function (data) {
-						return multiCheckBoxDom(data);
+					render: function (data, type, row, meta) {
+						return multiCheckBoxDom(meta.row);
 					}
 				}
 				,{title: "닉네임",		data: "nickname",    	   width: "40%" }

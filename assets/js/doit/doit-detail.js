@@ -15,6 +15,8 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefault();
+		/** 데이트피커 초기화 **/
+		initSearchDatepicker();
 		/** n개씩보기 셀렉트 박스 초기화 **/
 		initPageLength(selPageLengthForApplyUser);
 		initPageLength(selPageLengthForUser);
@@ -63,6 +65,8 @@
 	{
 		keywordJoinMember.val('');
 		keywordApplyMember.val('');
+		dateFrom.datepicker("setDate", g_created_date);
+		dateTo.datepicker("setDate", g_action_start_date);
 	}
 
 	/** 탭 클릭 **/

@@ -104,6 +104,8 @@
         options += '<option selected value="30">30개씩 보기</ooption>';
         options += '<option value="50">50개씩 보기</ooption>';
         options += '<option value="100">100개씩 보기</ooption>';
+        options += '<option value="500">500개씩 보기</ooption>';
+        options += '<option value="1000">1000개씩 보기</ooption>';
 
         _obj.html(options);
 

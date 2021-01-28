@@ -19,6 +19,14 @@
     const modalApplyCreated     = $("#modalApplyCreated");
     const modalApprovalCreate   = $("#modalApprovalCreate");
 
+    function initJoinMemberDatepickerRange()
+    {
+        dateFrom.datepicker("setDate", g_created_date);
+        dateTo.datepicker("setDate", g_action_start_date);
+        datePicker.datepicker("option", "minDate", g_created_date);
+        datePicker.datepicker("option", "maxDate", g_action_start_date);
+    }
+
     function getJoinMemberTotal()
     {
         let url 	= api.totalJoinMember;
@@ -74,9 +82,9 @@
                 }
                 ,{title: "총 인증 수", 		data: "todo",    		width: "6%" }
                 ,{title: "인증한 횟수", 		data: "total",    		width: "7%" }
-                ,{title: "성공", 	  		data: "success",    	width: "6%" }
-                ,{title: "실패",  	  		data: "fail",   		width: "6%" }
-                ,{title: "옐로카드",    		data: "yellow",   		width: "6%" }
+                ,{title: "성공", 	  		data: "success",    	width: "5%" }
+                ,{title: "실패",  	  		data: "fail",   		width: "5%" }
+                ,{title: "옐로카드",    		data: "yellow",   		width: "5%" }
                 ,{title: "평균달성률(%)", 	    data: "avg_percent",    width: "8%",
                     render: function (data) {
                         return Math.floor(Number(data));
@@ -87,12 +95,8 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "참여일",    		data: "join_date",   	width: "8%",
-                    render: function (data) {
-                        return data.substring(0, 10);
-                    }
-                }
-                ,{title: "신청정보", 		    data: "profile_uuid",       width: "5%",
+                ,{title: "참여일시",    		data: "join_date",   	width: "11%" }
+                ,{title: "신청정보", 		    data: "profile_uuid",   width: "5%",
                     render: function (data, type, row, meta) {
                         return g_is_apply === 'Y'
                             ?`<a onclick="viewApplyDetail(this)" 
@@ -133,7 +137,9 @@
             "limit" : d.length
             ,"page" : (d.start / d.length) + 1
             ,"doit_uuid" : g_doit_uuid
-            ,"nickname": keywordJoinMember.val()
+            ,"nickname" : keywordJoinMember.val()
+            ,"from_date" : dateFrom.val()
+            ,"to_date" : dateTo.val()
         }
 
         return JSON.stringify(param);

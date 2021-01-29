@@ -159,9 +159,9 @@
 		onChangeIntroType(introFileType);
 		doitTo.datepicker('option', 'disabled', true);
 		exampleType.eq(0).prop('checked', true);
-		chkApplyJoin.prop('checked', true);
-		chkPrivateQuestion.prop('checked', false);
-		chkPublicQuestion.prop('checked', false);
+		chkApplyJoin.prop('checked', false);
+		chkPrivateQuestion.prop('disabled', true);
+		chkPublicQuestion.prop('disabled', true);
 	}
 
 	function onClickAddTag()

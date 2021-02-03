@@ -3,6 +3,7 @@
 	const sendDate		= $("#sendDate");
 	const sendTime		= $("#sendTime");
 	const targetUser	= $("input[name=radio-target-user]");
+	const receiveType	= $("input[name=radio-receive-type]");
 	const btnModalUserOpen	= $("#btnModalUserOpen");
 	const btnXlsxImport	= $("#btnXlsxImport");
 	const btnXlsxExport	= $("#btnXlsxExport");
@@ -71,6 +72,7 @@
 		sendWhen.eq(0).prop('checked', true);
 		targetUser.eq(0).prop('checked', true);
 		targetPage.eq(0).prop('checked', true);
+		receiveType.eq(0).prop('checked', true);
 		osType.eq(0).prop('checked', true);
 
 		checkRequestPage();
@@ -616,6 +618,7 @@
 		formData.append('push_profile', profileIds);
 		formData.append('push_category', sendTargetPageType);
 		formData.append('push_category_target', g_page_uuid);
+		formData.append('receive_type', $("input[name=radio-receive-type]:checked").val());
 		formData.append('push_store', $("input[name=radio-store]:checked").val());
 		formData.append('push_message', content.val().trim());
 		formData.append('push_image', contentImage[0].files[0]);

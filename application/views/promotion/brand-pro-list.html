@@ -1,0 +1,152 @@
+<section class="pro-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">프로모션</h2>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="dateType">등록일</label>
+                    <select id="dateType">
+                        <option value="created_datetime">등록일</option>
+                        <option value="start_date">프로모션 시작일</option>
+                        <option value="end_date">프로모션 종료일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title" style="display: inline-block">프로모션 상태</p>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text" style="width:460px">
+                            <i class="far fa-calendar"></i> 대기 : 프로모션 시작 전 ( 시작일 이전 )<br>
+                            <i class="far fa-calendar-check"></i> 진행 : 프로모션 진행 ( 시작일 이후 부터 종료일 이전 )<br>
+                            <i class="far fa-calendar-times"></i> 마감 : 프로모션에 대한 두잇 생성 마감 ( 종료일 +30일 이전 )<br>
+                            <i class="fas fa-calendar-times"></i> 종료 : 프로모션 종료 ( 종료일 +30일 초과 )
+                        </span>
+                    </i>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="chk-status" value="pending"/>
+                        <label for="c1"><span></span>대기</label>
+
+                        <input type="checkbox" id="c2" name="chk-status" value="progress"/>
+                        <label for="c2"><span></span>진행</label>
+
+                        <input type="checkbox" id="c3" name="chk-status" value="end"/>
+                        <label for="c3"><span></span>마감</label>
+
+                        <input type="checkbox" id="c4" name="chk-status" value="terminate"/>
+                        <label for="c4"><span></span>종료</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">공개 여부</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="radio-banner" value=""/>
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-banner" value="Y"/>
+                        <label for="r3"><span></span>Y</label>
+
+                        <input type="radio" id="r4" name="radio-banner" value="N"/>
+                        <label for="r4"><span></span>N</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+<!--                <colgroup>
+                    <col style="width:5%;">
+                    <col style="width:13%;">
+                    <col style="width:25%;">
+                    <col style="width:20%;">
+                    <col style="width:15%;">
+                    <col style="width:10%;">
+                    <col style="width:7%;">
+                    <col style="width:8%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>기업</th>
+                        <th>프로모션명</th>
+                        <th>프로모션 기간</th>
+                        <th>프로모션 예산</th>
+                        <th>잔여 예산</th>
+                        <th>상태</th>
+                        <th>공개여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td>도미노피자도미노피자</td>
+                        <td><a href="/pro/detail">나이키1000억프로젝트키1000억프로젝트</a></td>
+                        <td>2020-04-08 ~ 2020-04-08 </td>
+                        <td>30,000,000원</td>
+                        <td>900,000원</td>
+                        <td>모집완료</td>
+                        <td><button type="button" class="more-info-btn" data-rel="modal-01">보기</button></td>
+                    </tr>
+                </tbody>-->
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+</section>
+<script src="/assets/js/plugins/tablesort.min.js"></script>
+<script src="/assets/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/js/promotion/brand-promotion-list.js?version=<?php echo $this->config->item('version');?>"></script>

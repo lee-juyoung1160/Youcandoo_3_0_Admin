@@ -28,4 +28,10 @@ class Promotion extends MY_Controller
     {
         $this->load->layout('promotion/pro-banner-list');
     }
+
+    public function brand()
+    {
+        $this->load->layout('promotion/brand-pro-list');
+    }
+
 }

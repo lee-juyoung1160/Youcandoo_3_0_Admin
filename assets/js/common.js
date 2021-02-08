@@ -11,6 +11,8 @@
     const sessionUserId   = $("#session_userid");
     const sessionUserIp   = $("#session_userip");
     const sessionAuthCode = $("#session_authcode");
+    const sessionIsDept   = $("#session_is_dept");
+    const sessionDeptName = $("#session_dept_name");
     const sideMenu        = $("#sideMenu");
     const moveTop         = $('.move-top');
 
@@ -18,8 +20,8 @@
     $(document) .ajaxStart(function () { fadeinLoader(); });
     $(document) .ajaxComplete(function () { fadeoutLoader(); });
 
+    getLeftMenuByAuthCode();
     $( () => {
-        getLeftMenuByAuthCode();
         calculateInputLength();
 
         moveTop     .on("click", function () { moveScrollTop(this); });
@@ -764,9 +766,18 @@
             accessibleMenus.push(_auth.replace('create', 'update'));
 
         /** 프로모션 목록, 두잇 목록 권한이 있으면 상세 권한 추가 **/
-        let customAccessiblePages1 = ['/promotion', '/doit', '/doit/v2'];
+        let customAccessiblePages1 = ['/promotion', '/doit', '/doit/v2', '/promotion/brand'];
         if (customAccessiblePages1.indexOf(_auth) !== -1)
             accessibleMenus.push(_auth + '/detail');
+
+        if ('/doit/v2' === _auth)
+            accessibleMenus.push('/doit/detail');
+
+        if ('/promotion/brand' === _auth)
+        {
+            accessibleMenus.push('/promotion/detail');
+            accessibleMenus.push('/doit/info');
+        }
 
         /** 그 외 메뉴들은 목록 권한이 있으면 등록, 수정, 상세 권한 추가 **/
         let customAccessiblePages2 =
@@ -784,7 +795,7 @@
                 '/doit/recommends',
                 '/doit/talk',
                 '/operate/account',
-                '/gift'];
+                '/gift',];
         if (customAccessiblePages2.indexOf(_auth) !== -1)
         {
             accessibleMenus.push(_auth + '/create');
@@ -813,7 +824,7 @@
     function accessDeniedAuth()
     {
         let pathName = getPathName();
-        if (pathName.includes('update') || pathName.includes('detail'))
+        if (pathName.includes('update') || pathName.includes('detail') || pathName.includes('info'))
         {
             pathName = pathName.replace(pathName.split('/').reverse()[0], '');
             pathName = pathName.slice(0, -1);

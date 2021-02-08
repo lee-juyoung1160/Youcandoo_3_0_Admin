@@ -23,6 +23,11 @@ class Doit extends MY_Controller {
         $this->load->layout('doit/doit-update');
     }
 
+    public function info()
+    {
+        $this->load->layout('doit/brand-doit-detail');
+    }
+
     public function v2($Route = "")
     {
         switch ($Route) {

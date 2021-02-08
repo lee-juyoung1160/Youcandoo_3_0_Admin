@@ -124,13 +124,17 @@
 			onClickRewardTab(rewardTab.find('li').eq(0));
 		}
 
-		toggleModifyBtn(detailPromo);
+		toggleBtn(detailPromo);
 	}
 
-	function toggleModifyBtn(detailPromo)
+	function toggleBtn(detailPromo)
 	{
-		if (isPromotionClosed(detailPromo.status))
+		let isDept = sessionIsDept.val() === 'Y';
+		if (isPromotionClosed(detailPromo.status) || isDept)
 			goUpdate.remove();
+
+		if (isDept)
+			$("#btnList").remove();
 	}
 
 	function isPromotionClosed(_status)
@@ -240,7 +244,8 @@
 			columns: [
 				{title: "두잇명", 			data: "doit_title",    			width: "30%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailDoit + row.idx;
+						let isDept = sessionIsDept.val() === 'Y';
+						let detailUrl = isDept ? `/doit/info/${row.idx}` : page.detailDoit + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}

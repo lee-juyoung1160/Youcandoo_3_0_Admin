@@ -2,7 +2,6 @@
     /** 리뷰정보탭 **/
     const reviewTable		= $("#reviewTable");
     const selPageLengthForReview	= $("#selPageLengthForReview");
-    const btnXlsxOutForReview   = $("#btnXlsxOutForReview");
     /** 리뷰상세 modal **/
     const modalDetailReview		= $("#modalDetailReview");
     const modalReviewContent	= $("#modalReviewContent");

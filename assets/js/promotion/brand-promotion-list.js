@@ -19,8 +19,9 @@
 		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
 		 * **/
 		isBackAction() ? setHistoryForm() : initSearchForm();
-		/** 소속 불러오기 **/
+		/** 목록 테이블 **/
 		buildGrid();
+		/** 페이지 타이틀 **/
 		initTitle();
 		/** 이벤트 **/
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
@@ -100,7 +101,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "프로모션 기간", data: "start_date",    	   	width: "20%",
+				,{title: "프로모션 기간", data: "start_date",    	   	width: "15%",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ${label.tilde} ${row.end_date}`;
 					}

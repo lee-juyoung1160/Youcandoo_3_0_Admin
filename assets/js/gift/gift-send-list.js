@@ -103,7 +103,7 @@
 				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
 					render: function (data, type, row, meta) {
 						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
-							? `<a onclick="modalDetailOpen(this);" data-uuid="${data}">보기</a>`
+							? `<a onclick="onClickDetailSendStatus(this);" data-uuid="${data}">보기</a>`
 							: label.dash;
 					}
 				}
@@ -259,11 +259,10 @@
 		tableReloadAndStayCurrentPage(dataTable);
 	}
 
-	function modalDetailOpen(obj)
+	function onClickDetailSendStatus(obj)
 	{
 		g_send_id = $(obj).data('uuid');
 		requestModalDetailContent(obj);
-		modalDetailFadein();
 	}
 
 	function modalDetailFadein()
@@ -279,7 +278,18 @@
 		let errMsg = `발송 상세${message.ajaxError}`;
 		let param = { "exchange_uuid" : $(obj).data('uuid') };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildModalContent, errMsg, false );
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), requestModalDetailContentCallback, errMsg, false );
+	}
+
+	function requestModalDetailContentCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			buildModalContent(data);
+			modalDetailFadein();
+		}
+		else
+			sweetToast(invalidResp(data));
 	}
 
 	function buildModalContent(data)

@@ -228,6 +228,6 @@
     function toggleJoinTableColumns()
     {
         const table = joinUserTable.DataTable();
-        if (g_doit_status !== '모집중' || (g_doit_status === '모집중' && !g_is_created_by_biz) || g_is_apply !== 'Y')
+        if (g_doit_status !== '모집중' || !g_is_created_by_biz || g_is_apply !== 'Y')
             table.column(0).visible(false);
     }

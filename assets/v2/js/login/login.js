@@ -1,8 +1,8 @@
 
 	const userid    = $("#userid");
 	const password  = $("#password");
-	const loginBtn  = $("#login-btn");
-	const joinBtn	= $("#join-btn");
+	const loginBtn  = $("#btnLogin");
+	const joinBtn	= $("#btnJoin");
 
 	$( () => {
 		loginBtn.on("click", function () { onSubmitLogin(); });

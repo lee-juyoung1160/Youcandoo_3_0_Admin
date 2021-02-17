@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="/assets/v2/css/common.css?version=<?php echo $this->config->item('version');?>">
     <link rel="stylesheet" href="/assets/v2/css/login.css?version=<?php echo $this->config->item('version');?>">
     <link rel="stylesheet" href="/assets/v2/css/plugins/sweetalert2.min.css">
-    <link rel="shortcut icon" href="/assets/v2/images/favicon.ico">
+    <link rel="shortcut icon" href="/assets/v2/img/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 
     <script src="/assets/v2/js/plugins/jquery-3.3.1.min.js"></script>
-    <script src="/assets/v2/js/plugins/sweetalert2.min.js"></script>
-    <script src="/assets/v2/js/const.js"></script>
-    <script src="/assets/v2/js/utils.js"></script>
 </head>
 
 <body>
@@ -45,7 +42,7 @@
                     <sapn class="sub-text"><b>Google Authenticator</b> 앱 설치 후 인증해주세요.</sapn>
 <!--                    <sapn class="sub-text"><b>Google Authenticator</b> 앱에서 인증번호를 확인해 주세요.</sapn>-->
                 </h1>
-                <form name="tfaForm" action="/auth/mfa" method="post">
+                <form name="tfaForm" action="/v2/auth/mfa" method="post">
                     <div class="qr_box">
                         <span class="qr_img"><img id="qrImg" src="<?php if(isset($qrcode_url)) echo $qrcode_url?>" alt="qr코드"></span>
                     </div>
@@ -82,5 +79,8 @@
         </div>
     </div>
 </body>
+<script src="/assets/v2/js/plugins/sweetalert2.min.js"></script>
+<script src="/assets/v2/js/const.js"></script>
+<script src="/assets/v2/js/utils.js"></script>
 <script src="/assets/v2/js/login/mfa.js?version=<?php echo $this->config->item('version');?>"></script>
 </html>

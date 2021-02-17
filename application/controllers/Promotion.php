@@ -6,32 +6,32 @@ class Promotion extends MY_Controller
 
     public function index()
     {
-        $this->load->layout('promotion/pro-list');
+        $this->load->layout('v1/promotion/pro-list');
     }
 
     public function create()
     {
-        $this->load->layout('promotion/pro-create');
+        $this->load->layout('v1/promotion/pro-create');
     }
 
     public function detail()
     {
-        $this->load->layout('promotion/pro-detail');
+        $this->load->layout('v1/promotion/pro-detail');
     }
 
     public function update()
     {
-        $this->load->layout('promotion/pro-update');
+        $this->load->layout('v1/promotion/pro-update');
     }
 
     public function banner()
     {
-        $this->load->layout('promotion/pro-banner-list');
+        $this->load->layout('v1/promotion/pro-banner-list');
     }
 
     public function brand()
     {
-        $this->load->layout('promotion/brand-pro-list');
+        $this->load->layout('v1/promotion/brand-pro-list');
     }
 
 }

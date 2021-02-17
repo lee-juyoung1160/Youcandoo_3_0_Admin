@@ -7,16 +7,16 @@ class Marketing extends CI_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('marketing/event-list');
+                $this->load->layout('v1/marketing/event-list');
                 break;
             case "create" :
-                $this->load->layout('marketing/event-create');
+                $this->load->layout('v1/marketing/event-create');
                 break;
             case "detail":
-                $this->load->layout('marketing/event-detail');
+                $this->load->layout('v1/marketing/event-detail');
                 break;
             case "update":
-                $this->load->layout('marketing/event-update');
+                $this->load->layout('v1/marketing/event-update');
                 break;
         }
     }
@@ -25,13 +25,13 @@ class Marketing extends CI_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('marketing/push-list');
+                $this->load->layout('v1/marketing/push-list');
                 break;
             case "create" :
                 $data['req_page'] = $this->input->post('req_page');
                 $data['page_uuid'] = $this->input->post('page_uuid');
                 $data['req_content'] = $this->input->post('req_content');
-                $this->load->layout('marketing/push-create', $data);
+                $this->load->layout('v1/marketing/push-create', $data);
                 break;
         }
     }
@@ -40,20 +40,20 @@ class Marketing extends CI_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('marketing/popup-list');
+                $this->load->layout('v1/marketing/popup-list');
                 break;
             case "create" :
-                $this->load->layout('marketing/popup-create');
+                $this->load->layout('v1/marketing/popup-create');
                 break;
             case "detail":
-                $this->load->layout('marketing/popup-detail');
+                $this->load->layout('v1/marketing/popup-detail');
                 break;
         }
     }
 
     public function inflow()
     {
-        $this->load->layout('marketing/inflow');
+        $this->load->layout('v1/marketing/inflow');
     }
 
 }

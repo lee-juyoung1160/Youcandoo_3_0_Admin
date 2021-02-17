@@ -146,7 +146,7 @@ class Auth extends CI_Controller {
         $ga = new PHPGangsta_GoogleAuthenticator();
         $secret = $ga->createSecret();
 
-        $this->load->view('/login/mfa', array(
+        $this->load->view('/v2/login/mfa', array(
             "userid"=>$UserID,
             "password"=>hash("sha512",$Password),
             "username"=>$UserName,

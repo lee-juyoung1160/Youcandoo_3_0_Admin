@@ -5,37 +5,37 @@ class Doit extends MY_Controller {
 
     public function index()
     {
-        $this->load->layout('doit/doit-list');
+        $this->load->layout('v1/doit/doit-list');
     }
 
     public function create()
     {
-        $this->load->layout('doit/doit-create');
+        $this->load->layout('v1/doit/doit-create');
     }
 
     public function detail()
     {
-        $this->load->layout('doit/doit-detail');
+        $this->load->layout('v1/doit/doit-detail');
     }
 
     public function update()
     {
-        $this->load->layout('doit/doit-update');
+        $this->load->layout('v1/doit/doit-update');
     }
 
     public function info()
     {
-        $this->load->layout('doit/brand-doit-detail');
+        $this->load->layout('v1/doit/brand-doit-detail');
     }
 
     public function v2($Route = "")
     {
         switch ($Route) {
             case "":
-                $this->load->layout('doit/doit-list-v2');
+                $this->load->layout('v1/doit/doit-list-v2');
                 break;
             case "detail" :
-                $this->load->layout('doit/doit-detail');
+                $this->load->layout('v1/doit/doit-detail');
                 break;
         }
     }
@@ -43,7 +43,7 @@ class Doit extends MY_Controller {
     // 추천두잇관리
     public function recommend()
     {
-        $this->load->layout('doit/doit-recommend-list');
+        $this->load->layout('v1/doit/doit-recommend-list');
     }
 
     // 추천두잇관리(그룹)
@@ -51,13 +51,13 @@ class Doit extends MY_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('doit/doit-recommend-list-v2');
+                $this->load->layout('v1/doit/doit-recommend-list-v2');
                 break;
             case "create" :
-                $this->load->layout('doit/doit-recommend-create');
+                $this->load->layout('v1/doit/doit-recommend-create');
                 break;
             case "update" :
-                $this->load->layout('doit/doit-recommend-update');
+                $this->load->layout('v1/doit/doit-recommend-update');
                 break;
         }
     }
@@ -66,16 +66,16 @@ class Doit extends MY_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('doit/doit-category-list');
+                $this->load->layout('v1/doit/doit-category-list');
                 break;
             case "create" :
-                $this->load->layout('doit/doit-category-create');
+                $this->load->layout('v1/doit/doit-category-create');
                 break;
             case "detail" :
-                $this->load->layout('doit/doit-category-detail');
+                $this->load->layout('v1/doit/doit-category-detail');
                 break;
             case "update" :
-                $this->load->layout('doit/doit-category-update');
+                $this->load->layout('v1/doit/doit-category-update');
                 break;
         }
      }
@@ -84,10 +84,10 @@ class Doit extends MY_Controller {
      {
          switch ($Route) {
              case "":
-                 $this->load->layout('doit/doit-talk-list');
+                 $this->load->layout('v1/doit/doit-talk-list');
                  break;
              case "detail" :
-                 $this->load->layout('doit/doit-talk-detail');
+                 $this->load->layout('v1/doit/doit-talk-detail');
                  break;
          }
       }

@@ -5,22 +5,22 @@ class Main extends MY_Controller {
 
 	public function index()
 	{
-        $this->load->layout('main-dashboard-v2');
+        $this->load->layout('v1/main-dashboard-v2');
 	}
 
     public function login()
     {
-        $this->load->view('/login/login');
+        $this->load->view('v1//login/login');
     }
 
     public function join()
     {
-        $this->load->view('/login/join');
+        $this->load->view('v1//login/join');
     }
 
     public function auth()
     {
-        $this->load->view('/login/mfa');
+        $this->load->view('v1//login/mfa');
     }
 
 }

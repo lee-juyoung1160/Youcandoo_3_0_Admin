@@ -6,22 +6,22 @@ class Biz extends MY_Controller
 
     public function index()
     {
-        $this->load->layout('biz/biz-list');
+        $this->load->layout('v1/biz/biz-list');
     }
 
     public function create()
     {
-        $this->load->layout('biz/biz-create');
+        $this->load->layout('v1/biz/biz-create');
     }
 
     public function detail()
     {
-        $this->load->layout('biz/biz-detail');
+        $this->load->layout('v1/biz/biz-detail');
     }
 
     public function update()
     {
-        $this->load->layout('biz/biz-update');
+        $this->load->layout('v1/biz/biz-update');
     }
 
 }

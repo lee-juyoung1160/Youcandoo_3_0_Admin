@@ -37,6 +37,12 @@
 	border-radius: 5px;
 }
 
+.desc {
+	color: #555;
+	font-size: 15px;
+	font-weight: 500;
+}
+
 /* form style */
 .select-box {
 	float: left;
@@ -115,31 +121,30 @@ input[type="radio"]:checked + label span {
 }
 
 /* button */
-.btn {
+button {
 	display: inline-flex;
-	margin-right: 5px;
-	padding: 13px 20px;
 	align-items: center;
 	font-weight: 400;
 	text-align: center;
 	vertical-align: middle;
 	border: 1px solid transparent;
 	border-radius: 5px;
-	font-size: 14px;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.btn {
+	margin-right: 5px;
+	padding: 13px 20px;
+	font-size: 14px;
+}
 .btn-sm {
-	display: inline-flex;
 	margin-right: 5px;
 	padding: 10px;
-	align-items: center;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	border: 1px solid transparent;
-	border-radius: 5px;
 	font-size: 14px;
-	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-xs {
+	margin-right: 3px;
+	padding: 5px;
+	font-size: 14px;
 }
 .btn-primary {
 	color: #fff;
@@ -167,6 +172,11 @@ input[type="radio"]:checked + label span {
 .btn-teal:hover {
 	background-color: #00acd6;
 	border-color: #00acd6;
+}
+.btn-red {
+	color: #fff;
+	background-color: #e81500;
+	border-color: #e81500;
 }
 
 /* page common */
@@ -253,6 +263,9 @@ h2.main-title {
 }
 
 /* main table */
+.table-wrap {
+	margin-top: 10px;
+}
 .table-wrap .top {
 	margin-bottom: 10px;
 }
@@ -324,33 +337,67 @@ h2.main-title {
 	margin: 0px auto;
 	border: 1px solid #f1f1f1;
 }
+/*순서변경 테이블*/
+.order-table tbody tr  {
+	cursor: n-resize;
+}
 
 /* modal */
-.modal-wrap {
-	display: flex;
-	height: 100vh;
-	align-items: center;
-	justify-content: center;
-}
 .modal-bg {
+	display: none;
 	position: fixed;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	background-color: rgba(0,0,0,.4);
 	z-index: 1000000000;
 }
 .modal-content {
+	display: none;
+	position: absolute;
+	top:50%;
+	left: 50%;
 	width: 650px;
-	height: 500px;
 	background-color: #fff;
-	background-clip: padding-box;
 	border: 1px solid rgba(0,0,0,.2);
 	border-radius: 5px;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
 	z-index: 100000000000;
-
+}
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #e0e5ec;
+}
+.modal-header h5 {
+	float: left;
+	color: #363d47;
+	font-size: 17px;
+	font-weight: 600;
+}
+.modal-header .modal-close {
+	float: right;
+	font-size: 20px;
+	font-weight: 800;
+	color: #888;
+	text-shadow: 0 1px 0 #fff;
+}
+.modal-header .modal-close:hover {
+	color: #555;
+}
+.modal-body {
+	padding: 15px 10px;
+	background-color: #f2f6fc;
+}
+.modal-footer {
+	padding: 10px 0;
+	text-align: right;
+	border-top: 1px solid #e0e5ec;
 }
 

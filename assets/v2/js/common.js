@@ -7,6 +7,7 @@ $(function (){
         $('section').toggleClass('wide-content');
     });
 
+    /* 레프트메뉴 */
     $('.main-mnu').on('click', function(){
         $('.sub-mnu').hide();
         $('.main-mnu').removeClass('active');
@@ -17,6 +18,20 @@ $(function (){
     $('.sub-mnu li').on('click', function(){
         $('.sub-mnu li').removeClass('active');
         $(this).addClass('active');
+    });
+
+    /* 모달 */
+    $('.modal-btn').on('click', function(){
+        $('.modal-content').fadeIn();
+        $('.modal-bg').fadeIn();
+    });
+    $('.modal-close').on('click', function(){
+        $('.modal-content').hide();
+        $('.modal-bg').fadeOut();
+    });
+    $('.modal-bg').on('click', function(){
+        $('.modal-content').hide();
+        $('.modal-bg').fadeOut();
     });
 
 });

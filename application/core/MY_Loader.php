@@ -42,4 +42,31 @@ class MY_Loader extends CI_Loader {
         $this->view('layout/footer_sub',$vars);
         $this->view('layout/footer',$vars);
     }
+
+    public function template($template_name, $vars = array())
+    {
+//        $CI =& get_instance();
+//        $SessionData = $CI->session->userdata("user_data");
+//        if(empty($SessionData))
+//        {
+//            // 재접속시 사용될 Referer Cookie Set
+//            $cookie = array(
+//                'name'   => 'referer',
+//                'value'  => uri_string(),
+//                'expire' => '300',
+//                'domain' => 'admin.youcandoo.co.kr',
+//                'path'   => '/v2'
+//            );
+//            set_cookie($cookie);
+//            redirect("/v2/main/login", "refresh");
+//            return;
+//        }
+
+        $this->view('/v2/layout/header',$vars);
+        $this->view('/v2/layout/header_sub',$vars);
+        $this->view('/v2/layout/left',$vars);
+        $this->view($template_name,$vars);
+        $this->view('/v2/layout/footer_sub',$vars);
+        $this->view('/v2/layout/footer',$vars);
+    }
 }

@@ -53,4 +53,7 @@ $route['default_controller'] = "main";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-
+// YOUCANDOO 3.0 Route
+$route['v2'] = "v2/main/index";
+$route['v2/main'] = "v2/main/index";
+$route['v2/login'] = "v2/main/login";

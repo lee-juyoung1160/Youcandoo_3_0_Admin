@@ -42,7 +42,7 @@ h1 span {
 	line-height: 45px;
 	padding: 0 15px;
 	cursor: pointer;
-	transition: all .3s;
+	/*transition: all .3s;*/
 }
 .side-nav > li > .main-mnu .bar {
 	width: 0;
@@ -59,7 +59,7 @@ h1 span {
 	left: 0;
 }
 .side-nav > li > .main-mnu:hover,
-.side-nav > li > .main-mnu.active {
+.side-nav > li.active > .main-mnu {
 	background-color: #333;
 }
 
@@ -87,6 +87,9 @@ h1 span {
 .sub-mnu {
 	display: none;
 	background-color: #333;
+}
+.side-nav > li.active .sub-mnu {
+	display: block;
 }
 .sub-mnu > li {
 	height: 45px;

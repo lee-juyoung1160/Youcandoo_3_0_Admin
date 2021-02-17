@@ -1,0 +1,115 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">카테고리 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 30%;">
+                        <col style="width: 70%;">
+                    </colgroup>
+                    <tr>
+                        <th>카테고리명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>카테고리 아이콘 *</th>
+                        <td>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="categoryImage">업로드</label>
+                                <input type="file" id="categoryImage" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                            </div>
+                            <div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>개설 가능 여부 *</th>
+                        <td>
+                            <span class="detail-data">Y</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 여부 *</th>
+                        <td>
+                            <span class="detail-data">Y</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6">
+
+                <div class="card detail-tit-warp clearfix">
+                    <p class="title">세부 카테고리 │ <span class="desc"> 드래그 & 드랍으로 노출 순서를 변경할 수 있습니다.</span></p>
+                </div>
+                <div class="table-wrap">
+                    <table class="order-table">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 80%;">
+                            <col style="width: 20%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>세부 카테고리명</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>라이프 스타일</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>라이프 스타일</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>라이프 스타일</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>라이프 스타일</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+</section>
+

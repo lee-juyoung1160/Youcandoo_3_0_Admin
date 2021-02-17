@@ -1,0 +1,140 @@
+<section class="inflow-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">유입 관리</h2>
+        </div>
+
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">
+                    날짜
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">오늘 날짜를 기준으로 최대 30일까지 검색 가능합니다.</span>
+                    </i>
+                </p>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+<!--                    <input type="text" class="datepicker date_to">-->
+                    <span class="today" id="dateToday"></span>
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">30일</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어 (*)</p>
+                <div class="select-box">
+                    <label for="search_type">URL</label>
+                    <select id="search_type">
+                        <option>URL</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+
+            <table id="dataTable">
+                <!--<colgroup>
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                </colgroup>
+                <thead>
+                        <th></th>
+                        <th>AOS</th>
+                        <th>IOS</th>
+                        <th>기타</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       <th>
+                           클릭
+                           <i class="question-mark far fa-question-circle">
+                               <span class="hover-text">처리 방식 및 대상에 상관없이 동적 링크의 모든 클릭 횟수</span>
+                           </i>
+                       </th>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            리다이렉트
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">App Store 또는 Play 스토어로 사용자를 리디렉션하여 앱을 설치 또는 업데이트하거나 기타 대상으로 리디렉션하려고 시도된 횟수</span>
+                            </i>
+                        </th>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            설치
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">실제 설치 횟수(Play 스토어만 지원)</span>
+                            </i>
+                        </th>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            오픈
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">설치 후 앱을 처음 연 횟수</span>
+                            </i>
+                        </th>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            재 오픈
+                            <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">동적 링크로 인해 앱이 다시 열린 횟수</span>
+                            </i>
+                        </th>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>-->
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+</section>
+<script src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/inflow/inflow.js?version=<?php echo $this->config->item('version');?>"></script>

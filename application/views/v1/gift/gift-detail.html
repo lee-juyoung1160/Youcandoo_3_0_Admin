@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/assets/v1/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<section class="gift-create-page">
+    <div class="inner">
+        <h2 class="main-title">상품 상세</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품코드(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="giftCode"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="giftName"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품 UCD (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="giftUcd"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">상품 이미지 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data-img" style="width: 240px;"><img id="giftImage" src="" alt=""></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">노출여부 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="exposure"></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/gift">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script defer src="/assets/v1/js/gift/gift-detail.js?version=<?php echo $this->config->item('version');?>"></script>

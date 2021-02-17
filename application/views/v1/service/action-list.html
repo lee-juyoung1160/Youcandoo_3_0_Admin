@@ -1,0 +1,338 @@
+<section class="confirm-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">신고 관리</h2>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="dateType">등록일</label>
+                    <select id="dateType">
+                        <option value="create">등록일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">두잇명</label>
+                    <select id="search_type">
+                        <option value="doit_title">두잇명</option>
+                        <option value="nickname">닉네임</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li style="width: 33%;">
+                    <p class="list-common-title">인증 상태</p>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="c1" name="chk-status" value="success"/>
+                        <label for="c1"><span></span>성공</label>
+
+                        <input type="checkbox" id="c2" name="chk-status" value="yellow_card"/>
+                        <label for="c2"><span></span>옐로카드</label>
+
+                        <input type="checkbox" id="c3" name="chk-status" value="red_card"/>
+                        <label for="c3"><span></span>레드카드</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="list-common-title">신고여부</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r2" name="radio-report" value="ALL"/>
+                        <label for="r2"><span></span>전체</label>
+
+                        <input type="radio" id="r3" name="radio-report" value="Y"/>
+                        <label for="r3"><span></span>Y</label>
+
+                        <input type="radio" id="r4" name="radio-report" value="N"/>
+                        <label for="r4"><span></span>N</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div id="actionTopDom" class="top clearfix" style="display: none;">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnWarnYellow" class="btn-warning" type="button"><i class="fas fa-exclamation-triangle"></i>옐로카드 발송</button>
+                    <button id="btnWarnRed" class="btn-danger" type="button"><i class="fas fa-exclamation-triangle"></i>레드카드 발송</button>
+                    <button id="btnReport" class="btn-orange" type="button"><i class="fas fa-exclamation-triangle"></i>신고</button>
+                </div>
+            </div>
+
+            <div id="actionWrap">
+                <!--<ul class="cert-contents clearfix">
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" disabled />
+                                <label for="c5"><span></span></label>
+                            </div>
+                            <span class="success-text">성공</span>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                        </div>
+
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <span>aaaaaaa</span>
+                            <p class="date">2019.07.17 10:30:24</p>
+                            <i><img src="/assets/images/yellow-card.png" alt=""></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                            <span class="failure-text">실패</span>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                        </div>
+
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <span>aaaaaaa</span>
+                            <p class="date">2019.07.17 10:30:24</p>
+                            <i><img src="/assets/images/red-card.png" alt=""></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/test.png" alt="프로필 이미지입니다.">
+                        </div>
+
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <span>aaaaaaa</span>
+                            <p class="date">2019.07.17 10:30:24</p>
+                            <i><img src="/assets/images/rad-yellow-card.png" alt=""></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c8" name="cc" />
+                                <label for="c8"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/no-image.jpg" alt="프로필 이미지입니다.">
+                        </div>
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <span>aaaaaaa</span>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c9" name="cc" />
+                                <label for="c9"><span></span></label>
+                            </div>
+                            <i class="warning-icon fas fa-exclamation-triangle"> <span>신고 : <span class="cert-data-num">100</span></span></i>
+                        </div>
+                        <div class="thumbnail-wrap">
+                            <img class="detail-img" src="/assets/images/voice.jpg" alt="프로필 이미지입니다.">
+                        </div>
+                        <div class="text-wrap">
+                            <p class="title">매일 반려견 산책하기</p>
+                            <span>aaaaaaa</span>
+                            <p class="date">2019.07.17 10:30:24</p>
+                        </div>
+                    </li>
+                </ul>-->
+            </div>
+
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+            </div>
+
+            <!--경고장 모달-->
+            <div id="modalWarn" class="modal-content action-modal">
+                <div class="wrap">
+                    <i class="close-btn">×</i>
+                    <p class="modal-title" id="modalWarnTitle">경고장 발송</p>
+                    <ul class="modal-information">
+                        <li class="clearfix">
+                            <p class="sub-title">발송사유(*)</p>
+                            <div class="select-box active" style="width:100%;">
+                                <label for="selCauseBy">인증 조건에 맞지 않아요</label>
+                                <select id="selCauseBy">
+                                    <option value="인증 조건에 맞지 않아요">인증 조건에 맞지 않아요</option>
+                                    <option value="동일한 인증으로 여러 두잇에 올릴 수 없어요">동일한 인증으로 여러 두잇에 올릴 수 없어요</option>
+                                    <option value="유사 인증은 최소 인증 간격을 지켜주세요">유사 인증은 최소 인증 간격을 지켜주세요</option>
+                                    <option value="민감한 개인 정보가 있어요">에티켓 위반 사유예요</option>
+                                    <option value="무분별한 광고/홍보 성격이 짙어요">무분별한 광고/홍보 성격이 짙어요</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <button id="btnSubmitWarn" class="completion-btn" type="submit">발송</button>
+                </div>
+            </div>
+
+            <!--상세 모달-->
+            <div id="modalDetail" class="modal-content confirm-modal-detail">
+                <div class="wrap clearfix">
+                    <i class="close-btn">×</i>
+                    <p class="modal-title">인증 상세</p>
+
+                    <ul class="modal-information" style="width: 620px;">
+                        <li class="clearfix">
+                            <div id="modalActionDom" class="">
+                            </div>
+
+                            <!--<div class="audio-contents">
+                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">
+                                <audio controls="controls">
+                                    <source src="/assets/images/audio_test.m4a"/>
+                                </audio>
+                            </div>
+
+                            <div class="video-contents">
+                                <video poster="/assets/images/test.png" controls>
+                                    <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>
+                                </video>
+                            </div>
+
+                            <div class="img-contents">
+                                <img src="/assets/images/test.png" alt="">
+                            </div>-->
+
+                            <div id="modalActionDesc" class="text-wrap">
+                                <!--일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십
+                                일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십-->
+                            </div>
+
+                        </li>
+                    </ul>
+
+                    <ul class="modal-information" style="width: 450px;">
+                        <li class="clearfix">
+                            <p class="sub-title important">
+                                두잇명
+                            </p>
+                            <p id="modalDoitTitle" class="data-contents">
+                            </p>
+                         </li>
+                        <li class="clearfix">
+                            <p class="sub-title important">
+                                닉네임
+                            </p>
+                            <p id="modalNickname" class="data-contents">
+                            </p>
+                        </li>
+                        <li class="clearfix">
+                            <p class="sub-title important">
+                                경고장
+                            </p>
+                            <div id="modalWarnWrap">
+                                <!--<p class="data-contents">
+                                    발송 된 경고장이 없습니다.
+                                </p>
+
+                                <div class="card-wrap">
+                                    <img src="/assets/images/red-card.png" alt="레드카드">
+                                    <span>인증조건에 맞지 않아요.</span>
+                                    <button class="card-btn clear-red-btn">레드카드 취소</button>
+                                </div>
+
+                                <div class="card-wrap">
+                                    <img src="/assets/images/yellow-card.png" alt="옐로우카드">
+                                    <span>욕설이나 선정적인 내용이 있어요</span>
+                                    <button class="card-btn clear-yellow-btn">옐로카드 취소</button>
+                                </div>-->
+                            </div>
+                        </li>
+                        <li>
+                            <p class="point-cap">
+                                이 두잇의 인증 예시
+                            </p>
+
+                            <div id="modalExample" style="width: 325px" class="">
+                            </div>
+                            <!-- 음성 -->
+                            <!--<div style="width: 325px" class="audio-contents">
+                                <img style="width:100%;" src="/assets/images/voice.jpg" alt="">
+                                <audio controls="controls">
+                                    <source src="/assets/images/audio_test.m4a"/>
+                                </audio>
+                            </div>-->
+
+<!--                            &lt;!&ndash; 동영상 &ndash;&gt;-->
+<!--                            <div style="width: 325px;" class="video-contents">-->
+<!--                                <video poster="/assets/images/test.png" controls>-->
+<!--                                    <source src="https://youcandoo.yanadoocdn.com/doit/intro/video/b95bd8bca095bd0056822fa63c435abe/da829a2ed5c5efea8531aa3e66ee91b6.mp4"/>-->
+<!--                                </video>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash; 이미지 &ndash;&gt;-->
+<!--                            <div style="width: 325px;" class="img-contents">-->
+<!--                                <img src="/assets/images/test.png" alt="">-->
+<!--                            </div>-->
+
+                            <p id="modalExampleDesc" class="data-contents" style="margin-top: 10px;"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-layout"></div>
+        </div>
+    </div>
+</section>
+<script defer src="/assets/v1/js/action/action-list.js?version=<?php echo $this->config->item('version');?>"></script>

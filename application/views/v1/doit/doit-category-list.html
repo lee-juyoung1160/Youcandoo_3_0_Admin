@@ -1,0 +1,154 @@
+<link rel="stylesheet" href="/assets/v1/css/doit-category.css?version=<?php echo $this->config->item('version');?>">
+<section class="doit-category-list-page">
+    <div class="inner clearfix">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">두잇 카테고리</h2>
+            <a href="/doit/category/create"><i class="fas fa-plus"></i>카테고리 등록</a>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap search-wrap clearfix" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">카테고리명</label>
+                    <select id="search_type">
+                        <option value="category">카테고리명</option>
+                    </select>
+                </div>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search" type="button">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+
+        <div class="table-wrap category-list">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <!--<p>Total <strong class="data-num"></strong></p>-->
+                    <!--<div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>-->
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnDelete" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>카테고리 삭제</button>
+                    <button id="btnReorder" class="btn-info" type="button"><i class="fas fa-exchange-alt"></i> 순서변경 적용</button>
+                    <i class="question-mark far fa-question-circle">
+                        <span class="hover-text">드래그 앤 드랍으로 노출순서를 지정할 수 있으며,<br> 순서변경적용 버튼 클릭 시 변경내용이 반영됩니다.</span>
+                    </i>
+                </div>
+            </div>
+
+            <table id="dataTable">
+                <!--<colgroup>
+                    <col style="width:5%;">
+                    <col style="width:50%;">
+                    <col style="width:30%;">
+                    <col style="width:15%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c1" name="cc" />
+                                <label for="c1"><span></span></label>
+                            </div>
+                        </th>
+                        <th>카테고리명</th>
+                        <th>카테고리 이미지</th>
+                        <th>노출여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="cc" />
+                                <label for="c2"><span></span></label>
+                            </div>
+                        </td>
+                        <td>다이어트</td>
+                        <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="toggle-btn-wrap">
+                                <div class="toggle-btn on">
+                                    <input type="checkbox" class="checkbox">
+                                    <div class="knobs"></div>
+                                    <div class="layer"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="cc" />
+                                <label for="c2"><span></span></label>
+                            </div>
+                        </td>
+                        <td>영어</td>
+                        <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="toggle-btn-wrap">
+                                <div class="toggle-btn on">
+                                    <input type="checkbox" class="checkbox">
+                                    <div class="knobs"></div>
+                                    <div class="layer"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c2" name="cc" />
+                                <label for="c2"><span></span></label>
+                            </div>
+                        </td>
+                        <td>운동</td>
+                        <td>
+                            <div class="category-img">
+                                <img src="/assets/images/thumbnail.png" alt="다이어트">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="toggle-btn-wrap">
+                                <div class="toggle-btn on">
+                                    <input type="checkbox" class="checkbox">
+                                    <div class="knobs"></div>
+                                    <div class="layer"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>-->
+            </table>
+        </div>
+
+    </div>
+</section>
+<script defer src="/assets/v1/js/plugins/jquery.ui.touch-punch.min.js"></script>
+<script defer src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script defer src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script defer src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/doit/category-list.js?version=<?php echo $this->config->item('version');?>"></script>

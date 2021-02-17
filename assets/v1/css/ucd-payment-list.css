@@ -1,0 +1,40 @@
+
+.ucd-payment-list-page .table-wrap .btn-wrap .delete-btn {
+    background-color: #e03030;
+}
+.ucd-payment-list-page .table-wrap .btn-wrap .stop-btn {
+    margin-right: 20px;
+    background-color: #FFA83B;
+}
+.ucd-payment-list-page .table-wrap .btn-wrap .complete-btn {
+    background-color: #19579a;
+}
+.ucd-payment-list-page .table-wrap td button {
+    background: none;
+    border-bottom: 1px solid #505050;
+}
+.table-wrap .minus-pay td,
+.table-wrap .minus-pay td button {
+    color: #c90614;
+}
+.ucd-payment-list-page .table-wrap .minus-pay td button {
+    border-bottom: 1px solid #c90614;
+}
+.ucd-payment-list-page .modal-content .select-box {
+    float: inherit;
+    width: 100%;
+}
+.ucd-payment-list-page .modal-content .img-contents {
+    width: 400px;
+}
+.ucd-payment-list-page .modal-content .img-contents img {
+    width: 100%;
+    height: auto;
+}
+.ucd-payment-list-page .more-info-btn {
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    border: inherit;
+    border-radius: inherit;
+}

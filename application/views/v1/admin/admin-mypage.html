@@ -1,0 +1,84 @@
+<section class="admin-mypage-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">비밀번호 변경</h2>
+        </div>
+        <div id="myProfile" class="wrap update-list">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">아이디</p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myId"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">이름</p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myName"></p>
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <div class="top clearfix">
+                                <p class="sub-title" style="width: 80px;">이메일</p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="myEmail"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">비밀번호(*)
+                                <i class="question-mark far fa-question-circle">
+                                <span class="hover-text">
+                                    영문 소문자, 숫자, 특수문자를 포함한 8~16자로 입력해주세요.<br>
+                                    4자리 이상 연속된 숫자, 문자 입력은 불가능합니다.
+                                </span>
+                                </i>
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <input id="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">비밀번호 확인(*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="passwordChk" type="password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                            <small id="passwordChkTxt" style="color:red;"></small>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">수정 완료</button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+<script defer src="/assets/v1/js/plugins/core-min.js"></script>
+<script defer src="/assets/v1/js/plugins/x64-core-min.js"></script>
+<script defer src="/assets/v1/js/plugins/sha512-min.js"></script>
+<script defer src="/assets/v1/js/admin/profile.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,0 +1,391 @@
+<link rel="stylesheet" href="/assets/v1/css/doit-category.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/v1/css/doit-recommend-list.css">
+<section class="doit-recommend-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">두잇 큐레이션</h2>
+            <a id="btnCreate" href="javascript:void(0)" style="width: 180px;"><i class="fas fa-plus"></i>두잇 큐레이션 등록</a>
+        </div>
+        <div class="wrap clearfix">
+            <div class="enrollment" style="float:left; width: 45%;">
+                <h3 class="title">
+                    <span>미리보기</span>
+                    <div id="previewTitle"></div>
+                </h3>
+
+                <div class="scroll-wrap" style="overflow-y: auto; max-height: 520px;">
+                    <table class="recommend-list">
+                        <tbody id="previewTableBody">
+                        <!--<tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                    <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i style="display: none;" class="far fa-times-circle"></i></td>
+                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-wrap recommend-list" style="float: right; width: 52%;">
+                <div class="top clearfix">
+                    <div class="btn-wrap">
+                        <button id="btnReorder" class="btn-info" type="button"><i class="fas fa-exchange-alt"></i> 순서변경 적용</button>
+                        <i class="question-mark far fa-question-circle">
+                            <span class="hover-text">드래그 앤 드랍으로 노출순서를 지정할 수 있으며,<br> 순서변경적용 버튼 클릭 시 변경내용이 반영됩니다.</span>
+                        </i>
+                    </div>
+                </div>
+
+                <table id="dataTable">
+                    <!--<colgroup>
+                        <col style="width:5%;">
+                        <col style="width:75%;">
+                        <col style="width:20%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c1" name="cc" />
+                                    <label for="c1"><span></span></label>
+                                </div>
+                            </th>
+                            <th>추천 두잇 명</th>
+                            <th>노출여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇1</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇2</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input type="checkbox" id="c2" name="cc" />
+                                    <label for="c2"><span></span></label>
+                                </div>
+                            </td>
+                            <td><a href="#">프로 다이어터들을 위한 두잇3</a></td>
+                            <td>
+                                <div class="toggle-btn-wrap">
+                                    <div class="toggle-btn on">
+                                        <input type="checkbox" class="checkbox">
+                                        <div class="knobs"></div>
+                                        <div class="layer"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>-->
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!--    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">추천 두잇 목록</p>
+            <ul class="modal-information">
+                <li style="border-bottom: none;">
+                    <table class="recommend-list" id="recommendedTable">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="doit-thumbnail">
+                                <img src="https://youcandoo.yanadoocdn.com/doit/7bebe02273ef89f56d87a15aba1c65ff/c4db192290fec82711782ba57f18d7e8.jpg" alt="두잇썸네일">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="doit-detail-info">
+                                    <ul class="tag clearfix">
+                                        <li>#고양이</li>
+                                        <li>#짱기요미</li>
+                                        <li>#심쿵발쿵</li>
+                                    </ul>
+                                    <p class="doit-tit">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</p>
+                                    <p class="doit-leader"><strong>개설자 : </strong><span>살쾡이</span></p>
+                                    <p class="doit-num"><strong>참여자 수: </strong><span>100명</span></p>
+                                </div>
+                            </td>
+                            <td><i class="far fa-times-circle"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>-->
+
+</section>
+<script defer src="/assets/v1/js/plugins/jquery.ui.touch-punch.min.js"></script>
+<script defer src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script defer src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script defer src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/doit/doit-recommend-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,0 +1,68 @@
+<section class="notice-detail-page">
+    <div class="inner">
+        <h2 class="main-title">공지사항 상세</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="title"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="content"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">예약일 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="reserveDate"></p>
+                        </div>
+                    </div>
+                </li>
+                <li id="contentImageWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">본문 이미지</p>
+                        </div>
+                        <div class="col-2">
+                            <img id="contentImage" class="detail-img" src="" alt="본문 이미지입니다.">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="exposure"></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/service/notice">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script defer src="/assets/v1/js/notice/notice-detail.js?version=<?php echo $this->config->item('version');?>"></script>

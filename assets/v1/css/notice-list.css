@@ -1,0 +1,15 @@
+.notice-list-page .btn-wrap {
+    position: relative;
+}
+.notice-list-page .table-wrap .btn-wrap .btn-topfix {
+    position: absolute;
+    right: 160px;
+    top: 0;
+}
+.notice-list-page .table-wrap .btn-wrap .btn-topfix.delete-btn {
+    background-color: #f27c26;
+}
+.notice-list-page .table-wrap .btn-wrap .btn-disabled {
+    background-color: #ddd;
+    cursor: inherit;
+}

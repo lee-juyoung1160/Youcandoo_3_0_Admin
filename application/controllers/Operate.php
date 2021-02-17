@@ -5,25 +5,25 @@ class Operate extends MY_Controller {
 
     public function version()
     {
-        $this->load->layout('operate/version-list');
+        $this->load->layout('v1/operate/version-list');
     }
 
     public function dashboard($version = "")
     {
         if (empty($version))
-            $this->load->layout('main-dashboard');
+            $this->load->layout('v1/main-dashboard');
         else
-            $this->load->layout('main-dashboard-v2');
+            $this->load->layout('v1/main-dashboard-v2');
     }
 
     public function account($Route = "")
     {
         switch ($Route) {
             case "":
-                $this->load->layout('operate/account-list');
+                $this->load->layout('v1/operate/account-list');
                 break;
             case "detail":
-                $this->load->layout('operate/account-detail');
+                $this->load->layout('v1/operate/account-detail');
                 break;
         }
     }
@@ -32,23 +32,23 @@ class Operate extends MY_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->layout('operate/log-dashboard');
+                $this->load->layout('v1/operate/log-dashboard');
                 break;
             case "api_list":
                 $data['url'] = $this->input->post('url');
-                $this->load->layout('operate/log-api-list', $data);
+                $this->load->layout('v1/operate/log-api-list', $data);
                 break;
             case "api_url":
-                $this->load->layout('operate/log-api-url');
+                $this->load->layout('v1/operate/log-api-url');
                 break;
             case "api_php_error":
-                $this->load->layout('operate/log-api-php-error');
+                $this->load->layout('v1/operate/log-api-php-error');
                 break;
             case "api_apache_error":
-                $this->load->layout('operate/log-api-apache-error');
+                $this->load->layout('v1/operate/log-api-apache-error');
                 break;
             case "api_process":
-                $this->load->layout('operate/log-api-process');
+                $this->load->layout('v1/operate/log-api-process');
                 break;
         }
     }

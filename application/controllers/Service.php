@@ -8,16 +8,16 @@ class Service extends MY_Controller {
         switch ($Route)
         {
             case "" :
-                $this->load->layout('service/notice-list');
+                $this->load->layout('v1/service/notice-list');
                 break;
             case "create":
-                $this->load->layout('service/notice-create');
+                $this->load->layout('v1/service/notice-create');
                 break;
             case "update":
-                $this->load->layout('service/notice-update');
+                $this->load->layout('v1/service/notice-update');
                 break;
             case "detail":
-                $this->load->layout('service/notice-detail');
+                $this->load->layout('v1/service/notice-detail');
                 break;
         }
     }
@@ -27,41 +27,41 @@ class Service extends MY_Controller {
         switch ($Route)
         {
             case "" :
-                $this->load->layout('service/faq-list');
+                $this->load->layout('v1/service/faq-list');
                 break;
             case "create":
-                $this->load->layout('service/faq-create');
+                $this->load->layout('v1/service/faq-create');
                 break;
             case "update":
-                $this->load->layout('service/faq-update');
+                $this->load->layout('v1/service/faq-update');
                 break;
             case "detail":
-                $this->load->layout('service/faq-detail');
+                $this->load->layout('v1/service/faq-detail');
                 break;
             case "sort":
-                $this->load->layout('service/faq-sort');
+                $this->load->layout('v1/service/faq-sort');
                 break;
         }
     }
 
     public function review()
     {
-        $this->load->layout('service/review-list');
+        $this->load->layout('v1/service/review-list');
     }
 
     public function action()
     {
-        $this->load->layout('service/action-list');
+        $this->load->layout('v1/service/action-list');
     }
 
     public function prohibition()
     {
-        $this->load->layout('service/prohibited-list');
+        $this->load->layout('v1/service/prohibited-list');
     }
 
     public function version()
     {
-        $this->load->layout('service/version-list');
+        $this->load->layout('v1/service/version-list');
     }
 
 
@@ -70,13 +70,13 @@ class Service extends MY_Controller {
         switch ($Route)
         {
             case "" :
-                $this->load->layout('service/inquiry-list');
+                $this->load->layout('v1/service/inquiry-list');
                 break;
             case "update":
-                $this->load->layout('service/inquiry-update');
+                $this->load->layout('v1/service/inquiry-update');
                 break;
             case "detail":
-                $this->load->layout('service/inquiry-detail');
+                $this->load->layout('v1/service/inquiry-detail');
                 break;
         }
     }

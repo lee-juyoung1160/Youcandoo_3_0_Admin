@@ -10,11 +10,11 @@ class User extends MY_Controller {
 
     public function index()
     {
-        $this->load->layout('user/user-list');
+        $this->load->layout('v1/user/user-list');
     }
 
     public function detail()
     {
-        $this->load->layout('user/user-detail');
+        $this->load->layout('v1/user/user-detail');
     }
 }

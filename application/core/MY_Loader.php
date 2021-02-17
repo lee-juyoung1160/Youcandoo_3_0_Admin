@@ -35,12 +35,12 @@ class MY_Loader extends CI_Loader {
             return;
         }
 
-        $this->view('layout/header',$vars);
-        $this->view('layout/header_sub',$vars);
-        $this->view('layout/left',$vars);
+        $this->view('/v1/layout/header',$vars);
+        $this->view('/v1/layout/header_sub',$vars);
+        $this->view('/v1/layout/left',$vars);
         $this->view($template_name,$vars);
-        $this->view('layout/footer_sub',$vars);
-        $this->view('layout/footer',$vars);
+        $this->view('/v1/layout/footer_sub',$vars);
+        $this->view('/v1/layout/footer',$vars);
     }
 
     public function template($template_name, $vars = array())

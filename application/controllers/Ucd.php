@@ -5,39 +5,39 @@ class Ucd extends MY_Controller {
 
     public function sales()
     {
-        $this->load->layout('ucd/ucd-sales-list');
+        $this->load->layout('v1/ucd/ucd-sales-list');
     }
 
     public function usage()
     {
-        $this->load->layout('ucd/ucd-usage-list');
+        $this->load->layout('v1/ucd/ucd-usage-list');
     }
 
     public function withdraw($Route = "")
     {
         switch ($Route) {
             case "":
-                $this->load->layout('ucd/ucd-withdraw-list');
+                $this->load->layout('v1/ucd/ucd-withdraw-list');
                 break;
             case "user" :
-                $this->load->layout('ucd/ucd-withdraw-user');
+                $this->load->layout('v1/ucd/ucd-withdraw-user');
                 break;
         }
     }
 
     public function charge()
     {
-        $this->load->layout('ucd/ucd-charge-list');
+        $this->load->layout('v1/ucd/ucd-charge-list');
     }
 
     public function cancel($Route = "")
     {
         switch ($Route) {
             case "":
-                $this->load->layout('ucd/ucd-cancel-list');
+                $this->load->layout('v1/ucd/ucd-cancel-list');
                 break;
             case "user" :
-                $this->load->layout('ucd/ucd-cancel-user');
+                $this->load->layout('v1/ucd/ucd-cancel-user');
                 break;
         }
     }
@@ -47,17 +47,17 @@ class Ucd extends MY_Controller {
         switch ($Route)
         {
             case "biz" :
-                $this->load->layout('ucd/ucd-create-biz');
+                $this->load->layout('v1/ucd/ucd-create-biz');
                 break;
             case "user":
-                $this->load->layout('ucd/ucd-create-user');
+                $this->load->layout('v1/ucd/ucd-create-user');
                 break;
         }
     }
 
     public function dashboard()
     {
-        $this->load->layout('ucd/ucd-dashboard');
+        $this->load->layout('v1/ucd/ucd-dashboard');
     }
 
 }

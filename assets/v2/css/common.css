@@ -46,12 +46,15 @@
 	margin-right: 10px;
 	padding: 0 10px;
 	font-size: 14px;
-	background-image: url(../../assets/img/icon-down.svg);
+	background-image: url(/assets/v2/img/icon-down.svg);
 	background-position: 95% 50%;
 	background-size: 10px;
 	background-repeat: no-repeat;
 	border: 1px solid #c5ccd6;
 	border-radius: 3px;
+}
+.select-box:last-child {
+	margin-right: 0;
 }
 input[type="text"],
 input[type="search"] {
@@ -89,7 +92,7 @@ input[type="checkbox"]:checked + label span {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-image: url("../../assets/img/check-on.png");
+	background-image: url("/assets/v2/img/check-on.png");
 	border: 1px solid #007aff;
 }
 input[type="radio"] + label span {
@@ -107,7 +110,7 @@ input[type="radio"]:checked + label span {
 	background-size: 13px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-	background-image: url("../../assets/img/radio-on.png");
+	background-image: url("/assets/v2/img/radio-on.png");
 	border: 1px solid #007aff;
 }
 
@@ -116,6 +119,19 @@ input[type="radio"]:checked + label span {
 	display: inline-flex;
 	margin-right: 5px;
 	padding: 13px 20px;
+	align-items: center;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	font-size: 14px;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-sm {
+	display: inline-flex;
+	margin-right: 5px;
+	padding: 10px;
 	align-items: center;
 	font-weight: 400;
 	text-align: center;
@@ -143,6 +159,15 @@ input[type="radio"]:checked + label span {
 .btn-outline-primary:hover {
 	background-color: #f3f3f3;
 }
+.btn-teal {
+	color: #fff;
+	background-color: #00c0ef;
+	border-color: #00acd6;
+}
+.btn-teal:hover {
+	background-color: #00acd6;
+	border-color: #00acd6;
+}
 
 /* page common */
 section {
@@ -157,7 +182,7 @@ section.wide-content {
 	padding-left: 0;
 }
 .inner {
-	padding: 50px 1.5rem;
+	padding: 50px 3rem;
 }
 .main-top {
 	margin-bottom: 30px;
@@ -228,6 +253,28 @@ h2.main-title {
 }
 
 /* main table */
+.table-wrap .top {
+	margin-bottom: 10px;
+}
+.table-wrap .top .left-wrap {
+	float: left;
+}
+.table-wrap .top .left-wrap p {
+	float: left;
+	padding: 10px;
+	color: #404040;
+	font-size: 13px;
+}
+.table-wrap .top .left-wrap p strong {
+	font-weight: 600;
+}
+.table-wrap .top .btn-wrap {
+	float: right;
+}
+.table-wrap .top .btn-wrap i {
+	margin-right: 5px;
+}
+
 .table-wrap table {
 	width: 100%;
 	color: #404040;
@@ -236,27 +283,33 @@ h2.main-title {
 	box-shadow: 4px 5px 6px 0 rgb(0 0 0 / 5%);
 	border-radius: 5px;
 }
-.table-wrap table tr:nth-child(even) {
-	background-color: #f9f9f9;
-}
 .table-wrap table thead tr {
 	font-size: 14px;
 	font-weight: 600;
 	border-bottom: 1px solid #ddd;
-}
-.table-wrap table tr:hover,
-.table-wrap table tr:nth-child(even):hover {
-	background-color: #ccdffc;
 }
 .table-wrap table tbody tr {
 	font-size: 13px;
 	font-weight: 400;
 	border-bottom: 1px solid #f1f1f1;
 }
+.table-wrap table tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+.table-wrap table tbody tr:hover,
+.table-wrap table tbody tr:nth-child(even):hover {
+	background-color: #ccdffc;
+}
 .table-wrap table th,
 .table-wrap table td {
-	padding: 12px;
 	text-align: center;
+	vertical-align: middle;
+}
+.table-wrap table th {
+	padding: 13px 5px;
+}
+.table-wrap table td {
+	padding: 10px 5px;
 }
 .table-wrap table td a {
 	text-decoration: underline;
@@ -264,5 +317,40 @@ h2.main-title {
 .table-wrap table td a:hover {
 	color: #006c6f;
 }
+.table-wrap .list-img-wrap {
+	overflow: hidden;
+	width: 35px;
+	height: 35px;
+	margin: 0px auto;
+	border: 1px solid #f1f1f1;
+}
 
+/* modal */
+.modal-wrap {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+.modal-bg {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.4);
+	z-index: 1000000000;
+}
+.modal-content {
+	width: 650px;
+	height: 500px;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: 5px;
+	z-index: 100000000000;
+
+}
 

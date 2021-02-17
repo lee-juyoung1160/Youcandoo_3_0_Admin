@@ -1,3 +1,4 @@
+/*
 
 	const recommendedTable	= $("#recommendedTable");
 	const btnSubmit		= $("#btnSubmit");
@@ -6,15 +7,15 @@
 	const doitTable		= $("#doitTable");
 
 	$( () => {
-		/** dataTable default config **/
+		/!** dataTable default config **!/
 		initTableDefault();
-		/** 추천 두잇(왼쪽) 데이터 로드 **/
+		/!** 추천 두잇(왼쪽) 데이터 로드 **!/
 		buildRecommended();
-		/** 모든 두잇 목록(오른쪽) **/
+		/!** 모든 두잇 목록(오른쪽) **!/
 		getDoit();
-		/** 테이블 drag and drop 정렬 초기화 **/
+		/!** 테이블 drag and drop 정렬 초기화 **!/
 		initSortTable();
-		/** 이벤트 **/
+		/!** 이벤트 **!/
 		btnAdd			.on("click", function () { addRecommend(); });
 		keyword    		.on("keyup", function () { onSubmitSearch(); });
 		btnSubmit		.on("click", function () { onSubmitRecommend(); });
@@ -89,7 +90,7 @@
 			select: false,
 			destroy: false,
 			initComplete: function () {
-				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
+				/!** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **!/
 				if (!hasDataOnDatatable(this))
 					removeEmptyRowFromTable();
 			},
@@ -242,7 +243,7 @@
 	function setDoitRowAttributes(nRow, aData)
 	{
 		let checkDom = $(nRow).children().eq(0);
-		/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
+		/!** 이미 배너 목록에 있는 경우 체크박스 삭제 **!/
 		if (g_recommend.indexOf(aData.doit_uuid) !== -1)
 			$(checkDom).children().prop('disabled', true);
 	}
@@ -331,7 +332,7 @@
 			initDisableCheckbox();
 			tableReloadAndStayCurrentPage(doitTable);
 			recommendedTable.find('tbody').sortable("destroy");
-			/** 테이블 drag and drop 정렬 초기화 **/
+			/!** 테이블 drag and drop 정렬 초기화 **!/
 			initSortTable();
 		}
 	}
@@ -381,7 +382,7 @@
 
 	function onSubmitRecommend()
 	{
-		/*if (submitValidation())*/
+		/!*if (submitValidation())*!/
 		sweetConfirm(message.create, createRequest);
 	}
 
@@ -411,7 +412,7 @@
 		onSubmitSearch();
 	}
 
-	/*function submitValidation()
+	/!*function submitValidation()
 	{
 		let rows = getRecommendRows();
 		if (rows.length === 0)
@@ -421,4 +422,4 @@
 		}
 
 		return true;
-	}*/
+	}*!/*/

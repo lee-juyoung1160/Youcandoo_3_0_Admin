@@ -117,11 +117,11 @@
 		, next: '<i class="fas fa-angle-double-right"></i>'
 		, memo: '<i class="fas fa-thumbtack"></i>'
 		, fixedTop: '<i class="fas fas fa-bell"></i>'
-		, noImage: '/assets/images/no-image.jpg'
-		, voiceImage: '/assets/images/voice.jpg'
-		, redCardImage: '/assets/images/red-card.png'
-		, yellowCardImage: '/assets/images/yellow-card.png'
-		, redYellowCardImage: '/assets/images/rad-yellow-card.png'
+		, noImage: '/assets/v2/img/no-image.jpg'
+		, voiceImage: '/assets/v2/img/voice.jpg'
+		, redCardImage: '/assets/v2/img/red-card.png'
+		, yellowCardImage: '/assets/v2/img/yellow-card.png'
+		, redYellowCardImage: '/assets/v2/img/rad-yellow-card.png'
 		, monthNames : ["1월", "2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"]
 		, dayNames: ["일", "월", "화", "수", "목", "금", "토"]
 		, maxDownLoadXlsxCount: 30000
@@ -159,7 +159,6 @@
 		,listMyLog : baseApiUrl+'access/list'
 		/** 회원 **/
 		,listUser : baseApiUrl+'user/list'
-		/*,inactiveUser : baseApiUrl+'user/inactive'*/
 		,getUserProfile : baseApiUrl+'user/get/profile'
 		,getUserAccount : baseApiUrl+'user/get/account'
 		,listUserOpened : baseApiUrl+'user/get/doit/create'
@@ -196,7 +195,6 @@
 		,involvePromotion : baseApiUrl+'promotion/getCompanyPromotion'
 		,involveReward : baseApiUrl+'promotion/getPromotionReward'
 		,getReward : baseApiUrl+'promotion/getReward'
-		/*,listJoinMember : baseApiUrl+'doit/get/member'*/
 		,listJoinMember : baseApiUrl+'doit/member/join/member'
 		,totalJoinMember : baseApiUrl+'doit/get/member/total'
 		,listDoitUcd : baseApiUrl+'doit/get/ucd'
@@ -206,11 +204,6 @@
 		,approvalDoitMember : baseApiUrl+'doit/member/apply/confirm'
 		,rejectDoitMember : baseApiUrl+'doit/member/apply/reject'
 		,banDoitMember : baseApiUrl+'doit/member/retire'
-		/** 두잇상세: 두잇톡 v1 **/
-		/*,listDoitTalk : baseApiUrl+'doit/board/list'
-		,updateBlindTalk : baseApiUrl+'doit/board/set/blind'
-		,createDoitTalk : baseApiUrl+'doit/board/register'
-		,deleteDoitTalk : baseApiUrl+'doit/board/delete'*/
 		/** 두잇상세: 두잇톡 v2 **/
 		,listDoitTalkV2 : baseApiUrl+'doit/talk/v2/list'
 		,listCommentsV2 : baseApiUrl+'doit/talk/v2/comment/list'
@@ -328,7 +321,6 @@
 		,listSendGift : baseApiUrl+'gift/exchange/sendList'
 		,detailSendGift : baseApiUrl+'gift/exchange/couponDetail'
 		,resendGift : baseApiUrl+'gift/exchange/resend'
-		/*,refundGift : baseApiUrl+'gift/exchange/cancel'*/
 		,dashboardGift : baseApiUrl+'gift/dashboard/payment'
 		/** 관리자 **/
 		,createAdmin : baseApiUrl+'admin/create'

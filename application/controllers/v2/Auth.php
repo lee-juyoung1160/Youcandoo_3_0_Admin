@@ -80,7 +80,7 @@ class Auth extends CI_Controller {
 //            'value' => $UserData->userid,
 //            'expire' => 60 * 60 * 24 * 365,
 //            'domain' => '.youcandoo.co.kr',
-//            'path'   => '/'
+//            'path'   => '/v2'
 //        );
 //        set_cookie($cookie);
         // Session Set

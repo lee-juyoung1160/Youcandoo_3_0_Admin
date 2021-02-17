@@ -4,10 +4,8 @@
 	const dataTable			= $("#dataTable")
 	const searchType 		= $("#search_type");
 	const keyword 			= $("#keyword");
-	/*const selPageLength 	= $("#selPageLength");*/
 	const btnDelete			= $("#btnDelete");
 	const btnReorder		= $("#btnReorder");
-	const btnSubmit			= $("#btnSubmit");
 
 	$( () => {
 		/** dataTable default config **/
@@ -20,8 +18,6 @@
 		$("body")  .on("keydown", function (event) { onKeydownSearch(event) });
 		search			.on("click", function () { onSubmitSearch(); });
 		reset			.on("click", function () { initSearchForm(); });
-		/*selPageLength	.on("change", function () { onSubmitSearch(); });*/
-		btnSubmit		.on('click', function () { onSubmitCategory(); });
 		btnDelete		.on("click", function () { deleteCategory(); });
 		btnReorder		.on("click", function () { onSubmitReorder(); });
 		dataTable.find('tbody').sortable({

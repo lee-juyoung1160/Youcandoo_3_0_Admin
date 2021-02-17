@@ -17,7 +17,6 @@
         });*/
 
         $('.sub-mnu li').on('click', function(){
-            $('.sub-mnu li').removeClass('active');
             $(this).addClass('active');
         });
 
@@ -41,9 +40,7 @@
     function onClickParentMenu(obj)
     {
         $(obj).siblings().removeClass('active');
-        $('.sub-mnu').hide();
         $(obj).addClass('active');
-        $(obj).children('.sub-mnu').show();
     }
 
     function activeMenu()
@@ -53,9 +50,6 @@
         $(menuList).each(function () {
             let menuPath = $(this).attr('href');
             if (pathName === menuPath)
-            {
                 $(this).parents('li').addClass('active');
-                $(this).parents('.sub-mnu').show();
-            }
         })
     }

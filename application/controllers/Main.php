@@ -22,8 +22,5 @@ class Main extends MY_Controller {
     {
         $this->load->view('/login/mfa');
     }
-    public function test()
-    {
-        $this->load->view('/test');
-    }
+
 }

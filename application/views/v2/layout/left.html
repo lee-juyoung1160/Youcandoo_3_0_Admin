@@ -23,7 +23,7 @@
         </h1>
         <nav>
             <ol class="side-nav">
-                <li>
+                <li onclick="onClickParentMenu(this)">
                     <div class="main-mnu">
                         <i class="far fas fa-tasks"></i>
                         <span>두잇관리</span>
@@ -31,11 +31,11 @@
                         <div class="bar"></div>
                     </div>
                     <ul class="sub-mnu">
-                        <li><a href="#">신규 등록</a></li>
+                        <li><a href="/v2/category/create">신규 등록</a></li>
                         <li><a href="/v2/category">카테고리 관리</a></li>
                     </ul>
                 </li>
-                <li>
+                <li onclick="onClickParentMenu(this)">
                     <div class="main-mnu">
                         <i class="fas fa-coins"></i>
                         <span>UCD 관리</span>
@@ -43,8 +43,8 @@
                         <div class="bar"></div>
                     </div>
                     <ul class="sub-mnu">
-                        <li><a href="#">신규 등록</a></li>
-                        <li><a href="#">두잇 관리</a></li>
+                        <li><a href="/v2/doit/create">신규 등록</a></li>
+                        <li><a href="/v2/doit">두잇 관리</a></li>
                     </ul>
                 </li>
             </ol>

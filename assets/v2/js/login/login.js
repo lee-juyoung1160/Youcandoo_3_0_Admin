@@ -68,7 +68,7 @@
 
 	function goJoin()
 	{
-		location.href = '/main/join';
+		location.href = '/v2/main/join';
 	}
 
 	function toast(msg)

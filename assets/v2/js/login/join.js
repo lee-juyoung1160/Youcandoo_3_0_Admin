@@ -86,7 +86,7 @@
 
 	function goLogin()
 	{
-		location.href = '/main/login';
+		location.href = '/v2/main/login';
 	}
 
 	function swConfirm(msg, callback)

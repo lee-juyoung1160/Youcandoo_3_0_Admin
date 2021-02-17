@@ -1,0 +1,191 @@
+
+.ucd-give-ded-page .modal-content .search-box input[type="search"] {
+    width: 70%;
+}
+.ucd-give-ded-page .modal-content .search-wrap .search-box .search-btn {
+    left: 170px;
+}
+
+.modal-content .modal-information > li {
+    border: none;
+}
+.ucd-give-ded-page .modal-content .table-wrap {
+    margin-top: 0;
+}
+.ucd-give-ded-page .modal-content .table-wrap table {
+    border-top: 1px solid #eee;
+    margin-top: 0;
+}
+.modal-content .modal-information .table-wrap .table-pagination li {
+    border-bottom: none;
+}
+.ucd-give-ded-page .more-info-btn {
+    width: 80px;
+}
+
+.nickname-modal {
+    width: 1330px;
+}
+.btn-go-wrap {
+    float: left;
+    width: 50px;
+    height: 350px;
+    margin: 130px 20px 0;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    transition: all .3s;
+}
+.btn-go-wrap:hover {
+    background-color: #007aff;
+    border: 1px solid #007aff;
+}
+.btn-go-wrap i {
+    color: #333;
+    transition: all .3s;
+}
+.btn-go-wrap:hover i{
+    color: #fff;
+    padding-right: 5px;
+}
+.add-btn {
+    float: left;
+}
+.filebox:last-child {
+    margin-top: 0;
+}
+.excel-import {
+    float: left;
+    margin: 0 5px;
+}
+label.excel-btn {
+    color: darkgreen;
+    border: 1px solid darkgreen;
+    transition: all .3s;
+}
+.excel-btn:hover {
+    color: #fff;
+    background-color: darkgreen !important;
+}
+.excel-form-down {
+    margin: 10px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border-bottom: 1px solid;
+    transition: all .2s;
+}
+.excel-form-down:hover {
+    color: #666;
+}
+
+/*.nickname-modal .modal-information {*/
+/*    float: left;*/
+/*    max-height: inherit;*/
+/*    height: 650px;*/
+/*}*/
+/*.nickname-modal .user-search-wrap {*/
+/*    overflow: hidden;*/
+/*    width: 600px;*/
+/*}*/
+/*.nickname-modal .user-select-wrap {*/
+/*    overflow-y: scroll;*/
+/*    width: 630px;*/
+/*    border: 1px solid #ebebeb;*/
+/*    border-top: none;*/
+/*}*/
+/*.user-select-wrap li:first-child {*/
+/*    padding-top: 0;*/
+/*}*/
+/*.nickname-modal .table-wrap table td {*/
+/*    padding: 8px 0;*/
+/*}*/
+/*.nickname-modal .table-wrap table {*/
+/*    margin-top: 0;*/
+/*}*/
+.user-select-wrap ol li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-select-wrap table i {
+    color: #ec5c5c;
+}
+
+.user-select-title {
+    display: inline-block;
+    height: 15px;
+    line-height: 15px;
+    margin-right: 10px;
+    color: #007aff;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.btn-open-result {
+    cursor: pointer;
+}
+.btn-open-result i {
+    display: inline-block;
+    color: #333;
+    font-size: 13px;
+    transform: rotate(180deg);
+    transition: all .3s;
+}
+.btn-open-result.on i.fa-chevron-down {
+    transform: rotate(0deg);
+}
+
+.user-select-title em {
+    color: #333;
+}
+
+.user-ucd {
+    color: #777;
+}
+.user-ucd strong {
+    color: #333;
+}
+
+
+
+
+
+
+
+
+.twin-table table {
+    flaot: left;
+    border: 1px solid #f3f3f3;
+}
+.twin-table .table-wrap > div:first-child {
+    width: 40%;
+}
+.twin-table .table-wrap > div:first-child table {
+    border-top: 2px solid #007aff;
+}
+.twin-table .table-wrap > div:last-child {
+    width: 40%;
+}
+
+.top {
+    margin-bottom: 40px;
+}
+.top .user-select-title {
+    float: left;
+    padding-top: 15px;
+}
+.top .file-wrap {
+    float: right;
+}
+
+.search-box .search {
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    background-color: #0061f2;
+    border-radius: 5px;
+}
+

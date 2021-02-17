@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="/assets/v1/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/v1/css/ucd-use-create.css?version=<?php echo $this->config->item('version');?>">
+<section class="ucd-give-ded-page">
+    <div class="inner">
+        <h2 class="main-title">기업 UCD 충전/취소 등록</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">기업명 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <input id="bizName" type="text" placeholder="클릭 후 기업명을 선택해주세요." readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="create-radio-wrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">구분</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="checkbox-wrap">
+                                <input type="radio" id="c1" name="radio-division" value="0"/>
+                                <label for="c1"><span></span>충전</label>
+
+                                <input type="radio" id="c3" name="radio-division" value="2"/>
+                                <label for="c3"><span></span>취소</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">
+                                충전/취소 UCD (*)
+                                <i class="question-mark far fa-question-circle">
+                                    <span class="hover-text">최대 1억UCD까지 가능합니다.</span>
+                                </i>
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <input id="amount" type="text" class="only-num" maxlength="11">
+                            <span class="input-num-title">UCD</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용(*)</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <div>
+                                <p class="cap">프로모션 기간 (*)</p>
+                                <input id="promoFrom" type="text" class="datepicker">
+                                <span class="date-margin-text"> ~ </span>
+                                <input id="promoTo" type="text" class="datepicker">
+                            </div>
+                            <div style="margin: 20px 0;">
+                                <p class="cap">계약명 (*)</p>
+                                <input id="contractTitle" type="text">
+                            </div>
+                            <div>
+                                <p class="cap">계약금액 (*)</p>
+                                <input id="contractAmount" type="text" class="only-num">
+                                <span class="input-num-title">원</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--<li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">메모</p>
+                        </div>
+                        <div class="col-2 clearfix">
+                            <textarea id="" placeholder="내용을 입력해주세요." class="length-input" name="text" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </li>-->
+                <li>
+                    <button id="btnSubmit" class="completion-btn" type="submit">등록 완료</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--기업명 검색 모달-->
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">기업명 검색</p>
+            <ul class="modal-information">
+                <li>
+                    <div class="search-wrap">
+                        <div class="search-box" style="width: 100%;">
+                            <input id="modalBizName" type="search" placeholder="기업명을 입력해주세요." style="width: 100%;">
+                            <i class="search-btn fas fa-search" style="left: 10px"></i>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+</section>
+<script src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/ucd/ucd-create-biz.js?version=<?php echo $this->config->item('version');?>"></script>

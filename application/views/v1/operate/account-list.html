@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="/assets/v1/css/user-list.css?version=<?php echo $this->config->item('version');?>">
+<section class="user-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">계정관리</h2>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap search-wrap clearfix" style="margin-bottom: 0; border-bottom: none;">
+                <p class="list-common-title">검색어</p>
+                <div class="select-box">
+                    <label for="search_type">닉네임</label>
+                    <select id="search_type">
+                        <option value="nickname">닉네임</option>
+                        <option value="account_uuid">Account ID</option>
+                        <option value="account_token">Account Token</option>
+                        <option value="profile_uuid">Profile ID</option>
+                    </select>
+                </div>
+
+                <div class="select-box">
+                    <label>키워드를 포함하는</label>
+                    <select id="keyword_type">
+                        <option value="like">키워드를 포함하는</option>
+                        <option value="match">키워드와 일치하는</option>
+                    </select>
+                </div>
+
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <div class="btn-inner">
+                    </div>
+                </div>
+            </div>
+
+            <table id="dataTable">
+                <!--<colgroup>
+                    <col style="width:5%;">
+                    <col style="width:24.25%;">
+                    <col style="width:24.25%;">
+                    <col style="width:24.25%;">
+                    <col style="width:19.25%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>닉네임</th>
+                        <th>이메일</th>
+                        <th>휴대전화</th>
+                        <th>가입일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td><a href="#">베리베리</a></td>
+                        <td>Ldh53**@yanadoo.co.kr</td>
+                        <td>010-****-0000</td>
+                        <td>2019/11/07</td>
+                    </tr>
+                </tbody>-->
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+</section>
+<script src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/v1/js/account/account-list.js?version=<?php echo $this->config->item('version');?>"></script>

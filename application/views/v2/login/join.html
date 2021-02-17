@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>유캔두 관리자</title>
+    <link rel="stylesheet" href="/assets/css/reset.css?version=<?php echo $this->config->item('version');?>">
+    <link rel="stylesheet" href="/assets/css/common.css?version=<?php echo $this->config->item('version');?>">
+    <link rel="stylesheet" href="/assets/css/login.css?version=<?php echo $this->config->item('version');?>">
+    <link rel="stylesheet" href="/assets/css/plugins/sweetalert2.min.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+
+    <script src="/assets/js/plugins/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins/sweetalert2.min.js"></script>
+    <script src="/assets/js/const.js"></script>
+    <script src="/assets/js/utils.js"></script>
+</head>
+
+<body>
+    <section class="login-pg">
+        <div class="login-inner">
+            <div class="top"></div>
+
+            <!--회원가입-->
+            <div class="wrap join-content">
+                <h1 class="login-text">JOIN</h1>
+                <form name="joinForm" action="/auth/join" method="post">
+
+                    <div class="col user-name-wrap">
+                        <p>이메일</p>
+                        <div class="email-wrap input-wrap clearfix">
+                            <i class="fas fa-envelope"></i>
+                            <input name="userid" id="userid" type="text" placeholder="이메일을 입력해주세요.">
+                            <input name="useremail" id="useremail" type="hidden">
+                            <span>@yanadoocorp.com</span>
+                        </div>
+                        <span class="error-msg">이메일을 확인해주세요.</span>
+                    </div>
+
+                    <div class="col password-wrap">
+                        <p>비밀번호 </p>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input name="password" id="password" type="password" placeholder="비밀번호를 입력해주세요." maxlength="16">
+                        </div>
+                        <span class="error-msg">
+                            영문 소문자, 숫자, 특수문자를 포함한 8~16자로 입력해주세요.<br>
+                            4자리 이상 연속된 숫자, 문자 입력은 불가능합니다.
+                        </span>
+                    </div>
+
+                    <div class="col password-wrap">
+                        <p>비밀번호 확인</p>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input id="repassword" type="password" placeholder="비밀번호를 한번 더 입력해주세요." maxlength="16">
+                        </div>
+                        <span class="error-msg">비밀번호가 일치하지 않습니다.</span>
+                    </div>
+
+                    <div class="col user-name-wrap">
+                        <p>이름</p>
+                        <div class="input-wrap">
+                            <i class="fas fa-user"></i>
+                            <input name="username" id="username" type="text" placeholder="이름을 입력해주세요.">
+                        </div>
+                        <span class="error-msg">이름을 확인해주세요.</span>
+                    </div>
+
+                </form>
+                <div class="btn-wrap">
+                    <button id="btnCancel" class="join-btn" type="button">취소</button>
+                    <button id="btnSubmit" class="submit-btn" type="submit">가입하기</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+<script src="/assets/js/login/join.js?version=<?php echo $this->config->item('version');?>"></script>
+</html>

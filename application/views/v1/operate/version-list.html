@@ -1,0 +1,132 @@
+<section class="version-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">앱 버전관리</h2>
+            <button id="btnOpenModal" type="button" class="more-info-btn" style="float: right; border: none;"><i class="fas fa-plus"></i> 업데이트 등록</button>
+        </div>
+
+        <div class="doit-list-option">
+            <ul class="clearfix">
+                <li>
+                    <p class="list-common-title">마켓</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r3" name="radio-market-search" value="apple"/>
+                        <label for="r3"><span></span><i class="fab fa-apple"></i> 애플</label>
+
+                        <input type="radio" id="r4" name="radio-market-search" value="google"/>
+                        <label for="r4"><span></span><i class="fab fa-google"></i> 구글</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--<div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>-->
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnDelete" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>업데이트 삭제</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <!--<colgroup>
+                    <col style="width:10%;">
+                    <col style="width:30%;">
+                    <col style="width:30%;">
+                    <col style="width:30%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5"><span></span></label>
+                            </div>
+                        </th>
+                        <th>마켓</th>
+                        <th>버전</th>
+                        <th>구분</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6"><span></span></label>
+                            </div>
+                        </td>
+                        <td>애플</td>
+                        <td>0.1.15</td>
+                        <td>선택</td>
+                    </tr>
+                </tbody>-->
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+
+    <div class="modal-content">
+        <div class="wrap">
+            <i class="close-btn">×</i>
+            <p class="modal-title">버전 업데이트 등록</p>
+            <ul class="modal-information">
+                <li>
+                    <p class="sub-title">구분 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r14" name="radio-forceupdate" value="2"/>
+                        <label for="r14"><span></span>강제</label>
+
+                        <input type="radio" id="r15" name="radio-forceupdate" value="1"/>
+                        <label for="r15"><span></span>선택</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">마켓 *</p>
+                    <div class="radio-wrap">
+                        <input type="radio" id="r11" name="radio-market" value="apple"/>
+                        <label for="r11"><span></span>애플</label>
+
+                        <input type="radio" id="r13" name="radio-market" value="google"/>
+                        <label for="r13"><span></span>구글</label>
+                    </div>
+                </li>
+                <li>
+                    <p class="sub-title">
+                        최신 버전 *
+                    </p>
+                    <input id="digit" type="text" style="width: 100px;" maxlength="2">
+                    <span class="input-num-title">.</span>
+                    <input id="decimal" type="text" style="width: 100px;" maxlength="2">
+                </li>
+            </ul>
+            <button id="btnSubmit" type="button" class="completion-btn">완료</button>
+        </div>
+    </div>
+    <div class="modal-layout"></div>
+
+</section>
+<script src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/version/app-version-list.js?version=<?php echo $this->config->item('version');?>"></script>

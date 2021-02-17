@@ -1,0 +1,120 @@
+/* log */
+.dashboard-log .tab li {
+    position: relative;
+    cursor: pointer;
+}
+.dashboard-log .tab li .box-title {
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0;
+    border-radius: 5px;
+}
+.dashboard-log .tab li:hover .box-title,
+.dashboard-log .tab li.on .box-title {
+    color: #fff;
+    background-color: #0061f2;
+}
+.box-top .data-title {
+    float:left;
+    width: 90%;
+}
+.box-top .btn-more {
+    float:right;
+    width: 10%;
+    text-align: right;
+    color: #888;
+    font-size: 13px;
+    transition: all .3s;
+}
+.box-top .btn-more:hover {
+    color: #333;
+}
+
+.data-title {
+    color: #0061f2;
+}
+.data-title i {
+    color: #999;
+}
+.data-title span {
+    margin-left: 5px;
+}
+.php .jsoneditor-wrap {
+    width: 100%;
+}
+.tab li {
+    float: left;
+    position: relative;
+    padding: 10px 13px;
+    color: #fff;
+    background-color: #eee;
+    cursor: pointer;
+    transition: all .3s;
+}
+.tab li.on,
+.tab li:hover {
+    background-color: #0061f2;
+}
+
+.tab li .view-all {
+    position: absolute;
+    right: 10px;
+    top:40%;
+    font-size: 12px;
+    letter-spacing: -1px;
+    text-decoration: underline;
+    opacity: .7;
+    transition: all .3s;
+}
+.tab li .view-all:hover {
+    opacity: 1;
+}
+
+
+.box-contents table {
+    width: 100%;
+    margin-top: 10px;
+    border-top: 1px solid #f3f3f3;
+}
+.box-contents table tr {
+    border-bottom: 1px solid #f3f3f3;
+}
+.box-contents table th,
+.box-contents table td {
+    padding: 10px 5px;
+}
+.box-contents table th {
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+}
+.box-contents table td {
+    color: #505050;
+    font-size: 14px;
+}
+.rank em {
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #333;
+}
+.no-contents {
+    height: 100%;
+    min-height: 443px;
+    line-height: 443px;
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+}
+.process-link {
+    color: #00acd6;
+    border-bottom: 1px solid #00acd6;
+}
+

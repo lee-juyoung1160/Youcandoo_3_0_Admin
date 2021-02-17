@@ -1,0 +1,73 @@
+<link type="text/css" rel="stylesheet" href="/assets/v1/css/plugins/jsoneditor.min.css">
+<link rel="stylesheet" href="/assets/v1/css/log.css?version=<?php echo $this->config->item('version');?>">
+<section class="log-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">Log(Api Apache Error)</h2>
+        </div>
+
+        <article class="php clearfix">
+
+            <div class="table-wrap">
+                <div class="top clearfix">
+                    <div class="right-wrap clearfix">
+                        <div class="select-box">
+                            <label for="selPageLength"></label>
+                            <select id="selPageLength">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="dataTable">
+                    <!--<colgroup>
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>uniqueid</th>
+                            <th>닉네임</th>
+                            <th>profileID</th>
+                            <th>Token</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>000000000000</td>
+                            <td><a href="#">베리베리</a></td>
+                            <td>
+                                <div>
+                                    <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                                    <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                                    <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                                </div>
+                            </td>
+                            <td>000000000000</td>
+                        </tr>
+                    </tbody>-->
+                </table>
+                <!--<ul class="table-pagination clearfix">
+                    <li><i class="fas fa-angle-double-left"></i></li>
+                    <li class="active">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li><i class="fas fa-angle-double-right"></i></li>
+                </ul>-->
+            </div>
+
+        </article>
+    </div>
+
+</section>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script defer src="/assets/v1/js/log-dashboard/api-apache-error.js?version=<?php echo $this->config->item('version');?>"></script>

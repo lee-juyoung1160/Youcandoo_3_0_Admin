@@ -1,0 +1,58 @@
+<section class="faq-detail-page">
+    <div class="inner">
+        <h2 class="main-title">FAQ 상세</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">구분 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="type"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="title"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">내용 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="content"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title">노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="detail-data" id="exposure"></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/service/faq">목록</a>
+                    <a class="update-btn" id="goUpdate">수정</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script defer src="/assets/v1/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>

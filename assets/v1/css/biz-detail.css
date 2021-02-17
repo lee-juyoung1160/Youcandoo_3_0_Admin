@@ -1,0 +1,62 @@
+.more-info-btn {
+    border: none;
+}
+.more-info-btn:hover {
+    background: #19579a;
+}
+.biz-img {
+    float: left;
+    width: 20%;
+}
+.biz-info {
+    float: left;
+    width: 80%;
+}
+.biz-info li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+.biz-info li:first-child {
+    padding-top: 0;
+}
+.biz-info li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.biz-info li .col-wrap .col-1 {
+    width: 15%;
+}
+.biz-info li .col-wrap .col-2 {
+    width: 85%;
+}
+.enrollment-title {
+    margin: 30px 0 15px;
+    color: #5a5a5a;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.biz-detail-tab {
+    margin-top: 30px;
+}
+.biz-detail-tab li {
+    width: calc(100%/2);
+}
+
+.update-btn {
+    float: right;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+.update-btn:hover {
+    background-color: #00acd6;
+}
+.biz-link a {
+    display: inline;
+    color: #00acd6;
+    border-bottom: 1px solid #00acd6;
+}
+

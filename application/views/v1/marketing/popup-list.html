@@ -1,0 +1,107 @@
+<section class="popup-list-page">
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title list-main-title">팝업관리</h2>
+            <a href="/marketing/popup/create"><i class="fas fa-plus"></i>팝업 등록</a>
+        </div>
+
+        <div class="list-common">
+            <div class="list-wrap clearfix">
+                <p class="list-common-title">날짜</p>
+                <div class="select-box">
+                    <label for="dateType">등록일</label>
+                    <select id="dateType">
+                        <option value="create_date">등록일</option>
+                        <option value="start_date">팝업 시작일</option>
+                        <option value="end_date">팝업 종료일</option>
+                    </select>
+                </div>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date_from">
+                    <span class="date-margin-text"> ~ </span>
+                    <input type="text" class="datepicker date_to">
+                </div>
+                <ul class="day-btn clearfix">
+                    <li class="btn_today">오늘</li>
+                    <li class="btn_week">1주일</li>
+                    <li class="btn_month">1개월</li>
+                    <li class="btn_long">3개월</li>
+                </ul>
+            </div>
+            <div class="list-wrap search-wrap clearfix">
+                <p class="list-common-title">검색어</p>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                        <i class="search-btn fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-common-btn-wrap list-search-btn-wrap clearfix">
+            <div class="btn-wrap">
+                <button class="search">검색</button>
+                <button class="reset" type="reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="right-wrap clearfix">
+                    <p>Total <strong class="data-num"></strong></p>
+                    <div class="select-box">
+                        <label for="selPageLength"></label>
+                        <select id="selPageLength">
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnDelete" class="btn-danger" type="button"><i class="fas fa-minus-circle"></i>팝업 삭제</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <!--<colgroup>
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:35%;">
+                    <col style="width:25%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>기기</th>
+                        <th>앱버전</th>
+                        <th>팝업명</th>
+                        <th>노출기간</th>
+                        <th>노출여부</th>
+                        <th>등록일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IOS</td>
+                        <td>1.01</td>
+                        <td>일이삼사오육칠팔구십일이삽사오육칠팔구십일이삼사오육칠팔구십</td>
+                        <td>2019-11-07 ~ 2019-11-20</td>
+                        <td>Y</td>
+                        <td>2019-11-07</td>
+                    </tr>
+                </tbody>-->
+            </table>
+            <!--<ul class="table-pagination clearfix">
+                <li><i class="fas fa-angle-double-left"></i></li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="fas fa-angle-double-right"></i></li>
+            </ul>-->
+        </div>
+    </div>
+</section>
+<script src="/assets/v1/js/plugins/tablesort.min.js"></script>
+<script src="/assets/v1/js/plugins/tablesort.number.min.js"></script>
+<script src="/assets/v1/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v1/js/plugins/dataTables.select.min.js"></script>
+<script defer src="/assets/v1/js/popup/popup-list.js?version=<?php echo $this->config->item('version');?>"></script>

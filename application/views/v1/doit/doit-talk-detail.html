@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="/assets/v1/css/doit-talk.css?version=<?php echo $this->config->item('version');?>">
+<section class="doit-talk-detail-page">
+    <div class="inner">
+        <h2 class="main-title">두잇톡 상세</h2>
+        <div class="wrap">
+            <div class="enrollment">
+                <table>
+                    <tr>
+                        <th style="width:10%;">유형</th>
+                        <td style="width:10%;" id="type"></td>
+                        <th style="width:10%;">작성자</th>
+                        <td style="width:10%;" id="nickname"></td>
+                        <th style="width:10%;">좋아요</th>
+                        <td style="width:10%;" id="like"></td>
+                        <th style="width:10%;">신고</th>
+                        <td style="width:10%;" id="report"></td>
+                        <th style="width:10%;">삭제여부</th>
+                        <td style="width:10%;" id="delYn"></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td colspan="9" class="detail-data" id="content"></td>
+                    </tr>
+                    <tr>
+                        <th>두잇명</th>
+                        <td colspan="9" id="doitTitle"></td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="table-wrap">
+                <div class="top clearfix">
+                    <h3 class="enrollment-title">댓글</h3>
+                    <div class="right-wrap clearfix">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <div class="select-box">
+                            <label for="selPageLength"></label>
+                            <select id="selPageLength">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-warp" id="commentWarp">
+                    <!--<div class="card">
+                        <div class="card-body line-aqua">
+                            <div class="row">
+                                <div class="flex-container left-wrap">
+                                    <div class="col">
+                                        <strong class="nickname">깐간찡어</strong>
+                                    </div>
+                                    <div class="col">
+                                        <p class="comment-1">여러분~ 조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ여러분~ 조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn-comment"><i class="fas fa-comment"></i> <span>100</span></button>
+                            </div>
+
+                            <div class="right-wrap">
+                                <div class="flex-container">
+                                    <div class="col">
+                                        <span class="date">2020-12-01 00:00:00</span>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="open-box">
+                            <div class="container">
+                                <ul class="comment-wrap">
+                                    <li>
+                                        <div class="left-wrap">
+                                            └
+                                            <strong class="nickname">깐깐찡어깐깐찡어깐깐찡어깐깐찡어어</strong>
+                                            <p class="comment-2">조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ</p>
+                                        </div>
+                                        <div class="right-wrap">
+                                            <span class="date">2020-12-01 00:00:00</span>
+                                            <button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left-wrap">
+                                            └
+                                            <strong class="nickname">베리네모카</strong>
+                                            <span class="comment-2">조금만 더 인증해주시면 전체성공 가능해요 아직 5%정도 부족하네요 ㅠㅠ</span>
+                                        </div>
+                                        <div class="right-wrap">
+                                            <span class="date">2020-12-01 00:00:00</span>
+                                            <button type="button" class="btn-blind"><i class="fas fa-eye-slash"></i> 블라인드처리</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>-->
+                    <!--<p class="empty-message">작성된 댓글이 없습니다.</p>-->
+                </div>
+
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                </div>
+            </div>
+
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/doit/talk">목록</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script defer src="/assets/v1/js/doit/doit-talk-detail.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="/assets/v1/css/create-common.css?version=<?php echo $this->config->item('version');?>">
+<section class="popup-create-page">
+    <div class="inner">
+        <h2 class="main-title">팝업 상세</h2>
+        <div class="wrap">
+            <ul class="enrollment clearfix">
+
+                <li class="create-radio-wrap clearfix">
+                    <div class="col-wrap">
+                        <div class="col-1">
+                            <p class="sub-title">기기 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="market">IOS</div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">제목 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="title"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">앱버전 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="version"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">링크 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="link"><a href="" target="_blank"></a></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="create-radio-wrap clearfix">
+                    <div class="col-wrap">
+                        <div class="col-1">
+                            <p class="sub-title">팝업 버튼 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="closeOpt"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li id="dateWrap">
+                    <div class="col-wrap clearfix">
+                        <div class="col-1">
+                            <p class="sub-title important">노출 기간 (*)</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="popupDate"></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="create-radio-wrap clearfix">
+                    <div class="col-wrap">
+                        <div class="col-1">
+                            <p class="sub-title">노출 여부</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="detail-data" id="exposure"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="list-common-btn-wrap clearfix" style="margin-top: 20px;">
+                <div class="btn-wrap">
+                    <a class="list-btn" onclick="historyBack();">이전</a>
+                    <a class="list-btn" href="/marketing/popup">목록</a>
+                    <!--<a class="update-btn" id="goUpdate">수정</a>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script defer src="/assets/v1/js/popup/popup-detail.js?version=<?php echo $this->config->item('version');?>"></script>

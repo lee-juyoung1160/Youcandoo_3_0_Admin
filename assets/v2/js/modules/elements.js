@@ -1,9 +1,12 @@
 
     /** 공통 엘리먼트 **/
-    export const section   = $('section');
+    export const body       = $('body');
+    export const section    = $('section');
+    export const img        = $('img');
     export const btnMenuToggle   = $('.side-toggle-btn');
-    export const mainMenu  = $('.main-mnu');
-    export const subMenu   = $('.sub-mnu li');
+    export const sideBar    = $('aside.main-menu');
+    export const mainMenu   = $('.main-mnu');
+    export const subMenu    = $('.sub-mnu li');
     export const sessionUserId   = $("#sessionUserid");
     export const sessionUserIp   = $("#sessionUserIp");
     export const sessionAuthCode = $("#sessionAuthCode");
@@ -18,12 +21,13 @@
     export const dateTo     = $(".date_to");
     export const searchType = $("#search_type");
     export const keyword 	= $("#keyword");
-    export const search 	= $(".search");
-    export const reset 		= $(".reset");
+    export const btnSearch 	= $("#btnSearch");
+    export const btnReset 	= $("#btnReset");
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
 
-    export const dataTable    = $("#dataTable");
+    export const selPageLength = $("#selPageLength");
+    export const dataTable     = $("#dataTable");
 
     export const inputNumber  = $(".only-num");
     export const inputNumberWithZero = $(".only-num-with-zero");
@@ -44,13 +48,11 @@
     export const otpNum     = $("#otpNum");
     export const secret     = $("#secret");
     export const type       = $("#type");
-
-
     export const btnLogin   = $("#btnLogin");
     export const btnJoin    = $("#btnJoin");
     export const btnSignIn    = $("#btnSignIn");
 
     /** 카테고리 **/
-    export const btnOpenModal = $("#btnOpenModal");
+    export const reOrderTable = $("#reOrderTable");
 
 

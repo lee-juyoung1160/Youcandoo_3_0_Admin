@@ -8,10 +8,14 @@ class Doit extends MY_Controller {
             $this->load->template('v2/doit/doit-list');
         }
 
-public function create()
+    public function create()
         {
             $this->load->template('v2/doit/doit-create');
         }
+    public function detail()
+            {
+                $this->load->template('v2/doit/doit-detail');
+            }
 }
 
 

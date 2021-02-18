@@ -54,5 +54,6 @@
 
     /** 카테고리 **/
     export const reOrderTable = $("#reOrderTable");
+    export const btnReorder = $("#btnReorder");
 
 

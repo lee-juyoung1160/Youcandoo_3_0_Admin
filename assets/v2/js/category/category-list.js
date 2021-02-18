@@ -8,6 +8,7 @@
 		keyword,
 		dataTable,
 		reOrderTable,
+		btnReorder,
 		modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, initTableDefaultConfig, onErrorImage, buildTotalCount } from "../modules/common.js";
@@ -70,17 +71,17 @@
 
 	function getCategoryListSuccess(data)
 	{
-		const json = JSON.parse(data);
-		json.recordsTotal = json.count;
-		json.recordsFiltered = json.count;
-		buildGrid(json);
-		buildReOrderGrid(json);
+		data.recordsTotal = data.count;
+		data.recordsFiltered = data.count;
+		console.log(data)
+		buildGrid(data);
+		buildReOrderGrid(data);
 	}
 
-	function buildGrid(json)
+	function buildGrid(data)
 	{
 		dataTable.DataTable({
-			data: json,
+			data: data,
 			columns: [
 				{title: "아이콘",    		data: "icon_image_url",  	width: "30%",
 					render: function (data, type, row, meta) {
@@ -123,26 +124,9 @@
 		return JSON.stringify(param);
 	}
 
-	function buildReOrderGrid()
+	function buildReOrderGrid(data)
 	{
 		reOrderTable.DataTable({
-			ajax : {
-				url: api.categoryList,
-				type: "POST",
-				headers: headers,
-				dataFilter: function(data, type) {
-					const json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
-					return JSON.stringify(json);
-				},
-				data: function (d) {
-					return tableParams();
-				},
-				error: function (request, status) {
-					sweetError(label.list+message.ajaxLoadError);
-				}
-			},
 			data: data,
 			columns: [
 				{title: "아이콘",    		data: "icon_image_url",  	width: "30%",
@@ -159,7 +143,7 @@
 					}
 				}
 			],
-			serverSide: true,
+			serverSide: false,
 			paging: false,
 			select: false,
 			destroy: false,

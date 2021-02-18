@@ -151,13 +151,13 @@ input[type="radio"] {
 }
 input[type="checkbox"] + label,
 input[type="radio"] + label{
-	font-size: 14px;
+	font-size: 15px;
 	margin-right: 10px;
 }
 input[type="checkbox"] + label span {
 	display: inline-block;
-	width: 17px;
-	height: 17px;
+	width: 18px;
+	height: 18px;
 	margin: -2px 10px 0 0;
 	vertical-align: middle;
 	cursor: pointer;
@@ -173,8 +173,8 @@ input[type="checkbox"]:checked + label span {
 }
 input[type="radio"] + label span {
 	display:inline-block;
-	width:17px;
-	height:17px;
+	width:18px;
+	height:18px;
 	border-radius: 50%;
 	margin:-2px 10px 0 0;
 	vertical-align:middle;
@@ -188,6 +188,10 @@ input[type="radio"]:checked + label span {
 	background-position: 50% 50%;
 	background-image: url("/assets/v2/img/radio-on.png");
 	border: 1px solid #007aff;
+}
+input[type="checkbox"]:disabled + label span,
+input[type="radio"]:disabled + label span {
+	background-color: #ddd;
 }
 textarea {
 	width: 100%;
@@ -233,13 +237,16 @@ textarea {
 .tag-list li {
 	float: left;
 	margin-right: 5px;
-	padding: 3px 5px;
+	padding: 4px 5px;
 	background-color: #ccdffc;
 }
 .tag-list li span {
 	font-size: 13px;
 	font-weight: 600;
 	color: #00327e;
+}
+.tag-list li button {
+	color: #e81500;
 }
 
 /* 파일 업로드 */
@@ -344,6 +351,10 @@ button:hover {
 	padding: 5px;
 	font-size: 14px;
 }
+.btn-i {
+	padding: 0 0;
+	background: none;
+}
 .btn-primary {
 	color: #fff;
 	background-color: #0061f2;
@@ -384,6 +395,32 @@ button:hover {
 }
 .btn-add:hover {
 	background-image: linear-gradient(135deg, rgba(105, 0, 199, 0.8) 0%, #0061f2 100%);
+}
+
+/* tool tip */
+.tooltip-mark {
+	position: relative;
+	color: #777;
+	font-size: 17px;
+}
+.tooltip-txt {
+	display: none;
+	position: absolute;
+	top: -5px;
+	left: 130%;
+	min-width: 250px;
+	width: auto;
+	padding: 5px 10px;
+	color: #005937;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.2em;
+	background-color: #cceee1;
+	border: 1px solid #b8e8d5;
+	border-radius: 5px;
+}
+.tooltip-mark:hover .tooltip-txt {
+	display: block;
 }
 
 /* page common */
@@ -447,6 +484,19 @@ h2.main-title {
 	margin-bottom: 10px;
 	font-size: 14px;
 	font-weight: 600;
+}
+.search-txt-wrap {
+	position: relative;
+	float: left;
+}
+.search-txt-wrap input[type="search"] {
+	padding-left: 35px;
+}
+.search-txt-wrap i {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	opacity: .3;
 }
 .date-wrap {
 	float: left;
@@ -516,7 +566,7 @@ table {
 }
 .table-wrap table th,
 .table-wrap table td {
-	font-size: 14px;
+	font-size: 15px;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -607,6 +657,13 @@ table td {
 	border-top: 1px solid #e0e5ec;
 }
 
+.modal-content .search-txt-wrap {
+	width: 100%;
+}
+.modal-content input[type="search"] {
+	width: 100%;
+}
+
 /* detail */
 .detail-page input[type="text"] {
 	width: 450px;
@@ -626,7 +683,7 @@ table td {
 	vertical-align: top;
 }
 .detail-table td {
-	color: #505050;
+	color: #303030;
 }
 .detail-img-wrap {
 	overflow: hidden;
@@ -647,6 +704,13 @@ table td {
 }
 .detail-tit-warp .btn-add i {
 	margin-right: 5px;
+}
+
+.detail-group div {
+	margin-bottom: 5px;
+}
+.detail-group:last-child div {
+	margin-bottom: 0;
 }
 
 .footer-btn-wrap {

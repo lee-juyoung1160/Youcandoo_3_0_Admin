@@ -126,6 +126,7 @@ header {
 	line-height: 50px;
 	background-color: #fff;
 	border-bottom: 1px solid #dee2e6;
+	z-index: 9998;
 }
 
 .side-toggle-btn {

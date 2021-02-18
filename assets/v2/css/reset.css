@@ -80,6 +80,10 @@ input, select,textarea {
 	-webkit-appearance: none;
 	-webkit-border-radius: 0;
 }
+textarea, input {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
 select {
 	cursor: pointer;
 }

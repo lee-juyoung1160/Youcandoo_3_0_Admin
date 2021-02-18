@@ -13,8 +13,8 @@
                         <p class="search-title">날짜</p>
                         <div class="form-box">
                             <select class="select-box">
-                                <option>두잇 생성일</option>
-                                <option>두잇 오픈일</option>
+                                <option>생성일</option>
+                                <option>오픈일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker" readonly="">
@@ -31,12 +31,15 @@
                     </li>
                     <li>
                         <p class="search-title">검색어</p>
-                        <div class="form-box">
+                        <div class="form-box clearfix">
                             <select class="select-box">
                                 <option>두잇명</option>
                                 <option>개설자</option>
                             </select>
-                            <input type="search" placeholder="검색어를 입력해주세요.">
+                            <div class="search-txt-wrap">
+                                <input type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -44,28 +47,34 @@
         </div>
 
         <div class="search-wrap row">
-            <div class="col-4">
-                <div class="card">
+            <div class="col-3">
+                <div class="card clearfix">
                     <p class="search-title">두잇 상태</p>
                     <div class="checkbox-wrap">
-                        <input id="ch1" type="checkbox">
-                        <label for="ch1"><span></span>모집중</label>
+                        <input id="c1" type="checkbox" name="cb">
+                        <label for="c1"><span></span>생성</label>
 
-                        <input  id="ch2" type="checkbox">
-                        <label for="ch2"><span></span>모집중</label>
+                        <input id="c2" type="checkbox" name="cb">
+                        <label for="c2"><span></span>진행중</label>
+
+                        <input id="c3" type="checkbox" name="cb">
+                        <label for="c3"><span></span>운영정지</label>
+
+                        <input id="c4" type="checkbox" name="cb">
+                        <label for="c4"><span></span>삭제</label>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
+            <div class="col-3">
+                <div class="card clearfix">
                     <p class="search-title">카테고리</p>
-                    <div class="radio-wrap">
-                        <input id="r1" type="radio">
-                        <label for="r1"><span></span>모집중</label>
-
-                        <input  id="r2" type="radio">
-                        <label for="r2"><span></span>모집중</label>
-                    </div>
+                    <select class="select-box">
+                        <option>전체</option>
+                        <option>카테고리1</option>
+                        <option>카테고리2</option>
+                        <option>카테고리3</option>
+                        <option>카테고리4</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -89,8 +98,8 @@
                             <option>1000개씩 보기</option>
                         </select>
                         <select class="select-box">
-                            <option>개설일 최신 순</option>
-                            <option>개설일 역 순</option>
+                            <option>생성일 최신 순</option>
+                            <option>오픈일 최신 순</option>
                         </select>
                     </div>
                 </div>
@@ -98,43 +107,47 @@
             <table>
                 <thead>
                 <colgroup>
-                    <col style="width: 15%;">
-                    <col style="width: 40%;">
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 30%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>카테고리</th>
-                    <th>카테고리명</th>
-                    <th>개설가능여부</th>
-                    <th>노출여부</th>
+                    <th>세부 카테고리</th>
+                    <th>두잇명</th>
+                    <th>개설자</th>
+                    <th>생성일</th>
+                    <th>오픈일</th>
+                    <th>참여인원</th>
+                    <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>라이프스타일</td>
-                    <td><a href="#">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
+                    <td>학습</td>
+                    <td>영어</td>
+                    <td><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                    <td>깐깐찡어</td>
+                    <td>2020-02-02</td>
+                    <td>2020-02-02</td>
+                    <td>305</td>
+                    <td>진행중</td>
                 </tr>
                 <tr>
-                    <td>라이프스타일</td>
-                    <td><a href="#">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>라이프스타일</td>
-                    <td><a href="#">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>라이프스타일</td>
-                    <td><a href="#">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
+                    <td>운동</td>
+                    <td>필라테스</td>
+                    <td><a href="#">홈트의 신</a></td>
+                    <td>베리네모카</td>
+                    <td>2020-02-02</td>
+                    <td>2020-02-02</td>
+                    <td>50</td>
+                    <td>생성</td>
                 </tr>
                 </tbody>
             </table>

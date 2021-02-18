@@ -11,7 +11,7 @@
     const authorization = "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7";
     const userid = $("#session_userid").val();
     const encryptAuth = btoa( JSON.stringify({ "authorization" : authorization,  "userid" : userid} ) );
-    const headers = { "Authorization" : encryptAuth };
+    export const headers = { "Authorization" : encryptAuth };
 
     export function ajaxRequestWithJsonData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
     {

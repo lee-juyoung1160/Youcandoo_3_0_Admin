@@ -1,8 +1,11 @@
     import { api } from './modules/api-url.js';
     import { ajaxRequestWithJsonData } from './modules/request.js';
-    import { btnMenuToggle, mainMenu, subMenu, section } from "./modules/elements.js";
+    import { btnMenuToggle, mainMenu, subMenu, section, sideBar } from "./modules/elements.js";
     import { getPathName } from "./modules/utils.js";
+    import { fadeinLoader, fadeoutLoader } from "./modules/common.js";
 
+    $(document)     .ajaxStart(function () { fadeinLoader(); });
+    $(document)     .ajaxComplete(function () { fadeoutLoader(); });
     btnMenuToggle  .on('click', function () { toggleSideMenu(this); });
     mainMenu       .on('click', function () { onClickMainMenu(this); });
     subMenu        .on('click', function () { onClickSubMenu(this); });
@@ -34,7 +37,7 @@
     function toggleSideMenu(obj)
     {
         $(obj).toggleClass('btn-toggle');
-        mainMenu.toggleClass('open');
+        sideBar.toggleClass('open');
         section.toggleClass('wide-content');
     }
 

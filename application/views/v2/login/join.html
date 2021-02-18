@@ -54,7 +54,7 @@
                         <p>비밀번호 확인</p>
                         <div class="input-wrap">
                             <i class="fas fa-lock"></i>
-                            <input id="repassword" type="password" placeholder="비밀번호를 한번 더 입력해주세요." maxlength="16">
+                            <input id="passwordCheck" type="password" placeholder="비밀번호를 한번 더 입력해주세요." maxlength="16">
                         </div>
                         <span class="error-msg">비밀번호가 일치하지 않습니다.</span>
                     </div>
@@ -71,7 +71,7 @@
                 </form>
                 <div class="btn-wrap">
                     <button id="btnCancel" class="join-btn" type="button">취소</button>
-                    <button id="btnSubmit" class="submit-btn" type="submit">가입하기</button>
+                    <button id="btnSignIn" class="submit-btn" type="submit">가입하기</button>
                 </div>
             </div>
 
@@ -79,5 +79,5 @@
     </section>
 </body>
 <script src="/assets/v2/js/plugins/sweetalert2.min.js"></script>
-<script src="/assets/v2/js/login/join.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/login/join.js?version=<?php echo $this->config->item('version');?>"></script>
 </html>

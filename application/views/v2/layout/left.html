@@ -25,7 +25,7 @@
         </h1>
         <nav>
             <ol class="side-nav">
-                <li onclick="onClickParentMenu(this)">
+                <li>
                     <div class="main-mnu">
                         <i class="far fas fa-tasks"></i>
                         <span>두잇관리</span>
@@ -38,7 +38,7 @@
                         <li><a href="/v2/category">카테고리 관리</a></li>
                     </ul>
                 </li>
-                <li onclick="onClickParentMenu(this)">
+                <li>
                     <div class="main-mnu">
                         <i class="fas fa-coins"></i>
                         <span>UCD 관리</span>
@@ -63,3 +63,13 @@
             <div class="loading-text">Loading</div>
         </div>
     </div>
+
+    <input type="hidden" id="sessionUserid" value="<?php echo ($this->session->userdata['user_data']->userid);?>"/>
+    <input type="hidden" id="sessionUsername" value="<?php echo ($this->session->userdata['user_data']->name);?>"/>
+    <input type="hidden" id="sessionAuthCode" value="<?php echo ($this->session->userdata['user_data']->auth_code);?>"/>
+    <input type="hidden" id="sessionUserIp" value="<?php echo ($this->session->userdata['user_data']->recent_ip);?>"/>
+    <input type="hidden" id="sessionIsDept" value="<?php echo ($this->session->userdata['user_data']->is_dept);?>"/>
+    <input type="hidden" id="sessionDeptName" value="<?php echo ($this->session->userdata['user_data']->dept_name);?>"/>
+    <input type="hidden" id="env" value="<?php echo (ENVIRONMENT);?>"/>
+
+    <script type="module" src="/assets/v2/js/menu.js?version=<?php echo $this->config->item('version');?>"></script>

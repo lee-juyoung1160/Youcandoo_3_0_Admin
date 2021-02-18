@@ -1,12 +1,9 @@
 
-	const qrImg  	= $("#qrImg");
-	const otpNum 	= $("#otpNum");
-	const type 		= $("#type");
-	const username 	= $("#username");
-	const password 	= $("#password");
-	const useremail = $("#useremail");
-	const btnSubmit	= $("#btnSubmit");
-	const viewLoading	= $("#viewLoading");
+	import { qrImg, otpNum, type, username, password, useremail, btnSubmit } from "../modules/elements.js";
+	import { isEmpty } from "../modules/utils.js";
+	import { message } from "../modules/message.js";
+	import { sweetToast } from "../modules/alert.js";
+	import { fadeinLoader, fadeoutLoader, onErrorImage } from "../modules/common.js";
 
 	$( () => {
 		fadeinLoader();
@@ -48,36 +45,9 @@
 	{
 		if (isEmpty(otpNum.val()))
 		{
-			toast(`인증 번호는 ${message.required}`);
+			sweetToast(`인증 번호는 ${message.required}`);
 			return false;
 		}
 
 		return true;
-	}
-
-	function toast(msg)
-	{
-		Swal.fire({
-			toast: true,
-			position: 'center',
-			icon: 'warning',
-			title: msg,
-			showConfirmButton: false,
-			timer: 1500
-		})
-	}
-
-	function fadeinLoader()
-	{
-		viewLoading.fadeIn(100);
-	}
-
-	function fadeoutLoader()
-	{
-		viewLoading.fadeOut(100);
-	}
-
-	function onErrorImage(obj)
-	{
-		$(obj).attr('src', label.noImage);
 	}

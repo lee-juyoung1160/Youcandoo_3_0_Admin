@@ -1,20 +1,18 @@
 
-	const userid     = $("#userid");
-	const useremail  = $("#useremail");
-	const password   = $("#password");
-	const repassword = $("#repassword");
-	const username 	 = $("#username");
-	const btnSubmit	 = $("#btnSubmit");
-	const btnCancel  = $("#btnCancel");
+	import { btnSignIn, btnCancel, userid, useremail, password, passwordCheck, username } from "../modules/elements.js";
+	import { isEmpty } from "../modules/utils.js";
+	import { message } from "../modules/message.js";
+	import { page } from "../modules/page-url.js";
+	import { sweetConfirm } from "../modules/alert.js";
 
 	$( () => {
-		userid		.trigger('focus');
-		userid		.on("keyup focusout", function () { validUserId(this); });
-		password	.on("focusout", function () { validPassword(this); });
-		repassword	.on("focusout", function () { validConfirmPassword(this); });
-		username	.on("keyup focusout", function () { validUserName(this); });
-		btnCancel   .on("click", function () { goLogin(); });
-		btnSubmit   .on("click", function () { onSubmitJoin(); });
+		userid			.trigger('focus');
+		userid			.on("keyup focusout", function () { validUserId(this); });
+		password		.on("focusout", function () { validPassword(this); });
+		passwordCheck	.on("focusout", function () { validConfirmPassword(this); });
+		username		.on("keyup focusout", function () { validUserName(this); });
+		btnSignIn   	.on("click", function () { onSubmitJoin(); });
+		btnCancel   	.on("click", function () { goLogin(); });
 	});
 
 	function validUserId(obj)
@@ -37,7 +35,7 @@
 	function validConfirmPassword(obj)
 	{
 		let errEl = $(obj).parent().next();
-		password.val() === repassword.val() ? errEl.hide() : errEl.show();
+		password.val() === passwordCheck.val() ? errEl.hide() : errEl.show();
 	}
 
 	function validUserName(obj)
@@ -49,7 +47,7 @@
 	function onSubmitJoin()
 	{
 		if (validation())
-			swConfirm(message.create, createRequest);
+			sweetConfirm(message.create, createRequest);
 	}
 
 	function createRequest()
@@ -66,7 +64,7 @@
 
 		validUserId(userid);
 		validPassword(password);
-		validConfirmPassword(repassword);
+		validConfirmPassword(passwordCheck);
 		validUserName(username);
 
 		let cnt = 0;
@@ -86,18 +84,5 @@
 
 	function goLogin()
 	{
-		location.href = '/v2/main/login';
-	}
-
-	function swConfirm(msg, callback)
-	{
-		Swal.fire({
-			text: msg,
-			showCancelButton: true,
-			confirmButtonText: label.confirm,
-			cancelButtonText: label.cancel
-		}).then((result) => {
-			if (result.value)
-				callback();
-		})
+		location.href = page.login;
 	}

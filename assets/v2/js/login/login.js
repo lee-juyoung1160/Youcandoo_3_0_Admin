@@ -1,14 +1,15 @@
 
-	const userid    = $("#userid");
-	const password  = $("#password");
-	const loginBtn  = $("#btnLogin");
-	const joinBtn	= $("#btnJoin");
+	import { btnLogin, btnJoin, userid, password } from "../modules/elements.js";
+	import { isEmpty } from "../modules/utils.js";
+	import { message } from "../modules/message.js";
+	import { page } from "../modules/page-url.js";
+	import { sweetToast } from "../modules/alert.js";
 
 	$( () => {
-		loginBtn.on("click", function () { onSubmitLogin(); });
+		btnLogin.on("click", function () { onSubmitLogin(); });
 		userid  .on("keydown", function (event) { onKeydownEmail(event) });
 		password.on("keydown", function (event) { onKeydownPassword(event) });
-		joinBtn	.on("click", function () { goJoin(); });
+		btnJoin	.on("click", function () { goJoin(); });
 	});
 
 	function onKeydownEmail(event)
@@ -17,7 +18,7 @@
 		{
 			if (isEmpty(userid.val()))
 			{
-				toast(message.emptyId);
+				sweetToast(message.emptyId);
 				userid.trigger('focus');
 				return;
 			}
@@ -32,7 +33,7 @@
 		{
 			if (isEmpty(password.val()))
 			{
-				toast(message.emptyPassword);
+				sweetToast(message.emptyPassword);
 				password.trigger('focus');
 				return;
 			}
@@ -51,14 +52,14 @@
 	{
 		if (isEmpty(userid.val()))
 		{
-			toast(message.emptyId);
+			sweetToast(message.emptyId);
 			userid.trigger('focus');
 			return false;
 		}
 
 		if (isEmpty(password.val()))
 		{
-			toast(message.emptyPassword);
+			sweetToast(message.emptyPassword);
 			password.trigger('focus');
 			return false;
 		}
@@ -68,17 +69,5 @@
 
 	function goJoin()
 	{
-		location.href = '/v2/main/join';
-	}
-
-	function toast(msg)
-	{
-		Swal.fire({
-			toast: true,
-			position: 'center',
-			icon: 'warning',
-			title: msg,
-			showConfirmButton: false,
-			timer: 1500
-		})
+		location.href = page.join;
 	}

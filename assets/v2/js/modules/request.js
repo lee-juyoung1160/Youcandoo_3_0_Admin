@@ -60,3 +60,34 @@
             }
         });
     }
+
+    export function getStatusCode(data)
+    {
+        return data.status;
+    }
+
+    export function getStatusMessage(data)
+    {
+        let fileStatus = [30034, 30035, 30308];
+        let msg = data.msg;
+        let status = data.status;
+
+        if (fileStatus.indexOf(status) > -1)
+        {
+            msg =
+                `선택한 이미지 사이즈는 ${data.data.width} x ${data.data.height} 입니다.
+                 ${data.msg}`
+        }
+
+        return msg;
+    }
+
+    export function isSuccessResp(data)
+    {
+        return getStatusCode(data) === 0;
+    }
+
+    export function invalidResp(data)
+    {
+        return data.msg;
+    }

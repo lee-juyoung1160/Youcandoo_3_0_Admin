@@ -1,0 +1,117 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">스폰서두잇 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>스폰서 명 *</th>
+                        <td>
+                            <input type="text" placeholder="클릭 후 스폰서명을 선택해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>카테고리 *</th>
+                        <td>
+                            <select class="select-box">
+                                <option>카테고리</option>
+                            </select>
+                            <select class="select-box">
+                                <option>서브카테고리</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>두잇명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="categoryName" type="text" class="length-input" maxlength="30" placeholder="두잇명을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>두잇 소개 및 목표 *</th>
+                        <td>
+                            <div class="textarea-wrap">
+                                <textarea id="exampleDesc" class="length-input" maxlength="100" rows="4"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>검색 키워드(태그) *</th>
+                        <td>
+                            <div class="tag-wrap">
+                                <div class="input-wrap">
+                                    <input id="categoryName" type="text" class="length-input" maxlength="7">
+                                    <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
+                                </div>
+                                <button type="button" class="btn-sm">추가</button>
+                            </div>
+                            <ul class="tag-list clearfix">
+                                <li>
+                                    #
+                                    <span>자전거</span>
+                                    <button class="btn-text-red"><i class="fas fa-minus-circle"></i></button>
+                                </li>
+                                <li>
+                                    #
+                                    <span>필라테스</span>
+                                    <button class="btn-text-red"><i class="fas fa-minus-circle"></i></button>
+                                </li>
+                                <li>
+                                    #
+                                    <span>요가</span>
+                                    <button class="btn-text-red"><i class="fas fa-minus-circle"></i></button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>공개 여부 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r1" type="radio" name="radio">
+                                <label for="r1"><span></span>전체공개</label>
+
+                                <input  id="r2" type="radio" name="radio">
+                                <label for="r2"><span></span>멤버에게만 게시글 공개</label>
+
+                                <input  id="r3" type="radio" name="radio">
+                                <label for="r3"><span></span>비공개</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>두잇 소개 이미지 *</th>
+                        <td>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="categoryImage">업로드</label>
+                                <input type="file" id="categoryImage" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                            </div>
+                            <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                            <div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+</section>
+

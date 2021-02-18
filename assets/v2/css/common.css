@@ -103,6 +103,11 @@
 	font-size: 15px;
 	font-weight: 500;
 }
+.desc-sub {
+	padding: 5px 0;
+	color: #999;
+	font-size: 13px;
+}
 .title {
 	font-size: 15px;
 	font-weight: 600;
@@ -184,24 +189,57 @@ input[type="radio"]:checked + label span {
 	background-image: url("/assets/v2/img/radio-on.png");
 	border: 1px solid #007aff;
 }
+textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #c5ccd6;
+	border-radius: 3px;
+}
 
 /* 글자수 체크 */
 .input-wrap {
 	display: inline-block;
 	position: relative;
 }
+.input-wrap input[type="text"] {
+	padding: 0 40px 0 10px;
+}
+.length-count-wrap {
+	color: #aaa;
+	font-size: 12px;
+}
 .input-wrap .length-count-wrap {
 	position: absolute;
 	right: 10px;
 	top: 50%;
-	color: #aaa;
-	font-size: 12px;
 	transform: translate(0, -50%);
 	-webkit-transform: translate(0, -50%);
+}
+.textarea-wrap {
+	width: 100%;
 }
 .textarea-wrap .length-count-wrap {
 	float: right;
 	margin-top: 10px;
+}
+
+/* 태그 */
+.tag-wrap input[type="text"] {
+	width: 180px !important;
+}
+.tag-wrap .input-wrap {
+	margin-bottom: 5px;
+}
+.tag-list li {
+	float: left;
+	margin-right: 5px;
+	padding: 3px 5px;
+	background-color: #ccdffc;
+}
+.tag-list li span {
+	font-size: 13px;
+	font-weight: 600;
+	color: #00327e;
 }
 
 /* 파일 업로드 */
@@ -220,14 +258,14 @@ input[type="radio"]:checked + label span {
 }
 .file-wrap label {
 	display: inline-block;
-	padding: 6px 10px;
+	padding: 8px 10px;
 	color: #777;
-	font-size: inherit;
+	font-size: 14px;
 	line-height: normal;
 	vertical-align: middle;
 	background-color: #eff3f9;
 	cursor: pointer;
-	border-radius: .25em;
+	border-radius: 5px;
 }
 .file-wrap label:hover {
 	color: #00327e;
@@ -277,13 +315,19 @@ input[type="radio"]:checked + label span {
 /* button */
 button {
 	display: inline-flex;
+	color: #777;
 	align-items: center;
 	font-weight: 400;
 	text-align: center;
 	vertical-align: middle;
+	background-color: #eff3f9;
 	border: 1px solid transparent;
 	border-radius: 5px;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+button:hover {
+	color: #00327e;
+	background-color: #ccdffc;
 }
 .btn {
 	margin-right: 5px;
@@ -321,6 +365,7 @@ button {
 	border-color: #00acd6;
 }
 .btn-teal:hover {
+	color: #fff;
 	background-color: #00acd6;
 	border-color: #00acd6;
 }
@@ -487,7 +532,8 @@ table td {
 	text-decoration: underline;
 }
 .table-wrap table td a:hover {
-	color: #006c6f;
+	font-weight: 600;
+	color: #00327e;
 }
 .table-wrap .list-img-wrap {
 	overflow: hidden;

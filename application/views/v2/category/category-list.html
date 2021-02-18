@@ -15,7 +15,7 @@
                             <select class="select-box">
                                 <option>카테고리명</option>
                             </select>
-                            <input type="search" placeholder="검색어를 입력해주세요.">
+                            <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                         </div>
                     </li>
                 </ul>
@@ -23,23 +23,23 @@
         </div>
 
         <div class="search-btn row">
-            <button type="submit" class="btn btn-primary">검색</button>
-            <button type="reset" class="btn btn-outline-primary">초기화</button>
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
         </div>
 
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">10</strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                     </div>
                 </div>
                 <div class="btn-wrap">
                     <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 카테고리 수정</button>
                 </div>
             </div>
-            <table>
-                <thead>
+            <table id="dataTable">
+                <!--<thead>
                 <colgroup>
                     <col style="width: 15%;">
                     <col style="width: 40%;">
@@ -95,7 +95,7 @@
                     <td>Y</td>
                     <td>N</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
@@ -113,8 +113,8 @@
                     </p>
                 </div>
                 <div class="table-wrap">
-                    <table class="order-table">
-                        <thead>
+                    <table class="order-table" id="orderTable">
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 20%;">
                             <col style="width: 60%;">
@@ -180,7 +180,7 @@
                                 </button>
                             </td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>
@@ -194,4 +194,6 @@
     </div>
 
 </section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/category/category-list.js?version=<?php echo $this->config->item('version');?>"></script>
 

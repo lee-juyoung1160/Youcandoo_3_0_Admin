@@ -2,7 +2,7 @@
 
 
 /* side-menu */
-.main-menu {
+aside.main-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -13,7 +13,7 @@
 	z-index: 9999;
 	transition: all .3s;
 }
-.main-menu.open {
+aside.main-menu.open {
 	left: -250px;
 }
 h1 {
@@ -191,4 +191,23 @@ header {
 	color: #0061f2;
 }
 
-
+/* move top */
+.move-top {
+	position: fixed;
+	right: 0;
+	bottom: 100px;
+	width: 36px;
+	height: 36px;
+	line-height: 45px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 5px 0 0 5px;
+	box-shadow: 4px 5px 6px 0 rgb(0 0 0 / 5%);
+	transition: all .3s;
+}
+.move-top i {
+	font-size: 20px;
+}
+.move-top:hover {
+	color: #0061f2;
+}

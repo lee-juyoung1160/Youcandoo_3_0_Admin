@@ -1,13 +1,12 @@
 
-	const search 		= $(".search");
-	const reset 		= $(".reset");
-	const dataTable		= $("#dataTable");
-	const searchType 	= $("#search_type");
-	const keyword 		= $("#keyword");
-	const btnOpenMd		= $("#btnOpenMd");
+	import { ajaxRequestWithJsonData } from '../modules/request'
+	import { api, fileApi } from '../modules/api-url';
+	import { search, reset, searchType, keyword, dataTable } from  '../modules/elements';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert';
+
 	/** 모달 **/
 	const reOrderTable  = $("#reOrderTable");
-	const btnReorder	= $("#btbtnReordernSubmit");
+	const btnReorder	= $("#btnReorderSubmit");
 
 	$( () => {
 		/** dataTable default config **/

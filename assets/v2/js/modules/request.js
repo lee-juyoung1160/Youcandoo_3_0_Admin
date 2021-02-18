@@ -8,8 +8,12 @@
      *  _completeCallback : ajax complete에서 callbak (동기처리할 때 사용 중..)
      * **/
 
+    const authorization = "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7";
+    const userid = $("#session_userid").val();
+    const encryptAuth = btoa( JSON.stringify({ "authorization" : authorization,  "userid" : userid} ) );
+    const headers = { "Authorization" : encryptAuth };
 
-    function ajaxRequestWithJsonData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
+    export function ajaxRequestWithJsonData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
     {
         $.ajax({
             global: _global,
@@ -23,8 +27,6 @@
                 _successCallback(data);
             },
             error: function (request, status) {
-                console.log(request)
-                console.log(status)
                 sweetError(_errorMsg);
             },
             complete: function (xhr, status) {
@@ -35,7 +37,7 @@
     }
 
 
-    function ajaxRequestWithFormData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
+    export function ajaxRequestWithFormData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
     {
         $.ajax({
             url: _reqUrl,

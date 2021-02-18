@@ -4,7 +4,7 @@
         /* 레프트메뉴 열고 닫기 */
         $('.side-toggle-btn').on('click', function(){
             $(this).toggleClass('btn-toggle');
-            $('aside').toggleClass('aside-open');
+            $('.main-menu').toggleClass('open');
             $('section').toggleClass('wide-content');
         });
 

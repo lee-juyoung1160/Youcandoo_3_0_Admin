@@ -2,7 +2,7 @@
 
 
 /* side-menu */
-aside {
+.main-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -13,7 +13,7 @@ aside {
 	z-index: 9999;
 	transition: all .3s;
 }
-aside.aside-open {
+.main-menu.open {
 	left: -250px;
 }
 h1 {

@@ -22,7 +22,9 @@
 .col-2 {width: 16.666%;}
 .col-3 {width: 25%;}
 .col-4 {width: 33.333%;}
+.col-5 {width: 41.665%;}
 .col-6 {width: 50%;}
+.col-7 {width: calc(100% - 41.665%);}
 .col-8 {width: calc(100% - 33.333%);}
 .col-9 {width: calc(100% - 25%);}
 .col-10 {width: calc(100% - 16.666%);}
@@ -434,6 +436,7 @@ table td {
 	margin: 0px auto;
 	border: 1px solid #f1f1f1;
 }
+
 /*순서변경 테이블*/
 .order-table tbody tr  {
 	cursor: n-resize;

@@ -100,7 +100,7 @@ class Auth extends CI_Controller {
         $_SESSION["user"] = $UserData;
         if(get_cookie('referer'))
         {
-            $ReferPage='/'.get_cookie('referer');
+            $ReferPage='/v2'.get_cookie('referer');
             delete_cookie('referer', '.youcandoo.co.kr', '/v2');
             redirect($ReferPage, 'refresh');
         }

@@ -29,6 +29,7 @@
     export const selPageLength = $("#selPageLength");
     export const dataTable     = $("#dataTable");
 
+    export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
     export const inputNumberWithZero = $(".only-num-with-zero");
 
@@ -53,7 +54,11 @@
     export const btnSignIn    = $("#btnSignIn");
 
     /** 카테고리 **/
-    export const reOrderTable = $("#reOrderTable");
-    export const btnReorder = $("#btnReorder");
+    export const reorderTable   = $("#reorderTable");
+    export const btnReorder     = $("#btnReorder");
+    export const categoryTitle 	= $("#categoryTitle");
+    export const categoryIcon	= $("#categoryIcon");
+    export const rdoEstablish	= $("input[name=radio-establish]");
+    export const rdoExposure	= $("input[name=radio-exposure]");
 
 

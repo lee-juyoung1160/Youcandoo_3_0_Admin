@@ -17,7 +17,7 @@
                         <th>카테고리명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
+                                <input id="categoryTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
                             </div>
                         </td>
@@ -25,25 +25,25 @@
                     <tr>
                         <th>카테고리 아이콘 *</th>
                         <td>
+                            <p class="desc-sub">( 이미지 크기 : 120 x 120 )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                                <label for="categoryIcon">업로드</label>
+                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
                             </div>
-                            <p class="desc-sub">( 이미지 크기 : 120 x 120 )</p>
-                            <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="" alt="">
+                            </div>-->
                         </td>
                     </tr>
                     <tr>
                         <th>개설 가능 여부 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio">
+                                <input id="r1" type="radio" name="radio-establish" value="Y" checked>
                                 <label for="r1"><span></span>Y</label>
 
-                                <input  id="r2" type="radio">
+                                <input  id="r2" type="radio" name="radio-establish" value="N">
                                 <label for="r2"><span></span>N</label>
                             </div>
                         </td>
@@ -52,10 +52,10 @@
                         <th>노출 여부 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
                                 <label for="r3"><span></span>Y</label>
 
-                                <input  id="r4" type="radio">
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
                                 <label for="r4"><span></span>N</label>
                             </div>
                         </td>
@@ -64,8 +64,9 @@
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-primary">등록 완료</button>
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
         </div>
     </div>
 </section>
+<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
 

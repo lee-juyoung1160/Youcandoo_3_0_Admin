@@ -2,6 +2,7 @@
     const baseApiUrl = 'https://adminapi.youcandoo.co.kr/v3/';
     export const api = {
         categoryList : baseApiUrl + 'category/list',
+        createCategory : baseApiUrl + 'category/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

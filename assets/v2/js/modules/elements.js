@@ -33,6 +33,8 @@
     export const selPageLength = $("#selPageLength");
     export const dataTable     = $("#dataTable");
 
+    export const thumbnail    = $("#thumbnail");
+
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
     export const inputNumberWithZero = $(".only-num-with-zero");

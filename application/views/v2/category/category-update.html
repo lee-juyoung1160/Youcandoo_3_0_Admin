@@ -17,7 +17,7 @@
                         <th>카테고리명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
+                                <input id="categoryTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
                             </div>
                         </td>
@@ -25,14 +25,14 @@
                     <tr>
                         <th>카테고리 아이콘 *</th>
                         <td>
+                            <p class="desc-sub">( 이미지 크기 : 120 x 120 )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                                <label for="categoryIcon">업로드</label>
+                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
                             </div>
-                            <p class="desc-sub">( 이미지 크기 : 120 x 120 )</p>
                             <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                <img id="thumbnail" src="" alt="">
                             </div>
                         </td>
                     </tr>
@@ -40,10 +40,10 @@
                         <th>개설 가능 여부 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio">
+                                <input id="r1" type="radio" name="radio-establish" value="Y">
                                 <label for="r1"><span></span>Y</label>
 
-                                <input  id="r2" type="radio">
+                                <input  id="r2" type="radio" name="radio-establish" value="N">
                                 <label for="r2"><span></span>N</label>
                             </div>
                         </td>
@@ -52,10 +52,10 @@
                         <th>노출 여부 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y">
                                 <label for="r3"><span></span>Y</label>
 
-                                <input  id="r4" type="radio">
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
                                 <label for="r4"><span></span>N</label>
                             </div>
                         </td>
@@ -68,8 +68,8 @@
                     <p class="title">세부 카테고리 │ <span class="desc"> 드래그 & 드랍으로 노출 순서를 변경할 수 있습니다.</span></p>
                 </div>
                 <div class="table-wrap">
-                    <table class="order-table">
-                        <thead>
+                    <table class="order-table" id="dataTable">
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 80%;">
                             <col style="width: 20%;">
@@ -113,16 +113,17 @@
                                 </button>
                             </td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
 
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-primary">수정 완료</button>
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
         </div>
     </div>
 
 </section>
-
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/category/category-update.js?version=<?php echo $this->config->item('version');?>"></script>

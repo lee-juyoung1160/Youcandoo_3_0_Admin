@@ -47,8 +47,8 @@
 			let param = {
 				"title" : categoryTitle.val(),
 				"icon_image_url" : '',
-				"is_establish" : $('input[name=radio-establish]:checked').val(),
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
+				"is_establish" : $('input[name=radio-establish]:checked').val(),
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

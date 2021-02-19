@@ -72,6 +72,11 @@
         $(obj).next().find(".count-input").text(inputLength);
     }
 
+    export function calculateInputLength()
+    {
+        $(".length-input").each(function () {  limitInputLength(this); });
+    }
+
     export function onErrorImage()
     {
         $('img').on('error', function () {

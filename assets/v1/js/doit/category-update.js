@@ -123,8 +123,8 @@
 	function validation()
 	{
 		if (isEmpty(categoryName.val())) {
-			sweetToast(`카테고리명 ${message.required}`);
-			title.trigger('focus');
+			sweetToast(`카테고리 명은 ${message.required}`);
+			categoryName.trigger('focus');
 			return false;
 		}
 

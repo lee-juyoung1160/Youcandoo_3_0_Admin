@@ -1,25 +1,25 @@
 
-	const categoryName 	= $("#categoryName");
-	const categoryImage	= $("#categoryImage");
-	const establish		= $("input[name=radio-establish]");
-	const exposure		= $("input[name=radio-exposure]");
-	const btnSubmit 	= $("#btnSubmit");
+	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import { api, fileApi } from '../modules/api-url.js';
+	import {
+		lengthInput,
+		categoryTitle,
+		categoryIcon,
+		btnSubmit, } from  '../modules/elements.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { onChangeValidateImage, limitInputLength } from "../modules/common.js";
+	import { isEmpty } from "../modules/utils.js";
+	import { label } from "../modules/label.js";
+	import { message } from "../modules/message.js";
+	import { page } from "../modules/page-url.js";
 
 	$( () => {
-		/** 컴퍼넌트 초기화 **/
-		initComponent();
+		categoryTitle.trigger('focus');
 		/** 이벤트 **/
-		categoryImage	.on('change', function () { onChangeValidationImage(this); });
+		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
+		categoryIcon	.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit		.on('click', function () { onSubmitCategory(); });
 	});
-
-	function initComponent()
-	{
-		categoryName.trigger('focus');
-		categoryName.val('');
-		exposure.eq(0).prop('checked', true);
-		establish.eq(0).prop('checked', true);
-	}
 
 	function onSubmitCategory()
 	{
@@ -32,7 +32,7 @@
 		let url = fileApi.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', categoryImage[0].files[0]);
+		param.append('file', categoryIcon[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -41,14 +41,14 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= api.createDoitCategory;
+			let url 	= api.createCategory;
 			let errMsg 	= label.submit+message.ajaxError;
 			let { file } = data.image_urls;
 			let param = {
-				"category" : categoryName.val(),
-				"is_blind" : $('input:radio[name=radio-exposure]:checked').val(),
-				"is_establish" : $('input:radio[name=radio-establish]:checked').val(),
-				"icon_image_url" : file
+				"title" : categoryTitle.val(),
+				"icon_image_url" : '',
+				"is_establish" : $('input[name=radio-establish]:checked').val(),
+				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -64,22 +64,22 @@
 
 	function createSuccess()
 	{
-		location.href = page.listDoitCategory;
+		location.href = page.listCategory;
 	}
 
 	function validation()
 	{
-		if (isEmpty(categoryName.val()))
+		if (isEmpty(categoryTitle.val()))
 		{
 			sweetToast(`카테고리 명은 ${message.required}`);
-			categoryName.trigger('focus');
+			categoryTitle.trigger('focus');
 			return false;
 		}
 
-		let categoryFile = categoryImage[0].files;
-		if (categoryFile.length === 0)
+		let categoryIcn = categoryIcon[0].files;
+		if (categoryIcn.length === 0)
 		{
-			sweetToast(`카테고리 이미지는 ${message.required}`);
+			sweetToast(`카테고리 아이콘은 ${message.required}`);
 			return false;
 		}
 

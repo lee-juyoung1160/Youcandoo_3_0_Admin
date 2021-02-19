@@ -28,8 +28,6 @@
             {
                 if (isSuccessResp(data))
                     callback();
-                /*else
-                    sweetError(invalidResp(data));*/
             }
         })
     }

@@ -2,7 +2,8 @@
     import { modalContent, modalBackdrop, loader } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
-    import { numberWithCommas } from "./utils.js";
+    import { numberWithCommas, isOverFileSize } from "./utils.js";
+    import { sweetToast, sweetError } from "./alert.js";
 
     export function fadeinModal()
     {
@@ -26,13 +27,6 @@
         loader.fadeOut(100);
     }
 
-    export function onErrorImage()
-    {
-        $('img').on('error', function () {
-            $(this).attr('src', label.noImage);
-        });
-    }
-
     export function initPageLength(_obj)
     {
         let options = '';
@@ -46,44 +40,142 @@
         _obj.html(options);
     }
 
-    /** 테이블 기본환경 설정 **/
-    export function initTableDefaultConfig()
+    /** 글자수 체크 **/
+    export function limitInputLength(obj)
     {
-        $.extend( true, $.fn.dataTable.defaults, {
-            /*pagingType: "simple_numbers_no_ellipses",*/
-            ordering: false,
-            order: [],
-            info: false,
-            processing: false,
-            lengthChange: false,
-            autoWidth: false,
-            searching: false,
-            fixedHeader: false,
-            language: {
-                emptyTable: message.emptyList
-                ,zeroRecords: message.emptyList
-                ,processing: message.searching
-                ,paginate: {
-                    previous: label.previous
-                    ,next: label.next
-                }
-            }
+        let inputLength = $(obj).val().length;
+        let maxLength   = $(obj).prop('maxLength');
+
+        if (inputLength > maxLength && maxLength > 0)
+        {
+            $(obj).val($(obj).val().slice(0, maxLength))
+            inputLength = maxLength;
+        }
+
+        $(obj).next().find(".count-input").text(inputLength);
+    }
+
+    export function onErrorImage()
+    {
+        $('img').on('error', function () {
+            $(this).attr('src', label.noImage);
         });
     }
 
-    /** 테이블 상단 total count 세팅 **/
-    export function buildTotalCount(_table)
+    export function onChangeValidateImage(obj)
     {
-        const numEl = $(_table).parent().siblings().find(".data-num")
+        if (!isImage(obj) && obj.files[0])
+        {
+            sweetToast(message.invalidFile);
+            emptyFile(obj);
+        }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
+            emptyFile(obj);
+        }
+        else
+        {
+            /**
+             * 사이즈 체크를 위해서 해당 html 페이지 file element에
+             * data-width: 폭
+             * data-height: 높이
+             * data-oper: 비교연산 eq: 같음, ge: 이상, le: 이하
+             * 속성이 있어야 한다.
+             * **/
+            let oper   = $(obj).data('oper');
+            let needsWidth  = $(obj).data('width');
+            let needsHeight = $(obj).data('height');
+            let img    = new Image();
 
-        $(numEl).html(numberWithCommas(getTotalRecordsFromDataTable(_table)));
+            if (obj.files[0])
+            {
+                img.src = window.URL.createObjectURL(obj.files[0]);
+                img.onload = function() {
+                    let infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다. 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+
+                    if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                    }
+                    else
+                        setFile(obj, 'image');
+                }
+            }
+            else emptyFile(obj);
+        }
     }
 
-    /** 데이터 테이블에서 total count 가져오기 **/
-    export function getTotalRecordsFromDataTable(_table)
+    /** 파일 썸네일과 파일이름 보여주는 이벤트 **/
+    export function setFile(obj, type)
     {
-        const table = _table.DataTable();
-        const info = table.page.info();
+        if(window.FileReader)
+        {
+            if (obj.files && obj.files[0])
+            {
+                /** image 일때 썸네일 표출 **/
+                if (type === 'image')
+                {
+                    /** 기존 썸네일 삭제 **/
+                    removeThumbnail(obj);
 
-        return info.recordsTotal;
+                    /** 파일읽어서 썸네일 표출하기 **/
+                    readImage(obj);
+                }
+            }
+            else
+                emptyFile(obj);
+        }
+        else
+            sweetToast(message.invalidBrowser);
     }
+
+    function readImage(obj)
+    {
+        let reader = new FileReader();
+        reader.readAsDataURL(obj.files[0]);
+
+        reader.onload = function() {
+
+            const innerDom = `<div class="detail-img-wrap"><img src="${reader.result}" alt=""></div>`;
+
+            $(obj).parent().after(innerDom);
+        }
+    }
+
+    export function emptyFile(obj)
+    {
+        removeThumbnail(obj);
+        $(obj).val(null);
+    }
+
+    export function removeThumbnail(obj)
+    {
+        const thumbnailWrap = $(obj).parent().siblings('.detail-img-wrap');
+        if (thumbnailWrap.length > 0)
+            thumbnailWrap.remove();
+    }
+
+    export function isImage(obj)
+    {
+        if (obj.files[0])
+        {
+            let file 		= obj.files[0];
+            let fileType 	= file["type"];
+            let imageTypes 	= ["image/jpeg", "image/png"];
+
+            return $.inArray(fileType, imageTypes) >= 0;
+        }
+    }
+

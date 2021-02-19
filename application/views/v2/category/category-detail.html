@@ -16,27 +16,27 @@
                     <tr>
                         <th>카테고리명 *</th>
                         <td>
-                            <p class="detail-data">라이프스타일</p>
+                            <p class="detail-data" id="categoryTitle"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>카테고리 아이콘 *</th>
                         <td>
                             <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                <img src="" alt="" id="categoryIcon">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>개설 가능 여부 *</th>
                         <td>
-                            <p class="detail-data">Y</p>
+                            <p class="detail-data" id="isEstablish"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>노출 여부 *</th>
                         <td>
-                            <p class="detail-data">Y</p>
+                            <p class="detail-data" id="isExposure"></p>
                         </td>
                     </tr>
                 </table>
@@ -96,9 +96,9 @@
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-outline-primary">이전</button>
-            <button type="button" class="btn btn-primary">목록</button>
-            <button type="button" class="btn btn-teal">수정</button>
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
         </div>
     </div>
 
@@ -136,4 +136,4 @@
     </div>
 
 </section>
-
+<script defer type="module" src="/assets/v2/js/category/category-detail.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -7,5 +7,6 @@
         ,mfa : rootContext + 'auth/mfa'
 
         ,listCategory : rootContext + 'category'
-
+        ,detailCategory : rootContext + 'category/detail/'
+        ,updateCategory : rootContext + 'category/update/'
     }

@@ -1,60 +1,67 @@
 
-	const categoryName 	= $("#categoryName");
-	const categoryImage	= $("#categoryImage");
-	const establish		= $("#establish");
-	const exposure		= $("#exposure");
-	const goUpdate		= $("#goUpdate");
-	const btnOpenMd		= $("#btnOpenMd");
-	/** 모달 **/
-	const keyword		= $("#keyword");
-	const btnSubmit		= $("#btnSubmit");
+	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { api } from '../modules/api-url.js';
+	import {
+		categoryTitle,
+		categoryIcon,
+		isEstablish,
+		isExposure,
+		btnBack, btnList, btnUpdate } from  '../modules/elements.js';
+	import { sweetToast } from  '../modules/alert.js';
+	import { historyBack, onErrorImage } from "../modules/common.js";
+	import { getPathName, splitReverse } from "../modules/utils.js";
+	import { label } from "../modules/label.js";
+	import { message } from "../modules/message.js";
+	import { page } from "../modules/page-url.js";
+
+	const pathName		= getPathName();
+	const categoryIdx	= splitReverse(pathName, '/');
 
 	$( () => {
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
-		categoryImage.on('error', function () { onErrorImage(this) });
-		goUpdate	 .on('click', function () { goUpdatePage(); });
+		btnBack	 .on('click', function () { historyBack(); });
+		btnList	 .on('click', function () { goListPage(); });
+		btnUpdate.on('click', function () { goUpdatePage(); });
 	});
 
 	function getDetail()
 	{
-		let url 	= api.detailDoitCategory;
-		let errMsg 	= label.detailContent+message.ajaxLoadError;
+		const url = api.detailCategory;
+		const errMsg = label.detailContent+message.ajaxLoadError;
+		const param = {
+			"idx" : categoryIdx
+		}
 
-		ajaxRequestWithJsonData(false, url, params(), getDetailCallback, errMsg, false);
-	}
-
-	function params()
-	{
-		const pathName		= getPathName();
-		const categoryIdx	= splitReverse(pathName, '/');
-
-		return JSON.stringify({"idx" : categoryIdx});
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
 	function getDetailCallback(data)
 	{
-		isSuccessResp(data) ? buildDetail(data) : sweetError(invalidResp(data));
+		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
 	}
 
 	function buildDetail(data)
 	{
-		let { category, is_blind, is_establish, icon_image_url } = data.data;
-		let imgUrl = isEmpty(icon_image_url) ? label.noImage : icon_image_url;
+		let { category_title, is_exposure, is_establish, icon_image_url } = data.data;
 
-		categoryName.html(category);
-		categoryImage.attr('src', imgUrl);
-		establish.html(is_establish);
-		exposure.html(is_blind === 'Y' ? 'N' : 'Y');
+		categoryTitle.text(category_title);
+		categoryIcon.attr('src', icon_image_url);
+		isEstablish.text(is_establish);
+		isExposure.text(is_exposure);
+
+		onErrorImage();
+	}
+
+	function goListPage()
+	{
+		location.href = page.listCategory;
 	}
 
 	function goUpdatePage()
 	{
-		const pathName	= getPathName();
-		const categoryIdx	= splitReverse(pathName, '/');
-
-		location.href = page.updateDoitCategory+categoryIdx;
+		location.href = page.updateCategory + categoryIdx;
 	}
 
 

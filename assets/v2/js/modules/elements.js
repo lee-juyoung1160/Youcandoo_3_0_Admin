@@ -25,6 +25,9 @@
     export const btnReset 	= $("#btnReset");
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
+    export const btnUpdate	= $("#btnUpdate");
+    export const btnList	= $("#btnList");
+    export const btnBack	= $("#btnBack");
 
     export const selPageLength = $("#selPageLength");
     export const dataTable     = $("#dataTable");
@@ -54,10 +57,11 @@
     export const btnSignIn    = $("#btnSignIn");
 
     /** 카테고리 **/
-    export const reorderTable   = $("#reorderTable");
-    export const btnReorder     = $("#btnReorder");
+    export const updateTable    = $("#updateTable");
     export const categoryTitle 	= $("#categoryTitle");
     export const categoryIcon	= $("#categoryIcon");
+    export const isEstablish	= $("#isEstablish");
+    export const isExposure	    = $("#isExposure");
     export const rdoEstablish	= $("input[name=radio-establish]");
     export const rdoExposure	= $("input[name=radio-exposure]");
 

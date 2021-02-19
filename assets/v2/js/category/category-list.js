@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData } from '../modules/request.js'
+	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -7,8 +7,8 @@
 		btnReset,
 		keyword,
 		dataTable,
-		reorderTable,
-		btnReorder,
+		updateTable,
+		btnUpdate,
 		modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
@@ -31,10 +31,10 @@
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
-		modalOpen		.on("click", function () { fadeinModal(); });
+		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnReorder	.on("click", function () { onSubmitReorder(); });
+		btnUpdate	.on("click", function () { onSubmitUpdate(); });
 	});
 
 	function initSearchForm()
@@ -55,7 +55,7 @@
 
 	function initTableSort()
 	{
-		reorderTable.find('tbody').sortable({
+		updateTable.find('tbody').sortable({
 			helper: function (e, el) {
 				return addAttrDragonElement(el);
 			}
@@ -129,7 +129,7 @@
 
 	function buildReOrderGrid(data)
 	{
-		reorderTable.DataTable({
+		updateTable.DataTable({
 			data: data.data,
 			columns: [
 				{title: "아이콘",    		data: "icon_image_url",  		width: "20%",
@@ -138,11 +138,9 @@
 					}
 				}
 				,{title: "카테고리명", 		data: "category_title",		width: "60%" }
-				,{title: "삭제",    			data: "",  					width: "20%",
+				,{title: "삭제",    			data: "category_uuid", 		width: "20%",
 					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red">
-									<i class="fas fa-minus-circle"></i>
-								</button>`
+						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
 					}
 				}
 			],
@@ -154,8 +152,10 @@
 			scrollCollapse: true,
 			initComplete: function () {
 				initTableSort();
+				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('data-uuid', aData.category_uuid);
 			},
 			drawCallback: function (settings) {
 				onErrorImage();
@@ -163,32 +163,75 @@
 		});
 	}
 
-	function onSubmitReorder()
+	function addDeleteEvent()
 	{
-		sweetConfirm(message.change, reorderRequest);
+		document.querySelectorAll('.delete-btn').forEach( element => element.addEventListener('click', deleteRow));
+	}
+
+	function onClickModalOpen()
+	{
+		g_delete_uuids.length = 0;
+		fadeinModal();
+	}
+
+	let g_delete_uuids = [];
+	function deleteRow()
+	{
+		$(this).closest('tr').remove();
+		g_delete_uuids.push(this.id);
+	}
+
+	function onSubmitUpdate()
+	{
+		sweetConfirm(message.change, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		if (updateValidation())
+			g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
+	}
+
+	function deleteRequest()
+	{
+		const url = api.deleteCategory;
+		const errMsg = label.delete + message.ajaxError;
+		const param = { "category_list" : g_delete_uuids };
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
+	}
+
+	function deleteCallback(data)
+	{
+		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
 	}
 
 	function reorderRequest()
 	{
-		let categories = getRowsId();
-		let param   = JSON.stringify({ "category_data" : categories });
-		let url 	= api.reorderDoitCategory;
-		let errMsg 	= label.modify+message.ajaxError;
+		const uuids = getRowsId();
+		const param = { "category_list" : uuids };
+		const url 	= api.reorderCategory;
+		const errMsg = label.modify + message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, param, reorderReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
 	}
 
 	function reorderReqCallback(data)
 	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		sweetToastAndCallback(data, reorderSuccess);
 	}
 
-	function reorderValidation()
+	function reorderSuccess()
 	{
-		let categories = getRowsId();
-		if (categories.length === 0)
+		fadeoutModal();
+		onSubmitSearch();
+	}
+
+	function updateValidation()
+	{
+		let uuids = getRowsId();
+		if (uuids.length === 0)
 		{
-			sweetToast("정렬할 카테고리가 없습니다.");
+			sweetToast("카테고리가 없습니다.");
 			return false;
 		}
 
@@ -197,16 +240,11 @@
 
 	function getRowsId()
 	{
-		let rows = reOrderTable.find('tbody').children();
-		let categories = [];
+		const rows = updateTable.find('tbody').children();
+		let uuids = [];
 
 		for (let i=0; i<rows.length; i++)
-		{
-			let category = $(rows[i]).data('category');
-			if (isEmpty(category)) continue;
+			uuids.push($(rows[i]).data('uuid'));
 
-			categories.push(category);
-		}
-
-		return categories;
+		return uuids;
 	}

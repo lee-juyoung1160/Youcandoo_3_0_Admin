@@ -1,14 +1,31 @@
+<link rel="stylesheet" href="/assets/v2/css/doit.css">
 <section class="detail-page">
     <div class="inner">
-
         <div class="main-top clearfix">
             <h2 class="main-title">홈트의 왕</h2>
+            <div class="right-wrap">
+                <button type="button" class="btn-sm btn-outline-warning">두잇오픈</button>
+                <button type="button" class="btn-sm btn-outline-danger">삭제</button>
+                <button type="button" class="btn-sm btn-outline-orange">운영정지</button>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-12">
 
-                <table class="detail-table">
+                <ul class="tab doit-detail-teb clearfix">
+                    <li class="active">두잇정보</li>
+                    <li>미션</li>
+                    <li>참여자</li>
+                    <li>리뷰</li>
+                    <li>UCD</li>
+                    <li>인증</li>
+                    <li>톡</li>
+                </ul>
+
+                <!-- s: 두잇정보 -->
+                <div class="doit-info" style="display: none;">
+                    <table class="detail-table">
                     <colgroup>
                         <col style="width: 20%;">
                         <col style="width: 80%;">
@@ -16,24 +33,23 @@
                     <tr>
                         <th>스폰서 명</th>
                         <td>
-                            <span class="detail-data">나이키 코리아</span>
+                            <p class="detail-data">나이키 코리아</p>
                         </td>
                     </tr>
                     <tr>
-                        <th>카테고리 *</th>
+                        <th>카테고리</th>
                         <td>
-                            <span class="detail-data">운동</span>
-                            <span class="detail-data">필라테스</span>
+                            <p class="detail-data">운동 - <span>필라테스</span></p>
                         </td>
                     </tr>
                     <tr>
-                        <th>두잇 소개 및 목표 *</th>
+                        <th>두잇 소개 및 목표</th>
                         <td>
-                            <span class="detail-data">코로나로 야외활동이 어려운 요즘!<br>나이키와 함께 홈트 고고</span>
+                            <p class="detail-data">코로나로 야외활동이 어려운 요즘!<br>나이키와 함께 홈트 고고</p>
                         </td>
                     </tr>
                     <tr>
-                        <th>검색 키워드 (태그) *</th>
+                        <th>검색 키워드 (태그)</th>
                         <td>
                             <ul class="tag-list clearfix">
                                 <li>
@@ -52,112 +68,95 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>공개 여부 *</th>
+                        <th>공개 여부</th>
                         <td>
-                            <span class="detail-data">멤버에게만 게시글 공개</span>
+                            <p class="detail-data">멤버에게만 게시글 공개</p>
                         </td>
                     </tr>
                     <tr>
-                        <th>가입 신청 및 질문 *</th>
+                        <th>가입 신청</th>
                         <td>
-                            <div class="detail-group">
-                                <div class="checkbox-wrap">
-                                    <input id="c1" type="checkbox" name="cb">
-                                    <label for="c1"><span></span>가입 신청 받기</label>
-                                    <i class="tooltip-mark fas fa-question-circle">
-                                        <span class="tooltip-txt">두잇 가입시 리더의 승인이 필요해요!</span>
-                                    </i>
-                                </div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="checkbox-wrap">
-                                    <input id="c2" type="checkbox" name="cb" disabled>
-                                    <label for="c2"><span></span>질문 사용</label>
-                                    <i class="tooltip-mark fas fa-question-circle">
-                                        <span class="tooltip-txt">새로운 참여자가 가입 신청시,<br>질문 할래요!</span>
-                                    </i>
-                                </div>
-                                <div class="textarea-wrap">
-                                    <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="새로운 참여자에게 물어볼 질문을 입력해주세요."></textarea>
-                                    <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
-                                </div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="checkbox-wrap">
-                                    <input id="c3" type="checkbox" name="cb" disabled>
-                                    <label for="c3"><span></span>답변 공개</label>
-                                    <i class="tooltip-mark fas fa-question-circle">
-                                        <span class="tooltip-txt">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
-                                    </i>
-                                </div>
-                            </div>
+                            <p class="detail-data">
+                                Y
+                            </p>
                         </td>
                     </tr>
                     <tr>
-                        <th>두잇 소개 이미지 *</th>
+                        <th>&nbsp;ㄴ 질문</th>
                         <td>
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
-                            </div>
-                            <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-                            <div class="detail-img-wrap">
+                            <p class="detail-data">
+                                새로운 참여자에게 물어볼 질문이 노출됩니다.<br>
+                                새로운 참여자에게 물어볼 질문이 노출됩니다.
+                                새로운 참여자에게 물어볼 질문이 노출됩니다.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;ㄴ 답변 공개</th>
+                        <td>
+                            <p class="detail-data">
+                                N
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>두잇 소개 이미지</th>
+                        <td>
+                            <div class="detail-img-wrap doit-info-img">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                             </div>
                         </td>
                     </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="right-wrap">
+                                    <button type="button" class="btn btn-teal">수정</button>
+                                </div>
+                            </td>
+                        </tr>
                 </table>
+                </div>
+                <div class="doit-mission">
+                    <div class="card detail-tit-warp clearfix">
+                        <button type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 미션 등록</button>
+                    </div>
+                    <div class="table-wrap row">
+                        <table>
+                            <thead>
+                            <colgroup>
+                                <col style="width: 40%;">
+                                <col style="width: 20%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>미션명</th>
+                                <th>기간</th>
+                                <th>참여인원</th>
+                                <th>상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a href="/v2/doit/detail">하루 한번 5분씩 영어공부</a></td>
+                                <td>2020-03-03 ~ 2020-04-04</td>
+                                <td>200</td>
+                                <td>진행중</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-primary">등록 완료</button>
+            <button type="button" class="btn btn-outline-primary">이전</button>
+            <button type="button" class="btn btn-primary">목록</button>
         </div>
     </div>
 
-    <div class="modal-wrap">
-        <div class="modal-content">
-            <div class="modal-header clearfix">
-                <h5>스폰서 검색</h5>
-                <i class="modal-close">×</i>
-            </div>
-            <div class="modal-body">
-                <div class="card clearfix">
-                    <div class="search-txt-wrap">
-                        <input type="search" placeholder="스폰서를 입력해주세요.">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                        <colgroup>
-                            <col style="width: 100%;">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>스폰서 명</th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>세리박스</td>
-                        </tr>
-                        <tr>
-                            <td>야나두</td>
-                        </tr>
-                        <tr>
-                            <td>나이키</td>
-                        </tr>
-                        <tr>
-                            <td>아디다스</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
-        <div class="modal-bg"></div>
-    </div>
 </section>
 

@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.doit-detail-teb li {
+	width: calc(100%/7);
+}
+.doit-info-img {
+	width: 320px;
+	height: 320px;
+}

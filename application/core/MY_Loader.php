@@ -45,22 +45,22 @@ class MY_Loader extends CI_Loader {
 
     public function template($template_name, $vars = array())
     {
-//        $CI =& get_instance();
-//        $SessionData = $CI->session->userdata("user_data");
-//        if(empty($SessionData))
-//        {
-//            // 재접속시 사용될 Referer Cookie Set
-//            $cookie = array(
-//                'name'   => 'referer',
-//                'value'  => uri_string(),
-//                'expire' => '300',
-//                'domain' => 'admin.youcandoo.co.kr',
-//                'path'   => '/v2'
-//            );
-//            set_cookie($cookie);
-//            redirect("/v2/main/login", "refresh");
-//            return;
-//        }
+        $CI =& get_instance();
+        $SessionData = $CI->session->userdata("user_data");
+        if(empty($SessionData))
+        {
+           // 재접속시 사용될 Referer Cookie Set
+           $cookie = array(
+               'name'   => 'referer',
+               'value'  => uri_string(),
+               'expire' => '300',
+               'domain' => 'admin.youcandoo.co.kr',
+               'path'   => '/v2'
+           );
+           set_cookie($cookie);
+           redirect("/v2/main/login", "refresh");
+           return;
+        }
 
         $this->view('/v2/layout/header',$vars);
         $this->view('/v2/layout/header_sub',$vars);

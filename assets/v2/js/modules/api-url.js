@@ -5,7 +5,10 @@
         createCategory : baseApiUrl + 'category/create',
         detailCategory : baseApiUrl + 'category/detail',
         reorderCategory : baseApiUrl + 'category/update/sequence',
-        deleteCategory : baseApiUrl + 'category/delete'
+        deleteCategory : baseApiUrl + 'category/delete',
+
+        subCategoryList : baseApiUrl + 'subcategory/list',
+        createSubCategory : baseApiUrl + 'subcategory/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

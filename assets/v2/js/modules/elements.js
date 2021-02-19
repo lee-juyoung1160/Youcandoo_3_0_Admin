@@ -26,6 +26,7 @@
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
     export const btnUpdate	= $("#btnUpdate");
+    export const btnAdd	    = $("#btnAdd");
     export const btnList	= $("#btnList");
     export const btnBack	= $("#btnBack");
 
@@ -64,5 +65,7 @@
     export const isExposure	    = $("#isExposure");
     export const rdoEstablish	= $("input[name=radio-establish]");
     export const rdoExposure	= $("input[name=radio-exposure]");
+    export const subCategoryTable = $("#subCategoryTable");
+    export const subCategoryTitle = $("#subCategoryTitle");
 
 

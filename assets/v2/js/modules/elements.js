@@ -14,12 +14,14 @@
     export const sessionDeptName = $("#sessionDeptName");
     export const environment     = $("#env");
     export const loader          = $("#loader");
+    export const btnScrollTop    = $("#btnScrollTop");
 
-    export const dayButtons = $(".day-btn li");
+    export const dateButtons = $(".date-btn .btn");
     export const datePicker = $(".datepicker");
-    export const dateFrom   = $(".date_from");
-    export const dateTo     = $(".date_to");
+    export const dateFrom   = $(".date-from");
+    export const dateTo     = $(".date-to");
     export const searchType = $("#search_type");
+    export const chkStatus  = $("input[name=chk-status]");
     export const keyword 	= $("#keyword");
     export const btnSearch 	= $("#btnSearch");
     export const btnReset 	= $("#btnReset");
@@ -31,6 +33,7 @@
     export const btnBack	= $("#btnBack");
 
     export const selPageLength = $("#selPageLength");
+    export const selSort    = $("#selSort");
     export const dataTable     = $("#dataTable");
 
     export const thumbnail    = $("#thumbnail");

@@ -2,16 +2,22 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		categoryTitle,
-		categoryIcon,
-		thumbnail,
-		rdoEstablish,
-		rdoExposure,
-		btnSubmit,
-		dataTable, lengthInput,
-	} from '../modules/elements.js';
+	categoryTitle,
+	categoryIcon,
+	thumbnail,
+	rdoEstablish,
+	rdoExposure,
+	btnSubmit,
+	dataTable, lengthInput, updateTable,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import { limitInputLength, calculateInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
+	import {
+	limitInputLength,
+	calculateInputLength,
+	onChangeValidateImage,
+	onErrorImage,
+		fadeoutModal
+	} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -108,13 +114,32 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
+				initTableSort();
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('data-uuid', aData.subcategory_uuid);
 			},
 			drawCallback: function (settings) {
 			}
 		});
+	}
+
+	function initTableSort()
+	{
+		dataTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
+	}
+
+	function addAttrDragonElement(el)
+	{
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*80)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		return $(el);
 	}
 
 	function addDeleteEvent()
@@ -145,8 +170,7 @@
 	{
 		if (updateValidation())
 		{
-			const imageFile = categoryIcon[0].files;
-			const requestFn = g_delete_uuids.length > 0 ? deleteSubCategoryRequest : imageFile.length === 0 ? updateCategoryRequest : fileUploadReq;
+			const requestFn = g_delete_uuids.length > 0 ? deleteSubCategoryRequest : reorderSubCategoryRequest
 
 			sweetConfirm(message.modify, requestFn);
 		}
@@ -155,13 +179,39 @@
 	function deleteSubCategoryRequest()
 	{
 		const url = api.deleteSubCategory;
-		const errMsg = label.delete + message.ajaxError;
+		const errMsg = `세부 카테고리 삭제 ${message.ajaxError}`;
 		const param = { "subcategory_list" : g_delete_uuids };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteSubCategoryCallback, errMsg, false)
 	}
 
 	function deleteSubCategoryCallback(data)
+	{
+		isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(data.msg);
+	}
+
+	function reorderSubCategoryRequest()
+	{
+		const subUuids = getRowsId();
+		if (subUuids.length > 0)
+		{
+			const url 	= api.reorderSubCategory;
+			const errMsg = `세부 카테고리 정렬 ${message.ajaxError}`;
+			const param = {
+				"category_uuid" : g_category_uuid,
+				"subcategory_list" : subUuids
+			};
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderSubcategoryReqCallback, errMsg, false);
+		}
+		else
+		{
+			const imageFile = categoryIcon[0].files;
+			imageFile.length === 0 ? updateCategoryRequest() : fileUploadReq();
+		}
+	}
+
+	function reorderSubcategoryReqCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
@@ -193,12 +243,7 @@
 				"title" : categoryTitle.val(),
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 				"is_establish" : $('input[name=radio-establish]:checked').val(),
-			}
-
-			if (!isEmpty(data))
-			{
-				const { file } = data.image_urls;
-				param["icon_image_url"] = file;
+				"icon_image_url" : isEmpty(data) ? "" : data.image_urls.file
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateCategoryCallback, errMsg, false);
@@ -215,6 +260,21 @@
 	function updateCategorySuccess()
 	{
 		location.href = page.detailCategory + categoryIdx;
+	}
+
+	function getRowsId()
+	{
+		const rows = dataTable.find('tbody').children();
+		let uuids = [];
+
+		for (let i=0; i<rows.length; i++)
+		{
+			let subUuid = $(rows[i]).data('uuid');
+			if (isEmpty(subUuid)) continue;
+			uuids.push(subUuid);
+		}
+
+		return uuids;
 	}
 
 

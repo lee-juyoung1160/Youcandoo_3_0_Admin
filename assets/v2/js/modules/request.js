@@ -1,3 +1,4 @@
+    import { sweetError } from "./alert.js";
 
     /**
      *  _global : 전역 이벤트 사용 여부. ajaxStart, ajaxComplete 이벤트 사용 중..(loader in, out)

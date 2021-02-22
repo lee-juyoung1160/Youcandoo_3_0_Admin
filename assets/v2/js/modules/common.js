@@ -1,5 +1,7 @@
 
-    import { modalContent, modalBackdrop, loader } from "./elements.js";
+    import {
+        modalContent, modalBackdrop, loader,
+        dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
     import { numberWithCommas, isOverFileSize } from "./utils.js";
@@ -42,6 +44,68 @@
     export function fadeoutLoader()
     {
         loader.fadeOut(100);
+    }
+
+    export function initSearchDatepicker()
+    {
+        datePicker.datepicker({
+            dateFormat: "yy-mm-dd"
+            ,monthNames: label.monthNames
+            ,dayNames: label.dayNames
+            ,dayNamesMin: label.dayNames
+        });
+    }
+
+    /** 목록페이지 > 상단검색 > 날짜 > 오늘,1주일,1개월,3개월 활성/비활성 **/
+    export function onClickDateRangeBtn(obj)
+    {
+        initDayBtn();
+
+        $(obj).addClass("active");
+
+        if ($(obj).hasClass("today"))
+            datePicker.datepicker("setDate", "today");
+        else if ($(obj).hasClass("week"))
+            initSearchDateRangeWeek();
+        else if ($(obj).hasClass("month"))
+            initSearchDateRangeMonth();
+        else if ($(obj).hasClass("months"))
+            initSearchDateRangeMonths()
+    }
+
+    export function initSearchDateRangeWeek()
+    {
+        dateFrom.datepicker("setDate", "-6D");
+        dateTo.datepicker("setDate", "today");
+    }
+
+    export function initSearchDateRangeMonth()
+    {
+        dateFrom.datepicker("setDate", "-1M");
+        dateTo.datepicker("setDate", "today");
+    }
+
+    export function initSearchDateRangeMonths()
+    {
+        dateFrom.datepicker("setDate", "-3M");
+        dateTo.datepicker("setDate", "today");
+    }
+
+    export function initMaxDateToday()
+    {
+        datePicker.datepicker("option", "minDate", "2020-07-01");
+        datePicker.datepicker("option", "maxDate", "today");
+    }
+
+    export function initMaxDateMonths()
+    {
+        datePicker.datepicker("option", "minDate", "2020-07-01");
+        datePicker.datepicker("option", "maxDate", "+3M");
+    }
+
+    export function initDayBtn()
+    {
+        dateButtons.removeClass("active");
     }
 
     export function initPageLength(_obj)

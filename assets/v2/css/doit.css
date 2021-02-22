@@ -1,9 +1,21 @@
 @charset "UTF-8";
 
+/* 두잇 상세 */
 .doit-detail-teb li {
 	width: calc(100%/7);
 }
+/* 소개 이미지 */
 .doit-info-img {
 	width: 320px;
 	height: 320px;
+}
+
+/* 참여자관리 탭 */
+.member-top {
+	margin-bottom: 30px;
+}
+.member-top a {
+	float: right;
+	color: #888;
+	font-size: 14px;
 }

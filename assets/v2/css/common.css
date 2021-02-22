@@ -109,8 +109,22 @@
 	font-size: 13px;
 }
 .title {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
+}
+.num {
+	display: block;
+	padding: 10px 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+}
+a.link {
+	text-decoration: underline;
+	font-weight: 500;
+}
+a.link:hover {
+	font-weight: 600;
+	color: #00327e;
 }
 
 /* form style */
@@ -133,6 +147,7 @@
 	margin-right: 0;
 }
 input[type="text"],
+input[type="time"],
 input[type="search"] {
 	width: 150px;
 	height: 35px;
@@ -365,6 +380,16 @@ button:hover {
 	background-color: #0052cc;
 	border-color: #004dbf;
 }
+.btn-danger {
+	color: #fff;
+	background-color: #e81500;
+	border-color: #e81500;
+}
+.btn-danger:hover {
+	color: #fff;
+	background-color: #e81500;
+	border-color: #e81500;
+}
 .btn-outline-primary {
 	color: #0061f2;
 	border-color: #0061f2;
@@ -423,6 +448,32 @@ button:hover {
 .btn-add:hover {
 	color: #fff;
 	background-image: linear-gradient(135deg, rgba(105, 0, 199, 0.8) 0%, #0061f2 100%);
+}
+
+/*badge*/
+.badge {
+	display: inline-block;
+	margin-right: 5px;
+	padding: .25em .4em;
+	font-size: 75%;
+	font-weight: 400;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .35rem;
+}
+.badge-info {
+	color: #fff;
+	background-color: #00cfd5;
+}
+.badge-success {
+	color: #fff;
+	background-color: #00ac69;
+}
+.badge-warning {
+	color: #fff;
+	background-color: #f4a100;
 }
 
 /* tool tip */
@@ -645,7 +696,7 @@ table td {
 	width: 100%;
 	height: 100vh;
 	background-color: rgba(0,0,0,.4);
-	z-index: 1000000000;
+	z-index: 1003;
 }
 .modal-content {
 	display: none;
@@ -661,7 +712,7 @@ table td {
 	-ms-transform: translate(-50%, -50%);
 	-moz-transform: translate(-50%, -50%);
 	-o-transform: translate(-50%, -50%);
-	z-index: 100000000000;
+	z-index: 1004;
 }
 .modal-header {
 	padding: 10px;
@@ -734,6 +785,9 @@ table td {
 	float: right;
 	text-align: right;
 }
+.detail-page .date-wrap input[type="text"] {
+	width: 150px;
+}
 
 .detail-table {
 	width: 100%;
@@ -762,12 +816,14 @@ table td {
 }
 .detail-tit-warp {
 	display: flex;
-	align-items: center;
+	align-content: center;
+	margin-bottom: 10px;
 }
 .detail-tit-warp .title {
 	margin-right: auto;
 }
-.detail-tit-warp .btn-add {
+.detail-tit-warp button,
+.btn-right-wrap {
 	margin-left: auto;
 }
 .detail-tit-warp .btn-add i {

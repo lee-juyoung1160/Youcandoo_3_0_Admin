@@ -3,6 +3,14 @@
     export const api = {
         categoryList : baseApiUrl + 'category/list',
         createCategory : baseApiUrl + 'category/create',
+        detailCategory : baseApiUrl + 'category/detail',
+        reorderCategory : baseApiUrl + 'category/update/sequence',
+        deleteCategory : baseApiUrl + 'category/delete',
+        updateCategory : baseApiUrl + 'category/update',
+
+        subCategoryList : baseApiUrl + 'subcategory/list',
+        createSubCategory : baseApiUrl + 'subcategory/create',
+        deleteSubCategory : baseApiUrl + 'subcategory/delete',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

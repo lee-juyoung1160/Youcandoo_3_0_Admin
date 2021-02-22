@@ -16,27 +16,27 @@
                     <tr>
                         <th>카테고리명 *</th>
                         <td>
-                            <p class="detail-data">라이프스타일</p>
+                            <p class="detail-data" id="categoryTitle"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>카테고리 아이콘 *</th>
                         <td>
                             <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                <img src="" alt="" id="categoryIcon">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>개설 가능 여부 *</th>
                         <td>
-                            <p class="detail-data">Y</p>
+                            <p class="detail-data" id="isEstablish"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>노출 여부 *</th>
                         <td>
-                            <p class="detail-data">Y</p>
+                            <p class="detail-data" id="isExposure"></p>
                         </td>
                     </tr>
                 </table>
@@ -45,11 +45,11 @@
 
                 <div class="card detail-tit-warp clearfix">
                     <p class="title">세부 카테고리</p>
-                    <button type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 세부 카테고리 등록</button>
+                    <button id="btnAdd" type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 세부 카테고리 등록</button>
                 </div>
                 <div class="table-wrap">
-                    <table>
-                        <thead>
+                    <table id="dataTable">
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 100%;">
                         </colgroup>
@@ -89,16 +89,16 @@
                         <tr>
                             <td>라이프 스타일</td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
 
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-outline-primary">이전</button>
-            <button type="button" class="btn btn-primary">목록</button>
-            <button type="button" class="btn btn-teal">수정</button>
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
         </div>
     </div>
 
@@ -118,7 +118,7 @@
                         <th>세부 카테고리명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" placeholder="세부 카테고리명을 입력해주세요." maxlength="7">
+                                <input id="subCategoryTitle" type="text" class="length-input" placeholder="세부 카테고리명을 입력해주세요." maxlength="7">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
                             </div>
                         </td>
@@ -128,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button type="button" class="btn btn-primary">등록완료</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">등록완료</button>
             </div>
         </div>
 
@@ -136,4 +136,5 @@
     </div>
 
 </section>
-
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script defer type="module" src="/assets/v2/js/category/category-detail.js?version=<?php echo $this->config->item('version');?>"></script>

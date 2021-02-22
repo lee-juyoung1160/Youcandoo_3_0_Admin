@@ -34,18 +34,18 @@ class Auth extends CI_Controller {
 
         if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
-//            alert("비밀번호가 일치하지 않습니다", "/v2/login");
+            alert("비밀번호가 일치하지 않습니다", "/v2/main/login");
             return;
         }
 
         if ($UserData->is_active == "N") {
-//            alert("로그인 할수 없습니다", "/v2/login");
+            alert("로그인 할수 없습니다", "/v2/main/login");
             return;
         }
 
         if($UserData->mfa_yn=="Y"){
             if($UserData->status=="승인대기"){
-//                alert("승인되지 않은 사용자입니다", "/v2/login");
+                alert("승인되지 않은 사용자입니다", "/v2/main/login");
                 return;
             }
             require_once APPPATH.'third_party/PHPGangsta/GoogleAuthenticator.php';

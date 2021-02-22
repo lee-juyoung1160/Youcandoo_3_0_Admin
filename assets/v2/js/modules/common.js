@@ -5,16 +5,33 @@
     import { numberWithCommas, isOverFileSize } from "./utils.js";
     import { sweetToast, sweetError } from "./alert.js";
 
+    export function historyBack()
+    {
+        history.back();
+    }
+
     export function fadeinModal()
     {
         modalContent.fadeIn();
         modalBackdrop.fadeIn();
+        overflowHidden();
     }
 
     export function fadeoutModal()
     {
         modalContent.fadeOut();
         modalBackdrop.fadeOut();
+        overflowScroll();
+    }
+
+    function overflowHidden()
+    {
+        $('body').css("overflow", "hidden");
+    }
+
+    function overflowScroll()
+    {
+        $('body').css("overflow", "scroll");
     }
 
     export function fadeinLoader()
@@ -53,6 +70,11 @@
         }
 
         $(obj).next().find(".count-input").text(inputLength);
+    }
+
+    export function calculateInputLength()
+    {
+        $(".length-input").each(function () {  limitInputLength(this); });
     }
 
     export function onErrorImage()

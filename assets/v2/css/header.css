@@ -194,6 +194,7 @@ header {
 
 /* move top */
 .move-top {
+	display: none;
 	position: fixed;
 	right: 0;
 	bottom: 100px;

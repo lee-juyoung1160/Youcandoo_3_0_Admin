@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/v2/css/auth.css?version=<?php echo $this->config->item('version');?>">
+
 <section class="detail-page">
     <div class="inner">
         <div class="main-top clearfix">
@@ -14,11 +16,11 @@
             <div class="col-12">
                 <ul class="tab doit-detail-teb clearfix">
                     <li>두잇정보</li>
-                    <li class="active">미션</li>
+                    <li>미션</li>
                     <li>참여자</li>
                     <li>리뷰</li>
                     <li>UCD</li>
-                    <li>인증</li>
+                    <li class="active">인증</li>
                     <li>톡</li>
                 </ul>
 
@@ -263,7 +265,6 @@
                         </tr>
                     </table>
                     </div>
-
                 </div>
 
                 <!-- s: 미션 -->
@@ -564,10 +565,10 @@
                 </div>
 
                 <!-- s: 참여자 -->
-                <div class="doit-member">
+                <div class="doit-member" style="display: none;">
 
                     <!-- s: 참여자 목록-->
-                    <div class="detail-list" style="display: none;">
+                    <div class="detail-list">
                         <div class="row member-top">
                             <div class="col-3">
                                 <div class="card">
@@ -642,7 +643,7 @@
                     </div>
 
                     <!-- s: 참여 대기자 목록-->
-                    <div class="detail-detail">
+                    <div class="detail-detail" style="display: none;">
                         <div class="card detail-tit-warp member-top">
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
@@ -653,51 +654,315 @@
                                     <strong class="num">501</strong>
                                 </div>
                             </div>
+                            <div class="col-9">
+                                <div class="card">
+                                    <p class="desc">가입 질문</p>
+                                    <div class="detail-data">
+                                        질무우우우눔리ㅏ너이라ㅓ니라ㅓ니ㅏ어리낭러?<br>
+                                        질무우우우눔리ㅏ너이라ㅓ니라ㅓ니ㅏ어리낭러?<br>
+                                        질무우우우눔리ㅏ너이라ㅓ니라ㅓ니ㅏ어리낭러?
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="table-wrap">
                             <div class="top clearfix">
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 가입 승인</button>
-                                    <button type="button" class="btn-sm btn-teal btn-danger"><i class="fas fa-cog"></i> 가입 거절</button>
+                                    <button type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-check-circle"></i> 가입 승인</button>
+                                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 가입 거절</button>
                                 </div>
                             </div>
                             <table>
                                 <thead>
                                 <colgroup>
-                                    <col style="width: 10%;">
-                                    <col style="width: 30%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
-                                    <col style="width: 10%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 60%;">
+                                    <col style="width: 5%;">
                                 </colgroup>
                                 <thead>
                                 <tr>
                                     <th>닉네임</th>
-                                    <th>프로필 ID</th>
-                                    <th>등급</th>
-                                    <th>누적 인증 수</th>
-                                    <th>최대 연속 인증 수</th>
-                                    <th>현재 연속 인증 수</th>
-                                    <th>가입일</th>
+                                    <th>가입 신청일</th>
+                                    <th>답변</th>
+                                    <th>
+                                        <div class="check-wrap">
+                                            <input id="c6" type="checkbox">
+                                            <label for="c6"><span></span></label>
+                                        </div>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><a href="#">베리네모카</a></td>
-                                    <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-                                    <td>부리더</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
+                                    <td>베리네모카</td>
                                     <td>2020-02-02</td>
+                                    <td>
+                                        <div class="detail-data">
+                                            답변 니ㅏㅓ린아ㅓ린아ㅓ리ㅏ어리ㅓ
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="check-wrap">
+                                            <input id="c7" type="checkbox">
+                                            <label for="c7"><span></span></label>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
+
+
+                </div>
+
+                <!-- s: 인증 -->
+                <div class="doit-auth">
+
+                    <!-- s: 인증 리스트 -->
+                    <div class="detail-list" style="display: none;">
+                        <div class="search-wrap row">
+                            <div class="col-12">
+                                <ul class="card">
+                                    <li>
+                                        <p class="search-title">날짜</p>
+                                        <div class="form-box">
+                                            <select class="select-box">
+                                                <option>등록일</option>
+                                            </select>
+                                            <div class="date-wrap">
+                                                <input type="text" class="datepicker" readonly="">
+                                                <span class="date-text"> ~ </span>
+                                                <input type="text" class="datepicker" readonly="">
+                                            </div>
+                                            <div class="date-btn">
+                                                <button type="button" class="btn">오늘</button>
+                                                <button type="button" class="btn">1주일</button>
+                                                <button type="button" class="btn">1개월</button>
+                                                <button type="button" class="btn">3개월</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="search-wrap row">
+                            <div class="col-4">
+                                <div class="card clearfix">
+                                    <p class="search-title">미션명</p>
+                                    <select class="select-box mission">
+                                        <option>전체</option>
+                                        <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
+                                        <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
+                                        <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
+                                        <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card clearfix">
+                                    <p class="search-title">인증 상태</p>
+                                    <div class="checkbox-wrap">
+                                        <input id="c10" type="checkbox" name="cb">
+                                        <label for="c10"><span></span>성공</label>
+
+                                        <input id="c11" type="checkbox" name="cb">
+                                        <label for="c11"><span></span>실패</label>
+
+                                        <input id="c12" type="checkbox" name="cb">
+                                        <label for="c12"><span></span>신고</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-btn row">
+                            <button type="submit" class="btn btn-primary">검색</button>
+                            <button type="reset" class="btn btn-outline-primary">초기화</button>
+                        </div>
+                        <div class="table-wrap auth-list">
+                            <div class="top clearfix">
+                                <div class="left-wrap clearfix">
+                                    <div class="form-box">
+                                        <p>Total <strong class="data-num">238</strong></p>
+                                    </div>
+                                </div>
+                                <div class="btn-wrap">
+                                    <button type="button" class="btn-sm btn-danger modal-btn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 auth-item">
+                                    <div class="card">
+                                        <div class="top clearfix">
+                                            <div class="checkbox-wrap">
+                                                <input id="c15" type="checkbox" name="cb">
+                                                <label for="c15"><span></span></label>
+                                            </div>
+                                            <div class="right-wrap">
+                                                <span><i class="fas fa-heart"></i> 111</span>
+                                                <span><i class="fas fa-comment"></i> 44</span>
+                                            </div>
+                                        </div>
+                                        <div class="img-wrap">
+                                            <img src="/assets/v2/img/profile-1.png" alt="">
+                                        </div>
+                                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                                        <span class="date">2020-02-02</span>
+                                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- s: 인증 상세 -->
+                    <div class="detail-detail">
+                        <table class="detail-table">
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                            </colgroup>
+                            <tr>
+                                <th>작성자</th>
+                                <td colspan="3">
+                                    <p class="detail-data">유캔두</p>
+                                </td>
+                                <td colspan="2">
+                                    <div class="right-wrap">
+                                        <button type="button" class="btn-sm btn-warning"><i class="fas fa-arrow-up"></i>인증 끌올</button>
+                                        <button type="button" class="btn-sm btn-danger"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>작성일자</th>
+                                <td>
+                                    <p class="detail-data">2020-02-02</p>
+                                </td>
+                                <th>좋아요</th>
+                                <td>
+                                    <p class="detail-data">111</p>
+                                </td>
+                                <th>댓글 수</th>
+                                <td>
+                                    <p class="detail-data">111</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인증</th>
+                                <td colspan="5">
+                                    <div class="detail-img-wrap doit-info-img">
+                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="comment-wrap row">
+                            <div class="col-8">
+                                <div class="card">
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-danger">삭제</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                    <div class="bottom">
+                                        <span><i class="fas fa-heart"></i> 111</span>
+                                        <span><i class="fas fa-comments"></i> 111</span>
+                                        <a href="#" class="link">답글달기</a>
+                                    </div>
+
+                                    <div class="comments-wrap">
+                                        <ul>
+                                            <li>
+                                                <div class="top clearfix">
+                                                    <p class="title">
+                                                        ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                                    </p>
+                                                </div>
+                                                <div class="detail-data">
+                                                    대박사건... 인증계를 뒤집어놓으셨다...!
+                                                </div>
+                                                <div class="img-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="top clearfix">
+                                                    <p class="title">
+                                                        ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                                    </p>
+                                                </div>
+                                                <div class="detail-data">
+                                                    대박사건... 인증계를 뒤집어놓으셨다...!
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                            </div>
+                            </div>
+
+                            <div class="col-4 comment-creat">
+                                <div class="card clearfix">
+                                    <p class="title">댓글달기</p>
+                                </div>
+                                <table class="detail-table">
+                                        <colgroup>
+                                            <col style="width: 20%;">
+                                            <col style="width: 70%;">
+                                        </colgroup>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="textarea-wrap">
+                                                    <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                    <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                첨부파일
+                                            </th>
+                                            <td>
+                                                <div class="file-wrap preview-image">
+                                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                                    <label for="categoryImage">업로드</label>
+                                                    <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                                </div>
+                                                <div class="detail-img-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="right-wrap">
+                                                    <button type="button" class="btn-sm btn-primary">등록</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -753,6 +1018,36 @@
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
                 <button id="btnReorder" type="button" class="btn btn-danger">강퇴</button>
+            </div>
+        </div>
+        <div class="modal-bg"></div>
+
+        <!-- 인증 탭 - 경고장 발송 버튼 클릭 시 오픈 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>경고장발송</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 75%;">
+                    </colgroup>
+                    <tr>
+                        <th>발송사유</th>
+                        <td>
+                            <select class="select-box">
+                                <option>경고장 발송 사유가 들어가는 자리입니다.</option>
+                                <option>경고장 발송 사유가 들어가는 자리입니다.</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnReorder" type="button" class="btn btn-danger">발송</button>
             </div>
         </div>
         <div class="modal-bg"></div>

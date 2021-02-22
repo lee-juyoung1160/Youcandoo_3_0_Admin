@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+/* 인증리스트 */
+.doit-auth .select-box.mission {
+	width: 440px;
+}
+.auth-item .card {
+	position: relative;
+	padding-bottom: 30px;
+}
+.auth-item .red-card {
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
+	width: 30px;
+	height: 42px;
+}
+.auth-item .top .checkbox-wrap {
+	float: left;
+}
+.auth-item .top .right-wrap {
+	color: #999;
+	font-size: 13px;
+}
+.auth-item .top .right-wrap span {
+	display: inline-block;
+	padding: 0 2px;
+}
+.auth-item .img-wrap {
+	margin: 5px 0;
+	cursor: pointer;
+}
+.auth-item .nick-name {
+	display: block;
+	margin: 10px 0;
+	color: #666;
+}
+.auth-item .date {
+	color: #aaa;
+}
+
+/* 인증, 톡 상세 */
+.comment-wrap {
+	margin-top: 30px;
+}
+.comment-wrap .title {
+	float: left;
+}
+.comment-wrap .desc-sub {
+	color: #999;
+	font-weight: 500;
+}
+.comment-wrap .detail-data {
+	padding: 10px 0;
+}
+.comment-wrap .img-wrap {
+	width: 100px;
+}
+.comment-wrap .bottom {
+	margin-top: 15px;
+	padding-top: 10px;
+	border-top: 1px solid #f3f3f3;
+}
+.comment-wrap .bottom {}
+/* 우측 댓글 달기 창 */
+.comment-creat .detail-table {
+	margin-top: 10px;
+}
+/* 답글 */
+.comments-wrap {
+	margin-top: 15px;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border-radius: 3px;
+}
+.comments-wrap ul li {
+	padding: 10px 0;
+	border-bottom: 1px solid #f1f1f1;
+}
+

@@ -99,7 +99,7 @@
 	border-radius: 5px;
 }
 .desc {
-	color: #666;
+	color: #888;
 	font-size: 15px;
 	font-weight: 500;
 }
@@ -237,6 +237,11 @@ textarea {
 .textarea-wrap {
 	width: 100%;
 }
+.textarea-wrap:after {
+	display: block;
+	clear: both;
+	content: '';
+}
 .textarea-wrap .length-count-wrap {
 	float: right;
 	margin-top: 10px;
@@ -351,6 +356,9 @@ button:hover {
 	color: #00327e;
 	background-color: #ccdffc;
 }
+button i {
+	margin-right: 5px;
+}
 .btn {
 	margin-right: 5px;
 	padding: 13px 25px;
@@ -389,6 +397,24 @@ button:hover {
 	color: #fff;
 	background-color: #e81500;
 	border-color: #e81500;
+}
+.btn-warning {
+	color: #fff;
+	background-color: #f4a100;
+}
+.btn-warning:hover {
+	color: #fff;
+	background-color: #f4a100;
+}
+.btn-success {
+	color: #fff;
+	background-color: #00ac69;
+	border-color: #00ac69;
+}
+.btn-success:hover {
+	color: #fff;
+	background-color: #00ac69;
+	border-color: #00ac69;
 }
 .btn-outline-primary {
 	color: #0061f2;
@@ -588,7 +614,7 @@ h2.main-title {
 	background-color: #eff3f9;
 }
 .date-btn .btn:hover,
-.date-btn .btn:active {
+.date-btn .btn.active {
 	color: #00327e;
 	background-color: #ccdffc;
 }
@@ -737,6 +763,9 @@ table td {
 .modal-body {
 	padding: 15px 10px;
 	background-color: #f2f6fc;
+}
+.modal-body .select-box {
+	width: 100%;
 }
 .modal-footer {
 	padding: 10px 0;

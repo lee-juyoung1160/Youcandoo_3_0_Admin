@@ -14,6 +14,7 @@
     export const sessionDeptName = $("#sessionDeptName");
     export const environment     = $("#env");
     export const loader          = $("#loader");
+    export const btnScrollTop    = $("#btnScrollTop");
 
     export const dateButtons = $(".date-btn .btn");
     export const datePicker = $(".datepicker");

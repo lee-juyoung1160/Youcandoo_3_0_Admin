@@ -1,16 +1,30 @@
     import { api } from './modules/api-url.js';
     import { ajaxRequestWithJsonData } from './modules/request.js';
-    import { btnMenuToggle, mainMenu, subMenu, section, sideBar } from "./modules/elements.js";
+    import { btnMenuToggle, mainMenu, subMenu, section, sideBar, btnScrollTop } from "./modules/elements.js";
     import { getPathName } from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";
 
+    $(window)       .on("scroll", function () { toggleScrollTopButton(); });
     $(document)     .ajaxStart(function () { fadeinLoader(); });
     $(document)     .ajaxComplete(function () { fadeoutLoader(); });
-    btnMenuToggle  .on('click', function () { toggleSideMenu(this); });
-    mainMenu       .on('click', function () { onClickMainMenu(this); });
-    subMenu        .on('click', function () { onClickSubMenu(this); });
+    btnScrollTop    .on("click", function () { moveScrollTop(this); });
+    btnMenuToggle   .on('click', function () { toggleSideMenu(this); });
+    mainMenu        .on('click', function () { onClickMainMenu(this); });
+    subMenu         .on('click', function () { onClickSubMenu(this); });
     activeMenu();
 
+    function toggleScrollTopButton()
+    {
+        let sectionHeight = $("section").height() * 0.15;
+        let top = $(window).scrollTop();
+
+        top > sectionHeight ? btnScrollTop.fadeIn() : btnScrollTop.fadeOut();
+    }
+
+    function moveScrollTop()
+    {
+        $("html, body").animate({ scrollTop : 0 }, 400);
+    }
 
     function onClickMainMenu(obj)
     {

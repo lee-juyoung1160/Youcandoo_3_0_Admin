@@ -1,7 +1,7 @@
 
     import {
         modalContent, modalBackdrop, loader,
-        dateButtons, datePicker, dateFrom, dateTo } from "./elements.js";
+        dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
     import { numberWithCommas, isOverFileSize } from "./utils.js";

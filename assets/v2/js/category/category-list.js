@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -17,8 +17,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-
-	/** 모달 **/
+	import {isEmpty} from "../modules/utils";
 
 	$( () => {
 		/** dataTable default config **/
@@ -197,6 +196,7 @@
 		const url = api.deleteCategory;
 		const errMsg = label.delete + message.ajaxError;
 		const param = { "category_list" : g_delete_uuids };
+
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
 	}
 
@@ -244,7 +244,11 @@
 		let uuids = [];
 
 		for (let i=0; i<rows.length; i++)
-			uuids.push($(rows[i]).data('uuid'));
+		{
+			let uuid = $(rows[i]).data('uuid');
+			if (isEmpty(uuid)) continue;
+			uuids.push(uuid);
+		}
 
 		return uuids;
 	}

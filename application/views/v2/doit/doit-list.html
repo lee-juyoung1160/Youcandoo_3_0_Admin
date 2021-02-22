@@ -17,15 +17,15 @@
                                 <option>오픈일</option>
                             </select>
                             <div class="date-wrap">
-                                <input type="text" class="datepicker" readonly="">
+                                <input type="text" class="datepicker date-from" readonly>
                                 <span class="date-text"> ~ </span>
-                                <input type="text" class="datepicker" readonly="">
+                                <input type="text" class="datepicker date-to" readonly>
                             </div>
                             <div class="date-btn">
-                                <button type="button" class="btn">오늘</button>
-                                <button type="button" class="btn">1주일</button>
-                                <button type="button" class="btn">1개월</button>
-                                <button type="button" class="btn">3개월</button>
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
                             </div>
                         </div>
                     </li>
@@ -33,11 +33,11 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select class="select-box">
-                                <option>두잇명</option>
-                                <option>개설자</option>
+                                <option value="doit_title">두잇명</option>
+                                <option value="nickname">개설자</option>
                             </select>
                             <div class="search-txt-wrap">
-                                <input type="search" placeholder="검색어를 입력해주세요.">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
@@ -51,16 +51,16 @@
                 <div class="card clearfix">
                     <p class="search-title">두잇 상태</p>
                     <div class="checkbox-wrap">
-                        <input id="c1" type="checkbox" name="cb">
+                        <input id="c1" type="checkbox" name="chk-status">
                         <label for="c1"><span></span>생성</label>
 
-                        <input id="c2" type="checkbox" name="cb">
+                        <input id="c2" type="checkbox" name="chk-status">
                         <label for="c2"><span></span>진행중</label>
 
-                        <input id="c3" type="checkbox" name="cb">
+                        <input id="c3" type="checkbox" name="chk-status">
                         <label for="c3"><span></span>운영정지</label>
 
-                        <input id="c4" type="checkbox" name="cb">
+                        <input id="c4" type="checkbox" name="chk-status">
                         <label for="c4"><span></span>삭제</label>
                     </div>
                 </div>
@@ -80,24 +80,18 @@
         </div>
 
         <div class="search-btn row">
-            <button type="submit" class="btn btn-primary">검색</button>
-            <button type="reset" class="btn btn-outline-primary">초기화</button>
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
         </div>
 
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">238</strong></p>
-                        <select class="select-box">
-                            <option>10개씩 보기</option>
-                            <option>30개씩 보기</option>
-                            <option>50개씩 보기</option>
-                            <option>100개씩 보기</option>
-                            <option>500개씩 보기</option>
-                            <option>1000개씩 보기</option>
+                        <p>Total <strong class="data-num">0</strong></p>
+                        <select id="selPageLength" class="select-box">
                         </select>
-                        <select class="select-box">
+                        <select id="selSort" class="select-box">
                             <option>생성일 최신 순</option>
                             <option>오픈일 최신 순</option>
                         </select>
@@ -154,4 +148,5 @@
         </div>
     </div>
 </section>
-
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/doit/doit-list.js?version=<?php echo $this->config->item('version');?>"></script>

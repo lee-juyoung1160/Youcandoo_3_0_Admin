@@ -9,4 +9,8 @@
         ,listCategory : rootContext + 'category'
         ,detailCategory : rootContext + 'category/detail/'
         ,updateCategory : rootContext + 'category/update/'
+
+        ,listDoit : rootContext + 'doit'
+        ,detailDoit : rootContext + 'doit/detail/'
+        ,updateDoit : rootContext + 'doit/update/'
     }

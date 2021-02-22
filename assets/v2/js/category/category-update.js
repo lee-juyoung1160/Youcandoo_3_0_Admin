@@ -274,7 +274,6 @@
 			uuids.push(subUuid);
 		}
 
-
 		return uuids;
 	}
 

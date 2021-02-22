@@ -12,6 +12,8 @@
         createSubCategory : baseApiUrl + 'subcategory/create',
         deleteSubCategory : baseApiUrl + 'subcategory/delete',
         reorderSubCategory : baseApiUrl + 'subcategory/update/sequence',
+
+        doitList : baseApiUrl + 'doit/list',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

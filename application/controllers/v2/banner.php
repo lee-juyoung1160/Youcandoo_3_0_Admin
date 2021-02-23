@@ -14,5 +14,3 @@ class Banner extends MY_Controller {
 
 
 }
-
-

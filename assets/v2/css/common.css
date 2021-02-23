@@ -249,7 +249,7 @@ textarea {
 
 /* 태그 */
 .tag-wrap input[type="text"] {
-	width: 180px !important;
+	width: 280px !important;
 }
 .tag-wrap .input-wrap {
 	margin-bottom: 5px;
@@ -515,6 +515,7 @@ button i {
 	position: relative;
 	color: #777;
 	font-size: 17px;
+	z-index: 100;
 }
 .tooltip-txt {
 	display: none;

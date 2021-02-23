@@ -74,7 +74,7 @@
 	{
 		const url = api.categoryList;
 		const errMsg = label.list + message.ajaxLoadError
-		let param = {
+		const param = {
 			"keyword" : keyword.val().trim()
 		}
 
@@ -86,10 +86,15 @@
 
 	function getCategoryListSuccess(data)
 	{
-		data.recordsTotal = data.count;
-		data.recordsFiltered = data.count;
-		buildGrid(data);
-		buildReOrderGrid(data);
+		if (isSuccessResp(data))
+		{
+			data.recordsTotal = data.count;
+			data.recordsFiltered = data.count;
+			buildGrid(data);
+			buildReOrderGrid(data);
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function buildGrid(data)
@@ -97,7 +102,7 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "아이콘",    		data: "icon_image_url",  	width: "15%",
+				{title: "아이콘",    			data: "icon_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
@@ -109,7 +114,7 @@
 					}
 				}
 				,{title: "개설가능여부",    	data: "is_establish",  		width: "15%" }
-				,{title: "노출여부",    		data: "is_exposure",  			width: "15%" }
+				,{title: "노출여부",    		data: "is_exposure",  		width: "15%" }
 			],
 			serverSide: false,
 			paging: false,
@@ -131,13 +136,13 @@
 		updateTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "아이콘",    		data: "icon_image_url",  		width: "20%",
+				{title: "아이콘",    		data: "icon_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "카테고리명", 		data: "category_title",		width: "60%" }
-				,{title: "삭제",    			data: "category_uuid", 		width: "20%",
+				,{title: "카테고리명", 	data: "category_title",		width: "60%" }
+				,{title: "삭제",    		data: "category_uuid", 		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
 					}

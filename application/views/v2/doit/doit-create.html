@@ -16,17 +16,16 @@
                     <tr>
                         <th>스폰서 명 *</th>
                         <td>
-                            <input type="text" class="modal-btn" placeholder="클릭 후 스폰서명을 선택해주세요." readonly>
+                            <input id="sponsorTitle" type="text" class="modal-btn" placeholder="클릭 후 스폰서명을 선택해주세요." readonly>
+                            <input id="sponsorUuid" type="hidden">
                         </td>
                     </tr>
                     <tr>
                         <th>카테고리 *</th>
                         <td>
-                            <select class="select-box">
-                                <option>카테고리</option>
+                            <select id="selCategory" class="select-box">
                             </select>
-                            <select class="select-box">
-                                <option>서브카테고리</option>
+                            <select id="selSubcategory" class="select-box">
                             </select>
                         </td>
                     </tr>
@@ -34,7 +33,7 @@
                         <th>두잇명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="categoryName" type="text" class="length-input" maxlength="30" placeholder="두잇명을 입력해주세요.">
+                                <input id="doitTitle" type="text" class="length-input" maxlength="30" placeholder="두잇명을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
@@ -43,7 +42,7 @@
                         <th>두잇 소개 및 목표 *</th>
                         <td>
                             <div class="textarea-wrap">
-                                <textarea id="exampleDesc" class="length-input" maxlength="1000" rows="4"></textarea>
+                                <textarea id="doitDesc" class="length-input" maxlength="1000" rows="4"></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/1000</p>
                             </div>
                         </td>
@@ -58,13 +57,13 @@
                         <td>
                             <div class="tag-wrap">
                                 <div class="input-wrap">
-                                    <input id="categoryName" type="text" class="length-input" maxlength="14">
+                                    <input id="doitKeyword" type="text" class="length-input" maxlength="14">
                                     <p class="length-count-wrap"><span class="count-input">0</span>/14</p>
                                 </div>
-                                <button type="button" class="btn-sm">추가</button>
+                                <button id="btnAdd" type="button" class="btn-sm">추가</button>
                             </div>
-                            <ul class="tag-list clearfix">
-                                <li>
+                            <ul class="tag-list clearfix" id="doitKeywords">
+                                <!--<li>
                                     #
                                     <span>자전거</span>
                                     <button class="btn-i"><i class="fas fa-times-circle"></i></button>
@@ -78,7 +77,7 @@
                                     #
                                     <span>요가</span>
                                     <button class="btn-i"><i class="fas fa-times-circle"></i></button>
-                                </li>
+                                </li>-->
                             </ul>
                         </td>
                     </tr>
@@ -86,13 +85,13 @@
                         <th>공개 여부 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio">
+                                <input id="r1" type="radio" name="radio-public-type" value="public" checked>
                                 <label for="r1"><span></span>전체공개</label>
 
-                                <input  id="r2" type="radio" name="radio">
+                                <input  id="r2" type="radio" name="radio-public-type" value="member">
                                 <label for="r2"><span></span>멤버에게만 게시글 공개</label>
 
-                                <input  id="r3" type="radio" name="radio">
+                                <input  id="r3" type="radio" name="radio-public-type" value="private">
                                 <label for="r3"><span></span>비공개</label>
                             </div>
                         </td>
@@ -102,7 +101,7 @@
                         <td>
                             <div class="detail-group">
                                 <div class="checkbox-wrap">
-                                    <input id="c1" type="checkbox" name="cb">
+                                    <input id="c1" type="checkbox" name="chk-is-apply">
                                     <label for="c1"><span></span>가입 신청 받기</label>
                                     <i class="tooltip-mark fas fa-question-circle">
                                         <span class="tooltip-txt">두잇 가입시 리더의 승인이 필요해요!</span>
@@ -111,20 +110,20 @@
                             </div>
                             <div class="detail-group">
                                 <div class="checkbox-wrap">
-                                    <input id="c2" type="checkbox" name="cb" disabled>
+                                    <input id="c2" type="checkbox" name="chk-is-qeustion" disabled>
                                     <label for="c2"><span></span>질문 사용</label>
                                     <i class="tooltip-mark fas fa-question-circle">
                                         <span class="tooltip-txt">새로운 참여자가 가입 신청시,<br>질문 할래요!</span>
                                     </i>
                                 </div>
-                                <div class="textarea-wrap">
-                                    <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="새로운 참여자에게 물어볼 질문을 입력해주세요."></textarea>
+                                <div class="textarea-wrap" style="display: none;">
+                                    <textarea id="doitQuestion" class="length-input" maxlength="100" rows="4" placeholder="새로운 참여자에게 물어볼 질문을 입력해주세요."></textarea>
                                     <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                 </div>
                             </div>
                             <div class="detail-group">
                                 <div class="checkbox-wrap">
-                                    <input id="c3" type="checkbox" name="cb" disabled>
+                                    <input id="c3" type="checkbox" name="chk-is-answer" disabled>
                                     <label for="c3"><span></span>답변 공개</label>
                                     <i class="tooltip-mark fas fa-question-circle">
                                         <span class="tooltip-txt">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
@@ -139,19 +138,19 @@
                             <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                <label for="doitImage">업로드</label>
+                                <input type="file" id="doitImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                             </div>
-                            <div class="detail-img-wrap">
+                            <!--<div class="detail-img-wrap">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
+                            </div>-->
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-primary">등록 완료</button>
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
         </div>
     </div>
 
@@ -164,13 +163,13 @@
             <div class="modal-body">
                 <div class="card clearfix">
                     <div class="search-txt-wrap">
-                        <input type="search" placeholder="스폰서를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="스폰서를 입력해주세요.">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
                 <div class="table-wrap">
-                    <table>
-                        <thead>
+                    <table id="dataTable">
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 100%;">
                         </colgroup>
@@ -191,7 +190,7 @@
                         <tr>
                             <td>아디다스</td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>
@@ -200,4 +199,6 @@
         <div class="modal-bg"></div>
     </div>
 </section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/doit/doit-create.js?version=<?php echo $this->config->item('version');?>"></script>
 

@@ -13,10 +13,13 @@
         deleteSubCategory : baseApiUrl + 'subcategory/delete',
         reorderSubCategory : baseApiUrl + 'subcategory/update/sequence',
 
+        doitSponsorList : baseApiUrl + 'doit/get/company',
         doitList : baseApiUrl + 'doit/list',
+        createDoit : baseApiUrl + 'doit/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
+    //const fileUploadBaseUrl = 'https://adminupload.youcandoo.co.kr/file/upload/';
     export const fileApi = {
         single : fileUploadBaseUrl+'single'
         ,event : fileUploadBaseUrl+'event'

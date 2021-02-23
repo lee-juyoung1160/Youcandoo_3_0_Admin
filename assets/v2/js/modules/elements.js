@@ -73,4 +73,19 @@
     export const subCategoryTable = $("#subCategoryTable");
     export const subCategoryTitle = $("#subCategoryTitle");
 
+    /** 두잇 **/
+    export const sponsorTitle   = $("#sponsorTitle");
+    export const sponsorUuid    = $("#sponsorUuid");
+    export const selCategory    = $("#selCategory");
+    export const selSubcategory = $("#selSubcategory");
+    export const doitTitle      = $("#doitTitle");
+    export const doitKeyword    = $("#doitKeyword");
+    export const doitDesc       = $("#doitDesc");
+    export const rdoPublicType  = $("input[name=radio-public-type]");
+    export const chkIsApply     = $("input[name=chk-is-apply]");
+    export const chkIsAnswer    = $("input[name=chk-is-answer]");
+    export const chkIsQuestion  = $("input[name=chk-is-qeustion]");
+    export const doitQuestion   = $("#doitQuestion");
+    export const doitImage      = $("#doitImage");
+    export const doitKeywords   = $("#doitKeywords");
 

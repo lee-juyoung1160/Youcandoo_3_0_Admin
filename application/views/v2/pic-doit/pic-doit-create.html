@@ -1,0 +1,71 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">배너 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>배너명 *</th>
+                        <td>
+                            <input id="" type="text" class="length-input" placeholder="배너명을 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 타입</th>
+                        <td>
+                            <select class="select-box">
+                                <option>이벤트</option>
+                                <option>공지사항</option>
+                                <option>웹뷰(웹 URL)</option>
+                                <option>두잇</option>
+                            </select>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 URL</th>
+                        <td>
+                            <input id="" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 기간 *</th>
+                        <td>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker">
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>배너 이미지 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 640 x 320 )</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="categoryIcon">업로드</label>
+                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="640" data-height="320" data-oper="eq">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="" alt="">
+                            </div>-->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+</section>
+<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
+

@@ -732,10 +732,14 @@ table td {
 }
 .table-wrap .list-img-wrap {
 	overflow: hidden;
-	width: 35px;
-	height: 35px;
+	width: 40px;
+	height: auto;
 	margin: 0px auto;
 	border: 1px solid #f1f1f1;
+}
+.table-wrap .banner-img-wrap {
+	width: 100px;
+	height: auto;
 }
 
 /*순서변경 테이블*/

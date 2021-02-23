@@ -6,30 +6,6 @@
             <a href="/v2/banner/create"><i class="fas fa-plus"></i>배너 등록</a>
         </div>
 
-        <div class="search-wrap row">
-            <div class="col-12">
-                <ul class="card">
-                    <li>
-                        <p class="search-title">검색어</p>
-                        <div class="form-box clearfix">
-                            <select class="select-box">
-                                <option>카테고리명</option>
-                            </select>
-                            <div class="search-txt-wrap">
-                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
-                                <i class="fas fa-search"></i>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="search-btn row">
-            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
-            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
-        </div>
-
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
@@ -38,67 +14,46 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 카테고리 수정</button>
+                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 배너 수정</button>
                 </div>
             </div>
             <table id="dataTable">
-                <!--<thead>
                 <colgroup>
                     <col style="width: 15%;">
-                    <col style="width: 40%;">
+                    <col style="width: 25%;">
                     <col style="width: 15%;">
-                    <col style="width: 15%;">
+                    <col style="width: 45%;">
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>아이콘</th>
-                    <th>카테고리명</th>
-                    <th>개설가능여부</th>
-                    <th>노출여부</th>
+                    <th>이미지</th>
+                    <th>배너명</th>
+                    <th>노출 기간</th>
+                    <th>이동 페이지</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>
-                        <div class="list-img-wrap">
+                        <div class="list-img-wrap banner-img-wrap">
                             <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                         </div>
                     </td>
-                    <td><a href="/v2/category/detail">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
+                    <td>배너제목입니다아앙아아아앙</td>
+                    <td>2020-04-04 ~ 2020-05-05</td>
+                    <td>www.wwww.www/www</td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="list-img-wrap">
+                        <div class="list-img-wrap banner-img-wrap">
                             <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                         </div>
                     </td>
-                    <td><a href="/v2/category/detail">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
+                    <td>배너제목입니다아앙아아아앙</td>
+                    <td>2020-04-04 ~ 2020-05-05</td>
+                    <td>www.wwww.www/www</td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="list-img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                        </div>
-                    </td>
-                    <td><a href="/v2/category/detail">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                        </div>
-                    </td>
-                    <td><a href="/v2/category/detail">라이프 스타일</a></td>
-                    <td>Y</td>
-                    <td>N</td>
-                </tr>
-                </tbody>-->
+                </tbody>
             </table>
         </div>
     </div>
@@ -106,7 +61,7 @@
     <div class="modal-wrap">
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h5>카테고리 수정</h5>
+                <h5>배너 수정</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
@@ -117,11 +72,11 @@
                 </div>
                 <div class="table-wrap">
                     <table class="order-table" id="updateTable">
-                        <!--<thead>
+                        <thead>
                         <colgroup>
                             <col style="width: 20%;">
-                            <col style="width: 60%;">
-                            <col style="width: 20%;">
+                            <col style="width: 70%;">
+                            <col style="width: 10%;">
                         </colgroup>
                         <thead>
                         <tr>
@@ -133,11 +88,11 @@
                         <tbody>
                         <tr>
                             <td>
-                                <div class="list-img-wrap">
+                                <div class="list-img-wrap banner-img-wrap">
                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                 </div>
                             </td>
-                            <td>라이프 스타일</td>
+                            <td>배너명입니다.</td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
@@ -146,11 +101,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="list-img-wrap">
+                                <div class="list-img-wrap banner-img-wrap">
                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                 </div>
                             </td>
-                            <td>라이프 스타일</td>
+                            <td>배너명입니다.</td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
@@ -159,11 +114,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="list-img-wrap">
+                                <div class="list-img-wrap banner-img-wrap">
                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                 </div>
                             </td>
-                            <td>라이프 스타일</td>
+                            <td>배너명입니다.</td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
@@ -172,18 +127,31 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="list-img-wrap">
+                                <div class="list-img-wrap banner-img-wrap">
                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                 </div>
                             </td>
-                            <td>라이프 스타일</td>
+                            <td>배너명입니다.</td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
                                 </button>
                             </td>
                         </tr>
-                        </tbody>-->
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -196,8 +164,6 @@
         <div class="modal-bg"></div>
     </div>
 
-</section>
-<script src="/assets/v2/js/plugins/jquery.ui.touch-punch.min.js"></script>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/category/category-list.js?version=<?php echo $this->config->item('version');?>"></script>
 
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

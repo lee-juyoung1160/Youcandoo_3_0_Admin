@@ -2,7 +2,7 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">카테고리 등록</h2>
+            <h2 class="main-title">배너 등록</h2>
         </div>
 
         <div class="row">
@@ -14,50 +14,49 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
-                        <th>카테고리명 *</th>
+                        <th>배너명 *</th>
                         <td>
-                            <div class="input-wrap">
-                                <input id="categoryTitle" type="text" class="length-input" placeholder="카테고리명을 입력해주세요." maxlength="7">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
+                            <input id="" type="text" class="length-input" placeholder="배너명을 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 타입</th>
+                        <td>
+                            <select class="select-box">
+                                <option>이벤트</option>
+                                <option>공지사항</option>
+                                <option>웹뷰(웹 URL)</option>
+                                <option>두잇</option>
+                            </select>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 URL</th>
+                        <td>
+                            <input id="" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 기간 *</th>
+                        <td>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker">
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker">
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>카테고리 아이콘 *</th>
+                        <th>배너 이미지 *</th>
                         <td>
-                            <p class="desc-sub">( 이미지 크기 : 120 x 120 )</p>
+                            <p class="desc-sub">( 이미지 크기 : 640 x 320 )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="categoryIcon">업로드</label>
-                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="120" data-height="120" data-oper="eq">
+                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="640" data-height="320" data-oper="eq">
                             </div>
                             <!--<div class="detail-img-wrap">
                                 <img src="" alt="">
                             </div>-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>개설 가능 여부 *</th>
-                        <td>
-                            <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio-establish" value="Y" checked>
-                                <label for="r1"><span></span>Y</label>
-
-                                <input  id="r2" type="radio" name="radio-establish" value="N">
-                                <label for="r2"><span></span>N</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>노출 여부 *</th>
-                        <td>
-                            <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
-                                <label for="r3"><span></span>Y</label>
-
-                                <input  id="r4" type="radio" name="radio-exposure" value="N">
-                                <label for="r4"><span></span>N</label>
-                            </div>
                         </td>
                     </tr>
                 </table>

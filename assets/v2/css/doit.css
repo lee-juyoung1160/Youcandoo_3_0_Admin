@@ -19,3 +19,12 @@
 	color: #888;
 	font-size: 14px;
 }
+.doit-member .line-clamp-2 {
+	width: 900px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-decoration: underline;
+	cursor: pointer;
+}

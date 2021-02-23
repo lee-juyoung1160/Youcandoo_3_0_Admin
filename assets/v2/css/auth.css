@@ -43,6 +43,9 @@
 .comment-wrap {
 	margin-top: 30px;
 }
+.comment-list .card {
+	margin-bottom: 20px;
+}
 .comment-wrap .title {
 	float: left;
 }
@@ -57,11 +60,14 @@
 	width: 100px;
 }
 .comment-wrap .bottom {
+	position: relative;
 	margin-top: 15px;
 	padding-top: 10px;
 	border-top: 1px solid #f3f3f3;
 }
-.comment-wrap .bottom {}
+.comment-wrap .bottom span {
+	margin-right: 10px;
+}
 /* 우측 댓글 달기 창 */
 .comment-creat .detail-table {
 	margin-top: 10px;
@@ -76,5 +82,12 @@
 .comments-wrap ul li {
 	padding: 10px 0;
 	border-bottom: 1px solid #f1f1f1;
+}
+/* 답글 달기 창 */
+.modal-content.comments-creat {
+	top: 35px;
+	left: 0;
+	transform: none;
+	box-shadow: 4px 5px 6px 0 rgb(0 0 0 / 5%);
 }
 

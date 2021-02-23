@@ -123,7 +123,6 @@ a.link {
 	font-weight: 500;
 }
 a.link:hover {
-	font-weight: 600;
 	color: #00327e;
 }
 
@@ -456,6 +455,16 @@ button i {
 	color: #fff;
 	background-color: #f76400;
 }
+.btn-outline-success {
+	color: #00ac69;
+	background-color: #fff;
+	border-color: #00ac69;
+}
+.btn-outline-success:hover {
+	color: #fff;
+	background-color: #00ac69;
+	border-color: #00ac69;
+}
 .btn-teal {
 	color: #fff;
 	background-color: #00c0ef;
@@ -742,6 +751,10 @@ table td {
 	height: auto;
 }
 
+.table-wrap .txt-left {
+	text-align: left;
+}
+
 /*순서변경 테이블*/
 .order-table tbody tr  {
 	cursor: n-resize;
@@ -831,7 +844,6 @@ table td {
 }
 .tab li {
 	float: left;
-	width: calc(100%/7);
 	height: 45px;
 	color: #aaa;
 	font-weight: 600;
@@ -851,6 +863,9 @@ table td {
 /* detail */
 .detail-page input[type="text"] {
 	width: 450px;
+}
+.detail-page .ucd-input-wrap input[type="text"] {
+	width: 300px;
 }
 
 /* detail-table */

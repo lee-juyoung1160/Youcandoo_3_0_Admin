@@ -1,0 +1,113 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">비즈 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>기업명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" maxlength="14" placeholder="기업명을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/14</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사업자 번호 *</th>
+                        <td>
+                            <input id="" type="text" maxlength="10" placeholder="- 제외 숫자만 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>프로필 이미지 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="categoryImage">업로드</label>
+                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                            </div>
+                            <div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>홈페이지 *</th>
+                        <td>
+                            <input id="" type="text" placeholder="https://를 포함하여 입력해주세요">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기업 소개 *</th>
+                        <td>
+                            <div class="textarea-wrap">
+                                <textarea id="exampleDesc" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>스폰서 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input type="search" placeholder="스폰서를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <colgroup>
+                            <col style="width: 100%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>스폰서 명</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>세리박스</td>
+                        </tr>
+                        <tr>
+                            <td>야나두</td>
+                        </tr>
+                        <tr>
+                            <td>나이키</td>
+                        </tr>
+                        <tr>
+                            <td>아디다스</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+</section>
+

@@ -1,0 +1,71 @@
+<section class="list-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">비즈계정 관리</h2>
+            <a href="/v2/biz/create"><i class="fas fa-plus"></i>비즈계정 등록</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select class="select-box">
+                                <option>기업명</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num">0</strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 40%;">
+                    <col style="width: 25%;">
+                    <col style="width: 15%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>비즈 ID</th>
+                    <th>기업명</th>
+                    <th>등록일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        COM-F91A966E-8242-9D7B-42F5-53993F0860AF
+                    </td>
+                    <td><a href="/v2/biz/detail">세리박스</a></td>
+                    <td>2020-04-01</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

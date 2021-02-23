@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+/* 비즈 상세 */
+.biz-img-wrap {
+	width: 200px;
+}
+
+.biz-detail-teb li {
+	width: calc(100%/2);
+}

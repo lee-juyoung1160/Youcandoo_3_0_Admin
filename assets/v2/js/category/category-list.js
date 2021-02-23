@@ -17,7 +17,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {isEmpty} from "../modules/utils";
+	import {isEmpty} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/

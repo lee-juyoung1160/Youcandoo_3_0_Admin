@@ -156,7 +156,7 @@
 					render: function (data) {
 						switch (data) {
 							case 'create' : return '생성';
-							case 'progress' : return '진행중';
+							case 'open' : return '진행중';
 							case 'stop' : return '운영정지';
 							case 'delete' : return '삭제';
 						}

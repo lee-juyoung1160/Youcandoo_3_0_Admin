@@ -76,7 +76,7 @@
     export const subCategoryTitle = $("#subCategoryTitle");
 
     /** 두잇 **/
-    export const sponsorTitle   = $("#sponsorTitle");
+    export const sponsor        = $("#sponsor");
     export const sponsorUuid    = $("#sponsorUuid");
     export const selCategory    = $("#selCategory");
     export const selSubcategory = $("#selSubcategory");
@@ -95,4 +95,10 @@
     export const btnDoitStop    = $("#btnDoitStop");
     export const tabUl          = $("#tabUl");
     export const tabContents    = $(".tab-contents");
+    export const category       = $("#category");
+    export const publicType     = $("#publicType");
+    export const isApply        = $("#isApply");
+    export const isAnswer       = $("#isAnswer");
+    export const doitInfoForm   = $("#doitInfoForm");
+    export const doitUpdateForm = $("#doitUpdateForm");
 

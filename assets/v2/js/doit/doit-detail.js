@@ -2,15 +2,32 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		tabUl, tabContents,
-		categoryTitle,
-		categoryIcon,
-		isEstablish,
-		isExposure,
-		btnBack, btnList, btnUpdate, btnSubmit,
-		modalOpen, modalClose, modalBackdrop,
-		dataTable, subCategoryTitle, lengthInput,
-	} from '../modules/elements.js';
+	tabUl,
+	tabContents,
+	doitTitle,
+	sponsor,
+	category,
+	doitDesc,
+	doitKeywords,
+	doitImage,
+	btnBack,
+	btnList,
+	btnUpdate,
+	btnSubmit,
+	modalOpen,
+	modalClose,
+	modalBackdrop,
+	dataTable,
+	lengthInput,
+	publicType,
+	isApply,
+	doitQuestion,
+	isAnswer,
+	btnDoitOpen,
+	btnDoitStop,
+	btnDoitDelete,
+	doitUpdateForm, doitInfoForm,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, limitInputLength, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -26,7 +43,7 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		tabUl			.on('click', function (event) { onClickTab(event); });
 		// lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -35,14 +52,41 @@
 		// modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
-		btnSubmit		.on('click', function () { onSubmitSubcategory(); });
+		btnUpdate		.on('click', function () { onClickBtnUpdate() });
+		btnSubmit		.on('click', function () {  });
 	});
 
 	function onClickTab(e)
 	{
 		const selectedTab = $(e.target);
 		const target = $(selectedTab).data('target')
-console.log(target)
+
+		switch (target) {
+			case '#tabDoitInfo' :
+				getDetail();
+				doitUpdateForm.hide();
+				doitInfoForm.show();
+				break;
+			case '#tabDoitMission' :
+				getDetail();
+				break;
+			case '#tabDoitMember' :
+				getDetail();
+				break;
+			case '#tabDoitReview' :
+				getDetail();
+				break;
+			case '#tabDoitUcd' :
+				getDetail();
+				break;
+			case '#tabDoitAction' :
+				getDetail();
+				break;
+			case '#tabDoitTalk' :
+				getDetail();
+				break;
+		}
+
 		selectedTab.siblings().removeClass('active');
 		selectedTab.addClass('active');
 		tabContents.hide();
@@ -58,11 +102,9 @@ console.log(target)
 
 	function getDetail()
 	{
-		const url = api.detailCategory;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : categoryIdx
-		}
+		const url = api.detailDoit;
+		const errMsg = label.detailContent + message.ajaxLoadError;
+		const param = { "idx" : categoryIdx };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
@@ -72,110 +114,88 @@ console.log(target)
 		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
 	}
 
-	let g_category_uuid;
+	let isSponsorDoit;
 	function buildDetail(data)
 	{
-		let { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
+		let { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
+			public_type, is_apply, question, is_answer, doit_image } = data.data;
 
-		categoryTitle.text(category_title);
-		categoryIcon.attr('src', icon_image_url);
-		isEstablish.text(is_establish);
-		isExposure.text(is_exposure);
+		isSponsorDoit = doit_type === 'sponsor';
 
-		g_category_uuid = category_uuid;
-
+		toggleButtons(doit_status);
+		doitTitle.text(doit_title);
+		sponsor.text( isSponsorDoit ? nickname : label.generalDoit );
+		category.html(`${category_title} - <span>${subcategory_title}</span>`);
+		doitDesc.text(doit_description);
+		doitKeywords.empty();
+		doit_keyword.map(keyword => {
+			doitKeywords.append(`<li>#<span>${keyword}</span>`);
+		})
+		publicType.text(getNameFromPublicType(public_type));
+		isApply.text(is_apply);
+		doitQuestion.text(isEmpty(question) ? label.dash : question);
+		isAnswer.text(is_answer);
+		doitImage.attr('src', doit_image);
 		onErrorImage();
-
-		getSubCategory();
 	}
 
-	function getSubCategory()
+	function toggleButtons(status)
 	{
-		const url = api.subCategoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		let param = {
-			"category_uuid" : g_category_uuid
+		switch (status) {
+			case 'create' :
+				btnDoitOpen.show();
+				btnDoitDelete.show();
+				btnDoitStop.hide();
+				btnUpdate.show();
+				break;
+			case 'open' :
+				btnDoitOpen.hide();
+				btnDoitDelete.show();
+				btnDoitStop.show();
+				btnDoitStop.text('운영정');
+				btnUpdate.show();
+				break;
+			case 'stop' :
+				btnDoitOpen.hide();
+				btnDoitDelete.show();
+				btnDoitStop.show();
+				btnDoitStop.text('정지해제');
+				btnUpdate.show();
+				break;
+			case 'delete' :
+				btnDoitOpen.show();
+				btnDoitDelete.show();
+				btnDoitStop.hide();
+				btnUpdate.show();
+				break;
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
-	}
-
-	function getSubCategorySuccess(data)
-	{
-		data.recordsTotal = data.count;
-		data.recordsFiltered = data.count;
-		buildSubCategory(data);
-	}
-
-	function buildSubCategory(data)
-	{
-		dataTable.DataTable({
-			data: data.data,
-			columns: [
-				{title: "세부 카테고리",	data: "subcategory_title" }
-			],
-			serverSide: false,
-			paging: false,
-			select: false,
-			destroy: true,
-			initComplete: function () {
-			},
-			fnRowCallback: function( nRow, aData ) {
-			},
-			drawCallback: function (settings) {
-			}
-		});
-	}
-
-	function createValidation()
-	{
-		if (isEmpty(subCategoryTitle.val()))
+		if (!isSponsorDoit)
 		{
-			sweetToast(`세부 카테고리는 ${message.required}`);
-			subCategoryTitle.trigger('focus');
-			return false;
+			btnDoitOpen.hide();
+			btnDoitDelete.hide();
+			btnUpdate.hide();
 		}
-
-		return true;
 	}
 
-	function onSubmitSubcategory()
+	function getNameFromPublicType(type)
 	{
-		if (createValidation())
-			sweetConfirm(message.create, createSubcategoryRequest);
-	}
-
-	function createSubcategoryRequest()
-	{
-		const url = api.createSubCategory;
-		const errMsg = label.submit + message.ajaxError;
-		const param = {
-			"category_uuid" : g_category_uuid,
-			"title" : subCategoryTitle.val()
+		switch (type) {
+			case 'public' : return '전체공개';
+			case 'member' : return '멤버에게만 게시글 공개';
+			case 'private' : return '비공개';
 		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createSubcategoryCallback, errMsg, false);
 	}
 
-	function createSubcategoryCallback(data)
+	function onClickBtnUpdate()
 	{
-		sweetToastAndCallback(data, createSubcategorySuccess)
-	}
-
-	function createSubcategorySuccess()
-	{
-		fadeoutModal();
-		getSubCategory();
+		doitInfoForm.hide();
+		doitUpdateForm.show();
 	}
 
 	function goListPage()
 	{
-		location.href = page.listCategory;
-	}
-
-	function goUpdatePage()
-	{
-		location.href = page.updateCategory + categoryIdx;
+		location.href = page.listDoit;
 	}
 
 

@@ -6,7 +6,7 @@
 		doitTitle, doitDesc, doitKeywords, doitKeyword,
 		doitImage, doitQuestion, selSubcategory,
 		btnSubmit, modalOpen, modalClose, modalBackdrop,
-		sponsorTitle, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer,
+		sponsor, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal} from "../modules/common.js";
@@ -149,7 +149,7 @@
 	function onSelectSponsor()
 	{
 		sponsorUuid.val($(this).data('uuid'));
-		sponsorTitle.val($(this).data('name'));
+		sponsor.val($(this).data('name'));
 		fadeoutModal();
 	}
 
@@ -325,10 +325,10 @@
 
 	function validation()
 	{
-		if (isEmpty(sponsorTitle.val()))
+		if (isEmpty(sponsor.val()))
 		{
 			sweetToast(`스폰서 명은 ${message.required}`);
-			sponsorTitle.trigger('focus');
+			sponsor.trigger('focus');
 			return false;
 		}
 

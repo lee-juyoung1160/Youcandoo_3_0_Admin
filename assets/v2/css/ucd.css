@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* ucd 충전 모달 */
+.ucd-create .modal-content {
+    width: 1500px;
+}
+.ucd-create .modal-wrap .btn-move  {
+    margin-top: 100px;
+}

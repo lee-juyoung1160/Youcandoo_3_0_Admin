@@ -337,6 +337,20 @@ textarea {
 	height: auto;
 }
 
+/* 엑셀 업로드 */
+.excel-import {
+	display: inline-flex;
+}
+.excel-import label {
+	color: #fff;
+	background-color: #00ac69;
+	border-color: #00ac69;
+}
+.excel-import label:hover {
+	color: #fff;
+	background-color: #00ac69;
+	border-color: #00ac69;
+}
 
 /* button */
 button {
@@ -888,6 +902,10 @@ table td {
 .detail-page .ucd-input-wrap input[type="text"] {
 	width: 300px;
 }
+.detail-page .ucd-input-wrap span {
+	font-size: 14px;
+	font-weight: 600;
+}
 
 /* detail-table */
 .right-wrap {
@@ -948,8 +966,18 @@ table td {
 	margin-bottom: 0;
 }
 
+.result-box {
+	margin-top: 10px;
+	padding: 10px 15px 20px;
+	background-color: #f2f6fc;
+}
 .footer-btn-wrap {
 	margin-top: 30px;
 	text-align: right;
+}
+
+/*스윗 알럭*/
+.swal2-content {
+	font-size: 0.9em;
 }
 

@@ -1,0 +1,91 @@
+<section>
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">UCD 충전 내역</h2>
+            <a href="/v2/ucd/create"><i class="fas fa-plus"></i> UCD 충전</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">닉네임</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 15%;">
+                    <col style="width: 30%;">
+                    <col style="width: 15%;">
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>닉네임</th>
+                    <th>내용</th>
+                    <th>UCD</th>
+                    <th>충전 일시</th>
+                    <th>상태</th>
+                    <th>비고</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>베리네모카</td>
+                    <td>내요오오오오오오오옹</td>
+                    <td>1,000</td>
+                    <td>2020-04-01 00:00:00</td>
+                    <td>대기</td>
+                    <td>물마시기 이벤트</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

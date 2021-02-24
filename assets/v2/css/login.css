@@ -182,6 +182,7 @@ input::placeholder {
 }
 .login-pg .login-inner .wrap .btn-wrap button,
 .login-pg .login-inner .wrap .btn-wrap a {
+	display: block;
 	width: 165px;
 	height: 50px;
 	margin: 0 3px;

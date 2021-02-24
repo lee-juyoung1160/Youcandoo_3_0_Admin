@@ -88,4 +88,9 @@
     export const doitQuestion   = $("#doitQuestion");
     export const doitImage      = $("#doitImage");
     export const doitKeywords   = $("#doitKeywords");
+    export const btnDoitOpen    = $("#btnDoitOpen");
+    export const btnDoitDelete  = $("#btnDoitDelete");
+    export const btnDoitStop    = $("#btnDoitStop");
+    export const tabUl          = $("#tabUl");
+    export const tabContents    = $(".tab-contents");
 

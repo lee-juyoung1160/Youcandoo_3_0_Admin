@@ -12,5 +12,9 @@ class Pic extends MY_Controller {
     {
         $this->load->template('v2/pic-doit/pic-doit-create');
     }
+    public function update()
+    {
+        $this->load->template('v2/pic-doit/pic-doit-update');
+    }
 
 }

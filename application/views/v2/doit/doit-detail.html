@@ -4,11 +4,11 @@
 <section class="detail-page">
     <div class="inner">
         <div class="main-top clearfix">
-            <h2 class="main-title">홈트의 왕</h2>
+            <h2 class="main-title" id="doitTitle"></h2>
             <div class="right-wrap">
-                <button id="btnDoitOpen" type="button" class="btn-sm btn-outline-warning">두잇오픈</button>
-                <button id="btnDoitDelete" type="button" class="btn-sm btn-outline-danger">두잇 삭제</button>
-                <button id="btnDoitStop" type="button" class="btn-sm btn-outline-orange">운영정지</button>
+                <button id="btnDoitOpen" type="button" class="btn-sm btn-outline-warning" style="display: none;">두잇오픈</button>
+                <button id="btnDoitDelete" type="button" class="btn-sm btn-outline-danger" style="display: none;">두잇 삭제</button>
+                <button id="btnDoitStop" type="button" class="btn-sm btn-outline-orange" style="display: none;">운영정지</button>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
 
                 <!-- s: 두잇정보 -->
                 <div class="doit-info tab-contents" id="tabDoitInfo">
-                    <div class="detail-list">
+                    <div class="detail-list" id="doitInfoForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 20%;">
@@ -35,91 +35,83 @@
                             <tr>
                                 <th>스폰서 명</th>
                                 <td>
-                                    <p class="detail-data">나이키 코리아</p>
+                                    <p class="detail-data" id="sponsor"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>카테고리</th>
                                 <td>
-                                    <p class="detail-data">운동 - <span>필라테스</span></p>
+                                    <p class="detail-data" id="category"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>두잇 소개 및 목표</th>
                                 <td>
-                                    <p class="detail-data">코로나로 야외활동이 어려운 요즘!<br>나이키와 함께 홈트 고고</p>
+                                    <p class="detail-data" id="doitDesc">
                                 </td>
                             </tr>
                             <tr>
                                 <th>검색 키워드 (태그)</th>
                                 <td>
-                                    <ul class="tag-list clearfix">
-                                        <li>
-                                            #
-                                            <span>자전거</span>
-                                        </li>
-                                        <li>
-                                            #
-                                            <span>필라테스</span>
-                                        </li>
-                                        <li>
-                                            #
-                                            <span>요가</span>
-                                        </li>
+                                    <ul class="tag-list clearfix" id="doitKeywords">
+<!--                                        <li>-->
+<!--                                            #-->
+<!--                                            <span>자전거</span>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            #-->
+<!--                                            <span>필라테스</span>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            #-->
+<!--                                            <span>요가</span>-->
+<!--                                        </li>-->
                                     </ul>
                                 </td>
                             </tr>
                             <tr>
                                 <th>공개 여부</th>
                                 <td>
-                                    <p class="detail-data">멤버에게만 게시글 공개</p>
+                                    <p class="detail-data" id="publicType"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>가입 신청</th>
                                 <td>
-                                    <p class="detail-data">
-                                        Y
-                                    </p>
+                                    <p class="detail-data" id="isApply"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>&nbsp;ㄴ 질문</th>
                                 <td>
-                                    <p class="detail-data">
-                                        새로운 참여자에게 물어볼 질문이 노출됩니다.<br>
-                                        새로운 참여자에게 물어볼 질문이 노출됩니다.
-                                        새로운 참여자에게 물어볼 질문이 노출됩니다.
-                                    </p>
+                                    <p class="detail-data" id="doitQuestion"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>&nbsp;ㄴ 답변 공개</th>
                                 <td>
-                                    <p class="detail-data">
-                                        N
-                                    </p>
+                                    <p class="detail-data" id="isAnswer"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>두잇 소개 이미지</th>
                                 <td>
                                     <div class="detail-img-wrap doit-info-img">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        <img src="" alt="" id="doitImage">
                                     </div>
                                 </td>
                             </tr>
                                 <tr>
                                     <td colspan="2">
                                         <div class="right-wrap">
-                                            <button type="button" class="btn btn-teal">수정</button>
+                                            <button id="btnUpdate" type="button" class="btn btn-teal" style="display: none;">수정</button>
                                         </div>
                                     </td>
                                 </tr>
                         </table>
                     </div>
                     <!-- s: 두잇수정 -->
-                    <div class="detail-update" style="display: none;">
+                    <div class="detail-update" style="display: none;" id="doitUpdateForm">
                         <table class="detail-table">
                         <colgroup>
                             <col style="width: 20%;">

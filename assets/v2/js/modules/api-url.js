@@ -16,6 +16,10 @@
         doitSponsorList : baseApiUrl + 'doit/get/company',
         doitList : baseApiUrl + 'doit/list',
         createDoit : baseApiUrl + 'doit/create',
+        detailDoit : baseApiUrl + 'doit/detail',
+        openDoit : baseApiUrl + 'doit/open',
+        deleteDoit : baseApiUrl + 'doit/delete',
+        stopDoit : baseApiUrl + 'doit/stop',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

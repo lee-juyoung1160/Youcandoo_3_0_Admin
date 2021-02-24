@@ -28,6 +28,7 @@
 		, unexpose: '<i class="fas fa-check-circle" style="color:#aaa"></i>'
 		, blind: '<i class="fas fa-eye-slash"></i>'
 		, unblind: '<i class="fas fa-eye"></i>'
+		, generalDoit: '일반 두잇'
 		, regular: '일반'
 		, promotion: '프로모션'
 		, personal: '개인'

@@ -17,6 +17,7 @@
         doitList : baseApiUrl + 'doit/list',
         createDoit : baseApiUrl + 'doit/create',
         detailDoit : baseApiUrl + 'doit/detail',
+        updateDoit : baseApiUrl + 'doit/update',
         openDoit : baseApiUrl + 'doit/open',
         deleteDoit : baseApiUrl + 'doit/delete',
         stopDoit : baseApiUrl + 'doit/stop',

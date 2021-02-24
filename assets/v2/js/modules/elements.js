@@ -72,11 +72,11 @@
     export const isExposure	    = $("#isExposure");
     export const rdoEstablish	= $("input[name=radio-establish]");
     export const rdoExposure	= $("input[name=radio-exposure]");
-    export const subCategoryTable = $("#subCategoryTable");
     export const subCategoryTitle = $("#subCategoryTitle");
 
     /** 두잇 **/
     export const sponsor        = $("#sponsor");
+    export const doitSponsor    = $(".doit-sponsor");
     export const sponsorUuid    = $("#sponsorUuid");
     export const selCategory    = $("#selCategory");
     export const selSubcategory = $("#selSubcategory");
@@ -86,7 +86,7 @@
     export const rdoPublicType  = $("input[name=radio-public-type]");
     export const chkIsApply     = $("input[name=chk-is-apply]");
     export const chkIsAnswer    = $("input[name=chk-is-answer]");
-    export const chkIsQuestion  = $("input[name=chk-is-qeustion]");
+    export const chkIsQuestion  = $("input[name=chk-is-question]");
     export const doitQuestion   = $("#doitQuestion");
     export const doitImage      = $("#doitImage");
     export const doitKeywords   = $("#doitKeywords");
@@ -101,4 +101,11 @@
     export const isAnswer       = $("#isAnswer");
     export const doitInfoForm   = $("#doitInfoForm");
     export const doitUpdateForm = $("#doitUpdateForm");
+    export const infoDoitTitle = $("#infoDoitTitle");
+    export const infoDoitDesc  = $("#infoDoitDesc");
+    export const infoDoitKeywords = $("#infoDoitKeywords");
+    export const infoQuestion  = $("#infoQuestion");
+    export const doitThumbnail = $(".doit-image");
+    export const btnAddKeyword = $("#btnAddKeyword");
+    export const btnSubmitUpdate = $("#btnSubmitUpdate");
 

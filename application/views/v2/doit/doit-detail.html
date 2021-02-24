@@ -6,117 +6,117 @@
         <div class="main-top clearfix">
             <h2 class="main-title">홈트의 왕</h2>
             <div class="right-wrap">
-                <button type="button" class="btn-sm btn-outline-warning">두잇오픈</button>
-                <button type="button" class="btn-sm btn-outline-danger">두잇 삭제</button>
-                <button type="button" class="btn-sm btn-outline-orange">운영정지</button>
+                <button id="btnDoitOpen" type="button" class="btn-sm btn-outline-warning">두잇오픈</button>
+                <button id="btnDoitDelete" type="button" class="btn-sm btn-outline-danger">두잇 삭제</button>
+                <button id="btnDoitStop" type="button" class="btn-sm btn-outline-orange">운영정지</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                <ul class="tab doit-detail-teb clearfix">
-                    <li>두잇정보</li>
-                    <li>미션</li>
-                    <li>참여자</li>
-                    <li>리뷰</li>
-                    <li>UCD</li>
-                    <li class="active">인증</li>
-                    <li>톡</li>
+                <ul class="tab doit-detail-teb clearfix" id="tabUl">
+                    <li class="active" data-target="#tabDoitInfo">두잇정보</li>
+                    <li data-target="#tabDoitMission">미션</li>
+                    <li data-target="#tabDoitMember">참여자</li>
+                    <li data-target="#tabDoitInfo">리뷰</li>
+                    <li data-target="#tabDoitInfo">UCD</li>
+                    <li data-target="#tabDoitAction">인증</li>
+                    <li data-target="#tabDoitTalk">톡</li>
                 </ul>
 
                 <!-- s: 두잇정보 -->
-                <div class="doit-info">
+                <div class="doit-info tab-contents" id="tabDoitInfo">
                     <div class="detail-list">
                         <table class="detail-table">
-                    <colgroup>
-                        <col style="width: 20%;">
-                        <col style="width: 80%;">
-                    </colgroup>
-                    <tr>
-                        <th>스폰서 명</th>
-                        <td>
-                            <p class="detail-data">나이키 코리아</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>카테고리</th>
-                        <td>
-                            <p class="detail-data">운동 - <span>필라테스</span></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>두잇 소개 및 목표</th>
-                        <td>
-                            <p class="detail-data">코로나로 야외활동이 어려운 요즘!<br>나이키와 함께 홈트 고고</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>검색 키워드 (태그)</th>
-                        <td>
-                            <ul class="tag-list clearfix">
-                                <li>
-                                    #
-                                    <span>자전거</span>
-                                </li>
-                                <li>
-                                    #
-                                    <span>필라테스</span>
-                                </li>
-                                <li>
-                                    #
-                                    <span>요가</span>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>공개 여부</th>
-                        <td>
-                            <p class="detail-data">멤버에게만 게시글 공개</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>가입 신청</th>
-                        <td>
-                            <p class="detail-data">
-                                Y
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>&nbsp;ㄴ 질문</th>
-                        <td>
-                            <p class="detail-data">
-                                새로운 참여자에게 물어볼 질문이 노출됩니다.<br>
-                                새로운 참여자에게 물어볼 질문이 노출됩니다.
-                                새로운 참여자에게 물어볼 질문이 노출됩니다.
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>&nbsp;ㄴ 답변 공개</th>
-                        <td>
-                            <p class="detail-data">
-                                N
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>두잇 소개 이미지</th>
-                        <td>
-                            <div class="detail-img-wrap doit-info-img">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="right-wrap">
-                                    <button type="button" class="btn btn-teal">수정</button>
-                                </div>
-                            </td>
-                        </tr>
-                </table>
+                            <colgroup>
+                                <col style="width: 20%;">
+                                <col style="width: 80%;">
+                            </colgroup>
+                            <tr>
+                                <th>스폰서 명</th>
+                                <td>
+                                    <p class="detail-data">나이키 코리아</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>카테고리</th>
+                                <td>
+                                    <p class="detail-data">운동 - <span>필라테스</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>두잇 소개 및 목표</th>
+                                <td>
+                                    <p class="detail-data">코로나로 야외활동이 어려운 요즘!<br>나이키와 함께 홈트 고고</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>검색 키워드 (태그)</th>
+                                <td>
+                                    <ul class="tag-list clearfix">
+                                        <li>
+                                            #
+                                            <span>자전거</span>
+                                        </li>
+                                        <li>
+                                            #
+                                            <span>필라테스</span>
+                                        </li>
+                                        <li>
+                                            #
+                                            <span>요가</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>공개 여부</th>
+                                <td>
+                                    <p class="detail-data">멤버에게만 게시글 공개</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>가입 신청</th>
+                                <td>
+                                    <p class="detail-data">
+                                        Y
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;ㄴ 질문</th>
+                                <td>
+                                    <p class="detail-data">
+                                        새로운 참여자에게 물어볼 질문이 노출됩니다.<br>
+                                        새로운 참여자에게 물어볼 질문이 노출됩니다.
+                                        새로운 참여자에게 물어볼 질문이 노출됩니다.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;ㄴ 답변 공개</th>
+                                <td>
+                                    <p class="detail-data">
+                                        N
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>두잇 소개 이미지</th>
+                                <td>
+                                    <div class="detail-img-wrap doit-info-img">
+                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                    </div>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn btn-teal">수정</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                        </table>
                     </div>
                     <!-- s: 두잇수정 -->
                     <div class="detail-update" style="display: none;">
@@ -273,7 +273,7 @@
                 </div>
 
                 <!-- s: 미션 -->
-                <div class="doit-mission" style="display: none;">
+                <div class="doit-mission tab-contents" style="display: none;" id="tabDoitMission">
                     <!-- s: 미션목록 -->
                     <div class="detail-list" style="display: none;">
                         <div class="card detail-tit-warp">
@@ -570,10 +570,10 @@
                 </div>
 
                 <!-- s: 참여자 -->
-                <div class="doit-member" style="display: none;">
+                <div class="doit-member tab-contents" style="display: none;" id="tabDoitMember">
 
                     <!-- s: 참여자 목록-->
-                    <div class="detail-list" style="display: none;">
+                    <div class="detail-list">
                         <div class="row member-top">
                             <div class="col-3">
                                 <div class="card">
@@ -648,7 +648,7 @@
                     </div>
 
                     <!-- s: 참여 대기자 목록-->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail">
                         <div class="card detail-tit-warp member-top">
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
@@ -734,7 +734,7 @@
                 </div>
 
                 <!-- s: 인증 -->
-                <div class="doit-auth" style="display: none;">
+                <div class="doit-auth tab-contents" style="display: none;" id="tabDoitAction">
                     <!-- s: 인증 리스트 -->
                     <div class="detail-list">
                         <div class="search-wrap row">
@@ -1085,7 +1085,7 @@
                 </div>
 
                 <!-- s: 톡 -->
-                <div class="doit-talk" style="display: none;">
+                <div class="doit-talk tab-contents" style="display: none;" id="tabDoitTalk">
                     <!-- s: 톡 리스트 -->
                     <div class="detail-list" style="display: none;">
                         <div class="card detail-tit-warp clearfix">
@@ -1486,8 +1486,8 @@
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button type="button" class="btn btn-outline-primary">이전</button>
-            <button type="button" class="btn btn-primary">목록</button>
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
         </div>
     </div>
 
@@ -1622,6 +1622,6 @@
         <div class="modal-bg"></div>
     </div>
 
-
 </section>
-
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/doit/doit-detail.js?version=<?php echo $this->config->item('version');?>"></script>

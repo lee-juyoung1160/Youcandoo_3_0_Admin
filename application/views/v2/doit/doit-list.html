@@ -12,9 +12,9 @@
                     <li>
                         <p class="search-title">날짜</p>
                         <div class="form-box">
-                            <select class="select-box">
-                                <option>생성일</option>
-                                <option>오픈일</option>
+                            <select id="selDateType" class="select-box">
+                                <option value="created">생성일</option>
+                                <option value="opened">오픈일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -32,7 +32,7 @@
                     <li>
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
-                            <select class="select-box">
+                            <select id="selSearchType" class="select-box">
                                 <option value="doit_title">두잇명</option>
                                 <option value="nickname">개설자</option>
                             </select>
@@ -51,16 +51,16 @@
                 <div class="card clearfix">
                     <p class="search-title">두잇 상태</p>
                     <div class="checkbox-wrap">
-                        <input id="c1" type="checkbox" name="chk-status">
+                        <input id="c1" type="checkbox" name="chk-status" value="create">
                         <label for="c1"><span></span>생성</label>
 
-                        <input id="c2" type="checkbox" name="chk-status">
+                        <input id="c2" type="checkbox" name="chk-status" value="progress">
                         <label for="c2"><span></span>진행중</label>
 
-                        <input id="c3" type="checkbox" name="chk-status">
+                        <input id="c3" type="checkbox" name="chk-status" value="stop">
                         <label for="c3"><span></span>운영정지</label>
 
-                        <input id="c4" type="checkbox" name="chk-status">
+                        <input id="c4" type="checkbox" name="chk-status" value="delete">
                         <label for="c4"><span></span>삭제</label>
                     </div>
                 </div>
@@ -68,12 +68,7 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">카테고리</p>
-                    <select class="select-box">
-                        <option>전체</option>
-                        <option>카테고리1</option>
-                        <option>카테고리2</option>
-                        <option>카테고리3</option>
-                        <option>카테고리4</option>
+                    <select id="selCategory" class="select-box">
                     </select>
                 </div>
             </div>
@@ -88,18 +83,18 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">0</strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                         <select id="selPageLength" class="select-box">
                         </select>
                         <select id="selSort" class="select-box">
-                            <option>생성일 최신 순</option>
-                            <option>오픈일 최신 순</option>
+                            <option value="created">생성일 최신 순</option>
+                            <option value="opened">오픈일 최신 순</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <table>
-                <thead>
+            <table id="dataTable">
+                <!--<thead>
                 <colgroup>
                     <col style="width: 10%;">
                     <col style="width: 10%;">
@@ -143,7 +138,7 @@
                     <td>50</td>
                     <td>생성</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>

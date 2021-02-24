@@ -43,3 +43,27 @@
 
         return info.recordsTotal;
     }
+
+    /** 테이블 조회결과 없을 때 이전/다음 버튼 숨기기 **/
+    export function toggleBtnPreviousAndNextOnTable(obj)
+    {
+        let pagination = $(obj).closest('.dataTables_wrapper').find('.dataTables_paginate');
+        pagination.toggle(obj.api().page.info().pages > 0);
+    }
+
+    /**
+     *  뒤로가기/이전버튼 이벤트에서 기존 목록 페이지 유지를 위한 메서드
+     * **/
+    export function redrawPage(_table, param_page)
+    {
+        let table = $(_table).DataTable();
+        table.page(param_page-1).draw( 'page' );
+    }
+
+    export function getCurrentPage(_table)
+    {
+        let table = $(_table).DataTable();
+        let info = table.page.info();
+
+        return (info.start / info.length) + 1;
+    }

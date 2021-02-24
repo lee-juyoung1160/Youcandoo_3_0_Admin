@@ -51,7 +51,7 @@
 
 	function buildSelCategory(data)
 	{
-		let options = '';
+		let options = '<option value="">카테고리</option>';
 		data.data.map( obj => {
 			options += `<option value="${obj.category_uuid}">${obj.category_title}</option>`;
 		})
@@ -84,7 +84,7 @@
 
 	function buildSelSubCategory(data)
 	{
-		let options = '';
+		let options = '<option value="">세부 카테고리</option>';
 		data.data.map( obj => {
 			options += `<option value="${obj.subcategory_uuid}">${obj.subcategory_title}</option>`;
 		})
@@ -285,16 +285,20 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= api.createCategory;
-			let errMsg 	= label.submit+message.ajaxError;
+			const url = api.createDoit;
+			const errMsg = label.submit + message.ajaxError;
 			let { file } = data.image_urls;
+			let keywords = [];
+			doitKeywords.find('li .added-keyword').each(function () {
+				keywords.push($(this).text().trim());
+			})
 			let param = {
 				"profile_uuid" : sponsorUuid.val(),
 				"category_uuid" : selCategory.val(),
 				"subcategory_uuid" : selSubcategory.val(),
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
-				"doit_keyword" : ["돼린","마동린"],
+				"doit_keyword" : keywords,
 				"doit_image" : "",
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"is_apply" : chkIsApply.is('checked') ? 'Y' : 'N',
@@ -321,6 +325,27 @@
 
 	function validation()
 	{
+		if (isEmpty(sponsorTitle.val()))
+		{
+			sweetToast(`스폰서 명은 ${message.required}`);
+			sponsorTitle.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(selCategory.val()))
+		{
+			sweetToast(`카테고리를 ${message.select}`);
+			selCategory.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(selSubcategory.val()))
+		{
+			sweetToast(`세부 카테고리를 ${message.select}`);
+			selSubcategory.trigger('focus');
+			return false;
+		}
+
 		if (isEmpty(doitTitle.val()))
 		{
 			sweetToast(`두잇 명은 ${message.required}`);
@@ -328,10 +353,32 @@
 			return false;
 		}
 
-		let categoryIcn = categoryIcon[0].files;
-		if (categoryIcn.length === 0)
+		if (isEmpty(doitDesc.val()))
 		{
-			sweetToast(`카테고리 아이콘은 ${message.required}`);
+			sweetToast(`두잇 소개 및 목표는 ${message.required}`);
+			doitDesc.trigger('focus');
+			return false;
+		}
+
+		const doitKeywordsLength = doitKeywords.find('li').length;
+		if (doitKeywordsLength === 0)
+		{
+			sweetToast(`검색 키워드를 ${message.addOn}`);
+			doitKeyword.trigger('focus');
+			return false;
+		}
+
+		if (chkIsQuestion.is(':checked') && isEmpty(doitQuestion.val()))
+		{
+			sweetToast(`질문을 ${message.input}`);
+			doitQuestion.trigger('focus');
+			return false;
+		}
+
+		const doitImg = doitImage[0].files;
+		if (doitImg.length === 0)
+		{
+			sweetToast(`두잇 소개 이미지는 ${message.required}`);
 			return false;
 		}
 

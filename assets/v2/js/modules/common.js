@@ -1,6 +1,6 @@
 
     import {
-        modalContent, modalBackdrop, loader,
+        modalContent, modalBackdrop, loader, selectEls,
         dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
@@ -111,6 +111,7 @@
     export function initPageLength(_obj)
     {
         let options = '';
+        options += '<option value="1">1개씩 보기</ooption>';
         options += '<option value="10">10개씩 보기</ooption>';
         options += '<option selected value="30">30개씩 보기</ooption>';
         options += '<option value="50">50개씩 보기</ooption>';
@@ -119,6 +120,14 @@
         options += '<option value="1000">1000개씩 보기</ooption>';
 
         _obj.html(options);
+    }
+
+    export function initSelectOption()
+    {
+        selectEls.each(function () {
+            if (this.id !== 'selPageLength')
+                $(this).children().eq(0).prop("selected", true);
+        });
     }
 
     /** 글자수 체크 **/

@@ -2,6 +2,7 @@
     /** 공통 엘리먼트 **/
     export const body       = $('body');
     export const section    = $('section');
+    export const selectEls  = $('select');
     export const img        = $('img');
     export const btnMenuToggle   = $('.side-toggle-btn');
     export const sideBar    = $('aside.main-menu');
@@ -16,11 +17,12 @@
     export const loader          = $("#loader");
     export const btnScrollTop    = $("#btnScrollTop");
 
-    export const dateButtons = $(".date-btn .btn");
-    export const datePicker = $(".datepicker");
-    export const dateFrom   = $(".date-from");
-    export const dateTo     = $(".date-to");
-    export const searchType = $("#search_type");
+    export const dateButtons    = $(".date-btn .btn");
+    export const datePicker     = $(".datepicker");
+    export const dateFrom       = $(".date-from");
+    export const dateTo         = $(".date-to");
+    export const selDateType    = $("#selDateType");
+    export const selSearchType  = $("#selSearchType");
     export const chkStatus  = $("input[name=chk-status]");
     export const keyword 	= $("#keyword");
     export const btnSearch 	= $("#btnSearch");

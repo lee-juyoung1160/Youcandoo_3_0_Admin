@@ -26,6 +26,11 @@
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/detail',
         updateBiz : baseApiUrl + 'biz/update',
+
+        bannerList : baseApiUrl + 'banner',
+        createBanner : baseApiUrl + 'banner/create',
+        deleteBanner : baseApiUrl + 'banner/delete',
+        reorderBanner : baseApiUrl + 'banner/update/sequence',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

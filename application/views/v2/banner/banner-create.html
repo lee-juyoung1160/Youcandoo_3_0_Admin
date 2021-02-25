@@ -16,13 +16,13 @@
                     <tr>
                         <th>배너명 *</th>
                         <td>
-                            <input id="" type="text" class="length-input" placeholder="배너명을 입력해주세요.">
+                            <input id="bannerTitle" type="text" class="length-input" placeholder="배너명을 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
                         <th>이동페이지 타입</th>
                         <td>
-                            <select class="select-box">
+                            <select id="selTargetType" class="select-box">
                                 <option>이벤트</option>
                                 <option>공지사항</option>
                                 <option>웹뷰(웹 URL)</option>
@@ -32,16 +32,16 @@
                     <tr>
                         <th>이동페이지 URL</th>
                         <td>
-                            <input id="" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                            <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
                         <th>노출 기간 *</th>
                         <td>
                             <div class="date-wrap">
-                                <input type="text" class="datepicker">
+                                <input type="text" class="datepicker date-from" readonly>
                                 <span class="date-text"> ~ </span>
-                                <input type="text" class="datepicker">
+                                <input type="text" class="datepicker date-to" readonly>
                             </div>
                         </td>
                     </tr>
@@ -51,8 +51,8 @@
                             <p class="desc-sub">( 이미지 크기 : 640 x 320 )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryIcon">업로드</label>
-                                <input type="file" id="categoryIcon" class="upload-hidden" data-width="640" data-height="320" data-oper="eq">
+                                <label for="bannerImage">업로드</label>
+                                <input type="file" id="bannerImage" class="upload-hidden" data-width="640" data-height="320" data-oper="eq">
                             </div>
                             <!--<div class="detail-img-wrap">
                                 <img src="" alt="">
@@ -67,5 +67,5 @@
         </div>
     </div>
 </section>
-<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
 

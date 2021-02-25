@@ -90,6 +90,7 @@
 	{
 		/** 입력 폼 초기화 **/
 		initSearchForm();
+		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/

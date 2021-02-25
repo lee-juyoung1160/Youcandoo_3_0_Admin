@@ -39,6 +39,7 @@
     export const dataTable     = $("#dataTable");
 
     export const thumbnail    = $("#thumbnail");
+    export const amount    = $("#amount");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -132,5 +133,10 @@
     export const talkImage = $("#talkImage");
     export const chkNoticeTalk = $("input[name=chk-notice-talk]");
 
+    /** 비즈 **/
+    export const doitTable = $("#doitTable");
+    export const ucdTable = $("#ucdTable");
+    export const selPageLengthDoit = $("#selPageLengthDoit");
+    export const selPageLengthUcd = $("#selPageLengthUcd");
 
 

@@ -79,14 +79,14 @@
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('data-uuid', aData.profile_uuid);
 				$(nRow).attr('data-name', aData.nickname);
-				$(nRow).addClass('sponsor-row');
+				$(nRow).addClass('biz-row');
 			}
 		});
 	}
 
 	function addClickEvent()
 	{
-		document.querySelectorAll('.sponsor-row').forEach( element => element.addEventListener('click', onSelectSponsor));
+		document.querySelectorAll('.biz-row').forEach( element => element.addEventListener('click', onSelectSponsor));
 	}
 
 

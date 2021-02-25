@@ -21,6 +21,8 @@
         deleteDoit : baseApiUrl + 'doit/delete',
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
+
+        bizList : baseApiUrl + 'biz/list',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

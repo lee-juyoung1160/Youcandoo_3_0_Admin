@@ -76,7 +76,7 @@
 			return false;
 		}
 
-		let categoryIcn = categoryIcon[0].files;
+		const categoryIcn = categoryIcon[0].files;
 		if (categoryIcn.length === 0)
 		{
 			sweetToast(`카테고리 아이콘은 ${message.required}`);

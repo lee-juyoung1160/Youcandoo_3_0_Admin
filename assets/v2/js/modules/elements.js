@@ -38,8 +38,9 @@
     export const selSort    = $("#selSort");
     export const dataTable     = $("#dataTable");
 
-    export const thumbnail    = $("#thumbnail");
+    export const thumbnail = $("#thumbnail");
     export const amount    = $("#amount");
+    export const nickname  = $("#nickname");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -138,5 +139,9 @@
     export const ucdTable = $("#ucdTable");
     export const selPageLengthDoit = $("#selPageLengthDoit");
     export const selPageLengthUcd = $("#selPageLengthUcd");
+    export const bizNo = $("#bizNo");
+    export const bizImage = $("#bizImage");
+    export const bizWeb = $("#bizWeb");
+    export const bizDesc = $("#bizDesc");
 
 

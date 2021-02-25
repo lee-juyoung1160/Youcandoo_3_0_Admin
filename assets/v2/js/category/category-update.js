@@ -224,8 +224,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApi.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', categoryImage[0].files[0]);
 

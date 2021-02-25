@@ -14,7 +14,7 @@
         ,detailDoit : rootContext + 'doit/detail/'
         ,updateDoit : rootContext + 'doit/update/'
 
-        ,listBiz : rootContext + '/biz'
+        ,listBiz : rootContext + 'biz'
         ,detailBiz : rootContext + 'biz/detail/'
         ,updateBiz : rootContext + 'biz/update/'
     }

@@ -23,6 +23,9 @@
         stopDoit : baseApiUrl + 'doit/set/stop',
 
         bizList : baseApiUrl + 'biz/list',
+        createBiz : baseApiUrl + 'biz/create',
+        detailBiz : baseApiUrl + 'biz/detail',
+        updateBiz : baseApiUrl + 'biz/update',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

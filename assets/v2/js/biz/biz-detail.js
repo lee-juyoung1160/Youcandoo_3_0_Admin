@@ -64,7 +64,7 @@
 
 	function getDetail()
 	{
-		const url = api.detailDoit;
+		const url = api.detailBiz;
 		const errMsg = label.detailContent+message.ajaxLoadError;
 		const param = {
 			"idx" : bizIdx

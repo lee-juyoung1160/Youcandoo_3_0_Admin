@@ -15,6 +15,7 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {initTableDefaultConfig} from "../modules/tables.js";
+	import { onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, onChangeSelCategory, getCategoryList } from "../modules/doit-common.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -34,63 +35,6 @@
 		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
 		btnSubmit		.on('click', function () { onSubmitDoit(); });
 	});
-
-	function getCategoryList()
-	{
-		const url = api.categoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		const param = { "keyword" : "" };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);
-	}
-
-	function getCategoryListSuccess(data)
-	{
-		isSuccessResp(data) ? buildSelCategory(data) : sweetToast(data.msg);
-	}
-
-	function buildSelCategory(data)
-	{
-		let options = '<option value="">카테고리</option>';
-		data.data.map( obj => {
-			options += `<option value="${obj.category_uuid}">${obj.category_title}</option>`;
-		})
-
-		selCategory.html(options);
-
-		getSubCategory();
-	}
-
-	function onChangeSelCategory()
-	{
-		getSubCategory();
-	}
-
-	function getSubCategory()
-	{
-		const url = api.subCategoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		let param = {
-			"category_uuid" : selCategory.val()
-		}
-
-		ajaxRequestWithJsonData( false, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
-	}
-
-	function getSubCategorySuccess(data)
-	{
-		isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(data.msg);
-	}
-
-	function buildSelSubCategory(data)
-	{
-		let options = '<option value="">세부 카테고리</option>';
-		data.data.map( obj => {
-			options += `<option value="${obj.subcategory_uuid}">${obj.subcategory_title}</option>`;
-		})
-
-		selSubcategory.html(options);
-	}
 
 	function onClickModalOpen()
 	{
@@ -135,14 +79,14 @@
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('data-uuid', aData.profile_uuid);
 				$(nRow).attr('data-name', aData.nickname);
-				$(nRow).addClass('sponsor-row');
+				$(nRow).addClass('biz-row');
 			}
 		});
 	}
 
 	function addClickEvent()
 	{
-		document.querySelectorAll('.sponsor-row').forEach( element => element.addEventListener('click', onSelectSponsor));
+		document.querySelectorAll('.biz-row').forEach( element => element.addEventListener('click', onSelectSponsor));
 	}
 
 
@@ -157,112 +101,6 @@
 	{
 		let table = dataTable.DataTable();
 		table.ajax.reload();
-	}
-
-	function onClickAddKeyword()
-	{
-		if (addKeywordValidation())
-		{
-			const inputValue = doitKeyword.val().trim();
-			let keywordArr = [];
-			$(".added-keyword").each(function () {
-				keywordArr.push($(this).text());
-			});
-
-			if (isEmpty(keywordArr) || keywordArr.indexOf(inputValue) === -1)
-			{
-				const doitKeywordEl =
-					`<li>
-						#<span class="added-keyword">${inputValue}</span>
-						<button class="btn-i btn-del-keyword"><i class="fas fa-times-circle"></i></button>
-					</li>`
-
-				doitKeywords.append(doitKeywordEl);
-
-				doitKeyword.val('');
-				doitKeyword.trigger('focus');
-				limitInputLength(doitKeyword);
-				addRemoveKeywordEvent();
-			}
-		}
-	}
-
-	function addKeywordValidation()
-	{
-		if (isEmpty(doitKeyword.val()))
-		{
-			sweetToast(`키워드를 ${message.input}`);
-			doitKeyword.trigger('focus');
-			return false;
-		}
-
-		const splitInput = doitKeyword.val().split('');
-		if (splitInput.indexOf(',') !== -1 || splitInput.indexOf('#') !== -1)
-		{
-			sweetToast('키워드에 # 또는 , 를 포함할 수 없습니다.');
-			return false;
-		}
-
-		const doitKeywordLength = doitKeywords.find('li').length;
-		if (doitKeywordLength >= 3)
-		{
-			sweetToast(`키워드는 ${message.maxAddSix}`);
-			return false;
-		}
-
-		return true;
-	}
-
-	function addRemoveKeywordEvent()
-	{
-		document.querySelectorAll('.btn-del-keyword').forEach( element => element.addEventListener('click', removeDoitKeyword));
-	}
-
-	function removeDoitKeyword()
-	{
-		$(this).parent().remove();
-	}
-
-	function onClickChkIsApply(obj)
-	{
-		if (!$(obj).is(':checked'))
-		{
-			chkIsQuestion.prop('checked', false);
-			chkIsQuestion.prop('disabled', true);
-			toggleQuestion(chkIsQuestion);
-
-			chkIsAnswer.prop('checked', false);
-			chkIsAnswer.prop('disabled', true);
-		}
-		else
-			chkIsQuestion.prop('disabled', false);
-	}
-
-	function onClickChkIsQuestion(obj)
-	{
-		if (!$(obj).is(':checked'))
-		{
-			chkIsAnswer.prop('checked', false);
-			chkIsAnswer.prop('disabled', true);
-		}
-		else
-			chkIsAnswer.prop('disabled', false);
-
-		toggleQuestion(obj)
-	}
-
-	function toggleQuestion(obj)
-	{
-		const textAreaWrap = $(obj).parent().siblings('.textarea-wrap');
-		if ($(obj).is(':checked'))
-			$(textAreaWrap).show()
-		else
-		{
-			$(textAreaWrap).hide();
-			$(textAreaWrap).children('textarea').val('');
-		}
-
-		$(textAreaWrap).children('textarea').trigger('focus');
 	}
 
 	function onSubmitDoit()
@@ -301,10 +139,10 @@
 				"doit_keyword" : keywords,
 				"doit_image" : "",
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
-				"is_apply" : chkIsApply.is('checked') ? 'Y' : 'N',
-				"is_question" : chkIsQuestion.is('checked') ? 'Y' : 'N',
+				"is_apply" : chkIsApply.is(':checked') ? 'Y' : 'N',
+				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',
 				"question": doitQuestion.val().trim(),
-				"is_answer" : chkIsAnswer.is('checked') ? 'Y' : 'N'
+				"is_answer" : chkIsAnswer.is(':checked') ? 'Y' : 'N'
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

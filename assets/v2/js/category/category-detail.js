@@ -120,7 +120,7 @@
 	{
 		if (isEmpty(subCategoryTitle.val()))
 		{
-			sweetToast(`세부 카테고리는 ${message.required}`);
+			sweetToast(`세부 카테고리 명은 ${message.required}`);
 			subCategoryTitle.trigger('focus');
 			return false;
 		}

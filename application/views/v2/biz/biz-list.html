@@ -12,8 +12,8 @@
                     <li>
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
-                            <select class="select-box">
-                                <option>기업명</option>
+                            <select id="selSearchType" class="select-box">
+                                <option value="nickname">기업명</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -69,3 +69,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/biz/biz-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -38,7 +38,9 @@
     export const selSort    = $("#selSort");
     export const dataTable     = $("#dataTable");
 
-    export const thumbnail    = $("#thumbnail");
+    export const thumbnail = $("#thumbnail");
+    export const amount    = $("#amount");
+    export const nickname  = $("#nickname");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -72,11 +74,11 @@
     export const isExposure	    = $("#isExposure");
     export const rdoEstablish	= $("input[name=radio-establish]");
     export const rdoExposure	= $("input[name=radio-exposure]");
-    export const subCategoryTable = $("#subCategoryTable");
     export const subCategoryTitle = $("#subCategoryTitle");
 
     /** 두잇 **/
-    export const sponsor        = $("#sponsor");
+    export const sponsor        = $("#biz");
+    export const doitSponsor    = $(".doit-biz");
     export const sponsorUuid    = $("#sponsorUuid");
     export const selCategory    = $("#selCategory");
     export const selSubcategory = $("#selSubcategory");
@@ -86,7 +88,7 @@
     export const rdoPublicType  = $("input[name=radio-public-type]");
     export const chkIsApply     = $("input[name=chk-is-apply]");
     export const chkIsAnswer    = $("input[name=chk-is-answer]");
-    export const chkIsQuestion  = $("input[name=chk-is-qeustion]");
+    export const chkIsQuestion  = $("input[name=chk-is-question]");
     export const doitQuestion   = $("#doitQuestion");
     export const doitImage      = $("#doitImage");
     export const doitKeywords   = $("#doitKeywords");
@@ -101,4 +103,45 @@
     export const isAnswer       = $("#isAnswer");
     export const doitInfoForm   = $("#doitInfoForm");
     export const doitUpdateForm = $("#doitUpdateForm");
+    export const infoDoitTitle = $("#infoDoitTitle");
+    export const infoDoitDesc  = $("#infoDoitDesc");
+    export const infoDoitKeywords = $("#infoDoitKeywords");
+    export const infoQuestion  = $("#infoQuestion");
+    export const doitThumbnail = $(".doit-image");
+    export const btnAddKeyword = $("#btnAddKeyword");
+    export const btnSubmitUpdateDoit = $("#btnSubmitUpdateDoit");
+    export const btnUpdateDoit   = $("#btnUpdateDoit");
+
+    export const btnCreateMission   = $("#btnCreateMission");
+    export const btnSubmitMission   = $("#btnSubmitMission");
+    export const btnMissionList   = $("#btnMissionList");
+    export const btnUpdateMission   = $("#btnUpdateMission");
+    export const btnSubmitUpdateMission = $("#btnSubmitUpdateMission");
+    export const btnDeleteMission   = $("#btnDeleteMission");
+    export const missionListForm    = $("#missionListForm");
+    export const missionDetailForm  = $("#missionDetailForm");
+    export const missionCreateForm  = $("#missionCreateForm");
+    export const missionUpdateForm  = $("#missionUpdateForm");
+    export const missionTable       = $("#missionTable");
+    export const missionTitle       = $("#missionTitle");
+
+    export const btnCreateTalk   = $("#btnCreateTalk");
+    export const createTalkModal = $("#createTalkModal");
+    export const talkListForm   = $("#talkListForm");
+    export const talkDetailForm = $("#talkDetailForm");
+    export const talkUpdateForm = $("#talkUpdateForm");
+    export const talk = $("#talk");
+    export const talkImage = $("#talkImage");
+    export const chkNoticeTalk = $("input[name=chk-notice-talk]");
+
+    /** 비즈 **/
+    export const doitTable = $("#doitTable");
+    export const ucdTable = $("#ucdTable");
+    export const selPageLengthDoit = $("#selPageLengthDoit");
+    export const selPageLengthUcd = $("#selPageLengthUcd");
+    export const bizNo = $("#bizNo");
+    export const bizImage = $("#bizImage");
+    export const bizWeb = $("#bizWeb");
+    export const bizDesc = $("#bizDesc");
+
 

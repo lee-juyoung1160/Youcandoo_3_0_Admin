@@ -5,7 +5,7 @@
 		btnSubmit, inputNumber, bizWeb, bizDesc, bizImage, nickname, lengthInput
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {onErrorImage, limitInputLength, onChangeValidateImage} from "../modules/common.js";
+	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -48,6 +48,7 @@
 		g_biz_uuid = profile_uuid;
 
 		onErrorImage();
+		calculateInputLength();
 	}
 
 	function onSubmitUpdateBiz()

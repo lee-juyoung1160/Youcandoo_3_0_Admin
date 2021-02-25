@@ -78,7 +78,7 @@
 
     /** 두잇 **/
     export const sponsor        = $("#biz");
-    export const doitSponsor    = $(".doit-biz");
+    export const doitSponsor    = $(".doit-sponsor");
     export const sponsorUuid    = $("#sponsorUuid");
     export const selCategory    = $("#selCategory");
     export const selSubcategory = $("#selSubcategory");

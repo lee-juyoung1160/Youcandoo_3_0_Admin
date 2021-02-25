@@ -123,5 +123,14 @@
     export const missionTable       = $("#missionTable");
     export const missionTitle       = $("#missionTitle");
 
+    export const btnCreateTalk   = $("#btnCreateTalk");
+    export const createTalkModal = $("#createTalkModal");
+    export const talkListForm   = $("#talkListForm");
+    export const talkDetailForm = $("#talkDetailForm");
+    export const talkUpdateForm = $("#talkUpdateForm");
+    export const talk = $("#talk");
+    export const talkImage = $("#talkImage");
+    export const chkNoticeTalk = $("input[name=chk-notice-talk]");
+
 
 

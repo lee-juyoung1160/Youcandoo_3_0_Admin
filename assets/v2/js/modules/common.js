@@ -26,12 +26,12 @@
         overflowScroll();
     }
 
-    function overflowHidden()
+    export function overflowHidden()
     {
         $('body').css("overflow", "hidden");
     }
 
-    function overflowScroll()
+    export function overflowScroll()
     {
         $('body').css("overflow", "scroll");
     }

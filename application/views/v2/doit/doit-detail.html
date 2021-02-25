@@ -1075,9 +1075,9 @@
                 <!-- s: 톡 -->
                 <div class="doit-talk tab-contents" style="display: none;" id="tabDoitTalk">
                     <!-- s: 톡 리스트 -->
-                    <div class="detail-list" style="display: none;">
+                    <div class="detail-list" id="talkListForm">
                         <div class="card detail-tit-warp clearfix">
-                            <button id="btnAdd" type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 톡 등록</button>
+                            <button id="btnCreateTalk" type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 톡 등록</button>
                         </div>
                         <div class="search-wrap row">
                             <div class="col-12">
@@ -1143,7 +1143,7 @@
                                 <tr>
                                     <td>공지</td>
                                     <td>열심히사는강아지열심히사는강아지</td>
-                                    <td><a href="/v2/doit/detail">내요오오오오옹</a></td>
+                                    <td><a class="test-talk">내요오오오오옹</a></td>
                                     <td>111</td>
                                     <td>111</td>
                                     <td>2020-02-02</td>
@@ -1152,7 +1152,7 @@
                                 <tr>
                                     <td>공지</td>
                                     <td>열심히사는강아지열심히사는강아지</td>
-                                    <td><a href="/v2/doit/detail">내요오오오오옹</a></td>
+                                    <td><a class="test-talk">내요오오오오옹</a></td>
                                     <td>111</td>
                                     <td>111</td>
                                     <td>2020-02-02</td>
@@ -1165,7 +1165,7 @@
                     </div>
 
                     <!-- s: 톡 상세 -->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail" style="display: none;" id="talkDetailForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 10%;">
@@ -1420,7 +1420,7 @@
                     </div>
 
                     <!-- s: 톡 수정 -->
-                    <div class="detail-update">
+                    <div class="detail-update" style="display: none;" id="talkUpdateForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 20%;">
@@ -1467,7 +1467,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
+                    </div asid>
 
                 </div>
 
@@ -1524,7 +1524,6 @@
                 <button id="btnBan" type="button" class="btn btn-danger">강퇴</button>
             </div>
         </div>
-        <div class="modal-bg"></div>
 
         <!-- 인증 탭 - 경고장 발송 버튼 클릭 시 오픈 -->
         <div class="modal-content">
@@ -1554,10 +1553,9 @@
                 <button id="btnSendReport" type="button" class="btn btn-danger">발송</button>
             </div>
         </div>
-        <div class="modal-bg"></div>
 
         <!-- 톡 등록 -->
-        <div class="modal-content">
+        <div class="modal-content" id="createTalkModal">
             <div class="modal-header clearfix">
                 <h5>두잇 톡 등록</h5>
                 <i class="modal-close">×</i>
@@ -1583,19 +1581,19 @@
                         <td>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryImage">업로드</label>
+                                <label for="talkImage">업로드</label>
                                 <input type="file" id="talkImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                             </div>
-                            <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
+<!--                            <div class="detail-img-wrap">-->
+<!--                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
+<!--                            </div>-->
                         </td>
                     </tr>
                     <tr>
                         <th>구분</th>
                         <td>
                             <div class="checkbox-wrap">
-                                <input id="c19" type="checkbox" name="cb">
+                                <input id="c19" type="checkbox" name="chk-notice-talk">
                                 <label for="c19"><span></span>공지로 등록</label>
                             </div>
                         </td>
@@ -1607,6 +1605,7 @@
                 <button id="btnSubmitTalk" type="button" class="btn btn-primary">등록완료</button>
             </div>
         </div>
+
         <div class="modal-bg"></div>
     </div>
 

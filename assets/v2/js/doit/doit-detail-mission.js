@@ -25,7 +25,7 @@
 		missionListForm.hide();
 	}
 
-	export function onClickBtnDetailMission()
+	export function onClickDetailMission()
 	{
 		missionCreateForm.hide();
 		missionUpdateForm.hide();

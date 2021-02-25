@@ -31,7 +31,8 @@
 	selCategory,
 	doitImage,
 	selSubcategory,
-	doitKeyword, btnUpdateDoit,} from '../modules/elements.js';
+	doitKeyword, btnUpdateDoit, btnCreateMission,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
@@ -62,8 +63,8 @@
 			sweetToast(data.msg);
 	}
 
-	let isSponsorDoit;
-	let g_doit_uuid;
+	export let isSponsorDoit;
+	export let g_doit_uuid;
 	function buildDetail(data)
 	{
 		let { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
@@ -89,8 +90,8 @@
 		onErrorImage();
 	}
 
-	let g_category_uuid;
-	let g_subcategory_uuid;
+	export let g_category_uuid;
+	export let g_subcategory_uuid;
 	function buildUpdate(data)
 	{
 		let { doit_title, doit_description, category_uuid, subcategory_uuid, doit_keyword,
@@ -177,10 +178,11 @@
 				btnUpdateDoit.show();
 				break;
 			case 'delete' :
-				btnDoitOpen.show();
-				btnDoitDelete.show();
+				btnDoitOpen.hide();
+				btnDoitDelete.hide();
 				btnDoitStop.hide();
-				btnUpdateDoit.show();
+				btnUpdateDoit.hide();
+				btnCreateMission.hide();
 				break;
 		}
 
@@ -319,24 +321,4 @@
 		}
 
 		return true;
-	}
-
-	export function onSubmitDoitOpen()
-	{
-		const url = api.openDoit;
-		const errMsg = message.ajaxError;
-		const param = { "doit_uuid" : g_doit_uuid };
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), doitOpenCallback, errMsg, false);
-	}
-
-	function doitOpenCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			getDetail();
-			onClickTab(tabUl.children().eq(0))
-		}
-		else
-			sweetToast(data.msg);
 	}

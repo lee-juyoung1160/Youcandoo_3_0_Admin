@@ -3,17 +3,13 @@
 	import {api, fileApi} from '../modules/api-url.js';
 	import {
 	tabUl,
-	tabContents,
 	doitTitle,
 	sponsor,
 	category,
 	doitDesc,
 	doitKeywords,
 	doitThumbnail,
-	btnBack,
-	btnList,
 	btnUpdate,
-	lengthInput,
 	publicType,
 	isApply,
 	doitQuestion,
@@ -28,7 +24,6 @@
 	chkIsQuestion,
 	chkIsAnswer,
 	rdoPublicType,
-	btnAddKeyword,
 	infoDoitTitle,
 	infoDoitDesc,
 	infoDoitKeywords,
@@ -36,90 +31,18 @@
 	selCategory,
 	doitImage,
 	selSubcategory,
-	btnSubmitUpdate, doitKeyword,
-} from '../modules/elements.js';
+	doitKeyword, btnUpdateDoit,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {
-		calculateInputLength,
-		historyBack,
-		limitInputLength,
-		onChangeValidateImage,
-		onErrorImage
-	} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
+	import {calculateInputLength, onErrorImage} from "../modules/common.js";
+	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
-	import { initTableDefaultConfig } from "../modules/tables.js";
-	import { onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, addRemoveKeywordEvent } from "../modules/doit-common.js"
+	import { onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent } from "../modules/doit-common.js"
 
 	const pathName		= getPathName();
 	const categoryIdx	= splitReverse(pathName, '/');
 
-	$( () => {
-		/** dataTable default config **/
-		initTableDefaultConfig();
-		getCategoryList();
-		/** 상세 불러오기 **/
-		getDetail();
-		/** 이벤트 **/
-		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		tabUl			.on('click', function (event) { onClickTab(event.target); });
-		// lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		// modalOpen		.on("click", function () { onClickModalOpen(); });
-		// modalClose		.on("click", function () { fadeoutModal(); });
-		// modalBackdrop	.on("click", function () { fadeoutModal(); });
-		doitImage		.on('change', function () { onChangeValidateImage(this); });
-		selCategory		.on('change', function () { onChangeSelCategory(); });
-		btnAddKeyword	.on('click', function () { onClickAddKeyword(); });
-		chkIsApply		.on('change', function () { onClickChkIsApply(this); });
-		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
-		btnBack	 		.on('click', function () { historyBack(); });
-		btnList	 		.on('click', function () { goListPage(); });
-		btnUpdate		.on('click', function () { onClickBtnUpdate() });
-		btnSubmitUpdate	.on('click', function () { onSubmitUpdateDoit() });
-		btnDoitOpen		.on('click', function () { onSubmitDoitOpen() });
-		btnDoitStop		.on('click', function () { onSubmitUpdateDoit() });
-		btnDoitDelete	.on('click', function () { onSubmitUpdateDoit() });
-	});
-
-	function onClickTab(selectedTab)
-	{
-		const target = $(selectedTab).data('target')
-
-		switch (target) {
-			case '#tabDoitInfo' :
-				getDetail();
-				doitUpdateForm.hide();
-				doitInfoForm.show();
-				break;
-			case '#tabDoitMission' :
-				getDetail();
-				break;
-			case '#tabDoitMember' :
-				getDetail();
-				break;
-			case '#tabDoitReview' :
-				getDetail();
-				break;
-			case '#tabDoitUcd' :
-				getDetail();
-				break;
-			case '#tabDoitAction' :
-				getDetail();
-				break;
-			case '#tabDoitTalk' :
-				getDetail();
-				break;
-		}
-
-		$(selectedTab).siblings().removeClass('active');
-		$(selectedTab).addClass('active');
-		tabContents.hide();
-		$(target).show();
-	}
-
-	function getDetail()
+	export function getDetail()
 	{
 		const url = api.detailDoit;
 		const errMsg = label.detailContent + message.ajaxLoadError;
@@ -237,27 +160,27 @@
 				btnDoitOpen.show();
 				btnDoitDelete.show();
 				btnDoitStop.hide();
-				btnUpdate.show();
+				btnUpdateDoit.show();
 				break;
 			case 'open' :
 				btnDoitOpen.hide();
 				btnDoitDelete.show();
 				btnDoitStop.show();
 				btnDoitStop.text('운영정지');
-				btnUpdate.show();
+				btnUpdateDoit.show();
 				break;
 			case 'stop' :
 				btnDoitOpen.hide();
 				btnDoitDelete.show();
 				btnDoitStop.show();
 				btnDoitStop.text('정지해제');
-				btnUpdate.show();
+				btnUpdateDoit.show();
 				break;
 			case 'delete' :
 				btnDoitOpen.show();
 				btnDoitDelete.show();
 				btnDoitStop.hide();
-				btnUpdate.show();
+				btnUpdateDoit.show();
 				break;
 		}
 
@@ -278,7 +201,7 @@
 		}
 	}
 
-	function onClickBtnUpdate()
+	export function onClickBtnUpdateDoit()
 	{
 		selCategory.val(g_category_uuid);
 		setSubCategory();
@@ -286,7 +209,7 @@
 		doitUpdateForm.show();
 	}
 
-	function onSubmitUpdateDoit()
+	export function onSubmitUpdateDoit()
 	{
 		if (updateValidation())
 		{
@@ -398,7 +321,7 @@
 		return true;
 	}
 
-	function onSubmitDoitOpen()
+	export function onSubmitDoitOpen()
 	{
 		const url = api.openDoit;
 		const errMsg = message.ajaxError;
@@ -417,10 +340,3 @@
 		else
 			sweetToast(data.msg);
 	}
-
-	function goListPage()
-	{
-		location.href = page.listDoit;
-	}
-
-

@@ -104,7 +104,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <div class="right-wrap">
-                                            <button id="btnUpdate" type="button" class="btn btn-teal" style="display: none;">수정</button>
+                                            <button id="btnUpdateDoit" type="button" class="btn btn-teal" style="display: none;">수정</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -252,7 +252,7 @@
                         <tr>
                            <td colspan="2">
                                <div class="right-wrap">
-                                   <button id="btnSubmitUpdate" type="button" class="btn-sm btn-primary">수정완료</button>
+                                   <button id="btnSubmitUpdateDoit" type="button" class="btn-sm btn-primary">수정완료</button>
                                </div>
                            </td>
                         </tr>
@@ -263,12 +263,12 @@
                 <!-- s: 미션 -->
                 <div class="doit-mission tab-contents" style="display: none;" id="tabDoitMission">
                     <!-- s: 미션목록 -->
-                    <div class="detail-list" style="display: none;">
+                    <div class="detail-list" id="missionListForm">
                         <div class="card detail-tit-warp">
-                            <button type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 미션 등록</button>
+                            <button id="btnCreateMission" type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 미션 등록</button>
                         </div>
                         <div class="table-wrap">
-                            <table>
+                            <table id="missionTable">
                                 <thead>
                                 <colgroup>
                                     <col style="width: 40%;">
@@ -286,7 +286,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><a href="/v2/doit/detail/mission">하루 한번 5분씩 영어공부</a></td>
+                                    <td><a id="test">하루 한번 5분씩 영어공부</a></td>
                                     <td>2020-03-03 ~ 2020-04-04</td>
                                     <td>200</td>
                                     <td>진행중</td>
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                     <!-- s: 미션상세 -->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail" style="display: none;" id="missionDetailForm">
                         <div class="card detail-tit-warp clearfix">
                             <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
                         </div>
@@ -351,16 +351,16 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-outline-primary">미션 목록</button>
-                                        <button type="button" class="btn-sm btn-teal">수정</button>
-                                        <button type="button" class="btn-sm btn-danger">삭제</button>
+                                        <button id="btnMissionList" type="button" class="btn-sm btn-outline-primary">미션 목록</button>
+                                        <button id="btnUpdateMission" type="button" class="btn-sm btn-teal">수정</button>
+                                        <button id="btnDeleteMission" type="button" class="btn-sm btn-danger">삭제</button>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <!-- s: 미션등록 -->
-                    <div class="detail-create">
+                    <div class="detail-create" style="display: none;" id="missionCreateForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 30%;">
@@ -370,7 +370,7 @@
                                 <th>미션명 *</th>
                                 <td>
                                     <div class="input-wrap">
-                                        <input id="" type="text" class="length-input" maxlength="30" placeholder="미션명을 입력해주세요.">
+                                        <input id="missionTitle" type="text" class="length-input" maxlength="30" placeholder="미션명을 입력해주세요.">
                                         <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                                     </div>
                                 </td>
@@ -379,9 +379,9 @@
                                 <th>기간 *</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="text" class="datepicker">
+                                        <input type="text" class="datepicker" readonly>
                                         <span class="date-text"> ~ </span>
-                                        <input type="text" class="datepicker">
+                                        <input type="text" class="datepicker" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -399,13 +399,13 @@
                                 <th>인증방법 *</th>
                                 <td>
                                     <div class="radio-wrap">
-                                        <input id="r8" type="radio" name="ra">
+                                        <input id="r8" type="radio" name="radio-action-method">
                                         <label for="r8"><span></span>사진</label>
 
-                                        <input  id="r9" type="radio" name="ra">
+                                        <input  id="r9" type="radio" name="radio-action-method">
                                         <label for="r9"><span></span>영상</label>
 
-                                        <input  id="r10" type="radio" name="ra">
+                                        <input  id="r10" type="radio" name="radio-action-method">
                                         <label for="r10"><span></span>음성</label>
                                     </div>
                                 </td>
@@ -417,7 +417,7 @@
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
                                         <label for="">업로드</label>
-                                        <input type="file" id="" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                        <input type="file" id="actionImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -428,7 +428,7 @@
                                 <th>인증 예시 설명 *</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
+                                        <textarea id="actionDesc" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
                                         <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                     </div>
                                 </td>
@@ -454,14 +454,14 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-primary">등록완료</button>
+                                        <button id="btnSubmitMission" type="button" class="btn-sm btn-primary">등록완료</button>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <!-- s: 미션수정 -->
-                    <div class="detail-update" style="display:none;">
+                    <div class="detail-update" style="display:none;" id="missionUpdateForm">
                         <div class="card detail-tit-warp clearfix">
                             <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
                         </div>
@@ -512,7 +512,7 @@
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
                                         <label for="">업로드</label>
-                                        <input type="file" id="" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                        <input type="file" id="updateActionImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -523,7 +523,7 @@
                                 <th>인증 예시 설명 *</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
+                                        <textarea id="updateActionDesc" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
                                         <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                     </div>
                                 </td>
@@ -1521,7 +1521,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnReorder" type="button" class="btn btn-danger">강퇴</button>
+                <button id="btnBan" type="button" class="btn btn-danger">강퇴</button>
             </div>
         </div>
         <div class="modal-bg"></div>
@@ -1551,7 +1551,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnReorder" type="button" class="btn btn-danger">발송</button>
+                <button id="btnSendReport" type="button" class="btn btn-danger">발송</button>
             </div>
         </div>
         <div class="modal-bg"></div>
@@ -1571,7 +1571,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="textarea-wrap">
-                                <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                <textarea id="talk" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                             </div>
                         </td>
@@ -1584,7 +1584,7 @@
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="categoryImage">업로드</label>
-                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                <input type="file" id="talkImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                             </div>
                             <div class="detail-img-wrap">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1604,7 +1604,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnReorder" type="button" class="btn btn-primary">등록완료</button>
+                <button id="btnSubmitTalk" type="button" class="btn btn-primary">등록완료</button>
             </div>
         </div>
         <div class="modal-bg"></div>
@@ -1612,4 +1612,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/doit/doit-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/doit/doit-detail-init.js?version=<?php echo $this->config->item('version');?>"></script>

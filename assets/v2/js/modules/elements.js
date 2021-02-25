@@ -107,5 +107,21 @@
     export const infoQuestion  = $("#infoQuestion");
     export const doitThumbnail = $(".doit-image");
     export const btnAddKeyword = $("#btnAddKeyword");
-    export const btnSubmitUpdate = $("#btnSubmitUpdate");
+    export const btnSubmitUpdateDoit = $("#btnSubmitUpdateDoit");
+    export const btnUpdateDoit   = $("#btnUpdateDoit");
+
+    export const btnCreateMission   = $("#btnCreateMission");
+    export const btnSubmitMission   = $("#btnSubmitMission");
+    export const btnMissionList   = $("#btnMissionList");
+    export const btnUpdateMission   = $("#btnUpdateMission");
+    export const btnSubmitUpdateMission = $("#btnSubmitUpdateMission");
+    export const btnDeleteMission   = $("#btnDeleteMission");
+    export const missionListForm    = $("#missionListForm");
+    export const missionDetailForm  = $("#missionDetailForm");
+    export const missionCreateForm  = $("#missionCreateForm");
+    export const missionUpdateForm  = $("#missionUpdateForm");
+    export const missionTable       = $("#missionTable");
+    export const missionTitle       = $("#missionTitle");
+
+
 

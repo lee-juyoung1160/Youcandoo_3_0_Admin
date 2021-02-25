@@ -91,6 +91,18 @@
         dateTo.datepicker("setDate", "today");
     }
 
+    export function initInputDateRangeWeek()
+    {
+        dateFrom.datepicker("setDate", "today");
+        dateTo.datepicker("setDate", "+6D");
+    }
+
+    export function initMinDateToday()
+    {
+        datePicker.datepicker("option", "minDate", "today");
+        datePicker.datepicker("option", "maxDate", "9999-12-31");
+    }
+
     export function initMaxDateToday()
     {
         datePicker.datepicker("option", "minDate", "2020-07-01");

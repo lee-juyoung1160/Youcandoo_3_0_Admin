@@ -3,7 +3,7 @@
 	import { api, fileApi } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, bannerImage, bannerTitle,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { onChangeValidateImage } from "../modules/common.js";
+	import {initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage} from "../modules/common.js";
 	import {isEmpty, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -11,6 +11,9 @@
 
 	$( () => {
 		bannerTitle.trigger('focus');
+		initSearchDatepicker();
+		initInputDateRangeWeek();
+		initMinDateToday();
 		/** 이벤트 **/
 		bannerImage	.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit	.on('click', function () { onSubmitBanner(); });

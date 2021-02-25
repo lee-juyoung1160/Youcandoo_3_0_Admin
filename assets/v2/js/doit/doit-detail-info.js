@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
-	import {api, fileApi} from '../modules/api-url.js';
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
 	tabUl,
 	doitTitle,
@@ -224,7 +224,7 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.single;
+		let url = fileApiV2.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);

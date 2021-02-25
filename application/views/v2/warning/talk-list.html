@@ -1,0 +1,117 @@
+<section>
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">톡 신고 관리</h2>
+            <a href="/v2/doit/create"><i class="fas fa-plus"></i>스폰서두잇 등록</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <select id="selDateType" class="select-box">
+                                <option value="created">생성일</option>
+                                <option value="opened">오픈일</option>
+                            </select>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">신고 여부</p>
+                    <div class="radio-wrap">
+                        <input id="r1" type="radio" name="r-status">
+                        <label for="r1"><span></span>전체</label>
+
+                        <input id="r2" type="radio" name="r-status">
+                        <label for="r2"><span></span>Y</label>
+
+                        <input id="r3" type="radio" name="r-status">
+                        <label for="r3"><span></span>N</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                        <select id="selSort" class="select-box">
+                            <option value="created">생성일 최신 순</option>
+                            <option value="opened">오픈일 최신 순</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                    <col style="width: 30%;">
+                    <col style="width: 5%;">
+                    <col style="width: 5%;">
+                    <col style="width: 5%;">
+                    <col style="width: 5%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>유형</th>
+                    <th>작성자</th>
+                    <th>내용</th>
+                    <th>댓글수</th>
+                    <th>좋아요</th>
+                    <th>신고</th>
+                    <th>블라인드</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>공지</td>
+                    <td>열심히사는강아지열심히사는강아지</td>
+                    <td>
+                        <p class="detail-data line-clamp-2 link">
+                            오오오옹오오오오옹내요오오오오옹내요오오오오옹오오오옹오오오오옹내요오오오오옹내요오오오오옹오오오옹오오오오옹내요오오오오옹내요오오오오옹오오오옹오오오오옹내요오오오오옹내요오오오오옹오오오옹오오오오옹내요오오오오옹내요오오오오옹
+                        </p>
+                    </td>
+                    <td>111</td>
+                    <td>111</td>
+                    <td>111</td>
+                    <td>N</td>
+                    <td>2020-02-02</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

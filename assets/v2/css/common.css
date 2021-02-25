@@ -118,12 +118,12 @@
 	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
 }
-a.link {
+.link {
 	text-decoration: underline;
-	font-weight: 500;
 }
-a.link:hover {
+.link:hover {
 	color: #00327e;
+	font-weight: 600;
 }
 
 /* form style */
@@ -780,7 +780,7 @@ table td {
 	height: auto;
 }
 
-.table-wrap .txt-left {
+.txt-left {
 	text-align: left;
 }
 
@@ -976,8 +976,18 @@ table td {
 	text-align: right;
 }
 
-/*스윗 알럭*/
+/*스윗 알럿*/
 .swal2-content {
 	font-size: 0.9em;
+}
+
+/* 텍스트 말줄임 */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-decoration: underline;
+	cursor: pointer;
 }
 

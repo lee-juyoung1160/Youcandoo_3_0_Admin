@@ -27,8 +27,19 @@
 	padding: 0 2px;
 }
 .auth-item .img-wrap {
+	overflow: hidden;
 	margin: 5px 0;
 	cursor: pointer;
+}
+.auth-item .img-wrap img {
+	transition: all .5s;
+}
+.auth-item .img-wrap:hover img {
+	transform: scale(1.2);
+}
+.auth-item .title {
+	height: 35px;
+	line-height: 1.2em;
 }
 .auth-item .nick-name {
 	display: block;
@@ -91,3 +102,34 @@
 	box-shadow: 4px 5px 6px 0 rgb(0 0 0 / 5%);
 }
 
+/* 신고관리 - 인증 상세 모달 */
+.modal-content.auth-detail {
+	width: 1300px;
+}
+/* 인증 */
+.auth-detail .auth-data-wrap {
+	width: 604px;
+	height: 604px;
+}
+.video-wrap video {
+	width: 100%;
+	height: 604px;
+}
+.audio-wrap {
+	position: relative;
+}
+.audio-wrap audio {
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	width: calc(100% - 30px);
+	transform: translate(-50%);
+	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
+	-o-transform: translate(-50%, 0);
+}
+/* 인증예시 비디오 */
+.auth-ex-wrap .video-wrap video {
+	height: 518px;
+}

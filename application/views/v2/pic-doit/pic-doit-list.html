@@ -78,7 +78,7 @@
                             <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 큐레이션 관리</button>
                         </div>
                     </div>
-                    <table>
+                    <table id="dataTable">
                         <colgroup>
                             <col style="width: 70%;">
                             <col style="width: 20%;">
@@ -163,3 +163,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/pick/pick-list.js?version=<?php echo $this->config->item('version');?>"></script>

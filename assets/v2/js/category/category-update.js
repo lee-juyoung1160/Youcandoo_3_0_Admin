@@ -1,6 +1,6 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
-	import { api } from '../modules/api-url.js';
+	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
 	categoryTitle,
 	categoryIcon,
@@ -8,7 +8,7 @@
 	rdoEstablish,
 	rdoExposure,
 	btnSubmit,
-	dataTable, lengthInput, updateTable,
+	dataTable, lengthInput,
 } from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
@@ -16,7 +16,6 @@
 	calculateInputLength,
 	onChangeValidateImage,
 	onErrorImage,
-		fadeoutModal
 	} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -224,10 +223,10 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApi.single;
+		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', categoryImage[0].files[0]);
+		param.append('file', categoryIcon[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateCategoryRequest, errMsg, false);
 	}

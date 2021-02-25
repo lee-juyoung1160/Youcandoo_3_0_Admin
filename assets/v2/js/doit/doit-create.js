@@ -125,7 +125,6 @@
 		{
 			const url = api.createDoit;
 			const errMsg = label.submit + message.ajaxError;
-			let { file } = data.image_urls;
 			let keywords = [];
 			doitKeywords.find('li .added-keyword').each(function () {
 				keywords.push($(this).text().trim());
@@ -137,7 +136,7 @@
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
 				"doit_keyword" : keywords,
-				"doit_image" : "",
+				"doit_image" : data.image_urls.file,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"is_apply" : chkIsApply.is(':checked') ? 'Y' : 'N',
 				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',

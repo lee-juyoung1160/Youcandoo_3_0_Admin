@@ -8,16 +8,16 @@ class Service extends MY_Controller {
         switch ($Route)
         {
             case "" :
-                $this->load->layout('v2/service/notice-list');
+                $this->load->template('v2/service/notice-list');
                 break;
             case "create":
-                $this->load->layout('v2/service/notice-create');
+                $this->load->template('v2/service/notice-create');
                 break;
             case "update":
-                $this->load->layout('v2/service/notice-update');
+                $this->load->template('v2/service/notice-update');
                 break;
             case "detail":
-                $this->load->layout('v2/service/notice-detail');
+                $this->load->template('v2/service/notice-detail');
                 break;
         }
     }
@@ -27,19 +27,19 @@ class Service extends MY_Controller {
         switch ($Route)
         {
             case "" :
-                $this->load->layout('v2/service/faq-list');
+                $this->load->template('v2/service/faq-list');
                 break;
             case "create":
-                $this->load->layout('v2/service/faq-create');
+                $this->load->template('v2/service/faq-create');
                 break;
             case "update":
-                $this->load->layout('v2/service/faq-update');
+                $this->load->template('v2/service/faq-update');
                 break;
             case "detail":
-                $this->load->layout('v2/service/faq-detail');
+                $this->load->template('v2/service/faq-detail');
                 break;
             case "sort":
-                $this->load->layout('v1/service/faq-sort');
+                $this->load->template('v1/service/faq-sort');
                 break;
         }
     }

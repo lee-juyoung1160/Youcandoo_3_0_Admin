@@ -941,6 +941,9 @@ table td {
 	width: 100%;
 	height: 100%;
 }
+.detail-image-wrap {
+	width: 420px;
+}
 .detail-tit-warp {
 	display: flex;
 	align-content: center;

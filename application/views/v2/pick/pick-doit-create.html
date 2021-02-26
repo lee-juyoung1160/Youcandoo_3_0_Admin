@@ -16,7 +16,7 @@
                         <th>큐레이션 명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="pickTitle" type="text" class="length-input" placeholder="큐레이션명을 입력해주세요." maxlength="23">
+                                <input id="curationTitle" type="text" class="length-input" placeholder="큐레이션명을 입력해주세요." maxlength="23">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/23</p>
                             </div>
                         </td>
@@ -40,7 +40,7 @@
                     </p>
                 </div>
                 <div class="table-wrap">
-                    <table class="order-table">
+                    <table class="order-table" id="updateTable">
                         <colgroup>
                             <col style="width: 20%;">
                             <col style="width: 75%;">
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="col-1">
-                <button type="button" class="btn-move"><i class="fas fa-chevron-left"></i></button>
+                <button id="btnAdd" type="button" class="btn-move"><i class="fas fa-chevron-left"></i></button>
             </div>
             <div class="col-5">
                 <div class="card detail-tit-warp clearfix">
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="table-wrap">
-                    <table>
+                    <table id="dataTable">
                         <colgroup>
                             <col style="width: 5%;">
                             <col style="width: 20%;">
@@ -152,8 +152,8 @@
                         <tr>
                             <td>
                                 <div class="checkbox-wrap">
-                                    <input id="c1" type="checkbox">
-                                    <label for="c1"><span></span></label>
+                                    <input id="c12" type="checkbox">
+                                    <label for="c12"><span></span></label>
                                 </div>
                             </td>
                             <td>
@@ -172,8 +172,8 @@
                         <tr>
                             <td>
                                 <div class="checkbox-wrap">
-                                    <input id="c1" type="checkbox">
-                                    <label for="c1"><span></span></label>
+                                    <input id="c11" type="checkbox">
+                                    <label for="c11"><span></span></label>
                                 </div>
                             </td>
                             <td>
@@ -199,5 +199,7 @@
         </div>
     </div>
 </section>
-<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script defer type="module" src="/assets/v2/js/pick/pick-create.js?version=<?php echo $this->config->item('version');?>"></script>
 

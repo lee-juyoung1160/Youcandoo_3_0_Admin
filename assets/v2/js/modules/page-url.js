@@ -19,4 +19,6 @@
         ,updateBiz : rootContext + 'biz/update/'
 
         ,listBanner : rootContext + 'banner'
+
+        ,listPick : rootContext + 'pick'
     }

@@ -1,0 +1,64 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">FAQ 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>구분 *</th>
+                        <td>
+                            <select id="selCategory" class="select-box">
+                                <option value="">회원정보</option>
+                                <option value="">두잇인증</option>
+                                <option value="">두잇개설</option>
+                                <option value="">UCD</option>
+                                <option value="">오류/불편사항</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="doitTitle" type="text" class="length-input" maxlength="40" placeholder="제목을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/40</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <textarea id="doitDesc" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 여부</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <label for="r3"><span></span>Y</label>
+
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
+                                <label for="r4"><span></span>N</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

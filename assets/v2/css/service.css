@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+/* FAQ 순서변경 모달 */
+.faq-list .modal-content {
+    width: 1200px;
+}

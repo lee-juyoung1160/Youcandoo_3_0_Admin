@@ -44,6 +44,16 @@ class Service extends MY_Controller {
         }
     }
 
+    public function prohibition($Route="")
+        {
+            switch ($Route)
+            {
+                case "" :
+                    $this->load->template('v2/service/prohibition-list');
+                    break;
+            }
+        }
+
 
 
 }

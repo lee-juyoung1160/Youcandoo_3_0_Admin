@@ -31,13 +31,22 @@
         createBanner : baseApiUrl + 'banner/create',
         deleteBanner : baseApiUrl + 'banner/delete',
         reorderBanner : baseApiUrl + 'banner/update/sequence',
+
+        pickList : baseApiUrl + 'pick',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
-    //const fileUploadBaseUrl = 'https://adminupload.youcandoo.co.kr/file/upload/';
     export const fileApi = {
         single : fileUploadBaseUrl+'single'
         ,event : fileUploadBaseUrl+'event'
         ,doit : fileUploadBaseUrl+'doit'
         ,promotion : fileUploadBaseUrl+'promotion'
+    }
+
+    const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';
+    export const fileApiV2 = {
+        single : fileUploadBaseUrlV2+'single'
+        ,event : fileUploadBaseUrlV2+'event'
+        ,doit : fileUploadBaseUrlV2+'doit'
+        ,promotion : fileUploadBaseUrlV2+'promotion'
     }

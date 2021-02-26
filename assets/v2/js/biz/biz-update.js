@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
-	import {api, fileApi} from '../modules/api-url.js';
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
 		btnSubmit, inputNumber, bizWeb, bizDesc, bizImage, nickname, lengthInput
 	} from '../modules/elements.js';
@@ -59,7 +59,7 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApi.single;
+		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', bizImage[0].files[0]);

@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
-	import { api, fileApi } from '../modules/api-url.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
 		lengthInput,
 		categoryTitle,
@@ -29,7 +29,7 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.single;
+		let url = fileApiV2.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', categoryIcon[0].files[0]);
@@ -43,10 +43,9 @@
 		{
 			let url 	= api.createCategory;
 			let errMsg 	= label.submit+message.ajaxError;
-			let { file } = data.image_urls;
 			let param = {
 				"title" : categoryTitle.val(),
-				"icon_image_url" : '',
+				"icon_image_url" : data.image_urls.file,
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 				"is_establish" : $('input[name=radio-establish]:checked').val(),
 			}

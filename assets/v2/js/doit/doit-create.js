@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers } from '../modules/request.js'
-	import { api, fileApi } from '../modules/api-url.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
 		lengthInput, keyword, dataTable, selCategory, btnAdd,
 		doitTitle, doitDesc, doitKeywords, doitKeyword,
@@ -111,7 +111,7 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApi.single;
+		let url = fileApiV2.single;
 		let errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);
@@ -125,7 +125,6 @@
 		{
 			const url = api.createDoit;
 			const errMsg = label.submit + message.ajaxError;
-			let { file } = data.image_urls;
 			let keywords = [];
 			doitKeywords.find('li .added-keyword').each(function () {
 				keywords.push($(this).text().trim());
@@ -137,7 +136,7 @@
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
 				"doit_keyword" : keywords,
-				"doit_image" : "",
+				"doit_image" : data.image_urls.file,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"is_apply" : chkIsApply.is(':checked') ? 'Y' : 'N',
 				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',

@@ -25,6 +25,19 @@
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="title">제목/내용</option>
+                                <option value="created_user">작성자</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -34,13 +47,13 @@
                 <div class="card clearfix">
                     <p class="search-title">노출 여부</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-exposure" value="all" checked>
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-exposure" value="Y">
                         <label for="r2"><span></span>Y</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-exposure" value="N">
                         <label for="r3"><span></span>N</label>
                     </div>
                 </div>
@@ -157,3 +170,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/notice/notice-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -807,6 +807,32 @@ table td {
 	justify-content: center;
 	margin: 20px 0;
 }
+/* paginate */
+.dataTables_paginate {
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+.dataTables_paginate .paginate_button {
+	font-size: 15px;
+	padding: 7px;
+	border-radius: 2px;
+}
+.dataTables_paginate .paginate_button.current {
+	color: #ffffff;
+	background-color: #0061f2;
+}
+.paginate_button.previous.disabled,
+.paginate_button.next.disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+.paginate_button.previous.disabled i,
+.paginate_button.next.disabled i {
+	cursor: default;
+}
 
 	/* modal */
 .modal-bg {

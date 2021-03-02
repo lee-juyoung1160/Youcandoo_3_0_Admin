@@ -34,6 +34,12 @@
 
         pickList : baseApiUrl + 'pick',
         createPick : baseApiUrl + 'pick/create',
+
+        noticeList : baseApiUrl + 'notice/list',
+        createNotice : baseApiUrl + 'notice/create',
+        detailNotice : baseApiUrl + 'notice/detail',
+        updateNotice : baseApiUrl + 'notice/update',
+        topNotice : baseApiUrl + 'notice/top',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

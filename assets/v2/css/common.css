@@ -941,6 +941,7 @@ table td {
 /* detail-table */
 .right-wrap {
 	float: right;
+	margin-left: auto;
 	text-align: right;
 }
 .detail-page .date-wrap input[type="text"] {

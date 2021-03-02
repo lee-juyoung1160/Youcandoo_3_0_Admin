@@ -7,7 +7,7 @@
             <h2 class="main-title" id="infoDoitTitle"></h2>
             <div class="right-wrap">
                 <button id="btnDoitOpen" type="button" class="btn-sm btn-outline-warning" style="display: none;">두잇오픈</button>
-                <button id="btnDoitDelete" type="button" class="btn-sm btn-outline-danger" style="display: none;">두잇 삭제</button>
+                <button id="btnDoitDelete" type="button" class="btn-sm btn-outline-danger" style="display: none;"><i class="fas fa-trash-alt"></i> 두잇 삭제</button>
                 <button id="btnDoitStop" type="button" class="btn-sm btn-outline-orange" style="display: none;">운영정지</button>
             </div>
         </div>
@@ -82,13 +82,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>&nbsp;ㄴ 질문</th>
+                                <th>ㄴ 질문</th>
                                 <td>
                                     <p class="detail-data" id="infoQuestion"></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th>&nbsp;ㄴ 답변 공개</th>
+                                <th>ㄴ 답변 공개</th>
                                 <td>
                                     <p class="detail-data" id="isAnswer"></p>
                                 </td>
@@ -104,7 +104,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <div class="right-wrap">
-                                            <button id="btnUpdateDoit" type="button" class="btn btn-teal" style="display: none;">수정</button>
+                                            <button id="btnUpdateDoit" type="button" class="btn-sm btn-teal" style="display: none;">수정</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -112,6 +112,10 @@
                     </div>
                     <!-- s: 두잇수정 -->
                     <div class="detail-update" style="display: none;" id="doitUpdateForm">
+                        <div class="card doit-tit-warp">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title">두잇 수정</p>
+                        </div>
                         <table class="detail-table">
                         <colgroup>
                             <col style="width: 20%;">
@@ -297,8 +301,12 @@
                     </div>
                     <!-- s: 미션상세 -->
                     <div class="detail-detail" style="display: none;" id="missionDetailForm">
-                        <div class="card detail-tit-warp clearfix">
+                        <div class="card doit-tit-warp">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
+                            <div class="right-wrap">
+                                <button id="btnDeleteMission" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 미션삭제</button>
+                            </div>
                         </div>
                         <table class="detail-table">
                             <colgroup>
@@ -351,9 +359,7 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button id="btnMissionList" type="button" class="btn-sm btn-outline-primary">미션 목록</button>
                                         <button id="btnUpdateMission" type="button" class="btn-sm btn-teal">수정</button>
-                                        <button id="btnDeleteMission" type="button" class="btn-sm btn-danger">삭제</button>
                                     </div>
                                 </td>
                             </tr>
@@ -361,6 +367,10 @@
                     </div>
                     <!-- s: 미션등록 -->
                     <div class="detail-create" style="display: none;" id="missionCreateForm">
+                        <div class="card doit-tit-warp">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title">미션 등록</p>
+                        </div>
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 30%;">
@@ -462,7 +472,8 @@
                     </div>
                     <!-- s: 미션수정 -->
                     <div class="detail-update" style="display:none;" id="missionUpdateForm">
-                        <div class="card detail-tit-warp clearfix">
+                        <div class="card doit-tit-warp clearfix">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
                         </div>
                         <table class="detail-table">
@@ -637,7 +648,8 @@
 
                     <!-- s: 참여 대기자 목록-->
                     <div class="detail-detail">
-                        <div class="card detail-tit-warp member-top">
+                        <div class="card doit-tit-warp member-top">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
                         <div class="row member-top">
@@ -716,8 +728,6 @@
                             </table>
                         </div>
                     </div>
-
-
 
                 </div>
 
@@ -1166,6 +1176,15 @@
 
                     <!-- s: 톡 상세 -->
                     <div class="detail-detail" style="display: none;" id="talkDetailForm">
+                        <div class="card doit-tit-warp member-top">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title">톡 상세</p>
+                            <div class="right-wrap">
+                                <button type="button" class="btn-sm btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                <button type="button" class="btn-sm btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                                <button type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 삭제</button>
+                            </div>
+                        </div>
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 10%;">
@@ -1177,17 +1196,8 @@
                             </colgroup>
                             <tr>
                                 <th>작성자</th>
-                                <td colspan="3">
+                                <td colspan="5">
                                     <p class="detail-data">유캔두</p>
-                                </td>
-                                <td colspan="2">
-                                    <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                                        <button type="button" class="btn-sm btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
-
-                                        <button type="button" class="btn-sm btn-teal"> 수정</button>
-                                        <button type="button" class="btn-sm btn-danger"><i class="fas fa-times-circle"></i> 삭제</button>
-                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -1214,9 +1224,14 @@
                             </tr>
                             <tr>
                                 <th>첨부파일</th>
-                                <td colspan="5">
+                                <td colspan="4">
                                     <div class="detail-img-wrap doit-info-img">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                    </div>
+                                </td>
+                                <td style="vertical-align: bottom">
+                                    <div class="right-wrap">
+                                        <button type="button" class="btn-sm btn-teal">수정</button>
                                     </div>
                                 </td>
                             </tr>
@@ -1421,6 +1436,10 @@
 
                     <!-- s: 톡 수정 -->
                     <div class="detail-update" style="display: none;" id="talkUpdateForm">
+                        <div class="card doit-tit-warp member-top">
+                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title">톡 수정</p>
+                        </div>
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 20%;">

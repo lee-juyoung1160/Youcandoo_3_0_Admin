@@ -4,6 +4,30 @@
 .doit-detail-teb li {
 	width: calc(100%/7);
 }
+/* 두잇 수정 */
+.detail-update .detail-tit-warp button {
+	margin-left: 0;
+	margin-right: 10px;
+}
+.doit-tit-warp {
+	display: flex;
+	margin-bottom: 10px;
+	align-content: center;
+}
+.doit-tit-warp .btn-back {
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	line-height: 25px;
+	background-color: #eee;
+	border-radius: 50%;
+}
+.doit-tit-warp .title {
+	padding: 0 10px;
+	line-height: 35px;
+}
+
 /* 소개 이미지 */
 .doit-info-img {
 	width: 320px;

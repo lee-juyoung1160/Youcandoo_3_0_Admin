@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 
+    public function mypage()
+    {
+        $this->load->template('v2/login/mypage');
+    }
+
+
     public function __construct()
     {
         parent::__construct();

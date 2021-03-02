@@ -1,0 +1,107 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">내 정보 관리</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>아이디</th>
+                        <td>
+                            <p class="detail-data">
+                                noocgs
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>
+                            <p class="detail-data">
+                                이주영
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이메일</th>
+                        <td>
+                            <p class="detail-data">
+                                fsdfsdf@dad.dd.dd
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호 *</th>
+                        <td>
+                            <input id="" type="password" placeholder="비밀번호를 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호 확인 *</th>
+                        <td>
+                            <input id="" type="password" placeholder="비밀번호를 입력해주세요.">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>스폰서 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="스폰서를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <!--<thead>
+                        <colgroup>
+                            <col style="width: 100%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>스폰서 명</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>세리박스</td>
+                        </tr>
+                        <tr>
+                            <td>야나두</td>
+                        </tr>
+                        <tr>
+                            <td>나이키</td>
+                        </tr>
+                        <tr>
+                            <td>아디다스</td>
+                        </tr>
+                        </tbody>-->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/doit/doit-create.js?version=<?php echo $this->config->item('version');?>"></script>
+

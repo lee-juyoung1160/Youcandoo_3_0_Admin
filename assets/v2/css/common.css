@@ -147,7 +147,8 @@
 }
 input[type="text"],
 input[type="time"],
-input[type="search"] {
+input[type="search"],
+input[type="password"] {
 	width: 150px;
 	height: 35px;
 	padding: 0 10px;
@@ -927,7 +928,8 @@ table td {
 	border-bottom: 2px solid #0061f2;
 }
 /* detail */
-.detail-page input[type="text"] {
+.detail-page input[type="text"],
+input[type="password"]{
 	width: 450px;
 }
 .detail-page .ucd-input-wrap input[type="text"] {

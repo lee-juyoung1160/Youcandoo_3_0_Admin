@@ -6,7 +6,7 @@
         </div>
         <ul class="utill-mnu">
             <li class="user-profile">
-                <a href="#">
+                <a href="/v2/auth/mypage">
                     <span class="user-img"><img src="/assets/v2/img/profile-1.png" alt="프로필이미지"></span>
                     <span class="user-name"><strong><?php echo ($this->session->userdata['user_data']->name);?></strong>님</span>
                 </a>
@@ -101,6 +101,17 @@
                         <li><a href="/v2/service/faq">FAQ</a></li>
                         <li><a href="/v2/service/inquiry">1:1 문의</a></li>
                         <li><a href="/v2/service/prohibition">금칙어 관리</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="main-mnu">
+                        <i class="far fas fa-cogs"></i>
+                        <span>운영</span>
+                        <i class="fas fa-chevron-right arrow-i"></i>
+                        <div class="bar"></div>
+                    </div>
+                    <ul class="sub-mnu">
+                        <li><a href="/v2/operate">오류 관리</a></li>
                     </ul>
                 </li>
             </ol>

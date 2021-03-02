@@ -30,6 +30,7 @@
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
     export const btnUpdate	= $("#btnUpdate");
+    export const btnDelete	= $("#btnDelete");
     export const btnAdd	    = $("#btnAdd");
     export const btnList	= $("#btnList");
     export const btnBack	= $("#btnBack");
@@ -160,5 +161,6 @@
     /** 공지 **/
     export const reserveDate = $("#reserveDate");
     export const chkTopNotice = $("input[name=chk-top-notice]");
+    export const isTop = $("#isTop");
 
 

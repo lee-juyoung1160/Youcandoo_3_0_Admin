@@ -4,7 +4,7 @@
         <div class="main-top clearfix">
             <h2 class="main-title">공지사항 상세</h2>
             <div class="right-wrap">
-                <button type="button" class="btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> 공지사항 삭제</button>
+                <button id="btnDelete" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> 공지사항 삭제</button>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
                     <tr>
                         <th>제목</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="title">
                                 새로워진 유캔두 둘러보기!
                             </p>
                         </td>
@@ -27,7 +27,7 @@
                     <tr>
                         <th>내용</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="content">
                                 새로워진 유캔두 둘러보기!새로워진 유캔두 둘러보기!새로워진 유캔두 둘러보기!
                             </p>
                         </td>
@@ -36,14 +36,14 @@
                         <th>본문 이미지</th>
                         <td>
                             <div class="detail-image-wrap">
-                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="" id="contentImage">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>예약일</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="reserveDate">
                                 2020-04-01
                             </p>
                         </td>
@@ -51,7 +51,7 @@
                     <tr>
                         <th>상단 공지 여부</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="isTop">
                                 N
                             </p>
                         </td>
@@ -59,7 +59,7 @@
                     <tr>
                         <th>노출 여부</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="isExposure">
                                 Y
                             </p>
                         </td>
@@ -75,4 +75,4 @@
         </div>
     </div>
 </section>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/notice/notice-detail.js?version=<?php echo $this->config->item('version');?>"></script>

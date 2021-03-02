@@ -22,7 +22,7 @@
 
         ,listPick : rootContext + 'pick'
 
-        ,listNotice : rootContext + 'notice'
-        ,detailNotice : rootContext + 'notice/detail/'
-        ,updateNotice : rootContext + 'notice/update/'
+        ,listNotice : rootContext + 'service/notice'
+        ,detailNotice : rootContext + 'service/notice/detail/'
+        ,updateNotice : rootContext + 'service/notice/update/'
     }

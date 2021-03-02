@@ -3,18 +3,35 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">FAQ</h2>
-            <a href="/v2/service/faq/create"><i class="fas fa-plus"></i>FAQ 등록</a>
+            <h2 class="main-title">1:1 문의</h2>
         </div>
 
         <div class="search-wrap row">
             <div class="col-12">
                 <ul class="card">
                     <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">날짜/내용</option>
+                                <option value="">제목</option>
+                                <option value="">내용</option>
+                                <option value="">작성자</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -29,28 +46,32 @@
         <div class="search-wrap row">
             <div class="col-3">
                 <div class="card clearfix">
-                    <p class="search-title">구분</p>
+                    <p class="search-title">문의 구분</p>
                     <select id="selCategory" class="select-box">
                         <option value="">회원정보</option>
-                        <option value="">두잇인증</option>
-                        <option value="">두잇개설</option>
+                        <option value="">이용안내</option>
+                        <option value="">두잇 참여/개설</option>
                         <option value="">UCD</option>
                         <option value="">오류/불편사항</option>
+                        <option value="">이벤트</option>
+                        <option value="">제휴</option>
+                        <option value="">기타</option>
+
                     </select>
                 </div>
             </div>
             <div class="col-3">
                 <div class="card clearfix">
-                    <p class="search-title">노출 여부</p>
+                    <p class="search-title">답변 상태</p>
                     <div class="radio-wrap">
                         <input id="r1" type="radio" name="r-status">
                         <label for="r1"><span></span>전체</label>
 
                         <input id="r2" type="radio" name="r-status">
-                        <label for="r2"><span></span>Y</label>
+                        <label for="r2"><span></span>완료</label>
 
                         <input id="r3" type="radio" name="r-status">
-                        <label for="r3"><span></span>N</label>
+                        <label for="r3"><span></span>대기</label>
                     </div>
                 </div>
             </div>
@@ -70,107 +91,54 @@
                         </select>
                     </div>
                 </div>
-                <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> FAQ 관리</button>
-                </div>
             </div>
             <table id="dataTable">
                 <thead>
                 <colgroup>
                     <col style="width: 10%;">
-                    <col style="width: 50%;">
+                    <col style="width: 15%;">
+                    <col style="width: 5%;">
+                    <col style="width: 20%;">
                     <col style="width: 10%;">
                     <col style="width: 15%;">
-                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 5%;">
+                    <col style="width: 5%;">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>구분</th>
                     <th>제목</th>
-                    <th>노출여부</th>
-                    <th>작성자</th>
-                    <th>등록일</th>
+                    <th>회원구분</th>
+                    <th>닉네임</th>
+                    <th>등록일시</th>
+                    <th>담당자</th>
+                    <th>처리일시</th>
+                    <th>답변상태</th>
+                    <th>메모</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>두잇개설</td>
-                    <td><a href="faq/detail">두잇개설은 오또케 하는 것인가융?</a></td>
-                    <td>Y</td>
-                    <td>유캔두</td>
-                    <td>2020-02-02</td>
+                    <td>오류/불편사항</td>
+                    <td>
+                        <a href="inquiry/detail" class="line-clamp link" style="max-width: 200px;">두잇 인증이 앙대여두잇 인증이 앙대여두잇 인증이 앙대여</a>
+                    </td>
+                    <td>비회원</td>
+                    <td>열심히사는강아지열심히사는강아지</td>
+                    <td>2021-03-03 00:00:00</td>
+                    <td>열심히사는물고기열심히사는물고기</td>
+                    <td>2021-03-03 00:00:00</td>
+                    <td>대기</td>
+                    <td>
+                        <i class="tooltip-mark fas fa-sticky-note">
+                            <span class="tooltip-txt left">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
+                        </i>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <div class="modal-wrap">
-        <!-- FAQ 수정 -->
-        <div class="modal-content">
-            <div class="modal-header clearfix">
-                <h5>FAQ 수정</h5>
-                <i class="modal-close">×</i>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <p class="desc">
-                        * 드래그 & 드랍으로 노출 순서를 변경할 수 있으며, 수정완료 클릭 시 적용됩니다.
-                    </p>
-                </div>
-                <div class="table-wrap">
-                    <table id="updateTable" class="order-table">
-                        <thead>
-                        <colgroup>
-                            <col style="width: 25%;">
-                            <col style="width: 50%;">
-                            <col style="width: 15%;">
-                            <col style="width: 10%;">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>구분</th>
-                            <th>제목</th>
-                            <th>등록일</th>
-                            <th>삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>회원정보</td>
-                            <td>
-                                새로워진유캔두! 둘새로워진유캔두! 둘새로워진유캔두! 둘새로워진유캔두! 둘
-                            </td>
-                            <td>2020-02-02</td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>회원정보</td>
-                            <td>
-                                새로워진 유캔두! 둘러보기
-                            </td>
-                            <td>2020-02-02</td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
-            </div>
-        </div>
-
-        <div class="modal-bg"></div>
     </div>
 
 </section>

@@ -559,7 +559,6 @@ button i {
 	display: none;
 	position: absolute;
 	top: -5px;
-	left: 130%;
 	min-width: 250px;
 	width: auto;
 	padding: 5px 10px;
@@ -571,6 +570,13 @@ button i {
 	border: 1px solid #b8e8d5;
 	border-radius: 5px;
 }
+.tooltip-txt.right {
+	left: 130%;
+}
+.tooltip-txt.left {
+	right: 130%;
+}
+
 .tooltip-mark:hover .tooltip-txt {
 	display: block;
 }
@@ -984,6 +990,14 @@ table td {
 }
 
 /* 텍스트 말줄임 */
+.line-clamp {
+	overflow: hidden;
+	display: inline-block;
+	max-width: 211px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid #505050;
+}
 .line-clamp-2 {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;

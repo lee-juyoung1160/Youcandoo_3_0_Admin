@@ -4,3 +4,32 @@
 .faq-list .modal-content {
     width: 1200px;
 }
+
+/* 1:1 문의 상세 */
+.inquiry-detail .img-wrap {
+    overflow: hidden;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.inquiry-detail .img-wrap img {
+    width: 100%;
+    height: 100%;
+    transition: all .5s;
+}
+.inquiry-detail .img-wrap:hover img {
+    transform: scale(1.2);
+}
+.inquiry-detail .modal-content .image-wrap {
+    overflow-y: scroll;
+    max-height: 700px;
+}
+.inquiry-detail .modal-content .image-wrap img {
+    width: 100%;
+}
+
+.inquiry-detail .answer-wrap {
+    margin-top: 30px;
+}

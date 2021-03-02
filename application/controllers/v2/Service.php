@@ -38,11 +38,24 @@ class Service extends MY_Controller {
             case "detail":
                 $this->load->template('v2/service/faq-detail');
                 break;
-            case "sort":
-                $this->load->template('v1/service/faq-sort');
-                break;
         }
     }
+
+    public function inquiry($Route="")
+        {
+            switch ($Route)
+            {
+                case "" :
+                    $this->load->template('v2/service/inquiry-list');
+                    break;
+                case "create":
+                    $this->load->template('v2/service/inquiry-create');
+                    break;
+                case "detail":
+                    $this->load->template('v2/service/inquiry-detail');
+                    break;
+            }
+        }
 
     public function prohibition($Route="")
         {

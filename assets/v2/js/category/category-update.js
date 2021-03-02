@@ -2,14 +2,14 @@
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
-	categoryTitle,
-	categoryIcon,
-	thumbnail,
-	rdoEstablish,
-	rdoExposure,
-	btnSubmit,
-	dataTable, lengthInput,
-} from '../modules/elements.js';
+		categoryTitle,
+		categoryIcon,
+		thumbnail,
+		rdoEstablish,
+		rdoExposure,
+		btnSubmit,
+		dataTable, lengthInput,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
 	limitInputLength,
@@ -62,11 +62,11 @@
 		categoryTitle.val(category_title);
 		thumbnail.attr('src', icon_image_url);
 		rdoEstablish.each(function () {
-			if ($(this).val() === is_exposure)
+			if ($(this).val() === is_establish)
 				$(this).prop('checked', true);
 		});
 		rdoExposure.each(function () {
-			if ($(this).val() === is_establish)
+			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
 		});
 

@@ -162,5 +162,6 @@
     export const reserveDate = $("#reserveDate");
     export const chkTopNotice = $("input[name=chk-top-notice]");
     export const isTop = $("#isTop");
-
+    /** FAQ **/
+    export const selFaqType = $("#selFaqType");
 

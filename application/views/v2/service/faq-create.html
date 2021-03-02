@@ -16,12 +16,12 @@
                     <tr>
                         <th>구분 *</th>
                         <td>
-                            <select id="selCategory" class="select-box">
-                                <option value="">회원정보</option>
-                                <option value="">두잇인증</option>
-                                <option value="">두잇개설</option>
-                                <option value="">UCD</option>
-                                <option value="">오류/불편사항</option>
+                            <select id="selFaqType" class="select-box">
+                                <option value="회원정보">회원정보</option>
+                                <option value="두잇인증">두잇인증</option>
+                                <option value="두잇개설">두잇개설</option>
+                                <option value="UCD">UCD</option>
+                                <option value="오류/불편사항">오류/불편사항</option>
                             </select>
                         </td>
                     </tr>
@@ -29,7 +29,7 @@
                         <th>제목 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" maxlength="40" placeholder="제목을 입력해주세요.">
+                                <input id="title" type="text" class="length-input" maxlength="40" placeholder="제목을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/40</p>
                             </div>
                         </td>
@@ -37,7 +37,7 @@
                     <tr>
                         <th>내용 *</th>
                         <td>
-                            <textarea id="doitDesc" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -61,4 +61,4 @@
     </div>
 
 </section>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/faq/faq-create.js?version=<?php echo $this->config->item('version');?>"></script>

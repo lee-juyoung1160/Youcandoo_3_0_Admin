@@ -55,7 +55,7 @@
 	function onSubmitUpdateNotice()
 	{
 		if (validation())
-			sweetConfirm(message.create, fileUploadReq);
+			sweetConfirm(message.modify, fileUploadReq);
 	}
 
 	function fileUploadReq()

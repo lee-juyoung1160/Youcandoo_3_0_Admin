@@ -25,4 +25,7 @@
         ,listNotice : rootContext + 'service/notice'
         ,detailNotice : rootContext + 'service/notice/detail/'
         ,updateNotice : rootContext + 'service/notice/update/'
+        ,listFaq : rootContext + 'service/faq'
+        ,detailFaq : rootContext + 'service/faq/detail/'
+        ,updateFaq : rootContext + 'service/faq/update/'
     }

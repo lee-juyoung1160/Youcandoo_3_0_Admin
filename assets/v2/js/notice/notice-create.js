@@ -74,7 +74,7 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast(`공지 제목은 ${message.required}`);
+			sweetToast(`제목은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}

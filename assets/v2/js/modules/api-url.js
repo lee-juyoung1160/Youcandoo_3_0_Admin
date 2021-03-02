@@ -40,6 +40,10 @@
         detailNotice : baseApiUrl + 'notice/detail',
         updateNotice : baseApiUrl + 'notice/update',
         topNotice : baseApiUrl + 'notice/top',
+        faqList : baseApiUrl + 'faq/list',
+        createFaq : baseApiUrl + 'faq/create',
+        detailFaq : baseApiUrl + 'faq/detail',
+        updateFaq : baseApiUrl + 'faq/update',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

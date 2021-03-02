@@ -14,12 +14,12 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		//getPickList();
+		//getDoitPickList();
 		/** 이벤트 **/
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnUpdate	.on("click", function () { onSubmitUpdate(); });
+		btnUpdate		.on("click", function () { onSubmitUpdate(); });
 	});
 
 	function initTableSort()
@@ -40,7 +40,7 @@
 		return $(el);
 	}
 
-	function getPickList()
+	function getDoitPickList()
 	{
 		const url = api.pickList;
 		const errMsg = label.list + message.ajaxLoadError
@@ -88,7 +88,16 @@
 			initComplete: function () {
 				addPreviewEvent();
 			},
-			fnRowCallback: function( nRow, aData ) {
+			fnRowCallback: function( nRow, aData, dataIndex ) {
+
+				if (dataIndex === 0)
+				{
+					let table = dataTable.DataTable();
+					table.row(dataIndex).select();
+					viewPreview($(nRow).children().eq(0).children());
+				}
+
+				$(nRow).attr('data-uuid', aData.recommend_uuid);
 			},
 			drawCallback: function (settings) {
 				onErrorImage();
@@ -115,6 +124,24 @@
 		let param 	= { "recommend_uuid" : uuid };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildPreview, errMsg, false);
+	}
+
+	function buildPreview(data)
+	{
+		`<tr>
+			<td>
+				<div class="list-img-wrap banner-img-wrap">
+					<img src="/assets/v2/img/profile-1.png" alt="">
+				</div>
+			</td>
+			<td class="txt-left">
+				<p class="title">두잇 제에모모모모목두잇 제에모모모모목두잇 제에모모모모목</p>
+				<ul class="tag-list clearfix">
+					<li># <span>필라테스가젤조아</span></li>
+				</ul>
+				<p class="desc-sub"><i class="fas fa-user"></i> 열심히사는강아지 / 1110 참여 / <span class="badge badge-success">진행중</span></p>
+			</td>
+		</tr>`
 	}
 
 	function buildUpdateGrid(data)

@@ -38,9 +38,12 @@
     export const selSort    = $("#selSort");
     export const dataTable     = $("#dataTable");
 
-    export const thumbnail = $("#thumbnail");
-    export const amount    = $("#amount");
-    export const nickname  = $("#nickname");
+    export const thumbnail  = $("#thumbnail");
+    export const amount     = $("#amount");
+    export const nickname   = $("#nickname");
+    export const title      = $("#title");
+    export const content    = $("#content");
+    export const contentImage  = $("#contentImage");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -153,3 +156,9 @@
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");
     export const curationTitle = $("#curationTitle");
+
+    /** 공지 **/
+    export const reserveDate = $("#reserveDate");
+    export const chkTopNotice = $("input[name=chk-top-notice]");
+
+

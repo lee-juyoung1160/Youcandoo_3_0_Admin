@@ -21,4 +21,8 @@
         ,listBanner : rootContext + 'banner'
 
         ,listPick : rootContext + 'pick'
+
+        ,listNotice : rootContext + 'notice'
+        ,detailNotice : rootContext + 'notice/detail/'
+        ,updateNotice : rootContext + 'notice/update/'
     }

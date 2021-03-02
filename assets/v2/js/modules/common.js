@@ -46,6 +46,28 @@
         loader.fadeOut(100);
     }
 
+    export function initInputDatepickerMinDateToday()
+    {
+        datePicker.datepicker({
+            dateFormat: "yy-mm-dd"
+            ,monthNames: label.monthNames
+            ,dayNames: label.dayNames
+            ,dayNamesMin: label.dayNames
+            ,minDate: 0
+        });
+    }
+
+    export function initInputDatepickerMinDateNextDay()
+    {
+        datePicker.datepicker({
+            dateFormat: "yy-mm-dd"
+            ,monthNames: label.monthNames
+            ,dayNames: label.dayNames
+            ,dayNamesMin: label.dayNames
+            ,minDate: +1
+        });
+    }
+
     export function initSearchDatepicker()
     {
         datePicker.datepicker({
@@ -113,6 +135,11 @@
     {
         datePicker.datepicker("option", "minDate", "2020-07-01");
         datePicker.datepicker("option", "maxDate", "+3M");
+    }
+
+    export function setDateToday()
+    {
+        datePicker.datepicker("setDate", "today");
     }
 
     export function initDayBtn()

@@ -67,3 +67,19 @@
 
         return (info.start / info.length) + 1;
     }
+
+    /** 테이블 현재 페이지 리로드 **/
+    export function tableReloadAndStayCurrentPage(tableObj)
+    {
+        let table = tableObj.DataTable();
+        table.ajax.reload( null, false );
+        if (table.data().length === 0)
+            table.page( 'last' ).draw( 'page' );
+
+        $("input[name=chk-row]").prop("checked", false);
+    }
+
+    export function multiCheckBoxDom(idx)
+    {
+        return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`;
+    }

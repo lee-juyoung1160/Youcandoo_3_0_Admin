@@ -152,3 +152,4 @@
 
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");
+    export const curationTitle = $("#curationTitle");

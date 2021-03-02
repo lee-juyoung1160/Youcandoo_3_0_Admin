@@ -33,6 +33,7 @@
         reorderBanner : baseApiUrl + 'banner/update/sequence',
 
         pickList : baseApiUrl + 'pick',
+        createPick : baseApiUrl + 'pick/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

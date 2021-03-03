@@ -16,7 +16,7 @@
                     <tr>
                         <th>닉네임</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="nickname">
                                 두잇두잇츄
                             </p>
                         </td>
@@ -24,7 +24,7 @@
                     <tr>
                         <th>기기정보</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="deviceInfo">
                                 앱버전: 1.81 , os버전: 29 , 기기: SM-A315N
                             </p>
                         </td>
@@ -32,7 +32,7 @@
                     <tr>
                         <th>제목</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="title">
                                 제모오오오옥
                             </p>
                         </td>
@@ -40,14 +40,14 @@
                     <tr>
                         <th>내용</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="content">
                                 내요오오오오옹
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
-                        <td class="clearfix">
+                        <td class="clearfix" id="contentImage">
                             <div class="img-wrap">
                                 <img src="/assets/v2/img/auth-1.jpg" alt="">
                             </div>
@@ -76,13 +76,13 @@
                     <tr>
                         <th>답변 내용 *</th>
                         <td>
-                            <textarea rows="5" placeholder="답변을 입력해주세요."></textarea>
+                            <textarea id="answer" rows="5" placeholder="답변을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
                         <th>메모</th>
                         <td>
-                            <textarea rows="5" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="memo" rows="5" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                 </table>
@@ -90,7 +90,7 @@
         </div>
 
         <div class="footer-btn-wrap">
-            <button id="btnList" type="button" class="btn btn-primary">등록완료</button>
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록완료</button>
         </div>
     </div>
 
@@ -116,4 +116,4 @@
         <div class="modal-bg"></div>
     </div>
 </section>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/inquiry/inquiry-update.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -5,7 +5,7 @@ class Warning extends MY_Controller {
 
     public function index()
         {
-            $this->load->template('v2/warning/auth-list');
+            $this->load->template('v2/warning/action-list');
         }
 
     public function talk()

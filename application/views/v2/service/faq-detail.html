@@ -2,9 +2,9 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">FAQ 등록</h2>
+            <h2 class="main-title">FAQ 상세</h2>
             <div class="right-wrap">
-                <button type="button" class="btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> FAQ 삭제</button>
+                <button id="btnDelete" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> FAQ 삭제</button>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
                     <tr>
                         <th>구분</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="faqType">
                                회원정보
                             </p>
                         </td>
@@ -27,7 +27,7 @@
                     <tr>
                         <th>제목</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="title">
                                 엡페큐 제모옥
                             </p>
                         </td>
@@ -35,7 +35,7 @@
                     <tr>
                         <th>내용</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="content">
                                 내용
                             </p>
                         </td>
@@ -43,7 +43,7 @@
                     <tr>
                         <th>노출 여부</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="isExposure">
                                 Y
                             </p>
                         </td>
@@ -59,4 +59,4 @@
     </div>
 
 </section>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>

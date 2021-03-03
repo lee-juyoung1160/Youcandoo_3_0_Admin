@@ -164,4 +164,5 @@
     export const isTop = $("#isTop");
     /** FAQ **/
     export const selFaqType = $("#selFaqType");
+    export const faqType = $("#faqType");
 

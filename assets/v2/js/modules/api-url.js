@@ -39,11 +39,14 @@
         createNotice : baseApiUrl + 'notice/create',
         detailNotice : baseApiUrl + 'notice/detail',
         updateNotice : baseApiUrl + 'notice/update',
+        deleteNotice : baseApiUrl + 'notice/delete',
         topNotice : baseApiUrl + 'notice/top',
+
         faqList : baseApiUrl + 'faq/list',
         createFaq : baseApiUrl + 'faq/create',
         detailFaq : baseApiUrl + 'faq/detail',
         updateFaq : baseApiUrl + 'faq/update',
+        deleteFaq : baseApiUrl + 'faq/delete',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

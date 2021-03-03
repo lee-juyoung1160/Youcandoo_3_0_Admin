@@ -1,0 +1,318 @@
+<link rel="stylesheet" href="/assets/v2/css/marketing.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page push-create">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">푸시 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+
+                    <tr>
+                        <th>발송 일시 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r1" type="radio" name="radio-exposure">
+                                <label for="r1"><span></span>즉시</label>
+
+                                <input  id="r2" type="radio" name="radio-exposure">
+                                <label for="r2"><span></span>예약</label>
+                            </div>
+                            <div class="result-wrap date-wrap">
+                                <input id="reserveDate" type="text" class="datepicker" readonly>
+                                <input type="time" value="00:00" readonly="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>발송 구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r5" type="radio" name="radio-exposure">
+                                <label for="r5"><span></span>일반</label>
+
+                                <input  id="r6" type="radio" name="radio-exposure">
+                                <label for="r6"><span></span>공지</label>
+
+                                <input  id="r7" type="radio" name="radio-exposure">
+                                <label for="r7"><span></span>이벤트</label>
+
+                                <input  id="r8" type="radio" name="radio-exposure">
+                                <label for="r8"><span></span>두잇</label>
+                            </div>
+
+                            <div class="result-wrap">
+                                <input id="sponsor" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>수신 구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r9" type="radio" name="radio-exposure">
+                                <label for="r9"><span></span>알림+푸시</label>
+
+                                <input  id="r10" type="radio" name="radio-exposure">
+                                <label for="r10"><span></span>알림</label>
+
+                                <input  id="r11" type="radio" name="radio-exposure">
+                                <label for="r11"><span></span>푸시</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기기 구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r12" type="radio" name="radio-exposure">
+                                <label for="r12"><span></span>전체</label>
+
+                                <input  id="r13" type="radio" name="radio-exposure">
+                                <label for="r13"><span></span>애플</label>
+
+                                <input  id="r14" type="radio" name="radio-exposure">
+                                <label for="r14"><span></span>구글</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이미지</th>
+                        <td>
+                            <!--<p class="desc-sub">( 이미지 크기 : 가로 750 이상)</p>-->
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-oper="ge">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>발송 대상 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r3" type="radio" name="radio-exposure">
+                                <label for="r3"><span></span>전체</label>
+
+                                <input  id="r4" type="radio" name="radio-exposure">
+                                <label for="r4"><span></span>개인</label>
+                            </div>
+                            <div class="result-wrap">
+                                <div class="top">
+                                    <button type="button" class="btn-sm">닉네임 검색</button>
+                                    <div class="file-wrap excel-import">
+                                        <label for="btnXlsxImport">
+                                            <i class="fas fa-file-excel"></i>
+                                            엑셀 불러오기
+                                        </label>
+                                        <input type="file" id="btnXlsxImport" class="upload-hidden" accept=".xlsx">
+                                    </div>
+                                </div>
+                                <div class="result-box">
+                                    <div class="table-wrap">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 20%;">
+                                                <col style="width: 50%;">
+                                                <col style="width: 20%;">
+                                                <col style="width: 10%;">
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>닉네임</th>
+                                                <th>P-ID</th>
+                                                <th>보유 UCD</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>깐깐찡엉</td>
+                                                <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                                                <td>20,000,000</td>
+                                                <td>
+                                                    <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>깐깐찡엉</td>
+                                                <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                                                <td>20,000,000</td>
+                                                <td>
+                                                    <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+
+
+    <div class="modal-wrap">
+
+        <!-- 도착페이지 검색 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>도착페이지 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 80%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>제목</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>결과발표</td>
+                            <td>세리박스</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 닉네임 검색 -->
+        <div class="modal-content nickname-search">
+            <div class="modal-header clearfix">
+                <h5>닉네임 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card clearfix">
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="닉네임을 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 50%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 5%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>닉네임</th>
+                                    <th>두잇알림</th>
+                                    <th>마케팅알림</th>
+                                    <th>공지알림</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>깐깐찡엉깐깐찡엉깐깐찡엉깐깐찡엉</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>
+                                        <div class="checkbox-wrap">
+                                            <input id="c2" type="checkbox">
+                                            <label for="c2"><span></span></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn-move"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="col-5">
+                        <div class="card">
+                            <p class="title">총 100명 선택</p>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 48%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 17%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 5%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>닉네임</th>
+                                    <th>두잇알림</th>
+                                    <th>마케팅알림</th>
+                                    <th>공지알림</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>깐깐찡엉깐깐찡엉깐깐찡엉깐깐찡엉</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>
+                                        <button type="button" class="btn-xs btn-text-red">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
+</section>
+<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>

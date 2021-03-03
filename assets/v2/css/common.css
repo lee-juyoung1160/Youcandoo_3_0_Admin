@@ -247,6 +247,18 @@ textarea {
 	margin-top: 10px;
 }
 
+/* 인풋 복사 */
+input.input-copy {
+	overflow: hidden;
+	height: 20px;
+	padding: 0;
+	color: #505050;
+	border: none;
+	background: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 /* 태그 */
 .tag-wrap input[type="text"] {
 	width: 280px !important;
@@ -1026,6 +1038,7 @@ input[type="password"]{
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	border-bottom: 1px solid #505050;
+	cursor: pointer;
 }
 .line-clamp-2 {
 	display: -webkit-box;

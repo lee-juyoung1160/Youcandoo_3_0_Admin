@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* 푸시 등록 */
+.push-create .result-wrap {
+	margin-top: 10px;
+}
+
+/* ucd 충전 모달 */
+.push-create .modal-content.nickname-search {
+	width: 1500px;
+}
+.push-create .modal-content.nickname-search .btn-move  {
+	margin-top: 100px;
+}

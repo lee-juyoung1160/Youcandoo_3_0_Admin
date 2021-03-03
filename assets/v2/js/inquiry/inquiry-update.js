@@ -80,7 +80,7 @@
 	{
 		if (isEmpty(answer.val()))
 		{
-			alert('답변은 '+message.required);
+			sweetToast('답변은 '+message.required);
 			answer.trigger('focus');
 			return false;
 		}

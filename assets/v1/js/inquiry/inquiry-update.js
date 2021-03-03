@@ -101,7 +101,7 @@
     {
         if (isEmpty(commentEl.val()))
         {
-            alert('답변내용은 '+message.required);
+            sweetToast('답변내용은 '+message.required);
             commentEl.trigger('focus');
             return false;
         }

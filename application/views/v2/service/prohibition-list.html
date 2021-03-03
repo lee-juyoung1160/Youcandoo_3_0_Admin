@@ -3,7 +3,7 @@
 
         <div class="main-top clearfix">
             <h2 class="main-title">금칙어 목록</h2>
-            <a href="#"><i class="fas fa-plus"></i>금칙어 등록</a>
+            <a id="btnCreate"><i class="fas fa-plus"></i>금칙어 등록</a>
         </div>
 
         <div class="search-wrap row">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 금칙어 삭제</button>
+                    <button id="btnDelete" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 금칙어 삭제</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -97,7 +97,7 @@
                         <tbody>
                         <tr>
                             <td colspan="2">
-                                <textarea name="" id="" rows="10" placeholder="금칙어를 입력해주세요."></textarea>
+                                <textarea id="banWords" rows="10" placeholder="금칙어를 입력해주세요."></textarea>
                             </td>
                         </tr>
                         </tbody>
@@ -106,7 +106,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">등록완료</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">등록완료</button>
             </div>
         </div>
 
@@ -115,3 +115,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
+<script type="module" src="/assets/v2/js/prohibition/prohibition-list.js?version=<?php echo $this->config->item('version');?>"></script>

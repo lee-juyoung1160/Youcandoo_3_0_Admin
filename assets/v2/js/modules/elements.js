@@ -29,6 +29,7 @@
     export const btnReset 	= $("#btnReset");
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
+    export const btnCreate	= $("#btnCreate");
     export const btnUpdate	= $("#btnUpdate");
     export const btnDelete	= $("#btnDelete");
     export const btnAdd	    = $("#btnAdd");
@@ -165,4 +166,6 @@
     /** FAQ **/
     export const selFaqType = $("#selFaqType");
     export const faqType = $("#faqType");
+    /** 금지어 **/
+    export const banWords = $("#banWords");
 

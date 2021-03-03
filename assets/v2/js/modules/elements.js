@@ -44,6 +44,7 @@
     export const thumbnail  = $("#thumbnail");
     export const amount     = $("#amount");
     export const nickname   = $("#nickname");
+    export const memo       = $("#memo");
     export const title      = $("#title");
     export const content    = $("#content");
     export const contentImage  = $("#contentImage");
@@ -171,4 +172,8 @@
     export const banWords = $("#banWords");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
+    export const deviceInfo = $("#deviceInfo");
+    export const answer = $("#answer");
+    export const manager = $("#manager");
+    export const answerDate = $("#answerDate");
 

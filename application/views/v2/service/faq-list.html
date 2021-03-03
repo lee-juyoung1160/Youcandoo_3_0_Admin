@@ -14,7 +14,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">날짜/내용</option>
+                                <option value="title">제목/내용</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -30,12 +30,12 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">구분</p>
-                    <select id="selCategory" class="select-box">
-                        <option value="">회원정보</option>
-                        <option value="">두잇인증</option>
-                        <option value="">두잇개설</option>
-                        <option value="">UCD</option>
-                        <option value="">오류/불편사항</option>
+                    <select id="selFaqType" class="select-box">
+                        <option value="회원정보">회원정보</option>
+                        <option value="두잇인증">두잇인증</option>
+                        <option value="두잇개설">두잇개설</option>
+                        <option value="UCD">UCD</option>
+                        <option value="오류/불편사항">오류/불편사항</option>
                     </select>
                 </div>
             </div>
@@ -43,13 +43,13 @@
                 <div class="card clearfix">
                     <p class="search-title">노출 여부</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-exposure" value="all">
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-exposure" value="Y">
                         <label for="r2"><span></span>Y</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-exposure" value="N">
                         <label for="r3"><span></span>N</label>
                     </div>
                 </div>
@@ -175,3 +175,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/faq/faq-list.js?version=<?php echo $this->config->item('version');?>"></script>

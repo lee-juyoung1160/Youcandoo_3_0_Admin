@@ -5,19 +5,8 @@
 		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
-	import {
-		initSelectOption,
-		initPageLength,
-		initSearchDatepicker,
-		initDayBtn,
-		initMaxDateMonths, initSearchDateRangeMonths, fadeoutModal, fadeinModal
-	} from "../modules/common.js";
-	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
-		getCurrentPage, redrawPage
-	} from '../modules/tables.js';
+	import {initSelectOption, initPageLength, fadeoutModal, fadeinModal} from "../modules/common.js";
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

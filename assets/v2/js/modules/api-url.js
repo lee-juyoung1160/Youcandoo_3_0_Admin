@@ -48,6 +48,11 @@
         updateFaq : baseApiUrl + 'faq/update',
         deleteFaq : baseApiUrl + 'faq/delete',
 
+        inquiryList : baseApiUrl + 'inquiry/list',
+        createInquiry : baseApiUrl + 'inquiry/create',
+        detailInquiry : baseApiUrl + 'inquiry/detail',
+        updateInquiry : baseApiUrl + 'inquiry/update',
+
         prohibitionList : baseApiUrl + 'prohibition',
         createProhibition : baseApiUrl + 'prohibition/create',
         deleteProhibition : baseApiUrl + 'prohibition/delete',

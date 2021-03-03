@@ -24,6 +24,7 @@
     export const selDateType    = $("#selDateType");
     export const selSearchType  = $("#selSearchType");
     export const chkStatus  = $("input[name=chk-status]");
+    export const rdoStatus  = $("input[name=radio-status]");
     export const keyword 	= $("#keyword");
     export const btnSearch 	= $("#btnSearch");
     export const btnReset 	= $("#btnReset");
@@ -168,4 +169,6 @@
     export const faqType = $("#faqType");
     /** 금지어 **/
     export const banWords = $("#banWords");
+    /** 문의 **/
+    export const selInquiryType = $("#selInquiryType");
 

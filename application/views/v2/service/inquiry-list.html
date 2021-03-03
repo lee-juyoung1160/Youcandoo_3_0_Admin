@@ -29,9 +29,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">제목</option>
-                                <option value="">내용</option>
-                                <option value="">작성자</option>
+                                <option value="title">제목/내용</option>
+                                <option value="nickname">작성자</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -47,7 +46,7 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">문의 구분</p>
-                    <select id="selCategory" class="select-box">
+                    <select id="selInquiryType" class="select-box">
                         <option value="">회원정보</option>
                         <option value="">이용안내</option>
                         <option value="">두잇 참여/개설</option>
@@ -64,13 +63,13 @@
                 <div class="card clearfix">
                     <p class="search-title">답변 상태</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-status" value="all">
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-status" value="Y">
                         <label for="r2"><span></span>완료</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-status" value="N">
                         <label for="r3"><span></span>대기</label>
                     </div>
                 </div>
@@ -143,3 +142,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/inquiry/inquiry-list.js?version=<?php echo $this->config->item('version');?>"></script>

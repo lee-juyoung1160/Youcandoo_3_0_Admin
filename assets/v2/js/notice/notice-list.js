@@ -1,17 +1,18 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
-		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate,
-	} from '../modules/elements.js';
+	import {
+	body, btnSearch, btnReset, keyword, dataTable, updateTable,
+	selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate, dateButtons,
+} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-		initSelectOption,
-		initPageLength,
-		initSearchDatepicker,
-		initDayBtn,
-		initMaxDateMonths, initSearchDateRangeMonths, fadeoutModal, fadeinModal
-	} from "../modules/common.js";
+	initSelectOption,
+	initPageLength,
+	initSearchDatepicker,
+	initDayBtn,
+	initMaxDateMonths, initSearchDateRangeMonths, fadeoutModal, fadeinModal, onClickDateRangeBtn
+} from "../modules/common.js";
 	import {
 		initTableDefaultConfig,
 		buildTotalCount,
@@ -48,6 +49,7 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnUpdate		.on("click", function () { onSubmitUpdate(); });
+		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
 	});
 
 	function initSearchForm()

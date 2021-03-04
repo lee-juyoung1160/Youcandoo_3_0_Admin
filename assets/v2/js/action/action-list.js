@@ -1,7 +1,8 @@
 
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, selPageLength, dateButtons, modalOpen, modalClose, modalBackdrop, chkStatus, dateFrom, dateTo, modalWarning, pagination
-	} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, selPageLength, dateButtons,
+	modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
+	chkStatus, dateFrom, dateTo, pagination, actionsWrap} from '../modules/elements.js';
 	import {sweetError,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday,onClickDateRangeBtn, fadeoutModal, overflowHidden, paginate,
 		initSearchDateRangeWeek} from "../modules/common.js";
@@ -18,6 +19,7 @@
 		initSearchForm();
 		/** 목록 불러오기 **/
 		//getActions();
+		buildActions();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		modalOpen		.on("click", function () { onClickModalWarningOpen(); });
@@ -84,7 +86,48 @@
 
 	function buildActions(data)
 	{
+		let actionEl = '';
+		for (let i=0; i<12; i++)
+		{
+			if (i===0 || i%6 === 0)
+				actionEl += '<div class="row">';
 
+			actionEl +=
+				`<div class="col-2 auth-item">
+                    <div class="card">
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input id="c15" type="checkbox" name="cb">
+                                <label for="c15"><span></span></label>
+                            </div>
+                            <div class="right-wrap">
+                                <span><i class="fas fa-exclamation-triangle"></i> 111</span>
+                            </div>
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
+                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                        <span class="date">2020-02-02</span>
+                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
+                    </div>
+                </div>`
+
+			if (i>0 && (i+1)%6 === 0)
+				actionEl += '</div>';
+		}
+
+		actionsWrap.html(actionEl);
+
+		document.querySelectorAll('.img-wrap').forEach( element => element.addEventListener('click', viewDetail));
+	}
+
+	function viewDetail()
+	{
+		modalDetail.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 
 	function buildPagination(data)

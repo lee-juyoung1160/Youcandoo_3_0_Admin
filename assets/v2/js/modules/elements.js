@@ -179,5 +179,6 @@
     export const manager = $("#manager");
     export const answerDate = $("#answerDate");
     /** 인증 **/
+    export const actionsWrap = $("#actionsWrap");
     export const modalWarning = $("#modalWarning");
 

@@ -1,0 +1,63 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">운영자 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>권한</th>
+                        <td>
+                            <select id="selFaqType" class="select-box">
+                                <option value="">개발팀</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>
+                            <p class="detail-data">
+                                이주영
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이메일</th>
+                        <td>
+                            <p class="detail-data">
+                                eeeeee@eeeeee.ee.ee
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 여부</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <label for="r3"><span></span>Y</label>
+
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
+                                <label for="r4"><span></span>N</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
+        </div>
+    </div>
+
+</section>
+<script type="module" src="/assets/v2/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>

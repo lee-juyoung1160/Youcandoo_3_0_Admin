@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/* 권한관리 */
+.auth-create .auth-list {
+    position: fixed;
+    width: 380px;
+}
+.auth-create .auth-detail {
+    float: right;
+}
+.auth-create .checkbox-wrap {
+    margin-bottom: 10px;
+}
+.auth-create .checkbox-wrap:last-child {
+    margin-bottom: 0;
+}

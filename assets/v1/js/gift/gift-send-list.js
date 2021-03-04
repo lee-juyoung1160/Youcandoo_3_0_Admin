@@ -285,8 +285,8 @@
 	{
 		if (isSuccessResp(data))
 		{
-			buildModalContent(data);
 			modalDetailFadein();
+			buildModalContent(data);
 		}
 		else
 			sweetToast(invalidResp(data));

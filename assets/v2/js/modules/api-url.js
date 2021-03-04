@@ -56,6 +56,8 @@
         prohibitionList : baseApiUrl + 'prohibition',
         createProhibition : baseApiUrl + 'prohibition/create',
         deleteProhibition : baseApiUrl + 'prohibition/delete',
+
+        actionList : baseApiUrl + 'action'
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

@@ -13,6 +13,7 @@
 	const inquiryIdx = splitReverse(pathName, '/');
 
 	$( () => {
+		answer.trigger('focus');
 		/** 상세 불러오기 **/
 		//getDetail();
 		buildAttachment();

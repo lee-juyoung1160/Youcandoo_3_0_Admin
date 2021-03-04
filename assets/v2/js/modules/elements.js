@@ -39,7 +39,8 @@
 
     export const selPageLength = $("#selPageLength");
     export const selSort    = $("#selSort");
-    export const dataTable     = $("#dataTable");
+    export const dataTable  = $("#dataTable");
+    export const pagination = $("#dataTable_paginate");
 
     export const thumbnail  = $("#thumbnail");
     export const amount     = $("#amount");
@@ -58,6 +59,7 @@
     export const modalClose     = $('.modal-close');
     export const modalContent   = $('.modal-content');
     export const modalBackdrop  = $('.modal-bg');
+    export const modalDetail    = $('#modalDetail');
 
     /** 로그인, 관리자등록, 2차인증 **/
     export const userid     = $("#userid");
@@ -176,4 +178,6 @@
     export const answer = $("#answer");
     export const manager = $("#manager");
     export const answerDate = $("#answerDate");
+    /** 인증 **/
+    export const modalWarning = $("#modalWarning");
 

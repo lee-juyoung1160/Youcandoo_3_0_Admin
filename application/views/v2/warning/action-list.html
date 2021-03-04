@@ -37,13 +37,13 @@
                 <div class="card clearfix">
                     <p class="search-title">인증 상태</p>
                     <div class="checkbox-wrap">
-                        <input id="c1" type="checkbox" name="chk-status">
+                        <input id="c1" type="checkbox" name="chk-status" value="report">
                         <label for="c1"><span></span>신고</label>
 
-                        <input id="c2" type="checkbox" name="chk-status">
+                        <input id="c2" type="checkbox" name="chk-status" value="fail">
                         <label for="c2"><span></span>실패</label>
 
-                        <input id="c3" type="checkbox" name="chk-status">
+                        <input id="c3" type="checkbox" name="chk-status" value="success">
                         <label for="c3"><span></span>성공</label>
                     </div>
                 </div>
@@ -60,6 +60,8 @@
                 <div class="left-wrap clearfix">
                     <div class="form-box">
                         <p>Total <strong class="data-num">238</strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
                     </div>
                 </div>
                 <div class="btn-wrap">
@@ -113,12 +115,12 @@
 
             </div>
         </div>
-
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate"></div>
     </div>
 
     <div class="modal-wrap">
         <!-- 경고장 발송 버튼 클릭 시 오픈 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalWarning">
             <div class="modal-header clearfix">
                 <h5>경고장발송</h5>
                 <i class="modal-close">×</i>
@@ -142,11 +144,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnReorder" type="button" class="btn btn-danger">발송</button>
+                <button id="btnSend" type="button" class="btn btn-danger">발송</button>
             </div>
         </div>
         <!-- 인증 상세 - 인증 썸네일 클릭 시 오픈 -->
-        <div class="modal-content auth-detail">
+        <div class="modal-content auth-detail" id="modalDetail">
             <div class="modal-header clearfix">
                 <h5>인증상세</h5>
                 <i class="modal-close">×</i>
@@ -245,4 +247,4 @@
 
 
 </section>
-<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/action/action-list.js?version=<?php echo $this->config->item('version');?>"></script>

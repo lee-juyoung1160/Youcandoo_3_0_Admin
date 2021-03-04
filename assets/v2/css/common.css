@@ -1013,6 +1013,12 @@ input[type="password"]{
 .detail-data {
 	line-height: 1.2em;
 }
+.group {
+	margin-bottom: 50px;
+}
+.group:last-child {
+	margin-bottom: 0;
+}
 .detail-group div {
 	margin-bottom: 5px;
 }

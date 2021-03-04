@@ -1,0 +1,331 @@
+<link rel="stylesheet" href="/assets/v2/css/action.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/v2/css/member.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page member-detail">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">회원 상세</h2>
+            <div class="right-wrap">
+                <button id="btnDelete" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
+                <button id="btnDelete" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.스페셜 해제</button>
+                <button type="button" class="btn-sm btn-outline-success modal-btn"><i class="fas fa-coins"></i> 회원 UCD 충전</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-11">
+                <!-- 회원정보 -->
+                <div class="group">
+                    <div class="card detail-tit-warp">
+                        <p class="title">회원 정보</p>
+                    </div>
+                    <table class="detail-table">
+                        <colgroup>
+                            <col style="width: 10%;">
+                            <col style="width: 40%;">
+                            <col style="width: 10%;">
+                            <col style="width: 40%;">
+                        </colgroup>
+                        <tr>
+                            <th>P-ID</th>
+                            <td>
+                                <p class="detail-data">
+                                    PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929
+                                </p>
+                            </td>
+                            <th>연락처</th>
+                            <td>
+                                <p class="detail-data">
+                                    010-0000-0000
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>닉네임</th>
+                            <td>
+                                <p class="detail-data">
+                                    베리네모카
+                                </p>
+                            </td>
+                            <th>이메일</th>
+                            <td>
+                                <p class="detail-data">
+                                    dddddddd@ddddddd.dd.dd
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>보유 UCD</th>
+                            <td>
+                                <p class="detail-data">
+                                    3,000
+                                </p>
+                            </td>
+                            <th>인증 여부</th>
+                            <td>
+                                <p class="detail-data">
+                                    Y
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>레벨</th>
+                            <td>
+                                <p class="detail-data">
+                                    1
+                                </p>
+                            </td>
+                            <th>누적 인증 수</th>
+                            <td>
+                                <p class="detail-data">
+                                    109
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 기기정보 -->
+                <div class="group">
+                    <div class="card detail-tit-warp">
+                        <p class="title">기기 정보</p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                            <colgroup>
+                                <col style="width: 20%;">
+                                <col style="width: 30%;">
+                                <col style="width: 30%;">
+                                <col style="width: 20%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>기기 구분</th>
+                                <th>단말기 ID</th>
+                                <th>푸시토큰</th>
+                                <th>등록일시</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>AOS</td>
+                                <td>
+                                    COM-F91A966E-8242-9D7B-42F5-53993F0860AF
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="text" class="input-copy" style="width: 150px" value="MESSAGE-ID-20210203-EEF21A1F-B933-C218-6C84-747F054498CD" readonly="">
+                                        <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                                    </div>
+                                </td>
+                                <td>2020-04-01 00:00:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 두잇정보 -->
+                <div class="doit-info group">
+                    <div class="card detail-tit-warp">
+                        <p class="title">두잇 정보</p>
+                    </div>
+                    <ul class="tab clearfix">
+                        <li class="active">개설</li>
+                        <li>참여</li>
+                    </ul>
+
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                            <thead>
+                            <colgroup>
+                                <col style="width: 35%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>두잇명</th>
+                                <th>사용 UCD</th>
+                                <th>참여 인원</th>
+                                <th>목표달성률(%)</th>
+                                <th>평균달성률(%)</th>
+                                <th>오픈일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>두잇명</td>
+                                <td>50,000</td>
+                                <td>참여 인원</td>
+                                <td>80</td>
+                                <td>60</td>
+                                <td>2020-04-01</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                            <thead>
+                            <colgroup>
+                                <col style="width: 35%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>두잇명</th>
+                                <th>진행상태</th>
+                                <th>적립 UCD</th>
+                                <th>목표달성률(%)</th>
+                                <th>내달성률(%)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>두잇명</td>
+                                <td>진행중</td>
+                                <td>400</td>
+                                <td>80</td>
+                                <td>60</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 인증정보 -->
+                <div class="group">
+                    <div class="card detail-tit-warp">
+                        <p class="title">인증 정보 <span class="desc-sub">전체</span></p>
+                    </div>
+                    <div class="table-wrap auth-list">
+                        <div class="row">
+                            <div class="col-2 auth-item">
+                                <div class="card">
+                                    <div class="top clearfix">
+                                        <div class="right-wrap">
+                                            <span><i class="fas fa-heart"></i> 111</span>
+                                            <span><i class="fas fa-comment"></i> 44</span>
+                                            <span><i class="fas fa-exclamation-triangle"></i> 111</span>
+                                        </div>
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                    <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
+                                    <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                                    <span class="date">2020-02-02</span>
+                                    <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
+                                </div>
+                            </div>
+                            <div class="col-2 auth-item">
+                                <div class="card">
+                                    <div class="top clearfix">
+                                        <div class="right-wrap">
+                                            <span><i class="fas fa-heart"></i> 111</span>
+                                            <span><i class="fas fa-comment"></i> 44</span>
+                                            <span><i class="fas fa-exclamation-triangle"></i> 111</span>
+                                        </div>
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                    <p class="title">두잇며어엉두잇며</p>
+                                    <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                                    <span class="date">2020-02-02</span>
+                                    <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UCD정보 -->
+                <div class="group">
+                    <div class="card detail-tit-warp">
+                        <p class="title">UCD 정보</p>
+                    </div>
+                    <div class="table-wrap">
+                        <table id="dataTable">
+                            <thead>
+                            <colgroup>
+                                <col style="width: 15%;">
+                                <col style="width: 30%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>내용</th>
+                                <th>UCD</th>
+                                <th>일시</th>
+                                <th>상태</th>
+                                <th>비고</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>어드민지정</td>
+                                <td>내요오오오오오오오옹</td>
+                                <td>1,000</td>
+                                <td>2020-04-01 00:00:00</td>
+                                <td>대기</td>
+                                <td>물마시기 이벤트</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- 우측 nav -->
+            <div class="col-1 member-nav">
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 100%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>회원정보</td>
+                        </tr>
+                        <tr>
+                            <td>기기정보</td>
+                        </tr>
+                        <tr>
+                            <td>두잇정보</td>
+                        </tr>
+                        <tr>
+                            <td>인증정보</td>
+                        </tr>
+                        <tr>
+                            <td>UCD정보</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+        </div>
+    </div>
+
+</section>
+<script type="module" src="/assets/v2/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -133,3 +133,11 @@
 .auth-ex-wrap .video-wrap video {
 	height: 518px;
 }
+
+/* 회원관리 - 인증 */
+.member-detail .auth-item .title {
+	font-size: 14px;
+}
+.member-detail .auth-item .nick-name {
+	font-size: 13px;
+}

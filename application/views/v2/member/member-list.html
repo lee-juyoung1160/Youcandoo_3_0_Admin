@@ -1,0 +1,94 @@
+<section class="list-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">회원 정보 조회</h2>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <select id="selDateType" class="select-box">
+                                <option value="">가입일</option>
+                            </select>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">닉네임</option>
+                                <option value="">P-ID</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num">0</strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 55%;">
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>닉네임</th>
+                    <th>P-ID</th>
+                    <th>사용구분</th>
+                    <th>가입일시</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="/v2/member/detail">베리네모카</a></td>
+                    <td>
+                        COM-F91A966E-8242-9D7B-42F5-53993F0860AF
+                    </td>
+                    <td>Y</td>
+                    <td>2020-04-01 00:00:00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/biz/biz-list.js?version=<?php echo $this->config->item('version');?>"></script>

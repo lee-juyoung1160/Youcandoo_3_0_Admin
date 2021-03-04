@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+/* 회원상세 좌측  nav */
+.member-detail .member-nav {
+	position: fixed;
+	right: 10px;
+	width: 150px;
+}
+.member-detail .member-nav .table-wrap {
+	margin-top: 0;
+}
+.member-detail .member-nav .table-wrap tr {
+	cursor: pointer;
+}
+
+/* 회원상세 두잇정보 */
+.member-detail .doit-info .tab li {
+	width: calc(100% / 2);
+}
+
+/* 레벨관리 */
+.level-list .top .card {
+	background-color: #f9f9f9;
+	border: 1px solid #f9f9f9;
+	cursor: pointer;
+	transition: all .5s;
+}
+.level-list .top .card:hover,
+.level-list .top .card.active
+{
+	background-color: #fff;
+	border: 1px solid #fff;
+}
+.level-list .top .card:hover .title,
+.level-list .top .card.active .title {
+	color: #0061f2;
+}
+.level-list .top .card:hover .user span,
+.level-list .top .card.active .user span {
+	color: #404040;
+}
+
+
+.level-list .top .title {
+	color: #404040;
+}
+.level-list .top .title.num {
+	padding: 0;
+	font-size: 17px;
+}
+.level-list .top .title span {
+	font-size: 12px;
+}
+.level-list .top .user {
+	font-weight: 600;
+}
+.level-list .top .user i {
+	display: inline-block;
+	font-size: 12px;
+	color: #ddd;
+}
+.level-list .top .user span {
+	display: inline-block;
+	color: #606060;
+}
+
+.level-list .table-wrap {
+	margin-top: 50px;
+}

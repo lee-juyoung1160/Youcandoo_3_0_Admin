@@ -124,11 +124,11 @@
 	font-size: 25px;
 }
 .link {
+	font-weight: 600;
 	text-decoration: underline;
 }
 .link:hover {
 	color: #00327e;
-	font-weight: 600;
 }
 
 /* form style */

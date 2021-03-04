@@ -12,3 +12,8 @@
 .push-create .modal-content.nickname-search .btn-move  {
 	margin-top: 100px;
 }
+
+/* 팝업등록 */
+.app-ver-wrap input[type="text"] {
+	width: 100px;
+}

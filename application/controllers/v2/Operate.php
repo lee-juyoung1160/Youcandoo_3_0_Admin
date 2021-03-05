@@ -3,11 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Operate extends MY_Controller {
 
-    public function index()
+    public function error()
     {
         $this->load->template('v2/operate/error-list');
     }
-
 
 }
 

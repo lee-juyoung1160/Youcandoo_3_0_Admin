@@ -64,6 +64,9 @@
 
         popupList : baseApiUrl + 'popup',
         createPopup : baseApiUrl + 'popup/create',
+
+        errorList : baseApiUrl + 'error/list',
+        updateError : baseApiUrl + 'error/update',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

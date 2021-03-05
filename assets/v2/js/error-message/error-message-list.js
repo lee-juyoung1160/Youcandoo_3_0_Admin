@@ -1,31 +1,26 @@
 
-	import {headers} from '../modules/request.js';
+	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength,} from '../modules/elements.js';
-	import {sweetError,} from '../modules/alert.js';
-	import {initSelectOption, initPageLength,} from "../modules/common.js";
-	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+	import {body, btnSearch, btnReset, keyword, dataTable,} from '../modules/elements.js';
+	import {sweetToast, sweetConfirm} from '../modules/alert.js';
+	import {initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		getErrorList();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 	});
 
 	function initSearchForm()
 	{
-		initSelectOption();
 		keyword.val('');
 	}
 
@@ -37,51 +32,47 @@
 
 	function onSubmitSearch()
 	{
-		let table = dataTable.DataTable();
-		table.page.len(Number(selPageLength.val()));
-		table.ajax.reload();
+		const table = dataTable.DataTable();
+		const inputValue = keyword.val();
+
+		table.search(inputValue).draw();
 	}
 
-	function buildTable()
+	function getErrorList()
+	{
+		const url = api.errorList;
+		const errMsg = label.list + message.ajaxLoadError
+
+		ajaxRequestWithJsonData(true, url, null, getErrorListCallback, errMsg, false);
+	}
+
+	function getErrorListCallback(data)
+	{
+		isSuccessResp(data) ? buildTable(data) : sweetToast(data.msg);
+	}
+
+	function buildTable(data)
 	{
 		dataTable.DataTable({
-			ajax : {
-				url: api.faqList,
-				type: "POST",
-				headers: headers,
-				dataFilter: function(data){
-					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
-
-					return JSON.stringify(json);
-				},
-				data: function (d) {
-					const table = dataTable.DataTable();
-					const info = table.page.info();
-					const _page = (info.start / info.length) + 1;
-
-					const param = {
-						"keyword" : keyword.val().trim()
-						,"limit" : Number(selPageLength.val())
-						,"page" : _page
-					}
-
-					return JSON.stringify(param);
-				},
-				error: function (request, status) {
-					sweetError(label.list+message.ajaxLoadError);
-				}
-			},
+			data: data.data,
 			columns: [
-				{title: "코드",    	data: "code",  		width: "25%" }
-				,{title: "서버",    	data: "server",  	width: "25%" }
-				,{title: "IOS",    	data: "ios",  		width: "25%" }
-				,{title: "AOS",    	data: "aos",  		width: "25%" }
+				{title: "코드",    		data: "code",  			width: "25%" }
+				,{title: "메세지",    	data: "message",  		width: "25%" }
+				,{title: "IOS 메세지",    data: "ios_message",	width: "25%",
+					render: function (data, type, row, meta) {
+						return `<div><input type="text" value="${data}" readonly/><i></i></div>`
+					}
+				}
+				,{title: "AOS 메세지",    data: "aos_message",	width: "25%",
+					render: function (data, type, row, meta) {
+						return `<div><input type="text" value="${data}" readonly/><i></i></div>`
+					}
+				}
 			],
-			serverSide: true,
-			paging: true,
-			pageLength: Number(selPageLength.val()),
+			serverSide: false,
+			searching: true,
+			dom: 'lrt',
+			paging: false,
 			select: false,
 			destroy: true,
 			initComplete: function () {
@@ -90,7 +81,6 @@
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
-				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}

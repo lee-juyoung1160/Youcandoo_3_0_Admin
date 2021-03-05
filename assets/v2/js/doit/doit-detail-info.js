@@ -190,7 +190,7 @@
 		{
 			btnDoitOpen.hide();
 			btnDoitDelete.hide();
-			btnUpdate.hide();
+			btnUpdateDoit.hide();
 		}
 	}
 

@@ -31,4 +31,6 @@
         ,listInquiry : rootContext + 'service/inquiry'
         ,detailInquiry : rootContext + 'service/inquiry/detail/'
         ,updateInquiry : rootContext + 'service/inquiry/update/'
+
+        ,listPush : rootContext + 'push'
     }

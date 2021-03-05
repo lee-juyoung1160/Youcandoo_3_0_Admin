@@ -49,6 +49,7 @@
     export const title      = $("#title");
     export const content    = $("#content");
     export const contentImage  = $("#contentImage");
+    export const reserveDate = $("#reserveDate");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -164,7 +165,6 @@
     export const curationTitle = $("#curationTitle");
 
     /** 공지 **/
-    export const reserveDate = $("#reserveDate");
     export const chkTopNotice = $("input[name=chk-top-notice]");
     export const isTop = $("#isTop");
     /** FAQ **/
@@ -181,4 +181,15 @@
     /** 인증 **/
     export const actionsWrap = $("#actionsWrap");
     export const modalWarning = $("#modalWarning");
+    /** 푸시 **/
+    export const rdoReserveType = $("input[name=radio-reserve-type]");
+    export const reserveTime = $("#reserveTime");
+    export const rdoTargetPageType = $("input[name=radio-target-page-type]");
+    export const targetPage = $("#targetPage");
+    export const rdoReceiveType = $("input[name=radio-receive-type]");
+    export const rdoOsType = $("input[name=radio-os-type]");
+    export const rdoTargetMemberType = $("input[name=radio-target-member-type]");
+    export const modalTargetPage = $("#modalTargetPage");
+    export const modalTargetMember = $("#modalTargetMember");
+    export const btnModalTargetMemberOpen = $("#btnModalTargetMemberOpen");
 

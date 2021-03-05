@@ -1,0 +1,199 @@
+<section>
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">상품 발송/취소 내역</h2>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <select id="selDateType" class="select-box">
+                                <option value="">발송/취소일</option>
+                            </select>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">닉네임</option>
+                                <option value="">상품명</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">상품 유형</p>
+                    <div class="radio-wrap">
+                        <input id="r1" type="radio" name="r-status">
+                        <label for="r1"><span></span>전체</label>
+
+                        <input id="r2" type="radio" name="r-status">
+                        <label for="r2"><span></span>기프티콘</label>
+
+                        <input id="r3" type="radio" name="r-status">
+                        <label for="r3"><span></span>일반</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">상태</p>
+                    <div class="checkbox-wrap">
+                        <input id="c1" type="checkbox" name="chk-status">
+                        <label for="c1"><span></span>발송완료</label>
+
+                        <input id="c2" type="checkbox" name="chk-status">
+                        <label for="c2"><span></span>예약완료</label>
+
+                        <input id="c3" type="checkbox" name="chk-status">
+                        <label for="c3"><span></span>발송취소</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 7%;">
+                    <col style="width: 15%;">
+                    <col style="width: 13%;">
+                    <col style="width: 5%;">
+                    <col style="width: 7%;">
+                    <col style="width: 5%;">
+                    <col style="width: 12%;">
+                    <col style="width: 12%;">
+                    <col style="width: 5%;">
+                    <col style="width: 5%;">
+                    <col style="width: 7%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>상품유형</th>
+                    <th>상품명</th>
+                    <th>신청자</th>
+                    <th>신청수량</th>
+                    <th>금액(UCD)</th>
+                    <th>상태</th>
+                    <th>발송/취소일시</th>
+                    <th>예약일시</th>
+                    <th>상세내역</th>
+                    <th>메모</th>
+                    <th>재발송</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>기프티콘</td>
+                    <td>스타벅스 아메리카노</td>
+                    <td><a href="#">베리네모카</a></td>
+                    <td>3</td>
+                    <td>10,000</td>
+                    <td>취소</td>
+                    <td>2020-00-00</td>
+                    <td>2020-00-00</td>
+                    <td><a href="#">보기</a></td>
+                    <td>
+                        <i class="tooltip-mark fas fa-sticky-note">
+                            <span class="tooltip-txt left">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
+                        </i>
+                        <i class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <button type="button" class="btn-xs btn-teal">재발송</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>상품 수정</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <p class="desc">
+                        * 드래그 & 드랍으로 노출 순서를 변경할 수 있으며, 수정완료 클릭 시 적용됩니다.
+                    </p>
+                </div>
+                <div class="table-wrap">
+                    <table class="order-table" id="updateTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 60%;">
+                            <col style="width: 20%;">
+                            <col style="width: 20%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>상품명</th>
+                            <th>이미지</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>스타벅스 아메리카노 TALL</td>
+                            <td>
+                                <div class="list-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/notice/notice-list.js?version=<?php echo $this->config->item('version');?>"></script>

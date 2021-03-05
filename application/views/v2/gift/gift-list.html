@@ -1,0 +1,132 @@
+<section>
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">상품 관리</h2>
+            <a href="/v2/gift/create"><i class="fas fa-plus"></i>상품 등록</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">상품명</option>
+                                <option value="">상품코드</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+               <div class="btn-wrap">
+                   <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 상품 수정</button>
+               </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 30%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>상품코드</th>
+                    <th>상품명</th>
+                    <th>금액(UCD)</th>
+                    <th>이미지</th>
+                    <th>노출여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>GFT-CE11309C-8B41-F073-1390-557B0A09D2C0</td>
+                    <td><a href="/v2/gift/detail">스타벅스 아메리카노 TALL</a></td>
+                    <td>4,500</td>
+                    <td>
+                        <div class="list-img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                        </div>
+                    </td>
+                    <td>Y</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>상품 수정</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <p class="desc">
+                        * 드래그 & 드랍으로 노출 순서를 변경할 수 있으며, 수정완료 클릭 시 적용됩니다.
+                    </p>
+                </div>
+                <div class="table-wrap">
+                    <table class="order-table" id="updateTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 60%;">
+                            <col style="width: 20%;">
+                            <col style="width: 20%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>상품명</th>
+                            <th>이미지</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>스타벅스 아메리카노 TALL</td>
+                            <td>
+                                <div class="list-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/notice/notice-list.js?version=<?php echo $this->config->item('version');?>"></script>

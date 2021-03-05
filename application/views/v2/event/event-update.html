@@ -1,0 +1,108 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">이벤트 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>구분 *</th>
+                        <td>
+                            <p class="detail-data">이벤트</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="title" type="text" class="length-input" maxlength="25" placeholder="제목을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>링크 *</th>
+                        <td>
+                            <input id="bizWeb" type="text" placeholder="https://를 포함하여 입력해주세요">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>유의사항 *</th>
+                        <td>
+                            <textarea id="" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>본문 이미지 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 가로 750 이상)</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-oper="ge">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>썸네일 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 656 x 248)</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="656" data-height="248" data-oper="ge">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기간 *</th>
+                        <td>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 여부</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <label for="r3"><span></span>Y</label>
+
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
+                                <label for="r4"><span></span>N</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+</section>
+<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>

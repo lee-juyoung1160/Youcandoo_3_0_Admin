@@ -19,15 +19,15 @@
                         <th>발송 일시 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio-exposure">
+                                <input id="r1" type="radio" name="radio-reserve-type" value="immediately" checked>
                                 <label for="r1"><span></span>즉시</label>
 
-                                <input  id="r2" type="radio" name="radio-exposure">
+                                <input  id="r2" type="radio" name="radio-reserve-type" value="reserve">
                                 <label for="r2"><span></span>예약</label>
                             </div>
-                            <div class="result-wrap date-wrap">
+                            <div class="result-wrap date-wrap" style="display: none;">
                                 <input id="reserveDate" type="text" class="datepicker" readonly>
-                                <input type="time" value="00:00" readonly="">
+                                <input id="reserveTime" type="time">
                             </div>
                         </td>
                     </tr>
@@ -35,21 +35,21 @@
                         <th>발송 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r5" type="radio" name="radio-exposure">
+                                <input id="r5" type="radio" name="radio-target-page-type" value="normal" checked>
                                 <label for="r5"><span></span>일반</label>
 
-                                <input  id="r6" type="radio" name="radio-exposure">
+                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
                                 <label for="r6"><span></span>공지</label>
 
-                                <input  id="r7" type="radio" name="radio-exposure">
+                                <input  id="r7" type="radio" name="radio-target-page-type" value="event">
                                 <label for="r7"><span></span>이벤트</label>
 
-                                <input  id="r8" type="radio" name="radio-exposure">
+                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
                                 <label for="r8"><span></span>두잇</label>
                             </div>
 
-                            <div class="result-wrap">
-                                <input id="sponsor" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                            <div class="result-wrap" style="display: none;">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
                             </div>
                         </td>
                     </tr>
@@ -57,13 +57,13 @@
                         <th>수신 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r9" type="radio" name="radio-exposure">
+                                <input id="r9" type="radio" name="radio-receive-type" value="all" checked>
                                 <label for="r9"><span></span>알림+푸시</label>
 
-                                <input  id="r10" type="radio" name="radio-exposure">
+                                <input  id="r10" type="radio" name="radio-receive-type" value="notification">
                                 <label for="r10"><span></span>알림</label>
 
-                                <input  id="r11" type="radio" name="radio-exposure">
+                                <input  id="r11" type="radio" name="radio-receive-type" value="push">
                                 <label for="r11"><span></span>푸시</label>
                             </div>
                         </td>
@@ -72,13 +72,13 @@
                         <th>기기 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r12" type="radio" name="radio-exposure">
+                                <input id="r12" type="radio" name="radio-os-type" value="all" checked>
                                 <label for="r12"><span></span>전체</label>
 
-                                <input  id="r13" type="radio" name="radio-exposure">
+                                <input  id="r13" type="radio" name="radio-os-type" value="apple">
                                 <label for="r13"><span></span>애플</label>
 
-                                <input  id="r14" type="radio" name="radio-exposure">
+                                <input  id="r14" type="radio" name="radio-os-type" value="google">
                                 <label for="r14"><span></span>구글</label>
                             </div>
                         </td>
@@ -89,33 +89,33 @@
                             <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <th>이미지</th>
-                        <td>
-                            <!--<p class="desc-sub">( 이미지 크기 : 가로 750 이상)</p>-->
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-oper="ge">
-                            </div>
-                            <!--<div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>-->
-                        </td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <th>이미지</th>-->
+<!--                        <td>-->
+<!--                            &lt;!&ndash;<p class="desc-sub">( 이미지 크기 : 가로 750 이상)</p>&ndash;&gt;-->
+<!--                            <div class="file-wrap preview-image">-->
+<!--                                <input class="upload-name" value="파일선택" disabled="disabled">-->
+<!--                                <label for="contentImage">업로드</label>-->
+<!--                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-oper="ge">-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;<div class="detail-img-wrap">-->
+<!--                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
+<!--                            </div>&ndash;&gt;-->
+<!--                        </td>-->
+<!--                    </tr>-->
                     <tr>
                         <th>발송 대상 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure">
+                                <input id="r3" type="radio" name="radio-target-member-type" value="all" checked>
                                 <label for="r3"><span></span>전체</label>
 
-                                <input  id="r4" type="radio" name="radio-exposure">
+                                <input  id="r4" type="radio" name="radio-target-member-type" value="individual">
                                 <label for="r4"><span></span>개인</label>
                             </div>
-                            <div class="result-wrap">
+                            <div class="result-wrap" style="display: none;">
                                 <div class="top">
-                                    <button type="button" class="btn-sm">닉네임 검색</button>
+                                    <button id="btnModalTargetMemberOpen" type="button" class="btn-sm">닉네임 검색</button>
                                     <div class="file-wrap excel-import">
                                         <label for="btnXlsxImport">
                                             <i class="fas fa-file-excel"></i>
@@ -175,7 +175,7 @@
     <div class="modal-wrap">
 
         <!-- 도착페이지 검색 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalTargetPage">
             <div class="modal-header clearfix">
                 <h5>도착페이지 검색</h5>
                 <i class="modal-close">×</i>
@@ -211,7 +211,7 @@
         </div>
 
         <!-- 닉네임 검색 -->
-        <div class="modal-content nickname-search">
+        <div class="modal-content nickname-search" id="modalTargetMember">
             <div class="modal-header clearfix">
                 <h5>닉네임 검색</h5>
                 <i class="modal-close">×</i>
@@ -221,7 +221,7 @@
                     <div class="col-6">
                         <div class="card clearfix">
                             <div class="search-txt-wrap">
-                                <input id="keyword" type="search" placeholder="닉네임을 입력해주세요.">
+                                <input id="nickname" type="search" placeholder="닉네임을 입력해주세요.">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
@@ -308,7 +308,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>
+                <button id="btnAdd" type="button" class="btn btn-primary">선택완료</button>
             </div>
         </div>
 
@@ -316,4 +316,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/push/push-create.js?version=<?php echo $this->config->item('version');?>"></script>

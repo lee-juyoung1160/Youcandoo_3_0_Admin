@@ -10,7 +10,7 @@
     export function getCategoryList()
     {
         const url = api.categoryList;
-        const errMsg = label.list + message.ajaxLoadError
+        const errMsg = `카테고리 ${label.list} ${message.ajaxLoadError}`
         const param = { "keyword" : "" };
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);
@@ -120,7 +120,7 @@
             if (isEmpty(keywordArr) || keywordArr.indexOf(inputValue) === -1)
             {
                 const doitKeywordEl =
-                    `<li>
+                    `<li class="keyword-li">
 						#<span class="added-keyword">${inputValue}</span>
 						<button class="btn-i btn-del-keyword"><i class="fas fa-times-circle"></i></button>
 					</li>`
@@ -166,7 +166,7 @@
         document.querySelectorAll('.btn-del-keyword').forEach( element => element.addEventListener('click', removeDoitKeyword));
     }
 
-    export function removeDoitKeyword()
+    export function removeDoitKeyword(event)
     {
-        $(this).parent().remove();
+        $(event.target).parents('.keyword-li').remove();
     }

@@ -60,12 +60,12 @@
 				,{title: "메세지",    	data: "message",  		width: "25%" }
 				,{title: "IOS 메세지",    data: "ios_message",	width: "25%",
 					render: function (data, type, row, meta) {
-						return `<div><input type="text" value="${data}" readonly/><i></i></div>`
+						return `<div><input type="text" value="${data}" readonly/><button type="button" class="btn-sm btn-teal">수정</button></div>`
 					}
 				}
 				,{title: "AOS 메세지",    data: "aos_message",	width: "25%",
 					render: function (data, type, row, meta) {
-						return `<div><input type="text" value="${data}" readonly/><i></i></div>`
+						return `<div><input type="text" value="${data}" readonly/><button type="button" class="btn-sm btn-primary">완료</button></div>`
 					}
 				}
 			],

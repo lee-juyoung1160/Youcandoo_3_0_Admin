@@ -50,6 +50,7 @@
     export const content    = $("#content");
     export const contentImage  = $("#contentImage");
     export const reserveDate = $("#reserveDate");
+    export const rdoOsType = $("input[name=radio-os-type]");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -187,9 +188,15 @@
     export const rdoTargetPageType = $("input[name=radio-target-page-type]");
     export const targetPage = $("#targetPage");
     export const rdoReceiveType = $("input[name=radio-receive-type]");
-    export const rdoOsType = $("input[name=radio-os-type]");
     export const rdoTargetMemberType = $("input[name=radio-target-member-type]");
     export const modalTargetPage = $("#modalTargetPage");
     export const modalTargetMember = $("#modalTargetMember");
     export const btnModalTargetMemberOpen = $("#btnModalTargetMemberOpen");
 
+    /** 팝업 **/
+    export const versionDigit = $("#versionDigit");
+    export const versionDecimal = $("#versionDecimal");
+    export const link = $("#link");
+    export const rdoViewOption = $("input[name=radio-view-option]");
+    export const startTime = $("#startTime");
+    export const endTime = $("#endTime");

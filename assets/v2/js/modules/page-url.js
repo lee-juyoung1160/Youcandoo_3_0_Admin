@@ -33,4 +33,6 @@
         ,updateInquiry : rootContext + 'service/inquiry/update/'
 
         ,listPush : rootContext + 'push'
+
+        ,listPopup : rootContext + 'popup'
     }

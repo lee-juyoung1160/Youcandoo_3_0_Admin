@@ -16,13 +16,13 @@
                         <th>기기 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio-exposure">
-                                <label for="r1"><span></span>All</label>
+                                <input id="r1" type="radio" name="radio-os-type" checked>
+                                <label for="r1"><span></span>전체</label>
 
-                                <input  id="r2" type="radio" name="radio-exposure">
+                                <input  id="r2" type="radio" name="radio-os-type">
                                 <label for="r2"><span></span>AOS</label>
 
-                                <input  id="r3" type="radio" name="radio-exposure">
+                                <input  id="r3" type="radio" name="radio-os-type">
                                 <label for="r3"><span></span>IOS</label>
                             </div>
                         </td>
@@ -40,26 +40,26 @@
                         <th>앱버전 *</th>
                         <td>
                             <div class="app-ver-wrap">
-                                <input id="" type="text">
+                                <input id="versionDigit" type="text" maxlength="2">
                                 <span class="date-text"> . </span>
-                                <input id="" type="text">
+                                <input id="versionDecimal" type="text" maxlength="2">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>링크 *</th>
                         <td>
-                            <input id="" type="text" placeholder="http://를 포함해서 입력해주세요.">
+                            <input id="link" type="text" placeholder="http://를 포함해서 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
                         <th>닫기 옵션 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r6" type="radio" name="radio-exposure">
+                                <input id="r6" type="radio" name="radio-view-option" value="always" checked>
                                 <label for="r6"><span></span>다시 보지 않기</label>
 
-                                <input  id="r7" type="radio" name="radio-exposure">
+                                <input  id="r7" type="radio" name="radio-view-option" value="oneday">
                                 <label for="r7"><span></span>오늘 하루 보지 않기</label>
                             </div>
                         </td>
@@ -68,11 +68,11 @@
                         <th>노출기간 *</th>
                         <td>
                             <div class="date-wrap">
-                                <input id="" type="text" class="datepicker" readonly>
-                                <input type="time" value="00:00" readonly="">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <input id="startTime" type="time" value="00:00">
                                 <span class="date-text"> ~ </span>
-                                <input id="" type="text" class="datepicker" readonly>
-                                <input type="time" value="00:00" readonly="">
+                                <input type="text" class="datepicker date-to" readonly>
+                                <input id="endTime" type="time" value="23:59" max="23:59">
                             </div>
                         </td>
                     </tr>
@@ -97,4 +97,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/faq/faq-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/popup/popup-create.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -60,7 +60,10 @@
         actionList : baseApiUrl + 'action',
 
         pushList : baseApiUrl + 'push',
-        createPush : baseApiUrl + 'push/create'
+        createPush : baseApiUrl + 'push/create',
+
+        popupList : baseApiUrl + 'popup',
+        createPopup : baseApiUrl + 'popup/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

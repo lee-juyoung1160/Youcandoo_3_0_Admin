@@ -587,6 +587,69 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="search-wrap row">
+                            <div class="col-12">
+                                <ul class="card">
+                                    <li>
+                                        <p class="search-title">검색어</p>
+                                        <div class="form-box clearfix">
+                                            <select id="selSearchType" class="select-box">
+                                                <option value="">닉네임</option>
+                                            </select>
+                                            <div class="search-txt-wrap">
+                                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                                <i class="fas fa-search"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="search-wrap row">
+                            <div class="col-4">
+                                <div class="card clearfix">
+                                    <p class="search-title">미션명</p>
+                                    <select id="selCategory" class="select-box mission">
+                                        <option value="">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="card clearfix">
+                                    <p class="search-title">필터</p>
+                                    <select id="selCategory" class="select-box">
+                                        <option value="">연속 인증 수</option>
+                                        <option value="">오늘 인증 수</option>
+                                        <option value="">최근 7일동안 인증 수</option>
+                                        <option value="">최근 14일동안 인증 수</option>
+                                        <option value="">최근 28일동안 인증 수</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="card clearfix">
+                                    <p class="search-title">
+                                        인증 수
+                                        <i class="tooltip-mark fas fa-question-circle">
+                                            <span class="tooltip-txt right">
+                                                오늘 인증 수는 0또는 1만 입력 가능합니다.<br>
+                                                그 외 경우는 입력한 수 이상으로 조회됩니다.
+
+                                            </span>
+                                        </i>
+                                    </p>
+                                    <input type="text" class="action-num"> 회
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="search-btn row">
+                            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+                            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+                        </div>
+
                         <div class="table-wrap">
                             <div class="top clearfix">
                                 <div class="left-wrap clearfix">
@@ -607,6 +670,10 @@
                                             <option>현재 연속 수 순</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="btn-wrap">
+                                    <button type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
+                                    <button type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>
                                 </div>
                             </div>
                             <table>
@@ -1541,6 +1608,192 @@
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
                 <button id="btnBan" type="button" class="btn btn-danger">강퇴</button>
+            </div>
+        </div>
+
+        <!-- 참여자 탭 - ucd 적립 -->
+        <div class="modal-content member-add-ucd">
+            <div class="modal-header clearfix">
+                <h5>UCD 적립</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 75%;">
+                    </colgroup>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" maxlength="30">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>적립 UCD *</th>
+                        <td>
+                            <div class="ucd-input-wrap">
+                                <input id="amount" type="text" class="only-num" maxlength="9">
+                                <span>UCD</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비고 </th>
+                        <td>
+                            <div class="textarea-wrap">
+                                <textarea id="doitDesc" class="length-input" maxlength="50" rows="4"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="table-wrap">
+                    <div class="top clearfix">
+                        <div class="left-wrap clearfix">
+                            <div class="form-box">
+                                <p>총 <strong class="data-num">00</strong>명</p>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 50%;">
+                            <col style="width: 20%;">
+                            <col style="width: 10%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>닉네임</th>
+                            <th>P-ID</th>
+                            <th>보유 UCD</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>깐깐찡엉</td>
+                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                            <td>20,000,000</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>깐깐찡엉</td>
+                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                            <td>20,000,000</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnBan" type="button" class="btn btn-primary">적립완료</button>
+            </div>
+        </div>
+
+        <!-- 참여자 탭 - 알림발송 -->
+        <div class="modal-content member-add-ucd">
+            <div class="modal-header clearfix">
+                <h5>알림발송</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+
+                    <tr>
+                        <th>발송 일시 *</th>
+                        <td>
+                            <p class="detail-data">즉시</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>발송 구분 *</th>
+                        <td>
+                            <p class="detail-data">두잇</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>수신 구분 *</th>
+                        <td>
+                            <p class="detail-data">알림+푸시</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기기 구분 *</th>
+                        <td>
+                            <p class="detail-data">전체</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>발송 대상 *</th>
+                        <td>
+                          <p class="detail-data">개인</p>
+                        </td>
+                    </tr>
+                </table>
+                <div class="table-wrap">
+                    <div class="top clearfix">
+                        <div class="left-wrap clearfix">
+                            <div class="form-box">
+                                <p>총 <strong class="data-num">00</strong>명</p>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col style="width: 30%;">
+                            <col style="width: 60%;">
+                            <col style="width: 10%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>닉네임</th>
+                            <th>P-ID</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>깐깐찡엉</td>
+                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>깐깐찡엉</td>
+                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnBan" type="button" class="btn btn-primary">발송 완료</button>
             </div>
         </div>
 

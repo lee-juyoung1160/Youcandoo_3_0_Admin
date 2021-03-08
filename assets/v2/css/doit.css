@@ -52,7 +52,15 @@
 	text-decoration: underline;
 	cursor: pointer;
 }
-
+.doit-member select.mission {
+	width: 450px;
+}
+.doit-member input.action-num {
+	width: 100px;
+}
+.modal-content.member-add-ucd {
+	width: 1000px;
+}
 /* 유캔두 픽 두잇 */
 .pic-doit .tag-list {
 	margin: 10px 0;

@@ -12,8 +12,7 @@
                         <p class="search-title">날짜</p>
                         <div class="form-box">
                             <select id="selDateType" class="select-box">
-                                <option value="created">생성일</option>
-                                <option value="opened">오픈일</option>
+                                <option value="created">작성일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -37,13 +36,13 @@
                 <div class="card clearfix">
                     <p class="search-title">신고 여부</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-report" value="all" checked>
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-report" value="Y">
                         <label for="r2"><span></span>Y</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-report" value="N">
                         <label for="r3"><span></span>N</label>
                     </div>
                 </div>
@@ -61,10 +60,6 @@
                     <div class="form-box">
                         <p>Total <strong class="data-num"></strong></p>
                         <select id="selPageLength" class="select-box">
-                        </select>
-                        <select id="selSort" class="select-box">
-                            <option value="created">생성일 최신 순</option>
-                            <option value="opened">오픈일 최신 순</option>
                         </select>
                     </div>
                 </div>
@@ -114,3 +109,4 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/talk/talk-list.js?version=<?php echo $this->config->item('version');?>"></script>

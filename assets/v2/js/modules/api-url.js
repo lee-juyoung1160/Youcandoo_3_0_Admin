@@ -22,9 +22,9 @@
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
 
-        bizList : baseApiUrl + 'biz/list',
+        bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',
-        detailBiz : baseApiUrl + 'biz/detail',
+        detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
 
         bannerList : baseApiUrl + 'banner',
@@ -58,12 +58,14 @@
         deleteProhibition : baseApiUrl + 'prohibition/delete',
 
         actionList : baseApiUrl + 'action',
+        talkList : baseApiUrl + 'talk',
 
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',
 
         popupList : baseApiUrl + 'popup',
         createPopup : baseApiUrl + 'popup/create',
+        detailPopup : baseApiUrl + 'popup/detail',
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',

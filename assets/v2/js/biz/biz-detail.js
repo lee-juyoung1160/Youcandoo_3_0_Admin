@@ -2,13 +2,9 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		btnBack,
-		btnList,
-		btnUpdate,
-		btnSubmit,
-		modalOpen,
-		modalClose,
-		modalBackdrop,
+		contentImage, title, bizNo, bizWeb, content,
+		btnBack, btnList, btnUpdate, btnSubmit,
+		modalOpen, modalClose, modalBackdrop,
 		selPageLengthDoit,
 		selPageLengthUcd,
 		tabUl, tabContents, amount, inputNumber} from '../modules/elements.js';
@@ -30,7 +26,7 @@
 		initPageLength(selPageLengthDoit);
 		initPageLength(selPageLengthUcd);
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		inputNumber 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
@@ -78,12 +74,18 @@
 		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
 	}
 
-	let g_biz_uuid;
+	let g_company_uuid;
 	function buildDetail(data)
 	{
-		let { profile_uuid, nickname } = data.data;
+		let { company_uuid, company_number,profile_image_url, nickname, site_url, description } = data.data;
 
-		g_biz_uuid = profile_uuid;
+		g_company_uuid = company_uuid;
+
+		contentImage.attr('src', profile_image_url);
+		title.text(nickname);
+		bizNo.text(company_number);
+		bizWeb.html(`<a href="${site_url}" class="link" target="_blank">${site_url}</a>`);
+		content.text(description);
 
 		onErrorImage();
 	}

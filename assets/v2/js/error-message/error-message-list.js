@@ -6,6 +6,7 @@
 	import {initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import {isEmpty} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -29,7 +30,7 @@
 	{
 		const btnEdit = $(".btn-edit");
 		btnEdit.siblings('input').prop('disabled', true);
-		btnEdit.removeClass('btn-primary btn-edit-done');
+		btnEdit.removeClass('btn-primary btn-submit-edit');
 		btnEdit.addClass('btn-teal btn-editable');
 		btnEdit.text('수정');
 	}
@@ -72,7 +73,7 @@
 					render: function (data, type, row, meta) {
 						return `<div>
 									<input type="text" value="${data}" data-code="${row.code}" data-type="ios_message" style="width: 80%;" disabled/>
-									<button type="button" class="btn-sm btn-teal btn-editable btn-edit">수정</button>
+									<button type="button" class="btn-sm btn-teal btn-edit btn-editable">수정</button>
 								</div>`
 					}
 				}
@@ -80,7 +81,7 @@
 					render: function (data, type, row, meta) {
 						return `<div>
 									<input type="text" value="${data}" data-code="${row.code}" data-type="aos_message" style="width: 80%;" disabled/>
-									<button type="button" class="btn-sm btn-teal btn-editable btn-edit">수정</button>
+									<button type="button" class="btn-sm btn-teal btn-edit btn-editable">수정</button>
 								</div>`
 					}
 				}
@@ -104,7 +105,7 @@
 
 	function addEditableEvent()
 	{
-		document.querySelectorAll('.btn-editable').forEach( element => element.addEventListener('click', onClickEditable));
+		document.querySelectorAll('.btn-edit').forEach( element => element.addEventListener('click', onClickEditable));
 	}
 
 	function onClickEditable(event)
@@ -115,7 +116,7 @@
 		$(btnTarget).siblings('input').prop('disabled', false);
 		$(btnTarget).siblings('input').trigger('focus');
 		$(btnTarget).removeClass('btn-teal btn-editable');
-		$(btnTarget).addClass('btn-primary btn-edit-done');
+		$(btnTarget).addClass('btn-primary btn-submit-edit');
 		$(btnTarget).text('완료');
 
 		addSubmitEvent(btnTarget);
@@ -123,12 +124,16 @@
 
 	function addSubmitEvent(_target)
 	{
-		_target.addEventListener('click', onSubmitEdit, {once : true});
+		removeSubmitEvent();
+		addEditableEvent();
+
+		_target.removeEventListener('click', onClickEditable);
+		_target.addEventListener('click', onSubmitEdit);
 	}
 
 	function removeSubmitEvent()
 	{
-		$('body').off('click', '.btn-edit', onSubmitEdit);
+		document.querySelectorAll('.btn-edit').forEach( element => element.removeEventListener('click', onSubmitEdit));
 	}
 
 	let inputValue;
@@ -141,6 +146,13 @@
 		inputValue = $(inputTarget).val();
 		messageCode = $(inputTarget).data('code');
 		messageType = $(inputTarget).data('type');
+
+		if (isEmpty(inputValue))
+		{
+			sweetToast(`메세지를 ${message.input}`);
+			$(inputTarget).trigger('focus');
+			return;
+		}
 
 		sweetConfirm(message.modify, updateRequest);
 	}

@@ -51,6 +51,11 @@
     export const contentImage  = $("#contentImage");
     export const reserveDate = $("#reserveDate");
     export const rdoOsType = $("input[name=radio-os-type]");
+    export const osType = $("#osType");
+    export const version = $("#version");
+    export const isExposure	    = $("#isExposure");
+    export const rdoExposure	= $("input[name=radio-exposure]");
+    export const exposureDate   = $("#exposureDate");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -82,9 +87,7 @@
     export const categoryTitle 	= $("#categoryTitle");
     export const categoryIcon	= $("#categoryIcon");
     export const isEstablish	= $("#isEstablish");
-    export const isExposure	    = $("#isExposure");
     export const rdoEstablish	= $("input[name=radio-establish]");
-    export const rdoExposure	= $("input[name=radio-exposure]");
     export const subCategoryTitle = $("#subCategoryTitle");
 
     /** 두잇 **/
@@ -151,9 +154,7 @@
     export const selPageLengthDoit = $("#selPageLengthDoit");
     export const selPageLengthUcd = $("#selPageLengthUcd");
     export const bizNo = $("#bizNo");
-    export const bizImage = $("#bizImage");
     export const bizWeb = $("#bizWeb");
-    export const bizDesc = $("#bizDesc");
 
     /** 배너 **/
     export const bannerTitle = $("#bannerTitle");
@@ -200,3 +201,4 @@
     export const rdoViewOption = $("input[name=radio-view-option]");
     export const startTime = $("#startTime");
     export const endTime = $("#endTime");
+    export const viewOption = $("#viewOption");

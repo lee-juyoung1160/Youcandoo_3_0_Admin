@@ -24,7 +24,7 @@
 
         bizList : baseApiUrl + 'biz/list',
         createBiz : baseApiUrl + 'biz/create',
-        detailBiz : baseApiUrl + 'biz/detail',
+        detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
 
         bannerList : baseApiUrl + 'banner',
@@ -64,6 +64,7 @@
 
         popupList : baseApiUrl + 'popup',
         createPopup : baseApiUrl + 'popup/create',
+        detailPopup : baseApiUrl + 'popup/detail',
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',

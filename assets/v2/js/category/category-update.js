@@ -242,8 +242,10 @@
 				"title" : categoryTitle.val(),
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 				"is_establish" : $('input[name=radio-establish]:checked').val(),
-				"icon_image_url" : isEmpty(data) ? "" : data.image_urls.file
 			}
+
+			if (!isEmpty(data))
+				param["icon_image_url"] = data.image_urls.file;
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateCategoryCallback, errMsg, false);
 		}

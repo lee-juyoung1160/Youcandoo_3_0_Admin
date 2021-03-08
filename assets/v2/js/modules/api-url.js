@@ -22,7 +22,7 @@
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
 
-        bizList : baseApiUrl + 'biz/list',
+        bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',

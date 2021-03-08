@@ -1,7 +1,7 @@
 
 	import { headers } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, } from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType,} from '../modules/elements.js';
 	import { sweetError } from  '../modules/alert.js';
 	import {initSelectOption, initPageLength} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
@@ -23,7 +23,7 @@
 		 * **/
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -82,18 +82,18 @@
 				}
 			},
 			columns: [
-				{title: "비즈 ID",    	data: "profile_uuid",  	width: "40%",
-					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
-					}
-				}
+				{title: "기업 ID",    	data: "company_uuid",  	width: "40%" }
 				,{title: "기업명", 		data: "nickname",		width: "25%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailBiz + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "등록일",    	data: "created",  		width: "15%" }
+				,{title: "등록일",    	data: "created",  		width: "15%",
+					render: function (data) {
+						return data.substring(0, 10);
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,
@@ -116,6 +116,7 @@
 	function tableParams()
 	{
 		const param = {
+			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),

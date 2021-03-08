@@ -183,6 +183,8 @@
     /** 인증 **/
     export const actionsWrap = $("#actionsWrap");
     export const modalWarning = $("#modalWarning");
+    /** 톡 **/
+    export const rdoReport = $("input[name=radio-report]");
     /** 푸시 **/
     export const rdoReserveType = $("input[name=radio-reserve-type]");
     export const reserveTime = $("#reserveTime");

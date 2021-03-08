@@ -58,6 +58,7 @@
         deleteProhibition : baseApiUrl + 'prohibition/delete',
 
         actionList : baseApiUrl + 'action',
+        talkList : baseApiUrl + 'talk',
 
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',

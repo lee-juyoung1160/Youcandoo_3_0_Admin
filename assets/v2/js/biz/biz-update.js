@@ -70,7 +70,7 @@
 		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', bizImage[0].files[0]);
+		param.append('file', contentImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}

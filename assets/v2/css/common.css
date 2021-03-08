@@ -530,6 +530,9 @@ button i {
 	color: #fff;
 	background-color: #e81500;
 }
+.btn-text-teal {
+	color: #00c0ef;
+}
 .btn-add {
 	color: #ffffff;
 	border-radius: 30px;
@@ -1060,3 +1063,10 @@ input[type="password"]{
 	cursor: pointer;
 }
 
+.date-time-wrap .datepicker {
+	float: left;
+	margin-right: 10px;
+}
+.date-time-wrap .select-box {
+	width: 100px;
+}

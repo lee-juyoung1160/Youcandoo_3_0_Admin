@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="/assets/v1/css/plugins/swiper.min.css">
 <section>
     <div class="inner">
 
@@ -128,10 +129,10 @@
                         <i class="tooltip-mark fas fa-sticky-note">
                             <span class="tooltip-txt left">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
                         </i>
-                        <i class="fas fa-edit"></i>
+                        <button class="btn-i btn-text-teal"><i class="fas fa-edit"></i></button>
                     </td>
                     <td>
-                        <button type="button" class="btn-xs btn-teal">재발송</button>
+                        <button type="button" class="btn-xs btn-orange">재발송</button>
                     </td>
                 </tr>
                 </tbody>
@@ -140,53 +141,122 @@
     </div>
 
     <div class="modal-wrap">
+
+        <!--상세보기 모달-->
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h5>상품 수정</h5>
+                <h5>상세내역</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <table class="detail-table">
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 80%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>상품이미지</th>
+                                        <td>
+                                            <div class="detail-img-wrap">
+                                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>상품코드</th>
+                                        <td>0002224446</td>
+                                    </tr>
+                                    <tr>
+                                        <th>상품명</th>
+                                        <td>스타벅스 아메리카노 TALL</td>
+                                    </tr>
+                                    <tr>
+                                        <th>판매단가</th>
+                                        <td>4,900</td>
+                                    </tr>
+                                    <tr>
+                                        <th>수신자 번호</th>
+                                        <td>010-****-1160</td>
+                                    </tr>
+                                    <tr>
+                                        <th>유효기간 만료일</th>
+                                        <td>2020-00-00</td>
+                                    </tr>
+                                    <tr>
+                                        <th>발송 상태</th>
+                                        <td>완료</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="swiper-slide">
+                            <table class="detail-table">
+                                <thead>
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 80%;">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th>상품이미지</th>
+                                    <td>
+                                        <div class="detail-img-wrap">
+                                            <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품코드</th>
+                                    <td>0002224446</td>
+                                </tr>
+                                <tr>
+                                    <th>상품명</th>
+                                    <td>스타벅스 아메리카노 TALL</td>
+                                </tr>
+                                <tr>
+                                    <th>판매단가</th>
+                                    <td>4,900</td>
+                                </tr>
+                                <tr>
+                                    <th>수신자 번호</th>
+                                    <td>010-****-1160</td>
+                                </tr>
+                                <tr>
+                                    <th>유효기간 만료일</th>
+                                    <td>2020-00-00</td>
+                                </tr>
+                                <tr>
+                                    <th>발송 상태</th>
+                                    <td>완료</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 메모모달 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>상품 발송/취소 메모</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="card">
-                    <p class="desc">
-                        * 드래그 & 드랍으로 노출 순서를 변경할 수 있으며, 수정완료 클릭 시 적용됩니다.
-                    </p>
-                </div>
-                <div class="table-wrap">
-                    <table class="order-table" id="updateTable">
-                        <thead>
-                        <colgroup>
-                            <col style="width: 60%;">
-                            <col style="width: 20%;">
-                            <col style="width: 20%;">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>상품명</th>
-                            <th>이미지</th>
-                            <th>삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>스타벅스 아메리카노 TALL</td>
-                            <td>
-                                <div class="list-img-wrap">
-                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <textarea name="" id="" rows="10"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
             </div>
         </div>
 
@@ -196,4 +266,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/notice/notice-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/v1/js/plugins/swiper.min.js"></script>

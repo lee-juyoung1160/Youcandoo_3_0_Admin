@@ -1,0 +1,221 @@
+<section>
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">상품 신청 내역</h2>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <select id="selDateType" class="select-box">
+                                <option value="">신청일</option>
+                            </select>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn months">3개월</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">닉네임</option>
+                                <option value="">상품명</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">상품 유형</p>
+                    <div class="radio-wrap">
+                        <input id="r1" type="radio" name="r-status">
+                        <label for="r1"><span></span>전체</label>
+
+                        <input id="r2" type="radio" name="r-status">
+                        <label for="r2"><span></span>기프티콘</label>
+
+                        <input id="r3" type="radio" name="r-status">
+                        <label for="r3"><span></span>일반</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                        <p>잔액 : <strong class="data-num">34,000,000</strong></p>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <button type="button" class="btn-sm btn-success"><i class="fas fa-check-circle"></i> 상품발송</button>
+                    <button type="button" class="btn-sm btn-warning"><i class="fas fa-clock"></i> 기프티콘 예약발송</button>
+                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 신청 취소</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 20%;">
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 5%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>상품유형</th>
+                    <th>상품명</th>
+                    <th>신청수량</th>
+                    <th>금액(UCD)</th>
+                    <th>신청자</th>
+                    <th>신청일시</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>기프티콘</td>
+                    <td>스타벅스 아메리카노</td>
+                    <td>3</td>
+                    <td>10,000</td>
+                    <td>깐깐찡어</td>
+                    <td>2020-00-00</td>
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input id="c1" type="checkbox">
+                            <label for="c1"><span></span></label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <!--기프티콘 예약발송-->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>기프티콘 예약 발송</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>예약 일시</th>
+                        <td>
+                            <div class="date-time-wrap clearfix">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <select class="select-box">
+                                    <option value="09">9시</option>
+                                    <option value="10">10시</option>
+                                    <option value="11">11시</option>
+                                    <option value="12">12시</option>
+                                    <option value="13">13시</option>
+                                    <option value="14">14시</option>
+                                    <option value="15">15시</option>
+                                    <option value="16">16시</option>
+                                    <option value="17">17시</option>
+                                    <option value="18">18시</option>
+                                </select>
+                                <select class="select-box">
+                                    <option value="00">00분</option>
+                                    <option value="10">10분</option>
+                                    <option value="20">20분</option>
+                                    <option value="30">30분</option>
+                                    <option value="40">40분</option>
+                                    <option value="50">50분</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p class="desc-sub">
+                                * 예약발송일시는 현재시간 이후로만 가능합니다.<br>
+                                * 예약발송일 기준 판매종료/예약종로/가격변동이 있는 상품의 경우, 예약발송이 불가 할 수 있습니다
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>메모</th>
+                        <td>
+                            <textarea name="" id="" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">예약발송</button>
+            </div>
+        </div>
+
+        <!-- 일반 발송 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>상품 발송</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>메모</th>
+                        <td>
+                            <textarea name="" id="" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">발송완료</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

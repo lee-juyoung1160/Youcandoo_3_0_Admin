@@ -8,6 +8,11 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	const linkWrap = link.parents('tr');
+	const contentWrap = content.parents('tr');
+	const noticeWrap = notice.parents('tr');
+	const contentImgWrap = contentImage.parents('tr');
+	const dateWrap = dateFrom.parents('tr');
 
 	$( () => {
 		initInputDatepickerMinDateToday();
@@ -24,11 +29,6 @@
 	function onChangeEventType(obj)
 	{
 		const selectedValue = $(obj).val();
-		const linkWrap = link.parents('tr');
-		const contentWrap = content.parents('tr');
-		const noticeWrap = notice.parents('tr');
-		const contentImgWrap = contentImage.parents('tr');
-		const dateWrap = dateFrom.parents('tr');
 
 		if (selectedValue === 'event')
 		{
@@ -155,8 +155,8 @@
 			return false;
 		}
 
-		const contentImageFile = isDisplay(contentImageWrap) ? contentImage[0].files : '';
-		if (isDisplay(contentImageWrap) && contentImageFile.length === 0)
+		const contentImgFile = isDisplay(contentImgWrap) ? contentImage[0].files : '';
+		if (isDisplay(contentImgWrap) && contentImgFile.length === 0)
 		{
 			sweetToast(`본문 이미지는 ${message.required}`);
 			return false;

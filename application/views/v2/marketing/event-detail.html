@@ -3,6 +3,9 @@
 
         <div class="main-top clearfix">
             <h2 class="main-title">이벤트 상세</h2>
+            <div class="right-wrap">
+                <button id="btnDelete" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> 이벤트 삭제</button>
+            </div>
         </div>
 
         <div class="row">
@@ -16,19 +19,19 @@
                     <tr>
                         <th>구분</th>
                         <td>
-                            <p class="detail-data">이벤트</p>
+                            <p class="detail-data" id="eventType">이벤트</p>
                         </td>
                     </tr>
                     <tr>
                         <th>제목</th>
                         <td>
-                            <p class="detail-data">이벤트 제목</p>
+                            <p class="detail-data" id="title">이벤트 제목</p>
                         </td>
                     </tr>
                     <tr>
                         <th>링크 *</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="link">
                                 <a href="#" class="link">http://www.ddddddd.dd.dd</a>
                             </p>
                         </td>
@@ -36,13 +39,13 @@
                     <tr>
                         <th>내용 *</th>
                         <td>
-                            <p class="detail-data">내용오어어엉</p>
+                            <p class="detail-data" id="content">내용오어어엉</p>
                         </td>
                     </tr>
                     <tr>
                         <th>유의사항 *</th>
                         <td>
-                            <p class="detail-data">유의사하ㅏ하아아아</p>
+                            <p class="detail-data" id="notice">유의사하ㅏ하아아아</p>
                         </td>
                     </tr>
                     <tr>
@@ -57,20 +60,20 @@
                         <th>썸네일 *</th>
                         <td>
                             <div class="detail-image-wrap">
-                                <img src="/assets/v2/img/auth-1.jpg" alt="" id="contentImage">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="" id="thumbnail">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>기간 *</th>
                         <td>
-                           <p class="detail-data">2020-04-04 ~ 2021-05-05</p>
+                           <p class="detail-data" id="eventDate">2020-04-04 ~ 2021-05-05</p>
                         </td>
                     </tr>
                     <tr>
                         <th>노출 여부</th>
                         <td>
-                            <p class="detail-data">Y</p>
+                            <p class="detail-data" id="isExposure">Y</p>
                         </td>
                     </tr>
                 </table>
@@ -84,4 +87,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/event/event-detail.js?version=<?php echo $this->config->item('version');?>"></script>

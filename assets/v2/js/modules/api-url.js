@@ -59,10 +59,15 @@
         createBanner : baseApiUrl + 'banner/create',
         deleteBanner : baseApiUrl + 'banner/delete',
         reorderBanner : baseApiUrl + 'banner/update/sequence',
+
         eventList : baseApiUrl + 'event/list',
         createEvent : baseApiUrl + 'event/create',
+        detailEvent : baseApiUrl + 'event/detail',
+        updateEvent : baseApiUrl + 'event/update',
+
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',
+
         popupList : baseApiUrl + 'popup',
         createPopup : baseApiUrl + 'popup/create',
         detailPopup : baseApiUrl + 'popup/detail',

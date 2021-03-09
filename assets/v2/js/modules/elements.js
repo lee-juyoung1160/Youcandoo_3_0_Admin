@@ -207,4 +207,6 @@
 
     /** 이벤트 **/
     export const selEventType = $("#selEventType");
+    export const eventType = $("#eventType");
+    export const eventDate = $("#eventDate");
     export const notice = $("#notice");

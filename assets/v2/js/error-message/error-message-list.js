@@ -1,7 +1,7 @@
 
 	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {btnSearch, btnReset, keyword, dataTable,} from '../modules/elements.js';
+	import {keyword, dataTable,} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -15,8 +15,7 @@
 		/** 목록 불러오기 **/
 		getErrorList();
 		/** 이벤트 **/
-		btnSearch		.on("click", function () { onSubmitSearch(); });
-		btnReset		.on("click", function () { initSearchForm(); });
+		keyword		.on("propertychange change keyup paste input", function () { onSubmitSearch(); });
 	});
 
 	function initSearchForm()
@@ -62,7 +61,7 @@
 			columns: [
 				{title: "코드",    		data: "code",  			width: "10%" }
 				,{title: "메세지",    	data: "message",  		width: "30%" }
-				,{title: "IOS 메세지",    data: "ios_message",	width: "30%",
+				,{title: "IOS 메세지",    data: "ios_message",	width: "30%",	visible: false,
 					render: function (data, type, row, meta) {
 						return `<div>
 									<textarea rows="3" style="width: 80%; resize: none;" data-code="${row.code}" data-type="ios_message" disabled>${data}</textarea>
@@ -70,7 +69,7 @@
 								</div>`
 					}
 				}
-				,{title: "AOS 메세지",    data: "aos_message",	width: "30%",
+				,{title: "AOS 메세지",    data: "aos_message",	width: "30%",	visible: false,
 					render: function (data, type, row, meta) {
 						return `<div>
 									<textarea rows="3" style="width: 80%; resize: none;" data-code="${row.code}" data-type="aos_message" disabled>${data}</textarea>

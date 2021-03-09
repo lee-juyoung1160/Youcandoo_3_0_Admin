@@ -1,7 +1,16 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, selEventType, title, content, notice, link, dateFrom, dateTo, contentImage, thumbnail} from '../modules/elements.js';
+	import {
+		lengthInput,
+		btnSubmit,
+		selEventType,
+		title,
+		content,
+		notice,
+		link,
+		dateFrom,dateTo,
+		contentImage, thumbnailImage} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";
 	import {isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
@@ -21,7 +30,7 @@
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		selEventType.on('change', function () { onChangeEventType(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
-		thumbnail	.on('change', function () { onChangeValidateImage(this); });
+		thumbnailImage.on('change', function () { onChangeValidateImage(this); });
 		dateFrom	.on('change', function () { onChangeDateFrom() });
 		btnSubmit	.on('click', function () { onSubmitEvent(); });
 	});
@@ -75,8 +84,8 @@
 		const url = fileApiV2.event;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('event_thumbnail_img', thumbnail[0].files[0]);
-		if (isDisplay(contentImageWrap))
+		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
+		if (isDisplay(contentImgWrap))
 			param.append('event_content_img', contentImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
@@ -162,7 +171,7 @@
 			return false;
 		}
 
-		const thumbnailFile = thumbnail[0].files;
+		const thumbnailFile = thumbnailImage[0].files;
 		if (thumbnailFile.length === 0)
 		{
 			sweetToast(`썸네일 이미지는 ${message.required}`);

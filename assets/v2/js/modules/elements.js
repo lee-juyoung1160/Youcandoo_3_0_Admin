@@ -210,3 +210,5 @@
     export const eventType = $("#eventType");
     export const eventDate = $("#eventDate");
     export const notice = $("#notice");
+    export const thumbnailImage = $("#thumbnailImage");
+    export const thumbnailImgThumbnail= $("#thumbnailImgThumbnail");

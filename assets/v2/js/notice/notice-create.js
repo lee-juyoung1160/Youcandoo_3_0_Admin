@@ -31,8 +31,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApiV2.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
@@ -43,9 +43,9 @@
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			let url 	= api.createNotice;
-			let errMsg 	= label.submit+message.ajaxError;
-			let param = {
+			const url 	= api.createNotice;
+			const errMsg 	= label.submit+message.ajaxError;
+			const param = {
 				"notice_title" : title.val().trim(),
 				"notice_contents" : content.val().trim(),
 				"notice_image" : isEmpty(data) ? "" : data.image_urls.file,

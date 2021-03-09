@@ -18,7 +18,7 @@
                         <th>충전 UCD *</th>
                         <td>
                             <div class="ucd-input-wrap">
-                                <input id="" type="text">
+                                <input id="amount" type="text">
                                 <span>UCD</span>
                             </div>
                         </td>
@@ -27,7 +27,7 @@
                         <th>내용 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="" type="text" class="length-input" maxlength="30" placeholder="내용을 입력해주세요.">
+                                <input id="content" type="text" class="length-input" maxlength="30" placeholder="내용을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
@@ -36,7 +36,7 @@
                         <th>비고 *</th>
                         <td>
                             <div class="textarea-wrap">
-                                <textarea id="doitDesc" class="length-input" maxlength="50" rows="4"></textarea>
+                                <textarea id="memo" class="length-input" maxlength="50" rows="4"></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
@@ -173,3 +173,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/ucd/ucd-charge-create.js?version=<?php echo $this->config->item('version');?>"></script>

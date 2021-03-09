@@ -16,10 +16,10 @@
                     <tr>
                         <th>구분 *</th>
                         <td>
-                            <select id="" class="select-box">
-                                <option value="">이벤트</option>
-                                <option value="">결과발표</option>
-                                <option value="">링크</option>
+                            <select id="selEventType" class="select-box">
+                                <option value="event">이벤트</option>
+                                <option value="announce">결과발표</option>
+                                <option value="link">링크</option>
                             </select>
                         </td>
                     </tr>
@@ -32,10 +32,10 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none;">
                         <th>링크 *</th>
                         <td>
-                            <input id="bizWeb" type="text" placeholder="https://를 포함하여 입력해주세요">
+                            <input id="link" type="text" placeholder="https://를 포함하여 입력해주세요">
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +47,7 @@
                     <tr>
                         <th>유의사항 *</th>
                         <td>
-                            <textarea id="" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="notice" rows="4" placeholder="유의 사항을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -70,8 +70,8 @@
                             <p class="desc-sub">( 이미지 크기 : 656 x 248)</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="656" data-height="248" data-oper="ge">
+                                <label for="thumbnailImage">업로드</label>
+                                <input type="file" id="thumbnailImage" class="upload-hidden" data-width="656" data-height="248" data-oper="ge">
                             </div>
                             <!--<div class="detail-img-wrap">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -109,4 +109,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/event/event-create.js?version=<?php echo $this->config->item('version');?>"></script>

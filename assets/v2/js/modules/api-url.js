@@ -27,11 +27,6 @@
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
 
-        bannerList : baseApiUrl + 'banner',
-        createBanner : baseApiUrl + 'banner/create',
-        deleteBanner : baseApiUrl + 'banner/delete',
-        reorderBanner : baseApiUrl + 'banner/update/sequence',
-
         pickList : baseApiUrl + 'pick',
         createPick : baseApiUrl + 'pick/create',
 
@@ -60,6 +55,16 @@
         actionList : baseApiUrl + 'action',
         talkList : baseApiUrl + 'talk',
 
+        bannerList : baseApiUrl + 'banner',
+        createBanner : baseApiUrl + 'banner/create',
+        deleteBanner : baseApiUrl + 'banner/delete',
+        reorderBanner : baseApiUrl + 'banner/update/sequence',
+
+        eventList : baseApiUrl + 'event/list',
+        createEvent : baseApiUrl + 'event/create',
+        detailEvent : baseApiUrl + 'event/detail',
+        updateEvent : baseApiUrl + 'event/update',
+
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',
 
@@ -69,6 +74,9 @@
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',
+
+        ucdChargeList : baseApiUrl + 'ucd/charge/list',
+        createMemberUcd : baseApiUrl + 'ucd/charge/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

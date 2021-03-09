@@ -16,7 +16,7 @@
                     <tr>
                         <th>구분 *</th>
                         <td>
-                            <p class="detail-data">이벤트</p>
+                            <p class="detail-data" id="eventType">이벤트</p>
                         </td>
                     </tr>
                     <tr>
@@ -31,7 +31,7 @@
                     <tr>
                         <th>링크 *</th>
                         <td>
-                            <input id="bizWeb" type="text" placeholder="https://를 포함하여 입력해주세요">
+                            <input id="link" type="text" placeholder="https://를 포함하여 입력해주세요">
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                     <tr>
                         <th>유의사항 *</th>
                         <td>
-                            <textarea id="" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="notice" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -55,9 +55,9 @@
                                 <label for="contentImage">업로드</label>
                                 <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-oper="ge">
                             </div>
-                            <!--<div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>-->
+                            <div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="" id="thumbnail">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -66,12 +66,12 @@
                             <p class="desc-sub">( 이미지 크기 : 656 x 248)</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="656" data-height="248" data-oper="ge">
+                                <label for="thumbnailImage">업로드</label>
+                                <input type="file" id="thumbnailImage" class="upload-hidden" data-width="656" data-height="248" data-oper="ge">
                             </div>
-                            <!--<div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>-->
+                            <div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="" id="thumbnailImageThumbnail">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -105,4 +105,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/event/event-update.js?version=<?php echo $this->config->item('version');?>"></script>

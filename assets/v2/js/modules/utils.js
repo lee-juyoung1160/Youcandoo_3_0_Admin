@@ -102,6 +102,11 @@
 		return filter.indexOf(navigator.platform.toLowerCase()) < 0;
 	}
 
+	export function isDisplay(obj)
+	{
+		return !($(obj).css('display') === 'none');
+	}
+
 	export function isEmpty(value)
 	{
 		return (

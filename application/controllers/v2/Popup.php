@@ -12,10 +12,12 @@ class Popup extends MY_Controller {
         {
             $this->load->template('v2/popup/popup-create');
         }
+
     public function detail()
-            {
-                $this->load->template('v2/popup/popup-detail');
-            }
+    {
+        $this->load->template('v2/popup/popup-detail');
+    }
+
 }
 
 

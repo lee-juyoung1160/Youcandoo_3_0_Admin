@@ -27,11 +27,6 @@
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
 
-        bannerList : baseApiUrl + 'banner',
-        createBanner : baseApiUrl + 'banner/create',
-        deleteBanner : baseApiUrl + 'banner/delete',
-        reorderBanner : baseApiUrl + 'banner/update/sequence',
-
         pickList : baseApiUrl + 'pick',
         createPick : baseApiUrl + 'pick/create',
 
@@ -60,9 +55,14 @@
         actionList : baseApiUrl + 'action',
         talkList : baseApiUrl + 'talk',
 
+        bannerList : baseApiUrl + 'banner',
+        createBanner : baseApiUrl + 'banner/create',
+        deleteBanner : baseApiUrl + 'banner/delete',
+        reorderBanner : baseApiUrl + 'banner/update/sequence',
+        eventList : baseApiUrl + 'event/list',
+        createEvent : baseApiUrl + 'event/create',
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',
-
         popupList : baseApiUrl + 'popup',
         createPopup : baseApiUrl + 'popup/create',
         detailPopup : baseApiUrl + 'popup/detail',

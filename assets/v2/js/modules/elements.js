@@ -56,6 +56,7 @@
     export const isExposure	    = $("#isExposure");
     export const rdoExposure	= $("input[name=radio-exposure]");
     export const exposureDate   = $("#exposureDate");
+    export const link = $("#link");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -199,8 +200,11 @@
     /** 팝업 **/
     export const versionDigit = $("#versionDigit");
     export const versionDecimal = $("#versionDecimal");
-    export const link = $("#link");
     export const rdoViewOption = $("input[name=radio-view-option]");
     export const startTime = $("#startTime");
     export const endTime = $("#endTime");
     export const viewOption = $("#viewOption");
+
+    /** 이벤트 **/
+    export const selEventType = $("#selEventType");
+    export const notice = $("#notice");

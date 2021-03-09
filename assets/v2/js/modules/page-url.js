@@ -36,4 +36,6 @@
         ,updateEvent : rootContext + 'marketing/event/update/'
         ,listPush : rootContext + 'marketing/push'
         ,listPopup : rootContext + 'marketing/popup'
+
+        ,listUcdCharge : rootContext + 'ucd/charge'
     }

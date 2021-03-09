@@ -76,6 +76,7 @@
         updateError : baseApiUrl + 'error/update',
 
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
+        createMemberUcd : baseApiUrl + 'ucd/charge/create',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

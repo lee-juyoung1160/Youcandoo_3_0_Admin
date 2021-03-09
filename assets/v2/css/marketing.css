@@ -4,6 +4,9 @@
 .push-create .result-wrap {
 	margin-top: 10px;
 }
+.top input[type="search"] {
+	width: 300px;
+}
 
 /* ucd 충전 모달 */
 .push-create .modal-content.nickname-search {

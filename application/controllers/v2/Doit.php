@@ -22,13 +22,13 @@ class Doit extends MY_Controller {
     {
         switch ($Route) {
             case "":
-                $this->load->template('v2/doit/pick-list');
+                $this->load->template('v2/doit/pick-doit-list');
                 break;
             case "create" :
-                $this->load->template('v2/doit/pick-create');
+                $this->load->template('v2/doit/pick-doit-create');
                 break;
             case "update":
-                $this->load->template('v2/doit/pick-update');
+                $this->load->template('v2/doit/pick-doit-update');
                 break;
         }
     }

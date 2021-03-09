@@ -115,6 +115,7 @@
                             </div>
                             <div class="result-wrap" style="display: none;">
                                 <div class="top">
+                                    <input type="search" placeholder="닉네임을 입력해주세요">
                                     <button id="btnModalTargetMemberOpen" type="button" class="btn-sm">닉네임 검색</button>
                                     <div class="file-wrap excel-import">
                                         <label for="btnXlsxImport">
@@ -211,14 +212,14 @@
         </div>
 
         <!-- 닉네임 검색 -->
-        <div class="modal-content nickname-search" id="modalTargetMember">
+        <div class="modal-content nickname-search" id="modalTargetMember" style="display:block;">
             <div class="modal-header clearfix">
                 <h5>닉네임 검색</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="card clearfix">
                             <div class="search-txt-wrap">
                                 <input id="nickname" type="search" placeholder="닉네임을 입력해주세요.">
@@ -228,60 +229,17 @@
                         <div class="table-wrap">
                             <table>
                                 <colgroup>
-                                    <col style="width: 50%;">
-                                    <col style="width: 15%;">
-                                    <col style="width: 15%;">
-                                    <col style="width: 15%;">
+                                    <col style="width: 23%;">
+                                    <col style="width: 39%;">
+                                    <col style="width: 11%;">
+                                    <col style="width: 11%;">
+                                    <col style="width: 11%;">
                                     <col style="width: 5%;">
                                 </colgroup>
                                 <thead>
                                 <tr>
                                     <th>닉네임</th>
-                                    <th>두잇알림</th>
-                                    <th>마케팅알림</th>
-                                    <th>공지알림</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="txt-left">
-                                        깐깐찡엉깐깐찡엉깐깐찡엉깐깐찡엉
-                                        <p class="small-txt">PID-6A5016BE-93CE-C453-197A-DE0938978F10</p>
-                                    </td>
-                                    <td>Y</td>
-                                    <td>Y</td>
-                                    <td>Y</td>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input id="c2" type="checkbox">
-                                            <label for="c2"><span></span></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn-move"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                    <div class="col-5">
-                        <div class="card">
-                            <p class="title">총 100명 선택</p>
-                        </div>
-                        <div class="table-wrap">
-                            <table>
-                                <colgroup>
-                                    <col style="width: 48%;">
-                                    <col style="width: 15%;">
-                                    <col style="width: 17%;">
-                                    <col style="width: 15%;">
-                                    <col style="width: 5%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>닉네임</th>
+                                    <th>P-ID</th>
                                     <th>두잇알림</th>
                                     <th>마케팅알림</th>
                                     <th>공지알림</th>
@@ -291,13 +249,15 @@
                                 <tbody>
                                 <tr>
                                     <td>깐깐찡엉깐깐찡엉깐깐찡엉깐깐찡엉</td>
+                                    <td>PID-6A5016BE-93CE-C453-197A-DE0938978F10</td>
                                     <td>Y</td>
                                     <td>Y</td>
                                     <td>Y</td>
                                     <td>
-                                        <button type="button" class="btn-xs btn-text-red">
-                                            <i class="fas fa-minus-circle"></i>
-                                        </button>
+                                        <div class="checkbox-wrap">
+                                            <input id="c2" type="checkbox">
+                                            <label for="c2"><span></span></label>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>

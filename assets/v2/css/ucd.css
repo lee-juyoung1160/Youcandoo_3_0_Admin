@@ -2,5 +2,8 @@
 
 /* ucd 충전 모달 */
 .ucd-create .modal-content {
-    width: 1000px;
+    width: 950px;
+}
+.top input[type="search"] {
+    width: 300px;
 }

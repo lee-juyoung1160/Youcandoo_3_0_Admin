@@ -7,10 +7,7 @@
 
 /* ucd 충전 모달 */
 .push-create .modal-content.nickname-search {
-	width: 1500px;
-}
-.push-create .modal-content.nickname-search .btn-move  {
-	margin-top: 100px;
+	width: 1100px;
 }
 
 /* 팝업등록 */

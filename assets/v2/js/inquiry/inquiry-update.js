@@ -59,15 +59,15 @@
 
 		contentImage.html(images);
 
-		document.querySelectorAll('.btn-view-attach').forEach( element => element.addEventListener('click', viewAttachment));
+		$(".btn-view-attach").on('click', function () { viewAttachment(this); })
 		return images;
 	}
 
-	function viewAttachment()
+	function viewAttachment(obj)
 	{
 		fadeinModal();
 
-		const imageUrl = $(this).prop('src');
+		const imageUrl = $(obj).prop('src');
 		const images = `<img src="${imageUrl}" alt="">`;
 	}
 

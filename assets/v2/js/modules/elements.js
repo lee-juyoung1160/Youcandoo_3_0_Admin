@@ -16,6 +16,8 @@
     export const environment     = $("#env");
     export const loader          = $("#loader");
     export const btnScrollTop    = $("#btnScrollTop");
+    export const btnXlsxImport   = $("#btnXlsxImport");
+    export const btnXlsxExport   = $("#btnXlsxExport");
 
     export const dateButtons    = $(".date-btn .btn");
     export const datePicker     = $(".datepicker");

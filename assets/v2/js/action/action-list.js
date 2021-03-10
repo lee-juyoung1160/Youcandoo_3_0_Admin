@@ -120,7 +120,7 @@
 
 		actionsWrap.html(actionEl);
 
-		document.querySelectorAll('.img-wrap').forEach( element => element.addEventListener('click', viewDetail));
+		$(".img-wrap").on('click', function () { viewDetail(this); })
 	}
 
 	function viewDetail()
@@ -137,15 +137,15 @@
 
 		pagination.html(paginate(_currentPage, lastPage));
 
-		document.querySelectorAll('.dataTables_paginate').forEach( element => element.addEventListener('click', onClickPageNum));
+		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
 	}
 
-	function onClickPageNum()
+	function onClickPageNum(obj)
 	{
-		$(this).siblings().removeClass('current');
-		$(this).addClass('current');
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
 
-		_currentPage = $(this).data('page');
+		_currentPage = $(obj).data('page');
 
 		getActions();
 	}

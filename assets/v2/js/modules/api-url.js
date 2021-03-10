@@ -78,6 +78,7 @@
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
         createMemberUcd : baseApiUrl + 'ucd/charge/create',
         getMember : baseApiUrl + '',
+        getMemberFromXlsx : baseApiUrl + '',
         systemWalletList : baseApiUrl + 'ucd/system/list',
         doitWalletList : baseApiUrl + 'ucd/doit/list',
         memberWalletList : baseApiUrl + 'ucd/member/list',

@@ -59,7 +59,7 @@
 
 		contentImage.html(images);
 
-		document.querySelectorAll('.btn-view-attach').forEach( element => element.addEventListener('click', viewAttachment));
+		$(".btn-view-attach").on('click', function () { viewAttachment(this); })
 		return images;
 	}
 

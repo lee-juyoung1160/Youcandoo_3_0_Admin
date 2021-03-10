@@ -108,13 +108,13 @@
 
 	function addPreviewEvent()
 	{
-		document.querySelectorAll('.view-preview').forEach( element => element.addEventListener('click', viewPreview));
+		$(".view-preview").on('click', function () { viewPreview(this); })
 	}
 
-	function viewPreview()
+	function viewPreview(obj)
 	{
-		previewTitle.text($(this).text());
-		getPreviewList($(this).data("uuid"));
+		previewTitle.text($(obj).text());
+		getPreviewList($(obj).data("uuid"));
 	}
 
 	function getPreviewList(uuid)
@@ -177,7 +177,7 @@
 
 	function addDeleteEvent()
 	{
-		document.querySelectorAll('.delete-btn').forEach( element => element.addEventListener('click', deleteRow));
+		$(".delete-btn").on('click', function () { deleteRow(this); })
 	}
 
 	function onClickModalOpen()
@@ -187,10 +187,10 @@
 	}
 
 	let g_delete_uuids = [];
-	function deleteRow()
+	function deleteRow(obj)
 	{
-		$(this).closest('tr').remove();
-		g_delete_uuids.push(this.id);
+		$(obj).closest('tr').remove();
+		g_delete_uuids.push(obj.id);
 	}
 
 	function onSubmitUpdate()

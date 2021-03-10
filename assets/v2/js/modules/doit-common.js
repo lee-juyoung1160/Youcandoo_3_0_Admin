@@ -163,7 +163,7 @@
 
     export function addRemoveKeywordEvent()
     {
-        document.querySelectorAll('.btn-del-keyword').forEach( element => element.addEventListener('click', removeDoitKeyword));
+        $(".btn-del-keyword").on('click', function (event) { removeDoitKeyword(event); })
     }
 
     export function removeDoitKeyword(event)

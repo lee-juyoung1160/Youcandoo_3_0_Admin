@@ -91,7 +91,6 @@
 			data.recordsTotal = data.count;
 			data.recordsFiltered = data.count;
 			buildGrid(data);
-			buildReOrderGrid(data);
 		}
 		else
 			sweetToast(data.msg);
@@ -131,10 +130,21 @@
 		});
 	}
 
-	function buildReOrderGrid(data)
+	function onClickModalOpen()
 	{
+		g_delete_uuids.length = 0;
+		fadeinModal();
+		buildReOrderGrid();
+	}
+
+	function buildReOrderGrid()
+	{
+		const table = dataTable.DataTable();
+		const tableData = table.rows().data();
+		let data = tableData.length > 0 ? tableData : [];
+
 		updateTable.DataTable({
-			data: data.data,
+			data: data,
 			columns: [
 				{title: "아이콘",    		data: "icon_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
@@ -169,20 +179,14 @@
 
 	function addDeleteEvent()
 	{
-		document.querySelectorAll('.delete-btn').forEach( element => element.addEventListener('click', deleteRow));
-	}
-
-	function onClickModalOpen()
-	{
-		g_delete_uuids.length = 0;
-		fadeinModal();
+		$(".delete-btn").on('click', function () { deleteRow(this); })
 	}
 
 	let g_delete_uuids = [];
-	function deleteRow()
+	function deleteRow(obj)
 	{
-		$(this).closest('tr').remove();
-		g_delete_uuids.push(this.id);
+		$(obj).closest('tr').remove();
+		g_delete_uuids.push(obj.id);
 	}
 
 	function onSubmitUpdate()

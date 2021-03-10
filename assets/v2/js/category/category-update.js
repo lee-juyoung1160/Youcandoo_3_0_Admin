@@ -143,14 +143,14 @@
 
 	function addDeleteEvent()
 	{
-		document.querySelectorAll('.delete-btn').forEach( element => element.addEventListener('click', deleteRow));
+		$(".delete-btn").on('click', function () { deleteRow(this); })
 	}
 
 	let g_delete_uuids = [];
-	function deleteRow()
+	function deleteRow(obj)
 	{
-		$(this).closest('tr').remove();
-		g_delete_uuids.push(this.id);
+		$(obj).closest('tr').remove();
+		g_delete_uuids.push(obj.id);
 	}
 
 	function updateValidation()

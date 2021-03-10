@@ -113,7 +113,7 @@
 
 	function addDeleteEvent()
 	{
-		document.querySelectorAll('.delete-btn').forEach( element => element.addEventListener('click', deleteRow));
+		$(".btn-delete").on('click', function () { onClickBtnDelete(); })
 	}
 
 	function onClickModalOpen()

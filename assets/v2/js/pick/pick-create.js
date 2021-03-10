@@ -102,7 +102,7 @@
 
 	function addCheckboxClickEvent()
 	{
-		document.querySelectorAll('input[name=chk-row]').forEach( element => element.addEventListener('click', onClickCheckBox));
+		$("input[name=chk-row]").on('click', function () { onClickCheckBox(); })
 	}
 
 	function onClickCheckBox()
@@ -159,12 +159,12 @@
 
 	function addRemoveRowEvent()
 	{
-		document.querySelectorAll('.btn-delete-row').forEach( element => element.addEventListener('click', removeRow));
+		$(".btn-delete-row").on('click', function () { removeRow(this); })
 	}
 
-	function removeRow()
+	function removeRow(obj)
 	{
-		$(this).parents('tr').remove();
+		$(obj).parents('tr').remove();
 		initDisableCheckbox();
 		tableReloadAndStayCurrentPage(doitTable);
 	}

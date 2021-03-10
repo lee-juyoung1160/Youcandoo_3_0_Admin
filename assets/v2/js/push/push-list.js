@@ -149,12 +149,12 @@
 
 	function addViewDetailEvent()
 	{
-		document.querySelectorAll('.view-detail').forEach( element => element.addEventListener('click', viewDetail));
+		$(".view-detail").on('click', function () { viewDetail(this); })
 	}
 
-	function viewDetail()
+	function viewDetail(obj)
 	{
 		fadeinModal();
-		const pushMessage = $(this).data('detail');
+		const pushMessage = $(obj).data('detail');
 	}
 

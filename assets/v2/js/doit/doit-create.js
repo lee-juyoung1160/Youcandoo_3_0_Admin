@@ -86,14 +86,14 @@
 
 	function addClickEvent()
 	{
-		document.querySelectorAll('.biz-row').forEach( element => element.addEventListener('click', onSelectSponsor));
+		$(".biz-row").on('click', function () { onSelectSponsor(this); })
 	}
 
 
-	function onSelectSponsor()
+	function onSelectSponsor(obj)
 	{
-		sponsorUuid.val($(this).data('uuid'));
-		sponsor.val($(this).data('name'));
+		sponsorUuid.val($(obj).data('uuid'));
+		sponsor.val($(obj).data('name'));
 		fadeoutModal();
 	}
 

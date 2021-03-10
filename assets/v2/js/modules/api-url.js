@@ -77,6 +77,11 @@
 
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
         createMemberUcd : baseApiUrl + 'ucd/charge/create',
+        getMember : baseApiUrl + '',
+        systemWalletList : baseApiUrl + 'ucd/system/list',
+        doitWalletList : baseApiUrl + 'ucd/doit/list',
+        memberWalletList : baseApiUrl + 'ucd/member/list',
+        pendingWalletList : baseApiUrl + 'ucd/pending/list',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

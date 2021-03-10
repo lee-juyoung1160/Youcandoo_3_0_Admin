@@ -23,6 +23,7 @@
     export const dateTo         = $(".date-to");
     export const selDateType    = $("#selDateType");
     export const selSearchType  = $("#selSearchType");
+    export const chkType    = $("input[name=chk-type]");
     export const chkStatus  = $("input[name=chk-status]");
     export const rdoStatus  = $("input[name=radio-status]");
     export const keyword 	= $("#keyword");

@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, contentImage, ucd,} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, title, contentImage, price,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";
@@ -12,7 +12,7 @@
 	$( () => {
 		title.trigger('focus');
 		/** 이벤트 **/
-		ucd .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+		price .on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit	.on('click', function () { onSubmitGift(); });
@@ -71,10 +71,10 @@
 			return false;
 		}
 
-		if (isEmpty(ucd.val()))
+		if (isEmpty(price.val()))
 		{
 			sweetToast(`금액은 ${message.required}`);
-			ucd.trigger('focus');
+			price.trigger('focus');
 			return false;
 		}
 

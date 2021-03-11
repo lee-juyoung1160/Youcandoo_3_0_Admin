@@ -60,7 +60,6 @@
     export const rdoExposure	= $("input[name=radio-exposure]");
     export const exposureDate   = $("#exposureDate");
     export const link = $("#link");
-    export const ucd = $("#ucd");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -216,3 +215,6 @@
     export const notice = $("#notice");
     export const thumbnailImage = $("#thumbnailImage");
     export const thumbnailImgThumbnail= $("#thumbnailImgThumbnail");
+
+    /** 상품 **/
+    export const price = $("#price");

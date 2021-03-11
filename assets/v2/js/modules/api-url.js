@@ -88,6 +88,7 @@
         createGift : baseApiUrl + 'gift/create',
         detailGift : baseApiUrl + 'gift/detail',
         updateGift : baseApiUrl + 'gift/update',
+        deleteGift : baseApiUrl + 'gift/delete',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

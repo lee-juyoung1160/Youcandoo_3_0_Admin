@@ -228,3 +228,4 @@
     export const generalMemo = $("#generalMemo");
     export const btnSubmitGift = $("#btnSubmitGift");
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
+    export const modalMemo = $("#modalMemo");

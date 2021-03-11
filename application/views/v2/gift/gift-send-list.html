@@ -32,7 +32,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">닉네임</option>
+                                <option value="nickname">닉네임</option>
                                 <option value="">상품명</option>
                             </select>
                             <div class="search-txt-wrap">
@@ -50,13 +50,13 @@
                 <div class="card clearfix">
                     <p class="search-title">상품 유형</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-type">
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-type">
                         <label for="r2"><span></span>기프티콘</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-type">
                         <label for="r3"><span></span>일반</label>
                     </div>
                 </div>
@@ -124,12 +124,12 @@
                     <td>취소</td>
                     <td>2020-00-00</td>
                     <td>2020-00-00</td>
-                    <td><a href="#">보기</a></td>
+                    <td><a class="view-detail">보기</a></td>
                     <td>
                         <i class="tooltip-mark fas fa-sticky-note">
                             <span class="tooltip-txt left">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
                         </i>
-                        <button class="btn-i btn-text-teal"><i class="fas fa-edit"></i></button>
+                        <button class="btn-i btn-text-teal btn-update-memo"><i class="fas fa-edit"></i></button>
                     </td>
                     <td>
                         <button type="button" class="btn-xs btn-orange">재발송</button>
@@ -143,7 +143,7 @@
     <div class="modal-wrap">
 
         <!--상세보기 모달-->
-        <div class="modal-content">
+        <div class="modal-content" id="modalDetail">
             <div class="modal-header clearfix">
                 <h5>상세내역</h5>
                 <i class="modal-close">×</i>
@@ -245,14 +245,14 @@
         </div>
 
         <!-- 메모모달 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalMemo">
             <div class="modal-header clearfix">
                 <h5>상품 발송/취소 메모</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="card">
-                    <textarea name="" id="" rows="10"></textarea>
+                    <textarea id="memo" rows="10"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -266,4 +266,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script src="/assets/v1/js/plugins/swiper.min.js"></script>
+<script src="/assets/v2/js/plugins/swiper.min.js"></script>
+<script type="module" src="/assets/v2/js/gift/gift-send-list.js?version=<?php echo $this->config->item('version');?>"></script>

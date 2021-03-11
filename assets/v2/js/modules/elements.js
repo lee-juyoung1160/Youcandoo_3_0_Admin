@@ -60,6 +60,7 @@
     export const rdoExposure	= $("input[name=radio-exposure]");
     export const exposureDate   = $("#exposureDate");
     export const link = $("#link");
+    export const ucd = $("#ucd");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");

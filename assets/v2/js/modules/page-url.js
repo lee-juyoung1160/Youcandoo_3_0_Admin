@@ -38,4 +38,8 @@
         ,listPopup : rootContext + 'marketing/popup'
 
         ,listUcdCharge : rootContext + 'ucd/charge'
+
+        ,listGift : rootContext + 'gift'
+        ,detailGift : rootContext + 'gift/detail/'
+        ,updateGift : rootContext + 'gift/update/'
     }

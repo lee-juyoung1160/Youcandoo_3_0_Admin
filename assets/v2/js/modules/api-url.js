@@ -85,6 +85,9 @@
         pendingWalletList : baseApiUrl + 'ucd/pending/list',
 
         giftList : baseApiUrl + 'gift/list',
+        createGift : baseApiUrl + 'gift/create',
+        detailGift : baseApiUrl + 'gift/detail',
+        updateGift : baseApiUrl + 'gift/update',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

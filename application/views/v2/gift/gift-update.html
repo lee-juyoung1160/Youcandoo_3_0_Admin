@@ -26,7 +26,7 @@
                         <th>상품 금액(UCD) *</th>
                         <td>
                             <div class="ucd-input-wrap">
-                                <input id="" type="text">
+                                <input id="price" type="text" maxlength="7">
                                 <span>UCD</span>
                             </div>
                         </td>
@@ -38,7 +38,7 @@
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" data-width="240" data-height=""240 data-oper="ge">
+                                <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="240" data-height="240" data-oper="eq">
                             </div>
                             <!--<div class="detail-img-wrap">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -49,7 +49,7 @@
                         <th>노출 여부</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <input id="r3" type="radio" name="radio-exposure" value="Y">
                                 <label for="r3"><span></span>Y</label>
 
                                 <input  id="r4" type="radio" name="radio-exposure" value="N">
@@ -66,4 +66,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/gift/gift-update.js?version=<?php echo $this->config->item('version');?>"></script>

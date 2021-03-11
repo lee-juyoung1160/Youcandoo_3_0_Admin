@@ -2,41 +2,37 @@
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-	btnSubmit,
-	contentImage,
-	content,
-	title,
-	reserveDate,
-	chkTopNotice,
 	lengthInput,
-	rdoExposure,
-		thumbnailImage
+	btnSubmit,
+	price,
+	contentImage, title
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength} from "../modules/common.js";
-	import {getPathName, splitReverse, isEmpty} from "../modules/utils.js";
+	import {calculateInputLength, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
+	import {getPathName, splitReverse, isEmpty, initInputNumber} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 
 	const pathName	= getPathName();
-	const noticeIdx	= splitReverse(pathName, '/');
+	const giftIdx	= splitReverse(pathName, '/');
 
 	$( () => {
 		/** 상세 불러오기 **/
 		//getDetail();
 		/** 이벤트 **/
-		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		contentImage	.on('change', function () { onChangeValidateImage(this); });
-		btnSubmit		.on('click', function () { onSubmitUpdateNotice(); });
+		price .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
+		contentImage.on('change', function () { onChangeValidateImage(this); });
+		btnSubmit	.on('click', function () { onSubmitUpdateGift(); });
 	});
 
 	function getDetail()
 	{
-		const url = api.detailNotice;
+		const url = api.detailGift;
 		const errMsg = label.detailContent+message.ajaxLoadError;
 		const param = {
-			"idx" : noticeIdx
+			"idx" : giftIdx
 		}
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
@@ -47,22 +43,18 @@
 		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
 	}
 
-	let g_notice_uuid;
+	let g_gift_uuid;
 	function buildDetail(data)
 	{
-		const { notice_uuid, is_exposure } = data.data;
+		const { profile_uuid, nickname } = data.data;
 
-		g_notice_uuid = notice_uuid;
-		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
-		});
+		g_gift_uuid = profile_uuid;
 
 		onErrorImage();
 		calculateInputLength();
 	}
 
-	function onSubmitUpdateNotice()
+	function onSubmitUpdateGift()
 	{
 		if (validation())
 		{
@@ -87,7 +79,7 @@
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url 	= api.updateNotice;
+			const url 	= api.updateGift;
 			const errMsg 	= label.modify+message.ajaxError;
 			const param = {
 				"nickname" : nickname.val(),
@@ -109,22 +101,22 @@
 
 	function updateSuccess()
 	{
-		location.href = page.detailNotice + noticeIdx;
+		location.href = page.detailGift + giftIdx;
 	}
 
 	function validation()
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast(`제목은 ${message.required}`);
+			sweetToast(`상품명은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}
 
-		if (isEmpty(content.val()))
+		if (isEmpty(price.val()))
 		{
-			sweetToast(`내용은 ${message.required}`);
-			content.trigger('focus');
+			sweetToast(`금액은 ${message.required}`);
+			price.trigger('focus');
 			return false;
 		}
 

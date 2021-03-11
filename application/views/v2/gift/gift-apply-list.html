@@ -31,8 +31,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">닉네임</option>
-                                <option value="">상품명</option>
+                                <option value="nickname">닉네임</option>
+                                <option value="gift">상품명</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -49,13 +49,13 @@
                 <div class="card clearfix">
                     <p class="search-title">상품 유형</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="r-status">
+                        <input id="r1" type="radio" name="radio-type" value="all">
                         <label for="r1"><span></span>전체</label>
 
-                        <input id="r2" type="radio" name="r-status">
+                        <input id="r2" type="radio" name="radio-type" value="기프티콘">
                         <label for="r2"><span></span>기프티콘</label>
 
-                        <input id="r3" type="radio" name="r-status">
+                        <input id="r3" type="radio" name="radio-type" value="일반상품">
                         <label for="r3"><span></span>일반</label>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-success"><i class="fas fa-check-circle"></i> 상품발송</button>
-                    <button type="button" class="btn-sm btn-warning"><i class="fas fa-clock"></i> 기프티콘 예약발송</button>
-                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 신청 취소</button>
+                    <button id="btnSendGeneral" type="button" class="btn-sm btn-success"><i class="fas fa-check-circle"></i> 상품발송</button>
+                    <button id="btnSendGift" type="button" class="btn-sm btn-warning"><i class="fas fa-clock"></i> 기프티콘 예약발송</button>
+                    <button id="btnCancel" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 신청 취소</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -127,7 +127,7 @@
 
     <div class="modal-wrap">
         <!--기프티콘 예약발송-->
-        <div class="modal-content">
+        <div class="modal-content" id="modalGift">
             <div class="modal-header clearfix">
                 <h5>기프티콘 예약 발송</h5>
                 <i class="modal-close">×</i>
@@ -143,8 +143,8 @@
                         <th>예약 일시</th>
                         <td>
                             <div class="date-time-wrap clearfix">
-                                <input type="text" class="datepicker date-from" readonly>
-                                <select class="select-box">
+                                <input id="reserveDate" type="text" class="datepicker" readonly>
+                                <select id="selHour" class="select-box">
                                     <option value="09">9시</option>
                                     <option value="10">10시</option>
                                     <option value="11">11시</option>
@@ -156,7 +156,7 @@
                                     <option value="17">17시</option>
                                     <option value="18">18시</option>
                                 </select>
-                                <select class="select-box">
+                                <select id="selMinute" class="select-box">
                                     <option value="00">00분</option>
                                     <option value="10">10분</option>
                                     <option value="20">20분</option>
@@ -178,19 +178,19 @@
                     <tr>
                         <th>메모</th>
                         <td>
-                            <textarea name="" id="" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="memo" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">예약발송</button>
+                <button id="btnSubmitGift" type="submit" class="btn btn-primary">예약발송</button>
             </div>
         </div>
 
         <!-- 일반 발송 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalGeneral">
             <div class="modal-header clearfix">
                 <h5>상품 발송</h5>
                 <i class="modal-close">×</i>
@@ -205,17 +205,21 @@
                     <tr>
                         <th>메모</th>
                         <td>
-                            <textarea name="" id="" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="generalMemo" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">발송완료</button>
+                <button id="btnSubmitGeneral" type="submit" class="btn btn-primary">발송완료</button>
             </div>
         </div>
+
+        <div class="modal-bg"></div>
     </div>
+
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/gift/gift-apply-list.js?version=<?php echo $this->config->item('version');?>"></script>

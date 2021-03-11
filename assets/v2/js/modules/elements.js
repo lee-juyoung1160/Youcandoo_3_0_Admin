@@ -27,6 +27,7 @@
     export const selSearchType  = $("#selSearchType");
     export const chkType    = $("input[name=chk-type]");
     export const chkStatus  = $("input[name=chk-status]");
+    export const rdoType    = $("input[name=radio-type]");
     export const rdoStatus  = $("input[name=radio-status]");
     export const keyword 	= $("#keyword");
     export const btnSearch 	= $("#btnSearch");
@@ -218,3 +219,12 @@
 
     /** 상품 **/
     export const price = $("#price");
+    export const selHour = $("#selHour");
+    export const selMinute = $("#selMinute");
+    export const btnSendGeneral = $("#btnSendGeneral");
+    export const btnSendGift = $("#btnSendGift");
+    export const modalGift = $("#modalGift");
+    export const modalGeneral = $("#modalGeneral");
+    export const generalMemo = $("#generalMemo");
+    export const btnSubmitGift = $("#btnSubmitGift");
+    export const btnSubmitGeneral = $("#btnSubmitGeneral");

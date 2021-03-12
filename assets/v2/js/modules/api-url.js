@@ -90,6 +90,11 @@
         updateGift : baseApiUrl + 'gift/update',
         deleteGift : baseApiUrl + 'gift/delete',
         applyGiftList : baseApiUrl + 'gift/list',
+
+        adminList : baseApiUrl + 'admin/list',
+        detailAdmin : baseApiUrl + 'admin/detail',
+        updateAdmin : baseApiUrl + 'admin/update',
+        deleteAdmin : baseApiUrl + 'admin/delete',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

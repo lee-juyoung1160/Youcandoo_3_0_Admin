@@ -229,3 +229,6 @@
     export const btnSubmitGift = $("#btnSubmitGift");
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
     export const modalMemo = $("#modalMemo");
+
+    /** 운영자 **/
+    export const selAuthType = $("#selAuthType");

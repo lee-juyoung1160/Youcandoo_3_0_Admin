@@ -12,7 +12,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="nickame">이메일</option>
+                                <option value="nickname">이메일</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -28,8 +28,8 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">권한</p>
-                    <select id="selFaqType" class="select-box">
-                        <option value="">개발팀</option>
+                    <select id="selAuthType" class="select-box">
+                        <option value="all">전체</option>
                     </select>
                 </div>
             </div>
@@ -86,4 +86,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/biz/biz-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/admin/admin-list.js?version=<?php echo $this->config->item('version');?>"></script>

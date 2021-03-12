@@ -46,4 +46,6 @@
         ,listAdmin : rootContext + 'admin'
         ,detailAdmin : rootContext + 'admin/detail/'
         ,updateAdmin : rootContext + 'admin/update/'
+
+        ,listMember : rootContext + 'member'
     }

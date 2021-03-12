@@ -6,16 +6,16 @@
         <div class="main-top clearfix">
             <h2 class="main-title">회원 상세</h2>
             <div class="right-wrap">
-                <button id="btnDelete" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
-                <button id="btnDelete" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.스페셜 해제</button>
-                <button type="button" class="btn-sm btn-outline-success modal-btn"><i class="fas fa-coins"></i> 회원 UCD 충전</button>
+                <button id="btnSpecialOn" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
+                <button id="btnSpecialOff" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.스페셜 해제</button>
+                <button id="btnModalUcd" type="button" class="btn-sm btn-outline-success modal-btn"><i class="fas fa-coins"></i> 회원 UCD 충전</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col-11">
                 <!-- 회원정보 -->
-                <div class="group">
+                <div class="group" id="memberInfo">
                     <div class="card detail-tit-warp">
                         <p class="title">회원 정보</p>
                     </div>
@@ -29,13 +29,13 @@
                         <tr>
                             <th>P-ID</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="profileId">
                                     PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929
                                 </p>
                             </td>
                             <th>연락처</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="contact">
                                     010-0000-0000
                                 </p>
                             </td>
@@ -43,13 +43,13 @@
                         <tr>
                             <th>닉네임</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="nickname">
                                     베리네모카
                                 </p>
                             </td>
                             <th>이메일</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="useremail">
                                     dddddddd@ddddddd.dd.dd
                                 </p>
                             </td>
@@ -57,13 +57,13 @@
                         <tr>
                             <th>보유 UCD</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="balance">
                                     3,000
                                 </p>
                             </td>
                             <th>인증 여부</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="isAuth">
                                     Y
                                 </p>
                             </td>
@@ -71,13 +71,13 @@
                         <tr>
                             <th>레벨</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="level">
                                     1
                                 </p>
                             </td>
                             <th>누적 인증 수</th>
                             <td>
-                                <p class="detail-data">
+                                <p class="detail-data" id="totalActions">
                                     109
                                 </p>
                             </td>
@@ -86,7 +86,7 @@
                 </div>
 
                 <!-- 기기정보 -->
-                <div class="group">
+                <div class="group" id="deviceInfo">
                     <div class="card detail-tit-warp">
                         <p class="title">기기 정보</p>
                     </div>
@@ -107,7 +107,7 @@
                                 <th>등록일시</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="deviceInfoTableBody">
                             <tr>
                                 <td>AOS</td>
                                 <td>
@@ -127,7 +127,7 @@
                 </div>
 
                 <!-- 두잇정보 -->
-                <div class="doit-info group">
+                <div class="doit-info group" id="doitInfo">
                     <div class="card detail-tit-warp">
                         <p class="title">두잇 정보</p>
                     </div>
@@ -137,7 +137,7 @@
                     </ul>
 
                     <div class="table-wrap">
-                        <table id="dataTable">
+                        <table id="doitOpenedTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 35%;">
@@ -170,7 +170,7 @@
                         </table>
                     </div>
                     <div class="table-wrap">
-                        <table id="dataTable">
+                        <table id="doitJoinedTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 35%;">
@@ -203,7 +203,7 @@
                 </div>
 
                 <!-- 인증정보 -->
-                <div class="group">
+                <div class="group" id="actionInfo">
                     <div class="card detail-tit-warp">
                         <p class="title">인증 정보 <span class="desc-sub">전체</span></p>
                     </div>
@@ -250,12 +250,12 @@
                 </div>
 
                 <!-- UCD정보 -->
-                <div class="group">
+                <div class="group" id="ucdInfo">
                     <div class="card detail-tit-warp">
                         <p class="title">UCD 정보</p>
                     </div>
                     <div class="table-wrap">
-                        <table id="dataTable">
+                        <table id="ucdInfoTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 15%;">
@@ -295,25 +295,25 @@
             <!-- 우측 nav -->
             <div class="col-1 member-nav">
                 <div class="table-wrap">
-                    <table id="dataTable">
+                    <table id="navTable">
                         <thead>
                         <colgroup>
                             <col style="width: 100%;">
                         </colgroup>
                         <tbody>
-                        <tr>
+                        <tr data-moveto="memberInfo">
                             <td>회원정보</td>
                         </tr>
-                        <tr>
+                        <tr data-moveto="deviceInfo">
                             <td>기기정보</td>
                         </tr>
-                        <tr>
+                        <tr data-moveto="doitInfo">
                             <td>두잇정보</td>
                         </tr>
-                        <tr>
+                        <tr data-moveto="actionInfo">
                             <td>인증정보</td>
                         </tr>
-                        <tr>
+                        <tr data-moveto="ucdInfo">
                             <td>UCD정보</td>
                         </tr>
                         </tbody>
@@ -328,4 +328,5 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/member/member-detail.js?version=<?php echo $this->config->item('version');?>"></script>

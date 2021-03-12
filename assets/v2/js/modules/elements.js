@@ -61,6 +61,7 @@
     export const rdoExposure	= $("input[name=radio-exposure]");
     export const exposureDate   = $("#exposureDate");
     export const link = $("#link");
+    export const deviceInfo = $("#deviceInfo");
 
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
@@ -181,7 +182,6 @@
     export const banWords = $("#banWords");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
-    export const deviceInfo = $("#deviceInfo");
     export const answer = $("#answer");
     export const manager = $("#manager");
     export const answerDate = $("#answerDate");
@@ -235,3 +235,20 @@
     export const auth = $("#auth");
     export const name = $("#name");
     export const isApproval = $("#isApproval");
+
+    /** 회원 **/
+    export const profileId = $("#profileId");
+    export const contact = $("#contact");
+    export const balance = $("#balance");
+    export const isAuth = $("#isAuth");
+    export const level = $("#level");
+    export const btnModalUcd = $("#btnModalUcd");
+    export const totalActions = $("#totalActions");
+    export const deviceInfoTableBody = $("#deviceInfoTableBody");
+    export const doitOpenedTable = $("#doitOpenedTable");
+    export const doitJoinedTable = $("#doitJoinedTable");
+    export const ucdInfoTable = $("#ucdInfoTable");
+    export const memberInfo = $("#memberInfo");
+    export const doitInfo = $("#doitInfo");
+    export const actionInfo = $("#actionInfo");
+    export const ucdInfo = $("#ucdInfo");

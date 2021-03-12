@@ -31,8 +31,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">닉네임</option>
-                                <option value="">P-ID</option>
+                                <option value="nickname">닉네임</option>
+                                <option value="profile_uuid">P-ID</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -53,7 +53,7 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">0</strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                         <select id="selPageLength" class="select-box">
                         </select>
                     </div>
@@ -91,4 +91,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/biz/biz-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/member/member-list.js?version=<?php echo $this->config->item('version');?>"></script>

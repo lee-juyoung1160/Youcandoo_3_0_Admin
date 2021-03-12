@@ -327,6 +327,57 @@
         </div>
     </div>
 
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>회원 UCD 충전</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 75%;">
+                    </colgroup>
+                    <tbody><tr>
+                        <th>UCD *</th>
+                        <td>
+                            <div class="ucd-input-wrap">
+                                <input id="amount" type="text" class="only-num" maxlength="9">
+                                <span>UCD</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="content" type="text" class="length-input" maxlength="30">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비고 *</th>
+                        <td>
+                            <div class="textarea-wrap">
+                                <textarea id="memo" class="length-input" maxlength="50" rows="4"></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">충전완료</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/member/member-detail.js?version=<?php echo $this->config->item('version');?>"></script>

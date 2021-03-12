@@ -580,7 +580,7 @@ button i {
 	display: none;
 	position: absolute;
 	top: -5px;
-	min-width: 250px;
+	min-width: 280px;
 	width: auto;
 	padding: 5px 10px;
 	color: #005937;
@@ -769,6 +769,10 @@ table {
 }
 .table-wrap table tbody tr:nth-child(even) {
 	background-color: #f9f9f9;
+}
+.table-wrap table tbody tr.tr-waiting,
+.table-wrap table tbody ttr:nth-child(even).tr-waiting{
+	background-color: #e1ccf4;
 }
 .table-wrap table tbody tr:hover,
 .table-wrap table tbody tr:nth-child(even):hover {

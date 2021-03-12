@@ -42,4 +42,8 @@
         ,listGift : rootContext + 'gift'
         ,detailGift : rootContext + 'gift/detail/'
         ,updateGift : rootContext + 'gift/update/'
+
+        ,listAdmin : rootContext + 'admin'
+        ,detailAdmin : rootContext + 'admin/detail/'
+        ,updateAdmin : rootContext + 'admin/update/'
     }

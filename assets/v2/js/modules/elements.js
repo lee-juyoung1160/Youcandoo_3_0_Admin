@@ -232,3 +232,6 @@
 
     /** 운영자 **/
     export const selAuthType = $("#selAuthType");
+    export const auth = $("#auth");
+    export const name = $("#name");
+    export const isApproval = $("#isApproval");

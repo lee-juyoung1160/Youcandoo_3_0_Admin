@@ -13,7 +13,7 @@
 		/** 이벤트 **/
 		password    .on("keyup", function () { onKeyupPassword(); });
 		passwordChk .on("keyup", function () { onKeyupPasswordChk(); });
-		btnSubmit	.on('click', function () { onSubmitProfile(this); })
+		btnSubmit	.on('click', function () { onSubmitProfile(); })
 	});
 
 	function onKeyupPassword()

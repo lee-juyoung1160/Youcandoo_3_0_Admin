@@ -10,11 +10,11 @@
 	keyword,
 	modalClose,
 	modalBackdrop,
-	modalOpen, btnXlsxImport, updateTable,
+	modalOpen, btnXlsxImport, updateTable, price,
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile} from "../modules/common.js";
-	import {isEmpty, isXlsX} from "../modules/utils.js";
+	import {initInputNumber, isEmpty, isXlsX} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -24,6 +24,7 @@
 	$( () => {
 		amount.trigger('focus');
 		/** 이벤트 **/
+		amount 			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		modalOpen		.on("click", function () { onClickModalOpen(this); });
 		modalClose		.on("click", function () { fadeoutModal(); });

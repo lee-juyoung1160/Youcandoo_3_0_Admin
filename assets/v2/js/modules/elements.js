@@ -74,10 +74,11 @@
     export const modalBackdrop  = $('.modal-bg');
     export const modalDetail    = $('#modalDetail');
 
-    /** 로그인, 관리자등록, 2차인증 **/
+    /** 로그인, 관리자등록, 2차인증, 마이페이지 **/
     export const userid     = $("#userid");
     export const password   = $("#password");
-    export const passwordCheck    = $("#passwordCheck");
+    export const passwordCheck = $("#passwordCheck");
+    export const passwordCheckTxt = $("#passwordCheckTxt");
     export const useremail  = $("#useremail");
     export const username   = $("#username");
     export const qrImg      = $("#qrImg");
@@ -243,12 +244,9 @@
     export const isAuth = $("#isAuth");
     export const level = $("#level");
     export const btnModalUcd = $("#btnModalUcd");
+    export const modalUcd = $("#modalUcd");
     export const totalActions = $("#totalActions");
     export const deviceInfoTableBody = $("#deviceInfoTableBody");
     export const doitOpenedTable = $("#doitOpenedTable");
     export const doitJoinedTable = $("#doitJoinedTable");
     export const ucdInfoTable = $("#ucdInfoTable");
-    export const memberInfo = $("#memberInfo");
-    export const doitInfo = $("#doitInfo");
-    export const actionInfo = $("#actionInfo");
-    export const ucdInfo = $("#ucdInfo");

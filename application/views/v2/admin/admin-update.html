@@ -16,7 +16,7 @@
                     <tr>
                         <th>권한</th>
                         <td>
-                            <select id="selFaqType" class="select-box">
+                            <select id="selAuthType" class="select-box">
                                 <option value="">개발팀</option>
                             </select>
                         </td>
@@ -24,7 +24,7 @@
                     <tr>
                         <th>이름</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="name">
                                 이주영
                             </p>
                         </td>
@@ -32,16 +32,16 @@
                     <tr>
                         <th>이메일</th>
                         <td>
-                            <p class="detail-data">
+                            <p class="detail-data" id="nickname">
                                 eeeeee@eeeeee.ee.ee
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <th>노출 여부</th>
+                        <th>사용 여부</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <input id="r3" type="radio" name="radio-exposure" value="Y">
                                 <label for="r3"><span></span>Y</label>
 
                                 <input  id="r4" type="radio" name="radio-exposure" value="N">
@@ -53,11 +53,9 @@
             </div>
         </div>
         <div class="footer-btn-wrap">
-            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
-            <button id="btnList" type="button" class="btn btn-primary">목록</button>
-            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
         </div>
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/faq/faq-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/admin/admin-update.js?version=<?php echo $this->config->item('version');?>"></script>

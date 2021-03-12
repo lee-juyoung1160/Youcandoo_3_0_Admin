@@ -12,7 +12,7 @@
 		getDetail();
 		/** 이벤트 **/
 		profileImage.on('change', function () { onChangeValidationImage(this); });
-		btnSubmit	.on('click', function () { onSubmitBiz(); });
+		btnSubmit	.on('click', function () { onSubmitUpdateBiz(); });
 	});
 
 	function getDetail()
@@ -52,7 +52,7 @@
 		bizDesc.val(detail.contents);
 	}
 
-	function onSubmitBiz()
+	function onSubmitUpdateBiz()
 	{
 		if (validation())
 		{

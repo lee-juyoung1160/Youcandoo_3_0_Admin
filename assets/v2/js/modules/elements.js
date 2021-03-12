@@ -247,6 +247,9 @@
     export const modalUcd = $("#modalUcd");
     export const totalActions = $("#totalActions");
     export const deviceInfoTableBody = $("#deviceInfoTableBody");
-    export const doitOpenedTable = $("#doitOpenedTable");
-    export const doitJoinedTable = $("#doitJoinedTable");
+    export const openedDoitWrap = $("#openedDoitWrap");
+    export const openedDoitTable = $("#openedDoitTable");
+    export const joinedDoitWrap = $("#joinedDoitWrap");
+    export const joinedDoitTable = $("#joinedDoitTable");
     export const ucdInfoTable = $("#ucdInfoTable");
+    export const ulDoitTab = $("#ulDoitTab");

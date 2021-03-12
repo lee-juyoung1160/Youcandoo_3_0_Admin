@@ -131,13 +131,13 @@
                     <div class="card detail-tit-warp">
                         <p class="title">두잇 정보</p>
                     </div>
-                    <ul class="tab clearfix">
-                        <li class="active">개설</li>
-                        <li>참여</li>
+                    <ul class="tab clearfix" id="ulDoitTab">
+                        <li class="active" data-target="#openedDoitWrap">개설</li>
+                        <li data-target="#joinedDoitWrap">참여</li>
                     </ul>
 
-                    <div class="table-wrap">
-                        <table id="doitOpenedTable">
+                    <div class="table-wrap" id="openedDoitWrap">
+                        <table id="openedDoitTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 35%;">
@@ -169,8 +169,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-wrap">
-                        <table id="doitJoinedTable">
+                    <div class="table-wrap" id="joinedDoitWrap" style="display: none;">
+                        <table id="joinedDoitTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 35%;">

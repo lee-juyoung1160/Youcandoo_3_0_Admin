@@ -11,11 +11,11 @@
 	memo,
 	modalClose,
 	modalBackdrop,
-	lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap
-	} from '../modules/elements.js';
+	lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, selPageLength, pagination, modalWarning, actionsWrap
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {fadeoutModal, historyBack, limitInputLength, overflowHidden} from "../modules/common.js";
-	import {isEmpty, initInputNumber} from "../modules/utils.js";
+	import {fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
+	import {isEmpty, initInputNumber, isNegative} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -268,6 +268,165 @@
 			}
 		});
 	}
+
+	let _actionCurrentPage = 1;
+	function getActions()
+	{
+		const url = api.memberActionList;
+		const errMsg = `인증정보 ${label.list} ${message.ajaxLoadError}`;
+		const param = {
+			"limit" : g_action_page_length
+			,"page" : actionCurrentPage
+			,"profile_uuid" : g_profile_uuid
+			,"doit_all" : true
+		}
+
+		// if (!isEmpty(_doit_uuid))
+		// {
+		// 	param.doit_all = false;
+		// 	param["doit_uuid"] = _doit_uuid;
+		// }
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getActionsCallback, errMsg, false);
+	}
+
+	function getActionsCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			buildActions(data);
+			buildPagination(data);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function buildActions(data)
+	{
+		const actions = data.data;
+		const actionsLength = actions.length;
+		const totalCount = data.count;
+		let actionEl = '<p class="empty-message">인증 정보가 없습니다.</p>';
+
+		for (let i=0; i<12; i++)
+		{
+			if (i===0 || i%6 === 0)
+				actionEl += '<div class="row">';
+
+			actionEl +=
+				`<div class="col-2 auth-item">
+                    <div class="card">
+                        <div class="top clearfix">
+                            <div class="checkbox-wrap">
+                                <input id="c15" type="checkbox" name="cb">
+                                <label for="c15"><span></span></label>
+                            </div>
+                            <div class="right-wrap">
+                                <span><i class="fas fa-exclamation-triangle"></i> 111</span>
+                            </div>
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
+                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                        <span class="date">2020-02-02</span>
+                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
+                    </div>
+                </div>`
+
+			if (i>0 && (i+1)%6 === 0)
+				actionEl += '</div>';
+		}
+
+		actionsWrap.html(actionEl);
+
+		$(".img-wrap").on('click', function () { viewDetail(this); })
+	}
+
+	function buildPagination(data)
+	{
+		const totalCount  = data.count;
+		const lastPage = Math.ceil(totalCount / selPageLength.val());
+
+		pagination.html(paginate(_actionCurrentPage, lastPage));
+
+		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		_actionCurrentPage = $(obj).data('page');
+
+		getActions();
+	}
+
+	function viewActionDetail()
+	{
+		modalActionDetail.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+	}
+
+	function getMemberUcdHistory()
+	{
+		usageHisTable.DataTable({
+			ajax : {
+				url: api.listUserUsageUcd,
+				type:"POST",
+				global: false,
+				headers: headers,
+				data: function (d) {
+					const param = {
+						"limit" : d.length
+						,"page" : (d.start / d.length) + 1
+						,"profile_uuid" : g_profile_uuid
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError('UCD 사용내역 '+label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "유형", 		data: "ucd_type",   width: "10%" }
+				,{title: "구분", 	data: "division",   width: "10%" }
+				,{title: "금액", 	data: "amount",		width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : numberWithCommas(data);
+					}
+				}
+				,{title: "제목", 	data: "title",   	width: "15%" }
+				,{title: "내용", 	data: "description",width: "30%" }
+				,{title: "일시", 	data: "created",   	width: "15%" }
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+
+		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		if (isNegative(aData.amount))
+			$(nRow).addClass('minus-pay');
+	}
+
 
 	function goListPage()
 	{

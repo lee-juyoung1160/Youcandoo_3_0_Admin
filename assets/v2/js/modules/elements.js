@@ -253,3 +253,4 @@
     export const joinedDoitTable = $("#joinedDoitTable");
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
+    export const modalActionDetail = $("#modalActionDetail");

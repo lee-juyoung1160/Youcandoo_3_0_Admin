@@ -132,8 +132,8 @@
 
 	function buildPagination(data)
 	{
-		let totalCount  = data.count;
-		let lastPage	= Math.ceil(totalCount / selPageLength.val());
+		const totalCount  = data.count;
+		const lastPage = Math.ceil(totalCount / selPageLength.val());
 
 		pagination.html(paginate(_currentPage, lastPage));
 

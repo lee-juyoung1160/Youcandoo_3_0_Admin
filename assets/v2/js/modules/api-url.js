@@ -6,6 +6,7 @@
 
         memberList : baseApiUrl + 'member/list',
         detailMember : baseApiUrl + 'member/detail',
+        memberActionList : baseApiUrl + 'member/action/list',
 
         categoryList : baseApiUrl + 'category/list',
         createCategory : baseApiUrl + 'category/create',

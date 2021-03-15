@@ -2,7 +2,7 @@
 	import {headers} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType, rdoExposure} from '../modules/elements.js';
-	import { sweetToast } from  '../modules/alert.js';
+	import { sweetToast, sweetError } from  '../modules/alert.js';
 	import { onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonth, initMaxDateMonths, initPageLength, initSelectOption } from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';

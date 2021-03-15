@@ -5,7 +5,7 @@
 		body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
 		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory
 	} from '../modules/elements.js';
-	import { sweetToast } from  '../modules/alert.js';
+	import { sweetToast, sweetError } from  '../modules/alert.js';
 	import { onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths, initPageLength, initSelectOption } from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';

@@ -102,6 +102,9 @@
         detailAdmin : baseApiUrl + 'admin/detail',
         updateAdmin : baseApiUrl + 'admin/update',
         deleteAdmin : baseApiUrl + 'admin/delete',
+        authList : baseApiUrl + 'auth/list',
+        createAuth : baseApiUrl + 'auth/list',
+        deleteAuth : baseApiUrl + 'auth/delete',
     }
 
     const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';

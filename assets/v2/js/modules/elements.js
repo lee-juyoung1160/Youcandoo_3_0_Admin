@@ -231,11 +231,15 @@
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
     export const modalMemo = $("#modalMemo");
 
-    /** 운영자 **/
+    /** 관리자 **/
     export const selAuthType = $("#selAuthType");
     export const auth = $("#auth");
     export const name = $("#name");
     export const isApproval = $("#isApproval");
+    export const authWrap = $("#authWrap");
+    export const authCode = $("#authCode");
+    export const authName = $("#authName");
+    export const btnSubmitAuth = $("#btnSubmitAuth");
 
     /** 회원 **/
     export const profileId = $("#profileId");

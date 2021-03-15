@@ -10,32 +10,32 @@
             <div class="col-3 auth-list">
                 <div class="card detail-tit-warp">
                     <p class="title">권한 설정</p>
-                    <button id="btnAdd" type="button" class="btn-sm btn-add"><i class="fas fa-plus"></i> 권한 추가</button>
+                    <button type="button" class="btn-sm btn-add modal-btn"><i class="fas fa-plus"></i> 권한 추가</button>
                 </div>
                 <div class="table-wrap">
-                    <table id="dataTable">
+                    <table>
                         <thead>
                         <colgroup>
                             <col style="width: 80%;">
                             <col style="width: 20%;">
                         </colgroup>
-                        <tbody>
-                        <tr>
-                            <td><a href="#">개발팀</a></td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">CS담당자</a></td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <tbody id="authWrap">
+                            <tr>
+                                <td><a href="#">개발팀</a></td>
+                                <td>
+                                    <button type="button" class="btn-xs btn-text-red">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">CS담당자</a></td>
+                                <td>
+                                    <button type="button" class="btn-xs btn-text-red">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -293,12 +293,12 @@
                     <tbody><tr>
                         <th>권한 코드 *</th>
                         <td>
-                            <input id="" type="text" placeholder="권한 코드를 입력해주세요.">
+                            <input id="authCode" type="text" placeholder="권한 코드를 입력해주세요.">
                         </td>
                     </tr>
                     <th>권한명 *</th>
                     <td>
-                        <input id="" type="text" placeholder="권한명 입력해주세요.">
+                        <input id="authName" type="text" placeholder="권한명 입력해주세요.">
                     </td>
                     </tr>
                     </tbody>
@@ -306,7 +306,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnSubmit" type="button" class="btn btn-primary">추가완료</button>
+                <button id="btnSubmitAuth" type="button" class="btn btn-primary">추가완료</button>
             </div>
         </div>
 
@@ -315,4 +315,4 @@
 
 
 </section>
-<script type="module" src="/assets/v2/js/notice/notice-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/admin/auth-craete.js?version=<?php echo $this->config->item('version');?>"></script>

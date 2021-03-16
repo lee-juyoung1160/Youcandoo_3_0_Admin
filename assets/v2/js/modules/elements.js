@@ -258,3 +258,10 @@
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
     export const modalActionDetail = $("#modalActionDetail");
+    export const btnSetLevel = $("#btnSetLevel");
+    export const cardLevel1 = $("#cardLevel1");
+    export const cardLevel2 = $("#cardLevel2");
+    export const cardLevel3 = $("#cardLevel3");
+    export const cardLevel4 = $("#cardLevel4");
+    export const cardLevel5 = $("#cardLevel5");
+    export const cardLevelSpecial = $("#cardLevelSpecial");

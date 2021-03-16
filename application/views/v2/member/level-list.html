@@ -8,37 +8,37 @@
 
         <div class="row top">
             <div class="col-2">
-                <div class="card active">
+                <div class="card active" id="cardLevel1">
                     <p class="title num"><span>Lv.</span>1</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
             </div>
             <div class="col-2">
-                <div class="card">
+                <div class="card" id="cardLevel2">
                     <p class="title num"><span>Lv.</span>2</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
             </div>
             <div class="col-2">
-                <div class="card">
+                <div class="card" id="cardLevel3">
                     <p class="title num"><span>Lv.</span>3</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
             </div>
             <div class="col-2">
-                <div class="card">
+                <div class="card" id="cardLevel4">
                     <p class="title num"><span>Lv.</span>4</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
             </div>
             <div class="col-2">
-                <div class="card">
+                <div class="card" id="cardLevel5">
                     <p class="title num"><span>Lv.</span>5</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
             </div>
             <div class="col-2">
-                <div class="card">
+                <div class="card" id="cardLevelSpecial">
                     <p class="title num"><span>Lv.</span>Special</p>
                     <p class="user"><i class="fas fa-user"></i> <span class="num">965,697</span></p>
                 </div>
@@ -51,13 +51,13 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">0</strong></p>
+                        <p>Total <strong class="data-num"></strong></p>
                         <select id="selPageLength" class="select-box">
                         </select>
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button id="" type="button" class="btn-sm btn-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
+                    <button id="btnSetLevel" type="button" class="btn-sm btn-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
                    <!-- <button id="" type="button" class="btn-sm btn-orange"><i class="fas fa-level-down-alt"></i> Lv.스페셜 해제</button>-->
                     <button id="" type="button" class="btn-sm btn-success"><i class="fas fa-level-up-alt"></i> Lv.2 설정</button>
                 </div>
@@ -106,4 +106,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/biz/biz-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/member/member-level-list.js?version=<?php echo $this->config->item('version');?>"></script>

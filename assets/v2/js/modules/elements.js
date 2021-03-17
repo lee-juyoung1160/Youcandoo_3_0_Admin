@@ -207,6 +207,13 @@
     export const btnResetSearchAction = $("#btnResetSearchAction");
     export const btnSendWarning = $("#btnSendWarning");
     export const actionDetailForm = $("#actionDetailForm");
+    export const actionComment = $("#actionComment");
+    export const actionCommentImage = $("#actionCommentImage");
+    export const btnSubmitActionComment = $("#btnSubmitActionComment");
+    export const modalReply = $("#modalReply");
+    export const actionReply = $("#actionReply");
+    export const actionReplyImage = $("#actionReplyImage");
+    export const btnSubmitActionReply = $("#btnSubmitActionReply");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const createTalkModal = $("#createTalkModal");

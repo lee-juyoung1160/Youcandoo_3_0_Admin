@@ -46,7 +46,14 @@
 	btnReset,
 	actionCount,
 	actionListForm,
-	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSendNotice,
+	actionDetailForm,
+	btnResetSearchAction,
+	btnSaveUcd,
+	amount,
+	btnSendWarning,
+	btnSendNotice,
+	actionCommentImage,
+		actionReplyImage,
 } from '../modules/elements.js';
 	import {
 	historyBack,
@@ -69,7 +76,7 @@
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
 	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen, onClickModalSendNoticeOpen} from "./doit-detail-member.js";
-	import {initSearchActionForm, buildActions, onClickModalWarnOpen} from "./doit-detail-action.js";
+	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyOpen} from "./doit-detail-action.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -126,6 +133,10 @@
 		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
 
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
+		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
+		actionCommentImage.on('change', function () { onChangeValidateImage(this); });
+		actionReplyImage.on('change', function () { onChangeValidateImage(this); });
+		$('.link').on('click', function () { onClickModalReplyOpen(); });
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk() });

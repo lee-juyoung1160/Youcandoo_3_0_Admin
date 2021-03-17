@@ -243,11 +243,11 @@
                         <tr>
                             <th>두잇 소개 이미지 *</th>
                             <td>
-                                <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                                <p class="desc-sub">( 이미지 크기 : 686 x 518 )</p>
                                 <div class="file-wrap preview-image">
                                     <input class="upload-name" value="파일선택" disabled="disabled">
                                     <label for="doitImage">업로드</label>
-                                    <input type="file" id="doitImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                    <input type="file" id="doitImage" class="upload-hidden" data-width="686" data-height="518" data-oper="eq">
                                 </div>
                                 <div class="detail-img-wrap">
                                     <img src="" alt="" class="doit-image">
@@ -978,9 +978,9 @@
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
                                         <span><i class="fas fa-comments"></i>  <a href="#" class="link">111</a></span>
-                                        <a href="#" class="link">답글달기</a>
+                                        <a class="link">답글달기</a>
                                         <!-- 답글달기 -->
-                                        <div class="modal-content comments-creat">
+                                        <div class="modal-content comments-creat" id="modalReply">
                                             <div class="modal-header clearfix">
                                                 <h5>답글달기</h5>
                                                 <i class="modal-close">×</i>
@@ -994,7 +994,7 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="textarea-wrap">
-                                                                <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                                <textarea id="actionReply" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                                             </div>
                                                         </td>
@@ -1006,8 +1006,8 @@
                                                         <td>
                                                             <div class="file-wrap preview-image">
                                                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                                                <label for="categoryImage">업로드</label>
-                                                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                                                <label for="actionReplyImage">업로드</label>
+                                                                <input type="file" id="actionReplyImage" class="upload-hidden">
                                                             </div>
                                                             <div class="detail-img-wrap">
                                                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1017,7 +1017,7 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="right-wrap">
-                                                                <button type="button" class="btn-sm btn-primary">등록</button>
+                                                                <button id="btnSubmitActionReply" type="button" class="btn-sm btn-primary">등록</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -1122,7 +1122,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="textarea-wrap">
-                                                    <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                    <textarea id="actionComment" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                                 </div>
                                             </td>
@@ -1134,8 +1134,8 @@
                                             <td>
                                                 <div class="file-wrap preview-image">
                                                     <input class="upload-name" value="파일선택" disabled="disabled">
-                                                    <label for="categoryImage">업로드</label>
-                                                    <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                                    <label for="actionCommentImage">업로드</label>
+                                                    <input type="file" id="actionCommentImage" class="upload-hidden">
                                                 </div>
                                                 <div class="detail-img-wrap">
                                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1145,7 +1145,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="right-wrap">
-                                                    <button type="button" class="btn-sm btn-primary">등록</button>
+                                                    <button id="btnSubmitActionComment" type="button" class="btn-sm btn-primary">등록</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1560,7 +1560,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </div asid>
+                    </div>
 
                 </div>
 
@@ -1805,7 +1805,7 @@
         </div>
 
         <!-- 인증 탭 - 경고장 발송 버튼 클릭 시 오픈 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalWarning">
             <div class="modal-header clearfix">
                 <h5>경고장발송</h5>
                 <i class="modal-close">×</i>
@@ -1834,7 +1834,7 @@
         </div>
 
         <!-- 톡 등록 -->
-        <div class="modal-content" id="createTalkModal">
+        <div class="modal-content" id="modalCreateTalk">
             <div class="modal-header clearfix">
                 <h5>두잇 톡 등록</h5>
                 <i class="modal-close">×</i>

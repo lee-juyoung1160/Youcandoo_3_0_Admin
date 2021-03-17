@@ -1,5 +1,12 @@
 
-	import {missionCreateForm, missionDetailForm, missionListForm, missionUpdateForm} from "../modules/elements.js";
+	import {
+	missionCreateForm,
+	missionDetailForm,
+	missionListForm,
+	missionUpdateForm,
+	missionTitle,
+	missionStartDate, missionEndDate, rdoActionType, promise
+	} from "../modules/elements.js";
 
 	export function onClickBtnCreateMission()
 	{
@@ -7,6 +14,7 @@
 		missionUpdateForm.hide();
 		missionDetailForm.hide();
 		missionListForm.hide();
+		initMissionCraeteForm();
 	}
 
 	export function onClickBtnMissionList()
@@ -33,10 +41,38 @@
 		missionListForm.hide();
 	}
 
+	export function initMissionCraeteForm()
+	{
+		missionTitle.trigger('focus');
+		missionTitle.val('');
+		missionStartDate.datepicker("option", "minDate", "today");
+		missionEndDate.datepicker("option", "minDate", "today");
+		missionStartDate.datepicker("setDate", "today");
+		missionEndDate.datepicker("setDate", "+6D");
+		rdoActionType.eq(0).prop('checked', true);
+		promise.val('');
+	}
+
 	export function getMissionList()
 	{
 
 	}
+
+	export function onSubmitMission()
+	{
+
+	}
+
+	export function onSubmitUpdateMission()
+	{
+
+	}
+
+	export function deleteMission()
+	{
+
+	}
+
 
 
 

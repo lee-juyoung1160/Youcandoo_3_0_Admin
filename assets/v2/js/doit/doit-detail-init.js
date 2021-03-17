@@ -1,10 +1,13 @@
 
-	import { modalClose, modalBackdrop,
+	import {
+	modalClose,
+	modalBackdrop,
 	tabUl,
 	tabContents,
 	btnBack,
 	btnList,
 	lengthInput,
+	btnBackDoitList,
 	btnDoitOpen,
 	btnDoitStop,
 	btnDoitDelete,
@@ -22,24 +25,51 @@
 	btnSubmitUpdateDoit,
 	btnCreateMission,
 	btnMissionList,
+	btnBackMissionList,
+	btnDeleteMission,
 	btnUpdateMission,
 	missionUpdateForm,
+	btnSubmitUpdateMission,
+	actionImage,
+	promiseImage,
+	btnSubmitMission,
+	updatePromiseImage,
 	talkListForm,
-	talkDetailForm, talkUpdateForm, btnCreateTalk, talkImage
+	talkDetailForm,
+	talkUpdateForm,
+	btnCreateTalk,
+	talkImage,
+	joinMemberForm,
+	pendingMemberForm,
+	btnPendingMembers,
+	btnJoinMembers,
+	btnReset,
+	actionCount,
+	actionListForm,
+	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSendNotice,
 } from '../modules/elements.js';
-	import {historyBack, limitInputLength, onChangeValidateImage, fadeoutModal} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {
+	historyBack,
+	limitInputLength,
+	onChangeValidateImage,
+	fadeoutModal,
+		initSearchDatepicker
+	} from "../modules/common.js";
+	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
-	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory} from "../modules/doit-common.js"
+	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory,} from "../modules/doit-common.js"
 	import {
 		getMissionList,
 		onClickBtnCreateMission,
 		onClickDetailMission,
 		onClickBtnMissionList,
-		onClickBtnUpdateMission
+		onClickBtnUpdateMission,
+		onSubmitMission, onSubmitUpdateMission, deleteMission
 	} from "./doit-detail-mission.js";
-	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit} from "./doit-detail-info.js";
+	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
+	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen, onClickModalSendNoticeOpen} from "./doit-detail-member.js";
+	import {initSearchActionForm, buildActions, onClickModalWarnOpen} from "./doit-detail-action.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -50,30 +80,53 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		getCategoryList();
+		initSearchDatepicker();
+		initSearchActionForm();
+		//getCategoryList();
 		/** 상세 불러오기 **/
-		getDetail();
+		//getDetail();
 		/** 이벤트 **/
+		btnBack	 		.on('click', function () { historyBack(); });
+		btnList	 		.on('click', function () { goListPage(); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
+
 		doitImage		.on('change', function () { onChangeValidateImage(this); });
 		selCategory		.on('change', function () { onChangeSelCategory(); });
 		btnAddKeyword	.on('click', function () { onClickAddKeyword(); });
 		chkIsApply		.on('change', function () { onClickChkIsApply(this); });
 		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
-		btnBack	 		.on('click', function () { historyBack(); });
-		btnList	 		.on('click', function () { goListPage(); });
 		btnUpdateDoit	.on('click', function () { onClickBtnUpdateDoit() });
+		btnBackDoitList	.on('click', function () { onClickBtnDoitList() });
 		btnSubmitUpdateDoit	.on('click', function () { onSubmitUpdateDoit() });
 		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this) });
 		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this) });
 		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this) });
+
+		actionImage		.on('change', function () { onChangeValidateImage(this); });
+		promiseImage	.on('change', function () { onChangeValidateImage(this); });
+		updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateMission	.on('click', function () { onClickBtnCreateMission() });
 		btnMissionList	.on('click', function () { onClickBtnMissionList(); });
+		btnBackMissionList.on('click', function () { onClickBtnMissionList(); });
 		btnUpdateMission.on('click', function () { onClickBtnUpdateMission() });
+		btnSubmitMission.on('click', function () { onSubmitMission() });
+		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission() });
+		btnDeleteMission.on('click', function () { deleteMission() });
 		$("#test").on('click', function () {onClickDetailMission();})
+
+		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
+		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
+		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		btnReset.on('click', function () { initSearchMemberForm(); });
+		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		btnPendingMembers.on('click', function () { onClickBtnPendingMembers(); });
+		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
+
+		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
+
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk() });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
@@ -85,9 +138,9 @@
 
 		switch (target) {
 			case '#tabDoitInfo' :
-				getDetail();
 				doitUpdateForm.hide();
 				doitInfoForm.show();
+				//getDetail();
 				break;
 			case '#tabDoitMission' :
 				missionCreateForm.hide();
@@ -97,16 +150,21 @@
 				getMissionList();
 				break;
 			case '#tabDoitMember' :
-				getDetail();
+				pendingMemberForm.hide();
+				joinMemberForm.show();
+				//getDetail();
 				break;
 			case '#tabDoitReview' :
-				getDetail();
+				//getDetail();
 				break;
 			case '#tabDoitUcd' :
-				getDetail();
+				//getDetail();
 				break;
 			case '#tabDoitAction' :
-				getDetail();
+				actionListForm.show();
+				actionDetailForm.hide();
+				buildActions();
+				//getDetail();
 				break;
 			case '#tabDoitTalk' :
 				talkListForm.show();

@@ -2,14 +2,12 @@
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-	tabUl,
 	doitTitle,
 	sponsor,
 	category,
 	doitDesc,
 	doitKeywords,
 	doitThumbnail,
-	btnUpdate,
 	publicType,
 	isApply,
 	doitQuestion,
@@ -321,4 +319,10 @@
 		}
 
 		return true;
+	}
+
+	export function onClickBtnDoitList()
+	{
+		doitUpdateForm.hide();
+		doitInfoForm.show();
 	}

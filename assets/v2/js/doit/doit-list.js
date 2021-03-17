@@ -20,7 +20,7 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		/** 카테고리 목록 **/
-		getCategoryList();
+		//getCategoryList();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });

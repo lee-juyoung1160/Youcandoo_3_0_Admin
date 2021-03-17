@@ -54,18 +54,18 @@
                                 <th>검색 키워드 (태그)</th>
                                 <td>
                                     <ul class="tag-list clearfix" id="infoDoitKeywords">
-<!--                                        <li>-->
-<!--                                            #-->
-<!--                                            <span>자전거</span>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            #-->
-<!--                                            <span>필라테스</span>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            #-->
-<!--                                            <span>요가</span>-->
-<!--                                        </li>-->
+                                        <li>
+                                            #
+                                            <span>자전거</span>
+                                        </li>
+                                        <li>
+                                            #
+                                            <span>필라테스</span>
+                                        </li>
+                                        <li>
+                                            #
+                                            <span>요가</span>
+                                        </li>
                                     </ul>
                                 </td>
                             </tr>
@@ -104,7 +104,8 @@
                                 <tr>
                                     <td colspan="2">
                                         <div class="right-wrap">
-                                            <button id="btnUpdateDoit" type="button" class="btn-sm btn-teal" style="display: none;">수정</button>
+<!--                                            <button id="btnUpdateDoit" type="button" class="btn-sm btn-teal" style="display: none;">수정</button>-->
+                                            <button id="btnUpdateDoit" type="button" class="btn-sm btn-teal">수정</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -113,7 +114,7 @@
                     <!-- s: 두잇수정 -->
                     <div class="detail-update" style="display: none;" id="doitUpdateForm">
                         <div class="card doit-tit-warp">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-doit-list"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">두잇 수정</p>
                         </div>
                         <table class="detail-table">
@@ -170,21 +171,21 @@
                                     <button id="btnAddKeyword" type="button" class="btn-sm">추가</button>
                                 </div>
                                 <ul class="tag-list clearfix" id="doitKeywords">
-<!--                                    <li>-->
-<!--                                        #-->
-<!--                                        <span>자전거</span>-->
-<!--                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        #-->
-<!--                                        <span>필라테스</span>-->
-<!--                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        #-->
-<!--                                        <span>요가</span>-->
-<!--                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>-->
-<!--                                    </li>-->
+                                    <li>
+                                        #
+                                        <span>자전거</span>
+                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                                    </li>
+                                    <li>
+                                        #
+                                        <span>필라테스</span>
+                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                                    </li>
+                                    <li>
+                                        #
+                                        <span>요가</span>
+                                        <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                                    </li>
                                 </ul>
                             </td>
                         </tr>
@@ -302,7 +303,7 @@
                     <!-- s: 미션상세 -->
                     <div class="detail-detail" style="display: none;" id="missionDetailForm">
                         <div class="card doit-tit-warp">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
                             <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
                             <div class="right-wrap">
                                 <button id="btnDeleteMission" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 미션삭제</button>
@@ -316,33 +317,33 @@
                             <tr>
                                 <th>기간</th>
                                 <td>
-                                    <p class="detail-data">2020-03-01 ~ 2020-04-01</p>
+                                    <p class="detail-data" id="infoMissionDate">2020-03-01 ~ 2020-04-01</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 시간</th>
                                 <td>
-                                    <p class="detail-data">00:00:00 ~ 00:00:00</p>
+                                    <p class="detail-data" id="infoMissionTime">00:00:00 ~ 00:00:00</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 방법</th>
                                 <td>
-                                    <p class="detail-data">사진 (갤러리 허용)</p>
+                                    <p class="detail-data" id="infoActionType">사진 (갤러리 허용)</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 예시</th>
                                 <td>
                                     <div class="detail-img-wrap doit-info-img">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        <img id="infoActionImage" src="/assets/v2/img/profile-1.png" alt="">
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 예시 설명</th>
                                 <td>
-                                    <p class="detail-data">
+                                    <p class="detail-data" id="infoActionDesc">
                                         야나두 영어를 시청하신 뒤 화면 스크린 샷을 올려주세요!<br>
                                         다른 회사 영어는 금지
                                     </p>
@@ -351,7 +352,7 @@
                             <tr>
                                 <th>공약</th>
                                 <td>
-                                    <p class="detail-data">
+                                    <p class="detail-data" id="infoPromise">
                                         야나두 1년 수강권 증정!
                                     </p>
                                 </td>
@@ -368,7 +369,7 @@
                     <!-- s: 미션등록 -->
                     <div class="detail-create" style="display: none;" id="missionCreateForm">
                         <div class="card doit-tit-warp">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">미션 등록</p>
                         </div>
                         <table class="detail-table">
@@ -389,9 +390,9 @@
                                 <th>기간 *</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="text" class="datepicker" readonly>
+                                        <input id="missionStartDate" type="text" class="datepicker" readonly>
                                         <span class="date-text"> ~ </span>
-                                        <input type="text" class="datepicker" readonly>
+                                        <input id="missionEndDate" type="text" class="datepicker" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -399,9 +400,9 @@
                                 <th>인증 시간</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="time" value="00:00" readonly="">
+                                        <input id="missionStartTime" type="time" value="00:00" readonly="">
                                         <span class="date-text"> ~ </span>
-                                        <input type="time" value="23:59" readonly="">
+                                        <input id="missionEndTime" type="time" value="23:59" readonly="">
                                     </div>
                                 </td>
                             </tr>
@@ -409,13 +410,13 @@
                                 <th>인증방법 *</th>
                                 <td>
                                     <div class="radio-wrap">
-                                        <input id="r8" type="radio" name="radio-action-method">
+                                        <input id="r8" type="radio" name="radio-action-type" value="image">
                                         <label for="r8"><span></span>사진</label>
 
-                                        <input  id="r9" type="radio" name="radio-action-method">
+                                        <input id="r9" type="radio" name="radio-action-type" value="video">
                                         <label for="r9"><span></span>영상</label>
 
-                                        <input  id="r10" type="radio" name="radio-action-method">
+                                        <input id="r10" type="radio" name="radio-action-type" value="voice">
                                         <label for="r10"><span></span>음성</label>
                                     </div>
                                 </td>
@@ -426,12 +427,12 @@
                                     <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="">업로드</label>
+                                        <label for="actionImage">업로드</label>
                                         <input type="file" id="actionImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
-                                    <div class="detail-img-wrap">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+<!--                                    <div class="detail-img-wrap">-->
+<!--                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
+<!--                                    </div>-->
                                 </td>
                             </tr>
                             <tr>
@@ -447,18 +448,18 @@
                                 <th>공약</th>
                                 <td>
                                     <div class="input-wrap">
-                                        <input id="" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
+                                        <input id="promise" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
                                         <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                                     </div>
                                     <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="">업로드</label>
-                                        <input type="file" id="" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                        <label for="promiseImage">업로드</label>
+                                        <input type="file" id="promiseImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
-                                    <div class="detail-img-wrap">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+<!--                                    <div class="detail-img-wrap">-->
+<!--                                        <img src="/assets/v2/img/profile-1.png" alt="">-->
+<!--                                    </div>-->
                                 </td>
                             </tr>
                             <tr>
@@ -473,8 +474,11 @@
                     <!-- s: 미션수정 -->
                     <div class="detail-update" style="display:none;" id="missionUpdateForm">
                         <div class="card doit-tit-warp clearfix">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
-                            <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
+                            <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title" id="updateMissionTitle">
+                                <span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>
+                                하루 한번 5분씩 영어공부
+                            </p>
                         </div>
                         <table class="detail-table">
                             <colgroup>
@@ -485,9 +489,9 @@
                                 <th>기간 *</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="text" class="datepicker">
+                                        <input id="updateMissionStartDate" type="text" class="datepicker" readonly>
                                         <span class="date-text"> ~ </span>
-                                        <input type="text" class="datepicker">
+                                        <input id="updateMissionEndDate" type="text" class="datepicker" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -495,9 +499,9 @@
                                 <th>인증 시간</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="time" value="00:00" readonly="">
+                                        <input id="updateMissionStartTime" type="time"/>
                                         <span class="date-text"> ~ </span>
-                                        <input type="time" value="23:59" readonly="">
+                                        <input id="updateMissionEndTime" type="time"/>
                                     </div>
                                 </td>
                             </tr>
@@ -505,13 +509,13 @@
                                 <th>인증방법 *</th>
                                 <td>
                                     <div class="radio-wrap">
-                                        <input id="r5" type="radio" name="ra">
+                                        <input id="r5" type="radio" name="radio-update-action-type" value="image">
                                         <label for="r5"><span></span>사진</label>
 
-                                        <input  id="r6" type="radio" name="ra">
+                                        <input  id="r6" type="radio" name="radio-update-action-type" value="video">
                                         <label for="r6"><span></span>영상</label>
 
-                                        <input  id="r7" type="radio" name="ra">
+                                        <input  id="r7" type="radio" name="radio-update-action-type" value="voice">
                                         <label for="r7"><span></span>음성</label>
                                     </div>
                                 </td>
@@ -522,7 +526,7 @@
                                     <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="">업로드</label>
+                                        <label for="updateActionImage">업로드</label>
                                         <input type="file" id="updateActionImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
@@ -543,14 +547,14 @@
                                 <th>공약</th>
                                 <td>
                                     <div class="input-wrap">
-                                        <input id="" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
+                                        <input id="updatePromise" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
                                         <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                                     </div>
                                     <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="">업로드</label>
-                                        <input type="file" id="" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                        <label for="updatePromiseImage">업로드</label>
+                                        <input type="file" id="updatePromiseImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -560,7 +564,7 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-primary">수정완료</button>
+                                        <button id="btnSubmitUpdateMission" type="button" class="btn-sm btn-primary">수정완료</button>
                                     </div>
                                 </td>
                             </tr>
@@ -572,18 +576,18 @@
                 <div class="doit-member tab-contents" style="display: none;" id="tabDoitMember">
 
                     <!-- s: 참여자 목록-->
-                    <div class="detail-list">
+                    <div class="detail-list" id="joinMemberForm">
                         <div class="row member-top">
                             <div class="col-3">
                                 <div class="card">
                                     <p class="desc">총 가입자 수</p>
-                                    <strong class="num">501</strong>
+                                    <strong class="num" id="totalMemberCount">501</strong>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="card">
-                                    <p class="desc clearfix">가입 대기자 수 <a href="#" class="link"><i class="fas fa-cog"></i> 대기자 관리</a></p>
-                                    <strong class="num">13</strong>
+                                    <p class="desc clearfix">가입 대기자 수 <a id="btnPendingMembers" class="link"><i class="fas fa-cog"></i> 대기자 관리</a></p>
+                                    <strong class="num" id="pendingMemberCount">13</strong>
                                 </div>
                             </div>
                         </div>
@@ -611,7 +615,8 @@
                             <div class="col-4">
                                 <div class="card clearfix">
                                     <p class="search-title">미션명</p>
-                                    <select id="selCategory" class="select-box mission">
+                                    <select id="selMissions" class="select-box mission">
+                                        <option value="all">전체</option>
                                         <option value="">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</option>
                                     </select>
                                 </div>
@@ -619,7 +624,7 @@
                             <div class="col-2">
                                 <div class="card clearfix">
                                     <p class="search-title">필터</p>
-                                    <select id="selCategory" class="select-box">
+                                    <select id="selMemberFilter" class="select-box">
                                         <option value="">연속 인증 수</option>
                                         <option value="">오늘 인증 수</option>
                                         <option value="">최근 7일동안 인증 수</option>
@@ -640,7 +645,7 @@
                                             </span>
                                         </i>
                                     </p>
-                                    <input type="text" class="action-num"> 회
+                                    <input id="actionCount" type="text" class="action-num" maxlength="4"> 회
                                 </div>
                             </div>
                         </div>
@@ -655,7 +660,7 @@
                                 <div class="left-wrap clearfix">
                                     <div class="form-box">
                                         <p>Total <strong class="data-num">238</strong></p>
-                                        <select class="select-box">
+                                        <select id="selJoinMemberPageLength" class="select-box">
                                             <option>10개씩 보기</option>
                                             <option>30개씩 보기</option>
                                             <option>50개씩 보기</option>
@@ -663,7 +668,7 @@
                                             <option>500개씩 보기</option>
                                             <option>1000개씩 보기</option>
                                         </select>
-                                        <select class="select-box">
+                                        <select id="selSort" class="select-box">
                                             <option>닉네임 순</option>
                                             <option>누적 인증 수 순</option>
                                             <option>최대 연속 수 순</option>
@@ -672,11 +677,11 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
-                                    <button type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>
+                                    <button id="btnSaveUcd" type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
+                                    <button id="btnSendNotice" type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>
                                 </div>
                             </div>
-                            <table>
+                            <table id="joinMemberTable">
                                 <thead>
                                 <colgroup>
                                     <col style="width: 10%;">
@@ -714,9 +719,9 @@
                     </div>
 
                     <!-- s: 참여 대기자 목록-->
-                    <div class="detail-detail">
+                    <div class="detail-detail" style="display: none;" id="pendingMemberForm">
                         <div class="card doit-tit-warp member-top">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button id="btnJoinMembers" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
                         <div class="row member-top">
@@ -740,11 +745,11 @@
                         <div class="table-wrap">
                             <div class="top clearfix">
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-check-circle"></i> 가입 승인</button>
-                                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 가입 거절</button>
+                                    <button id="btnApproval" type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-check-circle"></i> 가입 승인</button>
+                                    <button id="btnReject" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 가입 거절</button>
                                 </div>
                             </div>
-                            <table>
+                            <table id="pendingMemberTable">
                                 <thead>
                                 <colgroup>
                                     <col style="width: 20%;">
@@ -801,20 +806,20 @@
                 <!-- s: 인증 -->
                 <div class="doit-auth tab-contents" style="display: none;" id="tabDoitAction">
                     <!-- s: 인증 리스트 -->
-                    <div class="detail-list">
+                    <div class="detail-list" id="actionListForm">
                         <div class="search-wrap row">
                             <div class="col-12">
                                 <ul class="card">
                                     <li>
                                         <p class="search-title">날짜</p>
                                         <div class="form-box">
-                                            <select class="select-box">
-                                                <option>등록일</option>
+                                            <select id="selActionDateType" class="select-box">
+                                                <option value="">등록일</option>
                                             </select>
                                             <div class="date-wrap">
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchActionDateFrom" type="text" class="datepicker" readonly>
                                                 <span class="date-text"> ~ </span>
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchActionDateTo" type="text" class="datepicker" readonly>
                                             </div>
                                             <div class="date-btn">
                                                 <button type="button" class="btn">오늘</button>
@@ -831,7 +836,7 @@
                             <div class="col-4">
                                 <div class="card clearfix">
                                     <p class="search-title">미션명</p>
-                                    <select class="select-box mission">
+                                    <select id="selActionMissions" class="select-box mission">
                                         <option>전체</option>
                                         <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
                                         <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
@@ -844,21 +849,21 @@
                                 <div class="card clearfix">
                                     <p class="search-title">인증 상태</p>
                                     <div class="checkbox-wrap">
-                                        <input id="c10" type="checkbox" name="cb">
+                                        <input id="c10" type="checkbox" name="chk-action-status" value="success">
                                         <label for="c10"><span></span>성공</label>
 
-                                        <input id="c11" type="checkbox" name="cb">
+                                        <input id="c11" type="checkbox" name="chk-action-status" value="fail">
                                         <label for="c11"><span></span>실패</label>
 
-                                        <input id="c12" type="checkbox" name="cb">
+                                        <input id="c12" type="checkbox" name="chk-action-status" value="report">
                                         <label for="c12"><span></span>신고</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="search-btn row">
-                            <button type="submit" class="btn btn-primary">검색</button>
-                            <button type="reset" class="btn btn-outline-primary">초기화</button>
+                            <button id="btnSearchAction" type="submit" class="btn btn-primary">검색</button>
+                            <button id="btnResetSearchAction" type="reset" class="btn btn-outline-primary">초기화</button>
                         </div>
                         <div class="table-wrap auth-list">
                             <div class="top clearfix">
@@ -868,28 +873,30 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-danger modal-btn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
+                                    <button id="btnSendWarning" type="button" class="btn-sm btn-danger modal-btn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-2 auth-item">
-                                    <div class="card">
-                                        <div class="top clearfix">
-                                            <div class="checkbox-wrap">
-                                                <input id="c15" type="checkbox" name="cb">
-                                                <label for="c15"><span></span></label>
+                            <div id="actionsWrap">
+                                <div class="row">
+                                    <div class="col-2 auth-item">
+                                        <div class="card">
+                                            <div class="top clearfix">
+                                                <div class="checkbox-wrap">
+                                                    <input id="c15" type="checkbox" name="cb">
+                                                    <label for="c15"><span></span></label>
+                                                </div>
+                                                <div class="right-wrap">
+                                                    <span><i class="fas fa-heart"></i> 111</span>
+                                                    <span><i class="fas fa-comment"></i> 44</span>
+                                                </div>
                                             </div>
-                                            <div class="right-wrap">
-                                                <span><i class="fas fa-heart"></i> 111</span>
-                                                <span><i class="fas fa-comment"></i> 44</span>
+                                            <div class="img-wrap">
+                                                <img src="/assets/v2/img/profile-1.png" alt="">
                                             </div>
+                                            <span class="nick-name">열심히사는강아지열심히사는강아지</span>
+                                            <span class="date">2020-02-02</span>
+                                            <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
                                         </div>
-                                        <div class="img-wrap">
-                                            <img src="/assets/v2/img/profile-1.png" alt="">
-                                        </div>
-                                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
-                                        <span class="date">2020-02-02</span>
-                                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
                                     </div>
                                 </div>
                             </div>
@@ -897,7 +904,7 @@
                     </div>
 
                     <!-- s: 인증 상세 -->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail" style="display: none;" id="actionDetailForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 10%;">
@@ -1612,7 +1619,7 @@
         </div>
 
         <!-- 참여자 탭 - ucd 적립 -->
-        <div class="modal-content member-add-ucd">
+        <div class="modal-content member-add-ucd" id="modalSaveUcd">
             <div class="modal-header clearfix">
                 <h5>UCD 적립</h5>
                 <i class="modal-close">×</i>
@@ -1627,7 +1634,7 @@
                         <th>내용 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="" type="text" class="length-input" maxlength="30">
+                                <input id="saveUcdContent" type="text" class="length-input" maxlength="30">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
@@ -1645,7 +1652,7 @@
                         <th>비고 </th>
                         <td>
                             <div class="textarea-wrap">
-                                <textarea id="doitDesc" class="length-input" maxlength="50" rows="4"></textarea>
+                                <textarea id="saveUcdEtc" class="length-input" maxlength="50" rows="4"></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
@@ -1697,12 +1704,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnBan" type="button" class="btn btn-primary">적립완료</button>
+                <button id="btnSubmitSaveUcd" type="button" class="btn btn-primary">적립완료</button>
             </div>
         </div>
 
         <!-- 참여자 탭 - 알림발송 -->
-        <div class="modal-content member-add-ucd">
+        <div class="modal-content member-add-ucd" id="modalSendNotice">
             <div class="modal-header clearfix">
                 <h5>알림발송</h5>
                 <i class="modal-close">×</i>
@@ -1741,7 +1748,7 @@
                     <tr>
                         <th>내용 *</th>
                         <td>
-                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="sendNoticeContent" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -1793,7 +1800,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnBan" type="button" class="btn btn-primary">발송 완료</button>
+                <button id="btnSubmitSendNotice" type="button" class="btn btn-primary">발송 완료</button>
             </div>
         </div>
 

@@ -39,7 +39,14 @@
 	talkUpdateForm,
 	btnCreateTalk,
 	talkImage,
-	joinMemberForm, pendingMemberForm, btnPendingMembers, btnJoinMembers, btnReset, actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	btnPendingMembers,
+	btnJoinMembers,
+	btnReset,
+	actionCount,
+	actionListForm,
+	actionDetailForm, btnResetSearchAction,
 } from '../modules/elements.js';
 	import {
 	historyBack,
@@ -62,6 +69,7 @@
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
 	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm} from "./doit-detail-member.js";
+	import {initSearchActionForm, buildActions} from "./doit-detail-action.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -73,6 +81,7 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
+		initSearchActionForm();
 		//getCategoryList();
 		/** 상세 불러오기 **/
 		//getDetail();
@@ -113,7 +122,7 @@
 		btnPendingMembers.on('click', function () { onClickBtnPendingMembers(); });
 		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
 
-
+		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk() });
@@ -149,6 +158,9 @@
 				//getDetail();
 				break;
 			case '#tabDoitAction' :
+				actionListForm.show();
+				actionDetailForm.hide();
+				buildActions();
 				//getDetail();
 				break;
 			case '#tabDoitTalk' :

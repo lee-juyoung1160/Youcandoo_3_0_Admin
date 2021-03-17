@@ -166,7 +166,6 @@
     export const updateActionDesc  = $("#updateActionDesc");
     export const updatePromise  = $("#updatePromise");
     export const updatePromiseImage  = $("#updatePromiseImage");
-
     export const infoMissionDate = $("#infoMissionDate");
     export const infoMissionTime = $("#infoMissionTime");
     export const infoActionType = $("#infoActionType");
@@ -174,8 +173,33 @@
     export const infoActionDesc = $("#infoActionDesc");
     export const infoPromise = $("#infoPromise");
 
+    export const joinMemberForm = $("#joinMemberForm");
+    export const pendingMemberForm = $("#pendingMemberForm");
+    export const btnJoinMembers = $("#btnJoinMembers");
+    export const btnPendingMembers = $("#btnPendingMembers");
+    export const totalMemberCount = $("#totalMemberCount");
+    export const pendingMemberCount = $("#pendingMemberCount");
+    export const selMissions = $("#selMissions");
+    export const selMemberFilter = $("#selMemberFilter");
+    export const actionCount = $("#actionCount");
+    export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
+    export const btnSaveUcd = $("#btnSaveUcd");
+    export const btnSendNotice = $("#btnSendNotice");
+    export const joinMemberTable = $("#joinMemberTable");
+    export const btnApproval = $("#btnApproval");
+    export const btnReject = $("#btnReject");
+    export const pendingMemberTable = $("#pendingMemberTable");
 
-
+    export const actionListForm = $("#actionListForm");
+    export const selActionDateType = $("#selActionDateType");
+    export const searchActionDateFrom = $("#searchActionDateFrom");
+    export const searchActionDateTo = $("#searchActionDateTo");
+    export const selActionMissions = $("#selActionMissions");
+    export const chkActionStatus = $("input[name=chk-action-status]");
+    export const btnSearchAction = $("#btnSearchAction");
+    export const btnResetSearchAction = $("#btnResetSearchAction");
+    export const btnSendWarning = $("#btnSendWarning");
+    export const actionDetailForm = $("#actionDetailForm");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const createTalkModal = $("#createTalkModal");

@@ -5,7 +5,7 @@
 	missionListForm,
 	missionUpdateForm,
 	missionTitle,
-	datePicker, missionStartDate, missionEndDate, dateFrom, dateTo, rdoActionType, promise
+	missionStartDate, missionEndDate, rdoActionType, promise
 	} from "../modules/elements.js";
 
 	export function onClickBtnCreateMission()

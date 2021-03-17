@@ -576,18 +576,18 @@
                 <div class="doit-member tab-contents" style="display: none;" id="tabDoitMember">
 
                     <!-- s: 참여자 목록-->
-                    <div class="detail-list">
+                    <div class="detail-list" id="joinMemberForm">
                         <div class="row member-top">
                             <div class="col-3">
                                 <div class="card">
                                     <p class="desc">총 가입자 수</p>
-                                    <strong class="num">501</strong>
+                                    <strong class="num" id="totalMemberCount">501</strong>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="card">
-                                    <p class="desc clearfix">가입 대기자 수 <a href="#" class="link"><i class="fas fa-cog"></i> 대기자 관리</a></p>
-                                    <strong class="num">13</strong>
+                                    <p class="desc clearfix">가입 대기자 수 <a id="btnPendingMembers" class="link"><i class="fas fa-cog"></i> 대기자 관리</a></p>
+                                    <strong class="num" id="pendingMemberCount">13</strong>
                                 </div>
                             </div>
                         </div>
@@ -615,7 +615,8 @@
                             <div class="col-4">
                                 <div class="card clearfix">
                                     <p class="search-title">미션명</p>
-                                    <select id="selCategory" class="select-box mission">
+                                    <select id="selMissions" class="select-box mission">
+                                        <option value="all">전체</option>
                                         <option value="">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</option>
                                     </select>
                                 </div>
@@ -623,7 +624,7 @@
                             <div class="col-2">
                                 <div class="card clearfix">
                                     <p class="search-title">필터</p>
-                                    <select id="selCategory" class="select-box">
+                                    <select id="selMemberFilter" class="select-box">
                                         <option value="">연속 인증 수</option>
                                         <option value="">오늘 인증 수</option>
                                         <option value="">최근 7일동안 인증 수</option>
@@ -644,7 +645,7 @@
                                             </span>
                                         </i>
                                     </p>
-                                    <input type="text" class="action-num"> 회
+                                    <input id="actionCount" type="text" class="action-num" maxlength="4"> 회
                                 </div>
                             </div>
                         </div>
@@ -659,7 +660,7 @@
                                 <div class="left-wrap clearfix">
                                     <div class="form-box">
                                         <p>Total <strong class="data-num">238</strong></p>
-                                        <select class="select-box">
+                                        <select id="selJoinMemberPageLength" class="select-box">
                                             <option>10개씩 보기</option>
                                             <option>30개씩 보기</option>
                                             <option>50개씩 보기</option>
@@ -667,7 +668,7 @@
                                             <option>500개씩 보기</option>
                                             <option>1000개씩 보기</option>
                                         </select>
-                                        <select class="select-box">
+                                        <select id="selSort" class="select-box">
                                             <option>닉네임 순</option>
                                             <option>누적 인증 수 순</option>
                                             <option>최대 연속 수 순</option>
@@ -676,11 +677,11 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
-                                    <button type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>
+                                    <button id="btnSaveUcd" type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
+                                    <button id="btnSendNotice" type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>
                                 </div>
                             </div>
-                            <table>
+                            <table id="joinMemberTable">
                                 <thead>
                                 <colgroup>
                                     <col style="width: 10%;">
@@ -718,9 +719,9 @@
                     </div>
 
                     <!-- s: 참여 대기자 목록-->
-                    <div class="detail-detail">
+                    <div class="detail-detail" style="display: none;" id="pendingMemberForm">
                         <div class="card doit-tit-warp member-top">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button id="btnJoinMembers" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
                         <div class="row member-top">
@@ -744,11 +745,11 @@
                         <div class="table-wrap">
                             <div class="top clearfix">
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-check-circle"></i> 가입 승인</button>
-                                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 가입 거절</button>
+                                    <button id="btnApproval" type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-check-circle"></i> 가입 승인</button>
+                                    <button id="btnReject" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 가입 거절</button>
                                 </div>
                             </div>
-                            <table>
+                            <table id="pendingMemberTable">
                                 <thead>
                                 <colgroup>
                                     <col style="width: 20%;">
@@ -805,20 +806,20 @@
                 <!-- s: 인증 -->
                 <div class="doit-auth tab-contents" style="display: none;" id="tabDoitAction">
                     <!-- s: 인증 리스트 -->
-                    <div class="detail-list">
+                    <div class="detail-list" id="actionListForm">
                         <div class="search-wrap row">
                             <div class="col-12">
                                 <ul class="card">
                                     <li>
                                         <p class="search-title">날짜</p>
                                         <div class="form-box">
-                                            <select class="select-box">
-                                                <option>등록일</option>
+                                            <select id="selActionDateType" class="select-box">
+                                                <option value="">등록일</option>
                                             </select>
                                             <div class="date-wrap">
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchActionDateFrom" type="text" class="datepicker" readonly>
                                                 <span class="date-text"> ~ </span>
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchActionDateTo" type="text" class="datepicker" readonly>
                                             </div>
                                             <div class="date-btn">
                                                 <button type="button" class="btn">오늘</button>
@@ -835,7 +836,7 @@
                             <div class="col-4">
                                 <div class="card clearfix">
                                     <p class="search-title">미션명</p>
-                                    <select class="select-box mission">
+                                    <select id="selActionMissions" class="select-box mission">
                                         <option>전체</option>
                                         <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
                                         <option>미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉미션며어엉</option>
@@ -848,21 +849,21 @@
                                 <div class="card clearfix">
                                     <p class="search-title">인증 상태</p>
                                     <div class="checkbox-wrap">
-                                        <input id="c10" type="checkbox" name="cb">
+                                        <input id="c10" type="checkbox" name="chk-action-status" value="success">
                                         <label for="c10"><span></span>성공</label>
 
-                                        <input id="c11" type="checkbox" name="cb">
+                                        <input id="c11" type="checkbox" name="chk-action-status" value="fail">
                                         <label for="c11"><span></span>실패</label>
 
-                                        <input id="c12" type="checkbox" name="cb">
+                                        <input id="c12" type="checkbox" name="chk-action-status" value="report">
                                         <label for="c12"><span></span>신고</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="search-btn row">
-                            <button type="submit" class="btn btn-primary">검색</button>
-                            <button type="reset" class="btn btn-outline-primary">초기화</button>
+                            <button id="btnSearchAction" type="submit" class="btn btn-primary">검색</button>
+                            <button id="btnResetSearchAction" type="reset" class="btn btn-outline-primary">초기화</button>
                         </div>
                         <div class="table-wrap auth-list">
                             <div class="top clearfix">
@@ -872,7 +873,7 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button type="button" class="btn-sm btn-danger modal-btn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
+                                    <button id="btnSendWarning" type="button" class="btn-sm btn-danger modal-btn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -901,7 +902,7 @@
                     </div>
 
                     <!-- s: 인증 상세 -->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail" style="display: none;" id="actionDetailForm">
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 10%;">

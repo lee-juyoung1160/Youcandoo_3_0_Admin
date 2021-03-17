@@ -132,7 +132,9 @@
     export const btnAddKeyword = $("#btnAddKeyword");
     export const btnSubmitUpdateDoit = $("#btnSubmitUpdateDoit");
     export const btnUpdateDoit   = $("#btnUpdateDoit");
+    export const btnBackDoitList   = $(".btn-doit-list");
 
+    export const btnBackMissionList = $(".btn-mission-list");
     export const btnCreateMission   = $("#btnCreateMission");
     export const btnSubmitMission   = $("#btnSubmitMission");
     export const btnMissionList   = $("#btnMissionList");
@@ -145,6 +147,24 @@
     export const missionUpdateForm  = $("#missionUpdateForm");
     export const missionTable       = $("#missionTable");
     export const missionTitle       = $("#missionTitle");
+    export const missionStartDate   = $("#missionStartDate");
+    export const missionEndDate     = $("#missionEndDate");
+    export const rdoActionType  = $("input[naem=radio-action-type]");
+    export const actionImage  = $("#actionImage");
+    export const actionDesc  = $("#actionDesc");
+    export const promise  = $("#promise");
+    export const promiseImage  = $("#promiseImage");
+
+    export const infoMissionDate = $("#infoMissionDate");
+    export const infoMissionTime = $("#infoMissionTime");
+    export const infoActionType = $("#infoActionType");
+    export const infoActionImage = $("#infoActionImage");
+    export const infoActionDesc = $("#infoActionDesc");
+    export const infoPromise = $("#infoPromise");
+
+    export const updateActionImage  = $("#updateActionImage");
+    export const rdoUpdateActionType  = $("input[naem=radio-update-action-type]");
+
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const createTalkModal = $("#createTalkModal");

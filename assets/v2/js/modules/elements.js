@@ -149,11 +149,23 @@
     export const missionTitle       = $("#missionTitle");
     export const missionStartDate   = $("#missionStartDate");
     export const missionEndDate     = $("#missionEndDate");
+    export const missionStartTime   = $("#missionStartTime");
+    export const missionEndTime     = $("#missionEndTime");
     export const rdoActionType  = $("input[naem=radio-action-type]");
     export const actionImage  = $("#actionImage");
     export const actionDesc  = $("#actionDesc");
     export const promise  = $("#promise");
     export const promiseImage  = $("#promiseImage");
+    export const updateMissionTitle = $("#updateMissionTitle");
+    export const updateMissionStartDate = $("#updateMissionStartDate");
+    export const updateMissionEndDate = $("#updateMissionEndDate");
+    export const updateMissionStartTime = $("#updateMissionStartTime");
+    export const updateMissionEndTime   = $("#updateMissionEndTime");
+    export const rdoUpdateActionType  = $("input[naem=radio-update-action-type]");
+    export const updateActionImage  = $("#updateActionImage");
+    export const updateActionDesc  = $("#updateActionDesc");
+    export const updatePromise  = $("#updatePromise");
+    export const updatePromiseImage  = $("#updatePromiseImage");
 
     export const infoMissionDate = $("#infoMissionDate");
     export const infoMissionTime = $("#infoMissionTime");
@@ -162,8 +174,7 @@
     export const infoActionDesc = $("#infoActionDesc");
     export const infoPromise = $("#infoPromise");
 
-    export const updateActionImage  = $("#updateActionImage");
-    export const rdoUpdateActionType  = $("input[naem=radio-update-action-type]");
+
 
 
     export const btnCreateTalk   = $("#btnCreateTalk");

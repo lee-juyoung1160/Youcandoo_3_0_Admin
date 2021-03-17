@@ -63,5 +63,16 @@
 
 	}
 
+	export function onSubmitUpdateMission()
+	{
+
+	}
+
+	export function deleteMission()
+	{
+
+	}
+
+
 
 

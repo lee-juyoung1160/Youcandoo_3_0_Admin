@@ -1,10 +1,7 @@
 
 	import {
-	modalClose, modalBackdrop,
-	tabUl,
-	tabContents,
-	btnBack,
-	btnList,
+	modalClose, modalBackdrop, tabUl, tabContents,
+	btnBack, btnList,
 	lengthInput,
 	btnBackDoitList,
 	btnDoitOpen,
@@ -22,13 +19,9 @@
 	missionListForm,
 	btnUpdateDoit,
 	btnSubmitUpdateDoit,
-	btnCreateMission,
-	btnMissionList,
-	btnBackMissionList,
-	btnUpdateMission,
-	missionUpdateForm,
-	talkListForm,
-	talkDetailForm, talkUpdateForm, btnCreateTalk, talkImage, actionImage, promiseImage, btnSubmitMission,
+	btnCreateMission, btnMissionList, btnBackMissionList, btnDeleteMission,
+	btnUpdateMission, missionUpdateForm, btnSubmitUpdateMission, actionImage, promiseImage, btnSubmitMission, updatePromiseImage,
+	talkListForm, talkDetailForm, talkUpdateForm, btnCreateTalk, talkImage,
 } from '../modules/elements.js';
 	import {
 	historyBack,
@@ -47,7 +40,7 @@
 		onClickDetailMission,
 		onClickBtnMissionList,
 		onClickBtnUpdateMission,
-		onSubmitMission
+		onSubmitMission, onSubmitUpdateMission, deleteMission
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
@@ -86,11 +79,14 @@
 
 		actionImage		.on('change', function () { onChangeValidateImage(this); });
 		promiseImage	.on('change', function () { onChangeValidateImage(this); });
+		updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateMission	.on('click', function () { onClickBtnCreateMission() });
 		btnMissionList	.on('click', function () { onClickBtnMissionList(); });
 		btnBackMissionList.on('click', function () { onClickBtnMissionList(); });
 		btnUpdateMission.on('click', function () { onClickBtnUpdateMission() });
 		btnSubmitMission.on('click', function () { onSubmitMission() });
+		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission() });
+		btnDeleteMission.on('click', function () { deleteMission() });
 		$("#test").on('click', function () {onClickDetailMission();})
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})

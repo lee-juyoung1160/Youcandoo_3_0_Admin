@@ -400,9 +400,9 @@
                                 <th>인증 시간</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="time" value="00:00" readonly="">
+                                        <input id="missionStartTime" type="time" value="00:00" readonly="">
                                         <span class="date-text"> ~ </span>
-                                        <input type="time" value="23:59" readonly="">
+                                        <input id="missionEndTime" type="time" value="23:59" readonly="">
                                     </div>
                                 </td>
                             </tr>
@@ -413,10 +413,10 @@
                                         <input id="r8" type="radio" name="radio-action-type" value="image">
                                         <label for="r8"><span></span>사진</label>
 
-                                        <input  id="r9" type="radio" name="radio-action-type" value="video">
+                                        <input id="r9" type="radio" name="radio-action-type" value="video">
                                         <label for="r9"><span></span>영상</label>
 
-                                        <input  id="r10" type="radio" name="radio-action-type" value="voice">
+                                        <input id="r10" type="radio" name="radio-action-type" value="voice">
                                         <label for="r10"><span></span>음성</label>
                                     </div>
                                 </td>
@@ -475,7 +475,10 @@
                     <div class="detail-update" style="display:none;" id="missionUpdateForm">
                         <div class="card doit-tit-warp clearfix">
                             <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
-                            <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
+                            <p class="title" id="updateMissionTitle">
+                                <span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>
+                                하루 한번 5분씩 영어공부
+                            </p>
                         </div>
                         <table class="detail-table">
                             <colgroup>
@@ -486,9 +489,9 @@
                                 <th>기간 *</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="text" class="datepicker">
+                                        <input id="updateMissionStartDate" type="text" class="datepicker" readonly>
                                         <span class="date-text"> ~ </span>
-                                        <input type="text" class="datepicker">
+                                        <input id="updateMissionEndDate" type="text" class="datepicker" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -496,9 +499,9 @@
                                 <th>인증 시간</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input type="time" value="00:00"/>
+                                        <input id="updateMissionStartTime" type="time"/>
                                         <span class="date-text"> ~ </span>
-                                        <input type="time" value="23:59"/>
+                                        <input id="updateMissionEndTime" type="time"/>
                                     </div>
                                 </td>
                             </tr>
@@ -523,7 +526,7 @@
                                     <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="">업로드</label>
+                                        <label for="updateActionImage">업로드</label>
                                         <input type="file" id="updateActionImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
@@ -561,7 +564,7 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-primary">수정완료</button>
+                                        <button id="btnSubmitUpdateMission" type="button" class="btn-sm btn-primary">수정완료</button>
                                     </div>
                                 </td>
                             </tr>

@@ -189,6 +189,10 @@
     export const btnApproval = $("#btnApproval");
     export const btnReject = $("#btnReject");
     export const pendingMemberTable = $("#pendingMemberTable");
+    export const modalSaveUcd = $("#modalSaveUcd");
+    export const saveUcdContent = $("#saveUcdContent");
+    export const saveUcdEtc = $("#saveUcdEtc");
+    export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
 
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");

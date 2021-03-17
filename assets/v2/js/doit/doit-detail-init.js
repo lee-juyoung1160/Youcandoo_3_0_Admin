@@ -46,7 +46,7 @@
 	btnReset,
 	actionCount,
 	actionListForm,
-	actionDetailForm, btnResetSearchAction,
+	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount,
 } from '../modules/elements.js';
 	import {
 	historyBack,
@@ -68,7 +68,7 @@
 		onSubmitMission, onSubmitUpdateMission, deleteMission
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
-	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm} from "./doit-detail-member.js";
+	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen} from "./doit-detail-member.js";
 	import {initSearchActionForm, buildActions} from "./doit-detail-action.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
@@ -117,6 +117,8 @@
 		btnDeleteMission.on('click', function () { deleteMission() });
 		$("#test").on('click', function () {onClickDetailMission();})
 
+		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
+		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnPendingMembers.on('click', function () { onClickBtnPendingMembers(); });

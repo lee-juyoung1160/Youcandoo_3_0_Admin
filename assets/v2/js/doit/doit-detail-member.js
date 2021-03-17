@@ -1,8 +1,8 @@
 
 	import {
-		keyword, actionCount, joinMemberForm, pendingMemberForm
+	keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent, saveUcdEtc, amount
 } from "../modules/elements.js";
-	import {initSelectOption} from "../modules/common.js";
+	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 
 	export function onClickBtnPendingMembers()
 	{
@@ -31,6 +31,17 @@
 	export function getPendingMemberList()
 	{
 
+	}
+
+	export function onClickModalSaveUcdOpen()
+	{
+		modalSaveUcd.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		saveUcdContent.trigger('focus');
+		saveUcdContent.val('');
+		amount.val('');
+		saveUcdEtc.val();
 	}
 
 

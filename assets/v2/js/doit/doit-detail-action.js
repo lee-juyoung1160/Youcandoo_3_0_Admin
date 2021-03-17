@@ -2,11 +2,11 @@
 	import {
 	actionDetailForm,
 	actionListForm, actionsWrap,
-	chkActionStatus,
+	chkActionStatus, modalBackdrop, modalSendNotice,
 	searchActionDateFrom,
 	searchActionDateTo,
 } from "../modules/elements.js";
-	import {initSelectOption} from "../modules/common.js";
+	import {initSelectOption, overflowHidden} from "../modules/common.js";
 
 	export function onClickBtnActionList()
 	{
@@ -79,5 +79,12 @@
 	export function viewDetail()
 	{
 
+	}
+
+	export function onClickModalWarnOpen()
+	{
+		modalSendNotice.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 

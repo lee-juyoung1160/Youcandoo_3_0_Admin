@@ -193,6 +193,9 @@
     export const saveUcdContent = $("#saveUcdContent");
     export const saveUcdEtc = $("#saveUcdEtc");
     export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
+    export const modalSendNotice = $("#modalSendNotice");
+    export const sendNoticeContent = $("#sendNoticeContent");
+    export const btnSubmitSendNotice = $("#btnSubmitSendNotice");
 
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");

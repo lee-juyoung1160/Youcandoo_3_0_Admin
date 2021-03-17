@@ -1,7 +1,16 @@
 
 	import {
-	keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent, saveUcdEtc, amount
-} from "../modules/elements.js";
+	keyword,
+	actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	modalSaveUcd,
+	modalBackdrop,
+	saveUcdContent,
+	saveUcdEtc,
+	amount,
+		modalSendNotice
+	} from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 
 	export function onClickBtnPendingMembers()
@@ -42,6 +51,13 @@
 		saveUcdContent.val('');
 		amount.val('');
 		saveUcdEtc.val();
+	}
+
+	export function onClickModalSendNoticeOpen()
+	{
+		modalSendNotice.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 
 

@@ -46,7 +46,7 @@
 	btnReset,
 	actionCount,
 	actionListForm,
-	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount,
+	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSendNotice,
 } from '../modules/elements.js';
 	import {
 	historyBack,
@@ -68,8 +68,8 @@
 		onSubmitMission, onSubmitUpdateMission, deleteMission
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
-	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen} from "./doit-detail-member.js";
-	import {initSearchActionForm, buildActions} from "./doit-detail-action.js";
+	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen, onClickModalSendNoticeOpen} from "./doit-detail-member.js";
+	import {initSearchActionForm, buildActions, onClickModalWarnOpen} from "./doit-detail-action.js";
 	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -118,6 +118,7 @@
 		$("#test").on('click', function () {onClickDetailMission();})
 
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
+		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
 		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });

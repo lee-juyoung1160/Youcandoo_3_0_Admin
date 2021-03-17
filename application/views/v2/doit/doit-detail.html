@@ -1709,7 +1709,7 @@
         </div>
 
         <!-- 참여자 탭 - 알림발송 -->
-        <div class="modal-content member-add-ucd">
+        <div class="modal-content member-add-ucd" id="modalSendNotice">
             <div class="modal-header clearfix">
                 <h5>알림발송</h5>
                 <i class="modal-close">×</i>
@@ -1748,7 +1748,7 @@
                     <tr>
                         <th>내용 *</th>
                         <td>
-                            <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="sendNoticeContent" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -1800,7 +1800,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnBan" type="button" class="btn btn-primary">발송 완료</button>
+                <button id="btnSubmitSendNotice" type="button" class="btn btn-primary">발송 완료</button>
             </div>
         </div>
 

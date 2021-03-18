@@ -9,8 +9,8 @@
 	saveUcdContent,
 	saveUcdEtc,
 	amount,
-		modalSendNotice
-	} from "../modules/elements.js";
+	modalSendNotice, modalMemberDetail
+} from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 
 	export function onClickBtnPendingMembers()
@@ -56,6 +56,13 @@
 	export function onClickModalSendNoticeOpen()
 	{
 		modalSendNotice.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+	}
+
+	export function onClickModalMemberDetailOpen()
+	{
+		modalMemberDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
 	}

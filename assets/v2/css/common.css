@@ -662,7 +662,7 @@ h2.main-title {
 	text-align: center;
 	line-height: 40px;
 	display: block;
-	width: 150px;
+	width: 160px;
 	height: 40px;
 	color: #ffffff;
 	border-radius: 30px;
@@ -859,7 +859,7 @@ table td {
 	cursor: default;
 }
 
-	/* modal */
+/* modal */
 .modal-bg {
 	display: none;
 	position: fixed;
@@ -992,7 +992,7 @@ input[type="password"]{
 .detail-img-wrap {
 	overflow: hidden;
 	width: 100px;
-	height: 100px;
+	/*height: 100px;*/
 	border: 1px solid #f3f3f3;
 }
 .detail-img-wrap img {

@@ -73,6 +73,44 @@
             <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
         </div>
     </div>
+
+    <div class="modal-wrap">
+        <!-- 도착페이지 검색 -->
+        <div class="modal-content" id="modalTargetPage">
+            <div class="modal-header clearfix">
+                <h5>도착페이지 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 80%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>제목</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>결과발표</td>
+                            <td>세리박스</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
 

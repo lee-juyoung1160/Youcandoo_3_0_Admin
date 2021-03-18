@@ -20,19 +20,26 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>이동페이지 타입</th>
+                        <th>이동페이지 구분 *</th>
                         <td>
-                            <select id="selTargetType" class="select-box">
-                                <option>이벤트</option>
-                                <option>공지사항</option>
-                                <option>웹뷰(웹 URL)</option>
-                                <option>두잇</option>
-                            </select>
-                    </tr>
-                    <tr>
-                        <th>이동페이지 URL</th>
-                        <td>
-                            <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                            <div class="radio-wrap">
+                                <input  id="r7" type="radio" name="radio-target-page-type" value="event">
+                                <label for="r7"><span></span>이벤트</label>
+
+                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
+                                <label for="r6"><span></span>공지</label>
+
+                                <input id="r5" type="radio" name="radio-target-page-type" value="normal" checked>
+                                <label for="r5"><span></span>웹뷰</label>
+
+                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
+                                <label for="r8"><span></span>두잇</label>
+                            </div>
+
+                            <div class="result-wrap" style="display: none;">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                                <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                            </div>
                         </td>
                     </tr>
                     <tr>

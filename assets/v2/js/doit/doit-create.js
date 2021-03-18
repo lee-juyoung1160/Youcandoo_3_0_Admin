@@ -138,10 +138,10 @@
 				"doit_keyword" : keywords,
 				"doit_image" : data.image_urls.file,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
-				"is_apply" : chkIsApply.is(':checked') ? 'Y' : 'N',
+				"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
 				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',
 				"question": doitQuestion.val().trim(),
-				"is_answer" : chkIsAnswer.is(':checked') ? 'Y' : 'N'
+				"answer_type" : chkIsAnswer.is(':checked') ? 'public' : 'private'
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

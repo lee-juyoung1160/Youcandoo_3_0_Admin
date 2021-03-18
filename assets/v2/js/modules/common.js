@@ -147,6 +147,18 @@
         dateButtons.removeClass("active");
     }
 
+    export function onChangeSearchDateFrom()
+    {
+        dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
+        initDayBtn();
+    }
+
+    export function onChangeSearchDateTo()
+    {
+        dateFrom.datepicker("option", "maxDate", new Date(dateTo.datepicker("getDate")));
+        initDayBtn();
+    }
+
     export function initPageLength(_obj)
     {
         const options =
@@ -216,10 +228,10 @@
              * data-oper: 비교연산 eq: 같음, ge: 이상, le: 이하
              * 속성이 있어야 한다.
              * **/
-            let oper   = $(obj).data('oper');
-            let needsWidth  = $(obj).data('width');
-            let needsHeight = $(obj).data('height');
-            let img    = new Image();
+            const oper = $(obj).data('oper');
+            const needsWidth = $(obj).data('width');
+            const needsHeight = $(obj).data('height');
+            const img = new Image();
 
             if (obj.files[0])
             {

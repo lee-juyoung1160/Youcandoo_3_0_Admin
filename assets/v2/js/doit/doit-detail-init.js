@@ -46,14 +46,27 @@
 	btnReset,
 	actionCount,
 	actionListForm,
-	actionDetailForm, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSendNotice,
+	actionDetailForm,
+	btnResetSearchAction,
+	btnSaveUcd,
+	amount,
+	btnSendWarning,
+	btnSendNotice,
+	btnSearchTalk,
+	btnResetSearchTalk,
+	btnBackTalkList,
+	btnUpdateTalk,
+	replyActionImage,
+	replyTalkImage,
+	commentActionImage, commentTalkImage, updateTalkImage,
 } from '../modules/elements.js';
 	import {
 	historyBack,
 	limitInputLength,
 	onChangeValidateImage,
 	fadeoutModal,
-		initSearchDatepicker
+		initSearchDatepicker,
+		initMaxDateToday
 	} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
@@ -68,9 +81,23 @@
 		onSubmitMission, onSubmitUpdateMission, deleteMission
 	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
-	import {onClickBtnPendingMembers, onClickBtnJoinMembers, initSearchMemberForm, onClickModalSaveUcdOpen, onClickModalSendNoticeOpen} from "./doit-detail-member.js";
-	import {initSearchActionForm, buildActions, onClickModalWarnOpen} from "./doit-detail-action.js";
-	import {getTalkList, onClickBtnCreateTalk, onClickDetailTalk} from "./doit-detail-talk.js";
+	import {
+	onClickBtnPendingMembers,
+	onClickBtnJoinMembers,
+	initSearchMemberForm,
+	onClickModalSaveUcdOpen,
+	onClickModalSendNoticeOpen,
+		onClickModalMemberDetailOpen
+	} from "./doit-detail-member.js";
+	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyOpen} from "./doit-detail-action.js";
+	import {
+	getTalkList,
+	onClickBtnCreateTalk,
+	onClickDetailTalk,
+	initSearchTalkForm,
+	onClickBtnTalkList,
+	onClickBtnUpdateTalk, onClickModalReplyTalkOpen
+} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -81,7 +108,9 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
+		initMaxDateToday();
 		initSearchActionForm();
+		initSearchTalkForm();
 		//getCategoryList();
 		/** 상세 불러오기 **/
 		//getDetail();
@@ -100,23 +129,24 @@
 		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
 		btnUpdateDoit	.on('click', function () { onClickBtnUpdateDoit() });
 		btnBackDoitList	.on('click', function () { onClickBtnDoitList() });
-		btnSubmitUpdateDoit	.on('click', function () { onSubmitUpdateDoit() });
-		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this) });
-		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this) });
-		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this) });
+		btnSubmitUpdateDoit	.on('click', function () { onSubmitUpdateDoit(); });
+		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this); });
+		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
+		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this); });
 
 		actionImage		.on('change', function () { onChangeValidateImage(this); });
 		promiseImage	.on('change', function () { onChangeValidateImage(this); });
 		updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
-		btnCreateMission	.on('click', function () { onClickBtnCreateMission() });
+		btnCreateMission	.on('click', function () { onClickBtnCreateMission(); });
 		btnMissionList	.on('click', function () { onClickBtnMissionList(); });
 		btnBackMissionList.on('click', function () { onClickBtnMissionList(); });
-		btnUpdateMission.on('click', function () { onClickBtnUpdateMission() });
+		btnUpdateMission.on('click', function () { onClickBtnUpdateMission(); });
 		btnSubmitMission.on('click', function () { onSubmitMission() });
-		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission() });
+		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission(); });
 		btnDeleteMission.on('click', function () { deleteMission() });
 		$("#test").on('click', function () {onClickDetailMission();})
 
+		$("#testMemberDetail").on('click', function () {onClickModalMemberDetailOpen();})
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
 		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
 		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
@@ -126,10 +156,21 @@
 		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
 
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
+		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
+		commentActionImage.on('change', function () { onChangeValidateImage(this); });
+		replyActionImage.on('change', function () { onChangeValidateImage(this); });
+		$('#testReplyTalk').on('click', function () { onClickModalReplyOpen(); });
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
-		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk() });
+		$("#testReplayTalk").on('click', function () {onClickModalReplyTalkOpen();})
+		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
+		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });
+		commentTalkImage.on('change', function () { onChangeValidateImage(this); });
+		replyTalkImage	.on('change', function () { onChangeValidateImage(this); });
+		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
+		btnBackTalkList	.on('click', function () { onClickBtnTalkList(); });
+		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
 	});
 
 	function onClickTab(selectedTab)

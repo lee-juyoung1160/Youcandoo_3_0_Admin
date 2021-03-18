@@ -196,6 +196,7 @@
     export const modalSendNotice = $("#modalSendNotice");
     export const sendNoticeContent = $("#sendNoticeContent");
     export const btnSubmitSendNotice = $("#btnSubmitSendNotice");
+    export const modalMemberDetail = $("#modalMemberDetail");
 
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");
@@ -207,15 +208,43 @@
     export const btnResetSearchAction = $("#btnResetSearchAction");
     export const btnSendWarning = $("#btnSendWarning");
     export const actionDetailForm = $("#actionDetailForm");
+    export const commentAction = $("#commentAction");
+    export const commentActionImage = $("#commentActionImage");
+    export const btnSubmitCommentAction = $("#btnSubmitCommentAction");
+    export const modalReplyAction = $("#modalReplyAction");
+    export const replyAction = $("#replyAction");
+    export const replyActionImage = $("#replyActionImage");
+    export const btnSubmitReplyAction = $("#btnSubmitReplyAction");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
-    export const createTalkModal = $("#createTalkModal");
-    export const talkListForm   = $("#talkListForm");
-    export const talkDetailForm = $("#talkDetailForm");
-    export const talkUpdateForm = $("#talkUpdateForm");
     export const talk = $("#talk");
     export const talkImage = $("#talkImage");
     export const chkNoticeTalk = $("input[name=chk-notice-talk]");
+    export const modalCreateTalk = $("#modalCreateTalk");
+    export const talkListForm   = $("#talkListForm");
+    export const talkDetailForm = $("#talkDetailForm");
+    export const talkUpdateForm = $("#talkUpdateForm");
+    export const searchTalkDateFrom = $("#searchTalkDateFrom");
+    export const searchTalkDateTo = $("#searchTalkDateTo");
+    export const btnSearchTalk = $("#btnSearchTalk");
+    export const btnResetSearchTalk = $("#btnResetSearchTalk");
+    export const btnBackTalkList = $(".btn-talk-list");
+    export const btnBlinkTalk = $("#btnBlinkTalk");
+    export const btnDisplayTalk = $("#btnDisplayTalk");
+    export const btnDeleteTalk = $("#btnDeleteTalk");
+    export const btnUpdateTalk = $("#btnUpdateTalk");
+    export const modalReplyTalk = $("#modalReplyTalk");
+    export const replyTalk = $("#replyTalk");
+    export const replyTalkImage = $("#replyTalkImage");
+    export const btnSubmitReplyTalk = $("#btnSubmitReplyTalk");
+    export const commentTalk = $("#commentTalk");
+    export const commentTalkImage = $("#commentTalkImage");
+    export const btnSubmitCommentTalk = $("#btnSubmitCommentTalk");
+    export const updateTalk = $("#updateTalk");
+    export const updateTalkImage = $("#updateTalkImage");
+    export const updateChkNoticeTalk = $("input[name=update-chk-notice-talk]");
+    export const btnSubmitUpdateTalk = $("#btnSubmitUpdateTalk");
+
 
     /** 비즈 **/
     export const doitTable = $("#doitTable");

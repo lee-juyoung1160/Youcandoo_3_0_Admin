@@ -2,7 +2,7 @@
 	import {
 	actionDetailForm,
 	actionListForm, actionsWrap,
-	chkActionStatus, modalBackdrop, modalReply, modalWarning,
+	chkActionStatus, modalBackdrop, modalReplyAction, modalWarning,
 	searchActionDateFrom,
 	searchActionDateTo,
 } from "../modules/elements.js";
@@ -90,7 +90,7 @@
 
 	export function onClickModalReplyOpen()
 	{
-		modalReply.fadeIn();
+		modalReplyAction.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
 	}

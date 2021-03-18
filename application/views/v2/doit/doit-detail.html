@@ -705,7 +705,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><a href="#">베리네모카</a></td>
+                                    <td><a id="testMemberDetail">베리네모카</a></td>
                                     <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
                                     <td>부리더</td>
                                     <td>50</td>
@@ -977,10 +977,10 @@
                                     </div>
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
-                                        <span><i class="fas fa-comments"></i>  <a href="#" class="link">111</a></span>
+                                        <span><i class="fas fa-comments"></i>  <a id="testReplyTalk" class="link">111</a></span>
                                         <a class="link">답글달기</a>
                                         <!-- 답글달기 -->
-                                        <div class="modal-content comments-creat" id="modalReply">
+                                        <div class="modal-content comments-creat" id="modalReplyAction">
                                             <div class="modal-header clearfix">
                                                 <h5>답글달기</h5>
                                                 <i class="modal-close">×</i>
@@ -994,7 +994,7 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="textarea-wrap">
-                                                                <textarea id="actionReply" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                                <textarea id="replyAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                                             </div>
                                                         </td>
@@ -1006,8 +1006,8 @@
                                                         <td>
                                                             <div class="file-wrap preview-image">
                                                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                                                <label for="actionReplyImage">업로드</label>
-                                                                <input type="file" id="actionReplyImage" class="upload-hidden">
+                                                                <label for="replyActionImage">업로드</label>
+                                                                <input type="file" id="replyActionImage" class="upload-hidden">
                                                             </div>
                                                             <div class="detail-img-wrap">
                                                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1122,7 +1122,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="textarea-wrap">
-                                                    <textarea id="actionComment" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                    <textarea id="commentAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                                     <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                                 </div>
                                             </td>
@@ -1134,8 +1134,8 @@
                                             <td>
                                                 <div class="file-wrap preview-image">
                                                     <input class="upload-name" value="파일선택" disabled="disabled">
-                                                    <label for="actionCommentImage">업로드</label>
-                                                    <input type="file" id="actionCommentImage" class="upload-hidden">
+                                                    <label for="commentActionImage">업로드</label>
+                                                    <input type="file" id="commentActionImage" class="upload-hidden">
                                                 </div>
                                                 <div class="detail-img-wrap">
                                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1145,7 +1145,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="right-wrap">
-                                                    <button id="btnSubmitActionComment" type="button" class="btn-sm btn-primary">등록</button>
+                                                    <button id="btnSubmitCommentAction" type="button" class="btn-sm btn-primary">등록</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1173,9 +1173,9 @@
                                                 <option>등록일</option>
                                             </select>
                                             <div class="date-wrap">
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchTalkDateFrom" type="text" class="datepicker" readonly="">
                                                 <span class="date-text"> ~ </span>
-                                                <input type="text" class="datepicker" readonly="">
+                                                <input id="searchTalkDateTo" type="text" class="datepicker" readonly="">
                                             </div>
                                             <div class="date-btn">
                                                 <button type="button" class="btn">오늘</button>
@@ -1189,8 +1189,8 @@
                             </div>
                         </div>
                         <div class="search-btn row">
-                            <button type="submit" class="btn btn-primary">검색</button>
-                            <button type="reset" class="btn btn-outline-primary">초기화</button>
+                            <button id="btnSearchTalk" type="submit" class="btn btn-primary">검색</button>
+                            <button id="btnResetSearchTalk" type="reset" class="btn btn-outline-primary">초기화</button>
                         </div>
                         <div class="table-wrap">
                             <div class="top clearfix">
@@ -1251,12 +1251,12 @@
                     <!-- s: 톡 상세 -->
                     <div class="detail-detail" style="display: none;" id="talkDetailForm">
                         <div class="card doit-tit-warp member-top">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-talk-list"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">톡 상세</p>
                             <div class="right-wrap">
-                                <button type="button" class="btn-sm btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                                <button type="button" class="btn-sm btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
-                                <button type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 삭제</button>
+                                <button id="btnBlinkTalk" type="button" class="btn-sm btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                <button id="btnDisplayTalk" type="button" class="btn-sm btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                                <button id="btnDeleteTalk" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 삭제</button>
                             </div>
                         </div>
                         <table class="detail-table">
@@ -1305,7 +1305,7 @@
                                 </td>
                                 <td style="vertical-align: bottom">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-teal">수정</button>
+                                        <button id="btnUpdateTalk" type="button" class="btn-sm btn-teal">수정</button>
                                     </div>
                                 </td>
                             </tr>
@@ -1330,10 +1330,10 @@
                                     </div>
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
-                                        <span><i class="fas fa-comments"></i>  <a href="#" class="link">111</a></span>
-                                        <a href="#" class="link">답글달기</a>
+                                        <span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
+                                        <a id="testReplayTalk"  class="link">답글달기</a>
                                         <!-- 답글달기 -->
-                                        <div class="modal-content comments-creat">
+                                        <div class="modal-content comments-creat" id="modalReplyTalk">
                                             <div class="modal-header clearfix">
                                                 <h5>답글달기</h5>
                                                 <i class="modal-close">×</i>
@@ -1347,7 +1347,7 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="textarea-wrap">
-                                                                <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                                <textarea id="replyTalk" class="length-input" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
                                                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                                             </div>
                                                         </td>
@@ -1359,18 +1359,18 @@
                                                         <td>
                                                             <div class="file-wrap preview-image">
                                                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                                                <label for="categoryImage">업로드</label>
-                                                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                                                <label for="replyTalkImage">업로드</label>
+                                                                <input type="file" id="replyTalkImage" class="upload-hidden">
                                                             </div>
-                                                            <div class="detail-img-wrap">
-                                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                                            </div>
+<!--                                                            <div class="detail-img-wrap">-->
+<!--                                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
+<!--                                                            </div>-->
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="right-wrap">
-                                                                <button type="button" class="btn-sm btn-primary">등록</button>
+                                                                <button id="btnSubmitReplyTalk" type="button" class="btn-sm btn-primary">등록</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -1475,7 +1475,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div class="textarea-wrap">
-                                                <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                <textarea id="commentTalk" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
                                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                             </div>
                                         </td>
@@ -1487,8 +1487,8 @@
                                         <td>
                                             <div class="file-wrap preview-image">
                                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                                <label for="categoryImage">업로드</label>
-                                                <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                                <label for="commentTalkImage">업로드</label>
+                                                <input type="file" id="commentTalkImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                             </div>
                                             <div class="detail-img-wrap">
                                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1498,7 +1498,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div class="right-wrap">
-                                                <button type="button" class="btn-sm btn-primary">등록</button>
+                                                <button id="btnSubmitCommentTalk" type="button" class="btn-sm btn-primary">등록</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -1511,7 +1511,7 @@
                     <!-- s: 톡 수정 -->
                     <div class="detail-update" style="display: none;" id="talkUpdateForm">
                         <div class="card doit-tit-warp member-top">
-                            <button type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-talk-list"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">톡 수정</p>
                         </div>
                         <table class="detail-table">
@@ -1524,7 +1524,7 @@
                                 <th>내용</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="" class="length-input" maxlength="100" rows="4" placeholder="새로운 참여자에게 물어볼 질문을 입력해주세요."></textarea>
+                                        <textarea id="updateTalk" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
                                         <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                                     </div>
                                 </td>
@@ -1534,8 +1534,8 @@
                                 <td>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="categoryImage">업로드</label>
-                                        <input type="file" id="categoryImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
+                                        <label for="updateTalkImage">업로드</label>
+                                        <input type="file" id="updateTalkImage" class="upload-hidden" data-width="650" data-height="650" data-oper="eq">
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
@@ -1546,7 +1546,7 @@
                                 <th>구분</th>
                                 <td>
                                     <div class="checkbox-wrap">
-                                        <input id="c20" type="checkbox" name="cb">
+                                        <input id="c20" type="checkbox" name="update-chk-notice-talk">
                                         <label for="c20"><span></span>공지로 등록</label>
                                     </div>
                                 </td>
@@ -1554,8 +1554,8 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm">톡 목록</button>
-                                        <button type="button" class="btn-sm btn-primary">수정완료</button>
+<!--                                        <button type="button" class="btn-sm">톡 목록</button>-->
+                                        <button id="btnSubmitUpdateTalk" type="button" class="btn-sm btn-primary">수정완료</button>
                                     </div>
                                 </td>
                             </tr>
@@ -1575,7 +1575,7 @@
 
     <div class="modal-wrap">
         <!-- 참여자 탭 - 닉네임 클릭 시 오픈 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalMemberDetail">
             <div class="modal-header clearfix">
                 <h5>참여자 관리</h5>
                 <i class="modal-close">×</i>

@@ -147,6 +147,18 @@
         dateButtons.removeClass("active");
     }
 
+    export function onChangeSearchDateFrom()
+    {
+        dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
+        initDayBtn();
+    }
+
+    export function onChangeSearchDateTo()
+    {
+        dateFrom.datepicker("option", "maxDate", new Date(dateTo.datepicker("getDate")));
+        initDayBtn();
+    }
+
     export function initPageLength(_obj)
     {
         const options =

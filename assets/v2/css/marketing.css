@@ -17,3 +17,23 @@
 .app-ver-wrap input[type="text"] {
 	width: 100px;
 }
+
+/* 배너관리 */
+.table-wrap .banner-img-wrap {
+	overflow: hidden;
+	width: 80px;
+	height: auto;
+	cursor: pointer;
+}
+.table-wrap .banner-img-wrap img {
+	transition: all .3s;
+}
+.table-wrap .banner-img-wrap:hover img {
+	transform: scale(1.3);
+}
+.old-banner-list {
+	margin-top: 50px;
+}
+.old-banner-list .banner-img-wrap {
+	width: 50px;
+}

@@ -206,7 +206,7 @@
     export const chkActionStatus = $("input[name=chk-action-status]");
     export const btnSearchAction = $("#btnSearchAction");
     export const btnResetSearchAction = $("#btnResetSearchAction");
-    export const btnSendWarning = $("#btnSendWarning");
+    export const btnSendWarning = $(".btn-send-warn");
     export const actionDetailForm = $("#actionDetailForm");
     export const commentAction = $("#commentAction");
     export const commentActionImage = $("#commentActionImage");

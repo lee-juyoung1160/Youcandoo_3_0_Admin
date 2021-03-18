@@ -14,7 +14,7 @@
 		missionUpdateForm.hide();
 		missionDetailForm.hide();
 		missionListForm.hide();
-		initMissionCraeteForm();
+		initMissionCreateForm();
 	}
 
 	export function onClickBtnMissionList()
@@ -41,7 +41,7 @@
 		missionListForm.hide();
 	}
 
-	export function initMissionCraeteForm()
+	export function initMissionCreateForm()
 	{
 		missionTitle.trigger('focus');
 		missionTitle.val('');

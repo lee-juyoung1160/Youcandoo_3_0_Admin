@@ -23,7 +23,7 @@
                         <th>이동페이지 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input  id="r7" type="radio" name="radio-target-page-type" value="event">
+                                <input  id="r7" type="radio" name="radio-target-page-type" value="event" checked>
                                 <label for="r7"><span></span>이벤트</label>
 
                                 <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
@@ -32,12 +32,14 @@
                                 <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
                                 <label for="r6"><span></span>공지</label>
 
-                                <input id="r5" type="radio" name="radio-target-page-type" value="normal" checked>
+                                <input id="r5" type="radio" name="radio-target-page-type" value="webview">
                                 <label for="r5"><span></span>웹뷰</label>
                             </div>
 
+                            <div class="result-wrap">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 이동할 페이지를 선택해주세요." readonly>
+                            </div>
                             <div class="result-wrap" style="display: none;">
-                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
                                 <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
                             </div>
                         </td>
@@ -76,7 +78,7 @@
 
     <div class="modal-wrap">
         <!-- 도착페이지 검색 -->
-        <div class="modal-content" id="modalTargetPage">
+        <div class="modal-content">
             <div class="modal-header clearfix">
                 <h5>도착페이지 검색</h5>
                 <i class="modal-close">×</i>
@@ -110,6 +112,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal-bg"></div>
     </div>
 </section>
 <script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>

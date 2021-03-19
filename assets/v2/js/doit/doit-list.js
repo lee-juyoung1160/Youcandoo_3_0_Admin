@@ -50,7 +50,8 @@
 		chkStatus.each(function () {
 			if (historyParams.doit_status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
-			else $(this).prop("checked", false);
+			else
+				$(this).prop("checked", false);
 		});
 		selDateType.val(historyParams.date_type);
 		selSearchType.val(historyParams.search_type);

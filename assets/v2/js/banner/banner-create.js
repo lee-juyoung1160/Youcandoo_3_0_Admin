@@ -1,9 +1,23 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {targetUrl, btnSubmit, bannerImage, bannerTitle,} from '../modules/elements.js';
+	import {
+	targetUrl,
+	btnSubmit,
+	bannerImage,
+	bannerTitle,
+	dateFrom,
+	dateTo,
+	rdoTargetPageType, targetPage, modalOpen, modalClose, modalBackdrop,
+} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage} from "../modules/common.js";
+	import {
+	initMinDateToday,
+	initInputDateRangeWeek,
+	initSearchDatepicker,
+	onChangeValidateImage,
+	onChangeSearchDateFrom, onChangeSearchDateTo, fadeoutModal, fadeinModal
+} from "../modules/common.js";
 	import {isEmpty, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -15,7 +29,13 @@
 		initInputDateRangeWeek();
 		initMinDateToday();
 		/** 이벤트 **/
+		modalOpen		.on("click", function () { onClickModalOpen(); });
+		modalClose		.on("click", function () { fadeoutModal(); });
+		modalBackdrop	.on("click", function () { fadeoutModal(); });
+		dateFrom.on('change', function () { onChangeSearchDateFrom() });
+		dateTo	.on('change', function () { onChangeSearchDateTo() });
 		bannerImage	.on('change', function () { onChangeValidateImage(this); });
+		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
 		btnSubmit	.on('click', function () { onSubmitBanner(); });
 	});
 
@@ -94,5 +114,51 @@
 		}
 
 		return true;
+	}
+
+	function onChangeRdoTargetPageType(obj)
+	{
+		const targetPageType = $(obj).val();
+
+		switch (targetPageType) {
+			case 'event' :
+				showTargetPage();
+				break;
+			case 'doit' :
+				showTargetPage();
+				break;
+			case 'notice' :
+				showTargetPage();
+				break;
+			case 'webview' :
+				showTargetUrl();
+				targetUrl.trigger('focus');
+				break;
+		}
+	}
+
+	function onClickModalOpen()
+	{
+		fadeinModal();
+	}
+
+	function showTargetPage()
+	{
+		targetPage.parent().show();
+		targetUrl.parent().hide();
+		initTargetInput();
+	}
+
+	function showTargetUrl()
+	{
+		targetPage.parent().hide();
+		targetUrl.parent().show();
+		initTargetInput();
+	}
+
+	function initTargetInput()
+	{
+		targetPage.val('');
+		targetUrl.val('');
 	}
 

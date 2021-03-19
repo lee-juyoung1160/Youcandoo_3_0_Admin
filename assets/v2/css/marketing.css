@@ -37,3 +37,6 @@
 .old-banner-list .banner-img-wrap {
 	width: 50px;
 }
+.modal-content.banner-img-modal {
+	width: 500px;
+}

@@ -36,6 +36,7 @@
     export const btnCancel	= $("#btnCancel");
     export const btnCreate	= $("#btnCreate");
     export const btnUpdate	= $("#btnUpdate");
+    export const btnSubmitUpdate = $("#btnSubmitUpdate");
     export const btnDelete	= $("#btnDelete");
     export const btnAdd	    = $("#btnAdd");
     export const btnList	= $("#btnList");
@@ -73,6 +74,7 @@
     export const modalContent   = $('.modal-content');
     export const modalBackdrop  = $('.modal-bg');
     export const modalDetail    = $('#modalDetail');
+    export const modalUpdate    = $('#modalUpdate');
 
     /** 로그인, 관리자등록, 2차인증, 마이페이지 **/
     export const userid     = $("#userid");
@@ -259,6 +261,7 @@
     export const selTargetType = $("#selTargetType");
     export const targetUrl = $("#targetUrl");
     export const bannerImage = $("#bannerImage");
+    export const historyTable = $("#historyTable");
 
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");

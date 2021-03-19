@@ -88,10 +88,9 @@
 		overflowHidden();
 	}
 
-	export function onClickModalReplyOpen()
+	export function onClickModalReplyActionOpen()
 	{
 		modalReplyAction.fadeIn();
-		modalBackdrop.fadeIn();
 		overflowHidden();
 	}
 

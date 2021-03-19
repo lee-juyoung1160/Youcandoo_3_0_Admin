@@ -39,6 +39,7 @@
 	talkUpdateForm,
 	btnCreateTalk,
 	talkImage,
+		selMemberFilter,
 	joinMemberForm,
 	pendingMemberForm,
 	btnPendingMembers,
@@ -87,9 +88,10 @@
 	initSearchMemberForm,
 	onClickModalSaveUcdOpen,
 	onClickModalSendNoticeOpen,
-		onClickModalMemberDetailOpen
+		onClickModalMemberDetailOpen,
+		onChangeSelMemberFilter
 	} from "./doit-detail-member.js";
-	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyOpen} from "./doit-detail-action.js";
+	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
 	getTalkList,
 	onClickBtnCreateTalk,
@@ -154,15 +156,16 @@
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnPendingMembers.on('click', function () { onClickBtnPendingMembers(); });
 		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
+		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
 		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
 		commentActionImage.on('change', function () { onChangeValidateImage(this); });
 		replyActionImage.on('change', function () { onChangeValidateImage(this); });
-		$('#testReplyTalk').on('click', function () { onClickModalReplyOpen(); });
+		$('#testReplyAction').on('click', function () { onClickModalReplyActionOpen(); });
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
-		$("#testReplayTalk").on('click', function () {onClickModalReplyTalkOpen();})
+		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
 		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });

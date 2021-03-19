@@ -183,6 +183,9 @@
     export const pendingMemberCount = $("#pendingMemberCount");
     export const selMissions = $("#selMissions");
     export const selMemberFilter = $("#selMemberFilter");
+    export const memberActionCntFilterWrap1 = $("#memberActionCntFilterWrap1");
+    export const memberActionCntFilterWrap2 = $("#memberActionCntFilterWrap2");
+    export const rdoActionCount = $("input[name=radio-action-count]");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
     export const btnSaveUcd = $("#btnSaveUcd");
@@ -208,6 +211,7 @@
     export const chkActionStatus = $("input[name=chk-action-status]");
     export const btnSearchAction = $("#btnSearchAction");
     export const btnResetSearchAction = $("#btnResetSearchAction");
+    export const btnPullAction = $("#btnPullAction");
     export const btnSendWarning = $(".btn-send-warn");
     export const actionDetailForm = $("#actionDetailForm");
     export const commentAction = $("#commentAction");

@@ -626,30 +626,30 @@
                                     <p class="search-title">필터</p>
                                     <select id="selMemberFilter" class="select-box">
                                         <option value="">연속 인증 수</option>
-                                        <option value="">오늘 인증 수</option>
+                                        <option value="today">오늘 인증 수</option>
                                         <option value="">최근 7일동안 인증 수</option>
                                         <option value="">최근 14일동안 인증 수</option>
                                         <option value="">최근 28일동안 인증 수</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-2" id="memberActionCntFilterWrap1">
                                 <div class="card clearfix">
                                     <p class="search-title">인증 수</p>
-                                    <input id="actionCount" type="text" class="action-num" maxlength="4"> 회
+                                    <input id="actionCount" type="text" class="action-num" maxlength="4"> 회 이상
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-3" id="memberActionCntFilterWrap2" style="display: none;">
                                 <div class="card clearfix">
                                     <p class="search-title">인증 수</p>
                                     <div class="radio-wrap">
-                                        <input id="r20" type="radio" name="r-status" value="">
+                                        <input id="r20" type="radio" name="radio-action-count" value="">
                                         <label for="r20"><span></span>전체</label>
 
-                                        <input id="r21" type="radio" name="r-status" value="">
+                                        <input id="r21" type="radio" name="radio-action-count" value="">
                                         <label for="r21"><span></span>인증함</label>
 
-                                        <input id="r22" type="radio" name="r-status" value="">
+                                        <input id="r22" type="radio" name="radio-action-count" value="">
                                         <label for="r22"><span></span>인증안함</label>
                                     </div>
                                 </div>
@@ -927,7 +927,7 @@
                                 </td>
                                 <td colspan="2">
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-warning"><i class="fas fa-arrow-up"></i>인증 끌올</button>
+                                        <button id="btnPullAction" type="button" class="btn-sm btn-warning"><i class="fas fa-arrow-up"></i>인증 끌올</button>
                                         <button type="button" class="btn-sm btn-danger btn-send-warn"><i class="fas fa-exclamation-triangle"></i> 경고장 발송</button>
                                     </div>
                                 </td>
@@ -983,8 +983,8 @@
                                     </div>
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
-                                        <span><i class="fas fa-comments"></i>  <a id="testReplyTalk" class="link">111</a></span>
-                                        <a class="link">답글달기</a>
+                                        <span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
+                                        <a id="testReplyAction" class="link">답글달기</a>
                                         <!-- 답글달기 -->
                                         <div class="modal-content comments-creat" id="modalReplyAction">
                                             <div class="modal-header clearfix">
@@ -1335,7 +1335,7 @@
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
                                         <span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
-                                        <a id="testReplayTalk"  class="link">답글달기</a>
+                                        <a id="testReplyTalk"  class="link">답글달기</a>
                                         <!-- 답글달기 -->
                                         <div class="modal-content comments-creat" id="modalReplyTalk">
                                             <div class="modal-header clearfix">

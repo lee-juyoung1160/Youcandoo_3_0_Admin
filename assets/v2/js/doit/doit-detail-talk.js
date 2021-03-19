@@ -57,7 +57,6 @@
 	export function onClickModalReplyTalkOpen()
 	{
 		modalReplyTalk.fadeIn();
-		modalBackdrop.fadeIn();
 		overflowHidden();
 	}
 

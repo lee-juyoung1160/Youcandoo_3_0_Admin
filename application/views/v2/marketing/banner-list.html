@@ -10,7 +10,7 @@
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 배너 수정</button>
+                    <button id="btnUpdate" type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 배너 수정</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <table id="dataTable">
+                <table id="historyTable">
                 <colgroup>
                     <col style="width: 15%;">
                     <col style="width: 25%;">
@@ -170,7 +170,7 @@
 
     <div class="modal-wrap">
         <!-- 배너 이미지 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalDetail">
             <div class="modal-header clearfix">
                 <h5>배너 이미지</h5>
                 <i class="modal-close">×</i>
@@ -186,7 +186,7 @@
         </div>
         
         <!-- 배너수정 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalUpdate">
             <div class="modal-header clearfix">
                 <h5>배너 수정</h5>
                 <i class="modal-close">×</i>
@@ -284,7 +284,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
+                <button id="btnSubmitUpdate" type="button" class="btn btn-primary">수정완료</button>
             </div>
         </div>
 

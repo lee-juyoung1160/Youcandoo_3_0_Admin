@@ -9,7 +9,7 @@
 	saveUcdContent,
 	saveUcdEtc,
 	amount,
-	modalSendNotice, modalMemberDetail
+	modalSendNotice, modalMemberDetail, memberActionCntFilterWrap1, memberActionCntFilterWrap2, rdoActionCount
 } from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 
@@ -30,6 +30,23 @@
 		keyword.val('');
 		actionCount.val('');
 		initSelectOption();
+	}
+
+	export function onChangeSelMemberFilter(obj)
+	{
+		const filterValue = $(obj).val();
+		if (filterValue === 'today')
+		{
+			memberActionCntFilterWrap1.hide();
+			memberActionCntFilterWrap2.show();
+			rdoActionCount.eq(0).prop('checked', true);
+		}
+		else
+		{
+			memberActionCntFilterWrap1.show();
+			memberActionCntFilterWrap2.hide();
+			actionCount.val('');
+		}
 	}
 
 	export function getJoinMemberList()

@@ -38,6 +38,8 @@
 		initSearchDateRangeWeek();
 		initSelectOption();
 		chkStatus.eq(0).prop('checked', true);
+		chkStatus.eq(1).prop('checked', false);
+		chkStatus.eq(2).prop('checked', false);
 	}
 
 	function onKeydownSearch(event)

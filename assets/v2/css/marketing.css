@@ -40,3 +40,6 @@
 .modal-content.banner-img-modal {
 	width: 500px;
 }
+.banner-create .result-wrap {
+	margin-top: 10px;
+}

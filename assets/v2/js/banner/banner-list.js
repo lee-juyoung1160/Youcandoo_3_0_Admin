@@ -2,10 +2,8 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
-		dataTable,
-		updateTable,
-		btnUpdate,
-		modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
+	dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
@@ -20,10 +18,11 @@
 		/** 목록 불러오기 **/
 		//getBannerList();
 		/** 이벤트 **/
-		modalOpen		.on("click", function () { onClickModalOpen(); });
+		$(".banner-img-wrap")		.on("click", function () { onClickModalDetailOpen(); });
+		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnUpdate	.on("click", function () { onSubmitUpdate(); });
+		btnSubmitUpdate	.on("click", function () { onSubmitUpdate(); });
 	});
 
 	function initTableSort()
@@ -138,10 +137,17 @@
 		$(".delete-btn").on('click', function () { deleteRow(this); })
 	}
 
-	function onClickModalOpen()
+	function onClickModalDetailOpen()
+	{
+		modalDetail.fadeIn();
+		modalBackdrop.fadeIn();
+	}
+
+	function onClickModalUpdateOpen()
 	{
 		g_delete_uuids.length = 0;
-		fadeinModal();
+		modalUpdate.fadeIn();
+		modalBackdrop.fadeIn();
 	}
 
 	let g_delete_uuids = [];

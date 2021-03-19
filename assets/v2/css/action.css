@@ -94,8 +94,12 @@
 	padding: 10px 0;
 	border-bottom: 1px solid #f1f1f1;
 }
+.comments-wrap .bottom {
+	position: relative;
+}
 /* 답글 달기 창 */
 .modal-content.comments-creat {
+	position: absolute;
 	top: 35px;
 	left: 0;
 	transform: none;

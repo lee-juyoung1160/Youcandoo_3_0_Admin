@@ -4,6 +4,7 @@
 .doit-detail-teb li {
 	width: calc(100%/7);
 }
+
 /* 두잇 수정 */
 .detail-update .detail-tit-warp button {
 	margin-left: 0;

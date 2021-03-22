@@ -48,7 +48,7 @@
 		missionStartDate.datepicker("option", "minDate", "today");
 		missionEndDate.datepicker("option", "minDate", "today");
 		missionStartDate.datepicker("setDate", "today");
-		missionEndDate.datepicker("setDate", "+6D");
+		missionEndDate.datepicker("setDate", "9999-12-31");
 		rdoActionType.eq(0).prop('checked', true);
 		promise.val('');
 	}

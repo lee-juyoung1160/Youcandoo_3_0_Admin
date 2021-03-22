@@ -39,7 +39,7 @@
 	talkUpdateForm,
 	btnCreateTalk,
 	talkImage,
-		selMemberFilter,
+	selMemberFilter,
 	joinMemberForm,
 	pendingMemberForm,
 	btnPendingMembers,
@@ -59,16 +59,22 @@
 	btnUpdateTalk,
 	replyActionImage,
 	replyTalkImage,
-	commentActionImage, commentTalkImage, updateTalkImage,
-} from '../modules/elements.js';
+	commentActionImage,
+	commentTalkImage,
+	updateTalkImage,
+	searchActionDateFrom,
+	searchActionDateTo,
+	searchTalkDateFrom,
+	searchTalkDateTo, dateButtons
+	} from '../modules/elements.js';
 	import {
 	historyBack,
 	limitInputLength,
 	onChangeValidateImage,
 	fadeoutModal,
-		initSearchDatepicker,
-		initMaxDateToday
-	} from "../modules/common.js";
+	initSearchDatepicker,
+	initMaxDateToday, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn
+} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
@@ -119,6 +125,7 @@
 		/** 이벤트 **/
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
+		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
@@ -158,6 +165,8 @@
 		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 
+		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
 		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
 		commentActionImage.on('change', function () { onChangeValidateImage(this); });
@@ -166,6 +175,8 @@
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
+		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
 		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });

@@ -65,7 +65,7 @@
 	searchActionDateFrom,
 	searchActionDateTo,
 	searchTalkDateFrom,
-	searchTalkDateTo, dateButtons
+	searchTalkDateTo, dateButtons, missionStartDate, missionEndDate
 	} from '../modules/elements.js';
 	import {
 	historyBack,
@@ -80,13 +80,13 @@
 	import { initTableDefaultConfig } from "../modules/tables.js";
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday} from "../modules/doit-common.js"
 	import {
-		getMissionList,
-		onClickBtnCreateMission,
-		onClickDetailMission,
-		onClickBtnMissionList,
-		onClickBtnUpdateMission,
-		onSubmitMission, onSubmitUpdateMission, deleteMission
-	} from "./doit-detail-mission.js";
+	getMissionList,
+	onClickBtnCreateMission,
+	onClickDetailMission,
+	onClickBtnMissionList,
+	onClickBtnUpdateMission,
+	onSubmitMission, onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate
+} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
 	import {
 	onClickBtnPendingMembers,
@@ -143,6 +143,8 @@
 		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
 		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this); });
 
+		missionStartDate.on('change', function () { onChangeMissionStartDate(); });
+		missionEndDate	.on('change', function () { onChangeMissionEndDate(); });
 		actionImage		.on('change', function () { onChangeValidateImage(this); });
 		promiseImage	.on('change', function () { onChangeValidateImage(this); });
 		updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });

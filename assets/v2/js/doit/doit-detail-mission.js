@@ -5,7 +5,7 @@
 	missionListForm,
 	missionUpdateForm,
 	missionTitle,
-	missionStartDate, missionEndDate, rdoActionType, promise
+	missionStartDate, missionEndDate, rdoActionType, promise, dateTo, dateFrom
 	} from "../modules/elements.js";
 
 	export function onClickBtnCreateMission()
@@ -71,6 +71,16 @@
 	export function deleteMission()
 	{
 
+	}
+
+	export function onChangeMissionStartDate()
+	{
+		missionEndDate.datepicker("option", "minDate", new Date(missionStartDate.datepicker("getDate")));
+	}
+
+	export function onChangeMissionEndDate()
+	{
+		missionStartDate.datepicker("option", "minDate", new Date(missionEndDate.datepicker("getDate")));
 	}
 
 

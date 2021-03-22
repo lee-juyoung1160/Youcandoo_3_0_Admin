@@ -16,14 +16,14 @@
 } from '../modules/elements.js';
 	import { sweetToast } from  '../modules/alert.js';
 	import {
-		onClickDateRangeBtn,
-		initDayBtn,
-		initSearchDatepicker,
-		initSearchDateRangeMonth,
-		initMaxDateToday,
-		initPageLength,
-		initSelectOption,
-		fadeoutModal, overflowHidden
+	onClickDateRangeBtn,
+	initDayBtn,
+	initSearchDatepicker,
+	initSearchDateRangeMonth,
+	initMaxDateToday,
+	initPageLength,
+	initSelectOption,
+	fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo
 	} from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
@@ -42,6 +42,8 @@
 		//buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch 		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });

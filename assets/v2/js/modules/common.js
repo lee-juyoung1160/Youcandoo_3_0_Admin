@@ -4,7 +4,7 @@
         dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
-    import { numberWithCommas, isOverFileSize } from "./utils.js";
+    import { numberWithCommas, isOverFileSize, appendZero } from "./utils.js";
     import { sweetToast, sweetError } from "./alert.js";
 
     export function historyBack()
@@ -86,7 +86,7 @@
         $(obj).addClass("active");
 
         if ($(obj).hasClass("today"))
-            datePicker.datepicker("setDate", "today");
+            setDateToday();
         else if ($(obj).hasClass("week"))
             initSearchDateRangeWeek();
         else if ($(obj).hasClass("month"))
@@ -95,22 +95,59 @@
             initSearchDateRangeMonths()
     }
 
+    function getDateStr(_date)
+    {
+        const year = _date.getFullYear();
+        const month = (_date.getMonth() + 1);
+        const day = _date.getDate();
+
+        return `${year}-${appendZero(month)}-${appendZero(day)}`;
+    }
+
+    function getTodayStr()
+    {
+        const d = new Date();
+
+        return  getDateStr(d);
+    }
+
+    function getWeekAgoStr()
+    {
+        const d = new Date();
+        d.setDate(d.getDate() - 7);
+        return  getDateStr(d);
+    }
+
+    function getMonthAgoStr()
+    {
+        const d = new Date();
+        d.setMonth(d.getMonth() -1);
+        return  getDateStr(d);
+    }
+
+    function getMonthsAgoStr()
+    {
+        const d = new Date();
+        d.setMonth(d.getMonth() - 3);
+        return  getDateStr(d);
+    }
+
     export function initSearchDateRangeWeek()
     {
-        dateFrom.datepicker("setDate", "-6D");
-        dateTo.datepicker("setDate", "today");
+        dateFrom.val(getWeekAgoStr());
+        dateTo.val(getTodayStr());
     }
 
     export function initSearchDateRangeMonth()
     {
-        dateFrom.datepicker("setDate", "-1M");
-        dateTo.datepicker("setDate", "today");
+        dateFrom.val(getMonthAgoStr());
+        dateTo.val(getTodayStr());
     }
 
     export function initSearchDateRangeMonths()
     {
-        dateFrom.datepicker("setDate", "-3M");
-        dateTo.datepicker("setDate", "today");
+        dateFrom.val(getMonthsAgoStr());
+        dateTo.val(getTodayStr());
     }
 
     export function initInputDateRangeWeek()
@@ -139,7 +176,7 @@
 
     export function setDateToday()
     {
-        datePicker.datepicker("setDate", "today");
+        datePicker.val(getTodayStr());
     }
 
     export function initDayBtn()

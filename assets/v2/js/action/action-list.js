@@ -4,8 +4,18 @@
 	modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
 	chkStatus, dateFrom, dateTo, pagination, actionsWrap} from '../modules/elements.js';
 	import {sweetError,} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday,onClickDateRangeBtn, fadeoutModal, overflowHidden, paginate,
-		initSearchDateRangeWeek} from "../modules/common.js";
+	import {
+	initSelectOption,
+	initPageLength,
+	initSearchDatepicker,
+	initDayBtn,
+	initMaxDateToday,
+	onClickDateRangeBtn,
+	fadeoutModal,
+	overflowHidden,
+	paginate,
+	setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo
+	} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -22,6 +32,8 @@
 		buildActions();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		modalOpen		.on("click", function () { onClickModalWarningOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
@@ -35,7 +47,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeWeek();
+		setDateToday();
 		initSelectOption();
 		chkStatus.eq(0).prop('checked', true);
 		chkStatus.eq(1).prop('checked', false);

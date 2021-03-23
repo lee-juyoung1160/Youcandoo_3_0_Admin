@@ -1,4 +1,12 @@
-    import {chkIsAnswer, chkIsQuestion, doitKeyword, doitKeywords, selCategory, selSubcategory} from "./elements.js";
+    import {
+    chkIsAnswer,
+    chkIsQuestion, dateFrom,
+    datePicker, dateTo,
+    doitKeyword,
+    doitKeywords,
+    selCategory,
+    selSubcategory
+} from "./elements.js";
     import {isEmpty} from "./utils.js";
     import {limitInputLength} from "./common.js";
     import {sweetToast} from "./alert.js";
@@ -169,4 +177,10 @@
     export function removeDoitKeyword(event)
     {
         $(event.target).parents('.keyword-li').remove();
+    }
+
+    export function initSearchDatepickerMaxDateToday()
+    {
+        dateFrom.datepicker("option", "maxDate", "today");
+        dateTo.datepicker("option", "maxDate", "today");
     }

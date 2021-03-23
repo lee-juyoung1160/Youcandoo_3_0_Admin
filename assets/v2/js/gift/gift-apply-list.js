@@ -26,15 +26,15 @@
 	} from '../modules/elements.js';
 	import { sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
-		onClickDateRangeBtn,
-		initDayBtn,
-		initSearchDatepicker,
-		initSearchDateRangeMonth,
-		initMaxDateToday,
-		initPageLength,
-		initSelectOption,
-		fadeoutModal, overflowHidden,
-	} from "../modules/common.js";
+	onClickDateRangeBtn,
+	initDayBtn,
+	initSearchDatepicker,
+	initSearchDateRangeMonth,
+	initMaxDateToday,
+	initPageLength,
+	initSelectOption,
+	fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
+} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -53,6 +53,8 @@
 		//buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch 	.on("click", function () { onSubmitSearch(); });
 		btnReset	.on("click", function () { initSearchForm(); });

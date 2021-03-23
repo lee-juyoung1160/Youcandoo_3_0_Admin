@@ -5,7 +5,7 @@
 	missionListForm,
 	missionUpdateForm,
 	missionTitle,
-	missionStartDate, missionEndDate, rdoActionType, promise
+	missionStartDate, missionEndDate, rdoActionType, promise, dateTo, dateFrom
 	} from "../modules/elements.js";
 
 	export function onClickBtnCreateMission()
@@ -48,7 +48,7 @@
 		missionStartDate.datepicker("option", "minDate", "today");
 		missionEndDate.datepicker("option", "minDate", "today");
 		missionStartDate.datepicker("setDate", "today");
-		missionEndDate.datepicker("setDate", "+6D");
+		missionEndDate.datepicker("setDate", "9999-12-31");
 		rdoActionType.eq(0).prop('checked', true);
 		promise.val('');
 	}
@@ -71,6 +71,16 @@
 	export function deleteMission()
 	{
 
+	}
+
+	export function onChangeMissionStartDate()
+	{
+		missionEndDate.datepicker("option", "minDate", new Date(missionStartDate.datepicker("getDate")));
+	}
+
+	export function onChangeMissionEndDate()
+	{
+		missionStartDate.datepicker("option", "minDate", new Date(missionEndDate.datepicker("getDate")));
 	}
 
 

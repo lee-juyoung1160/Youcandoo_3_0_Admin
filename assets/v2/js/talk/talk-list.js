@@ -1,10 +1,21 @@
 
 	import {headers,} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons,} from '../modules/elements.js';
+	import {
+	body,
+	btnSearch,
+	btnReset,
+	keyword,
+	dataTable,
+	selPageLength,
+	dateButtons,
+		dateFrom, dateTo,
+} from '../modules/elements.js';
 	import {sweetError,} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn,
-		initMaxDateMonths, initSearchDateRangeMonth, onClickDateRangeBtn} from "../modules/common.js";
+	import {
+	initSelectOption, initPageLength, initSearchDatepicker, initDayBtn,
+	initMaxDateMonths, setDateToday, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo
+	} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -20,6 +31,8 @@
 		//buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
@@ -30,7 +43,7 @@
 	{
 		initDayBtn();
 		initMaxDateMonths()
-		initSearchDateRangeMonth();
+		setDateToday();
 		initSelectOption();
 		keyword.val('');
 	}

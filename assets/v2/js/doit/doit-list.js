@@ -6,7 +6,16 @@
 		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory
 	} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
-	import { onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths, initPageLength, initSelectOption } from "../modules/common.js";
+	import {
+	onClickDateRangeBtn,
+	initDayBtn,
+	initSearchDatepicker,
+	initSearchDateRangeMonths,
+	initMaxDateMonths,
+	initPageLength,
+	initSelectOption,
+		onChangeSearchDateFrom, onChangeSearchDateTo
+	} from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
@@ -23,6 +32,8 @@
 		//getCategoryList();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		selSort		.on("change", function () { onSubmitSearch(); });
 		btnSearch 	.on("click", function () { onSubmitSearch(); });

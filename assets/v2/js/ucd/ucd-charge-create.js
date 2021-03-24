@@ -10,7 +10,7 @@
 	keyword,
 	modalClose,
 	modalBackdrop,
-	modalOpen, btnXlsxImport, updateTable, price,
+	modalOpen, btnXlsxImport, updateTable, btnXlsxExport,
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile} from "../modules/common.js";
@@ -18,7 +18,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {readExcelData} from "../modules/export-excel.js";
+	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
 	let selectedUsers = [];
 
 	$( () => {
@@ -31,6 +31,7 @@
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
 		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
 	});
 
 	function onClickModalOpen(obj)

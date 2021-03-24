@@ -1,3 +1,4 @@
+	import {isEmpty} from "./utils.js";
 
 	let excelHandler = {
 		fileName : "sample.xlsx",
@@ -46,4 +47,20 @@
 			callback(callbackArgs);
 		};
 		reader.readAsArrayBuffer(obj.files[0]);
+	}
+
+	export function onClickImportMemberFormExport()
+	{
+		const data = [
+			{ "PID" : "", "" : "<<<---여기부터"},
+			{ "PID" : "", "" : "PID(프로필아이디)를" },
+			{ "PID" : "", "" : "이런 방식으로(줄을 바꿔가며)" },
+			{ "PID" : "", "" : "채우면 됩니다." },
+			{ "PID" : "", "" : "아!" },
+			{ "PID" : "", "" : "물론," },
+			{ "PID" : "", "" : "첫행부터 채워도" },
+			{ "PID" : "", "" : "괜찮아요." }
+		];
+
+		setExcelData("회원일괄등록양식", "회원목록", data);
 	}

@@ -1,11 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-		lengthInput,
-		categoryTitle,
-		categoryIcon,
-		btnSubmit, } from  '../modules/elements.js';
+	import {lengthInput, categoryTitle, categoryIcon, btnSubmit,} from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength } from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
@@ -29,8 +25,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApiV2.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', categoryIcon[0].files[0]);
 
@@ -41,9 +37,9 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= api.createCategory;
-			let errMsg 	= label.submit+message.ajaxError;
-			let param = {
+			const url = api.createCategory;
+			const errMsg = label.submit+message.ajaxError;
+			const param = {
 				"title" : categoryTitle.val(),
 				"icon_image_url" : data.image_urls.file,
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),

@@ -1,15 +1,8 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {
-	categoryTitle,
-	categoryIcon,
-	isEstablish,
-	isExposure,
-	btnBack, btnList, btnUpdate, btnSubmit,
-	modalOpen, modalClose, modalBackdrop,
-	dataTable, subCategoryTitle, lengthInput,
-} from '../modules/elements.js';
+	import { categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
+		modalOpen, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, } from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, limitInputLength, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -64,7 +57,7 @@
 	let g_category_uuid;
 	function buildDetail(data)
 	{
-		let { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
+		const { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
 
 		categoryTitle.text(category_title);
 		categoryIcon.attr('src', icon_image_url);

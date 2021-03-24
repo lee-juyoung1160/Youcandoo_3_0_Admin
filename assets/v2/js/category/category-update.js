@@ -1,22 +1,9 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-		categoryTitle,
-		categoryIcon,
-		thumbnail,
-		rdoEstablish,
-		rdoExposure,
-		btnSubmit,
-		dataTable, lengthInput,
-	} from '../modules/elements.js';
+	import {categoryTitle, categoryIcon, thumbnail, rdoEstablish, rdoExposure, btnSubmit, dataTable, lengthInput,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {
-	limitInputLength,
-	calculateInputLength,
-	onChangeValidateImage,
-	onErrorImage,
-	} from "../modules/common.js";
+	import {limitInputLength, calculateInputLength, onChangeValidateImage, onErrorImage,} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -57,7 +44,7 @@
 	let g_category_uuid;
 	function buildDetail(data)
 	{
-		let { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
+		const { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
 
 		categoryTitle.val(category_title);
 		thumbnail.attr('src', icon_image_url);
@@ -82,7 +69,7 @@
 	{
 		const url = api.subCategoryList;
 		const errMsg = label.list + message.ajaxLoadError
-		let param = {
+		const param = {
 			"category_uuid" : g_category_uuid
 		}
 
@@ -194,7 +181,7 @@
 		const subUuids = getRowsId();
 		if (subUuids.length > 0)
 		{
-			const url 	= api.reorderSubCategory;
+			const url = api.reorderSubCategory;
 			const errMsg = `세부 카테고리 정렬 ${message.ajaxError}`;
 			const param = {
 				"category_uuid" : g_category_uuid,

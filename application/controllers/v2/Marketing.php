@@ -12,6 +12,9 @@ class Marketing extends MY_Controller {
             case "create" :
                 $this->load->template('v2/marketing/banner-create');
                 break;
+            case "update" :
+                $this->load->template('v2/marketing/banner-update');
+                break;
         }
     }
 

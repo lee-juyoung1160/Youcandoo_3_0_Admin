@@ -266,6 +266,7 @@
     export const targetUuid = $("#bannerUuid");
     export const bannerImage = $("#bannerImage");
     export const historyTable = $("#historyTable");
+    export const modalBannerImage = $("#modalBannerImage");
 
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");

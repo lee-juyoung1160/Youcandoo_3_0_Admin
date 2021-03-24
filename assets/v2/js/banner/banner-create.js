@@ -2,7 +2,7 @@
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import { targetUrl, btnSubmit, bannerImage, bannerTitle, dateFrom, dateTo, rdoTargetPageType,
-		targetPage, keyword, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid,} from '../modules/elements.js';
+		targetPage, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
 	initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom, onChangeSearchDateTo, fadeoutModal, fadeinModal,
@@ -51,8 +51,11 @@
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
 			const param = {
-				"banner_title" : bannerTitle.val(),
-				"icon_image_url" : data.image_urls.file,
+				"banner_name" : bannerTitle.val(),
+				"banner_type" : $("input[name=radio-target-page-type]:checked").val(),
+				"open_date" : dateFrom.val(),
+				"close_date" : dateTo.val(),
+				"banner_image_url" : data.image_urls.file
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -87,7 +90,7 @@
 			return false;
 		}
 
-		if (isEmpty(targetUrl.val()))
+		/*if (isEmpty(targetUrl.val()))
 		{
 			sweetToast(`이동 페이지 URL은 ${message.required}`);
 			targetUrl.trigger('focus');
@@ -99,7 +102,7 @@
 			sweetToast(`이동 페이지 URL 형식을 ${message.doubleChk}`);
 			targetUrl.trigger('focus');
 			return false;
-		}
+		}*/
 
 		return true;
 	}

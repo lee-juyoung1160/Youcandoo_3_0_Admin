@@ -7,6 +7,7 @@
 	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
 	import { initTableDefaultConfig,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
+	import {page} from "../modules/page-url.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
 
@@ -82,9 +83,14 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",    data: "banner_uuid",  		width: "45%",
+				,{title: "이동 페이지",    data: "banner_uuid",  		width: "35%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data.toString();
+					}
+				}
+				,{title: "이동 페이지",    data: "banner_uuid",  		width: "10%",
+					render: function (data, type, row, meta) {
+						return `<button type="button" class="btn-xs btn-teal btn-update" id="${row.idx}">수정</button>`;
 					}
 				}
 			],
@@ -94,6 +100,8 @@
 			destroy: true,
 			initComplete: function () {
 				addViewDetailEvent();
+
+				$(".btn-update").on('click', function () { location.href = page.updateBanner + this.id });
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

@@ -124,7 +124,7 @@
                                         </label>
                                         <input type="file" id="btnXlsxImport" class="upload-hidden" accept=".xlsx">
                                     </div>
-                                    <button type="button" class="btn-sm btn-outline-success"><i class="fas fa-file-excel"></i> 양식 다운로드</button>
+                                    <button id="btnXlsxExport" type="button" class="btn-sm btn-outline-success"><i class="fas fa-file-excel"></i> 양식 다운로드</button>
                                 </div>
                                 <div class="result-box">
                                     <div class="table-wrap">
@@ -277,4 +277,5 @@
     </div>
 
 </section>
+<script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
 <script type="module" src="/assets/v2/js/push/push-create.js?version=<?php echo $this->config->item('version');?>"></script>

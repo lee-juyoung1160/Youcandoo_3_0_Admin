@@ -15,7 +15,7 @@
 	targetPage,
 	modalTargetPage,
 	rdoReserveType,
-	rdoTargetMemberType, rdoTargetPageType, reserveTime
+	rdoTargetMemberType, rdoTargetPageType, reserveTime, btnXlsxExport
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
@@ -29,6 +29,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	import {onClickImportMemberFormExport} from "../modules/export-excel.js";
 
 	$( () => {
 		initInputDatepickerMinDateToday();
@@ -43,6 +44,7 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnSubmit		.on('click', function () { onSubmitPush(); });
+		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
 	});
 
 	function onClickModalTargetMemberOpen()
@@ -144,4 +146,3 @@
 
 		return true;
 	}
-

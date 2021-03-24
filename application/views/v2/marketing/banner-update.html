@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="/assets/v2/css/marketing.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page banner-create">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">배너 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>배너명 *</th>
+                        <td>
+                            <input id="bannerTitle" type="text" class="length-input" placeholder="배너명을 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input  id="r7" type="radio" name="radio-target-page-type" value="event" checked>
+                                <label for="r7"><span></span>이벤트</label>
+
+                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
+                                <label for="r8"><span></span>두잇</label>
+
+                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
+                                <label for="r6"><span></span>공지</label>
+
+                                <input id="r5" type="radio" name="radio-target-page-type" value="webview">
+                                <label for="r5"><span></span>웹뷰</label>
+                            </div>
+
+                            <div class="result-wrap">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 이동할 페이지를 선택해주세요." readonly>
+                            </div>
+                            <div class="result-wrap" style="display: none;">
+                                <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 기간 *</th>
+                        <td>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>배너 이미지 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 720 x 936 )</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="bannerImage">업로드</label>
+                                <input type="file" id="bannerImage" class="upload-hidden" data-width="720" data-height="936" data-oper="eq">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="" alt="">
+                            </div>-->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <!-- 도착페이지 검색 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>도착페이지 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 80%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>제목</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>결과발표</td>
+                            <td>세리박스</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+</section>
+<script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
+

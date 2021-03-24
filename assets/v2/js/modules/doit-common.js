@@ -1,14 +1,7 @@
-    import {
-    chkIsAnswer,
-    chkIsQuestion, dateFrom,
-    datePicker, dateTo,
-    doitKeyword,
-    doitKeywords,
-    selCategory,
-    selSubcategory
-} from "./elements.js";
+    import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,
+        modalAttachDetail, modalBackdrop, selCategory, selSubcategory} from "./elements.js";
     import {isEmpty} from "./utils.js";
-    import {limitInputLength} from "./common.js";
+    import {limitInputLength, overflowHidden} from "./common.js";
     import {sweetToast} from "./alert.js";
     import {message} from "./message.js";
     import {api} from "./api-url.js";
@@ -18,7 +11,7 @@
     export function getCategoryList()
     {
         const url = api.categoryList;
-        const errMsg = `카테고리 ${label.list} ${message.ajaxLoadError}`
+        const errMsg = `카테고리 ${label.list} ${message.ajaxLoadError}`;
         const param = { "keyword" : "" };
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);
@@ -183,4 +176,11 @@
     {
         dateFrom.datepicker("option", "maxDate", "today");
         dateTo.datepicker("option", "maxDate", "today");
+    }
+
+    export function onClickModalAttachDetailOpen()
+    {
+        modalAttachDetail.fadeIn();
+        modalBackdrop.fadeIn();
+        overflowHidden();
     }

@@ -74,7 +74,7 @@
 
 	function setHistoryForm()
 	{
-		let historyParams = getHistoryParam();
+		const historyParams = getHistoryParam();
 
 		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
@@ -263,7 +263,7 @@
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
+		const uuids = getRowsId();
 		if (uuids.length === 0)
 		{
 			sweetToast("상단 공지가 없습니다.");

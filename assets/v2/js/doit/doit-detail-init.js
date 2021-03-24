@@ -78,7 +78,7 @@
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
-	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday} from "../modules/doit-common.js"
+	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
 	import {
 	getMissionList,
 	onClickBtnCreateMission,
@@ -177,6 +177,7 @@
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
+		$(".talk-file-img").on('click', function () {onClickModalAttachDetailOpen();})
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });

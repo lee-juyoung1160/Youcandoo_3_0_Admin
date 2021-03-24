@@ -250,7 +250,7 @@
     export const updateTalkImage = $("#updateTalkImage");
     export const updateChkNoticeTalk = $("input[name=update-chk-notice-talk]");
     export const btnSubmitUpdateTalk = $("#btnSubmitUpdateTalk");
-
+    export const modalAttachDetail = $("#modalAttachDetail");
 
     /** 비즈 **/
     export const doitTable = $("#doitTable");

@@ -133,7 +133,7 @@
 	{
 		const table = dataTable.DataTable();
 		const tableData = table.rows().data();
-		let data = tableData.length > 0 ? tableData : [];
+		const data = tableData.length > 0 ? tableData : [];
 
 		updateTable.DataTable({
 			data: data,

@@ -1,13 +1,10 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-	dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail,
-	} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
-	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
-	import { setHistoryParam } from "../modules/history.js";
+	import { dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail,} from '../modules/elements.js';
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
+	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
+	import { initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -17,6 +14,7 @@
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
 		//getBannerList();
+		//buildLastBannerTable();
 		/** 이벤트 **/
 		$(".banner-img-wrap")		.on("click", function () { onClickModalDetailOpen(); });
 		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
@@ -48,9 +46,6 @@
 		const url = api.bannerList;
 		const errMsg = label.list + message.ajaxLoadError
 
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam(param);
-
 		ajaxRequestWithJsonData(true, url, null, getCategoryListCallback, errMsg, false);
 	}
 
@@ -60,21 +55,20 @@
 		{
 			data.recordsTotal = data.count;
 			data.recordsFiltered = data.count;
-			buildGrid(data);
-			buildUpdateGrid(data);
+			buildTable(data);
 		}
 		else
 			sweetToast(data.msg);
 	}
 
-	function buildGrid(data)
+	function buildTable(data)
 	{
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
 				{title: "이미지",    		data: "icon_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
+						return `<div class="list-img-wrap banner-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
 				,{title: "배너명", 		data: "banner_title",		width: "25%" }
@@ -86,6 +80,7 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
+				addViewDetailEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -96,8 +91,21 @@
 		});
 	}
 
-	function buildUpdateGrid(data)
+	function onClickModalUpdateOpen()
 	{
+		g_delete_uuids.length = 0;
+		modalUpdate.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		//buildUpdateTable();
+	}
+
+	function buildUpdateTable()
+	{
+		const table = dataTable.DataTable();
+		const tableData = table.rows().data();
+		const data = tableData.length > 0 ? tableData : [];
+
 		updateTable.DataTable({
 			data: data.data,
 			columns: [
@@ -135,19 +143,6 @@
 	function addDeleteEvent()
 	{
 		$(".delete-btn").on('click', function () { deleteRow(this); })
-	}
-
-	function onClickModalDetailOpen()
-	{
-		modalDetail.fadeIn();
-		modalBackdrop.fadeIn();
-	}
-
-	function onClickModalUpdateOpen()
-	{
-		g_delete_uuids.length = 0;
-		modalUpdate.fadeIn();
-		modalBackdrop.fadeIn();
 	}
 
 	let g_delete_uuids = [];
@@ -228,4 +223,61 @@
 		}
 
 		return uuids;
+	}
+
+	function buildLastBannerTable()
+	{
+		dataTable.DataTable({
+			ajax : {
+				url: api.lastBannerList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					return tableParams();
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "이미지",    		data: "icon_image_url",  	width: "15%",
+					render: function (data, type, row, meta) {
+						return `<div class="list-img-wrap banner-img-wrap"><img src="${data}" alt=""></div>`;
+					}
+				}
+				,{title: "배너명", 		data: "banner_title",		width: "25%" }
+				,{title: "노출기간",    	data: "created",  			width: "15%" }
+				,{title: "이동 페이지",    data: "is_exposure",  		width: "45%" }
+			],
+			serverSide: true,
+			paging: false,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				addViewDetailEvent();
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+			}
+		});
+	}
+
+	function addViewDetailEvent()
+	{
+		$(".banner-img-wrap").on('click', function () { onClickModalDetailOpen(this); });
+	}
+
+	function onClickModalDetailOpen(obj)
+	{
+		modalDetail.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}

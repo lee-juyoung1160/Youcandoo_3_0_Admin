@@ -89,7 +89,6 @@
 		$(".biz-row").on('click', function () { onSelectSponsor(this); })
 	}
 
-
 	function onSelectSponsor(obj)
 	{
 		sponsorUuid.val($(obj).data('uuid'));

@@ -67,6 +67,9 @@
         createBanner : baseApiUrl + 'banner/create',
         deleteBanner : baseApiUrl + 'banner/delete',
         reorderBanner : baseApiUrl + 'banner/update/sequence',
+        targetEventList : baseApiUrl + '',
+        targetDoitList : baseApiUrl + '',
+        targetNoticeList : baseApiUrl + '',
 
         eventList : baseApiUrl + 'event/list',
         createEvent : baseApiUrl + 'event/create',

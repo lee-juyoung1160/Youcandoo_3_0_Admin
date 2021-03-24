@@ -1,23 +1,12 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-	targetUrl,
-	btnSubmit,
-	bannerImage,
-	bannerTitle,
-	dateFrom,
-	dateTo,
-	rdoTargetPageType, targetPage, modalOpen, modalClose, modalBackdrop,
-} from '../modules/elements.js';
+	import { targetUrl, btnSubmit, bannerImage, bannerTitle, dateFrom, dateTo, rdoTargetPageType,
+		targetPage, keyword, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
-	initMinDateToday,
-	initInputDateRangeWeek,
-	initSearchDatepicker,
-	onChangeValidateImage,
-	onChangeSearchDateFrom, onChangeSearchDateTo, fadeoutModal, fadeinModal
-} from "../modules/common.js";
+	initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom, onChangeSearchDateTo, fadeoutModal, fadeinModal,
+		} from "../modules/common.js";
 	import {isEmpty, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -47,8 +36,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApiV2.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', bannerImage[0].files[0]);
 
@@ -59,12 +48,11 @@
 	{
 		if (isSuccessResp(data))
 		{
-			let url 	= api.createBanner;
-			let errMsg 	= label.submit+message.ajaxError;
-			let { file } = data.image_urls;
-			let param = {
+			const url = api.createBanner;
+			const errMsg = label.submit+message.ajaxError;
+			const param = {
 				"banner_title" : bannerTitle.val(),
-				"icon_image_url" : '',
+				"icon_image_url" : data.image_urls.file,
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -140,6 +128,103 @@
 	function onClickModalOpen()
 	{
 		fadeinModal();
+		// getTargetPageList();
+	}
+
+	function getTargetPageList()
+	{
+		const url = getApiUrl();
+		const errMsg = label.list + message.ajaxLoadError
+
+		ajaxRequestWithJsonData(true, url, null, getCategoryListCallback, errMsg, false);
+	}
+
+	function getCategoryListCallback(data)
+	{
+		isSuccessResp(data) ? buildTable(data) : sweetToast(data.msg);
+	}
+
+	function buildTable(data)
+	{
+		dataTable.empty();
+		dataTable.DataTable({
+			data: data.data,
+			columns: buildTableColumns(),
+			serverSide: false,
+			paging: true,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				addClickEvent();
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			}
+		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		let uuid;
+		let name;
+		switch (targetPageType) {
+			case 'event' :
+				uuid = aData.event_uuid;
+				name = aData.event_title;
+				break;
+			case 'doit' :
+				uuid = aData.doit_uuid;
+				name = aData.doit_title;
+				break;
+			case 'notice' :
+				uuid = aData.notice_uuid;
+				name = aData.notice_title;
+				break;
+		}
+		$(nRow).attr('data-uuid', uuid);
+		$(nRow).attr('data-name', name);
+		$(nRow).addClass('target-page-row');
+	}
+
+	function addClickEvent()
+	{
+		$(".target-page-row").on('click', function () { onSelectTargetPage(this); })
+	}
+
+	function onSelectTargetPage(obj)
+	{
+		targetPage.val($(obj).data('name'));
+		targetUuid.val($(obj).data('uuid'));
+		fadeoutModal();
+	}
+
+	function buildTableColumns()
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		switch (targetPageType) {
+			case 'event' :
+				return [{title: "구분",		data: "event_name",    	width: "20%"}
+						,{title: "제목",		data: "title",    	   	width: "40%"}]
+			case 'doit' :
+				return [{title: "진행상태",	data: "doit_status",   	width: "20%"}
+						,{title: "두잇명",	data: "doit_title",    	width: "80%"}]
+			case 'notice' :
+				return [{title: "제목",		data: "notice_title",   width: "100%"}]
+		}
+	}
+
+	function getApiUrl()
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		switch (targetPageType) {
+			case 'event' :
+				return api.targetEventList
+			case 'doit' :
+				return api.targetDoitList
+			case 'notice' :
+				return api.targetNoticeList
+		}
 	}
 
 	function showTargetPage()
@@ -159,6 +244,7 @@
 	function initTargetInput()
 	{
 		targetPage.val('');
+		targetUuid.val('');
 		targetUrl.val('');
 	}
 

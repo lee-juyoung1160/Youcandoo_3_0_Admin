@@ -262,8 +262,8 @@
 
     /** 배너 **/
     export const bannerTitle = $("#bannerTitle");
-    export const selTargetType = $("#selTargetType");
     export const targetUrl = $("#targetUrl");
+    export const targetUuid = $("#bannerUuid");
     export const bannerImage = $("#bannerImage");
     export const historyTable = $("#historyTable");
 

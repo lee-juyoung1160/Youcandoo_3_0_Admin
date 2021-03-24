@@ -39,6 +39,7 @@
 
                             <div class="result-wrap">
                                 <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 이동할 페이지를 선택해주세요." readonly>
+                                <input id="targetUuid" type="hidden">
                             </div>
                             <div class="result-wrap" style="display: none;">
                                 <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
@@ -81,13 +82,13 @@
         <!-- 도착페이지 검색 -->
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h5>도착페이지 검색</h5>
+                <h5>이동할 페이지 검색</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="card clearfix">
                     <div class="search-txt-wrap">
-                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="이동할 페이지를 입력해주세요.">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>

@@ -302,11 +302,9 @@ input.input-copy {
 }
 .file-wrap label {
 	display: inline-block;
-	padding: 8px 10px;
+	padding: 10px 10px 11px;
 	color: #777;
 	font-size: 14px;
-	line-height: normal;
-	vertical-align: middle;
 	background-color: #eff3f9;
 	cursor: pointer;
 	border-radius: 5px;
@@ -374,10 +372,10 @@ input.input-copy {
 button {
 	display: inline-flex;
 	color: #777;
-	align-items: center;
 	font-weight: 400;
-	text-align: center;
+	align-items: center;
 	vertical-align: middle;
+	text-align: center;
 	background-color: #eff3f9;
 	border: 1px solid transparent;
 	border-radius: 5px;

@@ -19,6 +19,7 @@
         ,updateCategory : rootContext + 'doit/category/update/'
 
         ,listPick : rootContext + 'doit/pick'
+        ,updatePick : rootContext + 'doit/pick/update/'
 
         ,listNotice : rootContext + 'service/notice'
         ,detailNotice : rootContext + 'service/notice/detail/'

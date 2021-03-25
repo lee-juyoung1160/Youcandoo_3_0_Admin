@@ -1,12 +1,12 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import { dataTable, updateTable, btnUpdate, previewTitle, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
+	import { previewTable, dataTable, updateTable, btnUpdate, previewTitle, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
-	import { setHistoryParam } from "../modules/history.js";
 	import { label } from "../modules/label.js";
+	import { page } from "../modules/page-url.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
 
@@ -14,7 +14,7 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		//getDoitPickList();
+		getPickList();
 		/** 이벤트 **/
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -40,67 +40,63 @@
 		return $(el);
 	}
 
-	function getDoitPickList()
+	function getPickList()
 	{
 		const url = api.pickList;
 		const errMsg = label.list + message.ajaxLoadError
 
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam(param);
-
-		ajaxRequestWithJsonData(true, url, null, getCategoryListCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, null, getPickListCallback, errMsg, false);
 	}
 
-	function getCategoryListCallback(data)
+	function getPickListCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
 			data.recordsTotal = data.count;
 			data.recordsFiltered = data.count;
-			buildGrid(data);
-			buildUpdateGrid(data);
+			buildTable(data);
 		}
 		else
 			sweetToast(data.msg);
 	}
 
-	function buildGrid(data)
+	function buildTable(data)
 	{
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "큐레이션 명", 	data: "banner_title",	width: "70%",
-					render: function (data) {
+				{title: "큐레이션 명", 	data: "recommend_title",	width: "70%",
+					render: function (data, type, row, meta) {
 						return `<a class="view-preview" data-uuid="${row.recommend_uuid}">${data}</a>`
 					}
 				}
-				,{title: "노출여부",    	data: "is_exposure",  	width: "20%" }
-				,{title: "수정",    		data: "idx",  			width: "10%",
+				,{title: "노출여부",    	data: "is_exposure",  		width: "20%" }
+				,{title: "수정",    		data: "recommend_uuid",  	width: "10%",
 					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-teal">수정</button>`;
+						return `<button type="button" class="btn-xs btn-teal btn-update-pick" data-idx="${row.idx}">수정</button>`;
 					}
 				}
 			],
 			serverSide: false,
 			paging: false,
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			destroy: true,
 			initComplete: function () {
 				addPreviewEvent();
 			},
 			fnRowCallback: function( nRow, aData, dataIndex ) {
-
+				/** 페이지 진입 후 미리보기 초기화(첫번째 row 미리보기 가져옴) **/
 				if (dataIndex === 0)
 				{
 					let table = dataTable.DataTable();
 					table.row(dataIndex).select();
 					viewPreview($(nRow).children().eq(0).children());
 				}
-
-				$(nRow).attr('data-uuid', aData.recommend_uuid);
 			},
 			drawCallback: function (settings) {
-				onErrorImage();
 				buildTotalCount(this);
 			}
 		});
@@ -109,6 +105,7 @@
 	function addPreviewEvent()
 	{
 		$(".view-preview").on('click', function () { viewPreview(this); })
+		$(".btn-update-pick").on('click', function () { location.href = page.updatePick + $(this).data('idx'); })
 	}
 
 	function viewPreview(obj)
@@ -119,29 +116,49 @@
 
 	function getPreviewList(uuid)
 	{
-		let url 	= api.listDoitRecommended;
-		let errMsg 	= label.list + message.ajaxLoadError;
-		let param 	= { "recommend_uuid" : uuid };
+		const url = api.previewList;
+		const errMsg = label.list + message.ajaxLoadError;
+		const param = { "recommend_uuid" : uuid };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildPreview, errMsg, false);
 	}
 
 	function buildPreview(data)
 	{
-		`<tr>
-			<td>
-				<div class="list-img-wrap banner-img-wrap">
-					<img src="/assets/v2/img/profile-1.png" alt="">
-				</div>
-			</td>
-			<td class="txt-left">
-				<p class="title">두잇 제에모모모모목두잇 제에모모모모목두잇 제에모모모모목</p>
-				<ul class="tag-list clearfix">
-					<li># <span>필라테스가젤조아</span></li>
-				</ul>
-				<p class="desc-sub"><i class="fas fa-user"></i> 열심히사는강아지 / 1110 참여 / <span class="badge badge-success">진행중</span></p>
-			</td>
-		</tr>`
+		if (data.data.length > 0)
+		{
+			let previewEl = '';
+			data.data.map(obj => {
+				const {doit_title, doit_keyword, profile_nickname, member_count, doit_image_url} = obj;
+				let keywordsEl = '';
+				if (doit_keyword.length > 0)
+				{
+					doit_keyword.map(value => {
+						keywordsEl += `<li># <span>${value}</span></li>`;
+					})
+				}
+				previewEl +=
+					`<tr>
+					<td>
+						<div class="list-img-wrap banner-img-wrap">
+							<img src="${doit_image_url}" alt="">
+						</div>
+					</td>
+					<td class="txt-left">
+						<p class="title">${doit_title}</p>
+						<ul class="tag-list clearfix">
+							${keywordsEl}
+						</ul>
+						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
+					</td>
+				</tr>`
+			})
+
+			let previewTableBody = previewTable.find('tbody');
+			previewTableBody.html(previewEl);
+
+			onErrorImage();
+		}
 	}
 
 	function buildUpdateGrid(data)

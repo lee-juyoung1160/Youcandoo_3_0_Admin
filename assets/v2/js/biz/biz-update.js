@@ -41,7 +41,7 @@
 	let g_company_uuid;
 	function buildDetail(data)
 	{
-		let { company_uuid, company_number, profile_image_url, nickname, site_url, description } = data.data;
+		const { company_uuid, company_number, profile_image_url, nickname, site_url, description } = data.data;
 
 		g_company_uuid = company_uuid;
 

@@ -31,6 +31,7 @@
         ,updateInquiry : rootContext + 'service/inquiry/update/'
 
         ,listBanner : rootContext + 'marketing/banner'
+        ,detailBanner : rootContext + 'marketing/banner/detail/'
         ,updateBanner : rootContext + 'marketing/banner/update/'
         ,listEvent : rootContext + 'marketing/event'
         ,detailEvent : rootContext + 'marketing/event/detail/'

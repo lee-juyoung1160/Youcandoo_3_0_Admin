@@ -64,9 +64,9 @@
                                 <label for="bannerImage">업로드</label>
                                 <input type="file" id="bannerImage" class="upload-hidden" data-width="720" data-height="936" data-oper="eq">
                             </div>
-                            <!--<div class="detail-img-wrap">
-                                <img src="" alt="">
-                            </div>-->
+                            <div class="detail-img-wrap">
+                                <img src="" alt="" id="thumbnail">
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -81,13 +81,13 @@
         <!-- 도착페이지 검색 -->
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h5>도착페이지 검색</h5>
+                <h5>이동할 페이지 검색</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="card clearfix">
                     <div class="search-txt-wrap">
-                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="이동할 페이지를 입력해주세요.">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
@@ -117,5 +117,5 @@
         <div class="modal-bg"></div>
     </div>
 </section>
-<script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer type="module" src="/assets/v2/js/banner/banner-update.js?version=<?php echo $this->config->item('version');?>"></script>
 

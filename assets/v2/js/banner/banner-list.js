@@ -73,7 +73,7 @@
 				{title: "이미지",    		data: "banner_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = $.inArray(data, imageTypes) >= 0 ? data : '';
+						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
@@ -88,7 +88,7 @@
 						return isEmpty(data) ? label.dash : data.toString();
 					}
 				}
-				,{title: "이동 페이지",    data: "banner_uuid",  		width: "10%",
+				,{title: "수정",    data: "banner_uuid",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-teal btn-update" id="${row.idx}">수정</button>`;
 					}
@@ -272,7 +272,7 @@
 				{title: "이미지",    		data: "banner_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = $.inArray(data, imageTypes) >= 0 ? data : '';
+						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}

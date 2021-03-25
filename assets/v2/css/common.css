@@ -769,7 +769,9 @@ table {
 	background-color: #f9f9f9;
 }
 .table-wrap table tbody tr.tr-waiting,
-.table-wrap table tbody ttr:nth-child(even).tr-waiting{
+.table-wrap table tbody ttr:nth-child(even).tr-waiting,
+.table-wrap table tbody tr.selected,
+.table-wrap table tbody ttr:nth-child(even).selected {
 	background-color: #e1ccf4;
 }
 .table-wrap table tbody tr:hover,

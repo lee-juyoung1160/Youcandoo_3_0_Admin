@@ -30,16 +30,15 @@
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
 
-        searchDoitList : baseApiUrl + '/doit/pick',
-        pickedDoitList : baseApiUrl + '/doit/pick',
+        pickList : baseApiUrl + 'pick',
+        createPick : baseApiUrl + 'recommend/create',
+        searchDoitList : baseApiUrl + 'recommend/get/doit/list',
+        pickedDoitList : baseApiUrl + 'recommend/get/doit',
 
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
-
-        pickList : baseApiUrl + 'pick',
-        createPick : baseApiUrl + 'pick/create',
 
         noticeList : baseApiUrl + 'notice/list',
         createNotice : baseApiUrl + 'notice/create',

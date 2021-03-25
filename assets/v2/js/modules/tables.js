@@ -83,3 +83,17 @@
     {
         return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`;
     }
+
+    export function singleCheckBoxDom(idx)
+    {
+        return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`
+    }
+
+    export function toggleSingleCheckBox(obj)
+    {
+        const tableEl = $(obj).closest('table');
+        const chkBoxes = $(tableEl).find('input:checkbox');
+
+        $(chkBoxes).prop('checked', false);
+        $(obj).prop('checked', true);
+    }

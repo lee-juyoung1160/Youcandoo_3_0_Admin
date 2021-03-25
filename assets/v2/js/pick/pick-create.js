@@ -1,23 +1,25 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
+	import { ajaxRequestWithJsonData, headers } from '../modules/request.js'
 	import {api} from '../modules/api-url.js';
-	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,
-	} from '../modules/elements.js';
+	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { limitInputLength } from "../modules/common.js";
+	import { limitInputLength, onErrorImage} from "../modules/common.js";
 	import {isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {initTableDefaultConfig, multiCheckBoxDom, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
+	import {initTableDefaultConfig, singleCheckBoxDom, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 
 	let g_added_doit = [];
+
 	$( () => {
 		curationTitle.trigger('focus');
 		/** dataTable default config **/
 		initTableDefaultConfig();
+		/** 테이블 drag and drop 정렬 초기화 **/
+		initSortTable();
 		/** 두잇목록 **/
-		//buildDoitList();
+		buildDoitList();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		keyword    	.on("keyup", function () { onSubmitSearch(); });
@@ -38,15 +40,21 @@
 				type:"POST",
 				global: false,
 				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
-					const table = doitTable.DataTable();
+					const table = dataTable.DataTable();
 					const info 	= table.page.info();
 					const _page = (info.start / info.length) + 1;
 					const param = {
 						"page" : _page
 						,"limit" : info.length
-						,"doit_title" : keyword.val()
-						,"recommend_uuid" : ""
+						,"keyword" : keyword.val()
 					}
 
 					return JSON.stringify(param);
@@ -56,23 +64,19 @@
 				}
 			},
 			columns: [
-				{title: "", 	data: "doit_uuid",   	width: "5px",
+				{title: "", 	data: "doit_uuid",   		width: "5%",
 					render: function (data, type, row, meta) {
-						return multiCheckBoxDom(meta.row);
+						return singleCheckBoxDom(meta.row);
 					}
 				},
-				{title: "",		data: "doit_uuid",		width: "60px",
+				{title: "",		data: "doit_image_url",		width: "20%",
 					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap doit-img-wrap"><img src="/assets/v2/img/profile-1.png" alt=""></div>`;
+						return `<div class="list-img-wrap doit-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "", 	data: "doit_uuid",
+				,{title: "", 	data: "doit_uuid",			width: "75%",
 					render: function (data, type, row, meta) {
-						return `<p class="title">두잇 제에모모모모목두잇 제에모모모모목두잇 제에모모모모목</p>
-								<ul class="tag-list clearfix"><li># <span>필라테스가젤조아</span></li></ul>
-								<p class="desc-sub"><i class="fas fa-user">
-									</i> 열심히사는강아지 / 1110 참여 / <span class="badge badge-info">대기중</span>
-								</p>`
+						return buildDoitInfo(row);
 					}
 				}
 			],
@@ -80,12 +84,12 @@
 			paging: true,
 			pageLength: 5,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			destroy: true,
 			initComplete: function () {
-				addCheckboxClickEvent();
+				addSelectEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
@@ -100,57 +104,73 @@
 		});
 	}
 
-	function addCheckboxClickEvent()
+	function buildDoitInfo(data)
 	{
-		$("input[name=chk-row]").on('click', function () { onClickCheckBox(); })
-	}
-
-	function onClickCheckBox()
-	{
-		if (addValidation())
+		const {doit_title, doit_keyword, profile_nickname, member_count} = data;
+		let keywordsEl = '';
+		if (doit_keyword.length > 0)
 		{
-			addDoit();
-			initAddedDoitUuid();
-			tableReloadAndStayCurrentPage(dataTable);
-			/** 테이블 drag and drop 정렬 초기화 **/
-			updateTable.find('tbody').sortable("destroy");
-			initSortTable();
-			onErrorImage();
+			doit_keyword.map(value => {
+				keywordsEl += `<li># <span>${value}</span></li>`;
+			})
 		}
+		return `<p class="title">${doit_title}</p>
+				<ul class="tag-list clearfix">${keywordsEl}</ul>
+				<p class="desc-sub"><i class="fas fa-user">
+					</i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span>
+				</p>`
 	}
 
-	function addDoit()
+	function addSelectEvent()
 	{
-		const table = dataTable.DataTable();
-		const selectedData = table.rows('.selected').data();
-		let rowEl = '';
+		const chkBoxes = $("input[name=chk-row]");
+		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
+		dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
+	}
 
-		selectedData.map(obj => {
-			let {doit_uuid, doit_keyword} = obj;
+	function onClickCheckBox(dt, indexes)
+	{
+		addDoit(dt, indexes);
+		initAddedDoitUuid();
+		tableReloadAndStayCurrentPage(dataTable);
+		/** 테이블 drag and drop 정렬 초기화 **/
+		updateTable.find('tbody').sortable("destroy");
+		initSortTable();
+		onErrorImage();
+	}
 
-			doit_keyword.map(value => `<li># <span>${value}</span></li>`);
+	function addDoit(dt, indexes)
+	{
+		const selectedData = dt.rows(indexes).data()[0];
+		const {doit_uuid, doit_title, doit_keyword, profile_nickname, member_count, doit_image_url} = selectedData;
+		let keywordsEl = '';
+		if (doit_keyword.length > 0)
+		{
+			doit_keyword.map(value => {
+				keywordsEl += `<li># <span>${value}</span></li>`;
+			})
+		}
 
-			rowEl +=
+		const rowEl =
 				`<tr id="${doit_uuid}">
 					<td>
 						<div class="list-img-wrap doit-img-wrap">
-							<img src="/assets/v2/img/profile-1.png" alt="">
+							<img src="${doit_image_url}" alt="">
 						</div>
 					</td>
 					<td class="txt-left">
-						<p class="title">두잇 제에모모모모목두잇 제에모모모모목두잇 제에모모모모목</p>
+						<p class="title">${doit_title}</p>
 						<ul class="tag-list clearfix">
-							<li># <span>필라테스가젤조아</span></li>
+							${keywordsEl}
 						</ul>
-						<p class="desc-sub"><i class="fas fa-user"></i> 열심히사는강아지 / 1110 참여 / <span class="badge badge-success">진행중</span></p>
+						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
 					</td>
 					<td>
 						<button type="button" class="btn-xs btn-text-red btn-delete-row">
 							<i class="fas fa-minus-circle"></i>
 						</button>
 					</td>
-				</tr>`
-		})
+				</tr>`;
 
 		let targetTableBody = updateTable.find('tbody');
 		targetTableBody.append(rowEl);
@@ -165,8 +185,8 @@
 	function removeRow(obj)
 	{
 		$(obj).parents('tr').remove();
-		initDisableCheckbox();
-		tableReloadAndStayCurrentPage(doitTable);
+		initAddedDoitUuid();
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function initSortTable()
@@ -205,13 +225,13 @@
 	{
 		const url 	= api.createPick;
 		const errMsg = label.submit+message.ajaxError;
-		const rows 	= recommendedTable.find('tbody').children();
+		const rows 	= updateTable.find('tbody').children();
 		let uuids 	= [];
 		for (let i=0; i<rows.length; i++) uuids.push(rows[i].id);
 		const param = {
-			"nickname" : curationTitle.val(),
-			"is_exposure" : $("input[name=radio-is-exposure]:checked").val(),
-			"doit_uuid" : uuids
+			"title" : curationTitle.val(),
+			"is_exposure" : $("input[name=radio-exposure]:checked").val(),
+			"doit_list" : uuids
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -233,6 +253,13 @@
 		{
 			sweetToast(`큐레이션 명은 ${message.required}`);
 			curationTitle.trigger('focus');
+			return false;
+		}
+
+		const addedLength = updateTable.find('tbody').children().length;
+		if (addedLength === 0)
+		{
+			sweetToast(`두잇을 ${message.addOn}`);
 			return false;
 		}
 

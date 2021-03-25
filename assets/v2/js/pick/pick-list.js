@@ -81,7 +81,7 @@
 			paging: false,
 			select: {
 				style: 'single',
-				selector: ':checkbox'
+				selector: 'a'
 			},
 			destroy: true,
 			initComplete: function () {

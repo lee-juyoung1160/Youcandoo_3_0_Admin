@@ -13,12 +13,12 @@
 
 	let g_added_doit = [];
 	$( () => {
+		curationTitle.trigger('focus');
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 두잇목록 **/
 		//buildDoitList();
 		/** 이벤트 **/
-		curationTitle.trigger('focus');
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		keyword    	.on("keyup", function () { onSubmitSearch(); });
 		btnSubmit	.on('click', function () { onSubmitCuration(); });
@@ -26,7 +26,7 @@
 
 	function onSubmitSearch()
 	{
-		const table = doitTable.DataTable();
+		const table = dataTable.DataTable();
 		table.ajax.reload();
 	}
 
@@ -34,7 +34,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.listDoitRecommendSearch,
+				url: api.searchDoitList,
 				type:"POST",
 				global: false,
 				headers: headers,
@@ -63,7 +63,7 @@
 				},
 				{title: "",		data: "doit_uuid",		width: "60px",
 					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap banner-img-wrap"><img src="/assets/v2/img/profile-1.png" alt=""></div>`;
+						return `<div class="list-img-wrap doit-img-wrap"><img src="/assets/v2/img/profile-1.png" alt=""></div>`;
 					}
 				}
 				,{title: "", 	data: "doit_uuid",
@@ -89,8 +89,8 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
-				const checkboxEl = $(nRow).children().eq(0).children();
-				if (g_added_doit.indexOf(aData.doit_uuid) !== -1)
+				const checkboxEl = $(nRow).children().eq(0).find('input');
+				if (g_added_doit.indexOf(aData.doit_uuid) > -1)
 					$(checkboxEl).prop('disabled', true);
 			},
 			drawCallback: function (settings) {
@@ -111,7 +111,7 @@
 		{
 			addDoit();
 			initAddedDoitUuid();
-			tableReloadAndStayCurrentPage(doitTable);
+			tableReloadAndStayCurrentPage(dataTable);
 			/** 테이블 drag and drop 정렬 초기화 **/
 			updateTable.find('tbody').sortable("destroy");
 			initSortTable();
@@ -121,7 +121,7 @@
 
 	function addDoit()
 	{
-		const table = doitTable.DataTable();
+		const table = dataTable.DataTable();
 		const selectedData = table.rows('.selected').data();
 		let rowEl = '';
 
@@ -133,7 +133,7 @@
 			rowEl +=
 				`<tr id="${doit_uuid}">
 					<td>
-						<div class="list-img-wrap banner-img-wrap">
+						<div class="list-img-wrap doit-img-wrap">
 							<img src="/assets/v2/img/profile-1.png" alt="">
 						</div>
 					</td>

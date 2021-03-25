@@ -30,6 +30,9 @@
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
 
+        searchDoitList : baseApiUrl + '/doit/pick',
+        pickedDoitList : baseApiUrl + '/doit/pick',
+
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/get/detail/info',
@@ -65,7 +68,7 @@
 
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',
-        detailBanner : baseApiUrl + 'banner/detail',
+        detailBanner : baseApiUrl + 'banner/get/detail/info',
         updateBanner : baseApiUrl + 'banner/update',
         deleteBanner : baseApiUrl + 'banner/delete',
         reorderBanner : baseApiUrl + 'banner/update/sequence',

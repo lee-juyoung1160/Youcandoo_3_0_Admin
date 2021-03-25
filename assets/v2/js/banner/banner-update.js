@@ -55,7 +55,7 @@
 		const url = api.detailBanner;
 		const errMsg = label.detailContent+message.ajaxLoadError;
 		const param = {
-			"idx" : bannerIdx
+			"banner_idx" : bannerIdx
 		}
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
@@ -140,7 +140,7 @@
 
 	function updateSuccess()
 	{
-		location.href = page.detailBanner + bannerIdx;
+		location.href = page.listBanner;
 	}
 
 	function validation()

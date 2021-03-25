@@ -270,6 +270,7 @@
 
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");
+    export const previewTable = $("#previewTable");
     export const curationTitle = $("#curationTitle");
 
     /** 공지 **/

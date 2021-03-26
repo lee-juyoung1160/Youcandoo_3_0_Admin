@@ -83,7 +83,7 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",   data: "banner_uuid",  		width: "35%",
+				,{title: "이동 페이지",   data: "banner_url",  		width: "35%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data.toString();
 					}
@@ -282,7 +282,7 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",    data: "banner_uuid",  		width: "45%",
+				,{title: "이동 페이지",    data: "banner_url",  		width: "45%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data.toString();
 					}

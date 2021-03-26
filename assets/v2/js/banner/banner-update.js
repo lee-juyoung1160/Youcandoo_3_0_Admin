@@ -15,7 +15,7 @@
 	modalBackdrop,
 	dataTable,
 	targetUuid,
-	thumbnail,
+	thumbnail, datePicker,
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
@@ -84,7 +84,7 @@
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
 		thumbnail.attr('src', banner_image_url);
-
+		datePicker.datepicker("option", "minDate", open_date);
 
 		calculateInputLength();
 		onErrorImage();

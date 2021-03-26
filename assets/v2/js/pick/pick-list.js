@@ -34,9 +34,8 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*92)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
 		return $(el);
 	}
 
@@ -161,13 +160,23 @@
 		}
 	}
 
-	function buildUpdateGrid(data)
+	function onClickModalOpen()
 	{
+		fadeinModal();
+		buildUpdateTable();
+	}
+
+	function buildUpdateTable()
+	{
+		const table = dataTable.DataTable();
+		const tableData = table.rows().data();
+		const data = tableData.length > 0 ? tableData : [];
+
 		updateTable.DataTable({
-			data: data.data,
+			data: data,
 			columns: [
-				{title: "큐레이션 명", 	data: "banner_title",		width: "70%" }
-				,{title: "삭제",    		data: "banner_uuid", 		width: "10%",
+				{title: "큐레이션 명", 	data: "recommend_title",		width: "90%" }
+				,{title: "삭제",    		data: "recommend_uuid", 		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
 					}
@@ -184,10 +193,9 @@
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.banner_uuid);
+				$(nRow).attr('data-uuid', aData.recommend_uuid);
 			},
 			drawCallback: function (settings) {
-				onErrorImage();
 			}
 		});
 	}
@@ -197,68 +205,41 @@
 		$(".delete-btn").on('click', function () { deleteRow(this); })
 	}
 
-	function onClickModalOpen()
-	{
-		g_delete_uuids.length = 0;
-		fadeinModal();
-	}
-
-	let g_delete_uuids = [];
 	function deleteRow(obj)
 	{
 		$(obj).closest('tr').remove();
-		g_delete_uuids.push(obj.id);
 	}
 
 	function onSubmitUpdate()
 	{
-		sweetConfirm(message.change, updateRequest);
+		if (updateValidation())
+			sweetConfirm(message.change, updateRequest);
 	}
 
 	function updateRequest()
 	{
-		if (updateValidation())
-			g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteBanner;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "pick_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
-	}
-
-	function reorderRequest()
-	{
 		const uuids = getRowsId();
-		const param = { "pick_list" : uuids };
-		const url 	= api.reorderBanner;
+		const param = { "recommend_list" : uuids };
+		const url 	= api.reorderPick;
 		const errMsg = label.modify + message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
-	function reorderReqCallback(data)
+	function updateReqCallback(data)
 	{
-		sweetToastAndCallback(data, reorderSuccess);
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
-	function reorderSuccess()
+	function updateSuccess()
 	{
 		fadeoutModal();
-		onSubmitSearch();
+		getPickList();
 	}
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
+		const uuids = getRowsId();
 		if (uuids.length === 0)
 		{
 			sweetToast("큐레이션이 없습니다.");

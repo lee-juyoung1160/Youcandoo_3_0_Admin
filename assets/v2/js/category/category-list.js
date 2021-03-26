@@ -82,13 +82,13 @@
 		{
 			data.recordsTotal = data.count;
 			data.recordsFiltered = data.count;
-			buildGrid(data);
+			buildTable(data);
 		}
 		else
 			sweetToast(data.msg);
 	}
 
-	function buildGrid(data)
+	function buildTable(data)
 	{
 		dataTable.DataTable({
 			data: data.data,

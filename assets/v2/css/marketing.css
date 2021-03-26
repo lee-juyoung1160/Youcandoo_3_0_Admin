@@ -21,7 +21,7 @@
 /* 배너관리 */
 .table-wrap .banner-img-wrap {
 	overflow: hidden;
-	width: 80px;
+	width: 60px;
 	height: auto;
 	cursor: pointer;
 }
@@ -35,7 +35,7 @@
 	margin-top: 50px;
 }
 .old-banner-list .banner-img-wrap {
-	width: 50px;
+	width: 35px;
 }
 .modal-content.banner-img-modal {
 	width: 500px;

@@ -88,6 +88,9 @@
 .comment-wrap .bottom span {
 	margin-right: 10px;
 }
+.blind {
+	background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 2px, #fff 0, #fff 6px);
+}
 /* 우측 댓글 달기 창 */
 .comment-creat .detail-table {
 	margin-top: 10px;

@@ -783,9 +783,10 @@ table {
 }
 .table-wrap table th,
 .table-wrap table td {
-	font-size: 15px;
+	font-size: 14px;
 	text-align: center;
 	vertical-align: middle;
+	line-height: 1.3em;
 }
 table th {
 	padding: 13px 10px;

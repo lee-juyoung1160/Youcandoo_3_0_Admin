@@ -8,10 +8,17 @@ class Report extends MY_Controller {
         $this->load->template('v2/report/action-list');
     }
 
-    public function talk()
-    {
-        $this->load->template('v2/report/talk-list');
-    }
+    public function talk($Route = "")
+        {
+            switch ($Route) {
+                case "":
+                     $this->load->template('v2/report/talk-list');
+                    break;
+                case "detail" :
+                     $this->load->template('v2/report/talk-detail');
+                    break;
+            }
+        }
 
 }
 

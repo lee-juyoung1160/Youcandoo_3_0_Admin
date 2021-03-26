@@ -29,7 +29,7 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		/** 카테고리 목록 **/
-		//getCategoryList();
+		getCategoryList();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -104,7 +104,7 @@
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		buildTable();
+		//buildTable();
 	}
 
 	function onKeydownSearch(event)

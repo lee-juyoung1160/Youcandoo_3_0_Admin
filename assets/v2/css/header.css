@@ -156,11 +156,16 @@ header {
 .utill-mnu {
 	height: 50px;
 	margin-left: auto;
+	margin-right: 20px;
 	padding: 0 20px;
-	color: rgba(0, 0, 0, 0.5);
+	color: #999;
 }
 .utill-mnu li {
 	float: left;
+	margin-left: 20px;
+}
+.utill-mnu li a:hover {
+	color: #333;
 }
 .user-profile .user-img {
 	overflow: hidden;
@@ -181,15 +186,13 @@ header {
 	font-weight: 500;
 }
 .user-profile .user-name strong {
+	margin: 0 5px;
+	color: #555;
 	font-weight: 700;
 }
 .logout {
-	margin: 0 20px;
 	font-size: 18px;
 	transition: all .3s;
-}
-.logout:hover {
-	color: #0061f2;
 }
 
 /* move top */

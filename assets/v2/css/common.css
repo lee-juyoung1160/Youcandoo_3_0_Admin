@@ -668,6 +668,9 @@ h2.main-title {
 	background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
 	transition: all .3s;
 }
+.main-top a:hover {
+	box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.35);
+}
 .main-top a i {
 	padding-right: 5px;
 }

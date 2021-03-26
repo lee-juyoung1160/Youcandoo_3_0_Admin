@@ -6,11 +6,10 @@
         </div>
         <ul class="utill-mnu">
             <li class="user-profile">
-                <a href="/v2/auth/mypage">
-                    <span class="user-img"><img src="/assets/v2/img/profile-1.png" alt="프로필이미지"></span>
-                    <span class="user-name"><strong><?php echo ($this->session->userdata['user_data']->name);?></strong>님</span>
-                </a>
+                <span class="user-img"><img src="/assets/v2/img/profile-1.png" alt="프로필이미지"></span>
+                <span class="user-name"><strong><?php echo ($this->session->userdata['user_data']->name);?></strong>님</span>
             </li>
+            <li><a href="/v2/auth/mypage"><i class="fas fa-unlock-alt"></i></a></li>
             <li class="logout">
                 <a href="/v2/auth/logout"><i class="fas fa-sign-out-alt"></i></a>
             </li>

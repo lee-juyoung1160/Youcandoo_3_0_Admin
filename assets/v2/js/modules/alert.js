@@ -36,7 +36,7 @@
     {
         Swal.fire({
             icon: 'error',
-            text: msg
+            html : msg
         })
     }
 

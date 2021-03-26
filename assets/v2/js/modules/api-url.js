@@ -42,6 +42,7 @@
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         updateBiz : baseApiUrl + 'biz/update',
+        createBizUcd : baseApiUrl + 'biz/create/ucd',
 
         noticeList : baseApiUrl + 'notice/list',
         createNotice : baseApiUrl + 'notice/create',

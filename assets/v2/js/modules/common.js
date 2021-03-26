@@ -262,10 +262,10 @@
              * 사이즈 체크를 위해서 해당 html 페이지 file element에
              * data-width: 폭
              * data-height: 높이
-             * data-oper: 비교연산 eq: 같음, ge: 이상, le: 이하
+             * data-compare: 같음/이상/이하
              * 속성이 있어야 한다.
              * **/
-            const oper = $(obj).data('oper');
+            const compare = $(obj).data('compare');
             const needsWidth = $(obj).data('width');
             const needsHeight = $(obj).data('height');
             const img = new Image();
@@ -274,19 +274,19 @@
             {
                 img.src = window.URL.createObjectURL(obj.files[0]);
                 img.onload = function() {
-                    let infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다. 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+                    const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
 
-                    if (oper === 'eq' && (this.width !== needsWidth || this.height !== needsHeight))
+                    if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);
                     }
-                    else if (oper === 'ge' && (this.width < needsWidth || this.height < needsHeight))
+                    else if (compare === '이상' && (this.width < needsWidth || this.height < needsHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);
                     }
-                    else if (oper === 'le' && (this.width > needsWidth || this.height > needsHeight))
+                    else if (compare === '이하' && (this.width > needsWidth || this.height > needsHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);

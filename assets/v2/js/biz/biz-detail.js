@@ -1,13 +1,9 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {
-		contentImage, title, bizNo, bizWeb, content,
-		btnBack, btnList, btnUpdate, btnSubmit,
-		modalOpen, modalClose, modalBackdrop,
-		selPageLengthDoit,
-		selPageLengthUcd,
-		tabUl, tabContents, amount, inputNumber} from '../modules/elements.js';
+	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
+		modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
+		tabContents, amount, inputNumber,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty, initInputNumber } from "../modules/utils.js";
@@ -45,6 +41,15 @@
 	{
 		const target = $(selectedTab).data('target')
 
+		switch (target) {
+			case '#tabDoitInfo' :
+				getBizDoitList();
+				break;
+			case '#tabUcdInfo' :
+				getBizUcdList();
+				break;
+		}
+
 		$(selectedTab).siblings().removeClass('active');
 		$(selectedTab).addClass('active');
 		tabContents.hide();
@@ -66,7 +71,7 @@
 			"idx" : bizIdx
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
 	function getDetailCallback(data)
@@ -127,10 +132,10 @@
 
 	function createBizUcdRequest()
 	{
-		const url = api.createSubCategory;
+		const url = api.createBizUcd;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"profile_uuid" : g_category_uuid,
+			"company_uuid" : g_company_uuid,
 			"ucd" : amount.val()
 		}
 

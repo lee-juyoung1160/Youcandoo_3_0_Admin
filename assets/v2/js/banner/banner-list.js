@@ -117,7 +117,7 @@
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		//buildUpdateTable();
+		buildUpdateTable();
 	}
 
 	function buildUpdateTable()
@@ -127,13 +127,13 @@
 		const data = tableData.length > 0 ? tableData : [];
 
 		updateTable.DataTable({
-			data: data.data,
+			data: data,
 			columns: [
 				{title: "이미지",    	data: "banner_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = $.inArray(data, imageTypes) >= 0 ? data : '';
-						return `<div class="list-img-wrap banner-img-wrap"><img src="${imgUrl}" alt=""></div>`;
+						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
+						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
 				,{title: "배너명", 	data: "banner_name",		width: "70%" }
@@ -176,7 +176,7 @@
 
 	function onSubmitUpdate()
 	{
-		sweetConfirm(message.change, updateRequest);
+		//sweetConfirm(message.change, updateRequest);
 	}
 
 	function updateRequest()

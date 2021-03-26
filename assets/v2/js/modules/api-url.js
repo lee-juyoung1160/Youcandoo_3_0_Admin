@@ -74,7 +74,7 @@
         detailBanner : baseApiUrl + 'banner/get/detail/info',
         updateBanner : baseApiUrl + 'banner/update',
         deleteBanner : baseApiUrl + 'banner/delete',
-        reorderBanner : baseApiUrl + 'banner/update/sequence',
+        reorderBanner : baseApiUrl + 'banner/set/orders',
         targetEventList : baseApiUrl + '',
         targetDoitList : baseApiUrl + '',
         targetNoticeList : baseApiUrl + '',

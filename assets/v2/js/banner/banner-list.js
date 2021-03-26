@@ -176,7 +176,8 @@
 
 	function onSubmitUpdate()
 	{
-		//sweetConfirm(message.change, updateRequest);
+		if (updateValidation())
+			sweetConfirm(message.change, reorderRequest);
 	}
 
 	function updateRequest()
@@ -202,7 +203,7 @@
 	function reorderRequest()
 	{
 		const uuids = getRowsId();
-		const param = { "banner_list" : uuids };
+		const param = { "banner_uuid" : uuids };
 		const url 	= api.reorderBanner;
 		const errMsg = label.modify + message.ajaxError;
 
@@ -217,12 +218,12 @@
 	function reorderSuccess()
 	{
 		fadeoutModal();
-		onSubmitSearch();
+		getBannerList();
 	}
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
+		const uuids = getRowsId();
 		if (uuids.length === 0)
 		{
 			sweetToast("배너가 없습니다.");

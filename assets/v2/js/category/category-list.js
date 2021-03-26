@@ -5,7 +5,6 @@
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
-	import { setHistoryParam } from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -14,35 +13,14 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		/** 입력 폼 초기화 **/
-		initSearchForm();
 		/** 목록 불러오기 **/
 		getCategoryList();
 		/** 이벤트 **/
-		body  			.on("keydown", function (event) { onKeydownSearch(event) });
-		btnSearch		.on("click", function () { onSubmitSearch(); });
-		btnReset		.on("click", function () { initSearchForm(); });
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnUpdate	.on("click", function () { onSubmitUpdate(); });
 	});
-
-	function initSearchForm()
-	{
-		keyword.val('');
-	}
-
-	function onKeydownSearch(event)
-	{
-		if (event.keyCode === 13)
-			onSubmitSearch();
-	}
-
-	function onSubmitSearch()
-	{
-		getCategoryList();
-	}
 
 	function initTableSort()
 	{
@@ -66,14 +44,8 @@
 	{
 		const url = api.categoryList;
 		const errMsg = label.list + message.ajaxLoadError
-		const param = {
-			"keyword" : keyword.val().trim()
-		}
 
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam(param);
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);
+		ajaxRequestWithJsonData(true, url, null, getCategoryListSuccess, errMsg, false);
 	}
 
 	function getCategoryListSuccess(data)
@@ -224,7 +196,7 @@
 	function reorderSuccess()
 	{
 		fadeoutModal();
-		onSubmitSearch();
+		getCategoryList();
 	}
 
 	function updateValidation()

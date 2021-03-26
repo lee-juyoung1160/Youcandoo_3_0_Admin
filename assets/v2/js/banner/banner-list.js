@@ -70,7 +70,7 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "이미지",    		data: "banner_image_url",  	width: "15%",
+				{title: "이미지",    	data: "banner_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
@@ -83,12 +83,12 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",    data: "banner_uuid",  		width: "35%",
+				,{title: "이동 페이지",   data: "banner_uuid",  		width: "35%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data.toString();
 					}
 				}
-				,{title: "수정",    data: "banner_uuid",  		width: "10%",
+				,{title: "수정",    		data: "banner_uuid",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-teal btn-update" id="${row.idx}">수정</button>`;
 					}
@@ -129,7 +129,7 @@
 		updateTable.DataTable({
 			data: data,
 			columns: [
-				{title: "이미지",    	data: "banner_image_url",  	width: "20%",
+				{title: "이미지",   	data: "banner_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';

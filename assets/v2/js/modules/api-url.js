@@ -32,9 +32,11 @@
 
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',
-        createPick : baseApiUrl + 'recommend/create',
         searchDoitList : baseApiUrl + 'recommend/get/doit/list',
         reorderPick : baseApiUrl + 'recommend/set',
+        createPick : baseApiUrl + 'recommend/create',
+        updatePick : baseApiUrl + 'recommend/update',
+        detailPick : baseApiUrl + 'recommend/detail',
 
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',

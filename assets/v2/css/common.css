@@ -1057,6 +1057,10 @@ input[type="password"]{
 	border-bottom: 1px solid #505050;
 	cursor: pointer;
 }
+.line-clamp:hover {
+	font-weight: 600;
+	color: #00327e;
+}
 .line-clamp-2 {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -1064,6 +1068,10 @@ input[type="password"]{
 	overflow: hidden;
 	text-decoration: underline;
 	cursor: pointer;
+}
+.line-clamp-2:hover {
+	font-weight: 600;
+	color: #00327e;
 }
 
 .date-time-wrap .datepicker {

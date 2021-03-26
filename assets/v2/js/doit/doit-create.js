@@ -74,19 +74,13 @@
 			scrollCollapse: true,
 			destroy: true,
 			initComplete: function () {
-				addClickEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('data-uuid', aData.profile_uuid);
 				$(nRow).attr('data-name', aData.nickname);
-				$(nRow).addClass('biz-row');
+				$(nRow).on('click', function () { onSelectSponsor(this); })
 			}
 		});
-	}
-
-	function addClickEvent()
-	{
-		$(".biz-row").on('click', function () { onSelectSponsor(this); })
 	}
 
 	function onSelectSponsor(obj)

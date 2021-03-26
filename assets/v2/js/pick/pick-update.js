@@ -1,15 +1,17 @@
 
-	import { ajaxRequestWithJsonData, headers } from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import {api} from '../modules/api-url.js';
-	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
+	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit, rdoExposure,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { limitInputLength, onErrorImage} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {calculateInputLength, limitInputLength, onErrorImage} from "../modules/common.js";
+	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {initTableDefaultConfig, singleCheckBoxDom, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 
+	const pathName	= getPathName();
+	const pickIdx	= splitReverse(pathName, '/');
 	let g_added_doit = [];
 
 	$( () => {
@@ -18,13 +20,88 @@
 		initTableDefaultConfig();
 		/** 테이블 drag and drop 정렬 초기화 **/
 		initSortTable();
-		/** 두잇목록 **/
-		buildDoitList();
+		/** 상세 **/
+		getDetail();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		keyword    	.on("keyup", function () { onSubmitSearch(); });
-		btnSubmit	.on('click', function () { onSubmitCuration(); });
+		btnSubmit	.on('click', function () { onSubmitUpdateCuration(); });
 	});
+
+	function getDetail()
+	{
+		const url = api.detailPick;
+		const errMsg = label.detailContent+message.ajaxLoadError;
+		const param = {
+			"idx" : pickIdx
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+	}
+
+	function getDetailCallback(data)
+	{
+		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+	}
+
+	let g_pick_uuid;
+	function buildDetail(data)
+	{
+		const { recommend_uuid, recommend_title, is_exposure, doit_list } = data.data;
+
+		g_pick_uuid = recommend_uuid;
+
+		curationTitle.val(recommend_title);
+		rdoExposure.each(function () {
+			if ($(this).val() === is_exposure)
+				$(this).prop('checked', true);
+		});
+		if (doit_list.length > 0)
+		{
+			let rowEl = '';
+			doit_list.map(obj => {
+				const {doit_uuid, doit_image_url, doit_title, doit_keyword, profile_nickname, member_count} = obj;
+				let keywordsEl = '';
+				if (doit_keyword.length > 0)
+				{
+					doit_keyword.map(value => {
+						keywordsEl += `<li># <span>${value}</span></li>`;
+					})
+				}
+				rowEl +=
+					`<tr id="${doit_uuid}">
+					<td>
+						<div class="list-img-wrap doit-img-wrap">
+							<img src="${doit_image_url}" alt="">
+						</div>
+					</td>
+					<td class="txt-left">
+						<p class="title">${doit_title}</p>
+						<ul class="tag-list clearfix">
+							${keywordsEl}
+						</ul>
+						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
+					</td>
+					<td>
+						<button type="button" class="btn-xs btn-text-red btn-delete-row">
+							<i class="fas fa-minus-circle"></i>
+						</button>
+					</td>
+				</tr>`;
+			})
+
+			let targetTableBody = updateTable.find('tbody');
+			targetTableBody.append(rowEl);
+			initAddedDoitUuid();
+			addRemoveRowEvent();
+			onErrorImage();
+		}
+
+		calculateInputLength();
+
+		/** 두잇목록 **/
+		buildDoitList();
+	}
 
 	function onSubmitSearch()
 	{
@@ -215,34 +292,35 @@
 		});
 	}
 
-	function onSubmitCuration()
+	function onSubmitUpdateCuration()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest);
+			sweetConfirm(message.modify, updateRequest);
 	}
 
-	function createRequest()
+	function updateRequest()
 	{
-		const url 	= api.createPick;
+		const url 	= api.updatePick;
 		const errMsg = label.submit+message.ajaxError;
 		const rows 	= updateTable.find('tbody').children();
 		let uuids 	= [];
 		for (let i=0; i<rows.length; i++) uuids.push(rows[i].id);
 		const param = {
+			"recommend_uuid" : g_pick_uuid,
 			"title" : curationTitle.val().trim(),
 			"is_exposure" : $("input[name=radio-exposure]:checked").val(),
 			"doit_list" : uuids
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
-	function createReqCallback(data)
+	function updateReqCallback(data)
 	{
-		sweetToastAndCallback(data, createSuccess);
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
-	function createSuccess()
+	function updateSuccess()
 	{
 		location.href = page.listPick;
 	}

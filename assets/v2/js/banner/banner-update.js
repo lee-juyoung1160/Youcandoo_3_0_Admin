@@ -15,7 +15,7 @@
 	modalBackdrop,
 	dataTable,
 	targetUuid,
-	thumbnail,
+	thumbnail, datePicker,
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
@@ -58,7 +58,7 @@
 			"banner_idx" : bannerIdx
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
 	function getDetailCallback(data)
@@ -84,7 +84,7 @@
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
 		thumbnail.attr('src', banner_image_url);
-
+		datePicker.datepicker("option", "minDate", open_date);
 
 		calculateInputLength();
 		onErrorImage();
@@ -118,7 +118,7 @@
 			const errMsg = label.modify+message.ajaxError;
 			const param = {
 				"banner_uuid" : g_banner_uuid,
-				"banner_name" : bannerTitle.val(),
+				"banner_name" : bannerTitle.val().trim(),
 				"banner_type" : $("input[name=radio-target-page-type]:checked").val(),
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
@@ -220,7 +220,6 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				addClickEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				setRowAttributes(nRow, aData);
@@ -249,12 +248,7 @@
 		}
 		$(nRow).attr('data-uuid', uuid);
 		$(nRow).attr('data-name', name);
-		$(nRow).addClass('target-page-row');
-	}
-
-	function addClickEvent()
-	{
-		$(".target-page-row").on('click', function () { onSelectTargetPage(this); })
+		$(nRow).on('click', function () { onSelectTargetPage(this); });
 	}
 
 	function onSelectTargetPage(obj)

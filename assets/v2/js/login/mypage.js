@@ -24,10 +24,7 @@
 
 	function onKeyupPasswordChk()
 	{
-		if (password.val() !== passwordCheck.val())
-			passwordCheckTxt.text('비밀번호가 일지하지 않습니다.');
-		else
-			passwordCheckTxt.text('');
+		password.val() !== passwordCheck.val() ? passwordCheckTxt.text('비밀번호가 일치하지 않습니다.') : passwordCheckTxt.text('');
 	}
 
 	function getProfile()
@@ -46,7 +43,7 @@
 
 	function buildDetail(data)
 	{
-		let { company_uuid, company_number,profile_image_url, nickname, site_url, description } = data.data;
+		const { username, userid, useremail } = data.data;
 	}
 
 

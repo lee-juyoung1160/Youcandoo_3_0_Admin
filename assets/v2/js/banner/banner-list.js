@@ -310,6 +310,7 @@
 
 	function onClickModalDetailOpen(obj)
 	{
+		modalBannerImage.attr('src', '');
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();

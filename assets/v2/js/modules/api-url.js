@@ -68,6 +68,7 @@
 
         actionList : baseApiUrl + 'action',
         talkList : baseApiUrl + 'talk',
+        detailTalk : baseApiUrl + 'talk/detail',
 
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',

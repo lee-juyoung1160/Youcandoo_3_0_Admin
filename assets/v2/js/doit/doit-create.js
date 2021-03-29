@@ -129,7 +129,7 @@
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
 				"doit_keyword" : keywords,
-				"doit_image" : data.image_urls.file,
+				"doit_image_url" : data.image_urls.file,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
 				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',

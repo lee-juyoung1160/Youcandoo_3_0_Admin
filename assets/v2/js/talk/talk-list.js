@@ -19,6 +19,7 @@
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import { page } from "../modules/page-url.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -37,6 +38,7 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		$(".line-clamp-2").on("click", function () {location.href = page.detailTalk});
 	});
 
 	function initSearchForm()

@@ -6,8 +6,8 @@
         <div class="main-top clearfix">
             <h2 class="main-title">톡 상세</h2>
             <div class="right-wrap">
-                <button type="button" class="btn-sm btn-outline-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                <button type="button" class="btn-sm btn-outline-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                <button id="btnBlind" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                <!--<button type="button" class="btn-sm btn-outline-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>-->
             </div>
         </div>
 
@@ -25,31 +25,31 @@
                     <tr>
                         <th>작성자</th>
                         <td>
-                            <p class="detail-data">유캔두</p>
+                            <p class="detail-data" id="nickname">유캔두</p>
                         </td>
                         <th>블라인드 여부</th>
                         <td colspan="3">
-                            <p class="detail-data">N</p>
+                            <p class="detail-data" id="isBlind">N</p>
                         </td>
                     </tr>
                     <tr>
                         <th>작성일자</th>
                         <td>
-                            <p class="detail-data">2020-02-02</p>
+                            <p class="detail-data" id="created">2020-02-02</p>
                         </td>
                         <th>좋아요</th>
                         <td>
-                            <p class="detail-data">111</p>
+                            <p class="detail-data" id="likeCount">111</p>
                         </td>
                         <th>댓글 수</th>
                         <td>
-                            <p class="detail-data">111</p>
+                            <p class="detail-data" id="commentCount">111</p>
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="5">
-                            <div class="detail-data">
+                            <div class="detail-data" id="content">
                                 내요오오오오오오옹
                             </div>
                         </td>
@@ -197,4 +197,4 @@
     </div>
 
 </section>
-<script type="module" src="/assets/v2/js/event/event-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/talk/talk-detail.js?version=<?php echo $this->config->item('version');?>"></script>

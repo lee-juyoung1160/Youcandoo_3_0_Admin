@@ -291,6 +291,9 @@
     export const modalWarning = $("#modalWarning");
     /** 톡 **/
     export const rdoReport = $("input[name=radio-report]");
+    export const isBlind = $("#isBlind");
+    export const likeCount = $("#likeCount");
+    export const commentCount = $("#commentCount");
     /** 푸시 **/
     export const rdoReserveType = $("input[name=radio-reserve-type]");
     export const reserveTime = $("#reserveTime");

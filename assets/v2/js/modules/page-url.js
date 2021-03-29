@@ -51,4 +51,7 @@
         ,updateAdmin : rootContext + 'admin/update/'
 
         ,listMember : rootContext + 'member'
+
+        ,detailTalk : rootContext + 'report/talk/detail/'
+        ,listTalk : rootContext + 'report/talk'
     }

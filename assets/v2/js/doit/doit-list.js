@@ -104,7 +104,7 @@
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 	}
 
 	function onKeydownSearch(event)

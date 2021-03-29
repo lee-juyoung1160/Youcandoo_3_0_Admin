@@ -18,6 +18,21 @@ class Marketing extends MY_Controller {
         }
     }
 
+    public function story($Route = "")
+    {
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/marketing/story-list');
+                break;
+            case "create" :
+                $this->load->template('v2/marketing/story-create');
+                break;
+            case "update" :
+                $this->load->template('v2/marketing/story-update');
+                break;
+        }
+    }
+
     public function event($Route = "")
     {
         switch ($Route) {

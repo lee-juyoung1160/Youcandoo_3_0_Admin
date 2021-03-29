@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/assets/v2/css/marketing.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page banner-create">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">유캔두 스토리 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>제목 *</th>
+                        <td>
+                            <input id="bannerTitle" type="text" class="length-input" placeholder="제목을 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이동페이지 구분 *</th>
+                        <td>
+                            <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>썸네일 *</th>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : ? x ? )</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="bannerImage">업로드</label>
+                                <input type="file" id="bannerImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="720" data-height="936" data-compare="같음">
+                            </div>
+                            <div class="detail-img-wrap">
+                                <img src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>노출 여부</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <label for="r3"><span></span>Y</label>
+
+                                <input  id="r4" type="radio" name="radio-exposure" value="N">
+                                <label for="r4"><span></span>N</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+</section>
+<script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
+

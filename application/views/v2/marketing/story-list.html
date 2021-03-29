@@ -1,0 +1,175 @@
+<link rel="stylesheet" href="/assets/v2/css/marketing.css?version=<?php echo $this->config->item('version');?>">
+<section class="list-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">유캔두 스토리</h2>
+            <a href="/v2/marketing/story/create"><i class="fas fa-plus"></i>스토리 등록</a>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="btn-wrap">
+                    <button id="btnUpdate" type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 스토리 관리</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 30%;">
+                    <col style="width: 30%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>썸네일</th>
+                    <th>제목</th>
+                    <th>이동 페이지</th>
+                    <th>노출여부</th>
+                    <th>수정</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="list-img-wrap banner-img-wrap">
+                            <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                        </div>
+                    </td>
+                    <td>스토리 제목입니다아아아아아앙</td>
+                    <td>www.wwww.www/www</td>
+                    <td>Y</td>
+                    <td><button type="button" class="btn-xs btn-teal">수정</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="modal-wrap">
+        <!-- 스토리 이미지 -->
+        <div class="modal-content banner-img-modal" id="modalDetail">
+            <div class="modal-header clearfix">
+                <h5>스토리 이미지</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <img class="banner-img" src="" alt="" id="modalBannerImage">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+            </div>
+        </div>
+        
+        <!-- 스토리 수정 -->
+        <div class="modal-content" id="modalUpdate">
+            <div class="modal-header clearfix">
+                <h5>스토리 수정</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <p class="desc">
+                        * 드래그 & 드랍으로 노출 순서를 변경할 수 있으며, 수정완료 클릭 시 적용됩니다.
+                    </p>
+                </div>
+                <div class="table-wrap">
+                    <table class="order-table" id="updateTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 70%;">
+                            <col style="width: 10%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>썸네일</th>
+                            <th>제목</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap banner-img-wrap">
+                                    <img src="/assets/v2/img/ban_test.png" alt="프로필이미지">
+                                </div>
+                            </td>
+                            <td>배너명입니다.</td>
+                            <td>
+                                <button type="button" class="btn-xs btn-text-red">
+                                    <i class="fas fa-minus-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmitUpdate" type="button" class="btn btn-primary">수정완료</button>
+            </div>
+        </div>
+
+
+        <div class="modal-bg"></div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

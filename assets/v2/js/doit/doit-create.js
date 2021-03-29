@@ -104,8 +104,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApiV2.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);
 
@@ -122,7 +122,7 @@
 			doitKeywords.find('li .added-keyword').each(function () {
 				keywords.push($(this).text().trim());
 			})
-			let param = {
+			const param = {
 				"profile_uuid" : sponsorUuid.val(),
 				"category_uuid" : selCategory.val(),
 				"subcategory_uuid" : selSubcategory.val(),

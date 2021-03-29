@@ -39,13 +39,13 @@
 	import { onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent } from "../modules/doit-common.js"
 
 	const pathName		= getPathName();
-	const categoryIdx	= splitReverse(pathName, '/');
+	const doitIdx	= splitReverse(pathName, '/');
 
 	export function getDetail()
 	{
 		const url = api.detailDoit;
 		const errMsg = label.detailContent + message.ajaxLoadError;
-		const param = { "idx" : categoryIdx };
+		const param = { "idx" : doitIdx };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
@@ -66,7 +66,7 @@
 	function buildDetail(data)
 	{
 		let { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
-			public_type, is_apply, question, is_answer, doit_image } = data.data;
+			public_type, approve_member, question, answer_type, doit_image_url } = data.data;
 
 		isSponsorDoit = doit_type === 'sponsor';
 		g_doit_uuid = doit_uuid;
@@ -77,14 +77,17 @@
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
 		infoDoitDesc.text(doit_description);
 		infoDoitKeywords.empty();
-		doit_keyword.map(keyword => {
-			infoDoitKeywords.append(`<li>#<span>${keyword}</span>`);
-		})
+		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
+		{
+			doit_keyword.map(keyword => {
+				infoDoitKeywords.append(`<li>#<span>${keyword}</span>`);
+			});
+		}
 		publicType.text(getNameFromPublicType(public_type));
-		isApply.text(is_apply);
+		isApply.text(approve_member);
 		infoQuestion.text(isEmpty(question) ? label.dash : question);
-		isAnswer.text(is_answer);
-		doitThumbnail.attr('src', doit_image);
+		isAnswer.text(answer_type === 'public' ? label.public : label.private);
+		doitThumbnail.attr('src', doit_image_url);
 		onErrorImage();
 	}
 
@@ -93,7 +96,7 @@
 	function buildUpdate(data)
 	{
 		let { doit_title, doit_description, category_uuid, subcategory_uuid, doit_keyword,
-			public_type, is_apply, is_question, question, is_answer } = data.data;
+			public_type, approve_member, is_question, question, answer_type } = data.data;
 
 		g_category_uuid = category_uuid;
 		g_subcategory_uuid = subcategory_uuid;
@@ -101,25 +104,28 @@
 		doitTitle.val(doit_title);
 		doitDesc.val(doit_description);
 		doitKeywords.empty();
-		doit_keyword.map(keyword => {
-			const keywordEl =
+		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
+		{
+			doit_keyword.map(keyword => {
+				const keywordEl =
 					`<li>
 						#<span class="added-keyword">${keyword}</span>
 						<button class="btn-i btn-del-keyword"><i class="fas fa-times-circle"></i></button>
 					</li>`
-			doitKeywords.append(keywordEl);
-		});
+				doitKeywords.append(keywordEl);
+			});
+		}
 		addRemoveKeywordEvent();
 		rdoPublicType.each(function () {
 			if ($(this).val() === public_type)
 				$(this).prop("checked", true);
 		});
-		chkIsApply.prop('checked', is_apply === 'Y');
+		chkIsApply.prop('checked', approve_member === 'Y');
 		onClickChkIsApply(chkIsApply);
 		chkIsQuestion.prop('checked', is_question === 'Y');
 		onClickChkIsQuestion(chkIsQuestion)
 		doitQuestion.val(question);
-		chkIsAnswer.prop('checked', is_answer === 'Y');
+		chkIsAnswer.prop('checked', answer_type === 'public');
 
 		calculateInputLength();
 	}

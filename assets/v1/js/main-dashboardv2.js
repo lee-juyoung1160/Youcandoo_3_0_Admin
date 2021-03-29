@@ -632,7 +632,7 @@
 
     function buildBtnXlsxOut()
     {
-        if (sessionAuthCode.val() === 'dev')
+        if (sessionAuthCode.val() === 'dev' || sessionUserId.val() === 'gahyeon.kim')
         {
             let btnXlsxEl =
                 `<button class="btn-excel"

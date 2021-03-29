@@ -72,9 +72,7 @@
 	limitInputLength,
 	onChangeValidateImage,
 	fadeoutModal,
-	initSearchDatepicker,
-	initMaxDateToday, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn
-} from "../modules/common.js";
+	initSearchDatepicker, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
@@ -119,9 +117,9 @@
 		initSearchDatepickerMaxDateToday();
 		initSearchActionForm();
 		initSearchTalkForm();
-		//getCategoryList();
+		getCategoryList();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
@@ -198,7 +196,7 @@
 			case '#tabDoitInfo' :
 				doitUpdateForm.hide();
 				doitInfoForm.show();
-				//getDetail();
+				getDetail();
 				break;
 			case '#tabDoitMission' :
 				missionCreateForm.hide();

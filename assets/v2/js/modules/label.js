@@ -15,6 +15,8 @@
 		, fail: '실패'
 		, send: '발송'
 		, reserve: '예약'
+		, public: '공개'
+		, private: '비공개'
 		, y: 'Y'
 		, n: 'N'
 		, dash: '-'

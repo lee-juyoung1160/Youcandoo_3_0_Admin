@@ -164,12 +164,12 @@
 
     export function addRemoveKeywordEvent()
     {
-        $(".btn-del-keyword").on('click', function (event) { removeDoitKeyword(event); })
+        $(".btn-del-keyword").on('click', function () { removeDoitKeyword(this); })
     }
 
-    export function removeDoitKeyword(event)
+    export function removeDoitKeyword(obj)
     {
-        $(event.target).parents('.keyword-li').remove();
+        $(obj).parents('.keyword-li').remove();
     }
 
     export function initSearchDatepickerMaxDateToday()

@@ -38,7 +38,7 @@
 	import { message } from "../modules/message.js";
 	import { onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent } from "../modules/doit-common.js"
 
-	const pathName		= getPathName();
+	const pathName	= getPathName();
 	const doitIdx	= splitReverse(pathName, '/');
 
 	export function getDetail()
@@ -65,7 +65,7 @@
 	export let g_doit_uuid;
 	function buildDetail(data)
 	{
-		let { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
+		const { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
 			public_type, approve_member, question, answer_type, doit_image_url } = data.data;
 
 		isSponsorDoit = doit_type === 'sponsor';
@@ -83,7 +83,7 @@
 				infoDoitKeywords.append(`<li>#<span>${keyword}</span>`);
 			});
 		}
-		publicType.text(getNameFromPublicType(public_type));
+		publicType.text(getStrFromPublicType(public_type));
 		isApply.text(approve_member);
 		infoQuestion.text(isEmpty(question) ? label.dash : question);
 		isAnswer.text(answer_type === 'public' ? label.public : label.private);
@@ -95,7 +95,7 @@
 	export let g_subcategory_uuid;
 	function buildUpdate(data)
 	{
-		let { doit_title, doit_description, category_uuid, subcategory_uuid, doit_keyword,
+		const { doit_title, doit_description, category_uuid, subcategory_uuid, doit_keyword,
 			public_type, approve_member, is_question, question, answer_type } = data.data;
 
 		g_category_uuid = category_uuid;
@@ -108,7 +108,7 @@
 		{
 			doit_keyword.map(keyword => {
 				const keywordEl =
-					`<li>
+					`<li class="keyword-li">
 						#<span class="added-keyword">${keyword}</span>
 						<button class="btn-i btn-del-keyword"><i class="fas fa-times-circle"></i></button>
 					</li>`
@@ -134,7 +134,7 @@
 	{
 		const url = api.subCategoryList;
 		const errMsg = label.list + message.ajaxLoadError
-		let param = {
+		const param = {
 			"category_uuid" : selCategory.val()
 		}
 
@@ -198,7 +198,7 @@
 		}
 	}
 
-	function getNameFromPublicType(type)
+	function getStrFromPublicType(type)
 	{
 		switch (type) {
 			case 'public' : return '전체공개';
@@ -220,7 +220,7 @@
 		if (updateValidation())
 		{
 			const doitImg = doitImage[0].files;
-			let callback = doitImg.length > 0 ? fileUploadReq : updateRequest;
+			const callback = doitImg.length > 0 ? fileUploadReq : updateRequest;
 
 			sweetConfirm(message.modify, callback);
 		}
@@ -228,8 +228,8 @@
 
 	function fileUploadReq()
 	{
-		let url = fileApiV2.single;
-		let errMsg = `이미지 등록 ${message.ajaxError}`;
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);
 
@@ -246,20 +246,22 @@
 			doitKeywords.find('li .added-keyword').each(function () {
 				keywords.push($(this).text().trim());
 			})
-			let param = {
+			const param = {
 				"doit_uuid" : g_doit_uuid,
 				"category_uuid" : selCategory.val(),
 				"subcategory_uuid" : selSubcategory.val(),
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
 				"doit_keyword" : keywords,
-				"doit_image" : isEmpty(data) ? "" : data.image_urls.file,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
 				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',
 				"question": doitQuestion.val().trim(),
 				"answer_type" : chkIsAnswer.is(':checked') ? 'public' : 'private'
 			}
+
+			if (!isEmpty(data))
+				param["doit_image_url"] = data.image_urls.file;
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}

@@ -151,7 +151,7 @@
 				}
 				,{title: "오픈일", 		data: "opened",				width: "10%",
 					render: function (data) {
-						return isEmpty(data) ? label.dash : data.substring(0, 10);
+						return data.substring(0, 10);
 					}
 				}
 				,{title: "참여인원",    	data: "member_cnt",  		width: "10%" }

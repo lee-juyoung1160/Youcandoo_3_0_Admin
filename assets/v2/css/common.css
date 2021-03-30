@@ -566,6 +566,10 @@ button i {
 	color: #fff;
 	background-color: #f4a100;
 }
+.badge-danger {
+	color: #fff;
+	background-color: #e81500;
+}
 
 /* tool tip */
 .tooltip-mark {

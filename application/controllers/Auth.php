@@ -52,7 +52,7 @@ class Auth extends CI_Controller {
             $ga = new PHPGangsta_GoogleAuthenticator();
             $secret = empty($UserData->mfa_key)? $ga->createSecret():$UserData->mfa_key;
 
-            $this->load->view('/login/mfa',array(
+            $this->load->view('/v1/login/mfa',array(
                 "secret"=>$secret,
                 "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
                 "type"=>"login",
@@ -146,7 +146,7 @@ class Auth extends CI_Controller {
         $ga = new PHPGangsta_GoogleAuthenticator();
         $secret = $ga->createSecret();
 
-        $this->load->view('/login/mfa', array(
+        $this->load->view('/v1/login/mfa', array(
             "userid"=>$UserID,
             "password"=>hash("sha512",$Password),
             "username"=>$UserName,

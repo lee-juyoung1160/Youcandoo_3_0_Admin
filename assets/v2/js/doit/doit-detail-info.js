@@ -1,36 +1,10 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	doitTitle,
-	sponsor,
-	category,
-	doitDesc,
-	doitKeywords,
-	doitThumbnail,
-	publicType,
-	isApply,
-	doitQuestion,
-	isAnswer,
-	btnDoitOpen,
-	btnDoitStop,
-	btnDoitDelete,
-	doitUpdateForm,
-	doitInfoForm,
-	doitSponsor,
-	chkIsApply,
-	chkIsQuestion,
-	chkIsAnswer,
-	rdoPublicType,
-	infoDoitTitle,
-	infoDoitDesc,
-	infoDoitKeywords,
-	infoQuestion,
-	selCategory,
-	doitImage,
-	selSubcategory,
-	doitKeyword, btnUpdateDoit, btnCreateMission,
-} from '../modules/elements.js';
+	import {doitTitle, sponsor, category, doitDesc, doitKeywords, doitThumbnail,
+		publicType, isApply, doitQuestion, isAnswer, btnDoitOpen, btnDoitStop, btnDoitDelete,
+		doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply, chkIsQuestion, chkIsAnswer, rdoPublicType, infoDoitTitle, infoDoitDesc,
+		infoDoitKeywords, infoQuestion, selCategory, doitImage, selSubcategory, doitKeyword, btnUpdateDoit, btnCreateMission,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
@@ -72,7 +46,8 @@
 		g_doit_uuid = doit_uuid;
 
 		toggleButtons(doit_status);
-		infoDoitTitle.text(doit_title);
+
+		infoDoitTitle.html(buildDoitStatus(doit_status) + doit_title);
 		doitSponsor.text( isSponsorDoit ? nickname : label.generalDoit );
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
 		infoDoitDesc.text(doit_description);
@@ -195,6 +170,20 @@
 			btnDoitOpen.hide();
 			btnDoitDelete.hide();
 			btnUpdateDoit.hide();
+		}
+	}
+
+	function buildDoitStatus(status)
+	{
+		switch (status) {
+			case 'create' :
+				return `<span class="badge badge-info">생성</span>`
+			case 'open' :
+				return `<span class="badge badge-success">진행중</span>`
+			case 'stop' :
+				return `<span class="badge badge-warning">영정지</span>`
+			case 'delete' :
+				return `<span class="badge badge-danger">삭제</span>`
 		}
 	}
 

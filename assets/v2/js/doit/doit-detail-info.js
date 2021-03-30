@@ -146,14 +146,14 @@
 				btnDoitOpen.hide();
 				btnDoitDelete.show();
 				btnDoitStop.show();
-				btnDoitStop.text('운영정지');
+				btnDoitStop.html(`<i class="fas fa-ban"></i>운영정지`);
 				btnUpdateDoit.show();
 				break;
 			case 'stop' :
 				btnDoitOpen.hide();
 				btnDoitDelete.show();
 				btnDoitStop.show();
-				btnDoitStop.text('정지해제');
+				btnDoitStop.html(`<i class="fas fa-ban"></i>정지해제`);
 				btnUpdateDoit.show();
 				break;
 			case 'delete' :
@@ -181,7 +181,7 @@
 			case 'open' :
 				return `<span class="badge badge-success">진행중</span>`
 			case 'stop' :
-				return `<span class="badge badge-warning">영정지</span>`
+				return `<span class="badge badge-warning">운영정지</span>`
 			case 'delete' :
 				return `<span class="badge badge-danger">삭제</span>`
 		}

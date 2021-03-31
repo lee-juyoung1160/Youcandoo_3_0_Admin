@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import { targetUrl, btnSubmit, bannerImage, bannerTitle, dateFrom, dateTo, rdoTargetPageType,
+	import { targetUrl, btnSubmit, contentImage, title, dateFrom, dateTo, rdoTargetPageType,
 		targetPage, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
@@ -13,7 +13,7 @@
 	import { page } from "../modules/page-url.js";
 
 	$( () => {
-		bannerTitle.trigger('focus');
+		title.trigger('focus');
 		initSearchDatepicker();
 		initInputDateRangeWeek();
 		initMinDateToday();
@@ -23,7 +23,7 @@
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		dateFrom.on('change', function () { onChangeSearchDateFrom() });
 		dateTo	.on('change', function () { onChangeSearchDateTo() });
-		bannerImage	.on('change', function () { onChangeValidateImage(this); });
+		contentImage	.on('change', function () { onChangeValidateImage(this); });
 		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
 		btnSubmit	.on('click', function () { onSubmitBanner(); });
 	});
@@ -39,7 +39,7 @@
 		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', bannerImage[0].files[0]);
+		param.append('file', contentImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -51,7 +51,7 @@
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
 			const param = {
-				"banner_name" : bannerTitle.val().trim(),
+				"banner_name" : title.val().trim(),
 				"banner_type" : $("input[name=radio-target-page-type]:checked").val(),
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
@@ -76,17 +76,10 @@
 
 	function validation()
 	{
-		if (isEmpty(bannerTitle.val()))
+		if (isEmpty(title.val()))
 		{
 			sweetToast(`배너명은 ${message.required}`);
-			bannerTitle.trigger('focus');
-			return false;
-		}
-
-		const bannerImg = bannerImage[0].files;
-		if (bannerImg.length === 0)
-		{
-			sweetToast(`배너 이미지는 ${message.required}`);
+			title.trigger('focus');
 			return false;
 		}
 
@@ -103,6 +96,13 @@
 			targetUrl.trigger('focus');
 			return false;
 		}*/
+
+		const bannerImg = contentImage[0].files;
+		if (bannerImg.length === 0)
+		{
+			sweetToast(`배너 이미지는 ${message.required}`);
+			return false;
+		}
 
 		return true;
 	}

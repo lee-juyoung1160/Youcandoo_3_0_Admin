@@ -1,22 +1,8 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-	targetUrl,
-	btnSubmit,
-	bannerImage,
-	bannerTitle,
-	dateFrom,
-	dateTo,
-	rdoTargetPageType,
-	targetPage,
-	modalOpen,
-	modalClose,
-	modalBackdrop,
-	dataTable,
-	targetUuid,
-	thumbnail, datePicker,
-} from '../modules/elements.js';
+	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage,
+		modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, thumbnail, datePicker, contentImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
 	initSearchDatepicker,
@@ -36,7 +22,7 @@
 	const bannerIdx	= splitReverse(pathName, '/');
 
 	$( () => {
-		bannerTitle.trigger('focus');
+		title.trigger('focus');
 		initSearchDatepicker();
 		getDetail();
 		/** 이벤트 **/
@@ -45,7 +31,7 @@
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		dateFrom.on('change', function () { onChangeSearchDateFrom() });
 		dateTo	.on('change', function () { onChangeSearchDateTo() });
-		bannerImage	.on('change', function () { onChangeValidateImage(this); });
+		contentImage	.on('change', function () { onChangeValidateImage(this); });
 		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdateBanner(); });
 	});
@@ -73,7 +59,7 @@
 
 		g_banner_uuid = banner_uuid;
 
-		bannerTitle.val(banner_name);
+		title.val(banner_name);
 		rdoTargetPageType.each(function () {
 			if ($(this).val() === banner_type)
 			{
@@ -94,7 +80,7 @@
 	{
 		if (validation())
 		{
-			const bannerImg = bannerImage[0].files;
+			const bannerImg = contentImage[0].files;
 			const requestFn = bannerImg.length === 0 ? updateRequest : fileUploadReq;
 			sweetConfirm(message.modify, requestFn);
 		}
@@ -105,7 +91,7 @@
 		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', bannerImage[0].files[0]);
+		param.append('file', contentImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
@@ -118,7 +104,7 @@
 			const errMsg = label.modify+message.ajaxError;
 			const param = {
 				"banner_uuid" : g_banner_uuid,
-				"banner_name" : bannerTitle.val().trim(),
+				"banner_name" : title.val().trim(),
 				"banner_type" : $("input[name=radio-target-page-type]:checked").val(),
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
@@ -145,10 +131,10 @@
 
 	function validation()
 	{
-		if (isEmpty(bannerTitle.val()))
+		if (isEmpty(title.val()))
 		{
 			sweetToast(`배너명은 ${message.required}`);
-			bannerTitle.trigger('focus');
+			title.trigger('focus');
 			return false;
 		}
 

@@ -17,7 +17,7 @@
                     <tr>
                         <th>제목 *</th>
                         <td>
-                            <input id="bannerTitle" type="text" class="length-input" placeholder="제목을 입력해주세요.">
+                            <input id="title" type="text" class="length-input" placeholder="제목을 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
@@ -32,11 +32,11 @@
                             <p class="desc-sub">( 이미지 크기 : ? x ? )</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="bannerImage">업로드</label>
-                                <input type="file" id="bannerImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="720" data-height="936" data-compare="같음">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="720" data-height="936" data-compare="같음">
                             </div>
                             <div class="detail-img-wrap">
-                                <img src="" alt="">
+                                <img id="thumbnail" src="" alt="">
                             </div>
                         </td>
                     </tr>
@@ -44,7 +44,7 @@
                         <th>노출 여부</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure" value="Y" checked>
+                                <input id="r3" type="radio" name="radio-exposure" value="Y">
                                 <label for="r3"><span></span>Y</label>
 
                                 <input  id="r4" type="radio" name="radio-exposure" value="N">
@@ -61,5 +61,5 @@
         </div>
     </div>
 </section>
-<script defer type="module" src="/assets/v2/js/banner/banner-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/story/story-update.js?version=<?php echo $this->config->item('version');?>"></script>
 

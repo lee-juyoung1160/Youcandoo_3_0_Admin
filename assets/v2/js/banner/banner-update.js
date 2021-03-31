@@ -187,10 +187,10 @@
 		const url = getApiUrl();
 		const errMsg = label.list + message.ajaxLoadError
 
-		ajaxRequestWithJsonData(true, url, null, getCategoryListCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, null, getTargetPageListCallback, errMsg, false);
 	}
 
-	function getCategoryListCallback(data)
+	function getTargetPageListCallback(data)
 	{
 		isSuccessResp(data) ? buildTable(data) : sweetToast(data.msg);
 	}

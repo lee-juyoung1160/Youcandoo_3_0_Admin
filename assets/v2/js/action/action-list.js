@@ -41,6 +41,9 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		$("#btndownload").on('click', function () {
+			download("https://youcandoo.yanadoocdn.com/action/b1afe4de0f6ebf83e6526cfe9e9d410d/6991cc1116e3e6b49ca297104849224c.jpg");
+		})
 	});
 
 	function initSearchForm()

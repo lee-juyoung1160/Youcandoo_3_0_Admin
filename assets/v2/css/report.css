@@ -124,6 +124,15 @@
 .modal-content.auth-detail {
 	width: 1300px;
 }
+.modal-content.auth-detail .card {
+	position: relative;
+}
+.btn-download {
+	position: absolute;
+	top:18px;
+	right: 15px;
+	z-index: 100;
+}
 /* 인증 */
 .auth-detail .auth-data-wrap {
 	width: 604px;

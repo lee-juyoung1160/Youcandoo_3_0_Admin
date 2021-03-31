@@ -1,8 +1,7 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {dataTable, updateTable, historyTable, btnUpdate, modalClose, modalBackdrop,
-		btnSubmitUpdate, modalUpdate, modalDetail, modalBannerImage,} from '../modules/elements.js';
+	import {dataTable, updateTable, historyTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail, modalImage,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
 	import { initTableDefaultConfig,} from '../modules/tables.js';
@@ -311,10 +310,10 @@
 
 	function onClickModalDetailOpen(obj)
 	{
-		modalBannerImage.attr('src', '');
+		modalImage.attr('src', '');
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		modalBannerImage.attr('src', $(obj).data('url'));
+		modalImage.attr('src', $(obj).data('url'));
 		onErrorImage();
 	}

@@ -1,7 +1,7 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {dataTable, updateTable, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail, modalBannerImage, btnUpdate,} from '../modules/elements.js';
+	import {dataTable, updateTable, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail, modalImage, btnUpdate,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
 	import { initTableDefaultConfig,} from '../modules/tables.js';
@@ -20,6 +20,8 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnSubmitUpdate	.on("click", function () { onSubmitUpdate(); });
+		$(".btn-xs.btn-teal").on("click", function () { location.href = page.updateStory });
+		$(".banner-img-wrap").on('click', function () { onClickModalDetailOpen(this); });
 	});
 
 	function initTableSort()
@@ -249,10 +251,10 @@
 
 	function onClickModalDetailOpen(obj)
 	{
-		modalBannerImage.attr('src', '');
+		//modalImage.attr('src', '');
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		modalBannerImage.attr('src', $(obj).data('url'));
+		//modalImage.attr('src', $(obj).data('url'));
 		onErrorImage();
 	}

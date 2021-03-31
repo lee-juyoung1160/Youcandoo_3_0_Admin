@@ -80,6 +80,13 @@
         targetDoitList : baseApiUrl + '',
         targetNoticeList : baseApiUrl + '',
 
+        storyList : baseApiUrl + 'story/get/list',
+        createStory : baseApiUrl + 'story/create',
+        detailStory : baseApiUrl + 'story/get/detail/info',
+        updateStory : baseApiUrl + 'story/update',
+        deleteStory : baseApiUrl + 'story/delete',
+        reorderStory : baseApiUrl + 'story/set/orders',
+
         eventList : baseApiUrl + 'event/list',
         createEvent : baseApiUrl + 'event/create',
         detailEvent : baseApiUrl + 'event/detail',

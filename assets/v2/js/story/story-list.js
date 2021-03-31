@@ -1,8 +1,7 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {dataTable, updateTable, historyTable, btnUpdate, modalClose, modalBackdrop,
-		btnSubmitUpdate, modalUpdate, modalDetail, modalBannerImage,} from '../modules/elements.js';
+	import {dataTable, updateTable, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail, modalBannerImage, btnUpdate,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
 	import { initTableDefaultConfig,} from '../modules/tables.js';
@@ -15,8 +14,7 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		getBannerList();
-		buildLastBannerTable();
+		//getStoryList();
 		/** 이벤트 **/
 		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -42,9 +40,9 @@
 		return $(el);
 	}
 
-	function getBannerList()
+	function getStoryList()
 	{
-		const url = api.bannerList;
+		const url = api.storyList;
 		const errMsg = label.list + message.ajaxLoadError;
 		const param = {
 			"banner_open_type" : "now"
@@ -70,24 +68,20 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "이미지",    	data: "banner_image_url",  	width: "15%",
+				{title: "썸네일",    	data: "banner_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "배너명", 		data: "banner_name",		width: "25%" }
-				,{title: "노출기간",    	data: "open_date",  		width: "15%",
-					render: function (data, type, row, meta) {
-						return `${row.open_date} ~ ${row.close_date}`;
-					}
-				}
-				,{title: "이동 페이지",   data: "banner_url",  		width: "35%",
+				,{title: "제목", 		data: "banner_name",		width: "30%" }
+				,{title: "이동 페이지",   data: "banner_url",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
+				,{title: "노출여부",    	data: "is_exposure",  		width: "30%" }
 				,{title: "수정",    		data: "banner_uuid",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-teal btn-update" id="${row.idx}">수정</button>`;
@@ -117,7 +111,7 @@
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		buildUpdateTable();
+		//buildUpdateTable();
 	}
 
 	function buildUpdateTable()
@@ -129,14 +123,14 @@
 		updateTable.DataTable({
 			data: data,
 			columns: [
-				{title: "이미지",   	data: "banner_image_url",  	width: "20%",
+				{title: "썸네일",   	data: "banner_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "배너명", 	data: "banner_name",		width: "70%" }
+				,{title: "제목", 	data: "banner_name",		width: "70%" }
 				,{title: "삭제",    	data: "banner_uuid", 		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
@@ -218,7 +212,7 @@
 	function reorderSuccess()
 	{
 		fadeoutModal();
-		getBannerList();
+		getStoryList();
 	}
 
 	function updateValidation()
@@ -246,62 +240,6 @@
 		}
 
 		return uuids;
-	}
-
-	function buildLastBannerTable()
-	{
-		historyTable.DataTable({
-			ajax : {
-				url: api.bannerList,
-				type: "POST",
-				headers: headers,
-				dataFilter: function(data){
-					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
-
-					return JSON.stringify(json);
-				},
-				data: function (d) {
-					return JSON.stringify({ "banner_open_type" : "before" });
-				},
-				error: function (request, status) {
-					sweetError(label.list+message.ajaxLoadError);
-				}
-			},
-			columns: [
-				{title: "이미지",    		data: "banner_image_url",  	width: "15%",
-					render: function (data, type, row, meta) {
-						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
-						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
-					}
-				}
-				,{title: "배너명", 		data: "banner_name",		width: "25%" }
-				,{title: "노출기간",    	data: "open_date",  		width: "15%",
-					render: function (data, type, row, meta) {
-						return `${row.open_date} ~ ${row.close_date}`;
-					}
-				}
-				,{title: "이동 페이지",    data: "banner_url",  		width: "45%",
-					render: function (data, type, row, meta) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
-			],
-			serverSide: true,
-			paging: false,
-			select: false,
-			destroy: true,
-			initComplete: function () {
-				addViewDetailEvent();
-			},
-			fnRowCallback: function( nRow, aData ) {
-			},
-			drawCallback: function (settings) {
-				onErrorImage();
-			}
-		});
 	}
 
 	function addViewDetailEvent()

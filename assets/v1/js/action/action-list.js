@@ -104,6 +104,9 @@
 		let actionDom 	= '';
 		let exampleDom 	= '';
 		let className 	= '';
+
+		actionDom += `<button type="button" class="btn-download" data-url="${actionUrl}" onclick="downloadAction(this);"><i class="fas fa-download"></i> 인증 다운로드</button>`
+
 		if (type === 'image')
 		{
 			className = 'img-contents';
@@ -468,4 +471,9 @@
 		currentPage =1;
 		getActions();
 		initMaxDateToday();
+	}
+
+	function downloadAction(obj)
+	{
+		download($(obj).data('url'));
 	}

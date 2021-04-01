@@ -1,9 +1,9 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import { targetUrl, btnSubmit, contentImage, title, modalOpen, modalClose, modalBackdrop,} from '../modules/elements.js';
+	import { targetUrl, btnSubmit, contentImage, title,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {onChangeValidateImage, fadeoutModal, fadeinModal,} from "../modules/common.js";
+	import {onChangeValidateImage,} from "../modules/common.js";
 	import {isEmpty, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -12,14 +12,11 @@
 	$( () => {
 		title.trigger('focus');
 		/** 이벤트 **/
-		modalOpen		.on("click", function () { onClickModalOpen(); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		contentImage	.on('change', function () { onChangeValidateImage(this); });
-		btnSubmit	.on('click', function () { onSubmitBanner(); });
+		contentImage.on('change', function () { onChangeValidateImage(this); });
+		btnSubmit	.on('click', function () { onSubmitStory(); });
 	});
 
-	function onSubmitBanner()
+	function onSubmitStory()
 	{
 		if (validation())
 			sweetConfirm(message.create, fileUploadReq);
@@ -42,11 +39,10 @@
 			const url = api.createStory;
 			const errMsg = label.submit+message.ajaxError;
 			const param = {
-				"banner_name" : title.val().trim(),
-				"banner_type" : $("input[name=radio-exposure]:checked").val(),
-				"open_date" : dateFrom.val(),
-				"close_date" : dateTo.val(),
-				"banner_image_url" : data.image_urls.file
+				"story_title" : title.val().trim(),
+				"story_url" : targetUrl.val().trim(),
+				"story_image_url" : data.image_urls.file,
+				"is_exposure" : $("input[name=radio-exposure]:checked").val(),
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

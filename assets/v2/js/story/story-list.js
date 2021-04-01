@@ -14,7 +14,7 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		//getStoryList();
+		getStoryList();
 		/** 이벤트 **/
 		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -46,14 +46,11 @@
 	{
 		const url = api.storyList;
 		const errMsg = label.list + message.ajaxLoadError;
-		const param = {
-			"banner_open_type" : "now"
-		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getCategoryListCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, null, getStoryListCallback, errMsg, false);
 	}
 
-	function getCategoryListCallback(data)
+	function getStoryListCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
@@ -70,21 +67,21 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "썸네일",    	data: "banner_image_url",  	width: "20%",
+				{title: "썸네일",    		data: "story_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "제목", 		data: "banner_name",		width: "30%" }
-				,{title: "이동 페이지",   data: "banner_url",  		width: "10%",
+				,{title: "제목", 		data: "story_title",		width: "30%" }
+				,{title: "이동 페이지",   	data: "story_url",  		width: "30%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "노출여부",    	data: "is_exposure",  		width: "30%" }
-				,{title: "수정",    		data: "banner_uuid",  		width: "10%",
+				,{title: "노출여부",    	data: "is_exposure",  		width: "10%" }
+				,{title: "수정",    		data: "story_uuid",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-teal btn-update" id="${row.idx}">수정</button>`;
 					}
@@ -97,7 +94,7 @@
 			initComplete: function () {
 				addViewDetailEvent();
 
-				$(".btn-update").on('click', function () { location.href = page.updateBanner + this.id });
+				$(".btn-update").on('click', function () { location.href = page.updateStory + this.id });
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -113,7 +110,7 @@
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		//buildUpdateTable();
+		buildUpdateTable();
 	}
 
 	function buildUpdateTable()
@@ -125,15 +122,15 @@
 		updateTable.DataTable({
 			data: data,
 			columns: [
-				{title: "썸네일",   	data: "banner_image_url",  	width: "20%",
+				{title: "썸네일",   	data: "story_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						const imageTypes = [".jpeg", ".jpg", ".png"];
 						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "제목", 	data: "banner_name",		width: "70%" }
-				,{title: "삭제",    	data: "banner_uuid", 		width: "10%",
+				,{title: "제목", 	data: "story_title",		width: "70%" }
+				,{title: "삭제",    	data: "story_uuid", 		width: "10%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
 					}
@@ -150,7 +147,7 @@
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.banner_uuid);
+				$(nRow).attr('data-uuid', aData.story_uuid);
 			},
 			drawCallback: function (settings) {
 				onErrorImage();
@@ -199,8 +196,8 @@
 	function reorderRequest()
 	{
 		const uuids = getRowsId();
-		const param = { "banner_uuid" : uuids };
-		const url 	= api.reorderBanner;
+		const param = { "story_uuid" : uuids };
+		const url 	= api.reorderStory;
 		const errMsg = label.modify + message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
@@ -251,10 +248,10 @@
 
 	function onClickModalDetailOpen(obj)
 	{
-		//modalImage.attr('src', '');
+		modalImage.attr('src', '');
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		//modalImage.attr('src', $(obj).data('url'));
+		modalImage.attr('src', $(obj).data('url'));
 		onErrorImage();
 	}

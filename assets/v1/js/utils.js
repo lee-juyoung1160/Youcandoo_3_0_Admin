@@ -256,7 +256,7 @@
 
 	function isDomainName(param)
 	{
-		let regExp = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
+		const regExp = /^(http(s)?\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
 
 		return regExp.test(param);
 	}

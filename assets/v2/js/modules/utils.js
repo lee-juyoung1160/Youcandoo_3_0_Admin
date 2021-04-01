@@ -174,8 +174,8 @@
 	{
 		if (obj.files[0])
 		{
-			let maxSize = 10 * 1024 * 1024;
-			return obj.files[0].size >maxSize;
+			const maxSize = 10 * 1024 * 1024;
+			return obj.files[0].size > maxSize;
 		}
 	}
 
@@ -216,7 +216,7 @@
 
 	export function isNumber(param)
 	{
-		let regex = /^[0-9]*$/g;
+		const regex = /^[0-9]*$/g;
 		return regex.test(param);
 	}
 
@@ -247,21 +247,21 @@
 
 	export function isAlphabet(param)
 	{
-		let regExp = /^[A-Za-z]*$/;
+		const regExp = /^[A-Za-z]*$/;
 
 		return regExp.test(param);
 	}
 
 	export function isEmail(param)
 	{
-		let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 		return regExp.test(param);
 	}
 
 	export function isDomainName(param)
 	{
-		let regExp = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
+		const regExp = /^(http(s)?\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
 
 		return regExp.test(param);
 	}

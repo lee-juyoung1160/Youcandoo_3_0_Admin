@@ -14,7 +14,7 @@
 
 	$( () => {
 		title.trigger('focus');
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		contentImage	.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdateBanner(); });
@@ -39,16 +39,17 @@
 	let g_story_uuid;
 	function buildDetail(data)
 	{
-		const { story_uuid, banner_name, banner_type, banner_image_url } = data.data;
+		const { story_uuid, story_title, story_url, story_image_url, is_exposure } = data.data;
 
 		g_story_uuid = story_uuid;
 
-		title.val(banner_name);
+		title.val(story_title);
+		targetUrl.val(story_url);
 		rdoExposure.each(function () {
-			if ($(this).val() === banner_type)
+			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
 		});
-		thumbnail.attr('src', banner_image_url);
+		thumbnail.attr('src', story_image_url);
 
 		calculateInputLength();
 		onErrorImage();
@@ -78,16 +79,17 @@
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateBanner;
+			const url = api.updateStory;
 			const errMsg = label.modify+message.ajaxError;
 			const param = {
-				"banner_uuid" : g_story_uuid,
-				"banner_name" : title.val().trim(),
-				"banner_type" : $("input[name=radio-exposure]:checked").val(),
+				"story_uuid" : g_story_uuid,
+				"story_title" : title.val().trim(),
+				"story_url" : targetUrl.val().trim(),
+				"is_exposure" : $("input[name=radio-exposure]:checked").val(),
 			}
 
 			if (!isEmpty(data))
-				param["banner_image_url"] = data.image_urls.file;
+				param["story_image_url"] = data.image_urls.file;
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}

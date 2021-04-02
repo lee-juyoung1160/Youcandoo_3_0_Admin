@@ -263,7 +263,7 @@
 
     /** 배너 **/
     export const targetUrl = $("#targetUrl");
-    export const targetUuid = $("#bannerUuid");
+    export const targetUuid = $("#targetUuid");
     export const historyTable = $("#historyTable");
 
     /** 유캔두 픽 **/

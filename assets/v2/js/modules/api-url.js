@@ -74,17 +74,17 @@
         createBanner : baseApiUrl + 'banner/create',
         detailBanner : baseApiUrl + 'banner/get/detail/info',
         updateBanner : baseApiUrl + 'banner/update',
-        deleteBanner : baseApiUrl + 'banner/delete',
+        /*deleteBanner : baseApiUrl + 'banner/delete',*/
         reorderBanner : baseApiUrl + 'banner/set/orders',
-        targetEventList : baseApiUrl + '',
-        targetDoitList : baseApiUrl + '',
-        targetNoticeList : baseApiUrl + '',
+        targetEventList : baseApiUrl + 'banner/get/doit/list',
+        targetDoitList : baseApiUrl + 'banner/get/doit/list',
+        targetNoticeList : baseApiUrl + 'banner/get/doit/list',
 
         storyList : baseApiUrl + 'story/get/list',
         createStory : baseApiUrl + 'story/create',
         detailStory : baseApiUrl + 'story/get/detail/info',
         updateStory : baseApiUrl + 'story/update',
-        deleteStory : baseApiUrl + 'story/delete',
+        /*deleteStory : baseApiUrl + 'story/delete',*/
         reorderStory : baseApiUrl + 'story/set/orders',
 
         eventList : baseApiUrl + 'event/list',

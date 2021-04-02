@@ -1,28 +1,24 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage,
-		modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, thumbnail, datePicker, contentImage,} from '../modules/elements.js';
+		modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, thumbnail, datePicker, contentImage, keyword,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {
-	initSearchDatepicker,
-	onChangeValidateImage,
-	onChangeSearchDateFrom,
-	onChangeSearchDateTo,
-	fadeoutModal,
-	fadeinModal,
-	onErrorImage, calculateInputLength,
-} from "../modules/common.js";
+	import { initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom,
+		onChangeSearchDateTo, fadeoutModal, fadeinModal, onErrorImage, calculateInputLength,} from "../modules/common.js";
 	import {isEmpty, isDomainName, getPathName, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	import {initTableDefaultConfig} from "../modules/tables.js";
 
 	const pathName	= getPathName();
 	const bannerIdx	= splitReverse(pathName, '/');
 
 	$( () => {
 		title.trigger('focus');
+		/** dataTable default config **/
+		initTableDefaultConfig();
 		initSearchDatepicker();
 		getDetail();
 		/** 이벤트 **/
@@ -33,6 +29,7 @@
 		dateTo	.on('change', function () { onChangeSearchDateTo() });
 		contentImage	.on('change', function () { onChangeValidateImage(this); });
 		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
+		keyword		.on('keyup', function () { getTargetPageList(); });
 		btnSubmit	.on('click', function () { onSubmitUpdateBanner(); });
 	});
 
@@ -55,18 +52,25 @@
 	let g_banner_uuid;
 	function buildDetail(data)
 	{
-		const { banner_uuid, banner_name, banner_type, open_date, close_date, banner_image_url } = data.data;
+		const { banner_uuid, banner_name, page_type, page_value, target_title, open_date, close_date, banner_image_url } = data.data;
 
 		g_banner_uuid = banner_uuid;
 
 		title.val(banner_name);
 		rdoTargetPageType.each(function () {
-			if ($(this).val() === banner_type)
+			if ($(this).val() === page_type)
 			{
 				$(this).prop('checked', true);
 				onChangeRdoTargetPageType($(this));
 			}
 		});
+		if (page_type === 'web')
+			targetUrl.val(page_value);
+		else
+		{
+			targetPage.val(target_title);
+			targetUuid.val(page_value);
+		}
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
 		thumbnail.attr('src', banner_image_url);
@@ -102,10 +106,13 @@
 		{
 			const url = api.updateBanner;
 			const errMsg = label.modify+message.ajaxError;
+			const pageType = $("input[name=radio-target-page-type]:checked").val();
+			const bannerTarget = pageType === 'web' ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_uuid" : g_banner_uuid,
 				"banner_name" : title.val().trim(),
-				"banner_type" : $("input[name=radio-target-page-type]:checked").val(),
+				"page_type" : pageType,
+				"banner_target" : bannerTarget,
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
 			}
@@ -138,19 +145,28 @@
 			return false;
 		}
 
-		/*if (isEmpty(targetUrl.val()))
+		const pageType = $("input[name=radio-target-page-type]:checked").val();
+		const isWeb = pageType === 'web';
+		if (isWeb && isEmpty(targetUrl.val()))
 		{
-			sweetToast(`이동 페이지 URL은 ${message.required}`);
+			sweetToast(`이동할 페이지는 ${message.required}`);
 			targetUrl.trigger('focus');
 			return false;
 		}
 
-		if (!isDomainName(targetUrl.val().trim()))
+		if (isWeb && !isDomainName(targetUrl.val().trim()))
 		{
-			sweetToast(`이동 페이지 URL 형식을 ${message.doubleChk}`);
+			sweetToast(`이동할 페이지 형식을 ${message.doubleChk}`);
 			targetUrl.trigger('focus');
 			return false;
-		}*/
+		}
+
+		if ((!isWeb) && isEmpty(targetUuid.val()))
+		{
+			sweetToast(`이동할 페이지는 ${message.required}`);
+			targetPage.trigger('focus');
+			return false;
+		}
 
 		return true;
 	}
@@ -160,16 +176,16 @@
 		const targetPageType = $(obj).val();
 
 		switch (targetPageType) {
-			case 'event' :
+			case 'event_detail' :
 				showTargetPage();
 				break;
-			case 'doit' :
+			case 'doit_detail' :
 				showTargetPage();
 				break;
-			case 'notice' :
+			case 'notice_detail' :
 				showTargetPage();
 				break;
-			case 'webview' :
+			case 'web' :
 				showTargetUrl();
 				targetUrl.trigger('focus');
 				break;
@@ -179,30 +195,45 @@
 	function onClickModalOpen()
 	{
 		fadeinModal();
-		// getTargetPageList();
+		getTargetPageList();
 	}
 
 	function getTargetPageList()
 	{
-		const url = getApiUrl();
-		const errMsg = label.list + message.ajaxLoadError
-
-		ajaxRequestWithJsonData(true, url, null, getTargetPageListCallback, errMsg, false);
-	}
-
-	function getTargetPageListCallback(data)
-	{
-		isSuccessResp(data) ? buildTable(data) : sweetToast(data.msg);
-	}
-
-	function buildTable(data)
-	{
 		dataTable.empty();
 		dataTable.DataTable({
-			data: data.data,
+			ajax : {
+				url: getApiUrl(),
+				type:"POST",
+				global: false,
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const table = dataTable.DataTable();
+					const info = table.page.info();
+					const _page = (info.start / info.length) + 1;
+					const param = {
+						"limit" : 5
+						,"page" : _page
+						,"keyword" : keyword.val()
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
 			columns: buildTableColumns(),
-			serverSide: false,
+			serverSide: true,
 			paging: true,
+			pageLength: 5,
 			select: false,
 			destroy: true,
 			initComplete: function () {
@@ -219,17 +250,29 @@
 		let uuid;
 		let name;
 		switch (targetPageType) {
-			case 'event' :
+			/*case 'event_detail' :
 				uuid = aData.event_uuid;
 				name = aData.event_title;
 				break;
-			case 'doit' :
+			case 'doit_detail' :
 				uuid = aData.doit_uuid;
 				name = aData.doit_title;
 				break;
-			case 'notice' :
+			case 'notice_detail' :
 				uuid = aData.notice_uuid;
 				name = aData.notice_title;
+				break;*/
+			case 'event_detail' :
+				uuid = aData.doit_uuid;
+				name = aData.doit_title;
+				break;
+			case 'doit_detail' :
+				uuid = aData.doit_uuid;
+				name = aData.doit_title;
+				break;
+			case 'notice_detail' :
+				uuid = aData.doit_uuid;
+				name = aData.doit_title;
 				break;
 		}
 		$(nRow).attr('data-uuid', uuid);
@@ -248,14 +291,19 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event' :
+			/*case 'event_detail' :
 				return [{title: "구분",		data: "event_name",    	width: "20%"}
 						,{title: "제목",		data: "title",    	   	width: "40%"}]
-			case 'doit' :
-				return [{title: "진행상태",	data: "doit_status",   	width: "20%"}
-						,{title: "두잇명",	data: "doit_title",    	width: "80%"}]
-			case 'notice' :
-				return [{title: "제목",		data: "notice_title",   width: "100%"}]
+			case 'doit_detail' :
+				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
+			case 'notice_detail' :
+				return [{title: "제목",		data: "notice_title",   width: "100%"}]*/
+			case 'event_detail' :
+				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
+			case 'doit_detail' :
+				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
+			case 'notice_detail' :
+				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
 		}
 	}
 
@@ -263,11 +311,11 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event' :
+			case 'event_detail' :
 				return api.targetEventList
-			case 'doit' :
+			case 'doit_detail' :
 				return api.targetDoitList
-			case 'notice' :
+			case 'notice_detail' :
 				return api.targetNoticeList
 		}
 	}

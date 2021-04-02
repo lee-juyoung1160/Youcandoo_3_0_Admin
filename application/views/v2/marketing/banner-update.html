@@ -24,23 +24,24 @@
                         <th>이동페이지 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input  id="r7" type="radio" name="radio-target-page-type" value="event" checked>
+                                <input  id="r7" type="radio" name="radio-target-page-type" value="event_detail">
                                 <label for="r7"><span></span>이벤트</label>
 
-                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
+                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit_detail">
                                 <label for="r8"><span></span>두잇</label>
 
-                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
+                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice_detail">
                                 <label for="r6"><span></span>공지</label>
 
-                                <input id="r5" type="radio" name="radio-target-page-type" value="webview">
+                                <input id="r5" type="radio" name="radio-target-page-type" value="web">
                                 <label for="r5"><span></span>웹뷰</label>
                             </div>
 
                             <div class="result-wrap">
                                 <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 이동할 페이지를 선택해주세요." readonly>
+                                <input id="targetUuid" type="hidden">
                             </div>
-                            <div class="result-wrap" style="display: none;">
+                            <div class="result-wrap">
                                 <input id="targetUrl" type="text" class="length-input" placeholder="https://를 포함하여 입력해주세요.">
                             </div>
                         </td>
@@ -93,7 +94,7 @@
                 </div>
                 <div class="table-wrap">
                     <table id="dataTable">
-                        <thead>
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 20%;">
                             <col style="width: 80%;">
@@ -108,7 +109,7 @@
                             <td>결과발표</td>
                             <td>세리박스</td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>
@@ -117,5 +118,6 @@
         <div class="modal-bg"></div>
     </div>
 </section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/banner/banner-update.js?version=<?php echo $this->config->item('version');?>"></script>
 

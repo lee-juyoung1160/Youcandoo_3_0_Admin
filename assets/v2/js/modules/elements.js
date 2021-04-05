@@ -155,7 +155,7 @@
     export const missionStartTime   = $("#missionStartTime");
     export const missionEndTime     = $("#missionEndTime");
     export const rdoActionType  = $("input[name=radio-action-type]");
-    export const actionImage  = $("#actionImage");
+    export const actionExampleWrap  = $("#actionExampleWrap");
     export const actionDesc  = $("#actionDesc");
     export const promise  = $("#promise");
     export const promiseImage  = $("#promiseImage");

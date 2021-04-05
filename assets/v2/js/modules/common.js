@@ -4,7 +4,7 @@
         dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
-    import { numberWithCommas, isOverFileSize, appendZero } from "./utils.js";
+    import { numberWithCommas, isOverFileSize, appendZero, isImage, isAudio, isVideo } from "./utils.js";
     import { sweetToast, sweetError } from "./alert.js";
 
     export function historyBack()
@@ -244,6 +244,38 @@
         });
     }
 
+    export function onChangeValidationAudio(obj)
+    {
+        if (!isAudio(obj) && obj.files[0])
+        {
+            sweetToast(message.invalidFile);
+            emptyFile(obj);
+        }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
+            emptyFile(obj);
+        }
+        else
+            setFile(obj, 'audio');
+    }
+
+    export function onChangeValidationVideo(obj)
+    {
+        if (!isVideo(obj) && obj.files[0])
+        {
+            sweetToast(message.invalidFile);
+            emptyFile(obj);
+        }
+        else if (isOverFileSize(obj) && obj.files[0])
+        {
+            sweetToast(message.overFileSize);
+            emptyFile(obj);
+        }
+        else
+            setFile(obj, 'video');
+    }
+
     export function onChangeValidateImage(obj)
     {
         if (!isImage(obj) && obj.files[0])
@@ -347,18 +379,6 @@
         const thumbnailWrap = $(obj).parent().siblings('.detail-img-wrap');
         if (thumbnailWrap.length > 0)
             thumbnailWrap.remove();
-    }
-
-    export function isImage(obj)
-    {
-        if (obj.files[0])
-        {
-            let file 		= obj.files[0];
-            let fileType 	= file["type"];
-            let imageTypes 	= ["image/jpeg", "image/png"];
-
-            return $.inArray(fileType, imageTypes) >= 0;
-        }
     }
 
     export function paginate(_currentPage, _lastPage)

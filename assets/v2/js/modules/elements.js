@@ -156,6 +156,7 @@
     export const missionEndTime     = $("#missionEndTime");
     export const rdoActionType  = $("input[name=radio-action-type]");
     export const actionExampleWrap  = $("#actionExampleWrap");
+    export const chkGalleryAllowed  = $("input[name=chk-gallery-allowed]");
     export const actionDesc  = $("#actionDesc");
     export const promise  = $("#promise");
     export const promiseImage  = $("#promiseImage");
@@ -166,13 +167,15 @@
     export const updateMissionEndTime   = $("#updateMissionEndTime");
     export const rdoUpdateActionType  = $("input[naem=radio-update-action-type]");
     export const updateActionImage  = $("#updateActionImage");
+    export const chkUpdateGalleryAllowed  = $("input[name=chk-update-gallery-allowed]");
     export const updateActionDesc  = $("#updateActionDesc");
     export const updatePromise  = $("#updatePromise");
     export const updatePromiseImage  = $("#updatePromiseImage");
+    export const infoMissionTitle = $("#infoMissionTitle");
     export const infoMissionDate = $("#infoMissionDate");
     export const infoMissionTime = $("#infoMissionTime");
     export const infoActionType = $("#infoActionType");
-    export const infoActionImage = $("#infoActionImage");
+    export const infoActionExampleWrap  = $("#infoActionExampleWrap");
     export const infoActionDesc = $("#infoActionDesc");
     export const infoPromise = $("#infoPromise");
 

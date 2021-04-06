@@ -77,7 +77,7 @@
 	import { initTableDefaultConfig } from "../modules/tables.js";
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
 	import {
-	getMissionList,
+		buildMissionTable,
 	onClickBtnCreateMission,
 	onClickDetailMission,
 	onClickBtnMissionList,
@@ -202,7 +202,7 @@
 				missionUpdateForm.hide();
 				missionDetailForm.hide();
 				missionListForm.show();
-				getMissionList();
+				buildMissionTable();
 				break;
 			case '#tabDoitMember' :
 				pendingMemberForm.hide();

@@ -278,7 +278,7 @@
                         </div>
                         <div class="table-wrap">
                             <table id="missionTable">
-                                <thead>
+                                <!--<thead>
                                 <colgroup>
                                     <col style="width: 40%;">
                                     <col style="width: 20%;">
@@ -300,7 +300,7 @@
                                     <td>200</td>
                                     <td>진행중</td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>
@@ -308,7 +308,12 @@
                     <div class="detail-detail" style="display: none;" id="missionDetailForm">
                         <div class="card doit-tit-warp">
                             <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
-                            <p class="title"><span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>하루 한번 5분씩 영어공부</p>
+                            <p class="title" id="infoMissionTitle">
+                                <!--<span class="badge badge-info">대기중</span>
+                                <span class="badge badge-success">진행중</span>
+                                <span class="badge badge-warning">종료</span>
+                                하루 한번 5분씩 영어공부-->
+                            </p>
                             <div class="right-wrap">
                                 <button id="btnDeleteMission" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 미션삭제</button>
                             </div>
@@ -321,26 +326,26 @@
                             <tr>
                                 <th>기간</th>
                                 <td>
-                                    <p class="detail-data" id="infoMissionDate">2020-03-01 ~ 2020-04-01</p>
+                                    <p class="detail-data" id="infoMissionDate"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 시간</th>
                                 <td>
-                                    <p class="detail-data" id="infoMissionTime">00:00:00 ~ 00:00:00</p>
+                                    <p class="detail-data" id="infoMissionTime"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 방법</th>
                                 <td>
-                                    <p class="detail-data" id="infoActionType">사진 (갤러리 허용)</p>
+                                    <p class="detail-data" id="infoActionType"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 예시</th>
                                 <td>
-                                    <div class="detail-img-wrap doit-info-img">
-                                        <img id="infoActionImage" src="/assets/v2/img/profile-1.png" alt="">
+                                    <div class="detail-img-wrap doit-info-img" id="infoActionExampleWrap">
+<!--                                        <img src="/assets/v2/img/profile-1.png" alt="">-->
                                     </div>
                                 </td>
                             </tr>
@@ -404,9 +409,9 @@
                                 <th>인증 시간</th>
                                 <td>
                                     <div class="date-wrap">
-                                        <input id="missionStartTime" type="time" value="00:00" readonly="">
+                                        <input id="missionStartTime" type="time" value="00:00">
                                         <span class="date-text"> ~ </span>
-                                        <input id="missionEndTime" type="time" value="23:59" readonly="">
+                                        <input id="missionEndTime" type="time" value="23:59" max="23:59">
                                     </div>
                                 </td>
                             </tr>
@@ -422,6 +427,9 @@
 
                                         <input id="r10" type="radio" name="radio-action-type" value="voice">
                                         <label for="r10"><span></span>음성</label>
+
+                                        <input id="r11" type="checkbox" name="chk-gallery-allowed">
+                                        <label for="r11"><span></span>갤러리 허용</label>
                                     </div>
                                 </td>
                             </tr>
@@ -455,12 +463,12 @@
                                         <input id="promise" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
                                         <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                                     </div>
-                                    <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                                    <!--<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
                                         <label for="promiseImage">업로드</label>
                                         <input type="file" id="promiseImage" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
-                                    </div>
+                                    </div>-->
 <!--                                    <div class="detail-img-wrap">-->
 <!--                                        <img src="/assets/v2/img/profile-1.png" alt="">-->
 <!--                                    </div>-->
@@ -505,7 +513,7 @@
                                     <div class="date-wrap">
                                         <input id="updateMissionStartTime" type="time"/>
                                         <span class="date-text"> ~ </span>
-                                        <input id="updateMissionEndTime" type="time"/>
+                                        <input id="updateMissionEndTime" type="time" max="23:59"/>
                                     </div>
                                 </td>
                             </tr>
@@ -521,6 +529,9 @@
 
                                         <input  id="r7" type="radio" name="radio-update-action-type" value="voice">
                                         <label for="r7"><span></span>음성</label>
+
+                                        <input id="r12" type="checkbox" name="chk-update-gallery-allowed">
+                                        <label for="r12"><span></span>갤러리 허용</label>
                                     </div>
                                 </td>
                             </tr>
@@ -554,7 +565,7 @@
                                         <input id="updatePromise" type="text" class="length-input" maxlength="30" placeholder="공약을 입력해주세요.">
                                         <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                                     </div>
-                                    <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                                    <!--<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
                                         <label for="updatePromiseImage">업로드</label>
@@ -562,7 +573,7 @@
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+                                    </div>-->
                                 </td>
                             </tr>
                             <tr>

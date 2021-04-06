@@ -1,13 +1,45 @@
 
 	import {
-	missionCreateForm, missionDetailForm, missionListForm, missionUpdateForm,
-	missionTitle, missionStartDate, missionEndDate, rdoActionType, promise, doitImage, actionExampleWrap,
+	missionCreateForm,
+	missionDetailForm,
+	missionListForm,
+	missionUpdateForm,
+	missionTitle,
+	missionStartDate,
+	missionEndDate,
+	rdoActionType,
+	promise,
+	actionExampleWrap,
+	actionDesc,
+	missionTable,
+	infoMissionDate,
+	infoMissionTime,
+	infoActionType,
+	infoActionExampleWrap,
+	infoActionDesc,
+	infoPromise,
+	updateMissionStartDate,
+	updateMissionEndDate,
+	updateMissionStartTime,
+	updateMissionEndTime,
+	rdoUpdateActionType,
+	updatePromise,
+	updatePromiseImage,
+	missionStartTime,
+	missionEndTime,
+	chkGalleryAllowed,
+	infoMissionTitle, chkUpdateGalleryAllowed,
 } from "../modules/elements.js";
-	import {sweetConfirm} from "../modules/alert.js";
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
-	import {fileApiV2} from "../modules/api-url.js";
-	import {ajaxRequestWithFormData} from "../modules/request.js";
+	import {fileApiV2, api} from "../modules/api-url.js";
+	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio} from "../modules/common.js";
+	import {isEmpty} from "../modules/utils.js";
+	import {label} from "../modules/label.js";
+	import {page} from "../modules/page-url.js";
+	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {g_doit_uuid} from "./doit-detail-info.js";
 
 	export function onClickBtnCreateMission()
 	{
@@ -24,6 +56,7 @@
 		missionUpdateForm.hide();
 		missionDetailForm.hide();
 		missionListForm.show();
+		buildMissionTable();
 	}
 
 	export function onClickBtnUpdateMission()
@@ -34,12 +67,13 @@
 		missionListForm.hide();
 	}
 
-	export function onClickDetailMission()
+	export function onClickDetailMission(_idx)
 	{
 		missionCreateForm.hide();
 		missionUpdateForm.hide();
 		missionDetailForm.show();
 		missionListForm.hide();
+		getMissionDetail(_idx);
 	}
 
 	export function initMissionCreateForm()
@@ -95,9 +129,59 @@
 		}
 	}
 
-	export function getMissionList()
+	export function buildMissionTable()
 	{
+		missionTable.DataTable({
+			ajax : {
+				url: api.missionList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
 
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"doit_uuid": g_doit_uuid,
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "미션명", 		data: "mission_title",		width: "40%",
+					render: function (data, type, row, meta) {
+						return `<a>${data}</a>`;
+					}
+				}
+				,{title: "기간", 		data: "start_date",			width: "20%",
+					render: function (data, type, row, meta) {
+						return `${row.start_date} ~ ${row.end_date}`;
+					}
+				}
+				,{title: "참여인원",    	data: "state",  			width: "15%" }
+				,{title: "상태",    		data: "state",  			width: "15%" }
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(0).on('click', function () { onClickDetailMission(aData.idx); });
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
 	}
 
 	export function onSubmitMission()
@@ -108,26 +192,164 @@
 
 	function missionCreateValidation()
 	{
-		getActionType()
+		if (isEmpty(missionTitle.val()))
+		{
+			sweetToast(`미션명은 ${message.required}`);
+			missionTitle.trigger('focus');
+			return false;
+		}
+
+		const actionImg = $("#actionExample")[0].files;
+		if (actionImg.length === 0)
+		{
+			sweetToast(`인증 예시는 ${message.required}`);
+			return false;
+		}
+
+		if (isEmpty(actionDesc.val()))
+		{
+			sweetToast(`인증 예시 설명은 ${message.required}`);
+			actionDesc.trigger('focus');
+			return false;
+		}
+
+		return true;
 	}
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.misson;
+		const url = fileApiV2.single;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
-
 		let param  = new FormData();
-		param.append('file', doitImage[0].files[0]);
+		param.append('file', $("#actionExample")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
 
-	export function onSubmitUpdateMission()
+	function createRequest(data)
 	{
+		if (isSuccessResp(data))
+		{
+			const url = api.createMission;
+			const errMsg = label.submit+message.ajaxError;
+			const param = {
+				"doit_uuid" : g_doit_uuid,
+				"mission_title" : missionTitle.val().trim(),
+				"start_date" : missionStartDate.val(),
+				"end_date" : missionEndDate.val(),
+				"start_time" : missionStartTime.val().trim(),
+				"end_time" : missionEndTime.val().trim(),
+				"mission_description" : actionDesc.val().trim(),
+				"mission_type" : getActionType(),
+				"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
+				"mission_example" :  { "contents_type" : getActionType(), "path" : data.image_urls.file },
+				"promise_description" : promise.val().trim(),
+			}
 
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, onClickBtnMissionList);
+	}
+
+	function getMissionDetail(_idx)
+	{
+		const url = api.detailMission;
+		const errMsg = label.detailContent + message.ajaxLoadError;
+		const param = { "idx" : _idx };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getMissionDetailReqCallback, errMsg, false);
+	}
+
+	let g_mission_uuid;
+	function getMissionDetailReqCallback(data)
+	{
+		//thumbnail_url: "https://youcandoo.yanadoocdn.com/v3/mission/2021/04/06/1a643e5b103a4dbf857d105c992eb3d8.jpg"
+		const { mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
+			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
+		g_mission_uuid = mission_uuid;
+		infoMissionTitle.html(buildMissionStatus(state)+mission_title);
+		infoMissionDate.text(`${start_date} ~ ${end_date}`);
+		infoMissionTime.text(`${start_time} ~ ${end_time}`);
+		infoActionType.text(`${getStrActionType(mission_type)} (갤러리 허용 : ${allow_gallery_image})`);
+		infoActionExampleWrap.html(buildExample(data.data));
+		infoActionDesc.text(mission_description);
+		infoPromise.text(isEmpty(promise_description) ? label.dash : promise_description);
+
+		/** 수정폼 **/
+		updateMissionStartDate.val(start_date);
+		updateMissionEndDate.val(end_date);
+		updateMissionStartTime.val(start_time);
+		updateMissionEndTime.val(end_time);
+		rdoUpdateActionType.each(function () {
+			if ($(this).val() === mission_type)
+				$(this).prop('checked', true);
+		});
+		chkUpdateGalleryAllowed.prop('checked', allow_gallery_image === 'Y')
+		updatePromise.val(promise_description);
+		onChangeActionType();
+	}
+
+	function buildMissionStatus(_status)
+	{
+		switch (_status) {
+			case '진행중' :
+				return `<span class="badge badge-success">${_status}</span>`;
+			case '종료' :
+				return `<span class="badge badge-warning">${_status}</span>`;
+		}
+	}
+
+	function buildExample(_data)
+	{
+		const url = _data.contents_url;
+		switch (_data.mission_type) {
+			case 'image' :
+				return `<img src="${url}" alt="">`;
+			case 'video' :
+				return `<video controls><source src="${url}"></video>`;
+			case 'voice' :
+				return `<audio controls><source src="${url}"></audio>`;
+		}
+	}
+
+	function getStrActionType(_actionType)
+	{
+		switch (_actionType) {
+			case 'image' :
+				return '사진';
+			case 'video' :
+				return '영상';
+			case 'voice' :
+				return '음성';
+		}
 	}
 
 	export function deleteMission()
+	{
+		sweetConfirm(message.delete, deleteMissionRequest);
+	}
+
+	function deleteMissionRequest()
+	{
+		const url = api.deleteMission;
+		const errMsg = message.delete+message.ajaxError;
+		const param = { "mission_uuid" : g_mission_uuid };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteMissionReqCallback, errMsg, false);
+	}
+
+	function deleteMissionReqCallback(data)
+	{
+		sweetToastAndCallback(data, onClickBtnMissionList);
+	}
+
+	export function onSubmitUpdateMission()
 	{
 
 	}

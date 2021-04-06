@@ -338,12 +338,12 @@
         {
             if (obj.files && obj.files[0])
             {
-                /** image 일때 썸네일 표출 **/
+                setFileName(obj);
+
                 if (type === 'image')
                 {
-                    /** 기존 썸네일 삭제 **/
+                    /** 기존 썸네일 영역 삭제 **/
                     removeThumbnail(obj);
-
                     /** 파일읽어서 썸네일 표출하기 **/
                     readImage(obj);
                 }
@@ -361,17 +361,22 @@
         reader.readAsDataURL(obj.files[0]);
 
         reader.onload = function() {
-
             const innerDom = `<div class="detail-img-wrap"><img src="${reader.result}" alt=""></div>`;
-
             $(obj).parent().after(innerDom);
         }
+    }
+
+    function setFileName(obj)
+    {
+        const fileName = obj.files[0].name;
+        $(obj).siblings('.upload-name').val(fileName);
     }
 
     export function emptyFile(obj)
     {
         removeThumbnail(obj);
         $(obj).val(null);
+        $(obj).siblings('.upload-name').val('파일선택');
     }
 
     export function removeThumbnail(obj)

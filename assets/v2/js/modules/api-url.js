@@ -30,6 +30,12 @@
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
 
+        missionList : baseApiUrl + 'mission/get/list',
+        createMission : baseApiUrl + 'mission/create',
+        detailMission : baseApiUrl + 'mission/get/detail/info',
+        updateMission : baseApiUrl + 'mission/update',
+        deleteMission : baseApiUrl + 'mission/delete',
+
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',
         searchDoitList : baseApiUrl + 'recommend/get/doit/list',
@@ -139,6 +145,5 @@
     export const fileApiV2 = {
         single : fileUploadBaseUrlV2+'single'
         ,event : fileUploadBaseUrlV2+'event'
-        ,doit : fileUploadBaseUrlV2+'doit'
-        ,promotion : fileUploadBaseUrlV2+'promotion'
+        ,mission : fileUploadBaseUrlV2+'mission'
     }

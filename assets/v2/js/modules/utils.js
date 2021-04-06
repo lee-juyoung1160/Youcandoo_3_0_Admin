@@ -150,9 +150,9 @@
 	{
 		if (obj.files[0])
 		{
-			let file 		= obj.files[0];
-			let fileType 	= file["type"];
-			let videoTypes 	= ["video/quicktime", "video/mp4"];
+			const file = obj.files[0];
+			const fileType = file["type"];
+			const videoTypes = ["video/quicktime", "video/mp4"];
 
 			return $.inArray(fileType, videoTypes) >= 0;
 		}
@@ -162,9 +162,9 @@
 	{
 		if (obj.files[0])
 		{
-			let file 		= obj.files[0];
-			let fileType 	= file["type"];
-			let audioTypes 	= ["audio/x-m4a", "audio/vnd.dlna.adts"];
+			const file = obj.files[0];
+			const fileType = file["type"];
+			const audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts", "video/mp4"];
 
 			return $.inArray(fileType, audioTypes) >= 0;
 		}

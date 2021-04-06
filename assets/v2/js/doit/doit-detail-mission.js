@@ -24,7 +24,6 @@
 	updateMissionEndTime,
 	rdoUpdateActionType,
 	updatePromise,
-	updatePromiseImage,
 	missionStartTime,
 	missionEndTime,
 	chkGalleryAllowed,
@@ -34,10 +33,9 @@
 	import {message} from "../modules/message.js";
 	import {fileApiV2, api} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio} from "../modules/common.js";
+	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio, onErrorImage} from "../modules/common.js";
 	import {isEmpty} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
-	import {page} from "../modules/page-url.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 
@@ -106,18 +104,25 @@
 				break;
 			case 'video' :
 				actionExampleFileEl =
-					`<p class="desc-sub">( 파일 크기 : 10M 이하 )</p>
+					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="actionThumbnail">업로드</label>
+						<input type="file" id="actionThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>
+					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExample">업로드</label>
 						<input type="file" id="actionExample" class="upload-hidden">
 					</div>`;
 				actionExampleWrap.html(actionExampleFileEl);
+				$("#actionThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#actionExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
 			case 'voice' :
 				actionExampleFileEl =
-					`<p class="desc-sub">( 파일 크기 : 10M 이하 )</p>
+					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExample">업로드</label>
@@ -199,6 +204,13 @@
 			return false;
 		}
 
+		const actionThumbnailEl = $("#actionThumbnail");
+		if (actionThumbnailEl.length > 0 && actionThumbnailEl[0].files.length === 0)
+		{
+			sweetToast(`인증 예시 썸네일은 ${message.required}`);
+			return false;
+		}
+
 		const actionImg = $("#actionExample")[0].files;
 		if (actionImg.length === 0)
 		{
@@ -218,10 +230,12 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
+		const url = fileApiV2.mission;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', $("#actionExample")[0].files[0]);
+		param.append('example', $("#actionExample")[0].files[0]);
+		if (getActionType() === 'video')
+			param.append('thumbnail', $("#actionThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -232,6 +246,13 @@
 		{
 			const url = api.createMission;
 			const errMsg = label.submit+message.ajaxError;
+			const missionExampleObj = {
+				"contents_type" : getActionType(),
+				"path" : data.image_urls.example
+			}
+			if (getActionType() === 'video')
+				missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
+
 			const param = {
 				"doit_uuid" : g_doit_uuid,
 				"mission_title" : missionTitle.val().trim(),
@@ -242,7 +263,7 @@
 				"mission_description" : actionDesc.val().trim(),
 				"mission_type" : getActionType(),
 				"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
-				"mission_example" :  { "contents_type" : getActionType(), "path" : data.image_urls.file },
+				"mission_example" :  missionExampleObj,
 				"promise_description" : promise.val().trim(),
 			}
 
@@ -293,11 +314,15 @@
 		chkUpdateGalleryAllowed.prop('checked', allow_gallery_image === 'Y')
 		updatePromise.val(promise_description);
 		onChangeActionType();
+
+		onErrorImage();
 	}
 
 	function buildMissionStatus(_status)
 	{
 		switch (_status) {
+			case '준비' :
+				return `<span class="badge badge-info">${_status}</span>`;
 			case '진행중' :
 				return `<span class="badge badge-success">${_status}</span>`;
 			case '종료' :

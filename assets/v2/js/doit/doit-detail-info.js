@@ -50,7 +50,7 @@
 		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = { "idx" : doitIdx };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
 	function getDetailCallback(data)

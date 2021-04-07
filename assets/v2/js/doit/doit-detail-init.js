@@ -30,9 +30,7 @@
 	btnUpdateMission,
 	missionUpdateForm,
 	btnSubmitUpdateMission,
-	promiseImage,
 	btnSubmitMission,
-	updatePromiseImage,
 	talkListForm,
 	talkDetailForm,
 	talkUpdateForm,
@@ -64,8 +62,14 @@
 	searchActionDateFrom,
 	searchActionDateTo,
 	searchTalkDateFrom,
-	searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType
-} from '../modules/elements.js';
+	searchTalkDateTo,
+	dateButtons,
+	missionStartDate,
+	missionEndDate,
+	rdoActionType,
+	updateMissionStartDate,
+	updateMissionEndDate, rdoUpdateActionType
+	} from '../modules/elements.js';
 	import {
 	historyBack,
 	limitInputLength,
@@ -77,13 +81,19 @@
 	import { initTableDefaultConfig } from "../modules/tables.js";
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
 	import {
-		buildMissionTable,
+	buildMissionTable,
 	onClickBtnCreateMission,
 	onClickDetailMission,
 	onClickBtnMissionList,
-	onClickBtnUpdateMission, onChangeActionType,
-	onSubmitMission, onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate
-} from "./doit-detail-mission.js";
+	onClickBtnUpdateMission,
+	onChangeActionType,
+	onSubmitMission,
+	onSubmitUpdateMission,
+	deleteMission,
+	onChangeMissionEndDate,
+	onChangeMissionStartDate,
+	onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType
+	} from "./doit-detail-mission.js";
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
 	import {
 	onClickBtnPendingMembers,
@@ -142,9 +152,12 @@
 
 		missionStartDate.on('change', function () { onChangeMissionStartDate(); });
 		missionEndDate	.on('change', function () { onChangeMissionEndDate(); });
+		updateMissionStartDate	.on('change', function () { onChangeUpdateMissionStartDate(); });
+		updateMissionEndDate	.on('change', function () { onChangeUpdateMissionEndDate(); });
 		rdoActionType	.on('change', function () { onChangeActionType(); });
-		promiseImage	.on('change', function () { onChangeValidateImage(this); });
-		updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
+		rdoUpdateActionType	.on('change', function () { onChangeUpdateActionType(); });
+		//promiseImage	.on('change', function () { onChangeValidateImage(this); });
+		//updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateMission	.on('click', function () { onClickBtnCreateMission(); });
 		btnMissionList	.on('click', function () { onClickBtnMissionList(); });
 		btnBackMissionList.on('click', function () { onClickBtnMissionList(); });

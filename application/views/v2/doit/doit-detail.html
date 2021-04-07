@@ -451,8 +451,8 @@
                                 <th>인증 예시 설명 *</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="actionDesc" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
-                                        <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                        <textarea id="actionDesc" class="length-input" maxlength="300" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
+                                        <p class="length-count-wrap"><span class="count-input">0</span>/300</p>
                                     </div>
                                 </td>
                             </tr>
@@ -487,16 +487,22 @@
                     <div class="detail-update" style="display:none;" id="missionUpdateForm">
                         <div class="card doit-tit-warp clearfix">
                             <button type="button" class="btn-i btn-back btn-mission-list"><i class="fas fa-arrow-left"></i></button>
-                            <p class="title" id="updateMissionTitle">
-                                <span class="badge badge-info">대기중</span><span class="badge badge-success">진행중</span><span class="badge badge-warning">종료</span>
-                                하루 한번 5분씩 영어공부
-                            </p>
+                            <p class="title">미션 수정</p>
                         </div>
                         <table class="detail-table">
                             <colgroup>
                                 <col style="width: 30%;">
                                 <col style="width: 70%;">
                             </colgroup>
+                            <tr>
+                                <th>미션명 *</th>
+                                <td>
+                                    <div class="input-wrap">
+                                        <input id="updateMissionTitle" type="text" class="length-input" maxlength="30" placeholder="미션명을 입력해주세요.">
+                                        <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <th>기간 *</th>
                                 <td>
@@ -537,8 +543,8 @@
                             </tr>
                             <tr>
                                 <th>인증예시 *</th>
-                                <td>
-                                    <p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+                                <td id="updateExampleWrap">
+                                    <!--<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
                                     <div class="file-wrap preview-image">
                                         <input class="upload-name" value="파일선택" disabled="disabled">
                                         <label for="updateActionImage">업로드</label>
@@ -546,15 +552,15 @@
                                     </div>
                                     <div class="detail-img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+                                    </div>-->
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 예시 설명 *</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="updateActionDesc" class="length-input" maxlength="100" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
-                                        <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                        <textarea id="updateActionDesc" class="length-input" maxlength="300" rows="4" placeholder="인증예시 설명을 입력해주세요."></textarea>
+                                        <p class="length-count-wrap"><span class="count-input">0</span>/300</p>
                                     </div>
                                 </td>
                             </tr>

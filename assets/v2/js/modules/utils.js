@@ -164,7 +164,7 @@
 		{
 			const file = obj.files[0];
 			const fileType = file["type"];
-			const audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts", "video/mp4"];
+			const audioTypes = ["audio/x-m4a", "audio/vnd.dlna.adts"];
 
 			return $.inArray(fileType, audioTypes) >= 0;
 		}

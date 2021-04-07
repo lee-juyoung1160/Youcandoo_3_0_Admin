@@ -44,6 +44,12 @@
 	const pathName	= getPathName();
 	const doitIdx	= splitReverse(pathName, '/');
 
+	export function showDoitListForm()
+	{
+		doitUpdateForm.hide();
+		doitInfoForm.show();
+	}
+
 	export function getDetail()
 	{
 		const url = api.detailDoit;
@@ -346,10 +352,4 @@
 		}
 
 		return true;
-	}
-
-	export function onClickBtnDoitList()
-	{
-		doitUpdateForm.hide();
-		doitInfoForm.show();
 	}

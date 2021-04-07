@@ -36,6 +36,9 @@
         updateMission : baseApiUrl + 'mission/update',
         deleteMission : baseApiUrl + 'mission/delete',
 
+        joinMemberList : baseApiUrl + 'member/join/list',
+        pendingMemberList : baseApiUrl + 'member/pending/list',
+
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',
         searchDoitList : baseApiUrl + 'recommend/get/doit/list',

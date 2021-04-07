@@ -11,16 +11,11 @@
 	btnDoitOpen,
 	btnDoitStop,
 	btnDoitDelete,
-	doitUpdateForm,
-	doitInfoForm,
 	chkIsApply,
 	chkIsQuestion,
 	btnAddKeyword,
 	selCategory,
 	doitImage,
-	missionCreateForm,
-	missionDetailForm,
-	missionListForm,
 	btnUpdateDoit,
 	btnSubmitUpdateDoit,
 	btnCreateMission,
@@ -28,7 +23,6 @@
 	btnBackMissionList,
 	btnDeleteMission,
 	btnUpdateMission,
-	missionUpdateForm,
 	btnSubmitUpdateMission,
 	btnSubmitMission,
 	talkListForm,
@@ -37,8 +31,6 @@
 	btnCreateTalk,
 	talkImage,
 	selMemberFilter,
-	joinMemberForm,
-	pendingMemberForm,
 	btnPendingMembers,
 	btnJoinMembers,
 	btnReset,
@@ -68,41 +60,41 @@
 	missionEndDate,
 	rdoActionType,
 	updateMissionStartDate,
-	updateMissionEndDate, rdoUpdateActionType
-	} from '../modules/elements.js';
+	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength
+} from '../modules/elements.js';
 	import {
 	historyBack,
 	limitInputLength,
 	onChangeValidateImage,
 	fadeoutModal,
-	initSearchDatepicker, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn} from "../modules/common.js";
+	initSearchDatepicker, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength
+	} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
-	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
+	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory,
+		initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
 	import {
-	buildMissionTable,
-	onClickBtnCreateMission,
-	onClickDetailMission,
-	onClickBtnMissionList,
-	onClickBtnUpdateMission,
-	onChangeActionType,
-	onSubmitMission,
-	onSubmitUpdateMission,
-	deleteMission,
-	onChangeMissionEndDate,
-	onChangeMissionStartDate,
-	onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType
+		showCreateMissionForm,
+		showMissionListForm,
+		onClickBtnUpdateMission,
+		onChangeActionType,
+		onSubmitMission,
+		onSubmitUpdateMission,
+		deleteMission,
+		onChangeMissionEndDate,
+		onChangeMissionStartDate,
+		onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType, buildMissionTable
 	} from "./doit-detail-mission.js";
-	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, onClickBtnDoitList} from "./doit-detail-info.js";
+	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
 	import {
-	onClickBtnPendingMembers,
-	onClickBtnJoinMembers,
-	initSearchMemberForm,
-	onClickModalSaveUcdOpen,
-	onClickModalSendNoticeOpen,
+		showJoinMemberForm,
+		showPendingMemberForm,
+		initSearchMemberForm,
+		onClickModalSaveUcdOpen,
+		onClickModalSendNoticeOpen,
 		onClickModalMemberDetailOpen,
-		onChangeSelMemberFilter
+		onChangeSelMemberFilter,
 	} from "./doit-detail-member.js";
 	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
@@ -144,7 +136,7 @@
 		chkIsApply		.on('change', function () { onClickChkIsApply(this); });
 		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
 		btnUpdateDoit	.on('click', function () { onClickBtnUpdateDoit() });
-		btnBackDoitList	.on('click', function () { onClickBtnDoitList() });
+		btnBackDoitList	.on('click', function () { showDoitListForm() });
 		btnSubmitUpdateDoit	.on('click', function () { onSubmitUpdateDoit(); });
 		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this); });
 		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
@@ -158,23 +150,24 @@
 		rdoUpdateActionType	.on('change', function () { onChangeUpdateActionType(); });
 		//promiseImage	.on('change', function () { onChangeValidateImage(this); });
 		//updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
-		btnCreateMission	.on('click', function () { onClickBtnCreateMission(); });
-		btnMissionList	.on('click', function () { onClickBtnMissionList(); });
-		btnBackMissionList.on('click', function () { onClickBtnMissionList(); });
+		btnCreateMission	.on('click', function () { showCreateMissionForm(); });
+		btnMissionList	.on('click', function () { showMissionListForm(); });
+		btnBackMissionList.on('click', function () { showMissionListForm(); });
 		btnUpdateMission.on('click', function () { onClickBtnUpdateMission(); });
 		btnSubmitMission.on('click', function () { onSubmitMission() });
 		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission(); });
 		btnDeleteMission.on('click', function () { deleteMission() });
-		$("#test").on('click', function () {onClickDetailMission();})
 
 		$("#testMemberDetail").on('click', function () {onClickModalMemberDetailOpen();})
+		initPageLength(selJoinMemberPageLength);
+		initPageLength(selPendingMemberPageLength);
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
 		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
 		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnPendingMembers.on('click', function () { onClickBtnPendingMembers(); });
-		btnJoinMembers.on('click', function () { onClickBtnJoinMembers(); });
+		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
+		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -206,21 +199,15 @@
 
 		switch (target) {
 			case '#tabDoitInfo' :
-				doitUpdateForm.hide();
-				doitInfoForm.show();
+				showDoitListForm();
 				getDetail();
 				break;
 			case '#tabDoitMission' :
-				missionCreateForm.hide();
-				missionUpdateForm.hide();
-				missionDetailForm.hide();
-				missionListForm.show();
+				showMissionListForm();
 				buildMissionTable();
 				break;
 			case '#tabDoitMember' :
-				pendingMemberForm.hide();
-				joinMemberForm.show();
-				//getDetail();
+				showJoinMemberForm();
 				break;
 			case '#tabDoitReview' :
 				//getDetail();

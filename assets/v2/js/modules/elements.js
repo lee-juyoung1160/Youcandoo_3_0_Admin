@@ -193,6 +193,7 @@
     export const rdoActionCount = $("input[name=radio-action-count]");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
+    export const selPendingMemberPageLength = $("#selPendingMemberPageLength");
     export const btnSaveUcd = $("#btnSaveUcd");
     export const btnSendNotice = $("#btnSendNotice");
     export const joinMemberTable = $("#joinMemberTable");

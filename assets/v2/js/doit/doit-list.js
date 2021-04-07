@@ -8,7 +8,6 @@
 	import { sweetToast, sweetError } from  '../modules/alert.js';
 	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths,
 		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
-	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";

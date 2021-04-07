@@ -17,7 +17,7 @@
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 
-	export function onClickBtnCreateMission()
+	export function showCreateMissionForm()
 	{
 		missionCreateForm.show();
 		missionUpdateForm.hide();
@@ -26,13 +26,12 @@
 		initMissionCreateForm();
 	}
 
-	export function onClickBtnMissionList()
+	export function showMissionListForm()
 	{
 		missionCreateForm.hide();
 		missionUpdateForm.hide();
 		missionDetailForm.hide();
 		missionListForm.show();
-		buildMissionTable();
 	}
 
 	export function onClickBtnUpdateMission()
@@ -206,7 +205,7 @@
 
 	function createReqCallback(data)
 	{
-		sweetToastAndCallback(data, onClickBtnMissionList);
+		sweetToastAndCallback(data, reqSuccess);
 	}
 
 	function getMissionDetail(_idx)
@@ -306,7 +305,13 @@
 
 	function deleteMissionReqCallback(data)
 	{
-		sweetToastAndCallback(data, onClickBtnMissionList);
+		sweetToastAndCallback(data, reqSuccess);
+	}
+
+	function reqSuccess()
+	{
+		showMissionListForm();
+		buildMissionTable();
 	}
 
 	export function onSubmitUpdateMission()

@@ -1,4 +1,5 @@
-<section class="detail-page">
+<link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page category-detail">
     <div class="inner">
 
         <div class="main-top clearfix">
@@ -51,43 +52,55 @@
                     <table id="dataTable">
                         <!--<thead>
                         <colgroup>
-                            <col style="width: 100%;">
+                            <col style="width: 85%;">
+                            <col style="width: 15%;">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>세부 카테고리명</th>
+                            <th>두잇 이미지</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         <tr>
                             <td>라이프 스타일</td>
+                            <td><i class="fas fa-images"></i></td>
                         </tr>
                         </tbody>-->
                     </table>
@@ -103,6 +116,7 @@
     </div>
 
     <div class="modal-wrap">
+        <!-- 세부 카테고리 등록 -->
         <div class="modal-content">
             <div class="modal-header clearfix">
                 <h5>세부 카테고리 등록</h5>
@@ -135,6 +149,64 @@
                             <!--<div class="detail-img-wrap">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                             </div>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">등록완료</button>
+            </div>
+        </div>
+
+        <!-- 두잇 기본 이미지 -->
+        <div class="modal-content category-doit-img">
+            <div class="modal-header clearfix">
+                <h5>두잇 기본 이미지 설정</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 100%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p class="desc-sub">( 이미지 크기 : 686 x 518 )</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="doitImage">업로드</label>
+                                <input type="file" id="doitImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="686" data-height="518" data-compare="같음">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="clearfix">
+                            <div class="img-wrap">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/v2/img/auth-1.jpg" alt="">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

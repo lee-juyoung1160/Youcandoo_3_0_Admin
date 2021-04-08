@@ -99,3 +99,23 @@
 .pic-doit .doit-img-wrap {
 	width: 100px;
 }
+
+/* 카테고리 */
+.category-detail .modal-content.category-doit-img {
+	width: 1002px;
+}
+.category-detail .modal-content.category-doit-img .img-wrap {
+	position: relative;
+	float: left;
+	width: 180px;
+	margin-right: 15px;
+}
+.category-detail .modal-content.category-doit-img .img-wrap i {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 18px;
+}
+.category-detail .modal-content.category-doit-img .img-wrap:last-child {
+	margin-right: 0;
+}

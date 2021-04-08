@@ -1,21 +1,21 @@
 
 	import {
-		keyword,
-		actionCount,
-		joinMemberForm,
-		pendingMemberForm,
-		modalSaveUcd,
-		modalBackdrop,
-		saveUcdContent,
-		saveUcdEtc,
-		amount,
-		modalSendNotice,
-		modalMemberDetail,
-		memberActionCntFilterWrap1,
-		memberActionCntFilterWrap2,
-		rdoActionCount,
-		joinMemberTable
-	} from "../modules/elements.js";
+	keyword,
+	actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	modalSaveUcd,
+	modalBackdrop,
+	saveUcdContent,
+	saveUcdEtc,
+	amount,
+	modalSendNotice,
+	modalMemberDetail,
+	memberActionCntFilterWrap1,
+	memberActionCntFilterWrap2,
+	rdoActionCount,
+	joinMemberTable, pendingMemberTable
+} from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {headers} from "../modules/request.js";
@@ -23,7 +23,7 @@
 	import {sweetError} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 
 	export function showJoinMemberForm()
 	{
@@ -118,7 +118,67 @@
 
 	function buildPendingMember()
 	{
+		pendingMemberTable.DataTable({
+			ajax : {
+				url: api.pendingMemberList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
 
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"doit_uuid": g_doit_uuid,
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "닉네임", 		data: "nickname",		width: "20%" }
+				,{title: "신청일시",   	data: "state",  		width: "15%" }
+				,{title: "답변", 		data: "start_date",		width: "60%"}
+				,{title: "",			data: "state",  		width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(meta.row);
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+	$(".detail-data.line-clamp-2").on('click', function () { onClickAnswer(this) })
+	$('.toast-header .close').on('click', function () { closeAnswerBox() })
+	function onClickAnswer(obj)
+	{
+		$('.toast-box').hide();
+		$(obj).siblings('.toast-box').show();
+	}
+
+	function closeAnswerBox()
+	{
+		$('.toast-box').hide();
 	}
 
 	export function onClickModalSaveUcdOpen()

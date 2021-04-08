@@ -79,14 +79,9 @@
         $("input[name=chk-row]").prop("checked", false);
     }
 
-    export function multiCheckBoxDom(idx)
+    export function checkBoxElement(idx)
     {
         return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`;
-    }
-
-    export function singleCheckBoxDom(idx)
-    {
-        return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`
     }
 
     export function toggleSingleCheckBox(obj)

@@ -1,10 +1,18 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import { categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
-		modalOpen, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, } from '../modules/elements.js';
+	import {
+	categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
+	btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, limitInputLength, onErrorImage} from "../modules/common.js";
+	import {
+	fadeoutModal,
+	historyBack,
+	limitInputLength,
+	onErrorImage,
+		overflowHidden
+	} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -22,7 +30,7 @@
 		getSubCategory();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		modalOpen		.on("click", function () { onClickModalOpen(); });
+		btnAdd			.on("click", function () { onClickModalSubcategoryOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnBack	 		.on('click', function () { historyBack(); });
@@ -31,9 +39,11 @@
 		btnSubmit		.on('click', function () { onSubmitSubcategory(); });
 	});
 
-	function onClickModalOpen()
+	function onClickModalSubcategoryOpen()
 	{
-		fadeinModal();
+		modalSubcategory.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 		subCategoryTitle.trigger('focus');
 		subCategoryTitle.val('');
 	}
@@ -94,7 +104,12 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "세부 카테고리",	data: "subcategory_title" }
+				{title: "세부 카테고리",	data: "subcategory_title",	width: "85%" }
+				,{title: "두잇 이미지",	data: "subcategory_uuid",	width: "15%",
+					render: function (data) {
+						return `<i class="fas fa-images" id="${data}"></i>`;
+					}
+				}
 			],
 			serverSide: false,
 			paging: false,
@@ -103,10 +118,18 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(1).find('i').on('click', function () { onClickDoitImage(this); } );
 			},
 			drawCallback: function (settings) {
 			}
 		});
+	}
+
+	function onClickDoitImage(obj)
+	{
+		modalDoitImage.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 
 	function createValidation()

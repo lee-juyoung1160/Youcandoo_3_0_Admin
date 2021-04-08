@@ -219,13 +219,14 @@
 
 	let g_mission_uuid;
 	let g_mission_idx;
+	let g_action_type;
 	function getMissionDetailReqCallback(data)
 	{
-		//thumbnail_url: "https://youcandoo.yanadoocdn.com/v3/mission/2021/04/06/1a643e5b103a4dbf857d105c992eb3d8.jpg"
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
 		g_mission_idx = idx;
 		g_mission_uuid = mission_uuid;
+		g_action_type = mission_type;
 		infoMissionTitle.html(buildMissionStatus(state)+mission_title);
 		infoMissionDate.text(`${start_date} ~ ${end_date}`);
 		infoMissionTime.text(`${start_time} ~ ${end_time}`);
@@ -334,6 +335,14 @@
 		{
 			sweetToast(`미션명은 ${message.required}`);
 			updateMissionTitle.trigger('focus');
+			return false;
+		}
+
+		const updateThumbnail = $("#updateThumbnail");
+		const updateExample = $("#updateExample");
+		if (getUpdateActionType() !== g_action_type && ( (updateThumbnail.length > 0 && updateThumbnail[0].files.length === 0) || updateExample[0].files.length === 0) )
+		{
+			sweetToast(`인증 방법이 변경됐습니다. 인증 예시를 첨부해주세요.`);
 			return false;
 		}
 

@@ -8,7 +8,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {initTableDefaultConfig, singleCheckBoxDom, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
+	import {initTableDefaultConfig, checkBoxElement, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 
 	const pathName	= getPathName();
 	const pickIdx	= splitReverse(pathName, '/');
@@ -143,7 +143,7 @@
 			columns: [
 				{title: "", 	data: "doit_uuid",   		width: "5%",
 					render: function (data, type, row, meta) {
-						return singleCheckBoxDom(meta.row);
+						return checkBoxElement(meta.row);
 					}
 				},
 				{title: "",		data: "doit_image_url",		width: "20%",

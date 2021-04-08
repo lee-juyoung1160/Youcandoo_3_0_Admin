@@ -99,6 +99,8 @@
     export const isEstablish	= $("#isEstablish");
     export const rdoEstablish	= $("input[name=radio-establish]");
     export const subCategoryTitle = $("#subCategoryTitle");
+    export const modalSubcategory = $("#modalSubcategory");
+    export const modalDoitImage = $("#modalDoitImage");
 
     /** 두잇 **/
     export const sponsor        = $("#sponsor");

@@ -226,6 +226,7 @@ textarea {
 	position: relative;
 }
 .input-wrap input[type="text"] {
+	width: 450px;
 	padding: 0 40px 0 10px;
 }
 .length-count-wrap {

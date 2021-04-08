@@ -51,6 +51,15 @@ class Doit extends MY_Controller {
         }
     }
 
+    public function keyword($Route = "")
+    {
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/doit/keyword-list');
+                break;
+        }
+    }
+
 }
 
 

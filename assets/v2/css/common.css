@@ -400,13 +400,14 @@ input.input-copy {
 	box-sizing: border-box;
 	cursor: pointer;
 }
-.img-file-wrap .upload-thumb-wrap {
+.img-file-wrap .detail-img-wrap {
 	overflow: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 186px;
 	height: 118px;
+	border: none;
 }
 
 /* 엑셀 업로드 */

@@ -102,20 +102,6 @@
 
 /* 카테고리 */
 .category-detail .modal-content.category-doit-img {
-	width: 1002px;
+	width: 1012px;
 }
-.category-detail .modal-content.category-doit-img .img-wrap {
-	position: relative;
-	float: left;
-	width: 180px;
-	margin-right: 15px;
-}
-.category-detail .modal-content.category-doit-img .img-wrap i {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	font-size: 18px;
-}
-.category-detail .modal-content.category-doit-img .img-wrap:last-child {
-	margin-right: 0;
-}
+

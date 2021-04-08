@@ -353,6 +353,62 @@ input.input-copy {
 	height: auto;
 }
 
+/* only 이미지 파일 업로드 */
+.img-file-wrap {
+	overflow: hidden;
+	position: relative;
+	float: left;
+	width: 186px;
+	height: 118px;
+	margin-right: 10px;
+	background-image: url(/assets/v2/img/icon-plus.svg);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: 30px;
+}
+.img-file-wrap:last-child {
+	margin-right: 0;
+}
+.img-file-wrap .icon-delete-attach {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-size: 18px;
+	z-index: 100;
+}
+.img-file-wrap input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip:rect(0,0,0,0);
+	border: 0
+}
+.img-file-wrap .btn-input-file {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 186px;
+	height: 118px;
+	color: #666;
+	font-weight: 600;
+	line-height: 50px;
+	border: 1px solid #D4D4D4;
+	border-radius: 5px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.img-file-wrap .upload-thumb-wrap {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 186px;
+	height: 118px;
+}
+
 /* 엑셀 업로드 */
 .excel-import {
 	display: inline-flex;

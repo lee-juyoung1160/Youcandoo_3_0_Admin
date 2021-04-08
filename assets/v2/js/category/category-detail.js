@@ -1,19 +1,35 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
-	import { api } from '../modules/api-url.js';
+	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-	categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
-	btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
-} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+		categoryTitle,
+		categoryIcon,
+		isEstablish,
+		isExposure,
+		btnBack,
+		btnList,
+		btnUpdate,
+		btnSubmit,
+		btnAdd,
+		modalClose,
+		modalBackdrop,
+		dataTable,
+		subCategoryTitle,
+		lengthInput,
+		modalSubcategory,
+		modalDoitImage,
+		doitImage, btnSubmitImage, attachment, deleteAttachment
+	} from '../modules/elements.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {
-	fadeoutModal,
-	historyBack,
-	limitInputLength,
-	onErrorImage,
-		overflowHidden
+		emptyFile,
+		fadeoutModal,
+		historyBack,
+		limitInputLength, onChangeValidateImage,
+		onErrorImage,
+		overflowHidden,
 	} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
+	import {getPathName, splitReverse, isEmpty, isImage, isOverFileSize} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -30,6 +46,8 @@
 		getSubCategory();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
+		doitImage		.on("change", function () { onChangeValidateImage(this); });
+		attachment		.on("change", function () { onChangeValidateImageCustom(this); });
 		btnAdd			.on("click", function () { onClickModalSubcategoryOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
@@ -37,6 +55,8 @@
 		btnList	 		.on('click', function () { goListPage(); });
 		btnUpdate		.on('click', function () { goUpdatePage(); });
 		btnSubmit		.on('click', function () { onSubmitSubcategory(); });
+		btnSubmitImage	.on('click', function () { onSubmitUpdateImage(); });
+		deleteAttachment.on('click', function () { onClickDelAttach(this); });
 	});
 
 	function onClickModalSubcategoryOpen()
@@ -141,6 +161,13 @@
 			return false;
 		}
 
+		/*const doitImg = doitImage[0].files;
+		if (doitImg.length === 0)
+		{
+			sweetToast(`두잇 기본 이미지는 ${message.required}`);
+			return false;
+		}*/
+
 		return true;
 	}
 
@@ -148,6 +175,16 @@
 	{
 		if (createValidation())
 			sweetConfirm(message.create, createSubcategoryRequest);
+	}
+
+	function fileUploadReq()
+	{
+		const url = fileApiV2.single;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('file', doitImage[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, createSubcategoryRequest, errMsg, false);
 	}
 
 	function createSubcategoryRequest()
@@ -173,6 +210,51 @@
 		getSubCategory();
 	}
 
+	function onSubmitUpdateImage()
+	{
+		alert('준비중')
+		//sweetConfirm(message.create, updateImageRequest);
+	}
+
+	function updateImageRequest()
+	{
+		const url = fileApiV2.multi;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
+		const attachment = $("input[name=attachment]");
+		let param  = new FormData();
+		for (let i=0; i<attachment.length; i++)
+			param.append('file', attachment[i].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, updateImageCallback, errMsg, false);
+	}
+
+	function updateImageCallback(data)
+	{
+		isSuccessResp(data) ? updateImageToApiServerReq(data) : sweetToast(data.msg);
+	}
+
+	function updateImageToApiServerReq(data)
+	{
+		const url = api;
+		const errMsg = label.submit + message.ajaxError;
+		const param = {
+			"doit_image" : data.image_urls,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateImageToApiServerCallback, errMsg, false);
+	}
+
+	function updateImageToApiServerCallback()
+	{
+		sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
+	}
+
+	function updateImageToApiServerCallbackSuccess()
+	{
+		fadeoutModal();
+		getSubCategory();
+	}
+
 	function goListPage()
 	{
 		location.href = page.listCategory;
@@ -181,6 +263,105 @@
 	function goUpdatePage()
 	{
 		location.href = page.updateCategory + categoryIdx;
+	}
+
+	function onChangeValidateImageCustom(obj)
+	{
+		if (!isImage(obj) && obj.files[0])
+		{
+			sweetToast(message.invalidFile);
+			emptyFile(obj);
+		}
+		else if (isOverFileSize(obj) && obj.files[0])
+		{
+			sweetToast(message.overFileSize);
+			emptyFile(obj);
+		}
+		else
+		{
+			/**
+			 * 사이즈 체크를 위해서 해당 html 페이지 file element에
+			 * data-width: 폭
+			 * data-height: 높이
+			 * data-compare: 같음/이상/이하
+			 * 속성이 있어야 한다.
+			 * **/
+			const compare = $(obj).data('compare');
+			const needsWidth = $(obj).data('width');
+			const needsHeight = $(obj).data('height');
+			const img = new Image();
+
+			if (obj.files[0])
+			{
+				img.src = window.URL.createObjectURL(obj.files[0]);
+				img.onload = function() {
+					const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+
+					if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
+					{
+						sweetError(infoMessage);
+						emptyFile(obj);
+					}
+					else if (compare === '이상' && (this.width < needsWidth || this.height < needsHeight))
+					{
+						sweetError(infoMessage);
+						emptyFile(obj);
+					}
+					else if (compare === '이하' && (this.width > needsWidth || this.height > needsHeight))
+					{
+						sweetError(infoMessage);
+						emptyFile(obj);
+					}
+					else
+						setFile(obj);
+				}
+			}
+			else emptyFile(obj);
+		}
+	}
+
+	function setFile(obj)
+	{
+		if(window.FileReader)
+		{
+			if (obj.files && obj.files[0])
+			{
+				/** 파일이름 세팅 **/
+				const fileName = obj.files[0].name;
+				$(obj).siblings('.upload-name').val(fileName);
+
+				/** 기존 썸네일 영역 삭제 **/
+				removeThumbnail(obj);
+
+				/** 파일읽어서 썸네일 표출하기 **/
+				let reader = new FileReader();
+				reader.readAsDataURL(obj.files[0]);
+
+				reader.onload = function() {
+					const innerDom = `<div class="detail-img-wrap"><img src="${reader.result}" alt=""></div>`;
+					$(obj).parent().append(innerDom);
+				}
+			}
+			else
+				emptyFile(obj);
+		}
+		else
+			sweetToast(message.invalidBrowser);
+	}
+
+	function removeThumbnail(obj)
+	{
+		const thumbnailWrap = $(obj).siblings('.detail-img-wrap');
+		if (thumbnailWrap.length > 0)
+			thumbnailWrap.remove();
+	}
+
+	function onClickDelAttach(obj)
+	{
+		const inputFile = $(obj).siblings('input');
+		removeThumbnail($(inputFile));
+		$(obj).val(null);
+		$(obj).siblings('.upload-name').val('파일선택');
 	}
 
 

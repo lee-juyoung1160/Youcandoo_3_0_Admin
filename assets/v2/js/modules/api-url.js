@@ -147,6 +147,7 @@
     const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';
     export const fileApiV2 = {
         single : fileUploadBaseUrlV2+'single'
+        ,multi : fileUploadBaseUrlV2+'multi'
         ,event : fileUploadBaseUrlV2+'event'
         ,mission : fileUploadBaseUrlV2+'mission'
     }

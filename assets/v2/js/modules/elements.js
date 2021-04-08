@@ -98,9 +98,12 @@
     export const categoryIcon	= $("#categoryIcon");
     export const isEstablish	= $("#isEstablish");
     export const rdoEstablish	= $("input[name=radio-establish]");
+    export const attachment	= $("input[name=attachment]");
+    export const deleteAttachment = $(".icon-delete-attach");
     export const subCategoryTitle = $("#subCategoryTitle");
     export const modalSubcategory = $("#modalSubcategory");
     export const modalDoitImage = $("#modalDoitImage");
+    export const btnSubmitImage = $("#btnSubmitImage");
 
     /** 두잇 **/
     export const sponsor        = $("#sponsor");

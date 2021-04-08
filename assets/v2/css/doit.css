@@ -47,7 +47,10 @@
 /* 소개 이미지 */
 .doit-info-img {
 	width: 320px;
-	height: 320px;
+}
+.doit-info-img img {
+	width: 100%;
+	height: 100%;
 }
 
 /* 참여자관리 탭 */

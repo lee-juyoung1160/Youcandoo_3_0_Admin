@@ -371,6 +371,7 @@ input.input-copy {
 	margin-right: 0;
 }
 .img-file-wrap .icon-delete-attach {
+	display: none;
 	position: absolute;
 	right: 5px;
 	top: 5px;

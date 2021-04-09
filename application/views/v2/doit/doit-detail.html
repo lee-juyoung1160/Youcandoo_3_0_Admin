@@ -624,7 +624,7 @@
                                         <p class="search-title">검색어</p>
                                         <div class="form-box clearfix">
                                             <select id="selSearchType" class="select-box">
-                                                <option value="">닉네임</option>
+                                                <option value="nickname">닉네임</option>
                                             </select>
                                             <div class="search-txt-wrap">
                                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -641,8 +641,6 @@
                                 <div class="card clearfix">
                                     <p class="search-title">미션명</p>
                                     <select id="selMissions" class="select-box mission">
-                                        <option value="all">전체</option>
-                                        <option value="">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</option>
                                     </select>
                                 </div>
                             </div>
@@ -650,32 +648,32 @@
                                 <div class="card clearfix">
                                     <p class="search-title">필터</p>
                                     <select id="selMemberFilter" class="select-box filter">
-                                        <option value="">연속 인증 수</option>
-                                        <option value="today">오늘 인증 수</option>
-                                        <option value="">최근 7일동안 인증 수</option>
-                                        <option value="">최근 14일동안 인증 수</option>
-                                        <option value="">최근 28일동안 인증 수</option>
+                                        <option value="ongoing_action">연속 인증 수</option>
+                                        <option value="today_action">오늘 인증 여부</option>
+<!--                                        <option value="">최근 7일동안 인증 수</option>-->
+<!--                                        <option value="">최근 14일동안 인증 수</option>-->
+<!--                                        <option value="">최근 28일동안 인증 수</option>-->
                                     </select>
                                 </div>
                             </div>
                             <div class="col-2" id="memberActionCntFilterWrap1">
                                 <div class="card clearfix">
                                     <p class="search-title">인증 수</p>
-                                    <input id="actionCount" type="text" class="action-num" maxlength="4"> 회 이상
+                                    <input id="actionCount" type="text" class="action-num" maxlength="4" value="0"> 회 이상
                                 </div>
                             </div>
                             <div class="col-3" id="memberActionCntFilterWrap2" style="display: none;">
                                 <div class="card clearfix">
-                                    <p class="search-title">인증 수</p>
+                                    <p class="search-title">인증 여부</p>
                                     <div class="radio-wrap">
-                                        <input id="r20" type="radio" name="radio-action-count" value="">
+                                        <input id="r20" type="radio" name="radio-action-count" value="all">
                                         <label for="r20"><span></span>전체</label>
 
-                                        <input id="r21" type="radio" name="radio-action-count" value="">
-                                        <label for="r21"><span></span>인증함</label>
+                                        <input id="r21" type="radio" name="radio-action-count" value="Y">
+                                        <label for="r21"><span></span>인증</label>
 
-                                        <input id="r22" type="radio" name="radio-action-count" value="">
-                                        <label for="r22"><span></span>인증안함</label>
+                                        <input id="r22" type="radio" name="radio-action-count" value="N">
+                                        <label for="r22"><span></span>미인증</label>
                                     </div>
                                 </div>
                             </div>
@@ -690,14 +688,14 @@
                             <div class="top clearfix">
                                 <div class="left-wrap clearfix">
                                     <div class="form-box">
-                                        <p>Total <strong class="data-num">238</strong></p>
+                                        <p>Total <strong class="data-num"></strong></p>
                                         <select id="selJoinMemberPageLength" class="select-box">
                                         </select>
                                         <select id="selSort" class="select-box">
-                                            <option>닉네임 순</option>
-                                            <option>누적 인증 수 순</option>
-                                            <option>최대 연속 수 순</option>
-                                            <option>현재 연속 수 순</option>
+                                            <option value="nickname">닉네임 순</option>
+                                            <option value="total_action">누적 인증 수 순</option>
+                                            <option value="max_recycle_action">최대 연속 수 순</option>
+                                            <option value="ongoing_action">현재 연속 수 순</option>
                                         </select>
                                     </div>
                                 </div>
@@ -707,7 +705,7 @@
                                 </div>
                             </div>
                             <table id="joinMemberTable">
-                                <thead>
+                                <!--<thead>
                                 <colgroup>
                                     <col style="width: 10%;">
                                     <col style="width: 30%;">
@@ -738,7 +736,7 @@
                                     <td>50</td>
                                     <td>2020-02-02</td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>
@@ -1609,7 +1607,7 @@
 
     <div class="modal-wrap">
         <!-- 참여자 탭 - 닉네임 클릭 시 오픈 -->
-        <div class="modal-content" id="modalMemberDetail">
+        <div class="modal-content" id="modalMemberInfo">
             <div class="modal-header clearfix">
                 <h5>참여자 관리</h5>
                 <i class="modal-close">×</i>
@@ -1623,25 +1621,25 @@
                     <tr>
                         <th>닉네임</th>
                         <td>
-                            <p class="detail-data">베리네모카</p>
+                            <p class="detail-data" id="modalMemberInfoNickname"></p>
                         </td>
                     </tr>
                     <tr>
-                        <th>가입일</th>
+                        <th>가입일시</th>
                         <td>
-                            <p class="detail-data">2020-02-02</p>
+                            <p class="detail-data" id="modalMemberInfoJoinDate"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>가입 질문</th>
                         <td>
-                            <p class="detail-data">웰컴</p>
+                            <p class="detail-data" id="modalMemberInfoQuestion"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>ㄴ 답변</th>
                         <td>
-                            <p class="detail-data">하이하이</p>
+                            <p class="detail-data" id="modalMemberInfoAnswer"></p>
                         </td>
                     </tr>
                 </table>

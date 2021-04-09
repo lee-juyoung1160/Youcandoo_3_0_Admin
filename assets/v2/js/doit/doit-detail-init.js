@@ -60,8 +60,8 @@
 	missionEndDate,
 	rdoActionType,
 	updateMissionStartDate,
-	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength
-} from '../modules/elements.js';
+	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength, btnSearch, selSort
+	} from '../modules/elements.js';
 	import {
 	historyBack,
 	limitInputLength,
@@ -93,8 +93,8 @@
 		initSearchMemberForm,
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
-		onClickModalMemberDetailOpen,
 		onChangeSelMemberFilter,
+		searchJoinMember,
 	} from "./doit-detail-member.js";
 	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
@@ -158,13 +158,15 @@
 		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission(); });
 		btnDeleteMission.on('click', function () { deleteMission() });
 
-		$("#testMemberDetail").on('click', function () {onClickModalMemberDetailOpen();})
 		initPageLength(selJoinMemberPageLength);
 		initPageLength(selPendingMemberPageLength);
+		btnSearch.on('click', function () { searchJoinMember(); });
+		btnReset.on('click', function () { initSearchMemberForm(); });
+		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
+		selSort.on('change', function () { searchJoinMember(); });
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
 		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
 		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnReset.on('click', function () { initSearchMemberForm(); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });

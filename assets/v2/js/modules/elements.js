@@ -213,7 +213,11 @@
     export const modalSendNotice = $("#modalSendNotice");
     export const sendNoticeContent = $("#sendNoticeContent");
     export const btnSubmitSendNotice = $("#btnSubmitSendNotice");
-    export const modalMemberDetail = $("#modalMemberDetail");
+    export const modalMemberInfo = $("#modalMemberInfo");
+    export const modalMemberInfoNickname = $("#modalMemberInfoNickname");
+    export const modalMemberInfoJoinDate = $("#modalMemberInfoJoinDate");
+    export const modalMemberInfoQuestion = $("#modalMemberInfoQuestion");
+    export const modalMemberInfoAnswer = $("#modalMemberInfoAnswer");
 
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");

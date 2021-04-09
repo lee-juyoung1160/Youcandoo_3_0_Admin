@@ -46,10 +46,10 @@
 		const url = api.categoryList;
 		const errMsg = label.list + message.ajaxLoadError
 
-		ajaxRequestWithJsonData(true, url, null, getCategoryListSuccess, errMsg, false);
+		ajaxRequestWithJsonData(true, url, null, getKeywordListCallback, errMsg, false);
 	}
 
-	function getCategoryListSuccess(data)
+	function getKeywordListCallback(data)
 	{
 		if (isSuccessResp(data))
 		{

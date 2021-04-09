@@ -10,26 +10,34 @@
 	saveUcdEtc,
 	amount,
 	modalSendNotice,
-	modalMemberDetail,
+	modalMemberInfo,
 	memberActionCntFilterWrap1,
 	memberActionCntFilterWrap2,
 	rdoActionCount,
-	joinMemberTable, pendingMemberTable
-} from "../modules/elements.js";
+	joinMemberTable,
+	pendingMemberTable,
+	selMissions,
+	selSearchType,
+	selMemberFilter,
+	selJoinMemberPageLength,
+	selSort,
+	modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion, modalMemberInfoAnswer
+	} from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
-	import {headers} from "../modules/request.js";
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
-	import {sweetError} from "../modules/alert.js";
+	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {buildTotalCount, checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {isEmpty} from "../modules/utils.js";
 
 	export function showJoinMemberForm()
 	{
 		joinMemberForm.show();
 		pendingMemberForm.hide();
-		//buildJoinMember();
+		getSelMissionList();
 	}
 
 	export function showPendingMemberForm()
@@ -42,14 +50,15 @@
 	export function initSearchMemberForm()
 	{
 		keyword.val('');
-		actionCount.val('');
+		actionCount.val(0);
 		initSelectOption();
+		onChangeSelMemberFilter(selMemberFilter);
 	}
 
 	export function onChangeSelMemberFilter(obj)
 	{
 		const filterValue = $(obj).val();
-		if (filterValue === 'today')
+		if (filterValue === 'today_action')
 		{
 			memberActionCntFilterWrap1.hide();
 			memberActionCntFilterWrap2.show();
@@ -59,8 +68,36 @@
 		{
 			memberActionCntFilterWrap1.show();
 			memberActionCntFilterWrap2.hide();
-			actionCount.val('');
+			actionCount.val(0);
 		}
+	}
+
+	function getSelMissionList()
+	{
+		const url = api.missionList;
+		const errMsg = `미션 목록 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getSelMissionListCallback, errMsg, false);
+	}
+
+	function getSelMissionListCallback(data)
+	{
+		isSuccessResp(data) ? buildSelMission(data) : sweetToast(data.msg);
+	}
+
+	function buildSelMission(data)
+	{
+		const missions = data.data;
+		let options = '<option value="all">전체</option>';
+		if (missions.length > 0)
+			missions.map(obj => { options += `<option value="${obj.mission_uuid}">${obj.mission_title}</option>` });
+
+		selMissions.html(options);
+
+		buildJoinMember();
 	}
 
 	function buildJoinMember()
@@ -79,8 +116,18 @@
 				},
 				data: function (d) {
 					const param = {
-						"doit_uuid": g_doit_uuid,
+						"doit_uuid" : g_doit_uuid,
+						"search_type" : selSearchType.val(),
+						"keyword" : keyword.val(),
+						"mission_uuid" : selMissions.val(),
+						"action_type" : selMemberFilter.val(),
+						"page" : (d.start / d.length) + 1,
+						"limit" : selJoinMemberPageLength.val(),
+						"order_by" : selSort.val(),
 					}
+					selMemberFilter.val() === 'today_action'
+					? param["today_action_type"] = $("input[name=radio-action-count]:checked").val()
+					: param["action_count"] = Number(actionCount.val().trim());
 
 					return JSON.stringify(param);
 				},
@@ -89,31 +136,40 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 		data: "mission_title",		width: "10%",
+				{title: "닉네임", 			data: "nickname",			width: "10%",
 					render: function (data, type, row, meta) {
-						return `<a>${data}</a>`;
+						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 	data: "start_date",			width: "30%"}
-				,{title: "등급",    		data: "state",  			width: "10%" }
-				,{title: "누적 인증 수",   data: "state",  			width: "10%" }
-				,{title: "최대 연속 인증 수",   data: "state",  			width: "10%" }
-				,{title: "현재 연속 인증 수",   data: "state",  			width: "10%" }
-				,{title: "가입일",   		data: "state",  			width: "10%" }
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "30%"}
+				,{title: "등급",    			data: "member_type",  		width: "10%" }
+				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%" }
+				,{title: "최대 연속 인증 수",   data: "max_recycle_action", width: "10%" }
+				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%" }
+				,{title: "가입일시",   		data: "joined",  			width: "10%" }
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: Number(selJoinMemberPageLength.val()),
 			select: false,
 			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(0).find('a').on('click', function () { viewMemberInfo(this);})
 			},
 			drawCallback: function (settings) {
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	export function searchJoinMember()
+	{
+		const table = joinMemberTable.DataTable();
+		table.page.len(Number(selJoinMemberPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function buildPendingMember()
@@ -199,11 +255,39 @@
 		overflowHidden();
 	}
 
-	export function onClickModalMemberDetailOpen()
+	export function viewMemberInfo(obj)
 	{
-		modalMemberDetail.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
+		const url = api.infoJoinMember;
+		const errMsg = `회원 정보 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : $(obj).data('uuid')
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
+	}
+
+	function getMemberInfoCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			modalMemberInfo.fadeIn();
+			modalBackdrop.fadeIn();
+			overflowHidden();
+			buildModalMemberInfo(data);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function buildModalMemberInfo(data)
+	{
+		const { nickname, joined, question, answer } = data.data;
+
+		modalMemberInfoNickname.text(nickname);
+		modalMemberInfoJoinDate.text(joined);
+		modalMemberInfoQuestion.text(isEmpty(question) ? label.dash : question);
+		modalMemberInfoAnswer.text(isEmpty(answer) ? label.dash : answer);
 	}
 
 

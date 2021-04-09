@@ -39,7 +39,9 @@
         updateMission : baseApiUrl + 'mission/update',
         deleteMission : baseApiUrl + 'mission/delete',
 
-        joinMemberList : baseApiUrl + 'member/join/list',
+        joinMemberList : baseApiUrl + 'member/get/list',
+        infoJoinMember : baseApiUrl + 'member/get/profile',
+        countMember : baseApiUrl + 'member/get/count',
         pendingMemberList : baseApiUrl + 'member/pending/list',
 
         pickList : baseApiUrl + 'recommend/list',

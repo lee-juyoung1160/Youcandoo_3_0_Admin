@@ -54,7 +54,7 @@
 		toggleButtons(doit_status);
 
 		infoDoitTitle.html(buildDoitStatus(doit_status) + doit_title);
-		doitSponsor.text( isSponsorDoit ? nickname : label.generalDoit );
+		doitSponsor.html( isSponsorDoit ? nickname : `${label.generalDoit} / <a>${nickname}</a>`);
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
 		infoDoitDesc.text(doit_description);
 		infoDoitKeywords.empty();

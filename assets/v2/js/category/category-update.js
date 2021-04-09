@@ -226,7 +226,7 @@
 			const errMsg = label.modify + message.ajaxError;
 			const param = {
 				"category_uuid" : g_category_uuid,
-				"title" : categoryTitle.val(),
+				"title" : categoryTitle.val().trim(),
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 				"is_establish" : $('input[name=radio-establish]:checked').val(),
 			}

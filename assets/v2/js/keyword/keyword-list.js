@@ -1,25 +1,27 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import { dataTable, updateTable, btnUpdate, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
+	import { dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate,
+		modalUpdate, modalCreate, keyword, btnSubmit, btnCreate} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
-	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
+	import {fadeoutModal, overflowHidden} from "../modules/common.js";
+	import { initTableDefaultConfig } from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 	import {isEmpty} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		getCategoryList();
+		//getKeywordList();
 		/** 이벤트 **/
-		modalOpen		.on("click", function () { onClickModalOpen(); });
+		btnCreate		.on("click", function () { onClickModalCreateOpen(); });
+		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnUpdate	.on("click", function () { onSubmitUpdate(); });
+		btnSubmitUpdate	.on("click", function () { onSubmitUpdate(); });
+		btnSubmit		.on("click", function () { onSubmitKeyword(); });
 	});
 
 	function initTableSort()
@@ -34,13 +36,12 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*60)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*80)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
 		return $(el);
 	}
 
-	function getCategoryList()
+	function getKeywordList()
 	{
 		const url = api.categoryList;
 		const errMsg = label.list + message.ajaxLoadError
@@ -65,19 +66,7 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "아이콘",    			data: "icon_image_url",  	width: "15%",
-					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
-					}
-				}
-				,{title: "카테고리명", 		data: "category_title",		width: "40%",
-					render: function (data, type, row, meta) {
-						let detailUrl = page.detailCategory + row.idx;
-						return `<a href="${detailUrl}">${data}</a>`;
-					}
-				}
-				,{title: "개설가능여부",    	data: "is_establish",  		width: "15%" }
-				,{title: "노출여부",    		data: "is_exposure",  		width: "15%" }
+				{title: "추천검색어",	data: "is_exposure" }
 			],
 			serverSide: false,
 			paging: false,
@@ -88,16 +77,16 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
-				onErrorImage();
-				buildTotalCount(this);
 			}
 		});
 	}
 
-	function onClickModalOpen()
+	function onClickModalUpdateOpen()
 	{
 		g_delete_uuids.length = 0;
-		fadeinModal();
+		modalUpdate.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 		buildUpdateTable();
 	}
 
@@ -110,12 +99,7 @@
 		updateTable.DataTable({
 			data: data,
 			columns: [
-				{title: "아이콘",    		data: "icon_image_url",  	width: "20%",
-					render: function (data, type, row, meta) {
-						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
-					}
-				}
-				,{title: "카테고리명", 	data: "category_title",		width: "60%" }
+				{title: "추천검색어", 		data: "category_title",		width: "80%" }
 				,{title: "삭제",    		data: "category_uuid", 		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
@@ -133,10 +117,9 @@
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.category_uuid);
+				$(nRow).attr('data-uuid', aData.keyword_uuid);
 			},
 			drawCallback: function (settings) {
-				onErrorImage();
 			}
 		});
 	}
@@ -196,7 +179,7 @@
 	function reorderSuccess()
 	{
 		fadeoutModal();
-		getCategoryList();
+		getKeywordList();
 	}
 
 	function updateValidation()
@@ -204,11 +187,53 @@
 		let uuids = getRowsId();
 		if (uuids.length === 0)
 		{
-			sweetToast("카테고리가 없습니다.");
+			sweetToast("추천검색어가 없습니다.");
 			return false;
 		}
 
 		return true;
+	}
+
+	function onClickModalCreateOpen()
+	{
+		modalCreate.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		keyword.trigger('focus');
+	}
+
+	function onSubmitKeyword()
+	{
+		if (createValidation())
+			sweetConfirm(message.create, createRequest)
+	}
+
+	function createValidation()
+	{
+		if (isEmpty(keyword.val()))
+		{
+			sweetToast(`추천 검색어는 ${message.required}`);
+			keyword.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function createRequest()
+	{
+		const url = api.createKeyword;
+		const errMsg = label.submit+message.ajaxError;
+		const param = {
+			"keyword" : keyword.val().trim(),
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+	}
+
+	function createReqCallback(data)
+	{
+		sweetToastAndCallback(data, getKeywordList);
 	}
 
 	function getRowsId()

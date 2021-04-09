@@ -40,7 +40,7 @@
 			const url = api.createCategory;
 			const errMsg = label.submit+message.ajaxError;
 			const param = {
-				"title" : categoryTitle.val(),
+				"title" : categoryTitle.val().trim(),
 				"icon_image_url" : data.image_urls.file,
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 				"is_establish" : $('input[name=radio-establish]:checked').val(),

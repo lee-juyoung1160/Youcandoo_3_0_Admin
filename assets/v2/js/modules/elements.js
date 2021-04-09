@@ -75,6 +75,7 @@
     export const modalBackdrop  = $('.modal-bg');
     export const modalDetail    = $('#modalDetail');
     export const modalUpdate    = $('#modalUpdate');
+    export const modalCreate    = $('#modalCreate');
     export const modalImage    = $('#modalImage');
 
     /** 로그인, 관리자등록, 2차인증, 마이페이지 **/

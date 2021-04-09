@@ -21,6 +21,9 @@
         deleteSubCategory : baseApiUrl + 'subcategory/delete',
         reorderSubCategory : baseApiUrl + 'subcategory/update/sequence',
 
+        keywordList : baseApiUrl + 'keyword/get/list',
+        createKeyword : baseApiUrl + 'keyword/create',
+
         doitSponsorList : baseApiUrl + 'doit/get/company',
         doitList : baseApiUrl + 'doit/list',
         createDoit : baseApiUrl + 'doit/create',

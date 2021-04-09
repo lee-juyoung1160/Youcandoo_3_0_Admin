@@ -3,13 +3,13 @@
 
         <div class="main-top clearfix">
             <h2 class="main-title">추천 검색어</h2>
-            <a href="#"><i class="fas fa-plus"></i>추천검색어 등록</a>
+            <a id="btnCreate"><i class="fas fa-plus"></i>추천검색어 등록</a>
         </div>
 
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 추천 검색어 수정</button>
+                    <button id="btnUpdate" type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 추천 검색어 수정</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -40,7 +40,7 @@
     <div class="modal-wrap">
 
         <!-- 등록 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalCreate">
             <div class="modal-header clearfix">
                 <h5>추천 검색어 등록</h5>
                 <i class="modal-close">×</i>
@@ -55,7 +55,7 @@
                         <th>추천 키워드 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="" type="text" class="length-input" placeholder="추천 검색어를 입력해주세요." maxlength="15">
+                                <input id="keyword" type="text" class="length-input" placeholder="추천 검색어를 입력해주세요." maxlength="15">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/15</p>
                             </div>
                         </td>
@@ -70,7 +70,7 @@
         </div>
 
         <!-- 수정 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalUpdate">
             <div class="modal-header clearfix">
                 <h5>추천 검색어 수정</h5>
                 <i class="modal-close">×</i>
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">수정완료</button>
+                <button id="btnSubmitUpdate" type="button" class="btn btn-primary">수정완료</button>
             </div>
         </div>
 
@@ -119,3 +119,4 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.ui.touch-punch.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script type="module" src="/assets/v2/js/keyword/keyword-list.js?version=<?php echo $this->config->item('version');?>"></script>

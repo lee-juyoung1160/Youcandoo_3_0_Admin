@@ -71,4 +71,5 @@
 		,doitDelete : '확인을 누르면 두잇이 삭제됩니다.'
 		,doitStop : '확인을 누르면 운영정지 됩니다.'
 		,doitContinue : '확인을 누르면 정지해제 됩니다.'
+		,banMember : '확인을 누르면 강퇴 처리됩니다.'
 	}

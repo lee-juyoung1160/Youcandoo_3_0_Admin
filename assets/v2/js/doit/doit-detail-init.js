@@ -43,50 +43,23 @@
 	btnSendWarning,
 	btnSendNotice,
 	btnSearchTalk,
-	btnResetSearchTalk,
-	btnBackTalkList,
-	btnUpdateTalk,
-	replyActionImage,
-	replyTalkImage,
-	commentActionImage,
-	commentTalkImage,
-	updateTalkImage,
-	searchActionDateFrom,
-	searchActionDateTo,
-	searchTalkDateFrom,
-	searchTalkDateTo,
-	dateButtons,
-	missionStartDate,
-	missionEndDate,
-	rdoActionType,
-	updateMissionStartDate,
-	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength, btnSearch, selSort
+	btnResetSearchTalk, btnBackTalkList, btnUpdateTalk,
+	replyActionImage, replyTalkImage, commentActionImage, commentTalkImage, updateTalkImage, searchActionDateFrom, searchActionDateTo,
+	searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType, updateMissionStartDate,
+	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength, btnSearch, selSort, btnBan
 	} from '../modules/elements.js';
-	import {
-	historyBack,
-	limitInputLength,
-	onChangeValidateImage,
-	fadeoutModal,
-	initSearchDatepicker, onChangeSearchDateTo, onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength
-	} from "../modules/common.js";
+	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
+		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory,
 		initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
-	import {
-		showCreateMissionForm,
-		showMissionListForm,
-		onClickBtnUpdateMission,
-		onChangeActionType,
-		onSubmitMission,
-		onSubmitUpdateMission,
-		deleteMission,
-		onChangeMissionEndDate,
-		onChangeMissionStartDate,
+	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
+	import { showCreateMissionForm, showMissionListForm, onClickBtnUpdateMission, onChangeActionType,
+		onSubmitMission, onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate,
 		onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType, buildMissionTable
 	} from "./doit-detail-mission.js";
-	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
 	import {
 		showJoinMemberForm,
 		showPendingMemberForm,
@@ -94,17 +67,17 @@
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
 		onChangeSelMemberFilter,
-		searchJoinMember,
+		searchJoinMember, banMember,
 	} from "./doit-detail-member.js";
 	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
-	getTalkList,
-	onClickBtnCreateTalk,
-	onClickDetailTalk,
-	initSearchTalkForm,
-	onClickBtnTalkList,
-	onClickBtnUpdateTalk, onClickModalReplyTalkOpen
-} from "./doit-detail-talk.js";
+		getTalkList,
+		onClickBtnCreateTalk,
+		onClickDetailTalk,
+		initSearchTalkForm,
+		onClickBtnTalkList,
+		onClickBtnUpdateTalk, onClickModalReplyTalkOpen
+	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -148,8 +121,6 @@
 		updateMissionEndDate	.on('change', function () { onChangeUpdateMissionEndDate(); });
 		rdoActionType	.on('change', function () { onChangeActionType(); });
 		rdoUpdateActionType	.on('change', function () { onChangeUpdateActionType(); });
-		//promiseImage	.on('change', function () { onChangeValidateImage(this); });
-		//updatePromiseImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateMission	.on('click', function () { showCreateMissionForm(); });
 		btnMissionList	.on('click', function () { showMissionListForm(); });
 		btnBackMissionList.on('click', function () { showMissionListForm(); });
@@ -171,6 +142,7 @@
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
+		btnBan.on('click', function () { banMember(); });
 
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });

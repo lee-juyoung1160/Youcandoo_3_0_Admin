@@ -4,7 +4,7 @@
 		joinMemberTable, pendingMemberTable, selMissions, selSearchType, selMemberFilter, selJoinMemberPageLength, selSort,
 		modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion, modalMemberInfoAnswer, totalMemberCount, pendingMemberCount
 	} from "../modules/elements.js";
-	import {initSelectOption, overflowHidden,} from "../modules/common.js";
+	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
@@ -141,17 +141,17 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",			width: "10%",
+				{title: "닉네임", 			data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 		data: "profile_uuid",		width: "30%"}
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "25%"}
 				,{title: "등급",    			data: "member_type",  		width: "10%" }
 				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%" }
 				,{title: "최대 연속 인증 수",   data: "max_recycle_action", width: "10%" }
 				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%" }
-				,{title: "가입일시",   		data: "joined",  			width: "10%" }
+				,{title: "가입일시",   		data: "joined",  			width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -175,6 +175,74 @@
 		const table = joinMemberTable.DataTable();
 		table.page.len(Number(selJoinMemberPageLength.val()));
 		table.ajax.reload();
+	}
+
+	let g_info_profile_uuid;
+	function viewMemberInfo(obj)
+	{
+		g_info_profile_uuid = $(obj).data('uuid');
+		const url = api.infoJoinMember;
+		const errMsg = `회원 정보 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : g_info_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
+	}
+
+	function getMemberInfoCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			modalMemberInfo.fadeIn();
+			modalBackdrop.fadeIn();
+			overflowHidden();
+			buildModalMemberInfo(data);
+		}
+		else
+		{
+			g_info_profile_uuid = '';
+			sweetToast(data.msg);
+		}
+	}
+
+	function buildModalMemberInfo(data)
+	{
+		const { nickname, joined, question, answer } = data.data;
+		modalMemberInfoNickname.text(nickname);
+		modalMemberInfoJoinDate.text(joined);
+		modalMemberInfoQuestion.text(isEmpty(question) ? label.dash : question);
+		modalMemberInfoAnswer.text(isEmpty(answer) ? label.dash : answer);
+	}
+
+	export function banMember()
+	{
+		sweetConfirm(message.banMember, banMemberRequest);
+	}
+
+	function banMemberRequest()
+	{
+		const url = api.banMember;
+		const errMsg = `회원 강퇴 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : g_info_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), banMemberCallback, errMsg, false);
+	}
+
+	function banMemberCallback(data)
+	{
+		sweetToastAndCallback(data, banSuccess);
+	}
+
+	function banSuccess()
+	{
+		fadeoutModal();
+		countMember();
+		buildJoinMember();
 	}
 
 	function buildPendingMember()
@@ -259,42 +327,4 @@
 		modalBackdrop.fadeIn();
 		overflowHidden();
 	}
-
-	export function viewMemberInfo(obj)
-	{
-		const url = api.infoJoinMember;
-		const errMsg = `회원 정보 ${message.ajaxLoadError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"profile_uuid" : $(obj).data('uuid')
-		}
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
-	}
-
-	function getMemberInfoCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			modalMemberInfo.fadeIn();
-			modalBackdrop.fadeIn();
-			overflowHidden();
-			buildModalMemberInfo(data);
-		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function buildModalMemberInfo(data)
-	{
-		const { nickname, joined, question, answer } = data.data;
-
-		modalMemberInfoNickname.text(nickname);
-		modalMemberInfoJoinDate.text(joined);
-		modalMemberInfoQuestion.text(isEmpty(question) ? label.dash : question);
-		modalMemberInfoAnswer.text(isEmpty(answer) ? label.dash : answer);
-	}
-
-
-
 

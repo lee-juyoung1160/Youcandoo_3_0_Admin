@@ -218,6 +218,7 @@
     export const modalMemberInfoJoinDate = $("#modalMemberInfoJoinDate");
     export const modalMemberInfoQuestion = $("#modalMemberInfoQuestion");
     export const modalMemberInfoAnswer = $("#modalMemberInfoAnswer");
+    export const btnBan = $("#btnBan");
 
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");

@@ -1,27 +1,8 @@
 
-	import {
-	keyword,
-	actionCount,
-	joinMemberForm,
-	pendingMemberForm,
-	modalSaveUcd,
-	modalBackdrop,
-	saveUcdContent,
-	saveUcdEtc,
-	amount,
-	modalSendNotice,
-	modalMemberInfo,
-	memberActionCntFilterWrap1,
-	memberActionCntFilterWrap2,
-	rdoActionCount,
-	joinMemberTable,
-	pendingMemberTable,
-	selMissions,
-	selSearchType,
-	selMemberFilter,
-	selJoinMemberPageLength,
-	selSort,
-	modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion, modalMemberInfoAnswer
+	import { keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent, saveUcdEtc, amount,
+		modalSendNotice, modalMemberInfo, memberActionCntFilterWrap1, memberActionCntFilterWrap2, rdoActionCount,
+		joinMemberTable, pendingMemberTable, selMissions, selSearchType, selMemberFilter, selJoinMemberPageLength, selSort,
+		modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion, modalMemberInfoAnswer, totalMemberCount, pendingMemberCount
 	} from "../modules/elements.js";
 	import {initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
@@ -37,6 +18,7 @@
 	{
 		joinMemberForm.show();
 		pendingMemberForm.hide();
+		countMember();
 		getSelMissionList();
 	}
 
@@ -70,6 +52,29 @@
 			memberActionCntFilterWrap2.hide();
 			actionCount.val(0);
 		}
+	}
+
+	function countMember()
+	{
+		const url = api.countMember;
+		const errMsg = `가입/대기자 수 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), countMemberCallback, errMsg, false);
+	}
+
+	function countMemberCallback(data)
+	{
+		isSuccessResp(data) ? buildCountMember(data) : sweetToast(data.msg);
+	}
+
+	function buildCountMember(data)
+	{
+		const {totalMemberCnt, totalApplyMemberCnt} = data.data;
+		totalMemberCount.text(totalMemberCnt);
+		pendingMemberCount.text(totalApplyMemberCnt);
 	}
 
 	function getSelMissionList()

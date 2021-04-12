@@ -348,7 +348,7 @@
 		});
 	}
 
-	export function searchPendingMember()
+	export function searchApplyMember()
 	{
 		const table = applyMemberTable.DataTable();
 		table.page.len(Number(selApplyMemberPageLength.val()));

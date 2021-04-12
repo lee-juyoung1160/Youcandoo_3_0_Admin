@@ -67,7 +67,7 @@
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
 		onChangeSelMemberFilter,
-		searchJoinMember, banMember,
+		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
 	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
@@ -143,7 +143,7 @@
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnBan.on('click', function () { banMember(); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
-		selApplyMemberPageLength.on(function () { searchPendingMember() });
+		selApplyMemberPageLength.on('change', function () { searchApplyMember() });
 
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });

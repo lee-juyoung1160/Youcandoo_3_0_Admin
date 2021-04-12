@@ -601,6 +601,18 @@ button i {
 	background-image: linear-gradient(135deg, rgba(105, 0, 199, 0.8) 0%, #0061f2 100%);
 }
 
+.btn-more {
+	display: flex;
+	width: 100%;
+	padding: 15px 0;
+	align-content: center;
+	justify-content: center;
+	color: #333;
+	border-radius: 30px;
+	background-color: #fff;
+
+}
+
 /*badge*/
 .badge {
 	display: inline-block;

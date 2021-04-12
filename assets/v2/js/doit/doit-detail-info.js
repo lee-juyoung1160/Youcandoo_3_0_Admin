@@ -13,7 +13,7 @@
 	import { onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent } from "../modules/doit-common.js"
 
 	const pathName	= getPathName();
-	const doitIdx	= splitReverse(pathName, '/');
+	export const doitIdx	= splitReverse(pathName, '/');
 
 	export function showDoitListForm()
 	{

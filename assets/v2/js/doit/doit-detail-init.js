@@ -46,7 +46,7 @@
 	btnResetSearchTalk, btnBackTalkList, btnUpdateTalk,
 	replyActionImage, replyTalkImage, commentActionImage, commentTalkImage, updateTalkImage, searchActionDateFrom, searchActionDateTo,
 	searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType, updateMissionStartDate,
-	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selPendingMemberPageLength, btnSearch, selSort, btnBan
+	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -130,7 +130,7 @@
 		btnDeleteMission.on('click', function () { deleteMission() });
 
 		initPageLength(selJoinMemberPageLength);
-		initPageLength(selPendingMemberPageLength);
+		initPageLength(selApplyMemberPageLength);
 		btnSearch.on('click', function () { searchJoinMember(); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
@@ -139,10 +139,11 @@
 		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
 		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnBan.on('click', function () { banMember(); });
+		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
+		selApplyMemberPageLength.on(function () { searchPendingMember() });
 
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });

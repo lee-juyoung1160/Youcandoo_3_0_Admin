@@ -191,7 +191,7 @@
     export const btnJoinMembers = $("#btnJoinMembers");
     export const btnPendingMembers = $("#btnPendingMembers");
     export const totalMemberCount = $("#totalMemberCount");
-    export const pendingMemberCount = $("#pendingMemberCount");
+    export const applyMemberCount = $(".apply-member-count");
     export const selMissions = $("#selMissions");
     export const selMemberFilter = $("#selMemberFilter");
     export const memberActionCntFilterWrap1 = $("#memberActionCntFilterWrap1");
@@ -199,13 +199,14 @@
     export const rdoActionCount = $("input[name=radio-action-count]");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
-    export const selPendingMemberPageLength = $("#selPendingMemberPageLength");
+    export const selApplyMemberPageLength = $("#selApplyMemberPageLength");
     export const btnSaveUcd = $("#btnSaveUcd");
     export const btnSendNotice = $("#btnSendNotice");
+    export const applyQuestion = $("#applyQuestion");
     export const joinMemberTable = $("#joinMemberTable");
     export const btnApproval = $("#btnApproval");
     export const btnReject = $("#btnReject");
-    export const pendingMemberTable = $("#pendingMemberTable");
+    export const applyMemberTable = $("#applyMemberTable");
     export const modalSaveUcd = $("#modalSaveUcd");
     export const saveUcdContent = $("#saveUcdContent");
     export const saveUcdEtc = $("#saveUcdEtc");

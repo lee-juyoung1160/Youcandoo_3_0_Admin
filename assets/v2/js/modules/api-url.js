@@ -43,7 +43,7 @@
         infoJoinMember : baseApiUrl + 'member/get/profile',
         countMember : baseApiUrl + 'member/get/count',
         banMember : baseApiUrl + 'member/set/retire',
-        pendingMemberList : baseApiUrl + 'member/pending/list',
+        applyMemberList : baseApiUrl + 'member/get/applylist',
 
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',

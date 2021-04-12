@@ -222,6 +222,11 @@
 	let g_action_type;
 	function getMissionDetailReqCallback(data)
 	{
+		sweetToastAndCallback(data, buildMissionDetail);
+	}
+
+	function buildMissionDetail()
+	{
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
 		g_mission_idx = idx;

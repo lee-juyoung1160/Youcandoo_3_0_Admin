@@ -1,13 +1,38 @@
 
-	import { keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent, saveUcdEtc, amount,
-		modalSendNotice, modalMemberInfo, memberActionCntFilterWrap1, memberActionCntFilterWrap2, rdoActionCount,
-		joinMemberTable, pendingMemberTable, selMissions, selSearchType, selMemberFilter, selJoinMemberPageLength, selSort,
-		modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion, modalMemberInfoAnswer, totalMemberCount, pendingMemberCount
+	import {
+		keyword,
+		actionCount,
+		joinMemberForm,
+		pendingMemberForm,
+		modalSaveUcd,
+		modalBackdrop,
+		saveUcdContent,
+		saveUcdEtc,
+		amount,
+		modalSendNotice,
+		modalMemberInfo,
+		memberActionCntFilterWrap1,
+		memberActionCntFilterWrap2,
+		rdoActionCount,
+		joinMemberTable,
+		applyMemberTable,
+		selMissions,
+		selSearchType,
+		selMemberFilter,
+		selJoinMemberPageLength,
+		selSort,
+		modalMemberInfoNickname,
+		modalMemberInfoJoinDate,
+		modalMemberInfoQuestion,
+		modalMemberInfoAnswer,
+		totalMemberCount,
+		applyMemberCount,
+		selApplyMemberPageLength, applyQuestion
 	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {g_doit_uuid, doitIdx} from "./doit-detail-info.js";
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -26,7 +51,9 @@
 	{
 		pendingMemberForm.show();
 		joinMemberForm.hide();
-		//buildPendingMember();
+		getQuestion()
+		countMember();
+		buildPendingMember();
 	}
 
 	export function initSearchMemberForm()
@@ -74,7 +101,7 @@
 	{
 		const {totalMemberCnt, totalApplyMemberCnt} = data.data;
 		totalMemberCount.text(totalMemberCnt);
-		pendingMemberCount.text(totalApplyMemberCnt);
+		applyMemberCount.text(totalApplyMemberCnt);
 	}
 
 	function getSelMissionList()
@@ -245,11 +272,31 @@
 		buildJoinMember();
 	}
 
+	function getQuestion()
+	{
+		const url = api.detailDoit;
+		const errMsg = label.detailContent + message.ajaxLoadError;
+		const param = { "idx" : doitIdx };
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getQuestionCallback, errMsg, false);
+	}
+
+	function getQuestionCallback(data)
+	{
+		isSuccessResp(data) ? buildQuestion(data) : sweetToast(data.msg);
+	}
+
+	function buildQuestion(data)
+	{
+		const {question} = data.data;
+		applyQuestion.text(isEmpty(question) ? label.dash : question);
+	}
+
 	function buildPendingMember()
 	{
-		pendingMemberTable.DataTable({
+		applyMemberTable.DataTable({
 			ajax : {
-				url: api.pendingMemberList,
+				url: api.applyMemberList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -261,7 +308,9 @@
 				},
 				data: function (d) {
 					const param = {
-						"doit_uuid": g_doit_uuid,
+						"doit_uuid" : g_doit_uuid,
+						"page" : (d.start / d.length) + 1,
+						"limit" : selApplyMemberPageLength.val(),
 					}
 
 					return JSON.stringify(param);
@@ -293,10 +342,19 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
+
+	export function searchPendingMember()
+	{
+		const table = applyMemberTable.DataTable();
+		table.page.len(Number(selApplyMemberPageLength.val()));
+		table.ajax.reload();
+	}
+
 	$(".detail-data.line-clamp-2").on('click', function () { onClickAnswer(this) })
 	$('.toast-header .close').on('click', function () { closeAnswerBox() })
 	function onClickAnswer(obj)

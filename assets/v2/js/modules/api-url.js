@@ -81,7 +81,9 @@
         createProhibition : baseApiUrl + 'prohibition/create',
         deleteProhibition : baseApiUrl + 'prohibition/delete',
 
-        actionList : baseApiUrl + 'action',
+        actionList : baseApiUrl + 'action/get/list',
+        createActionComment : baseApiUrl + '',
+
         talkList : baseApiUrl + 'talk',
         detailTalk : baseApiUrl + 'talk/detail',
 

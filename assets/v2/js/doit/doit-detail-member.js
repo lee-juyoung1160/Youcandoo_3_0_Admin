@@ -44,7 +44,7 @@
 		joinMemberForm.show();
 		pendingMemberForm.hide();
 		countMember();
-		getSelMissionList();
+		getMissionListForMember();
 	}
 
 	export function showPendingMemberForm()
@@ -104,7 +104,7 @@
 		applyMemberCount.text(totalApplyMemberCnt);
 	}
 
-	function getSelMissionList()
+	function getMissionListForMember()
 	{
 		const url = api.missionList;
 		const errMsg = `미션 목록 ${message.ajaxLoadError}`;
@@ -112,10 +112,10 @@
 			"doit_uuid" : g_doit_uuid
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getSelMissionListCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMissionListForMemberCallback, errMsg, false);
 	}
 
-	function getSelMissionListCallback(data)
+	function getMissionListForMemberCallback(data)
 	{
 		isSuccessResp(data) ? buildSelMission(data) : sweetToast(data.msg);
 	}

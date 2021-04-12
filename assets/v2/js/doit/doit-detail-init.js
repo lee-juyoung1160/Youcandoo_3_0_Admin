@@ -35,19 +35,38 @@
 	btnJoinMembers,
 	btnReset,
 	actionCount,
-	actionListForm,
-	actionDetailForm,
 	btnResetSearchAction,
 	btnSaveUcd,
 	amount,
 	btnSendWarning,
 	btnSendNotice,
 	btnSearchTalk,
-	btnResetSearchTalk, btnBackTalkList, btnUpdateTalk,
-	replyActionImage, replyTalkImage, commentActionImage, commentTalkImage, updateTalkImage, searchActionDateFrom, searchActionDateTo,
-	searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType, updateMissionStartDate,
-	updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan
-	} from '../modules/elements.js';
+	btnResetSearchTalk,
+	btnBackTalkList,
+	btnUpdateTalk,
+	replyActionImage,
+	replyTalkImage,
+	commentActionImage,
+	commentTalkImage,
+	updateTalkImage,
+	searchActionDateFrom,
+	searchActionDateTo,
+	searchTalkDateFrom,
+	searchTalkDateTo,
+	dateButtons,
+	missionStartDate,
+	missionEndDate,
+	rdoActionType,
+	updateMissionStartDate,
+	updateMissionEndDate,
+	rdoUpdateActionType,
+	selJoinMemberPageLength,
+	selApplyMemberPageLength,
+	btnSearch,
+	selSort,
+	btnBan,
+		btnBackActionList
+} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -69,7 +88,7 @@
 		onChangeSelMemberFilter,
 		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
-	import {initSearchActionForm, buildActions, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
+	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
 	import {
 		getTalkList,
 		onClickBtnCreateTalk,
@@ -145,6 +164,7 @@
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember() });
 
+		btnBackActionList.on('click', function () { showActionListForm(); });
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
@@ -191,9 +211,8 @@
 				//getDetail();
 				break;
 			case '#tabDoitAction' :
-				actionListForm.show();
-				actionDetailForm.hide();
-				buildActions();
+				showActionListForm();
+				getMissionListForAction();
 				//getDetail();
 				break;
 			case '#tabDoitTalk' :

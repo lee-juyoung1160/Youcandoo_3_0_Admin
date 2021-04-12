@@ -165,19 +165,16 @@
     export const chkGalleryAllowed  = $("input[name=chk-gallery-allowed]");
     export const actionDesc  = $("#actionDesc");
     export const promise  = $("#promise");
-    //export const promiseImage  = $("#promiseImage");
     export const updateMissionTitle = $("#updateMissionTitle");
     export const updateMissionStartDate = $("#updateMissionStartDate");
     export const updateMissionEndDate = $("#updateMissionEndDate");
     export const updateMissionStartTime = $("#updateMissionStartTime");
     export const updateMissionEndTime   = $("#updateMissionEndTime");
     export const rdoUpdateActionType  = $("input[name=radio-update-action-type]");
-    export const updateActionImage  = $("#updateActionImage");
     export const chkUpdateGalleryAllowed  = $("input[name=chk-update-gallery-allowed]");
     export const updateExampleWrap  = $("#updateExampleWrap");
     export const updateActionDesc  = $("#updateActionDesc");
     export const updatePromise  = $("#updatePromise");
-    //export const updatePromiseImage  = $("#updatePromiseImage");
     export const infoMissionTitle = $("#infoMissionTitle");
     export const infoMissionDate = $("#infoMissionDate");
     export const infoMissionTime = $("#infoMissionTime");
@@ -221,6 +218,7 @@
     export const modalMemberInfoAnswer = $("#modalMemberInfoAnswer");
     export const btnBan = $("#btnBan");
 
+    export const btnBackActionList = $("#btnBackActionList");
     export const actionListForm = $("#actionListForm");
     export const selActionDateType = $("#selActionDateType");
     export const searchActionDateFrom = $("#searchActionDateFrom");
@@ -232,6 +230,12 @@
     export const btnPullAction = $("#btnPullAction");
     export const btnSendWarning = $(".btn-send-warn");
     export const actionDetailForm = $("#actionDetailForm");
+    export const actionCreated = $("#actionCreated");
+    export const actionLikeCount = $("#actionLikeCount");
+    export const actionCommentCount = $("#actionCommentCount");
+    export const actionThumbnail = $("#actionThumbnail");
+    export const actionContent = $("#actionContent");
+    export const createCommentWrap = $("#createCommentWrap");
     export const commentAction = $("#commentAction");
     export const commentActionImage = $("#commentActionImage");
     export const btnSubmitCommentAction = $("#btnSubmitCommentAction");

@@ -936,7 +936,7 @@
                     <!-- s: 인증 상세 -->
                     <div class="detail-detail" style="display: none;" id="actionDetailForm">
                         <div class="card doit-tit-warp member-top">
-                            <button id="" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button id="btnBackActionList" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">인증 상세</p>
                         </div>
                         <table class="detail-table">
@@ -963,29 +963,29 @@
                             <tr>
                                 <th>작성일자</th>
                                 <td>
-                                    <p class="detail-data">2020-02-02</p>
+                                    <p class="detail-data" id="actionCreated">2020-02-02</p>
                                 </td>
                                 <th>좋아요</th>
                                 <td>
-                                    <p class="detail-data">111</p>
+                                    <p class="detail-data" id="actionLikeCount">111</p>
                                 </td>
                                 <th>댓글 수</th>
                                 <td>
-                                    <p class="detail-data">111</p>
+                                    <p class="detail-data" id="actionCommentCount">111</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증</th>
                                 <td colspan="5">
                                     <div class="detail-img-wrap talk-file-img">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        <img src="/assets/v2/img/profile-1.png" alt="" id="actionThumbnail">
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>내용</th>
                                 <td>
-                                    <div class="detail-data">
+                                    <div class="detail-data" id="actionContent">
                                         내요오오오오오오옹
                                     </div>
                                 </td>
@@ -1143,7 +1143,7 @@
                             </div>
 
                             <!-- 댓글달기창 -->
-                            <div class="col-4 comment-creat">
+                            <div class="col-4 comment-creat" id="createCommentWrap">
                                 <div class="card clearfix">
                                     <p class="title">댓글달기</p>
                                 </div>
@@ -1171,7 +1171,7 @@
                                                     <input type="file" id="commentActionImage" class="upload-hidden">
                                                 </div>
                                                 <div class="detail-img-wrap">
-                                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="">
                                                 </div>
                                             </td>
                                         </tr>

@@ -1,18 +1,27 @@
 
 	import {
 	actionDetailForm,
-	actionListForm, actionsWrap,
-	chkActionStatus, modalBackdrop, modalReplyAction, modalWarning,
+	actionListForm,
+	actionsWrap,
+	chkActionStatus,
+	modalBackdrop,
+	modalReplyAction,
+	modalWarning,
 	searchActionDateFrom,
-	searchActionDateTo,
+	searchActionDateTo, selActionMissions,
 } from "../modules/elements.js";
 	import {initSelectOption, overflowHidden} from "../modules/common.js";
+	import {api} from "../modules/api-url.js";
+	import {label} from "../modules/label.js";
+	import {message} from "../modules/message.js";
+	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
+	import {sweetToast} from "../modules/alert.js";
 
-	export function onClickBtnActionList()
+	export function showActionListForm()
 	{
 		actionListForm.show();
 		actionDetailForm.hide();
-		getActionList();
 	}
 
 	export function onClickAction()
@@ -32,12 +41,62 @@
 		initSelectOption();
 	}
 
-	export function getActionList()
+	export function getMissionListForAction()
 	{
+		const url = api.missionList;
+		const errMsg = `미션 목록 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid
+		}
 
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMissionListForActionCallback, errMsg, false);
 	}
 
-	export function buildActions(data)
+	function getMissionListForActionCallback(data)
+	{
+		isSuccessResp(data) ? buildSelActionMission(data) : sweetToast(data.msg);
+	}
+
+	function buildSelActionMission(data)
+	{
+		const missions = data.data;
+		let options = '<option value="all">전체</option>';
+		if (missions.length > 0)
+			missions.map(obj => { options += `<option value="${obj.mission_uuid}">${obj.mission_title}</option>` });
+
+		selActionMissions.html(options);
+
+		getActionList();
+	}
+
+	export function getActionList()
+	{
+		/*const url = api.actionList;
+		const errMsg = label.list+message.ajaxLoadError;
+		let actionStatus = [];
+		chkActionStatus.each(function () {
+			if ($(this).is(":checked"))
+				actionStatus.push($(this).val())
+		})
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"date_type" : selActionDateType.val(),
+			"from_date" : searchActionDateFrom.val(),
+			"to_date" : searchActionDateTo.val(),
+			"mission_uuid" : selMissions.val(),
+			"state" : actionStatus
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionListCallback, errMsg, false);*/
+		buildActions();
+	}
+
+	function getActionListCallback(data)
+	{
+		isSuccessResp(data) ? buildActions(data) : sweetToast(data.msg);
+	}
+
+	function buildActions(data)
 	{
 		let actionEl = '';
 		for (let i=0; i<12; i++)

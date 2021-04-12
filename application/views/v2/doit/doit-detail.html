@@ -1756,25 +1756,69 @@
                     <tr>
                         <th>발송 일시 *</th>
                         <td>
-                            <p class="detail-data">즉시</p>
+                            <div class="radio-wrap">
+                                <input id="r40" type="radio" name="radio-reserve-type" value="immediately" checked>
+                                <label for="r40"><span></span>즉시</label>
+
+                                <input  id="r41" type="radio" name="radio-reserve-type" value="reserve">
+                                <label for="r41"><span></span>예약</label>
+                            </div>
+                            <div class="result-wrap date-wrap" style="display: none;">
+                                <input id="reserveDate" type="text" class="datepicker" readonly>
+                                <input id="reserveTime" type="time">
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>발송 구분 *</th>
                         <td>
-                            <p class="detail-data">두잇</p>
+                            <div class="radio-wrap">
+                                <input id="r36" type="radio" name="radio-target-page-type" value="normal" checked>
+                                <label for="r36"><span></span>일반</label>
+
+                                <input  id="r37" type="radio" name="radio-target-page-type" value="notice">
+                                <label for="r37"><span></span>공지</label>
+
+                                <input  id="r38" type="radio" name="radio-target-page-type" value="event">
+                                <label for="r38"><span></span>이벤트</label>
+
+                                <input  id="r39" type="radio" name="radio-target-page-type" value="doit">
+                                <label for="r39"><span></span>두잇</label>
+                            </div>
+
+                            <div class="result-wrap" style="display: none;">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>수신 구분 *</th>
                         <td>
-                            <p class="detail-data">알림+푸시</p>
+                            <div class="radio-wrap">
+                                <input id="r30" type="radio" name="radio-receive-type" value="all" checked>
+                                <label for="r30"><span></span>알림+푸시</label>
+
+                                <input  id="r31" type="radio" name="radio-receive-type" value="notification">
+                                <label for="r31"><span></span>알림</label>
+
+                                <input  id="r32" type="radio" name="radio-receive-type" value="push">
+                                <label for="r32"><span></span>푸시</label>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>기기 구분 *</th>
                         <td>
-                            <p class="detail-data">전체</p>
+                            <div class="radio-wrap">
+                                <input id="r33" type="radio" name="radio-os-type" value="all" checked>
+                                <label for="r33"><span></span>전체</label>
+
+                                <input  id="r34" type="radio" name="radio-os-type" value="apple">
+                                <label for="r34"><span></span>애플</label>
+
+                                <input  id="r35" type="radio" name="radio-os-type" value="google">
+                                <label for="r35"><span></span>구글</label>
+                            </div>
                         </td>
                     </tr>
                     <tr>

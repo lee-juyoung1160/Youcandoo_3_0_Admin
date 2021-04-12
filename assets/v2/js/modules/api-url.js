@@ -45,6 +45,13 @@
         banMember : baseApiUrl + 'member/set/retire',
         applyMemberList : baseApiUrl + 'member/get/applylist',
 
+        actionList : baseApiUrl + 'action/get/list',
+        detailAction : baseApiUrl + 'action/detail',
+        createActionComment : baseApiUrl + '',
+
+        talkList : baseApiUrl + 'talk',
+        detailTalk : baseApiUrl + 'talk/detail',
+
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',
         searchDoitList : baseApiUrl + 'recommend/get/doit/list',
@@ -80,12 +87,6 @@
         prohibitionList : baseApiUrl + 'prohibition',
         createProhibition : baseApiUrl + 'prohibition/create',
         deleteProhibition : baseApiUrl + 'prohibition/delete',
-
-        actionList : baseApiUrl + 'action/get/list',
-        createActionComment : baseApiUrl + '',
-
-        talkList : baseApiUrl + 'talk',
-        detailTalk : baseApiUrl + 'talk/detail',
 
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',

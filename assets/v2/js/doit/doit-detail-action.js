@@ -1,16 +1,7 @@
 
-	import {
-	actionDetailForm,
-	actionListForm,
-	actionsWrap,
-	chkActionStatus,
-	modalBackdrop,
-	modalReplyAction,
-	modalWarning,
-	searchActionDateFrom,
-	searchActionDateTo, selActionMissions,
-} from "../modules/elements.js";
-	import {initSelectOption, overflowHidden} from "../modules/common.js";
+	import {actionCommentCount, actionContent, actionCreated, actionDetailForm, actionLikeCount, actionListForm, actionsWrap, actionThumbnail,
+		chkActionStatus, modalBackdrop, modalReplyAction, modalWarning, searchActionDateFrom, searchActionDateTo, selActionMissions,} from "../modules/elements.js";
+	import {initSelectOption, overflowHidden, onErrorImage} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -24,11 +15,10 @@
 		actionDetailForm.hide();
 	}
 
-	export function onClickAction()
+	export function showDetailAction()
 	{
 		actionDetailForm.show();
 		actionListForm.hide();
-		viewDetail();
 	}
 
 	export function initSearchActionForm()
@@ -135,9 +125,135 @@
 		$(".img-wrap").on('click', function () { onClickAction(this); })
 	}
 
-	export function viewDetail()
+	function onClickAction(obj)
 	{
+		showDetailAction();
+		//getDetailAction(obj);
+	}
 
+	function getDetailAction(obj)
+	{
+		const url = api.detailAction;
+		const errMsg = label.detailContent + message.ajaxLoadError;
+		const param = { "uuid" : $(obj).data('uuid') };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
+	}
+
+	function getDetailActionCallback(data)
+	{
+		isSuccessResp(data) ? buildDetailAction(data) : sweetToast(data.msg);
+	}
+
+	function buildDetailAction(data)
+	{
+		actionCreated.text();
+		actionLikeCount.text();
+		actionCommentCount.text();
+		actionThumbnail.attr('src', '');
+		actionContent.text();j
+
+		onErrorImage();
+
+		buildActionComments();
+	}
+
+	function buildActionComments(data)
+	{
+		`<div class="card">
+			<div class="top clearfix">
+				<p class="title">
+					유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+				</p>
+				<div class="right-wrap">
+					<button type="button" class="btn-xs btn-danger">삭제</button>
+				</div>
+			</div>
+			<div class="detail-data">
+				대박사건... 인증계를 뒤집어놓으셨다...!
+			</div>
+			<div class="img-wrap">
+				<img src="/assets/v2/img/profile-1.png" alt="">
+			</div>
+			<div class="bottom">
+				<span><i class="fas fa-heart"></i> 111</span>
+				<span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
+				<a id="testReplyAction" class="link">답글달기</a>
+				<!-- 답글달기 -->
+				<div class="modal-content comments-creat" id="modalReplyAction">
+					<div class="modal-header clearfix">
+						<h5>답글달기</h5>
+						<i class="modal-close">×</i>
+					</div>
+					<div class="modal-body">
+						<table class="detail-table">
+							<colgroup>
+								<col style="width: 20%;">
+								<col style="width: 70%;">
+							</colgroup>
+							<tr>
+								<td colspan="2">
+									<div class="textarea-wrap">
+										<textarea id="replyAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+										<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									첨부파일
+								</th>
+								<td>
+									<div class="file-wrap preview-image">
+										<input class="upload-name" value="파일선택" disabled="disabled">
+										<label for="replyActionImage">업로드</label>
+										<input type="file" id="replyActionImage" class="upload-hidden">
+									</div>
+									<div class="detail-img-wrap">
+										<img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="right-wrap">
+										<button id="btnSubmitActionReply" type="button" class="btn-sm btn-primary">등록</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="comments-wrap">
+				<ul>
+					<li>
+						<div class="top clearfix">
+							<p class="title">
+								ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+							</p>
+						</div>
+						<div class="detail-data">
+							대박사건... 인증계를 뒤집어놓으셨다...!
+						</div>
+						<div class="img-wrap">
+							<img src="/assets/v2/img/profile-1.png" alt="">
+						</div>
+					</li>
+					<li>
+						<div class="top clearfix">
+							<p class="title">
+								ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+							</p>
+						</div>
+						<div class="detail-data">
+							대박사건... 인증계를 뒤집어놓으셨다...!
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>`
 	}
 
 	export function onClickModalWarnOpen()

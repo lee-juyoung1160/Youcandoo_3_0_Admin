@@ -235,6 +235,7 @@
     export const actionCommentCount = $("#actionCommentCount");
     export const actionThumbnail = $("#actionThumbnail");
     export const actionContent = $("#actionContent");
+    export const actionCommentWrap = $("#actionCommentWrap");
     export const createCommentWrap = $("#createCommentWrap");
     export const commentAction = $("#commentAction");
     export const commentActionImage = $("#commentActionImage");

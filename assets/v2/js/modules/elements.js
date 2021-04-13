@@ -283,6 +283,7 @@
     export const selPageLengthUcd = $("#selPageLengthUcd");
     export const bizNo = $("#bizNo");
     export const bizWeb = $("#bizWeb");
+    export const description = $("#description");
 
     /** 배너 **/
     export const targetUrl = $("#targetUrl");

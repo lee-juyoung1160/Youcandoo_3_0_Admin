@@ -1,9 +1,11 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
-		modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
-		tabContents, amount, inputNumber, lengthInput,} from '../modules/elements.js';
+	import {
+	contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
+	modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
+	tabContents, amount, inputNumber, lengthInput, description,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty, initInputNumber } from "../modules/utils.js";
@@ -137,7 +139,8 @@
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"company_uuid" : g_company_uuid,
-			"ucd" : amount.val()
+			"value" : amount.val().trim(),
+			"description" : description.val().trim(),
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createBizUcdCallback, errMsg, false);

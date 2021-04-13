@@ -341,6 +341,8 @@
 					const innerDom = `<div class="detail-img-wrap"><img src="${reader.result}" alt=""></div>`;
 					$(obj).parent().append(innerDom);
 				}
+
+				$(obj).siblings('.icon-delete-attach').show();
 			}
 			else
 				emptyFile(obj);
@@ -362,6 +364,7 @@
 		removeThumbnail($(inputFile));
 		$(obj).val(null);
 		$(obj).siblings('.upload-name').val('파일선택');
+		$(obj).hide();
 	}
 
 

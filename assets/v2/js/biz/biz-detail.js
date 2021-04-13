@@ -3,9 +3,9 @@
 	import { api } from '../modules/api-url.js';
 	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
 		modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
-		tabContents, amount, inputNumber,} from '../modules/elements.js';
+		tabContents, amount, inputNumber, lengthInput,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty, initInputNumber } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -24,6 +24,7 @@
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
+		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		inputNumber 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
 		selPageLengthDoit.on("change", function () { getBizDoitList(); });

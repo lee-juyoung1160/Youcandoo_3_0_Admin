@@ -61,6 +61,7 @@
 		missionEndDate.datepicker("setDate", "9999-12-31");
 		rdoActionType.eq(0).prop('checked', true);
 		onChangeActionType();
+		actionDesc.val('');
 		promise.val('');
 	}
 
@@ -134,8 +135,8 @@
 			return false;
 		}
 
-		const actionThumbnailEl = $("#actionThumbnail");
-		if (actionThumbnailEl.length > 0 && actionThumbnailEl[0].files.length === 0)
+		const actionExampleThumbnail = $("#actionExampleThumbnail");
+		if (actionExampleThumbnail.length > 0 && actionExampleThumbnail[0].files.length === 0)
 		{
 			sweetToast(`인증 예시 썸네일은 ${message.required}`);
 			return false;
@@ -165,7 +166,7 @@
 		let param  = new FormData();
 		param.append('example', $("#actionExample")[0].files[0]);
 		if (getActionType() === 'video')
-			param.append('thumbnail', $("#actionThumbnail")[0].files[0]);
+			param.append('thumbnail', $("#actionExampleThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -222,10 +223,10 @@
 	let g_action_type;
 	function getMissionDetailReqCallback(data)
 	{
-		sweetToastAndCallback(data, buildMissionDetail);
+		isSuccessResp(data) ? buildMissionDetail(data) : sweetToast(data.msg);
 	}
 
-	function buildMissionDetail()
+	function buildMissionDetail(data)
 	{
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
@@ -470,8 +471,8 @@
 					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
-						<label for="actionThumbnail">업로드</label>
-						<input type="file" id="actionThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<label for="actionExampleThumbnail">업로드</label>
+						<input type="file" id="actionExampleThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
 					</div>
 					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -480,7 +481,7 @@
 						<input type="file" id="actionExample" class="upload-hidden">
 					</div>`;
 				actionExampleWrap.html(exampleFileEl);
-				$("#actionThumbnail").on('change', function () { onChangeValidateImage(this); });
+				$("#actionExampleThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#actionExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
 			case 'voice' :

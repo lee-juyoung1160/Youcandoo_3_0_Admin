@@ -50,6 +50,8 @@
     {
         datePicker.datepicker({
             dateFormat: "yy-mm-dd"
+            ,changeYear: true
+            ,showMonthAfterYear: true
             ,monthNames: label.monthNames
             ,dayNames: label.dayNames
             ,dayNamesMin: label.dayNames
@@ -61,6 +63,8 @@
     {
         datePicker.datepicker({
             dateFormat: "yy-mm-dd"
+            ,changeYear: true
+            ,showMonthAfterYear: true
             ,monthNames: label.monthNames
             ,dayNames: label.dayNames
             ,dayNamesMin: label.dayNames
@@ -72,6 +76,8 @@
     {
         datePicker.datepicker({
             dateFormat: "yy-mm-dd"
+            ,changeYear: true
+            ,showMonthAfterYear: true
             ,monthNames: label.monthNames
             ,dayNames: label.dayNames
             ,dayNamesMin: label.dayNames

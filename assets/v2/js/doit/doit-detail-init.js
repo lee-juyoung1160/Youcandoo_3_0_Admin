@@ -19,7 +19,6 @@
 	btnUpdateDoit,
 	btnSubmitUpdateDoit,
 	btnCreateMission,
-	btnMissionList,
 	btnBackMissionList,
 	btnDeleteMission,
 	btnUpdateMission,
@@ -65,7 +64,7 @@
 	btnSearch,
 	selSort,
 	btnBan,
-		btnBackActionList
+	btnBackActionList, chkPermanent, chkUpdatePermanent
 } from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -75,10 +74,23 @@
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory,
 		initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
-	import { showCreateMissionForm, showMissionListForm, onClickBtnUpdateMission, onChangeActionType,
-		onSubmitMission, onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate,
-		onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType, buildMissionTable
-	} from "./doit-detail-mission.js";
+	import {
+	showCreateMissionForm,
+	showMissionListForm,
+	onClickBtnUpdateMission,
+	onChangeActionType,
+	onSubmitMission,
+	onSubmitUpdateMission,
+	deleteMission,
+	onChangeMissionEndDate,
+	onChangeMissionStartDate,
+	onChangeUpdateMissionStartDate,
+	onChangeUpdateMissionEndDate,
+	onChangeUpdateActionType,
+	buildMissionTable,
+	onChangeCheckPermanent,
+		onChangeUpdateCheckPermanent
+} from "./doit-detail-mission.js";
 	import {
 		showJoinMemberForm,
 		showPendingMemberForm,
@@ -136,12 +148,13 @@
 
 		missionStartDate.on('change', function () { onChangeMissionStartDate(); });
 		missionEndDate	.on('change', function () { onChangeMissionEndDate(); });
+		chkPermanent.on('change', function () { onChangeCheckPermanent(this); });
 		updateMissionStartDate	.on('change', function () { onChangeUpdateMissionStartDate(); });
 		updateMissionEndDate	.on('change', function () { onChangeUpdateMissionEndDate(); });
+		chkUpdatePermanent.on('change', function () { onChangeUpdateCheckPermanent(this); });
 		rdoActionType	.on('change', function () { onChangeActionType(); });
 		rdoUpdateActionType	.on('change', function () { onChangeUpdateActionType(); });
 		btnCreateMission	.on('click', function () { showCreateMissionForm(); });
-		btnMissionList	.on('click', function () { showMissionListForm(); });
 		btnBackMissionList.on('click', function () { showMissionListForm(); });
 		btnUpdateMission.on('click', function () { onClickBtnUpdateMission(); });
 		btnSubmitMission.on('click', function () { onSubmitMission() });

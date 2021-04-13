@@ -146,7 +146,6 @@
     export const btnBackMissionList = $(".btn-mission-list");
     export const btnCreateMission   = $("#btnCreateMission");
     export const btnSubmitMission   = $("#btnSubmitMission");
-    export const btnMissionList   = $("#btnMissionList");
     export const btnUpdateMission   = $("#btnUpdateMission");
     export const btnSubmitUpdateMission = $("#btnSubmitUpdateMission");
     export const btnDeleteMission   = $("#btnDeleteMission");
@@ -158,6 +157,7 @@
     export const missionTitle       = $("#missionTitle");
     export const missionStartDate   = $("#missionStartDate");
     export const missionEndDate     = $("#missionEndDate");
+    export const chkPermanent  = $("input[name=chk-permanent]");
     export const missionStartTime   = $("#missionStartTime");
     export const missionEndTime     = $("#missionEndTime");
     export const rdoActionType  = $("input[name=radio-action-type]");
@@ -168,6 +168,7 @@
     export const updateMissionTitle = $("#updateMissionTitle");
     export const updateMissionStartDate = $("#updateMissionStartDate");
     export const updateMissionEndDate = $("#updateMissionEndDate");
+    export const chkUpdatePermanent  = $("input[name=chk-update-permanent]");
     export const updateMissionStartTime = $("#updateMissionStartTime");
     export const updateMissionEndTime   = $("#updateMissionEndTime");
     export const rdoUpdateActionType  = $("input[name=radio-update-action-type]");

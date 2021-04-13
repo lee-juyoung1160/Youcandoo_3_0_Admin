@@ -1,12 +1,40 @@
 
 	import {
-		missionCreateForm, missionDetailForm, missionListForm, missionUpdateForm, missionTitle, missionStartDate,
-		missionEndDate, rdoActionType, promise, actionExampleWrap, actionDesc, missionTable,
-		infoMissionDate, infoMissionTime, infoActionType, infoActionExampleWrap, infoActionDesc, infoPromise,
-		updateMissionStartDate, updateMissionEndDate, updateMissionStartTime, updateMissionEndTime,
-		rdoUpdateActionType, updatePromise, missionStartTime, missionEndTime, chkGalleryAllowed,
-		infoMissionTitle, chkUpdateGalleryAllowed, updateMissionTitle, updateActionDesc, updateExampleWrap,
-	} from "../modules/elements.js";
+	missionCreateForm,
+	missionDetailForm,
+	missionListForm,
+	missionUpdateForm,
+	missionTitle,
+	missionStartDate,
+	missionEndDate,
+	rdoActionType,
+	promise,
+	actionExampleWrap,
+	actionDesc,
+	missionTable,
+	infoMissionDate,
+	infoMissionTime,
+	infoActionType,
+	infoActionExampleWrap,
+	infoActionDesc,
+	infoPromise,
+	updateMissionStartDate,
+	updateMissionEndDate,
+	updateMissionStartTime,
+	updateMissionEndTime,
+	rdoUpdateActionType,
+	updatePromise,
+	missionStartTime,
+	missionEndTime,
+	chkGalleryAllowed,
+	infoMissionTitle,
+	chkUpdateGalleryAllowed,
+	updateMissionTitle,
+	updateActionDesc,
+	updateExampleWrap,
+	chkPermanent,
+		chkUpdatePermanent,
+} from "../modules/elements.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
 	import {fileApiV2, api} from "../modules/api-url.js";
@@ -59,6 +87,8 @@
 		missionEndDate.datepicker("option", "minDate", "today");
 		missionStartDate.datepicker("setDate", "today");
 		missionEndDate.datepicker("setDate", "9999-12-31");
+		chkPermanent.prop('checked', true);
+		onChangeCheckPermanent(chkPermanent);
 		rdoActionType.eq(0).prop('checked', true);
 		onChangeActionType();
 		actionDesc.val('');
@@ -188,7 +218,7 @@
 				"doit_uuid" : g_doit_uuid,
 				"mission_title" : missionTitle.val().trim(),
 				"start_date" : missionStartDate.val(),
-				"end_date" : missionEndDate.val(),
+				"end_date" : chkPermanent.is(':checked') ? '9999-12-31' : missionEndDate.val(),
 				"start_time" : missionStartTime.val().trim(),
 				"end_time" : missionEndTime.val().trim(),
 				"mission_description" : actionDesc.val().trim(),
@@ -245,6 +275,10 @@
 		updateMissionTitle.val(mission_title);
 		updateMissionStartDate.val(start_date);
 		updateMissionEndDate.val(end_date);
+		updateMissionStartDate.datepicker("option", "minDate", start_date);
+		updateMissionEndDate.datepicker("option", "minDate", start_date);
+		chkUpdatePermanent.prop('checked', end_date === '9999-12-31');
+		onChangeUpdateCheckPermanent(chkUpdatePermanent);
 		updateMissionStartTime.val(start_time);
 		updateMissionEndTime.val(end_time);
 		rdoUpdateActionType.each(function () {
@@ -384,7 +418,7 @@
 				"mission_uuid" : g_mission_uuid,
 				"mission_title" : updateMissionTitle.val().trim(),
 				"start_date" : updateMissionStartDate.val(),
-				"end_date" : updateMissionEndDate.val(),
+				"end_date" : chkUpdatePermanent.is(':checked') ? '9999-12-31' : updateMissionEndDate.val(),
 				"start_time" : updateMissionStartTime.val().trim(),
 				"end_time" : updateMissionEndTime.val().trim(),
 				"mission_description" : updateActionDesc.val().trim(),
@@ -419,6 +453,7 @@
 	function updateSuccess()
 	{
 		onClickDetailMission(g_mission_idx);
+		buildMissionTable();
 	}
 
 	export function onChangeMissionStartDate()
@@ -428,7 +463,7 @@
 
 	export function onChangeMissionEndDate()
 	{
-		missionStartDate.datepicker("option", "minDate", new Date(missionEndDate.datepicker("getDate")));
+		missionStartDate.datepicker("option", "maxDate", new Date(missionEndDate.datepicker("getDate")));
 	}
 
 	export function onChangeUpdateMissionStartDate()
@@ -438,7 +473,7 @@
 
 	export function onChangeUpdateMissionEndDate()
 	{
-		updateMissionStartDate.datepicker("option", "minDate", new Date(updateMissionEndDate.datepicker("getDate")));
+		updateMissionStartDate.datepicker("option", "maxDate", new Date(updateMissionEndDate.datepicker("getDate")));
 	}
 
 	function getActionType()
@@ -597,6 +632,24 @@
 				$("#updateExample").on('change', function () { onChangeValidationAudio(this); });
 				break;
 		}
+	}
+
+	export function onChangeCheckPermanent(obj)
+	{
+		const isPermanent = $(obj).is(':checked');
+
+		missionEndDate.prop('disabled', isPermanent);
+
+		isPermanent ? missionEndDate.datepicker("setDate", "9999-12-31") : missionEndDate.datepicker("setDate", "today");
+	}
+
+	export function onChangeUpdateCheckPermanent(obj)
+	{
+		const isPermanent = $(obj).is(':checked');
+
+		updateMissionEndDate.prop('disabled', isPermanent);
+
+		isPermanent ? updateMissionEndDate.datepicker("setDate", "9999-12-31") : updateMissionEndDate.datepicker("setDate", "today");
 	}
 
 

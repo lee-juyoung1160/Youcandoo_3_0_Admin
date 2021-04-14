@@ -40,7 +40,6 @@
 		,ajaxError : ` 처리 중, 오류가 발생했습니다.`
 		,ajaxLoadError: `을(를) 불러올 수 없습니다.`
 		,compareMinMaxUser : '최소인원은 최대인원을 초과할 수 없습니다.'
-		,overBudget : '총 UCD는 프로모션 예산을 초과할 수 없습니다.'
 		,overBalance : '보유 UCD를 초과할 수 없습니다.'
 		,overBalanceWithdraw : `보유 UCD가 출금(취소) UCD보다 작은 사용자가 포함돼있습니다.
 								해당 사용자 삭제 후 다시 시도해주세요.`
@@ -49,20 +48,12 @@
 		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
 		,minimumPassCode : '참가코드는 네 자릿수를 입력해야 합니다.'
 		,minimumChecked : '최소 하나 이상의 값을 선택해야 합니다.'
-		,promotionNotice1 : '프로모션 두잇은 동시에 최대 3개까지 참여 가능합니다.'
-		,promotionNotice2 : '프로모션 기간이 종료되면 두잇을 개설할 수 없습니다.'
-		,promotionNotice3 : '프로모션 예산이 모두 소진된 경우 두잇을 개설할 수 없습니다.'
-		,cantUpdatePromo : `프로모션을 수정할 수 없습니다.
-							목록으로 이동합니다.
-							(프로모션 상태가 대기 또는 진행 중일 경우 수정가능)`
 		,cantUpdateDoit : `두잇을 수정할 수 없습니다.
 							상세페이지로 이동합니다.
 							(두잇 상태가 모집 중일 경우 수정가능)`
 		,cantUpdateUserDoit : '일반두잇은 수정할 수 없습니다. 상세페이지로 이동합니다.'
-		,alreadyHasYellow : `이미 옐로카드를 받은 인증이 포함돼 있습니다.
+		,alreadyWarning : `이미 경고장를 받은 인증이 포함돼 있습니다.
 							해당 게시물 체크 해제 후 다시 시도해주세요.`
-		,notEnoughBudget : `프로모션 예산이 부족해 두잇을 개설할 수 없습니다.
-							기업 또는 프로모션을 다시 선택해주세요.`
 		,alreadyHasUser : `이미 추가된 회원이 포함돼 있습니다.
 							해당 회원을 체크 해제 후 다시 시도해주세요.`
 		,pushHasBeenSent : '선택한 푸시는 이미 발송됐습니다. 발송된 푸시는 취소할 수 없습니다.'

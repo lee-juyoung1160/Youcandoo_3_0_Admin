@@ -4,7 +4,7 @@
 	import {doitTitle, sponsor, category, doitDesc, doitKeywords, doitThumbnail, publicType, isApply, doitQuestion, isAnswer,
 		btnDoitOpen, btnDoitStop, btnDoitDelete, doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply, chkIsQuestion, chkIsAnswer,
 		rdoPublicType, infoDoitTitle, infoDoitDesc, infoDoitKeywords, infoQuestion, selCategory, doitImage, selSubcategory,
-		doitKeyword, btnUpdateDoit, btnCreateMission, btnDeleteMission, btnUpdateMission, btnBan,} from '../modules/elements.js';
+		doitKeyword, btnUpdateDoit, btnCreateMission, btnDeleteMission, btnUpdateMission, btnBan, createCommentWrap} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
@@ -180,6 +180,7 @@
 			btnUpdateMission.remove();
 			btnBan.remove();
 			btnCreateMission.remove();
+			createCommentWrap.remove();
 		}
 	}
 

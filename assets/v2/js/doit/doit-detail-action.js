@@ -1,13 +1,12 @@
 
 	import {
 	actionCommentCount,
-	actionContent,
+	actionDesc,
 	actionCreated,
 	actionDetailForm,
 	actionLikeCount,
 	actionListForm,
 	actionsWrap,
-	actionThumbnail,
 	selActionDateType,
 	chkActionStatus,
 	modalBackdrop,
@@ -16,7 +15,7 @@
 	searchActionDateFrom,
 	searchActionDateTo,
 	selActionMissions,
-	selPageLength, pagination, selActionPageLength, totalActionCount,
+	pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap,
 } from "../modules/elements.js";
 	import {initSelectOption, overflowHidden, onErrorImage, paginate} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
@@ -124,7 +123,7 @@
 		{
 			data.data.map( (obj, index) => {
 
-				const {action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
+				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
 				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
 				let actionContentImage;
 				if (contents_type === 'image')
@@ -142,14 +141,14 @@
 						<div class="card">
 							<div class="top clearfix">
 								<div class="checkbox-wrap">
-									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}">
+									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" data-warning="${is_yellow}">
 									<label for="action_${index}"><span></span></label>
 								</div>
 								<div class="right-wrap">
 									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
 								</div>
 							</div>
-							<div class="img-wrap">
+							<div class="img-wrap" data-idx="${idx}">
 								<img src="${actionContentImage}" alt="">
 							</div>
 							<p class="title">${doit_title}</p>
@@ -169,11 +168,6 @@
 		$(".img-wrap").on('click', function () { onClickAction(this); })
 	}
 
-	function buildActionContent()
-	{
-
-	}
-
 	function onClickAction(obj)
 	{
 		showDetailAction();
@@ -184,31 +178,75 @@
 	{
 		const url = api.detailAction;
 		const errMsg = label.detailContent + message.ajaxLoadError;
-		const param = { "uuid" : $(obj).data('uuid') };
+		const param = { "idx" : $(obj).data('idx') };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
 	}
 
 	function getDetailActionCallback(data)
 	{
-		isSuccessResp(data) ? buildDetailAction(data) : sweetToast(data.msg);
+		if (isSuccessResp(data))
+		{
+			buildDetailAction(data);
+			getActionComments(data);
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function buildDetailAction(data)
 	{
-		actionCreated.text();
-		actionLikeCount.text();
-		actionCommentCount.text();
-		actionThumbnail.attr('src', '');
-		actionContent.text();j
+		const {action_date, action_description, action_uuid, comment_cnt, like_count, contents_type, contents_url, nickname, thumbnail_url} = data.data;
+		actionNickname.text(nickname);
+		actionCreated.text(action_date);
+		actionLikeCount.text(like_count);
+		actionCommentCount.text(comment_cnt);
+		actionContentWrap.html(buildActionContent(data.data));
+		actionDesc.text(action_description);
 
 		onErrorImage();
+	}
 
-		buildActionComments();
+	function buildActionContent(data)
+	{
+		const {contents_type, contents_url} = data;
+
+		switch (contents_type) {
+			case 'image' :
+				return `<div class="detail-img-wrap talk-file-img"><img src="${contents_url}" alt=""></div>`
+			case 'voice' :
+				return `<div class="detail-img-wrap talk-file-img"><audio controls><source src="${contents_url}"></audio></div>`
+			case 'video' :
+				return `<div class="detail-img-wrap talk-file-img"><video controls><source src="${contents_url}"></video></div>`
+		}
+	}
+
+	function getActionComments(data)
+	{
+		const url = api.actionCommentList;
+		const errMsg = `댓글 목록 ${message.ajaxLoadError}`;
+		const param = {
+			"action_uuid" : data.data.action_uuid,
+			"size" : "10",
+			"last_idx" : "0"
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionCommentsCallback, errMsg, false);
+	}
+
+	function getActionCommentsCallback(data)
+	{
+		isSuccessResp(data) ? buildActionComments(data) : sweetToast(data.msg);
 	}
 
 	function buildActionComments(data)
 	{
+		if (data.count > 0)
+		{
+			data.data.map(obj => {
+
+			})
+		}
 		`<div class="card">
 			<div class="top clearfix">
 				<p class="title">
@@ -328,9 +366,36 @@
 
 	export function onClickModalWarnOpen()
 	{
-		modalWarning.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
+		if (hasCheckedAction())
+		{
+			modalWarning.fadeIn();
+			modalBackdrop.fadeIn();
+			overflowHidden();
+		}
+	}
+
+	function hasCheckedAction()
+	{
+		const checkedActionEl = $("input[name=chk-action]:checked");
+		const checkedCount = checkedActionEl.length;
+		if (checkedCount === 0)
+		{
+			sweetToast(`발송대상을 ${message.select}`);
+			return false;
+		}
+
+		let hasWarning = 0;
+		checkedActionEl.each(function () {
+			if ($(this).data('warning') === 'Y')
+				hasWarning++;
+		});
+		if (hasWarning > 0)
+		{
+			sweetToast(`선택한 발송대상에 ${message.alreadyWarning}`);
+			return false;
+		}
+
+		return true;
 	}
 
 	export function onClickModalReplyActionOpen()

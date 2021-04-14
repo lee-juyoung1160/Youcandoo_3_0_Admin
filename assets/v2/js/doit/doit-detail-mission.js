@@ -10,13 +10,12 @@
 	rdoActionType,
 	promise,
 	actionExampleWrap,
-	actionDesc,
 	missionTable,
 	infoMissionDate,
 	infoMissionTime,
 	infoActionType,
 	infoActionExampleWrap,
-	infoActionDesc,
+	infoActionExampleDesc,
 	infoPromise,
 	updateMissionStartDate,
 	updateMissionEndDate,
@@ -30,10 +29,10 @@
 	infoMissionTitle,
 	chkUpdateGalleryAllowed,
 	updateMissionTitle,
-	updateActionDesc,
+	updateActionExampleDesc,
 	updateExampleWrap,
 	chkPermanent,
-		chkUpdatePermanent,
+	chkUpdatePermanent, actionExampleDesc,
 } from "../modules/elements.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
@@ -91,7 +90,7 @@
 		onChangeCheckPermanent(chkPermanent);
 		rdoActionType.eq(0).prop('checked', true);
 		onChangeActionType();
-		actionDesc.val('');
+		actionExampleDesc.val('');
 		promise.val('');
 	}
 
@@ -179,10 +178,10 @@
 			return false;
 		}
 
-		if (isEmpty(actionDesc.val()))
+		if (isEmpty(actionExampleDesc.val()))
 		{
 			sweetToast(`인증 예시 설명은 ${message.required}`);
-			actionDesc.trigger('focus');
+			actionExampleDesc.trigger('focus');
 			return false;
 		}
 
@@ -221,7 +220,7 @@
 				"end_date" : chkPermanent.is(':checked') ? '9999-12-31' : missionEndDate.val(),
 				"start_time" : missionStartTime.val().trim(),
 				"end_time" : missionEndTime.val().trim(),
-				"mission_description" : actionDesc.val().trim(),
+				"mission_description" : actionExampleDesc.val().trim(),
 				"mission_type" : getActionType(),
 				"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
 				"mission_example" :  missionExampleObj,
@@ -268,7 +267,7 @@
 		infoMissionTime.text(`${start_time} ~ ${end_time}`);
 		infoActionType.text(`${getStrActionType(mission_type)} (갤러리 허용 : ${allow_gallery_image})`);
 		infoActionExampleWrap.html(buildExample(data.data));
-		infoActionDesc.text(mission_description);
+		infoActionExampleDesc.text(mission_description);
 		infoPromise.text(isEmpty(promise_description) ? label.dash : promise_description);
 
 		/** 수정폼 **/
@@ -287,7 +286,7 @@
 		});
 		chkUpdateGalleryAllowed.prop('checked', allow_gallery_image === 'Y');
 		buildUpdateExampleFile(data.data);
-		updateActionDesc.val(mission_description);
+		updateActionExampleDesc.val(mission_description);
 		updatePromise.val(promise_description);
 
 		onErrorImage();
@@ -386,10 +385,10 @@
 			return false;
 		}
 
-		if (isEmpty(updateActionDesc.val()))
+		if (isEmpty(updateActionExampleDesc.val()))
 		{
 			sweetToast(`인증 예시 설명은 ${message.required}`);
-			updateActionDesc.trigger('focus');
+			updateActionExampleDesc.trigger('focus');
 			return false;
 		}
 
@@ -421,7 +420,7 @@
 				"end_date" : chkUpdatePermanent.is(':checked') ? '9999-12-31' : updateMissionEndDate.val(),
 				"start_time" : updateMissionStartTime.val().trim(),
 				"end_time" : updateMissionEndTime.val().trim(),
-				"mission_description" : updateActionDesc.val().trim(),
+				"mission_description" : updateActionExampleDesc.val().trim(),
 				"mission_type" : getUpdateActionType(),
 				"allow_gallery_image" : chkUpdateGalleryAllowed.is(':checked') ? 'Y' : 'N',
 				"promise_description" : updatePromise.val().trim(),

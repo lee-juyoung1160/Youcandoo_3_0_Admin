@@ -46,8 +46,9 @@
         applyMemberList : baseApiUrl + 'member/get/applylist',
 
         actionList : baseApiUrl + 'action/get/list',
-        detailAction : baseApiUrl + 'action/detail',
-        createActionComment : baseApiUrl + '',
+        detailAction : baseApiUrl + 'action/get/detail/info',
+        actionCommentList : baseApiUrl + 'action/get/commentList',
+        createActionComment : baseApiUrl + 'action/set/insertComment',
 
         talkList : baseApiUrl + 'talk',
         detailTalk : baseApiUrl + 'talk/detail',

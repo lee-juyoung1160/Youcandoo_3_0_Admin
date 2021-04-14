@@ -163,7 +163,7 @@
     export const rdoActionType  = $("input[name=radio-action-type]");
     export const actionExampleWrap  = $("#actionExampleWrap");
     export const chkGalleryAllowed  = $("input[name=chk-gallery-allowed]");
-    export const actionDesc  = $("#actionDesc");
+    export const actionExampleDesc  = $("#actionExampleDesc");
     export const promise  = $("#promise");
     export const updateMissionTitle = $("#updateMissionTitle");
     export const updateMissionStartDate = $("#updateMissionStartDate");
@@ -174,14 +174,14 @@
     export const rdoUpdateActionType  = $("input[name=radio-update-action-type]");
     export const chkUpdateGalleryAllowed  = $("input[name=chk-update-gallery-allowed]");
     export const updateExampleWrap  = $("#updateExampleWrap");
-    export const updateActionDesc  = $("#updateActionDesc");
+    export const updateActionExampleDesc  = $("#updateActionExampleDesc");
     export const updatePromise  = $("#updatePromise");
     export const infoMissionTitle = $("#infoMissionTitle");
     export const infoMissionDate = $("#infoMissionDate");
     export const infoMissionTime = $("#infoMissionTime");
     export const infoActionType = $("#infoActionType");
     export const infoActionExampleWrap  = $("#infoActionExampleWrap");
-    export const infoActionDesc = $("#infoActionDesc");
+    export const infoActionExampleDesc = $("#infoActionExampleDesc");
     export const infoPromise = $("#infoPromise");
 
     export const joinMemberForm = $("#joinMemberForm");
@@ -233,11 +233,12 @@
     export const btnPullAction = $("#btnPullAction");
     export const btnSendWarning = $(".btn-send-warn");
     export const actionDetailForm = $("#actionDetailForm");
+    export const actionNickname = $("#actionNickname");
     export const actionCreated = $("#actionCreated");
     export const actionLikeCount = $("#actionLikeCount");
     export const actionCommentCount = $("#actionCommentCount");
-    export const actionThumbnail = $("#actionThumbnail");
-    export const actionContent = $("#actionContent");
+    export const actionContentWrap = $("#actionContentWrap");
+    export const actionDesc = $("#actionDesc");
     export const actionCommentWrap = $("#actionCommentWrap");
     export const createCommentWrap = $("#createCommentWrap");
     export const commentAction = $("#commentAction");

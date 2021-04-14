@@ -231,7 +231,8 @@
     export const btnSearchAction = $("#btnSearchAction");
     export const btnResetSearchAction = $("#btnResetSearchAction");
     export const btnPullAction = $("#btnPullAction");
-    export const btnSendWarning = $(".btn-send-warn");
+    export const btnSendWarnings = $("#btnSendWarnings");
+    export const btnSendWarning = $("#btnSendWarning");
     export const actionDetailForm = $("#actionDetailForm");
     export const actionNickname = $("#actionNickname");
     export const actionCreated = $("#actionCreated");
@@ -248,6 +249,7 @@
     export const replyAction = $("#replyAction");
     export const replyActionImage = $("#replyActionImage");
     export const btnSubmitReplyAction = $("#btnSubmitReplyAction");
+    export const btnSubmitSendWarning = $("#btnSubmitSendWarning");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const talk = $("#talk");

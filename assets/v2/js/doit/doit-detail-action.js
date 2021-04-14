@@ -10,20 +10,20 @@
 	selActionDateType,
 	chkActionStatus,
 	modalBackdrop,
-	modalReplyAction,
 	modalWarning,
 	searchActionDateFrom,
 	searchActionDateTo,
 	selActionMissions,
-	pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap,
+	pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap, actionCommentWrap,
 } from "../modules/elements.js";
-	import {initSelectOption, overflowHidden, onErrorImage, paginate} from "../modules/common.js";
+	import {initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
-	import {sweetToast} from "../modules/alert.js";
+	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
+	import {isEmpty} from "../modules/utils.js";
 	let _actionCurrentPage = 1;
 
 	export function showActionListForm()
@@ -148,7 +148,7 @@
 									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
 								</div>
 							</div>
-							<div class="img-wrap" data-idx="${idx}">
+							<div class="img-wrap action-content" data-idx="${idx}">
 								<img src="${actionContentImage}" alt="">
 							</div>
 							<p class="title">${doit_title}</p>
@@ -165,20 +165,22 @@
 
 		actionsWrap.html(actionEl);
 
-		$(".img-wrap").on('click', function () { onClickAction(this); })
+		$(".action-content").on('click', function () { onClickAction(this); })
 	}
 
+	let g_action_idx;
 	function onClickAction(obj)
 	{
+		g_action_idx = $(obj).data('idx');
 		showDetailAction();
-		//getDetailAction(obj);
+		getDetailAction(obj);
 	}
 
-	function getDetailAction(obj)
+	function getDetailAction()
 	{
 		const url = api.detailAction;
 		const errMsg = label.detailContent + message.ajaxLoadError;
-		const param = { "idx" : $(obj).data('idx') };
+		const param = { "idx" : g_action_idx };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
 	}
@@ -194,9 +196,11 @@
 			sweetToast(data.msg);
 	}
 
+	let g_action_uuid;
 	function buildDetailAction(data)
 	{
-		const {action_date, action_description, action_uuid, comment_cnt, like_count, contents_type, contents_url, nickname, thumbnail_url} = data.data;
+		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname} = data.data;
+		g_action_uuid = action_uuid;
 		actionNickname.text(nickname);
 		actionCreated.text(action_date);
 		actionLikeCount.text(like_count);
@@ -209,15 +213,15 @@
 
 	function buildActionContent(data)
 	{
-		const {contents_type, contents_url} = data;
+		const {contents_type, contents_url, thumbnail_url} = data;
 
 		switch (contents_type) {
 			case 'image' :
-				return `<div class="detail-img-wrap talk-file-img"><img src="${contents_url}" alt=""></div>`
+				return `<div class="detail-img-wrap talk-file-img"><img src="${contents_url}" alt=""></div>`;
 			case 'voice' :
-				return `<div class="detail-img-wrap talk-file-img"><audio controls><source src="${contents_url}"></audio></div>`
+				return `<audio controls><source src="${contents_url}"></audio>`;
 			case 'video' :
-				return `<div class="detail-img-wrap talk-file-img"><video controls><source src="${contents_url}"></video></div>`
+				return `<div class="detail-img-wrap talk-file-img"><img src="${thumbnail_url}" alt=""></div>`;
 		}
 	}
 
@@ -241,106 +245,135 @@
 
 	function buildActionComments(data)
 	{
-		if (data.count > 0)
+		let commentEl = '';
+		if (!isEmpty(data.data) && data.data.length > 0)
 		{
 			data.data.map(obj => {
+				const {comment_uuid, created, nickname, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				let repliesEl = ''
+				if (recomment_data.length > 0)
+				{
+					recomment_data.map(replyObj => {
+						repliesEl +=
+							`<li>
+								<div class="top clearfix">
+									<p class="title">
+										ㄴ ${replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
+									</p>
+								</div>
+								<div class="detail-data">
+									${replyObj.comment_body}
+								</div>
+							</li>`
+					})
+				}
+				const replyEl = isSponsorDoit
+					? `<a class="link btn-reply-action">답글달기</a>
+					<!-- 답글달기 -->
+					<div class="modal-content comments-creat">
+						<div class="modal-header clearfix">
+							<h5>답글달기</h5>
+							<i class="modal-close">×</i>
+						</div>
+						<div class="modal-body">
+							<table class="detail-table">
+								<colgroup>
+									<col style="width: 20%;">
+									<col style="width: 70%;">
+								</colgroup>
+								<tr>
+									<td colspan="2">
+										<div class="textarea-wrap">
+											<textarea id="replyAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										첨부파일
+									</th>
+									<td>
+										<div class="file-wrap preview-image">
+											<input class="upload-name" value="파일선택" disabled="disabled">
+											<label for="replyActionImage">업로드</label>
+											<input type="file" id="replyActionImage" class="upload-hidden">
+										</div>
+										<div class="detail-img-wrap">
+											<img src="/assets/v2/img/profile-1.png" alt="">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="right-wrap">
+											<button id="btnSubmitActionReply" type="button" class="btn-sm btn-primary">등록</button>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>`
+					: '';
 
-			})
-		}
-		`<div class="card">
-			<div class="top clearfix">
-				<p class="title">
-					유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
-				</p>
-				<div class="right-wrap">
-					<button type="button" class="btn-xs btn-danger">삭제</button>
-				</div>
-			</div>
-			<div class="detail-data">
-				대박사건... 인증계를 뒤집어놓으셨다...!
-			</div>
-			<div class="img-wrap">
-				<img src="/assets/v2/img/profile-1.png" alt="">
-			</div>
-			<div class="bottom">
-				<span><i class="fas fa-heart"></i> 111</span>
-				<span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
-				<a id="testReplyAction" class="link">답글달기</a>
-				<!-- 답글달기 -->
-				<div class="modal-content comments-creat" id="modalReplyAction">
-					<div class="modal-header clearfix">
-						<h5>답글달기</h5>
-						<i class="modal-close">×</i>
-					</div>
-					<div class="modal-body">
-						<table class="detail-table">
-							<colgroup>
-								<col style="width: 20%;">
-								<col style="width: 70%;">
-							</colgroup>
-							<tr>
-								<td colspan="2">
-									<div class="textarea-wrap">
-										<textarea id="replyAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-										<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									첨부파일
-								</th>
-								<td>
-									<div class="file-wrap preview-image">
-										<input class="upload-name" value="파일선택" disabled="disabled">
-										<label for="replyActionImage">업로드</label>
-										<input type="file" id="replyActionImage" class="upload-hidden">
-									</div>
-									<div class="detail-img-wrap">
-										<img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<div class="right-wrap">
-										<button id="btnSubmitActionReply" type="button" class="btn-sm btn-primary">등록</button>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-
-			<div class="comments-wrap">
-				<ul>
-					<li>
+				commentEl +=
+					`<div class="card">
 						<div class="top clearfix">
 							<p class="title">
-								ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+								${nickname} <span class="desc-sub">${created}</span>
 							</p>
+							<div class="right-wrap">
+								<button type="button" class="btn-xs btn-danger">삭제</button>
+							</div>
 						</div>
 						<div class="detail-data">
-							대박사건... 인증계를 뒤집어놓으셨다...!
+							${comment_body}
 						</div>
 						<div class="img-wrap">
 							<img src="/assets/v2/img/profile-1.png" alt="">
 						</div>
-					</li>
-					<li>
-						<div class="top clearfix">
-							<p class="title">
-								ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
-							</p>
+						<div class="bottom">
+							<span><i class="fas fa-heart"></i> 111</span>
+							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
+							${replyEl}
 						</div>
-						<div class="detail-data">
-							대박사건... 인증계를 뒤집어놓으셨다...!
+			
+						<div class="comments-wrap">
+							<ul>
+								${repliesEl}
+							</ul>
 						</div>
-					</li>
-				</ul>
-			</div>
-		</div>`
+					</div>`
+			})
+
+			//commentEl += buildCommentPagination();
+		}
+		else
+		{
+			commentEl = `<div class="card"><p class="message">작성된 댓글이 없습니다.</p></div>`;
+		}
+
+		actionCommentWrap.html(commentEl);
+
+		$('.btn-reply-action').on('click', function () { onClickModalReplyActionOpen(this); });
+	}
+
+	function buildCommentPagination()
+	{
+		return g_comment_page_num !== g_comment_page_size
+			? `<button type="button" class="btn-more">더보기(${g_comment_page_num}/${g_comment_page_size}) <i class="fas fa-sort-down"></i></button>`
+			: '';
+	}
+
+	function onClickViewMore()
+	{
+		g_comment_page_num++
+		getTalk();
+	}
+
+	function initCommentPageNum()
+	{
+		g_comment_page_num = 1;
 	}
 
 	function buildPagination(data)
@@ -364,14 +397,24 @@
 		getActionList();
 	}
 
-	export function onClickModalWarnOpen()
+	let isWarningList
+	export function onClickModalWarnOpen(obj)
 	{
-		if (hasCheckedAction())
+		isWarningList = obj.id === 'btnSendWarnings';
+		if (isWarningList)
 		{
-			modalWarning.fadeIn();
-			modalBackdrop.fadeIn();
-			overflowHidden();
+			if (hasCheckedAction())
+				fadeinModalWarning();
 		}
+		else
+			fadeinModalWarning();
+	}
+
+	function fadeinModalWarning()
+	{
+		modalWarning.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 
 	function hasCheckedAction()
@@ -398,9 +441,53 @@
 		return true;
 	}
 
-	export function onClickModalReplyActionOpen()
+	export function onSubmitSendWarning()
 	{
-		modalReplyAction.fadeIn();
+		sweetConfirm(`경고장을 ${message.send}`, sendWarningRequest);
+	}
+
+	export function sendWarningRequest()
+	{
+		const url = api.sendWarning;
+		const errMsg = `발송 ${message.ajaxError}`;
+		let action_uuids = [];
+		if (isWarningList)
+		{
+			$("input[name=chk-action]:checked").each(function () {
+				action_uuids.push($(this).data('uuid'));
+			})
+		}
+		else
+		{
+			action_uuids.push(g_action_uuid);
+		}
+
+		const param = {
+			"action_uuid" : action_uuids
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendWarningReqCallback, errMsg, false);
+	}
+
+	function sendWarningReqCallback(data)
+	{
+		sweetToastAndCallback(data, sendWarningSuccess);
+	}
+
+	function sendWarningSuccess()
+	{
+		if (!isWarningList)
+		{
+			fadeoutModal();
+			getDetailAction();
+		}
+
+		getActionList();
+	}
+
+	export function onClickModalReplyActionOpen(obj)
+	{
+		$(obj).siblings('.modal-content').fadeIn();
 		overflowHidden();
 	}
 

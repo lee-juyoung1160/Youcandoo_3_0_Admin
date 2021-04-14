@@ -64,7 +64,13 @@
 	btnSearch,
 	selSort,
 	btnBan,
-	btnBackActionList, chkPermanent, chkUpdatePermanent, btnSearchAction, selActionPageLength
+	btnBackActionList,
+	chkPermanent,
+	chkUpdatePermanent,
+	btnSearchAction,
+	selActionPageLength,
+	btnSendWarnings,
+		btnSubmitSendWarning
 } from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -100,8 +106,8 @@
 		onChangeSelMemberFilter,
 		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
-	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen, onClickModalReplyActionOpen,
-		onSubmitSearchActions} from "./doit-detail-action.js";
+	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
+		onSubmitSearchActions, onSubmitSendWarning} from "./doit-detail-action.js";
 	import {
 		getTalkList,
 		onClickBtnCreateTalk,
@@ -185,10 +191,11 @@
 		btnBackActionList.on('click', function () { showActionListForm(); });
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });
-		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
+		btnSendWarning.on('click', function () { onClickModalWarnOpen(this); });
+		btnSendWarnings.on('click', function () { onClickModalWarnOpen(this); });
+		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		commentActionImage.on('change', function () { onChangeValidateImage(this); });
 		replyActionImage.on('change', function () { onChangeValidateImage(this); });
-		$('#testReplyAction').on('click', function () { onClickModalReplyActionOpen(); });
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})

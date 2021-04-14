@@ -47,6 +47,7 @@
 
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',
+        sendWarning : baseApiUrl + 'action/set/yellow',
         actionCommentList : baseApiUrl + 'action/get/commentList',
         createActionComment : baseApiUrl + 'action/set/insertComment',
 

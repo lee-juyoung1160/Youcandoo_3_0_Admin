@@ -6,7 +6,7 @@
 }
 .modal-content.talk-file-modal .image-wrap {
 	overflow-y: scroll;
-	max-height: 700px;
+max-height: 700px;
 }
 .talk-file-img {
 	overflow: hidden;

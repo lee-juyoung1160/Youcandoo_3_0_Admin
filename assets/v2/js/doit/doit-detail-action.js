@@ -1,13 +1,31 @@
 
-	import {actionCommentCount, actionContent, actionCreated, actionDetailForm, actionLikeCount, actionListForm, actionsWrap, actionThumbnail,
-		chkActionStatus, modalBackdrop, modalReplyAction, modalWarning, searchActionDateFrom, searchActionDateTo, selActionMissions,} from "../modules/elements.js";
-	import {initSelectOption, overflowHidden, onErrorImage} from "../modules/common.js";
+	import {
+	actionCommentCount,
+	actionContent,
+	actionCreated,
+	actionDetailForm,
+	actionLikeCount,
+	actionListForm,
+	actionsWrap,
+	actionThumbnail,
+	selActionDateType,
+	chkActionStatus,
+	modalBackdrop,
+	modalReplyAction,
+	modalWarning,
+	searchActionDateFrom,
+	searchActionDateTo,
+	selActionMissions,
+	selPageLength, pagination, selActionPageLength, totalActionCount,
+} from "../modules/elements.js";
+	import {initSelectOption, overflowHidden, onErrorImage, paginate} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
 	import {sweetToast} from "../modules/alert.js";
+	let _actionCurrentPage = 1;
 
 	export function showActionListForm()
 	{
@@ -29,6 +47,12 @@
 		chkActionStatus.eq(1).prop('checked', true);
 		chkActionStatus.eq(2).prop('checked', true);
 		initSelectOption();
+	}
+
+	export function onSubmitSearchActions()
+	{
+		_actionCurrentPage = 1;
+		getActionList();
 	}
 
 	export function getMissionListForAction()
@@ -56,12 +80,12 @@
 
 		selActionMissions.html(options);
 
-		getActionList();
+		onSubmitSearchActions();
 	}
 
 	export function getActionList()
 	{
-		/*const url = api.actionList;
+		const url = api.actionList;
 		const errMsg = label.list+message.ajaxLoadError;
 		let actionStatus = [];
 		chkActionStatus.each(function () {
@@ -73,56 +97,81 @@
 			"date_type" : selActionDateType.val(),
 			"from_date" : searchActionDateFrom.val(),
 			"to_date" : searchActionDateTo.val(),
-			"mission_uuid" : selMissions.val(),
-			"state" : actionStatus
+			"mission_uuid" : selActionMissions.val(),
+			"action_status" : actionStatus,
+			"page" : _actionCurrentPage,
+			"limit" : selActionPageLength.val()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionListCallback, errMsg, false);*/
-		buildActions();
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionListCallback, errMsg, false);
 	}
 
 	function getActionListCallback(data)
 	{
-		isSuccessResp(data) ? buildActions(data) : sweetToast(data.msg);
+		if (isSuccessResp(data))
+		{
+			buildActions(data);
+			buildPagination(data);
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	function buildActions(data)
 	{
 		let actionEl = '';
-		for (let i=0; i<12; i++)
+		if (data.count > 0)
 		{
-			if (i===0 || i%6 === 0)
-				actionEl += '<div class="row">';
+			data.data.map( (obj, index) => {
 
-			actionEl +=
-				`<div class="col-2 auth-item">
-                    <div class="card">
-                        <div class="top clearfix">
-                            <div class="checkbox-wrap">
-                                <input id="c15" type="checkbox" name="cb">
-                                <label for="c15"><span></span></label>
-                            </div>
-                            <div class="right-wrap">
-                                <span><i class="fas fa-exclamation-triangle"></i> 111</span>
-                            </div>
-                        </div>
-                        <div class="img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="">
-                        </div>
-                        <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
-                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
-                        <span class="date">2020-02-02</span>
-                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
-                    </div>
-                </div>`
+				const {action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
+				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+				let actionContentImage;
+				if (contents_type === 'image')
+					actionContentImage = contents_url;
+				else if (contents_type === 'voice')
+					actionContentImage = label.voiceImage
+				else if (contents_type === 'video')
+					actionContentImage = thumbnail_url;
 
-			if (i>0 && (i+1)%6 === 0)
-				actionEl += '</div>';
+				if (index===0 || index%6 === 0)
+					actionEl += '<div class="row">';
+
+				actionEl +=
+					`<div class="col-2 auth-item">
+						<div class="card">
+							<div class="top clearfix">
+								<div class="checkbox-wrap">
+									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}">
+									<label for="action_${index}"><span></span></label>
+								</div>
+								<div class="right-wrap">
+									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
+								</div>
+							</div>
+							<div class="img-wrap">
+								<img src="${actionContentImage}" alt="">
+							</div>
+							<p class="title">${doit_title}</p>
+							<span class="nick-name">${nickname}</span>
+							<span class="date">${action_date}</span>
+							${warningEl}
+						</div>
+					</div>`
+
+				if (index>0 && (index+1)%6 === 0)
+					actionEl += '</div>';
+			})
 		}
 
 		actionsWrap.html(actionEl);
 
 		$(".img-wrap").on('click', function () { onClickAction(this); })
+	}
+
+	function buildActionContent()
+	{
+
 	}
 
 	function onClickAction(obj)
@@ -254,6 +303,27 @@
 				</ul>
 			</div>
 		</div>`
+	}
+
+	function buildPagination(data)
+	{
+		const totalCount  = data.count;
+		const lastPage = Math.ceil(totalCount / selActionPageLength.val());
+
+		totalActionCount.text(totalCount);
+		pagination.html(paginate(_actionCurrentPage, lastPage));
+
+		$(".paginate_button ").on('click', function () { onClickPageNum(this); })
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		_actionCurrentPage = $(obj).data('page');
+
+		getActionList();
 	}
 
 	export function onClickModalWarnOpen()

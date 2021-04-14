@@ -351,7 +351,7 @@
 
 		pagination.html(paginate(_actionCurrentPage, lastPage));
 
-		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
+		$(".paginate_button").on('click', function () { onClickPageNum(this); })
 	}
 
 	function onClickPageNum(obj)

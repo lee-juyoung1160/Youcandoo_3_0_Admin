@@ -64,7 +64,7 @@
 	btnSearch,
 	selSort,
 	btnBan,
-	btnBackActionList, chkPermanent, chkUpdatePermanent
+	btnBackActionList, chkPermanent, chkUpdatePermanent, btnSearchAction, selActionPageLength
 } from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -100,7 +100,8 @@
 		onChangeSelMemberFilter,
 		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
-	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen, onClickModalReplyActionOpen} from "./doit-detail-action.js";
+	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen, onClickModalReplyActionOpen,
+		onSubmitSearchActions} from "./doit-detail-action.js";
 	import {
 		getTalkList,
 		onClickBtnCreateTalk,
@@ -177,10 +178,13 @@
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember() });
 
+		initPageLength(selActionPageLength);
+		btnSearchAction.on('click', function () { onSubmitSearchActions(); });
+		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
+		selActionPageLength.on('change', function () { onSubmitSearchActions(); });
 		btnBackActionList.on('click', function () { showActionListForm(); });
 		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });
-		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
 		btnSendWarning.on('click', function () { onClickModalWarnOpen(); });
 		commentActionImage.on('change', function () { onChangeValidateImage(this); });
 		replyActionImage.on('change', function () { onChangeValidateImage(this); });

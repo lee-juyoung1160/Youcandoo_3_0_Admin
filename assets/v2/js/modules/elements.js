@@ -221,6 +221,8 @@
 
     export const btnBackActionList = $("#btnBackActionList");
     export const actionListForm = $("#actionListForm");
+    export const totalActionCount = $("#totalActionCount");
+    export const selActionPageLength = $("#selActionPageLength");
     export const selActionDateType = $("#selActionDateType");
     export const searchActionDateFrom = $("#searchActionDateFrom");
     export const searchActionDateTo = $("#searchActionDateTo");

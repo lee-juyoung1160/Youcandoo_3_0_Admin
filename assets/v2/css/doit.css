@@ -6,7 +6,7 @@
 }
 .modal-content.talk-file-modal .image-wrap {
 	overflow-y: scroll;
-max-height: 700px;
+	max-height: 700px;
 }
 .talk-file-img {
 	overflow: hidden;
@@ -21,6 +21,50 @@ max-height: 700px;
 }
 .date-cb {
 	margin-left: 10px;
+}
+/* UCD 탭 */
+.doit-ucd .result-wrap {
+	margin-top: 10px;
+}
+.doit-ucd input[type="text"].action-num {
+	width: 150px;
+}
+.doit-ucd select.mission {
+	width: 350px;
+}
+.doit-ucd .top input[type="search"] {
+	width: 300px;
+}
+
+/* 참여자관리 탭 */
+.member-top {
+	margin-bottom: 30px;
+}
+.member-top a {
+	float: right;
+	color: #888;
+	font-size: 14px;
+}
+.doit-member .line-clamp-2 {
+	width: 900px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.doit-member select.mission {
+	width: 450px;
+}
+.doit-member select.filter {
+	width: 200px;
+}
+.doit-member input.action-num {
+	width: 100px;
+}
+.modal-content.member-add-ucd {
+	width: 1000px;
 }
 
 /* 두잇 수정 */
@@ -56,36 +100,6 @@ max-height: 700px;
 	height: 100%;
 }
 
-/* 참여자관리 탭 */
-.member-top {
-	margin-bottom: 30px;
-}
-.member-top a {
-	float: right;
-	color: #888;
-	font-size: 14px;
-}
-.doit-member .line-clamp-2 {
-	width: 900px;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	overflow: hidden;
-	text-decoration: underline;
-	cursor: pointer;
-}
-.doit-member select.mission {
-	width: 450px;
-}
-.doit-member select.filter {
-	width: 200px;
-}
-.doit-member input.action-num {
-	width: 100px;
-}
-.modal-content.member-add-ucd {
-	width: 1000px;
-}
 /* 유캔두 픽 두잇 */
 .pic-doit .tag-list {
 	margin: 10px 0;

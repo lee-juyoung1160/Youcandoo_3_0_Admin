@@ -314,7 +314,7 @@
 					})
 				}
 
-				const createReplyEl = !isSponsorDoit
+				const createReplyEl = isSponsorDoit
 					? `<a class="link btn-reply-action">답글달기</a>
 					<!-- 답글달기 -->
 					<div class="modal-content comments-creat">

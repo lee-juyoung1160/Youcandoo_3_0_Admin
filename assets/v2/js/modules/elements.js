@@ -99,6 +99,7 @@
     export const categoryIcon	= $("#categoryIcon");
     export const isEstablish	= $("#isEstablish");
     export const rdoEstablish	= $("input[name=radio-establish]");
+    export const createAttachment = $("input[name=create-attachment]");
     export const attachment	= $("input[name=attachment]");
     export const deleteAttachment = $(".icon-delete-attach");
     export const subCategoryTitle = $("#subCategoryTitle");

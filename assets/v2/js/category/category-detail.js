@@ -2,30 +2,29 @@
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-		categoryTitle,
-		categoryIcon,
-		isEstablish,
-		isExposure,
-		btnBack,
-		btnList,
-		btnUpdate,
-		btnSubmit,
-		btnAdd,
-		modalClose,
-		modalBackdrop,
-		dataTable,
-		subCategoryTitle,
-		lengthInput,
-		modalSubcategory,
-		modalDoitImage,
-		doitImage, btnSubmitImage, attachment, deleteAttachment
-	} from '../modules/elements.js';
+	categoryTitle,
+	categoryIcon,
+	isEstablish,
+	isExposure,
+	btnBack,
+	btnList,
+	btnUpdate,
+	btnSubmit,
+	btnAdd,
+	modalClose,
+	modalBackdrop,
+	dataTable,
+	subCategoryTitle,
+	lengthInput,
+	modalSubcategory,
+	modalDoitImage,
+	btnSubmitImage, attachment, deleteAttachment, createAttachment
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {
-		emptyFile,
 		fadeoutModal,
 		historyBack,
-		limitInputLength, onChangeValidateImage,
+		limitInputLength,
 		onErrorImage,
 		overflowHidden,
 	} from "../modules/common.js";
@@ -46,7 +45,7 @@
 		getSubCategory();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		doitImage		.on("change", function () { onChangeValidateImage(this); });
+		createAttachment.on("change", function () { onChangeValidateImageCustom(this); });
 		attachment		.on("change", function () { onChangeValidateImageCustom(this); });
 		btnAdd			.on("click", function () { onClickModalSubcategoryOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -126,8 +125,8 @@
 			columns: [
 				{title: "세부 카테고리",	data: "subcategory_title",	width: "85%" }
 				,{title: "두잇 이미지",	data: "subcategory_uuid",	width: "15%",
-					render: function (data) {
-						return `<i class="fas fa-images" id="${data}"></i>`;
+					render: function (data, type, row, meta) {
+						return `<i class="fas fa-images" data-attachment="${row.doit_image_list}" id="${data}"></i>`;
 					}
 				}
 			],
@@ -150,6 +149,23 @@
 		modalDoitImage.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
+		buildModalDoitImage(obj);
+	}
+
+	function buildModalDoitImage(obj)
+	{
+		let attachments = [];
+		if (!isEmpty($(obj).data('attachment')))
+			attachments = $(obj).data('attachment').split(',');
+
+		if (attachments.length > 0)
+		{
+			attachments.map((value, index) => {
+				const thumbnailEl = `<div class="detail-img-wrap"><img src="${value}" alt=""></div>`;
+				attachment.eq(index).parent().append(thumbnailEl);
+				attachment.eq(index).siblings('.icon-delete-attach').show();
+			})
+		}
 	}
 
 	function createValidation()
@@ -161,12 +177,17 @@
 			return false;
 		}
 
-		/*const doitImg = doitImage[0].files;
-		if (doitImg.length === 0)
+		let imgCount = 0;
+		createAttachment.each(function () {
+			const doitImg = $(this)[0].files;
+			if (doitImg.length > 0)
+				imgCount++;
+		})
+		if (imgCount === 0)
 		{
 			sweetToast(`두잇 기본 이미지는 ${message.required}`);
 			return false;
-		}*/
+		}
 
 		return true;
 	}
@@ -174,26 +195,28 @@
 	function onSubmitSubcategory()
 	{
 		if (createValidation())
-			sweetConfirm(message.create, createSubcategoryRequest);
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
+		const url = fileApiV2.multi;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', doitImage[0].files[0]);
+		for (let i=0; i<createAttachment.length; i++)
+			param.append('file', createAttachment[i].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createSubcategoryRequest, errMsg, false);
 	}
 
-	function createSubcategoryRequest()
+	function createSubcategoryRequest(data)
 	{
 		const url = api.createSubCategory;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"category_uuid" : g_category_uuid,
-			"title" : subCategoryTitle.val()
+			"title" : subCategoryTitle.val().trim(),
+			"doit_image_list" : data.image_urls
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createSubcategoryCallback, errMsg, false);
@@ -358,12 +381,16 @@
 			thumbnailWrap.remove();
 	}
 
+	function emptyFile(obj)
+	{
+		removeThumbnail(obj);
+		$(obj).val(null);
+	}
+
 	function onClickDelAttach(obj)
 	{
 		const inputFile = $(obj).siblings('input');
-		removeThumbnail($(inputFile));
-		$(obj).val(null);
-		$(obj).siblings('.upload-name').val('파일선택');
+		emptyFile(inputFile)
 		$(obj).hide();
 	}
 

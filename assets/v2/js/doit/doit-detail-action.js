@@ -168,10 +168,16 @@
 		$(".action-content").on('click', function () { onClickAction(this); })
 	}
 
+	const g_action_comment_page_length = 10;
+	let g_action_comment_last_idx = 0;
+	let g_action_comment_page_num = 1;
+	let g_action_comment_page_size = 1;
+	let g_action_uuid;
 	let g_action_idx;
 	function onClickAction(obj)
 	{
 		g_action_idx = $(obj).data('idx');
+		actionCommentWrap.empty();
 		showDetailAction();
 		getDetailAction(obj);
 	}
@@ -189,18 +195,17 @@
 	{
 		if (isSuccessResp(data))
 		{
+			g_action_uuid = data.data.action_uuid;
 			buildDetailAction(data);
-			getActionComments(data);
+			getActionComments();
 		}
 		else
 			sweetToast(data.msg);
 	}
 
-	let g_action_uuid;
 	function buildDetailAction(data)
 	{
 		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname} = data.data;
-		g_action_uuid = action_uuid;
 		actionNickname.text(nickname);
 		actionCreated.text(action_date);
 		actionLikeCount.text(like_count);
@@ -225,14 +230,14 @@
 		}
 	}
 
-	function getActionComments(data)
+	function getActionComments()
 	{
 		const url = api.actionCommentList;
-		const errMsg = `댓글 목록 ${message.ajaxLoadError}`;
+		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
-			"action_uuid" : data.data.action_uuid,
-			"size" : "10",
-			"last_idx" : "0"
+			"action_uuid" : g_action_uuid,
+			"size" : g_action_comment_page_length,
+			"last_idx" : g_action_comment_last_idx
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionCommentsCallback, errMsg, false);
@@ -245,11 +250,18 @@
 
 	function buildActionComments(data)
 	{
-		let commentEl = '';
+		if ($('#btnViewMore').length > 0) $('#btnViewMore').remove();
+
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
-			data.data.map(obj => {
-				const {comment_uuid, created, nickname, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+			g_action_comment_page_size = Math.ceil(Number(data.count)/g_action_comment_page_length);
+
+			data.data.map((obj, index, arr) => {
+				const {idx, comment_uuid, created, nickname, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+
+				if (arr.length - 1 === index)
+					g_action_comment_last_idx = idx;
+
 				let repliesEl = ''
 				if (recomment_data.length > 0)
 				{
@@ -267,7 +279,8 @@
 							</li>`
 					})
 				}
-				const replyEl = isSponsorDoit
+
+				const createReplyEl = isSponsorDoit
 					? `<a class="link btn-reply-action">답글달기</a>
 					<!-- 답글달기 -->
 					<div class="modal-content comments-creat">
@@ -316,7 +329,7 @@
 					</div>`
 					: '';
 
-				commentEl +=
+				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
 							<p class="title">
@@ -335,7 +348,7 @@
 						<div class="bottom">
 							<span><i class="fas fa-heart"></i> 111</span>
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${replyEl}
+							${createReplyEl}
 						</div>
 			
 						<div class="comments-wrap">
@@ -344,36 +357,42 @@
 							</ul>
 						</div>
 					</div>`
+
+				actionCommentWrap.append(commentEl);
 			})
 
-			//commentEl += buildCommentPagination();
+			buildCommentPagination();
 		}
 		else
 		{
-			commentEl = `<div class="card"><p class="message">작성된 댓글이 없습니다.</p></div>`;
+			actionCommentWrap.html(`<div class="card"><p class="message">작성된 댓글이 없습니다.</p></div>`);
 		}
 
-		actionCommentWrap.html(commentEl);
-
 		$('.btn-reply-action').on('click', function () { onClickModalReplyActionOpen(this); });
+		$('#btnViewMore').on('click', function () { onClickViewMore(); });
 	}
 
 	function buildCommentPagination()
 	{
-		return g_comment_page_num !== g_comment_page_size
-			? `<button type="button" class="btn-more">더보기(${g_comment_page_num}/${g_comment_page_size}) <i class="fas fa-sort-down"></i></button>`
-			: '';
+		let btnViewMoreEl = ''
+		if ($('#btnViewMore').length === 0 && g_action_comment_page_num !== g_action_comment_page_size)
+			btnViewMoreEl =
+				`<button id="btnViewMore" type="button" class="btn-more">더보기(${g_action_comment_page_num}/${g_action_comment_page_size}) 
+					<i class="fas fa-sort-down"></i>
+				</button>`;
+
+		actionCommentWrap.append(btnViewMoreEl);
 	}
 
 	function onClickViewMore()
 	{
-		g_comment_page_num++
-		getTalk();
+		g_action_comment_page_num++
+		getActionComments();
 	}
 
-	function initCommentPageNum()
+	function initActionCommentPageNum()
 	{
-		g_comment_page_num = 1;
+		g_action_comment_page_num = 1;
 	}
 
 	function buildPagination(data)

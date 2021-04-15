@@ -213,9 +213,9 @@
 			btnUpdateMission.remove();
 			btnBan.remove();
 			btnCreateMission.remove();
-			createCommentWrap.remove();
+			/*createCommentWrap.remove();
 			actionCommentWrap.removeClass('col-8');
-			actionCommentWrap.addClass('col-12');
+			actionCommentWrap.addClass('col-12');*/
 		}
 	}
 

@@ -50,6 +50,7 @@
         sendWarning : baseApiUrl + 'action/set/yellow',
         actionCommentList : baseApiUrl + 'action/get/commentList',
         createActionComment : baseApiUrl + 'action/set/insertComment',
+        deleteActionComment : baseApiUrl + 'action/set/deleteComment',
 
         talkList : baseApiUrl + 'talk',
         detailTalk : baseApiUrl + 'talk/detail',

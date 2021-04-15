@@ -70,8 +70,8 @@
 	btnSearchAction,
 	selActionPageLength,
 	btnSendWarnings,
-		btnSubmitSendWarning
-} from '../modules/elements.js';
+	btnSubmitSendWarning, btnSubmitCommentAction
+	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -107,7 +107,7 @@
 		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
-		onSubmitSearchActions, onSubmitSendWarning} from "./doit-detail-action.js";
+		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
 		getTalkList,
 		onClickBtnCreateTalk,
@@ -196,6 +196,7 @@
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		commentActionImage.on('change', function () { onChangeValidateImage(this); });
 		replyActionImage.on('change', function () { onChangeValidateImage(this); });
+		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})

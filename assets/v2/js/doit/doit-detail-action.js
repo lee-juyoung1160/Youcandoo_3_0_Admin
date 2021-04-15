@@ -14,9 +14,23 @@
 	searchActionDateFrom,
 	searchActionDateTo,
 	selActionMissions,
-	pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap, actionCommentWrap,
+	pagination,
+	selActionPageLength,
+	totalActionCount,
+	actionNickname,
+	actionContentWrap,
+	actionCommentWrap,
+	commentAction,
 } from "../modules/elements.js";
-	import {initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal} from "../modules/common.js";
+	import {
+	initSelectOption,
+	overflowHidden,
+	overflowScroll,
+	onErrorImage,
+	paginate,
+	fadeoutModal,
+		limitInputLength
+	} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -169,6 +183,7 @@
 	}
 
 	const g_action_comment_page_length = 10;
+	let g_view_page_length = 10;
 	let g_action_comment_last_idx = 0;
 	let g_action_comment_page_num = 1;
 	let g_action_comment_page_size = 1;
@@ -177,7 +192,10 @@
 	function onClickAction(obj)
 	{
 		g_action_idx = $(obj).data('idx');
-		actionCommentWrap.empty();
+		g_view_page_length = 10;
+		initActionCommentPageNum();
+		initActionCommentLastIdx();
+		initActionCommentWrap();
 		showDetailAction();
 		getDetailAction(obj);
 	}
@@ -230,13 +248,13 @@
 		}
 	}
 
-	function getActionComments()
+	function getActionComments(_pageLength)
 	{
 		const url = api.actionCommentList;
 		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"action_uuid" : g_action_uuid,
-			"size" : g_action_comment_page_length,
+			"size" : isEmpty(_pageLength) ? g_action_comment_page_length : g_view_page_length,
 			"last_idx" : g_action_comment_last_idx
 		};
 
@@ -257,7 +275,7 @@
 			g_action_comment_page_size = Math.ceil(Number(data.count)/g_action_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_action_comment_last_idx = idx;
@@ -280,16 +298,16 @@
 					})
 				}
 
-				const createReplyEl = isSponsorDoit
+				const createReplyEl = !isSponsorDoit
 					? `<a class="link btn-reply-action">답글달기</a>
 					<!-- 답글달기 -->
 					<div class="modal-content comments-creat">
 						<div class="modal-header clearfix">
 							<h5>답글달기</h5>
-							<i class="modal-close">×</i>
+							<i class="modal-close btn-action-reply-close">×</i>
 						</div>
 						<div class="modal-body">
-							<table class="detail-table">
+							<table class="detail-table reply-table">
 								<colgroup>
 									<col style="width: 20%;">
 									<col style="width: 70%;">
@@ -297,7 +315,10 @@
 								<tr>
 									<td colspan="2">
 										<div class="textarea-wrap">
-											<textarea id="replyAction" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+											<input type="hidden" class="parent-comment-uuid" value="${comment_uuid}">
+											<input type="hidden" class="target-profile-uuid" value="${profile_uuid}">
+											<input type="hidden" class="target-nickname" value="${nickname}">
+											<textarea class="length-input reply-action" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
 											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
 										</div>
 									</td>
@@ -320,7 +341,7 @@
 								<tr>
 									<td colspan="2">
 										<div class="right-wrap">
-											<button id="btnSubmitActionReply" type="button" class="btn-sm btn-primary">등록</button>
+											<button type="button" class="btn-sm btn-primary btn-submit-reply-action">등록</button>
 										</div>
 									</td>
 								</tr>
@@ -336,7 +357,7 @@
 								${nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								<button type="button" class="btn-xs btn-danger">삭제</button>
+								<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>
 							</div>
 						</div>
 						<div class="detail-data">
@@ -368,8 +389,12 @@
 			actionCommentWrap.html(`<div class="card"><p class="message">작성된 댓글이 없습니다.</p></div>`);
 		}
 
+		$('.length-input').on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		$('.btn-reply-action').on('click', function () { onClickModalReplyActionOpen(this); });
+		$('.btn-action-reply-close').on('click', function () { onClickModalReplyActionClose(); });
 		$('#btnViewMore').on('click', function () { onClickViewMore(); });
+		$('.btn-submit-reply-action').on('click', function () { onSubmitActionReply(this); });
+		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 	}
 
 	function buildCommentPagination()
@@ -387,12 +412,8 @@
 	function onClickViewMore()
 	{
 		g_action_comment_page_num++
+		g_view_page_length += 10;
 		getActionComments();
-	}
-
-	function initActionCommentPageNum()
-	{
-		g_action_comment_page_num = 1;
 	}
 
 	function buildPagination(data)
@@ -504,9 +525,160 @@
 		getActionList();
 	}
 
-	export function onClickModalReplyActionOpen(obj)
+	export function onSubmitActionComment()
 	{
+		if (commentActionValid())
+			sweetConfirm(message.create, createActionCommentRequest);
+	}
+
+	function commentActionValid()
+	{
+		if (isEmpty(commentAction.val()))
+		{
+			sweetToast(`댓글은 ${message.required}`);
+			commentAction.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function createActionCommentRequest()
+	{
+		const url = api.createActionComment;
+		const errMsg = `댓글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"action_uuid" : g_action_uuid,
+			"comment" : commentAction.val().trim(),
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionCommentReqCallback, errMsg, false);
+	}
+
+	function createActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, createActionCommentSuccess)
+	}
+
+	function createActionCommentSuccess()
+	{
+		commentAction.val('');
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	let g_parent_uuid;
+	let g_target_profile_uuid;
+	let g_target_nickname;
+	let g_reply_value;
+	function onSubmitActionReply(obj)
+	{
+		const replyEl = $(obj).parents('.reply-table');
+		g_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
+		g_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
+		g_target_nickname = $(replyEl).find('.target-nickname').val();
+		g_reply_value = $(replyEl).find('.reply-action').val().trim();
+
+		if (replyActionValid())
+			sweetConfirm(message.create, createActionReplyRequest);
+	}
+
+	function replyActionValid()
+	{
+		if (isEmpty(g_reply_value))
+		{
+			sweetToast(`답글은 ${message.required}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function createActionReplyRequest()
+	{
+		const url = api.createActionComment;
+		const errMsg = `답글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"action_uuid" : g_action_uuid,
+			"comment" : g_reply_value,
+			"mention" : [{ "profile_uuid": g_target_profile_uuid, "profile_nickname": g_target_nickname}],
+			"parent_comment_uuid" : g_parent_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionReplyCallback, errMsg, false);
+	}
+
+	function createActionReplyCallback(data)
+	{
+		sweetToastAndCallback(data, createActionReplySuccess);
+	}
+
+	function createActionReplySuccess()
+	{
+		onClickModalReplyActionClose();
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	let g_delete_action_comment_uuid;
+	function onSubmitDeleteActionComment(obj)
+	{
+		g_delete_action_comment_uuid = $(obj).data('uuid');
+		sweetConfirm(message.delete, actionCommentDeleteRequest);
+	}
+
+	function actionCommentDeleteRequest()
+	{
+		const url = api.deleteActionComment;
+		const errMsg = `댓글 삭제 ${message.ajaxError}`;
+		const param = {
+			"comment_uuid" : g_delete_action_comment_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
+	}
+
+	function deleteActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteActionCommentSuccess);
+	}
+
+	function deleteActionCommentSuccess()
+	{
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	function initActionCommentPageNum()
+	{
+		g_action_comment_page_num = 1;
+	}
+
+	function initActionCommentLastIdx()
+	{
+		g_action_comment_last_idx = 0;
+	}
+
+	function initActionCommentWrap()
+	{
+		actionCommentWrap.empty();
+	}
+
+	function onClickModalReplyActionOpen(obj)
+	{
+		$('.modal-content').hide();
 		$(obj).siblings('.modal-content').fadeIn();
-		overflowHidden();
+		$(obj).siblings('.modal-content').find('.reply-action').trigger('focus');
+		$(obj).siblings('.modal-content').find('.reply-action').val('');
+	}
+
+	function onClickModalReplyActionClose()
+	{
+		$('.modal-content').fadeOut();
 	}
 

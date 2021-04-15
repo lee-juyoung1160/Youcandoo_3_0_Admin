@@ -357,7 +357,7 @@
 								${nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								<button type="button" class="btn-xs btn-danger">삭제</button>
+								<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>
 							</div>
 						</div>
 						<div class="detail-data">
@@ -394,6 +394,7 @@
 		$('.btn-action-reply-close').on('click', function () { onClickModalReplyActionClose(); });
 		$('#btnViewMore').on('click', function () { onClickViewMore(); });
 		$('.btn-submit-reply-action').on('click', function () { onSubmitActionReply(this); });
+		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 	}
 
 	function buildCommentPagination()
@@ -618,6 +619,36 @@
 	function createActionReplySuccess()
 	{
 		onClickModalReplyActionClose();
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	let g_delete_action_comment_uuid;
+	function onSubmitDeleteActionComment(obj)
+	{
+		g_delete_action_comment_uuid = $(obj).data('uuid');
+		sweetConfirm(message.delete, actionCommentDeleteRequest);
+	}
+
+	function actionCommentDeleteRequest()
+	{
+		const url = api.deleteActionComment;
+		const errMsg = `댓글 삭제 ${message.ajaxError}`;
+		const param = {
+			"comment_uuid" : g_delete_action_comment_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
+	}
+
+	function deleteActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteActionCommentSuccess);
+	}
+
+	function deleteActionCommentSuccess()
+	{
 		initActionCommentLastIdx();
 		initActionCommentWrap();
 		getActionComments(g_view_page_length);

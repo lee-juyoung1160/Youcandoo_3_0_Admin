@@ -20,12 +20,11 @@
 	actionNickname,
 	actionContentWrap,
 	actionCommentWrap,
-	commentAction,
+	commentAction, btnSendWarning,
 } from "../modules/elements.js";
 	import {
 	initSelectOption,
 	overflowHidden,
-	overflowScroll,
 	onErrorImage,
 	paginate,
 	fadeoutModal,
@@ -223,7 +222,9 @@
 
 	function buildDetailAction(data)
 	{
-		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname} = data.data;
+		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow} = data.data;
+
+		toggleTextBtnSendWarning(is_yellow);
 		actionNickname.text(nickname);
 		actionCreated.text(action_date);
 		actionLikeCount.text(like_count);
@@ -232,6 +233,21 @@
 		actionDesc.text(action_description);
 
 		onErrorImage();
+	}
+
+	function toggleTextBtnSendWarning(isFail)
+	{
+		btnSendWarning.removeClass('btn-danger btn-orange');
+		if (isFail === 'Y')
+		{
+			btnSendWarning.addClass('btn-orange');
+			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송 취소`);
+		}
+		else
+		{
+			btnSendWarning.addClass('btn-danger');
+			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송`);
+		}
 	}
 
 	function buildActionContent(data)
@@ -447,7 +463,10 @@
 				fadeinModalWarning();
 		}
 		else
-			fadeinModalWarning();
+		{
+			$(obj).text() === '경고장 발송' ? fadeinModalWarning() : onSubmitCancelWarning();
+
+		}
 	}
 
 	function fadeinModalWarning()
@@ -523,6 +542,28 @@
 		}
 
 		getActionList();
+	}
+
+	function onSubmitCancelWarning()
+	{
+		//sweetConfirm(message.cancel, cancelWarningRequest);
+	}
+
+	function cancelWarningRequest()
+	{
+		const url = api.createActionComment;
+		const errMsg = `경고장 발송 취소 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"action_uuid" : g_action_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), cancelWarningReqCallback, errMsg, false);
+	}
+
+	function cancelWarningReqCallback(data)
+	{
+		sweetToastAndCallback(data, getDetailAction);
 	}
 
 	export function onSubmitActionComment()

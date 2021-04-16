@@ -1459,8 +1459,8 @@
                                     <li>
                                         <p class="search-title">날짜</p>
                                         <div class="form-box">
-                                            <select class="select-box">
-                                                <option>등록일</option>
+                                            <select id="selTalkDateType" class="select-box">
+                                                <option value="created">등록일</option>
                                             </select>
                                             <div class="date-wrap">
                                                 <input id="searchTalkDateFrom" type="text" class="datepicker date-from" readonly>
@@ -1486,13 +1486,15 @@
                             <div class="top clearfix">
                                 <div class="left-wrap clearfix">
                                     <div class="form-box">
-                                        <p>Total <strong class="data-num">238</strong></p>
+                                        <p>Total <strong class="data-num"></strong></p>
+                                        <select id="selTalkPageLength" class="select-box">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <table>
-                                <thead>
+                            <table id="talkTable">
+                                <!--<thead>
                                 <colgroup>
                                     <col style="width: 10%;">
                                     <col style="width: 15%;">
@@ -1517,7 +1519,7 @@
                                 <tr>
                                     <td>공지</td>
                                     <td>열심히사는강아지열심히사는강아지</td>
-                                    <td><a class="test-talk">내요오오오오옹</a></td>
+                                    <td><a>내요오오오오옹</a></td>
                                     <td>111</td>
                                     <td>111</td>
                                     <td>2020-02-02</td>
@@ -1526,13 +1528,13 @@
                                 <tr>
                                     <td>공지</td>
                                     <td>열심히사는강아지열심히사는강아지</td>
-                                    <td><a class="test-talk">내요오오오오옹</a></td>
+                                    <td><a>내요오오오오옹</a></td>
                                     <td>111</td>
                                     <td>111</td>
                                     <td>2020-02-02</td>
                                     <td>N</td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
 
                         </div>
@@ -2319,57 +2321,57 @@
                         </th>
                         <td>
                             <div class="radio-wrap file-value">
-                                <input id="r51" type="radio" name="radio-action-type" value="image" checked>
+                                <input id="r51" type="radio" name="radio-attach-type" value="image" checked>
                                 <label for="r51"><span></span>사진</label>
 
-                                <input id="r52" type="radio" name="radio-action-type" value="video">
+                                <input id="r52" type="radio" name="radio-attach-type" value="video">
                                 <label for="r52"><span></span>영상</label>
 
-                                <input id="r53" type="radio" name="radio-action-type" value="voice">
+                                <input id="r53" type="radio" name="radio-attach-type" value="voice">
                                 <label for="r53"><span></span>음성</label>
                             </div>
+                            <div id="talkAttachmentWrap">
+                                <!--이미지-->
+                                <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+                                <div class="file-wrap preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                    <label for="updateTalkImage">업로드</label>
+                                    <input type="file" class="upload-hidden" data-width="650" data-compare="이상">
+                                </div>
+                                <div class="detail-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                </div>-->
 
-                            <!--이미지-->
-                            <p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="updateTalkImage">업로드</label>
-                                <input type="file" class="upload-hidden" data-width="650" data-compare="이상">
+                                <!--
+
+                                <영상>
+                                <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+                                <div class="file-wrap preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                    <label for="updateTalkImage">업로드</label>
+                                    <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                </div>
+                                <div class="detail-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                </div>
+
+                                <p class="desc-sub">영상</p>
+                                <div class="file-wrap preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                    <label for="updateTalkImage">업로드</label>
+                                    <input type="file" class="upload-hidden">
+                                </div>
+
+                                <음성>
+                                <p class="desc-sub">음성</p>
+                                <div class="file-wrap preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                    <label for="updateTalkImage">업로드</label>
+                                    <input type="file" class="upload-hidden">
+                                </div>
+
+                                -->
                             </div>
-                            <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
-
-                            <!--
-
-                            <영상>
-                            <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="updateTalkImage">업로드</label>
-                                <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
-                            </div>
-                            <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
-
-                            <p class="desc-sub">영상</p>
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="updateTalkImage">업로드</label>
-                                <input type="file" class="upload-hidden">
-                            </div>
-
-                            <음성>
-                            <p class="desc-sub">음성</p>
-                            <div class="file-wrap preview-image">
-                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="updateTalkImage">업로드</label>
-                                <input type="file" class="upload-hidden">
-                            </div>
-
-                            -->
-
                         </td>
                     </tr>
                     <tr>

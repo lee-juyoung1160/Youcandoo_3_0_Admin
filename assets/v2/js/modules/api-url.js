@@ -54,7 +54,7 @@
         createActionComment : baseApiUrl + 'action/set/insertComment',
         deleteActionComment : baseApiUrl + 'action/set/deleteComment',
 
-        talkList : baseApiUrl + 'talk',
+        talkList : baseApiUrl + 'board/get/list',
         detailTalk : baseApiUrl + 'talk/detail',
 
         pickList : baseApiUrl + 'recommend/list',

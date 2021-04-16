@@ -257,6 +257,8 @@
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const talk = $("#talk");
     export const talkImage = $("#talkImage");
+    export const rdoAttachType = $("input[name=radio-attach-type]");
+    export const talkAttachmentWrap = $("#talkAttachmentWrap");
     export const chkNoticeTalk = $("input[name=chk-notice-talk]");
     export const modalCreateTalk = $("#modalCreateTalk");
     export const talkListForm   = $("#talkListForm");
@@ -264,8 +266,11 @@
     export const talkUpdateForm = $("#talkUpdateForm");
     export const searchTalkDateFrom = $("#searchTalkDateFrom");
     export const searchTalkDateTo = $("#searchTalkDateTo");
+    export const selTalkDateType = $("#selTalkDateType");
+    export const selTalkPageLength = $("#selTalkPageLength");
     export const btnSearchTalk = $("#btnSearchTalk");
     export const btnResetSearchTalk = $("#btnResetSearchTalk");
+    export const talkTable   = $("#talkTable");
     export const btnBackTalkList = $(".btn-talk-list");
     export const btnBlinkTalk = $("#btnBlinkTalk");
     export const btnDisplayTalk = $("#btnDisplayTalk");

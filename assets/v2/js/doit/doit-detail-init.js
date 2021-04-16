@@ -24,9 +24,6 @@
 	btnUpdateMission,
 	btnSubmitUpdateMission,
 	btnSubmitMission,
-	talkListForm,
-	talkDetailForm,
-	talkUpdateForm,
 	btnCreateTalk,
 	talkImage,
 	selMemberFilter,
@@ -70,7 +67,7 @@
 	btnSearchAction,
 	selActionPageLength,
 	btnSendWarnings,
-	btnSubmitSendWarning, btnSubmitCommentAction
+	btnSubmitSendWarning, btnSubmitCommentAction, rdoAttachType, selTalkPageLength
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -108,13 +105,13 @@
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
-		getTalkList,
-		onClickBtnCreateTalk,
-		onClickDetailTalk,
-		initSearchTalkForm,
-		onClickBtnTalkList,
-		onClickBtnUpdateTalk, onClickModalReplyTalkOpen, onClickAttachTalk
-	} from "./doit-detail-talk.js";
+	buildTalkTable,
+	onClickBtnCreateTalk,
+	onClickDetailTalk,
+	initSearchTalkForm,
+	showTalkListForm,
+	onClickBtnUpdateTalk, onClickModalReplyTalkOpen, onClickAttachTalk, onChangeAttachType, onSubmitSearchTalk
+} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -200,15 +197,19 @@
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
 		$(".talk-file-img").on('click', function () {onClickAttachTalk();})
+		initPageLength(selTalkPageLength);
+		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
+		btnSearchTalk.on('click', function () { onSubmitSearchTalk(); });
+		selTalkPageLength.on('change', function () { onSubmitSearchTalk(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
 		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });
 		commentTalkImage.on('change', function () { onChangeValidateImage(this); });
 		replyTalkImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
-		btnBackTalkList	.on('click', function () { onClickBtnTalkList(); });
+		btnBackTalkList	.on('click', function () { showTalkListForm(); });
 		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
 	});
 
@@ -236,14 +237,12 @@
 				break;
 			case '#tabDoitAction' :
 				showActionListForm();
+				initSearchActionForm();
 				getMissionListForAction();
-				//getDetail();
 				break;
 			case '#tabDoitTalk' :
-				talkListForm.show();
-				talkDetailForm.hide();
-				talkUpdateForm.hide();
-				getTalkList();
+				showTalkListForm();
+				buildTalkTable();
 				break;
 		}
 

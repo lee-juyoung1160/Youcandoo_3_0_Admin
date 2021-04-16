@@ -100,14 +100,13 @@
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
-	buildTalkTable,
-	onClickBtnCreateTalk,
-	initSearchTalkForm,
-	showTalkListForm,
-	onClickBtnUpdateTalk,
-	onClickModalReplyTalkOpen,
-	onChangeAttachType,
-	onSubmitSearchTalk,
+		buildTalkTable,
+		onClickBtnCreateTalk,
+		initSearchTalkForm,
+		showTalkListForm,
+		onClickBtnUpdateTalk,
+		onChangeAttachType,
+		onSubmitSearchTalk,
 		onSubmitTalk
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
@@ -190,7 +189,6 @@
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
 
-		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
 		initPageLength(selTalkPageLength);
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });

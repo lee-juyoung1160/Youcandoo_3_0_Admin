@@ -281,7 +281,6 @@
     export const infoTalkAttachWrap = $("#infoTalkAttachWrap");
     export const talkCommentWrap = $("#talkCommentWrap");
     export const createTalkCommentWrap = $("#createTalkCommentWrap");
-    export const modalReplyTalk = $("#modalReplyTalk");
     export const replyTalk = $("#replyTalk");
     export const btnSubmitReplyTalk = $("#btnSubmitReplyTalk");
     export const commentTalk = $("#commentTalk");

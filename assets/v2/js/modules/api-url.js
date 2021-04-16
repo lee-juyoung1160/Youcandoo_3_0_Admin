@@ -58,6 +58,9 @@
         talkList : baseApiUrl + 'board/get/list',
         createTalk: baseApiUrl + 'board/create',
         detailTalk : baseApiUrl + 'board/get/detail/info',
+        talkCommentList : baseApiUrl + 'board/get/commentList',
+        createTalkComment : baseApiUrl + 'board/set/insertComment',
+        deleteTalkComment : baseApiUrl + 'board/set/deleteComment',
 
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',

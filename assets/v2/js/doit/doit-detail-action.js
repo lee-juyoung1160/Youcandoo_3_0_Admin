@@ -376,6 +376,10 @@
 					</div>`
 					: '';
 
+				const btnDeleteCommentEl = isSponsorDoit
+					? `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`
+					: '';
+
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -383,7 +387,7 @@
 								${nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>
+								${btnDeleteCommentEl}
 							</div>
 						</div>
 						<div class="detail-data">

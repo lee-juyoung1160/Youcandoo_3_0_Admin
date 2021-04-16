@@ -36,8 +36,8 @@
 	btnUpdateMission,
 	btnBan,
 	createCommentWrap,
-		actionCommentWrap
-	} from '../modules/elements.js';
+	actionCommentWrap, btnUpdateTalk, btnDeleteTalk, btnCreateTalk
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
@@ -216,6 +216,9 @@
 			createCommentWrap.remove();
 			actionCommentWrap.removeClass('col-8');
 			actionCommentWrap.addClass('col-12');
+			btnCreateTalk.parent('card').remove();
+			btnUpdateTalk.remove();
+			btnDeleteTalk.remove();
 		}
 	}
 

@@ -1417,7 +1417,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <th>
                                                 첨부파일
                                             </th>
@@ -1431,7 +1431,7 @@
                                                     <img src="/assets/v2/img/profile-1.png" alt="">
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr>-->
                                         <tr>
                                             <td colspan="2">
                                                 <div class="right-wrap">
@@ -1622,9 +1622,9 @@
                                     <div class="detail-data">
                                         대박사건... 인증계를 뒤집어놓으셨다...!
                                     </div>
-                                    <div class="img-wrap">
+                                    <!--<div class="img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="">
-                                    </div>
+                                    </div>-->
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
                                         <span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
@@ -1649,7 +1649,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <!--<tr>
                                                         <th>
                                                             첨부파일
                                                         </th>
@@ -1659,11 +1659,11 @@
                                                                 <label for="replyTalkImage">업로드</label>
                                                                 <input type="file" id="replyTalkImage" class="upload-hidden">
                                                             </div>
-<!--                                                            <div class="detail-img-wrap">-->
-<!--                                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
-<!--                                                            </div>-->
+&lt;!&ndash;                                                            <div class="detail-img-wrap">&ndash;&gt;
+&lt;!&ndash;                                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">&ndash;&gt;
+&lt;!&ndash;                                                            </div>&ndash;&gt;
                                                         </td>
-                                                    </tr>
+                                                    </tr>-->
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="right-wrap">
@@ -1687,9 +1687,9 @@
                                                 <div class="detail-data">
                                                     대박사건... 인증계를 뒤집어놓으셨다...!
                                                 </div>
-                                                <div class="img-wrap">
+                                                <!--<div class="img-wrap">
                                                     <img src="/assets/v2/img/profile-1.png" alt="">
-                                                </div>
+                                                </div>-->
                                             </li>
                                             <li>
                                                 <div class="top clearfix">
@@ -1778,7 +1778,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!--<tr>
                                         <th>
                                             첨부파일
                                         </th>
@@ -1792,7 +1792,7 @@
                                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr>-->
                                     <tr>
                                         <td colspan="2">
                                             <div class="right-wrap">
@@ -1990,7 +1990,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <th>비고 </th>
                         <td>
                             <div class="textarea-wrap">
@@ -1998,18 +1998,18 @@
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
-                    </tr>
+                    </tr>-->
                 </table>
                 <div class="table-wrap">
                     <div class="top clearfix">
                         <div class="left-wrap clearfix">
                             <div class="form-box">
-                                <p>총 <strong class="data-num">00</strong>명</p>
+                                <p>총 <strong class="data-num"></strong>명</p>
                             </div>
                         </div>
                     </div>
-                    <table>
-                        <colgroup>
+                    <table id="rewardMemberTable">
+                        <!--<colgroup>
                             <col style="width: 20%;">
                             <col style="width: 50%;">
                             <col style="width: 20%;">
@@ -2040,7 +2040,7 @@
                                 <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
                             </td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>
@@ -2389,14 +2389,14 @@
             </div>
         </div>
 
-        <!-- 톡 상세 - 첨부파일 상세 -->
-        <div class="modal-content talk-file-modal" id="modalAttachDetail">
+        <!-- 톡/인증 상세 - 파일 상세 -->
+        <div class="modal-content talk-file-modal" id="modalAttach">
             <div class="modal-header clearfix">
-                <h5>첨부파일</h5>
+                <h5>상세</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
-                <div class="card">
+                <div class="card" id="modalAttachContentWrap">
                     <!--<div class="image-wrap">
                         <img src="https://youcandoo.yanadoocdn.com/qna/836a2aac7ec61f4db04549ee8b6c5df4/48b342c89a51798fc327242567492a5b.jpg" alt="">
                     </div>-->
@@ -2405,12 +2405,6 @@
                             <source src="/assets/v2/img/auth-vdo.mp4" type="video/mp4"/>
                         </video>
                     </div>-->
-                    <div class="audio-wrap">
-                        <img src="/assets/v2/img/voice.jpg" alt="">
-                        <audio controls="controls">
-                            <source src="/assets/v2/img/audio_test.m4a"/>
-                        </audio>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">

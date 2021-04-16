@@ -20,7 +20,7 @@
 	actionNickname,
 	actionContentWrap,
 	actionCommentWrap,
-	commentAction, btnSendWarning,
+	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap,
 } from "../modules/elements.js";
 	import {
 	initSelectOption,
@@ -232,6 +232,27 @@
 		actionContentWrap.html(buildActionContent(data.data));
 		actionDesc.text(action_description);
 
+		$(".view-detail-action").on('click', function () { onClickAttachAction(this); });
+
+		onErrorImage();
+	}
+
+	function onClickAttachAction(obj)
+	{
+		modalAttach.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		modalAttachContentWrap.empty();
+		let contentEl = ''
+		switch ($(obj).data('type')) {
+			case 'image' :
+				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
+				break;
+			case 'video' :
+				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
+				break;
+		}
+		modalAttachContentWrap.html(contentEl);
 		onErrorImage();
 	}
 
@@ -256,11 +277,15 @@
 
 		switch (contents_type) {
 			case 'image' :
-				return `<div class="detail-img-wrap talk-file-img"><img src="${contents_url}" alt=""></div>`;
+				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${contents_url}" alt="">
+						</div>`;
 			case 'voice' :
 				return `<audio controls><source src="${contents_url}"></audio>`;
 			case 'video' :
-				return `<div class="detail-img-wrap talk-file-img"><img src="${thumbnail_url}" alt=""></div>`;
+				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${thumbnail_url}" alt="">
+						</div>`;
 		}
 	}
 
@@ -336,21 +361,6 @@
 											<input type="hidden" class="target-nickname" value="${nickname}">
 											<textarea class="length-input reply-action" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
 											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th>
-										첨부파일
-									</th>
-									<td>
-										<div class="file-wrap preview-image">
-											<input class="upload-name" value="파일선택" disabled="disabled">
-											<label for="replyActionImage">업로드</label>
-											<input type="file" id="replyActionImage" class="upload-hidden">
-										</div>
-										<div class="detail-img-wrap">
-											<img src="/assets/v2/img/profile-1.png" alt="">
 										</div>
 									</td>
 								</tr>

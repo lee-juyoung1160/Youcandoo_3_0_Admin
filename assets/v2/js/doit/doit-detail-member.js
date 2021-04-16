@@ -1,33 +1,32 @@
 
 	import {
-		keyword,
-		actionCount,
-		joinMemberForm,
-		pendingMemberForm,
-		modalSaveUcd,
-		modalBackdrop,
-		saveUcdContent,
-		saveUcdEtc,
-		amount,
-		modalSendNotice,
-		modalMemberInfo,
-		memberActionCntFilterWrap1,
-		memberActionCntFilterWrap2,
-		rdoActionCount,
-		joinMemberTable,
-		applyMemberTable,
-		selMissions,
-		selSearchType,
-		selMemberFilter,
-		selJoinMemberPageLength,
-		selSort,
-		modalMemberInfoNickname,
-		modalMemberInfoJoinDate,
-		modalMemberInfoQuestion,
-		modalMemberInfoAnswer,
-		totalMemberCount,
-		applyMemberCount,
-		selApplyMemberPageLength, applyQuestion
+	keyword,
+	actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	modalSaveUcd,
+	modalBackdrop,
+	saveUcdContent,
+	amount,
+	modalSendNotice,
+	modalMemberInfo,
+	memberActionCntFilterWrap1,
+	memberActionCntFilterWrap2,
+	rdoActionCount,
+	joinMemberTable,
+	applyMemberTable,
+	selMissions,
+	selSearchType,
+	selMemberFilter,
+	selJoinMemberPageLength,
+	selSort,
+	modalMemberInfoNickname,
+	modalMemberInfoJoinDate,
+	modalMemberInfoQuestion,
+	modalMemberInfoAnswer,
+	totalMemberCount,
+	applyMemberCount,
+	selApplyMemberPageLength, applyQuestion, rewardMemberTable
 	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
@@ -376,7 +375,78 @@
 		saveUcdContent.trigger('focus');
 		saveUcdContent.val('');
 		amount.val('');
-		saveUcdEtc.val();
+
+		getRewardMemberList();
+	}
+
+	function getRewardMemberList()
+	{
+		const url = api.rewardMemberList;
+		const errMsg = label.list + message.ajaxLoadError;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
+	}
+
+	let rewardMembers = [];
+	function getRewardMemberListCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			data.recordsTotal = data.data.count;
+			data.recordsFiltered = data.data.count;
+			rewardMembers = data.data.list;
+			buildRewardMember(data)
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function buildRewardMember()
+	{
+		rewardMemberTable.DataTable({
+			data: rewardMembers,
+			columns: [
+				{title: "닉네임",    		data: "profile_uuid",  			width: "20%" }
+				,{title: "P-ID", 		data: "profile_uuid",		width: "50%" }
+				,{title: "보유 UCD",    	data: "profile_uuid",  				width: "20%" }
+				,{title: "",    		data: "profile_uuid",  		width: "10%",
+					render: function (data, type, row, meta) {
+						return `<button type="button" class="btn-xs btn-text-red btn-delete-reward-member" data-row="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 5,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).eq(3).children().find('button').on('click', function () { deleteRewardMemberTableRow(this); });
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+			}
+		});
+	}
+
+	function deleteRewardMemberTableRow(obj)
+	{
+		let idx = $(obj).data('row');
+		rewardMembers.splice(idx, 1);
+
+		$(obj).closest('tr').remove();
+
+		buildRewardMember();
+	}
+
+	export function onSubmitSaveUcd()
+	{
+
 	}
 
 	export function onClickModalSendNoticeOpen()

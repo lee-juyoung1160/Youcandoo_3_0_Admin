@@ -210,6 +210,7 @@
     export const modalSaveUcd = $("#modalSaveUcd");
     export const saveUcdContent = $("#saveUcdContent");
     export const saveUcdEtc = $("#saveUcdEtc");
+    export const rewardMemberTable = $("#rewardMemberTable");
     export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
     export const modalSendNotice = $("#modalSendNotice");
     export const sendNoticeContent = $("#sendNoticeContent");
@@ -281,7 +282,8 @@
     export const updateTalkImage = $("#updateTalkImage");
     export const updateChkNoticeTalk = $("input[name=update-chk-notice-talk]");
     export const btnSubmitUpdateTalk = $("#btnSubmitUpdateTalk");
-    export const modalAttachDetail = $("#modalAttachDetail");
+    export const modalAttach = $("#modalAttach");
+    export const modalAttachContentWrap = $("#modalAttachContentWrap");
 
     /** 비즈 **/
     export const doitTable = $("#doitTable");

@@ -77,8 +77,7 @@
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
-	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory,
-		initSearchDatepickerMaxDateToday, onClickModalAttachDetailOpen} from "../modules/doit-common.js"
+	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday} from "../modules/doit-common.js"
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
 	import {
 	showCreateMissionForm,
@@ -114,7 +113,7 @@
 		onClickDetailTalk,
 		initSearchTalkForm,
 		onClickBtnTalkList,
-		onClickBtnUpdateTalk, onClickModalReplyTalkOpen
+		onClickBtnUpdateTalk, onClickModalReplyTalkOpen, onClickAttachTalk
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -200,7 +199,7 @@
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
-		$(".talk-file-img").on('click', function () {onClickModalAttachDetailOpen();})
+		$(".talk-file-img").on('click', function () {onClickAttachTalk();})
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });

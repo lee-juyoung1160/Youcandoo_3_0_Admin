@@ -5,9 +5,9 @@
 	talkDetailForm,
 	talkListForm,
 	talkUpdateForm,
-	talk, searchTalkDateFrom, searchTalkDateTo, modalReplyTalk
+	talk, searchTalkDateFrom, searchTalkDateTo, modalReplyTalk, modalAttach, modalAttachContentWrap
 } from "../modules/elements.js";
-	import {overflowHidden} from "../modules/common.js";
+	import {overflowHidden, onErrorImage} from "../modules/common.js";
 
 	export function initSearchTalkForm()
 	{
@@ -60,5 +60,13 @@
 		overflowHidden();
 	}
 
+	export function onClickAttachTalk()
+	{
+		modalAttachContentWrap.empty();
+		modalAttach.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 
+		onErrorImage();
+	}
 

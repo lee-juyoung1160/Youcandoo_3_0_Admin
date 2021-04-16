@@ -1,5 +1,5 @@
     import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,
-        modalAttachDetail, modalBackdrop, selCategory, selSubcategory} from "./elements.js";
+        modalAttach, modalBackdrop, selCategory, selSubcategory} from "./elements.js";
     import {isEmpty} from "./utils.js";
     import {limitInputLength, overflowHidden} from "./common.js";
     import {sweetToast} from "./alert.js";
@@ -176,11 +176,4 @@
     {
         dateFrom.datepicker("option", "maxDate", "today");
         dateTo.datepicker("option", "maxDate", "today");
-    }
-
-    export function onClickModalAttachDetailOpen()
-    {
-        modalAttachDetail.fadeIn();
-        modalBackdrop.fadeIn();
-        overflowHidden();
     }

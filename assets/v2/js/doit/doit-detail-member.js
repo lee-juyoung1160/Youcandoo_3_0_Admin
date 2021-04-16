@@ -426,7 +426,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).eq(3).children().find('button').on('click', function () { deleteRewardMemberTableRow(this); });
+				$(nRow).children().eq(3).find('button').on('click', function () { deleteRewardMemberTableRow(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

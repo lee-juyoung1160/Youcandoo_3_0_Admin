@@ -20,7 +20,7 @@
 	actionNickname,
 	actionContentWrap,
 	actionCommentWrap,
-	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap,
+	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason,
 } from "../modules/elements.js";
 	import {
 	initSelectOption,
@@ -258,7 +258,7 @@
 
 	function toggleTextBtnSendWarning(isFail)
 	{
-		btnSendWarning.removeClass('btn-danger btn-orange');
+		btnSendWarning.removeClass('btn-danger btn-orange btn-send-warning');
 		if (isFail === 'Y')
 		{
 			btnSendWarning.addClass('btn-orange');
@@ -266,7 +266,7 @@
 		}
 		else
 		{
-			btnSendWarning.addClass('btn-danger');
+			btnSendWarning.addClass('btn-danger btn-send-warning');
 			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송`);
 		}
 	}
@@ -474,7 +474,7 @@
 		}
 		else
 		{
-			$(obj).text() === '경고장 발송' ? fadeinModalWarning() : onSubmitCancelWarning();
+			$(obj).hasClass('btn-send-warning') ? fadeinModalWarning() : onSubmitCancelWarning();
 
 		}
 	}
@@ -532,7 +532,8 @@
 		}
 
 		const param = {
-			"action_uuid" : action_uuids
+			"action_uuid" : action_uuids,
+			"reason" : selReason.val()
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendWarningReqCallback, errMsg, false);
@@ -556,16 +557,15 @@
 
 	function onSubmitCancelWarning()
 	{
-		//sweetConfirm(message.cancel, cancelWarningRequest);
+		sweetConfirm(message.cancel, cancelWarningRequest);
 	}
 
 	function cancelWarningRequest()
 	{
-		const url = api.createActionComment;
+		const url = api.cancelWarning;
 		const errMsg = `경고장 발송 취소 ${message.ajaxError}`;
 		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"action_uuid" : g_action_uuid,
+			"action_uuid" : [g_action_uuid],
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), cancelWarningReqCallback, errMsg, false);

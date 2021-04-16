@@ -50,11 +50,12 @@
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',
         sendWarning : baseApiUrl + 'action/set/yellow',
+        cancelWarning : baseApiUrl + 'action/set/yellowCancel',
         actionCommentList : baseApiUrl + 'action/get/commentList',
         createActionComment : baseApiUrl + 'action/set/insertComment',
         deleteActionComment : baseApiUrl + 'action/set/deleteComment',
 
-        talkList : baseApiUrl + 'talk',
+        talkList : baseApiUrl + 'board/get/list',
         detailTalk : baseApiUrl + 'talk/detail',
 
         pickList : baseApiUrl + 'recommend/list',

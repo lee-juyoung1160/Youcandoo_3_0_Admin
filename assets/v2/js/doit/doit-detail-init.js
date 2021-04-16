@@ -25,7 +25,6 @@
 	btnSubmitUpdateMission,
 	btnSubmitMission,
 	btnCreateTalk,
-	talkImage,
 	selMemberFilter,
 	btnPendingMembers,
 	btnJoinMembers,
@@ -40,7 +39,6 @@
 	btnResetSearchTalk,
 	btnBackTalkList,
 	btnUpdateTalk,
-	replyTalkImage,
 	updateTalkImage,
 	searchActionDateFrom,
 	searchActionDateTo,
@@ -64,8 +62,8 @@
 	btnSearchAction,
 	selActionPageLength,
 	btnSendWarnings,
-	btnSubmitSendWarning, btnSubmitCommentAction, rdoAttachType, selTalkPageLength
-	} from '../modules/elements.js';
+	btnSubmitSendWarning, btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk
+} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -104,11 +102,14 @@
 	import {
 	buildTalkTable,
 	onClickBtnCreateTalk,
-	onClickDetailTalk,
 	initSearchTalkForm,
 	showTalkListForm,
-	onClickBtnUpdateTalk, onClickModalReplyTalkOpen, onClickAttachTalk, onChangeAttachType, onSubmitSearchTalk
-} from "./doit-detail-talk.js";
+	onClickBtnUpdateTalk,
+	onClickModalReplyTalkOpen,
+	onChangeAttachType,
+	onSubmitSearchTalk,
+		onSubmitTalk
+	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -189,9 +190,7 @@
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
 
-		$(".test-talk").on('click', function () {onClickDetailTalk();})
 		$("#testReplyTalk").on('click', function () {onClickModalReplyTalkOpen();})
-		$(".talk-file-img").on('click', function () {onClickAttachTalk();})
 		initPageLength(selTalkPageLength);
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -199,12 +198,11 @@
 		btnSearchTalk.on('click', function () { onSubmitSearchTalk(); });
 		selTalkPageLength.on('change', function () { onSubmitSearchTalk(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
-		talkImage		.on('change', function () { onChangeValidateImage(this); });
 		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });
-		replyTalkImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
 		btnBackTalkList	.on('click', function () { showTalkListForm(); });
 		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
+		btnSubmitTalk.on('click', function () { onSubmitTalk(); });
 	});
 
 	function onClickTab(selectedTab)

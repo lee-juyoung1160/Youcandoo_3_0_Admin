@@ -1563,41 +1563,40 @@
                             <tr>
                                 <th>작성자</th>
                                 <td>
-                                    <p class="detail-data">유캔두</p>
+                                    <p class="detail-data" id="infoTalkNickname"></p>
                                 </td>
                                 <th>블라인드 여부</th>
                                 <td colspan="3">
-                                    <p class="detail-data">N</p>
+                                    <p class="detail-data" id="infoTalkIsBlind"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>작성일자</th>
                                 <td>
-                                    <p class="detail-data">2020-02-02</p>
+                                    <p class="detail-data" id="infoTalkCreated"></p>
                                 </td>
                                 <th>좋아요</th>
                                 <td>
-                                    <p class="detail-data">111</p>
+                                    <p class="detail-data" id="infoTalkLikeCount"></p>
                                 </td>
                                 <th>댓글 수</th>
                                 <td>
-                                    <p class="detail-data">111</p>
+                                    <p class="detail-data" id="infoTalkCommentCount"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>내용</th>
                                 <td colspan="5">
-                                    <div class="detail-data">
-                                        내요오오오오오오옹
+                                    <div class="detail-data" id="infoTalkContent">
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>첨부파일</th>
-                                <td colspan="4">
-                                    <div class="detail-img-wrap talk-file-img">
+                                <td colspan="4" id="infoTalkAttachWrap">
+                                    <!--<div class="detail-img-wrap talk-file-img">
                                         <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+                                    </div>-->
                                 </td>
                                 <td style="vertical-align: bottom">
                                     <div class="right-wrap">
@@ -1608,7 +1607,7 @@
                         </table>
 
                         <div class="comment-wrap row">
-                            <div class="col-8 comment-list">
+                            <div class="col-8 comment-list" id="talkCommentWrap">
                                 <div class="card">
                                     <p class="message">작성된 댓글이 없습니다.</p>
                                 </div>
@@ -1763,7 +1762,7 @@
                             </div>
 
                             <!-- 댓글달기창 -->
-                            <div class="col-4 comment-creat">
+                            <div class="col-4 comment-creat" id="createTalkCommentWrap">
                                 <div class="card clearfix">
                                     <p class="title">댓글달기</p>
                                 </div>
@@ -2310,7 +2309,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="textarea-wrap">
-                                <textarea id="talk" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                <textarea id="talk" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
                             </div>
                         </td>
@@ -2321,7 +2320,10 @@
                         </th>
                         <td>
                             <div class="radio-wrap file-value">
-                                <input id="r51" type="radio" name="radio-attach-type" value="image" checked>
+                                <input id="r500" type="radio" name="radio-attach-type" value="" checked>
+                                <label for="r500"><span></span>첨부파일 없음</label>
+
+                                <input id="r51" type="radio" name="radio-attach-type" value="image">
                                 <label for="r51"><span></span>사진</label>
 
                                 <input id="r52" type="radio" name="radio-attach-type" value="video">

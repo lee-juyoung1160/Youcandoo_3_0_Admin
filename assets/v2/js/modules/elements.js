@@ -251,12 +251,12 @@
     export const btnSubmitSendWarning = $("#btnSubmitSendWarning");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
+    export const modalCreateTalk = $("#modalCreateTalk");
     export const talk = $("#talk");
-    export const talkImage = $("#talkImage");
     export const rdoAttachType = $("input[name=radio-attach-type]");
     export const talkAttachmentWrap = $("#talkAttachmentWrap");
     export const chkNoticeTalk = $("input[name=chk-notice-talk]");
-    export const modalCreateTalk = $("#modalCreateTalk");
+    export const btnSubmitTalk = $("#btnSubmitTalk");
     export const talkListForm   = $("#talkListForm");
     export const talkDetailForm = $("#talkDetailForm");
     export const talkUpdateForm = $("#talkUpdateForm");
@@ -272,9 +272,17 @@
     export const btnDisplayTalk = $("#btnDisplayTalk");
     export const btnDeleteTalk = $("#btnDeleteTalk");
     export const btnUpdateTalk = $("#btnUpdateTalk");
+    export const infoTalkNickname = $("#infoTalkNickname");
+    export const infoTalkIsBlind = $("#infoTalkIsBlind");
+    export const infoTalkCreated = $("#infoTalkCreated");
+    export const infoTalkLikeCount = $("#infoTalkLikeCount");
+    export const infoTalkCommentCount = $("#infoTalkCommentCount");
+    export const infoTalkContent = $("#infoTalkContent");
+    export const infoTalkAttachWrap = $("#infoTalkAttachWrap");
+    export const talkCommentWrap = $("#talkCommentWrap");
+    export const createTalkCommentWrap = $("#createTalkCommentWrap");
     export const modalReplyTalk = $("#modalReplyTalk");
     export const replyTalk = $("#replyTalk");
-    export const replyTalkImage = $("#replyTalkImage");
     export const btnSubmitReplyTalk = $("#btnSubmitReplyTalk");
     export const commentTalk = $("#commentTalk");
     export const btnSubmitCommentTalk = $("#btnSubmitCommentTalk");

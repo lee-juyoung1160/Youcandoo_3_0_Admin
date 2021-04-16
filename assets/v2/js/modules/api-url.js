@@ -56,7 +56,8 @@
         deleteActionComment : baseApiUrl + 'action/set/deleteComment',
 
         talkList : baseApiUrl + 'board/get/list',
-        detailTalk : baseApiUrl + 'talk/detail',
+        createTalk: baseApiUrl + 'board/create',
+        detailTalk : baseApiUrl + 'board/get/detail/info',
 
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',

@@ -246,12 +246,8 @@
     export const actionCommentWrap = $("#actionCommentWrap");
     export const createCommentWrap = $("#createCommentWrap");
     export const commentAction = $("#commentAction");
-    export const commentActionImage = $("#commentActionImage");
     export const btnSubmitCommentAction = $("#btnSubmitCommentAction");
-    export const modalReplyAction = $("#modalReplyAction");
-    export const replyAction = $("#replyAction");
-    export const replyActionImage = $("#replyActionImage");
-    export const btnSubmitReplyAction = $("#btnSubmitReplyAction");
+    export const selReason = $("#selReason");
     export const btnSubmitSendWarning = $("#btnSubmitSendWarning");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
@@ -281,7 +277,6 @@
     export const replyTalkImage = $("#replyTalkImage");
     export const btnSubmitReplyTalk = $("#btnSubmitReplyTalk");
     export const commentTalk = $("#commentTalk");
-    export const commentTalkImage = $("#commentTalkImage");
     export const btnSubmitCommentTalk = $("#btnSubmitCommentTalk");
     export const updateTalk = $("#updateTalk");
     export const updateTalkImage = $("#updateTalkImage");

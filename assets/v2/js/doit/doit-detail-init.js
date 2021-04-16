@@ -40,10 +40,7 @@
 	btnResetSearchTalk,
 	btnBackTalkList,
 	btnUpdateTalk,
-	replyActionImage,
 	replyTalkImage,
-	commentActionImage,
-	commentTalkImage,
 	updateTalkImage,
 	searchActionDateFrom,
 	searchActionDateTo,
@@ -190,8 +187,6 @@
 		btnSendWarning.on('click', function () { onClickModalWarnOpen(this); });
 		btnSendWarnings.on('click', function () { onClickModalWarnOpen(this); });
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
-		commentActionImage.on('change', function () { onChangeValidateImage(this); });
-		replyActionImage.on('change', function () { onChangeValidateImage(this); });
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
 
 		$(".test-talk").on('click', function () {onClickDetailTalk();})
@@ -206,7 +201,6 @@
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		talkImage		.on('change', function () { onChangeValidateImage(this); });
 		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });
-		commentTalkImage.on('change', function () { onChangeValidateImage(this); });
 		replyTalkImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
 		btnBackTalkList	.on('click', function () { showTalkListForm(); });

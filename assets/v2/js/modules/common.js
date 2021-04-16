@@ -28,12 +28,12 @@
 
     export function overflowHidden()
     {
-        $('body').css("overflow", "hidden");
+        $('body').css("overflow-y", "hidden");
     }
 
     export function overflowScroll()
     {
-        $('body').css("overflow", "scroll");
+        $('body').css("overflow-y", "auto");
     }
 
     export function fadeinLoader()

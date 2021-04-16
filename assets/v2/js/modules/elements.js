@@ -105,6 +105,7 @@
     export const subCategoryTitle = $("#subCategoryTitle");
     export const modalSubcategory = $("#modalSubcategory");
     export const modalDoitImage = $("#modalDoitImage");
+    export const modalDoitImageTitle = $("#modalDoitImageTitle");
     export const btnSubmitImage = $("#btnSubmitImage");
 
     /** 두잇 **/

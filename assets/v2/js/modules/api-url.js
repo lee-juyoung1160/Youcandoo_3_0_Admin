@@ -18,6 +18,7 @@
 
         subCategoryList : baseApiUrl + 'subcategory/list',
         createSubCategory : baseApiUrl + 'subcategory/create',
+        updateSubCategoryDoitImg : baseApiUrl + 'subcategory/set/doit/image',
         deleteSubCategory : baseApiUrl + 'subcategory/delete',
         reorderSubCategory : baseApiUrl + 'subcategory/update/sequence',
 

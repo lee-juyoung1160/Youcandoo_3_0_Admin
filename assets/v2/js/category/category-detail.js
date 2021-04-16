@@ -1,33 +1,11 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	categoryTitle,
-	categoryIcon,
-	isEstablish,
-	isExposure,
-	btnBack,
-	btnList,
-	btnUpdate,
-	btnSubmit,
-	btnAdd,
-	modalClose,
-	modalBackdrop,
-	dataTable,
-	subCategoryTitle,
-	lengthInput,
-	modalSubcategory,
-	modalDoitImage,
-	btnSubmitImage, attachment, deleteAttachment, createAttachment
-} from '../modules/elements.js';
+	import {categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
+		btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
+		btnSubmitImage, attachment, deleteAttachment, createAttachment, modalDoitImageTitle} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import {
-		fadeoutModal,
-		historyBack,
-		limitInputLength,
-		onErrorImage,
-		overflowHidden,
-	} from "../modules/common.js";
+	import {fadeoutModal, historyBack, limitInputLength, onErrorImage, overflowHidden,} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isImage, isOverFileSize} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -60,6 +38,7 @@
 
 	function onClickModalSubcategoryOpen()
 	{
+		initCreateAttachment();
 		modalSubcategory.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
@@ -126,7 +105,7 @@
 				{title: "세부 카테고리",	data: "subcategory_title",	width: "85%" }
 				,{title: "두잇 이미지",	data: "subcategory_uuid",	width: "15%",
 					render: function (data, type, row, meta) {
-						return `<i class="fas fa-images" data-attachment="${row.doit_image_list}" id="${data}"></i>`;
+						return `<i class="fas fa-images" data-attachment="${row.doit_image_list}" data-title="${row.subcategory_title}" id="${data}"></i>`;
 					}
 				}
 			],
@@ -144,8 +123,10 @@
 		});
 	}
 
+	let g_subcategory_uuid;
 	function onClickDoitImage(obj)
 	{
+		g_subcategory_uuid = obj.id;
 		modalDoitImage.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
@@ -154,6 +135,16 @@
 
 	function buildModalDoitImage(obj)
 	{
+		g_delete_attachment_urls = [];
+
+		modalDoitImageTitle.text(`두잇 이미지 설정 - ${$(obj).data('title')}`);
+
+		attachment.each(function () {
+			$(this).siblings('.icon-delete-attach').hide();
+			removeThumbnail(this);
+
+		});
+
 		let attachments = [];
 		if (!isEmpty($(obj).data('attachment')))
 			attachments = $(obj).data('attachment').split(',');
@@ -224,6 +215,7 @@
 
 	function createSubcategoryCallback(data)
 	{
+		initCreateAttachment();
 		sweetToastAndCallback(data, createSubcategorySuccess)
 	}
 
@@ -233,13 +225,62 @@
 		getSubCategory();
 	}
 
-	function onSubmitUpdateImage()
+	function initCreateAttachment()
 	{
-		alert('준비중')
-		//sweetConfirm(message.create, updateImageRequest);
+		createAttachment.each(function () {
+			$(this).siblings('.icon-delete-attach').hide();
+			emptyFile(this);
+		})
 	}
 
-	function updateImageRequest()
+	function onSubmitUpdateImage()
+	{
+		if (updateImageValid())
+		{
+			let imgCount = 0;
+			attachment.each(function () {
+				const doitImg = $(this)[0].files;
+				if (doitImg.length > 0)
+					imgCount++;
+			})
+
+			const callback = imgCount > 0 ? updateFileUploadRequest : updateImageToApiServerReq;
+			sweetConfirm(message.create, callback);
+		}
+	}
+
+	function updateImageValid()
+	{
+		let uploadCount = 0;
+		attachment.each(function () {
+			const doitImg = $(this)[0].files;
+			if (doitImg.length > 0)
+				uploadCount++;
+		});
+
+		if (uploadCount === 0 && g_delete_attachment_urls.length === 0)
+		{
+			sweetToast('변경된 내용이 없습니다.');
+			return false;
+		}
+
+		let thumbnailCount = 0;
+		attachment.each(function () {
+			const thumbnailImg = $(this).siblings('.detail-img-wrap');
+			if (thumbnailImg.length > 0)
+				thumbnailCount++;
+		});
+
+		if (thumbnailCount === 0)
+		{
+			sweetToast(`두잇 기본 이미지는 ${message.required}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function updateFileUploadRequest()
 	{
 		const url = fileApiV2.multi;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
@@ -248,26 +289,31 @@
 		for (let i=0; i<attachment.length; i++)
 			param.append('file', attachment[i].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateImageCallback, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, updateFileUploadReqCallback, errMsg, false);
 	}
 
-	function updateImageCallback(data)
+	function updateFileUploadReqCallback(data)
 	{
 		isSuccessResp(data) ? updateImageToApiServerReq(data) : sweetToast(data.msg);
 	}
 
 	function updateImageToApiServerReq(data)
 	{
-		const url = api;
+		const url = api.updateSubCategoryDoitImg;
 		const errMsg = label.submit + message.ajaxError;
-		const param = {
-			"doit_image" : data.image_urls,
+		let param = {
+			"subcategory_uuid" : g_subcategory_uuid,
 		}
+
+		if (!isEmpty(data))
+			param["add_image_list"] = data.image_urls;
+		if (g_delete_attachment_urls.length > 0)
+			param["delete_image_list"] = g_delete_attachment_urls;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateImageToApiServerCallback, errMsg, false);
 	}
 
-	function updateImageToApiServerCallback()
+	function updateImageToApiServerCallback(data)
 	{
 		sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
 	}
@@ -387,8 +433,12 @@
 		$(obj).val(null);
 	}
 
+	let g_delete_attachment_urls = [];
 	function onClickDelAttach(obj)
 	{
+		if ($(obj).hasClass('update-attachment'))
+			g_delete_attachment_urls.push($(obj).siblings('.detail-img-wrap').children('img').attr('src'));
+
 		const inputFile = $(obj).siblings('input');
 		emptyFile(inputFile)
 		$(obj).hide();

@@ -51,6 +51,17 @@
 }
 
 /* 인증, 톡 상세 */
+.talk-file-img {
+	overflow: hidden;
+	width: 200px;
+	cursor: pointer;
+}
+.talk-file-img img {
+	transition: all .3s;
+}
+.talk-file-img:hover img {
+	transform: scale(1.3);
+}
 .comment-wrap {
 	margin-top: 30px;
 }

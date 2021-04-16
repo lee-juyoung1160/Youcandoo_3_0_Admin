@@ -56,10 +56,4 @@ class Service extends MY_Controller {
                 break;
         }
     }
-
-    public function prohibition()
-    {
-        $this->load->template('v2/service/prohibition-list');
-    }
-
 }

@@ -33,7 +33,7 @@
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -376,7 +376,7 @@
 					</div>`
 					: '';
 
-				const btnDeleteCommentEl = isSponsorDoit
+				const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
 					? `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`
 					: '';
 
@@ -444,6 +444,135 @@
 		g_action_comment_page_num++
 		g_view_page_length += 10;
 		getActionComments();
+	}
+
+	let g_parent_uuid;
+	let g_target_profile_uuid;
+	let g_target_nickname;
+	let g_reply_value;
+	function onSubmitActionReply(obj)
+	{
+		const replyEl = $(obj).parents('.reply-table');
+		g_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
+		g_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
+		g_target_nickname = $(replyEl).find('.target-nickname').val();
+		g_reply_value = $(replyEl).find('.reply-action').val();
+
+		if (replyActionValid())
+			sweetConfirm(message.create, createActionReplyRequest);
+	}
+
+	function replyActionValid()
+	{
+		if (isEmpty(g_reply_value))
+		{
+			sweetToast(`답글은 ${message.required}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function createActionReplyRequest()
+	{
+		const url = api.createActionComment;
+		const errMsg = `답글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"action_uuid" : g_action_uuid,
+			"comment" : g_reply_value.trim(),
+			"mention" : [{ "profile_uuid": g_target_profile_uuid, "profile_nickname": g_target_nickname}],
+			"parent_comment_uuid" : g_parent_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionReplyCallback, errMsg, false);
+	}
+
+	function createActionReplyCallback(data)
+	{
+		sweetToastAndCallback(data, createActionReplySuccess);
+	}
+
+	function createActionReplySuccess()
+	{
+		onClickModalReplyActionClose();
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	let g_delete_action_comment_uuid;
+	function onSubmitDeleteActionComment(obj)
+	{
+		g_delete_action_comment_uuid = $(obj).data('uuid');
+		sweetConfirm(message.delete, actionCommentDeleteRequest);
+	}
+
+	function actionCommentDeleteRequest()
+	{
+		const url = api.deleteActionComment;
+		const errMsg = `댓글 삭제 ${message.ajaxError}`;
+		const param = {
+			"comment_uuid" : g_delete_action_comment_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
+	}
+
+	function deleteActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteActionCommentSuccess);
+	}
+
+	function deleteActionCommentSuccess()
+	{
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
+	}
+
+	export function onSubmitActionComment()
+	{
+		if (commentActionValid())
+			sweetConfirm(message.create, createActionCommentRequest);
+	}
+
+	function commentActionValid()
+	{
+		if (isEmpty(commentAction.val()))
+		{
+			sweetToast(`댓글은 ${message.required}`);
+			commentAction.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function createActionCommentRequest()
+	{
+		const url = api.createActionComment;
+		const errMsg = `댓글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"action_uuid" : g_action_uuid,
+			"comment" : commentAction.val().trim(),
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionCommentReqCallback, errMsg, false);
+	}
+
+	function createActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, createActionCommentSuccess)
+	}
+
+	function createActionCommentSuccess()
+	{
+		commentAction.val('');
+		initActionCommentLastIdx();
+		initActionCommentWrap();
+		getActionComments(g_view_page_length);
 	}
 
 	function buildPagination(data)
@@ -578,135 +707,6 @@
 	function cancelWarningReqCallback(data)
 	{
 		sweetToastAndCallback(data, getDetailAction);
-	}
-
-	export function onSubmitActionComment()
-	{
-		if (commentActionValid())
-			sweetConfirm(message.create, createActionCommentRequest);
-	}
-
-	function commentActionValid()
-	{
-		if (isEmpty(commentAction.val()))
-		{
-			sweetToast(`댓글은 ${message.required}`);
-			commentAction.trigger('focus');
-			return false;
-		}
-
-		return true;
-	}
-
-	function createActionCommentRequest()
-	{
-		const url = api.createActionComment;
-		const errMsg = `댓글 등록 ${message.ajaxError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"action_uuid" : g_action_uuid,
-			"comment" : commentAction.val().trim(),
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionCommentReqCallback, errMsg, false);
-	}
-
-	function createActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, createActionCommentSuccess)
-	}
-
-	function createActionCommentSuccess()
-	{
-		commentAction.val('');
-		initActionCommentLastIdx();
-		initActionCommentWrap();
-		getActionComments(g_view_page_length);
-	}
-
-	let g_parent_uuid;
-	let g_target_profile_uuid;
-	let g_target_nickname;
-	let g_reply_value;
-	function onSubmitActionReply(obj)
-	{
-		const replyEl = $(obj).parents('.reply-table');
-		g_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
-		g_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
-		g_target_nickname = $(replyEl).find('.target-nickname').val();
-		g_reply_value = $(replyEl).find('.reply-action').val().trim();
-
-		if (replyActionValid())
-			sweetConfirm(message.create, createActionReplyRequest);
-	}
-
-	function replyActionValid()
-	{
-		if (isEmpty(g_reply_value))
-		{
-			sweetToast(`답글은 ${message.required}`);
-			return false;
-		}
-
-		return true;
-	}
-
-	function createActionReplyRequest()
-	{
-		const url = api.createActionComment;
-		const errMsg = `답글 등록 ${message.ajaxError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"action_uuid" : g_action_uuid,
-			"comment" : g_reply_value,
-			"mention" : [{ "profile_uuid": g_target_profile_uuid, "profile_nickname": g_target_nickname}],
-			"parent_comment_uuid" : g_parent_uuid,
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionReplyCallback, errMsg, false);
-	}
-
-	function createActionReplyCallback(data)
-	{
-		sweetToastAndCallback(data, createActionReplySuccess);
-	}
-
-	function createActionReplySuccess()
-	{
-		onClickModalReplyActionClose();
-		initActionCommentLastIdx();
-		initActionCommentWrap();
-		getActionComments(g_view_page_length);
-	}
-
-	let g_delete_action_comment_uuid;
-	function onSubmitDeleteActionComment(obj)
-	{
-		g_delete_action_comment_uuid = $(obj).data('uuid');
-		sweetConfirm(message.delete, actionCommentDeleteRequest);
-	}
-
-	function actionCommentDeleteRequest()
-	{
-		const url = api.deleteActionComment;
-		const errMsg = `댓글 삭제 ${message.ajaxError}`;
-		const param = {
-			"comment_uuid" : g_delete_action_comment_uuid,
-		}
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
-	}
-
-	function deleteActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteActionCommentSuccess);
-	}
-
-	function deleteActionCommentSuccess()
-	{
-		initActionCommentLastIdx();
-		initActionCommentWrap();
-		getActionComments(g_view_page_length);
 	}
 
 	function initActionCommentPageNum()

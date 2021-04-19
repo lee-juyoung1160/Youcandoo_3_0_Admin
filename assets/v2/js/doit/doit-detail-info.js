@@ -36,7 +36,7 @@
 	btnUpdateMission,
 	btnBan,
 	createCommentWrap,
-	actionCommentWrap, btnUpdateTalk, btnDeleteTalk, btnCreateTalk
+	actionCommentWrap, btnUpdateTalk, btnDeleteTalk, btnCreateTalk, talkCommentWrap, createTalkCommentWrap
 } from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
@@ -76,13 +76,15 @@
 
 	export let isSponsorDoit;
 	export let g_doit_uuid;
+	export let g_leader_profile_uuid;
 	function buildDetail(data)
 	{
 		const { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
-			public_type, approve_member, question, answer_type, doit_image_url } = data.data;
+			public_type, approve_member, question, answer_type, doit_image_url, profile_uuid } = data.data;
 
 		isSponsorDoit = doit_type === 'sponsor';
 		g_doit_uuid = doit_uuid;
+		g_leader_profile_uuid = profile_uuid;
 
 		toggleButtons(doit_status);
 
@@ -213,9 +215,12 @@
 			btnUpdateMission.remove();
 			btnBan.remove();
 			btnCreateMission.remove();
-			createCommentWrap.remove();
 			actionCommentWrap.removeClass('col-8');
 			actionCommentWrap.addClass('col-12');
+			createCommentWrap.remove();
+			talkCommentWrap.removeClass('col-8');
+			talkCommentWrap.addClass('col-12');
+			createTalkCommentWrap.remove();
 			btnCreateTalk.parent('card').remove();
 			btnUpdateTalk.remove();
 			btnDeleteTalk.remove();

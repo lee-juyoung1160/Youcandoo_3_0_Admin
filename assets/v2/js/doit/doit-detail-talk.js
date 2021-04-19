@@ -1,28 +1,28 @@
 
 	import {
-		modalCreateTalk,
-		modalBackdrop,
-		talkDetailForm,
-		talkListForm,
-		talkUpdateForm,
-		talk,
-		searchTalkDateFrom,
-		searchTalkDateTo,
-		modalAttach,
-		modalAttachContentWrap,
-		talkAttachmentWrap,
-		rdoAttachType,
-		selTalkDateType,
-		selTalkPageLength,
-		talkTable,
-		chkNoticeTalk,
-		infoTalkNickname,
-		infoTalkCommentCount,
-		infoTalkLikeCount,
-		infoTalkContent,
-		infoTalkCreated,
-		infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, createTalkCommentWrap,
-	} from "../modules/elements.js";
+	modalCreateTalk,
+	modalBackdrop,
+	talkDetailForm,
+	talkListForm,
+	talkUpdateForm,
+	talk,
+	searchTalkDateFrom,
+	searchTalkDateTo,
+	modalAttach,
+	modalAttachContentWrap,
+	talkAttachmentWrap,
+	rdoAttachType,
+	selTalkDateType,
+	selTalkPageLength,
+	talkTable,
+	chkNoticeTalk,
+	infoTalkNickname,
+	infoTalkCommentCount,
+	infoTalkLikeCount,
+	infoTalkContent,
+	infoTalkCreated,
+	infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, createTalkCommentWrap, commentTalk,
+} from "../modules/elements.js";
 	import {
 		overflowHidden,
 		onErrorImage,
@@ -32,7 +32,7 @@
 	} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -165,11 +165,11 @@
 	let g_talk_comment_page_num = 1;
 	let g_talk_comment_page_size = 1;
 	let g_talk_uuid;
-	let g_talk_dx;
+	let g_talk_idx;
 	let g_talk_is_notice;
 	function onClickDetailTalk(obj)
 	{
-		g_talk_dx = $(obj).data('idx');
+		g_talk_idx = $(obj).data('idx');
 		g_talk_is_notice = $(obj).data('notice');
 		g_param_view_page_length = 10;
 		initTalkCommentPageNum();
@@ -184,7 +184,7 @@
 		const url = api.detailTalk;
 		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = {
-			"idx" : g_talk_dx,
+			"idx" : g_talk_idx,
 			"is_notice" : g_talk_is_notice,
 		};
 
@@ -288,7 +288,7 @@
 
 	function buildActionComments(data)
 	{
-		if ($('#btnViewMoreTalkComment').length > 0) $('#btnViewMore').remove();
+		if ($('#btnViewMoreTalkComment').length > 0) $('#btnViewMoreTalkComment').remove();
 
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
@@ -338,7 +338,7 @@
 											<input type="hidden" class="parent-comment-uuid" value="${comment_uuid}">
 											<input type="hidden" class="target-profile-uuid" value="${profile_uuid}">
 											<input type="hidden" class="target-nickname" value="${nickname}">
-											<textarea class="length-input reply-action" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
+											<textarea class="length-input reply-talk" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
 											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
 										</div>
 									</td>
@@ -354,7 +354,7 @@
 						</div>
 					</div>`
 					: '';
-				const btnDeleteCommentEl = isSponsorDoit
+				const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
 					? `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`
 					: '';
 
@@ -370,9 +370,6 @@
 						</div>
 						<div class="detail-data">
 							${comment_body}
-						</div>
-						<div class="img-wrap">
-							<img src="/assets/v2/img/profile-1.png" alt="">
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-heart"></i> 111</span>
@@ -408,7 +405,7 @@
 	function buildTalkCommentPagination()
 	{
 		let btnViewMoreEl = ''
-		if ($('#btnViewMore').length === 0 && g_talk_comment_page_num !== g_talk_comment_page_size)
+		if ($('#btnViewMoreTalkComment').length === 0 && g_talk_comment_page_num !== g_talk_comment_page_size)
 			btnViewMoreEl =
 				`<button id="btnViewMoreTalkComment" type="button" class="btn-more">더보기(${g_talk_comment_page_num}/${g_talk_comment_page_size}) 
 					<i class="fas fa-sort-down"></i>
@@ -447,13 +444,50 @@
 		g_talk_comment_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
 		g_talk_comment_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
 		g_talk_comment_target_nickname = $(replyEl).find('.target-nickname').val();
-		g_talk_reply_value = $(replyEl).find('.reply-talk').val().trim();
+		g_talk_reply_value = $(replyEl).find('.reply-talk').val();
 
-		/*if (replyTalkValid())
-			sweetConfirm(message.create, createReplyTalkRequest);*/
+		if (replyTalkValid())
+			sweetConfirm(message.create, createReplyTalkCommentReq);
 	}
 
+	function replyTalkValid()
+	{
+		if (isEmpty(g_talk_reply_value))
+		{
+			sweetToast(`답글은 ${message.required}`);
+			return false;
+		}
 
+		return true;
+	}
+
+	function createReplyTalkCommentReq()
+	{
+		const url = api.createTalkComment;
+		const errMsg = `답글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"board_uuid" : g_talk_uuid,
+			"comment" : g_talk_reply_value.trim(),
+			"mention" : [{ "profile_uuid": g_talk_comment_target_profile_uuid, "profile_nickname": g_talk_comment_target_nickname}],
+			"parent_comment_uuid" : g_talk_comment_parent_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReplyTalkCommentCallback, errMsg, false);
+	}
+
+	function createReplyTalkCommentCallback(data)
+	{
+		sweetToastAndCallback(data, createReplyTalkCommentSuccess);
+	}
+
+	function createReplyTalkCommentSuccess()
+	{
+		onClickModalReplyTalkClose();
+		initTalkCommentLastIdx();
+		initTalkCommentWrap();
+		getTalkCommentList(g_param_view_page_length);
+	}
 
 	let g_delete_talk_comment_uuid;
 	function onSubmitDeleteActionComment(obj)
@@ -480,6 +514,50 @@
 
 	function deleteActionCommentSuccess()
 	{
+		initTalkCommentLastIdx();
+		initTalkCommentWrap();
+		getTalkCommentList(g_param_view_page_length);
+	}
+
+	export function onSubmitTalkComment()
+	{
+		if (createTalkCommentValid())
+			sweetConfirm(message.create, createTalkCommentRequest);
+	}
+
+	function createTalkCommentValid()
+	{
+		if (isEmpty(commentTalk.val()))
+		{
+			sweetToast(`댓글은 ${message.required}`);
+			commentTalk.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function createTalkCommentRequest()
+	{
+		const url = api.createTalkComment;
+		const errMsg = `댓글 등록 ${message.ajaxError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"board_uuid" : g_talk_uuid,
+			"comment" : commentTalk.val().trim(),
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createTalkCommentReqCallback, errMsg, false);
+	}
+
+	function createTalkCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, createTalkCommentSuccess);
+	}
+
+	function createTalkCommentSuccess()
+	{
+		commentTalk.val('');
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
 		getTalkCommentList(g_param_view_page_length);

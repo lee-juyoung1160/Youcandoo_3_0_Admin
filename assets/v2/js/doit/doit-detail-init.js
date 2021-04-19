@@ -62,8 +62,8 @@
 	btnSearchAction,
 	selActionPageLength,
 	btnSendWarnings,
-	btnSubmitSendWarning, btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk
-} from '../modules/elements.js';
+	btnSubmitSendWarning, btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk
+	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -100,15 +100,15 @@
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
-		buildTalkTable,
-		onClickBtnCreateTalk,
-		initSearchTalkForm,
-		showTalkListForm,
-		onClickBtnUpdateTalk,
-		onChangeAttachType,
-		onSubmitSearchTalk,
-		onSubmitTalk
-	} from "./doit-detail-talk.js";
+	buildTalkTable,
+	onClickBtnCreateTalk,
+	initSearchTalkForm,
+	showTalkListForm,
+	onClickBtnUpdateTalk,
+	onChangeAttachType,
+	onSubmitSearchTalk,
+	onSubmitTalk, onSubmitTalkComment
+} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -201,6 +201,7 @@
 		btnBackTalkList	.on('click', function () { showTalkListForm(); });
 		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
 		btnSubmitTalk.on('click', function () { onSubmitTalk(); });
+		btnSubmitCommentTalk.on('click', function () { onSubmitTalkComment(); });
 	});
 
 	function onClickTab(selectedTab)

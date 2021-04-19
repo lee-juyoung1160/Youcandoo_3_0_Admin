@@ -2,7 +2,7 @@
     /** 공통 엘리먼트 **/
     export const body       = $('body');
     export const section    = $('section');
-    export const selectEls  = $('select');
+    export const selectEls  = $('.search-wrap select');
     export const img        = $('img');
     export const btnMenuToggle   = $('.side-toggle-btn');
     export const sideBar    = $('aside.main-menu');
@@ -221,6 +221,22 @@
     export const modalMemberInfoQuestion = $("#modalMemberInfoQuestion");
     export const modalMemberInfoAnswer = $("#modalMemberInfoAnswer");
     export const btnBan = $("#btnBan");
+
+    export const ucdListForm = $("#ucdListForm");
+    export const publicWalletBalance = $("#publicWalletBalance");
+    export const btnSaveUcdWallet = $("#btnSaveUcdWallet");
+    export const searchUcdDateFrom = $("#searchUcdDateFrom");
+    export const searchUcdDateTo = $("#searchUcdDateTo");
+    export const selUcdSearchType = $("#selUcdSearchType");
+    export const ucdKeyword = $("#ucdKeyword");
+    export const btnSearchUcd = $("#btnSearchUcd");
+    export const btnResetSearchUcd = $("#btnResetSearchUcd");
+    export const selUcdPageLength = $("#selUcdPageLength");
+    export const modalSaveUcdWallet = $("#modalSaveUcdWallet");
+    export const rdoSaveUCdType = $("input[name=radio-save-ucd-type]");
+    export const saveWalletAmount = $("#saveWalletAmount");
+    export const saveWalletDesc = $("#saveWalletDesc");
+    export const btnSubmitSaveUcdWallet = $("#btnSubmitSaveUcdWallet");
 
     export const btnBackActionList = $("#btnBackActionList");
     export const actionListForm = $("#actionListForm");

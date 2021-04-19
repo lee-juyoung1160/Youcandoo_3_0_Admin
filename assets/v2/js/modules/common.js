@@ -218,8 +218,7 @@
     export function initSelectOption()
     {
         selectEls.each(function () {
-            if (this.id !== 'selPageLength')
-                $(this).children().eq(0).prop("selected", true);
+            $(this).children().eq(0).prop("selected", true);
         });
     }
 

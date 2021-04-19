@@ -67,7 +67,13 @@
 	selTalkPageLength,
 	btnSubmitTalk,
 	btnSubmitCommentTalk,
-	btnDeleteTalk, rdoUpdateAttachType, btnSubmitUpdateTalk
+	btnDeleteTalk,
+	rdoUpdateAttachType,
+	btnSubmitUpdateTalk,
+	selUcdPageLength,
+	searchUcdDateTo,
+	searchUcdDateFrom,
+	btnSaveUcdWallet, saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveUcdWallet
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -102,6 +108,13 @@
 		onChangeSelMemberFilter,
 		searchJoinMember, banMember, searchApplyMember
 	} from "./doit-detail-member.js";
+	import {
+		showUcdListForm,
+		initSearchUcdForm,
+		onClinkBtnSaveUcdWallet,
+		onSubmitSearchUcd,
+		onSubmitSaveUcdWallet
+	} from "./doit-detail-ucd.js";
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
@@ -125,8 +138,6 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		initSearchDatepickerMaxDateToday();
-		initSearchActionForm();
-		initSearchTalkForm();
 		getCategoryList();
 		/** 상세 불러오기 **/
 		getDetail();
@@ -182,6 +193,16 @@
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember() });
 
+		initPageLength(selUcdPageLength);
+		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		searchUcdDateTo.on('change', function () { onChangeSearchDateTo(); });
+		btnSearchUcd.on('click', function () { onSubmitSearchUcd(); });
+		btnResetSearchUcd.on('click', function () { initSearchUcdForm(); });
+		selUcdPageLength.on('change', function () { onSubmitSearchUcd(); });
+		btnSaveUcdWallet.on('click', function () { onClinkBtnSaveUcdWallet(); });
+		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		btnSubmitSaveUcdWallet.on('click', function () { onSubmitSaveUcdWallet(); });
+
 		initPageLength(selActionPageLength);
 		btnSearchAction.on('click', function () { onSubmitSearchActions(); });
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
@@ -231,7 +252,8 @@
 				//getDetail();
 				break;
 			case '#tabDoitUcd' :
-				//getDetail();
+				showUcdListForm();
+				initSearchUcdForm();
 				break;
 			case '#tabDoitAction' :
 				showActionListForm();
@@ -240,6 +262,7 @@
 				break;
 			case '#tabDoitTalk' :
 				showTalkListForm();
+				initSearchTalkForm();
 				buildTalkTable();
 				break;
 		}

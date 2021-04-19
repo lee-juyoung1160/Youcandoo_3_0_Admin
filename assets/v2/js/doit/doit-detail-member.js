@@ -367,6 +367,46 @@
 		$('.toast-box').hide();
 	}
 
+	function buildRewardMember()
+	{
+		rewardMemberTable.DataTable({
+			data: rewardMembers,
+			columns: [
+				{title: "닉네임",    		data: "profile_uuid",  		width: "20%" }
+				,{title: "P-ID", 		data: "profile_uuid",		width: "50%" }
+				,{title: "보유 UCD",    	data: "profile_uuid",  		width: "20%" }
+				,{title: "",    		data: "profile_uuid",  		width: "10%",
+					render: function (data, type, row, meta) {
+						return `<button type="button" class="btn-xs btn-text-red btn-delete-reward-member" data-row="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 5,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(3).find('button').on('click', function () { deleteRewardMemberTableRow(this); });
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+			}
+		});
+	}
+
+	function deleteRewardMemberTableRow(obj)
+	{
+		let idx = $(obj).data('row');
+		rewardMembers.splice(idx, 1);
+
+		$(obj).closest('tr').remove();
+
+		buildRewardMember();
+	}
+
 	export function onClickModalSaveUcdOpen()
 	{
 		modalSaveUcd.fadeIn();
@@ -404,49 +444,63 @@
 			sweetToast(data.msg);
 	}
 
-	function buildRewardMember()
-	{
-		rewardMemberTable.DataTable({
-			data: rewardMembers,
-			columns: [
-				{title: "닉네임",    		data: "profile_uuid",  			width: "20%" }
-				,{title: "P-ID", 		data: "profile_uuid",		width: "50%" }
-				,{title: "보유 UCD",    	data: "profile_uuid",  				width: "20%" }
-				,{title: "",    		data: "profile_uuid",  		width: "10%",
-					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red btn-delete-reward-member" data-row="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
-					}
-				}
-			],
-			serverSide: false,
-			paging: true,
-			pageLength: 5,
-			select: false,
-			destroy: true,
-			initComplete: function () {
-			},
-			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(3).find('button').on('click', function () { deleteRewardMemberTableRow(this); });
-			},
-			drawCallback: function (settings) {
-				buildTotalCount(this);
-			}
-		});
-	}
-
-	function deleteRewardMemberTableRow(obj)
-	{
-		let idx = $(obj).data('row');
-		rewardMembers.splice(idx, 1);
-
-		$(obj).closest('tr').remove();
-
-		buildRewardMember();
-	}
-
 	export function onSubmitSaveUcd()
 	{
+		if (saveUcdValid())
+			sweetConfirm(message.create, saveUcdRequest);
+	}
 
+	function saveUcdValid()
+	{
+		if (isEmpty(saveUcdContent.val()))
+		{
+			sweetToast(`내용은 ${message.required}`);
+			saveUcdContent.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(amount.val()))
+		{
+			sweetToast(`적립 UCD는 ${message.required}`);
+			amount.trigger('focus');
+			return false;
+		}
+
+		if (Number(amount.val()) > 1000000)
+		{
+			sweetToast(message.maxAvailableUserUcd);
+			amount.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function saveUcdRequest()
+	{
+		const url = api.createReward;
+		const errMsg = label.submit+message.ajaxLoadError;
+		let targetMembers = [];
+		targetMembers.push("PID-8C1C31C8-B900-C8EF-4B9E-8DCCAA0F19C9");
+		targetMembers.push("PID-0226AA2A-482B-9583-FC58-6ED9AE1AD954");
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"description" : saveUcdContent.val().trim(),
+			"value" : amount.val().trim(),
+			"profile_list" : targetMembers,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
+	}
+
+	function saveUcdReqCallback(data)
+	{
+		sweetToastAndCallback(data, saveUcdSuccess);
+	}
+
+	function saveUcdSuccess()
+	{
+		fadeoutModal();
 	}
 
 	export function onClickModalSendNoticeOpen()

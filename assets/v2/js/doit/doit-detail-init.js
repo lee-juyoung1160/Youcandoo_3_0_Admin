@@ -73,8 +73,8 @@
 	selUcdPageLength,
 	searchUcdDateTo,
 	searchUcdDateFrom,
-	btnSaveUcdWallet, saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveUcdWallet
-	} from '../modules/elements.js';
+	btnSaveUcdWallet, saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveUcdWallet, btnSubmitSaveUcd
+} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -106,7 +106,7 @@
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
 		onChangeSelMemberFilter,
-		searchJoinMember, banMember, searchApplyMember
+		searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd
 	} from "./doit-detail-member.js";
 	import {
 		showUcdListForm,
@@ -181,17 +181,18 @@
 		initPageLength(selApplyMemberPageLength);
 		btnSearch.on('click', function () { searchJoinMember(); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
+		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
 		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
-		amount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnBan.on('click', function () { banMember(); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
-		selApplyMemberPageLength.on('change', function () { searchApplyMember() });
+		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });
+		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
 
 		initPageLength(selUcdPageLength);
 		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -200,7 +201,7 @@
 		btnResetSearchUcd.on('click', function () { initSearchUcdForm(); });
 		selUcdPageLength.on('change', function () { onSubmitSearchUcd(); });
 		btnSaveUcdWallet.on('click', function () { onClinkBtnSaveUcdWallet(); });
-		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnSubmitSaveUcdWallet.on('click', function () { onSubmitSaveUcdWallet(); });
 
 		initPageLength(selActionPageLength);

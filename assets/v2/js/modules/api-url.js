@@ -43,6 +43,7 @@
         joinMemberList : baseApiUrl + 'member/get/list',
         infoJoinMember : baseApiUrl + 'member/get/profile',
         rewardMemberList : baseApiUrl + 'member/get/reward/profile',
+        createReward : baseApiUrl + 'member/set/reward',
         countMember : baseApiUrl + 'member/get/count',
         banMember : baseApiUrl + 'member/set/retire',
         applyMemberList : baseApiUrl + 'member/get/applylist',

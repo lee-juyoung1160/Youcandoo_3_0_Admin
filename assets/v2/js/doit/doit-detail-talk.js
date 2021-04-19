@@ -667,6 +667,34 @@
 		buildTalkTable();
 	}
 
+	export function onSubmitDeleteTalk()
+	{
+		sweetConfirm(message.delete, deleteTalkRequest)
+	}
+
+	function deleteTalkRequest()
+	{
+		const url = api.deleteTAlk;
+		const errMsg = label.delete+message.ajaxError;
+		const param = {
+			"board_uuid" : g_talk_uuid,
+			"is_notice" : g_talk_is_notice,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteTalkCallback, errMsg, false);
+	}
+
+	function deleteTalkCallback(data)
+	{
+		sweetToastAndCallback(data, deleteTalkSuccess);
+	}
+
+	function deleteTalkSuccess()
+	{
+		showTalkListForm();
+		onSubmitSearchTalk();
+	}
+
 	export function onChangeAttachType()
 	{
 		let attachEl = '';

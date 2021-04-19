@@ -1,74 +1,73 @@
 
 	import {
-		modalClose,
-		modalBackdrop,
-		tabUl,
-		tabContents,
-		btnBack,
-		btnList,
-		lengthInput,
-		btnBackDoitList,
-		btnDoitOpen,
-		btnDoitStop,
-		btnDoitDelete,
-		chkIsApply,
-		chkIsQuestion,
-		btnAddKeyword,
-		selCategory,
-		doitImage,
-		btnUpdateDoit,
-		btnSubmitUpdateDoit,
-		btnCreateMission,
-		btnBackMissionList,
-		btnDeleteMission,
-		btnUpdateMission,
-		btnSubmitUpdateMission,
-		btnSubmitMission,
-		btnCreateTalk,
-		selMemberFilter,
-		btnPendingMembers,
-		btnJoinMembers,
-		btnReset,
-		actionCount,
-		btnResetSearchAction,
-		btnSaveUcd,
-		amount,
-		btnSendWarning,
-		btnSendNotice,
-		btnSearchTalk,
-		btnResetSearchTalk,
-		btnBackTalkList,
-		btnUpdateTalk,
-		updateTalkImage,
-		searchActionDateFrom,
-		searchActionDateTo,
-		searchTalkDateFrom,
-		searchTalkDateTo,
-		dateButtons,
-		missionStartDate,
-		missionEndDate,
-		rdoActionType,
-		updateMissionStartDate,
-		updateMissionEndDate,
-		rdoUpdateActionType,
-		selJoinMemberPageLength,
-		selApplyMemberPageLength,
-		btnSearch,
-		selSort,
-		btnBan,
-		btnBackActionList,
-		chkPermanent,
-		chkUpdatePermanent,
-		btnSearchAction,
-		selActionPageLength,
-		btnSendWarnings,
-		btnSubmitSendWarning,
-		btnSubmitCommentAction,
-		rdoAttachType,
-		selTalkPageLength,
-		btnSubmitTalk,
-		btnSubmitCommentTalk,
-		btnDeleteTalk
+	modalClose,
+	modalBackdrop,
+	tabUl,
+	tabContents,
+	btnBack,
+	btnList,
+	lengthInput,
+	btnBackDoitList,
+	btnDoitOpen,
+	btnDoitStop,
+	btnDoitDelete,
+	chkIsApply,
+	chkIsQuestion,
+	btnAddKeyword,
+	selCategory,
+	doitImage,
+	btnUpdateDoit,
+	btnSubmitUpdateDoit,
+	btnCreateMission,
+	btnBackMissionList,
+	btnDeleteMission,
+	btnUpdateMission,
+	btnSubmitUpdateMission,
+	btnSubmitMission,
+	btnCreateTalk,
+	selMemberFilter,
+	btnPendingMembers,
+	btnJoinMembers,
+	btnReset,
+	actionCount,
+	btnResetSearchAction,
+	btnSaveUcd,
+	amount,
+	btnSendWarning,
+	btnSendNotice,
+	btnSearchTalk,
+	btnResetSearchTalk,
+	btnBackTalkList,
+	btnUpdateTalk,
+	searchActionDateFrom,
+	searchActionDateTo,
+	searchTalkDateFrom,
+	searchTalkDateTo,
+	dateButtons,
+	missionStartDate,
+	missionEndDate,
+	rdoActionType,
+	updateMissionStartDate,
+	updateMissionEndDate,
+	rdoUpdateActionType,
+	selJoinMemberPageLength,
+	selApplyMemberPageLength,
+	btnSearch,
+	selSort,
+	btnBan,
+	btnBackActionList,
+	chkPermanent,
+	chkUpdatePermanent,
+	btnSearchAction,
+	selActionPageLength,
+	btnSendWarnings,
+	btnSubmitSendWarning,
+	btnSubmitCommentAction,
+	rdoAttachType,
+	selTalkPageLength,
+	btnSubmitTalk,
+	btnSubmitCommentTalk,
+	btnDeleteTalk, rdoUpdateAttachType, btnSubmitUpdateTalk
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -113,7 +112,7 @@
 		onClickBtnUpdateTalk,
 		onChangeAttachType,
 		onSubmitSearchTalk,
-		onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk
+		onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk, onChangeUpdateAttachType, onSubmitUpdateTalk
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -197,18 +196,19 @@
 
 		initPageLength(selTalkPageLength);
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
+		rdoUpdateAttachType.on('change', function () { onChangeUpdateAttachType(); });
 		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnSearchTalk.on('click', function () { onSubmitSearchTalk(); });
 		selTalkPageLength.on('change', function () { onSubmitSearchTalk(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
-		updateTalkImage	.on('change', function () { onChangeValidateImage(this); });
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
 		btnBackTalkList	.on('click', function () { showTalkListForm(); });
 		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
 		btnSubmitTalk.on('click', function () { onSubmitTalk(); });
 		btnSubmitCommentTalk.on('click', function () { onSubmitTalkComment(); });
 		btnDeleteTalk.on('click', function () { onSubmitDeleteTalk(); });
+		btnSubmitUpdateTalk.on('click', function () { onSubmitUpdateTalk(); });
 	});
 
 	function onClickTab(selectedTab)

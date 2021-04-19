@@ -1608,7 +1608,7 @@
 
                         <div class="comment-wrap row">
                             <div class="col-8 comment-list" id="talkCommentWrap">
-                                <div class="card">
+                                <!--<div class="card">
                                     <p class="message">작성된 댓글이 없습니다.</p>
                                 </div>
                                 <div class="card">
@@ -1623,14 +1623,14 @@
                                     <div class="detail-data">
                                         대박사건... 인증계를 뒤집어놓으셨다...!
                                     </div>
-                                    <!--<div class="img-wrap">
+                                    &lt;!&ndash;<div class="img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="">
-                                    </div>-->
+                                    </div>&ndash;&gt;
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
                                         <span><i class="fas fa-comments"></i>  <a class="link">111</a></span>
                                         <a id="testReplyTalk"  class="link">답글달기</a>
-                                        <!-- 답글달기 -->
+                                        &lt;!&ndash; 답글달기 &ndash;&gt;
                                         <div class="modal-content comments-creat" id="modalReplyTalk">
                                             <div class="modal-header clearfix">
                                                 <h5>답글달기</h5>
@@ -1650,7 +1650,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <!--<tr>
+                                                    &lt;!&ndash;<tr>
                                                         <th>
                                                             첨부파일
                                                         </th>
@@ -1664,7 +1664,7 @@
 &lt;!&ndash;                                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">&ndash;&gt;
 &lt;!&ndash;                                                            </div>&ndash;&gt;
                                                         </td>
-                                                    </tr>-->
+                                                    </tr>&ndash;&gt;
                                                     <tr>
                                                         <td colspan="2">
                                                             <div class="right-wrap">
@@ -1688,9 +1688,9 @@
                                                 <div class="detail-data">
                                                     대박사건... 인증계를 뒤집어놓으셨다...!
                                                 </div>
-                                                <!--<div class="img-wrap">
+                                                &lt;!&ndash;<div class="img-wrap">
                                                     <img src="/assets/v2/img/profile-1.png" alt="">
-                                                </div>-->
+                                                </div>&ndash;&gt;
                                             </li>
                                             <li>
                                                 <div class="top clearfix">
@@ -1704,8 +1704,6 @@
                                             </li>
                                         </ul>
                                     </div>
-
-
                                 </div>
                                 <div class="card">
                                     <div class="top clearfix">
@@ -1757,7 +1755,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn-more">더보기 <i class="fas fa-sort-down"></i></button>
+                                <button type="button" class="btn-more">더보기 <i class="fas fa-sort-down"></i></button>-->
                                 
                             </div>
 
@@ -1832,64 +1830,68 @@
                                 <th>첨부파일</th>
                                 <td>
                                     <div class="radio-wrap file-value">
-                                        <input id="r48" type="radio" name="radio-action-type" value="image" checked>
+                                        <input id="r55" type="radio" name="radio-update-attach-type" value="" checked>
+                                        <label for="r55"><span></span>첨부파일 없음</label>
+
+                                        <input id="r48" type="radio" name="radio-update-attach-type" value="image">
                                         <label for="r48"><span></span>사진</label>
 
-                                        <input id="r49" type="radio" name="radio-action-type" value="video">
+                                        <input id="r49" type="radio" name="radio-update-attach-type" value="video">
                                         <label for="r49"><span></span>영상</label>
 
-                                        <input id="r50" type="radio" name="radio-action-type" value="voice">
+                                        <input id="r50" type="radio" name="radio-update-attach-type" value="voice">
                                         <label for="r50"><span></span>음성</label>
                                     </div>
 
-                                    <!--이미지-->
-                                    <p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
-                                    <div class="file-wrap preview-image">
-                                        <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="updateTalkImage">업로드</label>
-                                        <input type="file" id="updateTalkImage" class="upload-hidden" data-width="650" data-compare="이상">
-                                    </div>
-                                    <div class="detail-img-wrap">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
+                                    <div id="updateTalkAttachWrap">
+                                        <!--이미지-->
+                                        <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+                                        <div class="file-wrap preview-image">
+                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                            <label for="updateTalkImage">업로드</label>
+                                            <input type="file" id="updateTalkImage" class="upload-hidden" data-width="650" data-compare="이상">
+                                        </div>
+                                        <div class="detail-img-wrap">
+                                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        </div>-->
 
-                                    <!--
+                                        <!--
 
-                                    <영상>
-                                    <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
-                                    <div class="file-wrap preview-image">
-                                        <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="updateTalkImage">업로드</label>
-                                        <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                        <영상>
+                                        <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+                                        <div class="file-wrap preview-image">
+                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                            <label for="updateTalkImage">업로드</label>
+                                            <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                        </div>
+                                        <div class="detail-img-wrap">
+                                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        </div>
+
+                                        <p class="desc-sub">영상</p>
+                                        <div class="file-wrap preview-image">
+                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                            <label for="updateTalkImage">업로드</label>
+                                            <input type="file" class="upload-hidden">
+                                        </div>
+
+                                        <음성>
+                                        <p class="desc-sub">음성</p>
+                                        <div class="file-wrap preview-image">
+                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                            <label for="updateTalkImage">업로드</label>
+                                            <input type="file" class="upload-hidden">
+                                        </div>
+
+                                        -->
                                     </div>
-                                    <div class="detail-img-wrap">
-                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                                    </div>
-
-                                    <p class="desc-sub">영상</p>
-                                    <div class="file-wrap preview-image">
-                                        <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="updateTalkImage">업로드</label>
-                                        <input type="file" class="upload-hidden">
-                                    </div>
-
-                                    <음성>
-                                    <p class="desc-sub">음성</p>
-                                    <div class="file-wrap preview-image">
-                                        <input class="upload-name" value="파일선택" disabled="disabled">
-                                        <label for="updateTalkImage">업로드</label>
-                                        <input type="file" class="upload-hidden">
-                                    </div>
-
-                                    -->
-
                                 </td>
                             </tr>
                             <tr>
                                 <th>구분</th>
                                 <td>
                                     <div class="checkbox-wrap">
-                                        <input id="c20" type="checkbox" name="update-chk-notice-talk">
+                                        <input id="c20" type="checkbox" name="chk-update-notice-talk">
                                         <label for="c20"><span></span>공지로 등록</label>
                                     </div>
                                 </td>
@@ -2320,8 +2322,8 @@
                         </th>
                         <td>
                             <div class="radio-wrap file-value">
-                                <input id="r500" type="radio" name="radio-attach-type" value="" checked>
-                                <label for="r500"><span></span>첨부파일 없음</label>
+                                <input id="r54" type="radio" name="radio-attach-type" value="" checked>
+                                <label for="r54"><span></span>첨부파일 없음</label>
 
                                 <input id="r51" type="radio" name="radio-attach-type" value="image">
                                 <label for="r51"><span></span>사진</label>

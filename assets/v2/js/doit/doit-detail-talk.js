@@ -21,15 +21,21 @@
 	infoTalkLikeCount,
 	infoTalkContent,
 	infoTalkCreated,
-	infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, createTalkCommentWrap, commentTalk,
+	infoTalkIsBlind,
+	infoTalkAttachWrap,
+	talkCommentWrap,
+	createTalkCommentWrap,
+	commentTalk,
+	updateTalk,
+	rdoUpdateAttachType, chkUpdateNoticeTalk, updateExampleWrap, updateTalkAttachWrap,
 } from "../modules/elements.js";
 	import {
-		overflowHidden,
-		onErrorImage,
-		onChangeValidateImage,
-		onChangeValidationVideo,
-		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength
-	} from "../modules/common.js";
+	overflowHidden,
+	onErrorImage,
+	onChangeValidateImage,
+	onChangeValidationVideo,
+	onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
+} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
@@ -60,7 +66,7 @@
 		talkUpdateForm.show();
 	}
 
-	export function showDetailTalk()
+	export function showTalkDetailForm()
 	{
 		talkListForm.hide();
 		talkDetailForm.show();
@@ -123,13 +129,13 @@
 			columns: [
 				{title: "구분",    	data: "is_notice",  	width: "10%",
 					render: function (data) {
-						return data === 'Y' ? label.noticeTalk : label.generalTalk;
+						return data === 'Y' ? label.notice : label.general;
 					}
 				}
 				,{title: "작성자",    data: "nickname",  		width: "15%" }
 				,{title: "내용", 	data: "board_body",		width: "30%",
 					render: function (data, type, row, meta) {
-						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}">${data}</a>`;
+						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}">${isEmpty(data) ? label.dash : data}</a>`;
 					}
 				}
 				,{title: "댓글수", 	data: "comment_cnt",	width: "5%" }
@@ -175,12 +181,13 @@
 		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		showDetailTalk();
+		showTalkDetailForm();
 		getDetailTalk();
 	}
 
 	function getDetailTalk()
 	{
+		console.log('getDetailTalk')
 		const url = api.detailTalk;
 		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = {
@@ -197,15 +204,18 @@
 		{
 			g_talk_uuid = data.data.board_uuid;
 			buildTalkDetail(data);
-			getTalkCommentList();
+			if (data.data.is_notice === 'N')
+				getTalkComments();
 		}
 		else
 			sweetToast(data.msg);
 	}
 
+	let g_talk_attach_type;
 	function buildTalkDetail(data)
 	{
-		const {board_uuid, created, nickname, board_body, comment_cnt, like_count, is_notice, contents_type, contents_url, thumbnail_url} = data.data;
+		const {created, nickname, board_body, comment_cnt, like_count, is_notice, contents_type,} = data.data;
+		g_talk_attach_type = contents_type;
 		if (is_notice === 'Y')
 		{
 			talkCommentWrap.hide();
@@ -225,8 +235,16 @@
 		infoTalkAttachWrap.html(buildTalkAttachWrap(data.data));
 
 		/** 수정폼 **/
-
+		updateTalk.val(board_body);
+		rdoUpdateAttachType.each(function () {
+			if ($(this).val() === contents_type)
+				$(this).prop('checked', true);
+		})
+		buildUpdateAttachWrap(data.data);
+		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
+		calculateInputLength();
 		onErrorImage();
+
 		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
@@ -268,7 +286,7 @@
 		onErrorImage();
 	}
 
-	function getTalkCommentList(_pageLength)
+	function getTalkComments(_pageLength)
 	{
 		const url = api.talkCommentList;
 		const errMsg = `댓글 목록${message.ajaxLoadError}`;
@@ -278,15 +296,15 @@
 			"last_idx" : g_talk_comment_last_idx
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionCommentsCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTalkCommentsCallback, errMsg, false);
 	}
 
-	function getActionCommentsCallback(data)
+	function getTalkCommentsCallback(data)
 	{
-		isSuccessResp(data) ? buildActionComments(data) : sweetToast(data.msg);
+		isSuccessResp(data) ? buildTalkComments(data) : sweetToast(data.msg);
 	}
 
-	function buildActionComments(data)
+	function buildTalkComments(data)
 	{
 		if ($('#btnViewMoreTalkComment').length > 0) $('#btnViewMoreTalkComment').remove();
 
@@ -418,7 +436,7 @@
 	{
 		g_talk_comment_page_num++
 		g_param_view_page_length += 10;
-		getTalkCommentList();
+		getTalkComments();
 	}
 
 	function onClickModalReplyTalkOpen(obj)
@@ -486,7 +504,7 @@
 		onClickModalReplyTalkClose();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkCommentList(g_param_view_page_length);
+		getTalkComments(g_param_view_page_length);
 	}
 
 	let g_delete_talk_comment_uuid;
@@ -516,7 +534,7 @@
 	{
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkCommentList(g_param_view_page_length);
+		getTalkComments(g_param_view_page_length);
 	}
 
 	export function onSubmitTalkComment()
@@ -560,7 +578,7 @@
 		commentTalk.val('');
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkCommentList(g_param_view_page_length);
+		getTalkComments(g_param_view_page_length);
 	}
 
 	function initTalkCommentPageNum()
@@ -582,7 +600,7 @@
 	{
 		if (createTalkValid())
 		{
-			const callback = isEmpty(getAttachType()) ? createTalkRequest : talkFileUploadRequest;
+			const callback = isEmpty(getAttachType()) ? createTalkRequest : createTalkAttachRequest;
 			sweetConfirm(message.create, callback);
 		}
 	}
@@ -591,7 +609,7 @@
 	{
 		if (isEmpty(talk.val()))
 		{
-			sweetToast(`톡은 ${message.required}`);
+			sweetToast(`내용은 ${message.required}`);
 			talk.trigger('focus');
 			return false;
 		}
@@ -613,7 +631,7 @@
 		return true;
 	}
 
-	function talkFileUploadRequest()
+	function createTalkAttachRequest()
 	{
 		const url = fileApiV2.mission;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
@@ -695,6 +713,105 @@
 		onSubmitSearchTalk();
 	}
 
+	export function onSubmitUpdateTalk()
+	{
+		if (updateTalkValid())
+		{
+			const callback = (isEmpty(getUpdateAttachType()) || g_talk_attach_type === getUpdateAttachType()) ? updateTalkRequest : updateTalkAttachRequest;
+			sweetConfirm(message.modify, callback);
+		}
+	}
+
+	function updateTalkValid()
+	{
+		if (isEmpty(updateTalk.val()))
+		{
+			sweetToast(`내용은 ${message.required}`);
+			updateTalk.trigger('focus');
+			return false;
+		}
+
+		const updateTalkAttachThumbnail = $("#updateTalkAttachThumbnail");
+		const isChangeAttachType = g_talk_attach_type !== getUpdateAttachType();
+		if (isChangeAttachType && (getUpdateAttachType() === 'video') && updateTalkAttachThumbnail[0].files.length === 0)
+		{
+			sweetToast(`영상 썸네일은 ${message.required}`);
+			return false;
+		}
+
+		const updateTalkAttachment = $("#updateTalkAttachment");
+		if (isChangeAttachType && (!isEmpty(getUpdateAttachType())) && updateTalkAttachment[0].files.length === 0)
+		{
+			sweetToast(`첨부 파일은 ${message.required}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function updateTalkAttachRequest()
+	{
+		const url = fileApiV2.mission;
+		const errMsg = `이미지 등록 ${message.ajaxError}`;
+		let param  = new FormData();
+		param.append('example', $("#updateTalkAttachment")[0].files[0]);
+		if (getUpdateAttachType() === 'video')
+			param.append('thumbnail', $("#updateTalkAttachThumbnail")[0].files[0]);
+
+		ajaxRequestWithFormData(true, url, param, updateTalkRequest, errMsg, false);
+	}
+
+	function updateTalkRequest(data)
+	{
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			const url = api.updateTalk;
+			const errMsg = label.modify+message.ajaxError;
+			const param = {
+				"doit_uuid" : g_doit_uuid,
+				"board_uuid" : g_talk_uuid,
+				"board_body" : updateTalk.val().trim(),
+				"is_notice_update" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
+				"is_notice" : g_talk_is_notice,
+			}
+
+			if (!isEmpty(data))
+			{
+				const talkAttachObj = {
+					"contents_type" : getUpdateAttachType(),
+					"path" : data.image_urls.example
+				}
+
+				if (getUpdateAttachType() === 'video')
+					talkAttachObj['thumbnail_path'] = data.image_urls.thumbnail;
+
+				param["attach"] =  talkAttachObj;
+			}
+
+			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateTalkCallback, errMsg, false);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function updateTalkCallback(data)
+	{
+		if (isSuccessResp(data) && !isEmpty(data.data.new_idx))
+		{
+			g_talk_idx = data.data.new_idx;
+			onSubmitSearchTalk();
+		}
+
+		sweetToastAndCallback(data, updateTalkSuccess);
+	}
+
+	function updateTalkSuccess()
+	{
+		g_talk_is_notice = chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N';
+		showTalkDetailForm();
+		getDetailTalk();
+	}
+
 	export function onChangeAttachType()
 	{
 		let attachEl = '';
@@ -744,8 +861,118 @@
 		}
 	}
 
+	function buildUpdateAttachWrap(_data)
+	{
+		const { contents_type, contents_url, thumbnail_url } = _data;
+		let attachmentEl = '';
+		switch (contents_type) {
+			case 'image' :
+				attachmentEl =
+					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>
+					<div class="detail-img-wrap">
+						<img src="${contents_url}" alt="">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachment").on('change', function () { onChangeValidateImage(this); });
+				break;
+			case 'video' :
+				attachmentEl =
+					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachThumbnail">업로드</label>
+						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>
+					<div class="detail-img-wrap">
+						<img src="${thumbnail_url}" alt="">
+					</div>
+					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachThumbnail").on('change', function () { onChangeValidateImage(this); });
+				$("#updateTalkAttachment").on('change', function () { onChangeValidationVideo(this); });
+				break;
+			case 'voice' :
+				attachmentEl =
+					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachment").on('change', function () { onChangeValidationAudio(this); });
+				break;
+			default :
+				updateTalkAttachWrap.html(attachmentEl);
+		}
+	}
+
+	export function onChangeUpdateAttachType()
+	{
+		let attachmentEl = '';
+		switch (getUpdateAttachType()) {
+			case 'image' :
+				attachmentEl =
+					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachment").on('change', function () { onChangeValidateImage(this); });
+				break;
+			case 'video' :
+				attachmentEl =
+					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachThumbnail">업로드</label>
+						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>
+					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachThumbnail").on('change', function () { onChangeValidateImage(this); });
+				$("#updateTalkAttachment").on('change', function () { onChangeValidationVideo(this); });
+				break;
+			case 'voice' :
+				attachmentEl =
+					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="updateTalkAttachment">업로드</label>
+						<input type="file" id="updateTalkAttachment" class="upload-hidden">
+					</div>`;
+				updateTalkAttachWrap.html(attachmentEl);
+				$("#updateTalkAttachment").on('change', function () { onChangeValidationAudio(this); });
+				break;
+			default :
+				updateTalkAttachWrap.html(attachmentEl);
+		}
+	}
+
 	function getAttachType()
 	{
 		return $("input[name=radio-attach-type]:checked").val();
+	}
+
+	function getUpdateAttachType()
+	{
+		return $("input[name=radio-update-attach-type]:checked").val();
 	}
 

@@ -281,13 +281,12 @@
     export const infoTalkAttachWrap = $("#infoTalkAttachWrap");
     export const talkCommentWrap = $("#talkCommentWrap");
     export const createTalkCommentWrap = $("#createTalkCommentWrap");
-    export const replyTalk = $("#replyTalk");
-    export const btnSubmitReplyTalk = $("#btnSubmitReplyTalk");
     export const commentTalk = $("#commentTalk");
     export const btnSubmitCommentTalk = $("#btnSubmitCommentTalk");
     export const updateTalk = $("#updateTalk");
-    export const updateTalkImage = $("#updateTalkImage");
-    export const updateChkNoticeTalk = $("input[name=update-chk-notice-talk]");
+    export const rdoUpdateAttachType = $("input[name=radio-update-attach-type]");
+    export const updateTalkAttachWrap = $("#updateTalkAttachWrap");
+    export const chkUpdateNoticeTalk = $("input[name=chk-update-notice-talk]");
     export const btnSubmitUpdateTalk = $("#btnSubmitUpdateTalk");
     export const modalAttach = $("#modalAttach");
     export const modalAttachContentWrap = $("#modalAttachContentWrap");

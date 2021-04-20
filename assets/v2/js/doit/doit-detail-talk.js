@@ -818,8 +818,7 @@
 		switch (getAttachType()) {
 			case 'image' :
 				attachEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="talkAttachment">업로드</label>
 						<input type="file" id="talkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -829,8 +828,7 @@
 				break;
 			case 'video' :
 				attachEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="talkAttachThumbnail">업로드</label>
 						<input type="file" id="talkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -868,8 +866,7 @@
 		switch (contents_type) {
 			case 'image' :
 				attachmentEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachment">업로드</label>
 						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -882,8 +879,7 @@
 				break;
 			case 'video' :
 				attachmentEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
 						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -923,8 +919,7 @@
 		switch (getUpdateAttachType()) {
 			case 'image' :
 				attachmentEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachment">업로드</label>
 						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -934,8 +929,7 @@
 				break;
 			case 'video' :
 				attachmentEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
 						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">

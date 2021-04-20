@@ -491,8 +491,7 @@
 		switch (getActionType()) {
 			case 'image' :
 				exampleFileEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExample">업로드</label>
 						<input type="file" id="actionExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -502,8 +501,7 @@
 				break;
 			case 'video' :
 				exampleFileEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExampleThumbnail">업로드</label>
 						<input type="file" id="actionExampleThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -539,8 +537,7 @@
 		switch (mission_type) {
 			case 'image' :
 				updateExampleFileEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateExample">업로드</label>
 						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -553,8 +550,7 @@
 				break;
 			case 'video' :
 				updateExampleFileEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
 						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -592,8 +588,7 @@
 		switch (getUpdateActionType()) {
 			case 'image' :
 				updateExampleFileEl =
-					`<p class="desc-sub">( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateExample">업로드</label>
 						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -603,8 +598,7 @@
 				break;
 			case 'video' :
 				updateExampleFileEl =
-					`<p class="desc-sub">썸네일 ( 이미지 크기 : 650 x 650 )</p>
-					<div class="file-wrap preview-image">
+					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
 						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">

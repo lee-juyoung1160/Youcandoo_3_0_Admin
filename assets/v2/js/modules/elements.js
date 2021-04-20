@@ -398,16 +398,16 @@
     export const btnSubmitAuth = $("#btnSubmitAuth");
 
     /** 회원 **/
+    export const hiddenProfileId = $("#hiddenProfileId");
     export const profileId = $("#profileId");
+    export const userNickname = $("#userNickname");
     export const contact = $("#contact");
     export const balance = $("#balance");
     export const isAuth = $("#isAuth");
-    export const level = $("#level");
+    export const userLevel = $("#userLevel");
     export const btnModalUcd = $("#btnModalUcd");
     export const modalUcd = $("#modalUcd");
-    export const deviceId = $("#deviceId");
-    export const pushToken = $("#pushToken");
-    export const deviceRegisteredDate = $("#deviceRegisteredDate");
+    export const deviceInfoTableBody = $("#deviceInfoTableBody");
     export const openedDoitWrap = $("#openedDoitWrap");
     export const openedDoitTable = $("#openedDoitTable");
     export const joinedDoitWrap = $("#joinedDoitWrap");

@@ -1,25 +1,58 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack, btnList, btnModalUcd, modalUcd, amount, content, memo, modalClose, modalBackdrop,
-	lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, selPageLength, pagination, actionsWrap,
-	profileId, contact, nickname, useremail, balance, isAuth, level, totalActionCount
-} from '../modules/elements.js';
+	btnBack,
+	btnList,
+	btnModalUcd,
+	modalUcd,
+	amount,
+	content,
+	memo,
+	modalClose,
+	modalBackdrop,
+	lengthInput,
+	ulDoitTab,
+	openedDoitWrap,
+	joinedDoitWrap,
+	selPageLength,
+	pagination,
+	actionsWrap,
+	profileId,
+	contact,
+	userNickname,
+	useremail,
+	balance,
+	isAuth,
+	userLevel,
+	totalActionCount,
+	hiddenProfileId,
+	deviceInfoTableBody, openedDoitTable, joinedDoitTable,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
-	import {isEmpty, initInputNumber, isNegative, getPathName, splitReverse} from "../modules/utils.js";
+	import {
+		copyToClipboard,
+		fadeoutModal,
+		historyBack,
+		limitInputLength,
+		overflowHidden,
+		paginate
+	} from "../modules/common.js";
+	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+	import {isEmpty, initInputNumber, isNegative, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 
-	const pathName = getPathName();
-	const memberIdx	= splitReverse(pathName, '/');
+	const g_profile_uuid = hiddenProfileId.val();
 
 	$( () => {
+		initTableDefaultConfig();
 		moveSection();
 		/** 상세 불러오기 **/
-		//getMemberInfo();
+		getBasicInfo();
+		getDeviceInfo();
+		getOpenedDoit();
 		/** 이벤트 **/
 		amount 			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -62,43 +95,74 @@
 		memo.val('');
 	}
 
-	function getMemberInfo()
+	function getBasicInfo()
 	{
 		const url = api.detailMember;
-		const errMsg = label.detailContent+message.ajaxLoadError;
+		const errMsg = `기본정보${message.ajaxLoadError}`;
 		const param = {
-			"idx" : memberIdx
+			"profile_uuid" : g_profile_uuid
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getBasicInfoCallback, errMsg, false);
 	}
 
-	function getMemberInfoCallback(data)
+	function getBasicInfoCallback(data)
 	{
-		if (isSuccessResp(data))
+		isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(data.msg);
+	}
+
+	function buildBasicInfo(data)
+	{
+		const { profile_uuid, nickname, phone, email, is_auth, level, ucd, action_count } = data.data;
+
+		profileId.text(profile_uuid);
+		contact.text(phone);
+		userNickname.text(nickname);
+		useremail.text(email);
+		balance.text(numberWithCommas(ucd));
+		isAuth.text(is_auth);
+		userLevel.text(level);
+		totalActionCount.text(action_count);
+	}
+
+	function getDeviceInfo()
+	{
+		const url = api.deviceInfo;
+		const errMsg = `기기정보${message.ajaxLoadError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDeviceInfoCallback, errMsg, false);
+	}
+
+	function getDeviceInfoCallback(data)
+	{
+		isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(data.msg);
+	}
+
+	function buildDeviceInfo(data)
+	{
+		if (!isEmpty(data.data) && data.data.length > 0)
 		{
-			buildDetail(data)
+			let deviceInfoEl = '';
+			data.data.map(obj => {
+				const {device, client_id, device_token, created} = obj;
+				deviceInfoEl +=
+					`<tr>
+						<td>${device}</td>
+						<td>${client_id}</td>
+						<td>
+							<div><input type="text" class="input-copy" style="width: 150px" value="${device_token}" readonly=""><i class="fas fa-copy"></i></div>
+						</td>
+						<td>${created}</td>
+					</tr>`
+			})
+
+			deviceInfoTableBody.html(deviceInfoEl);
+
+			$(".fas.fa-copy").on('click', function () { copyToClipboard(this); });
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	let g_profile_uuid;
-	function buildDetail(data)
-	{
-		const { profile_uuid, is_exposure } = data.data;
-
-		g_profile_uuid = profile_uuid;
-		profileId.text();
-		contact.text();
-		nickname.text();
-		useremail.text();
-		balance.text();
-		isAuth.text();
-		level.text();
-		totalActionCount.text();
-
-
 	}
 
 	function onClickDoitTab(event)
@@ -111,53 +175,47 @@
 		openedDoitWrap.hide();
 		joinedDoitWrap.hide();
 		$(target).show();
-		//target === '#openedDoitWrap' ? getOpenedDoit() : getJoinedDoit();
+		target === '#openedDoitWrap' ? getOpenedDoit() : getJoinedDoit();
 	}
 
 	function getOpenedDoit()
 	{
-		openedTable.DataTable({
+		openedDoitTable.DataTable({
 			ajax : {
-				url: api.listUserOpened,
+				url: api.memberDoitList,
 				type:"POST",
 				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
-					return openedDoitParams(d);
+					const param = {
+						"doit_type" : "leader"
+						,"profile_uuid" : g_profile_uuid
+						,"limit" : d.length
+						,"page" : (d.start / d.length) + 1
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError('두잇개설 '+label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   	width: "25%" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",		width: "10%",
+				{title: "두잇명", 		data: "doit_title",   	width: "35%" }
+				,{title: "참여 인원", 	data: "member_cnt",   	width: "10%",
 					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
+						return numberWithCommas(data);
 					}
 				}
-				,{title: "사용 UCD", 	data: "use_ucd",   		width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
-					}
-				}
-				,{title: "참여자 수", 	data: "member_cnt",   	width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
-					}
-				}
-				,{title: "목표달성률(%)", data: "goal_percent",   width: "10%",
-					render: function (data) {
-						return Math.floor(Number(data));
-					}
-				}
-				,{title: "평균달성률(%)", data: "avg_percent",   	width: "10%",
-					render: function (data) {
-						return Math.floor(Number(data));
-					}
-				}
-				,{title: "인증기간", data: "action_start_datetime",  width: "20%",
+				,{title: "오픈일", 		data: "opened",  		width: "15%",
 					render: function (data, type, row, meta) {
-						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
+						return data.substring(0, 10);
 					}
 				}
 			],
@@ -176,30 +234,27 @@
 		});
 	}
 
-	function openedDoitParams(d)
-	{
-		let param = {
-			"limit" : d.length
-			,"page" : (d.start / d.length) + 1
-			,"profile_uuid" : g_profile_uuid
-		}
-
-		return JSON.stringify(param);
-	}
-
 	/** 두잇 참여정보 **/
 	function getJoinedDoit()
 	{
-		joinedTable.DataTable({
+		joinedDoitTable.DataTable({
 			ajax : {
-				url: api.listUserJoined,
+				url: api.memberDoitList,
 				type:"POST",
 				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.count;
+					json.recordsFiltered = json.count;
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
 					const param = {
-						"limit" : d.length
-						,"page" : (d.start / d.length) + 1
+						"doit_type" : "member"
 						,"profile_uuid" : g_profile_uuid
+						,"limit" : d.length
+						,"page" : (d.start / d.length) + 1
 					}
 
 					return JSON.stringify(param);
@@ -209,56 +264,15 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 		data: "doit_title",   				width: "19%",	className: "cursor-pointer" }
-				,{title: "진행상태", 	data: "doit_status",    			width: "5%",	className: "cursor-pointer" }
-				,{title: "리워드 UCD", 	data: "reward_ucd",   				width: "8%",	className: "cursor-pointer",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
-					}
-				}
-				,{title: "적립 UCD", 	data: "use_ucd",   					width: "8%",	className: "cursor-pointer",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
-					}
-				}
-				,{title: "목표달성률(%)", data: "goal_percent",   			width: "8%",	className: "cursor-pointer",
-					render: function (data) {
-						return Math.floor(Number(data));
-					}
-				}
-				,{title: "평균달성률(%)", data: "avg_percent",   				width: "8%",	className: "cursor-pointer",
-					render: function (data) {
-						return Math.floor(Number(data));
-					}
-				}
-				,{title: "인증기간", 	data: "action_start_datetime",  	width: "14%",	className: "cursor-pointer",
-					render: function (data, type, row, meta) {
-						return `${row.action_start_datetime} ${label.tilde} ${row.action_end_datetime}`;
-					}
-				}
-				,{title: "인증 가능 시간", data: "action_allow_start_time", 	width: "12%",	className: "cursor-pointer",
-					render: function(data, type, row, meta) {
-						return `${row.action_allow_start_time} ${label.tilde} ${row.action_allow_end_time}`;
-					}
-				}
-				,{title: "인증요일", 	data: "action_dayofweek",  			width: "10%",	className: "cursor-pointer" }
-				,{title: "인증방법", 	data: "action_resource_type",  		width: "5%",	className: "cursor-pointer",
+				{title: "두잇명", 		data: "doit_title",   	width: "35%" }
+				,{title: "상태", 		data: "doit_status",    width: "10%",
 					render: function (data) {
 						switch (data) {
-							case 'image':
-								return '사진';
-							case 'video':
-								return '영상';
-							case 'voice':
-								return '음성';
-							default:
-								return '';
+							case 'create' : return '생성';
+							case 'open' : return '진행중';
+							case 'stop' : return '운영정지';
+							case 'delete' : return '삭제';
 						}
-					}
-				}
-				,{title: "갤러리허용",	data: "allow_gallery_image",		width: "6%",	className: "cursor-pointer",
-					render: function (data, type, row, meta) {
-						return row.action_resource_type === 'image' ? data : label.dash;
 					}
 				}
 			],
@@ -270,7 +284,6 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setJoinDoitRowAttribute(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);

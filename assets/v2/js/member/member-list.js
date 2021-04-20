@@ -93,7 +93,7 @@
 			columns: [
 				{title: "닉네임",    		data: "nickname",  		width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailMember}${row.idx}">${data}</a>`;
+						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
 				,{title: "Profile ID", 	data: "profile_uuid",	width: "55%" }
@@ -110,6 +110,7 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -135,3 +136,14 @@
 
 		return JSON.stringify(param);
 	}
+
+	function onClickNickname(obj)
+	{
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.detailMember);
+		form.append($("<input/>", {type: 'hidden', name: 'profile_uuid', value: $(obj).data('uuid')}));
+		form.appendTo("body");
+		form.trigger('submit');
+	}
+

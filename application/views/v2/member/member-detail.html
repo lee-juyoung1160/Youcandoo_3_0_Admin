@@ -30,27 +30,23 @@
                             <th>P-ID</th>
                             <td>
                                 <p class="detail-data" id="profileId">
-                                    PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929
                                 </p>
                             </td>
                             <th>연락처</th>
                             <td>
                                 <p class="detail-data" id="contact">
-                                    010-0000-0000
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <th>닉네임</th>
                             <td>
-                                <p class="detail-data" id="nickname">
-                                    베리네모카
+                                <p class="detail-data" id="userNickname">
                                 </p>
                             </td>
                             <th>이메일</th>
                             <td>
                                 <p class="detail-data" id="useremail">
-                                    dddddddd@ddddddd.dd.dd
                                 </p>
                             </td>
                         </tr>
@@ -58,27 +54,23 @@
                             <th>보유 UCD</th>
                             <td>
                                 <p class="detail-data" id="balance">
-                                    3,000
                                 </p>
                             </td>
                             <th>인증 여부</th>
                             <td>
                                 <p class="detail-data" id="isAuth">
-                                    Y
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <th>레벨</th>
                             <td>
-                                <p class="detail-data" id="level">
-                                    1
+                                <p class="detail-data" id="userLevel">
                                 </p>
                             </td>
                             <th>누적 인증 수</th>
                             <td>
                                 <p class="detail-data" id="totalActionCount">
-                                    109
                                 </p>
                             </td>
                         </tr>
@@ -107,20 +99,19 @@
                                 <th>등록일시</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td id="osType">AOS</td>
-                                <td id="deviceId">
-                                    COM-F91A966E-8242-9D7B-42F5-53993F0860AF
-                                </td>
-                                <td id="pushToken">
-                                    <div>
-                                        <input type="text" class="input-copy" style="width: 150px" value="MESSAGE-ID-20210203-EEF21A1F-B933-C218-6C84-747F054498CD" readonly="">
-                                        <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
-                                    </div>
-                                </td>
-                                <td id="deviceRegisteredDate">2020-04-01 00:00:00</td>
-                            </tr>
+                            <tbody id="deviceInfoTableBody">
+                                <!--<tr>
+                                    <td></td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        &lt;!&ndash;<div>
+                                            <input type="text" class="input-copy" style="width: 150px" value="MESSAGE-ID-20210203-EEF21A1F-B933-C218-6C84-747F054498CD" readonly="">
+                                            <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                                        </div>&ndash;&gt;
+                                    </td>
+                                    <td></td>
+                                </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -138,7 +129,7 @@
 
                     <div class="table-wrap" id="openedDoitWrap">
                         <table id="openedDoitTable">
-                            <thead>
+                            <!--<thead>
                             <colgroup>
                                 <col style="width: 35%;">
                                 <col style="width: 10%;">
@@ -166,17 +157,16 @@
                                 <td>60</td>
                                 <td>2020-04-01</td>
                             </tr>
-                            </tbody>
+                            </tbody>-->
                         </table>
                     </div>
                     <div class="table-wrap" id="joinedDoitWrap" style="display: none;">
                         <table id="joinedDoitTable">
-                            <thead>
+                            <!--<thead>
                             <colgroup>
                                 <col style="width: 35%;">
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
-                                <col style="width: 15%;">
                                 <col style="width: 15%;">
                                 <col style="width: 15%;">
                             </colgroup>
@@ -197,7 +187,7 @@
                                 <td>80</td>
                                 <td>60</td>
                             </tr>
-                            </tbody>
+                            </tbody>-->
                         </table>
                     </div>
                 </div>
@@ -377,7 +367,7 @@
 
         <div class="modal-bg"></div>
     </div>
-
+    <input type="hidden" id="hiddenProfileId" value="<?php if(null !== $profile_uuid) echo $profile_uuid?>"/>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/member/member-detail.js?version=<?php echo $this->config->item('version');?>"></script>

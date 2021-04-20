@@ -5,7 +5,9 @@
         updatePassword : baseApiUrl + 'admin/update',
 
         memberList : baseApiUrl + 'profile/get/list',
-        detailMember : baseApiUrl + 'member/detail',
+        detailMember : baseApiUrl + 'profile/get/detail/info',
+        deviceInfo : baseApiUrl + 'profile/get/device/info',
+        memberDoitList : baseApiUrl + 'profile/get/doit',
         memberActionList : baseApiUrl + 'member/action/list',
         levelMemberList : baseApiUrl + 'member/level/list',
 

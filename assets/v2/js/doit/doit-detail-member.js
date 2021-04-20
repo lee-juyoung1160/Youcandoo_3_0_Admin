@@ -390,6 +390,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(3).find('button').on('click', function () { deleteRewardMemberTableRow(this); });
+				$(nRow).attr('data-uuid', aData.profile_uuid);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -472,6 +473,12 @@
 			amount.trigger('focus');
 			return false;
 		}
+		console.log(getTargetIdsFromTableRow())
+		if (getTargetIdsFromTableRow().length === 0)
+		{
+			sweetToast(`적립 대상 ${message.emptyList}`);
+			return false;
+		}
 
 		return true;
 	}
@@ -480,14 +487,11 @@
 	{
 		const url = api.createReward;
 		const errMsg = label.submit+message.ajaxLoadError;
-		let targetMembers = [];
-		targetMembers.push("PID-8C1C31C8-B900-C8EF-4B9E-8DCCAA0F19C9");
-		targetMembers.push("PID-0226AA2A-482B-9583-FC58-6ED9AE1AD954");
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"description" : saveUcdContent.val().trim(),
 			"value" : amount.val().trim(),
-			"profile_list" : targetMembers,
+			"profile_list" : getTargetIdsFromTableRow(),
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
@@ -501,6 +505,18 @@
 	function saveUcdSuccess()
 	{
 		fadeoutModal();
+	}
+
+	function getTargetIdsFromTableRow()
+	{
+		const targetTableRows = rewardMemberTable.find('tbody').children();
+		let profileUuids = [];
+		targetTableRows.each(function () {
+			const uuid = $(this).data('uuid');
+			if (!isEmpty(uuid)) profileUuids.push(uuid);
+		})
+
+		return profileUuids;
 	}
 
 	export function onClickModalSendNoticeOpen()

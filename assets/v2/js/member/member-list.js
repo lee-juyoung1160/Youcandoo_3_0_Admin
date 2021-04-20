@@ -1,21 +1,10 @@
 
 	import {headers} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-	body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
-	selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory,
-	} from '../modules/elements.js';
-	import { sweetToast, sweetError } from  '../modules/alert.js';
-	import {
-	onClickDateRangeBtn,
-	initDayBtn,
-	initSearchDatepicker,
-	initSearchDateRangeMonth,
-	initMaxDateToday,
-	initPageLength,
-	initSelectOption,
-	onChangeSearchDateFrom, onChangeSearchDateTo
-	} from "../modules/common.js";
+	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,} from '../modules/elements.js';
+	import {sweetError } from  '../modules/alert.js';
+	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonth,
+		initMaxDateToday, initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
@@ -32,7 +21,7 @@
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -54,12 +43,13 @@
 
 	function setHistoryForm()
 	{
-		let historyParams = getHistoryParam();
+		const historyParams = getHistoryParam();
 
+		selDateType.val(historyParams.date_type);
 		dateFrom.val(historyParams.from_date);
 		dateTo.val(historyParams.to_date);
-		selDateType.val(historyParams.date_type);
 		selSearchType.val(historyParams.search_type);
+		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
 	}
@@ -101,35 +91,14 @@
 				}
 			},
 			columns: [
-				{title: "카테고리",    	data: "category_title",  	width: "10%" }
-				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "10%" }
-				,{title: "두잇명", 		data: "doit_title",			width: "30%",
+				{title: "닉네임",    		data: "nickname",  		width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
+						return `<a href="${page.detailMember}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "리더", 		data: "nickname",			width: "10%" }
-				,{title: "생성일", 		data: "created",			width: "10%",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
-				,{title: "오픈일", 		data: "opened",				width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data.substring(0, 10);
-					}
-				}
-				,{title: "참여인원",    	data: "member_cnt",  		width: "10%" }
-				,{title: "상태",    		data: "doit_status",  		width: "10%",
-					render: function (data) {
-						switch (data) {
-							case 'create' : return '생성';
-							case 'open' : return '진행중';
-							case 'stop' : return '운영정지';
-							case 'delete' : return '삭제';
-						}
-					}
-				}
+				,{title: "Profile ID", 	data: "profile_uuid",	width: "55%" }
+				,{title: "사용여부", 		data: "is_active",		width: "10%" }
+				,{title: "가입일시", 		data: "created",		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -151,11 +120,6 @@
 
 	function tableParams()
 	{
-		let status = [];
-		chkStatus.each(function () {
-			if ($(this).is(":checked"))
-				status.push($(this).val())
-		})
 		const param = {
 			"date_type" : selDateType.val(),
 			"from_date" : dateFrom.val(),
@@ -164,9 +128,6 @@
 			"keyword" : keyword.val().trim(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
-			"doit_status" : status,
-			"category_uuid": selCategory.val(),
-			"order_by" : selSort.val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

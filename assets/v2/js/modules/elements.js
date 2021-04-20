@@ -405,8 +405,9 @@
     export const level = $("#level");
     export const btnModalUcd = $("#btnModalUcd");
     export const modalUcd = $("#modalUcd");
-    export const totalActions = $("#totalActions");
-    export const deviceInfoTableBody = $("#deviceInfoTableBody");
+    export const deviceId = $("#deviceId");
+    export const pushToken = $("#pushToken");
+    export const deviceRegisteredDate = $("#deviceRegisteredDate");
     export const openedDoitWrap = $("#openedDoitWrap");
     export const openedDoitTable = $("#openedDoitTable");
     export const joinedDoitWrap = $("#joinedDoitWrap");

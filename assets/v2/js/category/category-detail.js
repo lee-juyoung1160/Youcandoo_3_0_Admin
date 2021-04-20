@@ -364,7 +364,8 @@
 			{
 				img.src = window.URL.createObjectURL(obj.files[0]);
 				img.onload = function() {
-					const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+					setFile(obj);
+					/*const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
 
 					if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
 					{
@@ -382,7 +383,7 @@
 						emptyFile(obj);
 					}
 					else
-						setFile(obj);
+						setFile(obj);*/
 				}
 			}
 			else emptyFile(obj);

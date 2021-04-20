@@ -4,7 +4,7 @@
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update',
 
-        memberList : baseApiUrl + 'member/list',
+        memberList : baseApiUrl + 'profile/get/list',
         detailMember : baseApiUrl + 'member/detail',
         memberActionList : baseApiUrl + 'member/action/list',
         levelMemberList : baseApiUrl + 'member/level/list',

@@ -311,7 +311,8 @@
             {
                 img.src = window.URL.createObjectURL(obj.files[0]);
                 img.onload = function() {
-                    const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+                    setFile(obj, 'image');
+                    /*const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
 
                     if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
                     {
@@ -329,7 +330,7 @@
                         emptyFile(obj);
                     }
                     else
-                        setFile(obj, 'image');
+                        setFile(obj, 'image');*/
                 }
             }
             else emptyFile(obj);
@@ -389,6 +390,14 @@
         const thumbnailWrap = $(obj).parent().siblings('.detail-img-wrap');
         if (thumbnailWrap.length > 0)
             thumbnailWrap.remove();
+    }
+
+    export function copyToClipboard(obj)
+    {
+        $(obj).siblings('input.input-copy').trigger('select');
+        document.execCommand("copy");
+
+        sweetToast('클립보드에 복사 됨.');
     }
 
     export function paginate(_currentPage, _lastPage)

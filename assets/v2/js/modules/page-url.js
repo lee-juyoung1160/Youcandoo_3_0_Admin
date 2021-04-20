@@ -6,6 +6,9 @@
         ,join : rootContext + 'main/join'
         ,mfa : rootContext + 'auth/mfa'
 
+        ,listMember : rootContext + 'member'
+        ,detailMember : rootContext + 'member/detail/'
+
         ,listBiz : rootContext + 'biz'
         ,detailBiz : rootContext + 'biz/detail/'
         ,updateBiz : rootContext + 'biz/update/'
@@ -50,8 +53,6 @@
         ,listAdmin : rootContext + 'admin'
         ,detailAdmin : rootContext + 'admin/detail/'
         ,updateAdmin : rootContext + 'admin/update/'
-
-        ,listMember : rootContext + 'member'
 
         ,detailTalk : rootContext + 'report/talk/detail/'
         ,listTalk : rootContext + 'report/talk'

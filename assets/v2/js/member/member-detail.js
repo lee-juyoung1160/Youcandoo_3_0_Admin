@@ -2,23 +2,19 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	btnModalUcd,
-	modalUcd,
-	amount,
-	content,
-	memo,
-	modalClose,
-	modalBackdrop,
-	lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, selPageLength, pagination, modalWarning, actionsWrap
+	btnBack, btnList, btnModalUcd, modalUcd, amount, content, memo, modalClose, modalBackdrop,
+	lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, selPageLength, pagination, actionsWrap,
+	profileId, contact, nickname, useremail, balance, isAuth, level, totalActionCount
 } from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
-	import {isEmpty, initInputNumber, isNegative} from "../modules/utils.js";
+	import {isEmpty, initInputNumber, isNegative, getPathName, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+
+	const pathName = getPathName();
+	const memberIdx	= splitReverse(pathName, '/');
 
 	$( () => {
 		moveSection();
@@ -74,12 +70,17 @@
 			"idx" : memberIdx
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
 	}
 
-	function getDetailCallback(data)
+	function getMemberInfoCallback(data)
 	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		if (isSuccessResp(data))
+		{
+			buildDetail(data)
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	let g_profile_uuid;
@@ -88,8 +89,16 @@
 		const { profile_uuid, is_exposure } = data.data;
 
 		g_profile_uuid = profile_uuid;
+		profileId.text();
+		contact.text();
+		nickname.text();
+		useremail.text();
+		balance.text();
+		isAuth.text();
+		level.text();
+		totalActionCount.text();
 
-		calculateInputLength();
+
 	}
 
 	function onClickDoitTab(event)

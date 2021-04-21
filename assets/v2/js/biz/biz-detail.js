@@ -1,18 +1,18 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
-	modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
-	tabContents, amount, inputNumber, lengthInput, description,
-} from '../modules/elements.js';
+		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
+		modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
+		tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty, initInputNumber } from "../modules/utils.js";
+	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import { initTableDefaultConfig } from "../modules/tables.js";
+	import {buildTotalCount, initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 
 	const pathName	= getPathName();
 	const bizIdx	= splitReverse(pathName, '/');
@@ -105,7 +105,66 @@
 
 	function getBizUcdList()
 	{
+		ucdInfoTable.DataTable({
+			ajax : {
+				url: api.bizUcdList,
+				type:"POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.data.count;
+					json.recordsFiltered = json.data.count;
+					json.data = json.data.list;
 
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"from_date" : "",
+						"to_date" : "",
+						"search_type" : "company_uuid",
+						"keyword" : g_company_uuid,
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError('UCD'+label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "구분",    	data: "division",  		width: "10%" }
+				,{title: "제목",    	data: "title",  		width: "15%" }
+				,{title: "내용",    	data: "description",  	width: "40%",
+					render: function (data, type, row, meta) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "UCD", 	data: "amount_ucd",		width: "10%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "일시",    	data: "created",  		width: "15%" }
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				if (isNegative(aData.amount_ucd))
+					$(nRow).addClass('minus-pay');
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
 	}
 
 	function createValidation()

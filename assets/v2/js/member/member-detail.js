@@ -2,53 +2,44 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	btnModalUcd,
-	modalUcd,
-	amount,
-	memo,
-	modalActionDetail,
-	modalClose,
-	modalBackdrop,
-	lengthInput,
-	ulDoitTab,
-	openedDoitWrap,
-	joinedDoitWrap,
-	pagination,
-	actionsWrap,
-	profileId,
-	contact,
-	userNickname,
-	useremail,
-	balance,
-	isAuth,
-	userLevel,
-	totalActionCount,
-	hiddenProfileId,
-	deviceInfoTableBody,
-	openedDoitTable,
-	joinedDoitTable,
-	modalActionContentWrap,
-	modalActionDesc,
-	modalActionExampleWrap,
-	modalActionExampleDesc,
-	modalActionWarningReason,
-	btnSubmitSaveUcd,
-	description,
-	dateFrom,
-	dateTo, selSearchType, keyword, ucdInfoTable
-} from '../modules/elements.js';
+		btnBack,
+		btnList,
+		btnModalUcd,
+		modalUcd,
+		amount,
+		memo,
+		modalActionDetail,
+		modalClose,
+		modalBackdrop,
+		lengthInput,
+		ulDoitTab,
+		openedDoitWrap,
+		joinedDoitWrap,
+		pagination,
+		actionsWrap,
+		profileId,
+		contact,
+		userNickname,
+		useremail,
+		balance,
+		isAuth,
+		userLevel,
+		totalActionCount,
+		hiddenProfileId,
+		deviceInfoTableBody,
+		openedDoitTable,
+		joinedDoitTable,
+		modalActionContentWrap,
+		modalActionDesc,
+		modalActionExampleWrap,
+		modalActionExampleDesc,
+		modalActionWarningReason,
+		btnSubmitSaveUcd,
+		description, ucdInfoTable
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {
-		copyToClipboard,
-		fadeoutModal,
-		historyBack,
-		limitInputLength,
-		overflowHidden,
-		paginate
-	} from "../modules/common.js";
-	import { initTableDefaultConfig, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
+	import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import {isEmpty, initInputNumber, isNegative, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -468,7 +459,6 @@
 			ajax : {
 				url: api.memberWalletList,
 				type:"POST",
-				global: false,
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
@@ -491,7 +481,7 @@
 					return JSON.stringify(param);
 				},
 				error: function (request, status) {
-					sweetError('UCD 사용내역 '+label.list+message.ajaxLoadError);
+					sweetError('UCD'+label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
@@ -523,7 +513,6 @@
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
 			}
-
 		});
 	}
 

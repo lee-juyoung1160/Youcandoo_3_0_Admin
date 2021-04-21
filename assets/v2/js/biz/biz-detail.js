@@ -135,7 +135,7 @@
 
 	function createBizUcdRequest()
 	{
-		const url = api.createBizUcd;
+		const url = api.saveUcdForBiz;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"company_uuid" : g_company_uuid,

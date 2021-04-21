@@ -786,13 +786,23 @@ h2.main-title {
 	float: left;
 }
 .search-txt-wrap input[type="search"] {
-	padding-left: 35px;
+	padding: 0 75px 0 35px;
+	box-sizing: border-box;
+	border-right: none;
 }
 .search-txt-wrap i {
 	position: absolute;
 	left: 10px;
 	top: 10px;
 	opacity: .3;
+}
+.search-txt-wrap .btn-search {
+	position: absolute;
+	top:0;
+	right: 0;
+	margin-right: 0;
+	padding: 9.5px 20px;
+	border-radius: 0 3px 3px 0;
 }
 .date-wrap {
 	float: left;

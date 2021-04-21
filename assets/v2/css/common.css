@@ -788,7 +788,6 @@ h2.main-title {
 .search-txt-wrap input[type="search"] {
 	padding: 0 75px 0 35px;
 	box-sizing: border-box;
-	border-right: none;
 }
 .search-txt-wrap i {
 	position: absolute;

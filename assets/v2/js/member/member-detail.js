@@ -2,37 +2,43 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		btnBack,
-		btnList,
-		btnModalUcd,
-		modalUcd,
-		amount,
-		memo,
-		modalActionDetail,
-		modalClose,
-		modalBackdrop,
-		lengthInput,
-		ulDoitTab,
-		openedDoitWrap,
-		joinedDoitWrap,
-		pagination,
-		actionsWrap,
-		profileId,
-		contact,
-		userNickname,
-		useremail,
-		balance,
-		isAuth,
-		userLevel,
-		totalActionCount,
-		hiddenProfileId,
-		deviceInfoTableBody,
-		openedDoitTable,
-		joinedDoitTable,
-		modalActionContentWrap,
-		modalActionDesc,
-		modalActionExampleWrap, modalActionExampleDesc, modalActionWarningReason, btnSubmitSaveUcd, description
-	} from '../modules/elements.js';
+	btnBack,
+	btnList,
+	btnModalUcd,
+	modalUcd,
+	amount,
+	memo,
+	modalActionDetail,
+	modalClose,
+	modalBackdrop,
+	lengthInput,
+	ulDoitTab,
+	openedDoitWrap,
+	joinedDoitWrap,
+	pagination,
+	actionsWrap,
+	profileId,
+	contact,
+	userNickname,
+	useremail,
+	balance,
+	isAuth,
+	userLevel,
+	totalActionCount,
+	hiddenProfileId,
+	deviceInfoTableBody,
+	openedDoitTable,
+	joinedDoitTable,
+	modalActionContentWrap,
+	modalActionDesc,
+	modalActionExampleWrap,
+	modalActionExampleDesc,
+	modalActionWarningReason,
+	btnSubmitSaveUcd,
+	description,
+	dateFrom,
+	dateTo, selSearchType, keyword, ucdInfoTable
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
 		copyToClipboard,
@@ -58,6 +64,7 @@
 		getDeviceInfo();
 		getOpenedDoit();
 		getActions();
+		getMemberUcdHistory();
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
 		lengthInput 	.on('propertychange change keyup paste input', function () { limitInputLength(this); });
@@ -457,17 +464,28 @@
 
 	function getMemberUcdHistory()
 	{
-		usageHisTable.DataTable({
+		ucdInfoTable.DataTable({
 			ajax : {
-				url: api,
+				url: api.memberWalletList,
 				type:"POST",
 				global: false,
 				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.data.count;
+					json.recordsFiltered = json.data.count;
+					json.data = json.data.list;
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
 					const param = {
-						"limit" : d.length
-						,"page" : (d.start / d.length) + 1
-						,"profile_uuid" : g_profile_uuid
+						"from_date" : "",
+						"to_date" : "",
+						"search_type" : "profile_uuid",
+						"keyword" : g_profile_uuid,
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
 					}
 
 					return JSON.stringify(param);
@@ -477,16 +495,19 @@
 				}
 			},
 			columns: [
-				{title: "유형", 		data: "ucd_type",   width: "10%" }
-				,{title: "구분", 	data: "division",   width: "10%" }
-				,{title: "금액", 	data: "amount",		width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : numberWithCommas(data);
+				{title: "구분",    	data: "division",  		width: "10%" }
+				,{title: "제목",    	data: "title",  		width: "15%" }
+				,{title: "내용",    	data: "description",  	width: "40%",
+					render: function (data, type, row, meta) {
+						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "제목", 	data: "title",   	width: "15%" }
-				,{title: "내용", 	data: "description",width: "30%" }
-				,{title: "일시", 	data: "created",   	width: "15%" }
+				,{title: "UCD", 	data: "amount_ucd",		width: "10%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "일시",    	data: "created",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -496,19 +517,14 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setUcdRowAttributes(nRow, aData);
+				if (isNegative(aData.amount_ucd))
+					$(nRow).addClass('minus-pay');
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 
 		});
-	}
-
-	function setUcdRowAttributes(nRow, aData)
-	{
-		if (isNegative(aData.amount))
-			$(nRow).addClass('minus-pay');
 	}
 
 	function onSubmitSaveUcd()

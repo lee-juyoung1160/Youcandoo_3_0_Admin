@@ -428,5 +428,4 @@
     export const cardLevel5 = $("#cardLevel5");
     export const cardLevelSpecial = $("#cardLevelSpecial");
 
-    /** UCD 충전 **/
-    export const btnSearchNickname = $("#btnSearchNickname");
+    /** UCD 충전내역 **/

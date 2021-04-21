@@ -8,7 +8,7 @@
         detailMember : baseApiUrl + 'profile/get/detail/info',
         deviceInfo : baseApiUrl + 'profile/get/device/info',
         memberDoitList : baseApiUrl + 'profile/get/doit',
-        memberActionList : baseApiUrl + 'member/action/list',
+        memberActionList : baseApiUrl + 'profile/get/action',
         levelMemberList : baseApiUrl + 'member/level/list',
 
         categoryList : baseApiUrl + 'category/list',

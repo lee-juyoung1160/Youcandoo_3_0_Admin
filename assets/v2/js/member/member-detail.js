@@ -2,32 +2,31 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	btnModalUcd,
-	modalUcd,
-	amount,
-	content,
-	memo,
-	modalClose,
-	modalBackdrop,
-	lengthInput,
-	ulDoitTab,
-	openedDoitWrap,
-	joinedDoitWrap,
-	selPageLength,
-	pagination,
-	actionsWrap,
-	profileId,
-	contact,
-	userNickname,
-	useremail,
-	balance,
-	isAuth,
-	userLevel,
-	totalActionCount,
-	hiddenProfileId,
-	deviceInfoTableBody, openedDoitTable, joinedDoitTable,
+		btnBack,
+		btnList,
+		btnModalUcd,
+		modalUcd,
+		amount,
+		content,
+		memo,
+		modalClose,
+		modalBackdrop,
+		lengthInput,
+		ulDoitTab,
+		openedDoitWrap,
+		joinedDoitWrap,
+		pagination,
+		actionsWrap,
+		profileId,
+		contact,
+		userNickname,
+		useremail,
+		balance,
+		isAuth,
+		userLevel,
+		totalActionCount,
+		hiddenProfileId,
+		deviceInfoTableBody, openedDoitTable, joinedDoitTable,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
@@ -38,7 +37,7 @@
 		overflowHidden,
 		paginate
 	} from "../modules/common.js";
-	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+	import { initTableDefaultConfig, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import {isEmpty, initInputNumber, isNegative, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -53,6 +52,7 @@
 		getBasicInfo();
 		getDeviceInfo();
 		getOpenedDoit();
+		getActions();
 		/** 이벤트 **/
 		amount 			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -295,12 +295,11 @@
 	function getActions()
 	{
 		const url = api.memberActionList;
-		const errMsg = `인증정보 ${label.list} ${message.ajaxLoadError}`;
+		const errMsg = `인증 정보${message.ajaxLoadError}`;
 		const param = {
-			"limit" : g_action_page_length
-			,"page" : actionCurrentPage
+			"limit" : 30
+			,"page" : _actionCurrentPage
 			,"profile_uuid" : g_profile_uuid
-			,"doit_all" : true
 		}
 
 		// if (!isEmpty(_doit_uuid))
@@ -330,46 +329,65 @@
 		const totalCount = data.count;
 		let actionEl = '<p class="empty-message">인증 정보가 없습니다.</p>';
 
-		for (let i=0; i<12; i++)
+		if (!isEmpty(data.data) && data.data.length > 0)
 		{
-			if (i===0 || i%6 === 0)
-				actionEl += '<div class="row">';
+			actionEl = '';
 
-			actionEl +=
-				`<div class="col-2 auth-item">
-                    <div class="card">
-                        <div class="top clearfix">
-                            <div class="checkbox-wrap">
-                                <input id="c15" type="checkbox" name="cb">
-                                <label for="c15"><span></span></label>
-                            </div>
-                            <div class="right-wrap">
-                                <span><i class="fas fa-exclamation-triangle"></i> 111</span>
-                            </div>
-                        </div>
-                        <div class="img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="">
-                        </div>
-                        <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
-                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
-                        <span class="date">2020-02-02</span>
-                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
-                    </div>
-                </div>`
+			data.data.map((obj, index) => {
+				const {like_count, comment_count, report_count, doit_title, nickname, action_date, is_yellow} = obj;
 
-			if (i>0 && (i+1)%6 === 0)
-				actionEl += '</div>';
+				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>` : '';
+
+				if (index===0 || index%6 === 0)
+					actionEl += '<div class="row">';
+
+				actionEl +=
+					`<div class="col-2 auth-item">
+						<div class="card">
+							<div class="top clearfix">
+								<div class="right-wrap">
+									<span><i class="fas fa-heart"></i> ${like_count}</span>
+									<span><i class="fas fa-comment"></i> ${comment_count}</span>
+									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
+								</div>
+							</div>
+							<div class="img-wrap action-image-wrap">
+								${buildAction(obj)}
+							</div>
+							<p class="title">${doit_title}</p>
+							<span class="nick-name">${nickname}</span>
+							<span class="date">${action_date}</span>
+							${warningEl}
+						</div>
+					</div>`
+
+				if (index>0 && (index+1)%6 === 0)
+					actionEl += '</div>';
+			})
 		}
 
 		actionsWrap.html(actionEl);
 
-		$(".img-wrap").on('click', function () { viewDetail(this); })
+		$(".action-image-wrap").on('click', function () { viewActionDetail(this); })
+	}
+
+	function buildAction(data)
+	{
+		const {contents_type, contents_url, thumbnail_url} = data;
+		switch (contents_type) {
+			case 'image' :
+				return `<img src="${contents_url}" alt="">`;
+			case 'video' :
+				return `<img src="${thumbnail_url}" alt="">`;
+			case 'voice' :
+				return `<img src="${label.voiceImage}" alt="">`;
+		}
 	}
 
 	function buildPagination(data)
 	{
 		const totalCount  = data.count;
-		const lastPage = Math.ceil(totalCount / selPageLength.val());
+		const lastPage = Math.ceil(totalCount / 30);
 
 		pagination.html(paginate(_actionCurrentPage, lastPage));
 
@@ -397,7 +415,7 @@
 	{
 		usageHisTable.DataTable({
 			ajax : {
-				url: api.listUserUsageUcd,
+				url: api,
 				type:"POST",
 				global: false,
 				headers: headers,
@@ -434,7 +452,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				setRowAttributes(nRow, aData);
+				setUcdRowAttributes(nRow, aData);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -443,12 +461,11 @@
 		});
 	}
 
-	function setRowAttributes(nRow, aData)
+	function setUcdRowAttributes(nRow, aData)
 	{
 		if (isNegative(aData.amount))
 			$(nRow).addClass('minus-pay');
 	}
-
 
 	function goListPage()
 	{

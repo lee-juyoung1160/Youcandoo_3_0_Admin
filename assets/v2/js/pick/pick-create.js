@@ -48,12 +48,9 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const table = dataTable.DataTable();
-					const info 	= table.page.info();
-					const _page = (info.start / info.length) + 1;
 					const param = {
-						"page" : _page
-						,"limit" : info.length
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
 						,"keyword" : keyword.val()
 					}
 

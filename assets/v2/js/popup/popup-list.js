@@ -76,12 +76,9 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const table = doitTable.DataTable();
-					const info 	= table.page.info();
-					const _page = (info.start / info.length) + 1;
 					const param = {
 						"keyword" : keyword.val().trim(),
-						"page": _page,
+						"page": (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 					}
 

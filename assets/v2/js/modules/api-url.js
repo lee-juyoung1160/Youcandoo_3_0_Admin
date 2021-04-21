@@ -140,8 +140,7 @@
         updateError : baseApiUrl + 'error/update',
 
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
-        createMemberUcd : baseApiUrl + 'ucd/charge/create',
-        getMember : baseApiUrl + '',
+        getMember : baseApiUrl + 'ucd/get/profile/user',
         getMemberFromXlsx : baseApiUrl + '',
         systemWalletList : baseApiUrl + 'ucd/system/list',
         doitWalletList : baseApiUrl + 'ucd/doit/list',

@@ -3,7 +3,7 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">UCD 등록</h2>
+            <h2 class="main-title">회원 UCD 충전</h2>
         </div>
 
         <div class="row">
@@ -15,7 +15,7 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
-                        <th>충전 UCD *</th>
+                        <th>UCD *</th>
                         <td>
                             <div class="ucd-input-wrap">
                                 <input id="amount" type="text" maxlength="7">
@@ -27,12 +27,12 @@
                         <th>내용 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="content" type="text" class="length-input" maxlength="30" placeholder="내용을 입력해주세요.">
+                                <input id="description" type="text" class="length-input" maxlength="30" placeholder="내용을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <th>비고 *</th>
                         <td>
                             <div class="textarea-wrap">
@@ -40,13 +40,13 @@
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <th>대상자 *</th>
                         <td>
                             <div class="top">
-                                <input type="search" placeholder="닉네임을 입력해주세요">
-                                <button type="button" class="btn-sm modal-btn">닉네임 검색</button>
+                                <input id="nickname" type="search" placeholder="닉네임을 입력해주세요">
+                                <button id="btnSearchNickname" type="button" class="btn-sm modal-btn">닉네임 검색</button>
                                 <div class="file-wrap excel-import">
                                     <label for="btnXlsxImport">
                                         <i class="fas fa-file-excel"></i>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="table-wrap">
                             <table id="dataTable">
-                                <colgroup>
+                                <!--<colgroup>
                                     <col style="width: 30%;">
                                     <col style="width: 45%;">
                                     <col style="width: 20%;">
@@ -158,7 +158,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>

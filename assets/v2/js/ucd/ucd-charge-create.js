@@ -1,46 +1,55 @@
 
-	import { ajaxRequestWithJsonData} from '../modules/request.js'
+	import { ajaxRequestWithJsonData, headers} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	lengthInput,
-	btnSubmit,
-	content,
-	amount,
-	memo,
-	keyword,
-	modalClose,
-	modalBackdrop,
-	modalOpen, btnXlsxImport, updateTable, btnXlsxExport,
-} from '../modules/elements.js';
+		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop,
+		modalOpen, btnXlsxImport, updateTable, btnXlsxExport, description, nickname, dataTable
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile} from "../modules/common.js";
-	import {initInputNumber, isEmpty, isXlsX} from "../modules/utils.js";
+	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
+	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
-	let selectedUsers = [];
+	import {
+	initTableDefaultConfig,
+	tableReloadAndStayCurrentPage,
+	toggleSingleCheckBox,
+	toggleBtnPreviousAndNextOnTable,
+		checkBoxElement
+	} from "../modules/tables.js";
+	let addedUsers = [];
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefaultConfig();
 		amount.trigger('focus');
 		/** 이벤트 **/
-		amount 			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
-		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		modalOpen		.on("click", function () { onClickModalOpen(this); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
+		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
+		lengthInput 	.on('propertychange change keyup paste input', function () { limitInputLength(this); });
+		modalOpen		.on('click', function () { onClickModalOpen(this); });
+		modalClose		.on('click', function () { fadeoutModal(); });
+		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
-		btnXlsxImport	.on("change", function () { onClickBtnImport(this); });
+		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
 	});
 
 	function onClickModalOpen(obj)
 	{
+		if (isEmpty(nickname.val()))
+		{
+			sweetToast(`닉네임을 ${message.input}`);
+			nickname.trigger('focus');
+			return;
+		}
+
 		fadeinModal();
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		//buildSearchMemberTable();
+		buildSearchMemberTable();
 	}
 
 	function buildSearchMemberTable()
@@ -50,8 +59,22 @@
 				url: api.getMember,
 				type:"POST",
 				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					json.recordsTotal = json.data.count;
+					json.recordsFiltered = json.data.count;
+					json.data = json.data.list;
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
+						,"nickname" : keyword.val()
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
@@ -60,7 +83,7 @@
 			columns: [
 				{title: '', 	data: "profile_uuid",   width: "5%",
 					render: function (data, type, row, meta) {
-						return multiCheckBoxDom(meta.row);
+						return checkBoxElement(meta.row);
 					}
 				}
 				,{title: "회원",		data: "nickname",    width: "65%",
@@ -82,17 +105,72 @@
 			paging: true,
 			pageLength: 10,
 			select: {
-				style: 'multi',
+				style: 'single',
 				selector: ':checkbox'
 			},
 			destroy: true,
 			initComplete: function () {
+				addEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
 			}
+		});
+	}
+
+	function addEvent()
+	{
+		const chkBoxes = $("input[name=chk-row]");
+		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
+		dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
+	}
+
+	function onClickCheckBox(dt, indexes)
+	{
+		addUser(dt, indexes);
+		initAddedProfileUuid();
+		tableReloadAndStayCurrentPage(dataTable);
+	}
+
+	function addUser(dt, indexes)
+	{
+		const selectedData = dt.rows(indexes).data()[0];
+		const {profile_uuid, nickname,} = selectedData;
+
+		const rowEl =
+			`<tr>
+				<td>깐깐찡엉</td>
+				<td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
+				<td>20,000,000</td>
+				<td>
+					<button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+				</td>
+			</tr>`;
+
+		let targetTableBody = updateTable.find('tbody');
+		targetTableBody.append(rowEl);
+		addRemoveRowEvent();
+	}
+
+	function addRemoveRowEvent()
+	{
+		$(".btn-delete-row").on('click', function () { removeRow(this); })
+	}
+
+	function removeRow(obj)
+	{
+		$(obj).parents('tr').remove();
+		initAddedProfileUuid();
+		tableReloadAndStayCurrentPage(dataTable);
+	}
+
+	function initAddedProfileUuid()
+	{
+		addedUsers.length = 0;
+		updateTable.find('tbody').children().each(function () {
+			addedUsers.push(this.id);
 		});
 	}
 
@@ -104,17 +182,15 @@
 
 	function createRequest()
 	{
-		const url 	= api.createMemberUcd;
-		const errMsg 	= label.submit+message.ajaxError;
+		const url = api.saveUcdForUser;
+		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"faq_type" : selFaqType.val(),
-			"faq_title" : title.val().trim(),
-			"faq_contents" : content.val().trim(),
-			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-
+			"profile_list" : addedUsers,
+			"value" : amount.val().trim(),
+			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	function createReqCallback(data)
@@ -136,17 +212,17 @@
 			return false;
 		}
 
-		if (amount.val() > 1000000)
+		if (Number(amount.val()) > 1000000)
 		{
-			sweetToast(`UCD는 ${message.maxAvailableUserUcd}`);
+			sweetToast(message.maxAvailableUserUcd);
 			amount.trigger('focus');
 			return false;
 		}
 
-		if (isEmpty(content.val()))
+		if (isEmpty(description.val()))
 		{
 			sweetToast(`내용은 ${message.required}`);
-			content.trigger('focus');
+			description.trigger('focus');
 			return false;
 		}
 
@@ -178,126 +254,6 @@
 	function getExcelDataCallback(data)
 	{
 		if (!isEmpty(data.data)) selectedUsers = data.data;
-		buildSelectedUser();
-		calculateSelectedCount();
+		//buildSelectedUser();
+		//calculateSelectedCount();
 	}
-
-	function onClickAddUser()
-	{
-		if (addUserValidation())
-			addUsers();
-	}
-
-	function addUserValidation()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		if (selectedData.length === 0)
-		{
-			sweetToast(`출금 대상을 ${message.addOn}`);
-			return false;
-		}
-
-		if (hasDuplicateId())
-		{
-			sweetToast(message.alreadyHasUser);
-			return false;
-		}
-
-		return true;
-	}
-
-	function hasDuplicateId()
-	{
-		let result = false;
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-
-		let selectedUsersId = [];
-		selectedUsers.map((value) => {
-			selectedUsersId.push(value.profile_uuid);
-		})
-
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let { profile_uuid } = selectedData[i];
-
-			if (selectedUsersId.indexOf(profile_uuid) !== -1)
-				result = true;
-		}
-
-		return result;
-	}
-
-	function addUsers()
-	{
-		let table 		 = dataTable.DataTable();
-		let selectedData = table.rows('.selected').data();
-		let users = [];
-		for (let i=0; i<selectedData.length; i++)
-		{
-			let { nickname, profile_uuid, ucd } = selectedData[i];
-			let userInfo = { "nickname" : nickname, "profile_uuid" : profile_uuid, "ucd" : ucd.total };
-			users.push(userInfo);
-		}
-		selectedUsers = users.concat(selectedUsers);
-
-		buildSelectedUser();
-		calculateSelectedCount();
-	}
-
-	function buildSelectedUser()
-	{
-		updateTable.DataTable({
-			data: selectedUsers,
-			columns: [
-				{title: "회원",			data: "nickname",	width: "65%",
-					render: function (data, type, row, meta) {
-						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`
-					}
-				}
-				,{title: "보유 UCD",		data: "ucd",    	width: "30%",
-					render: function (data) {
-						return `${numberWithCommas(data)}`;
-					}
-				}
-				,{title: "", 	data: "", 		width: "5%",
-					render: function (data, type, row, meta) {
-						return `<i style="color: #ec5c5c;" data-row="${meta.row}" onclick="removeRow(this); calculateSelectedCount();" class="far fa-times-circle"></i>`
-					}
-				}
-			],
-			serverSide: false,
-			paging: true,
-			pageLength: 10,
-			select: false,
-			destroy: true,
-			initComplete: function () {
-				/** 데이터 없을 때 조회결과없음 로우 엘리먼트 삭제 **/
-				if (!hasDataOnDatatable(this))
-					removeEmptyRowFromTable();
-			},
-			fnRowCallback: function( nRow, aData ) {
-			},
-			drawCallback: function (settings) {
-			}
-		});
-	}
-
-	function removeRow(obj)
-	{
-		let idx = $(obj).data('row');
-		selectedUsers.splice(idx, 1);
-
-		$(obj).closest('tr').remove();
-
-		buildSelectedUser();
-	}
-
-	function calculateSelectedCount()
-	{
-		let count = selectedUsers.length;
-		selectedUserCount.html(count.toString());
-	}
-

@@ -172,14 +172,22 @@
 	function onClickDoitTab(event)
 	{
 		const selectedTab = $(event.target);
-		const target = $(selectedTab).data('target')
+		const target = $(selectedTab).data('target');
+
+		switch (target) {
+			case '#openedDoitWrap' :
+				getOpenedDoit();
+				break;
+			case '#joinedDoitWrap' :
+				getJoinedDoit();
+				break;
+		}
 
 		selectedTab.siblings().removeClass('active');
 		selectedTab.addClass('active');
 		openedDoitWrap.hide();
 		joinedDoitWrap.hide();
 		$(target).show();
-		target === '#openedDoitWrap' ? getOpenedDoit() : getJoinedDoit();
 	}
 
 	function getOpenedDoit()

@@ -74,7 +74,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <!--<tr>
                                             <td>깐깐찡엉</td>
                                             <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
                                             <td>20,000,000</td>
@@ -89,7 +89,7 @@
                                             <td>
                                                 <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
                                             </td>
-                                        </tr>
+                                        </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -117,7 +117,7 @@
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="닉네임을 입력해주세요.">
                                 <i class="fas fa-search"></i>
-                                <button type="button" class="btn-sm btn-search">검색</button>
+                                <button id="btnSearch" type="button" class="btn-sm btn-search">검색</button>
                             </div>
                         </div>
                         <div class="table-wrap">
@@ -167,7 +167,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>
+<!--                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>-->
             </div>
         </div>
 
@@ -176,5 +176,6 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
 <script type="module" src="/assets/v2/js/ucd/ucd-charge-create.js?version=<?php echo $this->config->item('version');?>"></script>

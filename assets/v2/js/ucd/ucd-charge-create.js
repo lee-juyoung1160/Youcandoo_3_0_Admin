@@ -2,9 +2,9 @@
 	import { ajaxRequestWithJsonData, headers} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop,
-		modalOpen, btnXlsxImport, updateTable, btnXlsxExport, description, nickname, dataTable
-	} from '../modules/elements.js';
+	lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop,
+	modalOpen, btnXlsxImport, updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch
+} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
@@ -24,6 +24,7 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
+		buildSearchMemberTable();
 		amount.trigger('focus');
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
@@ -31,9 +32,10 @@
 		modalOpen		.on('click', function () { onClickModalOpen(this); });
 		modalClose		.on('click', function () { fadeoutModal(); });
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
-		btnSubmit		.on('click', function () { onSubmitUcd(); });
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
+		btnSearch		.on('click', function () { onSubmitSearchMember(); })
+		btnSubmit		.on('click', function () { onSubmitUcd(); });
 	});
 
 	function onClickModalOpen(obj)
@@ -49,7 +51,13 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		buildSearchMemberTable();
+		onSubmitSearchMember();
+	}
+
+	function onSubmitSearchMember()
+	{
+		const table = dataTable.DataTable();
+		table.ajax.reload();
 	}
 
 	function buildSearchMemberTable()
@@ -58,6 +66,7 @@
 			ajax : {
 				url: api.getMember,
 				type:"POST",
+				global: false,
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
@@ -81,23 +90,16 @@
 				}
 			},
 			columns: [
-				{title: '', 	data: "profile_uuid",   width: "5%",
+				{title: "닉네임",		data: "nickname",    	width: "30%" }
+				,{title: "PID",		data: "profile_uuid",   width: "45%" }
+				,{title: "보유UCD",	data: "amount_ucd",   	width: "20%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: '', 		data: "profile_uuid",   width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
-					}
-				}
-				,{title: "회원",		data: "nickname",    width: "65%",
-					render: function (data, type, row, meta) {
-						return `<div class="p-info">${data}<span class="p-id">${row.profile_uuid}</span></div>`
-					}
-				}
-				,{title: "보유UCD",	data: "ucd.total",   width: "30%",
-					render: function (data) {
-						return (
-							`<div class="user-ucd">
-								<strong>${numberWithCommas(data)}</strong>
-							</div>`
-						)
 					}
 				}
 			],
@@ -113,6 +115,10 @@
 				addEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
+				/** 이미 추가된 경우 체크박스 disabled **/
+				const checkboxEl = $(nRow).children().eq(3).find('input');
+				if (addedUsers.indexOf(aData.profile_uuid) > -1)
+					$(checkboxEl).prop('disabled', true);
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
@@ -129,28 +135,27 @@
 
 	function onClickCheckBox(dt, indexes)
 	{
-		addUser(dt, indexes);
+		const selectedData = dt.rows(indexes).data()[0];
+		addUser(selectedData);
 		initAddedProfileUuid();
 		tableReloadAndStayCurrentPage(dataTable);
 	}
 
-	function addUser(dt, indexes)
+	function addUser(_data)
 	{
-		const selectedData = dt.rows(indexes).data()[0];
-		const {profile_uuid, nickname,} = selectedData;
-
+		const {profile_uuid, nickname, amount_ucd} = _data;
 		const rowEl =
-			`<tr>
-				<td>깐깐찡엉</td>
-				<td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-				<td>20,000,000</td>
+			`<tr id="${profile_uuid}">
+				<td>${nickname}</td>
+				<td>${profile_uuid}</td>
+				<td>${numberWithCommas(amount_ucd)}</td>
 				<td>
-					<button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
+					<button type="button" class="btn-xs btn-text-red delete-btn btn-delete-row"><i class="fas fa-minus-circle"></i></button>
 				</td>
 			</tr>`;
 
 		let targetTableBody = updateTable.find('tbody');
-		targetTableBody.append(rowEl);
+		targetTableBody.prepend(rowEl);
 		addRemoveRowEvent();
 	}
 
@@ -161,7 +166,7 @@
 
 	function removeRow(obj)
 	{
-		$(obj).parents('tr').remove();
+		$(obj).closest('tr').remove();
 		initAddedProfileUuid();
 		tableReloadAndStayCurrentPage(dataTable);
 	}
@@ -223,6 +228,13 @@
 		{
 			sweetToast(`내용은 ${message.required}`);
 			description.trigger('focus');
+			return false;
+		}
+
+		const addedRow = updateTable.find('tbody').children();
+		if (isEmpty(addedRow) || addedRow.length === 0)
+		{
+			sweetToast(`대상자 ${message.emptyList}`);
 			return false;
 		}
 

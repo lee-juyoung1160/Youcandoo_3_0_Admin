@@ -86,7 +86,7 @@
 
     export function toggleSingleCheckBox(obj)
     {
-        const tableEl = $(obj).closest('table');
+        const tableEl = $(obj).parents('table');
         const chkBoxes = $(tableEl).find('input:checkbox');
 
         $(chkBoxes).prop('checked', false);

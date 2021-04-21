@@ -2,32 +2,38 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		btnBack,
-		btnList,
-		btnModalUcd,
-		modalUcd,
-		amount,
-		content,
-		memo,
-		modalClose,
-		modalBackdrop,
-		lengthInput,
-		ulDoitTab,
-		openedDoitWrap,
-		joinedDoitWrap,
-		pagination,
-		actionsWrap,
-		profileId,
-		contact,
-		userNickname,
-		useremail,
-		balance,
-		isAuth,
-		userLevel,
-		totalActionCount,
-		hiddenProfileId,
-		deviceInfoTableBody, openedDoitTable, joinedDoitTable,
-	} from '../modules/elements.js';
+	btnBack,
+	btnList,
+	btnModalUcd,
+	modalUcd,
+	amount,
+	content,
+	memo,
+	modalActionDetail,
+	modalClose,
+	modalBackdrop,
+	lengthInput,
+	ulDoitTab,
+	openedDoitWrap,
+	joinedDoitWrap,
+	pagination,
+	actionsWrap,
+	profileId,
+	contact,
+	userNickname,
+	useremail,
+	balance,
+	isAuth,
+	userLevel,
+	totalActionCount,
+	hiddenProfileId,
+	deviceInfoTableBody,
+	openedDoitTable,
+	joinedDoitTable,
+	modalActionContentWrap,
+	modalActionDesc,
+	modalActionExampleWrap, modalActionExampleDesc, modalActionWarningReason
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
 		copyToClipboard,
@@ -122,7 +128,7 @@
 		balance.text(numberWithCommas(ucd));
 		isAuth.text(is_auth);
 		userLevel.text(level);
-		totalActionCount.text(action_count);
+		totalActionCount.text(numberWithCommas(action_count));
 	}
 
 	function getDeviceInfo()
@@ -324,19 +330,24 @@
 
 	function buildActions(data)
 	{
-		const actions = data.data;
-		const actionsLength = actions.length;
-		const totalCount = data.count;
-		let actionEl = '<p class="empty-message">인증 정보가 없습니다.</p>';
+		let actionEl = '<div class="card"><p class="message">인증 정보가 없습니다.</p></div>';
 
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
 			actionEl = '';
 
 			data.data.map((obj, index) => {
-				const {like_count, comment_count, report_count, doit_title, nickname, action_date, is_yellow} = obj;
+				const { action_uuid, like_count, comment_count, report_count, doit_title, nickname, action_date, is_yellow, contents_type, contents_url, thumbnail_url} = obj;
 
-				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>` : '';
+				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+
+				let actionContentImage;
+				if (contents_type === 'image')
+					actionContentImage = contents_url;
+				else if (contents_type === 'voice')
+					actionContentImage = label.voiceImage
+				else if (contents_type === 'video')
+					actionContentImage = thumbnail_url;
 
 				if (index===0 || index%6 === 0)
 					actionEl += '<div class="row">';
@@ -351,8 +362,8 @@
 									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
 								</div>
 							</div>
-							<div class="img-wrap action-image-wrap">
-								${buildAction(obj)}
+							<div class="img-wrap action-image-wrap" data-uuid="${action_uuid}">
+								<img src="${actionContentImage}" alt="">
 							</div>
 							<p class="title">${doit_title}</p>
 							<span class="nick-name">${nickname}</span>
@@ -368,20 +379,7 @@
 
 		actionsWrap.html(actionEl);
 
-		$(".action-image-wrap").on('click', function () { viewActionDetail(this); })
-	}
-
-	function buildAction(data)
-	{
-		const {contents_type, contents_url, thumbnail_url} = data;
-		switch (contents_type) {
-			case 'image' :
-				return `<img src="${contents_url}" alt="">`;
-			case 'video' :
-				return `<img src="${thumbnail_url}" alt="">`;
-			case 'voice' :
-				return `<img src="${label.voiceImage}" alt="">`;
-		}
+		$(".action-image-wrap").on('click', function () { onClickAction(this); })
 	}
 
 	function buildPagination(data)
@@ -404,11 +402,57 @@
 		getActions();
 	}
 
-	function viewActionDetail()
+	let g_action_uuid;
+	function onClickAction(obj)
 	{
+		g_action_uuid = $(obj).data('uuid');
 		modalActionDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
+		getDetailAction();
+	}
+
+	function getDetailAction()
+	{
+		const url = api.memberActionDetail;
+		const errMsg = `인증 정보${message.ajaxLoadError}`;
+		const param = {
+			"action_uuid" : g_action_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
+	}
+
+	function getDetailActionCallback(data)
+	{
+		isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(data.msg);
+	}
+
+	function buildModalActionDetail(data)
+	{
+		const {action_contents_type, action_contents_url, action_description, example_contents_url, example_description, yellow_reason} = data.data;
+
+		let contentEL = '';
+		let exampleEl = '';
+		switch (action_contents_type) {
+			case 'image' :
+				contentEL = `<div class="img-wrap"><img src="${action_contents_url}" alt=""></div>`
+				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
+				break;
+			case 'video' :
+				contentEL = `<div class="video-wrap"><video controls><source src="${action_contents_url}"/></video></div>`
+				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
+				break;
+			case 'voice' :
+				contentEL = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${action_contents_url}"/></audio></div>`
+				exampleEl = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${example_contents_url}"/></audio></div>`
+				break;
+		}
+		modalActionContentWrap.html(contentEL);
+		modalActionDesc.text(action_description);
+		modalActionWarningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
+		modalActionExampleWrap.html(exampleEl);
+		modalActionExampleDesc.text(example_description);
 	}
 
 	function getMemberUcdHistory()

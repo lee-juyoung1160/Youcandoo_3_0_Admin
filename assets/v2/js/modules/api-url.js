@@ -9,6 +9,7 @@
         deviceInfo : baseApiUrl + 'profile/get/device/info',
         memberDoitList : baseApiUrl + 'profile/get/doit',
         memberActionList : baseApiUrl + 'profile/get/action',
+        memberActionDetail : baseApiUrl + 'profile/get/detail/action',
         levelMemberList : baseApiUrl + 'member/level/list',
 
         categoryList : baseApiUrl + 'category/list',

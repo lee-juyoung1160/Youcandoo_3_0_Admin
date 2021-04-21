@@ -131,13 +131,16 @@
 
 	function buildActions(data)
 	{
-		let actionEl = '';
+		let actionEl = '<div class="card"><p class="message">인증 정보가 없습니다.</p></div>';
 		if (data.count > 0)
 		{
-			data.data.map( (obj, index) => {
+			actionEl = '';
 
+			data.data.map( (obj, index) => {
 				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
+
 				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+
 				let actionContentImage;
 				if (contents_type === 'image')
 					actionContentImage = contents_url;

@@ -415,6 +415,11 @@
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
     export const modalActionDetail = $("#modalActionDetail");
+    export const modalActionContentWrap = $("#modalActionContentWrap");
+    export const modalActionDesc = $("#modalActionDesc");
+    export const modalActionWarningReason = $("#modalActionWarningReason");
+    export const modalActionExampleWrap = $("#modalActionExampleWrap");
+    export const modalActionExampleDesc = $("#modalActionExampleDesc");
     export const btnSetLevel = $("#btnSetLevel");
     export const cardLevel1 = $("#cardLevel1");
     export const cardLevel2 = $("#cardLevel2");

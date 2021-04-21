@@ -2,38 +2,37 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	btnModalUcd,
-	modalUcd,
-	amount,
-	content,
-	memo,
-	modalActionDetail,
-	modalClose,
-	modalBackdrop,
-	lengthInput,
-	ulDoitTab,
-	openedDoitWrap,
-	joinedDoitWrap,
-	pagination,
-	actionsWrap,
-	profileId,
-	contact,
-	userNickname,
-	useremail,
-	balance,
-	isAuth,
-	userLevel,
-	totalActionCount,
-	hiddenProfileId,
-	deviceInfoTableBody,
-	openedDoitTable,
-	joinedDoitTable,
-	modalActionContentWrap,
-	modalActionDesc,
-	modalActionExampleWrap, modalActionExampleDesc, modalActionWarningReason
-} from '../modules/elements.js';
+		btnBack,
+		btnList,
+		btnModalUcd,
+		modalUcd,
+		amount,
+		memo,
+		modalActionDetail,
+		modalClose,
+		modalBackdrop,
+		lengthInput,
+		ulDoitTab,
+		openedDoitWrap,
+		joinedDoitWrap,
+		pagination,
+		actionsWrap,
+		profileId,
+		contact,
+		userNickname,
+		useremail,
+		balance,
+		isAuth,
+		userLevel,
+		totalActionCount,
+		hiddenProfileId,
+		deviceInfoTableBody,
+		openedDoitTable,
+		joinedDoitTable,
+		modalActionContentWrap,
+		modalActionDesc,
+		modalActionExampleWrap, modalActionExampleDesc, modalActionWarningReason, btnSubmitSaveUcd, description
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
 		copyToClipboard,
@@ -60,14 +59,15 @@
 		getOpenedDoit();
 		getActions();
 		/** 이벤트 **/
-		amount 			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
-		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
+		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
+		lengthInput 	.on('propertychange change keyup paste input', function () { limitInputLength(this); });
 		btnModalUcd		.on('click', function () { onClickBtnModalUcd(); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
+		modalClose		.on('click', function () { fadeoutModal(); });
+		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
-		ulDoitTab		.on("click", function (event) { onClickDoitTab(event); });
+		ulDoitTab		.on('click', function (event) { onClickDoitTab(event); });
+		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); })
 	});
 
 	function moveSection()
@@ -97,7 +97,7 @@
 	{
 		amount.trigger('focus');
 		amount.val('');
-		content.val('');
+		description.val('');
 		memo.val('');
 	}
 
@@ -509,6 +509,62 @@
 	{
 		if (isNegative(aData.amount))
 			$(nRow).addClass('minus-pay');
+	}
+
+	function onSubmitSaveUcd()
+	{
+		if (saveUcdValid())
+			sweetConfirm(message.create, saveUcdRequest);
+	}
+
+	function saveUcdRequest()
+	{
+		const url = api.saveUcdForUser;
+		const errMsg = label.submit + message.ajaxError;
+		const param = {
+			"profile_list" : [ g_profile_uuid ],
+			"value" : amount.val().trim(),
+			"description" : description.val().trim(),
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
+	}
+
+	function saveUcdReqCallback(data)
+	{
+		sweetToastAndCallback(data, saveUcdSuccess);
+	}
+
+	function saveUcdSuccess()
+	{
+		fadeoutModal();
+		getBasicInfo();
+	}
+
+	function saveUcdValid()
+	{
+		if (isEmpty(amount.val()))
+		{
+			sweetToast(`UCD는 ${message.required}`);
+			amount.trigger('focus');
+			return false;
+		}
+
+		if (Number(amount.val()) > 1000000)
+		{
+			sweetToast(message.maxAvailableUserUcd);
+			amount.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(description.val()))
+		{
+			sweetToast(`내용은 ${message.required}`);
+			description.trigger('focus');
+			return false;
+		}
+
+		return true;
 	}
 
 	function goListPage()

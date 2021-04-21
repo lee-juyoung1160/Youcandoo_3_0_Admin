@@ -1,6 +1,8 @@
 
     const baseApiUrl = 'https://adminapi.youcandoo.co.kr/v3/';
     export const api = {
+        saveUcdForUser : baseApiUrl + 'ucd/set/increment/user/point',
+
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update',
 

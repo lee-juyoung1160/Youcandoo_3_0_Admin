@@ -119,7 +119,7 @@
 
 		if (amount.val() > 100000000)
 		{
-			sweetToast(`UCD는 ${message.maxAvailableBizUcd}`);
+			sweetToast(message.maxAvailableBizUcd);
 			amount.trigger('focus');
 			return false;
 		}

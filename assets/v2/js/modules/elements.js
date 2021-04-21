@@ -427,3 +427,6 @@
     export const cardLevel4 = $("#cardLevel4");
     export const cardLevel5 = $("#cardLevel5");
     export const cardLevelSpecial = $("#cardLevelSpecial");
+
+    /** UCD 충전 **/
+    export const btnSearchNickname = $("#btnSearchNickname");

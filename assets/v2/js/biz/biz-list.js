@@ -1,8 +1,8 @@
 
-	import { headers } from '../modules/request.js';
+	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType,} from '../modules/elements.js';
-	import { sweetError } from  '../modules/alert.js';
+	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
@@ -69,8 +69,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},

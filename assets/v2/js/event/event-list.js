@@ -1,5 +1,5 @@
 
-	import {headers} from '../modules/request.js';
+	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType, rdoExposure} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
@@ -90,8 +90,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},

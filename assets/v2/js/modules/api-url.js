@@ -142,10 +142,10 @@
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
         getMember : baseApiUrl + 'ucd/get/profile/user',
         getMemberFromXlsx : baseApiUrl + '',
-        systemWalletList : baseApiUrl + 'ucd/system/list',
-        doitWalletList : baseApiUrl + 'ucd/doit/list',
+        systemWalletList : baseApiUrl + 'ucd/get/history/system',
+        doitWalletList : baseApiUrl + 'ucd/get/history/doit',
         memberWalletList : baseApiUrl + 'ucd/get/history/user',
-        pendingWalletList : baseApiUrl + 'ucd/pending/list',
+        pendingWalletList : baseApiUrl + 'ucd/get/history/transfer',
 
         giftList : baseApiUrl + 'gift/list',
         createGift : baseApiUrl + 'gift/create',

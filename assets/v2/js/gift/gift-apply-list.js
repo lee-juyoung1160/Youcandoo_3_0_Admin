@@ -1,5 +1,5 @@
 
-	import {headers, invalidResp, getStatusCode} from '../modules/request.js';
+	import {headers, invalidResp, getStatusCode, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -101,8 +101,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},

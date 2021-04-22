@@ -1,9 +1,23 @@
 
-	import { ajaxRequestWithJsonData, headers} from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop,
-	modalOpen, btnXlsxImport, updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch
+	lengthInput,
+	btnSubmit,
+	amount,
+	keyword,
+	modalClose,
+	modalBackdrop,
+	modalOpen,
+	btnXlsxImport,
+	updateTable,
+	btnXlsxExport,
+	description,
+	nickname,
+	dataTable,
+	btnSearch,
+	selPageLength,
+		totalCount
 } from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
@@ -56,7 +70,15 @@
 
 	function onSubmitSearchMember()
 	{
+		if (isEmpty(keyword.val()))
+		{
+			sweetToast(`닉네임을 ${message.input}`);
+			keyword.trigger('focus');
+			return;
+		}
+
 		const table = dataTable.DataTable();
+		table.page.len(5);
 		table.ajax.reload();
 	}
 
@@ -66,13 +88,22 @@
 			ajax : {
 				url: api.getMember,
 				type:"POST",
-				global: false,
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.data.count;
-					json.recordsFiltered = json.data.count;
-					json.data = json.data.list;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.data.count;
+						json.recordsFiltered = json.data.count;
+						json.data = json.data.list;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
 
 					return JSON.stringify(json);
 				},
@@ -105,7 +136,7 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: 5,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
@@ -157,6 +188,7 @@
 		let targetTableBody = updateTable.find('tbody');
 		targetTableBody.prepend(rowEl);
 		addRemoveRowEvent();
+		displayCountAddedUser();
 	}
 
 	function addRemoveRowEvent()
@@ -169,6 +201,7 @@
 		$(obj).closest('tr').remove();
 		initAddedProfileUuid();
 		tableReloadAndStayCurrentPage(dataTable);
+		displayCountAddedUser();
 	}
 
 	function initAddedProfileUuid()
@@ -177,6 +210,12 @@
 		updateTable.find('tbody').children().each(function () {
 			addedUsers.push(this.id);
 		});
+	}
+
+	function displayCountAddedUser()
+	{
+		const countAddedUser = updateTable.find('tbody').children().length;
+		totalCount.text(numberWithCommas(countAddedUser));
 	}
 
 	function onSubmitUcd()
@@ -250,12 +289,19 @@
 			return ;
 		}
 
-		readExcelData(obj, getExcelData);
+		readExcelData(obj, getMemberFromXlsx);
+
 		emptyFile(obj);
 	}
 
-	function getExcelData(data)
+	function getMemberFromXlsx(data)
 	{
+		if (isEmpty(data))
+		{
+			sweetToast(message.invalidFileContent);
+			return;
+		}
+
 		const url = api.getMemberFromXlsx;
 		const errMsg = `회원목록${message.ajaxLoadError}`
 		const param = JSON.stringify({ "data" : data });

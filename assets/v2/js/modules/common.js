@@ -222,6 +222,17 @@
         });
     }
 
+    /** 체크박스 최소 1개 체크 검사 **/
+    export function atLeastChecked(obj)
+    {
+        let checkedCount = $("input[name='"+obj.name+"']:checked").length;
+        if (checkedCount === 0)
+        {
+            sweetToast(message.minimumChecked);
+            $(obj).prop("checked", true);
+        }
+    }
+
     /** 글자수 체크 **/
     export function limitInputLength(obj)
     {

@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, headers } from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import {api} from '../modules/api-url.js';
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -42,8 +42,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},

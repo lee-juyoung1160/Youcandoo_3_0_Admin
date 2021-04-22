@@ -47,6 +47,7 @@
     export const dataTable  = $("#dataTable");
     export const pagination = $("#dataTable_paginate");
 
+    export const totalCount  = $("#totalCount");
     export const thumbnail  = $("#thumbnail");
     export const amount     = $("#amount");
     export const nickname   = $("#nickname");

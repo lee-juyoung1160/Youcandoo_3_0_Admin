@@ -1,8 +1,8 @@
 
-	import { headers } from '../modules/request.js';
+	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
-	import { sweetError } from '../modules/alert.js';
+	import { sweetError, sweetToast } from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday, initSearchDateRangeMonth,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -57,9 +57,17 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.data.count;
-					json.recordsFiltered = json.data.count;
-					json.data = json.data.list;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.data.count;
+						json.recordsFiltered = json.data.count;
+						json.data = json.data.list;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},

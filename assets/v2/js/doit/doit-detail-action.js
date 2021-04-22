@@ -132,7 +132,7 @@
 	function buildActions(data)
 	{
 		let actionEl = '<div class="card"><p class="message">인증 정보가 없습니다.</p></div>';
-		if (data.count > 0)
+		if (!isEmpty(data.data) && data.count > 0)
 		{
 			actionEl = '';
 

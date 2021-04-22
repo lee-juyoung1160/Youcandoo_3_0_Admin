@@ -112,9 +112,18 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.data.count;
-					json.recordsFiltered = json.data.count;
-					json.data = json.data.list;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.data.count;
+						json.recordsFiltered = json.data.count;
+						json.data = json.data.list;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
 
 					return JSON.stringify(json);
 				},

@@ -42,10 +42,14 @@
 			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
 
 			let callbackArgs = [];
-			readData.map( value => callbackArgs.push(value[0]) )
+			readData.map( value => {
+				if (!isEmpty(value[0]))
+					callbackArgs.push(value[0])
+			})
 
 			callback(callbackArgs);
-		};
+		}
+
 		reader.readAsArrayBuffer(obj.files[0]);
 	}
 

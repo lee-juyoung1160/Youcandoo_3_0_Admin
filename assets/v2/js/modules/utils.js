@@ -129,9 +129,9 @@
 	}
 
 	/** 숫자 형식에 , 붙이기 **/
-	export function numberWithCommas(x)
+	export function numberWithCommas(num)
 	{
-	    return isEmpty(x) ? 0 : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    return (isEmpty(num) || isNaN(num)) ? 0 : num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
 	export function isImage(obj)

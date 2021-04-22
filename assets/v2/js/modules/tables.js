@@ -31,8 +31,9 @@
     export function buildTotalCount(_table)
     {
         const numEl = $(_table).parent().siblings().find(".data-num")
+        const totalCount = numberWithCommas(getTotalRecordsFromDataTable(_table));
 
-        $(numEl).html(numberWithCommas(getTotalRecordsFromDataTable(_table)));
+        $(numEl).text( totalCount);
     }
 
     /** 데이터 테이블에서 total count 가져오기 **/

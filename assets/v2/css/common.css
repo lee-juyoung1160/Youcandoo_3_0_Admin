@@ -1178,3 +1178,9 @@ input[type="password"]{
 .date-time-wrap .select-box {
 	width: 100px;
 }
+
+/*임시*/
+.textarea-wrap textarea{
+	width: 49%;
+
+}

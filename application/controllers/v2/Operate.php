@@ -8,6 +8,11 @@ class Operate extends MY_Controller {
         $this->load->template('v2/operate/error-list');
     }
 
+    public function test()
+        {
+            $this->load->template('v2/operate/test');
+        }
+
 }
 
 

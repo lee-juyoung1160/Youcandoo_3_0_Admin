@@ -13,7 +13,6 @@
 	initSelectOption,
 		onChangeSearchDateFrom, onChangeSearchDateTo
 	} from "../modules/common.js";
-	import { isEmpty } from "../modules/utils.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -29,7 +28,7 @@
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -59,7 +58,7 @@
 		keyword.val(historyParams.keyword);
 		selSearchType.val(historyParams.search_type);
 		rdoExposure.each(function () {
-			if ($(this).val() === historyParams.isExposure)
+			if ($(this).val() === historyParams.is_exposure)
 				$(this).prop("checked", true);
 		});
 		selPageLength.val(historyParams.limit);
@@ -85,7 +84,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.doitList,
+				url: api.eventList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -111,33 +110,22 @@
 				}
 			},
 			columns: [
-				{title: "카테고리",    	data: "category_title",  	width: "10%" }
-				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "10%" }
-				,{title: "두잇명", 		data: "doit_title",			width: "30%",
+				{title: "구분",    		data: "event_type",  		width: "10%" }
+				,{title: "제목", 		data: "title",				width: "30%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
+						return `<a href="${page.detailEvent}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "리더", 		data: "nickname",			width: "10%" }
-				,{title: "생성일", 		data: "created",			width: "10%",
+				,{title: "기간", 		data: "event_type",			width: "20%",
+					render: function (data, type, row, meta) {
+						return data === '결과발표' ? label.dash : `${row.start_date} ~ ${row.end_date}`;
+					}
+				}
+				,{title: "노출여부",    	data: "is_exposure",  		width: "10%" }
+				,{title: "작성자",    	data: "created_user",  		width: "15%" }
+				,{title: "등록일", 		data: "created",			width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);
-					}
-				}
-				,{title: "오픈일", 		data: "opened",				width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data.substring(0, 10);
-					}
-				}
-				,{title: "참여인원",    	data: "member_cnt",  		width: "10%" }
-				,{title: "상태",    		data: "doit_status",  		width: "10%",
-					render: function (data) {
-						switch (data) {
-							case 'create' : return '생성';
-							case 'open' : return '진행중';
-							case 'stop' : return '운영정지';
-							case 'delete' : return '삭제';
-						}
 					}
 				}
 			],
@@ -162,15 +150,13 @@
 	function tableParams()
 	{
 		const param = {
-			"date_type" : selDateType.val(),
 			"from_date" : dateFrom.val(),
 			"to_date" : dateTo.val(),
 			"search_type": selSearchType.val(),
 			"keyword" : keyword.val().trim(),
+			"is_exposure": $("input[name=radio-exposure]:checked").val(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
-			"category_uuid": selCategory.val(),
-			"order_by" : selSort.val()
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

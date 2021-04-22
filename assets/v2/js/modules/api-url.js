@@ -126,7 +126,8 @@
 
         eventList : baseApiUrl + 'event/get/list',
         createEvent : baseApiUrl + 'event/create',
-        detailEvent : baseApiUrl + 'event/detail',
+        detailEvent : baseApiUrl + 'event/get/detail/info',
+        deleteEvent : baseApiUrl + 'event/delete',
         updateEvent : baseApiUrl + 'event/update',
 
         pushList : baseApiUrl + 'push',

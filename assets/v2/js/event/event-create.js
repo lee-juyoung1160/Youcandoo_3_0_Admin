@@ -2,15 +2,19 @@
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
-		lengthInput,
-		btnSubmit,
-		selEventType,
-		title,
-		content,
-		notice,
-		link,
-		dateFrom,dateTo,
-		contentImage, thumbnailImage} from '../modules/elements.js';
+	lengthInput,
+	btnSubmit,
+	selEventType,
+	title,
+	content,
+	notice,
+	link,
+	dateFrom,
+	dateTo,
+	contentImage,
+	thumbnailImage,
+		eventNotice
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";
 	import {isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
@@ -19,7 +23,7 @@
 	import { page } from "../modules/page-url.js";
 	const linkWrap = link.parents('tr');
 	const contentWrap = content.parents('tr');
-	const noticeWrap = notice.parents('tr');
+	const noticeWrap = eventNotice.parents('tr');
 	const contentImgWrap = contentImage.parents('tr');
 	const dateWrap = dateFrom.parents('tr');
 
@@ -100,14 +104,14 @@
 			const { event_thumbnail_img, event_content_img } = data.image_urls;
 			const param = {
 				"event_type" : selEventType.val(),
-				"event_title" : title.val().trim(),
-				"event_contents" : content.val().trim(),
-				"event_notice" : notice.val().trim(),
-				"event_start_date" : dateFrom.val(),
-				"event_end_date" : dateTo.val(),
-				"event_link_url" : link.val().trim(),
-				"event_image" : event_content_img,
-				"event_thumbnail_image" : event_thumbnail_img,
+				"title" : title.val().trim(),
+				"contents" : isDisplay(contentWrap) ? content.val().trim() : '',
+				"notice" : isDisplay(noticeWrap) ? notice.val().trim() : '',
+				"start_date" : isDisplay(dateWrap) ? dateFrom.val() : '',
+				"end_date" : isDisplay(dateWrap) ? dateTo.val() : '',
+				"link_url" : isDisplay(linkWrap) ? link.val().trim() : '',
+				"image_url" : isDisplay(contentImgWrap) ? event_content_img : '',
+				"thumbnail_image_url" : event_thumbnail_img,
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

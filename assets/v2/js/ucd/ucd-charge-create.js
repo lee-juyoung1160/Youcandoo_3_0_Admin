@@ -2,43 +2,44 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	lengthInput,
-	btnSubmit,
-	amount,
-	keyword,
-	modalClose,
-	modalBackdrop,
-	modalOpen,
-	btnXlsxImport,
-	updateTable,
-	btnXlsxExport,
-	description,
-	nickname,
-	dataTable,
-	btnSearch,
-	selPageLength,
-		totalCount
-} from '../modules/elements.js';
+		lengthInput,
+		btnSubmit,
+		amount,
+		keyword,
+		modalClose,
+		modalBackdrop,
+		modalOpen,
+		btnXlsxImport,
+		updateTable,
+		btnXlsxExport,
+		description,
+		nickname,
+		dataTable,
+		btnSearch,
+		totalCount, pagination
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, paginate,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
 	import {
-	initTableDefaultConfig,
-	tableReloadAndStayCurrentPage,
-	toggleSingleCheckBox,
-	toggleBtnPreviousAndNextOnTable,
-		checkBoxElement
+		initTableDefaultConfig,
+		tableReloadAndStayCurrentPage,
+		toggleSingleCheckBox,
+		toggleBtnPreviousAndNextOnTable,
+		checkBoxElement,
 	} from "../modules/tables.js";
 	let addedUsers = [];
+	let addedUserObj = [];
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		buildSearchMemberTable();
+		buildUpdateTable();
 		amount.trigger('focus');
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
@@ -168,54 +169,73 @@
 	{
 		const selectedData = dt.rows(indexes).data()[0];
 		addUser(selectedData);
-		initAddedProfileUuid();
-		tableReloadAndStayCurrentPage(dataTable);
 	}
 
-	function addUser(_data)
+	function addUser(data)
 	{
-		const {profile_uuid, nickname, amount_ucd} = _data;
-		const rowEl =
-			`<tr id="${profile_uuid}">
-				<td>${nickname}</td>
-				<td>${profile_uuid}</td>
-				<td>${numberWithCommas(amount_ucd)}</td>
-				<td>
-					<button type="button" class="btn-xs btn-text-red delete-btn btn-delete-row"><i class="fas fa-minus-circle"></i></button>
-				</td>
-			</tr>`;
+		const {profile_uuid, nickname, amount_ucd} = data;
+		const userObj = [];
+		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+		addedUserObj = userObj.concat(addedUserObj);
 
-		let targetTableBody = updateTable.find('tbody');
-		targetTableBody.prepend(rowEl);
-		addRemoveRowEvent();
-		displayCountAddedUser();
+		buildUpdateTable();
 	}
 
-	function addRemoveRowEvent()
+	function buildUpdateTable()
 	{
-		$(".btn-delete-row").on('click', function () { removeRow(this); })
+		updateTable.DataTable({
+			data: addedUserObj,
+			columns: [
+				{title: "닉네임", 		data: "nickname",		width: "20%" }
+				,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
+				,{title: "보유 UCD",    	data: "amount_ucd",  	width: "20%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "",    		data: "profile_uuid",  	width: "10%",
+					render: function (data, type, row, meta) {
+						return `<button type="button" class="btn-xs btn-text-red delete-btn" data-rownum="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 50,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				initAddedProfileUuid();
+				displayCountAddedUser();
+				tableReloadAndStayCurrentPage(dataTable);
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('id', aData.profile_uuid);
+				$(nRow).children().eq(3).find('button').on('click', function () { removeRow(this); });
+			},
+			drawCallback: function (settings) {
+			}
+		});
 	}
 
 	function removeRow(obj)
 	{
+		let idx = $(obj).data('rownum');
+		addedUserObj.splice(idx, 1);
+
 		$(obj).closest('tr').remove();
-		initAddedProfileUuid();
-		tableReloadAndStayCurrentPage(dataTable);
-		displayCountAddedUser();
+		buildUpdateTable();
 	}
 
 	function initAddedProfileUuid()
 	{
 		addedUsers.length = 0;
-		updateTable.find('tbody').children().each(function () {
-			addedUsers.push(this.id);
-		});
+		addedUserObj.map(userObj => addedUsers.push(userObj.profile_uuid));
 	}
 
 	function displayCountAddedUser()
 	{
-		const countAddedUser = updateTable.find('tbody').children().length;
-		totalCount.text(numberWithCommas(countAddedUser));
+		totalCount.text(numberWithCommas(addedUserObj.length));
 	}
 
 	function onSubmitUcd()
@@ -270,8 +290,7 @@
 			return false;
 		}
 
-		const addedRow = updateTable.find('tbody').children();
-		if (isEmpty(addedRow) || addedRow.length === 0)
+		if (isEmpty(addedUsers) || addedUsers.length === 0)
 		{
 			sweetToast(`대상자 ${message.emptyList}`);
 			return false;

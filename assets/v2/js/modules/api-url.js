@@ -124,7 +124,7 @@
         /*deleteStory : baseApiUrl + 'story/delete',*/
         reorderStory : baseApiUrl + 'story/set/orders',
 
-        eventList : baseApiUrl + 'event/list',
+        eventList : baseApiUrl + 'event/get/list',
         createEvent : baseApiUrl + 'event/create',
         detailEvent : baseApiUrl + 'event/detail',
         updateEvent : baseApiUrl + 'event/update',

@@ -98,14 +98,14 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "nickname",  		width: "20%",
+				{title: "닉네임",    	data: "nickname",  		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "Profile ID", 	data: "profile_uuid",	width: "55%" }
-				,{title: "사용여부", 		data: "is_active",		width: "10%" }
-				,{title: "가입일시", 		data: "created",		width: "15%" }
+				,{title: "PID", 	data: "profile_uuid",	width: "55%" }
+				,{title: "사용여부", 	data: "is_active",		width: "10%" }
+				,{title: "가입일시", 	data: "created",		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,

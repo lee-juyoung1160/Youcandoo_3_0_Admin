@@ -90,13 +90,13 @@
 				}
 			},
 			columns: [
-				{title: "기업 ID",    	data: "company_uuid",  	width: "40%" }
-				,{title: "기업명", 		data: "nickname",		width: "25%",
+				{title: "기업명", 		data: "nickname",		width: "25%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailBiz + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
+				,{title: "기업 ID",    	data: "company_uuid",  	width: "40%" ,}
 				,{title: "등록일",    	data: "created",  		width: "15%",
 					render: function (data) {
 						return data.substring(0, 10);

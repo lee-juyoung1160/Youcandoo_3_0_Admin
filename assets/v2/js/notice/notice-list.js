@@ -111,8 +111,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
@@ -179,32 +187,47 @@
 		return JSON.stringify(param);
 	}
 
+	function onClickModalOpen()
+	{
+		g_delete_uuids.length = 0;
+		fadeinModal();
+		buildUpdateTable();
+	}
+
 	function buildUpdateTable()
 	{
 		updateTable.DataTable({
 			ajax : {
-				url: api.noticeList,
+				url: api.topNoticeList,
 				type: "POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "제목", 		data: "notice_title",	width: "70%" }
+				{title: "제목", 		data: "title",			width: "70%" }
 				,{title: "등록일",    data: "created",  		width: "20%",
 					render: function (data) {
-						data.substring(0, 10);
+						return data.substring(0, 10);
 					}
 				}
 				,{title: "삭제",    	data: "notice_uuid", 	width: "10%",
@@ -241,29 +264,24 @@
 		g_delete_uuids.push(obj.id);
 	}
 
-	function onClickModalOpen()
-	{
-		fadeinModal();
-	}
-
 	function onSubmitUpdate()
 	{
-		sweetConfirm(message.change, updateRequest);
+		if (updateValidation())
+			sweetConfirm(message.change, updateRequest);
 	}
 
 	function updateRequest()
 	{
-		const url = api.topNotice;
+		const url = api.deleteTopNotice;
 		const errMsg = label.delete + message.ajaxError;
-		const param = { "category_list" : g_delete_uuids };
+		const param = { "notice_uuid" : g_delete_uuids };
 
 		ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateCallback, errMsg, false)
 	}
 
 	function updateCallback(data)
 	{
-		if (updateValidation())
-			sweetToastAndCallback(data, updateSuccess);
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
@@ -274,27 +292,11 @@
 
 	function updateValidation()
 	{
-		const uuids = getRowsId();
-		if (uuids.length === 0)
+		if (g_delete_uuids.length === 0)
 		{
-			sweetToast("상단 공지가 없습니다.");
+			sweetToast(message.notModified);
 			return false;
 		}
 
 		return true;
-	}
-
-	function getRowsId()
-	{
-		const rows = updateTable.find('tbody').children();
-		let uuids = [];
-
-		for (let i=0; i<rows.length; i++)
-		{
-			let uuid = $(rows[i]).data('uuid');
-			if (isEmpty(uuid)) continue;
-			uuids.push(uuid);
-		}
-
-		return uuids;
 	}

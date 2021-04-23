@@ -90,7 +90,8 @@
         detailNotice : baseApiUrl + 'notice/get/detail/info',
         updateNotice : baseApiUrl + 'notice/update',
         deleteNotice : baseApiUrl + 'notice/delete',
-        topNotice : baseApiUrl + 'notice/top',
+        topNoticeList : baseApiUrl + 'notice/get/isTopList',
+        deleteTopNotice : baseApiUrl + 'notice/set/isTop',
 
         faqList : baseApiUrl + 'faq/list',
         createFaq : baseApiUrl + 'faq/create',

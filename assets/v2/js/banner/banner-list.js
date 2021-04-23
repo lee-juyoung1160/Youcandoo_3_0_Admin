@@ -181,8 +181,7 @@
 
 	function updateRequest()
 	{
-		if (updateValidation())
-			g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
+		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
 	}
 
 	function deleteRequest()
@@ -201,7 +200,7 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowsId();
+		const uuids = getRowIds();
 		const param = { "banner_uuid" : uuids };
 		const url 	= api.reorderBanner;
 		const errMsg = label.modify + message.ajaxError;
@@ -222,7 +221,7 @@
 
 	function updateValidation()
 	{
-		const uuids = getRowsId();
+		const uuids = getRowIds();
 		if (uuids.length === 0)
 		{
 			sweetToast(message.emptyList);
@@ -232,7 +231,7 @@
 		return true;
 	}
 
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = updateTable.find('tbody').children();
 		let uuids = [];

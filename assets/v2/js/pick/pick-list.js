@@ -212,13 +212,12 @@
 
 	function onSubmitUpdate()
 	{
-		if (updateValidation())
-			sweetConfirm(message.change, updateRequest);
+		sweetConfirm(message.change, updateRequest);
 	}
 
 	function updateRequest()
 	{
-		const uuids = getRowsId();
+		const uuids = getRowIds();
 		const param = { "recommend_list" : uuids };
 		const url 	= api.reorderPick;
 		const errMsg = label.modify + message.ajaxError;
@@ -237,19 +236,7 @@
 		getPickList();
 	}
 
-	function updateValidation()
-	{
-		const uuids = getRowsId();
-		if (uuids.length === 0)
-		{
-			sweetToast("큐레이션이 없습니다.");
-			return false;
-		}
-
-		return true;
-	}
-
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = updateTable.find('tbody').children();
 		let uuids = [];

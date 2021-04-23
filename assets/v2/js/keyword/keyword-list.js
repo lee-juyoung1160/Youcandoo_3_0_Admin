@@ -138,13 +138,13 @@
 
 	function onSubmitUpdate()
 	{
-		sweetConfirm(message.change, updateRequest);
+		if (updateValidation())
+			sweetConfirm(message.change, updateRequest);
 	}
 
 	function updateRequest()
 	{
-		if (updateValidation())
-			g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
+		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
 	}
 
 	function deleteRequest()

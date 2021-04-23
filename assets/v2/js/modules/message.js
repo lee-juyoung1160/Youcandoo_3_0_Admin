@@ -56,4 +56,5 @@
 		,doitContinue : '확인을 누르면 정지해제 됩니다.'
 		,banMember : '확인을 누르면 강퇴 처리됩니다.'
 		,invalidFileContent : '파일 내용을 양식에 맞게 입력해주세요.'
+		,notModified: '변경 사항이 없습니다.'
 	}

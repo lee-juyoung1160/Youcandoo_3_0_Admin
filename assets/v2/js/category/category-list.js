@@ -160,8 +160,7 @@
 
 	function updateRequest()
 	{
-		if (updateValidation())
-			g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
+		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
 	}
 
 	function deleteRequest()
@@ -180,7 +179,7 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowsId();
+		const uuids = getRowIds();
 		const param = { "category_list" : uuids };
 		const url 	= api.reorderCategory;
 		const errMsg = label.modify + message.ajaxError;
@@ -199,19 +198,7 @@
 		getCategoryList();
 	}
 
-	function updateValidation()
-	{
-		let uuids = getRowsId();
-		if (uuids.length === 0)
-		{
-			sweetToast("카테고리가 없습니다.");
-			return false;
-		}
-
-		return true;
-	}
-
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = updateTable.find('tbody').children();
 		let uuids = [];

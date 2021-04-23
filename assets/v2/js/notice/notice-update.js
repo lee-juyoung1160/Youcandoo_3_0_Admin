@@ -1,19 +1,9 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	btnSubmit,
-	contentImage,
-	content,
-	title,
-	reserveDate,
-	chkTopNotice,
-	lengthInput,
-	rdoExposure,
-		thumbnailImage
-	} from '../modules/elements.js';
+	import {btnSubmit, contentImage, content, reserveDate, chkTopNotice, lengthInput, rdoExposure,  noticeTitle} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength} from "../modules/common.js";
+	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength, initInputDatepickerMinDateToday} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -23,8 +13,9 @@
 	const noticeIdx	= splitReverse(pathName, '/');
 
 	$( () => {
+		initInputDatepickerMinDateToday();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		contentImage	.on('change', function () { onChangeValidateImage(this); });
@@ -50,9 +41,15 @@
 	let g_notice_uuid;
 	function buildDetail(data)
 	{
-		const { notice_uuid, is_exposure } = data.data;
+		const { notice_uuid, title, contents, notice_image_url, reservation_date, is_top, is_exposure } = data.data;
 
 		g_notice_uuid = notice_uuid;
+		noticeTitle.val(title);
+		content.val(contents);
+		if (!isEmpty(notice_image_url))
+			contentImage.parent().after(`<div class="detail-img-wrap"><img src="${notice_image_url}" alt=""></div>`)
+		reserveDate.val(reservation_date);
+		chkTopNotice.prop('checked', is_top === 'Y');
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -90,11 +87,16 @@
 			const url 	= api.updateNotice;
 			const errMsg 	= label.modify+message.ajaxError;
 			const param = {
-				"nickname" : nickname.val(),
+				"notice_uuid" : g_notice_uuid,
+				"title" : noticeTitle.val().trim(),
+				"contents" : content.val().trim(),
+				"reservation_date" : reserveDate.val(),
+				"is_top" : chkTopNotice.is(':checked') ? 'Y' : 'N',
+				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 
 			if (!isEmpty(data))
-				param["icon_image_url"] = data.image_urls.file;
+				param["notice_image_url"] = data.image_urls.file;
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}
@@ -114,10 +116,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(noticeTitle.val()))
 		{
 			sweetToast(`제목은 ${message.required}`);
-			title.trigger('focus');
+			noticeTitle.trigger('focus');
 			return false;
 		}
 

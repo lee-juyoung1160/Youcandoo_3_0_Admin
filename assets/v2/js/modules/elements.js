@@ -328,13 +328,13 @@
     export const curationTitle = $("#curationTitle");
 
     /** 공지 **/
+    export const noticeTitle = $("#noticeTitle");
+    export const contentImageWrap = $("#contentImageWrap");
     export const chkTopNotice = $("input[name=chk-top-notice]");
     export const isTop = $("#isTop");
     /** FAQ **/
     export const selFaqType = $("#selFaqType");
     export const faqType = $("#faqType");
-    /** 금지어 **/
-    export const banWords = $("#banWords");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
     export const answer = $("#answer");
@@ -373,7 +373,6 @@
     export const eventTitle = $("#eventTitle");
     export const eventNotice = $("#eventNotice");
     export const eventDate = $("#eventDate");
-    export const notice = $("#notice");
     export const thumbnailImage = $("#thumbnailImage");
     export const eventContentThumbnail= $("#eventContentThumbnail");
     export const eventThumbnail= $("#eventThumbnail");

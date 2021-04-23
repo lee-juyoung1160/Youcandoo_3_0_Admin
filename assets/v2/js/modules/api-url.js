@@ -85,9 +85,9 @@
         bizUcdList : baseApiUrl + 'ucd/get/history/company',
         updateBiz : baseApiUrl + 'biz/update',
 
-        noticeList : baseApiUrl + 'notice/list',
+        noticeList : baseApiUrl + 'notice/get/list',
         createNotice : baseApiUrl + 'notice/create',
-        detailNotice : baseApiUrl + 'notice/detail',
+        detailNotice : baseApiUrl + 'notice/get/detail/info',
         updateNotice : baseApiUrl + 'notice/update',
         deleteNotice : baseApiUrl + 'notice/delete',
         topNotice : baseApiUrl + 'notice/top',

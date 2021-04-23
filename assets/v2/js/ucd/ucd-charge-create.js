@@ -174,11 +174,16 @@
 	function addUser(data)
 	{
 		const {profile_uuid, nickname, amount_ucd} = data;
-		const userObj = [];
+		let userObj = [];
 		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
 		addedUserObj = userObj.concat(addedUserObj);
 
+		let users = [];
+		users.push(profile_uuid);
+		addedUsers = users.concat(addedUsers);
+
 		buildUpdateTable();
+		displayCountAddedUser();
 	}
 
 	function buildUpdateTable()
@@ -201,12 +206,10 @@
 			],
 			serverSide: false,
 			paging: true,
-			pageLength: 50,
+			pageLength: 3,
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				initAddedProfileUuid();
-				displayCountAddedUser();
 				tableReloadAndStayCurrentPage(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -220,17 +223,30 @@
 
 	function removeRow(obj)
 	{
-		let idx = $(obj).data('rownum');
-		addedUserObj.splice(idx, 1);
+		let table = updateTable.DataTable();
+		table.row($(obj).closest('tr')).remove().draw(false);
 
-		$(obj).closest('tr').remove();
-		buildUpdateTable();
+		initAddedUserData();
+		displayCountAddedUser();
 	}
 
-	function initAddedProfileUuid()
+	function initAddedUserData()
 	{
 		addedUsers.length = 0;
-		addedUserObj.map(userObj => addedUsers.push(userObj.profile_uuid));
+		addedUserObj.length = 0;
+
+		let table = updateTable.DataTable();
+		const tableData = table.rows().data();
+		if (tableData.length > 0)
+		{
+			for (let i=0; i<tableData.length; i++)
+			{
+				const {profile_uuid, nickname, amount_ucd} = tableData[i];
+
+				addedUsers.push(profile_uuid)
+				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+			}
+		}
 	}
 
 	function displayCountAddedUser()

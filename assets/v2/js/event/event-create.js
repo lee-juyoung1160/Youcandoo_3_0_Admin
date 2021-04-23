@@ -1,29 +1,17 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-	lengthInput,
-	btnSubmit,
-	selEventType,
-	title,
-	content,
-	notice,
-	link,
-	dateFrom,
-	dateTo,
-	contentImage,
-	thumbnailImage,
-		eventNotice
-	} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, selEventType, title, content, notice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";
 	import {isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+
 	const linkWrap = link.parents('tr');
 	const contentWrap = content.parents('tr');
-	const noticeWrap = eventNotice.parents('tr');
+	const noticeWrap = notice.parents('tr');
 	const contentImgWrap = contentImage.parents('tr');
 	const dateWrap = dateFrom.parents('tr');
 
@@ -65,6 +53,7 @@
 			contentWrap.hide();
 			noticeWrap.hide();
 			contentImgWrap.hide();
+			dateWrap.show();
 		}
 	}
 
@@ -76,11 +65,7 @@
 	function onSubmitEvent()
 	{
 		if (validation())
-		{
-			const imageFile = contentImage[0].files;
-			const requestFn = imageFile.length === 0 ? createRequest : fileUploadReq;
-			sweetConfirm(message.create, requestFn);
-		}
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
 	function fileUploadReq()
@@ -179,20 +164,6 @@
 		if (thumbnailFile.length === 0)
 		{
 			sweetToast(`썸네일 이미지는 ${message.required}`);
-			return false;
-		}
-
-		if (isDisplay(dateWrap) && isEmpty(dateFrom.val()))
-		{
-			sweetToast(`기간(시작일)은 ${message.required}`);
-			dateFrom.trigger('focus');
-			return false;
-		}
-
-		if (isDisplay(dateWrap) && isEmpty(dateTo.val()))
-		{
-			sweetToast(`기간(종료일)은 ${message.required}`);
-			dateTo.trigger('focus');
 			return false;
 		}
 

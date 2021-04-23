@@ -1,12 +1,10 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import { btnBack, btnList, btnUpdate, btnDelete, eventType, eventTitle, link,
-		content,contentImage, dateFrom, eventNotice, thumbnailImage, eventDate, isExposure
-	} from '../modules/elements.js';
+	import { btnBack, btnList, btnUpdate, btnDelete, eventType, eventTitle, link, content, contentImage, eventNotice, thumbnailImage, eventDate, isExposure} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
+	import { getPathName, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -17,7 +15,7 @@
 	const contentWrap = content.parents('tr');
 	const noticeWrap = eventNotice.parents('tr');
 	const contentImgWrap = contentImage.parents('tr');
-	const dateWrap = dateFrom.parents('tr');
+	const dateWrap = eventDate.parents('tr');
 
 	$( () => {
 		/** 상세 불러오기 **/
@@ -48,17 +46,17 @@
 	let g_event_uuid;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
+		const { event_uuid, event_type, event_type_name, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
 
 		switch (event_type) {
-			case '이벤트' :
+			case 'event' :
 				linkWrap.remove();
 				break;
-			case '결과발표' :
+			case 'announce' :
 				linkWrap.remove();
 				dateWrap.remove();
 				break;
-			case '링크' :
+			case 'link' :
 				contentWrap.remove();
 				noticeWrap.remove();
 				contentImgWrap.remove();
@@ -66,7 +64,7 @@
 		}
 
 		g_event_uuid = event_uuid;
-		eventType.text(event_type);
+		eventType.text(event_type_name);
 		eventTitle.text(title);
 		link.text(link_url);
 		content.text(contents);
@@ -97,12 +95,7 @@
 
 	function deleteReqCallback(data)
 	{
-		sweetToastAndCallback(data, deleteSuccess)
-	}
-
-	function deleteSuccess()
-	{
-		goListPage();
+		sweetToastAndCallback(data, goListPage)
 	}
 
 	function goListPage()

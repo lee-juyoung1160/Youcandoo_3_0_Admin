@@ -46,9 +46,9 @@
 			const url 	= api.createNotice;
 			const errMsg 	= label.submit+message.ajaxError;
 			const param = {
-				"notice_title" : title.val().trim(),
-				"notice_contents" : content.val().trim(),
-				"notice_image" : isEmpty(data) ? "" : data.image_urls.file,
+				"title" : title.val().trim(),
+				"contents" : content.val().trim(),
+				"notice_image_url" : isEmpty(data) ? "" : data.image_urls.file,
 				"reservation_date" : reserveDate.val(),
 				"is_top" : chkTopNotice.is(':checked') ? 'Y' : 'N',
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),

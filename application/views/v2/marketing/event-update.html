@@ -16,14 +16,14 @@
                     <tr>
                         <th>구분 *</th>
                         <td>
-                            <p class="detail-data" id="eventType">이벤트</p>
+                            <p class="detail-data" id="eventType"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>제목 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="title" type="text" class="length-input" maxlength="25" placeholder="제목을 입력해주세요.">
+                                <input id="eventTitle" type="text" class="length-input" maxlength="25" placeholder="제목을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
                         </td>
@@ -43,7 +43,7 @@
                     <tr>
                         <th>유의사항 *</th>
                         <td>
-                            <textarea id="notice" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="eventNotice" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@
                                 <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
                             </div>
                             <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="" id="thumbnail">
+                                <img src="" alt="" id="eventContentThumbnail">
                             </div>
                         </td>
                     </tr>
@@ -68,7 +68,7 @@
                                 <input type="file" id="thumbnailImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
                             </div>
                             <div class="detail-img-wrap">
-                                <img src="/assets/v2/img/profile-1.png" alt="" id="thumbnailImageThumbnail">
+                                <img src="/assets/v2/img/profile-1.png" alt="" id="eventThumbnail">
                             </div>
                         </td>
                     </tr>

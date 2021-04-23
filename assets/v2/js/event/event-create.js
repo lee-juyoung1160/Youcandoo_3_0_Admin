@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, selEventType, title, content, notice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, selEventType, title, content, eventNotice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";
 	import {isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
@@ -11,7 +11,7 @@
 
 	const linkWrap = link.parents('tr');
 	const contentWrap = content.parents('tr');
-	const noticeWrap = notice.parents('tr');
+	const noticeWrap = eventNotice.parents('tr');
 	const contentImgWrap = contentImage.parents('tr');
 	const dateWrap = dateFrom.parents('tr');
 
@@ -91,7 +91,7 @@
 				"event_type" : selEventType.val(),
 				"title" : title.val().trim(),
 				"contents" : isDisplay(contentWrap) ? content.val().trim() : '',
-				"notice" : isDisplay(noticeWrap) ? notice.val().trim() : '',
+				"notice" : isDisplay(noticeWrap) ? eventNotice.val().trim() : '',
 				"start_date" : isDisplay(dateWrap) ? dateFrom.val() : '',
 				"end_date" : isDisplay(dateWrap) ? dateTo.val() : '',
 				"link_url" : isDisplay(linkWrap) ? link.val().trim() : '',
@@ -132,10 +132,10 @@
 			return false;
 		}
 
-		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
+		if (isDisplay(noticeWrap) && isEmpty(eventNotice.val()))
 		{
 			sweetToast(`유의사항은 ${message.required}`);
-			notice.trigger('focus');
+			eventNotice.trigger('focus');
 			return false;
 		}
 

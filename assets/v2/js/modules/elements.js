@@ -375,7 +375,8 @@
     export const eventDate = $("#eventDate");
     export const notice = $("#notice");
     export const thumbnailImage = $("#thumbnailImage");
-    export const thumbnailImgThumbnail= $("#thumbnailImgThumbnail");
+    export const eventContentThumbnail= $("#eventContentThumbnail");
+    export const eventThumbnail= $("#eventThumbnail");
 
     /** 상품 **/
     export const price = $("#price");

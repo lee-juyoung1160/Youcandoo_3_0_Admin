@@ -1,9 +1,8 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, title, content, link, notice, dateTo
-} from '../modules/elements.js';
+	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
+		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
 		calculateInputLength,
@@ -12,22 +11,23 @@
 		onChangeValidateImage,
 		onErrorImage
 	} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
+	import {getPathName, splitReverse, isEmpty, isDisplay} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	const linkWrap = link.parents('tr');
-	const contentWrap = content.parents('tr');
-	const noticeWrap = notice.parents('tr');
-	const contentImgWrap = contentImage.parents('tr');
-	const dateWrap = dateFrom.parents('tr');
+
 	const pathName	= getPathName();
 	const eventIdx	= splitReverse(pathName, '/');
+	const linkWrap = link.parents('tr');
+	const contentWrap = content.parents('tr');
+	const noticeWrap = eventNotice.parents('tr');
+	const contentImgWrap = contentImage.parents('tr');
+	const dateWrap = dateFrom.parents('tr');
 
 	$( () => {
 		initSearchDatepicker();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
@@ -56,12 +56,28 @@
 	let g_event_type;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type } = data.data;
+		const { event_uuid, event_type, event_type_name, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
 
 		g_event_uuid = event_uuid;
 		g_event_type = event_type;
 
 		toggleComponent(event_type);
+
+		eventType.text(event_type_name);
+		eventTitle.val(title);
+		link.val(link_url);
+		content.val(contents);
+		eventNotice.val(notice);
+		eventContentThumbnail.attr('src', image_url);
+		eventThumbnail.attr('src', thumbnail_image_url);
+		dateFrom.val(start_date);
+		dateFrom.datepicker("option", "minDate", start_date);
+		dateTo.val(end_date);
+		dateTo.datepicker("option", "minDate", start_date);
+		rdoExposure.each(function () {
+			if ($(this).val() === is_exposure)
+				$(this).prop('checked', true);
+		})
 
 		onErrorImage();
 		calculateInputLength();
@@ -90,7 +106,8 @@
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
-		param.append('event_content_img', isDisplay(contentImgWrap) ? contentImage[0].files[0] : '');
+		if (isDisplay(contentImgWrap))
+			param.append('event_content_img', contentImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
@@ -104,24 +121,24 @@
 			const param = {
 				"event_uuid" : g_event_uuid,
 				"event_type" : g_event_type,
-				"event_title" : title.val().trim(),
-				"event_contents" : content.val().trim(),
-				"event_notice" : notice.val().trim(),
-				"event_link_url" : link.val().trim(),
-				"event_start_date" : dateFrom.val(),
-				"event_end_date" : dateTo.val(),
+				"title" : eventTitle.val().trim(),
+				"contents" : content.val().trim(),
+				"notice" : eventNotice.val().trim(),
+				"link_url" : link.val().trim(),
+				"start_date" : dateFrom.val(),
+				"end_date" : dateTo.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 
 			if (!isEmpty(data))
 			{
-				let { event_thumbnail_img, event_content_img } = data.image_urls;
+				const { event_thumbnail_img, event_content_img } = data.image_urls;
 
 				if (!isEmpty(event_thumbnail_img))
-					param["event_thumbnail_image"] = event_thumbnail_img;
+					param["thumbnail_image_url"] = event_thumbnail_img;
 
 				if (!isEmpty(event_content_img))
-					param["event_image"] = event_content_img;
+					param["image_url"] = event_content_img;
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
@@ -142,10 +159,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(eventTitle.val()))
 		{
 			sweetToast(`제목은 ${message.required}`);
-			title.trigger('focus');
+			eventTitle.trigger('focus');
 			return false;
 		}
 
@@ -156,10 +173,10 @@
 			return false;
 		}
 
-		if (isDisplay(noticeWrap) && isEmpty(notice.val()))
+		if (isDisplay(noticeWrap) && isEmpty(eventNotice.val()))
 		{
 			sweetToast(`유의사항은 ${message.required}`);
-			notice.trigger('focus');
+			eventNotice.trigger('focus');
 			return false;
 		}
 
@@ -174,20 +191,6 @@
 		{
 			sweetToast(`링크 형식을 ${message.doubleChk}`);
 			link.trigger('focus');
-			return false;
-		}
-
-		if (isDisplay(dateWrap) && isEmpty(dateFrom.val()))
-		{
-			sweetToast(`기간(시작일)은 ${message.required}`);
-			dateFrom.trigger('focus');
-			return false;
-		}
-
-		if (isDisplay(dateWrap) && isEmpty(dateTo.val()))
-		{
-			sweetToast(`기간(종료일)은 ${message.required}`);
-			dateTo.trigger('focus');
 			return false;
 		}
 

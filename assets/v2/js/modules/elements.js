@@ -146,7 +146,8 @@
     export const btnUpdateDoit   = $("#btnUpdateDoit");
     export const btnBackDoitList   = $(".btn-doit-list");
 
-    export const btnBackMissionList = $(".btn-mission-list");
+    export const btnBackToMissionList = $(".btn-mission-list");
+    export const btnBackToMissionDetail = $("#btnBackToMissionDetail");
     export const btnCreateMission   = $("#btnCreateMission");
     export const btnSubmitMission   = $("#btnSubmitMission");
     export const btnUpdateMission   = $("#btnUpdateMission");
@@ -284,7 +285,8 @@
     export const btnSearchTalk = $("#btnSearchTalk");
     export const btnResetSearchTalk = $("#btnResetSearchTalk");
     export const talkTable   = $("#talkTable");
-    export const btnBackTalkList = $(".btn-talk-list");
+    export const btnBackToTalkList = $("#btnBackToTalkList");
+    export const btnBackToTalkDetail = $("#btnBackToTalkDetail");
     export const btnBlinkTalk = $("#btnBlinkTalk");
     export const btnDisplayTalk = $("#btnDisplayTalk");
     export const btnDeleteTalk = $("#btnDeleteTalk");

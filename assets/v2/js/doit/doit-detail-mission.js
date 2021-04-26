@@ -69,13 +69,12 @@
 		missionListForm.hide();
 	}
 
-	export function onClickDetailMission(_idx)
+	export function showMissionDetailForm()
 	{
 		missionCreateForm.hide();
 		missionUpdateForm.hide();
 		missionDetailForm.show();
 		missionListForm.hide();
-		getMissionDetail(_idx);
 	}
 
 	export function initMissionCreateForm()
@@ -149,12 +148,20 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(0).on('click', function () { onClickDetailMission(aData.idx); });
+				$(nRow).children().eq(0).on('click', function () { onClickMissionName(aData.idx); });
 			},
 			drawCallback: function (settings) {
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	let g_mission_idx;
+	function onClickMissionName(idx)
+	{
+		g_mission_idx = idx;
+		showMissionDetailForm();
+		getMissionDetail();
 	}
 
 	export function onSubmitMission()
@@ -246,17 +253,16 @@
 		sweetToastAndCallback(data, reqSuccess);
 	}
 
-	function getMissionDetail(_idx)
+	function getMissionDetail()
 	{
 		const url = api.detailMission;
 		const errMsg = label.detailContent + message.ajaxLoadError;
-		const param = { "idx" : _idx };
+		const param = { "idx" : g_mission_idx };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getMissionDetailReqCallback, errMsg, false);
 	}
 
 	let g_mission_uuid;
-	let g_mission_idx;
 	let g_action_type;
 	function getMissionDetailReqCallback(data)
 	{
@@ -267,7 +273,6 @@
 	{
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
-		g_mission_idx = idx;
 		g_mission_uuid = mission_uuid;
 		g_action_type = mission_type;
 		infoMissionTitle.html(buildMissionStatus(state)+mission_title);
@@ -459,7 +464,8 @@
 
 	function updateSuccess()
 	{
-		onClickDetailMission(g_mission_idx);
+		showMissionDetailForm();
+		getMissionDetail();
 		buildMissionTable();
 	}
 

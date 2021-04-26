@@ -1158,6 +1158,13 @@ input[type="password"]{
 	font-weight: 600;
 	color: #00327e;
 }
+.line-clamp-1 {
+	overflow: hidden;
+	display: inline-block;
+	max-width: 211px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 .line-clamp-2 {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;

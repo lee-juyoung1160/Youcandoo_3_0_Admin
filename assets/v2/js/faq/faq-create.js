@@ -24,14 +24,13 @@
 
 	function createRequest()
 	{
-		const url 	= api.createFaq;
-		const errMsg 	= label.submit+message.ajaxError;
+		const url = api.createFaq;
+		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"faq_type" : selFaqType.val(),
-			"faq_title" : title.val().trim(),
-			"faq_contents" : content.val().trim(),
+			"title" : title.val().trim(),
+			"contents" : content.val().trim(),
 			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

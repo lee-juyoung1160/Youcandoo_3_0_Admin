@@ -19,7 +19,6 @@
 	btnUpdateDoit,
 	btnSubmitUpdateDoit,
 	btnCreateMission,
-	btnBackMissionList,
 	btnDeleteMission,
 	btnUpdateMission,
 	btnSubmitUpdateMission,
@@ -37,7 +36,6 @@
 	btnSendNotice,
 	btnSearchTalk,
 	btnResetSearchTalk,
-	btnBackTalkList,
 	btnUpdateTalk,
 	searchActionDateFrom,
 	searchActionDateTo,
@@ -73,7 +71,13 @@
 	selUcdPageLength,
 	searchUcdDateTo,
 	searchUcdDateFrom,
-	btnSaveUcdWallet, saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveUcdWallet, btnSubmitSaveUcd
+	btnSaveUcdWallet,
+	saveWalletAmount,
+	btnSearchUcd,
+	btnResetSearchUcd,
+	btnSubmitSaveUcdWallet,
+	btnSubmitSaveUcd,
+	btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail
 } from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -83,22 +87,22 @@
 	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday} from "../modules/doit-common.js"
 	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
 	import {
-		showCreateMissionForm,
-		showMissionListForm,
-		onClickBtnUpdateMission,
-		onChangeActionType,
-		onSubmitMission,
-		onSubmitUpdateMission,
-		deleteMission,
-		onChangeMissionEndDate,
-		onChangeMissionStartDate,
-		onChangeUpdateMissionStartDate,
-		onChangeUpdateMissionEndDate,
-		onChangeUpdateActionType,
-		buildMissionTable,
-		onChangeCheckPermanent,
-		onChangeUpdateCheckPermanent
-	} from "./doit-detail-mission.js";
+	showCreateMissionForm,
+	showMissionListForm,
+	onClickBtnUpdateMission,
+	onChangeActionType,
+	onSubmitMission,
+	onSubmitUpdateMission,
+	deleteMission,
+	onChangeMissionEndDate,
+	onChangeMissionStartDate,
+	onChangeUpdateMissionStartDate,
+	onChangeUpdateMissionEndDate,
+	onChangeUpdateActionType,
+	buildMissionTable,
+	onChangeCheckPermanent,
+	onChangeUpdateCheckPermanent, showMissionDetailForm
+} from "./doit-detail-mission.js";
 	import {
 		showJoinMemberForm,
 		showPendingMemberForm,
@@ -118,15 +122,20 @@
 	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
 	import {
-		buildTalkTable,
-		onClickBtnCreateTalk,
-		initSearchTalkForm,
-		showTalkListForm,
-		onClickBtnUpdateTalk,
-		onChangeAttachType,
-		onSubmitSearchTalk,
-		onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk, onChangeUpdateAttachType, onSubmitUpdateTalk
-	} from "./doit-detail-talk.js";
+	buildTalkTable,
+	onClickBtnCreateTalk,
+	initSearchTalkForm,
+	showTalkListForm,
+	onClickBtnUpdateTalk,
+	onChangeAttachType,
+	onSubmitSearchTalk,
+	onSubmitTalk,
+	onSubmitTalkComment,
+	onSubmitDeleteTalk,
+	onChangeUpdateAttachType,
+	onSubmitUpdateTalk,
+		showTalkDetailForm
+} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
@@ -171,7 +180,8 @@
 		rdoActionType	.on('change', function () { onChangeActionType(); });
 		rdoUpdateActionType	.on('change', function () { onChangeUpdateActionType(); });
 		btnCreateMission	.on('click', function () { showCreateMissionForm(); });
-		btnBackMissionList.on('click', function () { showMissionListForm(); });
+		btnBackToMissionList.on('click', function () { showMissionListForm(); });
+		btnBackToMissionDetail.on('click', function () { showMissionDetailForm(); });
 		btnUpdateMission.on('click', function () { onClickBtnUpdateMission(); });
 		btnSubmitMission.on('click', function () { onSubmitMission() });
 		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission(); });
@@ -225,7 +235,8 @@
 		selTalkPageLength.on('change', function () { onSubmitSearchTalk(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
 		btnCreateTalk	.on('click', function () { onClickBtnCreateTalk(); });
-		btnBackTalkList	.on('click', function () { showTalkListForm(); });
+		btnBackToTalkList	.on('click', function () { showTalkListForm(); });
+		btnBackToTalkDetail	.on('click', function () { showTalkDetailForm(); });
 		btnUpdateTalk	.on('click', function () { onClickBtnUpdateTalk(); });
 		btnSubmitTalk.on('click', function () { onSubmitTalk(); });
 		btnSubmitCommentTalk.on('click', function () { onSubmitTalkComment(); });

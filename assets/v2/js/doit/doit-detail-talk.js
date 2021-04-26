@@ -143,7 +143,7 @@
 				,{title: "작성자",    data: "nickname",  		width: "15%" }
 				,{title: "내용", 	data: "board_body",		width: "30%",
 					render: function (data, type, row, meta) {
-						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}">${isEmpty(data) ? label.dash : data}</a>`;
+						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}" class="line-clamp-1" style="max-width: 450px;">${isEmpty(data) ? label.dash : data}</a>`;
 					}
 				}
 				,{title: "댓글수", 	data: "comment_cnt",	width: "5%" }

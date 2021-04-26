@@ -1,10 +1,10 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {btnBack, btnList, btnUpdate, btnDelete, isExposure} from '../modules/elements.js';
+	import {btnBack, btnList, btnUpdate, btnDelete, isExposure, content, faqType, faqTitle} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {calculateInputLength, historyBack} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
+	import {historyBack} from "../modules/common.js";
+	import { getPathName, splitReverse, } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -14,7 +14,7 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		btnBack	 .on('click', function () { historyBack(); });
 		btnList	 .on('click', function () { goListPage(); });
@@ -41,11 +41,13 @@
 	let g_faq_uuid;
 	function buildDetail(data)
 	{
-		const { faq_uuid, is_exposure } = data.data;
+		const { faq_uuid, faq_type_name, title, contents, is_exposure } = data.data;
 
 		g_faq_uuid = faq_uuid;
-
-		calculateInputLength();
+		faqType.text(faq_type_name);
+		faqTitle.text(title);
+		content.text(contents);
+		isExposure.text(is_exposure);
 	}
 
 	function onSubmitDeleteFaq()

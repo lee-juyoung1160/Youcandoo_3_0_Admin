@@ -98,7 +98,7 @@
         detailFaq : baseApiUrl + 'faq/get/detail/info',
         updateFaq : baseApiUrl + 'faq/update',
         deleteFaq : baseApiUrl + 'faq/delete',
-        reorderFaq : baseApiUrl + 'faq/update/sequence',
+        reorderFaq : baseApiUrl + 'faq/set/orders',
 
         inquiryList : baseApiUrl + 'inquiry/list',
         createInquiry : baseApiUrl + 'inquiry/create',
@@ -141,6 +141,9 @@
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',
+
+        createEncryption : baseApiUrl + 'operate/set/encryption',
+        createDecryption : baseApiUrl + 'operate/set/decryption',
 
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
         getMember : baseApiUrl + 'ucd/get/profile/user',

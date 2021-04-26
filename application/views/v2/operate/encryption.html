@@ -7,19 +7,19 @@
 
         <div class="row">
             <div class="encryption-textarea-wrap row">
-                <textarea class="col-6"></textarea>
+                <textarea id="inputString" class="col-6"></textarea>
                 <div class="col-6">
-                    <div class="card detail-data">dfsdfsdf</div>
+                    <div class="card detail-data" id="resultString"></div>
                 </div>
             </div>
 
             <div class="search-btn row">
-                <button type="button" class="btn btn-primary">암호화</button>
-                <button type="button" class="btn btn-outline-primary">복호화</button>
+                <button id="btnEncryption" type="button" class="btn btn-primary">암호화</button>
+                <button id="btnDecryption" type="button" class="btn btn-outline-primary">복호화</button>
             </div>
         </div>
     </div>
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/error-message/error-message-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/encryption/encryption.js?version=<?php echo $this->config->item('version');?>"></script>

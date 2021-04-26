@@ -434,4 +434,8 @@
     export const cardLevel5 = $("#cardLevel5");
     export const cardLevelSpecial = $("#cardLevelSpecial");
 
-    /** UCD 충전내역 **/
+    /** 암/복호화 **/
+    export const inputString = $("#inputString");
+    export const resultString = $("#resultString");
+    export const btnEncryption = $("#btnEncryption");
+    export const btnDecryption = $("#btnDecryption");

@@ -151,11 +151,17 @@
 		return JSON.stringify(param);
 	}
 
+	function onClickModalOpen()
+	{
+		fadeinModal();
+		buildUpdateTable();
+	}
+
 	function buildUpdateTable()
 	{
 		updateTable.DataTable({
 			ajax : {
-				url: api.noticeList,
+				url: api.faqList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -174,88 +180,80 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"faq_type" : 'all',
+						"search_type" : 'title_content',
+						"keyword" : '',
+						"is_exposure" : 'Y',
+						"page" : 1,
+						"limit" : 500,
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "제목", 		data: "notice_title",	width: "70%" }
-				,{title: "등록일",    data: "created",  		width: "20%",
+				{title: "제목", 		data: "title",		width: "20%" }
+				,{title: "내용",     data: "contents",  	width: "65%",
 					render: function (data) {
-						data.substring(0, 10);
+						return `<div class="line-clamp-1" style="max-width: 700px;">${data}</div>`;
 					}
 				}
-				,{title: "삭제",    	data: "notice_uuid", 	width: "10%",
-					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
+				,{title: "등록일",    data: "created",  	width: "15%",
+					render: function (data) {
+						return data.substring(0, 10);
 					}
 				}
 			],
 			serverSide: true,
 			paging: false,
-			pageLength: 3,
 			select: false,
+			scrollY: 650,
+			scrollCollapse: true,
 			destroy: true,
 			initComplete: function () {
-				addDeleteEvent();
+				initTableSort();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.notice_uuid);
+				$(nRow).attr('data-uuid', aData.faq_uuid);
 			},
 			drawCallback: function (settings) {
 			}
 		});
 	}
 
-	function addDeleteEvent()
+	function initTableSort()
 	{
-		$(".delete-btn").on('click', function () { deleteRow(this); })
+		updateTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
 	}
 
-	let g_delete_uuids = [];
-	function deleteRow(obj)
+	function addAttrDragonElement(el)
 	{
-		$(obj).closest('tr').remove();
-		g_delete_uuids.push(obj.id);
-	}
-
-	function onClickModalOpen()
-	{
-		fadeinModal();
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*65)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*15)+'px');
+		return $(el);
 	}
 
 	function onSubmitUpdate()
 	{
 		if (updateValidation())
-			sweetConfirm(message.change, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteCategory;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "category_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
+			sweetConfirm(message.change, reorderRequest);
 	}
 
 	function reorderRequest()
 	{
 		const uuids = getRowsId();
-		const param = { "category_list" : uuids };
-		const url 	= api.reorderCategory;
+		const param = { "faq_uuid" : uuids };
+		const url 	= api.reorderFaq;
 		const errMsg = label.modify + message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
@@ -277,7 +275,7 @@
 		let uuids = getRowsId();
 		if (uuids.length === 0)
 		{
-			sweetToast("카테고리가 없습니다.");
+			sweetToast(message.emptyList);
 			return false;
 		}
 

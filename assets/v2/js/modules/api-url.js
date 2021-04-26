@@ -93,11 +93,12 @@
         topNoticeList : baseApiUrl + 'notice/get/isTopList',
         deleteTopNotice : baseApiUrl + 'notice/set/isTop',
 
-        faqList : baseApiUrl + 'faq/list',
+        faqList : baseApiUrl + 'faq/get/list',
         createFaq : baseApiUrl + 'faq/create',
-        detailFaq : baseApiUrl + 'faq/detail',
+        detailFaq : baseApiUrl + 'faq/get/detail/info',
         updateFaq : baseApiUrl + 'faq/update',
         deleteFaq : baseApiUrl + 'faq/delete',
+        reorderFaq : baseApiUrl + 'faq/update/sequence',
 
         inquiryList : baseApiUrl + 'inquiry/list',
         createInquiry : baseApiUrl + 'inquiry/create',

@@ -335,6 +335,7 @@
     /** FAQ **/
     export const selFaqType = $("#selFaqType");
     export const faqType = $("#faqType");
+    export const faqTitle = $("#faqTitle");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
     export const answer = $("#answer");

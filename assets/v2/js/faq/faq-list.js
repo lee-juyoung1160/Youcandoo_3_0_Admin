@@ -1,9 +1,8 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
-		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate,
-	} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, updateTable, selFaqType,
+		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, fadeoutModal, fadeinModal} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
@@ -26,7 +25,7 @@
 		 * **/
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -48,9 +47,13 @@
 	function setHistoryForm()
 	{
 		let historyParams = getHistoryParam();
-
+		selSearchType.val(historyParams.search_type);
 		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
+		rdoExposure.each(function () {
+			if ($(this).val() === historyParams.is_exposure)
+				$(this).prop("checked", true);
+		});
 		_currentPage = historyParams.page;
 	}
 
@@ -98,14 +101,10 @@
 				}
 			},
 			columns: [
-				{title: "No",    	data: "is_top",  			width: "10%",
+				{title: "구분",    		data: "faq_type_name",	width: "10%" }
+				,{title: "제목", 		data: "title",			width: "50%",
 					render: function (data, type, row, meta) {
-						return data === 'Y' ?  `<i class="fas fas fa-bell" style="cursor:default;"></i>` : meta.row;
-					}
-				}
-				,{title: "제목", 		data: "notice_title",	width: "50%",
-					render: function (data, type, row, meta) {
-						let detailUrl = page.detailBiz + row.idx;
+						let detailUrl = page.detailFaq + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
@@ -113,7 +112,7 @@
 				,{title: "작성자",    	data: "created_user",  	width: "15%" }
 				,{title: "등록일",    	data: "created",  		width: "15%",
 					render: function (data) {
-						data.substring(0, 10);
+						return data.substring(0, 10);
 					}
 				}
 			],
@@ -138,9 +137,12 @@
 	function tableParams()
 	{
 		const param = {
+			"faq_type" : selFaqType.val(),
+			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
-			"page": _currentPage,
-			"limit": selPageLength.val(),
+			"is_exposure" : $("input[name=radio-exposure]:checked").val(),
+			"page" : _currentPage,
+			"limit" : selPageLength.val(),
 		}
 
 		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/

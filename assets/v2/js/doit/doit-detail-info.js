@@ -221,7 +221,7 @@
 			talkCommentWrap.removeClass('col-8');
 			talkCommentWrap.addClass('col-12');
 			createTalkCommentWrap.remove();
-			btnCreateTalk.parent('card').remove();
+			btnCreateTalk.parent('.card').remove();
 			btnUpdateTalk.remove();
 			btnDeleteTalk.remove();
 		}

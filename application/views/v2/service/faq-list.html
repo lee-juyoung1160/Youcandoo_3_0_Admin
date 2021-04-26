@@ -14,7 +14,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="title">제목/내용</option>
+                                <option value="title_contents">제목/내용</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -31,11 +31,12 @@
                 <div class="card clearfix">
                     <p class="search-title">구분</p>
                     <select id="selFaqType" class="select-box">
-                        <option value="회원정보">회원정보</option>
-                        <option value="두잇인증">두잇인증</option>
-                        <option value="두잇개설">두잇개설</option>
-                        <option value="UCD">UCD</option>
-                        <option value="오류/불편사항">오류/불편사항</option>
+                        <option value="all">전체</option>
+                        <option value="user">회원정보</option>
+                        <option value="action">두잇인증</option>
+                        <option value="create">두잇개설</option>
+                        <option value="ucd">UCD</option>
+                        <option value="error">오류/불편사항</option>
                     </select>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                 <div class="card clearfix">
                     <p class="search-title">노출 여부</p>
                     <div class="radio-wrap">
-                        <input id="r1" type="radio" name="radio-exposure" value="all">
+                        <input id="r1" type="radio" name="radio-exposure" value="all" checked>
                         <label for="r1"><span></span>전체</label>
 
                         <input id="r2" type="radio" name="radio-exposure" value="Y">
@@ -71,11 +72,11 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> FAQ 관리</button>
+                    <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> FAQ 정렬</button>
                 </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 10%;">
                     <col style="width: 50%;">
@@ -100,7 +101,7 @@
                     <td>유캔두</td>
                     <td>2020-02-02</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
@@ -109,7 +110,7 @@
         <!-- FAQ 수정 -->
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h5>FAQ 수정</h5>
+                <h5>FAQ 정렬</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
@@ -123,16 +124,14 @@
                         <thead>
                         <colgroup>
                             <col style="width: 25%;">
-                            <col style="width: 50%;">
+                            <col style="width: 60%;">
                             <col style="width: 15%;">
-                            <col style="width: 10%;">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>구분</th>
                             <th>제목</th>
                             <th>등록일</th>
-                            <th>삭제</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -142,11 +141,6 @@
                                 새로워진유캔두! 둘새로워진유캔두! 둘새로워진유캔두! 둘새로워진유캔두! 둘
                             </td>
                             <td>2020-02-02</td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
                         </tr>
                         <tr>
                             <td>회원정보</td>
@@ -154,11 +148,6 @@
                                 새로워진 유캔두! 둘러보기
                             </td>
                             <td>2020-02-02</td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
                         </tr>
                         </tbody>
                     </table>

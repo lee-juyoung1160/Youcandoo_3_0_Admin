@@ -1186,8 +1186,7 @@ input[type="password"]{
 	width: 100px;
 }
 
-/*임시*/
-.textarea-wrap-1 textarea{
-	width: 49%;
-
+.encryption-textarea-wrap textarea,
+.encryption-textarea-wrap .detail-data {
+	height: 300px;
 }

@@ -1,9 +1,9 @@
 
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
-	import {api, fileApiV2} from '../modules/api-url.js';
-	import {btnSubmit, contentImage, content, title, reserveDate, chkTopNotice, lengthInput, rdoExposure} from '../modules/elements.js';
+	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {api} from '../modules/api-url.js';
+	import {btnSubmit, content, lengthInput, rdoExposure, selFaqType, faqTitle,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength} from "../modules/common.js";
+	import {limitInputLength, calculateInputLength} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -14,7 +14,7 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateFaq(); });
@@ -39,9 +39,12 @@
 	let g_faq_uuid;
 	function buildDetail(data)
 	{
-		const { faq_uuid, is_exposure } = data.data;
+		const { faq_uuid, faq_type, title, contents, is_exposure } = data.data;
 
 		g_faq_uuid = faq_uuid;
+		selFaqType.val(faq_type);
+		faqTitle.val(title);
+		content.val(contents);
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -58,10 +61,14 @@
 
 	function updateRequest()
 	{
-		const url 	= api.updateFaq;
-		const errMsg 	= label.modify+message.ajaxError;
+		const url = api.updateFaq;
+		const errMsg = label.modify+message.ajaxError;
 		const param = {
-			"nickname" : nickname.val(),
+			"faq_uuid" : g_faq_uuid,
+			"faq_type" : selFaqType.val(),
+			"title" : faqTitle.val(),
+			"contents" : content.val(),
+			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
@@ -79,10 +86,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(faqTitle.val()))
 		{
 			sweetToast(`제목은 ${message.required}`);
-			title.trigger('focus');
+			faqTitle.trigger('focus');
 			return false;
 		}
 

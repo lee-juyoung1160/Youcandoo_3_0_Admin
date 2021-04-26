@@ -36,8 +36,7 @@
 	{
 		let tdElement = $(el).children();
 		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*80)+'px');
 		return $(el);
 	}
 
@@ -112,7 +111,6 @@
 
 	function onClickModalUpdateOpen()
 	{
-		g_delete_uuids.length = 0;
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
@@ -135,12 +133,7 @@
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "배너명", 	data: "banner_name",		width: "70%" }
-				,{title: "삭제",    	data: "banner_uuid", 		width: "10%",
-					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
-					}
-				}
+				,{title: "배너명", 	data: "banner_name",		width: "80%" }
 			],
 			serverSide: false,
 			paging: false,
@@ -150,7 +143,6 @@
 			scrollCollapse: true,
 			initComplete: function () {
 				initTableSort();
-				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('data-uuid', aData.banner_uuid);
@@ -161,41 +153,10 @@
 		});
 	}
 
-	function addDeleteEvent()
-	{
-		$(".delete-btn").on('click', function () { deleteRow(this); })
-	}
-
-	let g_delete_uuids = [];
-	function deleteRow(obj)
-	{
-		$(obj).closest('tr').remove();
-		g_delete_uuids.push(obj.id);
-	}
-
 	function onSubmitUpdate()
 	{
 		if (updateValidation())
 			sweetConfirm(message.change, reorderRequest);
-	}
-
-	function updateRequest()
-	{
-		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteBanner;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "banner_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
 	}
 
 	function reorderRequest()

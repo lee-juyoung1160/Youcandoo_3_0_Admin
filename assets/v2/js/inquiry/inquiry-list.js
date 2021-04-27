@@ -1,5 +1,5 @@
 
-	import {headers} from '../modules/request.js';
+	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 	body,
@@ -10,9 +10,9 @@
 	selPageLength,
 	rdoStatus,
 	dateButtons,
-		dateFrom, dateTo,
+	dateFrom, dateTo, selInquiryType, selSearchType,
 } from '../modules/elements.js';
-	import {sweetError,} from '../modules/alert.js';
+	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {
 	initSelectOption,
 	initPageLength,
@@ -74,7 +74,15 @@
 	{
 		let historyParams = getHistoryParam();
 
+		dateFrom.val(historyParams.from_date);
+		dateTo.val(historyParams.to_date);
+		selSearchType.val(historyParams.search_type);
 		keyword.val(historyParams.keyword);
+		selInquiryType.val(historyParams.qna_type);
+		rdoStatus.each(function () {
+			if ($(this).val() === historyParams.status)
+				$(this).prop('checked', true);
+		})
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
 	}
@@ -102,10 +110,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
-
-					return JSON.stringify(json);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 				},
 				data: function (d) {
 					return tableParams();
@@ -119,7 +133,7 @@
 				,{title: "제목",  	 data: "title",    			width: "15%",
 					render: function (data, type, row, meta) {
 						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
-						return `<a href="${baseUrl}${row.idx}" class="line-clamp" style="max-width: 280px">${data}</a>`;
+						return `<a href="${baseUrl}${row.idx}" class="line-clamp-1" style="max-width: 200px">${data}</a>`;
 					}
 				}
 				, {title: "회원구분",  data: "profile_uuid", 		width: "5%",
@@ -127,12 +141,8 @@
 						return isEmpty(data) ? label.guest : label.member;
 					}
 				}
-				,{title: "닉네임", 	 data: "user_idx",			width: "20%",
-					render: function (data, type, row, meta) {
-						return isEmpty(data) ? row.name : `<a href="${page.detailUser}${data}" class="line-clamp" style="max-width: 280px">${row.nickname}</a>`;
-					}
-				}
-				,{title: "등록일시",   data: "created_datetime",  width: "10%",
+				,{title: "닉네임", 	 data: "nickname",			width: "20%" }
+				,{title: "등록일시",   data: "created",  			width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
@@ -142,7 +152,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "처리일시",   data: "comment_datetime",  width: "10%",
+				,{title: "처리일시",   data: "created",  			width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
@@ -175,7 +185,12 @@
 	function tableParams()
 	{
 		const param = {
+			"from_date" : dateFrom.val(),
+			"to_date" : dateTo.val(),
+			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
+			"qna_type" : selInquiryType.val(),
+			"status" : $("input[name=radio-status]:checked").val(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
 		}

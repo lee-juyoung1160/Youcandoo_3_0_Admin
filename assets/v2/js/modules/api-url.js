@@ -100,10 +100,9 @@
         deleteFaq : baseApiUrl + 'faq/delete',
         reorderFaq : baseApiUrl + 'faq/set/orders',
 
-        inquiryList : baseApiUrl + 'inquiry/list',
-        createInquiry : baseApiUrl + 'inquiry/create',
-        detailInquiry : baseApiUrl + 'inquiry/detail',
-        updateInquiry : baseApiUrl + 'inquiry/update',
+        inquiryList : baseApiUrl + 'qna/get/list',
+        updateInquiry : baseApiUrl + 'qna/create',
+        detailInquiry : baseApiUrl + 'qna/get/detail/info',
 
         prohibitionList : baseApiUrl + 'prohibition',
         createProhibition : baseApiUrl + 'prohibition/create',

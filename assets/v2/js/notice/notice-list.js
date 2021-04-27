@@ -132,12 +132,12 @@
 				}
 			},
 			columns: [
-				{title: "",    			data: "is_top",  			width: "10%",
+				/*{title: "",    			data: "is_top",  			width: "10%",
 					render: function (data, type, row, meta) {
 						return data === 'Y' ?  `<i class="fas fas fa-bell" style="cursor:default;"></i>` : '일반 공지';
 					}
 				}
-				,{title: "제목", 		data: "title",	width: "50%",
+				,*/{title: "제목", 		data: "title",	width: "50%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailNotice + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;

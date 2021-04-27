@@ -1,34 +1,12 @@
 
 	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-	body,
-	btnSearch,
-	btnReset,
-	keyword,
-	dataTable,
-	selPageLength,
-	rdoStatus,
-	dateButtons,
-	dateFrom, dateTo, selInquiryType, selSearchType,
-} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus,
+		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
-	import {
-	initSelectOption,
-	initPageLength,
-	initSearchDatepicker,
-	initDayBtn,
-	initMaxDateToday,
-	initSearchDateRangeMonth,
-	onClickDateRangeBtn,
-		onChangeSearchDateFrom, onChangeSearchDateTo,
-} from "../modules/common.js";
-	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
-		getCurrentPage, redrawPage
-	} from '../modules/tables.js';
+	import { initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday,
+		initSearchDateRangeMonth, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -49,7 +27,7 @@
 		 * **/
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -120,6 +98,8 @@
 						json.data = [];
 						sweetToast(json.msg);
 					}
+
+					return JSON.stringify(json);
 				},
 				data: function (d) {
 					return tableParams();
@@ -152,7 +132,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "처리일시",   data: "created",  			width: "10%",
+				,{title: "처리일시",   data: "comment_datetime",  width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
@@ -199,4 +179,11 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function buildMemo(data)
+	{
+		return isEmpty(data)
+			? label.dash
+			: `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data}</span></i>`
 	}

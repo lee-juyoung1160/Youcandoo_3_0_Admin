@@ -101,7 +101,7 @@
         reorderFaq : baseApiUrl + 'faq/set/orders',
 
         inquiryList : baseApiUrl + 'qna/get/list',
-        updateInquiry : baseApiUrl + 'qna/create',
+        updateInquiry : baseApiUrl + 'qna/set/insertComment',
         detailInquiry : baseApiUrl + 'qna/get/detail/info',
 
         prohibitionList : baseApiUrl + 'prohibition',

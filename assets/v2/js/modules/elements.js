@@ -343,7 +343,8 @@
     export const inquiryTitle = $("#inquiryTitle");
     export const attachmentWrap = $("#attachmentWrap");
     export const answer = $("#answer");
-    export const manager = $("#manager");
+    export const memoEl = $("#memoEl");
+    export const admin = $("#admin");
     export const answerDate = $("#answerDate");
     /** 인증 **/
     export const actionsWrap = $("#actionsWrap");

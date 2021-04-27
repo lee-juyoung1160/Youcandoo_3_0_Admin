@@ -1,7 +1,7 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {btnSubmit, contentImage, content, reserveDate, chkTopNotice, lengthInput, rdoExposure,  noticeTitle} from '../modules/elements.js';
+	import {btnSubmit, contentImage, content, reserveDate, lengthInput, rdoExposure,  noticeTitle} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {onErrorImage, limitInputLength, onChangeValidateImage, calculateInputLength, initInputDatepickerMinDateToday} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty} from "../modules/utils.js";
@@ -49,7 +49,6 @@
 		if (!isEmpty(notice_image_url))
 			contentImage.parent().after(`<div class="detail-img-wrap"><img src="${notice_image_url}" alt=""></div>`)
 		reserveDate.val(reservation_date);
-		chkTopNotice.prop('checked', is_top === 'Y');
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -91,7 +90,6 @@
 				"title" : noticeTitle.val().trim(),
 				"contents" : content.val().trim(),
 				"reservation_date" : reserveDate.val(),
-				"is_top" : chkTopNotice.is(':checked') ? 'Y' : 'N',
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

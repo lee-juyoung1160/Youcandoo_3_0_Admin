@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, content, reserveDate, contentImage, chkTopNotice} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, title, content, reserveDate, contentImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, setDateToday, initInputDatepickerMinDateToday } from "../modules/common.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -50,7 +50,6 @@
 				"contents" : content.val().trim(),
 				"notice_image_url" : isEmpty(data) ? "" : data.image_urls.file,
 				"reservation_date" : reserveDate.val(),
-				"is_top" : chkTopNotice.is(':checked') ? 'Y' : 'N',
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

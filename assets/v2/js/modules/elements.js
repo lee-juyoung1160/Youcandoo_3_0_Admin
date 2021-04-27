@@ -340,6 +340,8 @@
     export const faqTitle = $("#faqTitle");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
+    export const inquiryTitle = $("#inquiryTitle");
+    export const attachmentWrap = $("#attachmentWrap");
     export const answer = $("#answer");
     export const manager = $("#manager");
     export const answerDate = $("#answerDate");

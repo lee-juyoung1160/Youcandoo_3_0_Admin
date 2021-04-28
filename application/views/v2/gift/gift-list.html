@@ -13,8 +13,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">상품명</option>
-                                <option value="">상품코드</option>
+                                <option value="gift_name">상품명</option>
+                                <option value="gift_uuid">상품코드</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -33,12 +33,19 @@
 
         <div class="table-wrap row">
             <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                    </div>
+                </div>
                <div class="btn-wrap">
-                   <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 상품 수정</button>
+                   <button type="button" class="btn-sm btn-teal modal-btn"><i class="fas fa-cog"></i> 상품 정렬</button>
                </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 30%;">
                     <col style="width: 20%;">
@@ -67,7 +74,7 @@
                     </td>
                     <td>Y</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
@@ -86,17 +93,15 @@
                 </div>
                 <div class="table-wrap">
                     <table class="order-table" id="updateTable">
-                        <thead>
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 60%;">
-                            <col style="width: 20%;">
                             <col style="width: 20%;">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>상품명</th>
                             <th>이미지</th>
-                            <th>삭제</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,13 +112,8 @@
                                     <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                 </div>
                             </td>
-                            <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
-                            </td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>
@@ -128,5 +128,6 @@
 
 
 </section>
+<script src="/assets/v2/js/plugins/jquery.ui.touch-punch.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/gift/gift-list.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -35,7 +35,7 @@
 		modalActionExampleDesc,
 		modalActionWarningReason,
 		btnSubmitSaveUcd,
-		description, ucdInfoTable
+		description, ucdInfoTable, categoryWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
@@ -53,6 +53,7 @@
 		/** 상세 불러오기 **/
 		getBasicInfo();
 		getDeviceInfo();
+		getCategory();
 		getOpenedDoit();
 		getActions();
 		getMemberUcdHistory();
@@ -167,6 +168,53 @@
 
 			$(".fas.fa-copy").on('click', function () { copyToClipboard(this); });
 		}
+	}
+
+	function getCategory()
+	{
+		const url = api.memberCategoryList;
+		const errMsg = `관심카테고리${message.ajaxLoadError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getCategoryCallback, errMsg, false);
+	}
+
+	function getCategoryCallback(data)
+	{
+		isSuccessResp(data) ? buildCategory(data) : sweetToast(data.msg);
+	}
+
+	function buildCategory(data)
+	{
+		let categoryEl = '<div class="card"><p class="message">관심 카테고리가 없습니다.</p></div>';
+		if (!isEmpty(data.data) && data.data.length > 0)
+		{
+			categoryEl = '';
+			data.data.map(obj => {
+				const {category_title, subcategory_info} = obj;
+				let subCategoryEl = '';
+				if (!isEmpty(subcategory_info) && subcategory_info.length > 0)
+				{
+					subcategory_info.map(subCategory => {
+						subCategoryEl += `<li>#<span>${subCategory.subcategory_title}</span></li>`
+					})
+				}
+
+				categoryEl +=
+					`<tr>
+						<th>${category_title}</th>
+						<td>
+							<ul class="tag-list clearfix">
+								${subCategoryEl}
+							</ul>
+						</td>
+					</tr>`
+			})
+		}
+
+		categoryWrap.html(categoryEl);
 	}
 
 	function onClickDoitTab(event)

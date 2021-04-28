@@ -395,6 +395,8 @@
     export const btnSubmitGift = $("#btnSubmitGift");
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
     export const modalMemo = $("#modalMemo");
+    export const giftUuid = $("#giftUuid");
+    export const giftName = $("#giftName");
 
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");
@@ -421,6 +423,7 @@
     export const openedDoitTable = $("#openedDoitTable");
     export const joinedDoitWrap = $("#joinedDoitWrap");
     export const joinedDoitTable = $("#joinedDoitTable");
+    export const categoryWrap = $("#categoryWrap");
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
     export const modalActionDetail = $("#modalActionDetail");

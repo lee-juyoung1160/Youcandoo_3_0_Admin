@@ -421,6 +421,7 @@
     export const openedDoitTable = $("#openedDoitTable");
     export const joinedDoitWrap = $("#joinedDoitWrap");
     export const joinedDoitTable = $("#joinedDoitTable");
+    export const categoryWrap = $("#categoryWrap");
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
     export const modalActionDetail = $("#modalActionDetail");

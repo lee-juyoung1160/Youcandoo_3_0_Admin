@@ -11,6 +11,7 @@
         detailMember : baseApiUrl + 'profile/get/detail/info',
         deviceInfo : baseApiUrl + 'profile/get/device/info',
         memberDoitList : baseApiUrl + 'profile/get/doit',
+        memberCategoryList : baseApiUrl + 'profile/get/category',
         memberActionList : baseApiUrl + 'profile/get/action',
         memberActionDetail : baseApiUrl + 'profile/get/detail/action',
         levelMemberList : baseApiUrl + 'member/level/list',

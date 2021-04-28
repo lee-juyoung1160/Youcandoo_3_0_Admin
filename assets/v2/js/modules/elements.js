@@ -395,6 +395,8 @@
     export const btnSubmitGift = $("#btnSubmitGift");
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
     export const modalMemo = $("#modalMemo");
+    export const giftUuid = $("#giftUuid");
+    export const giftName = $("#giftName");
 
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");

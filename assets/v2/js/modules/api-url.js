@@ -153,9 +153,11 @@
         memberWalletList : baseApiUrl + 'ucd/get/history/user',
         pendingWalletList : baseApiUrl + 'ucd/get/history/transfer',
 
-        giftList : baseApiUrl + 'gift/list',
+        giftList : baseApiUrl + 'gift/get/list',
+        reorderGiftList : baseApiUrl + 'gift/get/orderList',
+        reorderGift : baseApiUrl + 'gift/set/orders',
         createGift : baseApiUrl + 'gift/create',
-        detailGift : baseApiUrl + 'gift/detail',
+        detailGift : baseApiUrl + 'gift/get/detail/info',
         updateGift : baseApiUrl + 'gift/update',
         deleteGift : baseApiUrl + 'gift/delete',
         applyGiftList : baseApiUrl + 'gift/list',

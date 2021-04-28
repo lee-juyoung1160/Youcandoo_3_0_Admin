@@ -1,9 +1,10 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
-		selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate,
-	} from '../modules/elements.js';
+	import {
+	body, btnSearch, btnReset, keyword, dataTable, updateTable,
+	selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,
+} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, fadeoutModal, fadeinModal} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
@@ -11,7 +12,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	let _currentPage = 1;
 
@@ -26,7 +27,7 @@
 		 * **/
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -48,6 +49,7 @@
 	{
 		const historyParams = getHistoryParam();
 
+		selSearchType.val(historyParams.search_type);
 		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -97,24 +99,24 @@
 				}
 			},
 			columns: [
-				{title: "No",    	data: "is_top",  			width: "10%",
+				{title: "상품코드",    	data: "gift_uuid",  		width: "30%" }
+				,{title: "상품명", 		data: "gift_name",			width: "20%",
 					render: function (data, type, row, meta) {
-						return data === 'Y' ?  `<i class="fas fas fa-bell" style="cursor:default;"></i>` : meta.row;
-					}
-				}
-				,{title: "제목", 		data: "notice_title",	width: "50%",
-					render: function (data, type, row, meta) {
-						let detailUrl = page.detailBiz + row.idx;
+						let detailUrl = page.detailGift + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "노출여부",    	data: "is_exposure",  	width: "10%" }
-				,{title: "작성자",    	data: "created_user",  	width: "15%" }
-				,{title: "등록일",    	data: "created",  		width: "15%",
+				,{title: "금액(UCD)",    data: "gift_ucd",  			width: "20%",
 					render: function (data) {
-						data.substring(0, 10);
+						return numberWithCommas(data);
 					}
 				}
+				,{title: "이미지",    	data: "gift_image_url",  	width: "20%",
+					render: function (data) {
+						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`
+					}
+				}
+				,{title: "노출여부",    	data: "is_exposure",  		width: "10%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -137,6 +139,7 @@
 	function tableParams()
 	{
 		const param = {
+			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
@@ -156,22 +159,42 @@
 
 	function buildUpdateTable()
 	{
-		const table = dataTable.DataTable();
-		const tableData = table.rows().data();
-		let data = tableData.length > 0 ? tableData : [];
-
 		updateTable.DataTable({
-			data: data,
+			ajax : {
+				url: api.reorderGiftList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
 			columns: [
-				{title: "제목", 		data: "notice_title",	width: "70%" }
-				,{title: "등록일",    data: "created",  		width: "20%",
-					render: function (data) {
-						data.substring(0, 10);
+				{title: "상품명", 		data: "gift_name",			width: "70%",
+					render: function (data, type, row, meta) {
+						let detailUrl = page.detailGift + row.idx;
+						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "삭제",    	data: "notice_uuid", 	width: "10%",
-					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
+				,{title: "이미지",    	data: "gift_image_url",  	width: "20%",
+					render: function (data) {
+						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`
 					}
 				}
 			],
@@ -179,61 +202,47 @@
 			paging: false,
 			select: false,
 			destroy: true,
-			scrollY: 450,
+			scrollY: 650,
 			scrollCollapse: true,
 			initComplete: function () {
-				addDeleteEvent();
+				initTableSort();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.notice_uuid);
+				$(nRow).attr('data-uuid', aData.gift_uuid);
 			},
 			drawCallback: function (settings) {
 			}
 		});
 	}
 
-	function addDeleteEvent()
+	function initTableSort()
 	{
-		$(".delete-btn").on('click', function () { deleteRow(this); })
+		updateTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
 	}
 
-	let g_delete_uuids = [];
-	function deleteRow(obj)
+	function addAttrDragonElement(el)
 	{
-		$(obj).closest('tr').remove();
-		g_delete_uuids.push(obj.id);
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		return $(el);
 	}
 
 	function onSubmitUpdate()
 	{
 		if (updateValidation())
-			sweetConfirm(message.change, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteCategory;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "category_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
+			sweetConfirm(message.change, reorderRequest);
 	}
 
 	function reorderRequest()
 	{
 		const uuids = getRowsId();
-		const param = { "category_list" : uuids };
-		const url 	= api.reorderCategory;
+		const param = { "gift_uuid" : uuids };
+		const url 	= api.reorderGift;
 		const errMsg = label.modify + message.ajaxError;
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
@@ -255,7 +264,7 @@
 		let uuids = getRowsId();
 		if (uuids.length === 0)
 		{
-			sweetToast("카테고리가 없습니다.");
+			sweetToast(message.emptyList);
 			return false;
 		}
 

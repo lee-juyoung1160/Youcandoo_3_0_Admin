@@ -159,8 +159,8 @@
         createGift : baseApiUrl + 'gift/create',
         detailGift : baseApiUrl + 'gift/get/detail/info',
         updateGift : baseApiUrl + 'gift/update',
-        deleteGift : baseApiUrl + 'gift/delete',
-        applyGiftList : baseApiUrl + 'gift/list',
+        applyGiftList : baseApiUrl + 'exchange/get/list',
+        sendGiftList : baseApiUrl + 'exchange/get/sendList',
 
         adminList : baseApiUrl + 'admin/list',
         detailAdmin : baseApiUrl + 'admin/detail',

@@ -80,6 +80,56 @@
         $("input[name=chk-row]").prop("checked", false);
     }
 
+    export function checkBoxCheckAllElement()
+    {
+        return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="checkAll"/><label for="checkAll"><span></span></label></div>`;
+    }
+
+    export function onClickCheckAll(obj)
+    {
+        const checkboxName = $(obj).prop('name');
+        const tableEl = '#'+$(obj).closest('table').prop('id');
+        let table = $(tableEl).DataTable();
+        if ($(obj).is(':checked'))
+        {
+            $('input[name="'+checkboxName+'"]').prop('checked', true);
+            const checkboxElsInTableBody = $(tableEl).children('tbody').find('input[name="'+checkboxName+'"]');
+            checkboxElsInTableBody.each(function (index) {
+                table.row(index).select();
+            })
+        }
+        else
+        {
+            $('input[name="'+checkboxName+'"]').prop('checked', false);
+            table.rows().deselect();
+        }
+    }
+
+    export function onClickCheckRow(obj)
+    {
+        let count   = 0;
+        const checkboxEl = $("input[name=chk-row]");
+        const checkboxElInTableBody = $("#dataTable tbody").find(":checkbox");
+
+        checkboxElInTableBody.each(function () {
+            if ($(this).is(':checked'))
+                count++;
+        });
+
+        if (count === 0)
+            checkboxEl.prop('checked', false);
+
+        if (checkboxElInTableBody.length === count)
+            checkboxEl.prop('checked', true);
+        else
+            uncheckedCheckAll();
+    }
+
+    export function uncheckedCheckAll()
+    {
+        $("#checkAll").prop('checked', false);
+    }
+
     export function checkBoxElement(idx)
     {
         return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`;

@@ -12,7 +12,7 @@
                         <p class="search-title">날짜</p>
                         <div class="form-box">
                             <select id="selDateType" class="select-box">
-                                <option value="">신청일</option>
+                                <option value="created">신청일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -32,7 +32,7 @@
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
                                 <option value="nickname">닉네임</option>
-                                <option value="gift">상품명</option>
+                                <option value="gift_name">상품명</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -74,7 +74,7 @@
                         <p>Total <strong class="data-num"></strong></p>
                         <select id="selPageLength" class="select-box">
                         </select>
-                        <p>잔액 : <strong class="data-num">34,000,000</strong></p>
+                        <p>잔액 : <strong id="balance">34,000,000</strong></p>
                     </div>
                 </div>
                 <div class="btn-wrap">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 10%;">
                     <col style="width: 20%;">
@@ -120,7 +120,7 @@
                         </div>
                     </td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
@@ -222,4 +222,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script type="module" src="/assets/v2/js/gift/gift-apply-list.js?version=<?php echo $this->config->item('version');?>"></script>

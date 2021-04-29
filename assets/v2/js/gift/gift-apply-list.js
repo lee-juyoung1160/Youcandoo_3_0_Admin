@@ -2,28 +2,28 @@
 	import {headers, invalidResp, getStatusCode, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
-		body,
-		dateButtons,
-		dataTable,
-		dateFrom,
-		dateTo,
-		keyword,
-		selPageLength,
-		btnSearch,
-		btnReset,
-		selSearchType,
-		rdoType,
-		reserveDate,
-		modalClose,
-		modalBackdrop,
-		btnSubmitGift,
-		btnSubmitGeneral,
-		btnCancel,
-		modalGeneral, generalMemo,
-		modalGift, selHour, selMinute,
-		btnSendGeneral,
-		btnSendGift,
-	} from '../modules/elements.js';
+	body,
+	dateButtons,
+	dataTable,
+	dateFrom,
+	dateTo,
+	keyword,
+	selPageLength,
+	btnSearch,
+	btnReset,
+	selSearchType,
+	rdoType,
+	reserveDate,
+	modalClose,
+	modalBackdrop,
+	btnSubmitGift,
+	btnSubmitGeneral,
+	btnCancel,
+	modalGeneral, generalMemo,
+	modalGift, selHour, selMinute,
+	btnSendGeneral,
+	btnSendGift, selDateType,
+} from '../modules/elements.js';
 	import { sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
 	onClickDateRangeBtn,
@@ -36,7 +36,13 @@
 	fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
 } from "../modules/common.js";
 	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes } from "../modules/utils.js";
-	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from '../modules/tables.js';
+	import {
+	initTableDefaultConfig,
+	buildTotalCount,
+	toggleBtnPreviousAndNextOnTable,
+	tableReloadAndStayCurrentPage,
+	checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
+	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -50,7 +56,7 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -64,8 +70,8 @@
 		btnCancel	.on("click", function () { g_approval_type = 'cancel'; onClickModalGeneralOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnSubmitGeneral.on("click", function () { onSubmitGeneral(); });
-		btnSubmitGift 	.on("click", function () { onSubmitGift(); });
+		//btnSubmitGeneral.on("click", function () { onSubmitGeneral(); });
+		//btnSubmitGift 	.on("click", function () { onSubmitGift(); });
 	});
 
 	function initSearchForm()
@@ -115,36 +121,44 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"date_type" : selDateType.val(),
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type": selSearchType.val(),
+						"keyword" : keyword.val().trim(),
+						"gift_type" : $("input[name=radio-type]:checked").val(),
+						"exchange_status" : label.pending,
+						"page" : (d.start / d.length) + 1,
+						"limit": selPageLength.val(),
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "", 	data: "",   		width: "5%",	className: 'no-sort',
-					render: function (data, type, row, meta) {
-						return multiCheckBoxDom(meta.row);
-					}
-				},
 				{title: "상품유형", 		data: "goods_code",    		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.gift : label.gifticon;
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",	className: 'no-sort',
+				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
+				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신청자", 		data: "nickname",    		width: "25%",
+				,{title: "신청자", 		data: "nickname",    		width: "25%" }
+				,{title: "신청일시",    	data: "created",  			width: "15%" }
+				,{title: checkBoxCheckAllElement(), 	data: "gift_uuid",			width: "5%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailUser}${row.user_idx}">${data}</a>`;
+						return checkBoxElement(meta.row);
 					}
 				}
-				,{title: "신청일시",    	data: "created_datetime",  	width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -155,8 +169,11 @@
 			},
 			destroy: false,
 			initComplete: function () {
+				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
+				$("#checkAll").on('click', function () { onClickCheckAll(this); });
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(6).find('input').on('click', function () { onClickCheckRow(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -165,30 +182,19 @@
 		});
 	}
 
-	function tableParams()
-	{
-		const param = {
-			"from_date" : dateFrom.val(),
-			"to_date" : dateTo.val(),
-			"search_type": selSearchType.val(),
-			"keyword" : keyword.val().trim(),
-			"limit": selPageLength.val(),
-			"category_uuid": selCategory.val(),
-			"order_by" : selSort.val()
-		}
-
-		return JSON.stringify(param);
-	}
-
 	function onClickModalGeneralOpen()
 	{
-		if (modalValidation())
+		modalGeneral.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		initModalGeneral();
+		/*if (modalValidation())
 		{
 			modalGeneral.fadeIn();
 			modalBackdrop.fadeIn();
 			overflowHidden();
 			initModalGeneral();
-		}
+		}*/
 	}
 
 	function initModalGeneral()
@@ -200,13 +206,17 @@
 
 	function onClickModalGiftOpen()
 	{
-		if (modalValidation())
+		modalGift.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		initModalGift();
+		/*if (modalValidation())
 		{
 			modalGift.fadeIn();
 			modalBackdrop.fadeIn();
 			overflowHidden();
 			initModalGift();
-		}
+		}*/
 	}
 
 	function initModalGift()
@@ -356,7 +366,7 @@
 	function reqSuccess()
 	{
 		fadeoutModal();
-		tableReloadAndStayCurrentPage(dataTable);
+		buildTable();
 		initBalance();
 	}
 

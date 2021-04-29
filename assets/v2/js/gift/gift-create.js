@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, contentImage, price,} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, giftName, contentImage, price,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";
@@ -10,7 +10,7 @@
 	import { page } from "../modules/page-url.js";
 
 	$( () => {
-		title.trigger('focus');
+		giftName.trigger('focus');
 		/** 이벤트 **/
 		price .on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -41,9 +41,10 @@
 			const url 	= api.createGift;
 			const errMsg 	= label.submit+message.ajaxError;
 			const param = {
-				"notice_title" : title.val().trim(),
-				"notice_image" : isEmpty(data) ? "" : data.image_urls.file,
-				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+				gift_name : giftName.val().trim(),
+				gift_ucd : price.val().trim(),
+				gift_image_url : data.image_urls.file,
+				is_exposure : $("input[name=radio-exposure]:checked").val(),
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -64,10 +65,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(giftName.val()))
 		{
 			sweetToast(`상품명은 ${message.required}`);
-			title.trigger('focus');
+			giftName.trigger('focus');
 			return false;
 		}
 

@@ -1,15 +1,10 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	lengthInput,
-	btnSubmit,
-	price,
-	contentImage, title
-	} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, price, contentImage, giftName, rdoExposure} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
-	import {getPathName, splitReverse, isEmpty, initInputNumber} from "../modules/utils.js";
+	import {getPathName, splitReverse, isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -19,7 +14,7 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		price .on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -46,9 +41,16 @@
 	let g_gift_uuid;
 	function buildDetail(data)
 	{
-		const { profile_uuid, nickname } = data.data;
+		const { gift_uuid, gift_name, gift_ucd, gift_image_url, is_exposure } = data.data;
 
-		g_gift_uuid = profile_uuid;
+		g_gift_uuid = gift_uuid;
+		giftName.val(gift_name);
+		price.val(gift_ucd);
+		$(contentImage).parent().after(`<div class="detail-img-wrap"><img src="${gift_image_url}" alt=""></div>`);
+		rdoExposure.each(function () {
+			if ($(this).val() === is_exposure)
+				$(this).prop('checked', true);
+		})
 
 		onErrorImage();
 		calculateInputLength();
@@ -82,11 +84,14 @@
 			const url 	= api.updateGift;
 			const errMsg 	= label.modify+message.ajaxError;
 			const param = {
-				"nickname" : nickname.val(),
+				"gift_uuid" : g_gift_uuid,
+				"gift_name" : giftName.val().trim(),
+				"gift_ucd" : price.val().trim(),
+				"is_exposure" : $("input[name=radio-exposure]:checked").val(),
 			}
 
 			if (!isEmpty(data))
-				param["icon_image_url"] = data.image_urls.file;
+				param["gift_image_url"] = data.image_urls.file;
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}
@@ -106,10 +111,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(giftName.val()))
 		{
 			sweetToast(`상품명은 ${message.required}`);
-			title.trigger('focus');
+			giftName.trigger('focus');
 			return false;
 		}
 

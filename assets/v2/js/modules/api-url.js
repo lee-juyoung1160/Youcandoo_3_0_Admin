@@ -105,9 +105,7 @@
         updateInquiry : baseApiUrl + 'qna/set/insertComment',
         detailInquiry : baseApiUrl + 'qna/get/detail/info',
 
-        prohibitionList : baseApiUrl + 'prohibition',
-        createProhibition : baseApiUrl + 'prohibition/create',
-        deleteProhibition : baseApiUrl + 'prohibition/delete',
+        reportActionList : baseApiUrl + 'report/get/action/list',
 
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',

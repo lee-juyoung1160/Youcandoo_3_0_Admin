@@ -184,17 +184,13 @@
 
 	function onClickModalGeneralOpen()
 	{
-		modalGeneral.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		initModalGeneral();
-		/*if (modalValidation())
+		if (modalValidation())
 		{
 			modalGeneral.fadeIn();
 			modalBackdrop.fadeIn();
 			overflowHidden();
 			initModalGeneral();
-		}*/
+		}
 	}
 
 	function initModalGeneral()
@@ -206,17 +202,13 @@
 
 	function onClickModalGiftOpen()
 	{
-		modalGift.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		initModalGift();
-		/*if (modalValidation())
+		if (modalValidation())
 		{
 			modalGift.fadeIn();
 			modalBackdrop.fadeIn();
 			overflowHidden();
 			initModalGift();
-		}*/
+		}
 	}
 
 	function initModalGift()

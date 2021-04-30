@@ -162,6 +162,7 @@
         applyGiftList : baseApiUrl + 'exchange/get/list',
         sendGiftList : baseApiUrl + 'exchange/get/sendList',
         sendGiftStatusList : baseApiUrl + 'exchange/get/payment',
+        updateGiftSendMemo : baseApiUrl + 'exchange/set/insertMemo',
 
         adminList : baseApiUrl + 'admin/list',
         detailAdmin : baseApiUrl + 'admin/detail',

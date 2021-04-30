@@ -1,20 +1,10 @@
 
-	import {headers} from '../modules/request.js';
+	import {headers, ajaxRequestWithJsonData} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-	body,
-	dateButtons,
-	dataTable,
-	dateFrom,
-	dateTo,
-	keyword,
-	selPageLength,
-	btnSearch,
-	btnReset,
-	selSearchType,
-	rdoType, chkStatus, modalBackdrop, modalMemo, modalDetail, memo, modalClose
-} from '../modules/elements.js';
-	import { sweetToast } from  '../modules/alert.js';
+	import {body, dateButtons, dataTable, dateFrom, dateTo,
+		keyword, selPageLength, btnSearch, btnReset, selSearchType, memo, btnSubmitMemo,
+		rdoType, chkStatus, modalBackdrop, modalMemo, modalDetail, modalClose, selDateType} from '../modules/elements.js';
+	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
 	onClickDateRangeBtn,
 	initDayBtn,
@@ -25,11 +15,10 @@
 	initSelectOption,
 	fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo
 	} from "../modules/common.js";
-	import { isEmpty } from "../modules/utils.js";
-	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+	import { isEmpty, numberWithCommas, isDisplay } from "../modules/utils.js";
+	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -39,7 +28,7 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -50,7 +39,7 @@
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		addEvent()
+		btnSubmitMemo	.on("click", function () { onSubmitUpdateMemo(); });
 	});
 
 	function initSearchForm()
@@ -68,7 +57,8 @@
 
 	function onKeydownSearch(event)
 	{
-		if (event.keyCode === 13)
+		const modalEl = $("#modalMemo");
+		if (!isDisplay(modalEl) && event.keyCode === 13)
 			onSubmitSearch();
 	}
 
@@ -84,7 +74,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.doitList,
+				url: api.sendGiftList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -95,7 +85,24 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					let sendStatus = [];
+					chkStatus.each(function () {
+						if ($(this).is(":checked"))
+							sendStatus.push($(this).val())
+					})
+					const param = {
+						"date_type" : selDateType.val(),
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type": selSearchType.val(),
+						"keyword" : keyword.val().trim(),
+						"page" : (d.start / d.length) + 1,
+						"limit": selPageLength.val(),
+						"gift_type": $("input[name=radio-type]:checked").val(),
+						"exchange_status" : sendStatus
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
@@ -104,44 +111,36 @@
 			columns: [
 				{title: "상품유형",    	data: "gift_type",  		width: "7%" }
 				,{title: "상품명", 		data: "gift_name",    		width: "15%" }
-				,{title: "신청자", 		data: "nickname",    		width: "13%",
-					render: function (data, type, row, meta) {
-						return `<a class="line-clamp" style="max-width: 200px;" href="${page.detailUser}${row.user_idx}">${data}</a>`;
-					}
-				}
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%",	className: 'no-sort' }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "7%",	className: 'no-sort',
+				,{title: "신청자", 		data: "nickname",    		width: "13%" }
+				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
+				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "7%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "상태",    		data: "exchange_status",  	width: "5%" }
-				,{title: "발송/취소일시",   data: "send_datetime", 		width: "12%" }
+				,{title: "상태",    		data: "exchange_status",  		width: "5%" }
+				,{title: "발송/취소일시",   data: "send_datetime", 			width: "12%" }
 				,{title: "예약일시",    	data: "reservation_datetime", 	width: "12%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",	className: 'no-sort',
+				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
 							? `<a class="view-detail" data-uuid="${data}">보기</a>`
 							: label.dash;
 					}
 				}
-				,{title: "메모",    		data: "",  				width: "5%",	className: 'no-sort',
+				,{title: "메모",    		data: "memo",  				width: "5%",
 					render: function (data, type, row, meta) {
 						return buildMemo(row);
 					}
 				}
-				,{title: "재발송",   		data: "exchange_uuid",  	width: "7%",	className: 'no-sort',
+				,{title: "재발송",   		data: "exchange_uuid",  	width: "7%",
 					render: function (data, type, row, meta) {
 						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
-							?`<button onclick="onSubmitResendGift(this);" 
-									data-uuid="${data}"
-									data-trid=""
-									class="btn-info" 
-									type="button">재발송</button>`
+							?`<button data-uuid="${data}" class="btn-info btn-resend" type="button">재발송</button>`
 							: label.dash;
 					}
 				}
@@ -154,6 +153,9 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(8).find('a').on('click', function () { viewDetail(this); });
+				$(nRow).children().eq(9).find('button').on('click', function () { onClickUpdateMemo(this); });
+				$(nRow).children().eq(10).find('button').on('click', function () {  });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -162,34 +164,11 @@
 		});
 	}
 
-	function tableParams()
-	{
-		const param = {
-			"from_date" : dateFrom.val(),
-			"to_date" : dateTo.val(),
-			"search_type": selSearchType.val(),
-			"keyword" : keyword.val().trim(),
-			"limit": selPageLength.val(),
-			"category_uuid": selCategory.val(),
-			"order_by" : selSort.val()
-		}
-
-		return JSON.stringify(param);
-	}
-
 	function buildMemo(data)
 	{
-		return `<i class="tooltip-mark fas fa-sticky-note">
-					<span class="tooltip-txt left">승인 완료와 함께<br>참여자의 답변이 게시글이 자동 등록되요!</span>
-				</i>
-				<button class="btn-i btn-text-teal btn-update-memo"><i class="fas fa-edit"></i></button>`
-	}
-
-	function addEvent()
-	{
-		$(".view-detail").on('click', function () { viewDetail(this); })
-		$(".btn-update-memo").on('click', function () { onClickUpdateMemo(this); })
-		$(".btn-resend").on('click', function () { viewDetail(this); })
+		const previewEL = isEmpty(data.memo) ? label.dash : `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data.memo}</span></i>`;
+		return `${previewEL}
+				<button class="btn-i btn-text-teal" data-uuid="${data.exchange_uuid}" data-memo="${data.memo}"><i class="fas fa-edit"></i></button>`
 	}
 
 	function viewDetail(obj)
@@ -199,12 +178,55 @@
 		overflowHidden();
 	}
 
+	let g_exchange_uuid;
 	function onClickUpdateMemo(obj)
 	{
 		modalMemo.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
 
-		// memo.val($(obj).data('memo'));
-		// memo.trigger('focus');
+		g_exchange_uuid = $(obj).data('uuid');
+		memo.val($(obj).data('memo'));
+		memo.trigger('focus');
+	}
+
+	function onSubmitUpdateMemo()
+	{
+		if (memoValid())
+			sweetConfirm(message.create, updateMemoRequest);
+	}
+
+	function memoValid()
+	{
+		if (isEmpty(memo.val()))
+		{
+			sweetToast(`메모를 ${message.input}`);
+			memo.trigger('focus');
+			return false;
+		}
+
+		return true;
+	}
+
+	function updateMemoRequest()
+	{
+		const url 	= api.updateGiftSendMemo;
+		const errMsg 	= label.submit+message.ajaxError;
+		const param   = {
+			"exchange_uuid" : g_exchange_uuid,
+			"memo" : memo.val().trim()
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateMemoReqCallback, errMsg, false);
+	}
+
+	function updateMemoReqCallback(data)
+	{
+		sweetToastAndCallback(data, updateMemoReqSuccess);
+	}
+
+	function updateMemoReqSuccess()
+	{
+		fadeoutModal();
+		tableReloadAndStayCurrentPage(dataTable);
 	}

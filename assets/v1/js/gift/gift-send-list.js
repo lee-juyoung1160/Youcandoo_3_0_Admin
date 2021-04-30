@@ -214,6 +214,7 @@
 		$(obj).siblings('.tooltip-hover-text').hide();
 	}
 
+	let g_exchange_uuid;
 	function onClickUpdateMemo(obj)
 	{
 		modalMemoFadein();

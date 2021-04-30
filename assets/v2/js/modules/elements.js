@@ -398,6 +398,7 @@
     export const giftUuid = $("#giftUuid");
     export const giftName = $("#giftName");
     export const totalUcd = $("#totalUcd");
+    export const btnSubmitMemo = $("#btnSubmitMemo");
 
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");

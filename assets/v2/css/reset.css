@@ -40,7 +40,7 @@ body {
 	background-color: #f2f6fc;
 }
 img {
-	max-width: 100%;
+	width: 100%;
 	vertical-align: top;
 }
 ol, ul, li {

@@ -161,6 +161,7 @@
         updateGift : baseApiUrl + 'gift/update',
         applyGiftList : baseApiUrl + 'exchange/get/list',
         sendGiftList : baseApiUrl + 'exchange/get/sendList',
+        sendGiftStatusList : baseApiUrl + 'exchange/get/payment',
 
         adminList : baseApiUrl + 'admin/list',
         detailAdmin : baseApiUrl + 'admin/detail',

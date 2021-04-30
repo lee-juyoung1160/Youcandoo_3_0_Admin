@@ -397,6 +397,7 @@
     export const modalMemo = $("#modalMemo");
     export const giftUuid = $("#giftUuid");
     export const giftName = $("#giftName");
+    export const totalUcd = $("#totalUcd");
 
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");

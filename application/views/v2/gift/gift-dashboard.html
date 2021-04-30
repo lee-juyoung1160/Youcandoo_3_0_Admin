@@ -28,7 +28,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">상품명</option>
+                                <option value="gift_name">상품명</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -49,12 +49,12 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>총 발송건 수: <strong class="">345</strong> 건 / 총 금액 : <strong class="">4,000</strong> UCD</p>
+                        <p>총 발송건 수: <strong class="data-num"></strong> 건 / 총 금액 : <strong id="totalUcd"></strong> UCD</p>
                     </div>
                 </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 40%;">
                     <col style="width: 30%;">
@@ -73,7 +73,7 @@
                     <td>1,345</td>
                     <td>32,987</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>

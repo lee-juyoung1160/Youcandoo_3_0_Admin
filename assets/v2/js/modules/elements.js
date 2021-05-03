@@ -261,6 +261,7 @@
     export const actionCommentCount = $("#actionCommentCount");
     export const actionContentWrap = $("#actionContentWrap");
     export const actionDesc = $("#actionDesc");
+    export const warningReason = $("#warningReason");
     export const actionCommentWrap = $("#actionCommentWrap");
     export const createCommentWrap = $("#createCommentWrap");
     export const commentAction = $("#commentAction");

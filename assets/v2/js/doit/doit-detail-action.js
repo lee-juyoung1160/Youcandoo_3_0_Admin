@@ -20,7 +20,7 @@
 	actionNickname,
 	actionContentWrap,
 	actionCommentWrap,
-	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason,
+	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason, warningReason,
 } from "../modules/elements.js";
 	import {
 	initSelectOption,
@@ -138,8 +138,9 @@
 
 			data.data.map( (obj, index) => {
 				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
-
-				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+				const hasWarning = is_yellow === 'Y';
+				const warningEl = hasWarning ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+				const disabled = hasWarning ? 'disabled' : '';
 
 				let actionContentImage;
 				if (contents_type === 'image')
@@ -157,7 +158,7 @@
 						<div class="card">
 							<div class="top clearfix">
 								<div class="checkbox-wrap">
-									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" data-warning="${is_yellow}">
+									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" ${disabled}>
 									<label for="action_${index}"><span></span></label>
 								</div>
 								<div class="right-wrap">
@@ -225,7 +226,7 @@
 
 	function buildDetailAction(data)
 	{
-		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow} = data.data;
+		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow, reason} = data.data;
 
 		toggleTextBtnSendWarning(is_yellow);
 		actionNickname.text(nickname);
@@ -234,6 +235,7 @@
 		actionCommentCount.text(comment_cnt);
 		actionContentWrap.html(buildActionContent(data.data));
 		actionDesc.text(action_description);
+		warningReason.text(isEmpty(reason) ? label.dash : reason);
 
 		$(".view-detail-action").on('click', function () { onClickAttachAction(this); });
 
@@ -629,17 +631,6 @@
 		if (checkedCount === 0)
 		{
 			sweetToast(`발송대상을 ${message.select}`);
-			return false;
-		}
-
-		let hasWarning = 0;
-		checkedActionEl.each(function () {
-			if ($(this).data('warning') === 'Y')
-				hasWarning++;
-		});
-		if (hasWarning > 0)
-		{
-			sweetToast(`선택한 발송대상에 ${message.alreadyWarning}`);
 			return false;
 		}
 

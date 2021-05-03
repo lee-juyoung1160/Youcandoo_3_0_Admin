@@ -1,8 +1,10 @@
 
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, selPageLength, dateButtons,
+	import {
+	body, btnSearch, btnReset, selPageLength, dateButtons,
 	modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
-	chkStatus, dateFrom, dateTo, pagination, actionsWrap} from '../modules/elements.js';
+	chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType
+	} from '../modules/elements.js';
 	import {sweetError,} from '../modules/alert.js';
 	import {
 	initSelectOption,
@@ -69,19 +71,20 @@
 
 	function getActions()
 	{
-		const url = api.actionList;
+		const url = api.reportActionList;
 		const errMsg = label.list+message.ajaxLoadError;
 		let status = [];
 		chkStatus.each(function () {
 			if ($(this).is(':checked'))
 				status.push($(this).val())
 		});
-		let param = {
+		const param = {
 			"limit" : selPageLength.val()
 			,"page" : _currentPage
+			,"date_type" : selDateType.val()
 			,"from_date" : dateFrom.val()
 			,"to_date" : dateTo.val()
-			,"status" : status
+			,"action_status" : status
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionsCallback, errMsg, false);
@@ -100,7 +103,58 @@
 
 	function buildActions(data)
 	{
-		let actionEl = '';
+		let actionEl = '<div class="card"><p class="message">인증 정보가 없습니다.</p></div>';
+		if (!isEmpty(data.data) && data.count > 0)
+		{
+			actionEl = '';
+
+			data.data.map( (obj, index) => {
+				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
+
+				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+
+				let actionContentImage;
+				if (contents_type === 'image')
+					actionContentImage = contents_url;
+				else if (contents_type === 'voice')
+					actionContentImage = label.voiceImage
+				else if (contents_type === 'video')
+					actionContentImage = thumbnail_url;
+
+				if (index===0 || index%6 === 0)
+					actionEl += '<div class="row">';
+
+				actionEl +=
+					`<div class="col-2 auth-item">
+						<div class="card">
+							<div class="top clearfix">
+								<div class="checkbox-wrap">
+									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" data-warning="${is_yellow}">
+									<label for="action_${index}"><span></span></label>
+								</div>
+								<div class="right-wrap">
+									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
+								</div>
+							</div>
+							<div class="img-wrap action-content" data-idx="${idx}">
+								<img src="${actionContentImage}" alt="">
+							</div>
+							<p class="title">${doit_title}</p>
+							<span class="nick-name">${nickname}</span>
+							<span class="date">${action_date}</span>
+							${warningEl}
+						</div>
+					</div>`
+
+				if (index>0 && (index+1)%6 === 0)
+					actionEl += '</div>';
+			})
+		}
+
+		actionsWrap.html(actionEl);
+
+		$(".action-content").on('click', function () { onClickAction(this); })
+
 		for (let i=0; i<12; i++)
 		{
 			if (i===0 || i%6 === 0)
@@ -134,10 +188,10 @@
 
 		actionsWrap.html(actionEl);
 
-		$(".img-wrap").on('click', function () { viewDetail(this); })
+		$(".img-wrap").on('click', function () { onClickAction(this); })
 	}
 
-	function viewDetail()
+	function onClickAction()
 	{
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();

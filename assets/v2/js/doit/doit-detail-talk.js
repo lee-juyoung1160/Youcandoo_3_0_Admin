@@ -180,11 +180,9 @@
 	let g_talk_comment_page_size = 1;
 	let g_talk_uuid;
 	let g_talk_idx;
-	let g_talk_is_notice;
 	function onClickDetailTalk(obj)
 	{
 		g_talk_idx = $(obj).data('idx');
-		g_talk_is_notice = $(obj).data('notice');
 		g_param_view_page_length = 10;
 		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
@@ -195,12 +193,10 @@
 
 	function getDetailTalk()
 	{
-		console.log('getDetailTalk')
 		const url = api.detailTalk;
 		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = {
 			"idx" : g_talk_idx,
-			"is_notice" : g_talk_is_notice,
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailTalkReqCallback, errMsg, false);
@@ -704,7 +700,6 @@
 		const errMsg = label.delete+message.ajaxError;
 		const param = {
 			"board_uuid" : g_talk_uuid,
-			"is_notice" : g_talk_is_notice,
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteTalkCallback, errMsg, false);
@@ -779,8 +774,7 @@
 				"doit_uuid" : g_doit_uuid,
 				"board_uuid" : g_talk_uuid,
 				"board_body" : updateTalk.val().trim(),
-				"is_notice_update" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
-				"is_notice" : g_talk_is_notice,
+				"is_notice" :chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
 			}
 
 			if (!isEmpty(data))
@@ -804,18 +798,12 @@
 
 	function updateTalkCallback(data)
 	{
-		if (isSuccessResp(data) && !isEmpty(data.data.new_idx))
-		{
-			g_talk_idx = data.data.new_idx;
-			onSubmitSearchTalk();
-		}
-
 		sweetToastAndCallback(data, updateTalkSuccess);
 	}
 
 	function updateTalkSuccess()
 	{
-		g_talk_is_notice = chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N';
+		onSubmitSearchTalk();
 		showTalkDetailForm();
 		getDetailTalk();
 	}

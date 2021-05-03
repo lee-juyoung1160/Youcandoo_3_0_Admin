@@ -674,12 +674,10 @@
 	function sendWarningSuccess()
 	{
 		if (!isWarningList)
-		{
-			fadeoutModal();
 			getDetailAction();
-		}
 
 		getActionList();
+		fadeoutModal();
 	}
 
 	function onSubmitCancelWarning()

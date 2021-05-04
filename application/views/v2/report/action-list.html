@@ -59,7 +59,7 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">238</strong></p>
+                        <p>Total <strong class="data-num" id="totalActionCount"></strong></p>
                         <select id="selPageLength" class="select-box">
                         </select>
                     </div>
@@ -148,6 +148,7 @@
                 <button id="btnSend" type="button" class="btn btn-danger">발송</button>
             </div>
         </div>
+
         <!-- 인증 상세 - 인증 썸네일 클릭 시 오픈 -->
         <div class="modal-content auth-detail" id="modalDetail">
             <div class="modal-header clearfix">
@@ -158,9 +159,9 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="card">
-                            <div class="auth-data-wrap">
+                            <div class="auth-data-wrap" id="modalActionContentWrap">
 
-                                <button type="button" class="btn-xs btn-outline-success btn-download"><i class="fas fa-download"></i> 인증 다운로드</button>
+<!--                                <button type="button" class="btn-xs btn-outline-success btn-download"><i class="fas fa-download"></i> 인증 다운로드</button>-->
 
                                 <!--<div class="img-wrap">
                                     <img src="/assets/v2/img/auth-1.jpg" alt="" s>
@@ -172,12 +173,12 @@
                                     </video>
                                 </div>-->
 
-                                <div class="audio-wrap">
+                                <!--<div class="audio-wrap">
                                     <img src="/assets/v2/img/voice.jpg" alt="">
                                     <audio controls="controls">
                                         <source src="/assets/v2/img/audio_test.m4a"/>
                                     </audio>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                         <table class="detail-table txt-left">
@@ -189,10 +190,7 @@
                             <tr>
                                 <th>인증 내용</th>
                                 <td>
-                                    <p class="detail-data">
-                                        앱에서 입력한 엔터 처리 무시하고 가져올 수 있나요? 먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고
-                                        오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고
-                                        오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고
+                                    <p class="detail-data" id="modalActionDesc">
                                     </p>
                                 </td>
                             </tr>
@@ -209,31 +207,27 @@
                             <tbody>
                             <tr>
                                 <th>경고장</th>
-                                <td>
-                                    무분별한 광고/홍보 성격이 짙어요.
+                                <td id="modalActionWarningReason">
                                 </td>
                                 <td>
                                     <div class="right-wrap">
-                                        <button type="button" class="btn-sm btn-danger">발송 취소</button>
+                                        <button id="btnCancel" type="button" class="btn-sm btn-danger">발송 취소</button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>인증 예시</th>
                                 <td colspan="2">
-                                    <div class="auth-ex-wrap">
-
-                                        <div class="img-wrap">
+                                    <div class="auth-ex-wrap" id="modalActionExampleWrap">
+                                        <!--<div class="img-wrap">
                                             <img src="/assets/v2/img/auth-1.jpg" alt="" s>
-                                        </div>
-
+                                        </div>-->
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>ㄴ 설명</th>
-                                <td colspan="2">
-                                    맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고 오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고 오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고오늘먹은망고맹고망고
+                                <td colspan="2" id="modalActionExampleDesc">
                                 </td>
                             </tr>
                             </tbody>

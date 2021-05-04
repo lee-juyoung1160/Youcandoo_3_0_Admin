@@ -2,11 +2,28 @@
 	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import { api, } from '../modules/api-url.js';
 	import {
-	body, btnSearch, btnReset, selPageLength, dateButtons,
-	modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
-	chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType
+		body,
+		btnSearch,
+		btnReset,
+		selPageLength,
+		dateButtons,
+		modalDetail,
+		modalWarning,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		btnCancel,
+		chkStatus,
+		dateFrom,
+		dateTo,
+		pagination,
+		actionsWrap,
+		selDateType,
+		modalActionContentWrap,
+		modalActionDesc,
+		modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount
 	} from '../modules/elements.js';
-	import {sweetError,} from '../modules/alert.js';
+	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {
 	initSelectOption,
 	initPageLength,
@@ -17,11 +34,11 @@
 	fadeoutModal,
 	overflowHidden,
 	paginate,
-	setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo
+	setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage
 	} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	let _currentPage = 1;
 
@@ -94,6 +111,7 @@
 	{
 		if (isSuccessResp(data))
 		{
+			totalActionCount.text(numberWithCommas(data.count));
 			buildActions(data);
 			buildPagination(data);
 		}
@@ -109,7 +127,7 @@
 			actionEl = '';
 
 			data.data.map( (obj, index) => {
-				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
+				const {action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
 				const hasWarning = is_yellow === 'Y';
 				const warningEl = hasWarning ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
 				const disabled = hasWarning ? 'disabled' : '';
@@ -137,7 +155,7 @@
 									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
 								</div>
 							</div>
-							<div class="img-wrap action-content" data-idx="${idx}">
+							<div class="img-wrap action-content" data-uuid="${action_uuid}">
 								<img src="${actionContentImage}" alt="">
 							</div>
 							<p class="title">${doit_title}</p>
@@ -154,14 +172,72 @@
 
 		actionsWrap.html(actionEl);
 
+		onErrorImage();
+
 		$(".action-content").on('click', function () { onClickAction(this); })
 	}
 
-	function onClickAction()
+	let g_action_detail_uuid;
+	function onClickAction(obj)
 	{
+		g_action_detail_uuid = $(obj).data('uuid');
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
+		getDetailAction();
+	}
+
+	function getDetailAction()
+	{
+		const url = api.memberActionDetail;
+		const errMsg = `인증 정보${message.ajaxLoadError}`;
+		const param = {
+			"action_uuid" : g_action_detail_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
+	}
+
+	function getDetailActionCallback(data)
+	{
+		isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(data.msg);
+	}
+
+	function buildModalActionDetail(data)
+	{
+		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, yellow_reason} = data.data;
+
+		let contentEL = `<button type="button" class="btn-xs btn-outline-success btn-download" data-url="${action_contents_url}"><i class="fas fa-download"></i> 인증 다운로드</button>`;
+		switch (action_contents_type) {
+			case 'image' :
+				contentEL += `<div class="img-wrap"><img src="${action_contents_url}" alt=""></div>`
+				break;
+			case 'video' :
+				contentEL += `<div class="video-wrap"><video controls><source src="${action_contents_url}"/></video></div>`
+				break;
+			case 'voice' :
+				contentEL += `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${action_contents_url}"/></audio></div>`
+				break;
+		}
+		let exampleEl = '';
+		switch (example_contents_type) {
+			case 'image' :
+				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
+				break;
+			case 'video' :
+				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
+				break;
+			case 'voice' :
+				exampleEl = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${example_contents_url}"/></audio></div>`
+				break;
+		}
+		modalActionContentWrap.html(contentEL);
+		modalActionDesc.text(action_description);
+		isEmpty(yellow_reason) ? btnCancel.hide() : btnCancel.show();
+		modalActionWarningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
+		modalActionExampleWrap.html(exampleEl);
+		modalActionExampleDesc.text(example_description);
+		onErrorImage();
 	}
 
 	function buildPagination(data)

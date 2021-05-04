@@ -21,11 +21,30 @@
 		selDateType,
 		modalActionContentWrap,
 		modalActionDesc,
-		modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount
+		modalActionWarningReason,
+		modalActionExampleWrap,
+		modalActionExampleDesc,
+		totalActionCount,
+		btnSendWarning,
+		selReason
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
-		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage} from "../modules/common.js";
+	import {
+	initSelectOption,
+	initPageLength,
+	initSearchDatepicker,
+	initDayBtn,
+	initMaxDateToday,
+	onClickDateRangeBtn,
+	fadeoutModal,
+	overflowHidden,
+	paginate,
+	setDateToday,
+	onChangeSearchDateFrom,
+	onChangeSearchDateTo,
+	onErrorImage,
+		atLeastChecked
+	} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
@@ -50,7 +69,9 @@
 		btnSearch		.on('click', function () { onSubmitSearch(); });
 		btnReset		.on('click', function () { initSearchForm(); });
 		dateButtons		.on('click', function () { onClickDateRangeBtn(this); });
+		chkStatus.on('click', function () { atLeastChecked(this); });
 		btnCancel.on('click', function () { onClickBtnCancel(); });
+		btnSendWarning.on('click', function () { onSubmitSendWarning(); });
 	});
 
 	function initSearchForm()
@@ -175,7 +196,7 @@
 
 		pagination.html(paginate(_currentPage, lastPage));
 
-		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
+		$(".paginate_button ").on('click', function () { onClickPageNum(this); })
 	}
 
 	function onClickPageNum(obj)
@@ -277,19 +298,62 @@
 
 	function cancelReqCallback(data)
 	{
-		sweetToastAndCallback(data, cancelSuccess);
-	}
-
-	function cancelSuccess()
-	{
-		fadeoutModal();
-		getActions();
+		sweetToastAndCallback(data, requestSuccess);
 	}
 
 	function onClickModalWarningOpen()
 	{
-		modalWarning.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
+		if (hasCheckedAction())
+		{
+			modalWarning.fadeIn();
+			modalBackdrop.fadeIn();
+			overflowHidden();
+		}
+	}
+
+	function hasCheckedAction()
+	{
+		const checkedActionEl = $("input[name=chk-action]:checked");
+		const checkedCount = checkedActionEl.length;
+		if (checkedCount === 0)
+		{
+			sweetToast(`발송대상을 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function onSubmitSendWarning()
+	{
+		sweetConfirm(`경고장을 ${message.send}`, sendWarningRequest);
+	}
+
+	function sendWarningRequest()
+	{
+		const url = api.sendWarning;
+		const errMsg = `발송 ${message.ajaxError}`;
+		let action_uuids = [];
+		$("input[name=chk-action]:checked").each(function () {
+			action_uuids.push($(this).data('uuid'));
+		})
+
+		const param = {
+			"action_uuid" : action_uuids,
+			"reason" : selReason.val()
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendWarningReqCallback, errMsg, false);
+	}
+
+	function sendWarningReqCallback(data)
+	{
+		sweetToastAndCallback(data, requestSuccess);
+	}
+
+	function requestSuccess()
+	{
+		fadeoutModal();
+		getActions();
 	}
 

@@ -238,6 +238,13 @@
 		modalActionExampleWrap.html(exampleEl);
 		modalActionExampleDesc.text(example_description);
 		onErrorImage();
+
+		$(".btn-download").on('click', function () { downloadAction(this); });
+	}
+
+	function downloadAction(obj)
+	{
+		download($(obj).data('url'));
 	}
 
 	function buildPagination(data)

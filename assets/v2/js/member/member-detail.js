@@ -500,7 +500,7 @@
 
 	function buildModalActionDetail(data)
 	{
-		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, yellow_reason} = data.data;
+		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, is_yellow, yellow_reason} = data.data;
 
 		let contentEL = '';
 		switch (action_contents_type) {
@@ -528,7 +528,7 @@
 		}
 		modalActionContentWrap.html(contentEL);
 		modalActionDesc.text(action_description);
-		modalActionWarningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
+		modalActionWarningReason.text(is_yellow === 'Y' ? yellow_reason : label.dash);
 		modalActionExampleWrap.html(exampleEl);
 		modalActionExampleDesc.text(example_description);
 		onErrorImage();

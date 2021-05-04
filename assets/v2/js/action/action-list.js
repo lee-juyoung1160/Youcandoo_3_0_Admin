@@ -23,19 +23,9 @@
 		modalActionDesc,
 		modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount
 	} from '../modules/elements.js';
-	import {sweetError, sweetToast,} from '../modules/alert.js';
-	import {
-	initSelectOption,
-	initPageLength,
-	initSearchDatepicker,
-	initDayBtn,
-	initMaxDateToday,
-	onClickDateRangeBtn,
-	fadeoutModal,
-	overflowHidden,
-	paginate,
-	setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage
-	} from "../modules/common.js";
+	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
+	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
+		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
@@ -50,16 +40,17 @@
 		/** 목록 불러오기 **/
 		getActions();
 		/** 이벤트 **/
-		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		body  			.on('keydown', function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		dateTo.on('change', function () { onChangeSearchDateTo(); });
-		modalOpen		.on("click", function () { onClickModalWarningOpen(); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
-		btnSearch		.on("click", function () { onSubmitSearch(); });
-		btnReset		.on("click", function () { initSearchForm(); });
-		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		modalOpen		.on('click', function () { onClickModalWarningOpen(); });
+		modalClose		.on('click', function () { fadeoutModal(); });
+		modalBackdrop	.on('click', function () { fadeoutModal(); });
+		selPageLength	.on('change', function () { onSubmitSearch(); });
+		btnSearch		.on('click', function () { onSubmitSearch(); });
+		btnReset		.on('click', function () { initSearchForm(); });
+		dateButtons		.on('click', function () { onClickDateRangeBtn(this); });
+		btnCancel.on('click', function () { onClickBtnCancel(); });
 	});
 
 	function initSearchForm()
@@ -177,6 +168,26 @@
 		$(".action-content").on('click', function () { onClickAction(this); })
 	}
 
+	function buildPagination(data)
+	{
+		const totalCount  = data.count;
+		const lastPage = Math.ceil(totalCount / selPageLength.val());
+
+		pagination.html(paginate(_currentPage, lastPage));
+
+		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
+	}
+
+	function onClickPageNum(obj)
+	{
+		$(obj).siblings().removeClass('current');
+		$(obj).addClass('current');
+
+		_currentPage = $(obj).data('page');
+
+		getActions();
+	}
+
 	let g_action_detail_uuid;
 	function onClickAction(obj)
 	{
@@ -205,7 +216,7 @@
 
 	function buildModalActionDetail(data)
 	{
-		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, yellow_reason} = data.data;
+		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, is_yellow, yellow_reason} = data.data;
 
 		let contentEL = `<button type="button" class="btn-xs btn-outline-success btn-download" data-url="${action_contents_url}"><i class="fas fa-download"></i> 인증 다운로드</button>`;
 		switch (action_contents_type) {
@@ -233,8 +244,9 @@
 		}
 		modalActionContentWrap.html(contentEL);
 		modalActionDesc.text(action_description);
-		isEmpty(yellow_reason) ? btnCancel.hide() : btnCancel.show();
-		modalActionWarningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
+		const hasYellow = is_yellow === 'Y';
+		hasYellow ? btnCancel.show() : btnCancel.hide();
+		modalActionWarningReason.text(hasYellow ? yellow_reason : label.dash);
 		modalActionExampleWrap.html(exampleEl);
 		modalActionExampleDesc.text(example_description);
 		onErrorImage();
@@ -247,23 +259,30 @@
 		download($(obj).data('url'));
 	}
 
-	function buildPagination(data)
+	function onClickBtnCancel()
 	{
-		const totalCount  = data.count;
-		const lastPage = Math.ceil(totalCount / selPageLength.val());
-
-		pagination.html(paginate(_currentPage, lastPage));
-
-		$(".dataTables_paginate").on('click', function () { onClickPageNum(this); })
+		sweetConfirm(message.cancel, cancelRequest);
 	}
 
-	function onClickPageNum(obj)
+	function cancelRequest()
 	{
-		$(obj).siblings().removeClass('current');
-		$(obj).addClass('current');
+		const url = api.cancelWarning;
+		const errMsg = `경고장 발송 취소 ${message.ajaxError}`;
+		const param = {
+			"action_uuid" : [g_action_detail_uuid]
+		}
 
-		_currentPage = $(obj).data('page');
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), cancelReqCallback, errMsg, false);
+	}
 
+	function cancelReqCallback(data)
+	{
+		sweetToastAndCallback(data, cancelSuccess);
+	}
+
+	function cancelSuccess()
+	{
+		fadeoutModal();
 		getActions();
 	}
 

@@ -38,6 +38,10 @@
 	transform: scale(1.2);
 }
 .auth-item .title {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
 	height: 35px;
 	line-height: 1.2em;
 }

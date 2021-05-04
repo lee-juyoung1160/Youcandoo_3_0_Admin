@@ -107,6 +107,8 @@
 
         reportActionList : baseApiUrl + 'report/get/action/list',
 
+        reportTalkList : baseApiUrl + 'report/get/board/list',
+
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',
         detailBanner : baseApiUrl + 'banner/get/detail/info',

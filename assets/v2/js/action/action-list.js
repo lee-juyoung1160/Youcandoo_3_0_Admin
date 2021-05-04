@@ -29,22 +29,8 @@
 		selReason
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
-	import {
-	initSelectOption,
-	initPageLength,
-	initSearchDatepicker,
-	initDayBtn,
-	initMaxDateToday,
-	onClickDateRangeBtn,
-	fadeoutModal,
-	overflowHidden,
-	paginate,
-	setDateToday,
-	onChangeSearchDateFrom,
-	onChangeSearchDateTo,
-	onErrorImage,
-		atLeastChecked
-	} from "../modules/common.js";
+	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
+		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";

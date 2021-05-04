@@ -38,7 +38,7 @@
 		description, ucdInfoTable, categoryWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate} from "../modules/common.js";
+	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
 	import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import {isEmpty, initInputNumber, isNegative, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -448,7 +448,7 @@
 		}
 
 		actionsWrap.html(actionEl);
-
+		onErrorImage();
 		$(".action-image-wrap").on('click', function () { onClickAction(this); })
 	}
 
@@ -500,29 +500,38 @@
 
 	function buildModalActionDetail(data)
 	{
-		const {action_contents_type, action_contents_url, action_description, example_contents_url, example_description, yellow_reason} = data.data;
+		const {action_contents_type, action_contents_url, action_description, example_contents_type, example_contents_url, example_description, is_yellow, yellow_reason} = data.data;
 
 		let contentEL = '';
-		let exampleEl = '';
 		switch (action_contents_type) {
 			case 'image' :
 				contentEL = `<div class="img-wrap"><img src="${action_contents_url}" alt=""></div>`
-				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
 				break;
 			case 'video' :
 				contentEL = `<div class="video-wrap"><video controls><source src="${action_contents_url}"/></video></div>`
-				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
 				break;
 			case 'voice' :
 				contentEL = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${action_contents_url}"/></audio></div>`
+				break;
+		}
+		let exampleEl = '';
+		switch (example_contents_type) {
+			case 'image' :
+				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
+				break;
+			case 'video' :
+				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
+				break;
+			case 'voice' :
 				exampleEl = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${example_contents_url}"/></audio></div>`
 				break;
 		}
 		modalActionContentWrap.html(contentEL);
 		modalActionDesc.text(action_description);
-		modalActionWarningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
+		modalActionWarningReason.text(is_yellow === 'Y' ? yellow_reason : label.dash);
 		modalActionExampleWrap.html(exampleEl);
 		modalActionExampleDesc.text(example_description);
+		onErrorImage();
 	}
 
 	function getMemberUcdHistory()

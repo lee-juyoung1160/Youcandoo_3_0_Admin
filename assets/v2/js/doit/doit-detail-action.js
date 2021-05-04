@@ -226,7 +226,7 @@
 
 	function buildDetailAction(data)
 	{
-		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow, reason} = data.data;
+		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow, yellow_reason} = data.data;
 
 		toggleTextBtnSendWarning(is_yellow);
 		actionNickname.text(nickname);
@@ -235,7 +235,7 @@
 		actionCommentCount.text(comment_cnt);
 		actionContentWrap.html(buildActionContent(data.data));
 		actionDesc.text(action_description);
-		warningReason.text(isEmpty(reason) ? label.dash : reason);
+		warningReason.text(isEmpty(yellow_reason) ? label.dash : yellow_reason);
 
 		$(".view-detail-action").on('click', function () { onClickAttachAction(this); });
 

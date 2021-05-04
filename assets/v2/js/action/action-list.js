@@ -1,5 +1,6 @@
 
-	import { api } from '../modules/api-url.js';
+	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import { api, } from '../modules/api-url.js';
 	import {
 	body, btnSearch, btnReset, selPageLength, dateButtons,
 	modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
@@ -30,8 +31,7 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//getActions();
-		buildActions();
+		getActions();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -110,8 +110,9 @@
 
 			data.data.map( (obj, index) => {
 				const {idx, action_date, action_uuid, contents_type, contents_url, doit_title, nickname, report_count, thumbnail_url, is_yellow} = obj;
-
-				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+				const hasWarning = is_yellow === 'Y';
+				const warningEl = hasWarning ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
+				const disabled = hasWarning ? 'disabled' : '';
 
 				let actionContentImage;
 				if (contents_type === 'image')
@@ -129,7 +130,7 @@
 						<div class="card">
 							<div class="top clearfix">
 								<div class="checkbox-wrap">
-									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" data-warning="${is_yellow}">
+									<input id="action_${index}" type="checkbox" name="chk-action" data-uuid="${action_uuid}" ${disabled}>
 									<label for="action_${index}"><span></span></label>
 								</div>
 								<div class="right-wrap">
@@ -154,41 +155,6 @@
 		actionsWrap.html(actionEl);
 
 		$(".action-content").on('click', function () { onClickAction(this); })
-
-		for (let i=0; i<12; i++)
-		{
-			if (i===0 || i%6 === 0)
-				actionEl += '<div class="row">';
-
-			actionEl +=
-				`<div class="col-2 auth-item">
-                    <div class="card">
-                        <div class="top clearfix">
-                            <div class="checkbox-wrap">
-                                <input id="c15" type="checkbox" name="cb">
-                                <label for="c15"><span></span></label>
-                            </div>
-                            <div class="right-wrap">
-                                <span><i class="fas fa-exclamation-triangle"></i> 111</span>
-                            </div>
-                        </div>
-                        <div class="img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="">
-                        </div>
-                        <p class="title">두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉두잇며어엉</p>
-                        <span class="nick-name">열심히사는강아지열심히사는강아지</span>
-                        <span class="date">2020-02-02</span>
-                        <strong class="red-card"><img src="/assets/v2/img/red-card.png" alt=""></strong>
-                    </div>
-                </div>`
-
-			if (i>0 && (i+1)%6 === 0)
-				actionEl += '</div>';
-		}
-
-		actionsWrap.html(actionEl);
-
-		$(".img-wrap").on('click', function () { onClickAction(this); })
 	}
 
 	function onClickAction()

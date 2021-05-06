@@ -80,9 +80,9 @@
 		}
 	}
 
-	//const g_talk_comment_page_length = 10;
-	//let g_param_view_page_length = 10;
-	//let g_talk_comment_last_idx = 0;
+	const g_talk_comment_page_length = 10;
+	let g_param_view_page_length = 10;
+	let g_talk_comment_last_idx = 0;
 	let g_talk_comment_page_num = 1;
 	let g_talk_comment_page_size = 1;
 	function getTalkComments(_pageLength)
@@ -91,8 +91,8 @@
 		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"board_uuid" : g_talk_uuid,
-			"size" : 10,//isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
-			"last_idx" : 0//g_talk_comment_last_idx
+			"size" : isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
+			"last_idx" : g_talk_comment_last_idx
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTalkCommentsCallback, errMsg, false);
@@ -105,10 +105,17 @@
 
 	function buildTalkComments(data)
 	{
+		if ($('#btnViewMore').length > 0) $('#btnViewMore').remove();
+
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
+			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
+
 			data.data.map((obj, index, arr) => {
 				const {idx, comment_uuid, created, nickname, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+
+				if (arr.length - 1 === index)
+					g_talk_comment_last_idx = idx;
 
 				let repliesEl = ''
 				if (recomment_data.length > 0)
@@ -155,7 +162,30 @@
 
 				talkCommentWrap.append(commentEl);
 			})
+
+			buildPagination();
+
+			$('#btnViewMore').on('click', function () { onClickViewMore(); });
 		}
+	}
+
+	function buildPagination()
+	{
+		let btnViewMoreEl = ''
+		if ($('#btnViewMore').length === 0 && g_talk_comment_page_num !== g_talk_comment_page_size)
+			btnViewMoreEl =
+				`<button id="btnViewMore" type="button" class="btn-more">더보기(${g_talk_comment_page_num}/${g_talk_comment_page_size}) 
+					<i class="fas fa-sort-down"></i>
+				</button>`;
+
+		talkCommentWrap.append(btnViewMoreEl);
+	}
+
+	function onClickViewMore()
+	{
+		g_talk_comment_page_num++
+		g_param_view_page_length += 10;
+		getTalkComments();
 	}
 
 	function onSubmitBlindTalk()

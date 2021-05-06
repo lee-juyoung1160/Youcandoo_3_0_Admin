@@ -25,41 +25,40 @@
                     <tr>
                         <th>작성자</th>
                         <td>
-                            <p class="detail-data" id="nickname">유캔두</p>
+                            <p class="detail-data" id="userNickname"></p>
                         </td>
                         <th>블라인드 여부</th>
                         <td colspan="3">
-                            <p class="detail-data" id="isBlind">N</p>
+                            <p class="detail-data" id="isBlind"></p>
                         </td>
                     </tr>
                     <tr>
-                        <th>작성일자</th>
+                        <th>작성일시</th>
                         <td>
-                            <p class="detail-data" id="created">2020-02-02</p>
+                            <p class="detail-data" id="talkCreated"></p>
                         </td>
                         <th>좋아요</th>
                         <td>
-                            <p class="detail-data" id="likeCount">111</p>
+                            <p class="detail-data" id="likeCount"></p>
                         </td>
                         <th>댓글 수</th>
                         <td>
-                            <p class="detail-data" id="commentCount">111</p>
+                            <p class="detail-data" id="commentCount"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="5">
                             <div class="detail-data" id="content">
-                                내요오오오오오오옹
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
-                        <td colspan="4">
-                            <div class="detail-img-wrap talk-file-img">
+                        <td colspan="4" id="talkAttachWrap">
+                            <!--<div class="detail-img-wrap talk-file-img">
                                 <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
-                            </div>
+                            </div>-->
                         </td>
                     </tr>
                 </table>
@@ -73,118 +72,116 @@
                     <p class="title">댓글</p>
                 </div>
 
-                <div class="card blind">
-                    <div class="top clearfix">
-                        <p class="title">
-                            유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
-                        </p>
-                        <div class="right-wrap">
-                            <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                <div  id="talkCommentWrap">
+                    <!--<div class="card blind">
+                        <div class="top clearfix">
+                            <p class="title">
+                                유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+                            </p>
+                            <div class="right-wrap">
+                                <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                            </div>
+                        </div>
+                        <div class="detail-data">
+                            대박사건... 인증계를 뒤집어놓으셨다...!
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <div class="bottom">
+                            <span><i class="fas fa-heart"></i> 111</span>
+                            <span><i class="fas fa-comments"></i> 111</span>
+                        </div>
+
+                        <div class="comments-wrap">
+                            <ul>
+                                <li class="blind">
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="detail-data">
-                        대박사건... 인증계를 뒤집어놓으셨다...!
-                    </div>
-                    <div class="img-wrap">
-                        <img src="/assets/v2/img/profile-1.png" alt="">
-                    </div>
-                    <div class="bottom">
-                        <span><i class="fas fa-heart"></i> 111</span>
-                        <span><i class="fas fa-comments"></i> 111</span>
-                    </div>
 
-                    <div class="comments-wrap">
-                        <ul>
-                            <li class="blind">
-                                <div class="top clearfix">
-                                    <p class="title">
-                                        ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                    </p>
-                                    <div class="right-wrap">
-                                        <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
-                                    </div>
-                                </div>
-                                <div class="detail-data">
-                                    대박사건... 인증계를 뒤집어놓으셨다...!
-                                </div>
-                                <div class="img-wrap">
-                                    <img src="/assets/v2/img/profile-1.png" alt="">
-                                </div>
-                            </li>
-                            <li>
-                                <div class="top clearfix">
-                                    <p class="title">
-                                        ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                    </p>
-                                    <div class="right-wrap">
-                                        <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                                    </div>
-                                </div>
-                                <div class="detail-data">
-                                    대박사건... 인증계를 뒤집어놓으셨다...!
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-
-                </div>
-
-                <div class="card">
-                    <div class="top clearfix">
-                        <p class="title">
-                            유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
-                        </p>
-                        <div class="right-wrap">
-                            <button id="" type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                    <div class="card">
+                        <div class="top clearfix">
+                            <p class="title">
+                                유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+                            </p>
+                            <div class="right-wrap">
+                                <button id="" type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="detail-data">
-                        대박사건... 인증계를 뒤집어놓으셨다...!
-                    </div>
-                    <div class="img-wrap">
-                        <img src="/assets/v2/img/profile-1.png" alt="">
-                    </div>
-                    <div class="bottom">
-                        <span><i class="fas fa-heart"></i> 111</span>
-                        <span><i class="fas fa-comments"></i> 111</span>
-                    </div>
+                        <div class="detail-data">
+                            대박사건... 인증계를 뒤집어놓으셨다...!
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <div class="bottom">
+                            <span><i class="fas fa-heart"></i> 111</span>
+                            <span><i class="fas fa-comments"></i> 111</span>
+                        </div>
 
-                    <div class="comments-wrap">
-                        <ul>
-                            <li>
-                                <div class="top clearfix">
-                                    <p class="title">
-                                        ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                    </p>
-                                    <div class="right-wrap">
-                                        <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                        <div class="comments-wrap">
+                            <ul>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="detail-data">
-                                    대박사건... 인증계를 뒤집어놓으셨다...!
-                                </div>
-                                <div class="img-wrap">
-                                    <img src="/assets/v2/img/profile-1.png" alt="">
-                                </div>
-                            </li>
-                            <li>
-                                <div class="top clearfix">
-                                    <p class="title">
-                                        ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                    </p>
-                                    <div class="right-wrap">
-                                        <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
                                     </div>
-                                </div>
-                                <div class="detail-data">
-                                    대박사건... 인증계를 뒤집어놓으셨다...!
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>-->
                 </div>
 
             </div>

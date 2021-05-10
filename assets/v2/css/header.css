@@ -106,7 +106,7 @@ h1 span {
 .sub-mnu > li.active a {
 	color: #fff;
 	background-color: #555;
-	box-shadow: 5px 0px #fff inset;
+	box-shadow: 5px 0 #fff inset;
 	-webkit-transition: box-shadow .2s linear,text-indent .2s linear;
 	-ms-transition: box-shadow .2s linear,text-indent .2s linear;
 	-moz-transition: box-shadow .2s linear,text-indent .2s linear;

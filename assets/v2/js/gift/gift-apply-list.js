@@ -2,50 +2,49 @@
 	import {headers, invalidResp, getStatusCode, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
-	body,
-	dateButtons,
-	dataTable,
-	dateFrom,
-	dateTo,
-	keyword,
-	selPageLength,
-	btnSearch,
-	btnReset,
-	selSearchType,
-	rdoType,
-	reserveDate,
-	modalClose,
-	modalBackdrop,
-	btnSubmitGift,
-	btnSubmitGeneral,
-	btnCancel,
-	modalGeneral, generalMemo,
-	modalGift, selHour, selMinute,
-	btnSendGeneral,
-	btnSendGift, selDateType,
-} from '../modules/elements.js';
+		body,
+		dateButtons,
+		dataTable,
+		dateFrom,
+		dateTo,
+		keyword,
+		selPageLength,
+		btnSearch,
+		btnReset,
+		selSearchType,
+		rdoType,
+		reserveDate,
+		modalClose,
+		modalBackdrop,
+		btnSubmitGift,
+		btnSubmitGeneral,
+		btnCancel,
+		modalGeneral, generalMemo,
+		modalGift, selHour, selMinute,
+		btnSendGeneral,
+		btnSendGift, selDateType,
+	} from '../modules/elements.js';
 	import { sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
-	onClickDateRangeBtn,
-	initDayBtn,
-	initSearchDatepicker,
-	initSearchDateRangeMonth,
-	initMaxDateToday,
-	initPageLength,
-	initSelectOption,
-	fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
-} from "../modules/common.js";
+		onClickDateRangeBtn,
+		initDayBtn,
+		initSearchDatepicker,
+		initSearchDateRangeMonth,
+		initMaxDateToday,
+		initPageLength,
+		initSelectOption,
+		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
+	} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes } from "../modules/utils.js";
 	import {
-	initTableDefaultConfig,
-	buildTotalCount,
-	toggleBtnPreviousAndNextOnTable,
-	tableReloadAndStayCurrentPage,
-	checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
+		initTableDefaultConfig,
+		buildTotalCount,
+		toggleBtnPreviousAndNextOnTable,
+		tableReloadAndStayCurrentPage,
+		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 	let g_approval_type;
 
 	$( () => {

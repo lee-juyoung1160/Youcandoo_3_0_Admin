@@ -709,6 +709,7 @@
             {
                 /*if (isOuterIp() && isPrivateMenu(mainName)) continue;*/
                 if (isOuterIp() && isAccessDeniedUcdUserBiz() && isPrivateMenu(mainName)) continue;
+                if (sessionUserId.val() !== 'leo' && mainName === '관리자') continue;
 
                 menuDom +=
                     `<li onclick="onClickActiveParentMenu(this);" class="menu-btn" data-target="${target}">

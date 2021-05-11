@@ -1,7 +1,10 @@
 
+	const imgUrl  	= $("#imgUrl");
 	const qrImg  	= $("#qrImg");
 	const otpNum 	= $("#otpNum");
 	const type 		= $("#type");
+	const secret 	= $("#secret");
+	const userid 	= $("#userid");
 	const username 	= $("#username");
 	const password 	= $("#password");
 	const useremail = $("#useremail");
@@ -9,38 +12,49 @@
 	const viewLoading	= $("#viewLoading");
 
 	$( () => {
-		fadeinLoader();
-		checkQrImageLoad();
+		qrImageLoad();
 		otpNum.trigger('focus');
+		$("body")  .on("keydown", function (event) { onKeydownBody(event) });
 		btnSubmit.on("click", function () { onSubmitAuthNum(); });
 	});
 
-	function checkQrImageLoad()
+	function qrImageLoad()
 	{
-		if (qrImg.prop("complete"))
+		fadeinLoader();
+		const imageUrl = isEmpty(imgUrl.val()) ? label.noImage : imgUrl.val();
+		qrImg.attr('src', imageUrl);
+		qrImg.on("load", function () {
 			fadeoutLoader();
-		else
-		{
-			qrImg.on("load", function () {
-				if (this.complete) fadeoutLoader();
-			}).on("error", function () {
-				onErrorImage(this);
-			});
-		}
+		}).on("error", function () {
+			onErrorImage(this);
+		});
+	}
+
+	function onKeydownBody(event)
+	{
+		if (event.keyCode === 13)
+			onSubmitAuthNum();
 	}
 
 	function onSubmitAuthNum()
 	{
 		if (validation())
 		{
-			if (type.val() !== 'join')
+			let form   = $("<form></form>");
+			form.prop("method", "post");
+			form.prop("action", "/auth/mfa");
+			form.append($("<input/>", {type: 'hidden', name: 'type', value: type.val()}));
+			form.append($("<input/>", {type: 'hidden', name: 'otp', value: otpNum.val()}));
+			form.append($("<input/>", {type: 'hidden', name: 'secret', value: secret.val()}));
+			form.append($("<input/>", {type: 'hidden', name: 'userid', value: userid.val()}));
+			if (type.val() === 'join')
 			{
-				username.remove();
-				password.remove();
-				useremail.remove();
+				form.append($("<input/>", {type: 'hidden', name: 'username', value: username.val()}));
+				form.append($("<input/>", {type: 'hidden', name: 'password', value: password.val()}));
+				form.append($("<input/>", {type: 'hidden', name: 'useremail', value: useremail.val()}));
 			}
-
-			document.tfaForm.submit();
+			form.appendTo("body");
+			form.trigger('submit');
 		}
 	}
 

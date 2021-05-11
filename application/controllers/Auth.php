@@ -54,7 +54,7 @@ class Auth extends CI_Controller {
 
             $this->load->view('/v1/login/mfa',array(
                 "secret"=>$secret,
-                "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
+                //"qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
                 "type"=>"login",
                 "userid"=>$UserID
             ));

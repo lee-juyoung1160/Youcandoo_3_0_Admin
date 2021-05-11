@@ -1,0 +1,191 @@
+<link rel="stylesheet" href="/assets/v2/css/report.css?version=<?php echo $this->config->item('version');?>">
+
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">톡(인증) 상세</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 10%;">
+                        <col style="width: 20%;">
+                        <col style="width: 10%;">
+                        <col style="width: 20%;">
+                        <col style="width: 10%;">
+                        <col style="width: 20%;">
+                    </colgroup>
+                    <tr>
+                        <th>작성자</th>
+                        <td>
+                            <p class="detail-data" id="userNickname"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>인증일시</th>
+                        <td>
+                            <p class="detail-data" id="talkCreated"></p>
+                        </td>
+                        <th>좋아요</th>
+                        <td>
+                            <p class="detail-data" id="likeCount"></p>
+                        </td>
+                        <th>댓글 수</th>
+                        <td>
+                            <p class="detail-data" id="commentCount"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td colspan="5">
+                            <div class="detail-data" id="content">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>인증</th>
+                        <td colspan="4" id="talkAttachWrap">
+                            <!--<div class="detail-img-wrap talk-file-img">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="comment-wrap row">
+
+            <div class="col-12 comment-list">
+                <div class="card clearfix">
+                    <p class="title">댓글</p>
+                </div>
+
+                <div  id="talkCommentWrap">
+                    <!--<div class="card blind">
+                        <div class="top clearfix">
+                            <p class="title">
+                                유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+                            </p>
+                            <div class="right-wrap">
+                                <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                            </div>
+                        </div>
+                        <div class="detail-data">
+                            대박사건... 인증계를 뒤집어놓으셨다...!
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <div class="bottom">
+                            <span><i class="fas fa-heart"></i> 111</span>
+                            <span><i class="fas fa-comments"></i> 111</span>
+                        </div>
+
+                        <div class="comments-wrap">
+                            <ul>
+                                <li class="blind">
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="top clearfix">
+                            <p class="title">
+                                유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
+                            </p>
+                            <div class="right-wrap">
+                                <button id="" type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                            </div>
+                        </div>
+                        <div class="detail-data">
+                            대박사건... 인증계를 뒤집어놓으셨다...!
+                        </div>
+                        <div class="img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="">
+                        </div>
+                        <div class="bottom">
+                            <span><i class="fas fa-heart"></i> 111</span>
+                            <span><i class="fas fa-comments"></i> 111</span>
+                        </div>
+
+                        <div class="comments-wrap">
+                            <ul>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                    <div class="img-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="top clearfix">
+                                        <p class="title">
+                                            ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
+                                        </p>
+                                        <div class="right-wrap">
+                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                                        </div>
+                                    </div>
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>-->
+                    <!--<button type="button" class="btn-more">더보기 <i class="fas fa-sort-down"></i></button>-->
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="footer-btn-wrap">
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+        </div>
+    </div>
+
+</section>
+<script type="module" src="/assets/v2/js/talk/talk-detail-action.js?version=<?php echo $this->config->item('version');?>"></script>

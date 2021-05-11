@@ -54,6 +54,7 @@
         ,detailAdmin : rootContext + 'admin/detail/'
         ,updateAdmin : rootContext + 'admin/update/'
 
-        ,detailTalk : rootContext + 'report/talk/detail/'
+        ,detailTalk: rootContext + 'report/talk/detail_talk/'
+        ,detailActionTalk : rootContext + 'report/talk/detail_action/'
         ,listTalk : rootContext + 'report/talk'
     }

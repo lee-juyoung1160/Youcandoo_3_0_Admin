@@ -17,6 +17,7 @@ class Biz extends MY_Controller {
     {
         $this->load->template('v2/biz/biz-detail');
     }
+
     public function update()
     {
         $this->load->template('v2/biz/biz-update');

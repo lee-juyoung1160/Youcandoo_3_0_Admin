@@ -9,9 +9,9 @@ class Operate extends MY_Controller {
     }
 
     public function encryption()
-        {
-            $this->load->template('v2/operate/encryption');
-        }
+    {
+        $this->load->template('v2/operate/encryption');
+    }
 
 }
 

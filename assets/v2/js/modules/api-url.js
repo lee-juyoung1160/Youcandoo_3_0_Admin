@@ -91,8 +91,6 @@
         detailNotice : baseApiUrl + 'notice/get/detail/info',
         updateNotice : baseApiUrl + 'notice/update',
         deleteNotice : baseApiUrl + 'notice/delete',
-        topNoticeList : baseApiUrl + 'notice/get/isTopList',
-        deleteTopNotice : baseApiUrl + 'notice/set/isTop',
 
         faqList : baseApiUrl + 'faq/get/list',
         createFaq : baseApiUrl + 'faq/create',

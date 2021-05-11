@@ -32,8 +32,6 @@
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'
 		,maxAvailableBizUcd : '최대 1억 UCD까지 가능합니다.'
 		,maxAvailableUserUcd : '최대 1백만 UCD까지 가능합니다.'
-		,deleteTop : '상단고정을 해제하시겠습니까?'
-		,insertTop : '상단고정을 설정하시겠습니까?'
 		,compareActionTime: '인증시작시간은 인증종료시간 이전으로 설정해야 합니다.'
 		,compareReserveDatetime: '예약발송일시는 현재시간 이후로 설정해야 합니다.'
 		,onlyAlphabet : '영문만 입력할 수 있습니다.'

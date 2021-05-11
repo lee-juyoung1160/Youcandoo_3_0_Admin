@@ -63,7 +63,7 @@
 
 	function buildTalkAttachWrap(data)
 	{
-		const {contents_type, contents_url, thumbnail_url} = data;
+		const {contents_type, contents_url} = data;
 		switch (contents_type) {
 			case 'image' :
 				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
@@ -72,9 +72,7 @@
 			case 'voice' :
 				return `<audio controls><source src="${contents_url}"></audio>`;
 			case 'video' :
-				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
-							<img src="${thumbnail_url}" alt="">
-						</div>`;
+				return `<video controls><source src="${contents_url}"></video>`;
 			default :
 				return label.dash;
 		}

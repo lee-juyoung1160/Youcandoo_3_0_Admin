@@ -1,35 +1,9 @@
 
-	import {
-	actionCommentCount,
-	actionDesc,
-	actionCreated,
-	actionDetailForm,
-	actionLikeCount,
-	actionListForm,
-	actionsWrap,
-	selActionDateType,
-	chkActionStatus,
-	modalBackdrop,
-	modalWarning,
-	searchActionDateFrom,
-	searchActionDateTo,
-	selActionMissions,
-	pagination,
-	selActionPageLength,
-	totalActionCount,
-	actionNickname,
-	actionContentWrap,
-	actionCommentWrap,
-	commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason, warningReason,
-} from "../modules/elements.js";
-	import {
-	initSelectOption,
-	overflowHidden,
-	onErrorImage,
-	paginate,
-	fadeoutModal,
-		limitInputLength
-	} from "../modules/common.js";
+	import {actionCommentCount, actionDesc, actionCreated, actionDetailForm, actionLikeCount, actionListForm, actionsWrap,
+		selActionDateType, chkActionStatus, modalBackdrop, modalWarning, searchActionDateFrom, searchActionDateTo,
+		selActionMissions, pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap,
+		actionCommentWrap, commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason, warningReason,} from "../modules/elements.js";
+	import {initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -226,7 +200,7 @@
 
 	function buildDetailAction(data)
 	{
-		const {action_date, action_description, action_uuid, comment_cnt, like_count, nickname, is_yellow, yellow_reason} = data.data;
+		const {action_date, action_description, comment_cnt, like_count, nickname, is_yellow, yellow_reason} = data.data;
 
 		toggleTextBtnSendWarning(is_yellow);
 		actionNickname.text(nickname);

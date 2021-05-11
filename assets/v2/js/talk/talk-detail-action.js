@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {btnBack, btnList, commentCount, isBlind, likeCount, talkAttachWrap, talkCreated, userNickname, content, talkCommentWrap,} from '../modules/elements.js';
+	import {btnBack, btnList, commentCount, likeCount, talkAttachWrap, talkCreated, userNickname, content, talkCommentWrap,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";

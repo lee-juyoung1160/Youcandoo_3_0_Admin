@@ -1,13 +1,9 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-		lengthInput, keyword, dataTable, selCategory, btnAdd,
-		doitTitle, doitDesc, doitKeywords, doitKeyword,
-		doitImage, doitQuestion, selSubcategory,
-		btnSubmit, modalOpen, modalClose, modalBackdrop,
-		sponsor, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer,
-	} from '../modules/elements.js';
+	import {lengthInput, keyword, dataTable, selCategory, btnAdd, doitTitle, doitDesc, doitKeywords, doitKeyword,
+		doitImage, doitQuestion, selSubcategory, btnSubmit, modalOpen, modalClose, modalBackdrop,
+		sponsor, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal} from "../modules/common.js";
 	import { isEmpty } from "../modules/utils.js";

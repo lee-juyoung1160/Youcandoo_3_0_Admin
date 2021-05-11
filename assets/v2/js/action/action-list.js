@@ -1,33 +1,9 @@
 
 	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import { api, } from '../modules/api-url.js';
-	import {
-		body,
-		btnSearch,
-		btnReset,
-		selPageLength,
-		dateButtons,
-		modalDetail,
-		modalWarning,
-		modalOpen,
-		modalClose,
-		modalBackdrop,
-		btnCancel,
-		chkStatus,
-		dateFrom,
-		dateTo,
-		pagination,
-		actionsWrap,
-		selDateType,
-		modalActionContentWrap,
-		modalActionDesc,
-		modalActionWarningReason,
-		modalActionExampleWrap,
-		modalActionExampleDesc,
-		totalActionCount,
-		btnSendWarning,
-		selReason
-	} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, selPageLength, dateButtons, modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
+		btnCancel, chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType, modalActionContentWrap, modalActionDesc,
+		modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount, btnSendWarning, selReason} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
 		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked} from "../modules/common.js";

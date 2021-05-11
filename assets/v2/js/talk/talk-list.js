@@ -1,7 +1,20 @@
 
 	import {headers, isSuccessResp,} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType,} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		dateButtons,
+		dateFrom,
+		dateTo,
+		rdoReport,
+		selDateType,
+		rdoType,
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn,
 		initMaxDateMonths, setDateToday, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
@@ -39,6 +52,7 @@
 		setDateToday();
 		initSelectOption();
 		keyword.val('');
+		rdoType.eq(0).prop('checked', true);
 		rdoReport.eq(0).prop('checked', true);
 	}
 
@@ -49,11 +63,13 @@
 		dateFrom.val(historyParams.from_date);
 		dateTo.val(historyParams.to_date);
 		keyword.val(historyParams.keyword);
+		rdoType.each(function () {
+			if (historyParams.talk_division.indexOf($(this).val()) !== -1)
+				$(this).prop("checked", true);
+		});
 		rdoReport.each(function () {
 			if (historyParams.report_status.indexOf($(this).val()) !== -1)
 				$(this).prop("checked", true);
-			else
-				$(this).prop("checked", false);
 		});
 		selDateType.val(historyParams.date_type);
 		selPageLength.val(historyParams.limit);
@@ -104,15 +120,13 @@
 				}
 			},
 			columns: [
-				{title: "유형", 			data: "is_notice",    	width: "10%",
-					render: function (data) {
-						return data === 'Y' ? label.notice : label.general;
-					}
-				}
+				{title: "유형", 			data: "talk_type",    	width: "10%" }
 				,{title: "작성자", 		data: "nickname",    	width: "15%" }
-				,{title: "내용", 		data: "board_body", 	width: "30%",
+				,{title: "내용", 		data: "contents", 		width: "30%",
 					render: function (data, type, row, meta) {
-						return `<a class="line-clamp-1" style="max-width: 500px;" href="${page.detailTalk}${row.idx}">${data}</a>`;
+						const talkType = $("input[name=radio-type]:checked").val();
+						const detailUrl = talkType === 'talk' ? page.detailTalk : page.detailActionTalk;
+						return `<a class="line-clamp-1" style="max-width: 500px;" href="${detailUrl}${row.board_idx}">${data}</a>`;
 					}
 				}
 				,{title: "댓글수", 		data: "comment_cnt",	width: "5%" }
@@ -152,6 +166,7 @@
 			"to_date" : dateTo.val(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
+			"talk_division" : $("input[name=radio-type]:checked").val(),
 			"report_status" : $("input[name=radio-report]:checked").val(),
 		}
 

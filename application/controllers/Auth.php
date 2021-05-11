@@ -44,7 +44,7 @@ class Auth extends CI_Controller {
         }
 
         if($UserData->mfa_yn=="Y"){
-            if($UserData->status=="승인대기"){
+            if($UserData->status=="승인대기") {
                 alert("승인되지 않은 사용자입니다", "/main/login");
                 return;
             }

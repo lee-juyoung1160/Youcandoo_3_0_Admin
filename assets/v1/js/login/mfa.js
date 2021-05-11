@@ -21,13 +21,12 @@
 	function qrImageLoad()
 	{
 		fadeinLoader();
+
 		const imageUrl = isEmpty(imgUrl.val()) ? label.noImage : imgUrl.val();
+
 		qrImg.attr('src', imageUrl);
-		qrImg.on("load", function () {
-			fadeoutLoader();
-		}).on("error", function () {
-			onErrorImage(this);
-		});
+		qrImg.on("load", function () { fadeoutLoader(); });
+		qrImg.on("error", function () { onErrorImage(this); });
 	}
 
 	function onKeydownBody(event)

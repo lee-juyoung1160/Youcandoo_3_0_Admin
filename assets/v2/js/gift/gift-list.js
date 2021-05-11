@@ -1,10 +1,8 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-	body, btnSearch, btnReset, keyword, dataTable, updateTable,
-	selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,
-} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
+		selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, fadeoutModal, fadeinModal} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';

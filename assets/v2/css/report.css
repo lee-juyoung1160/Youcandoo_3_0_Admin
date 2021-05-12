@@ -28,10 +28,19 @@
 }
 .auth-item .img-wrap {
 	overflow: hidden;
+	position: relative;
 	margin: 5px 0;
 	cursor: pointer;
 }
+.auth-item .img-wrap:after {
+	display: block;
+	content: '';
+	padding-bottom: 100%;
+}
 .auth-item .img-wrap img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 	transition: all .5s;
 }
 .auth-item .img-wrap:hover img {

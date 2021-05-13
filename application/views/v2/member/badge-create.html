@@ -1,0 +1,99 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">벳지 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>뱃지명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" placeholder="뱃지명을 입력해주세요." maxlength="7">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>설명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" placeholder="설명을 입력해주세요." maxlength="30">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>타입 *</th>
+                        <td>
+                            <select id="selCategory" class="select-box">
+                                <option value="연속 인증">연속 인증</option>
+                                <option value="누적 인증">누적 인증</option>
+                                <option value="리더 랭킹">리더 랭킹</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>취득조건 *</th>
+                        <td>
+                            <div class="ucd-input-wrap">
+                                <input id="" type="text" maxlength="7">
+                                <span>회/위</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>난이도 *</th>
+                        <td>
+                            <div class="ucd-input-wrap">
+                                <input id="" type="text" maxlength="7">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이미지 *</th>
+                        <td>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="categoryIcon">업로드</label>
+                                <input type="file" id="categoryIcon" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
+                                <!--<input type="file" id="categoryIcon" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="280" data-height="360" data-compare="같음">-->
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="" alt="">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>공개 여부 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r1" type="radio" name="radio-establish" value="all" checked>
+                                <label for="r1"><span></span>전체공개</label>
+
+                                <input  id="r2" type="radio" name="radio-establish" value="Y">
+                                <label for="r2"><span></span>공개</label>
+
+                                <input  id="r3" type="radio" name="radio-establish" value="N">
+                                <label for="r3"><span></span>비공개</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+</section>
+<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
+

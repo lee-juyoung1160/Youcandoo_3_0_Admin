@@ -20,4 +20,23 @@ class Member extends MY_Controller {
     }
 
 
+     public function badge($Route = "")
+        {
+            switch ($Route) {
+                case "":
+                    $this->load->template('v2/member/badge-list');
+                    break;
+                case "create" :
+                    $this->load->template('v2/member/badge-create');
+                    break;
+                case "update":
+                    $this->load->template('v2/member/badge-update');
+                    break;
+                case "detail":
+                    $this->load->template('v2/member/badge-detail');
+                    break;
+            }
+        }
+
+
 }

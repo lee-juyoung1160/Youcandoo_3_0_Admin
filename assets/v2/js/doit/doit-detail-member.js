@@ -36,7 +36,7 @@
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	export function showJoinMemberForm()
 	{
@@ -182,9 +182,21 @@
 				}
 				,{title: "프로필 ID", 		data: "profile_uuid",		width: "25%"}
 				,{title: "등급",    			data: "member_type",  		width: "10%" }
-				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%" }
-				,{title: "최대 연속 인증 수",   data: "max_recycle_action", width: "10%" }
-				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%" }
+				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "최대 연속 인증 수",   data: "ongoing_action_count", width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
 				,{title: "가입일시",   		data: "joined",  			width: "15%" }
 			],
 			serverSide: true,
@@ -336,9 +348,13 @@
 			},
 			columns: [
 				{title: "닉네임", 		data: "nickname",		width: "20%" }
-				,{title: "신청일시",   	data: "state",  		width: "15%" }
-				,{title: "답변", 		data: "start_date",		width: "60%"}
-				,{title: "",			data: "state",  		width: "5%",
+				,{title: "신청일시",   	data: "created",  		width: "15%" }
+				,{title: "답변", 		data: "answer",			width: "60%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "",			data: "profile_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}

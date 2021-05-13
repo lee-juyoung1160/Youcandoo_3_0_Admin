@@ -444,6 +444,11 @@
     export const cardLevel4 = $("#cardLevel4");
     export const cardLevel5 = $("#cardLevel5");
     export const cardLevelSpecial = $("#cardLevelSpecial");
+    /** 뱃지 **/
+    export const selType = $("#selType");
+    export const qualification = $("#qualification");
+    export const difficulty = $("#difficulty");
+    export const rdoOpen = $("input[name=radio-open]");
 
     /** 암/복호화 **/
     export const inputString = $("#inputString");

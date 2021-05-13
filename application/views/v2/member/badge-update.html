@@ -17,7 +17,7 @@
                         <th>뱃지명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="" type="text" class="length-input" placeholder="뱃지명을 입력해주세요." maxlength="7">
+                                <input id="badgeTitle" type="text" class="length-input" placeholder="뱃지명을 입력해주세요." maxlength="7">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/7</p>
                             </div>
                         </td>
@@ -26,7 +26,7 @@
                         <th>설명 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="" type="text" class="length-input" placeholder="설명을 입력해주세요." maxlength="30">
+                                <input id="content" type="text" class="length-input" placeholder="설명을 입력해주세요." maxlength="30">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
@@ -34,10 +34,10 @@
                     <tr>
                         <th>타입 *</th>
                         <td>
-                            <select id="selCategory" class="select-box">
-                                <option value="연속 인증">연속 인증</option>
-                                <option value="누적 인증">누적 인증</option>
-                                <option value="리더 랭킹">리더 랭킹</option>
+                            <select id="selType" class="select-box">
+                                <option value="ongoing">연속 인증</option>
+                                <option value="action">누적 인증</option>
+                                <option value="leader">리더 랭킹</option>
                             </select>
                         </td>
                     </tr>
@@ -45,7 +45,7 @@
                         <th>취득조건 *</th>
                         <td>
                             <div class="ucd-input-wrap">
-                                <input id="" type="text" maxlength="7">
+                                <input id="qualification" type="text" maxlength="7">
                                 <span>회/위</span>
                             </div>
                         </td>
@@ -54,7 +54,7 @@
                         <th>난이도 *</th>
                         <td>
                             <div class="ucd-input-wrap">
-                                <input id="" type="text" maxlength="7">
+                                <input id="difficulty" type="text" maxlength="7">
                             </div>
                         </td>
                     </tr>
@@ -63,24 +63,22 @@
                         <td>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
-                                <label for="categoryIcon">업로드</label>
-                                <input type="file" id="categoryIcon" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
-                                <!--<input type="file" id="categoryIcon" class="upload-hidden" accept="image/png, image/jpg, image/jpeg" data-width="280" data-height="360" data-compare="같음">-->
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
                             </div>
-                            <!--<div class="detail-img-wrap">
-                                <img src="" alt="">
-                            </div>-->
+                            <div class="detail-img-wrap">
+                                <img id="thumbnail" src="" alt="">
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>공개 여부</th>
                         <td>
                             <div class="radio-wrap">
-
-                                <input  id="r2" type="radio" name="radio-establish" value="Y">
+                                <input  id="r2" type="radio" name="radio-open" value="Y">
                                 <label for="r2"><span></span>Y</label>
 
-                                <input  id="r3" type="radio" name="radio-establish" value="N">
+                                <input  id="r3" type="radio" name="radio-open" value="N">
                                 <label for="r3"><span></span>N</label>
                             </div>
                         </td>
@@ -93,5 +91,5 @@
         </div>
     </div>
 </section>
-<script defer type="module" src="/assets/v2/js/category/category-create.js?version=<?php echo $this->config->item('version');?>"></script>
+<script defer type="module" src="/assets/v2/js/badge/badge-update.js?version=<?php echo $this->config->item('version');?>"></script>
 

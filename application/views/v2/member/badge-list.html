@@ -41,6 +41,35 @@
             </div>
         </div>
 
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">타입</p>
+                    <select id="selCategory" class="select-box">
+                        <option value="연속 인증">연속 인증</option>
+                        <option value="누적 인증">누적 인증</option>
+                        <option value="리더 랭킹">리더 랭킹</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">공개여부</p>
+                    <div class="radio-wrap">
+
+                        <input  id="r1" type="radio" name="radio-establish" value="all">
+                        <label for="r1"><span></span>전체</label>
+
+                        <input  id="r2" type="radio" name="radio-establish" value="Y">
+                        <label for="r2"><span></span>Y</label>
+
+                        <input  id="r3" type="radio" name="radio-establish" value="N">
+                        <label for="r3"><span></span>N</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="search-btn row">
             <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
             <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>

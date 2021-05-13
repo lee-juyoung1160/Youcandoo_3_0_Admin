@@ -22,11 +22,7 @@
 	function onSubmitBadge()
 	{
 		if (validation())
-		{
-			const imageFile = contentImage[0].files;
-			const requestFn = imageFile.length === 0 ? createRequest : fileUploadReq;
-			sweetConfirm(message.create, requestFn);
-		}
+			sweetConfirm(message.create, fileUploadReq);
 	}
 
 	function fileUploadReq()
@@ -41,10 +37,10 @@
 
 	function createRequest(data)
 	{
-		if (isEmpty(data) || isSuccessResp(data))
+		if (isSuccessResp(data))
 		{
-			const url 	= api.createBadge;
-			const errMsg 	= label.submit+message.ajaxError;
+			const url = api.createBadge;
+			const errMsg = label.submit+message.ajaxError;
 			const param = {
 				"title" : title.val().trim(),
 				"description" : content.val().trim(),

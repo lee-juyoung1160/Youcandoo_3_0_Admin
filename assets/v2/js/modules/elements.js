@@ -449,6 +449,9 @@
     export const qualification = $("#qualification");
     export const difficulty = $("#difficulty");
     export const rdoOpen = $("input[name=radio-open]");
+    export const badgeTitle = $("#badgeTitle");
+    export const badgeType = $("#badgeType");
+    export const isOpen = $("#isOpen");
 
     /** 암/복호화 **/
     export const inputString = $("#inputString");

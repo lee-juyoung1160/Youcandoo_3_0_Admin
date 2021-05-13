@@ -9,6 +9,10 @@
         ,listMember : rootContext + 'member'
         ,detailMember : rootContext + 'member/detail/'
 
+        ,listBadge : rootContext + 'member/badge/'
+        ,detailBadge : rootContext + 'member/badge/detail/'
+        ,updateBadge : rootContext + 'member/badge/update/'
+
         ,listBiz : rootContext + 'biz'
         ,detailBiz : rootContext + 'biz/detail/'
         ,updateBiz : rootContext + 'biz/update/'

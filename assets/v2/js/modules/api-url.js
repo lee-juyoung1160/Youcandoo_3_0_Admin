@@ -16,6 +16,12 @@
         memberActionDetail : baseApiUrl + 'profile/get/detail/action',
         levelMemberList : baseApiUrl + 'member/level/list',
 
+        badgeList : baseApiUrl + 'badge/get/list',
+        createBadge : baseApiUrl + 'badge/create',
+        detailBadge : baseApiUrl + 'badge/get/detail/info',
+        deleteBadge : baseApiUrl + 'badge/delete',
+        updateBadge : baseApiUrl + 'badge/update',
+
         categoryList : baseApiUrl + 'category/list',
         createCategory : baseApiUrl + 'category/create',
         detailCategory : baseApiUrl + 'category/detail',

@@ -1,11 +1,8 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {
-		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit,
-		modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd, tabUl,
-		tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,
-	} from '../modules/elements.js';
+	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit, modalOpen, modalClose, modalBackdrop,
+		selPageLengthDoit, selPageLengthUcd, tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";

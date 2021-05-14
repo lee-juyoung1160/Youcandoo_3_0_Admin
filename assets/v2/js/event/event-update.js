@@ -4,13 +4,7 @@
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {
-		calculateInputLength,
-		initSearchDatepicker,
-		limitInputLength,
-		onChangeValidateImage,
-		onErrorImage
-	} from "../modules/common.js";
+	import {calculateInputLength, initSearchDatepicker, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isDisplay} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

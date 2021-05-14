@@ -4,7 +4,7 @@
 	import {categoryTitle, categoryIcon, isEstablish, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
 		btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
 		btnSubmitImage, attachment, deleteAttachment, createAttachment, modalDoitImageTitle} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm,} from '../modules/alert.js';
 	import {fadeoutModal, historyBack, limitInputLength, onErrorImage, overflowHidden,} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isImage, isOverFileSize} from "../modules/utils.js";
 	import { label } from "../modules/label.js";

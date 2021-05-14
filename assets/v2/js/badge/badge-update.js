@@ -68,7 +68,7 @@
 		{
 			const imageFile = contentImage[0].files;
 			const requestFn = imageFile.length === 0 ? updateRequest : fileUploadReq;
-			sweetConfirm(message.create, requestFn);
+			sweetConfirm(message.modify, requestFn);
 		}
 	}
 
@@ -79,7 +79,7 @@
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
 
 	function updateRequest(data)

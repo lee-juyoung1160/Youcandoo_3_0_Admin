@@ -40,27 +40,25 @@
                 <h1 class="login-text">
                     GOOGLE OTP
                     <sapn class="sub-text"><b>Google Authenticator</b> 앱 설치 후 인증해주세요.</sapn>
-<!--                    <sapn class="sub-text"><b>Google Authenticator</b> 앱에서 인증번호를 확인해 주세요.</sapn>-->
                 </h1>
-                <form name="tfaForm" action="/v2/auth/mfa" method="post">
-                    <div class="qr_box">
-                        <span class="qr_img"><img id="qrImg" src="<?php if(isset($qrcode_url)) echo $qrcode_url?>" alt="qr코드"></span>
+                <div class="qr_box">
+                    <span class="qr_img"><img id="qrImg" src="" alt="qr코드"></span>
+                </div>
+                <div class="col otp-num-wrap">
+                    <p>인증번호</p>
+                    <div class="input-wrap">
+                        <i class="fas fa-key"></i>
+                        <input name="otp" id="otpNum" type="text" placeholder="인증번호를 입력해주세요.">
                     </div>
-                    <div class="col otp-num-wrap">
-                        <p>인증번호</p>
-                        <div class="input-wrap">
-                            <i class="fas fa-key"></i>
-                            <input name="otp" id="otpNum" type="text" placeholder="인증번호를 입력해주세요.">
-                        </div>
-                        <span class="error-msg">인증번호를 확인해주세요.</span>
-                    </div>
-                    <input type="hidden" id="secret" name="secret" value="<?php if(isset($secret)) echo $secret?>"/>
-                    <input type="hidden" id="userid" name="userid" value="<?php if(isset($userid)) echo $userid?>"/>
-                    <input type="hidden" id="username" name="username" value="<?php if(isset($username)) echo $username?>"/>
-                    <input type="hidden" id="password" name="password" value="<?php if(isset($password)) echo $password?>"/>
-                    <input type="hidden" id="useremail" name="useremail" value="<?php if(isset($useremail)) echo $useremail?>"/>
-                    <input type="hidden" id="type" name="type" value="<?php if(isset($type)) echo $type?>"/>
-                </form>
+                    <span class="error-msg">인증번호를 확인해주세요.</span>
+                </div>
+                <input type="hidden" id="imgUrl" value="<?php if(isset($qrcode_url)) echo $qrcode_url?>"/>
+                <input type="hidden" id="secret" name="secret" value="<?php if(isset($secret)) echo $secret?>"/>
+                <input type="hidden" id="userid" name="userid" value="<?php if(isset($userid)) echo $userid?>"/>
+                <input type="hidden" id="username" name="username" value="<?php if(isset($username)) echo $username?>"/>
+                <input type="hidden" id="password" name="password" value="<?php if(isset($password)) echo $password?>"/>
+                <input type="hidden" id="useremail" name="useremail" value="<?php if(isset($useremail)) echo $useremail?>"/>
+                <input type="hidden" id="type" name="type" value="<?php if(isset($type)) echo $type?>"/>
                 <div class="btn-wrap">
                     <button id="btnSubmit" class="submit-btn" type="submit">완료</button>
                 </div>

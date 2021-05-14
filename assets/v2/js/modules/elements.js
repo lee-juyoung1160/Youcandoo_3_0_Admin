@@ -86,6 +86,7 @@
     export const passwordCheckTxt = $("#passwordCheckTxt");
     export const useremail  = $("#useremail");
     export const username   = $("#username");
+    export const imgUrl     = $("#imgUrl");
     export const qrImg      = $("#qrImg");
     export const otpNum     = $("#otpNum");
     export const secret     = $("#secret");

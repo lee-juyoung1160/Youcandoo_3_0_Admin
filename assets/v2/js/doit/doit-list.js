@@ -1,15 +1,11 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-		body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
-		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory
-	} from '../modules/elements.js';
+	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
+		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
-	import {
-	onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths,
-	initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, atLeastChecked
-	} from "../modules/common.js";
+	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths,
+		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, atLeastChecked, getDoitStatusName} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -167,12 +163,7 @@
 				,{title: "참여인원",    	data: "member_cnt",  		width: "10%" }
 				,{title: "상태",    		data: "doit_status",  		width: "10%",
 					render: function (data) {
-						switch (data) {
-							case 'create' : return '생성';
-							case 'open' : return '진행중';
-							case 'stop' : return '운영정지';
-							case 'delete' : return '삭제';
-						}
+						return getDoitStatusName(data);
 					}
 				}
 			],

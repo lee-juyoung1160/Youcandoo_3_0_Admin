@@ -2,9 +2,9 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit, modalOpen, modalClose, modalBackdrop,
-		selPageLengthDoit, selPageLengthUcd, tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,} from '../modules/elements.js';
+		selPageLengthDoit, selPageLengthUcd, tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable, doitTable} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -26,8 +26,8 @@
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		inputNumber 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
-		selPageLengthDoit.on("change", function () { getBizDoitList(); });
-		selPageLengthUcd.on("change", function () { getBizUcdList(); });
+		selPageLengthDoit.on("change", function () { buildDoitTable(); });
+		selPageLengthUcd.on("change", function () { buildUcdTable(); });
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
@@ -43,10 +43,10 @@
 
 		switch (target) {
 			case '#tabDoitInfo' :
-				getBizDoitList();
+				buildDoitTable();
 				break;
 			case '#tabUcdInfo' :
-				getBizUcdList();
+				buildUcdTable();
 				break;
 		}
 
@@ -74,17 +74,24 @@
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
+	let g_company_uuid;
+	let g_profile_uuid;
 	function getDetailCallback(data)
 	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		if (isSuccessResp(data))
+		{
+			g_company_uuid = data.data.company_uuid;
+			g_profile_uuid = data.data.profile_uuid;
+			buildDetail(data);
+			buildDoitTable();
+		}
+		else
+			sweetToast(data.msg);
 	}
 
-	let g_company_uuid;
 	function buildDetail(data)
 	{
-		const { company_uuid, company_number,profile_image_url, nickname, site_url, description } = data.data;
-
-		g_company_uuid = company_uuid;
+		const { company_number,profile_image_url, nickname, site_url, description } = data.data;
 
 		contentImage.attr('src', profile_image_url);
 		title.text(nickname);
@@ -95,12 +102,83 @@
 		onErrorImage();
 	}
 
-	function getBizDoitList()
+	function buildDoitTable()
 	{
+		doitTable.DataTable({
+			ajax : {
+				url: api.bizDoitList,
+				type:"POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"profile_uuid" : g_profile_uuid,
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError('두잇'+label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "카테고리",    	data: "category_title",  		width: "15%" }
+				,{title: "세부 카테고리",   data: "subcategory_title",  	width: "15%" }
+				,{title: "두잇명",    	data: "doit_title",  			width: "40%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`
+					}
+				}
+				,{title: "개설일",    	data: "created",  				width: "10%",
+					render:function (data) {
+						return data.substring(0, 10);
+					}
+				}
+				,{title: "참여인원",    	data: "member_cnt",  			width: "10%",
+					render:function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "상태",    		data: "doit_status",			width: "10%",
+					render:function (data) {
+						return getDoitStatusName(data);
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
 	}
 
-	function getBizUcdList()
+	function buildUcdTable()
 	{
 		ucdInfoTable.DataTable({
 			ajax : {

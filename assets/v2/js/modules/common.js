@@ -7,6 +7,16 @@
     import { numberWithCommas, isOverFileSize, appendZero, isImage, isAudio, isVideo } from "./utils.js";
     import { sweetToast, sweetError } from "./alert.js";
 
+    export function getDoitStatusName(status)
+    {
+        switch (status) {
+            case 'create' : return '생성';
+            case 'open' : return '진행중';
+            case 'stop' : return '운영정지';
+            case 'delete' : return '삭제';
+        }
+    }
+
     export function historyBack()
     {
         history.back();

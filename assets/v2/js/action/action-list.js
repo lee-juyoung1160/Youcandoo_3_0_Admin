@@ -126,7 +126,7 @@
 									<label for="action_${index}"><span></span></label>
 								</div>
 								<div class="right-wrap">
-									<span><i class="fas fa-exclamation-triangle"></i> ${report_count}</span>
+									<span><i class="fas fa-exclamation-triangle"></i> <a href="#" class="link">${report_count}</a></span>
 								</div>
 							</div>
 							<div class="img-wrap action-content" data-uuid="${action_uuid}">

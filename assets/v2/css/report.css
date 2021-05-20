@@ -26,6 +26,9 @@
 	display: inline-block;
 	padding: 0 2px;
 }
+.auth-item .top .right-wrap span a {
+	color: #444;
+}
 .auth-item .img-wrap {
 	overflow: hidden;
 	position: relative;

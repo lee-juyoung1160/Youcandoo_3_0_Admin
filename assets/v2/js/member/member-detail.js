@@ -2,40 +2,40 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		btnBack,
-		btnList,
-		btnModalUcd,
-		modalUcd,
-		amount,
-		memo,
-		modalActionDetail,
-		modalClose,
-		modalBackdrop,
-		lengthInput,
-		ulDoitTab,
-		openedDoitWrap,
-		joinedDoitWrap,
-		pagination,
-		actionsWrap,
-		profileId,
-		contact,
-		userNickname,
-		useremail,
-		balance,
-		isAuth,
-		userLevel,
-		totalActionCount,
-		hiddenProfileId,
-		deviceInfoTableBody,
-		openedDoitTable,
-		joinedDoitTable,
-		modalActionContentWrap,
-		modalActionDesc,
-		modalActionExampleWrap,
-		modalActionExampleDesc,
-		modalActionWarningReason,
-		btnSubmitSaveUcd,
-		description, ucdInfoTable, categoryWrap
+	btnBack,
+	btnList,
+	btnModalUcd,
+	modalUcd,
+	amount,
+	memo,
+	modalActionDetail,
+	modalClose,
+	modalBackdrop,
+	lengthInput,
+	ulDoitTab,
+	openedDoitWrap,
+	joinedDoitWrap,
+	pagination,
+	actionsWrap,
+	profileId,
+	contact,
+	userNickname,
+	useremail,
+	balance,
+	isAuth,
+	userLevel,
+	totalActionCount,
+	hiddenProfileId,
+	deviceInfoTableBody,
+	openedDoitTable,
+	joinedDoitTable,
+	modalActionContentWrap,
+	modalActionDesc,
+	modalActionExampleWrap,
+	modalActionExampleDesc,
+	modalActionWarningReason,
+	btnSubmitSaveUcd,
+	description, ucdInfoTable, categoryWrap, dateFrom, dateTo, selSearchType, keyword
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -563,8 +563,8 @@
 						"to_date" : "",
 						"search_type" : "profile_uuid",
 						"keyword" : g_profile_uuid,
-						"page" : (d.start / d.length) + 1
-						,"limit" : d.length
+						"page" : (d.start / d.length) + 1,
+						"limit" : d.length
 					}
 
 					return JSON.stringify(param);
@@ -581,7 +581,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "UCD", 	data: "amount_ucd",		width: "10%",
+				,{title: "UCD", 	data: "value",			width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -590,7 +590,7 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: 30,
 			select: false,
 			destroy: true,
 			initComplete: function () {

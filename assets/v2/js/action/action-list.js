@@ -1,9 +1,34 @@
 
 	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import { api, } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, selPageLength, dateButtons, modalDetail, modalWarning, modalOpen, modalClose, modalBackdrop,
-		btnCancel, chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType, modalActionContentWrap, modalActionDesc,
-		modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount, btnSendWarning, selReason} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		selPageLength,
+		dateButtons,
+		modalDetail,
+		modalWarning,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		btnCancel,
+		chkStatus,
+		dateFrom,
+		dateTo,
+		pagination,
+		actionsWrap,
+		selDateType,
+		modalActionContentWrap,
+		modalActionDesc,
+		modalActionWarningReason,
+		modalActionExampleWrap,
+		modalActionExampleDesc,
+		totalActionCount,
+		btnSendWarning,
+		selReason,
+		modalReason
+	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
 		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked} from "../modules/common.js";
@@ -105,6 +130,7 @@
 				const hasWarning = is_yellow === 'Y';
 				const warningEl = hasWarning ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
 				const disabled = hasWarning ? 'disabled' : '';
+				const reportCnt = Number(report_count) > 0 ? `<a class="link report-count">${report_count}</a>` :  report_count;
 
 				let actionContentImage;
 				if (contents_type === 'image')
@@ -126,7 +152,7 @@
 									<label for="action_${index}"><span></span></label>
 								</div>
 								<div class="right-wrap">
-									<span><i class="fas fa-exclamation-triangle"></i> <a href="#" class="link">${report_count}</a></span>
+									<span><i class="fas fa-exclamation-triangle"></i> ${reportCnt}</span>
 								</div>
 							</div>
 							<div class="img-wrap action-content" data-uuid="${action_uuid}">
@@ -149,6 +175,7 @@
 		onErrorImage();
 
 		$(".action-content").on('click', function () { onClickAction(this); })
+		$(".report-count").on('click', function () { onClickReportCount(this); })
 	}
 
 	function buildPagination(data)
@@ -235,6 +262,13 @@
 		onErrorImage();
 
 		$(".btn-download").on('click', function () { downloadAction(this); });
+	}
+
+	function onClickReportCount(obj)
+	{
+		modalReason.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
 	}
 
 	function downloadAction(obj)

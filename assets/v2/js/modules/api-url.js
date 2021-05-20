@@ -155,7 +155,7 @@
         getMemberFromXlsx : baseApiUrl + '',
         systemWalletList : baseApiUrl + 'ucd/get/history/system',
         doitWalletList : baseApiUrl + 'ucd/get/history/doit',
-        memberWalletList : baseApiUrl + 'ucd/get/history/user',
+        memberWalletList : baseApiUrl + 'ucd/list/get/user',
         pendingWalletList : baseApiUrl + 'ucd/get/history/transfer',
 
         giftList : baseApiUrl + 'gift/get/list',

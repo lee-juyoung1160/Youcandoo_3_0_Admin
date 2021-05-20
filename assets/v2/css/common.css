@@ -1193,3 +1193,8 @@ input[type="password"]{
 .encryption-textarea-wrap .detail-data {
 	height: 300px;
 }
+
+.icon-sponsor {
+	width: 20px;
+	height: 20px;
+}

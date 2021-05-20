@@ -75,18 +75,23 @@
                         </select>
                     </div>
                 </div>
+                <div class="btn-wrap">
+                    <button id="btnBlind" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
+                    <button type="button" class="btn-sm btn-outline-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+                </div>
             </div>
             <table id="dataTable">
-                <!--<thead>
+                <thead>
                 <colgroup>
                     <col style="width: 10%;">
-                    <col style="width: 15%;">
+                    <col style="width: 20%;">
                     <col style="width: 30%;">
                     <col style="width: 5%;">
                     <col style="width: 5%;">
                     <col style="width: 5%;">
                     <col style="width: 5%;">
-                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                    <col style="width: 5%;">
                 </colgroup>
                 <thead>
                 <tr>
@@ -98,6 +103,7 @@
                     <th>신고</th>
                     <th>블라인드</th>
                     <th>작성일</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -111,11 +117,17 @@
                     </td>
                     <td>111</td>
                     <td>111</td>
-                    <td>111</td>
+                    <td><a href="#">111</a></td>
                     <td>N</td>
                     <td>2020-02-02</td>
+                    <td>
+                        <div class="checkbox-wrap">
+                            <input id="c1" type="checkbox">
+                            <label for="c1"><span></span></label>
+                        </div>
+                    </td>
                 </tr>
-                </tbody>-->
+                </tbody>
             </table>
         </div>
     </div>
@@ -156,4 +168,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/talk/talk-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--
+<script type="module" src="/assets/v2/js/talk/talk-list.js?version=<?php echo $this->config->item('version');?>"></script>-->

@@ -30,6 +30,7 @@
 		, unexpose: '<i class="fas fa-check-circle" style="color:#aaa"></i>'
 		, blind: '<i class="fas fa-eye-slash"></i>'
 		, unblind: '<i class="fas fa-eye"></i>'
+		, bizIcon : '<img src="/assets/v2/img/icon_sponsor.png" class="icon-sponsor" alt="">'
 		, generalDoit: '일반 두잇'
 		, general: '일반'
 		, notice: '공지'

@@ -351,6 +351,8 @@
     /** 인증 **/
     export const actionsWrap = $("#actionsWrap");
     export const modalWarning = $("#modalWarning");
+    export const modalReason = $("#modalReason");
+    export const reasonTable = $("#reasonTable");
     /** 톡 **/
     export const rdoReport = $("input[name=radio-report]");
     export const isBlind = $("#isBlind");

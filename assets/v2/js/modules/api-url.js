@@ -111,6 +111,7 @@
         detailInquiry : baseApiUrl + 'qna/get/detail/info',
 
         reportActionList : baseApiUrl + 'report/get/action/list',
+        reportReasonList : baseApiUrl + 'report/get/action/descriptionList',
 
         reportTalkList : baseApiUrl + 'report/get/board/list',
 

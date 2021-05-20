@@ -1,44 +1,47 @@
 
-	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api, } from '../modules/api-url.js';
 	import {
-		body,
-		btnSearch,
-		btnReset,
-		selPageLength,
-		dateButtons,
-		modalDetail,
-		modalWarning,
-		modalOpen,
-		modalClose,
-		modalBackdrop,
-		btnCancel,
-		chkStatus,
-		dateFrom,
-		dateTo,
-		pagination,
-		actionsWrap,
-		selDateType,
-		modalActionContentWrap,
-		modalActionDesc,
-		modalActionWarningReason,
-		modalActionExampleWrap,
-		modalActionExampleDesc,
-		totalActionCount,
-		btnSendWarning,
-		selReason,
-		modalReason
+	body,
+	btnSearch,
+	btnReset,
+	selPageLength,
+	dateButtons,
+	modalDetail,
+	modalWarning,
+	modalOpen,
+	modalClose,
+	modalBackdrop,
+	btnCancel,
+	chkStatus,
+	dateFrom,
+	dateTo,
+	pagination,
+	actionsWrap,
+	selDateType,
+	modalActionContentWrap,
+	modalActionDesc,
+	modalActionWarningReason,
+	modalActionExampleWrap,
+	modalActionExampleDesc,
+	totalActionCount,
+	btnSendWarning,
+	selReason,
+	modalReason, reasonTable,
 	} from '../modules/elements.js';
-	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, onClickDateRangeBtn, fadeoutModal, overflowHidden,
 		paginate, setDateToday, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked} from "../modules/common.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
+	import {initTableDefaultConfig} from "../modules/tables.js";
 
 	let _currentPage = 1;
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefaultConfig();
 		initSearchDatepicker();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
@@ -130,7 +133,7 @@
 				const hasWarning = is_yellow === 'Y';
 				const warningEl = hasWarning ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
 				const disabled = hasWarning ? 'disabled' : '';
-				const reportCnt = Number(report_count) > 0 ? `<a class="link report-count">${report_count}</a>` :  report_count;
+				const reportCnt = Number(report_count) > 0 ? `<a class="link report-count" data-uuid="${action_uuid}">${report_count}</a>` :  report_count;
 
 				let actionContentImage;
 				if (contents_type === 'image')
@@ -264,11 +267,60 @@
 		$(".btn-download").on('click', function () { downloadAction(this); });
 	}
 
+	let report_reason_uuid;
 	function onClickReportCount(obj)
 	{
+		report_reason_uuid = $(obj).data('uuid');
 		modalReason.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
+		buildReasonTable();
+	}
+
+	function buildReasonTable()
+	{
+		reasonTable.DataTable({
+			ajax : {
+				url: api.reportReasonList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"action_uuid": report_reason_uuid,
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "일자", 		data: "created",    			width: "25%" }
+				,{title: "사유", 	data: "report_description",    	width: "75%" }
+			],
+			serverSide: true,
+			paging: false,
+			select: false,
+			scrollY: 450,
+			scrollCollapse: true,
+			destroy: true,
+		});
 	}
 
 	function downloadAction(obj)

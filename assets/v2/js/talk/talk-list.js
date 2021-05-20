@@ -1,15 +1,48 @@
 
 	import {headers, isSuccessResp,} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType, rdoType,} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		dateButtons,
+		dateFrom,
+		dateTo,
+		rdoReport,
+		selDateType,
+		rdoType,
+		modalReason, modalBackdrop, modalClose, reasonTable,
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn,
-		initMaxDateMonths, setDateToday, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
-	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage,} from '../modules/tables.js';
+	import {
+		initSelectOption,
+		initPageLength,
+		initSearchDatepicker,
+		initDayBtn,
+		initMaxDateMonths,
+		setDateToday,
+		onClickDateRangeBtn,
+		onChangeSearchDateFrom,
+		onChangeSearchDateTo,
+		overflowHidden,
+		fadeoutModal
+	} from "../modules/common.js";
+	import {
+		initTableDefaultConfig,
+		buildTotalCount,
+		toggleBtnPreviousAndNextOnTable,
+		getCurrentPage,
+		redrawPage,
+		checkBoxElement,
+	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
+	import {numberWithCommas} from "../modules/utils.js";
 	let _currentPage = 1;
 
 	$( () => {
@@ -23,6 +56,8 @@
 		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		modalClose		.on('click', function () { fadeoutModal(); });
+		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -116,27 +151,47 @@
 						return `<a class="line-clamp-1" style="max-width: 500px;" href="${detailUrl}${row.board_idx}">${data}</a>`;
 					}
 				}
-				,{title: "댓글수", 		data: "comment_cnt",	width: "5%" }
-				,{title: "좋아요", 		data: "like_count",		width: "5%" }
-				,{title: "신고", 		data: "report_count",   width: "5%" }
+				,{title: "댓글수", 		data: "comment_cnt",	width: "5%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "좋아요", 		data: "like_count",		width: "5%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "신고", 		data: "report_count",   width: "5%",
+					render: function (data, type, row, meta) {
+						return Number(data) > 0 ? `<a class="report-count" data-idx="${row.board_idx}">${numberWithCommas(data)}</a>` : numberWithCommas(data);
+					}
+				}
 				,{title: "블라인드", 		data: "is_notice",   	width: "5%" }
 				,{title: "작성일", 		data: "created",   		width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-
+				,{title: "", 			data: "board_idx",   	width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(meta.row);
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			select: false,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			destroy: true,
 			initComplete: function () {
 				$(this).on('page.dt', function () { _currentPage = getCurrentPage(this); });
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(5).on('click', function () { onClickReportCount(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -163,3 +218,58 @@
 		return JSON.stringify(param);
 	}
 
+	let report_reason_uuid;
+	function onClickReportCount(obj)
+	{
+		report_reason_uuid = $(obj).data('idx');
+		modalReason.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		//buildReasonTable();
+	}
+
+	function buildReasonTable()
+	{
+		reasonTable.DataTable({
+			ajax : {
+				url: api.reportReasonList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"action_uuid": report_reason_uuid,
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "일자", 		data: "created",    			width: "25%" }
+				,{title: "사유", 	data: "report_description",    	width: "75%" }
+			],
+			serverSide: true,
+			paging: false,
+			select: false,
+			scrollY: 450,
+			scrollCollapse: true,
+			destroy: true,
+		});
+	}

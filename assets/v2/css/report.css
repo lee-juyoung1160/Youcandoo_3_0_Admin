@@ -204,3 +204,8 @@
 .member-detail .auth-item .nick-name {
 	font-size: 13px;
 }
+
+.talk-detail-page table video,
+.talk-detail-page table .detail-img-wrap {
+	max-width: 800px;
+}

@@ -66,7 +66,7 @@
 		const {contents_type, contents_url} = data;
 		switch (contents_type) {
 			case 'image' :
-				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
+				return `<div class="detail-img-wrap view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${contents_url}" alt="">
 						</div>`;
 			case 'voice' :

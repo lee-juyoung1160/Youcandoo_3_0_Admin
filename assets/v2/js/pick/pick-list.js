@@ -8,7 +8,7 @@
 	import { label } from "../modules/label.js";
 	import { page } from "../modules/page-url.js";
 	import { message } from "../modules/message.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -128,7 +128,7 @@
 		{
 			let previewEl = '';
 			data.data.map(obj => {
-				const {doit_title, doit_keyword, profile_nickname, member_count, doit_image_url} = obj;
+				const {doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_image_url} = obj;
 				let keywordsEl = '';
 				if (doit_keyword.length > 0)
 				{
@@ -148,7 +148,10 @@
 						<ul class="tag-list clearfix">
 							${keywordsEl}
 						</ul>
-						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
+						<p class="desc-sub">
+							<i class="fas fa-user"></i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
+							<span class="badge badge-success">진행중</span>
+						</p>
 					</td>
 				</tr>`
 			})

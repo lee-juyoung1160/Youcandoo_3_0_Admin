@@ -177,7 +177,8 @@
 			columns: [
 				{title: "닉네임", 			data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+						const nickname = row.is_company === 'Y' ? label.bizIcon + data : data;
+						return `<a data-uuid="${row.profile_uuid}">${nickname}</a>`;
 					}
 				}
 				,{title: "프로필 ID", 		data: "profile_uuid",		width: "25%"}

@@ -149,7 +149,11 @@
 						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "리더", 		data: "nickname",			width: "10%" }
+				,{title: "리더", 		data: "nickname",			width: "10%",
+					render: function (data, type, row, meta) {
+						return row.is_company === 'Y' ? label.bizIcon + data : data;
+					}
+				}
 				,{title: "생성일", 		data: "created",			width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);

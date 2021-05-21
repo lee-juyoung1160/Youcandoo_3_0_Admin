@@ -109,7 +109,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -122,7 +122,7 @@
 							`<li>
 								<div class="top clearfix">
 									<p class="title">
-										ㄴ ${replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
+										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
 									</p>
 								</div>
 								<div class="detail-data">
@@ -136,7 +136,7 @@
 					`<div class="card">
 						<div class="top clearfix">
 							<p class="title">
-								${nickname} <span class="desc-sub">${created}</span>
+								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
 								<button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>

@@ -4,7 +4,7 @@
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { limitInputLength, onErrorImage} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -111,9 +111,9 @@
 
 	function buildDoitInfo(data)
 	{
-		const {doit_title, doit_keyword, profile_nickname, member_count} = data;
+		const {doit_title, doit_keyword, profile_nickname, is_company, member_count} = data;
 		let keywordsEl = '';
-		if (doit_keyword.length > 0)
+		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
 		{
 			doit_keyword.map(value => {
 				keywordsEl += `<li># <span>${value}</span></li>`;
@@ -122,7 +122,7 @@
 		return `<p class="title">${doit_title}</p>
 				<ul class="tag-list clearfix">${keywordsEl}</ul>
 				<p class="desc-sub"><i class="fas fa-user">
-					</i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span>
+					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / <span class="badge badge-success">진행중</span>
 				</p>`
 	}
 

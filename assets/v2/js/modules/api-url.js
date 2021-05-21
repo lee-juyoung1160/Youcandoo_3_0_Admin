@@ -111,9 +111,11 @@
         detailInquiry : baseApiUrl + 'qna/get/detail/info',
 
         reportActionList : baseApiUrl + 'report/get/action/list',
-        reportReasonList : baseApiUrl + 'report/get/action/descriptionList',
+        actionReportReasonList : baseApiUrl + 'report/get/action/descriptionList',
 
         reportTalkList : baseApiUrl + 'report/get/board/list',
+        talkReportReasonList : baseApiUrl + 'report/get/board/descriptionList',
+        blindTalk : baseApiUrl + 'report/set/blind',
 
         bannerList : baseApiUrl + 'banner/get/list',
         createBanner : baseApiUrl + 'banner/create',

@@ -43,7 +43,7 @@
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	export function initSearchTalkForm()
 	{
@@ -140,20 +140,32 @@
 						return data === 'Y' ? label.notice : label.general;
 					}
 				}
-				,{title: "작성자",    data: "nickname",  		width: "15%" }
+				,{title: "작성자",    data: "nickname",  		width: "15%",
+					render: function (data, type, row, meta) {
+						return row.is_company === 'Y' ? label.bizIcon + data : data;
+					}
+				}
 				,{title: "내용", 	data: "board_body",		width: "30%",
 					render: function (data, type, row, meta) {
 						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}" class="line-clamp-1" style="max-width: 450px;">${isEmpty(data) ? label.dash : data}</a>`;
 					}
 				}
-				,{title: "댓글수", 	data: "comment_cnt",	width: "5%" }
-				,{title: "좋아요",    data: "like_count",  	width: "5%" }
+				,{title: "댓글수", 	data: "comment_cnt",	width: "5%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "좋아요",    data: "like_count",  	width: "5%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
 				,{title: "작성일",    data: "created",  		width: "15%",
 					render: function (data, type, row, meta) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "블라인드",   data: "is_notice",  	width: "5%" }
+				,{title: "블라인드",   data: "is_blind",  	width: "5%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -218,7 +230,7 @@
 	let g_talk_attach_type;
 	function buildTalkDetail(data)
 	{
-		const {created, nickname, board_body, comment_cnt, like_count, is_notice, contents_type,} = data.data;
+		const {created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, contents_type,} = data.data;
 		g_talk_attach_type = contents_type;
 		if (is_notice === 'Y')
 		{
@@ -230,9 +242,9 @@
 			talkCommentWrap.show();
 			createTalkCommentWrap.show();
 		}
-		infoTalkNickname.text(nickname);
+		infoTalkNickname.html(is_company === 'Y' ? label.bizIcon + nickname : nickname);
 		infoTalkCreated.text(created);
-		infoTalkIsBlind.text();
+		infoTalkIsBlind.text(is_blind);
 		infoTalkCommentCount.text(comment_cnt);
 		infoTalkLikeCount.text(like_count);
 		infoTalkContent.text(board_body);
@@ -317,7 +329,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -330,7 +342,7 @@
 							`<li>
 								<div class="top clearfix">
 									<p class="title">
-										ㄴ ${replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
+										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
 									</p>
 								</div>
 								<div class="detail-data">
@@ -384,7 +396,7 @@
 					`<div class="card">
 						<div class="top clearfix">
 							<p class="title">
-								${nickname} <span class="desc-sub">${created}</span>
+								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
 								${btnDeleteCommentEl}

@@ -4,7 +4,7 @@
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit, rdoExposure,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {calculateInputLength, limitInputLength, onErrorImage} from "../modules/common.js";
-	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
+	import {getPathName, isEmpty, numberWithCommas, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -60,7 +60,7 @@
 		{
 			let rowEl = '';
 			doit_list.map(obj => {
-				const {doit_uuid, doit_image_url, doit_title, doit_keyword, profile_nickname, member_count} = obj;
+				const {doit_uuid, doit_image_url, doit_title, doit_keyword, profile_nickname, is_company, member_count} = obj;
 				let keywordsEl = '';
 				if (doit_keyword.length > 0)
 				{
@@ -80,7 +80,10 @@
 						<ul class="tag-list clearfix">
 							${keywordsEl}
 						</ul>
-						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
+						<p class="desc-sub">
+							<i class="fas fa-user"></i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
+							<span class="badge badge-success">진행중</span>
+						</p>
 					</td>
 					<td>
 						<button type="button" class="btn-xs btn-text-red btn-delete-row">
@@ -188,7 +191,7 @@
 
 	function buildDoitInfo(data)
 	{
-		const {doit_title, doit_keyword, profile_nickname, member_count} = data;
+		const {doit_title, doit_keyword, profile_nickname, is_company, member_count} = data;
 		let keywordsEl = '';
 		if (doit_keyword.length > 0)
 		{
@@ -199,7 +202,7 @@
 		return `<p class="title">${doit_title}</p>
 				<ul class="tag-list clearfix">${keywordsEl}</ul>
 				<p class="desc-sub"><i class="fas fa-user">
-					</i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span>
+					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / <span class="badge badge-success">진행중</span>
 				</p>`
 	}
 
@@ -224,7 +227,7 @@
 	function addDoit(dt, indexes)
 	{
 		const selectedData = dt.rows(indexes).data()[0];
-		const {doit_uuid, doit_title, doit_keyword, profile_nickname, member_count, doit_image_url} = selectedData;
+		const {doit_uuid, doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_image_url} = selectedData;
 		let keywordsEl = '';
 		if (doit_keyword.length > 0)
 		{
@@ -245,7 +248,10 @@
 						<ul class="tag-list clearfix">
 							${keywordsEl}
 						</ul>
-						<p class="desc-sub"><i class="fas fa-user"></i> ${profile_nickname} / ${member_count}명 참여 / <span class="badge badge-success">진행중</span></p>
+						<p class="desc-sub">
+							<i class="fas fa-user"></i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
+							<span class="badge badge-success">진행중</span>
+						</p>
 					</td>
 					<td>
 						<button type="button" class="btn-xs btn-text-red btn-delete-row">

@@ -143,7 +143,11 @@
 			},
 			columns: [
 				{title: "유형", 			data: "talk_type",    	width: "10%" }
-				,{title: "작성자", 		data: "nickname",    	width: "15%" }
+				,{title: "작성자", 		data: "nickname",    	width: "15%",
+					render: function (data, type, row, meta) {
+						return row.is_company === 'Y' ? label.bizIcon + data : data;
+					}
+				}
 				,{title: "내용", 		data: "contents", 		width: "30%",
 					render: function (data, type, row, meta) {
 						const talkType = $("input[name=radio-type]:checked").val();

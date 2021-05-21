@@ -281,7 +281,7 @@
 	{
 		reasonTable.DataTable({
 			ajax : {
-				url: api.reportReasonList,
+				url: api.actionReportReasonList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){

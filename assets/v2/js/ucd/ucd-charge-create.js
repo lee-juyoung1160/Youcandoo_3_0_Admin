@@ -16,10 +16,10 @@
 		nickname,
 		dataTable,
 		btnSearch,
-		totalCount, pagination
+		totalCount,
 	} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, paginate,} from "../modules/common.js";
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
+	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -39,7 +39,6 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		buildSearchMemberTable();
-		buildUpdateTable();
 		amount.trigger('focus');
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
@@ -104,7 +103,6 @@
 						json.data = [];
 						sweetToast(json.msg);
 					}
-
 
 					return JSON.stringify(json);
 				},

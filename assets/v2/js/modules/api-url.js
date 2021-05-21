@@ -1,7 +1,7 @@
 
     const baseApiUrl = 'https://adminapi.youcandoo.co.kr/v3/';
     export const api = {
-        saveUcdForUser : baseApiUrl + 'ucd/set/increment/user/point',
+        saveUcdForUser : baseApiUrl + 'ucd/charge/user',
         saveUcdForBiz : baseApiUrl + 'ucd/set/increment/company/point',
 
         getProfile : baseApiUrl + 'admin/get',

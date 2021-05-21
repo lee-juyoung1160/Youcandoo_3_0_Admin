@@ -42,7 +42,7 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
-	import {numberWithCommas} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	let _currentPage = 1;
 
 	$( () => {
@@ -163,10 +163,12 @@
 				}
 				,{title: "신고", 		data: "report_count",   width: "5%",
 					render: function (data, type, row, meta) {
-						return Number(data) > 0 ? `<a class="report-count" data-idx="${row.board_idx}">${numberWithCommas(data)}</a>` : numberWithCommas(data);
+						const isBoard = isEmpty(row.comment_uuid);
+						const uuid = isEmpty(row.comment_uuid) ? row.board_uuid : row.comment_uuid;
+						return Number(data) > 0 ? `<a class="report-count" data-isboard="${isBoard}" data-uuid="${uuid}">${numberWithCommas(data)}</a>` : numberWithCommas(data);
 					}
 				}
-				,{title: "블라인드", 		data: "is_notice",   	width: "5%" }
+				,{title: "블라인드", 		data: "is_blind",   	width: "5%" }
 				,{title: "작성일", 		data: "created",   		width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);
@@ -191,7 +193,7 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(5).on('click', function () { onClickReportCount(this); });
+				$(nRow).children().eq(5).find('a').on('click', function () { onClickReportCount(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -218,21 +220,23 @@
 		return JSON.stringify(param);
 	}
 
+	let is_board;
 	let report_reason_uuid;
 	function onClickReportCount(obj)
 	{
-		report_reason_uuid = $(obj).data('idx');
+		is_board = $(obj).data('isboard');
+		report_reason_uuid = $(obj).data('uuid');
 		modalReason.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		//buildReasonTable();
+		buildReasonTable();
 	}
 
 	function buildReasonTable()
 	{
 		reasonTable.DataTable({
 			ajax : {
-				url: api.reportReasonList,
+				url: api.talkReportReasonList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -252,7 +256,8 @@
 				},
 				data: function (d) {
 					const param = {
-						"action_uuid": report_reason_uuid,
+						"board_uuid" : is_board ? report_reason_uuid : '',
+						"comment_uuid" : is_board ? '' : report_reason_uuid
 					}
 
 					return JSON.stringify(param);

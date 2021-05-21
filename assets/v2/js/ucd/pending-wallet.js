@@ -83,9 +83,6 @@
 						"keyword" : keyword.val().trim(),
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
-						"is_receive" : "N",
-						"is_cancel" : "",
-						"is_expire" : "",
 					}
 
 					return JSON.stringify(param);
@@ -95,25 +92,28 @@
 				}
 			},
 			columns: [
-				{title: "From",    		data: "send_title",  		width: "20%",
+				{title: "From",    		data: "send_name",  		width: "20%",
 					render: function (data, type, row, meta) {
 						let sendType;
 						switch (row.send_type) {
 							case 'doit' :
-								sendType = label.doit
-								break;
-							case 'system' :
-								sendType = label.system
-								break;
+								return `[${label.doit}] ${data}`;
+							case 'profile' :
+								return `[${label.profile}] ${data}`;
+							case 'charge' :
+								return sendType = label.charge;
+							case 'level' :
+								return sendType = label.levelup;
+							case 'join' :
+								return sendType = label.join;
 							default :
-								sendType = row.send_type;
+								return `[${row.send_type}] ${data}`;
 						}
-						return `[${sendType}] ${data}`;
 					}
 				}
-				,{title: "To",    		data: "receive_title",  	width: "20%" }
-				,{title: "내용",    		data: "message",  			width: "15%" }
-				,{title: "UCD", 		data: "amount_ucd",			width: "10%",
+				,{title: "To",    		data: "receive_name",  		width: "20%" }
+				,{title: "내용",    		data: "message",  			width: "20%" }
+				,{title: "UCD", 		data: "value",				width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -124,7 +124,7 @@
 					}
 				}
 				,{title: "만료 날짜",    	data: "expire_date",  		width: "10%" }
-				,{title: "상태",    		data: "transfer_uuid",  	width: "10%",
+				/*,{title: "상태",    		data: "status",  	width: "10%",
 					render: function (data, type, row, meta) {
 						let status = '';
 						if (row.is_receive === 'Y') status = '적립완료';
@@ -134,7 +134,8 @@
 						else status = label.dash;
 						return status;
 					}
-				}
+				}*/
+				,{title: "상태",    		data: "status",  	width: "5%" }
 			],
 			serverSide: true,
 			paging: true,

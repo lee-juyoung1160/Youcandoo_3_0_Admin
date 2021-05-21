@@ -159,7 +159,7 @@
         systemWalletList : baseApiUrl + 'ucd/get/history/system',
         doitWalletList : baseApiUrl + 'ucd/get/history/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',
-        pendingWalletList : baseApiUrl + 'ucd/get/history/transfer',
+        pendingWalletList : baseApiUrl + 'ucd/list/get/transfer',
 
         giftList : baseApiUrl + 'gift/get/list',
         reorderGiftList : baseApiUrl + 'gift/get/orderList',

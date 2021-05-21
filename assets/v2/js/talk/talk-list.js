@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp,} from '../modules/request.js';
+	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
 	import {
 		body,
@@ -14,9 +14,9 @@
 		rdoReport,
 		selDateType,
 		rdoType,
-		modalReason, modalBackdrop, modalClose, reasonTable,
+		modalReason, modalBackdrop, modalClose, reasonTable, btnBlinkTalk, btnDisplayTalk,
 	} from '../modules/elements.js';
-	import {sweetError, sweetToast,} from '../modules/alert.js';
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {
 		initSelectOption,
 		initPageLength,
@@ -31,13 +31,13 @@
 		fadeoutModal
 	} from "../modules/common.js";
 	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
-		getCurrentPage,
-		redrawPage,
-		checkBoxElement,
-	} from '../modules/tables.js';
+	initTableDefaultConfig,
+	buildTotalCount,
+	toggleBtnPreviousAndNextOnTable,
+	getCurrentPage,
+	redrawPage,
+	checkBoxElement, tableReloadAndStayCurrentPage,
+} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -64,7 +64,8 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
-		$(".line-clamp-2").on("click", function () {location.href = page.detailTalk});
+		btnBlinkTalk	.on("click", function () { onClickBtnBlindTalk(); });
+		btnDisplayTalk	.on("click", function () { onClickBtnDisplayTalk(); });
 	});
 
 	function initSearchForm()
@@ -281,4 +282,94 @@
 			scrollCollapse: true,
 			destroy: true,
 		});
+	}
+
+	let g_is_blind;
+	function onClickBtnBlindTalk()
+	{
+		g_is_blind = 'Y';
+
+		if (blindValid())
+			sweetConfirm(message.blind, blindRequest);
+	}
+
+	function onClickBtnDisplayTalk()
+	{
+		g_is_blind = 'N';
+
+		if (blindValid())
+			sweetConfirm(message.display, blindRequest);
+	}
+
+	function blindValid()
+	{
+		const checkedLength = $("input[name=chk-row]:checked").length;
+		if (checkedLength === 0)
+		{
+			sweetToast(`대상을 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function blindRequest()
+	{
+		const url = api.blindTalk;
+		const errMsg = `블라인드${message.ajaxError}`;
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(blindParams()), blindReqCallback, errMsg, false);
+	}
+
+	function blindParams()
+	{
+		const table = dataTable.DataTable();
+		const selectedData = table.rows('.selected').data();
+		const isTalk = $("input[name=radio-type]:checked").val() === 'talk';
+		let boards = [];
+		let boardComments = [];
+		let actionComments = [];
+
+		for (let i=0; i<selectedData.length; i++)
+		{
+			if (isTalk)
+			{
+				const isBoard = isEmpty(selectedData[i].comment_uuid);
+				isBoard ? boards.push(selectedData[i].board_uuid) : boardComments.push(selectedData[i].comment_uuid);
+			}
+			else
+				actionComments.push(selectedData[i].comment_uuid);
+		}
+
+		return {
+			"is_blind" : g_is_blind,
+			"board" : boards,
+			"board_comment" : boardComments,
+			"action_comment" : actionComments
+		}
+	}
+
+	function blindReqCallback(data)
+	{
+		sweetToastAndCallback(data, blindSuccess);
+	}
+
+	function blindSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
+	}
+
+	function getRowIds()
+	{
+		const rows = dataTable.find('tbody').children();
+		let uuids = [];
+
+		for (let i=0; i<rows.length; i++)
+		{
+			let uuid = $(rows[i]).data('uuid');
+			if (isEmpty(uuid)) continue;
+			uuids.push(uuid);
+		}
+
+		return uuids;
 	}

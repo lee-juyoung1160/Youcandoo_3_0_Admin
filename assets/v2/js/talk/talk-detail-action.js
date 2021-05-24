@@ -78,18 +78,16 @@
 	}
 
 	const g_talk_comment_page_length = 10;
-	let g_param_view_page_length = 10;
 	let g_talk_comment_last_idx = 0;
 	let g_talk_comment_page_num = 1;
 	let g_talk_comment_page_size = 1;
-	function getTalkComments(_pageLength)
+	function getTalkComments()
 	{
 		const url = api.actionCommentList;
 		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"action_uuid" : g_action_uuid,
-			"size" : isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
-			//"size" : g_talk_comment_page_length,
+			"size" : g_talk_comment_page_length,
 			"last_idx" : g_talk_comment_last_idx
 		};
 
@@ -177,6 +175,7 @@
 
 			$('#btnViewMore').on('click', function () { onClickViewMore(); });
 			$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
+			$('.btn-display').on('click', function () { onClickBtnBlind(this); });
 		}
 	}
 
@@ -195,7 +194,6 @@
 	function onClickViewMore()
 	{
 		g_talk_comment_page_num++
-		g_param_view_page_length += 10;
 		getTalkComments();
 	}
 
@@ -207,7 +205,8 @@
 		btn_id = obj.id;
 		g_is_blind = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
 		g_blind_uuid = $(obj).data('uuid');
-		sweetConfirm(message.change, blindRequest);
+		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
+		sweetConfirm(msg, blindRequest);
 	}
 
 	function blindRequest()

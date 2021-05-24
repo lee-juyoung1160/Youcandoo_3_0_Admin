@@ -207,5 +207,5 @@
 
 .talk-detail-page table video,
 .talk-detail-page table .detail-img-wrap {
-	max-width: 800px;
+	width: 400px;
 }

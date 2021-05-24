@@ -1,9 +1,41 @@
 
-	import {actionCommentCount, actionDesc, actionCreated, actionDetailForm, actionLikeCount, actionListForm, actionsWrap,
-		selActionDateType, chkActionStatus, modalBackdrop, modalWarning, searchActionDateFrom, searchActionDateTo,
-		selActionMissions, pagination, selActionPageLength, totalActionCount, actionNickname, actionContentWrap,
-		actionCommentWrap, commentAction, btnSendWarning, modalAttach, modalAttachContentWrap, selReason, warningReason,} from "../modules/elements.js";
-	import {initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength} from "../modules/common.js";
+	import {
+		actionCommentCount,
+		actionDesc,
+		actionCreated,
+		actionDetailForm,
+		actionLikeCount,
+		actionListForm,
+		actionsWrap,
+		selActionDateType,
+		chkActionStatus,
+		modalBackdrop,
+		modalWarning,
+		searchActionDateFrom,
+		searchActionDateTo,
+		selActionMissions,
+		pagination,
+		selActionPageLength,
+		totalActionCount,
+		actionNickname,
+		actionContentWrap,
+		actionCommentWrap,
+		commentAction,
+		btnSendWarning,
+		modalAttach,
+		modalAttachContentWrap,
+		selReason,
+		warningReason,
+	} from "../modules/elements.js";
+	import {
+		initSelectOption,
+		overflowHidden,
+		onErrorImage,
+		paginate,
+		fadeoutModal,
+		limitInputLength,
+		initDayBtn
+	} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -33,11 +65,25 @@
 		chkActionStatus.eq(1).prop('checked', true);
 		chkActionStatus.eq(2).prop('checked', true);
 		initSelectOption();
+		initDayBtn();
+	}
+
+	export function onChangeSearchActionDateFrom()
+	{
+		searchActionDateTo.datepicker("option", "minDate", new Date(searchActionDateFrom.datepicker("getDate")));
+		initDayBtn();
+	}
+
+	export function onChangeSearchActionDateTo()
+	{
+		searchActionDateFrom.datepicker("option", "maxDate", new Date(searchActionDateTo.datepicker("getDate")));
+		initDayBtn();
 	}
 
 	export function onSubmitSearchActions()
 	{
 		_actionCurrentPage = 1;
+		initDayBtn();
 		getActionList();
 	}
 
@@ -106,7 +152,7 @@
 	function buildActions(data)
 	{
 		let actionEl = '<div class="card"><p class="message">인증 정보가 없습니다.</p></div>';
-		if (!isEmpty(data.data) && data.count > 0)
+		if (!isEmpty(data.data) && data.data.length > 0)
 		{
 			actionEl = '';
 
@@ -156,6 +202,7 @@
 
 		actionsWrap.html(actionEl);
 
+		onErrorImage();
 		$(".action-content").on('click', function () { onClickAction(this); })
 	}
 
@@ -295,7 +342,7 @@
 			g_action_comment_page_size = Math.ceil(Number(data.count)/g_action_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_action_comment_last_idx = idx;
@@ -304,12 +351,23 @@
 				if (recomment_data.length > 0)
 				{
 					recomment_data.map(replyObj => {
+						const isBlindReply = replyObj.is_blind === 'Y';
+						const btnBlindReply = isBlindReply
+							? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
+							     <i class="fas fa-eye"></i> 블라인드 해제
+							   </button>`
+							: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
+                                 <i class="fas fa-eye-slash"></i> 블라인드 처리
+                               </button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
 									<p class="title">
 										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
 									</p>
+									<div class="right-wrap">
+										${btnBlindReply}
+									</div>
 								</div>
 								<div class="detail-data">
 									${replyObj.comment_body}
@@ -355,10 +413,17 @@
 					</div>`
 					: '';
 
-				const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
+				/*const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
 					? `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`
-					: '';
-
+					: '';*/
+				const isBlindComment = is_blind === 'Y';
+				const btnBlindComment = isBlindComment
+					? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
+                         <i class="fas fa-eye"></i> 블라인드 해제
+                       </button>`
+					: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
+                         <i class="fas fa-eye-slash"></i> 블라인드 처리
+                       </button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -366,14 +431,11 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnDeleteCommentEl}
+								${btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
 							${comment_body}
-						</div>
-						<div class="img-wrap">
-							<img src="/assets/v2/img/profile-1.png" alt="">
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-heart"></i> 111</span>
@@ -404,6 +466,8 @@
 		$('#btnViewMore').on('click', function () { onClickViewMore(); });
 		$('.btn-submit-reply-action').on('click', function () { onSubmitActionReply(this); });
 		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-blind-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+		$('.btn-display-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 	}
 
 	function buildCommentPagination()
@@ -508,6 +572,54 @@
 		initActionCommentLastIdx();
 		initActionCommentWrap();
 		getActionComments(g_view_page_length);
+	}
+
+	let g_is_blind_action_comment;
+	let g_action_comment_uuid;
+	let btn_id;
+	function onClickBtnBlindActionComment(obj)
+	{
+		btn_id = obj.id;
+		g_is_blind_action_comment = $(obj).hasClass('btn-blind-action-comment') ? 'Y' : 'N';
+		g_action_comment_uuid = $(obj).data('uuid');
+		const msg = $(obj).hasClass('btn-blind-action-comment') ? message.blind : message.display;
+		sweetConfirm(msg, blindActionCommentRequest);
+	}
+
+	function blindActionCommentRequest()
+	{
+		const url = api.blindTalk;
+		const errMsg = `블라인드${message.ajaxError}`;
+		const param = {
+			"is_blind" : g_is_blind_action_comment,
+			"board" : [],
+			"board_comment" : [],
+			"action_comment" : [g_action_comment_uuid]
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindActionCommentReqCallback, errMsg, false);
+	}
+
+	function blindActionCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, blindActionCommentSuccess)
+	}
+
+	function blindActionCommentSuccess()
+	{
+		const btnEl = $(`#${btn_id}`);
+		if (g_is_blind_action_comment === 'Y')
+		{
+			btnEl.removeClass('btn-warning btn-blind-action-comment');
+			btnEl.addClass('btn-orange btn-display-action-comment');
+			btnEl.html(`<i class="fas fa-eye"></i> 블라인드 해제`);
+		}
+		else
+		{
+			btnEl.removeClass('btn-orange btn-display-action-comment');
+			btnEl.addClass('btn-warning btn-blind-action-comment');
+			btnEl.html(`<i class="fas fa-eye-slash"></i> 블라인드 처리`);
+		}
 	}
 
 	export function onSubmitActionComment()

@@ -110,6 +110,7 @@
 		const table = talkTable.DataTable();
 		table.page.len(Number(selTalkPageLength.val()));
 		table.ajax.reload();
+		initDayBtn();
 	}
 
 	export function buildTalkTable()
@@ -504,7 +505,7 @@
 		$('.btn-talk-reply-close').on('click', function () { onClickModalReplyTalkClose(); });
 		$('#btnViewMoreTalkComment').on('click', function () { onClickViewMoreTalkComment(); });
 		$('.btn-submit-reply-talk').on('click', function () { onSubmitTalkReply(this); });
-		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		//$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
@@ -597,7 +598,7 @@
 	}
 
 	let g_delete_talk_comment_uuid;
-	function onSubmitDeleteActionComment(obj)
+	/*function onSubmitDeleteActionComment(obj)
 	{
 		g_delete_talk_comment_uuid = $(obj).data('uuid');
 		sweetConfirm(message.delete, actionCommentDeleteRequest);
@@ -624,7 +625,7 @@
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
 		getTalkComments(g_param_view_page_length);
-	}
+	}*/
 
 	let g_is_blind_comment;
 	let g_comment_uuid;

@@ -78,17 +78,16 @@
 	}
 
 	const g_talk_comment_page_length = 10;
-	let g_param_view_page_length = 10;
 	let g_talk_comment_last_idx = 0;
 	let g_talk_comment_page_num = 1;
 	let g_talk_comment_page_size = 1;
-	function getTalkComments(_pageLength)
+	function getTalkComments()
 	{
 		const url = api.actionCommentList;
 		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"action_uuid" : g_action_uuid,
-			"size" : isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
+			"size" : g_talk_comment_page_length,
 			"last_idx" : g_talk_comment_last_idx
 		};
 
@@ -109,7 +108,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, is_blind, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -118,12 +117,20 @@
 				if (recomment_data.length > 0)
 				{
 					recomment_data.map(replyObj => {
+						const isBlindReply = replyObj.is_blind === 'Y';
+						const btnBlindReply = isBlindReply
+							? `<button type="button" class="btn-xs btn-orange btn-display" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+							: `<button type="button" class="btn-xs btn-warning btn-blind" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
 									<p class="title">
-										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
+										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} 
+										<span class="desc-sub">${replyObj.created}</span>
 									</p>
+									<div class="right-wrap">
+										${btnBlindReply}
+									</div>
 								</div>
 								<div class="detail-data">
 									${replyObj.comment_body}
@@ -132,6 +139,10 @@
 					})
 				}
 
+				const isBlindComment = is_blind === 'Y';
+				const btnBlindComment = isBlindComment
+					? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+					: `<button type="button" class="btn-xs btn-warning btn-blind" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -139,7 +150,7 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								<button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
+								${btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
@@ -163,6 +174,8 @@
 			buildPagination();
 
 			$('#btnViewMore').on('click', function () { onClickViewMore(); });
+			$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
+			$('.btn-display').on('click', function () { onClickBtnBlind(this); });
 		}
 	}
 
@@ -181,21 +194,30 @@
 	function onClickViewMore()
 	{
 		g_talk_comment_page_num++
-		g_param_view_page_length += 10;
 		getTalkComments();
 	}
 
-	function onSubmitBlindTalk()
+	let g_is_blind;
+	let g_blind_uuid;
+	let btn_id;
+	function onClickBtnBlind(obj)
 	{
-		sweetConfirm(message.change, blindRequest);
+		btn_id = obj.id;
+		g_is_blind = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
+		g_blind_uuid = $(obj).data('uuid');
+		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
+		sweetConfirm(msg, blindRequest);
 	}
 
 	function blindRequest()
 	{
-		const url = api;
-		const errMsg = label.delete + message.ajaxError;
+		const url = api.blindTalk;
+		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
-			"notice_uuid" : g_notice_uuid,
+			"is_blind" : g_is_blind,
+			"board" : [],
+			"board_comment" : [],
+			"action_comment" : [g_blind_uuid]
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindReqCallback, errMsg, false);
@@ -206,9 +228,20 @@
 		sweetToastAndCallback(data, blindSuccess)
 	}
 
-	function blindSuccess()
-	{
-
+	function blindSuccess() {
+		const btnEl = $(`#${btn_id}`);
+		if (g_is_blind === 'Y')
+		{
+			btnEl.removeClass('btn-warning btn-blind');
+			btnEl.addClass('btn-orange btn-display');
+			btnEl.html(`<i class="fas fa-eye"></i> 블라인드 해제`);
+		}
+		else
+		{
+			btnEl.removeClass('btn-orange btn-display');
+			btnEl.addClass('btn-warning btn-blind');
+			btnEl.html(`<i class="fas fa-eye-slash"></i> 블라인드 처리`);
+		}
 	}
 
 	function goListPage()

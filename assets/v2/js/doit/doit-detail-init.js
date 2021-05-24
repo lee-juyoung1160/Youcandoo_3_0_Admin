@@ -77,7 +77,7 @@
 		btnResetSearchUcd,
 		btnSubmitSaveUcdWallet,
 		btnSubmitSaveUcd,
-		btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail
+		btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -119,8 +119,17 @@
 		onSubmitSearchUcd,
 		onSubmitSaveUcdWallet
 	} from "./doit-detail-ucd.js";
-	import {initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
-		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment} from "./doit-detail-action.js";
+	import {
+		initSearchActionForm,
+		showActionListForm,
+		getMissionListForAction,
+		onClickModalWarnOpen,
+		onSubmitSearchActions,
+		onSubmitSendWarning,
+		onSubmitActionComment,
+		onChangeSearchActionDateFrom,
+		onChangeSearchActionDateTo
+	} from "./doit-detail-action.js";
 	import {
 		buildTalkTable,
 		onClickBtnCreateTalk,
@@ -134,7 +143,8 @@
 		onSubmitDeleteTalk,
 		onChangeUpdateAttachType,
 		onSubmitUpdateTalk,
-		showTalkDetailForm
+		showTalkDetailForm,
+		onSubmitBlindTalk, onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -219,8 +229,8 @@
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
 		selActionPageLength.on('change', function () { onSubmitSearchActions(); });
 		btnBackActionList.on('click', function () { showActionListForm(); });
-		searchActionDateFrom.on('change', function () { onChangeSearchDateFrom(); });
-		searchActionDateTo.on('change', function () { onChangeSearchDateTo(); });
+		searchActionDateFrom.on('change', function () { onChangeSearchActionDateFrom(); });
+		searchActionDateTo.on('change', function () { onChangeSearchActionDateTo(); });
 		btnSendWarning.on('click', function () { onClickModalWarnOpen(this); });
 		btnSendWarnings.on('click', function () { onClickModalWarnOpen(this); });
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
@@ -229,8 +239,8 @@
 		initPageLength(selTalkPageLength);
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		rdoUpdateAttachType.on('change', function () { onChangeUpdateAttachType(); });
-		searchTalkDateFrom.on('change', function () { onChangeSearchDateFrom(); });
-		searchTalkDateTo.on('change', function () { onChangeSearchDateTo(); });
+		searchTalkDateFrom.on('change', function () { onChangeSearchTalkDateFrom(); });
+		searchTalkDateTo.on('change', function () { onChangeSearchTalkDateTo(); });
 		btnSearchTalk.on('click', function () { onSubmitSearchTalk(); });
 		selTalkPageLength.on('change', function () { onSubmitSearchTalk(); });
 		btnResetSearchTalk	.on('click', function () { initSearchTalkForm(); });
@@ -242,6 +252,8 @@
 		btnSubmitCommentTalk.on('click', function () { onSubmitTalkComment(); });
 		btnDeleteTalk.on('click', function () { onSubmitDeleteTalk(); });
 		btnSubmitUpdateTalk.on('click', function () { onSubmitUpdateTalk(); });
+		btnBlinkTalk.on('click', function () { onSubmitBlindTalk(this); });
+		btnDisplayTalk.on('click', function () { onSubmitBlindTalk(this); });
 	});
 
 	function onClickTab(selectedTab)

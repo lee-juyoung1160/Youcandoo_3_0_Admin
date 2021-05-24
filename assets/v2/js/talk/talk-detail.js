@@ -2,18 +2,18 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	commentCount,
-	isBlind,
-	likeCount,
-	talkAttachWrap,
-	talkCreated,
-	userNickname,
-	content,
-	talkCommentWrap,
-	btnBlinkTalk, btnDisplayTalk,
-} from '../modules/elements.js';
+		btnBack,
+		btnList,
+		commentCount,
+		isBlind,
+		likeCount,
+		talkAttachWrap,
+		talkCreated,
+		userNickname,
+		content,
+		talkCommentWrap,
+		btnBlinkTalk, btnDisplayTalk,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, numberWithCommas} from "../modules/utils.js";
@@ -263,9 +263,9 @@
 	function onClickBtnBlindComment(obj)
 	{
 		btn_id = obj.id;
-		g_is_blind_comment = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
+		g_is_blind_comment = $(obj).hasClass('btn-blind-comment') ? 'Y' : 'N';
 		g_comment_uuid = $(obj).data('uuid');
-		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
+		const msg = $(obj).hasClass('btn-blind-comment') ? message.blind : message.display;
 		sweetConfirm(msg, blindCommentRequest);
 	}
 
@@ -276,8 +276,8 @@
 		const param = {
 			"is_blind" : g_is_blind_comment,
 			"board" : [],
-			"board_comment" : [],
-			"action_comment" : [g_comment_uuid]
+			"board_comment" : [g_comment_uuid],
+			"action_comment" : []
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindCommentReqCallback, errMsg, false);
@@ -291,16 +291,16 @@
 	function blindCommentSuccess()
 	{
 		const btnEl = $(`#${btn_id}`);
-		if (g_is_blind === 'Y')
+		if (g_is_blind_comment === 'Y')
 		{
-			btnEl.removeClass('btn-warning btn-blind');
-			btnEl.addClass('btn-orange btn-display');
+			btnEl.removeClass('btn-warning btn-blind-comment');
+			btnEl.addClass('btn-orange btn-display-comment');
 			btnEl.html(`<i class="fas fa-eye"></i> 블라인드 해제`);
 		}
 		else
 		{
-			btnEl.removeClass('btn-orange btn-display');
-			btnEl.addClass('btn-warning btn-blind');
+			btnEl.removeClass('btn-orange btn-display-comment');
+			btnEl.addClass('btn-warning btn-blind-comment');
 			btnEl.html(`<i class="fas fa-eye-slash"></i> 블라인드 처리`);
 		}
 	}

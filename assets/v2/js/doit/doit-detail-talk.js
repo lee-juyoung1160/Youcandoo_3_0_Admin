@@ -1,56 +1,53 @@
 
 	import {
-	modalCreateTalk,
-	modalBackdrop,
-	talkDetailForm,
-	talkListForm,
-	talkUpdateForm,
-	talk,
-	searchTalkDateFrom,
-	searchTalkDateTo,
-	modalAttach,
-	modalAttachContentWrap,
-	talkAttachmentWrap,
-	rdoAttachType,
-	selTalkDateType,
-	selTalkPageLength,
-	talkTable,
-	chkNoticeTalk,
-	infoTalkNickname,
-	infoTalkCommentCount,
-	infoTalkLikeCount,
-	infoTalkContent,
-	infoTalkCreated,
-	infoTalkIsBlind,
-	infoTalkAttachWrap,
-	talkCommentWrap,
-	createTalkCommentWrap,
-	commentTalk,
-	updateTalk,
-	rdoUpdateAttachType, chkUpdateNoticeTalk, updateExampleWrap, updateTalkAttachWrap,
-} from "../modules/elements.js";
+		modalCreateTalk,
+		modalBackdrop,
+		talkDetailForm,
+		talkListForm,
+		talkUpdateForm,
+		talk,
+		searchTalkDateFrom,
+		searchTalkDateTo,
+		modalAttach,
+		modalAttachContentWrap,
+		talkAttachmentWrap,
+		rdoAttachType,
+		selTalkDateType,
+		selTalkPageLength,
+		talkTable,
+		chkNoticeTalk,
+		infoTalkNickname,
+		infoTalkCommentCount,
+		infoTalkLikeCount,
+		infoTalkContent,
+		infoTalkCreated,
+		infoTalkIsBlind,
+		infoTalkAttachWrap,
+		talkCommentWrap,
+		createTalkCommentWrap,
+		commentTalk,
+		updateTalk,
+		rdoUpdateAttachType,
+		chkUpdateNoticeTalk,
+		updateTalkAttachWrap,
+		btnBlinkTalk,
+		btnDisplayTalk,
+	} from "../modules/elements.js";
 	import {
-	overflowHidden,
-	onErrorImage,
-	onChangeValidateImage,
-	onChangeValidationVideo,
-	onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
-} from "../modules/common.js";
+		overflowHidden,
+		onErrorImage,
+		onChangeValidateImage,
+		onChangeValidationVideo,
+		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
+	} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
-
-	export function initSearchTalkForm()
-	{
-		searchTalkDateFrom.datepicker("setDate", "-6D");
-		searchTalkDateTo.datepicker("setDate", "today");
-		initDayBtn();
-	}
 
 	export function showTalkListForm()
 	{
@@ -79,6 +76,25 @@
 		modalBackdrop.fadeIn();
 		overflowHidden();
 		initCreateTalkModal();
+	}
+
+	export function initSearchTalkForm()
+	{
+		searchTalkDateFrom.datepicker("setDate", "-6D");
+		searchTalkDateTo.datepicker("setDate", "today");
+		initDayBtn();
+	}
+
+	export function onChangeSearchTalkDateFrom()
+	{
+		searchTalkDateTo.datepicker("option", "minDate", new Date(searchTalkDateFrom.datepicker("getDate")));
+		initDayBtn();
+	}
+
+	export function onChangeSearchTalkDateTo()
+	{
+		searchTalkDateFrom.datepicker("option", "maxDate", new Date(searchTalkDateTo.datepicker("getDate")));
+		initDayBtn();
 	}
 
 	export function initCreateTalkModal()
@@ -228,9 +244,12 @@
 	}
 
 	let g_talk_attach_type;
+	let g_board_uuid;
 	function buildTalkDetail(data)
 	{
-		const {created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, contents_type,} = data.data;
+		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, contents_type,} = data.data;
+
+		g_board_uuid = board_uuid;
 		g_talk_attach_type = contents_type;
 		if (is_notice === 'Y')
 		{
@@ -248,7 +267,8 @@
 		infoTalkCommentCount.text(comment_cnt);
 		infoTalkLikeCount.text(like_count);
 		infoTalkContent.text(board_body);
-		infoTalkAttachWrap.html(buildTalkAttachWrap(data.data));
+		infoTalkAttachWrap.html(buildTalkAttachWrap(data));
+		toggleBtnBlind(data);
 
 		/** 수정폼 **/
 		updateTalk.val(board_body);
@@ -256,7 +276,7 @@
 			if ($(this).val() === contents_type)
 				$(this).prop('checked', true);
 		})
-		buildUpdateAttachWrap(data.data);
+		buildUpdateAttachWrap(data);
 		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
 		calculateInputLength();
 		onErrorImage();
@@ -264,9 +284,51 @@
 		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
+	function toggleBtnBlind(data)
+	{
+		const { is_blind } = data.data;
+		if (is_blind === 'Y')
+		{
+			btnBlinkTalk.hide();
+			btnDisplayTalk.show();
+		}
+		else
+		{
+			btnBlinkTalk.show();
+			btnDisplayTalk.hide();
+		}
+	}
+
+	let g_is_blind_talk;
+	export function onSubmitBlindTalk(obj)
+	{
+		g_is_blind_talk = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
+		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
+		sweetConfirm(msg, blindTalkRequest);
+	}
+
+	function blindTalkRequest()
+	{
+		const url = api.blindTalk;
+		const errMsg = `블라인드${message.ajaxError}`;
+		const param = {
+			"is_blind" : g_is_blind_talk,
+			"board" : [g_board_uuid],
+			"board_comment" : [],
+			"action_comment" : []
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindTalkReqCallback, errMsg, false);
+	}
+
+	function blindTalkReqCallback(data)
+	{
+		sweetToastAndCallback(data, getDetailTalk);
+	}
+
 	function buildTalkAttachWrap(data)
 	{
-		const {contents_type, contents_url, thumbnail_url} = data;
+		const {contents_type, contents_url, thumbnail_url} = data.data;
 		switch (contents_type) {
 			case 'image' :
 				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
@@ -329,7 +391,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, parent_comment_uuid, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -338,12 +400,20 @@
 				if (recomment_data.length > 0)
 				{
 					recomment_data.map(replyObj => {
+						const isBlindReply = replyObj.is_blind === 'Y';
+						const btnBlindReply = isBlindReply
+							? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+							: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
 									<p class="title">
-										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
+										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} 
+										<span class="desc-sub">${replyObj.created}</span>
 									</p>
+									<div class="right-wrap">
+										${btnBlindReply}
+									</div>
 								</div>
 								<div class="detail-data">
 									${replyObj.comment_body}
@@ -388,10 +458,11 @@
 						</div>
 					</div>`
 					: '';
-				const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
-					? `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`
-					: '';
 
+				const isBlindComment = is_blind === 'Y';
+				const btnBlindComment = isBlindComment
+					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+					: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -399,7 +470,7 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnDeleteCommentEl}
+								${btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
@@ -434,6 +505,8 @@
 		$('#btnViewMoreTalkComment').on('click', function () { onClickViewMoreTalkComment(); });
 		$('.btn-submit-reply-talk').on('click', function () { onSubmitTalkReply(this); });
 		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
+		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
 
 	function buildTalkCommentPagination()
@@ -551,6 +624,54 @@
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
 		getTalkComments(g_param_view_page_length);
+	}
+
+	let g_is_blind_comment;
+	let g_comment_uuid;
+	let btn_id;
+	function onClickBtnBlindComment(obj)
+	{
+		btn_id = obj.id;
+		g_is_blind_comment = $(obj).hasClass('btn-blind-comment') ? 'Y' : 'N';
+		g_comment_uuid = $(obj).data('uuid');
+		const msg = $(obj).hasClass('btn-blind-comment') ? message.blind : message.display;
+		sweetConfirm(msg, blindCommentRequest);
+	}
+
+	function blindCommentRequest()
+	{
+		const url = api.blindTalk;
+		const errMsg = `블라인드${message.ajaxError}`;
+		const param = {
+			"is_blind" : g_is_blind_comment,
+			"board" : [],
+			"board_comment" : [g_comment_uuid],
+			"action_comment" : []
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindCommentReqCallback, errMsg, false);
+	}
+
+	function blindCommentReqCallback(data)
+	{
+		sweetToastAndCallback(data, blindCommentSuccess)
+	}
+
+	function blindCommentSuccess()
+	{
+		const btnEl = $(`#${btn_id}`);
+		if (g_is_blind_comment === 'Y')
+		{
+			btnEl.removeClass('btn-warning btn-blind-comment');
+			btnEl.addClass('btn-orange btn-display-comment');
+			btnEl.html(`<i class="fas fa-eye"></i> 블라인드 해제`);
+		}
+		else
+		{
+			btnEl.removeClass('btn-orange btn-display-comment');
+			btnEl.addClass('btn-warning btn-blind-comment');
+			btnEl.html(`<i class="fas fa-eye-slash"></i> 블라인드 처리`);
+		}
 	}
 
 	export function onSubmitTalkComment()
@@ -869,7 +990,7 @@
 
 	function buildUpdateAttachWrap(_data)
 	{
-		const { contents_type, contents_url, thumbnail_url } = _data;
+		const { contents_type, contents_url, thumbnail_url } = _data.data;
 		let attachmentEl = '';
 		switch (contents_type) {
 			case 'image' :

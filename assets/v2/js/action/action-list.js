@@ -136,11 +136,11 @@
 				const reportCnt = Number(report_count) > 0 ? `<a class="link report-count" data-uuid="${action_uuid}">${report_count}</a>` :  report_count;
 
 				let actionContentImage;
-				if (contents_type === 'image')
+				if (contents_type === label.image)
 					actionContentImage = contents_url;
-				else if (contents_type === 'voice')
+				else if (contents_type === label.audio)
 					actionContentImage = label.voiceImage
-				else if (contents_type === 'video')
+				else if (contents_type === label.video)
 					actionContentImage = thumbnail_url;
 
 				if (index===0 || index%6 === 0)
@@ -233,25 +233,25 @@
 
 		let contentEL = `<button type="button" class="btn-xs btn-outline-success btn-download" data-url="${action_contents_url}"><i class="fas fa-download"></i> 인증 다운로드</button>`;
 		switch (action_contents_type) {
-			case 'image' :
+			case label.image :
 				contentEL += `<div class="img-wrap"><img src="${action_contents_url}" alt=""></div>`
 				break;
-			case 'video' :
+			case label.video :
 				contentEL += `<div class="video-wrap"><video controls><source src="${action_contents_url}"/></video></div>`
 				break;
-			case 'voice' :
+			case label.audio :
 				contentEL += `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${action_contents_url}"/></audio></div>`
 				break;
 		}
 		let exampleEl = '';
 		switch (example_contents_type) {
-			case 'image' :
+			case label.image :
 				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
 				break;
-			case 'video' :
+			case label.video :
 				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
 				break;
-			case 'voice' :
+			case label.audio :
 				exampleEl = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${example_contents_url}"/></audio></div>`
 				break;
 		}

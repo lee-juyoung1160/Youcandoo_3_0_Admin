@@ -299,7 +299,7 @@
             emptyFile(obj);
         }
         else
-            setFile(obj, 'video');
+            setFile(obj, label.video);
     }
 
     export function onChangeValidateImage(obj)
@@ -332,7 +332,7 @@
             {
                 img.src = window.URL.createObjectURL(obj.files[0]);
                 img.onload = function() {
-                    setFile(obj, 'image');
+                    setFile(obj, label.image);
                     /*const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
 
                     if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
@@ -351,7 +351,7 @@
                         emptyFile(obj);
                     }
                     else
-                        setFile(obj, 'image');*/
+                        setFile(obj, label.image);*/
                 }
             }
             else emptyFile(obj);
@@ -367,7 +367,7 @@
             {
                 setFileName(obj);
 
-                if (type === 'image')
+                if (type === label.image)
                 {
                     /** 기존 썸네일 영역 삭제 **/
                     removeThumbnail(obj);

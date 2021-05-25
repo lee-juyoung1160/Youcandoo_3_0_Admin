@@ -82,13 +82,13 @@
 	{
 		const {contents_type, contents_url} = data;
 		switch (contents_type) {
-			case 'image' :
+			case label.image :
 				return `<div class="detail-img-wrap view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${contents_url}" alt="">
 						</div>`;
-			case 'voice' :
+			case label.audio :
 				return `<audio controls><source src="${contents_url}"></audio>`;
-			case 'video' :
+			case label.video :
 				return `<video controls><source src="${contents_url}"></video>`;
 			default :
 				return label.dash;

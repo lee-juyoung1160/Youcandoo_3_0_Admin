@@ -163,11 +163,11 @@
 				const disabled = hasWarning ? 'disabled' : '';
 
 				let actionContentImage;
-				if (contents_type === 'image')
+				if (contents_type === label.image)
 					actionContentImage = contents_url;
-				else if (contents_type === 'voice')
+				else if (contents_type === label.audio)
 					actionContentImage = label.voiceImage
-				else if (contents_type === 'video')
+				else if (contents_type === label.video)
 					actionContentImage = thumbnail_url;
 
 				if (index===0 || index%6 === 0)
@@ -271,10 +271,10 @@
 		modalAttachContentWrap.empty();
 		let contentEl = ''
 		switch ($(obj).data('type')) {
-			case 'image' :
+			case label.image :
 				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
 				break;
-			case 'video' :
+			case label.video :
 				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
 				break;
 		}
@@ -302,13 +302,13 @@
 		const {contents_type, contents_url, thumbnail_url} = data;
 
 		switch (contents_type) {
-			case 'image' :
+			case label.image :
 				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${contents_url}" alt="">
 						</div>`;
-			case 'voice' :
+			case label.audio :
 				return `<audio controls><source src="${contents_url}"></audio>`;
-			case 'video' :
+			case label.video :
 				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${thumbnail_url}" alt="">
 						</div>`;

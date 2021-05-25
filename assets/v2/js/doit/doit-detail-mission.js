@@ -209,7 +209,7 @@
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#actionExample")[0].files[0]);
-		if (getActionType() === 'video')
+		if (getActionType() === label.video)
 			param.append('thumbnail', $("#actionExampleThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
@@ -225,7 +225,7 @@
 				"contents_type" : getActionType(),
 				"path" : data.image_urls.example
 			}
-			if (getActionType() === 'video')
+			if (getActionType() === label.video)
 				missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
 
 			const param = {
@@ -321,11 +321,11 @@
 	{
 		const url = _data.contents_url;
 		switch (_data.mission_type) {
-			case 'image' :
+			case label.image :
 				return `<img src="${url}" alt="">`;
-			case 'video' :
+			case label.video :
 				return `<video controls><source src="${url}"></video>`;
-			case 'voice' :
+			case label.audio :
 				return `<audio controls><source src="${url}"></audio>`;
 		}
 	}
@@ -333,11 +333,11 @@
 	function getStrActionType(_actionType)
 	{
 		switch (_actionType) {
-			case 'image' :
+			case label.image :
 				return '사진';
-			case 'video' :
+			case label.video :
 				return '영상';
-			case 'voice' :
+			case label.audio :
 				return '음성';
 		}
 	}
@@ -373,7 +373,7 @@
 		{
 			const exampleFile = $("#updateExample")[0].files;
 			const callback =
-				(exampleFile.length > 0 || (getUpdateActionType() === 'video' && $("#updateThumbnail")[0].files.length > 0))
+				(exampleFile.length > 0 || (getUpdateActionType() === label.video && $("#updateThumbnail")[0].files.length > 0))
 				? updateFileUploadReq
 				: updateRequest;
 
@@ -414,7 +414,7 @@
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#updateExample")[0].files[0]);
-		if (getUpdateActionType() === 'video')
+		if (getUpdateActionType() === label.video)
 			param.append('thumbnail', $("#updateThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
@@ -445,7 +445,7 @@
 					"contents_type" : getUpdateActionType(),
 					"path" : data.image_urls.example
 				}
-				if (getUpdateActionType() === 'video')
+				if (getUpdateActionType() === label.video)
 					missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
 
 				param["mission_example"] =  missionExampleObj;
@@ -503,7 +503,7 @@
 	{
 		let exampleFileEl = '';
 		switch (getActionType()) {
-			case 'image' :
+			case label.image :
 				exampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -513,7 +513,7 @@
 				actionExampleWrap.html(exampleFileEl);
 				$("#actionExample").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				exampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -530,7 +530,7 @@
 				$("#actionExampleThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#actionExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				exampleFileEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -549,7 +549,7 @@
 		const { mission_type, contents_url, thumbnail_url } = _data;
 		let updateExampleFileEl = '';
 		switch (mission_type) {
-			case 'image' :
+			case label.image :
 				updateExampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -562,7 +562,7 @@
 				updateExampleWrap.html(updateExampleFileEl);
 				$("#updateExample").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				updateExampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -582,7 +582,7 @@
 				$("#updateThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				updateExampleFileEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -600,7 +600,7 @@
 	{
 		let updateExampleFileEl = '';
 		switch (getUpdateActionType()) {
-			case 'image' :
+			case label.image :
 				updateExampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -610,7 +610,7 @@
 				updateExampleWrap.html(updateExampleFileEl);
 				$("#updateExample").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				updateExampleFileEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -627,7 +627,7 @@
 				$("#updateThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				updateExampleFileEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">

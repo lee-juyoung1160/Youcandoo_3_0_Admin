@@ -412,11 +412,11 @@
 				const warningEl = is_yellow === 'Y' ? `<strong class="red-card"><img src="${label.redCardImage}" alt=""></strong>` : '';
 
 				let actionContentImage;
-				if (contents_type === 'image')
+				if (contents_type === label.image)
 					actionContentImage = contents_url;
-				else if (contents_type === 'voice')
+				else if (contents_type === label.audio)
 					actionContentImage = label.voiceImage
-				else if (contents_type === 'video')
+				else if (contents_type === label.video)
 					actionContentImage = thumbnail_url;
 
 				if (index===0 || index%6 === 0)
@@ -504,25 +504,25 @@
 
 		let contentEL = '';
 		switch (action_contents_type) {
-			case 'image' :
+			case label.image :
 				contentEL = `<div class="img-wrap"><img src="${action_contents_url}" alt=""></div>`
 				break;
-			case 'video' :
+			case label.video :
 				contentEL = `<div class="video-wrap"><video controls><source src="${action_contents_url}"/></video></div>`
 				break;
-			case 'voice' :
+			case label.audio :
 				contentEL = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${action_contents_url}"/></audio></div>`
 				break;
 		}
 		let exampleEl = '';
 		switch (example_contents_type) {
-			case 'image' :
+			case label.image :
 				exampleEl = `<div class="img-wrap"><img src="${example_contents_url}" alt=""></div>`
 				break;
-			case 'video' :
+			case label.video :
 				exampleEl = `<div class="video-wrap"><video controls><source src="${example_contents_url}"/></video></div>`
 				break;
-			case 'voice' :
+			case label.audio :
 				exampleEl = `<div class="audio-wrap"><img src="${label.voiceImage}" alt=""><audio controls><source src="${example_contents_url}"/></audio></div>`
 				break;
 		}
@@ -596,7 +596,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				if (isNegative(aData.amount_ucd))
+				if (isNegative(aData.value))
 					$(nRow).addClass('minus-pay');
 			},
 			drawCallback: function (settings) {

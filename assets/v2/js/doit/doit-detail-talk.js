@@ -331,13 +331,13 @@
 	{
 		const {contents_type, contents_url, thumbnail_url} = data.data;
 		switch (contents_type) {
-			case 'image' :
+			case label.image :
 				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${contents_url}" alt="">
 						</div>`;
-			case 'voice' :
+			case label.audio :
 				return `<audio controls><source src="${contents_url}"></audio>`;
-			case 'video' :
+			case label.video :
 				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
 							<img src="${thumbnail_url}" alt="">
 						</div>`;
@@ -354,10 +354,10 @@
 		overflowHidden();
 		let contentEl = ''
 		switch ($(obj).data('type')) {
-			case 'image' :
+			case label.image :
 				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
 				break;
-			case 'video' :
+			case label.video :
 				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
 				break;
 		}
@@ -753,7 +753,7 @@
 		}
 
 		const talkAttachThumbnail = $("#talkAttachThumbnail");
-		if (getAttachType() === 'video' && talkAttachThumbnail[0].files.length === 0)
+		if (getAttachType() === label.video && talkAttachThumbnail[0].files.length === 0)
 		{
 			sweetToast(`영상 썸네일은 ${message.required}`);
 			return false;
@@ -775,7 +775,7 @@
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#talkAttachment")[0].files[0]);
-		if (getAttachType() === 'video')
+		if (getAttachType() === label.video)
 			param.append('thumbnail', $("#talkAttachThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createTalkRequest, errMsg, false);
@@ -800,7 +800,7 @@
 					"path" : data.image_urls.example
 				}
 
-				if (getAttachType() === 'video')
+				if (getAttachType() === label.video)
 					talkAttachObj['thumbnail_path'] = data.image_urls.thumbnail;
 
 				param["attach"] =  talkAttachObj;
@@ -870,7 +870,7 @@
 
 		const updateTalkAttachThumbnail = $("#updateTalkAttachThumbnail");
 		const isChangeAttachType = g_talk_attach_type !== getUpdateAttachType();
-		if (isChangeAttachType && (getUpdateAttachType() === 'video') && updateTalkAttachThumbnail[0].files.length === 0)
+		if (isChangeAttachType && (getUpdateAttachType() === label.video) && updateTalkAttachThumbnail[0].files.length === 0)
 		{
 			sweetToast(`영상 썸네일은 ${message.required}`);
 			return false;
@@ -892,7 +892,7 @@
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#updateTalkAttachment")[0].files[0]);
-		if (getUpdateAttachType() === 'video')
+		if (getUpdateAttachType() === label.video)
 			param.append('thumbnail', $("#updateTalkAttachThumbnail")[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, updateTalkRequest, errMsg, false);
@@ -918,7 +918,7 @@
 					"path" : data.image_urls.example
 				}
 
-				if (getUpdateAttachType() === 'video')
+				if (getUpdateAttachType() === label.video)
 					talkAttachObj['thumbnail_path'] = data.image_urls.thumbnail;
 
 				param["attach"] =  talkAttachObj;
@@ -946,7 +946,7 @@
 	{
 		let attachEl = '';
 		switch (getAttachType()) {
-			case 'image' :
+			case label.image :
 				attachEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -956,7 +956,7 @@
 				talkAttachmentWrap.html(attachEl);
 				$("#talkAttachment").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				attachEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -973,7 +973,7 @@
 				$("#talkAttachThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#talkAttachment").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				attachEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -994,7 +994,7 @@
 		const { contents_type, contents_url, thumbnail_url } = _data.data;
 		let attachmentEl = '';
 		switch (contents_type) {
-			case 'image' :
+			case label.image :
 				attachmentEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -1007,7 +1007,7 @@
 				updateTalkAttachWrap.html(attachmentEl);
 				$("#updateTalkAttachment").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				attachmentEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -1027,7 +1027,7 @@
 				$("#updateTalkAttachThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateTalkAttachment").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				attachmentEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -1047,7 +1047,7 @@
 	{
 		let attachmentEl = '';
 		switch (getUpdateAttachType()) {
-			case 'image' :
+			case label.image :
 				attachmentEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -1057,7 +1057,7 @@
 				updateTalkAttachWrap.html(attachmentEl);
 				$("#updateTalkAttachment").on('change', function () { onChangeValidateImage(this); });
 				break;
-			case 'video' :
+			case label.video :
 				attachmentEl =
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
@@ -1074,7 +1074,7 @@
 				$("#updateTalkAttachThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateTalkAttachment").on('change', function () { onChangeValidationVideo(this); });
 				break;
-			case 'voice' :
+			case label.audio :
 				attachmentEl =
 					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">

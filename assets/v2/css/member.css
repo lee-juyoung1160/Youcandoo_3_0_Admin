@@ -40,18 +40,6 @@
 .level-list .top .card.active .user span {
 	color: #404040;
 }
-/*.level-list .top .card:hover:after,
-.level-list .top .card.active:after {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 15px;
-	width: 30px;
-	height: 5px;
-	background-color: #0061f2;
-	content: '';
-}*/
-
 
 .level-list .top .title {
 	color: #404040;

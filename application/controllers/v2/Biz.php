@@ -13,10 +13,20 @@ class Biz extends MY_Controller {
         $this->load->template('v2/biz/biz-create');
     }
 
-    public function detail()
-    {
-        $this->load->template('v2/biz/biz-detail');
-    }
+     public function detail($Route = "")
+        {
+            switch ($Route) {
+                case "":
+                    $this->load->template('v2/biz/biz-detail');
+                    break;
+                case "leader" :
+                    $this->load->template('v2/biz/biz-support-leader');
+                    break;
+                case "doit":
+                    $this->load->template('v2/biz/biz-support-doit');
+                    break;
+            }
+        }
 
     public function update()
     {

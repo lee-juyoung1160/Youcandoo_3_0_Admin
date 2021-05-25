@@ -320,6 +320,8 @@
     export const bizNo = $("#bizNo");
     export const bizWeb = $("#bizWeb");
     export const description = $("#description");
+    export const btnSupportDoit = $("#btnSupportDoit");
+    export const btnSupportLeader = $("#btnSupportLeader");
 
     /** 배너 **/
     export const targetUrl = $("#targetUrl");

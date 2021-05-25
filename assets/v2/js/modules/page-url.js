@@ -16,6 +16,8 @@
         ,listBiz : rootContext + 'biz'
         ,detailBiz : rootContext + 'biz/detail/'
         ,updateBiz : rootContext + 'biz/update/'
+        ,supportLeader : rootContext + 'biz/support/leader'
+        ,supportDoit : rootContext + 'biz/support/doit'
 
         ,listDoit : rootContext + 'doit'
         ,detailDoit : rootContext + 'doit/detail/'

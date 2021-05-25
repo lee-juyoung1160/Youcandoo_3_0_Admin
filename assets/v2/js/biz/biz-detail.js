@@ -1,8 +1,31 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate, btnSubmit, modalOpen, modalClose, modalBackdrop,
-		selPageLengthDoit, selPageLengthUcd, tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable, doitTable} from '../modules/elements.js';
+	import {
+		contentImage,
+		title,
+		bizNo,
+		bizWeb,
+		content,
+		btnBack,
+		btnList,
+		btnUpdate,
+		btnSubmit,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		selPageLengthDoit,
+		selPageLengthUcd,
+		tabUl,
+		tabContents,
+		amount,
+		inputNumber,
+		lengthInput,
+		description,
+		ucdInfoTable,
+		doitTable,
+		btnSupportDoit, btnSupportLeader
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";
@@ -35,6 +58,8 @@
 		btnList	 		.on('click', function () { goListPage(); });
 		btnUpdate		.on('click', function () { goUpdatePage(); });
 		btnSubmit		.on('click', function () { onSubmitBizUcd(); });
+		btnSupportDoit	.on('click', function () { goToSupportDoit(); });
+		btnSupportLeader.on('click', function () { goToSupportLeader(); });
 	});
 
 	function onClickTab(selectedTab)
@@ -310,4 +335,12 @@
 		location.href = page.updateBiz + bizIdx;
 	}
 
+	function goToSupportLeader()
+	{
+		location.href = page.supportLeader;
+	}
 
+	function goToSupportDoit()
+	{
+		location.href = page.supportDoit;
+	}

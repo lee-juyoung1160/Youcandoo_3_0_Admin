@@ -18,14 +18,16 @@ class Biz extends MY_Controller {
         $this->load->template('v2/biz/biz-detail');
     }
 
-    public function leader()
+    public function support($Route = "")
     {
-        $this->load->template('v2/biz/biz-support-leader');
-    }
-
-    public function doit()
-    {
-        $this->load->template('v2/biz/biz-support-doit');
+        switch ($Route) {
+            case "leader":
+                $this->load->template('v2/biz/biz-support-leader');
+                break;
+            case "doit":
+                $this->load->template('v2/biz/biz-support-doit');
+                break;
+        }
     }
 
     public function update()

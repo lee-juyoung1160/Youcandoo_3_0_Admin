@@ -92,7 +92,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    	data: "nickname",  		width: "20%" }
+				{title: "닉네임",    	data: "title",  		width: "20%" }
 				,{title: "구분",    	data: "division",  		width: "10%" }
 				,{title: "제목",    	data: "title",  		width: "15%" }
 				,{title: "내용",    	data: "description",  	width: "30%",

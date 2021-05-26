@@ -86,7 +86,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.getMember,
+				url: api.getMemberForSaveUcd,
 				type:"POST",
 				headers: headers,
 				global: false,
@@ -110,7 +110,8 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"nickname" : keyword.val()
+						,"search_type" : "nickname"
+						,"keyword" : keyword.val()
 					}
 
 					return JSON.stringify(param);
@@ -122,7 +123,7 @@
 			columns: [
 				{title: "닉네임",		data: "nickname",    	width: "30%" }
 				,{title: "PID",		data: "profile_uuid",   width: "45%" }
-				,{title: "보유UCD",	data: "amount_ucd",   	width: "20%",
+				,{title: "보유UCD",	data: "ucd",   			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

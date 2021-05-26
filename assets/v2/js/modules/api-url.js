@@ -14,7 +14,8 @@
         memberCategoryList : baseApiUrl + 'profile/get/category',
         memberActionList : baseApiUrl + 'profile/get/action',
         memberActionDetail : baseApiUrl + 'profile/get/detail/action',
-        levelMemberList : baseApiUrl + 'member/level/list',
+        countPerLevel : baseApiUrl + 'level/get/count',
+        memberLevelList : baseApiUrl + 'level/get/list',
 
         badgeList : baseApiUrl + 'badge/get/list',
         createBadge : baseApiUrl + 'badge/create',
@@ -158,7 +159,7 @@
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + '',
-        systemWalletList : baseApiUrl + 'ucd/get/history/system',
+        systemWalletList : baseApiUrl + 'ucd/list/get/system',
         doitWalletList : baseApiUrl + 'ucd/list/get/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',
         pendingWalletList : baseApiUrl + 'ucd/list/get/transfer',
@@ -181,14 +182,6 @@
         authList : baseApiUrl + 'auth/list',
         createAuth : baseApiUrl + 'auth/list',
         deleteAuth : baseApiUrl + 'auth/delete',
-    }
-
-    const fileUploadBaseUrl = 'https://fileuploader.youcandoo.co.kr/file/upload/';
-    export const fileApi = {
-        single : fileUploadBaseUrl+'single'
-        ,event : fileUploadBaseUrl+'event'
-        ,doit : fileUploadBaseUrl+'doit'
-        ,promotion : fileUploadBaseUrl+'promotion'
     }
 
     const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';

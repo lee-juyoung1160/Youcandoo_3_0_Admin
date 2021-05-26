@@ -442,13 +442,12 @@
     export const modalActionWarningReason = $("#modalActionWarningReason");
     export const modalActionExampleWrap = $("#modalActionExampleWrap");
     export const modalActionExampleDesc = $("#modalActionExampleDesc");
-    export const btnSetLevel = $("#btnSetLevel");
-    export const cardLevel1 = $("#cardLevel1");
-    export const cardLevel2 = $("#cardLevel2");
-    export const cardLevel3 = $("#cardLevel3");
-    export const cardLevel4 = $("#cardLevel4");
-    export const cardLevel5 = $("#cardLevel5");
-    export const cardLevelSpecial = $("#cardLevelSpecial");
+    export const countLevel1 = $("#countLevel1");
+    export const countLevel2 = $("#countLevel2");
+    export const countLevel3 = $("#countLevel3");
+    export const countLevel4 = $("#countLevel4");
+    export const countLevel5 = $("#countLevel5");
+    export const countLevel6 = $("#countLevel6");
     /** 뱃지 **/
     export const selType = $("#selType");
     export const qualification = $("#qualification");

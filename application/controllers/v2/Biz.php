@@ -22,10 +22,12 @@ class Biz extends MY_Controller {
     {
         switch ($Route) {
             case "leader":
-                $this->load->template('v2/biz/biz-support-leader');
+                $data['idx'] = $this->input->post('idx');
+                $this->load->template('v2/biz/biz-support-leader', $data);
                 break;
             case "doit":
-                $this->load->template('v2/biz/biz-support-doit');
+                $data['idx'] = $this->input->post('idx');
+                $this->load->template('v2/biz/biz-support-doit', $data);
                 break;
         }
     }

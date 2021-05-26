@@ -2,24 +2,24 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		lengthInput,
-		btnSubmit,
-		amount,
-		keyword,
-		modalClose,
-		modalBackdrop,
-		modalOpen,
-		btnXlsxImport,
-		updateTable,
-		btnXlsxExport,
-		description,
-		nickname,
-		dataTable,
-		btnSearch,
-		totalCount,
-	} from '../modules/elements.js';
+	lengthInput,
+	btnSubmit,
+	amount,
+	keyword,
+	modalClose,
+	modalBackdrop,
+	modalOpen,
+	btnXlsxImport,
+	updateTable,
+	btnXlsxExport,
+	description,
+	nickname,
+	dataTable,
+	btnSearch,
+	totalCount, contentImage, title, balance,
+} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, onErrorImage,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -38,7 +38,8 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		buildSearchMemberTable();
+		//buildSearchMemberTable();
+		getBizInfo();
 		amount.trigger('focus');
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
@@ -51,6 +52,63 @@
 		btnSearch		.on('click', function () { onSubmitSearchMember(); })
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
 	});
+
+	function getBizInfo()
+	{
+		const url = api.detailBiz;
+		const errMsg = label.detailContent+message.ajaxLoadError;
+		const param = {
+			"idx" : $("#hiddenIdx").val()
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+	}
+
+	let g_company_uuid;
+	let g_profile_uuid;
+	function getDetailCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			g_company_uuid = data.data.company_uuid;
+			g_profile_uuid = data.data.profile_uuid;
+			buildBizInfo(data);
+			getBalance();
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function buildBizInfo(data)
+	{
+		const { profile_image_url, nickname, } = data.data;
+
+		contentImage.attr('src', profile_image_url);
+		title.text(nickname);
+
+		onErrorImage();
+	}
+
+	function getBalance()
+	{
+		const url = api.getBizUcd;
+		const errMsg = `보유 UCD ${message.ajaxLoadError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBalanceCallback, errMsg, false);
+	}
+
+	function getBalanceCallback(data)
+	{
+		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
+	}
+
+	function buildBalance(data)
+	{
+		balance.text(numberWithCommas(data.data.ucd));
+	}
 
 	function onClickModalOpen(obj)
 	{
@@ -65,7 +123,7 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		onSubmitSearchMember();
+		//onSubmitSearchMember();
 	}
 
 	function onSubmitSearchMember()

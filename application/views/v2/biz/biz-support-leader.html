@@ -19,7 +19,7 @@
                     <tr>
                         <th rowspan="2">
                             <div class="biz-img-wrap">
-                                <img src="https://youcandoo.s3.ap-northeast-2.amazonaws.com/company/2021/03/08/fb128e0fdb072de132780de64caca42b.jpg" alt="" id="contentImage">
+                                <img src="" alt="" id="contentImage">
                             </div>
                         </th>
                         <th>기업명</th>
@@ -30,7 +30,7 @@
                     <tr>
                         <th>보유 UCD</th>
                         <td>
-                            <p class="detail-data" id=""><span>33,333,333</span> UCD</p>
+                            <p class="detail-data"><span id="balance">0</span> UCD</p>
                         </td>
                     </tr>
                 </table>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="table-wrap">
                             <table id="dataTable">
-                                <!--<colgroup>
+                                <colgroup>
                                     <col style="width: 30%;">
                                     <col style="width: 45%;">
                                     <col style="width: 20%;">
@@ -183,7 +183,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                </tbody>-->
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
 
         <div class="modal-bg"></div>
     </div>
-
+    <input type="hidden" id="hiddenIdx" value="<?php if(null !== $idx) echo $idx?>"/>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>

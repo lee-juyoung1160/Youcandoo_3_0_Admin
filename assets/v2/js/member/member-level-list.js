@@ -1,13 +1,23 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {cardLevel1, cardLevel2, cardLevel3, cardLevel4, cardLevel5, cardLevelSpecial, selPageLength,} from '../modules/elements.js';
+	import {
+		countLevel1,
+		countLevel2,
+		countLevel3,
+		countLevel4,
+		countLevel5,
+		countLevel6,
+		selPageLength,
+		dataTable,
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initPageLength} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
+	import {numberWithCommas} from "../modules/utils.js";
+	import {page} from "../modules/page-url.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -15,19 +25,24 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		/** 목록 불러오기 **/
-		//buildTable();
+		getCountPerLevel();
+		buildTable();
 		/** 이벤트 **/
-		cardLevel1	.on("click", function () { onClickBtnCard(this); });
-		cardLevel2	.on("click", function () { onClickBtnCard(this); });
-		cardLevel3	.on("click", function () { onClickBtnCard(this); });
-		cardLevel4	.on("click", function () { onClickBtnCard(this); });
-		cardLevel5	.on("click", function () { onClickBtnCard(this); });
-		cardLevelSpecial.on("click", function () { onClickBtnCard(this); });
+		$(".row.top .card").on("click", function () { onClickBtnCard(this); });
+		selPageLength.on('change', function () { tableReload(); });
 	});
 
 	function onClickBtnCard(obj)
 	{
 		toggleActive(obj);
+		tableReload();
+	}
+
+	function tableReload()
+	{
+		const table = dataTable.DataTable();
+		table.page.len(Number(selPageLength.val()));
+		table.ajax.reload();
 	}
 
 	function toggleActive(obj)
@@ -36,13 +51,35 @@
 		$(obj).addClass('active');
 	}
 
+	function getCountPerLevel()
+	{
+		const url = api.countPerLevel;
+		const errMsg = `레벨 별 회원 수${message.ajaxError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getCountPerLevelCallback, errMsg, false);
+	}
+
+	function getCountPerLevelCallback(data)
+	{
+		isSuccessResp(data) ? buildCountPerLevel(data) : sweetToast(data.msg);
+	}
+
+	function buildCountPerLevel(data)
+	{
+		const { level1, level2, level3, level4, level5, level6, } = data.data;
+		countLevel1.text(numberWithCommas(level1));
+		countLevel2.text(numberWithCommas(level2));
+		countLevel3.text(numberWithCommas(level3));
+		countLevel4.text(numberWithCommas(level4));
+		countLevel5.text(numberWithCommas(level5));
+		countLevel6.text(numberWithCommas(level6));
+	}
+
 	function buildTable()
 	{
-		dataTable.empty();
-
 		dataTable.DataTable({
 			ajax : {
-				url: api.levelMemberList,
+				url: api.memberLevelList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -61,25 +98,31 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"level" : getLevel(),
+						"page": (d.start / d.length) + 1,
+						"limit": selPageLength.val(),
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "기업 ID",    	data: "company_uuid",  	width: "40%" }
-				,{title: "기업명", 		data: "nickname",		width: "25%",
+				{title: "닉네임",    		data: "nickname",  		width: "40%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailBiz + row.idx;
-						return `<a href="${detailUrl}">${data}</a>`;
+						return row.is_company === 'Y' ? label.bizIcon + data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "등록일",    	data: "created",  		width: "15%",
-					render: function (data) {
-						return data.substring(0, 10);
+				,{title: "PID",    		data: "profile_uuid",  	width: "35%" }
+				,{title: "누적 인증 수", 	data: "action_count",	width: "10%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
 					}
 				}
+				,{title: "가입일시",    	data: "created",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -89,6 +132,8 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.is_company === 'N')
+					$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -97,14 +142,18 @@
 		});
 	}
 
-	function tableParams()
+	function getLevel()
 	{
-		const param = {
-			"search_type" : selSearchType.val(),
-			"keyword" : keyword.val().trim(),
-			"page": _currentPage,
-			"limit": selPageLength.val(),
-		}
+		const selectedEl = $(".row.top .card.active");
+		return $(selectedEl)[0].id;
+	}
 
-		return JSON.stringify(param);
+	function onClickNickname(obj)
+	{
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.detailMember);
+		form.append($("<input/>", {type: 'hidden', name: 'profile_uuid', value: $(obj).data('uuid')}));
+		form.appendTo("body");
+		form.trigger('submit');
 	}

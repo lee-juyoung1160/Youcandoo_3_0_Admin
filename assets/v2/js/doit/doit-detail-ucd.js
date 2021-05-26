@@ -23,6 +23,7 @@
 	export function showUcdListForm()
 	{
 		ucdListForm.show();
+		initSearchUcdForm();
 		getDoitBalance();
 	}
 
@@ -58,7 +59,6 @@
 
 	export function onSubmitSearchUcd()
 	{
-		return;
 		const table = ucdTable.DataTable();
 		table.page.len(Number(selUcdPageLength.val()));
 		table.ajax.reload();
@@ -68,7 +68,7 @@
 	{
 		ucdTable.DataTable({
 			ajax : {
-				url: api,
+				url: api.doitWalletList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){

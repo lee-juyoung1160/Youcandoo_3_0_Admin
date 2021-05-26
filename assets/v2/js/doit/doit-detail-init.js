@@ -117,7 +117,8 @@
 		initSearchUcdForm,
 		onClinkBtnSaveUcdWallet,
 		onSubmitSearchUcd,
-		onSubmitSaveUcdWallet
+		onSubmitSaveUcdWallet,
+		buildUcdTable
 	} from "./doit-detail-ucd.js";
 	import {
 		initSearchActionForm,
@@ -277,7 +278,7 @@
 				break;
 			case '#tabDoitUcd' :
 				showUcdListForm();
-				initSearchUcdForm();
+				//buildUcdTable();
 				break;
 			case '#tabDoitAction' :
 				showActionListForm();

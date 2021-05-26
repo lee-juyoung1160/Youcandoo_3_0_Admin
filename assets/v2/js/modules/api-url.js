@@ -46,6 +46,7 @@
         deleteDoit : baseApiUrl + 'doit/delete',
         openDoit : baseApiUrl + 'doit/set/open',
         stopDoit : baseApiUrl + 'doit/set/stop',
+        getDoitUcd : baseApiUrl + 'ucd/get/doit',
 
         missionList : baseApiUrl + 'mission/get/list',
         createMission : baseApiUrl + 'mission/create',

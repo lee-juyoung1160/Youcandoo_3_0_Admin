@@ -1,22 +1,20 @@
 
 	import {
-	ucdListForm,
-	ucdTable,
-	searchUcdDateFrom,
-	searchUcdDateTo,
-	ucdKeyword,
-	selUcdPageLength,
-	modalSaveUcdWallet,
-	modalBackdrop, rdoSaveUCdType, saveWalletAmount, saveWalletDesc,
-} from "../modules/elements.js";
+		ucdListForm,
+		ucdTable,
+		searchUcdDateFrom,
+		searchUcdDateTo,
+		ucdKeyword,
+		selUcdPageLength,
+		modalSaveUcdWallet,
+		modalBackdrop, rdoSaveUCdType, saveWalletAmount, saveWalletDesc, publicWalletBalance,
+	} from "../modules/elements.js";
+	import { api } from '../modules/api-url.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {
-		initDayBtn,
-	initSelectOption
-} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {initDayBtn, initSelectOption} from "../modules/common.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
@@ -25,6 +23,7 @@
 	export function showUcdListForm()
 	{
 		ucdListForm.show();
+		getDoitBalance();
 	}
 
 	export function initSearchUcdForm()
@@ -34,6 +33,27 @@
 		ucdKeyword.val('');
 		initSelectOption();
 		initDayBtn();
+	}
+
+	function getDoitBalance()
+	{
+		const url = api.getDoitUcd;
+		const errMsg = `두잇 UCD ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDoitBalanceCallback, errMsg, false);
+	}
+
+	function getDoitBalanceCallback(data)
+	{
+		isSuccessResp(data) ? buildBalance(data) : sweetToast(`두잇 UCD ${data.msg}`);
+	}
+
+	function buildBalance(data)
+	{
+		publicWalletBalance.text(`${numberWithCommas(data.data.ucd)} UCD`);
 	}
 
 	export function onSubmitSearchUcd()

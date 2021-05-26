@@ -70,7 +70,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						//sweetToast(json.msg);
 					}
 
 					return JSON.stringify(json);

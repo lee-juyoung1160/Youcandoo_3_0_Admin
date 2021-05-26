@@ -118,12 +118,12 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "보낸 날짜",    	data: "send_datetime",  	width: "15%",
+				,{title: "보낸 날짜",    	data: "sended",  	width: "15%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "만료 날짜",    	data: "expire_date",  		width: "10%" }
+				,{title: "만료 날짜",    	data: "expired",  		width: "10%" }
 				/*,{title: "상태",    		data: "status",  	width: "10%",
 					render: function (data, type, row, meta) {
 						let status = '';

@@ -156,10 +156,10 @@
         createDecryption : baseApiUrl + 'operate/set/decryption',
 
         ucdChargeList : baseApiUrl + 'ucd/charge/list',
-        getMember : baseApiUrl + 'ucd/get/profile/user',
+        getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + '',
         systemWalletList : baseApiUrl + 'ucd/get/history/system',
-        doitWalletList : baseApiUrl + 'ucd/get/history/doit',
+        doitWalletList : baseApiUrl + 'ucd/list/get/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',
         pendingWalletList : baseApiUrl + 'ucd/list/get/transfer',
 

@@ -9,6 +9,7 @@
             <div class="right-wrap">
                 <button id="btnSpecialOn" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.스페셜 설정</button>
                 <button id="btnSpecialOff" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.스페셜 해제</button>
+                <button id="btnSpecialOff" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.레전드로 승급</button>
                 <button id="btnModalUcd" type="button" class="btn-sm btn-outline-success modal-btn"><i class="fas fa-coins"></i> 회원 UCD 충전</button>
             </div>
         </div>
@@ -76,6 +77,68 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+
+                <!-- 레벨 -->
+                <div class="lever group" id="level">
+                    <div class="card detail-tit-warp">
+                        <p class="title"><i class="fas fa-star-half-alt"></i> 레벨</p>
+                    </div>
+                    <ul class="tab clearfix">
+                        <li class="active" data-target="#memberLever">레벨</li>
+                        <li data-target="#leverChange">레벨 변경 내역</li>
+                    </ul>
+
+                    <table class="detail-table" id="memberLever">
+                        <colgroup>
+                            <col style="width: 15%;">
+                            <col style="width: 35%;">
+                            <col style="width: 15%;">
+                            <col style="width: 35%;">
+                        </colgroup>
+                        <tr>
+                            <th>레벨</th>
+                            <td>
+                                <p class="detail-data" id="">프로</p>
+                            </td>
+                            <th>누적 인증 수</th>
+                            <td>
+                                <p class="detail-data" id="">11</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>개설 두잇 수</th>
+                            <td>
+                                <p class="detail-data" id="">99</p>
+                            </td>
+                            <th>개설 두잇 총 인증 수</th>
+                            <td>
+                                <p class="detail-data" id="">88</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="table-wrap" id="leverChange" style="display: none;">
+                        <table>
+                            <thead>
+                            <colgroup>
+                                <col style="width: 50%;">
+                                <col style="width: 50%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>레벨명</th>
+                                <th>설정일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>프로</td>
+                                <td>2020-11-11</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- 기기정보 -->
@@ -367,6 +430,9 @@
                         <tbody>
                         <tr data-moveto="memberInfo">
                             <td>회원정보</td>
+                        </tr>
+                        <tr data-moveto="level">
+                            <td>레벨</td>
                         </tr>
                         <tr data-moveto="deviceInfo">
                             <td>기기정보</td>

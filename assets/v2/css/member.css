@@ -13,8 +13,11 @@
 	cursor: pointer;
 }
 
-/* 회원상세 두잇정보 */
-.member-detail .doit-info .tab li {
+/* 회원상세 탭 */
+.member-detail .tab li {
+	margin-bottom: 10px;
+}
+.member-detail .tab li {
 	width: calc(100% / 2);
 }
 

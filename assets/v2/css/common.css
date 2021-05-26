@@ -583,6 +583,16 @@ button i {
 	background-color: #00ac69;
 	border-color: #00ac69;
 }
+.btn-outline-secondary {
+	color: #6900c7;
+	border-color: #6900c7;
+	background-color: #fff;
+}
+.btn-outline-secondary:hover {
+	color: #fff;
+	border-color: #6900c7;
+	background-color: #6900c7;
+}
 .btn-teal {
 	color: #fff;
 	background-color: #00c0ef;

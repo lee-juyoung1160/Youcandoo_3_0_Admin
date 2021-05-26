@@ -90,7 +90,7 @@
         createBiz : baseApiUrl + 'biz/create',
         detailBiz : baseApiUrl + 'biz/get/detail/info',
         bizDoitList : baseApiUrl + 'biz/get/detail/doit',
-        bizUcdList : baseApiUrl + 'ucd/get/history/company',
+        bizUcdList : baseApiUrl + 'ucd/list/get/company',
         updateBiz : baseApiUrl + 'biz/update',
 
         noticeList : baseApiUrl + 'notice/get/list',

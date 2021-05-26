@@ -70,7 +70,7 @@
 					else
 					{
 						json.data = [];
-						//sweetToast(json.msg);
+						sweetToast(json.msg);
 					}
 
 					return JSON.stringify(json);
@@ -92,7 +92,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    	data: "title",  		width: "20%" }
+				{title: "닉네임",    	data: "nickname",  		width: "20%" }
 				,{title: "구분",    	data: "division",  		width: "10%" }
 				,{title: "제목",    	data: "title",  		width: "15%" }
 				,{title: "내용",    	data: "description",  	width: "30%",
@@ -100,7 +100,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "UCD", 	data: "amount_ucd",		width: "10%",
+				,{title: "UCD", 	data: "value",		width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -115,7 +115,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				if (isNegative(aData.amount_ucd))
+				if (isNegative(aData.value))
 					$(nRow).addClass('minus-pay');
 			},
 			drawCallback: function (settings) {

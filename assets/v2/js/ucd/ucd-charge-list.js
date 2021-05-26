@@ -1,15 +1,15 @@
 
-	import { headers } from '../modules/request.js';
+	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons,} from '../modules/elements.js';
-	import { sweetError } from '../modules/alert.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
+	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn,
 		initDayBtn, initMaxDateToday, initSearchDateRangeMonth} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
-	import {setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	import {numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -19,9 +19,11 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
+		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
@@ -59,31 +61,46 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.data.count;
+						json.recordsFiltered = json.data.count;
+						json.data = json.data.list;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type" : selSearchType.val(),
+						"keyword" : keyword.val().trim(),
+						"page" : (d.start / d.length) + 1,
+						"limit" : d.length,
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "기업 ID",    	data: "company_uuid",  	width: "40%" }
-				,{title: "기업명", 		data: "nickname",		width: "25%",
+				{title: "닉네임",    		data: "receive_name",  		width: "15%" }
+				,{title: "내용",    		data: "message",  			width: "40%" }
+				,{title: "UCD", 		data: "value",				width: "10%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailBiz + row.idx;
-						return `<a href="${detailUrl}">${data}</a>`;
+						return numberWithCommas(data);
 					}
 				}
-				,{title: "등록일",    	data: "created",  		width: "15%",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
+				,{title: "지급 일시",    	data: "sended",  			width: "15%" }
+				,{title: "상태",    		data: "status",  			width: "10%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -99,22 +116,4 @@
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
-	}
-
-	function tableParams()
-	{
-		const table = dataTable.DataTable();
-		const info = table.page.info();
-		const _page = (info.start / info.length) + 1;
-		const param = {
-			"search_type" : selSearchType.val(),
-			"keyword" : keyword.val().trim(),
-			"page": _page,
-			"limit": selPageLength.val(),
-		}
-
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam(param);
-
-		return JSON.stringify(param);
 	}

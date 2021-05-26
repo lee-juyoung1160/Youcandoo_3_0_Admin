@@ -156,9 +156,9 @@
         createEncryption : baseApiUrl + 'operate/set/encryption',
         createDecryption : baseApiUrl + 'operate/set/decryption',
 
-        ucdChargeList : baseApiUrl + 'ucd/charge/list',
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + '',
+        ucdChargeList : baseApiUrl + 'ucd/list/get/charge',
         systemWalletList : baseApiUrl + 'ucd/list/get/system',
         doitWalletList : baseApiUrl + 'ucd/list/get/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',

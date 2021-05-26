@@ -18,7 +18,7 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -83,9 +83,6 @@
 						"keyword" : keyword.val().trim(),
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
-						"is_receive" : "N",
-						"is_cancel" : "",
-						"is_expire" : "",
 					}
 
 					return JSON.stringify(param);
@@ -95,17 +92,21 @@
 				}
 			},
 			columns: [
-				{title: "두잇명",    		data: "doit_title",  		width: "20%" }
-				,{title: "내용",    		data: "doit_title",  		width: "15%" }
-				,{title: "실행자",    	data: "doit_title",  		width: "15%" }
-				,{title: "To",    		data: "doit_title",  		width: "15%" }
-				,{title: "구분",    		data: "doit_title",  		width: "15%" }
-				,{title: "UCD", 		data: "amount_ucd",			width: "10%",
+				{title: "두잇명",    		data: "send_name",  	width: "20%" }
+				,{title: "내용",    		data: "message",  		width: "15%" }
+				,{title: "실행자",    	data: "register_name",  width: "15%",
+					render: function (data, type, row, meta) {
+						return row.register_is_company === 'Y' ? label.bizIcon + data : data;
+					}
+				}
+				,{title: "To",    		data: "receive_name",  	width: "15%" }
+				,{title: "구분",    		data: "transfer_type",  width: "10%" }
+				,{title: "UCD", 		data: "value",			width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "지급 일시",    	data: "doit_title",  		width: "10%" }
+				,{title: "지급 일시",    	data: "sended",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,

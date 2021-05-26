@@ -24,9 +24,9 @@
 		description,
 		ucdInfoTable,
 		doitTable,
-		btnSupportDoit, btnSupportLeader
+		btnSupportDoit, btnSupportLeader, balance
 	} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -108,6 +108,7 @@
 			g_company_uuid = data.data.company_uuid;
 			g_profile_uuid = data.data.profile_uuid;
 			buildDetail(data);
+			getBalance();
 			buildDoitTable();
 		}
 		else
@@ -125,6 +126,27 @@
 		content.text(description);
 
 		onErrorImage();
+	}
+
+	function getBalance()
+	{
+		const url = api.getBizUcd;
+		const errMsg = `보유 UCD ${message.ajaxLoadError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBalanceCallback, errMsg, false);
+	}
+
+	function getBalanceCallback(data)
+	{
+		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
+	}
+
+	function buildBalance(data)
+	{
+		balance.text(numberWithCommas(data.data.ucd));
 	}
 
 	function buildDoitTable()
@@ -189,7 +211,7 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: Number(selPageLengthDoit.val()),
 			select: false,
 			destroy: true,
 			initComplete: function () {
@@ -231,10 +253,10 @@
 					const param = {
 						"from_date" : "",
 						"to_date" : "",
-						"search_type" : "company_uuid",
-						"keyword" : g_company_uuid,
-						"page" : (d.start / d.length) + 1
-						,"limit" : d.length
+						"search_type" : "profile_uuid",
+						"keyword" : g_profile_uuid,
+						"page" : (d.start / d.length) + 1,
+						"limit" : d.length
 					}
 
 					return JSON.stringify(param);
@@ -251,7 +273,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "UCD", 	data: "amount_ucd",		width: "10%",
+				,{title: "UCD", 	data: "value",		width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -260,13 +282,13 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: Number(selPageLengthUcd.val()),
 			select: false,
 			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				if (isNegative(aData.amount_ucd))
+				if (isNegative(aData.value))
 					$(nRow).addClass('minus-pay');
 			},
 			drawCallback: function (settings) {
@@ -337,10 +359,20 @@
 
 	function goToSupportLeader()
 	{
-		location.href = page.supportLeader;
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.supportLeader);
+		form.append($("<input/>", {type: 'hidden', name: 'idx', value: bizIdx}));
+		form.appendTo("body");
+		form.trigger('submit');
 	}
 
 	function goToSupportDoit()
 	{
-		location.href = page.supportDoit;
+		let form   = $("<form></form>");
+		form.prop("method", "post");
+		form.prop("action", page.supportDoit);
+		form.append($("<input/>", {type: 'hidden', name: 'idx', value: bizIdx}));
+		form.appendTo("body");
+		form.trigger('submit');
 	}

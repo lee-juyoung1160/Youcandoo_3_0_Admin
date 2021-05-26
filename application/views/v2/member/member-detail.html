@@ -84,12 +84,12 @@
                     <div class="card detail-tit-warp">
                         <p class="title"><i class="fas fa-star-half-alt"></i> 레벨</p>
                     </div>
-                    <ul class="tab clearfix">
-                        <li class="active" data-target="#memberLever">레벨</li>
-                        <li data-target="#leverChange">레벨 변경 내역</li>
+                    <ul class="tab clearfix" id="ulLevelTab">
+                        <li class="active" data-target="#levelInfoWrap">레벨</li>
+                        <li data-target="#levelHistoryWrap">레벨 변경 내역</li>
                     </ul>
 
-                    <table class="detail-table" id="memberLever">
+                    <table class="detail-table" id="levelInfoWrap">
                         <colgroup>
                             <col style="width: 15%;">
                             <col style="width: 35%;">
@@ -99,27 +99,27 @@
                         <tr>
                             <th>레벨</th>
                             <td>
-                                <p class="detail-data" id="">프로</p>
+                                <p class="detail-data" id="levelName">프로</p>
                             </td>
                             <th>누적 인증 수</th>
                             <td>
-                                <p class="detail-data" id="">11</p>
+                                <p class="detail-data" id="levelActionCount">11</p>
                             </td>
                         </tr>
                         <tr>
                             <th>개설 두잇 수</th>
                             <td>
-                                <p class="detail-data" id="">99</p>
+                                <p class="detail-data" id="openedDoitCount">99</p>
                             </td>
                             <th>개설 두잇 총 인증 수</th>
                             <td>
-                                <p class="detail-data" id="">88</p>
+                                <p class="detail-data" id="openedDoitAction">88</p>
                             </td>
                         </tr>
                     </table>
 
-                    <div class="table-wrap" id="leverChange" style="display: none;">
-                        <table>
+                    <div class="table-wrap" id="levelHistoryWrap" style="display: none;">
+                        <table id="levelTable">
                             <thead>
                             <colgroup>
                                 <col style="width: 50%;">

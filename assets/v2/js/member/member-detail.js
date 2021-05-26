@@ -2,40 +2,40 @@
 	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnBack,
-	btnList,
-	btnModalUcd,
-	modalUcd,
-	amount,
-	memo,
-	modalActionDetail,
-	modalClose,
-	modalBackdrop,
-	lengthInput,
-	ulDoitTab,
-	openedDoitWrap,
-	joinedDoitWrap,
-	pagination,
-	actionsWrap,
-	profileId,
-	contact,
-	userNickname,
-	useremail,
-	balance,
-	isAuth,
-	userLevel,
-	totalActionCount,
-	hiddenProfileId,
-	deviceInfoTableBody,
-	openedDoitTable,
-	joinedDoitTable,
-	modalActionContentWrap,
-	modalActionDesc,
-	modalActionExampleWrap,
-	modalActionExampleDesc,
-	modalActionWarningReason,
-	btnSubmitSaveUcd,
-	description, ucdInfoTable, categoryWrap, dateFrom, dateTo, selSearchType, keyword
+		btnBack,
+		btnList,
+		btnModalUcd,
+		modalUcd,
+		amount,
+		memo,
+		modalActionDetail,
+		modalClose,
+		modalBackdrop,
+		lengthInput,
+		ulDoitTab,
+		openedDoitWrap,
+		joinedDoitWrap,
+		pagination,
+		actionsWrap,
+		profileId,
+		contact,
+		userNickname,
+		useremail,
+		balance,
+		isAuth,
+		userLevel,
+		totalActionCount,
+		hiddenProfileId,
+		deviceInfoTableBody,
+		openedDoitTable,
+		joinedDoitTable,
+		modalActionContentWrap,
+		modalActionDesc,
+		modalActionExampleWrap,
+		modalActionExampleDesc,
+		modalActionWarningReason,
+		btnSubmitSaveUcd,
+		description, ucdInfoTable, categoryWrap, ulLevelTab, levelInfoWrap, levelHistoryWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -66,6 +66,7 @@
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
 		ulDoitTab		.on('click', function (event) { onClickDoitTab(event); });
+		ulLevelTab		.on('click', function (event) { onClickLevelTab(event); });
 		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); })
 	});
 
@@ -128,6 +129,37 @@
 		isAuth.text(is_auth);
 		userLevel.text(level);
 		totalActionCount.text(numberWithCommas(action_count));
+	}
+
+	function onClickLevelTab(event)
+	{
+		const selectedTab = $(event.target);
+		const target = $(selectedTab).data('target');
+
+		switch (target) {
+			case '#levelInfoWrap' :
+				getLevelInfo();
+				break;
+			case '#levelHistoryWrap' :
+				buildLeveTable();
+				break;
+		}
+
+		selectedTab.siblings().removeClass('active');
+		selectedTab.addClass('active');
+		levelInfoWrap.hide();
+		levelHistoryWrap.hide();
+		$(target).show();
+	}
+
+	function getLevelInfo()
+	{
+
+	}
+
+	function buildLeveTable()
+	{
+
 	}
 
 	function getDeviceInfo()

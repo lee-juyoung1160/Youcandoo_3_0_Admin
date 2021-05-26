@@ -436,6 +436,14 @@
     export const categoryWrap = $("#categoryWrap");
     export const ucdInfoTable = $("#ucdInfoTable");
     export const ulDoitTab = $("#ulDoitTab");
+    export const levelInfoWrap = $("#levelInfoWrap");
+    export const levelHistoryWrap = $("#levelHistoryWrap");
+    export const ulLevelTab = $("#ulLevelTab");
+    export const levelName = $("#levelName");
+    export const levelActionCount = $("#levelActionCount");
+    export const openedDoitCount = $("#openedDoitCount");
+    export const openedDoitAction = $("#openedDoitAction");
+    export const levelTable = $("#levelTable");
     export const modalActionDetail = $("#modalActionDetail");
     export const modalActionContentWrap = $("#modalActionContentWrap");
     export const modalActionDesc = $("#modalActionDesc");

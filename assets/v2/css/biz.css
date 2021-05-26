@@ -4,7 +4,12 @@
 .biz-img-wrap {
 	width: 200px;
 }
-
 .biz-detail-teb li {
 	width: calc(100%/2);
+}
+.support-table {
+	margin-bottom: 20px;
+}
+.support-table .biz-img-wrap {
+	width: 100px;
 }

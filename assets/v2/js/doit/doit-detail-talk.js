@@ -443,8 +443,8 @@
 											<input type="hidden" class="parent-comment-uuid" value="${comment_uuid}">
 											<input type="hidden" class="target-profile-uuid" value="${profile_uuid}">
 											<input type="hidden" class="target-nickname" value="${nickname}">
-											<textarea class="length-input reply-talk" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
-											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+											<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
+											<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 										</div>
 									</td>
 								</tr>

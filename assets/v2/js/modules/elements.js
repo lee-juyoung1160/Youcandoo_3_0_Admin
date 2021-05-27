@@ -212,7 +212,9 @@
     export const applyMemberTable = $("#applyMemberTable");
     export const modalSaveUcd = $("#modalSaveUcd");
     export const saveUcdContent = $("#saveUcdContent");
-    export const saveUcdEtc = $("#saveUcdEtc");
+    export const selRewardType = $("#selRewardType");
+    export const rewardKeyword = $("#rewardKeyword");
+    export const rewardTableWrap = $("#rewardTableWrap");
     export const rewardMemberTable = $("#rewardMemberTable");
     export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
     export const modalSendNotice = $("#modalSendNotice");

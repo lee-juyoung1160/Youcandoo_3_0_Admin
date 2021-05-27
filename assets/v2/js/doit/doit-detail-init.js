@@ -82,7 +82,7 @@
 		btnBackToMissionList,
 		btnBackToMissionDetail,
 		btnBlinkTalk,
-		btnDisplayTalk,
+		btnDisplayTalk, selRewardType, rewardKeyword,
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -115,7 +115,7 @@
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
 		onChangeSelMemberFilter,
-		searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd
+		searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd, onChangeSelRewardType, searchRewardMember
 	} from "./doit-detail-member.js";
 	import {
 		showUcdListForm,
@@ -219,6 +219,8 @@
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });
 		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
+		selRewardType.on('change', function () { onChangeSelRewardType(); });
+		rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
 
 		initPageLength(selUcdPageLength);
 		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });

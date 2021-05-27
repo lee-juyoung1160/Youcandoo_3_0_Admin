@@ -1778,8 +1778,8 @@
                                     <tr>
                                         <td colspan="2">
                                             <div class="textarea-wrap">
-                                                <textarea id="commentTalk" class="length-input" maxlength="100" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-                                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                                <textarea id="commentTalk" class="length-input" maxlength="200" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                <p class="length-count-wrap"><span class="count-input">0</span>/200</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -1827,8 +1827,8 @@
                                 <th>내용</th>
                                 <td>
                                     <div class="textarea-wrap">
-                                        <textarea id="updateTalk" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
-                                        <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                        <textarea id="updateTalk" class="length-input" maxlength="800" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                                        <p class="length-count-wrap"><span class="count-input">0</span>/800</p>
                                     </div>
                                 </td>
                             </tr>
@@ -1985,16 +1985,17 @@
                     <tr>
                         <th>적립 조건 *</th>
                         <td>
-                            <select id="" class="select-box add-ucd-select">
-                                <option value="전체">전체</option>
-                                <option value="연속 인증 수">연속 인증 수 (10일 이상)</option>
-                                <option value="일간 인증 수">일간 인증 수 (1일)</option>
-                                <option value="주간 인증 수">주간 인증 수 (3일 이상)</option>
-                                <option value="월간 인증 수">월간 인증 수 (10일 이상)</option>
-                                <option value="직접 입력">직접 입력</option>
+                            <select id="selRewardType" class="select-box add-ucd-select">
+                                <option value="all">참여자 전체</option>
+                                <option value="ongoing">연속 인증 수 (10일 이상)</option>
+                                <option value="daily">일간 인증 수 (1일)</option>
+                                <option value="weekly">주간 인증 수 (3일 이상)</option>
+                                <option value="monthly">월간 인증 수 (10일 이상)</option>
+                                <option value="total">누적 인증 수</option>
+                                <option value="user">직접 선택</option>
                             </select>
                             <div class="ucd-input-wrap">
-                                <input type="text" placeholder="직접입력">
+                                <input id="rewardKeyword" type="text" placeholder="닉네임을 입력해주세요." style="display: none;">
                             </div>
                         </td>
                     </tr>
@@ -2025,7 +2026,7 @@
                         </td>
                     </tr>-->
                 </table>
-                <div class="table-wrap">
+                <div class="table-wrap" id="rewardTableWrap" style="display: none;">
                     <div class="top clearfix">
                         <div class="left-wrap clearfix">
                             <div class="form-box">
@@ -2322,8 +2323,8 @@
                     <tr>
                         <td colspan="2">
                             <div class="textarea-wrap">
-                                <textarea id="talk" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
-                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                                <textarea id="talk" class="length-input" maxlength="800" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/800</p>
                             </div>
                         </td>
                     </tr>
@@ -2434,4 +2435,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script type="module" src="/assets/v2/js/doit/doit-detail-init.js?version=<?php echo $this->config->item('version');?>"></script>

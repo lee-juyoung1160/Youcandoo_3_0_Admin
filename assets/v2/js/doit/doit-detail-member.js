@@ -26,7 +26,7 @@
 	modalMemberInfoAnswer,
 	totalMemberCount,
 	applyMemberCount,
-	selApplyMemberPageLength, applyQuestion, rewardMemberTable
+	selApplyMemberPageLength, applyQuestion, rewardMemberTable, btnBan, selRewardType, rewardTableWrap, rewardKeyword
 	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
@@ -178,7 +178,7 @@
 				{title: "닉네임", 			data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
 						const nickname = row.is_company === 'Y' ? label.bizIcon + data : data;
-						return `<a data-uuid="${row.profile_uuid}">${nickname}</a>`;
+						return `<a data-uuid="${row.profile_uuid}" data-type="${row.member_type}">${nickname}</a>`;
 					}
 				}
 				,{title: "프로필 ID", 		data: "profile_uuid",		width: "25%"}
@@ -227,6 +227,8 @@
 	let g_info_profile_uuid;
 	function viewMemberInfo(obj)
 	{
+		toggleBtnBan(obj);
+
 		g_info_profile_uuid = $(obj).data('uuid');
 		const url = api.infoJoinMember;
 		const errMsg = `회원 정보 ${message.ajaxLoadError}`;
@@ -261,6 +263,11 @@
 		modalMemberInfoJoinDate.text(joined);
 		modalMemberInfoQuestion.text(isEmpty(question) ? label.dash : question);
 		modalMemberInfoAnswer.text(isEmpty(answer) ? label.dash : answer);
+	}
+
+	function toggleBtnBan(obj)
+	{
+		$(obj).data('type') === 'leader' ? btnBan.hide() : btnBan.show();
 	}
 
 	export function banMember()
@@ -400,24 +407,57 @@
 		$('.toast-box').hide();
 	}
 
+	export function onChangeSelRewardType()
+	{
+		switch (selRewardType.val()) {
+			case 'user' :
+				rewardKeyword.trigger('focus');
+				rewardKeyword.show();
+				rewardTableWrap.show();
+				break;
+			default :
+				rewardKeyword.val('');
+				rewardKeyword.hide();
+				rewardTableWrap.hide();
+				break;
+		}
+	}
+
+	export function searchRewardMember()
+	{
+		const rewardTable = rewardMemberTable.DataTable();
+		const inputValue = rewardKeyword.val().trim();
+
+		rewardTable.search(inputValue).draw();
+	}
+
 	function buildRewardMember()
 	{
 		rewardMemberTable.DataTable({
 			data: rewardMembers,
 			columns: [
-				{title: "닉네임",    		data: "profile_uuid",  		width: "20%" }
-				,{title: "P-ID", 		data: "profile_uuid",		width: "50%" }
-				,{title: "보유 UCD",    	data: "profile_uuid",  		width: "20%" }
-				,{title: "",    		data: "profile_uuid",  		width: "10%",
+				{title: "닉네임",    		data: "nickname",  		width: "40%" }
+				,{title: "P-ID", 		data: "profile_uuid",	width: "40%" }
+				,{title: "보유 UCD",    	data: "ucd",  			width: "15%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: '', 			data: "profile_uuid",   width: "5%",
 					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red btn-delete-reward-member" data-row="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+						return checkBoxElement(meta.row);
 					}
 				}
 			],
 			serverSide: false,
+			searching: true,
+			dom: 'lrtp',
 			paging: true,
-			pageLength: 5,
-			select: false,
+			pageLength: 1,
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
 			destroy: true,
 			initComplete: function () {
 			},
@@ -459,9 +499,11 @@
 		const errMsg = label.list + message.ajaxLoadError;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
+			"search_type" : "nickname",
+			"keyword" : ''
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
 	}
 
 	let rewardMembers = [];
@@ -506,10 +548,10 @@
 			amount.trigger('focus');
 			return false;
 		}
-		console.log(getTargetIdsFromTableRow())
-		if (getTargetIdsFromTableRow().length === 0)
+
+		if (selRewardType.val() === 'user' && getSelectedIdsFromTableRow().length === 0)
 		{
-			sweetToast(`적립 대상 ${message.emptyList}`);
+			sweetToast(`적립 대상을 ${message.select}`);
 			return false;
 		}
 
@@ -524,8 +566,11 @@
 			"doit_uuid" : g_doit_uuid,
 			"description" : saveUcdContent.val().trim(),
 			"value" : amount.val().trim(),
-			"profile_list" : getTargetIdsFromTableRow(),
+			"type" : selRewardType.val(),
 		}
+
+		if (selRewardType.val() === 'user')
+			param["profile_uuid"] = getSelectedIdsFromTableRow();
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
 	}
@@ -540,14 +585,19 @@
 		fadeoutModal();
 	}
 
-	function getTargetIdsFromTableRow()
+	function getSelectedIdsFromTableRow()
 	{
-		const targetTableRows = rewardMemberTable.find('tbody').children();
 		let profileUuids = [];
-		targetTableRows.each(function () {
-			const uuid = $(this).data('uuid');
-			if (!isEmpty(uuid)) profileUuids.push(uuid);
-		})
+		const rewardTable = rewardMemberTable.DataTable();
+		const selectedData = rewardTable.rows('.selected').data();
+		if (!isEmpty(selectedData) && selectedData.length > 0)
+		{
+			for (let i=0; i<selectedData.length; i++)
+			{
+				const uuid = selectedData[i].profile_uuid;
+				profileUuids.push(uuid);
+			}
+		}
 
 		return profileUuids;
 	}

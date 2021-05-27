@@ -43,7 +43,6 @@
 				"title" : categoryTitle.val().trim(),
 				"icon_image_url" : data.image_urls.file,
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
-				"is_establish" : $('input[name=radio-establish]:checked').val(),
 			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

@@ -70,13 +70,12 @@
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "카테고리명", 		data: "category_title",		width: "40%",
+				,{title: "카테고리명", 		data: "category_title",		width: "55%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailCategory + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "개설가능여부",    	data: "is_establish",  		width: "15%" }
 				,{title: "노출여부",    		data: "is_exposure",  		width: "15%" }
 			],
 			serverSide: false,

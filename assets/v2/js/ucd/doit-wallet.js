@@ -81,6 +81,7 @@
 						"to_date" : dateTo.val(),
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
+						"send_type" : 'doit',
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}

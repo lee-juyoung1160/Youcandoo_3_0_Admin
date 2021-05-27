@@ -285,7 +285,7 @@
 				break;
 			case '#tabDoitUcd' :
 				showUcdListForm();
-				//buildUcdTable();
+				buildUcdTable();
 				break;
 			case '#tabDoitAction' :
 				showActionListForm();

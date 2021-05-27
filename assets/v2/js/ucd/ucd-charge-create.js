@@ -111,7 +111,7 @@
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
 						,"search_type" : "nickname"
-						,"keyword" : keyword.val()
+						,"keyword" : isEmpty(keyword.val()) ? '!@#' : keyword.val().trim()
 					}
 
 					return JSON.stringify(param);
@@ -172,9 +172,9 @@
 
 	function addUser(data)
 	{
-		const {profile_uuid, nickname, amount_ucd} = data;
+		const {profile_uuid, nickname, ucd} = data;
 		let userObj = [];
-		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 		addedUserObj = userObj.concat(addedUserObj);
 
 		let users = [];
@@ -192,7 +192,7 @@
 			columns: [
 				{title: "닉네임", 		data: "nickname",		width: "20%" }
 				,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
-				,{title: "보유 UCD",    	data: "amount_ucd",  	width: "20%",
+				,{title: "보유 UCD",    	data: "ucd",  			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -205,7 +205,7 @@
 			],
 			serverSide: false,
 			paging: true,
-			pageLength: 3,
+			pageLength: 30,
 			select: false,
 			destroy: true,
 			initComplete: function () {
@@ -240,10 +240,10 @@
 		{
 			for (let i=0; i<tableData.length; i++)
 			{
-				const {profile_uuid, nickname, amount_ucd} = tableData[i];
+				const {profile_uuid, nickname, ucd} = tableData[i];
 
 				addedUsers.push(profile_uuid)
-				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 			}
 		}
 	}
@@ -261,10 +261,10 @@
 
 	function createRequest()
 	{
-		const url = api.saveUcdForUser;
+		const url = api.saveUserUcdBySystem;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"profile_list" : addedUsers,
+			"profile_uuid" : addedUsers,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
@@ -338,14 +338,20 @@
 
 		const url = api.getMemberFromXlsx;
 		const errMsg = `회원목록${message.ajaxLoadError}`
-		const param = JSON.stringify({ "data" : data });
+		const param = { "profile_uuid" : data };
 
-		//ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
 	}
 
 	function getExcelDataCallback(data)
 	{
-		if (!isEmpty(data.data)) selectedUsers = data.data;
-		//buildSelectedUser();
-		//calculateSelectedCount();
+		if (!isEmpty(data.data) && data.data.list.length > 0)
+		{
+			addedUserObj = data.data.list;
+			addedUsers.length = 0;
+			data.data.list.map(obj => addedUsers.push(obj.profile_uuid));
+		}
+
+		buildUpdateTable();
+		displayCountAddedUser();
 	}

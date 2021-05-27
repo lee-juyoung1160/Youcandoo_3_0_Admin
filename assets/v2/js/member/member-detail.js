@@ -645,15 +645,15 @@
 
 	function saveUcdRequest()
 	{
-		const url = api.saveUcdForUser;
+		const url = api.saveUserUcdBySystem;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"profile_list" : [ g_profile_uuid ],
+			"profile_uuid" : [ g_profile_uuid ],
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
 	}
 
 	function saveUcdReqCallback(data)
@@ -665,6 +665,7 @@
 	{
 		fadeoutModal();
 		getBasicInfo();
+		getMemberUcdHistory();
 	}
 
 	function saveUcdValid()

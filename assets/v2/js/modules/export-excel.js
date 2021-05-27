@@ -68,3 +68,19 @@
 
 		setExcelData("회원일괄등록양식", "회원목록", data);
 	}
+
+	export function onClickImportDoitFormExport()
+	{
+		const data = [
+			{ "DOIT UUID" : "", "" : "<<<---여기부터"},
+			{ "DOIT UUID" : "", "" : "DOIT UUID(두잇아이디)를" },
+			{ "DOIT UUID" : "", "" : "이런 방식으로(줄을 바꿔가며)" },
+			{ "DOIT UUID" : "", "" : "채우면 됩니다." },
+			{ "DOIT UUID" : "", "" : "아!" },
+			{ "DOIT UUID" : "", "" : "물론," },
+			{ "DOIT UUID" : "", "" : "첫행부터 채워도" },
+			{ "DOIT UUID" : "", "" : "괜찮아요." }
+		];
+
+		setExcelData("두잇일괄등록양식", "두잇목록", data);
+	}

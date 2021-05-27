@@ -40,6 +40,27 @@
             </div>
         </div>
 
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">상태</p>
+                    <div class="radio-wrap">
+                        <input id="r4" type="radio" name="radio-status" value="all">
+                        <label for="r4"><span></span>전체</label>
+
+                        <input id="r5" type="radio" name="radio-status" value="pending">
+                        <label for="r5"><span></span>대기</label>
+
+                        <input id="r6" type="radio" name="radio-status" value="complete">
+                        <label for="r6"><span></span>완료</label>
+
+                        <input id="r7" type="radio" name="radio-status" value="expired">
+                        <label for="r7"><span></span>소멸</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="search-btn row">
             <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
             <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>

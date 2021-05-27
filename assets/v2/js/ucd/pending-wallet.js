@@ -1,7 +1,19 @@
 
 	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		selSearchType,
+		dateButtons,
+		dateFrom,
+		dateTo,
+		rdoStatus,
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
 		initSearchDateRangeMonth, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
@@ -36,6 +48,7 @@
 		initSearchDateRangeMonth();
 		initSelectOption();
 		keyword.val('');
+		rdoStatus.eq(1).prop('checked', true);
 	}
 
 	function onKeydownSearch(event)
@@ -76,11 +89,14 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
+					const status = $("input[name=radio-status]:checked").val();
 					const param = {
 						"from_date" : dateFrom.val(),
 						"to_date" : dateTo.val(),
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
+						"is_receive" : status === 'all' ? '' : status === 'complete' ? 'Y' : 'N',
+						"is_expire" : status === 'all' ? '' : status === 'expired' ? 'Y' : 'N',
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}

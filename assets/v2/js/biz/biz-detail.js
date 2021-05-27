@@ -323,7 +323,7 @@
 
 	function createBizUcdRequest()
 	{
-		const url = api.saveUcdForBiz;
+		const url = api.saveBizUcd;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"profile_uuid" : [g_profile_uuid],

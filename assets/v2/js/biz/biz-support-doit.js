@@ -321,7 +321,7 @@
 
 	function createRequest()
 	{
-		const url = api.supportDoit;
+		const url = api.saveDoitUcdByBiz;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"company_profile_uuid" : g_profile_uuid,

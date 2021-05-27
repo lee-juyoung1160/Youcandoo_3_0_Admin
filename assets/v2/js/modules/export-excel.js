@@ -38,7 +38,7 @@
 			const data = new Uint8Array(reader.result);
 			const workbook = XLSX.read(data, {type: 'array'});
 
-			let readData = []
+			let readData = [];
 			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
 
 			let callbackArgs = [];

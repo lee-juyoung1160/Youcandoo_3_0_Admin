@@ -39,7 +39,7 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		//buildSearchMemberTable();
+		buildSearchMemberTable();
 		getBizInfo();
 		amount.trigger('focus');
 		/** 이벤트 **/
@@ -106,8 +106,10 @@
 		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
 	}
 
+	let g_balance;
 	function buildBalance(data)
 	{
+		g_balance = data.data.ucd;
 		balance.text(numberWithCommas(data.data.ucd));
 	}
 
@@ -124,7 +126,7 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		//onSubmitSearchMember();
+		onSubmitSearchMember();
 	}
 
 	function onSubmitSearchMember()
@@ -145,7 +147,7 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.getMember,
+				url: api.getMemberForSaveUcd,
 				type:"POST",
 				headers: headers,
 				global: false,
@@ -169,7 +171,8 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"nickname" : keyword.val()
+						,"search_type" : "nickname"
+						,"keyword" : isEmpty(keyword.val()) ? '!@#' : keyword.val().trim()
 					}
 
 					return JSON.stringify(param);
@@ -181,7 +184,7 @@
 			columns: [
 				{title: "닉네임",		data: "nickname",    	width: "30%" }
 				,{title: "PID",		data: "profile_uuid",   width: "45%" }
-				,{title: "보유UCD",	data: "amount_ucd",   	width: "20%",
+				,{title: "보유UCD",	data: "ucd",   			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -230,9 +233,9 @@
 
 	function addUser(data)
 	{
-		const {profile_uuid, nickname, amount_ucd} = data;
+		const {profile_uuid, nickname, ucd} = data;
 		let userObj = [];
-		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 		addedUserObj = userObj.concat(addedUserObj);
 
 		let users = [];
@@ -250,7 +253,7 @@
 			columns: [
 				{title: "닉네임", 		data: "nickname",		width: "20%" }
 				,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
-				,{title: "보유 UCD",    	data: "amount_ucd",  	width: "20%",
+				,{title: "보유 UCD",    	data: "ucd",  			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -263,7 +266,7 @@
 			],
 			serverSide: false,
 			paging: true,
-			pageLength: 3,
+			pageLength: 30,
 			select: false,
 			destroy: true,
 			initComplete: function () {
@@ -298,10 +301,10 @@
 		{
 			for (let i=0; i<tableData.length; i++)
 			{
-				const {profile_uuid, nickname, amount_ucd} = tableData[i];
+				const {profile_uuid, nickname, ucd} = tableData[i];
 
 				addedUsers.push(profile_uuid)
-				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 			}
 		}
 	}
@@ -319,15 +322,17 @@
 
 	function createRequest()
 	{
-		const url = api.saveUcdForUser;
+		const url = api.saveUserUcdByBiz;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"profile_list" : addedUsers,
+			"company_profile_uuid" : g_profile_uuid,
+			"profile_uuid" : addedUsers,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
+			"is_receive" : 'Y'
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	function createReqCallback(data)
@@ -337,7 +342,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listUcdCharge;
+		location.href = page.detailBiz + $("#hiddenIdx").val();
 	}
 
 	function validation()
@@ -352,6 +357,13 @@
 		if (Number(amount.val()) > 1000000)
 		{
 			sweetToast(message.maxAvailableUserUcd);
+			amount.trigger('focus');
+			return false;
+		}
+
+		if (g_balance < Number(amount.val()) * addedUsers.length)
+		{
+			sweetToast(message.overBalance);
 			amount.trigger('focus');
 			return false;
 		}
@@ -396,14 +408,20 @@
 
 		const url = api.getMemberFromXlsx;
 		const errMsg = `회원목록${message.ajaxLoadError}`
-		const param = JSON.stringify({ "data" : data });
+		const param = { "profile_uuid" : data };
 
-		//ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
 	}
 
 	function getExcelDataCallback(data)
 	{
-		if (!isEmpty(data.data)) selectedUsers = data.data;
-		//buildSelectedUser();
-		//calculateSelectedCount();
+		if (!isEmpty(data.data) && data.data.list.length > 0)
+		{
+			addedUserObj = data.data.list;
+			addedUsers.length = 0;
+			data.data.list.map(obj => addedUsers.push(obj.profile_uuid));
+		}
+
+		buildUpdateTable();
+		displayCountAddedUser();
 	}

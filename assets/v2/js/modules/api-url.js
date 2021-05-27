@@ -1,8 +1,10 @@
 
     const baseApiUrl = 'https://adminapi.youcandoo.co.kr/v3/';
     export const api = {
-        saveUcdForUser : baseApiUrl + 'ucd/set/charge/user/system',
-        saveUcdForBiz : baseApiUrl + 'ucd/set/charge/company/system',
+        saveUserUcdBySystem : baseApiUrl + 'ucd/set/charge/user/system',
+        saveUserUcdByBiz : baseApiUrl + 'ucd/set/charge/user/company',
+        saveDoitUcdByBiz : baseApiUrl + 'ucd/set/charge/doit/company',
+        saveBizUcd : baseApiUrl + 'ucd/set/charge/company/system',
 
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update',
@@ -159,14 +161,13 @@
         createDecryption : baseApiUrl + 'operate/set/decryption',
 
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
-        getMemberFromXlsx : baseApiUrl + '',
+        getMemberFromXlsx : baseApiUrl + 'excel/import/profile',
         getDoitFromXlsx : baseApiUrl + 'excel/import/doit',
         ucdChargeList : baseApiUrl + 'ucd/list/get/charge',
         systemWalletList : baseApiUrl + 'ucd/list/get/system',
         doitWalletList : baseApiUrl + 'ucd/list/get/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',
         pendingWalletList : baseApiUrl + 'ucd/list/get/transfer',
-        supportDoit : baseApiUrl + 'ucd/set/charge/doit/company',
 
         giftList : baseApiUrl + 'gift/get/list',
         reorderGiftList : baseApiUrl + 'gift/get/orderList',

@@ -7,18 +7,17 @@
 		ucdKeyword,
 		selUcdPageLength,
 		modalSaveUcdWallet,
-		modalBackdrop, rdoSaveUCdType, saveWalletAmount, saveWalletDesc, publicWalletBalance,
+		modalBackdrop, saveWalletAmount, saveWalletDesc, publicWalletBalance,
 	} from "../modules/elements.js";
 	import { api } from '../modules/api-url.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {initDayBtn, initSelectOption} from "../modules/common.js";
+	import {fadeoutModal, initDayBtn, initSelectOption} from "../modules/common.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
-
 
 	export function showUcdListForm()
 	{
@@ -127,25 +126,39 @@
 		});
 	}
 
-	export function onSubmitSaveUcdWallet()
+	export function onSubmitSaveDoitUcd()
 	{
-		return;
-		if (saveUcdWalletValid())
+		if (saveDoitUcdValid())
 			sweetConfirm(message.create, saveUcdWalletRequest);
 	}
 
-	function saveUcdWalletValid()
+	function saveDoitUcdValid()
 	{
+		if (isEmpty(saveWalletAmount.val()))
+		{
+			sweetToast(`UCD는 ${message.required}`);
+			saveWalletAmount.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(saveWalletDesc.val()))
+		{
+			sweetToast(`내용은 ${message.required}`);
+			saveWalletDesc.trigger('focus');
+			return false;
+		}
 
 		return true;
 	}
 
 	function saveUcdWalletRequest()
 	{
-		const url = api;
+		const url = api.saveDoitUcdBySystem;
 		const errMsg = label.submit+message.ajaxError;
 		const param = {
-			"doit_uuid" : g_doit_uuid,
+			"doit_uuid" : [g_doit_uuid],
+			"value" : saveWalletAmount.val().trim(),
+			"description" : saveWalletDesc.val().trim()
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdWalletReqCallback, errMsg, false);
@@ -158,6 +171,8 @@
 
 	function saveUcdWalletSuccess()
 	{
+		fadeoutModal();
+		getDoitBalance();
 		onSubmitSearchUcd();
 	}
 
@@ -165,9 +180,7 @@
 	{
 		modalSaveUcdWallet.fadeIn();
 		modalBackdrop.fadeIn();
-		rdoSaveUCdType.eq(0).prop('checked', true);
 		saveWalletAmount.val('');
 		saveWalletAmount.trigger('focus');
 		saveWalletDesc.val('');
 	}
-

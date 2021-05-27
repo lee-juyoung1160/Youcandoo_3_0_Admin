@@ -3,6 +3,7 @@
     export const api = {
         saveUserUcdBySystem : baseApiUrl + 'ucd/set/charge/user/system',
         saveUserUcdByBiz : baseApiUrl + 'ucd/set/charge/user/company',
+        saveDoitUcdBySystem : baseApiUrl + 'ucd/set/charge/doit/system',
         saveDoitUcdByBiz : baseApiUrl + 'ucd/set/charge/doit/company',
         saveBizUcd : baseApiUrl + 'ucd/set/charge/company/system',
 

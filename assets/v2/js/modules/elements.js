@@ -239,7 +239,7 @@
     export const rdoSaveUCdType = $("input[name=radio-save-ucd-type]");
     export const saveWalletAmount = $("#saveWalletAmount");
     export const saveWalletDesc = $("#saveWalletDesc");
-    export const btnSubmitSaveUcdWallet = $("#btnSubmitSaveUcdWallet");
+    export const btnSubmitSaveDoitUcd = $("#btnSubmitSaveDoitUcd");
 
     export const btnBackActionList = $("#btnBackActionList");
     export const actionListForm = $("#actionListForm");

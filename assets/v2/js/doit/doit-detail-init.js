@@ -75,9 +75,14 @@
 		saveWalletAmount,
 		btnSearchUcd,
 		btnResetSearchUcd,
-		btnSubmitSaveUcdWallet,
+		btnSubmitSaveDoitUcd,
 		btnSubmitSaveUcd,
-		btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk
+		btnBackToTalkList,
+		btnBackToTalkDetail,
+		btnBackToMissionList,
+		btnBackToMissionDetail,
+		btnBlinkTalk,
+		btnDisplayTalk,
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -117,7 +122,7 @@
 		initSearchUcdForm,
 		onClinkBtnSaveUcdWallet,
 		onSubmitSearchUcd,
-		onSubmitSaveUcdWallet,
+		onSubmitSaveDoitUcd,
 		buildUcdTable
 	} from "./doit-detail-ucd.js";
 	import {
@@ -223,7 +228,7 @@
 		selUcdPageLength.on('change', function () { onSubmitSearchUcd(); });
 		btnSaveUcdWallet.on('click', function () { onClinkBtnSaveUcdWallet(); });
 		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
-		btnSubmitSaveUcdWallet.on('click', function () { onSubmitSaveUcdWallet(); });
+		btnSubmitSaveDoitUcd.on('click', function () { onSubmitSaveDoitUcd(); });
 
 		initPageLength(selActionPageLength);
 		btnSearchAction.on('click', function () { onSubmitSearchActions(); });

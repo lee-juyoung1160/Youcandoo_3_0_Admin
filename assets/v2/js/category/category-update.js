@@ -1,7 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {categoryTitle, categoryIcon, thumbnail, rdoEstablish, rdoExposure, btnSubmit, dataTable, lengthInput,} from '../modules/elements.js';
+	import {categoryTitle, categoryIcon, thumbnail, rdoExposure, btnSubmit, dataTable, lengthInput,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {limitInputLength, calculateInputLength, onChangeValidateImage, onErrorImage,} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -48,10 +48,6 @@
 
 		categoryTitle.val(category_title);
 		thumbnail.attr('src', icon_image_url);
-		rdoEstablish.each(function () {
-			if ($(this).val() === is_establish)
-				$(this).prop('checked', true);
-		});
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -228,7 +224,6 @@
 				"category_uuid" : g_category_uuid,
 				"title" : categoryTitle.val().trim(),
 				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
-				"is_establish" : $('input[name=radio-establish]:checked').val(),
 			}
 
 			if (!isEmpty(data))

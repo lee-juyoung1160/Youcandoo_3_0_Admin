@@ -110,18 +110,17 @@
 			columns: [
 				{title: "From",    		data: "send_name",  		width: "20%",
 					render: function (data, type, row, meta) {
-						let sendType;
 						switch (row.send_type) {
 							case 'doit' :
 								return `[${label.doit}] ${data}`;
 							case 'profile' :
 								return `[${label.profile}] ${data}`;
 							case 'charge' :
-								return sendType = label.charge;
+								return label.charge;
 							case 'level' :
-								return sendType = label.levelup;
+								return label.levelup;
 							case 'join' :
-								return sendType = label.join;
+								return label.join;
 							default :
 								return `[${row.send_type}] ${data}`;
 						}

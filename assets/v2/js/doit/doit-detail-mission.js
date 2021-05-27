@@ -1,45 +1,45 @@
 
 	import {
-	missionCreateForm,
-	missionDetailForm,
-	missionListForm,
-	missionUpdateForm,
-	missionTitle,
-	missionStartDate,
-	missionEndDate,
-	rdoActionType,
-	promise,
-	actionExampleWrap,
-	missionTable,
-	infoMissionDate,
-	infoMissionTime,
-	infoActionType,
-	infoActionExampleWrap,
-	infoActionExampleDesc,
-	infoPromise,
-	updateMissionStartDate,
-	updateMissionEndDate,
-	updateMissionStartTime,
-	updateMissionEndTime,
-	rdoUpdateActionType,
-	updatePromise,
-	missionStartTime,
-	missionEndTime,
-	chkGalleryAllowed,
-	infoMissionTitle,
-	chkUpdateGalleryAllowed,
-	updateMissionTitle,
-	updateActionExampleDesc,
-	updateExampleWrap,
-	chkPermanent,
-	chkUpdatePermanent, actionExampleDesc,
-} from "../modules/elements.js";
+		missionCreateForm,
+		missionDetailForm,
+		missionListForm,
+		missionUpdateForm,
+		missionTitle,
+		missionStartDate,
+		missionEndDate,
+		rdoActionType,
+		promise,
+		actionExampleWrap,
+		missionTable,
+		infoMissionDate,
+		infoMissionTime,
+		infoActionType,
+		infoActionExampleWrap,
+		infoActionExampleDesc,
+		infoPromise,
+		updateMissionStartDate,
+		updateMissionEndDate,
+		updateMissionStartTime,
+		updateMissionEndTime,
+		rdoUpdateActionType,
+		updatePromise,
+		missionStartTime,
+		missionEndTime,
+		chkGalleryAllowed,
+		infoMissionTitle,
+		chkUpdateGalleryAllowed,
+		updateMissionTitle,
+		updateActionExampleDesc,
+		updateExampleWrap,
+		chkPermanent,
+		chkUpdatePermanent, actionExampleDesc, btnDeleteMission
+	} from "../modules/elements.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
 	import {fileApiV2, api} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio, onErrorImage} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, replaceAll} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
@@ -179,6 +179,15 @@
 			return false;
 		}
 
+		const actionStartTime = Number(replaceAll(missionStartTime.val(), ':', ''));
+		const actionEndTime	= Number(replaceAll(missionEndTime.val(), ':', ''));
+		if (actionStartTime > actionEndTime)
+		{
+			sweetToast(message.compareActionTime);
+			missionStartTime.trigger('focus');
+			return false;
+		}
+
 		const actionExampleThumbnail = $("#actionExampleThumbnail");
 		if (actionExampleThumbnail.length > 0 && actionExampleThumbnail[0].files.length === 0)
 		{
@@ -275,6 +284,9 @@
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
 		g_mission_uuid = mission_uuid;
 		g_action_type = mission_type;
+		if (state === '진행중')
+			btnDeleteMission.hide();
+
 		infoMissionTitle.html(buildMissionStatus(state)+mission_title);
 		infoMissionDate.text(`${start_date} ~ ${end_date}`);
 		infoMissionTime.text(`${start_time} ~ ${end_time}`);
@@ -387,6 +399,15 @@
 		{
 			sweetToast(`미션명은 ${message.required}`);
 			updateMissionTitle.trigger('focus');
+			return false;
+		}
+
+		const actionStartTime = Number(replaceAll(updateMissionStartTime.val(), ':', ''));
+		const actionEndTime	= Number(replaceAll(updateMissionEndTime.val(), ':', ''));
+		if (actionStartTime > actionEndTime)
+		{
+			sweetToast(message.compareActionTime);
+			updateMissionStartTime.trigger('focus');
 			return false;
 		}
 
@@ -511,6 +532,8 @@
 						<input type="file" id="actionExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
 					</div>`;
 				actionExampleWrap.html(exampleFileEl);
+				chkGalleryAllowed.prop('checked', false);
+				chkGalleryAllowed.prop('disabled', false);
 				$("#actionExample").on('change', function () { onChangeValidateImage(this); });
 				break;
 			case label.video :
@@ -527,6 +550,8 @@
 						<input type="file" id="actionExample" class="upload-hidden">
 					</div>`;
 				actionExampleWrap.html(exampleFileEl);
+				chkGalleryAllowed.prop('checked', false);
+				chkGalleryAllowed.prop('disabled', true);
 				$("#actionExampleThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#actionExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
@@ -539,6 +564,8 @@
 						<input type="file" id="actionExample" class="upload-hidden">
 					</div>`;
 				actionExampleWrap.html(exampleFileEl);
+				chkGalleryAllowed.prop('checked', false);
+				chkGalleryAllowed.prop('disabled', true);
 				$("#actionExample").on('change', function () { onChangeValidationAudio(this); });
 				break;
 		}
@@ -560,6 +587,7 @@
 						<img src="${contents_url}" alt="">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('disabled', false);
 				$("#updateExample").on('change', function () { onChangeValidateImage(this); });
 				break;
 			case label.video :
@@ -579,6 +607,8 @@
 						<input type="file" id="updateExample" class="upload-hidden">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('checked', false);
+				chkUpdateGalleryAllowed.prop('disabled', true);
 				$("#updateThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
@@ -591,6 +621,8 @@
 						<input type="file" id="updateExample" class="upload-hidden">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('checked', false);
+				chkUpdateGalleryAllowed.prop('disabled', true);
 				$("#updateExample").on('change', function () { onChangeValidationAudio(this); });
 				break;
 		}
@@ -608,6 +640,8 @@
 						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('checked', false);
+				chkUpdateGalleryAllowed.prop('disabled', false);
 				$("#updateExample").on('change', function () { onChangeValidateImage(this); });
 				break;
 			case label.video :
@@ -624,6 +658,8 @@
 						<input type="file" id="updateExample" class="upload-hidden">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('checked', false);
+				chkUpdateGalleryAllowed.prop('disabled', true);
 				$("#updateThumbnail").on('change', function () { onChangeValidateImage(this); });
 				$("#updateExample").on('change', function () { onChangeValidationVideo(this); });
 				break;
@@ -636,6 +672,8 @@
 						<input type="file" id="updateExample" class="upload-hidden">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
+				chkUpdateGalleryAllowed.prop('checked', false);
+				chkUpdateGalleryAllowed.prop('disabled', true);
 				$("#updateExample").on('change', function () { onChangeValidationAudio(this); });
 				break;
 		}

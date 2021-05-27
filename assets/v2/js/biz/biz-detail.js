@@ -99,13 +99,11 @@
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
-	let g_company_uuid;
 	let g_profile_uuid;
 	function getDetailCallback(data)
 	{
 		if (isSuccessResp(data))
 		{
-			g_company_uuid = data.data.company_uuid;
 			g_profile_uuid = data.data.profile_uuid;
 			buildDetail(data);
 			getBalance();
@@ -328,7 +326,7 @@
 		const url = api.saveUcdForBiz;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"company_uuid" : g_company_uuid,
+			"company_profile_uuid" : [g_profile_uuid],
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}

@@ -10,7 +10,7 @@
 
     export function getCategoryList()
     {
-        const url = api.categoryList;
+        const url = api.createDoitCategoryList;
         const errMsg = `카테고리 ${label.list} ${message.ajaxLoadError}`;
         const param = { "keyword" : "" };
 

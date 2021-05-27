@@ -2,29 +2,29 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	lengthInput,
-	btnSubmit,
-	amount,
-	keyword,
-	modalClose,
-	modalBackdrop,
-	modalOpen,
-	btnXlsxImport,
-	updateTable,
-	btnXlsxExport,
-	description,
-	nickname,
-	dataTable,
-	btnSearch,
-	totalCount, contentImage, title, balance,
-} from '../modules/elements.js';
+		lengthInput,
+		btnSubmit,
+		amount,
+		keyword,
+		modalClose,
+		modalBackdrop,
+		modalOpen,
+		btnXlsxImport,
+		updateTable,
+		btnXlsxExport,
+		description,
+		nickname,
+		dataTable,
+		btnSearch,
+		totalCount, contentImage, title, balance,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, onErrorImage,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
+	import {readExcelData, onClickImportDoitFormExport} from "../modules/export-excel.js";
 	import {
 		initTableDefaultConfig,
 		tableReloadAndStayCurrentPage,
@@ -32,13 +32,13 @@
 		toggleBtnPreviousAndNextOnTable,
 		checkBoxElement,
 	} from "../modules/tables.js";
-	let addedUsers = [];
-	let addedUserObj = [];
+	let addedDoits = [];
+	let addedDoitObj = [];
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		//buildSearchMemberTable();
+		buildSearchDoitTable();
 		getBizInfo();
 		amount.trigger('focus');
 		/** 이벤트 **/
@@ -48,7 +48,7 @@
 		modalClose		.on('click', function () { fadeoutModal(); });
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
-		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
+		btnXlsxExport	.on('click', function () { onClickImportDoitFormExport(); });
 		btnSearch		.on('click', function () { onSubmitSearchMember(); })
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
 	});
@@ -105,8 +105,10 @@
 		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
 	}
 
+	let g_balance;
 	function buildBalance(data)
 	{
+		g_balance = data.data.ucd;
 		balance.text(numberWithCommas(data.data.ucd));
 	}
 
@@ -114,7 +116,7 @@
 	{
 		if (isEmpty(nickname.val()))
 		{
-			sweetToast(`닉네임을 ${message.input}`);
+			sweetToast(`두잇명을 ${message.input}`);
 			nickname.trigger('focus');
 			return;
 		}
@@ -123,14 +125,14 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		//onSubmitSearchMember();
+		onSubmitSearchMember();
 	}
 
 	function onSubmitSearchMember()
 	{
 		if (isEmpty(keyword.val()))
 		{
-			sweetToast(`닉네임을 ${message.input}`);
+			sweetToast(`두잇명을 ${message.input}`);
 			keyword.trigger('focus');
 			return;
 		}
@@ -140,11 +142,11 @@
 		table.ajax.reload();
 	}
 
-	function buildSearchMemberTable()
+	function buildSearchDoitTable()
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.getMember,
+				url: api.getUcdDoitList,
 				type:"POST",
 				headers: headers,
 				global: false,
@@ -168,7 +170,8 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"nickname" : keyword.val()
+						,"keyword" : isEmpty(keyword.val().trim()) ? '$!@' : keyword.val().trim()
+						,"search_type" : "doit_title"
 					}
 
 					return JSON.stringify(param);
@@ -178,14 +181,14 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",		data: "nickname",    	width: "30%" }
-				,{title: "PID",		data: "profile_uuid",   width: "45%" }
-				,{title: "보유UCD",	data: "amount_ucd",   	width: "20%",
+				{title: "두잇명",		data: "doit_title",    	width: "45%" }
+				,{title: "리더",		data: "nickname",   	width: "30%" }
+				,{title: "보유 UCD",	data: "ucd",   			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: '', 		data: "profile_uuid",   width: "5%",
+				,{title: '', 		data: "doit_uuid",   	width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}
@@ -205,7 +208,7 @@
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 추가된 경우 체크박스 disabled **/
 				const checkboxEl = $(nRow).children().eq(3).find('input');
-				if (addedUsers.indexOf(aData.profile_uuid) > -1)
+				if (addedDoits.indexOf(aData.doit_uuid) > -1)
 					$(checkboxEl).prop('disabled', true);
 			},
 			drawCallback: function (settings) {
@@ -229,14 +232,14 @@
 
 	function addUser(data)
 	{
-		const {profile_uuid, nickname, amount_ucd} = data;
-		let userObj = [];
-		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
-		addedUserObj = userObj.concat(addedUserObj);
+		const {doit_uuid, doit_title, nickname, ucd} = data;
+		let doitObj = [];
+		doitObj.push({ "doit_uuid" : doit_uuid, "doit_title" : doit_title, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
+		addedDoitObj = doitObj.concat(addedDoitObj);
 
-		let users = [];
-		users.push(profile_uuid);
-		addedUsers = users.concat(addedUsers);
+		let doits = [];
+		doits.push(doit_uuid);
+		addedDoits = doits.concat(addedDoits);
 
 		buildUpdateTable();
 		displayCountAddedUser();
@@ -245,16 +248,16 @@
 	function buildUpdateTable()
 	{
 		updateTable.DataTable({
-			data: addedUserObj,
+			data: addedDoitObj,
 			columns: [
-				{title: "닉네임", 		data: "nickname",		width: "20%" }
-				,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
-				,{title: "보유 UCD",    	data: "amount_ucd",  	width: "20%",
+				{title: "두잇명", 		data: "doit_title",		width: "45%" }
+				,{title: "리더",    		data: "nickname",  		width: "30%" }
+				,{title: "보유 UCD",    	data: "ucd",  			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "",    		data: "profile_uuid",  	width: "10%",
+				,{title: "",    		data: "doit_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" data-rownum="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
 					}
@@ -262,14 +265,14 @@
 			],
 			serverSide: false,
 			paging: true,
-			pageLength: 3,
+			pageLength: 30,
 			select: false,
 			destroy: true,
 			initComplete: function () {
 				tableReloadAndStayCurrentPage(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('id', aData.profile_uuid);
+				$(nRow).attr('id', aData.doit_uuid);
 				$(nRow).children().eq(3).find('button').on('click', function () { removeRow(this); });
 			},
 			drawCallback: function (settings) {
@@ -288,8 +291,8 @@
 
 	function initAddedUserData()
 	{
-		addedUsers.length = 0;
-		addedUserObj.length = 0;
+		addedDoits.length = 0;
+		addedDoitObj.length = 0;
 
 		let table = updateTable.DataTable();
 		const tableData = table.rows().data();
@@ -297,17 +300,17 @@
 		{
 			for (let i=0; i<tableData.length; i++)
 			{
-				const {profile_uuid, nickname, amount_ucd} = tableData[i];
+				const {doit_uuid, doit_title, nickname, ucd} = tableData[i];
 
-				addedUsers.push(profile_uuid)
-				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "amount_ucd" : isEmpty(amount_ucd) ? 0 : amount_ucd});
+				addedDoits.push(doit_uuid)
+				addedDoitObj.push({ "doit_uuid" : doit_uuid, "doit_title" : doit_title, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 			}
 		}
 	}
 
 	function displayCountAddedUser()
 	{
-		totalCount.text(numberWithCommas(addedUserObj.length));
+		totalCount.text(numberWithCommas(addedDoitObj.length));
 	}
 
 	function onSubmitUcd()
@@ -318,15 +321,16 @@
 
 	function createRequest()
 	{
-		const url = api.saveUcdForUser;
+		const url = api.supportDoit;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"profile_list" : addedUsers,
+			"company_profile_uuid" : g_profile_uuid,
+			"doit_uuid" : addedDoits,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
 	}
 
 	function createReqCallback(data)
@@ -336,7 +340,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listUcdCharge;
+		location.href = page.detailBiz + $("#hiddenIdx").val();
 	}
 
 	function validation()
@@ -348,9 +352,16 @@
 			return false;
 		}
 
-		if (Number(amount.val()) > 1000000)
+		if (Number(amount.val()) > 100000000)
 		{
 			sweetToast(message.maxAvailableUserUcd);
+			amount.trigger('focus');
+			return false;
+		}
+
+		if (g_balance < Number(amount.val()) * addedDoits.length)
+		{
+			sweetToast(message.overBalance);
 			amount.trigger('focus');
 			return false;
 		}
@@ -362,9 +373,9 @@
 			return false;
 		}
 
-		if (isEmpty(addedUsers) || addedUsers.length === 0)
+		if (isEmpty(addedDoits) || addedDoits.length === 0)
 		{
-			sweetToast(`대상자 ${message.emptyList}`);
+			sweetToast(`대상 두잇 ${message.emptyList}`);
 			return false;
 		}
 
@@ -380,12 +391,12 @@
 			return ;
 		}
 
-		readExcelData(obj, getMemberFromXlsx);
+		readExcelData(obj, getDoitFromXlsx);
 
 		emptyFile(obj);
 	}
 
-	function getMemberFromXlsx(data)
+	function getDoitFromXlsx(data)
 	{
 		if (isEmpty(data))
 		{
@@ -393,16 +404,22 @@
 			return;
 		}
 
-		const url = api.getMemberFromXlsx;
-		const errMsg = `회원목록${message.ajaxLoadError}`
-		const param = JSON.stringify({ "data" : data });
+		const url = api.getDoitFromXlsx;
+		const errMsg = `두잇목록${message.ajaxLoadError}`
+		const param = { "doit_uuid" : data };
 
-		//ajaxRequestWithJsonData(true, url, param, getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
 	}
 
 	function getExcelDataCallback(data)
 	{
-		if (!isEmpty(data.data)) selectedUsers = data.data;
-		//buildSelectedUser();
-		//calculateSelectedCount();
+		if (!isEmpty(data.data.list) && data.data.list.length > 0)
+		{
+			addedDoitObj = data.data.list;
+			addedDoits.length = 0;
+			data.data.list.map(obj => addedDoits.push(obj.doit_uuid));
+		}
+
+		buildUpdateTable();
+		displayCountAddedUser();
 	}

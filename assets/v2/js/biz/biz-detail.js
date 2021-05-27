@@ -326,7 +326,7 @@
 		const url = api.saveUcdForBiz;
 		const errMsg = label.submit + message.ajaxError;
 		const param = {
-			"company_profile_uuid" : [g_profile_uuid],
+			"profile_uuid" : [g_profile_uuid],
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}

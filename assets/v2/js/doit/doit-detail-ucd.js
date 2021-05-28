@@ -16,7 +16,7 @@
 	import {fadeoutModal, initDayBtn, initSelectOption} from "../modules/common.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
-	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 
 	export function showUcdListForm()
@@ -74,8 +74,9 @@
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
 					{
-						json.recordsTotal = json.count;
-						json.recordsFiltered = json.count;
+						json.recordsTotal = json.data.count;
+						json.recordsFiltered = json.data.count;
+						json.data = json.data.list;
 					}
 					else
 					{
@@ -87,7 +88,12 @@
 				},
 				data: function (d) {
 					const param = {
-						"doit_uuid": g_doit_uuid,
+						"from_date" : searchUcdDateFrom.val(),
+						"to_date" : searchUcdDateTo.val(),
+						"search_type" : 'doit_uuid',
+						"keyword" : g_doit_uuid,
+						"page" : (d.start / d.length) + 1,
+						"limit" : d.length,
 					}
 
 					return JSON.stringify(param);
@@ -97,30 +103,28 @@
 				}
 			},
 			columns: [
-				{title: "미션명", 		data: "mission_title",		width: "40%",
+				{title: "From",   		data: "register_name",  width: "22%" }
+				,{title: "To",    		data: "receive_name",  	width: "22%" }
+				,{title: "내용",    		data: "message",  		width: "21%" }
+				,{title: "UCD", 		data: "value",			width: "10%",
 					render: function (data, type, row, meta) {
-						return `<a>${data}</a>`;
+						return numberWithCommas(data);
 					}
 				}
-				,{title: "기간", 		data: "start_date",			width: "20%",
-					render: function (data, type, row, meta) {
-						return `${row.start_date} ~ ${row.end_date}`;
-					}
-				}
-				,{title: "참여인원",    	data: "state",  			width: "15%" }
-				,{title: "상태",    		data: "state",  			width: "15%" }
+				,{title: "지급 일시",    	data: "sended",  		width: "15%" }
+				,{title: "상태",    		data: "status",  		width: "10%" }
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: Number(selUcdPageLength.val()),
 			select: false,
 			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(0).on('click', function () { onClickDetailMission(aData.idx); });
 			},
 			drawCallback: function (settings) {
+				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});

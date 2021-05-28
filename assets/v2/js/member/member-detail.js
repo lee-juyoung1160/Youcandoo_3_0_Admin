@@ -127,7 +127,7 @@
 		useremail.text(email);
 		balance.text(numberWithCommas(ucd));
 		isAuth.text(is_auth);
-		userLevel.text(level);
+		userLevel.text(getLevelName(level));
 		totalActionCount.text(numberWithCommas(action_count));
 	}
 
@@ -699,4 +699,20 @@
 		location.href = page.listMember;
 	}
 
-
+	function getLevelName(level)
+	{
+		switch (level) {
+			case '1' :
+				return '비기너';
+			case '2' :
+				return '루키';
+			case '3' :
+				return '프로';
+			case '4' :
+				return '마스터';
+			case '5' :
+				return '레전드';
+			case '6' :
+				return '파트너';
+		}
+	}

@@ -110,7 +110,7 @@
 						return `<a href="${page.detailBadge}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "설명", 	data: "description",	width: "25%" }
+				,{title: "설명", 	data: "description",	width: "15%" }
 				,{title: "타입", 	data: "type",			width: "10%",
 					render: function (data) {
 						switch (data) {
@@ -126,18 +126,24 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "난이도", 	data: "priority",		width: "10%",
+				,{title: "난이도", 			data: "priority",		width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "이미지", 	data: "image_url",		width: "10%",
+				,{title: "이미지", 			data: "image_url",		width: "8%",
 					render: function (data) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "공개여부", 	data: "is_display",		width: "10%" }
-				,{title: "등록일", 	data: "created",		width: "10%",
+				,{title: "팝업 이미지", 		data: "popup_image_url",	width: "8%",
+					render: function (data) {
+						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
+					}
+				}
+				,{title: "Lottie 타입", 		data: "popup_lottie_type",	width: "8%" }
+				,{title: "공개여부", 			data: "is_display",			width: "5%" }
+				,{title: "등록일", 			data: "created",			width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}

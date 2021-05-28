@@ -1,7 +1,17 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, content, contentImage, difficulty, qualification, selType,} from '../modules/elements.js';
+	import {
+		lengthInput,
+		btnSubmit,
+		title,
+		content,
+		contentImage,
+		difficulty,
+		qualification,
+		selType,
+		popupImage,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";
@@ -16,6 +26,7 @@
 		qualification 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		difficulty 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
+		popupImage.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit	.on('click', function () { onSubmitBadge(); });
 	});
 
@@ -27,10 +38,11 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
+		const url = fileApiV2.mission;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', contentImage[0].files[0]);
+		param.append('example', contentImage[0].files[0]);
+		param.append('thumbnail', popupImage[0].files[0]);
 
 		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
 	}
@@ -44,7 +56,9 @@
 			const param = {
 				"title" : title.val().trim(),
 				"description" : content.val().trim(),
-				"image_url" : data.image_urls.file,
+				"image_url" : data.image_urls.example,
+				"popup_image_url" : data.image_urls.thumbnail,
+				"popup_lottie_type" : $('input:radio[name=radio-type]:checked').val(),
 				"type" : selType.val(),
 				"terms" : qualification.val().trim(),
 				"priority" : difficulty.val().trim(),
@@ -101,6 +115,13 @@
 		if (badgeImg.length === 0)
 		{
 			sweetToast(`이미지는 ${message.required}`);
+			return false;
+		}
+
+		const popupImg = popupImage[0].files;
+		if (popupImg.length === 0)
+		{
+			sweetToast(`팝업 이미지는 ${message.required}`);
 			return false;
 		}
 

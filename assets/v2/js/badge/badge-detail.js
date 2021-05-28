@@ -1,7 +1,8 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {btnBack, btnList, btnUpdate, btnDelete, content, badgeTitle, contentImage, badgeType, qualification, isOpen, difficulty} from '../modules/elements.js';
+	import {btnBack, btnList, btnUpdate, btnDelete, content, badgeTitle, contentImage, badgeType, qualification, isOpen, difficulty,
+		popupImage, lottieType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import {getPathName, numberWithCommas, splitReverse,} from "../modules/utils.js";
@@ -41,7 +42,7 @@
 	let g_badge_uuid;
 	function buildDetail(data)
 	{
-		const { badge_uuid, title, description, image_url, type, terms, priority, is_display } = data.data;
+		const { badge_uuid, title, description, image_url, popup_image_url, popup_lottie_type, type, terms, priority, is_display } = data.data;
 
 		g_badge_uuid = badge_uuid;
 
@@ -51,6 +52,8 @@
 		qualification.text(numberWithCommas(terms));
 		difficulty.text(numberWithCommas(priority));
 		contentImage.attr('src', image_url);
+		popupImage.attr('src', popup_image_url);
+		lottieType.text(popup_lottie_type);
 		isOpen.text(is_display);
 
 		onErrorImage();

@@ -1,7 +1,19 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {content, badgeTitle, contentImage, thumbnail, qualification, difficulty, selType, lengthInput, btnSubmit, rdoOpen,} from '../modules/elements.js';
+	import {
+	content,
+	badgeTitle,
+	contentImage,
+	thumbnail,
+	qualification,
+	difficulty,
+	selType,
+	lengthInput,
+	btnSubmit,
+	rdoOpen,
+	popupImage, rdoType, popupThumbnail,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
 	import {getPathName, initInputNumber, isEmpty,splitReverse,} from "../modules/utils.js";
@@ -21,6 +33,7 @@
 		qualification 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		difficulty 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
+		popupImage.on('change', function () { onChangeValidateImage(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdateBadge(); });
 	});
 
@@ -43,7 +56,7 @@
 	let g_badge_uuid;
 	function buildDetail(data)
 	{
-		const { badge_uuid, title, description, image_url, type, terms, priority, is_display } = data.data;
+		const { badge_uuid, title, description, image_url, popup_image_url, popup_lottie_type, type, terms, priority, is_display } = data.data;
 
 		g_badge_uuid = badge_uuid;
 
@@ -53,6 +66,11 @@
 		qualification.val(terms);
 		difficulty.val(priority);
 		thumbnail.attr('src', image_url);
+		popupThumbnail.attr('src', popup_image_url);
+		rdoType.each(function () {
+			if ($(this).val() === popup_lottie_type)
+				$(this).prop('checked', true);
+		})
 		rdoOpen.each(function () {
 			if ($(this).val() === is_display)
 				$(this).prop('checked', true);
@@ -67,17 +85,21 @@
 		if (validation())
 		{
 			const imageFile = contentImage[0].files;
-			const requestFn = imageFile.length === 0 ? updateRequest : fileUploadReq;
+			const popupFile = popupImage[0].files;
+			const requestFn = (imageFile.length > 0 || popupFile.length > 0)? fileUploadReq: updateRequest;
 			sweetConfirm(message.modify, requestFn);
 		}
 	}
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
+		const url = fileApiV2.mission;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
-		param.append('file', contentImage[0].files[0]);
+		const imageFile = contentImage[0].files;
+		const popupFile = popupImage[0].files;
+		param.append('example', imageFile.length > 0 ? contentImage[0].files[0] : '');
+		param.append('thumbnail', popupFile.length > 0 ? popupImage[0].files[0] : '');
 
 		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
 	}
@@ -92,6 +114,7 @@
 				"badge_uuid" : g_badge_uuid,
 				"title" : badgeTitle.val().trim(),
 				"description" : content.val().trim(),
+				"popup_lottie_type" : $('input:radio[name=radio-type]:checked').val(),
 				"type" : selType.val(),
 				"terms" : qualification.val().trim(),
 				"priority" : difficulty.val().trim(),
@@ -99,7 +122,13 @@
 			}
 
 			if (!isEmpty(data))
-				param["image_url"] = data.image_urls.file;
+			{
+				const {example, thumbnail} = data.image_urls;
+				if (!isEmpty(example))
+					param["image_url"] = data.image_urls.example;
+				if (!isEmpty(thumbnail))
+					param["popup_image_url"] = data.image_urls.thumbnail;
+			}
 
 			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 		}

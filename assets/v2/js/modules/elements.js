@@ -232,13 +232,11 @@
     export const btnSaveUcdWallet = $("#btnSaveUcdWallet");
     export const searchUcdDateFrom = $("#searchUcdDateFrom");
     export const searchUcdDateTo = $("#searchUcdDateTo");
-    export const selUcdSearchType = $("#selUcdSearchType");
     export const ucdKeyword = $("#ucdKeyword");
     export const btnSearchUcd = $("#btnSearchUcd");
     export const btnResetSearchUcd = $("#btnResetSearchUcd");
     export const selUcdPageLength = $("#selUcdPageLength");
     export const modalSaveUcdWallet = $("#modalSaveUcdWallet");
-    export const rdoSaveUCdType = $("input[name=radio-save-ucd-type]");
     export const saveWalletAmount = $("#saveWalletAmount");
     export const saveWalletDesc = $("#saveWalletDesc");
     export const btnSubmitSaveDoitUcd = $("#btnSubmitSaveDoitUcd");
@@ -466,6 +464,9 @@
     export const badgeTitle = $("#badgeTitle");
     export const badgeType = $("#badgeType");
     export const isOpen = $("#isOpen");
+    export const popupImage = $("#popupImage");
+    export const popupThumbnail = $("#popupThumbnail");
+    export const lottieType = $("#lottieType");
 
     /** 암/복호화 **/
     export const inputString = $("#inputString");

@@ -95,7 +95,7 @@
 			columns: [
 				{title: "두잇명",    		data: "send_name",  	width: "19%" }
 				,{title: "내용",    		data: "message",  		width: "20%" }
-				,{title: "실행자",    	data: "register_name",  width: "15%",	
+				,{title: "실행자",    	data: "register_name",  width: "15%",
 					render: function (data, type, row, meta) {
 						return row.register_is_company === 'Y' ? label.bizIcon + data : data;
 					}

@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+/* 회원 상세 상단 버튼*/
+.member-detail .main-top .right-wrap {
+	display: flex;
+	margin-left: auto;
+}
+.member-detail .main-top .right-wrap .btn-level {
+	margin-right: 10px;
+}
+
 /* 회원상세 좌측  nav */
 .member-detail .member-nav {
 	position: fixed;
@@ -71,3 +80,5 @@
 .level-list .table-wrap {
 	margin-top: 50px;
 }
+
+

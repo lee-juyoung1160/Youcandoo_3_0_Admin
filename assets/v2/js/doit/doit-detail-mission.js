@@ -209,6 +209,14 @@
 			return false;
 		}
 
+		const promiseLength = promise.val().trim().split('\n').length;
+		if (promiseLength > 5)
+		{
+			sweetToast(`공약은 5줄 이하로 ${message.input}`);
+			promise.trigger('focus');
+			return false;
+		}
+
 		return true;
 	}
 
@@ -423,6 +431,14 @@
 		{
 			sweetToast(`인증 예시 설명은 ${message.required}`);
 			updateActionExampleDesc.trigger('focus');
+			return false;
+		}
+
+		const promiseLength = updatePromise.val().trim().split('\n').length;
+		if (promiseLength > 5)
+		{
+			sweetToast(`공약은 5줄 이하로 ${message.input}`);
+			updatePromise.trigger('focus');
 			return false;
 		}
 

@@ -13,6 +13,7 @@
         memberList : baseApiUrl + 'profile/get/list',
         detailMember : baseApiUrl + 'profile/get/detail/info',
         levelInfo : baseApiUrl + 'profile/get/level',
+        levelHistory : baseApiUrl + 'profile/get/level/history',
         deviceInfo : baseApiUrl + 'profile/get/device/info',
         memberDoitList : baseApiUrl + 'profile/get/doit',
         memberCategoryList : baseApiUrl + 'profile/get/category',

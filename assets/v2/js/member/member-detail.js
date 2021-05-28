@@ -35,7 +35,14 @@
 		modalActionExampleDesc,
 		modalActionWarningReason,
 		btnSubmitSaveUcd,
-		description, ucdInfoTable, categoryWrap, ulLevelTab, levelInfoWrap, levelHistoryWrap
+		description,
+		ucdInfoTable,
+		categoryWrap,
+		ulLevelTab,
+		levelInfoWrap,
+		levelHistoryWrap,
+		openedDoitCount,
+		openedDoitAction, levelTable, btnLevenWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -140,7 +147,7 @@
 				getLevelInfo();
 				break;
 			case '#levelHistoryWrap' :
-				buildLeveTable();
+				getLevelHistory();
 				break;
 		}
 
@@ -159,7 +166,7 @@
 			"profile_uuid" : g_profile_uuid
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getLevelInfoCallback, errMsg, false);
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getLevelInfoCallback, errMsg, false);
 	}
 
 	function getLevelInfoCallback(data)
@@ -169,19 +176,57 @@
 
 	function buildLevelInfo(data)
 	{
-		action_count: "0"
-		create_doit_count: "59"
-		level_name: "파트너"
-		total_action_count: "998"
-		const { level_name, action_count, create_doit_count, total_action_count } = data.data;
-
+		const { level_name, level, total_doit_action_count, create_doit_count, action_count } = data.data;
+		toggleBtnLevel(level);
 		userLevel.text(level_name);
 		totalActionCount.text(numberWithCommas(action_count));
+		openedDoitCount.text(numberWithCommas(create_doit_count));
+		openedDoitAction.text(numberWithCommas(total_doit_action_count));
 	}
 
-	function buildLeveTable()
+	function getLevelHistory()
 	{
+		const url = api.levelHistory;
+		const errMsg = label.list + message.ajaxLoadError;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
 
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getLevelHistoryCallback, errMsg, false);
+	}
+
+	function getLevelHistoryCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			data.recordsTotal = data.count;
+			data.recordsFiltered = data.count;
+			buildLeveTable(data);
+		}
+		else
+			sweetToast(data.msg);
+	}
+
+	function buildLeveTable(data)
+	{
+		levelTable.DataTable({
+			data: data.data,
+			columns: [
+				{title: "레벨명",    	data: "level_name",  	width: "50%" }
+				,{title: "설정일시", 	data: "created",		width: "50%" }
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+			}
+		});
 	}
 
 	function getDeviceInfo()
@@ -299,6 +344,7 @@
 				url: api.memberDoitList,
 				type:"POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
@@ -364,6 +410,7 @@
 				url: api.memberDoitList,
 				type:"POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
@@ -721,20 +768,38 @@
 		location.href = page.listMember;
 	}
 
-	function getLevelName(level)
+	function toggleBtnLevel(level)
 	{
+		let btnLevels = '';
 		switch (level) {
 			case '1' :
-				return '비기너';
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				break;
 			case '2' :
-				return '루키';
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				break;
 			case '3' :
-				return '프로';
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				break;
 			case '4' :
-				return '마스터';
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>
+							<button id="btnLevelUp" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.레전드로 승급</button>`;
+				break;
 			case '5' :
-				return '레전드';
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>
+							<button id="btnLevelDown" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.마스터로 강등</button>`;
+				break;
 			case '6' :
-				return '파트너';
+				btnLevels = `<button id="btnTermination" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.파트너 해제</button>`;
+				break;
 		}
+
+		btnLevenWrap.html(btnLevels);
+
+		$("#btnLevenWrap button").on('click', function () { onClickBtnLevel(this) });
+	}
+
+	function onClickBtnLevel(obj)
+	{
+		console.log(obj.id)
 	}

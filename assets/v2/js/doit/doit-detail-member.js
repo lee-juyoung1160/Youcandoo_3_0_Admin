@@ -453,7 +453,7 @@
 			searching: true,
 			dom: 'lrtp',
 			paging: true,
-			pageLength: 1,
+			pageLength: 5,
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
@@ -514,7 +514,7 @@
 			data.recordsTotal = data.data.count;
 			data.recordsFiltered = data.data.count;
 			rewardMembers = data.data.list;
-			buildRewardMember(data)
+			buildRewardMember();
 		}
 		else
 			sweetToast(data.msg);

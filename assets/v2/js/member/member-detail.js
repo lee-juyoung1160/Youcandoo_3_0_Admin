@@ -52,6 +52,7 @@
 		moveSection();
 		/** 상세 불러오기 **/
 		getBasicInfo();
+		getLevelInfo();
 		getDeviceInfo();
 		getCategory();
 		getOpenedDoit();
@@ -119,7 +120,7 @@
 
 	function buildBasicInfo(data)
 	{
-		const { profile_uuid, nickname, phone, email, is_auth, level, ucd, action_count } = data.data;
+		const { profile_uuid, nickname, phone, email, is_auth, ucd } = data.data;
 
 		profileId.text(profile_uuid);
 		contact.text(phone);
@@ -127,8 +128,6 @@
 		useremail.text(email);
 		balance.text(numberWithCommas(ucd));
 		isAuth.text(is_auth);
-		userLevel.text(getLevelName(level));
-		totalActionCount.text(numberWithCommas(action_count));
 	}
 
 	function onClickLevelTab(event)
@@ -154,7 +153,30 @@
 
 	function getLevelInfo()
 	{
+		const url = api.levelInfo;
+		const errMsg = `레벨정보${message.ajaxLoadError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
 
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getLevelInfoCallback, errMsg, false);
+	}
+
+	function getLevelInfoCallback(data)
+	{
+		isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(data.msg);
+	}
+
+	function buildLevelInfo(data)
+	{
+		action_count: "0"
+		create_doit_count: "59"
+		level_name: "파트너"
+		total_action_count: "998"
+		const { level_name, action_count, create_doit_count, total_action_count } = data.data;
+
+		userLevel.text(level_name);
+		totalActionCount.text(numberWithCommas(action_count));
 	}
 
 	function buildLeveTable()

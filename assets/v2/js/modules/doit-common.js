@@ -88,7 +88,10 @@
             chkIsAnswer.prop('disabled', true);
         }
         else
+        {
+            chkIsAnswer.prop('checked', true);
             chkIsAnswer.prop('disabled', false);
+        }
 
         toggleQuestion(obj)
     }

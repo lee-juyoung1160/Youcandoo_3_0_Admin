@@ -93,16 +93,16 @@
 				}
 			},
 			columns: [
-				{title: "두잇명",    		data: "send_name",  	width: "20%" }
-				,{title: "내용",    		data: "message",  		width: "15%" }
-				,{title: "실행자",    	data: "register_name",  width: "15%",
+				{title: "두잇명",    		data: "send_name",  	width: "19%" }
+				,{title: "내용",    		data: "message",  		width: "20%" }
+				,{title: "실행자",    	data: "register_name",  width: "15%",	
 					render: function (data, type, row, meta) {
 						return row.register_is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
 				,{title: "To",    		data: "receive_name",  	width: "15%" }
-				,{title: "구분",    		data: "transfer_type",  width: "10%" }
-				,{title: "UCD", 		data: "value",			width: "10%",
+				,{title: "구분",    		data: "transfer_type",  width: "8%" }
+				,{title: "UCD", 		data: "value",			width: "8%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}

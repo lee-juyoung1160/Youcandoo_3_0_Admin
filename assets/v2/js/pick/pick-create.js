@@ -87,14 +87,14 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 5,
+			pageLength: 10,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
 			},
 			destroy: true,
 			initComplete: function () {
-				addSelectEvent();
+				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 추가된 경우 체크박스 disabled **/
@@ -126,15 +126,17 @@
 				</p>`
 	}
 
-	function addSelectEvent()
-	{
-		const chkBoxes = $("input[name=chk-row]");
-		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
-		dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
-	}
-
 	function onClickCheckBox(dt, indexes)
 	{
+		const addedRows = updateTable.find('tbody').children();
+		if (addedRows.length >= 10)
+		{
+			sweetToast(message.maxAddTen);
+			const table = dataTable.DataTable();
+			table.row(indexes).deselect();
+			$("input[name=chk-row]").eq(indexes).prop('checked', false);
+			return;
+		}
 		addDoit(dt, indexes);
 		initAddedDoitUuid();
 		tableReloadAndStayCurrentPage(dataTable);

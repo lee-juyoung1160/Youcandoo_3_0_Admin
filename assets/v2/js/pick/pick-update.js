@@ -60,7 +60,8 @@
 		{
 			let rowEl = '';
 			doit_list.map(obj => {
-				const {doit_uuid, doit_image_url, doit_title, doit_keyword, profile_nickname, is_company, member_count} = obj;
+				const {doit_uuid, doit_image_url, doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_status} = obj;
+				const statusEl = doit_status === 'open' ? `<span class="badge badge-success">진행중</span>` : `<span class="badge badge-warning">운영정지</span>`;
 				let keywordsEl = '';
 				if (doit_keyword.length > 0)
 				{
@@ -82,7 +83,7 @@
 						</ul>
 						<p class="desc-sub">
 							<i class="fas fa-user"></i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
-							<span class="badge badge-success">진행중</span>
+							${statusEl}
 						</p>
 					</td>
 					<td>
@@ -167,14 +168,14 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 5,
+			pageLength: 10,
 			select: {
 				style: 'single',
 				selector: ':checkbox'
 			},
 			destroy: true,
 			initComplete: function () {
-				addSelectEvent();
+				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/
@@ -193,7 +194,7 @@
 	{
 		const {doit_title, doit_keyword, profile_nickname, is_company, member_count} = data;
 		let keywordsEl = '';
-		if (doit_keyword.length > 0)
+		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
 		{
 			doit_keyword.map(value => {
 				keywordsEl += `<li># <span>${value}</span></li>`;
@@ -202,19 +203,22 @@
 		return `<p class="title">${doit_title}</p>
 				<ul class="tag-list clearfix">${keywordsEl}</ul>
 				<p class="desc-sub"><i class="fas fa-user">
-					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / <span class="badge badge-success">진행중</span>
+					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
+					<span class="badge badge-success">진행중</span>
 				</p>`
-	}
-
-	function addSelectEvent()
-	{
-		const chkBoxes = $("input[name=chk-row]");
-		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
-		dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 	}
 
 	function onClickCheckBox(dt, indexes)
 	{
+		const addedRows = updateTable.find('tbody').children();
+		if (addedRows.length >= 10)
+		{
+			sweetToast(message.maxAddTen);
+			const table = dataTable.DataTable();
+			table.row(indexes).deselect();
+			$("input[name=chk-row]").eq(indexes).prop('checked', false);
+			return;
+		}
 		addDoit(dt, indexes);
 		initAddedDoitUuid();
 		tableReloadAndStayCurrentPage(dataTable);

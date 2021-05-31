@@ -1,7 +1,17 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import { previewTable, dataTable, updateTable, btnUpdate, previewTitle, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
+	import {
+		previewTable,
+		dataTable,
+		updateTable,
+		btnUpdate,
+		previewTitle,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		btnCreate
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
@@ -20,7 +30,20 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnUpdate		.on("click", function () { onSubmitUpdate(); });
+		btnCreate		.on("click", function () { onClickBtnCreate(); });
 	});
+
+	function onClickBtnCreate()
+	{
+		const rows = dataTable.find('tbody').children();
+		if (rows.length >= 10)
+		{
+			sweetToast(message.maxAddTen);
+			return;
+		}
+
+		location.href = page.createPick;
+	}
 
 	function initTableSort()
 	{
@@ -128,7 +151,8 @@
 		{
 			let previewEl = '';
 			data.data.map(obj => {
-				const {doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_image_url} = obj;
+				const {doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_image_url, doit_status} = obj;
+				const statusEl = doit_status === 'open' ? `<span class="badge badge-success">진행중</span>` : `<span class="badge badge-warning">운영정지</span>`;
 				let keywordsEl = '';
 				if (doit_keyword.length > 0)
 				{
@@ -150,7 +174,7 @@
 						</ul>
 						<p class="desc-sub">
 							<i class="fas fa-user"></i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
-							<span class="badge badge-success">진행중</span>
+							${statusEl}
 						</p>
 					</td>
 				</tr>`

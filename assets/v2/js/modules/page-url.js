@@ -29,6 +29,7 @@
 
         ,listPick : rootContext + 'doit/pick'
         ,updatePick : rootContext + 'doit/pick/update/'
+        ,createPick : rootContext + 'doit/pick/create'
 
         ,listNotice : rootContext + 'service/notice'
         ,detailNotice : rootContext + 'service/notice/detail/'

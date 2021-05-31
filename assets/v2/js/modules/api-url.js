@@ -46,6 +46,7 @@
 
         keywordList : baseApiUrl + 'keyword/get/list',
         createKeyword : baseApiUrl + 'keyword/create',
+        updateKeyword : baseApiUrl + 'keyword/update',
 
         doitSponsorList : baseApiUrl + 'doit/get/company',
         doitList : baseApiUrl + 'doit/list',
@@ -144,7 +145,6 @@
         createStory : baseApiUrl + 'story/create',
         detailStory : baseApiUrl + 'story/get/detail/info',
         updateStory : baseApiUrl + 'story/update',
-        /*deleteStory : baseApiUrl + 'story/delete',*/
         reorderStory : baseApiUrl + 'story/set/orders',
 
         eventList : baseApiUrl + 'event/get/list',

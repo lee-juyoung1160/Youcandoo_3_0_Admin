@@ -1,11 +1,11 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import { dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate,
-		modalUpdate, modalCreate, keyword, btnSubmit, btnCreate} from '../modules/elements.js';
+	import {dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate,
+		modalUpdate, modalCreate, keyword, btnSubmit, btnCreate, lengthInput} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {fadeoutModal, overflowHidden} from "../modules/common.js";
-	import { initTableDefaultConfig } from '../modules/tables.js';
+	import {calculateInputLength, fadeoutModal, limitInputLength, overflowHidden} from "../modules/common.js";
+	import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -14,8 +14,9 @@
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		/** 목록 불러오기 **/
-		//getKeywordList();
+		getKeywordList();
 		/** 이벤트 **/
+		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		btnCreate		.on("click", function () { onClickModalCreateOpen(); });
 		btnUpdate		.on("click", function () { onClickModalUpdateOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -43,7 +44,7 @@
 
 	function getKeywordList()
 	{
-		const url = api.categoryList;
+		const url = api.keywordList;
 		const errMsg = label.list + message.ajaxLoadError
 
 		ajaxRequestWithJsonData(true, url, null, getKeywordListCallback, errMsg, false);
@@ -66,7 +67,7 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "추천검색어",	data: "is_exposure" }
+				{title: "추천검색어",	data: "keyword" }
 			],
 			serverSide: false,
 			paging: false,
@@ -77,6 +78,7 @@
 			fnRowCallback: function( nRow, aData ) {
 			},
 			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
 	}
@@ -99,8 +101,8 @@
 		updateTable.DataTable({
 			data: data,
 			columns: [
-				{title: "추천검색어", 		data: "category_title",		width: "80%" }
-				,{title: "삭제",    		data: "category_uuid", 		width: "20%",
+				{title: "추천검색어", 		data: "keyword",	width: "80%" }
+				,{title: "삭제",    		data: "idx", 		width: "20%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
 					}
@@ -117,7 +119,7 @@
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('data-uuid', aData.keyword_uuid);
+				$(nRow).attr('data-idx', aData.idx);
 			},
 			drawCallback: function (settings) {
 			}
@@ -144,42 +146,17 @@
 
 	function updateRequest()
 	{
-		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteCategory;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "category_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
-	}
-
-	function reorderRequest()
-	{
 		const uuids = getRowsId();
-		const param = { "category_list" : uuids };
-		const url 	= api.reorderCategory;
+		const param = { "keyword_list" : uuids };
+		const url = api.updateKeyword;
 		const errMsg = label.modify + message.ajaxError;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
-	function reorderReqCallback(data)
+	function updateReqCallback(data)
 	{
-		sweetToastAndCallback(data, reorderSuccess);
-	}
-
-	function reorderSuccess()
-	{
-		fadeoutModal();
-		getKeywordList();
+		sweetToastAndCallback(data, requestSuccess);
 	}
 
 	function updateValidation()
@@ -196,10 +173,18 @@
 
 	function onClickModalCreateOpen()
 	{
+		const rows = dataTable.find('tbody').children();
+		if (rows.length >= 10)
+		{
+			sweetToast(message.maxAddTen);
+			return;
+		}
 		modalCreate.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
+		keyword.val('');
 		keyword.trigger('focus');
+		calculateInputLength();
 	}
 
 	function onSubmitKeyword()
@@ -233,7 +218,13 @@
 
 	function createReqCallback(data)
 	{
-		sweetToastAndCallback(data, getKeywordList);
+		sweetToastAndCallback(data, requestSuccess);
+	}
+
+	function requestSuccess()
+	{
+		fadeoutModal();
+		getKeywordList();
 	}
 
 	function getRowsId()
@@ -243,7 +234,7 @@
 
 		for (let i=0; i<rows.length; i++)
 		{
-			const uuid = $(rows[i]).data('uuid');
+			const uuid = $(rows[i]).data('idx');
 			if (isEmpty(uuid)) continue;
 			uuids.push(uuid);
 		}

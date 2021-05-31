@@ -111,7 +111,8 @@
 
 	function buildDoitInfo(data)
 	{
-		const {doit_title, doit_keyword, profile_nickname, is_company, member_count} = data;
+		const {doit_title, doit_keyword, profile_nickname, is_company, member_count, doit_status} = data;
+		const statusEl = doit_status === 'open' ? `<span class="badge badge-success">진행중</span>` : `<span class="badge badge-warning">운영정지</span>`;
 		let keywordsEl = '';
 		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
 		{
@@ -122,7 +123,8 @@
 		return `<p class="title">${doit_title}</p>
 				<ul class="tag-list clearfix">${keywordsEl}</ul>
 				<p class="desc-sub"><i class="fas fa-user">
-					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / <span class="badge badge-success">진행중</span>
+					</i> ${is_company === 'Y' ? label.bizIcon + profile_nickname : profile_nickname} / ${numberWithCommas(member_count)}명 참여 / 
+					${statusEl}
 				</p>`
 	}
 

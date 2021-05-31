@@ -24,7 +24,6 @@
 		infoTalkIsBlind,
 		infoTalkAttachWrap,
 		talkCommentWrap,
-		createTalkCommentWrap,
 		commentTalk,
 		updateTalk,
 		rdoUpdateAttachType,
@@ -201,7 +200,6 @@
 		});
 	}
 
-
 	const g_talk_comment_page_length = 10;
 	let g_param_view_page_length = 10;
 	let g_talk_comment_last_idx = 0;
@@ -237,8 +235,7 @@
 		{
 			g_talk_uuid = data.data.board_uuid;
 			buildTalkDetail(data);
-			if (data.data.is_notice === 'N')
-				getTalkComments();
+			getTalkComments();
 		}
 		else
 			sweetToast(data.msg);
@@ -252,16 +249,7 @@
 
 		g_board_uuid = board_uuid;
 		g_talk_attach_type = contents_type;
-		if (is_notice === 'Y')
-		{
-			talkCommentWrap.hide();
-			createTalkCommentWrap.hide();
-		}
-		else
-		{
-			talkCommentWrap.show();
-			createTalkCommentWrap.show();
-		}
+
 		infoTalkNickname.html(is_company === 'Y' ? label.bizIcon + nickname : nickname);
 		infoTalkCreated.text(created);
 		infoTalkIsBlind.text(is_blind);
@@ -908,7 +896,7 @@
 				"doit_uuid" : g_doit_uuid,
 				"board_uuid" : g_talk_uuid,
 				"board_body" : updateTalk.val().trim(),
-				"is_notice" :chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
+				"is_notice" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
 			}
 
 			if (!isEmpty(data))

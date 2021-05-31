@@ -432,7 +432,7 @@
     export const openedDoitCount = $("#openedDoitCount");
     export const openedDoitAction = $("#openedDoitAction");
     export const levelTable = $("#levelTable");
-    export const btnLevenWrap = $("#btnLevenWrap");
+    export const btnLevelWrap = $("#btnLevelWrap");
     export const btnModalUcd = $("#btnModalUcd");
     export const modalUcd = $("#modalUcd");
     export const deviceInfoTableBody = $("#deviceInfoTableBody");

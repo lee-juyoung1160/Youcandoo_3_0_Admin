@@ -42,7 +42,7 @@
 		levelInfoWrap,
 		levelHistoryWrap,
 		openedDoitCount,
-		openedDoitAction, levelTable, btnLevenWrap
+		openedDoitAction, levelTable, btnLevelWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -773,33 +773,103 @@
 		let btnLevels = '';
 		switch (level) {
 			case '1' :
-				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.파트너 설정</button>`;
 				break;
 			case '2' :
-				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.파트너 설정</button>`;
 				break;
 			case '3' :
-				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>`;
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.파트너 설정</button>`;
 				break;
 			case '4' :
-				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>
-							<button id="btnLevelUp" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.레전드로 승급</button>`;
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.파트너 설정</button>
+							<button id="btnLevelUp" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.레전드로 승급</button>`;
 				break;
 			case '5' :
-				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-level-up-alt"></i> Lv.파트너 설정</button>
+				btnLevels = `<button id="btnPartner" type="button" class="btn-sm btn-outline-secondary"><i class="fas fa-star"></i> Lv.파트너 설정</button>
 							<button id="btnLevelDown" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.마스터로 강등</button>`;
 				break;
 			case '6' :
-				btnLevels = `<button id="btnTermination" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.파트너 해제</button>`;
+				btnLevels = `<button id="btnCancel" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-level-down-alt"></i> Lv.파트너 해제</button>`;
 				break;
 		}
 
-		btnLevenWrap.html(btnLevels);
+		btnLevelWrap.html(btnLevels);
 
-		$("#btnLevenWrap button").on('click', function () { onClickBtnLevel(this) });
+		$("#btnLevelWrap button").on('click', function () { onClickBtnLevel(this) });
 	}
 
+	let levelApi;
+	let level;
 	function onClickBtnLevel(obj)
 	{
-		console.log(obj.id)
+		const btnId = obj.id;
+		levelApi = getLevelApiUrl(btnId);
+		level = calculateLevel(btnId);
+		sweetConfirm(getConfirmMessage(btnId), levelRequest);
+	}
+
+	function levelRequest()
+	{
+		const url = levelApi;
+		const errMsg = `레벨${message.ajaxError}`;
+		const param = {
+			"profile_uuid" : g_profile_uuid
+		}
+		if (!isEmpty(level))
+			param["level"] = level;
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), levelRequestCallback, errMsg, false);
+	}
+
+	function levelRequestCallback(data)
+	{
+		sweetToastAndCallback(data, levelRequestSuccess)
+	}
+
+	function levelRequestSuccess()
+	{
+		getLevelInfo();
+	}
+
+	function calculateLevel(btnId)
+	{
+		switch (btnId) {
+			case 'btnPartner' :
+				return 6;
+			case 'btnLevelUp' :
+				return 5;
+			case 'btnLevelDown'	:
+				return 4;
+			case 'btnCancel' :
+				return '';
+		}
+	}
+
+	function getLevelApiUrl(btnId)
+	{
+		switch (btnId) {
+			case 'btnLevelUp' :
+				return api.levelUp;
+			case 'btnLevelDown'	 :
+				return api.levelDown;
+			case 'btnCancel'	 :
+				return api.cancelPartner;
+			default :
+				return api.levelUp;
+		}
+	}
+
+	function getConfirmMessage(btnId)
+	{
+		switch (btnId) {
+			case 'btnLevelUp' :
+				return '확인을 누르면 레전드로 승급합니다.';
+			case 'btnLevelDown'	 :
+				return '확인을 누르면 마스터로 강등합니다.';
+			case 'btnCancel'	 :
+				return '확인을 누르면 파트너 등급을 해제합니다.';
+			default :
+				return '확인을 누르면 파트너 등급으로 설정합니다.';
+		}
 	}

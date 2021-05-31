@@ -12,6 +12,9 @@
 
         memberList : baseApiUrl + 'profile/get/list',
         detailMember : baseApiUrl + 'profile/get/detail/info',
+        levelUp : baseApiUrl + 'profile/set/levelUp',
+        levelDown : baseApiUrl + 'profile/set/levelDown',
+        cancelPartner : baseApiUrl + 'profile/set/releasePartner',
         levelInfo : baseApiUrl + 'profile/get/level',
         levelHistory : baseApiUrl + 'profile/get/level/history',
         deviceInfo : baseApiUrl + 'profile/get/device/info',

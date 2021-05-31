@@ -554,7 +554,8 @@
 				break;
 			case label.video :
 				exampleFileEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExampleThumbnail">업로드</label>
 						<input type="file" id="actionExampleThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -608,7 +609,8 @@
 				break;
 			case label.video :
 				updateExampleFileEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
 						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -662,7 +664,8 @@
 				break;
 			case label.video :
 				updateExampleFileEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
 						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -712,6 +715,3 @@
 
 		isPermanent ? updateMissionEndDate.datepicker("setDate", "9999-12-31") : updateMissionEndDate.datepicker("setDate", "today");
 	}
-
-
-

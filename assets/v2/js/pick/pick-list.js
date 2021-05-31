@@ -34,7 +34,7 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*92)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*90)+'px');
 		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
 		return $(el);
 	}

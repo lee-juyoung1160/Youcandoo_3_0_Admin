@@ -10,6 +10,8 @@
 	import { page } from "../modules/page-url.js";
 	import {isEmpty} from "../modules/utils.js";
 
+	let updateTableData = [];
+
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
@@ -35,8 +37,7 @@
 	{
 		let tdElement = $(el).children();
 		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*60)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*70)+'px');
 		return $(el);
 	}
 
@@ -85,6 +86,8 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.is_exposure === 'Y')
+					updateTableData.push(aData);
 			},
 			drawCallback: function (settings) {
 				onErrorImage();
@@ -95,31 +98,21 @@
 
 	function onClickModalOpen()
 	{
-		g_delete_uuids.length = 0;
 		fadeinModal();
 		buildUpdateTable();
 	}
 
 	function buildUpdateTable()
 	{
-		const table = dataTable.DataTable();
-		const tableData = table.rows().data();
-		const data = tableData.length > 0 ? tableData : [];
-
 		updateTable.DataTable({
-			data: data,
+			data: updateTableData,
 			columns: [
 				{title: "아이콘",    		data: "icon_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "카테고리명", 	data: "category_title",		width: "60%" }
-				,{title: "삭제",    		data: "category_uuid", 		width: "20%",
-					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
-					}
-				}
+				,{title: "카테고리명", 	data: "category_title",		width: "70%" }
 			],
 			serverSide: false,
 			paging: false,
@@ -129,7 +122,6 @@
 			scrollCollapse: true,
 			initComplete: function () {
 				initTableSort();
-				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('data-uuid', aData.category_uuid);
@@ -140,40 +132,9 @@
 		});
 	}
 
-	function addDeleteEvent()
-	{
-		$(".delete-btn").on('click', function () { deleteRow(this); })
-	}
-
-	let g_delete_uuids = [];
-	function deleteRow(obj)
-	{
-		$(obj).closest('tr').remove();
-		g_delete_uuids.push(obj.id);
-	}
-
 	function onSubmitUpdate()
 	{
-		sweetConfirm(message.change, updateRequest);
-	}
-
-	function updateRequest()
-	{
-		g_delete_uuids.length > 0 ? deleteRequest() : reorderRequest();
-	}
-
-	function deleteRequest()
-	{
-		const url = api.deleteCategory;
-		const errMsg = label.delete + message.ajaxError;
-		const param = { "category_list" : g_delete_uuids };
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteCallback, errMsg, false)
-	}
-
-	function deleteCallback(data)
-	{
-		isSuccessResp(data) ? reorderRequest() : sweetToast(data.msg);
+		sweetConfirm(message.change, reorderRequest);
 	}
 
 	function reorderRequest()

@@ -958,7 +958,8 @@
 				break;
 			case label.video :
 				attachEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="talkAttachThumbnail">업로드</label>
 						<input type="file" id="talkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -1009,7 +1010,8 @@
 				break;
 			case label.video :
 				attachmentEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
 						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
@@ -1059,7 +1061,8 @@
 				break;
 			case label.video :
 				attachmentEl =
-					`<div class="file-wrap preview-image">
+					`<p class="desc-sub">썸네일</p>
+					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
 						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">

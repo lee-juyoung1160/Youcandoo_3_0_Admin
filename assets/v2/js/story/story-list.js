@@ -10,6 +10,8 @@
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
 
+	let updateTableData = [];
+
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
@@ -96,6 +98,8 @@
 				$(".btn-update").on('click', function () { location.href = page.updateStory + this.id });
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.is_exposure === 'Y')
+					updateTableData.push(aData);
 			},
 			drawCallback: function (settings) {
 				onErrorImage();
@@ -113,12 +117,8 @@
 
 	function buildUpdateTable()
 	{
-		const table = dataTable.DataTable();
-		const tableData = table.rows().data();
-		const data = tableData.length > 0 ? tableData : [];
-
 		updateTable.DataTable({
-			data: data,
+			data: updateTableData,
 			columns: [
 				{title: "썸네일",   	data: "story_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {

@@ -64,7 +64,7 @@
 				onChangeRdoTargetPageType($(this));
 			}
 		});
-		if (page_type === 'web')
+		if (page_type === 'web' || page_type === 'browser')
 			targetUrl.val(page_value);
 		else
 		{
@@ -107,7 +107,7 @@
 			const url = api.updateBanner;
 			const errMsg = label.modify+message.ajaxError;
 			const pageType = $("input[name=radio-target-page-type]:checked").val();
-			const bannerTarget = pageType === 'web' ? targetUrl.val().trim() : targetUuid.val();
+			const bannerTarget = (pageType === 'web' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_uuid" : g_banner_uuid,
 				"banner_name" : title.val().trim(),
@@ -146,22 +146,22 @@
 		}
 
 		const pageType = $("input[name=radio-target-page-type]:checked").val();
-		const isWeb = pageType === 'web';
-		if (isWeb && isEmpty(targetUrl.val()))
+		const isUrl = (pageType === 'web' || pageType === 'browser');
+		if (isUrl && isEmpty(targetUrl.val()))
 		{
 			sweetToast(`이동할 페이지는 ${message.required}`);
 			targetUrl.trigger('focus');
 			return false;
 		}
 
-		if (isWeb && !isDomainName(targetUrl.val().trim()))
+		if (isUrl && !isDomainName(targetUrl.val().trim()))
 		{
 			sweetToast(`이동할 페이지 형식을 ${message.doubleChk}`);
 			targetUrl.trigger('focus');
 			return false;
 		}
 
-		if ((!isWeb) && isEmpty(targetUuid.val()))
+		if ((!isUrl) && isEmpty(targetUuid.val()))
 		{
 			sweetToast(`이동할 페이지는 ${message.required}`);
 			targetPage.trigger('focus');
@@ -185,7 +185,7 @@
 			case 'notice_detail' :
 				showTargetPage();
 				break;
-			case 'web' :
+			default :
 				showTargetUrl();
 				targetUrl.trigger('focus');
 				break;

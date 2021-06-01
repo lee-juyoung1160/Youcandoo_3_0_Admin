@@ -55,7 +55,7 @@
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
 			const pageType = $("input[name=radio-target-page-type]:checked").val();
-			const bannerTarget = pageType === 'web' ? targetUrl.val().trim() : targetUuid.val();
+			const bannerTarget = (pageType === 'web' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_name" : title.val().trim(),
 				"page_type" : pageType,
@@ -91,22 +91,22 @@
 		}
 
 		const pageType = $("input[name=radio-target-page-type]:checked").val();
-		const isWeb = pageType === 'web';
-		if (isWeb && isEmpty(targetUrl.val()))
+		const isUrl = (pageType === 'web' || pageType === 'browser');
+		if (isUrl && isEmpty(targetUrl.val()))
 		{
 			sweetToast(`이동할 페이지는 ${message.required}`);
 			targetUrl.trigger('focus');
 			return false;
 		}
 
-		if (isWeb && !isDomainName(targetUrl.val().trim()))
+		if (isUrl && !isDomainName(targetUrl.val().trim()))
 		{
 			sweetToast(`이동 페이지 URL 형식을 ${message.doubleChk}`);
 			targetUrl.trigger('focus');
 			return false;
 		}
 
-		if ((!isWeb) && isEmpty(targetUuid.val()))
+		if ((!isUrl) && isEmpty(targetUuid.val()))
 		{
 			sweetToast(`이동할 페이지는 ${message.required}`);
 			targetPage.trigger('focus');
@@ -137,7 +137,7 @@
 			case 'notice_detail' :
 				showTargetPage();
 				break;
-			case 'web' :
+			default :
 				showTargetUrl();
 				targetUrl.trigger('focus');
 				break;

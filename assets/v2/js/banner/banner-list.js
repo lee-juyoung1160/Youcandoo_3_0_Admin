@@ -83,7 +83,7 @@
 				}
 				,{title: "이동 페이지",   data: "page_value",  		width: "35%",
 					render: function (data, type, row, meta) {
-						return row.page_type === 'web' ? data : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (row.page_type === 'web' || row.page_type === 'browser') ? data : isEmpty(row.target_title) ? label.dash : row.target_title;
 					}
 				}
 				,{title: "수정",    		data: "banner_uuid",  		width: "10%",

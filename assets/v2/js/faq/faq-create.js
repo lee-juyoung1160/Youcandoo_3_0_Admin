@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData} from '../modules/request.js'
+	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, title, content, selFaqType} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -11,10 +11,37 @@
 
 	$( () => {
 		title.trigger('focus');
+		getFaqType();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		btnSubmit	.on('click', function () { onSubmitFaq(); });
 	});
+
+	function getFaqType()
+	{
+		const url = api.faqType;
+		const errMsg = `faq 타입${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, false);
+	}
+
+	function getFaqTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+	}
+
+	function buildFaqType(data)
+	{
+		let options = '';
+		if (!isEmpty(data.data) && data.data.length  > 0)
+		{
+			data.data.map(type => {
+				options += `<option value="${type}">${type}</option>`;
+			})
+		}
+
+		selFaqType.html(options);
+	}
 
 	function onSubmitFaq()
 	{

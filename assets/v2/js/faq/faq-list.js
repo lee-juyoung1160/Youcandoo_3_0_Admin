@@ -1,8 +1,10 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, updateTable, selFaqType,
-		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,} from '../modules/elements.js';
+	import {
+	body, btnSearch, btnReset, keyword, dataTable, updateTable, selFaqType,
+	selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType, title, content,
+} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, fadeoutModal, fadeinModal} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
@@ -17,15 +19,7 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
-		/** 상단 검색 폼 초기화
-		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
-		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
-		 * **/
-		isBackAction() ? setHistoryForm() : initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
+		getFaqType();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -54,7 +48,47 @@
 			if ($(this).val() === historyParams.is_exposure)
 				$(this).prop("checked", true);
 		});
+		selFaqType.val(historyParams.faq_type);
 		_currentPage = historyParams.page;
+	}
+
+	function getFaqType()
+	{
+		const url = api.faqType;
+		const errMsg = `faq 타입${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, getFaqTypeComplete);
+	}
+
+	function getFaqTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+	}
+
+	function buildFaqType(data)
+	{
+		let options = '<option value="all" selected>전체</option>';
+		if (!isEmpty(data.data) && data.data.length  > 0)
+		{
+			data.data.map(type => {
+				options += `<option value="${type}">${type}</option>`;
+			})
+		}
+
+		selFaqType.html(options);
+	}
+
+	function getFaqTypeComplete()
+	{
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		/** 상단 검색 폼 초기화
+		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
+		 * **/
+		isBackAction() ? setHistoryForm() : initSearchForm();
+		/** 목록 불러오기 **/
+		buildTable();
 	}
 
 	function onKeydownSearch(event)
@@ -101,7 +135,7 @@
 				}
 			},
 			columns: [
-				{title: "구분",    		data: "faq_type_name",	width: "10%" }
+				{title: "구분",    		data: "faq_type",		width: "10%" }
 				,{title: "제목", 		data: "title",			width: "50%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailFaq + row.idx;
@@ -197,14 +231,9 @@
 			},
 			columns: [
 				{title: "제목", 		data: "title",		width: "20%" }
-				,{title: "내용",     data: "contents",  	width: "65%",
+				,{title: "내용",     data: "contents",  	width: "80%",
 					render: function (data) {
-						return `<div class="line-clamp-1" style="max-width: 700px;">${data}</div>`;
-					}
-				}
-				,{title: "등록일",    data: "created",  	width: "15%",
-					render: function (data) {
-						return data.substring(0, 10);
+						return `<div class="line-clamp-1" style="max-width: 800px;">${data}</div>`;
 					}
 				}
 			],

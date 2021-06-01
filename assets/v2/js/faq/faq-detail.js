@@ -41,10 +41,10 @@
 	let g_faq_uuid;
 	function buildDetail(data)
 	{
-		const { faq_uuid, faq_type_name, title, contents, is_exposure } = data.data;
+		const { faq_uuid, faq_type, title, contents, is_exposure } = data.data;
 
 		g_faq_uuid = faq_uuid;
-		faqType.text(faq_type_name);
+		faqType.text(faq_type);
 		faqTitle.text(title);
 		content.text(contents);
 		isExposure.text(is_exposure);

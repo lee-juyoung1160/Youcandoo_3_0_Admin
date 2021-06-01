@@ -113,6 +113,7 @@
         updateNotice : baseApiUrl + 'notice/update',
         deleteNotice : baseApiUrl + 'notice/delete',
 
+        faqType : baseApiUrl + 'faq/get/type',
         faqList : baseApiUrl + 'faq/get/list',
         createFaq : baseApiUrl + 'faq/create',
         detailFaq : baseApiUrl + 'faq/get/detail/info',

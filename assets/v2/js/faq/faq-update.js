@@ -13,12 +13,37 @@
 	const faqIdx	= splitReverse(pathName, '/');
 
 	$( () => {
-		/** 상세 불러오기 **/
-		getDetail();
+		getFaqType();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateFaq(); });
 	});
+
+	function getFaqType()
+	{
+		const url = api.faqType;
+		const errMsg = `faq 타입${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, getDetail);
+	}
+
+	function getFaqTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+	}
+
+	function buildFaqType(data)
+	{
+		let options = '';
+		if (!isEmpty(data.data) && data.data.length  > 0)
+		{
+			data.data.map(type => {
+				options += `<option value="${type}">${type}</option>`;
+			})
+		}
+
+		selFaqType.html(options);
+	}
 
 	function getDetail()
 	{

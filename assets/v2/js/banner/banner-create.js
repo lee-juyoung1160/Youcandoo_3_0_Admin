@@ -147,11 +147,14 @@
 	function onClickModalOpen()
 	{
 		fadeinModal();
+		keyword.val('');
 		getTargetPageList();
 	}
 
 	function getTargetPageList()
 	{
+		const table = dataTable.DataTable();
+		table.destroy();
 		dataTable.empty();
 		dataTable.DataTable({
 			ajax : {
@@ -181,7 +184,7 @@
 					const param = {
 						"limit" : 5
 						,"page" : _page
-						,"keyword" : keyword.val()
+						,"keyword" : keyword.val().trim()
 					}
 
 					return JSON.stringify(param);
@@ -210,9 +213,9 @@
 		let uuid;
 		let name;
 		switch (targetPageType) {
-			/*case 'event_detail' :
+			case 'event_detail' :
 				uuid = aData.event_uuid;
-				name = aData.event_title;
+				name = aData.title;
 				break;
 			case 'doit_detail' :
 				uuid = aData.doit_uuid;
@@ -220,19 +223,7 @@
 				break;
 			case 'notice_detail' :
 				uuid = aData.notice_uuid;
-				name = aData.notice_title;
-				break;*/
-			case 'event_detail' :
-				uuid = aData.doit_uuid;
-				name = aData.doit_title;
-				break;
-			case 'doit_detail' :
-				uuid = aData.doit_uuid;
-				name = aData.doit_title;
-				break;
-			case 'notice_detail' :
-				uuid = aData.doit_uuid;
-				name = aData.doit_title;
+				name = aData.title;
 				break;
 		}
 		$(nRow).attr('data-uuid', uuid);
@@ -251,19 +242,13 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			/*case 'event_detail' :
-				return [{title: "구분",		data: "event_name",    	width: "20%"}
-						,{title: "제목",		data: "title",    	   	width: "40%"}]
-			case 'doit_detail' :
-				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
-			case 'notice_detail' :
-				return [{title: "제목",		data: "notice_title",   width: "100%"}]*/
 			case 'event_detail' :
-				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
+				return [{title: "구분",		data: "title",    		width: "20%"}
+						,{title: "제목",		data: "title",    	   	width: "80%"}]
 			case 'doit_detail' :
 				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
 			case 'notice_detail' :
-				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
+				return [{title: "제목",		data: "title",   		width: "100%"}]
 		}
 	}
 

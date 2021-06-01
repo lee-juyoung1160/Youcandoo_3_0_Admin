@@ -138,9 +138,9 @@
         updateBanner : baseApiUrl + 'banner/update',
         /*deleteBanner : baseApiUrl + 'banner/delete',*/
         reorderBanner : baseApiUrl + 'banner/set/orders',
-        targetEventList : baseApiUrl + 'banner/get/doit/list',
+        targetEventList : baseApiUrl + 'banner/get/event/list',
         targetDoitList : baseApiUrl + 'banner/get/doit/list',
-        targetNoticeList : baseApiUrl + 'banner/get/doit/list',
+        targetNoticeList : baseApiUrl + 'banner/get/notice/list',
 
         storyList : baseApiUrl + 'story/get/list',
         createStory : baseApiUrl + 'story/create',

@@ -174,6 +174,12 @@
 	height: 100%;
 	overflow-y: scroll;
 }
+.auth-detail .video-wrap {
+	background-color: #000;
+}
+.auth-detail .txt-left .video-wrap {
+	width: 500px;
+}
 .video-wrap video {
 	width: 100%;
 	height: 604px;

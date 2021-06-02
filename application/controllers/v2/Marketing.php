@@ -75,6 +75,9 @@ class Marketing extends MY_Controller {
             case "detail":
                 $this->load->template('v2/marketing/popup-detail');
                 break;
+            case "update":
+                $this->load->template('v2/marketing/popup-update');
+                break;
         }
     }
 

@@ -157,9 +157,11 @@
         pushList : baseApiUrl + 'push',
         createPush : baseApiUrl + 'push/create',
 
-        popupList : baseApiUrl + 'popup',
+        popupList : baseApiUrl + 'popup/get/list',
         createPopup : baseApiUrl + 'popup/create',
-        detailPopup : baseApiUrl + 'popup/detail',
+        detailPopup : baseApiUrl + 'popup/get/detail/info',
+        updatePopup : baseApiUrl + 'popup/update',
+        deletePopup : baseApiUrl + 'popup/delete',
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',

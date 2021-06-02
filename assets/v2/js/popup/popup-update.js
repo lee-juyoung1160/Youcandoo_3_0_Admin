@@ -1,24 +1,40 @@
 
-	import { ajaxRequestWithJsonData} from '../modules/request.js'
+	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, versionDigit, versionDecimal, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {initInputDatepickerMinDateToday, setDateToday, limitInputLength,} from "../modules/common.js";
-	import {isEmpty, initInputNumberWithZero, isDomainName} from "../modules/utils.js";
+	import {
+		title,
+		link,
+		rdoOsType,
+		versionDigit,
+		versionDecimal,
+		rdoViewOption,
+		dateFrom,
+		dateTo,
+		startTime,
+		endTime,
+		rdoExposure,
+		lengthInput, datePicker
+	} from '../modules/elements.js';
+	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
+	import {initInputDatepickerMinDateToday, limitInputLength,} from "../modules/common.js";
+	import {getPathName, initInputNumberWithZero, isDomainName, isEmpty, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 
+	const pathName	= getPathName();
+	const popupIdx	= splitReverse(pathName, '/');
+
 	$( () => {
-		title.trigger('focus');
 		initInputDatepickerMinDateToday();
-		setDateToday();
+		/** 상세 불러오기 **/
+		//getDetail();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		dateFrom		.on('change', function () { onChangeDateFrom(); });
 		versionDigit   	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		versionDecimal  .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnSubmit		.on('click', function () { onSubmitPopup(); });
+		btnSubmit	.on('click', function () { goUpdatePage(); });
 	});
 
 	function validDigit(obj)
@@ -34,17 +50,63 @@
 		dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
 	}
 
-	function onSubmitPopup()
+	function getDetail()
 	{
-		if (validation())
-			sweetConfirm(message.create, createRequest);
+		const url = api.detailPopup;
+		const errMsg = label.detailContent+message.ajaxLoadError;
+		const param = {
+			"idx" : popupIdx
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
-	function createRequest()
+	function getDetailCallback(data)
 	{
-		const url 	= api.createPopup;
+		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+	}
+
+	let g_popup_uuid;
+	function buildDetail(data)
+	{
+		const { popup_uuid, store, popup_name, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
+
+		g_popup_uuid = popup_uuid;
+		rdoOsType.each(function () {
+			if ($(this).val() === store)
+				$(this).prop('checked', true);
+		})
+		title.text(popup_name);
+		versionDigit.val();
+		versionDecimal.val();
+		link.val(popup_url);
+		rdoViewOption.each(function () {
+			if ($(this).val() === close_type)
+				$(this).prop('checked', true);
+		})
+		dateFrom.val();
+		dateTo.val();
+		datePicker.datepicker("option", "minDate", start_date);
+		startTime.val();
+		endTime.val();
+		rdoExposure.each(function () {
+			if ($(this).val() === is_exposure)
+				$(this).prop('checked', true);
+		})
+	}
+
+	function onSubmitUpdatePopup()
+	{
+		if (validation())
+			sweetConfirm(message.create, updateRequest);
+	}
+
+	function updateRequest()
+	{
+		const url 	= api.updatePopup;
 		const errMsg = label.submit+message.ajaxError;
 		const param = {
+			"popup_uuid" : g_popup_uuid,
 			"store": $("input[name=radio-os-type]:checked").val(),
 			"popup_name": title.val().trim(),
 			"target_version": `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
@@ -55,17 +117,17 @@
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
-	function createReqCallback(data)
+	function updateReqCallback(data)
 	{
-		sweetToastAndCallback(data, createSuccess);
+		sweetToastAndCallback(data, updateSuccess);
 	}
 
-	function createSuccess()
+	function updateSuccess()
 	{
-		location.href = page.listPopup;
+		location.href = page.detailPopup + popupIdx;
 	}
 
 	function validation()
@@ -121,4 +183,3 @@
 
 		return true;
 	}
-

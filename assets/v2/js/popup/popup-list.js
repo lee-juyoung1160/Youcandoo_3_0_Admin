@@ -1,34 +1,39 @@
 
-	import {headers,} from '../modules/request.js';
+	import {headers, isSuccessResp,} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
 	import {
-	body,
-	btnSearch,
-	btnReset,
-	keyword,
-	dataTable,
-	selPageLength,
-	dateButtons,
-		dateFrom, dateTo,
-} from '../modules/elements.js';
-	import {sweetError,} from '../modules/alert.js';
-	import {
-	initSelectOption, initPageLength, initSearchDatepicker, initDayBtn,
-	initMaxDateMonths, initSearchDateRangeMonth, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo
-	} from "../modules/common.js";
-	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		dateButtons,
+		dateFrom, dateTo, selDateType, selSearchType,
+	} from '../modules/elements.js';
+	import {sweetError, sweetToast,} from '../modules/alert.js';
+	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths, initSearchDateRangeMonth,
+		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import {isBackAction} from "../modules/history.js";
+
+	let _currentPage = 1;
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
-		initSearchForm();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
+		/** 상단 검색 폼 초기화
+		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
+		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
+		 * **/
+		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -56,6 +61,7 @@
 
 	function onSubmitSearch()
 	{
+		_currentPage = 1;
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
@@ -70,13 +76,25 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
 					const param = {
+						"date_type" : selDateType.val(),
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
 						"page": (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
@@ -93,7 +111,7 @@
 				,{title: "앱버전", 		data: "push_status",    width: "10%" }
 				,{title: "제목", 		data: "title", 	  		width: "30%",
 					render: function (data) {
-						return `<a href="popup/detail">새로워진 유캔두 둘러보깅</a>`;
+						return `<a href="popup/detail/${row.idx}">${data}</a>`;
 					}
 				}
 				,{title: "노출기간", 		data: "created_datetime",		width: "30%",
@@ -115,6 +133,8 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
+				$(this).on('page.dt', function () { _currentPage = getCurrentPage(this); });
+				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

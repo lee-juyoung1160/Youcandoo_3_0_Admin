@@ -1,10 +1,21 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {osType, title, version, link, exposureDate, viewOption, isExposure, btnBack, btnList} from '../modules/elements.js';
-	import {sweetToast,} from '../modules/alert.js';
+	import {
+		osType,
+		title,
+		version,
+		link,
+		exposureDate,
+		viewOption,
+		isExposure,
+		btnBack,
+		btnList,
+		btnUpdate
+	} from '../modules/elements.js';
+	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {historyBack,} from "../modules/common.js";
-	import { getPathName, splitReverse, isEmpty} from "../modules/utils.js";
+	import { getPathName, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -16,8 +27,10 @@
 		/** 상세 불러오기 **/
 		//getDetail();
 		/** 이벤트 **/
-		btnBack	 		.on('click', function () { historyBack(); });
-		btnList	 		.on('click', function () { goListPage(); });
+		btnBack	 	.on('click', function () { historyBack(); });
+		btnList	 	.on('click', function () { goListPage(); });
+		btnUpdate	.on('click', function () { goUpdatePage(); });
+		btnDelete   .on('click', function () { onSubmitDeletePopup(); });
 	});
 
 	function getDetail()
@@ -39,25 +52,50 @@
 	let g_popup_uuid;
 	function buildDetail(data)
 	{
-		let { popup_uuid, profile_image_url, nickname, site_url, description } = data.data;
+		const { popup_uuid, store, popup_name, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
 
 		g_popup_uuid = popup_uuid;
+		osType.text(store);
+		title.text(popup_name);
+		version.text(target_version);
+		link.text(popup_url);
+		viewOption.text(close_type);
+		exposureDate.text(`${start_date} ~ ${end_date}`);
+		isExposure.text(is_exposure);
+	}
 
-		contentImage.attr('src', profile_image_url);
-		title.text(nickname);
-		bizNo.text();
-		link.html(`<a href="${site_url}" class="link" target="_blank">${site_url}</a>`);
-		content.text(description);
+	function onSubmitDeletePopup()
+	{
+		sweetConfirm(message.delete, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		const url = api.deletePopup;
+		const errMsg = label.delete + message.ajaxError;
+		const param = {
+			"popup_uuid" : g_popup_uuid,
+		}
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, deleteSuccess);
+	}
+
+	function deleteSuccess()
+	{
+		goListPage();
 	}
 
 	function goListPage()
 	{
-		location.href = page.listBiz;
+		location.href = page.listPopup;
 	}
 
 	function goUpdatePage()
 	{
-		location.href = page.updateBiz + bizIdx;
+		location.href = page.updatePopup + popupIdx;
 	}
-
-

@@ -50,6 +50,8 @@
         ,updateEvent : rootContext + 'marketing/event/update/'
         ,listPush : rootContext + 'marketing/push'
         ,listPopup : rootContext + 'marketing/popup'
+        ,detailPopup : rootContext + 'marketing/popup/detail/'
+        ,updatePopup : rootContext + 'marketing/popup/update/'
 
         ,listUcdCharge : rootContext + 'ucd/charge'
 

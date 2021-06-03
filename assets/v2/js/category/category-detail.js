@@ -196,7 +196,12 @@
 		for (let i=0; i<createAttachment.length; i++)
 			param.append('file', createAttachment[i].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createSubcategoryRequest, errMsg, false);
+		ajaxRequestWithFormData(true, url, param, fileUploadReqCallback, errMsg, false);
+	}
+
+	function fileUploadReqCallback(data)
+	{
+		isSuccessResp(data) ? createSubcategoryRequest(data) : sweetToast(data.msg);
 	}
 
 	function createSubcategoryRequest(data)
@@ -283,7 +288,6 @@
 	{
 		const url = fileApiV2.multi;
 		const errMsg = `이미지 등록 ${message.ajaxError}`;
-		const attachment = $("input[name=attachment]");
 		let param  = new FormData();
 		for (let i=0; i<attachment.length; i++)
 			param.append('file', attachment[i].files[0]);
@@ -314,6 +318,7 @@
 
 	function updateImageToApiServerCallback(data)
 	{
+		initUpdateAttachment();
 		sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
 	}
 
@@ -321,6 +326,14 @@
 	{
 		fadeoutModal();
 		getSubCategory();
+	}
+
+	function initUpdateAttachment()
+	{
+		attachment.each(function () {
+			$(this).siblings('.icon-delete-attach').hide();
+			emptyFile(this);
+		})
 	}
 
 	function goListPage()

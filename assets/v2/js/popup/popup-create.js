@@ -46,7 +46,7 @@
 		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"store": $("input[name=radio-os-type]:checked").val(),
-			"popup_name": title.val().trim(),
+			"title": title.val().trim(),
 			"target_version": `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),

@@ -16,13 +16,13 @@
                         <th>기기 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio-os-type" checked>
+                                <input id="r1" type="radio" name="radio-os-type" value="all">
                                 <label for="r1"><span></span>전체</label>
 
-                                <input  id="r2" type="radio" name="radio-os-type">
+                                <input  id="r2" type="radio" name="radio-os-type" value="google">
                                 <label for="r2"><span></span>AOS</label>
 
-                                <input  id="r3" type="radio" name="radio-os-type">
+                                <input  id="r3" type="radio" name="radio-os-type" value="apple">
                                 <label for="r3"><span></span>IOS</label>
                             </div>
                         </td>
@@ -31,7 +31,7 @@
                         <th>제목 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="title" type="text" class="length-input" maxlength="30" placeholder="제목을 입력해주세요.">
+                                <input id="popupTitle" type="text" class="length-input" maxlength="30" placeholder="제목을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
                             </div>
                         </td>
@@ -49,14 +49,14 @@
                     <tr>
                         <th>링크 *</th>
                         <td>
-                            <input id="link" type="text" placeholder="http://를 포함해서 입력해주세요.">
+                            <input id="link" type="text" placeholder="https://를 포함해서 입력해주세요.">
                         </td>
                     </tr>
                     <tr>
                         <th>닫기 옵션 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r6" type="radio" name="radio-view-option" value="always" checked>
+                                <input id="r6" type="radio" name="radio-view-option" value="always">
                                 <label for="r6"><span></span>다시 보지 않기</label>
 
                                 <input  id="r7" type="radio" name="radio-view-option" value="oneday">
@@ -80,7 +80,7 @@
                         <th>노출 여부</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r4" type="radio" name="radio-exposure" value="Y" checked>
+                                <input id="r4" type="radio" name="radio-exposure" value="Y">
                                 <label for="r4"><span></span>Y</label>
 
                                 <input  id="r5" type="radio" name="radio-exposure" value="N">

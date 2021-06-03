@@ -374,6 +374,7 @@
     export const btnModalTargetMemberOpen = $("#btnModalTargetMemberOpen");
 
     /** 팝업 **/
+    export const popupTitle = $("#popupTitle");
     export const versionDigit = $("#versionDigit");
     export const versionDecimal = $("#versionDecimal");
     export const rdoViewOption = $("input[name=radio-view-option]");

@@ -2,7 +2,7 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		title,
+		popupTitle,
 		link,
 		rdoOsType,
 		versionDigit,
@@ -13,10 +13,10 @@
 		startTime,
 		endTime,
 		rdoExposure,
-		lengthInput, datePicker
+		lengthInput, datePicker, btnSubmit
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
-	import {initInputDatepickerMinDateToday, limitInputLength,} from "../modules/common.js";
+	import {calculateInputLength, initInputDatepickerMinDateToday, limitInputLength,} from "../modules/common.js";
 	import {getPathName, initInputNumberWithZero, isDomainName, isEmpty, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -28,13 +28,13 @@
 	$( () => {
 		initInputDatepickerMinDateToday();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		dateFrom		.on('change', function () { onChangeDateFrom(); });
 		versionDigit   	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
 		versionDecimal  .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnSubmit	.on('click', function () { goUpdatePage(); });
+		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
 	});
 
 	function validDigit(obj)
@@ -69,36 +69,43 @@
 	let g_popup_uuid;
 	function buildDetail(data)
 	{
-		const { popup_uuid, store, popup_name, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
+		const { popup_uuid, store, title, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
 
 		g_popup_uuid = popup_uuid;
 		rdoOsType.each(function () {
 			if ($(this).val() === store)
 				$(this).prop('checked', true);
 		})
-		title.text(popup_name);
-		versionDigit.val();
-		versionDecimal.val();
+		popupTitle.val(title);
+		let parseFloatVersion = parseFloat(target_version);
+		parseFloatVersion = parseFloatVersion.toString().length < 3 ? `${parseFloatVersion}.0` : parseFloatVersion;
+		const splitVersion = parseFloatVersion.toString().split('.');
+		versionDigit.val(splitVersion[0]);
+		versionDecimal.val(splitVersion[1]);
 		link.val(popup_url);
 		rdoViewOption.each(function () {
 			if ($(this).val() === close_type)
 				$(this).prop('checked', true);
 		})
-		dateFrom.val();
-		dateTo.val();
+		const splitStartDate = start_date.split(' ');
+		dateFrom.val(splitStartDate[0]);
+		const splitEndDate = end_date.split(' ');
+		dateTo.val(splitEndDate[0]);
 		datePicker.datepicker("option", "minDate", start_date);
-		startTime.val();
-		endTime.val();
+		startTime.val(splitStartDate[1].substring(0, 5));
+		endTime.val(splitEndDate[1].substring(0, 5));
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
 		})
+
+		calculateInputLength();
 	}
 
 	function onSubmitUpdatePopup()
 	{
 		if (validation())
-			sweetConfirm(message.create, updateRequest);
+			sweetConfirm(message.modify, updateRequest);
 	}
 
 	function updateRequest()
@@ -108,7 +115,7 @@
 		const param = {
 			"popup_uuid" : g_popup_uuid,
 			"store": $("input[name=radio-os-type]:checked").val(),
-			"popup_name": title.val().trim(),
+			"title": popupTitle.val().trim(),
 			"target_version": `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
@@ -132,10 +139,10 @@
 
 	function validation()
 	{
-		if (isEmpty(title.val()))
+		if (isEmpty(popupTitle.val()))
 		{
 			sweetToast(`제목은 ${message.required}`);
-			title.trigger('focus');
+			popupTitle.trigger('focus');
 			return false;
 		}
 

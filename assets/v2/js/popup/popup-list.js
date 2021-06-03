@@ -16,6 +16,7 @@
 		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
+	import { page } from "../modules/page-url.js";
 	import { message } from "../modules/message.js";
 	import {isBackAction} from "../modules/history.js";
 
@@ -107,24 +108,36 @@
 				}
 			},
 			columns: [
-				{title: "기기", 			data: "push_status",    width: "10%" }
-				,{title: "앱버전", 		data: "push_status",    width: "10%" }
-				,{title: "제목", 		data: "title", 	  		width: "30%",
+				{title: "기기", 			data: "store",    		   	width: "10%",
 					render: function (data) {
-						return `<a href="popup/detail/${row.idx}">${data}</a>`;
+						switch (data) {
+							case 'all' : return '전체';
+							case 'google' : return 'AOS';
+							case 'apple' : return 'IOS';
+						}
 					}
 				}
-				,{title: "노출기간", 		data: "created_datetime",		width: "30%",
+				,{title: "앱버전", 		data: "target_version",    	width: "10%",
+					render: function (data) {
+						return parseFloat(data);
+					}
+				}
+				,{title: "제목", 		data: "title", 	  		    width: "30%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailPopup}${row.idx}">${data}</a>`;
+					}
+				}
+				,{title: "노출기간", 		data: "start_date",			width: "30%",
+					render: function (data, type, row, meta) {
+						return `${row.start_date} ~ ${row.end_date}`;
+					}
+				}
+				,{title: "등록일", 		data: "created",			width: "10%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "등록일", 		data: "created",		width: "10%",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
-				,{title: "노출여부", 		data: "is_exposure",   	width: "10%" }
+				,{title: "노출여부", 		data: "is_exposure",   		width: "10%" }
 
 			],
 			serverSide: true,

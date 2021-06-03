@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url.js';
 	import {
 		osType,
-		title,
+		popupTitle,
 		version,
 		link,
 		exposureDate,
@@ -11,7 +11,8 @@
 		isExposure,
 		btnBack,
 		btnList,
-		btnUpdate
+		btnUpdate,
+		btnDelete
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {historyBack,} from "../modules/common.js";
@@ -25,7 +26,7 @@
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		btnBack	 	.on('click', function () { historyBack(); });
 		btnList	 	.on('click', function () { goListPage(); });
@@ -52,16 +53,33 @@
 	let g_popup_uuid;
 	function buildDetail(data)
 	{
-		const { popup_uuid, store, popup_name, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
+		const { popup_uuid, store, title, target_version, popup_url, close_type, start_date, end_date, is_exposure } = data.data;
 
 		g_popup_uuid = popup_uuid;
-		osType.text(store);
-		title.text(popup_name);
-		version.text(target_version);
+		osType.text(getStoreName(store));
+		popupTitle.text(title);
+		version.text(parseFloat(target_version));
 		link.text(popup_url);
-		viewOption.text(close_type);
+		viewOption.text(getCloseTypeName(close_type));
 		exposureDate.text(`${start_date} ~ ${end_date}`);
 		isExposure.text(is_exposure);
+	}
+
+	function getCloseTypeName(type)
+	{
+		switch (type) {
+			case 'always' : return '다시 보지 않기';
+			case 'oneday' : return '오늘 하루 보지 않기';
+		}
+	}
+
+	function getStoreName(store)
+	{
+		switch (store) {
+			case 'all' : return '전체';
+			case 'google' : return 'AOS';
+			case 'apple' : return 'IOS';
+		}
 	}
 
 	function onSubmitDeletePopup()

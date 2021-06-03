@@ -2,7 +2,7 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle, content,
-		attachmentWrap, answer, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
+		attachmentWrap, answerEl, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -14,7 +14,7 @@
 	const inquiryIdx = splitReverse(pathName, '/');
 
 	$( () => {
-		answer.trigger('focus');
+		answerEl.trigger('focus');
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
@@ -46,7 +46,7 @@
 	{
 		const { qna_uuid, app_version, os_version, device, nickname, title, contents, status} = data.data;
 
-		if (status === '완료')
+		if (status === '답변완료')
 			location.href = page.detailInquiry + inquiryIdx;
 
 		g_inquiry_uuid = qna_uuid;
@@ -92,10 +92,10 @@
 
 	function validation()
 	{
-		if (isEmpty(answer.val()))
+		if (isEmpty(answerEl.val()))
 		{
 			sweetToast(`답변은 ${message.required}`);
-			answer.trigger('focus');
+			answerEl.trigger('focus');
 			return false;
 		}
 
@@ -108,7 +108,7 @@
 		const errMsg = message.ajaxError;
 		const param = {
 			"qna_uuid" : g_inquiry_uuid,
-			"comment" : answer.val().trim(),
+			"answer" : answerEl.val().trim(),
 			"memo" : memoEl.val().trim(),
 		}
 

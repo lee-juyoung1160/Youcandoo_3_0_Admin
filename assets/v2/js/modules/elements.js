@@ -346,7 +346,7 @@
     export const selInquiryType = $("#selInquiryType");
     export const inquiryTitle = $("#inquiryTitle");
     export const attachmentWrap = $("#attachmentWrap");
-    export const answer = $("#answer");
+    export const answerEl = $("#answerEl");
     export const memoEl = $("#memoEl");
     export const admin = $("#admin");
     export const answerDate = $("#answerDate");

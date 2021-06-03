@@ -2,7 +2,7 @@
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
-		content, attachmentWrap, answer, memoEl, admin, answerDate, thumbnail } from '../modules/elements.js';
+		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail } from '../modules/elements.js';
 	import {sweetToast,} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -42,9 +42,9 @@
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, title, contents, status, userid, comment, comment_datetime, memo } = data.data;
+		const { qna_uuid, app_version, os_version, device, nickname, title, contents, status, userid, answer, answered, memo } = data.data;
 
-		if (status === '대기')
+		if (status === '답변대기')
 			location.href = page.updateInquiry + inquiryIdx;
 
 		g_inquiry_uuid = qna_uuid;
@@ -53,10 +53,10 @@
 		inquiryTitle.text(title);
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
-		answer.text(comment);
+		answerEl.text(answer);
 		memoEl.text(isEmpty(memo) ? label.dash : memo);
 		admin.text(userid);
-		answerDate.text(comment_datetime);
+		answerDate.text(answered);
 
 		onErrorImage();
 

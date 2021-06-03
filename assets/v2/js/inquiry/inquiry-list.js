@@ -132,7 +132,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "처리일시",   data: "comment_datetime",  width: "10%",
+				,{title: "처리일시",   data: "answered",  		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}

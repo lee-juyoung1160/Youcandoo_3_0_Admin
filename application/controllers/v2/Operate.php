@@ -13,6 +13,11 @@ class Operate extends MY_Controller {
         $this->load->template('v2/operate/encryption');
     }
 
+     public function version()
+    {
+        $this->load->template('v2/operate/version-list');
+    }
+
 }
 
 

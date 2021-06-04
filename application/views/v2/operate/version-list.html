@@ -1,0 +1,71 @@
+<section class="version-list">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">버전관리</h2>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">마켓</p>
+                    <div class="checkbox-wrap">
+                        <input id="r1" type="radio" name="r-status" value="">
+                        <label for="r1"><span></span><i class="fab fa-apple"></i> 애플</label>
+
+                        <input id="r2" type="radio" name="r-status" value="">
+                        <label for="r2"><span></span><i class="fab fa-google"></i> 구글</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <button type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 업데이트 삭제</button>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 25%;">
+                    <col style="width: 25%;">
+                    <col style="width: 25%;">
+                    <col style="width: 5%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>마켓</th>
+                    <th>버전</th>
+                    <th>강제여부</th>
+                    <th>등록일</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>0000</td>
+                    <td>0000</td>
+                    <td>dddd</td>
+                    <td>ssss</td>
+                    <th>
+                        <div class="checkbox-wrap">
+                            <input id="c1" type="checkbox">
+                            <label for="c1"><span></span></label>
+                        </div>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

@@ -41,14 +41,14 @@
 	let g_notice_uuid;
 	function buildDetail(data)
 	{
-		const { notice_uuid, title, contents, notice_image_url, reservation_date, is_exposure } = data.data;
+		const { notice_uuid, title, contents, notice_image_url, opened, is_exposure } = data.data;
 
 		g_notice_uuid = notice_uuid;
 
 		noticeTitle.text(title);
 		content.text(contents);
 		contentImageWrap.html(isEmpty(notice_image_url) ? label.dash : `<img src="${notice_image_url}" alt="">`)
-		reserveDate.text(reservation_date);
+		reserveDate.text(opened.substring(0, 10));
 		isExposure.text(is_exposure);
 
 		onErrorImage();

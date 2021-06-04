@@ -49,7 +49,7 @@
 				"title" : title.val().trim(),
 				"contents" : content.val().trim(),
 				"notice_image_url" : isEmpty(data) ? "" : data.image_urls.file,
-				"reservation_date" : reserveDate.val(),
+				"opened" : reserveDate.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

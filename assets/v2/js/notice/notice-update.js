@@ -41,14 +41,14 @@
 	let g_notice_uuid;
 	function buildDetail(data)
 	{
-		const { notice_uuid, title, contents, notice_image_url, reservation_date, is_top, is_exposure } = data.data;
+		const { notice_uuid, title, contents, notice_image_url, opened, is_exposure } = data.data;
 
 		g_notice_uuid = notice_uuid;
 		noticeTitle.val(title);
 		content.val(contents);
 		if (!isEmpty(notice_image_url))
 			contentImage.parent().after(`<div class="detail-img-wrap"><img src="${notice_image_url}" alt=""></div>`)
-		reserveDate.val(reservation_date);
+		reserveDate.val(opened.substring(0, 10));
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -89,7 +89,7 @@
 				"notice_uuid" : g_notice_uuid,
 				"title" : noticeTitle.val().trim(),
 				"contents" : content.val().trim(),
-				"reservation_date" : reserveDate.val(),
+				"opened" : reserveDate.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

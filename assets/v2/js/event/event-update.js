@@ -57,7 +57,7 @@
 
 		toggleComponent(event_type);
 
-		eventType.text(event_type_name);
+		eventType.text(event_type);
 		eventTitle.val(title);
 		link.val(link_url);
 		content.val(contents);
@@ -193,7 +193,7 @@
 
 	function toggleComponent(_eventType)
 	{
-		if (_eventType === 'event')
+		if (_eventType === '이벤트')
 		{
 			linkWrap.hide();
 			contentWrap.show();
@@ -201,7 +201,7 @@
 			contentImgWrap.show();
 			dateWrap.show();
 		}
-		else if (_eventType === 'announce')
+		else if (_eventType === '결과발표')
 		{
 			linkWrap.hide();
 			contentWrap.show();
@@ -209,7 +209,7 @@
 			contentImgWrap.show();
 			dateWrap.hide();
 		}
-		else if (_eventType === 'link')
+		else if (_eventType === '링크')
 		{
 			linkWrap.show();
 			contentWrap.hide();

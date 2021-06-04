@@ -49,14 +49,14 @@
 		const { event_uuid, event_type, event_type_name, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
 
 		switch (event_type) {
-			case 'event' :
+			case '이벤트' :
 				linkWrap.remove();
 				break;
-			case 'announce' :
+			case '결과발표' :
 				linkWrap.remove();
 				dateWrap.remove();
 				break;
-			case 'link' :
+			case '링크' :
 				contentWrap.remove();
 				noticeWrap.remove();
 				contentImgWrap.remove();
@@ -64,7 +64,7 @@
 		}
 
 		g_event_uuid = event_uuid;
-		eventType.text(event_type_name);
+		eventType.text(event_type);
 		eventTitle.text(title);
 		link.text(link_url);
 		content.text(contents);

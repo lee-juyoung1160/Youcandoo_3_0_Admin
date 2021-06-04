@@ -1208,3 +1208,7 @@ input[type="password"]{
 	width: 20px;
 	height: 20px;
 }
+
+.version-input-wrap input[type="text"] {
+	width: 100px;
+}

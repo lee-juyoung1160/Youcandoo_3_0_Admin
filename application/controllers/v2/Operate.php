@@ -13,9 +13,16 @@ class Operate extends MY_Controller {
         $this->load->template('v2/operate/encryption');
     }
 
-     public function version()
+     public function version($Route = "")
     {
-        $this->load->template('v2/operate/version-list');
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/operate/version-list');
+                break;
+            case "create" :
+                $this->load->template('v2/operate/version-create');
+                break;
+        }
     }
 
 }

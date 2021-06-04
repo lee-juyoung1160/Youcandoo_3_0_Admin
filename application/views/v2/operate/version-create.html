@@ -1,0 +1,58 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">앱 버전 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input type="radio" id="r1" name="radio-forceupdate" value="2"/>
+                                <label for="r1"><span></span>강제</label>
+
+                                <input type="radio" id="r2" name="radio-forceupdate" value="1"/>
+                                <label for="r2"><span></span>선택</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>마켓 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input type="radio" id="r3" name="radio-market" value="apple"/>
+                                <label for="r3"><span></span>애플</label>
+
+                                <input type="radio" id="r4" name="radio-market" value="google"/>
+                                <label for="r4"><span></span>구글</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>최신 버전 *</th>
+                        <td>
+                            <div class="version-input-wrap">
+                                <input id="digit" type="text" maxlength="2">
+                                <span class="">.</span>
+                                <input id="decimal" type="text" maxlength="2">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+
+</section>

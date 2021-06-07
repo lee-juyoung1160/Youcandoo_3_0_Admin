@@ -66,4 +66,6 @@
         ,detailTalk: rootContext + 'report/talk/detail_talk/'
         ,detailActionTalk : rootContext + 'report/talk/detail_action/'
         ,listTalk : rootContext + 'report/talk'
+
+        ,listVersion : rootContext + 'operate/version'
     }

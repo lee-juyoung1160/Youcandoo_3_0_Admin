@@ -168,6 +168,9 @@
 
         createEncryption : baseApiUrl + 'operate/set/encryption',
         createDecryption : baseApiUrl + 'operate/set/decryption',
+        versionList : baseApiUrl + 'operate/get/version/list',
+        createVersion : baseApiUrl + 'operate/version/create',
+        deleteVersion : baseApiUrl + 'operate/version/delete',
 
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + 'excel/import/profile',

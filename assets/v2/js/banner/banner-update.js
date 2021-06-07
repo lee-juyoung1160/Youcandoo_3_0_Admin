@@ -291,15 +291,7 @@
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
 			case 'event_detail' :
-				return [{title: "구분",		data: "event_type",    		width: "20%",
-							render: function (data) {
-								switch (data) {
-									case 'event' : return '이벤트';
-									case 'announce' : return '결과발표';
-									case 'link' : return '링크';
-								}
-							}
-						}
+				return [{title: "구분",		data: "event_type",    	width: "20%"}
 						,{title: "제목",		data: "title",    	   	width: "80%"}]
 			case 'doit_detail' :
 				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]

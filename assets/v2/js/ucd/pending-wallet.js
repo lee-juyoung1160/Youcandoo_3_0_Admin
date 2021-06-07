@@ -138,18 +138,11 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "만료 날짜",    	data: "expired",  		width: "10%" }
-				/*,{title: "상태",    		data: "status",  	width: "10%",
-					render: function (data, type, row, meta) {
-						let status = '';
-						if (row.is_receive === 'Y') status = '적립완료';
-						else if (row.is_receive === 'N') status = '적립대기';
-						else if (row.is_cancel === 'Y') status = '취소';
-						else if (row.is_expire === 'Y') status = '소멸';
-						else status = label.dash;
-						return status;
+				,{title: "만료일",    	data: "expired",  		width: "10%",
+					render: function (data) {
+						return data.substring(0, 10);
 					}
-				}*/
+				}
 				,{title: "상태",    		data: "status",  	width: "5%" }
 			],
 			serverSide: true,

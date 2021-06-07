@@ -4,10 +4,9 @@
 	import {dataTable, rdoOsType, selPageLength, btnDelete} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initPageLength,} from "../modules/common.js";
-	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from '../modules/tables.js';
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, checkBoxElement, toggleSingleCheckBox,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 	import {isEmpty} from "../modules/utils.js";
 
 	$( () => {
@@ -16,7 +15,7 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		rdoOsType.eq(0).prop('checked', true);
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		rdoOsType		.on('change', function () { onSubmitSearch(); });
 		selPageLength	.on('change', function () { onSubmitSearch(); });
@@ -66,20 +65,27 @@
 				}
 			},
 			columns: [
-				{title: "마켓",    		data: "store",			width: "20%" }
-				,{title: "버전", 		data: "title",			width: "25%",
-					render: function (data, type, row, meta) {
-						let detailUrl = page.detailFaq + row.idx;
-						return `<a href="${detailUrl}">${data}</a>`;
-					}
-				}
-				,{title: "강제여부",    	data: "is_exposure",  	width: "25%" }
-				,{title: "등록일",    	data: "created",  		width: "25%",
+				{title: "마켓",    		data: "store",			width: "20%",
 					render: function (data) {
-						return data.substring(0, 10);
+						switch (data) {
+							case 'google' : return '구글';
+							case 'apple' : return '애플';
+							default : return data;
+						}
 					}
 				}
-				,{title: '', 		data: "version_uuid",   	width: "5%",
+				,{title: "버전", 		data: "target_version",	width: "25%" }
+				,{title: "강제여부",    	data: "force_update",  	width: "25%",
+					render: function (data) {
+						switch (Number(data)) {
+							case 1 : return '선택';
+							case 2 : return '강제';
+							default : return data;
+						}
+					}
+				}
+				,{title: "등록일시",    	data: "created",  		width: "25%" }
+				,{title: '', 			data: "idx",   			width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}
@@ -96,6 +102,7 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(4).find('input').on('click', function () { toggleSingleCheckBox(this); })
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -112,10 +119,9 @@
 
 	function deleteRequest()
 	{
-		const uuids = getRowId();
-		const param = { "version_uuid" : uuids };
-		const url 	= api.deleteVersion;
+		const url = api.deleteVersion;
 		const errMsg = label.delete + message.ajaxError;
+		const param = { "idx" : [getRowIdx()] };
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
 	}
@@ -127,7 +133,7 @@
 
 	function deleteValidation()
 	{
-		if (isEmpty(getRowId))
+		if (isEmpty(getRowIdx()))
 		{
 			sweetToast(`삭제할 버전을 ${message.select}`);
 			return false;
@@ -136,10 +142,10 @@
 		return true;
 	}
 
-	function getRowId()
+	function getRowIdx()
 	{
 		const table = dataTable.DataTable();
 		const selectedData = table.rows('.selected').data()[0];
 
-		return selectedData.version_uuid;
+		return isEmpty(selectedData) ? '' : selectedData.idx;
 	}

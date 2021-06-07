@@ -11,10 +11,10 @@
                 <div class="card clearfix">
                     <p class="search-title">마켓</p>
                     <div class="checkbox-wrap">
-                        <input id="r1" type="radio" name="radio-os-type" value="">
+                        <input id="r1" type="radio" name="radio-os-type" value="apple">
                         <label for="r1"><span></span><i class="fab fa-apple"></i> 애플</label>
 
-                        <input id="r2" type="radio" name="radio-os-type" value="">
+                        <input id="r2" type="radio" name="radio-os-type" value="google">
                         <label for="r2"><span></span><i class="fab fa-google"></i> 구글</label>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 20%;">
                     <col style="width: 25%;">
@@ -65,11 +65,12 @@
                         </div>
                     </th>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script type="module" src="/assets/v2/js/version/version-list.js?version=<?php echo $this->config->item('version');?>"></script>

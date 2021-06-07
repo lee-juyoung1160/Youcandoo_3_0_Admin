@@ -168,6 +168,9 @@
 
         createEncryption : baseApiUrl + 'operate/set/encryption',
         createDecryption : baseApiUrl + 'operate/set/decryption',
+        versionList : baseApiUrl + 'operate/get/version/list',
+        createVersion : baseApiUrl + 'operate/version/create',
+        deleteVersion : baseApiUrl + 'operate/version/delete',
 
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + 'excel/import/profile',
@@ -196,10 +199,6 @@
         authList : baseApiUrl + 'auth/list',
         createAuth : baseApiUrl + 'auth/list',
         deleteAuth : baseApiUrl + 'auth/delete',
-
-        versionList : baseApiUrl + 'version/get/list',
-        createVersion : baseApiUrl + 'version/create',
-        deleteVersion : baseApiUrl + 'version/delete',
     }
 
     const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';

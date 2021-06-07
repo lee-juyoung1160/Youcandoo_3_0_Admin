@@ -12,7 +12,7 @@
 		/** 이벤트 **/
 		versionDigit   	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		versionDecimal  .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		//btnSubmit		.on('click', function () { onSubmitVersion(); });
+		btnSubmit		.on('click', function () { onSubmitVersion(); });
 	});
 
 	function onSubmitVersion()

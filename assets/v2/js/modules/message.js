@@ -42,7 +42,6 @@
 		,overBalance : '충전하려는 UCD가 보유 UCD를 초과했습니다.'
 		,overBalanceWithdraw : `보유 UCD가 출금(취소) UCD보다 작은 사용자가 포함돼있습니다.
 								해당 사용자 삭제 후 다시 시도해주세요.`
-		,minOverMax : '참여자 수 최소값은 참여자 수 최대값을 초과할 수 없습니다.'
 		,minimumChecked : '최소 하나 이상의 값을 선택해야 합니다.'
 		,alreadyHasUser : `이미 추가된 회원이 포함돼 있습니다.
 							해당 회원을 체크 해제 후 다시 시도해주세요.`

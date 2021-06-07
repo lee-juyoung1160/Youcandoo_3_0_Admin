@@ -17,10 +17,10 @@
                         <th>구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input type="radio" id="r1" name="radio-forceupdate" value="2"/>
+                                <input type="radio" id="r1" name="radio-type" value="2" checked/>
                                 <label for="r1"><span></span>강제</label>
 
-                                <input type="radio" id="r2" name="radio-forceupdate" value="1"/>
+                                <input type="radio" id="r2" name="radio-type" value="1"/>
                                 <label for="r2"><span></span>선택</label>
                             </div>
                         </td>
@@ -29,10 +29,10 @@
                         <th>마켓 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input type="radio" id="r3" name="radio-market" value="apple"/>
+                                <input type="radio" id="r3" name="radio-os-type" value="apple" checked/>
                                 <label for="r3"><span></span>애플</label>
 
-                                <input type="radio" id="r4" name="radio-market" value="google"/>
+                                <input type="radio" id="r4" name="radio-os-type" value="google"/>
                                 <label for="r4"><span></span>구글</label>
                             </div>
                         </td>
@@ -41,9 +41,9 @@
                         <th>최신 버전 *</th>
                         <td>
                             <div class="version-input-wrap">
-                                <input id="digit" type="text" maxlength="2">
+                                <input id="versionDigit" type="text" maxlength="2">
                                 <span class="">.</span>
-                                <input id="decimal" type="text" maxlength="2">
+                                <input id="versionDecimal" type="text" maxlength="2">
                             </div>
                         </td>
                     </tr>
@@ -56,3 +56,4 @@
     </div>
 
 </section>
+<script type="module" src="/assets/v2/js/version/version-create.js?version=<?php echo $this->config->item('version');?>"></script>

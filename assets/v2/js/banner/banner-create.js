@@ -54,8 +54,9 @@
 		{
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
-			const pageType = $("input[name=radio-target-page-type]:checked").val();
-			const bannerTarget = (pageType === 'web' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
+			let pageType = $("input[name=radio-target-page-type]:checked").val();
+			pageType = (pageType === 'event_detail' || pageType === 'notice_detail') ? 'webview' : pageType;
+			const bannerTarget = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_name" : title.val().trim(),
 				"page_type" : pageType,
@@ -91,7 +92,7 @@
 		}
 
 		const pageType = $("input[name=radio-target-page-type]:checked").val();
-		const isUrl = (pageType === 'web' || pageType === 'browser');
+		const isUrl = (pageType === 'webview' || pageType === 'browser');
 		if (isUrl && isEmpty(targetUrl.val()))
 		{
 			sweetToast(`이동할 페이지는 ${message.required}`);

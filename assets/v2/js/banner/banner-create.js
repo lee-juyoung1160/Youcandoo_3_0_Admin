@@ -54,12 +54,13 @@
 		{
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
-			let pageType = $("input[name=radio-target-page-type]:checked").val();
-			pageType = (pageType === 'event_detail' || pageType === 'notice_detail') ? 'webview' : pageType;
-			const bannerTarget = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
+			const pageTarget = $("input[name=radio-target-page-type]:checked").val();
+			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? 'webview' : pageTarget;
+			const bannerTarget = (pageTarget === 'webview' || pageTarget === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_name" : title.val().trim(),
 				"page_type" : pageType,
+				"page_target" : pageTarget,
 				"banner_target" : bannerTarget,
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),

@@ -81,9 +81,9 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",   data: "page_value",  		width: "35%",
+				,{title: "이동 페이지",   data: "page_target",  		width: "35%",
 					render: function (data, type, row, meta) {
-						return (row.page_type === 'web' || row.page_type === 'browser') ? data : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (data === 'webview' || data === 'browser') ? row.page_value : isEmpty(row.target_title) ? label.dash : row.target_title;
 					}
 				}
 				,{title: "수정",    		data: "banner_uuid",  		width: "10%",

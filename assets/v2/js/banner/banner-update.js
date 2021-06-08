@@ -52,24 +52,24 @@
 	let g_banner_uuid;
 	function buildDetail(data)
 	{
-		const { banner_uuid, banner_name, page_type, page_value, target_title, open_date, close_date, banner_image_url } = data.data;
+		const { banner_uuid, banner_name, page_value, page_target, page_target_value, target_title, open_date, close_date, banner_image_url } = data.data;
 
 		g_banner_uuid = banner_uuid;
 
 		title.val(banner_name);
 		rdoTargetPageType.each(function () {
-			if ($(this).val() === page_type)
+			if ($(this).val() === page_target)
 			{
 				$(this).prop('checked', true);
 				onChangeRdoTargetPageType($(this));
 			}
 		});
-		if (page_type === 'webview' || page_type === 'browser')
+		if (page_target === 'webview' || page_target === 'browser')
 			targetUrl.val(page_value);
 		else
 		{
 			targetPage.val(target_title);
-			targetUuid.val(page_value);
+			targetUuid.val(page_target_value);
 		}
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
@@ -106,13 +106,14 @@
 		{
 			const url = api.updateBanner;
 			const errMsg = label.modify+message.ajaxError;
-			let pageType = $("input[name=radio-target-page-type]:checked").val();
-			pageType = (pageType === 'event_detail' || pageType === 'notice_detail') ? 'webview' : pageType;
-			const bannerTarget = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
+			const pageTarget = $("input[name=radio-target-page-type]:checked").val();
+			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? 'webview' : pageTarget;
+			const bannerTarget = (pageTarget === 'webview' || pageTarget === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_uuid" : g_banner_uuid,
 				"banner_name" : title.val().trim(),
 				"page_type" : pageType,
+				"page_target" : pageTarget,
 				"banner_target" : bannerTarget,
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),

@@ -63,9 +63,9 @@
 
 	function buildAttachment(data)
 	{
-		const {contents_url} = data.data;
+		const {contents_url, attach_count} = data.data;
 		let images = '';
-		(contents_url.length > 0)
+		(Number(attach_count) && contents_url.length > 0)
 			? contents_url.map(url => images += `<div class="img-wrap"><img src="${url}" alt="" class="view-attach"></div>`)
 			: images = label.dash;
 

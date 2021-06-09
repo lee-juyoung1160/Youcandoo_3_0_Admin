@@ -31,7 +31,7 @@
 	{
 		const selectedValue = $(obj).val();
 
-		if (selectedValue === 'event')
+		if (selectedValue === '이벤트')
 		{
 			linkWrap.hide();
 			contentWrap.show();
@@ -39,7 +39,7 @@
 			contentImgWrap.show();
 			dateWrap.show();
 		}
-		else if (selectedValue === 'announce')
+		else if (selectedValue === '결과발표')
 		{
 			linkWrap.hide();
 			contentWrap.show();
@@ -47,7 +47,7 @@
 			contentImgWrap.show();
 			dateWrap.hide();
 		}
-		else if (selectedValue === 'link')
+		else if (selectedValue === '링크')
 		{
 			linkWrap.show();
 			contentWrap.hide();

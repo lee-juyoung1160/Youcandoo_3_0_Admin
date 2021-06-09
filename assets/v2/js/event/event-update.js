@@ -50,7 +50,7 @@
 	let g_event_type;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type, event_type_name, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
+		const { event_uuid, event_type, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
 
 		g_event_uuid = event_uuid;
 		g_event_type = event_type;

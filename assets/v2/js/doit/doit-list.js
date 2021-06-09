@@ -143,29 +143,29 @@
 			},
 			columns: [
 				{title: "카테고리",    	data: "category_title",  	width: "10%" }
-				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "10%" }
+				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "15%" }
 				,{title: "두잇명", 		data: "doit_title",			width: "30%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "리더", 		data: "nickname",			width: "10%",
+				,{title: "리더", 		data: "nickname",			width: "15%",
 					render: function (data, type, row, meta) {
 						return row.is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "생성일", 		data: "created",			width: "10%",
+				,{title: "생성일", 		data: "created",			width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "오픈일", 		data: "opened",				width: "10%",
+				,{title: "오픈일", 		data: "opened",				width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "참여인원",    	data: "member_cnt",  		width: "10%" }
-				,{title: "상태",    		data: "doit_status",  		width: "10%",
+				,{title: "참여인원",    	data: "member_cnt",  		width: "7%" }
+				,{title: "상태",    		data: "doit_status",  		width: "7%",
 					render: function (data) {
 						return getDoitStatusName(data);
 					}

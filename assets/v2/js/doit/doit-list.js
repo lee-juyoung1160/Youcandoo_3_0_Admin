@@ -144,12 +144,12 @@
 			columns: [
 				{title: "카테고리",    	data: "category_title",  	width: "10%" }
 				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "15%" }
-				,{title: "두잇명", 		data: "doit_title",			width: "30%",
+				,{title: "두잇명", 		data: "doit_title",			width: "25%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
+						return `<a href="${page.detailDoit}${row.idx}" class="line-clamp-1" style="max-width: 320px;">${data}</a>`;
 					}
 				}
-				,{title: "리더", 		data: "nickname",			width: "15%",
+				,{title: "리더", 		data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
 						return row.is_company === 'Y' ? label.bizIcon + data : data;
 					}

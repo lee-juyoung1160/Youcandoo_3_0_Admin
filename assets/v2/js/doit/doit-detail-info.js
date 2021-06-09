@@ -2,47 +2,49 @@
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-	doitTitle,
-	sponsor,
-	category,
-	doitDesc,
-	doitKeywords,
-	doitThumbnail,
-	publicType,
-	isApply,
-	doitQuestion,
-	isAnswer,
-	btnDoitOpen,
-	btnDoitStop,
-	btnDoitDelete,
-	doitUpdateForm,
-	doitInfoForm,
-	doitSponsor,
-	chkIsApply,
-	chkIsQuestion,
-	chkIsAnswer,
-	rdoPublicType,
-	infoDoitTitle,
-	infoDoitDesc,
-	infoDoitKeywords,
-	infoQuestion,
-	selCategory,
-	doitImage,
-	selSubcategory,
-	doitKeyword,
-	btnUpdateDoit,
-	btnCreateMission,
-	btnDeleteMission,
-	btnUpdateMission,
-	btnBan,
-	createCommentWrap,
-	actionCommentWrap,
-	btnUpdateTalk,
-	btnDeleteTalk,
-	btnCreateTalk,
-	talkCommentWrap,
-	createTalkCommentWrap,
-		btnSaveUcd
+		doitTitle,
+		sponsor,
+		category,
+		doitDesc,
+		doitKeywords,
+		doitThumbnail,
+		publicType,
+		isApply,
+		doitQuestion,
+		isAnswer,
+		btnDoitOpen,
+		btnDoitStop,
+		btnDoitDelete,
+		doitUpdateForm,
+		doitInfoForm,
+		doitSponsor,
+		chkIsApply,
+		chkIsQuestion,
+		chkIsAnswer,
+		rdoPublicType,
+		infoDoitTitle,
+		infoDoitDesc,
+		infoDoitKeywords,
+		infoQuestion,
+		selCategory,
+		doitImage,
+		selSubcategory,
+		doitKeyword,
+		btnUpdateDoit,
+		btnCreateMission,
+		btnDeleteMission,
+		btnUpdateMission,
+		btnBan,
+		createCommentWrap,
+		actionCommentWrap,
+		btnUpdateTalk,
+		btnDeleteTalk,
+		btnCreateTalk,
+		talkCommentWrap,
+		createTalkCommentWrap,
+		btnSaveUcd,
+		btnReject,
+		btnApproval, applyMemberCountWrap
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
@@ -107,6 +109,7 @@
 		}
 		publicType.text(getStrFromPublicType(public_type));
 		isApply.text(approve_member);
+		if (approve_member === 'N') applyMemberCountWrap.remove();
 		infoQuestion.text(isEmpty(question) ? label.dash : question);
 		isAnswer.text(answer_type === 'public' ? label.public : label.private);
 		doitThumbnail.attr('src', doit_image_url);
@@ -231,6 +234,8 @@
 			btnUpdateTalk.remove();
 			btnDeleteTalk.remove();
 			btnSaveUcd.remove();
+			btnApproval.remove()
+			btnReject.remove();
 		}
 	}
 

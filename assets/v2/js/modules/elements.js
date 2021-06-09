@@ -193,6 +193,7 @@
     export const pendingMemberForm = $("#pendingMemberForm");
     export const btnJoinMembers = $("#btnJoinMembers");
     export const btnPendingMembers = $("#btnPendingMembers");
+    export const applyMemberCountWrap = $("#applyMemberCountWrap");
     export const totalMemberCount = $("#totalMemberCount");
     export const applyMemberCount = $(".apply-member-count");
     export const selMissions = $("#selMissions");

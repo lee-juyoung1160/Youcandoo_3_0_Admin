@@ -230,10 +230,10 @@
 				}
 			},
 			columns: [
-				{title: "제목", 		data: "title",		width: "20%" }
-				,{title: "내용",     data: "contents",  	width: "80%",
+				{title: "제목", 		data: "title",		width: "45%" }
+				,{title: "내용",     data: "contents",  	width: "55%",
 					render: function (data) {
-						return `<div class="line-clamp-1" style="max-width: 800px;">${data}</div>`;
+						return `<div class="line-clamp-1" style="max-width: 600px;">${data}</div>`;
 					}
 				}
 			],
@@ -266,9 +266,8 @@
 	function addAttrDragonElement(el)
 	{
 		let tdElement = $(el).children();
-		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
-		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*65)+'px');
-		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*15)+'px');
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*45)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*55)+'px');
 		return $(el);
 	}
 

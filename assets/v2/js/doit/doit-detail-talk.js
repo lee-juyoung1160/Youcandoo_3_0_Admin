@@ -101,6 +101,7 @@
 		talk.trigger('focus');
 		talk.val('');
 		rdoAttachType.eq(0).prop('checked', true);
+		chkNoticeTalk.prop('checked', false);
 		onChangeAttachType();
 	}
 

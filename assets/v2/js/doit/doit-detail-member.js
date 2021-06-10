@@ -31,7 +31,7 @@
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid, doitIdx} from "./doit-detail-info.js";
+	import {g_doit_uuid, doitIdx, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -370,13 +370,18 @@
 			],
 			serverSide: true,
 			paging: true,
-			pageLength: 10,
+			pageLength: Number(selApplyMemberPageLength.val()),
 			select: {
 				style: 'multi',
 				selector: ':checkbox'
 			},
 			destroy: true,
 			initComplete: function () {
+				if (!isSponsorDoit)
+				{
+					let table = applyMemberTable.DataTable();
+					table.column(3).visible(false);
+				}
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},

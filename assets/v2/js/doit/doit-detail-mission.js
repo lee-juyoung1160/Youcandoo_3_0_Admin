@@ -137,7 +137,7 @@
 						return `${row.start_date} ~ ${row.end_date}`;
 					}
 				}
-				,{title: "참여인원",    	data: "state",  			width: "15%" }
+				,{title: "총 참여 인원",   data: "state",  			width: "15%" }
 				,{title: "상태",    		data: "state",  			width: "15%" }
 			],
 			serverSide: true,

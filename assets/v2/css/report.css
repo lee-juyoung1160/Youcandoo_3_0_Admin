@@ -58,9 +58,14 @@
 	line-height: 1.2em;
 }
 .auth-item .nick-name {
-	display: block;
 	margin: 10px 0;
 	color: #666;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	text-decoration: underline;
+	cursor: pointer;
 }
 .auth-item .date {
 	color: #aaa;

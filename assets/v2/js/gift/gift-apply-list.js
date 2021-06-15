@@ -22,7 +22,7 @@
 		modalGeneral, generalMemo,
 		modalGift, selHour, selMinute,
 		btnSendGeneral,
-		btnSendGift, selDateType, memo
+		btnSendGift, selDateType, memo, balance
 	} from '../modules/elements.js';
 	import { sweetToast, sweetToastAndCallback, sweetConfirm, sweetError } from  '../modules/alert.js';
 	import {
@@ -40,7 +40,6 @@
 		initTableDefaultConfig,
 		buildTotalCount,
 		toggleBtnPreviousAndNextOnTable,
-		tableReloadAndStayCurrentPage,
 		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -54,6 +53,7 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		initSearchForm();
+		getBalance();
 		/** 목록 불러오기 **/
 		buildTable();
 		/** 이벤트 **/
@@ -359,7 +359,6 @@
 	{
 		fadeoutModal();
 		onSubmitSearch();
-		//initBalance();
 	}
 
 	function getSelectedRowsUuid()
@@ -375,4 +374,22 @@
 		}
 
 		return uuids;
+	}
+
+	function getBalance()
+	{
+		const url = api.getGiftBalance;
+		const errMsg = `잔액 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getBalanceCallback, errMsg, false);
+	}
+
+	function getBalanceCallback(data)
+	{
+		isSuccessResp(data) ? buildBalance(data) : sweetToast(data.msg);
+	}
+
+	function buildBalance(data)
+	{
+		balance.text(numberWithCommas(data.data.money));
 	}

@@ -192,6 +192,7 @@
         sendGifticon : baseApiUrl + 'exchange/set/confirm',
         sendGeneralGift : baseApiUrl + 'exchange/set/send',
         rejectGift : baseApiUrl + 'exchange/set/reject',
+        getGiftBalance : baseApiUrl + 'exchange/get/money',
         sendGiftList : baseApiUrl + 'exchange/get/sendList',
         sendGiftStatusList : baseApiUrl + 'exchange/get/payment',
         updateGiftSendMemo : baseApiUrl + 'exchange/set/insertMemo',

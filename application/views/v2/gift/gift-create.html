@@ -14,13 +14,28 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
+                    <tr>
+                        <th>구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r1" type="radio" name="radio-exposure" value="Y" checked>
+                                <label for="r1"><span></span>직접 입력</label>
+
+                                <input  id="r2" type="radio" name="radio-exposure" value="N">
+                                <label for="r2"><span></span>KT 상품 불러오기</label>
+                            </div>
+                        </td>
+                    </tr>
                         <th>상품명 *</th>
                         <td>
                             <div class="input-wrap">
                                 <input id="giftName" type="text" class="length-input" maxlength="25" placeholder="상품명을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
-                            <button id="" type="button" class="btn-sm modal-btn">KT 상품 불러오기</button>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" maxlength="25" readonly placeholder="클릭 후 상품명을 선택해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
+                            </div>
                         </td>
                     </tr>
                     <tr>

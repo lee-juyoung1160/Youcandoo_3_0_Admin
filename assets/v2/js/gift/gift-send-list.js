@@ -1,5 +1,5 @@
 
-	import {headers, ajaxRequestWithJsonData} from '../modules/request.js';
+	import {headers, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo,
 		keyword, selPageLength, btnSearch, btnReset, selSearchType, memo, btnSubmitMemo,
@@ -79,8 +79,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
@@ -99,7 +107,7 @@
 						"page" : (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 						"gift_type": $("input[name=radio-type]:checked").val(),
-						"exchange_status" : sendStatus
+						"status" : sendStatus
 					}
 
 					return JSON.stringify(param);
@@ -109,11 +117,11 @@
 				}
 			},
 			columns: [
-				{title: "상품유형",    	data: "gift_type",  		width: "7%" }
-				,{title: "상품명", 		data: "gift_name",    		width: "15%" }
-				,{title: "신청자", 		data: "nickname",    		width: "13%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "7%",
+				{title: "상품유형",    	data: "gift_type",  	width: "7%" }
+				,{title: "상품명", 		data: "gift_name",    	width: "15%" }
+				,{title: "신청자", 		data: "nickname",    	width: "13%" }
+				,{title: "신청수량",    	data: "qty",  			width: "5%" }
+				,{title: "금액(UCD)",	data: "ucd",  			width: "7%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}

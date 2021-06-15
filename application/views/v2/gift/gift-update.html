@@ -14,11 +14,22 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
+                        <th>상품 유형</th>
+                        <td>
+                            <p class="detail-data" id="giftType"></p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>상품명 *</th>
                         <td>
                             <div class="input-wrap">
                                 <input id="giftName" type="text" class="length-input" maxlength="25" placeholder="상품명을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
+                            </div>
+                            <div class="input-wrap" style="display: none;">
+                                <input id="selectGiftName" type="text" class="modal-btn" readonly placeholder="클릭 후 상품명을 선택해주세요.">
+                                <input type="hidden" id="goodsCode">
+                                <input type="hidden" id="ktImageUrl">
                             </div>
                         </td>
                     </tr>
@@ -64,5 +75,66 @@
         </div>
     </div>
 
+    <div class="modal-wrap">
+        <div class="modal-content" style="width: 1000px;">
+            <div class="modal-header clearfix">
+                <h5>KT 상품 불러오기</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card clearfix">
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="상품명을 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                                <button id="btnSearch" type="button" class="btn-sm btn-search">검색</button>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table id="dataTable">
+                                <!--<colgroup>
+                                    <col style="width: 25%;">
+                                    <col style="width: 25%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 15%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>상품코드</th>
+                                    <th>상품명</th>
+                                    <th>브랜드명</th>
+                                    <th>판매종료일</th>
+                                    <th>이미지</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>485CAEDB-9DD0-861D</td>
+                                    <td>스타벅스 아메리카노 TALL</td>
+                                    <td>스타벅스</td>
+                                    <td>2030-12-31</td>
+                                    <td>
+                                        <div class="list-img-wrap">
+                                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>-->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
 </section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/gift/gift-update.js?version=<?php echo $this->config->item('version');?>"></script>

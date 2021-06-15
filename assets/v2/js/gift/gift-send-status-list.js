@@ -74,10 +74,10 @@
 				},
 				data: function (d) {
 					const param = {
-						from_date : dateFrom.val(),
-						to_date : dateTo.val(),
-						search_type : selSearchType.val(),
-						keyword : keyword.val().trim()
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type" : selSearchType.val(),
+						"keyword" : keyword.val().trim()
 					}
 
 					return JSON.stringify(param);

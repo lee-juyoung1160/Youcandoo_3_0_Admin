@@ -14,27 +14,28 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
-                    <tr>
                         <th>구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r1" type="radio" name="radio-exposure" value="Y" checked>
+                                <input id="r1" type="radio" name="radio-manual" value="Y" checked>
                                 <label for="r1"><span></span>직접 입력</label>
 
-                                <input  id="r2" type="radio" name="radio-exposure" value="N">
+                                <input  id="r2" type="radio" name="radio-manual" value="N">
                                 <label for="r2"><span></span>KT 상품 불러오기</label>
                             </div>
                         </td>
                     </tr>
+                    <tr>
                         <th>상품명 *</th>
                         <td>
                             <div class="input-wrap">
                                 <input id="giftName" type="text" class="length-input" maxlength="25" placeholder="상품명을 입력해주세요.">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
                             </div>
-                            <div class="input-wrap">
-                                <input id="" type="text" class="length-input" maxlength="25" readonly placeholder="클릭 후 상품명을 선택해주세요.">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/25</p>
+                            <div class="input-wrap" style="display: none;">
+                                <input id="selectGiftName" type="text" class="modal-btn" readonly placeholder="클릭 후 상품명을 선택해주세요.">
+                                <input type="hidden" id="goodsCode">
+                                <input type="hidden" id="ktImageUrl">
                             </div>
                         </td>
                     </tr>
@@ -98,13 +99,12 @@
                         </div>
                         <div class="table-wrap">
                             <table id="dataTable">
-                                <colgroup>
+                                <!--<colgroup>
                                     <col style="width: 25%;">
                                     <col style="width: 25%;">
                                     <col style="width: 20%;">
                                     <col style="width: 10%;">
                                     <col style="width: 15%;">
-                                    <col style="width: 5%;">
                                 </colgroup>
                                 <thead>
                                 <tr>
@@ -113,7 +113,6 @@
                                     <th>브랜드명</th>
                                     <th>판매종료일</th>
                                     <th>이미지</th>
-                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -127,14 +126,8 @@
                                             <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input id="c1" type="checkbox">
-                                            <label for="c1"><span></span></label>
-                                        </div>
-                                    </td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>
@@ -142,7 +135,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>
             </div>
         </div>
 
@@ -150,4 +142,5 @@
     </div>
 
 </section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/gift/gift-create.js?version=<?php echo $this->config->item('version');?>"></script>

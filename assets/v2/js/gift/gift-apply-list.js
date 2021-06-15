@@ -127,7 +127,7 @@
 						"search_type": selSearchType.val(),
 						"keyword" : keyword.val().trim(),
 						"gift_type" : $("input[name=radio-type]:checked").val(),
-						"exchange_status" : label.pending,
+						"status" : label.pending,
 						"page" : (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 					}
@@ -145,8 +145,8 @@
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",
+				,{title: "신청수량",    	data: "qty",  				width: "5%" }
+				,{title: "금액(UCD)",	data: "ucd",  				width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}

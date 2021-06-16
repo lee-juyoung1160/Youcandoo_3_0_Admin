@@ -366,10 +366,13 @@
     export const rdoTargetPageType = $("input[name=radio-target-page-type]");
     export const targetPage = $("#targetPage");
     export const rdoReceiveType = $("input[name=radio-receive-type]");
+    export const rdoCategory = $("input[name=radio-category]");
+    export const rdoIconType = $("input[name=radio-icon-type]");
     export const rdoTargetMemberType = $("input[name=radio-target-member-type]");
     export const modalTargetPage = $("#modalTargetPage");
     export const modalTargetMember = $("#modalTargetMember");
     export const btnModalTargetMemberOpen = $("#btnModalTargetMemberOpen");
+    export const memberTable = $("#memberTable");
     /** 팝업 **/
     export const popupTitle = $("#popupTitle");
     export const versionDigit = $("#versionDigit");

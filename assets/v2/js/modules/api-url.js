@@ -155,6 +155,10 @@
 
         pushList : baseApiUrl + 'push/list',
         createPush : baseApiUrl + 'push/create',
+        pushTargetNotice : baseApiUrl + 'push/get/notice',
+        pushTargetEvent : baseApiUrl + 'push/get/event',
+        pushTargetDoit : baseApiUrl + 'push/get/doit',
+        pushTargetMember : baseApiUrl + 'push/get/profile',
 
         popupList : baseApiUrl + 'popup/get/list',
         createPopup : baseApiUrl + 'popup/create',

@@ -1,69 +1,72 @@
 
-	import { ajaxRequestWithJsonData} from '../modules/request.js'
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
 	lengthInput,
 	btnSubmit,
-	title,
 	content,
-	selFaqType,
 	modalClose,
 	modalBackdrop,
 	btnModalTargetMemberOpen,
 	modalTargetMember,
-	reserveDate,
 	targetPage,
 	modalTargetPage,
 	rdoReserveType,
-	rdoTargetMemberType, rdoTargetPageType, reserveTime, btnXlsxExport
-} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	rdoTargetMemberType,
+	rdoTargetPageType,
+	reserveDate,
+	reserveTime,
+	btnXlsxExport,
+	dataTable,
+	keyword,
+	targetUuid,
+	nickname, memberTable, btnSearch, updateTable, totalCount
+	} from '../modules/elements.js';
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-	fadeoutModal,
+		fadeoutModal,
 		initInputDatepickerMinDateToday,
-	limitInputLength,
-	overflowHidden,
+		limitInputLength,
+		overflowHidden,
 		setDateToday
 	} from "../modules/common.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {onClickImportMemberFormExport} from "../modules/export-excel.js";
+	import {
+	checkBoxElement,
+	initTableDefaultConfig, tableReloadAndStayCurrentPage,
+	toggleBtnPreviousAndNextOnTable,
+	toggleSingleCheckBox
+} from "../modules/tables.js";
+
+	let addedUsers = [];
+	let addedUserObj = [];
 
 	$( () => {
+		/** dataTable default config **/
+		initTableDefaultConfig();
 		initInputDatepickerMinDateToday();
 		setDateToday();
+		buildSearchMemberTable();
 		/** 이벤트 **/
 		//lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		btnModalTargetMemberOpen.on("click", function () { onClickModalTargetMemberOpen(); });
-		targetPage		.on("click", function () { onClickModalTargetPageOpen(); });
-		rdoReserveType	.on('change', function () { onChangeRdoDateType(this); });
+		targetPage.on("click", function () { onClickModalTargetPageOpen(); });
+		rdoReserveType.on('change', function () { onChangeRdoReserveType(this); });
 		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
 		rdoTargetMemberType.on('change', function () { onChangeRdoTargetMemberType(this); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnSubmit		.on('click', function () { onSubmitPush(); });
-		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
+		btnModalTargetMemberOpen.on("click", function () { onClickModalTargetMemberOpen(this); });
+		modalClose.on("click", function () { fadeoutModal(); });
+		modalBackdrop.on("click", function () { fadeoutModal(); });
+		btnSubmit.on('click', function () { onSubmitPush(); });
+		btnXlsxExport.on('click', function () { onClickImportMemberFormExport(); });
+		keyword.on("propertychange change keyup paste input", function () { getTargetPageList(); });
+		btnSearch.on('click', function () { onSubmitSearchMember(); });
 	});
 
-	function onClickModalTargetMemberOpen()
-	{
-		modalTargetMember.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-
-	}
-
-	function onClickModalTargetPageOpen()
-	{
-		modalTargetPage.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-
-	}
-
-	function onChangeRdoDateType(obj)
+	function onChangeRdoReserveType(obj)
 	{
 		$(obj).val() === 'reserve' ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
 	}
@@ -73,13 +76,339 @@
 		//g_page_uuid = '';
 		targetPage.val('');
 
-		const targetValue = $(obj).val();
-		(['event', 'doit'].indexOf(targetValue) !== -1) ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
+		hasTargetPage() ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
 	}
 
 	function onChangeRdoTargetMemberType(obj)
 	{
 		$(obj).val() === 'all' ? $(obj).parent().siblings().hide() : $(obj).parent().siblings().show();
+	}
+
+	function onClickModalTargetPageOpen()
+	{
+		modalTargetPage.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		getTargetPageList();
+	}
+
+	function getTargetPageList()
+	{
+		const table = dataTable.DataTable();
+		table.destroy();
+		dataTable.empty();
+		dataTable.DataTable({
+			ajax : {
+				url: getApiUrl(),
+				type:"POST",
+				global: false,
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"limit" : d.length
+						,"page" : (d.start / d.length) + 1
+						,"keyword" : keyword.val().trim()
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: buildTableColumns(),
+			serverSide: true,
+			paging: true,
+			pageLength: 5,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				setRowAttributes(nRow, aData);
+			}
+		});
+	}
+
+	function setRowAttributes(nRow, aData)
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		let id;
+		let name;
+		switch (targetPageType) {
+			case 'event' :
+				id = aData.id;
+				name = aData.title;
+				break;
+			case 'doit' :
+				id = aData.id;
+				name = aData.title;
+				break;
+			case 'notice' :
+				id = aData.id;
+				name = aData.title;
+				break;
+		}
+		$(nRow).attr('data-id', id);
+		$(nRow).attr('data-name', name);
+		$(nRow).on('click', function () { onSelectTargetPage(this); })
+	}
+
+	function onSelectTargetPage(obj)
+	{
+		targetPage.val($(obj).data('name'));
+		targetUuid.val($(obj).data('id'));
+		fadeoutModal();
+	}
+
+	function buildTableColumns()
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		switch (targetPageType) {
+			case 'notice' :
+				return [{title: "제목",		data: "title",   		width: "100%"}]
+			case 'event' :
+				return [{title: "구분",		data: "event_type",    	width: "20%"}
+					,{title: "제목",			data: "title",    	   	width: "80%"}]
+			case 'doit' :
+				return [{title: "두잇명",	data: "title",    		width: "100%"}]
+		}
+	}
+
+	function getApiUrl()
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		switch(targetPageType)
+		{
+			case 'notice':
+				return api.pushTargetNotice;
+			case 'event':
+				return api.pushTargetEvent;
+			case 'doit':
+				return api.pushTargetDoit;
+		}
+	}
+
+	function onClickModalTargetMemberOpen(obj)
+	{
+		const inputEl = $(obj).siblings('input');
+		if (isEmpty($(inputEl).val()))
+		{
+			sweetToast(`닉네임을 ${message.input}`);
+			nickname.trigger('focus');
+			return;
+		}
+
+		modalTargetMember.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+
+		nickname.val($(inputEl).val().trim());
+		onSubmitSearchMember();
+	}
+
+	function onSubmitSearchMember()
+	{
+		if (isEmpty(nickname.val()))
+		{
+			sweetToast(`닉네임을 ${message.input}`);
+			nickname.trigger('focus');
+			return;
+		}
+
+		const table = memberTable.DataTable();
+		table.page.len(5);
+		table.ajax.reload();
+	}
+
+	function buildSearchMemberTable()
+	{
+		memberTable.DataTable({
+			ajax : {
+				url: api.pushTargetMember,
+				type:"POST",
+				headers: headers,
+				global: false,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"page" : (d.start / d.length) + 1
+						,"limit" : d.length
+						,"keyword" : isEmpty(nickname.val()) ? '!@#' : nickname.val().trim()
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "닉네임",		data: "nickname",    		width: "35%" }
+				,{title: "PID",			data: "profile_uuid",   	width: "36%" }
+				,{title: "두잇알림",		data: "noti_doit",   		width: "8%" }
+				,{title: "마케팅알림",	data: "noti_marketing",   	width: "8%" }
+				,{title: "공지알림",		data: "noti_notice",   		width: "8%" }
+				,{title: '', 		data: "profile_uuid",   width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(meta.row);
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 5,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
+			destroy: true,
+			initComplete: function () {
+				addEvent();
+			},
+			fnRowCallback: function( nRow, aData ) {
+				/** 이미 추가된 경우 체크박스 disabled **/
+				const checkboxEl = $(nRow).children().eq(5).find('input');
+				if (addedUsers.indexOf(aData.profile_uuid) > -1)
+					$(checkboxEl).prop('disabled', true);
+			},
+			drawCallback: function (settings) {
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	function addEvent()
+	{
+		const chkBoxes = $("input[name=chk-row]");
+		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
+		memberTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
+	}
+
+	function onClickCheckBox(dt, indexes)
+	{
+		const selectedData = dt.rows(indexes).data()[0];
+		addUser(selectedData);
+	}
+
+	function addUser(data)
+	{
+		const {profile_uuid, nickname, noti_doit, noti_marketing, noti_notice} = data;
+		let userObj = [];
+		userObj.push({
+			"profile_uuid" : profile_uuid,
+			"nickname" : nickname,
+			"noti_notice" : noti_notice,
+			"noti_marketing" : noti_marketing,
+			"noti_doit" : noti_doit });
+		addedUserObj = userObj.concat(addedUserObj);
+
+		let users = [];
+		users.push(profile_uuid);
+		addedUsers = users.concat(addedUsers);
+
+		buildUpdateTable();
+		displayCountAddedUser();
+	}
+
+	function buildUpdateTable()
+	{
+		updateTable.DataTable({
+			data: addedUserObj,
+			columns: [
+				{title: "닉네임",		data: "nickname",    		width: "35%" }
+				,{title: "PID",			data: "profile_uuid",   	width: "36%" }
+				,{title: "두잇알림",		data: "noti_doit",   		width: "8%" }
+				,{title: "마케팅알림",	data: "noti_marketing",   	width: "8%" }
+				,{title: "공지알림",		data: "noti_notice",   		width: "8%" }
+				,{title: "",    		data: "profile_uuid",  		width: "5%",
+					render: function (data, type, row, meta) {
+						return `<button type="button" class="btn-xs btn-text-red delete-btn" data-rownum="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+					}
+				}
+			],
+			serverSide: false,
+			paging: true,
+			pageLength: 30,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+				tableReloadAndStayCurrentPage(memberTable);
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('id', aData.profile_uuid);
+				$(nRow).children().eq(5).find('button').on('click', function () { removeRow(this); });
+			},
+			drawCallback: function (settings) {
+			}
+		});
+	}
+
+	function removeRow(obj)
+	{
+		let table = updateTable.DataTable();
+		table.row($(obj).closest('tr')).remove().draw(false);
+
+		initAddedUserData();
+		displayCountAddedUser();
+	}
+
+	function initAddedUserData()
+	{
+		addedUsers.length = 0;
+		addedUserObj.length = 0;
+
+		let table = updateTable.DataTable();
+		const tableData = table.rows().data();
+		if (tableData.length > 0)
+		{
+			for (let i=0; i<tableData.length; i++)
+			{
+				const {profile_uuid, nickname, noti_doit, noti_marketing, noti_notice} = tableData[i];
+
+				addedUsers.push(profile_uuid)
+				addedUserObj.push({
+					"profile_uuid" : profile_uuid,
+					"nickname" : nickname,
+					"noti_notice" : noti_notice,
+					"noti_marketing" : noti_marketing,
+					"noti_doit" : noti_doit });
+			}
+		}
+	}
+
+	function displayCountAddedUser()
+	{
+		totalCount.text(numberWithCommas(addedUserObj.length));
 	}
 
 	function onSubmitPush()
@@ -90,14 +419,19 @@
 
 	function createRequest()
 	{
-		const url 	= api.createPush;
-		const errMsg 	= label.submit+message.ajaxError;
+		const url = api.createPush;
+		const errMsg = label.submit+message.ajaxError;
 		const param = {
-			"faq_type" : selFaqType.val(),
-			"faq_title" : title.val().trim(),
-			"faq_contents" : content.val().trim(),
-			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
-
+			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
+			"send_datetime" : `${reserveDate.val()} ${reserveTime.val()}`,
+			"send_profile_type" : $('input:radio[name=radio-target-member-type]:checked').val(),
+			"send_profile" : isIndividual() ? [] : addedUsers,
+			"target_type" : $('input:radio[name=radio-target-page-type]:checked').val(),
+			"target" : hasTargetPage() ? targetUuid.val() : '',
+			"store" : $('input:radio[name=radio-os-type]:checked').val(),
+			"message" : content.val().trim(),
+			"icon_type" :  $('input:radio[name=radio-icon-type]:checked').val(),
+			"category" : $('input:radio[name=radio-category]:checked').val(),
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
@@ -110,7 +444,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listPush;
+		//location.href = page.listPush;
 	}
 
 	function validation()
@@ -123,15 +457,13 @@
 			return false;
 		}
 
-		const targetMemberType = $("input[name=radio-target-member-type]:checked").val();
-		if (targetMemberType === 'individual' && selectedUsers.length === 0)
+		if (isIndividual() && addedUsers.length === 0)
 		{
 			sweetToast(`발송 대상은 ${message.required}`);
 			return false;
 		}
 
-		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
-		if (['event', 'notice'].indexOf(targetPageType) !== -1 && isEmpty(targetPage.val()))
+		if (hasTargetPage() && isEmpty(targetPage.val()))
 		{
 			sweetToast(`발송 구분은 ${message.required}`);
 			return false;
@@ -146,3 +478,16 @@
 
 		return true;
 	}
+
+	function hasTargetPage()
+	{
+		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
+		return ['event', 'notice', 'doit'].indexOf(targetPageType) !== -1
+	}
+
+	function isIndividual()
+	{
+		const targetMemberType = $("input[name=radio-target-member-type]:checked").val();
+		return targetMemberType === 'individual';
+	}
+

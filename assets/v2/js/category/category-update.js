@@ -97,6 +97,7 @@
 			destroy: true,
 			initComplete: function () {
 				initTableSort();
+				addEditableEvent();
 				addDeleteEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -122,6 +123,80 @@
 		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*80)+'px');
 		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
 		return $(el);
+	}
+
+	function addEditableEvent()
+	{
+		document.querySelectorAll('.btn-edit').forEach( element => element.addEventListener('click', onClickEditable));
+	}
+
+	function onClickEditable(event)
+	{
+		initButtons();
+
+		const btnTarget = event.target;
+		$(btnTarget).siblings('input').prop('disabled', false);
+		$(btnTarget).siblings('input').trigger('focus');
+		$(btnTarget).removeClass('btn-teal btn-editable');
+		$(btnTarget).addClass('btn-primary btn-submit-edit');
+		$(btnTarget).text('완료');
+
+		addSubmitEvent(btnTarget);
+	}
+
+	function addSubmitEvent(_target)
+	{
+		removeSubmitEvent();
+		addEditableEvent();
+
+		_target.removeEventListener('click', onClickEditable);
+		_target.addEventListener('click', onSubmitEditSubcategory);
+	}
+
+	let inputValue;
+	function onSubmitEditSubcategory(event)
+	{
+		const btnTarget = event.target;
+		const inputTarget = $(btnTarget).siblings();
+		inputValue = $(inputTarget).val();
+
+		if (isEmpty(inputValue))
+		{
+			sweetToast(`세부 카테고리를 ${message.input}`);
+			$(inputTarget).trigger('focus');
+			return;
+		}
+
+		sweetConfirm(message.modify, editSubcategoryRequest);
+	}
+
+	function editSubcategoryRequest()
+	{
+		const url = api.updateError;
+		const errMsg = label.modify+message.ajaxError;
+		const param = { "code" : messageCode }
+		messageType === 'ios_message' ? param.ios_message = inputValue : param.aos_message = inputValue;
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+	}
+
+	function updateReqCallback(data)
+	{
+		sweetToastAndCallback(data, getErrorList);
+	}
+
+	function initButtons()
+	{
+		const btnEdit = $(".btn-edit");
+		btnEdit.siblings('textarea').prop('disabled', true);
+		btnEdit.removeClass('btn-primary btn-submit-edit');
+		btnEdit.addClass('btn-teal btn-editable');
+		btnEdit.text('수정');
+	}
+
+	function removeSubmitEvent()
+	{
+		document.querySelectorAll('.btn-edit').forEach( element => element.removeEventListener('click', onSubmitEdit));
 	}
 
 	function addDeleteEvent()

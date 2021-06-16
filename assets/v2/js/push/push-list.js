@@ -2,17 +2,17 @@
 	import {headers, isSuccessResp,} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
-	body,
-	btnSearch,
-	btnReset,
-	keyword,
-	dataTable,
-	selPageLength,
-	modalClose,
-	modalBackdrop,
-	dateButtons,
-	dateFrom, dateTo, selSearchType,
-} from '../modules/elements.js';
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		modalClose,
+		modalBackdrop,
+		dateButtons,
+		dateFrom, dateTo, selSearchType, content
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {
 		initSelectOption,
@@ -186,7 +186,8 @@
 	function viewDetail(obj)
 	{
 		fadeinModal();
-		const pushMessage = $(obj).data('detail');
+		content.empty();
+		content.text( $(obj).data('detail'));
 	}
 
 	function getPushTargetName(data)

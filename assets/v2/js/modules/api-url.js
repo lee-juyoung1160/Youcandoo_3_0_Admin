@@ -43,7 +43,7 @@
         updateSubCategoryDoitImg : baseApiUrl + 'subcategory/set/doit/image',
         deleteSubCategory : baseApiUrl + 'subcategory/delete',
         reorderSubCategory : baseApiUrl + 'subcategory/update/sequence',
-        editSubCategory : baseApiUrl + 'subcategory/update/sequence',
+        editSubCategory : baseApiUrl + 'subcategory/update',
 
         keywordList : baseApiUrl + 'keyword/get/list',
         createKeyword : baseApiUrl + 'keyword/create',

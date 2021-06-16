@@ -84,10 +84,20 @@
 		dataTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "세부 카테고리",	data: "subcategory_title", 	width: "80%" },
+				{title: "세부 카테고리",	data: "subcategory_title", 	width: "80%",
+					render: function (data, type, row, meta) {
+						return `<div class="input-wrap">
+                                    <input type="text" class="length-input" value="${data}" maxlength="15" disabled>
+                                    <p class="length-count-wrap"><span class="count-input">0</span>/15</p>
+                                </div>
+                                <button type="button" class="btn-xs btn-edit btn-editable" data-uuid="${row.subcategory_uuid}">수정</button>`
+					}
+				},
 				{title: "삭제",			data: "subcategory_uuid",	width: "20%",
 					render: function (data, type, row, meta) {
-						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}"><i class="fas fa-minus-circle"></i></button>`
+						return `<button type="button" class="btn-xs btn-text-red delete-btn" id="${data}">
+									<i class="fas fa-minus-circle"></i>
+								</button>`
 					}
 				}
 			],
@@ -96,6 +106,8 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
+				$(".length-input").on("propertychange change keyup paste input", function () { limitInputLength(this); });
+				calculateInputLength();
 				initTableSort();
 				addEditableEvent();
 				addDeleteEvent();
@@ -135,13 +147,22 @@
 		initButtons();
 
 		const btnTarget = event.target;
-		$(btnTarget).siblings('input').prop('disabled', false);
-		$(btnTarget).siblings('input').trigger('focus');
-		$(btnTarget).removeClass('btn-teal btn-editable');
-		$(btnTarget).addClass('btn-primary btn-submit-edit');
+		$(btnTarget).siblings('.input-wrap').children('input').prop('disabled', false);
+		$(btnTarget).siblings('.input-wrap').trigger('focus');
+		$(btnTarget).removeClass('btn-editable');
+		$(btnTarget).addClass('btn-teal btn-submit-edit');
 		$(btnTarget).text('완료');
 
 		addSubmitEvent(btnTarget);
+	}
+
+	function initButtons()
+	{
+		const btnEdit = $(".btn-edit");
+		btnEdit.siblings('.input-wrap').children('input').prop('disabled', true);
+		btnEdit.removeClass('btn-teal btn-submit-edit');
+		btnEdit.addClass('btn-editable');
+		btnEdit.text('수정');
 	}
 
 	function addSubmitEvent(_target)
@@ -153,12 +174,19 @@
 		_target.addEventListener('click', onSubmitEditSubcategory);
 	}
 
+	function removeSubmitEvent()
+	{
+		document.querySelectorAll('.btn-edit').forEach( element => element.removeEventListener('click', onSubmitEditSubcategory));
+	}
+
 	let inputValue;
+	let edit_subcategory_uuid;
 	function onSubmitEditSubcategory(event)
 	{
 		const btnTarget = event.target;
-		const inputTarget = $(btnTarget).siblings();
+		const inputTarget = $(btnTarget).siblings('.input-wrap').children('input');
 		inputValue = $(inputTarget).val();
+		edit_subcategory_uuid = $(btnTarget).data('uuid');
 
 		if (isEmpty(inputValue))
 		{
@@ -172,31 +200,19 @@
 
 	function editSubcategoryRequest()
 	{
-		const url = api.updateError;
+		const url = api.editSubCategory;
 		const errMsg = label.modify+message.ajaxError;
-		const param = { "code" : messageCode }
-		messageType === 'ios_message' ? param.ios_message = inputValue : param.aos_message = inputValue;
+		const param = {
+			"subcategory_title" : inputValue,
+			"subcategory_uuid" : edit_subcategory_uuid
+		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), editSubcategoryReqCallback, errMsg, false);
 	}
 
-	function updateReqCallback(data)
+	function editSubcategoryReqCallback(data)
 	{
-		sweetToastAndCallback(data, getErrorList);
-	}
-
-	function initButtons()
-	{
-		const btnEdit = $(".btn-edit");
-		btnEdit.siblings('textarea').prop('disabled', true);
-		btnEdit.removeClass('btn-primary btn-submit-edit');
-		btnEdit.addClass('btn-teal btn-editable');
-		btnEdit.text('수정');
-	}
-
-	function removeSubmitEvent()
-	{
-		document.querySelectorAll('.btn-edit').forEach( element => element.removeEventListener('click', onSubmitEdit));
+		sweetToastAndCallback(data, getSubCategory);
 	}
 
 	function addDeleteEvent()

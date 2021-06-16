@@ -180,12 +180,9 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const table = dataTable.DataTable();
-					const info = table.page.info();
-					const _page = (info.start / info.length) + 1;
 					const param = {
-						"limit" : 5
-						,"page" : _page
+						"limit" : d.length
+						,"page" : (d.start / d.length) + 1
 						,"keyword" : keyword.val().trim()
 					}
 

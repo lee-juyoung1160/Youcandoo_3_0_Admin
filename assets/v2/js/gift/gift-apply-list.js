@@ -1,5 +1,5 @@
 
-	import {headers, invalidResp, getStatusCode, isSuccessResp} from '../modules/request.js';
+	import {headers, invalidResp, getStatusCode, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -22,9 +22,9 @@
 		modalGeneral, generalMemo,
 		modalGift, selHour, selMinute,
 		btnSendGeneral,
-		btnSendGift, selDateType,
+		btnSendGift, selDateType, memo, balance
 	} from '../modules/elements.js';
-	import { sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetToast, sweetToastAndCallback, sweetConfirm, sweetError } from  '../modules/alert.js';
 	import {
 		onClickDateRangeBtn,
 		initDayBtn,
@@ -40,7 +40,6 @@
 		initTableDefaultConfig,
 		buildTotalCount,
 		toggleBtnPreviousAndNextOnTable,
-		tableReloadAndStayCurrentPage,
 		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -54,23 +53,24 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		initSearchForm();
+		getBalance();
 		/** 목록 불러오기 **/
 		buildTable();
 		/** 이벤트 **/
-		body  			.on("keydown", function (event) { onKeydownSearch(event) });
+		body.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		dateTo.on('change', function () { onChangeSearchDateTo(); });
-		selPageLength	.on("change", function () { onSubmitSearch(); });
-		btnSearch 	.on("click", function () { onSubmitSearch(); });
-		btnReset	.on("click", function () { initSearchForm(); });
-		dateButtons	.on("click", function () { onClickDateRangeBtn(this); });
+		selPageLength.on("change", function () { onSubmitSearch(); });
+		btnSearch.on("click", function () { onSubmitSearch(); });
+		btnReset.on("click", function () { initSearchForm(); });
+		dateButtons.on("click", function () { onClickDateRangeBtn(this); });
 		btnSendGeneral.on("click", function () { g_approval_type = 'general'; onClickModalGeneralOpen(); });
-		btnSendGift	.on("click", function () { g_approval_type = 'gift'; onClickModalGiftOpen(); });
-		btnCancel	.on("click", function () { g_approval_type = 'cancel'; onClickModalGeneralOpen(); });
-		modalClose		.on("click", function () { fadeoutModal(); });
-		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		//btnSubmitGeneral.on("click", function () { onSubmitGeneral(); });
-		//btnSubmitGift 	.on("click", function () { onSubmitGift(); });
+		btnSendGift.on("click", function () { g_approval_type = 'gift'; onClickModalGiftOpen(); });
+		btnCancel.on("click", function () { g_approval_type = 'cancel'; onClickModalGeneralOpen(); });
+		modalClose.on("click", function () { fadeoutModal(); });
+		modalBackdrop.on("click", function () { fadeoutModal(); });
+		btnSubmitGeneral.on("click", function () { onSubmitGeneral(); });
+		btnSubmitGift.on("click", function () { onSubmitGifticon(); });
 	});
 
 	function initSearchForm()
@@ -127,7 +127,7 @@
 						"search_type": selSearchType.val(),
 						"keyword" : keyword.val().trim(),
 						"gift_type" : $("input[name=radio-type]:checked").val(),
-						"exchange_status" : label.pending,
+						"status" : label.pending,
 						"page" : (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 					}
@@ -145,8 +145,8 @@
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    		width: "25%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "10%",
+				,{title: "신청수량",    	data: "qty",  				width: "5%" }
+				,{title: "금액(UCD)",	data: "ucd",  				width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -213,6 +213,8 @@
 	function initModalGift()
 	{
 		reserveDate.datepicker("setDate", "today");
+		reserveDate.datepicker("option", "minDate", "today");
+		reserveDate.datepicker("option", "maxDate", "1M");
 		selHour.val('12');
 		selMinute.val('00');
 	}
@@ -278,7 +280,7 @@
 		return result;
 	}
 
-	function onSubmitGift()
+	function onSubmitGifticon()
 	{
 		if (reserveValidation())
 			sweetConfirm(message.send, reserveRequest);
@@ -286,9 +288,9 @@
 
 	function reserveValidation()
 	{
-		const reserveDate = replaceAll(reserveDatePicker.val(), '-', '');
+		const reserveDay = replaceAll(reserveDate.val(), '-', '');
 		const reserveTime = selHour.val()+selMinute.val();
-		const reserveDatetime = reserveDate+reserveTime;
+		const reserveDatetime = reserveDay+reserveTime;
 		const currentDate = getStringFormatToDate(new Date(), '');
 		const currentTime = appendZero(getCurrentHours()).toString()+appendZero(getCurrentMinutes()).toString();
 		const currentDatetime = currentDate+currentTime;
@@ -304,15 +306,14 @@
 
 	function reserveRequest()
 	{
-		const url = api.reserveGift;
+		const url = api.sendGifticon;
 		const errMsg = label.reserve+label.send+message.ajaxError;
 		const uuids = getSelectedRowsUuid();
-		const reserveDate = replaceAll(reserveDatePicker.val(), '-', '');
 		const param = {
 			"exchange_list" : uuids,
-			"reservation_date" : reserveDate,
+			"reservation_date" : replaceAll(reserveDate.val(), '-', ''),
 			"reservation_time" : selHour.val()+selMinute.val(),
-			"memo" : reserveMemo.val().trim()
+			"memo" : memo.val().trim()
 		};
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reserveReqSuccessCallback, errMsg, false);
@@ -324,8 +325,8 @@
 			sweetToastAndCallback(data, reqSuccess);
 		else
 		{
-			let statusFromGift = [39101, 39102, 39103, 39104, 39105, 39106, 39107, 39108];
-			let msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
+			const statusFromGift = [39101, 39102, 39103, 39104, 39105, 39106, 39107, 39108];
+			const msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
 			sweetToast(msg);
 		}
 	}
@@ -338,7 +339,7 @@
 
 	function generalRequest()
 	{
-		const url = g_approval_type === 'general' ? api : api;
+		const url = g_approval_type === 'general' ? api.sendGeneralGift : api.rejectGift;
 		const errMsg = `${label.send}(${label.cancel})`+message.ajaxError;
 		const uuids = getSelectedRowsUuid();
 		const param = {
@@ -357,8 +358,7 @@
 	function reqSuccess()
 	{
 		fadeoutModal();
-		buildTable();
-		initBalance();
+		onSubmitSearch();
 	}
 
 	function getSelectedRowsUuid()
@@ -374,4 +374,22 @@
 		}
 
 		return uuids;
+	}
+
+	function getBalance()
+	{
+		const url = api.getGiftBalance;
+		const errMsg = `잔액 ${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getBalanceCallback, errMsg, false);
+	}
+
+	function getBalanceCallback(data)
+	{
+		isSuccessResp(data) ? buildBalance(data) : sweetToast(data.msg);
+	}
+
+	function buildBalance(data)
+	{
+		balance.text(numberWithCommas(data.data.money));
 	}

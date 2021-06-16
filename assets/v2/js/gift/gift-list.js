@@ -98,18 +98,18 @@
 			},
 			columns: [
 				{title: "상품코드",    	data: "gift_uuid",  		width: "30%" }
-				,{title: "상품명", 		data: "gift_name",			width: "20%",
+				,{title: "상품명", 		data: "gift_name",			width: "30%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailGift + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "금액(UCD)",    data: "gift_ucd",  			width: "20%",
+				,{title: "금액(UCD)",    data: "gift_ucd",  			width: "15%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "이미지",    	data: "gift_image_url",  	width: "20%",
+				,{title: "이미지",    	data: "gift_image_url",  	width: "15%",
 					render: function (data) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`
 					}

@@ -1,5 +1,5 @@
 
-	import {headers, ajaxRequestWithJsonData} from '../modules/request.js';
+	import {headers, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo,
 		keyword, selPageLength, btnSearch, btnReset, selSearchType, memo, btnSubmitMemo,
@@ -79,8 +79,16 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
@@ -99,7 +107,7 @@
 						"page" : (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 						"gift_type": $("input[name=radio-type]:checked").val(),
-						"exchange_status" : sendStatus
+						"status" : sendStatus
 					}
 
 					return JSON.stringify(param);
@@ -109,37 +117,32 @@
 				}
 			},
 			columns: [
-				{title: "상품유형",    	data: "gift_type",  		width: "7%" }
-				,{title: "상품명", 		data: "gift_name",    		width: "15%" }
-				,{title: "신청자", 		data: "nickname",    		width: "13%" }
-				,{title: "신청수량",    	data: "gift_qty",  			width: "5%" }
-				,{title: "금액(UCD)",	data: "exchange_ucd",  		width: "7%",
+				{title: "상품유형",    	data: "gift_type",  	width: "8%" }
+				,{title: "상품명", 		data: "gift_name",    	width: "15%" }
+				,{title: "신청자", 		data: "nickname",    	width: "20%" }
+				,{title: "신청수량",    	data: "qty",  			width: "8%" }
+				,{title: "금액(UCD)",	data: "ucd",  			width: "8%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "상태",    		data: "exchange_status",  		width: "5%" }
-				,{title: "발송/취소일시",   data: "send_datetime", 			width: "12%" }
-				,{title: "예약일시",    	data: "reservation_datetime", 	width: "12%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
-				,{title: "상세내역",    	data: "exchange_uuid",  	width: "5%",
+				,{title: "상태",    			data: "status",  			width: "5%" }
+				,{title: "승인/발송/취소일시",   data: "send_datetime", 		width: "15%" }
+				,{title: "상세내역",    		data: "exchange_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
-						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
+						return (row.status === '발송' && row.gift_type === '기프티콘')
 							? `<a class="view-detail" data-uuid="${data}">보기</a>`
 							: label.dash;
 					}
 				}
-				,{title: "메모",    		data: "memo",  				width: "5%",
+				,{title: "메모",    		data: "memo",  				width: "8%",
 					render: function (data, type, row, meta) {
 						return buildMemo(row);
 					}
 				}
-				,{title: "재발송",   		data: "exchange_uuid",  	width: "7%",
+				,{title: "재발송",   		data: "exchange_uuid",  	width: "8%",
 					render: function (data, type, row, meta) {
-						return (row.exchange_status === '발송완료' && row.gift_type === '기프티콘')
+						return (row.status === '발송' && row.gift_type === '기프티콘')
 							?`<button data-uuid="${data}" class="btn-info btn-resend" type="button">재발송</button>`
 							: label.dash;
 					}
@@ -153,9 +156,12 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(8).find('a').on('click', function () { viewDetail(this); });
-				$(nRow).children().eq(9).find('button').on('click', function () { onClickUpdateMemo(this); });
-				$(nRow).children().eq(10).find('button').on('click', function () {  });
+				if (aData.status === '취소')
+					$(nRow).addClass('minus-pay');
+
+				$(nRow).children().eq(7).find('a').on('click', function () { viewDetail(this); });
+				$(nRow).children().eq(8).find('button').on('click', function () { onClickUpdateMemo(this); });
+				$(nRow).children().eq(9).find('button').on('click', function () {  });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -167,8 +173,8 @@
 	function buildMemo(data)
 	{
 		const previewEL = isEmpty(data.memo) ? label.dash : `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data.memo}</span></i>`;
-		return `${previewEL}
-				<button class="btn-i btn-text-teal" data-uuid="${data.exchange_uuid}" data-memo="${data.memo}"><i class="fas fa-edit"></i></button>`
+		return `${previewEL}`;
+				//<button class="btn-i btn-text-teal" data-uuid="${data.exchange_uuid}" data-memo="${data.memo}"><i class="fas fa-edit"></i></button>
 	}
 
 	function viewDetail(obj)

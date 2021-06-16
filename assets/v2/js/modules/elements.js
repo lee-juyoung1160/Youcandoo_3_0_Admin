@@ -323,17 +323,14 @@
     export const description = $("#description");
     export const btnSupportDoit = $("#btnSupportDoit");
     export const btnSupportLeader = $("#btnSupportLeader");
-
     /** 배너 **/
     export const targetUrl = $("#targetUrl");
     export const targetUuid = $("#targetUuid");
     export const historyTable = $("#historyTable");
-
     /** 유캔두 픽 **/
     export const previewTitle = $("#previewTitle");
     export const previewTable = $("#previewTable");
     export const curationTitle = $("#curationTitle");
-
     /** 공지 **/
     export const noticeTitle = $("#noticeTitle");
     export const contentImageWrap = $("#contentImageWrap");
@@ -373,7 +370,6 @@
     export const modalTargetPage = $("#modalTargetPage");
     export const modalTargetMember = $("#modalTargetMember");
     export const btnModalTargetMemberOpen = $("#btnModalTargetMemberOpen");
-
     /** 팝업 **/
     export const popupTitle = $("#popupTitle");
     export const versionDigit = $("#versionDigit");
@@ -382,7 +378,6 @@
     export const startTime = $("#startTime");
     export const endTime = $("#endTime");
     export const viewOption = $("#viewOption");
-
     /** 이벤트 **/
     export const selEventType = $("#selEventType");
     export const eventType = $("#eventType");
@@ -392,7 +387,6 @@
     export const thumbnailImage = $("#thumbnailImage");
     export const eventContentThumbnail= $("#eventContentThumbnail");
     export const eventThumbnail= $("#eventThumbnail");
-
     /** 상품 **/
     export const price = $("#price");
     export const selHour = $("#selHour");
@@ -409,7 +403,12 @@
     export const giftName = $("#giftName");
     export const totalUcd = $("#totalUcd");
     export const btnSubmitMemo = $("#btnSubmitMemo");
-
+    export const rdoManual = $("input[name=radio-manual]");
+    export const selectGiftName = $("#selectGiftName");
+    export const goodsCode = $("#goodsCode");
+    export const ktImageUrl = $("#ktImageUrl");
+    export const discontinuedDate = $("#discontinuedDate");
+    export const giftType = $("#giftType");
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");
     export const auth = $("#auth");

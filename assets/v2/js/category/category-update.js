@@ -195,7 +195,7 @@
 			return;
 		}
 
-		sweetConfirm(message.modify, editSubcategoryRequest);
+		editSubcategoryRequest();
 	}
 
 	function editSubcategoryRequest()

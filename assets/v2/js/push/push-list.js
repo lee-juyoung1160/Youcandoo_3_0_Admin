@@ -1,5 +1,5 @@
 
-	import {headers,} from '../modules/request.js';
+	import {headers, isSuccessResp,} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 	body,
@@ -8,24 +8,22 @@
 	keyword,
 	dataTable,
 	selPageLength,
-	rdoExposure,
-	modalOpen,
 	modalClose,
 	modalBackdrop,
 	dateButtons,
-		dateFrom, dateTo,
+	dateFrom, dateTo, selSearchType,
 } from '../modules/elements.js';
-	import {sweetError,} from '../modules/alert.js';
+	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {
-	initSelectOption,
-	initPageLength,
-	initSearchDatepicker,
-	initDayBtn,
-	initMaxDateMonths,
-	initSearchDateRangeMonth,
-	fadeoutModal,
-	fadeinModal,
-	onClickDateRangeBtn,
+		initSelectOption,
+		initPageLength,
+		initSearchDatepicker,
+		initDayBtn,
+		initMaxDateMonths,
+		initSearchDateRangeMonth,
+		fadeoutModal,
+		fadeinModal,
+		onClickDateRangeBtn,
 		onChangeSearchDateFrom,
 		onChangeSearchDateTo
 	} from "../modules/common.js";
@@ -47,7 +45,7 @@
 		initPageLength(selPageLength);
 		addViewDetailEvent()
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -86,18 +84,30 @@
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.noticeList,
+				url: api.pushList,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					json.recordsTotal = json.count;
-					json.recordsFiltered = json.count;
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(json.msg);
+					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
 					const param = {
+						"date_type" : "created",
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
 						"page": (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
@@ -110,18 +120,18 @@
 				}
 			},
 			columns: [
-				{title: "발송여부", 			data: "push_status",    		width: "5%" }
-				,{title: "발송대상 ", 		data: "push_type", 	  			width: "5%",
+				{title: "발송여부", 			data: "send_status",    		width: "5%" }
+				,{title: "발송대상 ", 		data: "send_profile_type", 	  	width: "5%",
 					render: function (data) {
 						return data === 'all' ? '전체' : '개인';
 					}
 				}
-				,{title: "등록일", 			data: "created_datetime",		width: "7%",
+				,{title: "등록일", 			data: "created",				width: "7%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "발송(예약)일시", 		data: "reserve_send_datetime",  width: "10%" }
+				,{title: "발송(예약)일시", 	data: "send_datetime",  		width: "10%" }
 				,{title: "고유 ID", 			data: "message_id",  			width: "15%",
 					render: function (data) {
 						return `<div>
@@ -130,7 +140,7 @@
 								</div>`;
 					}
 				}
-				,{title: "푸시 본문", 		data: "send_message",  			width: "15%",
+				,{title: "푸시 본문", 		data: "message",  				width: "15%",
 					render: function (data) {
 						return `<div data-detail="${data}" class="line-clamp view-detail">${data}</div>`;
 					}
@@ -140,14 +150,14 @@
 						return data === 'all' ? '전체' : data;
 					}
 				}
-				,{title: "구분", 		data: "category",  			  		width: "5%",
+				,{title: "구분", 			data: "target_type",  			width: "5%",
 					render: function (data) {
-						return getPushCategory(data);
+						return getPushTargetName(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "category_target",  		width: "25%",
+				,{title: "도착페이지", 		data: "target",  				width: "25%",
 					render: function (data, type, row, meta) {
-						return isEmpty(data) ? '-' : `[${row.target_name}] ${row.target_title}`
+						return isEmpty(data) ? '-' : `[${getPushTargetName(row.target_type)}] ${row.target_title}`
 					}
 				}
 			],
@@ -177,5 +187,19 @@
 	{
 		fadeinModal();
 		const pushMessage = $(obj).data('detail');
+	}
+
+	function getPushTargetName(data)
+	{
+		switch (data) {
+			case 'notice' :
+				return '공지';
+			case 'event' :
+				return '이벤트';
+			case 'doit' :
+				return '두잇';
+			default :
+				return '일반'
+		}
 	}
 

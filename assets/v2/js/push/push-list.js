@@ -25,7 +25,7 @@
 		fadeinModal,
 		onClickDateRangeBtn,
 		onChangeSearchDateFrom,
-		onChangeSearchDateTo
+		onChangeSearchDateTo, copyToClipboard
 	} from "../modules/common.js";
 	import {
 		initTableDefaultConfig,
@@ -135,8 +135,7 @@
 				,{title: "고유 ID", 			data: "message_id",  			width: "15%",
 					render: function (data) {
 						return `<div>
-								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly>
-								 	<i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly><i class="fas fa-copy"></i>
 								</div>`;
 					}
 				}
@@ -170,6 +169,7 @@
 				addViewDetailEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(4).find('i').on('click', function () { copyToClipboard(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

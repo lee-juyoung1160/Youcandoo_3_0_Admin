@@ -425,7 +425,7 @@
 			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
 			"send_datetime" : `${reserveDate.val()} ${reserveTime.val()}`,
 			"send_profile_type" : $('input:radio[name=radio-target-member-type]:checked').val(),
-			"send_profile" : isIndividual() ? [] : addedUsers,
+			"send_profile" : isIndividual() ? addedUsers : [],
 			"target_type" : $('input:radio[name=radio-target-page-type]:checked').val(),
 			"target" : hasTargetPage() ? targetUuid.val() : '',
 			"store" : $('input:radio[name=radio-os-type]:checked').val(),
@@ -444,7 +444,7 @@
 
 	function createSuccess()
 	{
-		//location.href = page.listPush;
+		location.href = page.listPush;
 	}
 
 	function validation()

@@ -1,4 +1,5 @@
-<section class="detail-page">
+<link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page category-detail">
     <div class="inner">
 
         <div class="main-top clearfix">
@@ -58,12 +59,12 @@
                 </div>
                 <div class="table-wrap">
                     <table class="order-table" id="dataTable">
-                        <!--<thead>
+                        <thead>
                         <colgroup>
                             <col style="width: 80%;">
                             <col style="width: 20%;">
                         </colgroup>
-                        <thead>
+                        <!--<thead>
                         <tr>
                             <th>세부 카테고리명</th>
                             <th>삭제</th>
@@ -71,7 +72,13 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>라이프 스타일</td>
+                            <td>
+                                <div class="input-wrap">
+                                    <input id="subCategoryTitle" type="text" class="length-input" value="라이프 스타일" maxlength="15">
+                                    <p class="length-count-wrap"><span class="count-input">0</span>/15</p>
+                                </div>
+                                <button type="button" class="btn-xs btn-teal">완료</button>
+                            </td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
@@ -79,7 +86,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>라이프 스타일</td>
+                            <td>
+                                <div class="update-btn-wrap">
+                                    <span>필라테스</span>
+                                    <button type="button" class="btn-xs">수정</button>
+                                </div>
+                            </td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>
@@ -87,15 +99,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>라이프 스타일</td>
                             <td>
-                                <button type="button" class="btn-xs btn-text-red">
-                                    <i class="fas fa-minus-circle"></i>
-                                </button>
+                                <div class="update-btn-wrap">
+                                    <span>꾸준히 자전거 타기</span>
+                                    <button type="button" class="btn-xs">수정</button>
+                                </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>라이프 스타일</td>
                             <td>
                                 <button type="button" class="btn-xs btn-text-red">
                                     <i class="fas fa-minus-circle"></i>

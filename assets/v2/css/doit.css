@@ -120,4 +120,8 @@
 .category-detail .modal-content.category-doit-img-1 {
 	width: 1342px;
 }
+.category-detail .update-btn-wrap span {
+	display: inline-block;
+	width: 455px;
+}
 

@@ -136,7 +136,6 @@
         createBanner : baseApiUrl + 'banner/create',
         detailBanner : baseApiUrl + 'banner/get/detail/info',
         updateBanner : baseApiUrl + 'banner/update',
-        /*deleteBanner : baseApiUrl + 'banner/delete',*/
         reorderBanner : baseApiUrl + 'banner/set/orders',
         targetEventList : baseApiUrl + 'banner/get/event/list',
         targetDoitList : baseApiUrl + 'banner/get/doit/list',
@@ -154,7 +153,7 @@
         deleteEvent : baseApiUrl + 'event/delete',
         updateEvent : baseApiUrl + 'event/update',
 
-        pushList : baseApiUrl + 'push',
+        pushList : baseApiUrl + 'push/list',
         createPush : baseApiUrl + 'push/create',
 
         popupList : baseApiUrl + 'popup/get/list',

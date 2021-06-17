@@ -100,7 +100,6 @@
     export const categoryTitle 	= $("#categoryTitle");
     export const categoryIcon	= $("#categoryIcon");
     export const isEstablish	= $("#isEstablish");
-    export const rdoEstablish	= $("input[name=radio-establish]");
     export const createAttachment = $("input[name=create-attachment]");
     export const attachment	= $("input[name=attachment]");
     export const deleteAttachment = $(".icon-delete-attach");
@@ -334,7 +333,6 @@
     /** 공지 **/
     export const noticeTitle = $("#noticeTitle");
     export const contentImageWrap = $("#contentImageWrap");
-    export const chkTopNotice = $("input[name=chk-top-notice]");
     export const isTop = $("#isTop");
     /** FAQ **/
     export const selFaqType = $("#selFaqType");
@@ -401,7 +399,6 @@
     export const generalMemo = $("#generalMemo");
     export const btnSubmitGift = $("#btnSubmitGift");
     export const btnSubmitGeneral = $("#btnSubmitGeneral");
-    export const modalMemo = $("#modalMemo");
     export const giftUuid = $("#giftUuid");
     export const giftName = $("#giftName");
     export const totalUcd = $("#totalUcd");
@@ -412,6 +409,8 @@
     export const ktImageUrl = $("#ktImageUrl");
     export const discontinuedDate = $("#discontinuedDate");
     export const giftType = $("#giftType");
+    export const modalDetailContent = $("#modalDetailContent");
+    export const modalCancel = $("#modalCancel");
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");
     export const auth = $("#auth");

@@ -65,11 +65,11 @@
                 <div class="card clearfix">
                     <p class="search-title">상태</p>
                     <div class="checkbox-wrap">
+                        <input id="c2" type="checkbox" name="chk-status" value="승인">
+                        <label for="c2"><span></span>승인(예약)</label>
+
                         <input id="c1" type="checkbox" name="chk-status" value="발송">
                         <label for="c1"><span></span>발송완료</label>
-
-                        <input id="c2" type="checkbox" name="chk-status" value="승인">
-                        <label for="c2"><span></span>예약완료</label>
 
                         <input id="c3" type="checkbox" name="chk-status" value="취소">
                         <label for="c3"><span></span>발송취소</label>
@@ -91,6 +91,9 @@
                         <select id="selPageLength" class="select-box">
                         </select>
                     </div>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnCancel" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 승인(예약) 취소</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -159,8 +162,8 @@
             </div>
             <div class="modal-body">
                 <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                    <div class="swiper-wrapper" id="modalDetailContent">
+                        <!--<div class="swiper-slide">
                             <table class="detail-table">
                                 <colgroup>
                                     <col style="width: 20%;">
@@ -244,29 +247,39 @@
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
+                        </div>-->
                     </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
 
         </div>
 
-        <!-- 메모모달 -->
-        <div class="modal-content" id="modalMemo">
+        <!-- 취소모달 -->
+        <div class="modal-content" id="modalCancel">
             <div class="modal-header clearfix">
-                <h5>상품 발송/취소 메모</h5>
+                <h5>승인(예약) 취소</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <textarea id="memo" rows="10"></textarea>
-                </div>
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>메모</th>
+                        <td>
+                            <textarea id="memo" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button id="btnSubmitMemo" type="button" class="btn btn-primary">등록</button>
-                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmit" type="submit" class="btn btn-primary">완료</button>
             </div>
         </div>
 
@@ -276,5 +289,6 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script src="/assets/v2/js/plugins/swiper.min.js"></script>
 <script type="module" src="/assets/v2/js/gift/gift-send-list.js?version=<?php echo $this->config->item('version');?>"></script>

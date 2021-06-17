@@ -8,7 +8,7 @@
 	import { initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {sweetToast} from "../modules/alert.js";
+	import {sweetToast, sweetError} from "../modules/alert.js";
 
 	$( () => {
 		/** dataTable default config **/

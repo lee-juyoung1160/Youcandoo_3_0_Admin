@@ -153,7 +153,7 @@
 				}
 				,{title: "신청자", 		data: "nickname",    		width: "25%" }
 				,{title: "신청일시",    	data: "created",  			width: "15%" }
-				,{title: checkBoxCheckAllElement(), 	data: "gift_uuid",			width: "5%",
+				,{title: checkBoxCheckAllElement(), 	data: "exchange_uuid",			width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}
@@ -231,16 +231,14 @@
 		let msg
 		if (g_approval_type === 'gift' && hasGeneral())
 		{
-			msg = `예약 발송은 기프티콘만 가능합니다.
-					일반상품 체크 해제 후 다시 시도해주세요.`;
+			msg = '상품유형 - 기프티콘만 선택 해 주세요.'
 			sweetToast(msg);
 			return false;
 		}
 
 		if (g_approval_type === 'general' && hasGift())
 		{
-			msg = `상품 발송은 일반상품만 가능합니다.
-					기프티콘 체크 해제 후 다시 시도해주세요.`
+			msg = '상품유형 -일반상품만 선택 해 주세요.'
 			sweetToast(msg);
 			return false;
 		}
@@ -358,6 +356,7 @@
 	function reqSuccess()
 	{
 		fadeoutModal();
+		uncheckedCheckAll();
 		onSubmitSearch();
 	}
 

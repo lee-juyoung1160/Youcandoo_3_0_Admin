@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp,} from '../modules/request.js';
+	import {ajaxRequestWithJsonData, headers, isSuccessResp,} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -11,9 +11,9 @@
 		modalClose,
 		modalBackdrop,
 		dateButtons,
-		dateFrom, dateTo, selSearchType, content
+		dateFrom, dateTo, selSearchType, content, btnDelete
 	} from '../modules/elements.js';
-	import {sweetError, sweetToast,} from '../modules/alert.js';
+	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
 		initSelectOption,
 		initPageLength,
@@ -30,7 +30,7 @@
 	import {
 		initTableDefaultConfig,
 		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
+		toggleBtnPreviousAndNextOnTable, checkBoxElement, toggleSingleCheckBox,
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -56,6 +56,7 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		btnDelete		.on("click", function () { onSubmitDelete(); })
 	});
 
 	function initSearchForm()
@@ -120,26 +121,14 @@
 				}
 			},
 			columns: [
-				{title: "발송여부", 			data: "send_status",    		width: "5%" }
-				,{title: "발송대상 ", 		data: "send_profile_type", 	  	width: "5%",
-					render: function (data) {
-						return data === 'all' ? '전체' : '개인';
-					}
-				}
-				,{title: "등록일", 			data: "created",				width: "7%",
-					render: function (data) {
-						return data.substring(0, 10);
-					}
-				}
-				,{title: "발송(예약)일시", 	data: "send_datetime",  		width: "10%" }
-				,{title: "고유 ID", 			data: "message_id",  			width: "15%",
+				{title: "고유 ID", 			data: "message_id",  			width: "10%",
 					render: function (data) {
 						return `<div>
-								 	<input type="text" class="input-copy" style="width: 150px" value="${data}" readonly><i class="fas fa-copy"></i>
+								 	<input type="text" class="input-copy" style="width: 100px" value="${data}" readonly><i class="fas fa-copy"></i>
 								</div>`;
 					}
 				}
-				,{title: "푸시 본문", 		data: "message",  				width: "15%",
+				,{title: "내용", 			data: "message",  				width: "15%",
 					render: function (data) {
 						return `<div data-detail="${data}" class="line-clamp view-detail">${data}</div>`;
 					}
@@ -154,22 +143,46 @@
 						return getPushTargetName(data);
 					}
 				}
-				,{title: "도착페이지", 		data: "target",  				width: "25%",
+				,{title: "이동페이지", 		data: "target",  				width: "25%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? '-' : `[${getPushTargetName(row.target_type)}] ${row.target_title}`
+					}
+				}
+				,{title: "등록일", 			data: "created",				width: "10%",
+					render: function (data) {
+						return data.substring(0, 10);
+					}
+				}
+				,{title: "발송(예약)일시", 		data: "send_datetime",  		width: "15%" }
+				,{title: "발송대상 ", 		data: "send_profile_type", 	  	width: "5%",
+					render: function (data) {
+						return data === 'all' ? '전체' : '개인';
+					}
+				}
+				,{title: "발송여부", 			data: "send_status",    		width: "5%" }
+				,{title: "",				data: "idx",   					width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(meta.row);
 					}
 				}
 			],
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selPageLength.val()),
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			destroy: true,
 			initComplete: function () {
+				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
+				dataTable.on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 				addViewDetailEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(4).find('i').on('click', function () { copyToClipboard(this); });
+				if (['발송', '발송취소'].indexOf(aData.send_status) > -1)
+					$(nRow).children().eq(9).find('input').prop('disabled', true);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -204,3 +217,43 @@
 		}
 	}
 
+	function onSubmitDelete()
+	{
+		if (deleteValid())
+			sweetConfirm(message.cancel, deleteRequest);
+	}
+
+	function deleteRequest()
+	{
+		const url = api.cancelPush;
+		const errMsg = `취소 ${message.ajaxError}`;
+		const param = {
+			"idx" : getSelectedPushIdx()
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
+	}
+
+	function deleteReqCallback(data)
+	{
+		sweetToastAndCallback(data, onSubmitSearch);
+	}
+
+	function deleteValid()
+	{
+		if (isEmpty(getSelectedPushIdx()))
+		{
+			sweetToast(`대상을 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function getSelectedPushIdx()
+	{
+		const table = dataTable.DataTable();
+		const selectedData = table.rows('.selected').data()[0];
+
+		return isEmpty(selectedData) ? '' : selectedData.idx;
+	}

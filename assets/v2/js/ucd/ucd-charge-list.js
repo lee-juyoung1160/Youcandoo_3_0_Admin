@@ -92,12 +92,12 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "receive_name",  		width: "15%",
+				{title: "닉네임",    		data: "receive_name",  		width: "20%",
 					render: function (data, type, row, meta) {
 						return row.receive_is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "내용",    		data: "message",  			width: "40%" }
+				,{title: "내용",    		data: "message",  			width: "35%" }
 				,{title: "UCD", 		data: "value",				width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);

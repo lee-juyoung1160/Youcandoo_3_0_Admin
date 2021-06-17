@@ -113,7 +113,7 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "receive_name",  		width: "15%",
+				{title: "To",    		data: "receive_name",  		width: "25%",
 					render: function (data, type, row, meta) {
 						switch (row.receive_type) {
 							case 'doit' :
@@ -132,7 +132,7 @@
 					}
 				}
 				,{title: "구분",    		data: "transfer_type",  	width: "10%" }
-				,{title: "상세 내용",    	data: "message",  			width: "40%" }
+				,{title: "상세 내용",    	data: "message",  			width: "30%" }
 				,{title: "UCD", 		data: "value",				width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);

@@ -55,6 +55,9 @@
                         </select>
                     </div>
                 </div>
+                <div class="btn-wrap">
+                    <button id="btnDelete" type="button" class="btn-sm btn-danger"><i class="fas fa-trash-alt"></i> 발송 취소</button>
+                </div>
             </div>
             <table id="dataTable">
                 <!--<thead>
@@ -139,4 +142,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script type="module" src="/assets/v2/js/push/push-list.js?version=<?php echo $this->config->item('version');?>"></script>

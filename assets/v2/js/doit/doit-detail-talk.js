@@ -586,8 +586,8 @@
 		getTalkComments(g_param_view_page_length);
 	}
 
-	let g_delete_talk_comment_uuid;
-	/*function onSubmitDeleteActionComment(obj)
+	/*let g_delete_talk_comment_uuid;
+	function onSubmitDeleteActionComment(obj)
 	{
 		g_delete_talk_comment_uuid = $(obj).data('uuid');
 		sweetConfirm(message.delete, actionCommentDeleteRequest);

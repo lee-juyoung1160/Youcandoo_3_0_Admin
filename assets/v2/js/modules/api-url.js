@@ -155,6 +155,7 @@
         updateEvent : baseApiUrl + 'event/update',
 
         pushList : baseApiUrl + 'push/list',
+        cancelPush : baseApiUrl + 'push/set/cancel',
         createPush : baseApiUrl + 'push/create',
         pushTargetNotice : baseApiUrl + 'push/get/notice',
         pushTargetEvent : baseApiUrl + 'push/get/event',

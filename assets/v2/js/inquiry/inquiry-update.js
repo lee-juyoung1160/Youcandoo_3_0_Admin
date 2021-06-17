@@ -56,6 +56,8 @@
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
 
+		answerEl.val(`${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)`);
+
 		onErrorImage();
 
 		$(".view-attach").on('click', function () { viewAttachment(this); });

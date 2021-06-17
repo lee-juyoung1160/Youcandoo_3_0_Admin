@@ -222,7 +222,7 @@
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		buildDetail(obj);
+		//buildDetail(obj);
 	}
 
 	function buildDetail(obj)
@@ -233,7 +233,14 @@
 		{
 			modalDetailContent.empty();
 			coupons.map(obj => {
-				const {gift_image_url, goodsCd, brandNm, goodsNm, sellPriceAmt, recverTelNo, validPrdEndDt, pinStatusNm, sendStatusCd} = obj;
+				const {gift_image_url, goodsCd, brandNm, goodsNm, sellPriceAmt, recverTelNo, validPrdEndDt, pinStatusNm, sendStatusCd, tr_id} = obj;
+				const btnResend = pinStatusNm === '발행'
+					? `<div class="btn-wrap">
+							<button data-trid="${tr_id}" class="btn-info btn-resend" type="button">
+								<i class="fas fa-reply-all"></i> 재발송
+							</button>
+						</div>`
+					: '';
  				const couponEl =
 					`<div class="swiper-slide">
 						<table class="detail-table">
@@ -287,6 +294,8 @@
 		}
 		onErrorImage();
 		initSwipe();
+
+		$(".btn-resend").on('click', function () { onClickBtnResend(this); });
 	}
 
 	function initSwipe()
@@ -308,11 +317,11 @@
 			modalCancel.fadeIn();
 			modalBackdrop.fadeIn();
 			overflowHidden();
-			initModalMemo();
+			initModalCancel();
 		}
 	}
 
-	function initModalMemo()
+	function initModalCancel()
 	{
 		memo.val('');
 		memo.trigger('focus');
@@ -348,13 +357,36 @@
 
 	function cancelReqCallback(data)
 	{
-		sweetToastAndCallback(data, cancelSuccess)
+		sweetToastAndCallback(data, cancelSuccess);
 	}
 
 	function cancelSuccess()
 	{
 		fadeoutModal();
 		onSubmitSearch();
+	}
+
+	let g_tr_id;
+	function onClickBtnResend(obj)
+	{
+		g_tr_id = $(obj).data('trid');
+		sweetConfirm(message.send, resendRequest);
+	}
+
+	function resendRequest()
+	{
+		const url = api.resendGift;
+		const errMsg = `재발송${message.ajaxError}`;
+		const param  = {
+			"tr_id" : g_tr_id,
+		};
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendReqCallback, errMsg, false);
+	}
+
+	function resendReqCallback(data)
+	{
+		sweetToastAndCallback(data, onSubmitSearch);
 	}
 
 	function getSelectedExchangeId()

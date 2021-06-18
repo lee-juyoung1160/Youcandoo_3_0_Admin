@@ -34,7 +34,7 @@
 		initMaxDateToday,
 		initPageLength,
 		initSelectOption,
-		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage
+		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked
 	} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, isDisplay } from "../modules/utils.js";
 	import {
@@ -71,6 +71,7 @@
 		btnSubmitMemo	.on("click", function () { onSubmitUpdateMemo(); });
 		btnCancel		.on("click", function () { onClickBtnCancel(); });
 		btnSubmit		.on("click", function () { onSubmitCancelGift(); });
+		chkStatus		.on('click', function () { atLeastChecked(this); });
 	});
 
 	function initSearchForm()
@@ -88,8 +89,7 @@
 
 	function onKeydownSearch(event)
 	{
-		const modalEl = $("#modalMemo");
-		if (!isDisplay(modalEl) && event.keyCode === 13)
+		if (!isDisplay(modalCancel) && event.keyCode === 13)
 			onSubmitSearch();
 	}
 

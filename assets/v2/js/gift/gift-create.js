@@ -13,7 +13,14 @@
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, btnSearch, ktImageUrl,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal, onErrorImage} from "../modules/common.js";
+	import {
+	onChangeValidateImage,
+	limitInputLength,
+	fadeoutModal,
+	fadeinModal,
+	onErrorImage,
+		emptyFile
+	} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -50,6 +57,7 @@
 			giftName.parent().hide();
 		}
 
+		emptyFile(contentImage);
 		giftName.val('');
 		selectGiftName.val('');
 		goodsCode.val('');
@@ -133,7 +141,16 @@
 		selectGiftName.val($(obj).data('name'));
 		goodsCode.val($(obj).data('code'));
 		ktImageUrl.val($(obj).data('url'));
+		buildThumbnail($(obj).data('url'));
 		fadeoutModal();
+	}
+
+	function buildThumbnail(url)
+	{
+		emptyFile(contentImage);
+		contentImage.parent().siblings('.detail-img-wrap').remove();
+		const thumbnailEl = `<div class="detail-img-wrap"><img src="${url}" alt=""></div>`;
+		contentImage.parent().after(thumbnailEl);
 	}
 
 	function onSubmitGift()

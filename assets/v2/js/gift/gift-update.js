@@ -13,12 +13,12 @@
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {
-		calculateInputLength, fadeinModal,
-		fadeoutModal,
-		limitInputLength,
-		onChangeValidateImage,
-		onErrorImage
-	} from "../modules/common.js";
+	calculateInputLength, emptyFile, fadeinModal,
+	fadeoutModal,
+	limitInputLength,
+	onChangeValidateImage,
+	onErrorImage
+} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -77,8 +77,7 @@
 			ktImageUrl.val(gift_image_url);
 		}
 		price.val(gift_ucd);
-		if (isManual)
-			$(contentImage).parent().after(`<div class="detail-img-wrap"><img src="${gift_image_url}" alt=""></div>`);
+		contentImage.parent().after(`<div class="detail-img-wrap"><img src="${gift_image_url}" alt=""></div>`);
 		rdoExposure.each(function () {
 			if ($(this).val() === is_exposure)
 				$(this).prop('checked', true);
@@ -250,7 +249,16 @@
 		selectGiftName.val($(obj).data('name'));
 		goodsCode.val($(obj).data('code'));
 		ktImageUrl.val($(obj).data('url'));
+		buildThumbnail($(obj).data('url'));
 		fadeoutModal();
+	}
+
+	function buildThumbnail(url)
+	{
+		emptyFile(contentImage);
+		contentImage.parent().siblings('.detail-img-wrap').remove();
+		const thumbnailEl = `<div class="detail-img-wrap"><img src="${url}" alt=""></div>`;
+		contentImage.parent().after(thumbnailEl);
 	}
 
 	function toggleShowGiftNameElement()

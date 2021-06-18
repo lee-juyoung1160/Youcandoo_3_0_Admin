@@ -222,7 +222,7 @@
 		modalDetail.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		//buildDetail(obj);
+		buildDetail(obj);
 	}
 
 	function buildDetail(obj)
@@ -235,10 +235,8 @@
 			coupons.map(obj => {
 				const {gift_image_url, goodsCd, brandNm, goodsNm, sellPriceAmt, recverTelNo, validPrdEndDt, pinStatusNm, sendStatusCd, tr_id} = obj;
 				const btnResend = pinStatusNm === '발행'
-					? `<div class="btn-wrap">
-							<button data-trid="${tr_id}" class="btn-info btn-resend" type="button">
-								<i class="fas fa-reply-all"></i> 재발송
-							</button>
+					? `<div class="right-wrap gift-resand">
+							<button type="button" data-trid="${tr_id}" class="btn-sm btn-teal btn-resend">재발송</button>
 						</div>`
 					: '';
  				const couponEl =
@@ -287,6 +285,7 @@
 								</tr>
 							</tbody>
 						</table>
+						${btnResend}
 					</div>`
 
 				modalDetailContent.append(couponEl);

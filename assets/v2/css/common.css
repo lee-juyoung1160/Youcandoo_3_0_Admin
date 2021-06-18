@@ -1212,3 +1212,6 @@ input[type="password"]{
 .version-input-wrap input[type="text"] {
 	width: 100px;
 }
+.gift-resand {
+	margin-top: 10px;
+}

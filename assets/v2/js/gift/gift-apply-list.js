@@ -1,5 +1,5 @@
 
-	import {headers, invalidResp, getStatusCode, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
+	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {
 		body,
@@ -29,7 +29,7 @@
 		onClickDateRangeBtn,
 		initDayBtn,
 		initSearchDatepicker,
-		initSearchDateRangeMonth,
+		initSearchDateRangeWeek,
 		initMaxDateToday,
 		initPageLength,
 		initSelectOption,
@@ -77,7 +77,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday()
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
@@ -319,14 +319,7 @@
 
 	function reserveReqSuccessCallback(data)
 	{
-		if (isSuccessResp(data))
-			sweetToastAndCallback(data, reqSuccess);
-		else
-		{
-			const statusFromGift = [39101, 39102, 39103, 39104, 39105, 39106, 39107, 39108];
-			const msg = statusFromGift.indexOf(getStatusCode(data)) === -1 ? invalidResp(data) : data.api_message;
-			sweetToast(msg);
-		}
+		isSuccessResp(data) ? sweetToastAndCallback(data, reqSuccess) : sweetToast(data.msg);
 	}
 
 	function onSubmitGeneral()

@@ -30,7 +30,7 @@
 		onClickDateRangeBtn,
 		initDayBtn,
 		initSearchDatepicker,
-		initSearchDateRangeMonth,
+		initSearchDateRangeWeek,
 		initMaxDateToday,
 		initPageLength,
 		initSelectOption,
@@ -78,7 +78,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
@@ -161,13 +161,13 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "상태",    			data: "status",  		width: "5%" }
 				,{title: "승인/발송/취소일시",   data: "updated", 		width: "13%" }
 				,{title: "예약일시",   		data: "reserved", 		width: "13%",
 					render: function (data, type, row, meta) {
-						return row.status === '승인' ? data : label.dash;
+						return isEmpty(row.goods_code) ? label.dash : data;
 					}
 				}
+				,{title: "상태",    			data: "status",  		width: "5%" }
 				,{title: "상세내역",    		data: "exchange_uuid",  width: "5%",
 					render: function (data, type, row, meta) {
 						return row.coupon.length > 0 ? `<a class="view-detail" data-uuid="${data}">보기</a>` : label.dash;

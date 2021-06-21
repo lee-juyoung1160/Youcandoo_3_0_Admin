@@ -3,12 +3,10 @@
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn,
-		initDayBtn, initMaxDateToday, initSearchDateRangeMonth} from "../modules/common.js";
+	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday, initSearchDateRangeWeek} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 	import {numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
@@ -34,7 +32,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday()
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 	}

@@ -4,14 +4,11 @@
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, chkType, chkStatus,
 		dateFrom, dateTo, rdoStatus,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {
-	initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
-	initSearchDateRangeMonth, atLeastChecked, onChangeSearchDateFrom, onChangeSearchDateTo
-	} from "../modules/common.js";
+	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
+		atLeastChecked, onChangeSearchDateFrom, onChangeSearchDateTo, initSearchDateRangeWeek} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
 	import {numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
@@ -38,7 +35,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday()
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 		chkType.eq(0).prop('checked', true);

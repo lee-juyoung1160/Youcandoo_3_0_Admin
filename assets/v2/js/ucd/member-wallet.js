@@ -2,9 +2,9 @@
 	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
-	import { sweetError, sweetToast } from '../modules/alert.js';
+	import { sweetError, } from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
-		initSearchDateRangeMonth, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
+		initSearchDateRangeWeek, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -33,7 +33,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 	}

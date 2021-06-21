@@ -1,22 +1,10 @@
 
 	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-		body,
-		btnSearch,
-		btnReset,
-		keyword,
-		dataTable,
-		selPageLength,
-		selSearchType,
-		dateButtons,
-		dateFrom,
-		dateTo,
-		rdoStatus,
-	} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo, rdoStatus,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
-		initSearchDateRangeMonth, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
+	 onChangeSearchDateFrom, onChangeSearchDateTo, initSearchDateRangeWeek,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -45,7 +33,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeMonth();
+		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
 		rdoStatus.eq(1).prop('checked', true);

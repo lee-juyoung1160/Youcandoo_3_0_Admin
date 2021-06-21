@@ -250,9 +250,9 @@
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",    data: "page_value",  		width: "45%",
+				,{title: "이동 페이지",    data: "page_target",  		width: "45%",
 					render: function (data, type, row, meta) {
-						return row.page_type === 'web' ? data : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (data === 'webview' || data === 'browser') ? row.page_value : isEmpty(row.target_title) ? label.dash : row.target_title;
 					}
 				}
 			],

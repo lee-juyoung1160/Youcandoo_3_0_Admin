@@ -358,18 +358,3 @@
 	{
 		tableReloadAndStayCurrentPage(dataTable);
 	}
-
-	function getRowIds()
-	{
-		const rows = dataTable.find('tbody').children();
-		let uuids = [];
-
-		for (let i=0; i<rows.length; i++)
-		{
-			let uuid = $(rows[i]).data('uuid');
-			if (isEmpty(uuid)) continue;
-			uuids.push(uuid);
-		}
-
-		return uuids;
-	}

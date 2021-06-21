@@ -119,8 +119,12 @@
 					recomment_data.map(replyObj => {
 						const isBlindReply = replyObj.is_blind === 'Y';
 						const btnBlindReply = isBlindReply
-							? `<button type="button" class="btn-xs btn-orange btn-display" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
-							: `<button type="button" class="btn-xs btn-warning btn-blind" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+							? `<button type="button" class="btn-xs btn-orange btn-display" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
+ 								 <i class="fas fa-eye"></i> 블라인드 해제
+ 							   </button>`
+							: `<button type="button" class="btn-xs btn-warning btn-blind" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
+								 <i class="fas fa-eye-slash"></i> 블라인드 처리
+							   </button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
@@ -141,8 +145,12 @@
 
 				const isBlindComment = is_blind === 'Y';
 				const btnBlindComment = isBlindComment
-					? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
-					: `<button type="button" class="btn-xs btn-warning btn-blind" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+					? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}">
+						 <i class="fas fa-eye"></i> 블라인드 해제
+					   </button>`
+					: `<button type="button" class="btn-xs btn-warning btn-blind" id="${comment_uuid}" data-uuid="${comment_uuid}">
+						 <i class="fas fa-eye-slash"></i> 블라인드 처리
+					   </button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">

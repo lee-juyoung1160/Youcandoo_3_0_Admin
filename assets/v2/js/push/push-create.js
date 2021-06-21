@@ -2,25 +2,25 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	lengthInput,
-	btnSubmit,
-	content,
-	modalClose,
-	modalBackdrop,
-	btnModalTargetMemberOpen,
-	modalTargetMember,
-	targetPage,
-	modalTargetPage,
-	rdoReserveType,
-	rdoTargetMemberType,
-	rdoTargetPageType,
-	reserveDate,
-	reserveTime,
-	btnXlsxExport,
-	dataTable,
-	keyword,
-	targetUuid,
-	nickname, memberTable, btnSearch, updateTable, totalCount
+		lengthInput,
+		btnSubmit,
+		content,
+		modalClose,
+		modalBackdrop,
+		btnModalTargetMemberOpen,
+		modalTargetMember,
+		targetPage,
+		modalTargetPage,
+		rdoReserveType,
+		rdoTargetMemberType,
+		rdoTargetPageType,
+		reserveDate,
+		reserveTime,
+		btnXlsxExport,
+		dataTable,
+		keyword,
+		targetUuid,
+		nickname, memberTable, btnSearch, updateTable, totalCount
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
@@ -36,11 +36,11 @@
 	import { page } from "../modules/page-url.js";
 	import {onClickImportMemberFormExport} from "../modules/export-excel.js";
 	import {
-	checkBoxElement,
-	initTableDefaultConfig, tableReloadAndStayCurrentPage,
-	toggleBtnPreviousAndNextOnTable,
-	toggleSingleCheckBox
-} from "../modules/tables.js";
+		checkBoxElement,
+		initTableDefaultConfig, tableReloadAndStayCurrentPage,
+		toggleBtnPreviousAndNextOnTable,
+		toggleSingleCheckBox
+	} from "../modules/tables.js";
 
 	let addedUsers = [];
 	let addedUserObj = [];
@@ -73,14 +73,17 @@
 
 	function onChangeRdoTargetPageType(obj)
 	{
-		//g_page_uuid = '';
 		targetPage.val('');
+		targetUuid.val('');
 
 		hasTargetPage() ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
 	}
 
 	function onChangeRdoTargetMemberType(obj)
 	{
+		initAddedUserData();
+		displayCountAddedUser();
+
 		$(obj).val() === 'all' ? $(obj).parent().siblings().hide() : $(obj).parent().siblings().show();
 	}
 

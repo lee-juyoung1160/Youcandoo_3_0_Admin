@@ -76,7 +76,7 @@
 		initSelectOption();
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
-		rdoReport.eq(0).prop('checked', true);
+		rdoReport.eq(1).prop('checked', true);
 	}
 
 	function setHistoryForm()

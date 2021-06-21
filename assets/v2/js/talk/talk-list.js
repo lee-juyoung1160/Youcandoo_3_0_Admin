@@ -76,7 +76,7 @@
 		initSelectOption();
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
-		rdoReport.eq(0).prop('checked', true);
+		rdoReport.eq(1).prop('checked', true);
 	}
 
 	function setHistoryForm()
@@ -357,19 +357,4 @@
 	function blindSuccess()
 	{
 		tableReloadAndStayCurrentPage(dataTable);
-	}
-
-	function getRowIds()
-	{
-		const rows = dataTable.find('tbody').children();
-		let uuids = [];
-
-		for (let i=0; i<rows.length; i++)
-		{
-			let uuid = $(rows[i]).data('uuid');
-			if (isEmpty(uuid)) continue;
-			uuids.push(uuid);
-		}
-
-		return uuids;
 	}

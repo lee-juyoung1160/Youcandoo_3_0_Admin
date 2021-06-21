@@ -287,10 +287,9 @@
 
 	function buildCategory(data)
 	{
-		let categoryEl = '<div class="card"><p class="message">관심 카테고리가 없습니다.</p></div>';
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
-			categoryEl = '';
+			let categoryEl = '';
 			data.data.map(obj => {
 				const {category_title, subcategory_info} = obj;
 				let subCategoryEl = '';
@@ -311,9 +310,14 @@
 						</td>
 					</tr>`
 			})
-		}
 
-		categoryWrap.html(categoryEl);
+			categoryWrap.html(categoryEl);
+		}
+		else
+		{
+			categoryWrap.parent().hide();
+			categoryWrap.parent().after('<div class="card"><p class="message">관심 카테고리가 없습니다.</p></div>')
+		}
 	}
 
 	function onClickDoitTab(event)

@@ -467,7 +467,7 @@
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<span><i class="fas fa-heart"></i> 111</span>
+							<!--<span><i class="fas fa-heart"></i> 111</span>-->
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
 							${createReplyEl}
 						</div>

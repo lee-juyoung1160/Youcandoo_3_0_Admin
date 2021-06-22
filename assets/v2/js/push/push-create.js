@@ -2,7 +2,6 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		lengthInput,
 		btnSubmit,
 		content,
 		modalClose,
@@ -26,7 +25,6 @@
 	import {
 		fadeoutModal,
 		initInputDatepickerMinDateToday,
-		limitInputLength,
 		overflowHidden,
 		setDateToday
 	} from "../modules/common.js";
@@ -35,12 +33,7 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {onClickImportMemberFormExport} from "../modules/export-excel.js";
-	import {
-		checkBoxElement,
-		initTableDefaultConfig, tableReloadAndStayCurrentPage,
-		toggleBtnPreviousAndNextOnTable,
-		toggleSingleCheckBox
-	} from "../modules/tables.js";
+	import {checkBoxElement, initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable,} from "../modules/tables.js";
 
 	let addedUsers = [];
 	let addedUserObj = [];
@@ -52,7 +45,6 @@
 		setDateToday();
 		buildSearchMemberTable();
 		/** 이벤트 **/
-		//lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		targetPage.on("click", function () { onClickModalTargetPageOpen(); });
 		rdoReserveType.on('change', function () { onChangeRdoReserveType(this); });
 		rdoTargetPageType.on('change', function () { onChangeRdoTargetPageType(this); });
@@ -81,6 +73,8 @@
 
 	function onChangeRdoTargetMemberType(obj)
 	{
+		let table = updateTable.DataTable();
+		table.rows().remove().draw(false);
 		initAddedUserData();
 		displayCountAddedUser();
 

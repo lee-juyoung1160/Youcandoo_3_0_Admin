@@ -2,7 +2,7 @@
     import {modalContent, modalBackdrop, loader, selectEls, dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
-    import { isOverFileSize, appendZero, isImage, isAudio, isVideo } from "./utils.js";
+    import {isOverFileSize, appendZero, isImage, isAudio, isVideo, isEmpty} from "./utils.js";
     import { sweetToast, } from "./alert.js";
     import {page} from "./page-url.js";
 
@@ -333,9 +333,9 @@
              * data-compare: 같음/이상/이하
              * 속성이 있어야 한다.
              * **/
-            const compare = $(obj).data('compare');
-            const needsWidth = $(obj).data('width');
-            const needsHeight = $(obj).data('height');
+            const compare = isEmpty($(obj).data('compare')) ? '' : $(obj).data('compare');
+            const requiredWidth = isEmpty($(obj).data('width')) ? 0 : Number($(obj).data('width'));
+            const requiredHeight = isEmpty($(obj).data('height')) ? 0 : Number($(obj).data('height'));
             const img = new Image();
 
             if (obj.files[0])
@@ -343,25 +343,27 @@
                 img.src = window.URL.createObjectURL(obj.files[0]);
                 img.onload = function() {
                     setFile(obj, label.image);
-                    /*const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+                    const infoMessage = `업로드 가능한 이미지 사이즈를 확인해주세요.<br>
+                                         선택한 이미지 사이즈: ${this.width} x ${this.height}<br>
+                                         업로드 가능한 이미지 사이즈: ${requiredWidth} x ${requiredHeight}`;
 
-                    if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
+                    if (compare === '같음' && (this.width !== requiredWidth || this.height !== requiredHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);
                     }
-                    else if (compare === '이상' && (this.width < needsWidth || this.height < needsHeight))
+                    else if (compare === '이상' && (this.width < requiredWidth || this.height < requiredHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);
                     }
-                    else if (compare === '이하' && (this.width > needsWidth || this.height > needsHeight))
+                    else if (compare === '이하' && (this.width > requiredWidth || this.height > requiredHeight))
                     {
                         sweetError(infoMessage);
                         emptyFile(obj);
                     }
                     else
-                        setFile(obj, label.image);*/
+                        setFile(obj, label.image);
                 }
             }
             else emptyFile(obj);

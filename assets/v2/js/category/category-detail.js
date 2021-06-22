@@ -4,7 +4,7 @@
 	import {categoryTitle, categoryIcon, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
 		btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
 		btnSubmitImage, attachment, deleteAttachment, createAttachment, modalDoitImageTitle} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm,} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {fadeoutModal, historyBack, limitInputLength, onErrorImage, overflowHidden,} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isImage, isOverFileSize} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -368,34 +368,35 @@
 			 * 속성이 있어야 한다.
 			 * **/
 			const compare = $(obj).data('compare');
-			const needsWidth = $(obj).data('width');
-			const needsHeight = $(obj).data('height');
+			const requiredWidth = $(obj).data('width');
+			const requiredHeight = $(obj).data('height');
 			const img = new Image();
 
 			if (obj.files[0])
 			{
 				img.src = window.URL.createObjectURL(obj.files[0]);
 				img.onload = function() {
-					setFile(obj);
-					/*const infoMessage = `선택한 이미지 사이즈는 ${this.width} x ${this.height}입니다.<br> 업로드 가능한 이미지 사이즈를 확인해주세요.`;
+					const infoMessage = `업로드 가능한 이미지 사이즈를 확인해주세요.<br>
+                                         선택한 이미지 사이즈: ${this.width} x ${this.height}<br>
+                                         업로드 가능한 이미지 사이즈: ${requiredWidth} x ${requiredHeight}`;
 
-					if (compare === '같음' && (this.width !== needsWidth || this.height !== needsHeight))
+					if (compare === '같음' && (this.width !== requiredWidth || this.height !== requiredHeight))
 					{
 						sweetError(infoMessage);
 						emptyFile(obj);
 					}
-					else if (compare === '이상' && (this.width < needsWidth || this.height < needsHeight))
+					else if (compare === '이상' && (this.width < requiredWidth || this.height < requiredHeight))
 					{
 						sweetError(infoMessage);
 						emptyFile(obj);
 					}
-					else if (compare === '이하' && (this.width > needsWidth || this.height > needsHeight))
+					else if (compare === '이하' && (this.width > requiredWidth || this.height > requiredHeight))
 					{
 						sweetError(infoMessage);
 						emptyFile(obj);
 					}
 					else
-						setFile(obj);*/
+						setFile(obj);
 				}
 			}
 			else emptyFile(obj);

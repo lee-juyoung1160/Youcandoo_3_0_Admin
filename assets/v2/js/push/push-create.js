@@ -296,7 +296,7 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				addEvent();
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 추가된 경우 체크박스 disabled **/
@@ -308,13 +308,6 @@
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
-	}
-
-	function addEvent()
-	{
-		const chkBoxes = $("input[name=chk-row]");
-		chkBoxes.on('click', function () { toggleSingleCheckBox(this); })
-		memberTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 	}
 
 	function onClickCheckBox(dt, indexes)

@@ -342,7 +342,6 @@
             {
                 img.src = window.URL.createObjectURL(obj.files[0]);
                 img.onload = function() {
-                    setFile(obj, label.image);
                     const infoMessage = `업로드 가능한 이미지 사이즈를 확인해주세요.<br>
                                          선택한 이미지 사이즈: ${this.width} x ${this.height}<br>
                                          업로드 가능한 이미지 사이즈: ${requiredWidth} x ${requiredHeight}`;

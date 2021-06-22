@@ -322,7 +322,7 @@
 			"profile_uuid" : addedUsers,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
-			"is_receive" : 'Y'
+			"is_receive" : 'N'
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);

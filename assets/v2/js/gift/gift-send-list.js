@@ -33,7 +33,7 @@
 		initSearchDateRangeWeek,
 		initMaxDateToday,
 		initPageLength,
-		initSelectOption,
+		initSelectOption, moveToMemberDetail,
 		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked
 	} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, isDisplay } from "../modules/utils.js";
@@ -154,7 +154,11 @@
 					}
 				}
 				,{title: "상품명", 		data: "gift_name",    	width: "15%" }
-				,{title: "신청자", 		data: "nickname",    	width: "20%" }
+				,{title: "신청자", 		data: "nickname",    	width: "20%",
+					render: function (data, type, row, meta) {
+						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+					}
+				}
 				,{title: "신청수량",    	data: "qty",  			width: "5%" }
 				,{title: "금액(UCD)",	data: "ucd",  			width: "8%",
 					render: function (data, type, row, meta) {
@@ -201,7 +205,8 @@
 				if (aData.coupon.length > 0) Object.assign(couponObjects, { [aData.exchange_uuid] : { "coupons" : aData.coupon } });
 				if (aData.status === '취소') $(nRow).addClass('minus-pay');
 				if (aData.status !== '승인') $(nRow).children().eq(10).find('input').prop('disabled', true);
-
+				/** 닉네임 클릭이벤트 **/
+				$(nRow).children().eq(2).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -215,6 +220,11 @@
 		const previewEL = isEmpty(data.memo) ? label.dash : `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data.memo}</span></i>`;
 		return `${previewEL}`;
 				//<button class="btn-i btn-text-teal" data-uuid="${data.exchange_uuid}" data-memo="${data.memo}"><i class="fas fa-edit"></i></button>
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}
 
 	function viewDetail(obj)

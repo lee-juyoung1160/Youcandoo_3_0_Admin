@@ -31,13 +31,13 @@
 		fadeoutModal
 	} from "../modules/common.js";
 	import {
-	initTableDefaultConfig,
-	buildTotalCount,
-	toggleBtnPreviousAndNextOnTable,
-	getCurrentPage,
-	redrawPage,
-	checkBoxElement, tableReloadAndStayCurrentPage,
-} from '../modules/tables.js';
+		initTableDefaultConfig,
+		buildTotalCount,
+		toggleBtnPreviousAndNextOnTable,
+		getCurrentPage,
+		redrawPage,
+		checkBoxElement, tableReloadAndStayCurrentPage,
+	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";

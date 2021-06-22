@@ -1,11 +1,21 @@
 
-    import {
-        modalContent, modalBackdrop, loader, selectEls,
-        dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
+    import {modalContent, modalBackdrop, loader, selectEls, dateButtons, datePicker, dateFrom, dateTo, } from "./elements.js";
     import { message } from "./message.js";
     import { label } from "./label.js";
-    import { numberWithCommas, isOverFileSize, appendZero, isImage, isAudio, isVideo } from "./utils.js";
-    import { sweetToast, sweetError } from "./alert.js";
+    import { isOverFileSize, appendZero, isImage, isAudio, isVideo } from "./utils.js";
+    import { sweetToast, } from "./alert.js";
+    import {page} from "./page-url.js";
+
+    export function moveToMemberDetail(_uuid)
+    {
+        let form   = $("<form></form>");
+        form.prop("method", "post");
+        form.prop("action", page.detailMember);
+        form.append($("<input/>", { type: 'hidden', name: 'profile_uuid', value: _uuid} ));
+        form.appendTo("body");
+        form.trigger('submit');
+    }
+
 
     export function getDoitStatusName(status)
     {

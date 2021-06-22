@@ -1,45 +1,15 @@
 
 	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-		body,
-		dateButtons,
-		dataTable,
-		dateFrom,
-		dateTo,
-		keyword,
-		selPageLength,
-		btnSearch,
-		btnReset,
-		selSearchType,
-		rdoType,
-		reserveDate,
-		modalClose,
-		modalBackdrop,
-		btnSubmitGift,
-		btnSubmitGeneral,
-		btnCancel,
-		modalGeneral, generalMemo,
-		modalGift, selHour, selMinute,
-		btnSendGeneral,
-		btnSendGift, selDateType, memo, balance
-	} from '../modules/elements.js';
+	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,
+		rdoType, reserveDate, modalClose, modalBackdrop, btnSubmitGift, btnSubmitGeneral, btnCancel, modalGeneral, generalMemo,
+		modalGift, selHour, selMinute, btnSendGeneral, btnSendGift, selDateType, memo, balance} from '../modules/elements.js';
 	import { sweetToast, sweetToastAndCallback, sweetConfirm, sweetError } from  '../modules/alert.js';
-	import {
-		onClickDateRangeBtn,
-		initDayBtn,
-		initSearchDatepicker,
-		initSearchDateRangeWeek,
-		initMaxDateToday,
-		initPageLength,
-		initSelectOption,
-		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
+	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeWeek, initMaxDateToday, initPageLength,
+		initSelectOption, moveToMemberDetail, fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
 	} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes } from "../modules/utils.js";
-	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,
 		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, toggleCheckAll, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -151,7 +121,11 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신청자", 		data: "nickname",    		width: "25%" }
+				,{title: "신청자", 		data: "nickname",    		width: "25%",
+					render: function (data, type, row, meta) {
+						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+					}
+				}
 				,{title: "신청일시",    	data: "created",  			width: "15%" }
 				,{title: checkBoxCheckAllElement(), 	data: "exchange_uuid",			width: "5%",
 					render: function (data, type, row, meta) {
@@ -180,12 +154,19 @@
 				});
 			},
 			fnRowCallback: function( nRow, aData ) {
+				/** 닉네임 클릭이벤트 **/
+				$(nRow).children().eq(4).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}
 
 	function onClickModalGeneralOpen()

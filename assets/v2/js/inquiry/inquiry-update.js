@@ -4,7 +4,7 @@
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle, content,
 		attachmentWrap, answerEl, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, moveToMemberDetail} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -44,23 +44,24 @@
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, title, contents, status} = data.data;
+		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, status} = data.data;
 
 		if (status === '답변완료')
 			location.href = page.detailInquiry + inquiryIdx;
 
 		g_inquiry_uuid = qna_uuid;
-		userNickname.text(nickname);
+
+		userNickname.html(`<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		deviceInfo.text(`앱버전: ${app_version}, os버전: ${os_version} , 기기: ${device}`);
 		inquiryTitle.text(title);
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
-
 		answerEl.val(`${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)`);
 
 		onErrorImage();
 
 		$(".view-attach").on('click', function () { viewAttachment(this); });
+		userNickname.find('a').on('click', function () { onClickNickname(this); });
 	}
 
 	function buildAttachment(data)
@@ -79,6 +80,11 @@
 		fadeinModal();
 		thumbnail.attr('src', $(obj).prop('src'));
 		onErrorImage();
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}
 
 	function goListPage()

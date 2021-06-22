@@ -4,8 +4,8 @@
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus,
 		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
-	import { initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday,
-		initSearchDateRangeMonth, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
+	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, initSearchDateRangeMonth,
+		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -121,7 +121,11 @@
 						return isEmpty(data) ? label.guest : label.member;
 					}
 				}
-				,{title: "닉네임", 	 data: "nickname",			width: "20%" }
+				,{title: "닉네임", 	 data: "nickname",			width: "20%",
+					render: function (data, type, row, meta) {
+						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+					}
+				}
 				,{title: "등록일시",   data: "created",  			width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
@@ -154,6 +158,8 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				/** 닉네임 클릭이벤트 **/
+				$(nRow).children().eq(3).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -186,4 +192,9 @@
 		return isEmpty(data)
 			? label.dash
 			: `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data}</span></i>`
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}

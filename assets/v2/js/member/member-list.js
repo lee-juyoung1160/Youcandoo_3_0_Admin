@@ -3,13 +3,13 @@
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths,
-		initMaxDateToday, initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
+	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateToday,
+		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { page } from "../modules/page-url.js";
+
 	let _currentPage = 1;
 
 	$( () => {
@@ -117,6 +117,7 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				/** 닉네임 클릭이벤트 **/
 				$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
@@ -146,11 +147,5 @@
 
 	function onClickNickname(obj)
 	{
-		let form   = $("<form></form>");
-		form.prop("method", "post");
-		form.prop("action", page.detailMember);
-		form.append($("<input/>", {type: 'hidden', name: 'profile_uuid', value: $(obj).data('uuid')}));
-		form.appendTo("body");
-		form.trigger('submit');
+		moveToMemberDetail($(obj).data('uuid'));
 	}
-

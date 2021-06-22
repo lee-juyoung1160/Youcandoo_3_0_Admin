@@ -1,32 +1,38 @@
 
 	import {
-	keyword,
-	actionCount,
-	joinMemberForm,
-	pendingMemberForm,
-	modalSaveUcd,
-	modalBackdrop,
-	saveUcdContent,
-	amount,
-	modalSendNotice,
-	modalMemberInfo,
-	memberActionCntFilterWrap1,
-	memberActionCntFilterWrap2,
-	rdoActionCount,
-	joinMemberTable,
-	applyMemberTable,
-	selMissions,
-	selSearchType,
-	selMemberFilter,
-	selJoinMemberPageLength,
-	selSort,
-	modalMemberInfoNickname,
-	modalMemberInfoJoinDate,
-	modalMemberInfoQuestion,
-	modalMemberInfoAnswer,
-	totalMemberCount,
-	applyMemberCount,
-	selApplyMemberPageLength, applyQuestion, rewardMemberTable, btnBan, selRewardType, rewardTableWrap, rewardKeyword
+		keyword,
+		actionCount,
+		joinMemberForm,
+		pendingMemberForm,
+		modalSaveUcd,
+		modalBackdrop,
+		saveUcdContent,
+		amount,
+		modalSendNotice,
+		modalMemberInfo,
+		memberActionCntFilterWrap1,
+		memberActionCntFilterWrap2,
+		rdoActionCount,
+		joinMemberTable,
+		applyMemberTable,
+		selMissions,
+		selSearchType,
+		selMemberFilter,
+		selJoinMemberPageLength,
+		selSort,
+		modalMemberInfoNickname,
+		modalMemberInfoJoinDate,
+		modalMemberInfoQuestion,
+		modalMemberInfoAnswer,
+		totalMemberCount,
+		applyMemberCount,
+		selApplyMemberPageLength,
+		applyQuestion,
+		rewardMemberTable,
+		btnBan,
+		selRewardType,
+		rewardTableWrap,
+		rewardKeyword,
 	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
@@ -35,7 +41,14 @@
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {buildTotalCount, checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {
+		buildTotalCount,
+		checkBoxElement,
+		onClickCheckAll,
+		checkBoxCheckAllElement,
+		toggleBtnPreviousAndNextOnTable,
+		toggleCheckAll, tableReloadAndStayCurrentPage
+	} from "../modules/tables.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	export function showJoinMemberForm()
@@ -362,7 +375,7 @@
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "",			data: "profile_uuid",  	width: "5%",
+				,{title: checkBoxCheckAllElement(),			data: "profile_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}
@@ -382,6 +395,16 @@
 					let table = applyMemberTable.DataTable();
 					table.column(3).visible(false);
 				}
+				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
+				$("#checkAll").on('click', function () { onClickCheckAll(this); });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', true);
+					toggleCheckAll(this);
+				});
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', false);
+					toggleCheckAll(this);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 			},
@@ -397,6 +420,85 @@
 		const table = applyMemberTable.DataTable();
 		table.page.len(Number(selApplyMemberPageLength.val()));
 		table.ajax.reload();
+	}
+
+	export function onClickBtnApproval()
+	{
+		if (approvalMemberValid())
+			sweetConfirm(message.approve, approvalMemberRequest);
+	}
+
+	function approvalMemberValid()
+	{
+		const uuids = getSelectedApprovalMemberUuid();
+		if (uuids.length === 0)
+		{
+			sweetToast(`대상을 ${message.select}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	function approvalMemberRequest()
+	{
+		const url = api.approvalMember;
+		const errMsg = `승인 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : getSelectedApprovalMemberUuid(),
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), approvalMemberReqCallback, errMsg, false);
+	}
+
+	function approvalMemberReqCallback(data)
+	{
+		sweetToastAndCallback(data, approvalMemberSuccess);
+	}
+
+	function approvalMemberSuccess()
+	{
+		countMember();
+		tableReloadAndStayCurrentPage(applyMemberTable);
+	}
+
+	export function onClickBtnReject()
+	{
+		if (approvalMemberValid())
+			sweetConfirm(message.reject, rejectMemberRequest);
+	}
+
+	function rejectMemberRequest()
+	{
+		const url = api.rejectMember;
+		const errMsg = `거절 ${message.ajaxLoadError}`;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : getSelectedApprovalMemberUuid(),
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), rejectMemberReqCallback, errMsg, false);
+	}
+
+	function rejectMemberReqCallback(data)
+	{
+		sweetToastAndCallback(data, approvalMemberSuccess);
+	}
+
+	function getSelectedApprovalMemberUuid()
+	{
+		const table = applyMemberTable.DataTable();
+		const selectedData = table.rows('.selected').data();
+
+		let uuids = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			const uuid = selectedData[i].profile_uuid;
+			uuids.push(uuid);
+		}
+
+		return uuids;
 	}
 
 	$(".detail-data.line-clamp-2").on('click', function () { onClickAnswer(this) })
@@ -613,4 +715,3 @@
 		modalBackdrop.fadeIn();
 		overflowHidden();
 	}
-

@@ -40,7 +40,7 @@
 		initTableDefaultConfig,
 		buildTotalCount,
 		toggleBtnPreviousAndNextOnTable,
-		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, onClickCheckRow, uncheckedCheckAll
+		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, toggleCheckAll, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -170,9 +170,16 @@
 			initComplete: function () {
 				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
 				$("#checkAll").on('click', function () { onClickCheckAll(this); });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', true);
+					toggleCheckAll(this);
+				});
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', false);
+					toggleCheckAll(this);
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(6).find('input').on('click', function () { onClickCheckRow(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

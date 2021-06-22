@@ -82,7 +82,7 @@
 		btnBackToMissionList,
 		btnBackToMissionDetail,
 		btnBlinkTalk,
-		btnDisplayTalk, selRewardType, rewardKeyword,
+		btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject,
 	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
@@ -115,7 +115,13 @@
 		onClickModalSaveUcdOpen,
 		onClickModalSendNoticeOpen,
 		onChangeSelMemberFilter,
-		searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd, onChangeSelRewardType, searchRewardMember
+		searchJoinMember,
+		banMember,
+		searchApplyMember,
+		onSubmitSaveUcd,
+		onChangeSelRewardType,
+		searchRewardMember,
+		onClickBtnApproval, onClickBtnReject
 	} from "./doit-detail-member.js";
 	import {
 		showUcdListForm,
@@ -154,8 +160,8 @@
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
-	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
-	import {sweetToast, sweetConfirm, sweetToastAndCallback} from "../modules/alert.js";
+	import {ajaxRequestWithJsonData} from "../modules/request.js";
+	import {sweetConfirm, sweetToastAndCallback} from "../modules/alert.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 
 	$( () => {
@@ -221,6 +227,8 @@
 		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
 		selRewardType.on('change', function () { onChangeSelRewardType(); });
 		rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
+		btnApproval.on('click', function () { onClickBtnApproval(); });
+		btnReject.on('click', function () { onClickBtnReject(); });
 
 		initPageLength(selUcdPageLength);
 		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });

@@ -928,6 +928,8 @@
 	{
 		onSubmitSearchTalk();
 		showTalkDetailForm();
+		initTalkCommentLastIdx();
+		initTalkCommentWrap();
 		getDetailTalk();
 	}
 

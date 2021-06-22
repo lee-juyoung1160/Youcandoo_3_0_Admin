@@ -78,51 +78,45 @@
             table.page( 'last' ).draw( 'page' );
 
         $("input[name=chk-row]").prop("checked", false);
+        uncheckedCheckAll();
     }
 
     export function checkBoxCheckAllElement()
     {
-        return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="checkAll"/><label for="checkAll"><span></span></label></div>`;
+        return `<div class="checkbox-wrap"><input type="checkbox" id="checkAll"/><label for="checkAll"><span></span></label></div>`;
     }
 
     export function onClickCheckAll(obj)
     {
-        const checkboxName = $(obj).prop('name');
-        const tableEl = '#'+$(obj).closest('table').prop('id');
-        let table = $(tableEl).DataTable();
-        if ($(obj).is(':checked'))
-        {
-            $('input[name="'+checkboxName+'"]').prop('checked', true);
-            const checkboxElsInTableBody = $(tableEl).children('tbody').find('input[name="'+checkboxName+'"]');
-            checkboxElsInTableBody.each(function (index) {
-                table.row(index).select();
-            })
+        const tableEl = $(obj).closest('table');
+        const table = $(tableEl).DataTable();
+        const isChecked = $(obj).is(':checked');
+        if (isChecked) {
+            $("input[name=chk-row]").prop('checked', true);
+            table.rows().select();
         }
         else
         {
-            $('input[name="'+checkboxName+'"]').prop('checked', false);
+            $("input[name=chk-row]").prop('checked', false);
             table.rows().deselect();
         }
     }
 
-    export function onClickCheckRow(obj)
+    export function toggleCheckAll(obj)
     {
-        let count   = 0;
-        const checkboxEl = $("input[name=chk-row]");
-        const checkboxElInTableBody = $("#dataTable tbody").find(":checkbox");
-
-        checkboxElInTableBody.each(function () {
+        let count = 0;
+        const checkboxes = $(obj).children('tbody').find(":checkbox");
+        checkboxes.each(function () {
             if ($(this).is(':checked'))
                 count++;
         });
 
-        if (count === 0)
-            checkboxEl.prop('checked', false);
+        (checkboxes.length === count) ? checkedCheckAll() : uncheckedCheckAll();
+    }
 
-        if (checkboxElInTableBody.length === count)
-            checkboxEl.prop('checked', true);
-        else
-            uncheckedCheckAll();
+    export function checkedCheckAll()
+    {
+        $("#checkAll").prop('checked', true);
     }
 
     export function uncheckedCheckAll()

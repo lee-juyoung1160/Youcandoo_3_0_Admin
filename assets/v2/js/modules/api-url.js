@@ -74,6 +74,8 @@
         countMember : baseApiUrl + 'member/get/count',
         banMember : baseApiUrl + 'member/set/retire',
         applyMemberList : baseApiUrl + 'member/get/applylist',
+        approvalMember : baseApiUrl + 'member/get/applyConfirm',
+        rejectMember : baseApiUrl + 'member/get/applyReject',
 
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',

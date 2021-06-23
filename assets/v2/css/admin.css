@@ -3,7 +3,7 @@
 /* 권한관리 */
 .auth-create .auth-list {
     position: fixed;
-    width: 380px;
+    width: 330px;
 }
 .auth-create .auth-detail {
     float: right;

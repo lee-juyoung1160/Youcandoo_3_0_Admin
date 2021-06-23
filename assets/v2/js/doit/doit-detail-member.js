@@ -372,7 +372,7 @@
 				,{title: "신청일시",   	data: "created",  		width: "15%" }
 				,{title: "답변", 		data: "answer",			width: "60%",
 					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
+						return isEmpty(data) ? label.dash : buildAnswer(data);
 					}
 				}
 				,{title: checkBoxCheckAllElement(),			data: "profile_uuid",  	width: "5%",
@@ -407,12 +407,39 @@
 				});
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(2).addClass('toast-wrap');
+				$(nRow).children().eq(2).find('.line-clamp-2').on('click', function () { onClickAnswer(this); });
+				$(nRow).children().eq(2).find('.close').on('click', function () { closeAnswerBox(); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	function buildAnswer(data)
+	{
+		return	`<div class="detail-data line-clamp-2">${data}</div>
+				<div class="toast-box">
+					<div class="toast-header">
+						<i class="close">×</i>
+					</div>
+					<div class="toast-body">
+						<div class="detail-data">${data}</div>
+					</div>
+				</div>`
+	}
+
+	function onClickAnswer(obj)
+	{
+		$('.toast-box').hide();
+		$(obj).siblings('.toast-box').show();
+	}
+
+	function closeAnswerBox()
+	{
+		$('.toast-box').hide();
 	}
 
 	export function searchApplyMember()
@@ -499,19 +526,6 @@
 		}
 
 		return uuids;
-	}
-
-	$(".detail-data.line-clamp-2").on('click', function () { onClickAnswer(this) })
-	$('.toast-header .close').on('click', function () { closeAnswerBox() })
-	function onClickAnswer(obj)
-	{
-		$('.toast-box').hide();
-		$(obj).siblings('.toast-box').show();
-	}
-
-	function closeAnswerBox()
-	{
-		$('.toast-box').hide();
 	}
 
 	export function onChangeSelNotiType()
@@ -633,23 +647,11 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(3).find('button').on('click', function () { deleteRewardMemberTableRow(this); });
-				$(nRow).attr('data-uuid', aData.profile_uuid);
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
 			}
 		});
-	}
-
-	function deleteRewardMemberTableRow(obj)
-	{
-		let idx = $(obj).data('row');
-		rewardMembers.splice(idx, 1);
-
-		$(obj).closest('tr').remove();
-
-		buildRewardMember();
 	}
 
 	export function onSubmitSaveUcd()

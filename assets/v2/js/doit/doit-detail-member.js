@@ -1,39 +1,39 @@
 
 	import {
-		keyword,
-		actionCount,
-		joinMemberForm,
-		pendingMemberForm,
-		modalSaveUcd,
-		modalBackdrop,
-		saveUcdContent,
-		amount,
-		modalSendNotice,
-		modalMemberInfo,
-		memberActionCntFilterWrap1,
-		memberActionCntFilterWrap2,
-		rdoActionCount,
-		joinMemberTable,
-		applyMemberTable,
-		selMissions,
-		selSearchType,
-		selMemberFilter,
-		selJoinMemberPageLength,
-		selSort,
-		modalMemberInfoNickname,
-		modalMemberInfoJoinDate,
-		modalMemberInfoQuestion,
-		modalMemberInfoAnswer,
-		totalMemberCount,
-		applyMemberCount,
-		selApplyMemberPageLength,
-		applyQuestion,
-		rewardMemberTable,
-		btnBan,
-		selRewardType,
-		rewardTableWrap,
-		rewardKeyword,
-	} from "../modules/elements.js";
+	keyword,
+	actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	modalSaveUcd,
+	modalBackdrop,
+	saveUcdContent,
+	amount,
+	modalSendNotice,
+	modalMemberInfo,
+	memberActionCntFilterWrap1,
+	memberActionCntFilterWrap2,
+	rdoActionCount,
+	joinMemberTable,
+	applyMemberTable,
+	selMissions,
+	selSearchType,
+	selMemberFilter,
+	selJoinMemberPageLength,
+	selSort,
+	modalMemberInfoNickname,
+	modalMemberInfoJoinDate,
+	modalMemberInfoQuestion,
+	modalMemberInfoAnswer,
+	totalMemberCount,
+	applyMemberCount,
+	selApplyMemberPageLength,
+	applyQuestion,
+	rewardMemberTable,
+	btnBan,
+	selRewardType,
+	rewardTableWrap,
+	rewardKeyword, selNotiType, notiKeyword, notiTableWrap, notiContent,
+} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
@@ -514,6 +514,31 @@
 		$('.toast-box').hide();
 	}
 
+	export function onChangeSelNotiType()
+	{
+		switch (selNotiType.val()) {
+			case 'user' :
+				notiKeyword.trigger('focus');
+				notiKeyword.show();
+				notiTableWrap.show();
+				break;
+			default :
+				notiKeyword.val('');
+				notiKeyword.hide();
+				notiTableWrap.hide();
+				break;
+		}
+	}
+
+	export function onClickModalSendNoticeOpen()
+	{
+		modalSendNotice.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		notiContent.trigger('focus');
+		notiContent.val('');
+	}
+
 	export function onChangeSelRewardType()
 	{
 		switch (selRewardType.val()) {
@@ -528,6 +553,45 @@
 				rewardTableWrap.hide();
 				break;
 		}
+	}
+
+	export function onClickModalSaveUcdOpen()
+	{
+		modalSaveUcd.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		saveUcdContent.trigger('focus');
+		saveUcdContent.val('');
+		amount.val('');
+
+		getRewardMemberList();
+	}
+
+	function getRewardMemberList()
+	{
+		const url = api.rewardMemberList;
+		const errMsg = label.list + message.ajaxLoadError;
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"search_type" : "nickname",
+			"keyword" : ''
+		}
+
+		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
+	}
+
+	let rewardMembers = [];
+	function getRewardMemberListCallback(data)
+	{
+		if (isSuccessResp(data))
+		{
+			data.recordsTotal = data.data.count;
+			data.recordsFiltered = data.data.count;
+			rewardMembers = data.data.list;
+			buildRewardMember();
+		}
+		else
+			sweetToast(data.msg);
 	}
 
 	export function searchRewardMember()
@@ -586,45 +650,6 @@
 		$(obj).closest('tr').remove();
 
 		buildRewardMember();
-	}
-
-	export function onClickModalSaveUcdOpen()
-	{
-		modalSaveUcd.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		saveUcdContent.trigger('focus');
-		saveUcdContent.val('');
-		amount.val('');
-
-		getRewardMemberList();
-	}
-
-	function getRewardMemberList()
-	{
-		const url = api.rewardMemberList;
-		const errMsg = label.list + message.ajaxLoadError;
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"search_type" : "nickname",
-			"keyword" : ''
-		}
-
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
-	}
-
-	let rewardMembers = [];
-	function getRewardMemberListCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.data.count;
-			data.recordsFiltered = data.data.count;
-			rewardMembers = data.data.list;
-			buildRewardMember();
-		}
-		else
-			sweetToast(data.msg);
 	}
 
 	export function onSubmitSaveUcd()
@@ -707,11 +732,4 @@
 		}
 
 		return profileUuids;
-	}
-
-	export function onClickModalSendNoticeOpen()
-	{
-		modalSendNotice.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
 	}

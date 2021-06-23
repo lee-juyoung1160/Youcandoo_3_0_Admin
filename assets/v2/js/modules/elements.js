@@ -218,8 +218,12 @@
     export const rewardMemberTable = $("#rewardMemberTable");
     export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
     export const modalSendNotice = $("#modalSendNotice");
-    export const sendNoticeContent = $("#sendNoticeContent");
-    export const btnSubmitSendNotice = $("#btnSubmitSendNotice");
+    export const notiContent = $("#notiContent");
+    export const selNotiType = $("#selNotiType");
+    export const notiKeyword = $("#notiKeyword");
+    export const notiTableWrap = $("#notiTableWrap");
+    export const notiTable = $("#notiTable");
+    export const btnSubmitNoti = $("#btnSubmitNoti");
     export const modalMemberInfo = $("#modalMemberInfo");
     export const modalMemberInfoNickname = $("#modalMemberInfoNickname");
     export const modalMemberInfoJoinDate = $("#modalMemberInfoJoinDate");

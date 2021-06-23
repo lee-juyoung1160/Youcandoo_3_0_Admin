@@ -2116,19 +2116,37 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>카테고리 *</th>
+                        <td>
+                            <p class="detail-data">두잇</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>아이콘 타입 *</th>
+                        <td>
+                            <p class="detail-data">doit_default</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>내용 *</th>
                         <td>
-                            <textarea id="sendNoticeContent" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                            <textarea id="notiContent" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
                     <tr>
                         <th>발송 대상 *</th>
                         <td>
-                          <p class="detail-data">개인</p>
+                            <select id="selNotiType" class="select-box add-ucd-select">
+                                <option value="all">참여자 전체</option>
+                                <option value="user">직접 선택</option>
+                            </select>
+                            <div class="ucd-input-wrap">
+                                <input id="notiKeyword" type="text" placeholder="닉네임을 입력해주세요." style="display: none;">
+                            </div>
                         </td>
                     </tr>
                 </table>
-                <div class="table-wrap">
+                <div class="table-wrap" id="notiTableWrap" style="display: none;">
                     <div class="top clearfix">
                         <div class="left-wrap clearfix">
                             <div class="form-box">
@@ -2136,7 +2154,7 @@
                             </div>
                         </div>
                     </div>
-                    <table>
+                    <table id="notiTable">
                         <colgroup>
                             <col style="width: 30%;">
                             <col style="width: 60%;">
@@ -2170,7 +2188,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnSubmitSendNotice" type="button" class="btn btn-primary">발송 완료</button>
+                <button id="btnSubmitNoti" type="button" class="btn btn-primary">발송 완료</button>
             </div>
         </div>
 

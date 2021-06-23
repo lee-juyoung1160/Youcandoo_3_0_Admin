@@ -1,89 +1,17 @@
 
 	import {
-	modalClose,
-	modalBackdrop,
-	tabUl,
-	tabContents,
-	btnBack,
-	btnList,
-	lengthInput,
-	btnBackDoitList,
-	btnDoitOpen,
-	btnDoitStop,
-	btnDoitDelete,
-	chkIsApply,
-	chkIsQuestion,
-	btnAddKeyword,
-	selCategory,
-	doitImage,
-	btnUpdateDoit,
-	btnSubmitUpdateDoit,
-	btnCreateMission,
-	btnDeleteMission,
-	btnUpdateMission,
-	btnSubmitUpdateMission,
-	btnSubmitMission,
-	btnCreateTalk,
-	selMemberFilter,
-	btnPendingMembers,
-	btnJoinMembers,
-	btnReset,
-	actionCount,
-	btnResetSearchAction,
-	btnSaveUcd,
-	amount,
-	btnSendWarning,
-	btnSendNotice,
-	btnSearchTalk,
-	btnResetSearchTalk,
-	btnUpdateTalk,
-	searchActionDateFrom,
-	searchActionDateTo,
-	searchTalkDateFrom,
-	searchTalkDateTo,
-	dateButtons,
-	missionStartDate,
-	missionEndDate,
-	rdoActionType,
-	updateMissionStartDate,
-	updateMissionEndDate,
-	rdoUpdateActionType,
-	selJoinMemberPageLength,
-	selApplyMemberPageLength,
-	btnSearch,
-	selSort,
-	btnBan,
-	btnBackActionList,
-	chkPermanent,
-	chkUpdatePermanent,
-	btnSearchAction,
-	selActionPageLength,
-	btnSendWarnings,
-	btnSubmitSendWarning,
-	btnSubmitCommentAction,
-	rdoAttachType,
-	selTalkPageLength,
-	btnSubmitTalk,
-	btnSubmitCommentTalk,
-	btnDeleteTalk,
-	rdoUpdateAttachType,
-	btnSubmitUpdateTalk,
-	selUcdPageLength,
-	searchUcdDateTo,
-	searchUcdDateFrom,
-	btnSaveUcdWallet,
-	saveWalletAmount,
-	btnSearchUcd,
-	btnResetSearchUcd,
-	btnSubmitSaveDoitUcd,
-	btnSubmitSaveUcd,
-	btnBackToTalkList,
-	btnBackToTalkDetail,
-	btnBackToMissionList,
-	btnBackToMissionDetail,
-	btnBlinkTalk,
-	btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject, selNotiType,
-} from '../modules/elements.js';
+		modalClose, modalBackdrop, tabUl, tabContents, btnBack, btnList, lengthInput, btnBackDoitList, btnDoitOpen, btnDoitStop, btnDoitDelete, chkIsApply,
+		chkIsQuestion, btnAddKeyword, selCategory, doitImage, btnUpdateDoit, btnSubmitUpdateDoit, btnCreateMission, btnDeleteMission,
+		btnUpdateMission, btnSubmitUpdateMission, btnSubmitMission, btnCreateTalk, selMemberFilter, btnPendingMembers, btnJoinMembers,
+		btnReset, actionCount, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSearchTalk, btnResetSearchTalk, btnUpdateTalk,
+		searchActionDateFrom, searchActionDateTo, searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType,
+		updateMissionStartDate, updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan,
+		btnBackActionList, chkPermanent, chkUpdatePermanent, btnSearchAction, selActionPageLength, btnSendWarnings, btnSubmitSendWarning,
+		btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk, btnDeleteTalk, rdoUpdateAttachType,
+		btnSubmitUpdateTalk, selUcdPageLength, searchUcdDateTo, searchUcdDateFrom, btnSaveUcdWallet, saveWalletAmount, btnSearchUcd,
+		btnResetSearchUcd, btnSubmitSaveDoitUcd, btnSubmitSaveUcd, btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList,
+		btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject,
+	} from '../modules/elements.js';
 	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
@@ -109,20 +37,19 @@
 		onChangeUpdateCheckPermanent, showMissionDetailForm
 	} from "./doit-detail-mission.js";
 	import {
-	showJoinMemberForm,
-	showPendingMemberForm,
-	initSearchMemberForm,
-	onClickModalSaveUcdOpen,
-	onClickModalSendNoticeOpen,
-	onChangeSelMemberFilter,
-	searchJoinMember,
-	banMember,
-	searchApplyMember,
-	onSubmitSaveUcd,
-	onChangeSelRewardType,
-	searchRewardMember,
-	onClickBtnApproval, onClickBtnReject, onChangeSelNotiType
-} from "./doit-detail-member.js";
+		showJoinMemberForm,
+		showPendingMemberForm,
+		initSearchMemberForm,
+		onClickModalSaveUcdOpen,
+		onChangeSelMemberFilter,
+		searchJoinMember,
+		banMember,
+		searchApplyMember,
+		onSubmitSaveUcd,
+		onChangeSelRewardType,
+		searchRewardMember,
+		onClickBtnApproval, onClickBtnReject,
+	} from "./doit-detail-member.js";
 	import {
 		showUcdListForm,
 		initSearchUcdForm,
@@ -217,7 +144,7 @@
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
 		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
-		btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });
+		/*btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });*/
 		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
 		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
@@ -227,7 +154,7 @@
 		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
 		selRewardType.on('change', function () { onChangeSelRewardType(); });
 		rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
-		selNotiType.on('change', function () { onChangeSelNotiType(); });
+		/*selNotiType.on('change', function () { onChangeSelNotiType(); });*/
 		btnApproval.on('click', function () { onClickBtnApproval(); });
 		btnReject.on('click', function () { onClickBtnReject(); });
 

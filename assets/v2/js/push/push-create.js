@@ -2,37 +2,38 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-		btnSubmit,
-		content,
-		modalClose,
-		modalBackdrop,
-		btnModalTargetMemberOpen,
-		modalTargetMember,
-		targetPage,
-		modalTargetPage,
-		rdoReserveType,
-		rdoTargetMemberType,
-		rdoTargetPageType,
-		reserveDate,
-		reserveTime,
-		btnXlsxExport,
-		dataTable,
-		keyword,
-		targetUuid,
-		nickname, memberTable, btnSearch, updateTable, totalCount
-	} from '../modules/elements.js';
+	btnSubmit,
+	content,
+	modalClose,
+	modalBackdrop,
+	btnModalTargetMemberOpen,
+	modalTargetMember,
+	targetPage,
+	modalTargetPage,
+	rdoReserveType,
+	rdoTargetMemberType,
+	rdoTargetPageType,
+	reserveDate,
+	reserveTime,
+	btnXlsxExport,
+	dataTable,
+	keyword,
+	targetUuid,
+	nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport
+} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-		fadeoutModal,
-		initInputDatepickerMinDateToday,
-		overflowHidden,
-		setDateToday
-	} from "../modules/common.js";
-	import {isEmpty, numberWithCommas} from "../modules/utils.js";
+		emptyFile,
+	fadeoutModal,
+	initInputDatepickerMinDateToday,
+	overflowHidden,
+	setDateToday
+} from "../modules/common.js";
+	import {isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {onClickImportMemberFormExport} from "../modules/export-excel.js";
+	import {onClickImportMemberFormExport, readExcelData} from "../modules/export-excel.js";
 	import {checkBoxElement, initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable,} from "../modules/tables.js";
 
 	let addedUsers = [];
@@ -53,6 +54,7 @@
 		modalClose.on("click", function () { fadeoutModal(); });
 		modalBackdrop.on("click", function () { fadeoutModal(); });
 		btnSubmit.on('click', function () { onSubmitPush(); });
+		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport.on('click', function () { onClickImportMemberFormExport(); });
 		keyword.on("propertychange change keyup paste input", function () { getTargetPageList(); });
 		btnSearch.on('click', function () { onSubmitSearchMember(); });
@@ -399,6 +401,48 @@
 	function displayCountAddedUser()
 	{
 		totalCount.text(numberWithCommas(addedUserObj.length));
+	}
+
+	function onClickBtnImport(obj)
+	{
+		if (!isXlsX(obj))
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			emptyFile(obj);
+			return ;
+		}
+
+		readExcelData(obj, getMemberFromXlsx);
+
+		emptyFile(obj);
+	}
+
+	function getMemberFromXlsx(data)
+	{
+		if (isEmpty(data))
+		{
+			sweetToast(message.invalidFileContent);
+			return;
+		}
+
+		const url = api.pushTargetMemberFromXlsx;
+		const errMsg = `회원목록${message.ajaxLoadError}`
+		const param = { "profile_uuid" : data };
+
+		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
+	}
+
+	function getExcelDataCallback(data)
+	{
+		if (!isEmpty(data.data) && data.data.list.length > 0)
+		{
+			addedUserObj = data.data.list;
+			addedUsers.length = 0;
+			data.data.list.map(obj => addedUsers.push(obj.profile_uuid));
+		}
+
+		buildUpdateTable();
+		displayCountAddedUser();
 	}
 
 	function onSubmitPush()

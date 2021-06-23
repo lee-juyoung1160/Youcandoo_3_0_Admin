@@ -163,6 +163,7 @@
         pushTargetEvent : baseApiUrl + 'push/get/event',
         pushTargetDoit : baseApiUrl + 'push/get/doit',
         pushTargetMember : baseApiUrl + 'push/get/profile',
+        pushTargetMemberFromXlsx : baseApiUrl + 'excel/import/notification/profile',
 
         popupList : baseApiUrl + 'popup/get/list',
         createPopup : baseApiUrl + 'popup/create',

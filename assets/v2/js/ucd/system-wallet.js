@@ -1,25 +1,21 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, chkType, chkStatus,
-		dateFrom, dateTo, rdoStatus,} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons,
+		dateFrom, dateTo, rdoStatus, checkTypeWrap,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
 		atLeastChecked, onChangeSearchDateFrom, onChangeSearchDateTo, initSearchDateRangeWeek} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {numberWithCommas} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
-		initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
+		getSystemType();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -28,7 +24,6 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
-		chkType			.on('click', function () { atLeastChecked(this); });
 	});
 
 	function initSearchForm()
@@ -38,14 +33,47 @@
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
+		const chkType = $("input[name=chk-type]");
 		chkType.eq(0).prop('checked', true);
 		chkType.eq(1).prop('checked', true);
 		chkType.eq(2).prop('checked', true);
 		chkType.eq(3).prop('checked', true);
-		chkStatus.eq(0).prop('checked', true);
-		chkStatus.eq(1).prop('checked', true);
-		chkStatus.eq(2).prop('checked', true);
 		rdoStatus.eq(0).prop('checked', true);
+	}
+
+	function getSystemType()
+	{
+		const url = api.systemWalletType;
+		const errMsg = `구분${message.ajaxLoadError}`;
+
+		ajaxRequestWithJsonData(false, url, null, getSystemTypeCallback, errMsg, getSystemTypeComplete);
+	}
+
+	function getSystemTypeCallback(data)
+	{
+		isSuccessResp(data) ? buildSystemType(data) : sweetToast(data.msg);
+	}
+
+	function buildSystemType(data)
+	{
+		if (!isEmpty(data.data) && data.data.length > 0)
+		{
+			data.data.map((obj, index) => {
+				const checkboxEl = `<input id="chk${index}" type="checkbox" name="chk-type" value="${obj.system}"><label for="chk${index}"><span></span>${obj.description}</label>`
+				checkTypeWrap.append(checkboxEl);
+			})
+
+			$("input[name=chk-type]").on('click', function () { atLeastChecked(this); });
+		}
+	}
+
+	function getSystemTypeComplete()
+	{
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		initSearchForm();
+		/** 목록 불러오기 **/
+		buildTable();
 	}
 
 	function onKeydownSearch(event)
@@ -86,7 +114,7 @@
 				},
 				data: function (d) {
 					let division = [];
-					chkType.each(function () {
+					$("input[name=chk-type]").each(function () {
 						if ($(this).is(":checked"))
 							division.push($(this).val())
 					});

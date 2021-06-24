@@ -41,6 +41,7 @@
     export const btnAdd	    = $("#btnAdd");
     export const btnList	= $("#btnList");
     export const btnBack	= $("#btnBack");
+    export const checkTypeWrap = $("#checkTypeWrap");
 
     export const selPageLength = $("#selPageLength");
     export const selSort    = $("#selSort");
@@ -328,6 +329,7 @@
     export const btnSupportLeader = $("#btnSupportLeader");
     /** 배너 **/
     export const targetUrl = $("#targetUrl");
+    export const targetPageType = $("#targetPageType");
     export const targetUuid = $("#targetUuid");
     export const historyTable = $("#historyTable");
     /** 유캔두 픽 **/

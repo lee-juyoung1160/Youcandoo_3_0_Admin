@@ -184,6 +184,7 @@
         getMemberFromXlsx : baseApiUrl + 'excel/import/profile',
         getDoitFromXlsx : baseApiUrl + 'excel/import/doit',
         ucdChargeList : baseApiUrl + 'ucd/list/get/charge',
+        systemWalletType : baseApiUrl + 'ucd/get/system/type',
         systemWalletList : baseApiUrl + 'ucd/list/get/system',
         doitWalletList : baseApiUrl + 'ucd/list/get/doit',
         memberWalletList : baseApiUrl + 'ucd/list/get/user',

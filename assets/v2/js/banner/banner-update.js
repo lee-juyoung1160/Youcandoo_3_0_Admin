@@ -1,11 +1,37 @@
 
 	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage,
-		modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, thumbnail, datePicker, contentImage, keyword,} from '../modules/elements.js';
+	import {
+	targetUrl,
+	btnSubmit,
+	title,
+	dateFrom,
+	dateTo,
+	rdoTargetPageType,
+	targetPage,
+	modalOpen,
+	modalClose,
+	modalBackdrop,
+	dataTable,
+	targetUuid,
+	thumbnail,
+	datePicker,
+	contentImage,
+	keyword,
+		targetPageType,
+} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import { initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom,
-		onChangeSearchDateTo, fadeoutModal, fadeinModal, onErrorImage, calculateInputLength,} from "../modules/common.js";
+	import {
+	initSearchDatepicker,
+	onChangeValidateImage,
+	onChangeSearchDateFrom,
+	onChangeSearchDateTo,
+	fadeoutModal,
+	fadeinModal,
+	onErrorImage,
+	calculateInputLength,
+		initInputDatepickerMinDateYesterday,
+} from "../modules/common.js";
 	import {isEmpty, isDomainName, getPathName, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -19,7 +45,7 @@
 		title.trigger('focus');
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		initSearchDatepicker();
+		initInputDatepickerMinDateYesterday();
 		getDetail();
 		/** 이벤트 **/
 		modalOpen		.on("click", function () { onClickModalOpen(); });
@@ -52,7 +78,7 @@
 	let g_banner_uuid;
 	function buildDetail(data)
 	{
-		const { banner_uuid, banner_name, page_value, page_target, page_target_value, target_title, open_date, close_date, banner_image_url } = data.data;
+		const { banner_uuid, banner_name, page_value, page_target, page_type, page_target_value, target_title, open_date, close_date, banner_image_url } = data.data;
 
 		g_banner_uuid = banner_uuid;
 
@@ -70,11 +96,12 @@
 		{
 			targetPage.val(target_title);
 			targetUuid.val(page_target_value);
+			if (page_target === 'event_detail' || page_target === 'notice_detail')
+				targetPageType.val(page_type);
 		}
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
 		thumbnail.attr('src', banner_image_url);
-		datePicker.datepicker("option", "minDate", open_date);
 
 		calculateInputLength();
 		onErrorImage();
@@ -107,7 +134,7 @@
 			const url = api.updateBanner;
 			const errMsg = label.modify+message.ajaxError;
 			const pageTarget = $("input[name=radio-target-page-type]:checked").val();
-			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? 'webview' : pageTarget;
+			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? targetPageType.val().trim() : pageTarget;
 			const bannerTarget = (pageTarget === 'webview' || pageTarget === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_uuid" : g_banner_uuid,
@@ -262,10 +289,12 @@
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		let uuid;
 		let name;
+		let type = '';
 		switch (targetPageType) {
 			case 'event_detail' :
 				uuid = aData.event_uuid;
 				name = aData.title;
+				type = aData.event_type === '링크' ? 'browser' : 'webview';
 				break;
 			case 'doit_detail' :
 				uuid = aData.doit_uuid;
@@ -274,10 +303,12 @@
 			case 'notice_detail' :
 				uuid = aData.notice_uuid;
 				name = aData.title;
+				type = 'webview';
 				break;
 		}
 		$(nRow).attr('data-uuid', uuid);
 		$(nRow).attr('data-name', name);
+		$(nRow).attr('data-type', type);
 		$(nRow).on('click', function () { onSelectTargetPage(this); });
 	}
 
@@ -285,6 +316,7 @@
 	{
 		targetPage.val($(obj).data('name'));
 		targetUuid.val($(obj).data('uuid'));
+		targetPageType.val($(obj).data('type'));
 		fadeoutModal();
 	}
 

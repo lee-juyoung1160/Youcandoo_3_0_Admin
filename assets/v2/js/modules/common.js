@@ -79,7 +79,7 @@
         });
     }
 
-    export function initInputDatepickerMinDateNextDay()
+    export function initInputDatepickerMinDateTomorrow()
     {
         datePicker.datepicker({
             dateFormat: "yy-mm-dd"
@@ -89,6 +89,19 @@
             ,dayNames: label.dayNames
             ,dayNamesMin: label.dayNames
             ,minDate: +1
+        });
+    }
+
+    export function initInputDatepickerMinDateYesterday()
+    {
+        datePicker.datepicker({
+            dateFormat: "yy-mm-dd"
+            ,changeYear: true
+            ,showMonthAfterYear: true
+            ,monthNames: label.monthNames
+            ,dayNames: label.dayNames
+            ,dayNamesMin: label.dayNames
+            ,minDate: -1
         });
     }
 

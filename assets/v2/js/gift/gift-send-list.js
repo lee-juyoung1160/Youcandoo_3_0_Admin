@@ -168,7 +168,7 @@
 				,{title: "승인/발송/취소일시",   data: "updated", 		width: "13%" }
 				,{title: "예약일시",   		data: "reserved", 		width: "13%",
 					render: function (data, type, row, meta) {
-						return isEmpty(row.goods_code) ? label.dash : data;
+						return (isEmpty(row.goods_code) || row.status === '취소') ? label.dash : data;
 					}
 				}
 				,{title: "상태",    			data: "status",  		width: "5%" }

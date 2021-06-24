@@ -78,7 +78,7 @@
 	let g_banner_uuid;
 	function buildDetail(data)
 	{
-		const { banner_uuid, banner_name, page_value, page_target, page_type, page_target_value, target_title, open_date, close_date, banner_image_url } = data.data;
+		const { banner_uuid, banner_name, page_target, page_target_value, target_title, open_date, close_date, banner_image_url } = data.data;
 
 		g_banner_uuid = banner_uuid;
 
@@ -91,13 +91,11 @@
 			}
 		});
 		if (page_target === 'webview' || page_target === 'browser')
-			targetUrl.val(page_value);
+			targetUrl.val(page_target_value);
 		else
 		{
 			targetPage.val(target_title);
 			targetUuid.val(page_target_value);
-			if (page_target === 'event_detail' || page_target === 'notice_detail')
-				targetPageType.val(page_type);
 		}
 		dateFrom.val(open_date);
 		dateTo.val(close_date);
@@ -133,15 +131,13 @@
 		{
 			const url = api.updateBanner;
 			const errMsg = label.modify+message.ajaxError;
-			const pageTarget = $("input[name=radio-target-page-type]:checked").val();
-			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? targetPageType.val().trim() : pageTarget;
-			const bannerTarget = (pageTarget === 'webview' || pageTarget === 'browser') ? targetUrl.val().trim() : targetUuid.val();
+			const pageType = $("input[name=radio-target-page-type]:checked").val();
+			const pageValue = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_uuid" : g_banner_uuid,
 				"banner_name" : title.val().trim(),
-				"page_type" : pageType,
-				"page_target" : pageTarget,
-				"banner_target" : bannerTarget,
+				"banner_type" : pageType,
+				"banner_value" : pageValue,
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
 			}
@@ -205,13 +201,13 @@
 		const targetPageType = $(obj).val();
 
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				showTargetPage();
 				break;
-			case 'doit_detail' :
+			case 'doit' :
 				showTargetPage();
 				break;
-			case 'notice_detail' :
+			case 'notice' :
 				showTargetPage();
 				break;
 			default :
@@ -289,26 +285,22 @@
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		let uuid;
 		let name;
-		let type = '';
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				uuid = aData.event_uuid;
 				name = aData.title;
-				type = aData.event_type === '링크' ? 'browser' : 'webview';
 				break;
-			case 'doit_detail' :
+			case 'doit' :
 				uuid = aData.doit_uuid;
 				name = aData.doit_title;
 				break;
-			case 'notice_detail' :
+			case 'notice' :
 				uuid = aData.notice_uuid;
 				name = aData.title;
-				type = 'webview';
 				break;
 		}
 		$(nRow).attr('data-uuid', uuid);
 		$(nRow).attr('data-name', name);
-		$(nRow).attr('data-type', type);
 		$(nRow).on('click', function () { onSelectTargetPage(this); });
 	}
 
@@ -316,7 +308,6 @@
 	{
 		targetPage.val($(obj).data('name'));
 		targetUuid.val($(obj).data('uuid'));
-		targetPageType.val($(obj).data('type'));
 		fadeoutModal();
 	}
 
@@ -338,11 +329,11 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				return api.targetEventList
-			case 'doit_detail' :
+			case 'doit' :
 				return api.targetDoitList
-			case 'notice_detail' :
+			case 'notice' :
 				return api.targetNoticeList
 		}
 	}

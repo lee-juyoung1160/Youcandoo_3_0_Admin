@@ -2,7 +2,7 @@
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, contentImage, title, dateFrom, dateTo, rdoTargetPageType,
-		targetPage, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, keyword, targetPageType
+		targetPage, modalOpen, modalClose, modalBackdrop, dataTable, targetUuid, keyword,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom,
@@ -54,14 +54,12 @@
 		{
 			const url = api.createBanner;
 			const errMsg = label.submit+message.ajaxError;
-			const pageTarget = $("input[name=radio-target-page-type]:checked").val();
-			const pageType = (pageTarget === 'event_detail' || pageTarget === 'notice_detail') ? targetPageType.val().trim() : pageTarget;
-			const bannerTarget = (pageTarget === 'webview' || pageTarget === 'browser') ? targetUrl.val().trim() : targetUuid.val();
+			const pageType = $("input[name=radio-target-page-type]:checked").val();
+			const pageValue = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
 				"banner_name" : title.val().trim(),
-				"page_type" : pageType,
-				"page_target" : pageTarget,
-				"banner_target" : bannerTarget,
+				"banner_type" : pageType,
+				"banner_value" : pageValue,
 				"open_date" : dateFrom.val(),
 				"close_date" : dateTo.val(),
 				"banner_image_url" : data.image_urls.file
@@ -130,13 +128,13 @@
 		const targetPageType = $(obj).val();
 
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				showTargetPage();
 				break;
-			case 'doit_detail' :
+			case 'doit' :
 				showTargetPage();
 				break;
-			case 'notice_detail' :
+			case 'notice' :
 				showTargetPage();
 				break;
 			default :
@@ -211,26 +209,22 @@
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		let uuid;
 		let name;
-		let type = '';
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				uuid = aData.event_uuid;
 				name = aData.title;
-				type = aData.event_type === '링크' ? 'browser' : 'webview';
 				break;
-			case 'doit_detail' :
+			case 'doit' :
 				uuid = aData.doit_uuid;
 				name = aData.doit_title;
 				break;
-			case 'notice_detail' :
+			case 'notice' :
 				uuid = aData.notice_uuid;
 				name = aData.title;
-				type = 'webview';
 				break;
 		}
 		$(nRow).attr('data-uuid', uuid);
 		$(nRow).attr('data-name', name);
-		$(nRow).attr('data-type', type);
 		$(nRow).on('click', function () { onSelectTargetPage(this); })
 	}
 
@@ -238,7 +232,6 @@
 	{
 		targetPage.val($(obj).data('name'));
 		targetUuid.val($(obj).data('uuid'));
-		targetPageType.val($(obj).data('type'));
 		fadeoutModal();
 	}
 
@@ -246,12 +239,12 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				return [{title: "구분",		data: "event_type",    	width: "20%"}
 						,{title: "제목",		data: "title",    	   	width: "80%"}]
-			case 'doit_detail' :
+			case 'doit' :
 				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
-			case 'notice_detail' :
+			case 'notice' :
 				return [{title: "제목",		data: "title",   		width: "100%"}]
 		}
 	}
@@ -260,11 +253,11 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				return api.targetEventList
-			case 'doit_detail' :
+			case 'doit' :
 				return api.targetDoitList
-			case 'notice_detail' :
+			case 'notice' :
 				return api.targetNoticeList
 		}
 	}

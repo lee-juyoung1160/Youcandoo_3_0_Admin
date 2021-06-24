@@ -75,15 +75,15 @@
 						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
 					}
 				}
-				,{title: "배너명", 		data: "banner_name",		width: "25%" }
+				,{title: "배너명", 		data: "banner_name",		width: "20%" }
 				,{title: "노출기간",    	data: "open_date",  		width: "15%",
 					render: function (data, type, row, meta) {
 						return `${row.open_date} ~ ${row.close_date}`;
 					}
 				}
-				,{title: "이동 페이지",   data: "page_target",  		width: "35%",
+				,{title: "이동 페이지",   data: "page_target",  		width: "40%",
 					render: function (data, type, row, meta) {
-						return (data === 'webview' || data === 'browser') ? row.page_value : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (data === 'webview' || data === 'browser') ? row.page_target_value : isEmpty(row.target_title) ? label.dash : row.target_title;
 					}
 				}
 				,{title: "수정",    		data: "banner_uuid",  		width: "10%",

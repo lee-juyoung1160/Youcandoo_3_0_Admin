@@ -1,11 +1,9 @@
 
 	import {headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset,
-		selSearchType, selType, rdoOpen,} from '../modules/elements.js';
+	import {body, dateButtons, dataTable, keyword, selPageLength, btnSearch, btnReset, selSearchType, selType, rdoOpen,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonth,
-		initMaxDateToday, initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage} from "../modules/common.js";
+	import {onClickDateRangeBtn, initPageLength, initSelectOption, onErrorImage} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -17,7 +15,6 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		initSearchDatepicker();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
@@ -25,8 +22,6 @@
 		buildTable();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
-		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
-		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
 		btnSearch 	.on("click", function () { onSubmitSearch(); });
 		btnReset	.on("click", function () { initSearchForm(); });
@@ -35,9 +30,6 @@
 
 	function initSearchForm()
 	{
-		initDayBtn();
-		initMaxDateToday()
-		initSearchDateRangeMonth();
 		initSelectOption();
 		keyword.val('');
 		rdoOpen.eq(0).prop('checked', true);
@@ -47,8 +39,6 @@
 	{
 		const historyParams = getHistoryParam();
 
-		dateFrom.val(historyParams.from_date);
-		dateTo.val(historyParams.to_date);
 		selSearchType.val(historyParams.search_type);
 		keyword.val(historyParams.keyword);
 		selType.val(historyParams.badge_type);
@@ -72,7 +62,6 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMaxDateToday();
 	}
 
 	function buildTable()
@@ -171,8 +160,6 @@
 	function tableParams()
 	{
 		const param = {
-			"from_date" : dateFrom.val(),
-			"to_date" : dateTo.val(),
 			"search_type": selSearchType.val(),
 			"keyword" : keyword.val().trim(),
 			"badge_type" : selType.val(),

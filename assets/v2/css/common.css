@@ -285,7 +285,7 @@ input.input-copy {
 }
 .tag-list li {
 	float: left;
-	margin-right: 5px;
+	margin: 0 5px 5px 0;
 	padding: 4px 5px;
 	background-color: #ccdffc;
 }

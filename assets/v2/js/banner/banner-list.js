@@ -83,7 +83,9 @@
 				}
 				,{title: "이동 페이지",   data: "page_target",  		width: "40%",
 					render: function (data, type, row, meta) {
-						return (data === 'webview' || data === 'browser') ? row.page_target_value : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (data === 'webview' || data === 'browser')
+							? `${getTargetName(data)} ${row.page_target_value}`
+							: isEmpty(row.target_title) ? label.dash : `${getTargetName(data)} ${row.target_title}`;
 					}
 				}
 				,{title: "수정",    		data: "banner_uuid",  		width: "10%",
@@ -117,6 +119,31 @@
 		buildUpdateTable();
 	}
 
+	function getTargetName(target)
+	{
+		let targetName;
+		switch (target) {
+			case 'doit' :
+				targetName = '[두잇]';
+				break;
+			case 'event' :
+				targetName = '[이벤트]';
+				break;
+			case 'notice' :
+				targetName = '[공지]';
+				break;
+			case 'webview' :
+				targetName = '[웹뷰]';
+				break;
+			case 'browser' :
+				targetName = '[외부]';
+				break;
+			default : targetName = '';
+		}
+
+		return targetName
+	}
+
 	function buildUpdateTable()
 	{
 		const table = dataTable.DataTable();
@@ -128,9 +155,7 @@
 			columns: [
 				{title: "이미지",   	data: "banner_image_url",  	width: "20%",
 					render: function (data, type, row, meta) {
-						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
-						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
+						return `<div class="list-img-wrap banner-img-wrap" data-url="${data}"><img src="${data}" alt=""></div>`;
 					}
 				}
 				,{title: "배너명", 	data: "banner_name",		width: "80%" }
@@ -239,9 +264,7 @@
 			columns: [
 				{title: "이미지",    		data: "banner_image_url",  	width: "15%",
 					render: function (data, type, row, meta) {
-						const imageTypes = [".jpeg", ".jpg", ".png"];
-						const imgUrl = isEmpty(data) ? '' : imageTypes.includes(data) > -1 ? data : '';
-						return `<div class="list-img-wrap banner-img-wrap" data-url="${imgUrl}"><img src="${imgUrl}" alt=""></div>`;
+						return `<div class="list-img-wrap banner-img-wrap" data-url="${data}"><img src="${data}" alt=""></div>`;
 					}
 				}
 				,{title: "배너명", 		data: "banner_name",		width: "25%" }
@@ -252,7 +275,9 @@
 				}
 				,{title: "이동 페이지",    data: "page_target",  		width: "45%",
 					render: function (data, type, row, meta) {
-						return (data === 'webview' || data === 'browser') ? row.page_value : isEmpty(row.target_title) ? label.dash : row.target_title;
+						return (data === 'webview' || data === 'browser')
+							? `${getTargetName(data)} ${row.page_target_value}`
+							: isEmpty(row.target_title) ? label.dash : `${getTargetName(data)} ${row.target_title}`;
 					}
 				}
 			],

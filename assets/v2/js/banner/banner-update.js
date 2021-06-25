@@ -2,36 +2,33 @@
 	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
-	targetUrl,
-	btnSubmit,
-	title,
-	dateFrom,
-	dateTo,
-	rdoTargetPageType,
-	targetPage,
-	modalOpen,
-	modalClose,
-	modalBackdrop,
-	dataTable,
-	targetUuid,
-	thumbnail,
-	datePicker,
-	contentImage,
-	keyword,
-		targetPageType,
-} from '../modules/elements.js';
+		targetUrl,
+		btnSubmit,
+		title,
+		dateFrom,
+		dateTo,
+		rdoTargetPageType,
+		targetPage,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		dataTable,
+		targetUuid,
+		thumbnail,
+		contentImage,
+		keyword,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {
-	initSearchDatepicker,
-	onChangeValidateImage,
-	onChangeSearchDateFrom,
-	onChangeSearchDateTo,
-	fadeoutModal,
-	fadeinModal,
-	onErrorImage,
-	calculateInputLength,
+		onChangeValidateImage,
+		onChangeSearchDateFrom,
+		onChangeSearchDateTo,
+		fadeoutModal,
+		fadeinModal,
+		onErrorImage,
+		calculateInputLength,
 		initInputDatepickerMinDateYesterday,
-} from "../modules/common.js";
+	} from "../modules/common.js";
 	import {isEmpty, isDomainName, getPathName, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -315,12 +312,12 @@
 	{
 		const targetPageType = $("input[name=radio-target-page-type]:checked").val();
 		switch (targetPageType) {
-			case 'event_detail' :
+			case 'event' :
 				return [{title: "구분",		data: "event_type",    	width: "20%"}
 						,{title: "제목",		data: "title",    	   	width: "80%"}]
-			case 'doit_detail' :
+			case 'doit' :
 				return [{title: "두잇명",		data: "doit_title",    	width: "100%"}]
-			case 'notice_detail' :
+			case 'notice' :
 				return [{title: "제목",		data: "title",   		width: "100%"}]
 		}
 	}

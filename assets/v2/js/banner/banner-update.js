@@ -1,34 +1,11 @@
 
 	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-		targetUrl,
-		btnSubmit,
-		title,
-		dateFrom,
-		dateTo,
-		rdoTargetPageType,
-		targetPage,
-		modalOpen,
-		modalClose,
-		modalBackdrop,
-		dataTable,
-		targetUuid,
-		thumbnail,
-		contentImage,
-		keyword,
-	} from '../modules/elements.js';
+	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage, modalOpen, modalClose,
+		modalBackdrop, dataTable, targetUuid, thumbnail, contentImage, keyword,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
-	import {
-		onChangeValidateImage,
-		onChangeSearchDateFrom,
-		onChangeSearchDateTo,
-		fadeoutModal,
-		fadeinModal,
-		onErrorImage,
-		calculateInputLength,
-		initInputDatepickerMinDateYesterday,
-	} from "../modules/common.js";
+	import {onChangeValidateImage, onChangeSearchDateFrom, onChangeSearchDateTo, fadeoutModal, fadeinModal,
+		onErrorImage, calculateInputLength, initInputDatepickerMinDateYesterday,} from "../modules/common.js";
 	import {isEmpty, isDomainName, getPathName, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

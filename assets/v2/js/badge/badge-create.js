@@ -1,17 +1,7 @@
 
 	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {
-		lengthInput,
-		btnSubmit,
-		title,
-		content,
-		contentImage,
-		difficulty,
-		qualification,
-		selType,
-		popupImage,
-	} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, title, content, contentImage, difficulty, qualification, selType, popupImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";

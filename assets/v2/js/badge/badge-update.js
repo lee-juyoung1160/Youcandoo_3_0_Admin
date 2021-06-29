@@ -1,19 +1,8 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-	content,
-	badgeTitle,
-	contentImage,
-	thumbnail,
-	qualification,
-	difficulty,
-	selType,
-	lengthInput,
-	btnSubmit,
-	rdoOpen,
-	popupImage, rdoType, popupThumbnail,
-} from '../modules/elements.js';
+	import {content, badgeTitle, contentImage, thumbnail, qualification, difficulty, selType, lengthInput,
+		btnSubmit, rdoOpen, popupImage, rdoType, popupThumbnail,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
 	import {getPathName, initInputNumber, isEmpty,splitReverse,} from "../modules/utils.js";

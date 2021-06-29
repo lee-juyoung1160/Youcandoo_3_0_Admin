@@ -1,24 +1,9 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {
-		lengthInput,
-		btnSubmit,
-		amount,
-		keyword,
-		modalClose,
-		modalBackdrop,
-		modalOpen,
-		btnXlsxImport,
-		updateTable,
-		btnXlsxExport,
-		description,
-		nickname,
-		dataTable,
-		btnSearch,
-		totalCount,
-		title, contentImage, balance
-	} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
+		updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch, totalCount,
+		title, contentImage, balance} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, onErrorImage} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
@@ -26,13 +11,8 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
-	import {
-		initTableDefaultConfig,
-		tableReloadAndStayCurrentPage,
-		toggleSingleCheckBox,
-		toggleBtnPreviousAndNextOnTable,
-		checkBoxElement,
-	} from "../modules/tables.js";
+	import {initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from "../modules/tables.js";
+
 	let addedUsers = [];
 	let addedUserObj = [];
 

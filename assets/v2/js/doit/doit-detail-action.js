@@ -39,7 +39,7 @@
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {isEmpty} from "../modules/utils.js";

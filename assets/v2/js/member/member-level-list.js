@@ -1,16 +1,7 @@
 
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
 	import { api } from '../modules/api-url.js';
-	import {
-		countLevel1,
-		countLevel2,
-		countLevel3,
-		countLevel4,
-		countLevel5,
-		countLevel6,
-		selPageLength,
-		dataTable,
-	} from '../modules/elements.js';
+	import {countLevel1, countLevel2, countLevel3, countLevel4, countLevel5, countLevel6, selPageLength, dataTable,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initPageLength} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';

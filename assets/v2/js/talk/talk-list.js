@@ -1,19 +1,8 @@
 
 	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
-	import {
-		body,
-		btnSearch,
-		btnReset,
-		keyword,
-		dataTable,
-		selPageLength,
-		dateButtons,
-		dateFrom,
-		dateTo,
-		rdoReport,
-		selDateType,
-		rdoType,
+	import {body, btnSearch, btnReset, keyword, dataTable,
+		selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType, rdoType,
 		modalReason, modalBackdrop, modalClose, reasonTable, btnBlinkTalk, btnDisplayTalk,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';

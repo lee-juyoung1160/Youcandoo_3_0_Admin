@@ -25,13 +25,7 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
-	import {
-		initTableDefaultConfig,
-		tableReloadAndStayCurrentPage,
-		toggleSingleCheckBox,
-		toggleBtnPreviousAndNextOnTable,
-		checkBoxElement,
-	} from "../modules/tables.js";
+	import {initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from "../modules/tables.js";
 	let addedUsers = [];
 	let addedUserObj = [];
 

@@ -100,6 +100,8 @@
 			},
 			destroy: true,
 			initComplete: function () {
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(4).find('input').on('click', function () { toggleSingleCheckBox(this); })

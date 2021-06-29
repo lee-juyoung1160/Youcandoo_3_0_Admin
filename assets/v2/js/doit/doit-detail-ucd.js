@@ -1,14 +1,6 @@
 
-	import {
-		ucdListForm,
-		ucdTable,
-		searchUcdDateFrom,
-		searchUcdDateTo,
-		ucdKeyword,
-		selUcdPageLength,
-		modalSaveUcdWallet,
-		modalBackdrop, saveWalletAmount, saveWalletDesc, publicWalletBalance,
-	} from "../modules/elements.js";
+	import {ucdListForm, ucdTable, searchUcdDateFrom, searchUcdDateTo, ucdKeyword, selUcdPageLength, modalSaveUcdWallet,
+		modalBackdrop, saveWalletAmount, saveWalletDesc, publicWalletBalance,} from "../modules/elements.js";
 	import { api } from '../modules/api-url.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";

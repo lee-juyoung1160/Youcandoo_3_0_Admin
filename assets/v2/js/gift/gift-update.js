@@ -1,24 +1,12 @@
 
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
-	import {
-		lengthInput,
-		btnSubmit,
-		price,
-		contentImage,
-		giftName,
-		rdoExposure,
-		modalOpen,
+	import {lengthInput, btnSubmit, price, contentImage, giftName, rdoExposure, modalOpen,
 		modalClose, modalBackdrop, giftType, selectGiftName, goodsCode, ktImageUrl, keyword, dataTable
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
-	import {
-	calculateInputLength, emptyFile, fadeinModal,
-	fadeoutModal,
-	limitInputLength,
-	onChangeValidateImage,
-	onErrorImage
-} from "../modules/common.js";
+	import {calculateInputLength, emptyFile, fadeinModal, fadeoutModal, limitInputLength,
+		onChangeValidateImage, onErrorImage} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

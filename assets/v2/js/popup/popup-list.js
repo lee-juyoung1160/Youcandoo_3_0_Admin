@@ -1,16 +1,7 @@
 
 	import {headers, isSuccessResp,} from '../modules/request.js';
 	import {api} from '../modules/api-url.js';
-	import {
-		body,
-		btnSearch,
-		btnReset,
-		keyword,
-		dataTable,
-		selPageLength,
-		dateButtons,
-		dateFrom, dateTo, selDateType, selSearchType,
-	} from '../modules/elements.js';
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons,dateFrom, dateTo, selDateType, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths, initSearchDateRangeMonth,
 		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";

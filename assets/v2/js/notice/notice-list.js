@@ -3,23 +3,10 @@
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, dateFrom, dateTo, selPageLength, rdoExposure, dateButtons, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
-	import {
-		initSelectOption,
-		initPageLength,
-		initSearchDatepicker,
-		initDayBtn,
-		initMaxDateToday,
-		initSearchDateRangeMonths,
-		onClickDateRangeBtn,
-		onChangeSearchDateFrom,
-		onChangeSearchDateTo,
+	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday,
+		initSearchDateRangeMonths, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo,
 	} from "../modules/common.js";
-	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
-		getCurrentPage, redrawPage
-	} from '../modules/tables.js';
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

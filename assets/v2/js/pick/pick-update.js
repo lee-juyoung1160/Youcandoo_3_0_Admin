@@ -8,7 +8,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {initTableDefaultConfig, checkBoxElement, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
+	import {initTableDefaultConfig, checkBoxElement, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 
 	const pathName	= getPathName();
 	const pickIdx	= splitReverse(pathName, '/');
@@ -175,7 +175,7 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 배너 목록에 있는 경우 체크박스 삭제 **/

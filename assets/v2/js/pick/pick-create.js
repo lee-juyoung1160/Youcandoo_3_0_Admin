@@ -8,7 +8,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {initTableDefaultConfig, checkBoxElement, toggleSingleCheckBox, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
+	import {initTableDefaultConfig, checkBoxElement, toggleBtnPreviousAndNextOnTable, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 
 	let g_added_doit = [];
 

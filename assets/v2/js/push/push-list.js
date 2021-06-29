@@ -27,11 +27,7 @@
 		onChangeSearchDateFrom,
 		onChangeSearchDateTo, copyToClipboard
 	} from "../modules/common.js";
-	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable, checkBoxElement, toggleSingleCheckBox,
-	} from '../modules/tables.js';
+	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -175,8 +171,8 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
-				dataTable.on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 				addViewDetailEvent();
 			},
 			fnRowCallback: function( nRow, aData ) {

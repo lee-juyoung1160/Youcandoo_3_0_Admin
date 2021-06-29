@@ -2,33 +2,13 @@
 	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {
-	btnSubmit,
-	content,
-	modalClose,
-	modalBackdrop,
-	btnModalTargetMemberOpen,
-	modalTargetMember,
-	targetPage,
-	modalTargetPage,
-	rdoReserveType,
-	rdoTargetMemberType,
-	rdoTargetPageType,
-	reserveDate,
-	reserveTime,
-	btnXlsxExport,
-	dataTable,
-	keyword,
-	targetUuid,
-	nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport
-} from '../modules/elements.js';
+		btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
+		modalTargetMember, targetPage, modalTargetPage, rdoReserveType, rdoTargetMemberType,
+		rdoTargetPageType, reserveDate, reserveTime, btnXlsxExport, dataTable, keyword, targetUuid,
+		nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport
+	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
-	import {
-		emptyFile,
-	fadeoutModal,
-	initInputDatepickerMinDateToday,
-	overflowHidden,
-	setDateToday
-} from "../modules/common.js";
+	import {emptyFile, fadeoutModal, initInputDatepickerMinDateToday, overflowHidden, setDateToday} from "../modules/common.js";
 	import {isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";

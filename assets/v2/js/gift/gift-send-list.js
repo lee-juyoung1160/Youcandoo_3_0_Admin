@@ -27,13 +27,8 @@
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-		onClickDateRangeBtn,
-		initDayBtn,
-		initSearchDatepicker,
-		initSearchDateRangeWeek,
-		initMaxDateToday,
-		initPageLength,
-		initSelectOption, moveToMemberDetail,
+		onClickDateRangeBtn, initDayBtn, initSearchDatepicker,
+		initSearchDateRangeWeek, initMaxDateToday, initPageLength, initSelectOption, moveToMemberDetail,
 		fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo, onErrorImage, atLeastChecked
 	} from "../modules/common.js";
 	import { isEmpty, numberWithCommas, isDisplay } from "../modules/utils.js";
@@ -197,8 +192,8 @@
 			},
 			destroy: false,
 			initComplete: function () {
-				dataTable.on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
-				dataTable.on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(8).find('a').on('click', function () { viewDetail(this); });

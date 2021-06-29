@@ -33,10 +33,7 @@
 		btnDisplayTalk,
 	} from "../modules/elements.js";
 	import {
-		overflowHidden,
-		onErrorImage,
-		onChangeValidateImage,
-		onChangeValidationVideo,
+		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
 	} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";

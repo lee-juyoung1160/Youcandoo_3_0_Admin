@@ -1,19 +1,7 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {
-		osType,
-		popupTitle,
-		version,
-		link,
-		exposureDate,
-		viewOption,
-		isExposure,
-		btnBack,
-		btnList,
-		btnUpdate,
-		btnDelete
-	} from '../modules/elements.js';
+	import {osType, popupTitle, version, link, exposureDate, viewOption, isExposure, btnBack, btnList, btnUpdate, btnDelete} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {historyBack,} from "../modules/common.js";
 	import { getPathName, splitReverse,} from "../modules/utils.js";

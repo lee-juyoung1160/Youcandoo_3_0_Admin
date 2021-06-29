@@ -145,7 +145,6 @@
 		/** 테이블 drag and drop 정렬 초기화 **/
 		updateTable.find('tbody').sortable("destroy");
 		initSortTable();
-		onErrorImage();
 	}
 
 	function addDoit(dt, indexes)

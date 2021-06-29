@@ -91,15 +91,9 @@
         const tableEl = $(obj).closest('table');
         const table = $(tableEl).DataTable();
         const isChecked = $(obj).is(':checked');
-        if (isChecked) {
-            $("input[name=chk-row]").prop('checked', true);
-            table.rows().select();
-        }
-        else
-        {
-            $("input[name=chk-row]").prop('checked', false);
-            table.rows().deselect();
-        }
+
+        $("input[name=chk-row]").prop('checked', isChecked);
+        isChecked ? table.rows().select() : table.rows().deselect();
     }
 
     export function toggleCheckAll(obj)
@@ -127,13 +121,4 @@
     export function checkBoxElement(idx)
     {
         return `<div class="checkbox-wrap"><input type="checkbox" name="chk-row" id="${idx}"/><label for="${idx}"><span></span></label></div>`;
-    }
-
-    export function toggleSingleCheckBox(obj)
-    {
-        const tableEl = $(obj).parents('table');
-        const chkBoxes = $(tableEl).find('input:checkbox');
-
-        $(chkBoxes).prop('checked', false);
-        $(obj).prop('checked', true);
     }

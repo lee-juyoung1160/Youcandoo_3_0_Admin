@@ -123,7 +123,7 @@
 				}
 				,{title: "닉네임", 	 data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+						return isEmpty(row.profile_uuid) ? data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
 				,{title: "등록일시",   data: "created",  			width: "10%",

@@ -10,6 +10,7 @@ class Member extends MY_Controller {
 
     public function detail()
     {
+        $data['is_store'] = $this->input->post('is_store');
         $data['profile_uuid'] = $this->input->post('profile_uuid');
         $this->load->template('v2/member/member-detail', $data);
     }

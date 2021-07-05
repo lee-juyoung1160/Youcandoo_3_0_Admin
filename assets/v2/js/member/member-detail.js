@@ -42,7 +42,7 @@
 		levelInfoWrap,
 		levelHistoryWrap,
 		openedDoitCount,
-		openedDoitAction, levelTable, btnLevelWrap
+		openedDoitAction, levelTable, btnLevelWrap, isStore
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -52,7 +52,9 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 
-	const g_profile_uuid = hiddenProfileId.val();
+	const g_profile_uuid = isEmpty(hiddenProfileId.val()) ? sessionStorage.getItem('pid') : hiddenProfileId.val();
+	const is_store = isStore.val();
+	if (is_store) sessionStorage.setItem('pid', g_profile_uuid.toString());
 
 	$( () => {
 		initTableDefaultConfig();

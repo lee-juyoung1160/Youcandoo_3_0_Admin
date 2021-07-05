@@ -11,6 +11,7 @@
         let form   = $("<form></form>");
         form.prop("method", "post");
         form.prop("action", page.detailMember);
+        form.append($("<input/>", { type: 'hidden', name: 'is_store', value: true} ));
         form.append($("<input/>", { type: 'hidden', name: 'profile_uuid', value: _uuid} ));
         form.appendTo("body");
         form.trigger('submit');

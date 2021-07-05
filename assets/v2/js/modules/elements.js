@@ -428,6 +428,7 @@
     export const btnSubmitAuth = $("#btnSubmitAuth");
 
     /** 회원 **/
+    export const isStore = $("#isStore");
     export const hiddenProfileId = $("#hiddenProfileId");
     export const profileId = $("#profileId");
     export const userNickname = $("#userNickname");

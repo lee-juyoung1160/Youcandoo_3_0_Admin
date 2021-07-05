@@ -38,7 +38,7 @@
 	} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";
 	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
@@ -402,7 +402,7 @@
 						const btnBlindReply = isBlindReply
 							? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 							: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-comment" data-uuid="${replyObj.comment_uuid}">삭제</button>`;
+						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${replyObj.comment_uuid}">삭제</button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
@@ -411,7 +411,7 @@
 										<span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${isSponsorDoit && (g_leader_profile_uuid === profile_uuid) ? btnDeleteReply : btnBlindReply}
+										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">
@@ -463,7 +463,7 @@
 				const btnBlindComment = isBlindComment
 					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 					: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-comment" data-uuid="${comment_uuid}">삭제</button>`;
+				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -471,7 +471,7 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${isSponsorDoit && (g_leader_profile_uuid === profile_uuid) ? btnDeleteCommentEl : btnBlindComment}
+								${is_company === 'Y' ? btnDeleteCommentEl : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
@@ -504,7 +504,7 @@
 		$('.btn-talk-reply-close').on('click', function () { onClickModalReplyTalkClose(); });
 		$('#btnViewMoreTalkComment').on('click', function () { onClickViewMoreTalkComment(); });
 		$('.btn-submit-reply-talk').on('click', function () { onSubmitTalkReply(this); });
-		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteTalkComment(this); });
 		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
@@ -597,7 +597,7 @@
 	}
 
 	let g_delete_talk_comment_uuid;
-	function onSubmitDeleteActionComment(obj)
+	function onSubmitDeleteTalkComment(obj)
 	{
 		g_delete_talk_comment_uuid = $(obj).data('uuid');
 		sweetConfirm(message.delete, actionCommentDeleteRequest);
@@ -621,10 +621,11 @@
 
 	function deleteActionCommentSuccess()
 	{
-		initTalkCommentLastIdx();
+		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkComments(g_param_view_page_length);
+		getDetailTalk();
+		onSubmitSearchTalk();
 	}
 
 	let g_is_blind_comment;
@@ -714,9 +715,11 @@
 	function createTalkCommentSuccess()
 	{
 		commentTalk.val('');
+		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkComments(g_param_view_page_length);
+		getDetailTalk();
+		onSubmitSearchTalk();
 	}
 
 	function initTalkCommentPageNum()

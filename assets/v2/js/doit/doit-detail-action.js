@@ -39,7 +39,7 @@
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
-	import {g_doit_uuid, g_leader_profile_uuid, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {isEmpty} from "../modules/utils.js";
@@ -367,7 +367,7 @@
 										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${isSponsorDoit && (g_leader_profile_uuid === profile_uuid) ? btnDeleteReply : btnBlindReply}
+										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">
@@ -431,7 +431,7 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${isSponsorDoit && (g_leader_profile_uuid === profile_uuid) ? btnDeleteCommentEl : btnBlindComment}
+								${is_company === 'Y' ? btnDeleteCommentEl : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
@@ -568,10 +568,10 @@
 
 	function deleteActionCommentSuccess()
 	{
-		initActionCommentLastIdx();
+		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getActionComments(g_view_page_length);
+		getDetailAction();
 	}
 
 	let g_is_blind_action_comment;
@@ -661,9 +661,10 @@
 	function createActionCommentSuccess()
 	{
 		commentAction.val('');
+		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getActionComments(g_view_page_length);
+		getDetailAction();
 	}
 
 	function buildPagination(data)

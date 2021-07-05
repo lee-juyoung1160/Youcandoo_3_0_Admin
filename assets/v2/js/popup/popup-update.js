@@ -77,11 +77,10 @@
 				$(this).prop('checked', true);
 		})
 		popupTitle.val(title);
-		let parseFloatVersion = parseFloat(target_version);
-		parseFloatVersion = parseFloatVersion.toString().length < 3 ? `${parseFloatVersion}.0` : parseFloatVersion;
-		const splitVersion = parseFloatVersion.toString().split('.');
-		versionDigit.val(splitVersion[0]);
-		versionDecimal.val(splitVersion[1]);
+		let version = parseFloat(target_version);
+		version = version.toString().length === 1 ? `${version}.0` : version.toString();
+		versionDigit.val(version.split('.')[0]);
+		versionDecimal.val(version.split('.')[1]);
 		link.val(popup_url);
 		rdoViewOption.each(function () {
 			if ($(this).val() === close_type)

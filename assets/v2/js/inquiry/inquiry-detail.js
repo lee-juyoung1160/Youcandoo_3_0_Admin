@@ -42,13 +42,13 @@
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, title, contents, status, userid, answer, answered, memo } = data.data;
+		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, status, userid, answer, answered, memo } = data.data;
 
 		if (status === '답변대기')
 			location.href = page.updateInquiry + inquiryIdx;
 
 		g_inquiry_uuid = qna_uuid;
-		userNickname.text(nickname);
+		userNickname.html(`<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		deviceInfo.text(`앱버전: ${app_version}, os버전: ${os_version} , 기기: ${device}`);
 		inquiryTitle.text(title);
 		content.text(contents);

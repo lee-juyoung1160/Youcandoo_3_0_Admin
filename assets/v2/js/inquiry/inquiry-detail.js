@@ -1,8 +1,10 @@
 
 	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
-	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
-		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail } from '../modules/elements.js';
+	import {
+		btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
+		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate
+	} from '../modules/elements.js';
 	import {sweetToast,} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -21,6 +23,7 @@
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
+		btnUpdate		.on('click', function () { goUpdatePage(); });
 	});
 
 	function getDetail()
@@ -43,9 +46,6 @@
 	function buildDetail(data)
 	{
 		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, status, userid, answer, answered, memo } = data.data;
-
-		if (status === '답변대기')
-			location.href = page.updateInquiry + inquiryIdx;
 
 		g_inquiry_uuid = qna_uuid;
 		userNickname.html(`<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
@@ -81,10 +81,14 @@
 		onErrorImage();
 	}
 
-
 	function goListPage()
 	{
 		location.href = page.listInquiry;
+	}
+
+	function goUpdatePage()
+	{
+		location.href = page.updateInquiry + inquiryIdx;
 	}
 
 

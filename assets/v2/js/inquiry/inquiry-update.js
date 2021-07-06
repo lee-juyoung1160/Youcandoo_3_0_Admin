@@ -44,10 +44,7 @@
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, status} = data.data;
-
-		if (status === '답변완료')
-			location.href = page.detailInquiry + inquiryIdx;
+		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, answer, memo} = data.data;
 
 		g_inquiry_uuid = qna_uuid;
 
@@ -56,7 +53,8 @@
 		inquiryTitle.text(title);
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
-		answerEl.val(`${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)`);
+		answerEl.val(isEmpty(answer) ? `${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)` : answer);
+		memoEl.val(memo);
 
 		onErrorImage();
 

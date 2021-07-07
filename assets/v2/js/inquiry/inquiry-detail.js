@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { ajaxRequestWithJson, isSuccessResp } from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
@@ -28,18 +28,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailInquiry;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : inquiryIdx
-		}
+		const param = { "idx" : inquiryIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailInquiry, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_inquiry_uuid;
@@ -90,5 +85,3 @@
 	{
 		location.href = page.updateInquiry + inquiryIdx;
 	}
-
-

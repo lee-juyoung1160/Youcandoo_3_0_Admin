@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage, modalOpen, modalClose,
 		modalBackdrop, dataTable, targetUuid, thumbnail, contentImage, keyword,} from '../modules/elements.js';
@@ -35,18 +35,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailBanner;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"banner_idx" : bannerIdx
-		}
+		const param = { "banner_idx" : bannerIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailBanner, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_banner_uuid;
@@ -91,20 +86,20 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateBanner;
-			const errMsg = label.modify+message.ajaxError;
 			const pageType = $("input[name=radio-target-page-type]:checked").val();
 			const pageValue = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
@@ -119,15 +114,12 @@
 			if (!isEmpty(data))
 				param["banner_image_url"] = data.image_urls.file;
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateBanner, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
@@ -219,18 +211,15 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const table = dataTable.DataTable();
-					const info = table.page.info();
-					const _page = (info.start / info.length) + 1;
 					const param = {
-						"limit" : 5
-						,"page" : _page
+						"limit" : d.length
+						,"page" : (d.start / d.length) + 1
 						,"keyword" : keyword.val().trim()
 					}
 
@@ -332,4 +321,3 @@
 		targetUuid.val('');
 		targetUrl.val('');
 	}
-

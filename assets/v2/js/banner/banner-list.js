@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {dataTable, updateTable, historyTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate,
 		modalDetail, modalImage,} from '../modules/elements.js';
@@ -43,13 +43,13 @@
 
 	function getBannerList()
 	{
-		const url = api.bannerList;
-		const errMsg = label.list + message.ajaxLoadError;
-		const param = {
-			"banner_open_type" : "now"
-		}
+		const param = { "banner_open_type" : "now" }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getCategoryListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.bannerList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getCategoryListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getCategoryListCallback(data)
@@ -187,17 +187,13 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowIds();
-		const param = { "banner_uuid" : uuids };
-		const url 	= api.reorderBanner;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "banner_uuid" : getRowIds() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
-	}
-
-	function reorderReqCallback(data)
-	{
-		sweetToastAndCallback(data, reorderSuccess);
+		ajaxRequestWithJson(true, api.reorderBanner, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reorderSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()
@@ -208,8 +204,7 @@
 
 	function updateValidation()
 	{
-		const uuids = getRowIds();
-		if (uuids.length === 0)
+		if (getRowIds().length === 0)
 		{
 			sweetToast(message.emptyList);
 			return false;
@@ -250,7 +245,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

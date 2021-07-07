@@ -1,30 +1,11 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		contentImage,
-		title,
-		bizNo,
-		bizWeb,
-		content,
-		btnBack,
-		btnList,
-		btnUpdate,
-		btnSubmit,
-		modalOpen,
-		modalClose,
-		modalBackdrop,
-		selPageLengthDoit,
-		selPageLengthUcd,
-		tabUl,
-		tabContents,
-		amount,
-		inputNumber,
-		lengthInput,
-		description,
-		ucdInfoTable,
-		doitTable,
-		btnSupportDoit, btnSupportLeader, balance
+		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate,
+		btnSubmit, modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd,
+		tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,
+		doitTable, btnSupportDoit, btnSupportLeader, balance
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
@@ -90,27 +71,22 @@
 
 	function getDetail()
 	{
-		const url = api.detailBiz;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : bizIdx
-		}
+		const param = { "idx" : bizIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailBiz, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_profile_uuid;
-	function getDetailCallback(data)
+	function getDetailSuccess(data)
 	{
-		if (isSuccessResp(data))
-		{
-			g_profile_uuid = data.data.profile_uuid;
-			buildDetail(data);
-			getBalance();
-			buildDoitTable();
-		}
-		else
-			sweetToast(data.msg);
+		g_profile_uuid = data.data.profile_uuid;
+		buildDetail(data);
+		getBalance();
+		buildDoitTable();
 	}
 
 	function buildDetail(data)
@@ -128,18 +104,13 @@
 
 	function getBalance()
 	{
-		const url = api.getBizUcd;
-		const errMsg = `보유 UCD ${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBalanceCallback, errMsg, false);
-	}
-
-	function getBalanceCallback(data)
-	{
-		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
+		ajaxRequestWithJson(true, api.getBizUcd, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`보유 UCD ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)
@@ -154,6 +125,7 @@
 				url: api.bizDoitList,
 				type:"POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
@@ -164,7 +136,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 
@@ -230,6 +202,7 @@
 				url: api.bizUcdList,
 				type:"POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
@@ -241,7 +214,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 
@@ -323,20 +296,17 @@
 
 	function createBizUcdRequest()
 	{
-		const url = api.saveBizUcd;
-		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"profile_uuid" : [g_profile_uuid],
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createBizUcdCallback, errMsg, false);
-	}
-
-	function createBizUcdCallback(data)
-	{
-		sweetToastAndCallback(data, createSubcategorySuccess)
+		ajaxRequestWithJson(true, api.saveBizUcd, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSubcategorySuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSubcategorySuccess()

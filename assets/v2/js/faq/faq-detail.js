@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, btnUpdate, btnDelete, isExposure, content, faqType, faqTitle} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
@@ -24,18 +24,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailFaq;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : faqIdx
-		}
+		const param = { "idx" : faqIdx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailFaq, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_faq_uuid;
@@ -57,18 +52,15 @@
 
 	function deleteRequest()
 	{
-		const url = api.deleteFaq;
-		const errMsg = label.delete + message.ajaxError;
 		const param = {
 			"faq_uuid" : g_faq_uuid,
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteSuccess);
+		ajaxRequestWithJson(true, api.deleteFaq, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, deleteSuccess);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function deleteSuccess()
@@ -85,5 +77,3 @@
 	{
 		location.href = page.updateFaq + faqIdx;
 	}
-
-

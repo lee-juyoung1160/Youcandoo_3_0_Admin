@@ -46,8 +46,7 @@
 		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
 		rdoExposure.each(function () {
-			if ($(this).val() === historyParams.is_exposure)
-				$(this).prop("checked", true);
+			$(this).prop("checked", $(this).val() === historyParams.is_exposure);
 		});
 		selFaqType.val(historyParams.faq_type);
 		_currentPage = historyParams.page;
@@ -108,7 +107,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

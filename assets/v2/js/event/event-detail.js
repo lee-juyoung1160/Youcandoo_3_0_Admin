@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import { btnBack, btnList, btnUpdate, btnDelete, eventType, eventTitle, link, content, contentImage, eventNotice,
 		thumbnailImage, eventDate, isExposure} from '../modules/elements.js';
@@ -30,24 +30,19 @@
 
 	function getDetail()
 	{
-		const url = api.detailEvent;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : eventIdx
-		}
+		const param = { "idx" : eventIdx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailEvent, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_event_uuid;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type, event_type_name, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
+		const { event_uuid, event_type, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
 
 		switch (event_type) {
 			case '이벤트' :
@@ -85,18 +80,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.deleteEvent;
-		const errMsg = label.delete + message.ajaxError;
-		const param = {
-			"event_uuid" : g_event_uuid,
-		}
+		const param = { "event_uuid" : g_event_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, goListPage)
+		ajaxRequestWithJson(true, api.deleteEvent, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, goListPage);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function goListPage()
@@ -108,5 +98,3 @@
 	{
 		location.href = page.updateEvent + eventIdx;
 	}
-
-

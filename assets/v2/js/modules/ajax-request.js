@@ -1,49 +1,40 @@
-    import { sweetError } from "./alert.js";
-    import {sessionUserId} from "./elements.js";
 
-    /**
-     *  _global : 전역 이벤트 사용 여부. ajaxStart, ajaxComplete 이벤트 사용 중..(loader in, out)
-     *  _reqUrl : 요청 url
-     *  _reqParam : 요청 파라미터
-     *  _successCallback : ajax success에서 callback
-     *  _errorMsg : ajax error에서 띄울 에러메세지
-     *  _completeCallback : ajax complete에서 callbak (동기처리할 때 사용 중..)
-     * **/
+    import {sessionUserId} from "./elements.js";
 
     const authorization = "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7";
     const userid = sessionUserId.val();
     const encryptAuth = btoa( JSON.stringify({ "authorization" : authorization,  "userid" : userid} ) );
     export const headers = { "Authorization" : encryptAuth };
 
-    export function ajaxRequestWithFormData (_global, _reqUrl, _reqParam, _successCallback, _errorMsg, _completeCallback)
-    {
-        $.ajax({
-            url: _reqUrl,
-            type: "POST",
-            global: _global,
-            processData: false,
-            contentType: false,
-            headers: headers,
-            dataType: 'json',
-            data: _reqParam,
-            success: function(data) {
-                _successCallback(data);
-            },
-            error: function (request, status) {
-                sweetError(_errorMsg);
-            },
-            complete: function (xhr, status) {
-                if (_completeCallback)
-                    _completeCallback();
-            }
-        });
-    }
-
     /**
      *  _global : 전역 이벤트 사용 여부. ajaxStart, ajaxComplete 이벤트 사용 중..(loader fadein, fadeout)
      *  _reqUrl : 요청 url
      *  _reqParam : 요청 파라미터
      * **/
+    export function ajaxRequestWithFile(_global, _reqUrl, _reqParam)
+    {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: _reqUrl,
+                type: "POST",
+                global: _global,
+                processData: false,
+                contentType: false,
+                headers: headers,
+                dataType: 'json',
+                data: _reqParam,
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function (rejqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        });
+    }
+
     export function ajaxRequestWithJson (_global, _reqUrl, _reqParam)
     {
         return new Promise((resolve, reject) => {
@@ -61,7 +52,7 @@
                 error: function (jqXHR, textStatus, errorThrown) {
                     reject(errorThrown);
                 },
-                always: function (xhr, status) {
+                complete: function (xhr, status) {
                 }
             });
         });

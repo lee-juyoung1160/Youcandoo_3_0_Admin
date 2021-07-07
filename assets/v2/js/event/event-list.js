@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {headers, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType, rdoExposure} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
@@ -10,6 +10,7 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+
 	let _currentPage = 1;
 
 	$( () => {
@@ -50,8 +51,7 @@
 		keyword.val(historyParams.keyword);
 		selSearchType.val(historyParams.search_type);
 		rdoExposure.each(function () {
-			if ($(this).val() === historyParams.is_exposure)
-				$(this).prop("checked", true);
+			$(this).prop("checked", $(this).val() === historyParams.is_exposure);
 		});
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -89,7 +89,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

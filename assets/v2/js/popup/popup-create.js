@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData} from '../modules/request.js'
+	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, title, versionDigit, versionDecimal, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -42,8 +42,6 @@
 
 	function createRequest()
 	{
-		const url 	= api.createPopup;
-		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"store": $("input[name=radio-os-type]:checked").val(),
 			"title": title.val().trim(),
@@ -55,12 +53,11 @@
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createPopup, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -121,4 +118,3 @@
 
 		return true;
 	}
-

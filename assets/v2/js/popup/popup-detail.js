@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {osType, popupTitle, version, link, exposureDate, viewOption, isExposure, btnBack, btnList, btnUpdate, btnDelete} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
@@ -24,18 +24,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailPopup;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : popupIdx
-		}
+		const param = { "idx" : popupIdx }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailPopup, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_popup_uuid;
@@ -77,18 +72,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.deletePopup;
-		const errMsg = label.delete + message.ajaxError;
-		const param = {
-			"popup_uuid" : g_popup_uuid,
-		}
+		const param = { "popup_uuid" : g_popup_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteSuccess);
+		ajaxRequestWithJson(true, api.deletePopup, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, deleteSuccess);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function deleteSuccess()

@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
 		popupTitle,
@@ -52,18 +52,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailPopup;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : popupIdx
-		}
+		const param = { "idx" : popupIdx }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailPopup, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_popup_uuid;
@@ -73,8 +68,7 @@
 
 		g_popup_uuid = popup_uuid;
 		rdoOsType.each(function () {
-			if ($(this).val() === store)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === store);
 		})
 		popupTitle.val(title);
 		let version = parseFloat(target_version);
@@ -83,8 +77,7 @@
 		versionDecimal.val(version.split('.')[1]);
 		link.val(popup_url);
 		rdoViewOption.each(function () {
-			if ($(this).val() === close_type)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === close_type);
 		})
 		const splitStartDate = start_date.split(' ');
 		dateFrom.val(splitStartDate[0]);
@@ -94,8 +87,7 @@
 		startTime.val(splitStartDate[1].substring(0, 5));
 		endTime.val(splitEndDate[1].substring(0, 5));
 		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_exposure);
 		})
 
 		calculateInputLength();
@@ -109,8 +101,6 @@
 
 	function updateRequest()
 	{
-		const url 	= api.updatePopup;
-		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"popup_uuid" : g_popup_uuid,
 			"store": $("input[name=radio-os-type]:checked").val(),
@@ -123,12 +113,12 @@
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
+		ajaxRequestWithJson(true, api.updatePopup, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, updateSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()

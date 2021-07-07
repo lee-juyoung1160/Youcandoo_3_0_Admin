@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { ajaxRequestWithJson, isSuccessResp, invalidResp } from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, btnUpdate, btnDelete, content, badgeTitle, contentImage, badgeType, qualification, isOpen, difficulty,
 		popupImage, lottieType} from '../modules/elements.js';
@@ -25,18 +25,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailBadge;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : badgeIdx
-		}
+		const param = { "idx" : badgeIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailBadge, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_badge_uuid;
@@ -76,18 +71,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.deleteBadge;
-		const errMsg = label.delete + message.ajaxError;
-		const param = {
-			"badge_uuid" : g_badge_uuid,
-		}
+		const param = { "badge_uuid" : g_badge_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, goListPage)
+		ajaxRequestWithJson(true, api.deleteBadge, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, goListPage);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function goListPage()
@@ -99,5 +89,3 @@
 	{
 		location.href = page.updateBadge + badgeIdx;
 	}
-
-

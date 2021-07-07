@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js'
+	import { ajaxRequestWithJson, isSuccessResp, invalidResp, headers } from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack,
@@ -113,18 +113,13 @@
 
 	function getBasicInfo()
 	{
-		const url = api.detailMember;
-		const errMsg = `기본정보${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getBasicInfoCallback, errMsg, false);
-	}
-
-	function getBasicInfoCallback(data)
-	{
-		isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`기본정보${message.ajaxLoadError}`));
 	}
 
 	function buildBasicInfo(data)
@@ -162,18 +157,13 @@
 
 	function getLevelInfo()
 	{
-		const url = api.levelInfo;
-		const errMsg = `레벨정보${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getLevelInfoCallback, errMsg, false);
-	}
-
-	function getLevelInfoCallback(data)
-	{
-		isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.levelInfo, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`레벨정보${message.ajaxLoadError}`));
 	}
 
 	function buildLevelInfo(data)
@@ -188,25 +178,13 @@
 
 	function getLevelHistory()
 	{
-		const url = api.levelHistory;
-		const errMsg = label.list + message.ajaxLoadError;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getLevelHistoryCallback, errMsg, false);
-	}
-
-	function getLevelHistoryCallback(data)
-	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.count;
-			data.recordsFiltered = data.count;
-			buildLeveTable(data);
-		}
-		else
-			sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.levelHistory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildLeveTable(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`레벨 변경 내역을 ${message.ajaxLoadError}`));
 	}
 
 	function buildLeveTable(data)
@@ -233,18 +211,13 @@
 
 	function getDeviceInfo()
 	{
-		const url = api.deviceInfo;
-		const errMsg = `기기정보${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDeviceInfoCallback, errMsg, false);
-	}
-
-	function getDeviceInfoCallback(data)
-	{
-		isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.deviceInfo, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`기기정보${message.ajaxLoadError}`));
 	}
 
 	function buildDeviceInfo(data)
@@ -273,18 +246,13 @@
 
 	function getCategory()
 	{
-		const url = api.memberCategoryList;
-		const errMsg = `관심카테고리${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getCategoryCallback, errMsg, false);
-	}
-
-	function getCategoryCallback(data)
-	{
-		isSuccessResp(data) ? buildCategory(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.memberCategoryList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildCategory(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`관심카테고리${message.ajaxLoadError}`));
 	}
 
 	function buildCategory(data)
@@ -361,7 +329,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -427,7 +395,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -477,8 +445,6 @@
 	let _actionCurrentPage = 1;
 	function getActions()
 	{
-		const url = api.memberActionList;
-		const errMsg = `인증 정보${message.ajaxLoadError}`;
 		const param = {
 			"limit" : 30
 			,"page" : _actionCurrentPage
@@ -491,7 +457,11 @@
 		// 	param["doit_uuid"] = _doit_uuid;
 		// }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getActionsCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.memberActionList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await  getActionsCallback(data);
+			})
+			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function getActionsCallback(data)
@@ -591,18 +561,13 @@
 
 	function getDetailAction()
 	{
-		const url = api.memberActionDetail;
-		const errMsg = `인증 정보${message.ajaxLoadError}`;
-		const param = {
-			"action_uuid" : g_action_uuid
-		}
+		const param = { "action_uuid" : g_action_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
-	}
-
-	function getDetailActionCallback(data)
-	{
-		isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.memberActionDetail, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function buildModalActionDetail(data)
@@ -659,7 +624,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(data));
 					}
 
 					return JSON.stringify(json);
@@ -720,20 +685,17 @@
 
 	function saveUcdRequest()
 	{
-		const url = api.saveUserUcdBySystem;
-		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"profile_uuid" : [ g_profile_uuid ],
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
-	}
-
-	function saveUcdReqCallback(data)
-	{
-		sweetToastAndCallback(data, saveUcdSuccess);
+		ajaxRequestWithJson(true, api.saveUserUcdBySystem, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, saveUcdSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function saveUcdSuccess()
@@ -817,25 +779,14 @@
 
 	function levelRequest()
 	{
-		const url = levelApi;
-		const errMsg = `레벨${message.ajaxError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
-		if (!isEmpty(level))
-			param["level"] = level;
+		const param = { "profile_uuid" : g_profile_uuid }
+		if (!isEmpty(level)) param["level"] = level;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), levelRequestCallback, errMsg, false);
-	}
-
-	function levelRequestCallback(data)
-	{
-		sweetToastAndCallback(data, levelRequestSuccess)
-	}
-
-	function levelRequestSuccess()
-	{
-		getLevelInfo();
+		ajaxRequestWithJson(true, levelApi, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getLevelInfo);
+			})
+			.catch(reject => sweetToast(`레벨${message.ajaxError}`));
 	}
 
 	function calculateLevel(btnId)

@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from '../modules/ajax-request.js'
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {content, badgeTitle, contentImage, thumbnail, qualification, difficulty, selType, lengthInput,
 		btnSubmit, rdoOpen, popupImage, rdoType, popupThumbnail,} from '../modules/elements.js';
@@ -28,18 +28,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailBadge;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : badgeIdx
-		}
+		const param = { "idx" : badgeIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailBadge, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_badge_uuid;
@@ -57,12 +52,10 @@
 		thumbnail.attr('src', image_url);
 		popupThumbnail.attr('src', popup_image_url);
 		rdoType.each(function () {
-			if ($(this).val() === popup_lottie_type)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === popup_lottie_type);
 		})
 		rdoOpen.each(function () {
-			if ($(this).val() === is_display)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_display);
 		})
 
 		onErrorImage();
@@ -82,23 +75,23 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.mission;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		const imageFile = contentImage[0].files;
 		const popupFile = popupImage[0].files;
 		param.append('example', imageFile.length > 0 ? contentImage[0].files[0] : '');
 		param.append('thumbnail', popupFile.length > 0 ? popupImage[0].files[0] : '');
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.mission, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateBadge;
-			const errMsg = label.submit+message.ajaxError;
 			const param = {
 				"badge_uuid" : g_badge_uuid,
 				"title" : badgeTitle.val().trim(),
@@ -119,15 +112,14 @@
 					param["popup_image_url"] = data.image_urls.thumbnail;
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateBadge, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()

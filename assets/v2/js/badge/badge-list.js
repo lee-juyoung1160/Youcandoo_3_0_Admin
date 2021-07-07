@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, keyword, selPageLength, btnSearch, btnReset, selSearchType, selType, rdoOpen,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
@@ -10,6 +10,7 @@
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 	import {numberWithCommas} from "../modules/utils.js";
+
 	let _currentPage = 1;
 
 	$( () => {
@@ -43,8 +44,7 @@
 		keyword.val(historyParams.keyword);
 		selType.val(historyParams.badge_type);
 		rdoOpen.each(function () {
-			if ($(this).val() === historyParams.is_display)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === historyParams.is_display);
 		})
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -81,7 +81,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

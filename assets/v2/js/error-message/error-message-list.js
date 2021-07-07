@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {keyword, dataTable,} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
@@ -43,15 +43,11 @@
 
 	function getErrorList()
 	{
-		const url = api.errorList;
-		const errMsg = label.list + message.ajaxLoadError
-
-		ajaxRequestWithJsonData(true, url, null, getErrorListCallback, errMsg, false);
-	}
-
-	function getErrorListCallback(data)
-	{
-		isSuccessResp(data) ? buildTable(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.errorList, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildTable(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function buildTable(data)
@@ -151,15 +147,12 @@
 
 	function updateRequest()
 	{
-		const url = api.updateError;
-		const errMsg = label.modify+message.ajaxError;
 		const param = { "code" : messageCode }
 		messageType === 'ios_message' ? param.ios_message = inputValue : param.aos_message = inputValue;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, getErrorList);
+		ajaxRequestWithJson(true, api.updateError, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getErrorList);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}

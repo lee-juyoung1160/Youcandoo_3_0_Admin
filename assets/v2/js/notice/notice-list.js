@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, dateFrom, dateTo, selPageLength, rdoExposure, dateButtons, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
@@ -58,8 +58,7 @@
 		keyword.val(historyParams.keyword);
 		selSearchType.val(historyParams.search_type);
 		rdoExposure.each(function () {
-			if ($(this).val() === historyParams.is_exposure)
-				$(this).prop("checked", true);
+			$(this).prop("checked", $(this).val() === historyParams.is_exposure);
 		});
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -96,7 +95,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

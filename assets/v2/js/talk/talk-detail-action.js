@@ -1,7 +1,10 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
-	import {btnBack, btnList, commentCount, likeCount, talkAttachWrap, talkCreated, userNickname, content, talkCommentWrap,} from '../modules/elements.js';
+	import {
+		btnBack, btnList, commentCount, likeCount, talkAttachWrap, talkCreated, userNickname,
+		content, talkCommentWrap, doitTitle,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
@@ -43,8 +46,9 @@
 
 	function buildDetail(data)
 	{
-		const { nickname, action_description, comment_cnt, like_count, action_date } = data.data;
+		const { nickname, action_description, comment_cnt, like_count, action_date, doit_title,doit_idx  } = data.data;
 
+		doitTitle.html(`<a href="${page.detailDoit}${doit_idx}" class="link">${doit_title}</a>`)
 		userNickname.text(nickname);
 		talkCreated.text(action_date);
 		likeCount.text(like_count);
@@ -125,7 +129,7 @@
 										<span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${btnBlindReply}
+										${replyObj.is_company === 'Y' ? '' : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">

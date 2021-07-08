@@ -294,7 +294,7 @@
     export const talkTable   = $("#talkTable");
     export const btnBackToTalkList = $("#btnBackToTalkList");
     export const btnBackToTalkDetail = $("#btnBackToTalkDetail");
-    export const btnBlinkTalk = $("#btnBlinkTalk");
+    export const btnBlindTalk = $("#btnBlindTalk");
     export const btnDisplayTalk = $("#btnDisplayTalk");
     export const btnDeleteTalk = $("#btnDeleteTalk");
     export const btnUpdateTalk = $("#btnUpdateTalk");

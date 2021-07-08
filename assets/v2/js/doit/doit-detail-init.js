@@ -10,7 +10,7 @@
 	 	btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk, btnDeleteTalk, rdoUpdateAttachType,
 		btnSubmitUpdateTalk, selUcdPageLength, searchUcdDateTo, searchUcdDateFrom, btnSaveUcdWallet, saveWalletAmount, btnSearchUcd,
 		btnResetSearchUcd, btnSubmitSaveDoitUcd, btnSubmitSaveUcd, btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList,
-		btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject, doitImage,
+		btnBackToMissionDetail, btnBlindTalk, btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject, doitImage,
 		selCategory, btnAddKeyword, chkIsApply, chkIsQuestion, btnUpdateDoit, btnBackDoitList, btnSubmitUpdateDoit,
 	} from '../modules/elements.js';
 	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -157,7 +157,7 @@
 		btnSubmitCommentTalk.on('click', function () { onSubmitTalkComment(); });
 		btnDeleteTalk.on('click', function () { onSubmitDeleteTalk(); });
 		btnSubmitUpdateTalk.on('click', function () { onSubmitUpdateTalk(); });
-		btnBlinkTalk.on('click', function () { onSubmitBlindTalk(this); });
+		btnBlindTalk.on('click', function () { onSubmitBlindTalk(this); });
 		btnDisplayTalk.on('click', function () { onSubmitBlindTalk(this); });
 	});
 

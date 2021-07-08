@@ -2,28 +2,15 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType, rdoType,
-		modalReason, modalBackdrop, modalClose, reasonTable, btnBlinkTalk, btnDisplayTalk,
+		modalReason, modalBackdrop, modalClose, reasonTable, btnBlindTalk, btnDisplayTalk,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {
-		initSelectOption,
-		initPageLength,
-		initSearchDatepicker,
-		initDayBtn,
-		initMaxDateMonths,
-		setDateToday,
-		onClickDateRangeBtn,
-		onChangeSearchDateFrom,
-		onChangeSearchDateTo,
-		overflowHidden,
-		fadeoutModal
+		initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths, fadeoutModal,
+		setDateToday, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, overflowHidden,
 	} from "../modules/common.js";
 	import {
-		initTableDefaultConfig,
-		buildTotalCount,
-		toggleBtnPreviousAndNextOnTable,
-		getCurrentPage,
-		redrawPage,
+		initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage,
 		checkBoxElement, tableReloadAndStayCurrentPage,
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -53,7 +40,7 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
-		btnBlinkTalk	.on("click", function () { onClickBtnBlindTalk(); });
+		btnBlindTalk	.on("click", function () { onClickBtnBlindTalk(); });
 		btnDisplayTalk	.on("click", function () { onClickBtnDisplayTalk(); });
 	});
 
@@ -130,9 +117,9 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 			data: "",    	width: "21%",
-					render: function (data) {
-						return `<a href="#" class="link">두잇명 클릭하면 두잇상세 이동</a>`;
+				{title: "두잇명", 			data: "doit_title",    	width: "21%",
+					render: function (data, type, row, meta) {
+						return `<a href="${page.detailDoit}${row.doit_idx}" class="link">${data}</a>`;
 					}
 				}
 				,{title: "유형", 			data: "talk_type",    	width: "5%" }
@@ -190,7 +177,7 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).children().eq(5).find('a').on('click', function () { onClickReportCount(this); });
+				$(nRow).children().eq(6).find('a').on('click', function () { onClickReportCount(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -236,6 +223,7 @@
 				url: api.talkReportReasonList,
 				type: "POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))

@@ -4,7 +4,7 @@
 		searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
 		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
 		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
-		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlinkTalk, btnDisplayTalk, btnDeleteTalk,
+		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk, btnDisplayTalk, btnDeleteTalk,
 	} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
@@ -203,9 +203,12 @@
 
 	function getDetailTalkReqCallback(data)
 	{
-		g_talk_uuid = data.data.board_uuid;
+		const {board_uuid, comment_cnt} = data.data;
+
+		g_talk_uuid = board_uuid;
+
 		buildTalkDetail(data);
-		getTalkComments();
+		Number(comment_cnt) > 0 ? getTalkComments() : 0;
 	}
 
 	let g_talk_attach_type;
@@ -239,14 +242,14 @@
 		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
-	function toggleShowBtns(data)
+		function toggleShowBtns(data)
 	{
 		const { is_company, is_blind } = data.data;
 		if (is_company === 'Y')
 		{
 			btnDeleteTalk.show();
 			btnDisplayTalk.hide();
-			btnBlinkTalk.hide()
+			btnBlindTalk.hide()
 		}
 		else
 		{
@@ -255,12 +258,12 @@
 			if (is_blind === 'Y')
 			{
 				btnDisplayTalk.show();
-				btnBlinkTalk.hide()
+				btnBlindTalk.hide()
 			}
 			else
 			{
 				btnDisplayTalk.hide();
-				btnBlinkTalk.show()
+				btnBlindTalk.show()
 			}
 		}
 	}
@@ -335,7 +338,7 @@
 			"last_idx" : g_talk_comment_last_idx
 		};
 
-		ajaxRequestWithJson(true, api.talkCommentList, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.talkCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})

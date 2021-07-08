@@ -2,17 +2,8 @@
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		btnBack,
-		btnList,
-		commentCount,
-		isBlind,
-		likeCount,
-		talkAttachWrap,
-		talkCreated,
-		userNickname,
-		content,
-		talkCommentWrap,
-		btnBlinkTalk, btnDisplayTalk,
+		btnBack, btnList, commentCount, isBlind, likeCount, talkAttachWrap, talkCreated, userNickname,
+		content, talkCommentWrap, btnBlindTalk, btnDisplayTalk, doitTitle
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
@@ -30,7 +21,7 @@
 		/** 이벤트 **/
 		btnBack	 .on('click', function () { historyBack(); });
 		btnList	 .on('click', function () { goListPage(); });
-		btnBlinkTalk.on('click', function () { onSubmitBlindTalk(this); });
+		btnBlindTalk.on('click', function () { onSubmitBlindTalk(this); });
 		btnDisplayTalk.on('click', function () { onSubmitBlindTalk(this) });
 	});
 
@@ -57,10 +48,11 @@
 	let g_board_uuid;
 	function buildDetail(data)
 	{
-		const { board_uuid, nickname, is_company, board_body, comment_cnt, like_count, is_blind, created } = data.data;
+		const { board_uuid, nickname, is_company, board_body, comment_cnt, like_count, is_blind, created, doit_title, doit_idx } = data.data;
 
 		g_board_uuid = board_uuid;
 
+		doitTitle.html(`<a href="${page.detailDoit}${doit_idx}" class="link">${doit_title}</a>`)
 		userNickname.html(is_company === 'Y' ? label.bizIcon + nickname : nickname);
 		isBlind.text(is_blind);
 		talkCreated.text(created);
@@ -95,12 +87,12 @@
 		const { is_blind } = data.data;
 		if (is_blind === 'Y')
 		{
-			btnBlinkTalk.hide();
+			btnBlindTalk.hide();
 			btnDisplayTalk.show();
 		}
 		else
 		{
-			btnBlinkTalk.show();
+			btnBlindTalk.show();
 			btnDisplayTalk.hide();
 		}
 	}
@@ -157,7 +149,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_cnt, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_seq, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -182,7 +174,7 @@
 										<span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${btnBlindReply}
+										${replyObj.is_company === 'Y' ? '' : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">
@@ -214,7 +206,7 @@
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<span><i class="fas fa-comments"></i> ${comment_cnt}</span>
+							<span><i class="fas fa-comments"></i> ${comment_seq}</span>
 						</div>
 			
 						<div class="comments-wrap">

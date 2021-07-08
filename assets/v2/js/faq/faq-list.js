@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, updateTable, selFaqType,
 		selPageLength, rdoExposure, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,
@@ -18,7 +18,9 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		getFaqType();
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		initPage();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		selPageLength	.on("change", function () { onSubmitSearch(); });
@@ -44,24 +46,21 @@
 		keyword.val(historyParams.keyword);
 		selPageLength.val(historyParams.limit);
 		rdoExposure.each(function () {
-			if ($(this).val() === historyParams.is_exposure)
-				$(this).prop("checked", true);
+			$(this).prop("checked", $(this).val() === historyParams.is_exposure);
 		});
 		selFaqType.val(historyParams.faq_type);
 		_currentPage = historyParams.page;
 	}
 
-	function getFaqType()
+	function initPage()
 	{
-		const url = api.faqType;
-		const errMsg = `faq 타입${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, getFaqTypeComplete);
-	}
-
-	function getFaqTypeCallback(data)
-	{
-		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.faqType, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
+				await isBackAction() ? setHistoryForm() : initSearchForm();
+				await buildTable();
+			})
+			.catch(reject => sweetToast(`faq 타입${message.ajaxLoadError}`));
 	}
 
 	function buildFaqType(data)
@@ -75,19 +74,6 @@
 		}
 
 		selFaqType.html(options);
-	}
-
-	function getFaqTypeComplete()
-	{
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
-		/** 상단 검색 폼 초기화
-		 *  메뉴클릭으로 페이지 진입 > 초기값 세팅
-		 *  뒤로가기로 페이지 진입 > 이전 값 세팅
-		 * **/
-		isBackAction() ? setHistoryForm() : initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
 	}
 
 	function onKeydownSearch(event)
@@ -121,7 +107,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -137,7 +123,7 @@
 				{title: "구분",    		data: "faq_type",		width: "10%" }
 				,{title: "제목", 		data: "title",			width: "50%",
 					render: function (data, type, row, meta) {
-						let detailUrl = page.detailFaq + row.idx;
+						const detailUrl = page.detailFaq + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
@@ -219,7 +205,7 @@
 						"keyword" : '',
 						"is_exposure" : 'Y',
 						"page" : 1,
-						"limit" : 500,
+						"limit" : 9999,
 					}
 
 					return JSON.stringify(param);
@@ -280,17 +266,13 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowsId();
-		const param = { "faq_uuid" : uuids };
-		const url 	= api.reorderFaq;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "faq_uuid" : getRowIds() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
-	}
-
-	function reorderReqCallback(data)
-	{
-		sweetToastAndCallback(data, reorderSuccess);
+		ajaxRequestWithJson(true, api.reorderFaq, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reorderSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()
@@ -301,8 +283,7 @@
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
-		if (uuids.length === 0)
+		if (getRowIds().length === 0)
 		{
 			sweetToast(message.emptyList);
 			return false;
@@ -311,7 +292,7 @@
 		return true;
 	}
 
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = updateTable.find('tbody').children();
 		let uuids = [];

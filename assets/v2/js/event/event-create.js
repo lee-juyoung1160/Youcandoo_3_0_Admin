@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, selEventType, title, content, eventNotice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -70,22 +70,22 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.event;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
 		if (isDisplay(contentImgWrap))
 			param.append('event_content_img', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.event, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.createEvent;
-			const errMsg = label.submit+message.ajaxError;
 			const { event_thumbnail_img, event_content_img } = data.image_urls;
 			const param = {
 				"event_type" : selEventType.val(),
@@ -100,15 +100,14 @@
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.createEvent, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, createSuccess);
+				})
+				.catch(reject => sweetToast(label.submit + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()
@@ -169,4 +168,3 @@
 
 		return true;
 	}
-

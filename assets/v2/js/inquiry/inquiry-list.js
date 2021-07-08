@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus,
 		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType,} from '../modules/elements.js';
@@ -58,8 +58,7 @@
 		keyword.val(historyParams.keyword);
 		selInquiryType.val(historyParams.qna_type);
 		rdoStatus.each(function () {
-			if ($(this).val() === historyParams.status)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === historyParams.status);
 		})
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -96,7 +95,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -123,7 +122,7 @@
 				}
 				,{title: "닉네임", 	 data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+						return isEmpty(row.profile_uuid) ? data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
 				,{title: "등록일시",   data: "created",  			width: "10%",

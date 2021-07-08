@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack,
@@ -36,27 +36,22 @@
 
 	function getDetail()
 	{
-		const url = api.detailTalk;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : talkIdx
-		}
+		const param = { "idx" : talkIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_talk_uuid;
 	function getDetailCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			const { board_uuid, comment_cnt} = data.data;
-			g_talk_uuid = board_uuid;
-			buildDetail(data);
-			Number(comment_cnt) > 0 ? getTalkComments() : talkCommentWrap.siblings().remove();
-		}
-		else
-			sweetToast(data.msg);
+		const { board_uuid, comment_cnt} = data.data;
+		g_talk_uuid = board_uuid;
+		buildDetail(data);
+		Number(comment_cnt) > 0 ? getTalkComments() : talkCommentWrap.siblings().remove();
 	}
 
 	let g_board_uuid;
@@ -120,8 +115,6 @@
 
 	function blindRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
 			"is_blind" : g_is_blind,
 			"board" : [g_board_uuid],
@@ -129,12 +122,11 @@
 			"action_comment" : []
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindReqCallback, errMsg, false);
-	}
-
-	function blindReqCallback(data)
-	{
-		sweetToastAndCallback(data, getDetail);
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getDetail);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	const g_talk_comment_page_length = 10;
@@ -143,20 +135,17 @@
 	let g_talk_comment_page_size = 1;
 	function getTalkComments(_pageLength)
 	{
-		const url = api.talkCommentList;
-		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"board_uuid" : g_talk_uuid,
 			"size" : g_talk_comment_page_length,
 			"last_idx" : g_talk_comment_last_idx
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTalkCommentsCallback, errMsg, false);
-	}
-
-	function getTalkCommentsCallback(data)
-	{
-		isSuccessResp(data) ? buildTalkComments(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.talkCommentList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`댓글 목록${message.ajaxLoadError}`));
 	}
 
 	function buildTalkComments(data)
@@ -168,7 +157,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_cnt, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -225,7 +214,6 @@
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<!--<span><i class="fas fa-heart"></i> 111</span>-->
 							<span><i class="fas fa-comments"></i> ${comment_cnt}</span>
 						</div>
 			
@@ -279,8 +267,6 @@
 
 	function blindCommentRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
 			"is_blind" : g_is_blind_comment,
 			"board" : [],
@@ -288,12 +274,11 @@
 			"action_comment" : []
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindCommentReqCallback, errMsg, false);
-	}
-
-	function blindCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, blindCommentSuccess)
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, blindCommentSuccess);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	function blindCommentSuccess()
@@ -317,5 +302,3 @@
 	{
 		location.href = page.listTalk;
 	}
-
-

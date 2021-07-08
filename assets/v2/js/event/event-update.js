@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
@@ -32,18 +32,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailEvent;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : eventIdx
-		}
+		const param = { "idx" : eventIdx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailEvent, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_event_uuid;
@@ -69,8 +64,7 @@
 		dateTo.val(end_date);
 		dateTo.datepicker("option", "minDate", start_date);
 		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_exposure);
 		})
 
 		onErrorImage();
@@ -96,22 +90,22 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.event;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
 		if (isDisplay(contentImgWrap))
 			param.append('event_content_img', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.event, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateEvent;
-			const errMsg = label.submit+message.ajaxError;
 			const param = {
 				"event_uuid" : g_event_uuid,
 				"event_type" : g_event_type,
@@ -135,15 +129,14 @@
 					param["image_url"] = event_content_img;
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateEvent, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
@@ -218,4 +211,3 @@
 			dateWrap.show();
 		}
 	}
-

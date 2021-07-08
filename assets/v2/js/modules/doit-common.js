@@ -11,7 +11,7 @@
     export function getCategoryList()
     {
         const url = api.createDoitCategoryList;
-        const errMsg = `카테고리 ${label.list} ${message.ajaxLoadError}`;
+        const errMsg = `카테고리 목록${message.ajaxLoadError}`;
         const param = { "keyword" : "" };
 
         ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);

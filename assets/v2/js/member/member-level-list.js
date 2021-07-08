@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {countLevel1, countLevel2, countLevel3, countLevel4, countLevel5, countLevel6, selPageLength, dataTable,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
@@ -44,15 +44,11 @@
 
 	function getCountPerLevel()
 	{
-		const url = api.countPerLevel;
-		const errMsg = `레벨 별 회원 수${message.ajaxError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getCountPerLevelCallback, errMsg, false);
-	}
-
-	function getCountPerLevelCallback(data)
-	{
-		isSuccessResp(data) ? buildCountPerLevel(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.countPerLevel, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildCountPerLevel(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`레벨 별 회원 수${message.ajaxError}`));
 	}
 
 	function buildCountPerLevel(data)
@@ -83,7 +79,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

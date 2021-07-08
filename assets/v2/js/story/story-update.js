@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, title, thumbnail, contentImage, rdoExposure,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -22,18 +22,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailStory;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"story_idx" : storyIdx
-		}
+		const param = { "story_idx" : storyIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailStory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_story_uuid;
@@ -46,8 +41,7 @@
 		title.val(story_title);
 		targetUrl.val(story_url);
 		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_exposure);
 		});
 		thumbnail.attr('src', story_image_url);
 
@@ -67,20 +61,20 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateStory;
-			const errMsg = label.modify+message.ajaxError;
 			const param = {
 				"story_uuid" : g_story_uuid,
 				"story_title" : title.val().trim(),
@@ -91,15 +85,12 @@
 			if (!isEmpty(data))
 				param["story_image_url"] = data.image_urls.file;
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateStory, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()

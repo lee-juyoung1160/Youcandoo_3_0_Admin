@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {dataTable, rdoOsType, selPageLength, btnDelete} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
@@ -46,7 +46,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -120,16 +120,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.deleteVersion;
-		const errMsg = label.delete + message.ajaxError;
 		const param = { "idx" : [getRowIdx()] };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		ajaxRequestWithJson(true, api.deleteVersion, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, onSubmitSearch);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function deleteValidation()

@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
 		updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch, totalCount, contentImage,
@@ -36,28 +36,23 @@
 
 	function getBizInfo()
 	{
-		const url = api.detailBiz;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : $("#hiddenIdx").val()
-		}
+		const param = { "idx" : $("#hiddenIdx").val() }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailBiz, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_company_uuid;
 	let g_profile_uuid;
 	function getDetailCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			g_company_uuid = data.data.company_uuid;
-			g_profile_uuid = data.data.profile_uuid;
-			buildBizInfo(data);
-			getBalance();
-		}
-		else
-			sweetToast(data.msg);
+		g_company_uuid = data.data.company_uuid;
+		g_profile_uuid = data.data.profile_uuid;
+		buildBizInfo(data);
+		getBalance();
 	}
 
 	function buildBizInfo(data)
@@ -72,18 +67,13 @@
 
 	function getBalance()
 	{
-		const url = api.getBizUcd;
-		const errMsg = `보유 UCD ${message.ajaxLoadError}`;
-		const param = {
-			"profile_uuid" : g_profile_uuid
-		}
+		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getBalanceCallback, errMsg, false);
-	}
-
-	function getBalanceCallback(data)
-	{
-		isSuccessResp(data) ? buildBalance(data) : sweetToast(`보유 UCD ${data.msg}`);
+		ajaxRequestWithJson(true, api.getBizUcd, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`보유 UCD ${message.ajaxLoadError}`));
 	}
 
 	let g_balance;
@@ -142,7 +132,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -295,8 +285,6 @@
 
 	function createRequest()
 	{
-		const url = api.saveDoitUcdByBiz;
-		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"company_profile_uuid" : g_profile_uuid,
 			"doit_uuid" : addedDoits,
@@ -304,12 +292,11 @@
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.saveDoitUcdByBiz, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -378,11 +365,13 @@
 			return;
 		}
 
-		const url = api.getDoitFromXlsx;
-		const errMsg = `두잇목록${message.ajaxLoadError}`
 		const param = { "doit_uuid" : data };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.getDoitFromXlsx, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`두잇목록${message.ajaxLoadError}`));
 	}
 
 	function getExcelDataCallback(data)

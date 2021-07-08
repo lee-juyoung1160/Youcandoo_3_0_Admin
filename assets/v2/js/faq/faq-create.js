@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, title, content, selFaqType} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -19,28 +19,21 @@
 
 	function getFaqType()
 	{
-		const url = api.faqType;
-		const errMsg = `faq 타입${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, false);
-	}
-
-	function getFaqTypeCallback(data)
-	{
-		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.faqType, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`faq 타입${message.ajaxLoadError}`));
 	}
 
 	function buildFaqType(data)
 	{
-		let options = '';
 		if (!isEmpty(data.data) && data.data.length  > 0)
 		{
 			data.data.map(type => {
-				options += `<option value="${type}">${type}</option>`;
+				selFaqType.append(`<option value="${type}">${type}</option>`);
 			})
 		}
-
-		selFaqType.html(options);
 	}
 
 	function onSubmitFaq()
@@ -51,8 +44,6 @@
 
 	function createRequest()
 	{
-		const url = api.createFaq;
-		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"faq_type" : selFaqType.val(),
 			"title" : title.val().trim(),
@@ -60,12 +51,11 @@
 			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createFaq, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()

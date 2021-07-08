@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
 		btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
@@ -92,7 +92,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -233,7 +233,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -405,11 +405,13 @@
 			return;
 		}
 
-		const url = api.pushTargetMemberFromXlsx;
-		const errMsg = `회원목록${message.ajaxLoadError}`
 		const param = { "profile_uuid" : data };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.pushTargetMemberFromXlsx, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`회원목록${message.ajaxLoadError}`));
 	}
 
 	function getExcelDataCallback(data)
@@ -433,8 +435,6 @@
 
 	function createRequest()
 	{
-		const url = api.createPush;
-		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
 			"send_datetime" : `${reserveDate.val()} ${reserveTime.val()}`,
@@ -448,12 +448,11 @@
 			"category" : $('input:radio[name=radio-category]:checked').val(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createPush, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -504,4 +503,3 @@
 		const targetMemberType = $("input[name=radio-target-member-type]:checked").val();
 		return targetMemberType === 'individual';
 	}
-

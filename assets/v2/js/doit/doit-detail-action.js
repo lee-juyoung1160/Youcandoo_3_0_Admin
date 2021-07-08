@@ -359,6 +359,7 @@
 							: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
                                  <i class="fas fa-eye-slash"></i> 블라인드 처리
                                </button>`;
+						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
@@ -366,7 +367,7 @@
 										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${btnBlindReply}
+										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">
@@ -393,9 +394,6 @@
 								<tr>
 									<td colspan="2">
 										<div class="textarea-wrap">
-											<input type="hidden" class="parent-comment-uuid" value="${comment_uuid}">
-											<input type="hidden" class="target-profile-uuid" value="${profile_uuid}">
-											<input type="hidden" class="target-nickname" value="${nickname}">
 											<textarea class="length-input reply-action" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
 											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
 										</div>
@@ -404,7 +402,11 @@
 								<tr>
 									<td colspan="2">
 										<div class="right-wrap">
-											<button type="button" class="btn-sm btn-primary btn-submit-reply-action">등록</button>
+											<button type="button" 
+													class="btn-sm btn-primary btn-submit-reply-action"
+													data-parent="${comment_uuid}"
+													data-profile="${profile_uuid}"
+													data-nickname="${nickname}">등록</button>
 										</div>
 									</td>
 								</tr>
@@ -413,9 +415,6 @@
 					</div>`
 					: '';
 
-				/*const btnDeleteCommentEl = isSponsorDoit && (g_leader_profile_uuid === profile_uuid)
-					? `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`
-					: '';*/
 				const isBlindComment = is_blind === 'Y';
 				const btnBlindComment = isBlindComment
 					? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
@@ -424,6 +423,7 @@
 					: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
                          <i class="fas fa-eye-slash"></i> 블라인드 처리
                        </button>`;
+				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -431,14 +431,13 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnBlindComment}
+								${is_company === 'Y' ? btnDeleteCommentEl : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<!--<span><i class="fas fa-heart"></i> 111</span>-->
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
 							${createReplyEl}
 						</div>
@@ -489,17 +488,17 @@
 		getActionComments();
 	}
 
-	let g_parent_uuid;
-	let g_target_profile_uuid;
-	let g_target_nickname;
-	let g_reply_value;
+	let g_action_reply_parent_uuid;
+	let g_action_reply_target_profile_uuid;
+	let g_action_reply_target_nickname;
+	let g_action_reply_value;
 	function onSubmitActionReply(obj)
 	{
 		const replyEl = $(obj).parents('.reply-table');
-		g_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
-		g_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
-		g_target_nickname = $(replyEl).find('.target-nickname').val();
-		g_reply_value = $(replyEl).find('.reply-action').val();
+		g_action_reply_parent_uuid = $(obj).data('parent');
+		g_action_reply_target_profile_uuid = $(obj).data('profile');
+		g_action_reply_target_nickname = $(obj).data('nickname');
+		g_action_reply_value = $(replyEl).find('.reply-action').val();
 
 		if (replyActionValid())
 			sweetConfirm(message.create, createActionReplyRequest);
@@ -507,7 +506,7 @@
 
 	function replyActionValid()
 	{
-		if (isEmpty(g_reply_value))
+		if (isEmpty(g_action_reply_value))
 		{
 			sweetToast(`답글은 ${message.required}`);
 			return false;
@@ -523,9 +522,9 @@
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"action_uuid" : g_action_uuid,
-			"comment" : g_reply_value.trim(),
-			"mention" : [{ "profile_uuid": g_target_profile_uuid, "profile_nickname": g_target_nickname}],
-			"parent_comment_uuid" : g_parent_uuid,
+			"comment" : g_action_reply_value.trim(),
+			"mention" : [{ "profile_uuid": g_action_reply_target_profile_uuid, "profile_nickname": g_action_reply_target_nickname}],
+			"parent_comment_uuid" : g_action_reply_parent_uuid,
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionReplyCallback, errMsg, false);
@@ -569,9 +568,10 @@
 
 	function deleteActionCommentSuccess()
 	{
+		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getActionComments(g_view_page_length);
+		getDetailAction();
 	}
 
 	let g_is_blind_action_comment;
@@ -661,9 +661,10 @@
 	function createActionCommentSuccess()
 	{
 		commentAction.val('');
+		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getActionComments(g_view_page_length);
+		getDetailAction();
 	}
 
 	function buildPagination(data)

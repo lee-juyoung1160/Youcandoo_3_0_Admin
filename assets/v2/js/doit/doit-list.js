@@ -4,8 +4,20 @@
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
 		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
-	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateMonths,
-		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, atLeastChecked, getDoitStatusName} from "../modules/common.js";
+	import {
+		onClickDateRangeBtn,
+		initDayBtn,
+		initSearchDatepicker,
+		initSearchDateRangeMonths,
+		initMaxDateMonths,
+		initPageLength,
+		initSelectOption,
+		onChangeSearchDateFrom,
+		onChangeSearchDateTo,
+		atLeastChecked,
+		getDoitStatusName,
+		moveToMemberDetail
+	} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -151,7 +163,7 @@
 				}
 				,{title: "리더", 		data: "nickname",			width: "20%",
 					render: function (data, type, row, meta) {
-						return row.is_company === 'Y' ? label.bizIcon + data : data;
+						return row.is_company === 'Y' ? label.bizIcon + data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
 				,{title: "생성일", 		data: "created",			width: "8%",
@@ -181,6 +193,7 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(3).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -213,4 +226,9 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}

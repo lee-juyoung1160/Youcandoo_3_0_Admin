@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, contentImage, title, dateFrom, dateTo, rdoTargetPageType, targetPage, modalOpen,
 		modalClose, modalBackdrop, dataTable, targetUuid, keyword,} from '../modules/elements.js';
@@ -39,20 +39,20 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
 		if (isSuccessResp(data))
 		{
-			const url = api.createBanner;
-			const errMsg = label.submit+message.ajaxError;
 			const pageType = $("input[name=radio-target-page-type]:checked").val();
 			const pageValue = (pageType === 'webview' || pageType === 'browser') ? targetUrl.val().trim() : targetUuid.val();
 			const param = {
@@ -64,15 +64,14 @@
 				"banner_image_url" : data.image_urls.file
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.createBanner, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, createSuccess);
+				})
+				.catch(reject => sweetToast(label.submit + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()
@@ -171,7 +170,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -281,4 +280,3 @@
 		targetUuid.val('');
 		targetUrl.val('');
 	}
-

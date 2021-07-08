@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api, } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, selPageLength, dateButtons, modalDetail, modalWarning, modalOpen, modalClose,
 		modalBackdrop, btnCancel, chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType, modalActionContentWrap,
@@ -66,8 +66,6 @@
 
 	function getActions()
 	{
-		const url = api.reportActionList;
-		const errMsg = label.list+message.ajaxLoadError;
 		let status = [];
 		chkStatus.each(function () {
 			if ($(this).is(':checked'))
@@ -82,19 +80,18 @@
 			,"action_status" : status
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionsCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.reportActionList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getActionsCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getActionsCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			totalActionCount.text(numberWithCommas(data.count));
-			buildActions(data);
-			buildPagination(data);
-		}
-		else
-			sweetToast(data.msg);
+		totalActionCount.text(numberWithCommas(data.count));
+		buildActions(data);
+		buildPagination(data);
 	}
 
 	function buildActions(data)
@@ -189,18 +186,13 @@
 
 	function getDetailAction()
 	{
-		const url = api.memberActionDetail;
-		const errMsg = `인증 정보${message.ajaxLoadError}`;
-		const param = {
-			"action_uuid" : g_action_detail_uuid
-		}
+		const param = { "action_uuid" : g_action_detail_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
-	}
-
-	function getDetailActionCallback(data)
-	{
-		isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.memberActionDetail, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function buildModalActionDetail(data)
@@ -270,7 +262,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -311,18 +303,13 @@
 
 	function cancelRequest()
 	{
-		const url = api.cancelWarning;
-		const errMsg = `경고장 발송 취소 ${message.ajaxError}`;
-		const param = {
-			"action_uuid" : [g_action_detail_uuid]
-		}
+		const param = { "action_uuid" : [g_action_detail_uuid] }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), cancelReqCallback, errMsg, false);
-	}
-
-	function cancelReqCallback(data)
-	{
-		sweetToastAndCallback(data, requestSuccess);
+		ajaxRequestWithJson(true, api.cancelWarning, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, requestSuccess);
+			})
+			.catch(reject => sweetToast(`경고장 발송 취소 ${message.ajaxError}`));
 	}
 
 	function onClickModalWarningOpen()
@@ -355,24 +342,20 @@
 
 	function sendWarningRequest()
 	{
-		const url = api.sendWarning;
-		const errMsg = `발송 ${message.ajaxError}`;
 		let action_uuids = [];
 		$("input[name=chk-action]:checked").each(function () {
 			action_uuids.push($(this).data('uuid'));
 		})
-
 		const param = {
 			"action_uuid" : action_uuids,
 			"reason" : selReason.val()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendWarningReqCallback, errMsg, false);
-	}
-
-	function sendWarningReqCallback(data)
-	{
-		sweetToastAndCallback(data, requestSuccess);
+		ajaxRequestWithJson(true, api.sendWarning, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, requestSuccess);
+			})
+			.catch(reject => sweetToast(message.ajaxLoadError));
 	}
 
 	function requestSuccess()
@@ -380,4 +363,3 @@
 		fadeoutModal();
 		getActions();
 	}
-

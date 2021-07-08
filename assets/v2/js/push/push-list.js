@@ -1,30 +1,14 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp,} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		body,
-		btnSearch,
-		btnReset,
-		keyword,
-		dataTable,
-		selPageLength,
-		modalClose,
-		modalBackdrop,
-		dateButtons,
+		body, btnSearch, btnReset, keyword, dataTable, selPageLength, modalClose, modalBackdrop, dateButtons,
 		dateFrom, dateTo, selSearchType, content, btnDelete
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-		initSelectOption,
-		initPageLength,
-		initSearchDatepicker,
-		initDayBtn,
-		initMaxDateMonths,
-		initSearchDateRangeMonth,
-		fadeoutModal,
-		fadeinModal,
-		onClickDateRangeBtn,
-		onChangeSearchDateFrom,
+		initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths,
+		initSearchDateRangeMonth, fadeoutModal, fadeinModal, onClickDateRangeBtn, onChangeSearchDateFrom,
 		onChangeSearchDateTo, copyToClipboard
 	} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from '../modules/tables.js';
@@ -94,7 +78,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -221,18 +205,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.cancelPush;
-		const errMsg = `취소 ${message.ajaxError}`;
-		const param = {
-			"idx" : getSelectedPushIdx()
-		}
+		const param = { "idx" : getSelectedPushIdx() }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteReqCallback, errMsg, false);
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		ajaxRequestWithJson(true, api.cancelPush, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, onSubmitSearch);
+			})
+			.catch(reject => sweetToast(`취소 ${message.ajaxError}`));
 	}
 
 	function deleteValid()

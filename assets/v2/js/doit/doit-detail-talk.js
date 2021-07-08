@@ -30,7 +30,7 @@
 		chkUpdateNoticeTalk,
 		updateTalkAttachWrap,
 		btnBlinkTalk,
-		btnDisplayTalk,
+		btnDisplayTalk, btnDeleteTalk,
 	} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
@@ -255,7 +255,7 @@
 		infoTalkLikeCount.text(like_count);
 		infoTalkContent.text(board_body);
 		infoTalkAttachWrap.html(buildTalkAttachWrap(data));
-		toggleBtnBlind(data);
+		toggleShowBtns(data);
 
 		/** 수정폼 **/
 		updateTalk.val(board_body);
@@ -271,18 +271,29 @@
 		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
-	function toggleBtnBlind(data)
+	function toggleShowBtns(data)
 	{
-		const { is_blind } = data.data;
-		if (is_blind === 'Y')
+		const { is_company, is_blind } = data.data;
+		if (is_company === 'Y')
 		{
-			btnBlinkTalk.hide();
-			btnDisplayTalk.show();
+			btnDeleteTalk.show();
+			btnDisplayTalk.hide();
+			btnBlinkTalk.hide()
 		}
 		else
 		{
-			btnBlinkTalk.show();
-			btnDisplayTalk.hide();
+			btnDeleteTalk.hide();
+
+			if (is_blind === 'Y')
+			{
+				btnDisplayTalk.show();
+				btnBlinkTalk.hide()
+			}
+			else
+			{
+				btnDisplayTalk.hide();
+				btnBlinkTalk.show()
+			}
 		}
 	}
 
@@ -391,6 +402,7 @@
 						const btnBlindReply = isBlindReply
 							? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 							: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${replyObj.comment_uuid}">삭제</button>`;
 						repliesEl +=
 							`<li>
 								<div class="top clearfix">
@@ -399,7 +411,7 @@
 										<span class="desc-sub">${replyObj.created}</span>
 									</p>
 									<div class="right-wrap">
-										${btnBlindReply}
+										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 									</div>
 								</div>
 								<div class="detail-data">
@@ -426,9 +438,6 @@
 								<tr>
 									<td colspan="2">
 										<div class="textarea-wrap">
-											<input type="hidden" class="parent-comment-uuid" value="${comment_uuid}">
-											<input type="hidden" class="target-profile-uuid" value="${profile_uuid}">
-											<input type="hidden" class="target-nickname" value="${nickname}">
 											<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
 											<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 										</div>
@@ -437,7 +446,11 @@
 								<tr>
 									<td colspan="2">
 										<div class="right-wrap">
-											<button type="button" class="btn-sm btn-primary btn-submit-reply-talk">등록</button>
+											<button type="button" 
+													class="btn-sm btn-primary btn-submit-reply-talk"
+													data-parent="${comment_uuid}"
+													data-profile="${profile_uuid}"
+													data-nickname="${nickname}">등록</button>
 										</div>
 									</td>
 								</tr>
@@ -450,6 +463,7 @@
 				const btnBlindComment = isBlindComment
 					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 					: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
 				const commentEl =
 					`<div class="card">
 						<div class="top clearfix">
@@ -457,14 +471,13 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnBlindComment}
+								${is_company === 'Y' ? btnDeleteCommentEl : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<!--<span><i class="fas fa-heart"></i> 111</span>-->
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
 							${createReplyEl}
 						</div>
@@ -491,7 +504,7 @@
 		$('.btn-talk-reply-close').on('click', function () { onClickModalReplyTalkClose(); });
 		$('#btnViewMoreTalkComment').on('click', function () { onClickViewMoreTalkComment(); });
 		$('.btn-submit-reply-talk').on('click', function () { onSubmitTalkReply(this); });
-		//$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteTalkComment(this); });
 		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
@@ -528,16 +541,16 @@
 		$('.modal-content').fadeOut();
 	}
 
-	let g_talk_comment_parent_uuid;
-	let g_talk_comment_target_profile_uuid;
-	let g_talk_comment_target_nickname;
+	let g_talk_reply_parent_uuid;
+	let g_talk_reply_target_profile_uuid;
+	let g_talk_reply_target_nickname;
 	let g_talk_reply_value;
 	function onSubmitTalkReply(obj)
 	{
 		const replyEl = $(obj).parents('.reply-talk-table');
-		g_talk_comment_parent_uuid = $(replyEl).find('.parent-comment-uuid').val();
-		g_talk_comment_target_profile_uuid = $(replyEl).find('.target-profile-uuid').val();
-		g_talk_comment_target_nickname = $(replyEl).find('.target-nickname').val();
+		g_talk_reply_parent_uuid = $(obj).data('parent');
+		g_talk_reply_target_profile_uuid = $(obj).data('profile');
+		g_talk_reply_target_nickname = $(obj).data('nickname');
 		g_talk_reply_value = $(replyEl).find('.reply-talk').val();
 
 		if (replyTalkValid())
@@ -563,8 +576,8 @@
 			"doit_uuid" : g_doit_uuid,
 			"board_uuid" : g_talk_uuid,
 			"comment" : g_talk_reply_value.trim(),
-			"mention" : [{ "profile_uuid": g_talk_comment_target_profile_uuid, "profile_nickname": g_talk_comment_target_nickname}],
-			"parent_comment_uuid" : g_talk_comment_parent_uuid,
+			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "profile_nickname": g_talk_reply_target_nickname}],
+			"parent_comment_uuid" : g_talk_reply_parent_uuid,
 		}
 
 		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReplyTalkCommentCallback, errMsg, false);
@@ -583,8 +596,8 @@
 		getTalkComments(g_param_view_page_length);
 	}
 
-	/*let g_delete_talk_comment_uuid;
-	function onSubmitDeleteActionComment(obj)
+	let g_delete_talk_comment_uuid;
+	function onSubmitDeleteTalkComment(obj)
 	{
 		g_delete_talk_comment_uuid = $(obj).data('uuid');
 		sweetConfirm(message.delete, actionCommentDeleteRequest);
@@ -608,10 +621,12 @@
 
 	function deleteActionCommentSuccess()
 	{
+		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkComments(g_param_view_page_length);
-	}*/
+		getDetailTalk();
+		onSubmitSearchTalk();
+	}
 
 	let g_is_blind_comment;
 	let g_comment_uuid;
@@ -700,9 +715,11 @@
 	function createTalkCommentSuccess()
 	{
 		commentTalk.val('');
+		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getTalkComments(g_param_view_page_length);
+		getDetailTalk();
+		onSubmitSearchTalk();
 	}
 
 	function initTalkCommentPageNum()

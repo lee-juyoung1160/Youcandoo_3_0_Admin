@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import { ajaxRequestWithJson, isSuccessResp } from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle, content,
 		attachmentWrap, answerEl, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
@@ -27,27 +27,19 @@
 
 	function getDetail()
 	{
-		const url = api.detailInquiry;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : inquiryIdx
-		}
+		const param = { "idx" : inquiryIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailInquiry, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, status} = data.data;
-
-		if (status === '답변완료')
-			location.href = page.detailInquiry + inquiryIdx;
+		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, answer, memo} = data.data;
 
 		g_inquiry_uuid = qna_uuid;
 
@@ -56,7 +48,8 @@
 		inquiryTitle.text(title);
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
-		answerEl.val(`${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)`);
+		answerEl.val(isEmpty(answer) ? `${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)` : answer);
+		memoEl.val(memo);
 
 		onErrorImage();
 
@@ -112,24 +105,20 @@
 
 	function answerRequest()
 	{
-		const url = api.updateInquiry;
-		const errMsg = message.ajaxError;
 		const param = {
 			"qna_uuid" : g_inquiry_uuid,
 			"answer" : answerEl.val().trim(),
 			"memo" : memoEl.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), answerReqCallback, errMsg, false);
-	}
-
-	function answerReqCallback(data)
-	{
-		sweetToastAndCallback(data, answerSuccess);
+		ajaxRequestWithJson(true, api.updateInquiry, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, answerSuccess);
+			})
+			.catch(reject => sweetToast(message.ajaxLoadError));
 	}
 
 	function answerSuccess()
 	{
 		location.href = page.detailInquiry + inquiryIdx;
 	}
-

@@ -97,7 +97,10 @@
 		toggleButtons(doit_status);
 
 		infoDoitTitle.html(buildDoitStatus(doit_status) + doit_title);
-		doitSponsor.html( isSponsorDoit ? label.bizIcon + nickname : `${label.generalDoit} / <a>${nickname}</a>`);
+		doitSponsor.html(
+			isSponsorDoit
+				? label.bizIcon + nickname
+				: `<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
 		infoDoitDesc.text(doit_description);
 		infoDoitKeywords.empty();

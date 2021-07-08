@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url.js';
 	import {btnSubmit, content, lengthInput, rdoExposure, selFaqType, faqTitle,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
@@ -13,52 +13,41 @@
 	const faqIdx	= splitReverse(pathName, '/');
 
 	$( () => {
-		getFaqType();
+		initPage();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		btnSubmit		.on('click', function () { onSubmitUpdateFaq(); });
 	});
 
-	function getFaqType()
+	function initPage()
 	{
-		const url = api.faqType;
-		const errMsg = `faq 타입${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getFaqTypeCallback, errMsg, getDetail);
-	}
-
-	function getFaqTypeCallback(data)
-	{
-		isSuccessResp(data) ? buildFaqType(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.faqType, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
+				await getDetail();
+			})
+			.catch(reject => sweetToast(`faq 타입${message.ajaxLoadError}`));
 	}
 
 	function buildFaqType(data)
 	{
-		let options = '';
 		if (!isEmpty(data.data) && data.data.length  > 0)
 		{
 			data.data.map(type => {
-				options += `<option value="${type}">${type}</option>`;
+				selFaqType.append(`<option value="${type}">${type}</option>`);
 			})
 		}
-
-		selFaqType.html(options);
 	}
 
 	function getDetail()
 	{
-		const url = api.detailFaq;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : faqIdx
-		}
+		const param = { "idx" : faqIdx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailFaq,  JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_faq_uuid;
@@ -71,8 +60,7 @@
 		faqTitle.val(title);
 		content.val(contents);
 		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_exposure);
 		});
 
 		calculateInputLength();
@@ -86,8 +74,6 @@
 
 	function updateRequest()
 	{
-		const url = api.updateFaq;
-		const errMsg = label.modify+message.ajaxError;
 		const param = {
 			"faq_uuid" : g_faq_uuid,
 			"faq_type" : selFaqType.val(),
@@ -96,12 +82,11 @@
 			"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
+		ajaxRequestWithJson(true, api.updateFaq,  JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, updateSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function updateSuccess()
@@ -127,5 +112,3 @@
 
 		return true;
 	}
-
-

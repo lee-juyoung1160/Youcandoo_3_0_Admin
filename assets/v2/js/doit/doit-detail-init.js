@@ -49,9 +49,9 @@
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
-	import {ajaxRequestWithJsonData} from "../modules/request.js";
 	import {sweetConfirm, sweetToastAndCallback} from "../modules/alert.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -242,17 +242,16 @@
 	function changeDoitStatusRequest()
 	{
 		const url = changeStatusUrl;
-		const errMsg = message.ajaxError;
 		const param = { "doit_uuid" : g_doit_uuid };
+
 		if (!isEmpty(isStop))
 			param.is_stop = isStop;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), doitStatusChangeCallback, errMsg, false);
-	}
-
-	function doitStatusChangeCallback(data)
-	{
-		sweetToastAndCallback(data, doitStatusChangeSuccess);
+		ajaxRequestWithJson(true, url, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, doitStatusChangeSuccess);
+			})
+			.catch(reject => sweetToast(message.ajaxError));
 	}
 
 	function doitStatusChangeSuccess()

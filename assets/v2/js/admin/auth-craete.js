@@ -34,7 +34,6 @@
         const url = api.authList;
         let errMsg 	= `권한목록을 ${message.ajaxLoadError}`;
 
-        ajaxRequestWithJsonData(false, url, null, getAuthListCallback, errMsg, getMenuByAuthCode);
     }
 
     function getAuthListCallback(data)
@@ -89,7 +88,6 @@
         let url 	= api.deleteAuth;
         let errMsg 	= label.delete+message.ajaxError;
 
-        ajaxRequestWithJsonData(true, url, param, deleteReqCallback, errMsg, false);
     }
 
     function deleteReqCallback(data)

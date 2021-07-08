@@ -1,5 +1,4 @@
     import { api } from './modules/api-url.js';
-    import { ajaxRequestWithJsonData } from './modules/request.js';
     import { btnMenuToggle, mainMenu, subMenu, section, sideBar, btnScrollTop } from "./modules/elements.js";
     import { getPathName } from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";
@@ -62,7 +61,6 @@
         let url     = api.getMenuByAuth;
         let errMsg  = '메뉴 '+label.list+message.ajaxLoadError;
 
-        ajaxRequestWithJsonData(false, url, param, getLeftMenuByAuthCodeCallback, errMsg, false);
     }
 
     function getLeftMenuByAuthCodeCallback(data)

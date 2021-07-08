@@ -1,5 +1,4 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {password, passwordCheck, passwordCheckTxt, sessionUserId, btnSubmit,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
@@ -33,7 +32,6 @@
 		const errMsg = label.detailContent+message.ajaxLoadError;
 		const param = { "userid" : sessionUserId.val() };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getProfileCallback, errMsg, false);
 	}
 
 	function getProfileCallback(data)
@@ -63,7 +61,6 @@
 			,"password" : passwd.toString()
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
 	function updateReqCallback(data)

@@ -1,5 +1,4 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
 	import { api } from '../modules/api-url.js';
 	import {btnSubmit,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
@@ -26,7 +25,6 @@
 			"idx" : adminIdx
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
 	}
 
 	function getDetailCallback(data)
@@ -55,7 +53,6 @@
 			"profile_uuid" : g_profile_uuid,
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
 	}
 
 	function updateReqCallback(data)

@@ -1,48 +1,22 @@
 
 	import {
-		actionCommentCount,
-		actionDesc,
-		actionCreated,
-		actionDetailForm,
-		actionLikeCount,
-		actionListForm,
-		actionsWrap,
-		selActionDateType,
-		chkActionStatus,
-		modalBackdrop,
-		modalWarning,
-		searchActionDateFrom,
-		searchActionDateTo,
-		selActionMissions,
-		pagination,
-		selActionPageLength,
-		totalActionCount,
-		actionNickname,
-		actionContentWrap,
-		actionCommentWrap,
-		commentAction,
-		btnSendWarning,
-		modalAttach,
-		modalAttachContentWrap,
-		selReason,
-		warningReason,
+		actionCommentCount, actionDesc, actionCreated, actionDetailForm, actionLikeCount, actionListForm,
+		actionsWrap, selActionDateType, chkActionStatus, modalBackdrop, modalWarning, searchActionDateFrom,
+		searchActionDateTo, selActionMissions, pagination, selActionPageLength, totalActionCount,
+		actionNickname, actionContentWrap, actionCommentWrap, commentAction, btnSendWarning, modalAttach,
+		modalAttachContentWrap, selReason, warningReason,
 	} from "../modules/elements.js";
 	import {
-		initSelectOption,
-		overflowHidden,
-		onErrorImage,
-		paginate,
-		fadeoutModal,
-		limitInputLength,
-		initDayBtn
+		initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength, initDayBtn
 	} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
-	import {ajaxRequestWithJsonData, isSuccessResp} from "../modules/request.js";
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {isEmpty} from "../modules/utils.js";
+	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
+
 	let _actionCurrentPage = 1;
 
 	export function showActionListForm()
@@ -89,18 +63,14 @@
 
 	export function getMissionListForAction()
 	{
-		const url = api.missionList;
-		const errMsg = `미션 목록 ${message.ajaxLoadError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid
-		}
+		const param = { "doit_uuid" : g_doit_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMissionListForActionCallback, errMsg, false);
-	}
-
-	function getMissionListForActionCallback(data)
-	{
-		isSuccessResp(data) ? buildSelActionMission(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.missionList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildSelActionMission(data) : sweetToast(invalidResp(data));
+				await onSubmitSearchActions();
+			})
+			.catch(reject => sweetToast(`미션 목록 ${message.ajaxLoadError}`));
 	}
 
 	function buildSelActionMission(data)
@@ -111,14 +81,10 @@
 			missions.map(obj => { options += `<option value="${obj.mission_uuid}">${obj.mission_title}</option>` });
 
 		selActionMissions.html(options);
-
-		onSubmitSearchActions();
 	}
 
 	export function getActionList()
 	{
-		const url = api.actionList;
-		const errMsg = label.list+message.ajaxLoadError;
 		let actionStatus = [];
 		chkActionStatus.each(function () {
 			if ($(this).is(":checked"))
@@ -135,18 +101,17 @@
 			"limit" : selActionPageLength.val()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.actionList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getActionListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getActionListCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			buildActions(data);
-			buildPagination(data);
-		}
-		else
-			sweetToast(data.msg);
+		buildActions(data);
+		buildPagination(data);
 	}
 
 	function buildActions(data)
@@ -226,23 +191,20 @@
 
 	function getDetailAction()
 	{
-		const url = api.detailAction;
-		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = { "idx" : g_action_idx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailActionCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailAction, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailActionCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	function getDetailActionCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			g_action_uuid = data.data.action_uuid;
-			buildDetailAction(data);
-			getActionComments();
-		}
-		else
-			sweetToast(data.msg);
+		g_action_uuid = data.data.action_uuid;
+		buildDetailAction(data);
+		getActionComments();
 	}
 
 	function buildDetailAction(data)
@@ -317,20 +279,17 @@
 
 	function getActionComments(_pageLength)
 	{
-		const url = api.actionCommentList;
-		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"action_uuid" : g_action_uuid,
 			"size" : isEmpty(_pageLength) ? g_action_comment_page_length : g_view_page_length,
 			"last_idx" : g_action_comment_last_idx
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getActionCommentsCallback, errMsg, false);
-	}
-
-	function getActionCommentsCallback(data)
-	{
-		isSuccessResp(data) ? buildActionComments(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.actionCommentList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildActionComments(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`댓글 목록${message.ajaxLoadError}`));
 	}
 
 	function buildActionComments(data)
@@ -517,8 +476,6 @@
 
 	function createActionReplyRequest()
 	{
-		const url = api.createActionComment;
-		const errMsg = `답글 등록 ${message.ajaxError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"action_uuid" : g_action_uuid,
@@ -527,12 +484,11 @@
 			"parent_comment_uuid" : g_action_reply_parent_uuid,
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionReplyCallback, errMsg, false);
-	}
-
-	function createActionReplyCallback(data)
-	{
-		sweetToastAndCallback(data, createActionReplySuccess);
+		ajaxRequestWithJson(true, api.createActionComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createActionReplySuccess);
+			})
+			.catch(reject => sweetToast(`답글 등록${message.ajaxError}`));
 	}
 
 	function createActionReplySuccess()
@@ -552,18 +508,13 @@
 
 	function actionCommentDeleteRequest()
 	{
-		const url = api.deleteActionComment;
-		const errMsg = `댓글 삭제 ${message.ajaxError}`;
-		const param = {
-			"comment_uuid" : g_delete_action_comment_uuid,
-		}
+		const param = { "comment_uuid" : g_delete_action_comment_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
-	}
-
-	function deleteActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteActionCommentSuccess);
+		ajaxRequestWithJson(true, api.deleteActionComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, deleteActionCommentSuccess);
+			})
+			.catch(reject => sweetToast(`댓글 삭제${message.ajaxError}`));
 	}
 
 	function deleteActionCommentSuccess()
@@ -588,8 +539,6 @@
 
 	function blindActionCommentRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
 			"is_blind" : g_is_blind_action_comment,
 			"board" : [],
@@ -597,12 +546,11 @@
 			"action_comment" : [g_action_comment_uuid]
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindActionCommentReqCallback, errMsg, false);
-	}
-
-	function blindActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, blindActionCommentSuccess)
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, blindActionCommentSuccess);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	function blindActionCommentSuccess()
@@ -642,20 +590,17 @@
 
 	function createActionCommentRequest()
 	{
-		const url = api.createActionComment;
-		const errMsg = `댓글 등록 ${message.ajaxError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"action_uuid" : g_action_uuid,
 			"comment" : commentAction.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createActionCommentReqCallback, errMsg, false);
-	}
-
-	function createActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, createActionCommentSuccess)
+		ajaxRequestWithJson(true, api.createActionComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createActionCommentSuccess);
+			})
+			.catch(reject => sweetToast(`댓글 등록${message.ajaxError}`));
 	}
 
 	function createActionCommentSuccess()
@@ -694,14 +639,10 @@
 		isWarningList = obj.id === 'btnSendWarnings';
 		if (isWarningList)
 		{
-			if (hasCheckedAction())
-				fadeinModalWarning();
+			if (hasCheckedAction()) fadeinModalWarning();
 		}
 		else
-		{
 			$(obj).hasClass('btn-send-warning') ? fadeinModalWarning() : onSubmitCancelWarning();
-
-		}
 	}
 
 	function fadeinModalWarning()
@@ -731,8 +672,6 @@
 
 	export function sendWarningRequest()
 	{
-		const url = api.sendWarning;
-		const errMsg = `발송 ${message.ajaxError}`;
 		let action_uuids = [];
 		if (isWarningList)
 		{
@@ -741,21 +680,18 @@
 			})
 		}
 		else
-		{
 			action_uuids.push(g_action_uuid);
-		}
 
 		const param = {
 			"action_uuid" : action_uuids,
 			"reason" : selReason.val()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), sendWarningReqCallback, errMsg, false);
-	}
-
-	function sendWarningReqCallback(data)
-	{
-		sweetToastAndCallback(data, sendWarningSuccess);
+		ajaxRequestWithJson(true, api.sendWarning, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, sendWarningSuccess);
+			})
+			.catch(reject => sweetToast(`발송${message.ajaxError}`));
 	}
 
 	function sendWarningSuccess()
@@ -774,18 +710,13 @@
 
 	function cancelWarningRequest()
 	{
-		const url = api.cancelWarning;
-		const errMsg = `경고장 발송 취소 ${message.ajaxError}`;
-		const param = {
-			"action_uuid" : [g_action_uuid],
-		}
+		const param = { "action_uuid" : [g_action_uuid] }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), cancelWarningReqCallback, errMsg, false);
-	}
-
-	function cancelWarningReqCallback(data)
-	{
-		sweetToastAndCallback(data, getDetailAction);
+		ajaxRequestWithJson(true, api.cancelWarning, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getDetailAction);
+			})
+			.catch(reject => sweetToast(`경고장 발송 취소${message.ajaxError}`));
 	}
 
 	function initActionCommentPageNum()
@@ -815,4 +746,3 @@
 	{
 		$('.modal-content').fadeOut();
 	}
-

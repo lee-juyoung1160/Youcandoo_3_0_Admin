@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp, headers } from '../modules/request.js';
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
 		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory} from '../modules/elements.js';
@@ -23,14 +23,16 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+
 	let _currentPage = 1;
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
-		/** 카테고리 목록 **/
-		getCategoryList();
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		initPage();
 		/** 이벤트 **/
 		body  		.on('keydown', function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -61,10 +63,7 @@
 		dateTo.val(historyParams.to_date);
 		keyword.val(historyParams.keyword);
 		chkStatus.each(function () {
-			if (historyParams.doit_status.indexOf($(this).val()) !== -1)
-				$(this).prop("checked", true);
-			else
-				$(this).prop("checked", false);
+			$(this).prop("checked", historyParams.doit_status.indexOf($(this).val()) > -1);
 		});
 		selDateType.val(historyParams.date_type);
 		selSearchType.val(historyParams.search_type);
@@ -74,39 +73,22 @@
 		_currentPage = historyParams.page;
 	}
 
-	function getCategoryList()
+	function initPage()
 	{
-		const url = api.categoryList;
-		const errMsg = label.list + message.ajaxLoadError
 		const param = { "keyword" : "" };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListCallback, errMsg, false);
-	}
-
-	function getCategoryListCallback(data)
-	{
-		isSuccessResp(data) ? buildSelCategory(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.categoryList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildSelCategory(data) : sweetToast(invalidResp(data));
+				await isBackAction() ? setHistoryForm() : initSearchForm();
+				await buildTable();
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function buildSelCategory(data)
 	{
-		let options = '<option value="">전체</option>';
-		data.data.map( obj => {
-			options += `<option value="${obj.category_uuid}">${obj.category_title}</option>`;
-		})
-
-		selCategory.html(options);
-
-		initPage();
-	}
-
-	function initPage()
-	{
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
-		isBackAction() ? setHistoryForm() : initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
+		data.data.map( obj => selCategory.append(`<option value="${obj.category_uuid}">${obj.category_title}</option>`));
 	}
 
 	function onKeydownSearch(event)
@@ -141,7 +123,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

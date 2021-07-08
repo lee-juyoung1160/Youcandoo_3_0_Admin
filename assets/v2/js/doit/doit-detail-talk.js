@@ -1,49 +1,23 @@
 
 	import {
-		modalCreateTalk,
-		modalBackdrop,
-		talkDetailForm,
-		talkListForm,
-		talkUpdateForm,
-		talk,
-		searchTalkDateFrom,
-		searchTalkDateTo,
-		modalAttach,
-		modalAttachContentWrap,
-		talkAttachmentWrap,
-		rdoAttachType,
-		selTalkDateType,
-		selTalkPageLength,
-		talkTable,
-		chkNoticeTalk,
-		infoTalkNickname,
-		infoTalkCommentCount,
-		infoTalkLikeCount,
-		infoTalkContent,
-		infoTalkCreated,
-		infoTalkIsBlind,
-		infoTalkAttachWrap,
-		talkCommentWrap,
-		commentTalk,
-		updateTalk,
-		rdoUpdateAttachType,
-		chkUpdateNoticeTalk,
-		updateTalkAttachWrap,
-		btnBlinkTalk,
-		btnDisplayTalk, btnDeleteTalk,
+		modalCreateTalk, modalBackdrop, talkDetailForm, talkListForm, talkUpdateForm, talk, searchTalkDateFrom,
+		searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
+		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
+		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
+		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlinkTalk, btnDisplayTalk, btnDeleteTalk,
 	} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
 	} from "../modules/common.js";
 	import {api, fileApiV2} from "../modules/api-url.js";
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
+	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 
 	export function showTalkListForm()
 	{
@@ -127,7 +101,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -218,25 +192,20 @@
 
 	function getDetailTalk()
 	{
-		const url = api.detailTalk;
-		const errMsg = label.detailContent + message.ajaxLoadError;
-		const param = {
-			"idx" : g_talk_idx,
-		};
+		const param = { "idx" : g_talk_idx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailTalkReqCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailTalkReqCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	function getDetailTalkReqCallback(data)
 	{
-		if(isSuccessResp(data))
-		{
-			g_talk_uuid = data.data.board_uuid;
-			buildTalkDetail(data);
-			getTalkComments();
-		}
-		else
-			sweetToast(data.msg);
+		g_talk_uuid = data.data.board_uuid;
+		buildTalkDetail(data);
+		getTalkComments();
 	}
 
 	let g_talk_attach_type;
@@ -260,8 +229,7 @@
 		/** 수정폼 **/
 		updateTalk.val(board_body);
 		rdoUpdateAttachType.each(function () {
-			if ($(this).val() === contents_type)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === contents_type);
 		})
 		buildUpdateAttachWrap(data);
 		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
@@ -307,8 +275,6 @@
 
 	function blindTalkRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
 			"is_blind" : g_is_blind_talk,
 			"board" : [g_board_uuid],
@@ -316,12 +282,11 @@
 			"action_comment" : []
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindTalkReqCallback, errMsg, false);
-	}
-
-	function blindTalkReqCallback(data)
-	{
-		sweetToastAndCallback(data, getDetailTalk);
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getDetailTalk);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	function buildTalkAttachWrap(data)
@@ -364,20 +329,17 @@
 
 	function getTalkComments(_pageLength)
 	{
-		const url = api.talkCommentList;
-		const errMsg = `댓글 목록${message.ajaxLoadError}`;
 		const param = {
 			"board_uuid" : g_talk_uuid,
 			"size" : isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
 			"last_idx" : g_talk_comment_last_idx
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getTalkCommentsCallback, errMsg, false);
-	}
-
-	function getTalkCommentsCallback(data)
-	{
-		isSuccessResp(data) ? buildTalkComments(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.talkCommentList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`댓글 목록${message.ajaxLoadError}`));
 	}
 
 	function buildTalkComments(data)
@@ -570,8 +532,6 @@
 
 	function createReplyTalkCommentReq()
 	{
-		const url = api.createTalkComment;
-		const errMsg = `답글 등록 ${message.ajaxError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"board_uuid" : g_talk_uuid,
@@ -580,12 +540,11 @@
 			"parent_comment_uuid" : g_talk_reply_parent_uuid,
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReplyTalkCommentCallback, errMsg, false);
-	}
-
-	function createReplyTalkCommentCallback(data)
-	{
-		sweetToastAndCallback(data, createReplyTalkCommentSuccess);
+		ajaxRequestWithJson(true, api.createTalkComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createReplyTalkCommentSuccess);
+			})
+			.catch(reject => sweetToast(`답글 등록${message.ajaxError}`));
 	}
 
 	function createReplyTalkCommentSuccess()
@@ -605,18 +564,13 @@
 
 	function actionCommentDeleteRequest()
 	{
-		const url = api.deleteTalkComment;
-		const errMsg = `댓글 삭제 ${message.ajaxError}`;
-		const param = {
-			"comment_uuid" : g_delete_talk_comment_uuid,
-		}
+		const param = { "comment_uuid" : g_delete_talk_comment_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteActionCommentReqCallback, errMsg, false);
-	}
-
-	function deleteActionCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteActionCommentSuccess);
+		ajaxRequestWithJson(true, api.deleteTalkComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, deleteActionCommentSuccess);
+			})
+			.catch(reject => sweetToast(`댓글 삭제${message.ajaxError}`));
 	}
 
 	function deleteActionCommentSuccess()
@@ -642,8 +596,6 @@
 
 	function blindCommentRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
 		const param = {
 			"is_blind" : g_is_blind_comment,
 			"board" : [],
@@ -651,12 +603,11 @@
 			"action_comment" : []
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), blindCommentReqCallback, errMsg, false);
-	}
-
-	function blindCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, blindCommentSuccess)
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, blindCommentSuccess);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	function blindCommentSuccess()
@@ -696,20 +647,17 @@
 
 	function createTalkCommentRequest()
 	{
-		const url = api.createTalkComment;
-		const errMsg = `댓글 등록 ${message.ajaxError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"board_uuid" : g_talk_uuid,
 			"comment" : commentTalk.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createTalkCommentReqCallback, errMsg, false);
-	}
-
-	function createTalkCommentReqCallback(data)
-	{
-		sweetToastAndCallback(data, createTalkCommentSuccess);
+		ajaxRequestWithJson(true, api.createTalkComment, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createTalkCommentSuccess);
+			})
+			.catch(reject => sweetToast(`댓글 등록${message.ajaxError}`));
 	}
 
 	function createTalkCommentSuccess()
@@ -774,22 +722,22 @@
 
 	function createTalkAttachRequest()
 	{
-		const url = fileApiV2.mission;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#talkAttachment")[0].files[0]);
 		if (getAttachType() === label.video)
 			param.append('thumbnail', $("#talkAttachThumbnail")[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createTalkRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.mission, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createTalkRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createTalkRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.createTalk;
-			const errMsg = label.submit+message.ajaxError;
 			const param = {
 				"doit_uuid" : g_doit_uuid,
 				"board_body" : talk.val().trim(),
@@ -809,15 +757,12 @@
 				param["attach"] =  talkAttachObj;
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createTalkCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.createTalk, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, createTalkSuccess);
+				})
+				.catch(reject => sweetToast(label.submit + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function createTalkCallback(data)
-	{
-		sweetToastAndCallback(data, createTalkSuccess);
 	}
 
 	function createTalkSuccess()
@@ -833,18 +778,13 @@
 
 	function deleteTalkRequest()
 	{
-		const url = api.deleteTAlk;
-		const errMsg = label.delete+message.ajaxError;
-		const param = {
-			"board_uuid" : g_talk_uuid,
-		}
+		const param = { "board_uuid" : g_talk_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteTalkCallback, errMsg, false);
-	}
-
-	function deleteTalkCallback(data)
-	{
-		sweetToastAndCallback(data, deleteTalkSuccess);
+		ajaxRequestWithJson(true, api.deleteTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, deleteTalkSuccess);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function deleteTalkSuccess()
@@ -891,22 +831,22 @@
 
 	function updateTalkAttachRequest()
 	{
-		const url = fileApiV2.mission;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#updateTalkAttachment")[0].files[0]);
 		if (getUpdateAttachType() === label.video)
 			param.append('thumbnail', $("#updateTalkAttachThumbnail")[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateTalkRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.mission, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateTalkRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateTalkRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateTalk;
-			const errMsg = label.modify+message.ajaxError;
 			const param = {
 				"doit_uuid" : g_doit_uuid,
 				"board_uuid" : g_talk_uuid,
@@ -927,15 +867,12 @@
 				param["attach"] =  talkAttachObj;
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateTalkCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateTalk, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateTalkSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateTalkCallback(data)
-	{
-		sweetToastAndCallback(data, updateTalkSuccess);
 	}
 
 	function updateTalkSuccess()
@@ -956,7 +893,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="talkAttachment">업로드</label>
-						<input type="file" id="talkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="talkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>`;
 				talkAttachmentWrap.html(attachEl);
 				$("#talkAttachment").on('change', function () { onChangeValidateImage(this); });
@@ -967,7 +904,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="talkAttachThumbnail">업로드</label>
-						<input type="file" id="talkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="talkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -1005,7 +942,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachment">업로드</label>
-						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<div class="detail-img-wrap">
 						<img src="${contents_url}" alt="">
@@ -1019,7 +956,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
-						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<div class="detail-img-wrap">
 						<img src="${thumbnail_url}" alt="">
@@ -1059,7 +996,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachment">업로드</label>
-						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateTalkAttachment" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>`;
 				updateTalkAttachWrap.html(attachmentEl);
 				$("#updateTalkAttachment").on('change', function () { onChangeValidateImage(this); });
@@ -1070,7 +1007,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateTalkAttachThumbnail">업로드</label>
-						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateTalkAttachThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -1107,4 +1044,3 @@
 	{
 		return $("input[name=radio-update-attach-type]:checked").val();
 	}
-

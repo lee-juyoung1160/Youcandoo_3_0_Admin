@@ -3,7 +3,7 @@
     import { message } from "./message.js";
     import { label } from "./label.js";
     import {isOverFileSize, appendZero, isImage, isAudio, isVideo, isEmpty} from "./utils.js";
-    import { sweetToast, } from "./alert.js";
+    import { sweetToast, sweetError} from "./alert.js";
     import {page} from "./page-url.js";
 
     export function moveToMemberDetail(_uuid)

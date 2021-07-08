@@ -8,14 +8,14 @@
 		notiTableWrap, notiContent,} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
-	import {g_doit_uuid, doitIdx, isSponsorDoit} from "./doit-detail-info.js";
+	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, checkBoxElement, onClickCheckAll, checkBoxCheckAllElement, toggleBtnPreviousAndNextOnTable,
 		toggleCheckAll, tableReloadAndStayCurrentPage} from "../modules/tables.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 
 	export function showJoinMemberForm()
 	{
@@ -61,18 +61,13 @@
 
 	function countMember()
 	{
-		const url = api.countMember;
-		const errMsg = `가입/대기자 수 ${message.ajaxLoadError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid
-		}
+		const param = { "doit_uuid" : g_doit_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), countMemberCallback, errMsg, false);
-	}
-
-	function countMemberCallback(data)
-	{
-		isSuccessResp(data) ? buildCountMember(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.countMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildCountMember(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`가입/대기자 수${message.ajaxLoadError}`));
 	}
 
 	function buildCountMember(data)
@@ -84,18 +79,13 @@
 
 	function getMissionListForMember()
 	{
-		const url = api.missionList;
-		const errMsg = `미션 목록 ${message.ajaxLoadError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid
-		}
+		const param = { "doit_uuid" : g_doit_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMissionListForMemberCallback, errMsg, false);
-	}
-
-	function getMissionListForMemberCallback(data)
-	{
-		isSuccessResp(data) ? buildSelMission(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.missionList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildSelMission(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`미션 목록${message.ajaxLoadError}`));
 	}
 
 	function buildSelMission(data)
@@ -127,7 +117,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -204,35 +194,30 @@
 		toggleBtnBan(obj);
 
 		g_info_profile_uuid = $(obj).data('uuid');
-		const url = api.infoJoinMember;
-		const errMsg = `회원 정보 ${message.ajaxLoadError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"profile_uuid" : g_info_profile_uuid
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getMemberInfoCallback, errMsg, false);
+		ajaxRequestWithJson(false, api.infoJoinMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getMemberInfoCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	function getMemberInfoCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			modalMemberInfo.fadeIn();
-			modalBackdrop.fadeIn();
-			overflowHidden();
-			buildModalMemberInfo(data);
-		}
-		else
-		{
-			g_info_profile_uuid = '';
-			sweetToast(data.msg);
-		}
+		modalMemberInfo.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		buildModalMemberInfo(data);
 	}
 
 	function buildModalMemberInfo(data)
 	{
 		const { nickname, joined, question, answer } = data.data;
+
 		modalMemberInfoNickname.text(nickname);
 		modalMemberInfoJoinDate.text(joined);
 		modalMemberInfoQuestion.text(isEmpty(question) ? label.dash : question);
@@ -251,19 +236,16 @@
 
 	function banMemberRequest()
 	{
-		const url = api.banMember;
-		const errMsg = `회원 강퇴 ${message.ajaxLoadError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"profile_uuid" : g_info_profile_uuid
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), banMemberCallback, errMsg, false);
-	}
-
-	function banMemberCallback(data)
-	{
-		sweetToastAndCallback(data, banSuccess);
+		ajaxRequestWithJson(true, api.banMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, banSuccess);
+			})
+			.catch(reject => sweetToast(`강퇴${message.ajaxError}`));
 	}
 
 	function banSuccess()
@@ -275,16 +257,13 @@
 
 	function getQuestion()
 	{
-		const url = api.detailDoit;
-		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = { "idx" : doitIdx };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getQuestionCallback, errMsg, false);
-	}
-
-	function getQuestionCallback(data)
-	{
-		isSuccessResp(data) ? buildQuestion(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailDoit, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildQuestion(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`질문을${message.ajaxLoadError}`));
 	}
 
 	function buildQuestion(data)
@@ -310,7 +289,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -430,19 +409,16 @@
 
 	function approvalMemberRequest()
 	{
-		const url = api.approvalMember;
-		const errMsg = `승인 ${message.ajaxLoadError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"profile_uuid" : getSelectedApprovalMemberUuid(),
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), approvalMemberReqCallback, errMsg, false);
-	}
-
-	function approvalMemberReqCallback(data)
-	{
-		sweetToastAndCallback(data, approvalMemberSuccess);
+		ajaxRequestWithJson(true, api.approvalMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, approvalMemberSuccess);
+			})
+			.catch(reject => sweetToast(`승인 ${message.ajaxError}`));
 	}
 
 	function approvalMemberSuccess()
@@ -459,19 +435,16 @@
 
 	function rejectMemberRequest()
 	{
-		const url = api.rejectMember;
-		const errMsg = `거절 ${message.ajaxLoadError}`;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"profile_uuid" : getSelectedApprovalMemberUuid(),
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), rejectMemberReqCallback, errMsg, false);
-	}
-
-	function rejectMemberReqCallback(data)
-	{
-		sweetToastAndCallback(data, approvalMemberSuccess);
+		ajaxRequestWithJson(true, api.rejectMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, approvalMemberSuccess);
+			})
+			.catch(reject => sweetToast(`거절 ${message.ajaxError}`));
 	}
 
 	function getSelectedApprovalMemberUuid()
@@ -505,14 +478,14 @@
 		}
 	}
 
-	export function onClickModalSendNoticeOpen()
-	{
-		modalSendNotice.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		notiContent.trigger('focus');
-		notiContent.val('');
-	}
+	// export function onClickModalSendNoticeOpen()
+	// {
+	// 	modalSendNotice.fadeIn();
+	// 	modalBackdrop.fadeIn();
+	// 	overflowHidden();
+	// 	notiContent.trigger('focus');
+	// 	notiContent.val('');
+	// }
 
 	export function onChangeSelRewardType()
 	{
@@ -544,29 +517,26 @@
 
 	function getRewardMemberList()
 	{
-		const url = api.rewardMemberList;
-		const errMsg = label.list + message.ajaxLoadError;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"search_type" : "nickname",
 			"keyword" : ''
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getRewardMemberListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.rewardMemberList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	let rewardMembers = [];
 	function getRewardMemberListCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.data.count;
-			data.recordsFiltered = data.data.count;
-			rewardMembers = data.data.list;
-			buildRewardMember();
-		}
-		else
-			sweetToast(data.msg);
+		data.recordsTotal = data.data.count;
+		data.recordsFiltered = data.data.count;
+		rewardMembers = data.data.list;
+		buildRewardMember();
 	}
 
 	export function searchRewardMember()
@@ -655,8 +625,6 @@
 
 	function saveUcdRequest()
 	{
-		const url = api.createReward;
-		const errMsg = label.submit+message.ajaxLoadError;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"description" : saveUcdContent.val().trim(),
@@ -667,17 +635,11 @@
 		if (selRewardType.val() === 'user')
 			param["profile_uuid"] = getSelectedIdsFromTableRow();
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdReqCallback, errMsg, false);
-	}
-
-	function saveUcdReqCallback(data)
-	{
-		sweetToastAndCallback(data, saveUcdSuccess);
-	}
-
-	function saveUcdSuccess()
-	{
-		fadeoutModal();
+		ajaxRequestWithJson(true, api.createReward, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, fadeoutModal);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function getSelectedIdsFromTableRow()

@@ -1,37 +1,28 @@
-    import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,
-        modalAttach, modalBackdrop, selCategory, selSubcategory} from "./elements.js";
-    import {isEmpty} from "./utils.js";
-    import {limitInputLength, overflowHidden} from "./common.js";
-    import {sweetToast} from "./alert.js";
-    import {message} from "./message.js";
+
+    import {ajaxRequestWithJson, isSuccessResp, invalidResp,} from "./ajax-request.js";
     import {api} from "./api-url.js";
+    import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,selCategory, selSubcategory} from "./elements.js";
+    import {isEmpty} from "./utils.js";
+    import {limitInputLength,} from "./common.js";
+    import {sweetToast} from "./alert.js";
     import {label} from "./label.js";
-    import {ajaxRequestWithJsonData, isSuccessResp} from "./request.js";
+    import {message} from "./message.js";
 
     export function getCategoryList()
     {
-        const url = api.createDoitCategoryList;
-        const errMsg = `카테고리 목록${message.ajaxLoadError}`;
         const param = { "keyword" : "" };
 
-        ajaxRequestWithJsonData(false, url, JSON.stringify(param), getCategoryListSuccess, errMsg, false);
-    }
-
-    export function getCategoryListSuccess(data)
-    {
-        isSuccessResp(data) ? buildSelCategory(data) : sweetToast(data.msg);
+        ajaxRequestWithJson(false, api.createDoitCategoryList, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                await isSuccessResp(data) ? buildSelCategory(data) : sweetToast(invalidResp(data));
+                await getSubCategory();
+            })
+            .catch(reject => sweetToast(`카테고리 목록${message.ajaxLoadError}`));
     }
 
     export function buildSelCategory(data)
     {
-        let options = '<option value="">카테고리</option>';
-        data.data.map( obj => {
-            options += `<option value="${obj.category_uuid}">${obj.category_title}</option>`;
-        })
-
-        selCategory.html(options);
-
-        getSubCategory();
+        data.data.map( obj => selCategory.append(`<option value="${obj.category_uuid}">${obj.category_title}</option>`))
     }
 
     export function onChangeSelCategory()
@@ -41,26 +32,19 @@
 
     export function getSubCategory()
     {
-        const url = api.subCategoryList;
-        const errMsg = label.list + message.ajaxLoadError
-        let param = {
-            "category_uuid" : selCategory.val()
-        }
+        const param = {  "category_uuid" : selCategory.val() }
 
-        ajaxRequestWithJsonData( false, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
-    }
-
-    export function getSubCategorySuccess(data)
-    {
-        isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(data.msg);
+        ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                await isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetToast(label.list + message.ajaxLoadError));
     }
 
     export function buildSelSubCategory(data)
     {
         let options = '<option value="">세부 카테고리</option>';
-        data.data.map( obj => {
-            options += `<option value="${obj.subcategory_uuid}">${obj.subcategory_title}</option>`;
-        })
+        data.data.map( obj => options += `<option value="${obj.subcategory_uuid}">${obj.subcategory_title}</option>`)
 
         selSubcategory.html(options);
     }
@@ -110,6 +94,7 @@
 
     export function onClickAddKeyword()
     {
+        console.log('onClickAddKeyword')
         if (addKeywordValidation())
         {
             const inputValue = doitKeyword.val().trim();

@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, headers, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, keyword, dataTable, selCategory, btnAdd, doitTitle, doitDesc, doitKeywords, doitKeyword,
 		doitImage, doitQuestion, selSubcategory, btnSubmit, modalOpen, modalClose, modalBackdrop,
@@ -53,6 +53,16 @@
 				type:"POST",
 				headers: headers,
 				global: false,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (!isSuccessResp(json))
+					{
+						json.data = [];
+						sweetToast(invalidResp(json));
+					}
+
+					return JSON.stringify(json);
+				},
 				data: function (d) {
 					return JSON.stringify({ "nickname" : keyword.val() });
 				},
@@ -100,48 +110,42 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
-		if (isSuccessResp(data))
-		{
-			const url = api.createDoit;
-			const errMsg = label.submit + message.ajaxError;
-			let keywords = [];
-			doitKeywords.find('li .added-keyword').each(function () {
-				keywords.push($(this).text().trim());
-			})
-			const param = {
-				"profile_uuid" : sponsorUuid.val(),
-				"category_uuid" : selCategory.val(),
-				"subcategory_uuid" : selSubcategory.val(),
-				"doit_title" : doitTitle.val().trim(),
-				"doit_description" : doitDesc.val().trim(),
-				"doit_keyword" : keywords,
-				"doit_image_url" : data.image_urls.file,
-				"public_type" : $("input[name=radio-public-type]:checked").val(),
-				"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
-				"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',
-				"question": doitQuestion.val().trim(),
-				"answer_type" : chkIsAnswer.is(':checked') ? 'public' : 'private'
-			}
-
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		let keywords = [];
+		doitKeywords.find('li .added-keyword').each(function () {
+			keywords.push($(this).text().trim());
+		})
+		const param = {
+			"profile_uuid" : sponsorUuid.val(),
+			"category_uuid" : selCategory.val(),
+			"subcategory_uuid" : selSubcategory.val(),
+			"doit_title" : doitTitle.val().trim(),
+			"doit_description" : doitDesc.val().trim(),
+			"doit_keyword" : keywords,
+			"doit_image_url" : data.image_urls.file,
+			"public_type" : $("input[name=radio-public-type]:checked").val(),
+			"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
+			"is_question" : chkIsQuestion.is(':checked') ? 'Y' : 'N',
+			"question": doitQuestion.val().trim(),
+			"answer_type" : chkIsAnswer.is(':checked') ? 'public' : 'private'
 		}
-		else
-			sweetToast(data.msg);
-	}
 
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createDoit, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -210,4 +214,3 @@
 
 		return true;
 	}
-

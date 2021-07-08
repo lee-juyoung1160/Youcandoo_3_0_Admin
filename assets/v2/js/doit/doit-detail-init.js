@@ -1,89 +1,51 @@
 
 	import {
-		modalClose, modalBackdrop, tabUl, tabContents, btnBack, btnList, lengthInput, btnBackDoitList, btnDoitOpen, btnDoitStop, btnDoitDelete, chkIsApply,
-		chkIsQuestion, btnAddKeyword, selCategory, doitImage, btnUpdateDoit, btnSubmitUpdateDoit, btnCreateMission, btnDeleteMission,
-		btnUpdateMission, btnSubmitUpdateMission, btnSubmitMission, btnCreateTalk, selMemberFilter, btnPendingMembers, btnJoinMembers,
-		btnReset, actionCount, btnResetSearchAction, btnSaveUcd, amount, btnSendWarning, btnSearchTalk, btnResetSearchTalk, btnUpdateTalk,
-		searchActionDateFrom, searchActionDateTo, searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType,
-		updateMissionStartDate, updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan,
+		modalClose, modalBackdrop, tabUl, tabContents, btnBack, btnList, lengthInput, btnDoitOpen, btnDoitStop, btnDoitDelete,
+		btnCreateMission, btnDeleteMission, btnUpdateMission, btnSubmitUpdateMission, btnSubmitMission, btnCreateTalk,
+		selMemberFilter, btnPendingMembers, btnJoinMembers, btnReset, actionCount, btnResetSearchAction, btnSaveUcd,
+		amount, btnSendWarning, btnSearchTalk, btnResetSearchTalk, btnUpdateTalk, searchActionDateFrom, searchActionDateTo,
+		searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType, updateMissionStartDate,
+		updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan,
 		btnBackActionList, chkPermanent, chkUpdatePermanent, btnSearchAction, selActionPageLength, btnSendWarnings, btnSubmitSendWarning,
-		btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk, btnDeleteTalk, rdoUpdateAttachType,
+	 	btnSubmitCommentAction, rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk, btnDeleteTalk, rdoUpdateAttachType,
 		btnSubmitUpdateTalk, selUcdPageLength, searchUcdDateTo, searchUcdDateFrom, btnSaveUcdWallet, saveWalletAmount, btnSearchUcd,
 		btnResetSearchUcd, btnSubmitSaveDoitUcd, btnSubmitSaveUcd, btnBackToTalkList, btnBackToTalkDetail, btnBackToMissionList,
-		btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject,
+		btnBackToMissionDetail, btnBlinkTalk, btnDisplayTalk, selRewardType, rewardKeyword, btnApproval, btnReject, doitImage,
+		selCategory, btnAddKeyword, chkIsApply, chkIsQuestion, btnUpdateDoit, btnBackDoitList, btnSubmitUpdateDoit,
 	} from '../modules/elements.js';
-	import { historyBack, limitInputLength, onChangeValidateImage, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
-		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength} from "../modules/common.js";
-	import {initInputNumber, initInputNumberWithZero, isEmpty} from "../modules/utils.js";
+	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
+		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
+	} from "../modules/common.js";
+	import {initInputNumber, initInputNumberWithZero, isEmpty,} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
 	import { initTableDefaultConfig } from "../modules/tables.js";
-	import {onClickChkIsApply, onClickChkIsQuestion, onClickAddKeyword, getCategoryList, onChangeSelCategory, initSearchDatepickerMaxDateToday} from "../modules/doit-common.js"
-	import {getDetail, onClickBtnUpdateDoit, onSubmitUpdateDoit, showDoitListForm} from "./doit-detail-info.js";
+	import {getCategoryList, initSearchDatepickerMaxDateToday, onChangeSelCategory,
+		onClickAddKeyword, onClickChkIsApply, onClickChkIsQuestion} from "../modules/doit-common.js"
+	import {getDetail, showDoitInfoForm, onClickBtnUpdateDoit, onSubmitUpdateDoit} from "./doit-detail-info.js";
 	import {
-		showCreateMissionForm,
-		showMissionListForm,
-		onClickBtnUpdateMission,
-		onChangeActionType,
-		onSubmitMission,
-		onSubmitUpdateMission,
-		deleteMission,
-		onChangeMissionEndDate,
-		onChangeMissionStartDate,
-		onChangeUpdateMissionStartDate,
-		onChangeUpdateMissionEndDate,
-		onChangeUpdateActionType,
-		buildMissionTable,
-		onChangeCheckPermanent,
-		onChangeUpdateCheckPermanent, showMissionDetailForm
+		showCreateMissionForm, showMissionListForm, onClickBtnUpdateMission, onChangeActionType, onSubmitMission,
+		onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate,
+		onChangeUpdateMissionStartDate, onChangeUpdateMissionEndDate, onChangeUpdateActionType,
+		buildMissionTable, onChangeCheckPermanent, onChangeUpdateCheckPermanent, showMissionDetailForm
 	} from "./doit-detail-mission.js";
 	import {
-		showJoinMemberForm,
-		showPendingMemberForm,
-		initSearchMemberForm,
-		onClickModalSaveUcdOpen,
-		onChangeSelMemberFilter,
-		searchJoinMember,
-		banMember,
-		searchApplyMember,
-		onSubmitSaveUcd,
-		onChangeSelRewardType,
-		searchRewardMember,
-		onClickBtnApproval, onClickBtnReject,
+		showJoinMemberForm, showPendingMemberForm, initSearchMemberForm, onClickModalSaveUcdOpen,
+		onChangeSelMemberFilter, searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd,
+		onChangeSelRewardType, searchRewardMember, onClickBtnApproval, onClickBtnReject,
 	} from "./doit-detail-member.js";
 	import {
-		showUcdListForm,
-		initSearchUcdForm,
-		onClinkBtnSaveUcdWallet,
-		onSubmitSearchUcd,
-		onSubmitSaveDoitUcd,
-		buildUcdTable
+		showUcdListForm, initSearchUcdForm, onClinkBtnSaveUcdWallet, onSubmitSearchUcd, onSubmitSaveDoitUcd, buildUcdTable
 	} from "./doit-detail-ucd.js";
 	import {
-		initSearchActionForm,
-		showActionListForm,
-		getMissionListForAction,
-		onClickModalWarnOpen,
-		onSubmitSearchActions,
-		onSubmitSendWarning,
-		onSubmitActionComment,
-		onChangeSearchActionDateFrom,
+		initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
+		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment, onChangeSearchActionDateFrom,
 		onChangeSearchActionDateTo
 	} from "./doit-detail-action.js";
 	import {
-		buildTalkTable,
-		onClickBtnCreateTalk,
-		initSearchTalkForm,
-		showTalkListForm,
-		onClickBtnUpdateTalk,
-		onChangeAttachType,
-		onSubmitSearchTalk,
-		onSubmitTalk,
-		onSubmitTalkComment,
-		onSubmitDeleteTalk,
-		onChangeUpdateAttachType,
-		onSubmitUpdateTalk,
-		showTalkDetailForm,
-		onSubmitBlindTalk, onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
+		buildTalkTable, onClickBtnCreateTalk, initSearchTalkForm, showTalkListForm, onClickBtnUpdateTalk,
+		onChangeAttachType, onSubmitSearchTalk, onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk,
+		onChangeUpdateAttachType, onSubmitUpdateTalk, showTalkDetailForm, onSubmitBlindTalk,
+		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -96,10 +58,7 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		initSearchDatepickerMaxDateToday();
-		getCategoryList();
-		/** 상세 불러오기 **/
-		getDetail();
-		/** 이벤트 **/
+		/** 공통 **/
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
@@ -107,19 +66,21 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
-
+		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this); });
+		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
+		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this); });
+		/** 정보탭 **/
+		getCategoryList();
+		getDetail();
 		doitImage		.on('change', function () { onChangeValidateImage(this); });
 		selCategory		.on('change', function () { onChangeSelCategory(); });
 		btnAddKeyword	.on('click', function () { onClickAddKeyword(); });
 		chkIsApply		.on('change', function () { onClickChkIsApply(this); });
 		chkIsQuestion	.on('change', function () { onClickChkIsQuestion(this); });
 		btnUpdateDoit	.on('click', function () { onClickBtnUpdateDoit() });
-		btnBackDoitList	.on('click', function () { showDoitListForm() });
+		btnBackDoitList	.on('click', function () { showDoitInfoForm() });
 		btnSubmitUpdateDoit	.on('click', function () { onSubmitUpdateDoit(); });
-		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this); });
-		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
-		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this); });
-
+		/** 미션탭 **/
 		missionStartDate.on('change', function () { onChangeMissionStartDate(); });
 		missionEndDate	.on('change', function () { onChangeMissionEndDate(); });
 		chkPermanent.on('change', function () { onChangeCheckPermanent(this); });
@@ -135,7 +96,7 @@
 		btnSubmitMission.on('click', function () { onSubmitMission() });
 		btnSubmitUpdateMission.on('click', function () { onSubmitUpdateMission(); });
 		btnDeleteMission.on('click', function () { deleteMission() });
-
+		/** 참여자탭 **/
 		initPageLength(selJoinMemberPageLength);
 		initPageLength(selApplyMemberPageLength);
 		btnSearch.on('click', function () { searchJoinMember(); });
@@ -157,7 +118,7 @@
 		/*selNotiType.on('change', function () { onChangeSelNotiType(); });*/
 		btnApproval.on('click', function () { onClickBtnApproval(); });
 		btnReject.on('click', function () { onClickBtnReject(); });
-
+		/** UCD탭 **/
 		initPageLength(selUcdPageLength);
 		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		searchUcdDateTo.on('change', function () { onChangeSearchDateTo(); });
@@ -167,7 +128,7 @@
 		btnSaveUcdWallet.on('click', function () { onClinkBtnSaveUcdWallet(); });
 		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnSubmitSaveDoitUcd.on('click', function () { onSubmitSaveDoitUcd(); });
-
+		/** 인증탭 **/
 		initPageLength(selActionPageLength);
 		btnSearchAction.on('click', function () { onSubmitSearchActions(); });
 		btnResetSearchAction.on('click', function () { initSearchActionForm(); });
@@ -179,7 +140,7 @@
 		btnSendWarnings.on('click', function () { onClickModalWarnOpen(this); });
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
-
+		/** 두잇톡탭 **/
 		initPageLength(selTalkPageLength);
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		rdoUpdateAttachType.on('change', function () { onChangeUpdateAttachType(); });
@@ -206,7 +167,7 @@
 
 		switch (target) {
 			case '#tabDoitInfo' :
-				showDoitListForm();
+				showDoitInfoForm();
 				getDetail();
 				break;
 			case '#tabDoitMission' :
@@ -303,5 +264,3 @@
 	{
 		location.href = page.listDoit;
 	}
-
-

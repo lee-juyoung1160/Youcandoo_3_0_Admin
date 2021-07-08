@@ -1,85 +1,46 @@
 
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-		doitTitle,
-		sponsor,
-		category,
-		doitDesc,
-		doitKeywords,
-		doitThumbnail,
-		publicType,
-		isApply,
-		doitQuestion,
-		isAnswer,
-		btnDoitOpen,
-		btnDoitStop,
-		btnDoitDelete,
-		doitUpdateForm,
-		doitInfoForm,
-		doitSponsor,
-		chkIsApply,
-		chkIsQuestion,
-		chkIsAnswer,
-		rdoPublicType,
-		infoDoitTitle,
-		infoDoitDesc,
-		infoDoitKeywords,
-		infoQuestion,
-		selCategory,
-		doitImage,
-		selSubcategory,
-		doitKeyword,
-		btnUpdateDoit,
-		btnCreateMission,
-		btnDeleteMission,
-		btnUpdateMission,
-		btnBan,
-		createCommentWrap,
-		actionCommentWrap,
-		btnUpdateTalk,
-		btnDeleteTalk,
-		btnCreateTalk,
-		talkCommentWrap,
-		createTalkCommentWrap,
-		btnSaveUcd,
-		btnReject,
-		btnApproval, applyMemberCountWrap
+		doitTitle, sponsor, category, doitDesc, doitKeywords, doitThumbnail, publicType, isApply, doitQuestion,
+		isAnswer, btnDoitOpen, btnDoitStop, btnDoitDelete, doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply,
+		chkIsQuestion, chkIsAnswer, rdoPublicType, infoDoitTitle, infoDoitDesc, infoDoitKeywords, infoQuestion,
+		selCategory, doitImage, selSubcategory, doitKeyword, btnUpdateDoit, btnCreateMission, btnDeleteMission,
+		btnUpdateMission, btnBan, createCommentWrap, actionCommentWrap, btnUpdateTalk, btnDeleteTalk,
+		btnCreateTalk, talkCommentWrap, createTalkCommentWrap, btnSaveUcd, btnReject, btnApproval,
+		applyMemberCountWrap,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import { onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent } from "../modules/doit-common.js"
+	import {onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent,} from "../modules/doit-common.js"
 
 	const pathName	= getPathName();
 	export const doitIdx = splitReverse(pathName, '/');
 
-	export function showDoitListForm()
+	export function showDoitInfoForm()
 	{
-		doitUpdateForm.hide();
 		doitInfoForm.show();
+		doitUpdateForm.hide();
 	}
 
 	export function getDetail()
 	{
-		const url = api.detailDoit;
-		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = { "idx" : doitIdx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailDoit, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	function getDetailCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			buildDetail(data);
-			buildUpdate(data);
-		}
-		else
-			sweetToast(data.msg);
+		buildDetail(data);
+		buildUpdate(data);
 	}
 
 	export let isSponsorDoit;
@@ -94,11 +55,8 @@
 		g_doit_uuid = doit_uuid;
 		g_leader_profile_uuid = profile_uuid;
 
-		toggleButtons(doit_status);
-
 		infoDoitTitle.html(buildDoitStatus(doit_status) + doit_title);
-		doitSponsor.html(
-			isSponsorDoit
+		doitSponsor.html(isSponsorDoit
 				? label.bizIcon + nickname
 				: `<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
@@ -117,6 +75,8 @@
 		isAnswer.text(answer_type === 'public' ? label.public : label.private);
 		doitThumbnail.attr('src', doit_image_url);
 		onErrorImage();
+
+		toggleButtons(doit_status);
 	}
 
 	export let g_category_uuid;
@@ -145,8 +105,7 @@
 		}
 		addRemoveKeywordEvent();
 		rdoPublicType.each(function () {
-			if ($(this).val() === public_type)
-				$(this).prop("checked", true);
+			$(this).prop("checked", $(this).val() === public_type);
 		});
 		chkIsApply.prop('checked', approve_member === 'Y');
 		onClickChkIsApply(chkIsApply);
@@ -160,18 +119,13 @@
 
 	function setSubCategory()
 	{
-		const url = api.subCategoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		const param = {
-			"category_uuid" : selCategory.val()
-		}
+		const param = { "category_uuid" : selCategory.val() }
 
-		ajaxRequestWithJsonData( false, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
-	}
-
-	export function getSubCategorySuccess(data)
-	{
-		isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	export function buildSelSubCategory(data)
@@ -286,20 +240,20 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', doitImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateDoit;
-			const errMsg = label.modify + message.ajaxError;
 			let keywords = [];
 			doitKeywords.find('li .added-keyword').each(function () {
 				keywords.push($(this).text().trim());
@@ -321,22 +275,18 @@
 			if (!isEmpty(data))
 				param["doit_image_url"] = data.image_urls.file;
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateDoit, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
 	{
 		getDetail();
-		doitUpdateForm.hide();
-		doitInfoForm.show();
+		showDoitInfoForm();
 	}
 
 	function updateValidation()

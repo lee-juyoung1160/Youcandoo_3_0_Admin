@@ -1,48 +1,21 @@
 
 	import {
-		missionCreateForm,
-		missionDetailForm,
-		missionListForm,
-		missionUpdateForm,
-		missionTitle,
-		missionStartDate,
-		missionEndDate,
-		rdoActionType,
-		promise,
-		actionExampleWrap,
-		missionTable,
-		infoMissionDate,
-		infoMissionTime,
-		infoActionType,
-		infoActionExampleWrap,
-		infoActionExampleDesc,
-		infoPromise,
-		updateMissionStartDate,
-		updateMissionEndDate,
-		updateMissionStartTime,
-		updateMissionEndTime,
-		rdoUpdateActionType,
-		updatePromise,
-		missionStartTime,
-		missionEndTime,
-		chkGalleryAllowed,
-		infoMissionTitle,
-		chkUpdateGalleryAllowed,
-		updateMissionTitle,
-		updateActionExampleDesc,
-		updateExampleWrap,
-		chkPermanent,
-		chkUpdatePermanent, actionExampleDesc, btnDeleteMission
+		missionCreateForm, missionDetailForm, missionListForm, missionUpdateForm, missionTitle, missionStartDate,
+		missionEndDate, rdoActionType, promise, actionExampleWrap, missionTable, infoMissionDate, infoMissionTime,
+		infoActionType, infoActionExampleWrap, infoActionExampleDesc, infoPromise, updateMissionStartDate,
+		updateMissionEndDate, updateMissionStartTime, updateMissionEndTime, rdoUpdateActionType, updatePromise,
+		missionStartTime, missionEndTime, chkGalleryAllowed, infoMissionTitle, chkUpdateGalleryAllowed, chkPermanent,
+		updateMissionTitle, updateActionExampleDesc, updateExampleWrap, chkUpdatePermanent, actionExampleDesc, btnDeleteMission
 	} from "../modules/elements.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
-	import {fileApiV2, api} from "../modules/api-url.js";
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio, onErrorImage} from "../modules/common.js";
 	import {isEmpty, replaceAll} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
+	import {fileApiV2, api} from "../modules/api-url.js";
 
 	export function showCreateMissionForm()
 	{
@@ -110,15 +83,13 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const param = {
-						"doit_uuid": g_doit_uuid,
-					}
+					const param = { "doit_uuid": g_doit_uuid }
 
 					return JSON.stringify(param);
 				},
@@ -222,70 +193,61 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.mission;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#actionExample")[0].files[0]);
 		if (getActionType() === label.video)
 			param.append('thumbnail', $("#actionExampleThumbnail")[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.mission, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
-		if (isSuccessResp(data))
-		{
-			const url = api.createMission;
-			const errMsg = label.submit+message.ajaxError;
-			const missionExampleObj = {
-				"contents_type" : getActionType(),
-				"path" : data.image_urls.example
-			}
-			if (getActionType() === label.video)
-				missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
-
-			const param = {
-				"doit_uuid" : g_doit_uuid,
-				"mission_title" : missionTitle.val().trim(),
-				"start_date" : missionStartDate.val(),
-				"end_date" : chkPermanent.is(':checked') ? '9999-12-31' : missionEndDate.val(),
-				"start_time" : missionStartTime.val().trim(),
-				"end_time" : missionEndTime.val().trim(),
-				"mission_description" : actionExampleDesc.val().trim(),
-				"mission_type" : getActionType(),
-				"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
-				"mission_example" :  missionExampleObj,
-				"promise_description" : promise.val().trim(),
-			}
-
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		const missionExampleObj = {
+			"contents_type" : getActionType(),
+			"path" : data.image_urls.example
 		}
-		else
-			sweetToast(data.msg);
-	}
+		if (getActionType() === label.video)
+			missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
 
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, reqSuccess);
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"mission_title" : missionTitle.val().trim(),
+			"start_date" : missionStartDate.val(),
+			"end_date" : chkPermanent.is(':checked') ? '9999-12-31' : missionEndDate.val(),
+			"start_time" : missionStartTime.val().trim(),
+			"end_time" : missionEndTime.val().trim(),
+			"mission_description" : actionExampleDesc.val().trim(),
+			"mission_type" : getActionType(),
+			"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
+			"mission_example" :  missionExampleObj,
+			"promise_description" : promise.val().trim(),
+		}
+
+		ajaxRequestWithJson(true, api.createMission, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reqSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function getMissionDetail()
 	{
-		const url = api.detailMission;
-		const errMsg = label.detailContent + message.ajaxLoadError;
 		const param = { "idx" : g_mission_idx };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getMissionDetailReqCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.detailMission, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildMissionDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_mission_uuid;
 	let g_action_type;
-	function getMissionDetailReqCallback(data)
-	{
-		isSuccessResp(data) ? buildMissionDetail(data) : sweetToast(data.msg);
-	}
-
 	function buildMissionDetail(data)
 	{
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
@@ -314,8 +276,7 @@
 		updateMissionStartTime.val(start_time);
 		updateMissionEndTime.val(end_time);
 		rdoUpdateActionType.each(function () {
-			if ($(this).val() === mission_type)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === mission_type);
 		});
 		chkUpdateGalleryAllowed.prop('checked', allow_gallery_image === 'Y');
 		buildUpdateExampleFile(data.data);
@@ -369,16 +330,13 @@
 
 	function deleteMissionRequest()
 	{
-		const url = api.deleteMission;
-		const errMsg = message.delete+message.ajaxError;
 		const param = { "mission_uuid" : g_mission_uuid };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), deleteMissionReqCallback, errMsg, false);
-	}
-
-	function deleteMissionReqCallback(data)
-	{
-		sweetToastAndCallback(data, reqSuccess);
+		ajaxRequestWithJson(true, api.deleteMission, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reqSuccess);
+			})
+			.catch(reject => sweetToast(label.delete + message.ajaxError));
 	}
 
 	function reqSuccess()
@@ -447,22 +405,22 @@
 
 	function updateFileUploadReq()
 	{
-		const url = fileApiV2.mission;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('example', $("#updateExample")[0].files[0]);
 		if (getUpdateActionType() === label.video)
 			param.append('thumbnail', $("#updateThumbnail")[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.mission, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateMission;
-			const errMsg = label.submit+message.ajaxError;
 			const param = {
 				"mission_uuid" : g_mission_uuid,
 				"mission_title" : updateMissionTitle.val().trim(),
@@ -488,15 +446,12 @@
 				param["mission_example"] =  missionExampleObj;
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateMission, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
 	}
 
 	function updateSuccess()
@@ -545,7 +500,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExample">업로드</label>
-						<input type="file" id="actionExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="actionExample" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>`;
 				actionExampleWrap.html(exampleFileEl);
 				chkGalleryAllowed.prop('checked', false);
@@ -558,7 +513,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="actionExampleThumbnail">업로드</label>
-						<input type="file" id="actionExampleThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="actionExampleThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">
@@ -598,7 +553,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateExample">업로드</label>
-						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<div class="detail-img-wrap">
 						<img src="${contents_url}" alt="">
@@ -613,7 +568,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
-						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<div class="detail-img-wrap">
 						<img src="${thumbnail_url}" alt="">
@@ -655,7 +610,7 @@
 					`<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateExample">업로드</label>
-						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateExample" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>`;
 				updateExampleWrap.html(updateExampleFileEl);
 				chkUpdateGalleryAllowed.prop('checked', false);
@@ -668,7 +623,7 @@
 					<div class="file-wrap preview-image">
 						<input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="updateThumbnail">업로드</label>
-						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+						<input type="file" id="updateThumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="">
 					</div>
 					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
 					<div class="file-wrap preview-image">

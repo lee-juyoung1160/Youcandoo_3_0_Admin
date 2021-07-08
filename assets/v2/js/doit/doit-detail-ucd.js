@@ -4,12 +4,12 @@
 	import { api } from '../modules/api-url.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from "../modules/request.js";
 	import {fadeoutModal, initDayBtn, initSelectOption} from "../modules/common.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 
 	export function showUcdListForm()
 	{
@@ -29,18 +29,13 @@
 
 	function getDoitBalance()
 	{
-		const url = api.getDoitUcd;
-		const errMsg = `두잇 UCD ${message.ajaxLoadError}`;
-		const param = {
-			"doit_uuid" : g_doit_uuid
-		}
+		const param = { "doit_uuid" : g_doit_uuid }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDoitBalanceCallback, errMsg, false);
-	}
-
-	function getDoitBalanceCallback(data)
-	{
-		isSuccessResp(data) ? buildBalance(data) : sweetToast(`두잇 UCD ${data.msg}`);
+		ajaxRequestWithJson(false, api.getDoitUcd, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`두잇 UCD ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)
@@ -73,7 +68,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -149,20 +144,17 @@
 
 	function saveUcdWalletRequest()
 	{
-		const url = api.saveDoitUcdBySystem;
-		const errMsg = label.submit+message.ajaxError;
 		const param = {
 			"doit_uuid" : [g_doit_uuid],
 			"value" : saveWalletAmount.val().trim(),
 			"description" : saveWalletDesc.val().trim()
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), saveUcdWalletReqCallback, errMsg, false);
-	}
-
-	function saveUcdWalletReqCallback(data)
-	{
-		sweetToastAndCallback(data, saveUcdWalletSuccess);
+		ajaxRequestWithJson(true, api.saveDoitUcdBySystem, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, saveUcdWalletSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function saveUcdWalletSuccess()

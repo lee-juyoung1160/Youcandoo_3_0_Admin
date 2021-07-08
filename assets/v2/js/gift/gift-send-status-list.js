@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp} from '../modules/request.js';
+	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType, totalUcd,} from '../modules/elements.js';
 	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonth,
@@ -67,7 +67,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

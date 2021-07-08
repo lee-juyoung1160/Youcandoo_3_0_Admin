@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp, headers} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, giftName, contentImage, price, rdoManual, selectGiftName, goodsCode,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, btnSearch, ktImageUrl,} from '../modules/elements.js';
@@ -73,7 +73,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -149,20 +149,20 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.createGift;
-			const errMsg = label.submit+message.ajaxError;
 			const isManual = $("input[name=radio-manual]:checked").val() === 'Y';
 			const param = {
 				"gift_name" : isManual ? giftName.val().trim() : selectGiftName.val().trim(),
@@ -179,15 +179,14 @@
 				param["kt_gift_image_url"] = ktImageUrl.val().trim();
 			}
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.createGift, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, createSuccess);
+				})
+				.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 		}
 		else
 			sweetToast(data.msg);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
 	}
 
 	function createSuccess()
@@ -229,4 +228,3 @@
 
 		return true;
 	}
-

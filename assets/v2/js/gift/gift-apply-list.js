@@ -1,5 +1,5 @@
 
-	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,
 		rdoType, reserveDate, modalClose, modalBackdrop, btnSubmitGift, btnSubmitGeneral, btnCancel, modalGeneral, generalMemo,
@@ -8,13 +8,14 @@
 	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeWeek, initMaxDateToday, initPageLength,
 		initSelectOption, moveToMemberDetail, fadeoutModal, overflowHidden, onChangeSearchDateFrom, onChangeSearchDateTo,
 	} from "../modules/common.js";
-	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes } from "../modules/utils.js";
+	import { isEmpty, numberWithCommas, replaceAll, appendZero, getStringFormatToDate, getCurrentHours, getCurrentMinutes, } from "../modules/utils.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,
 		checkBoxElement, checkBoxCheckAllElement, onClickCheckAll, toggleCheckAll, uncheckedCheckAll
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	let g_approval_type;
+
+	let btnId;
 
 	$( () => {
 		/** dataTable default config **/
@@ -34,9 +35,9 @@
 		btnSearch.on("click", function () { onSubmitSearch(); });
 		btnReset.on("click", function () { initSearchForm(); });
 		dateButtons.on("click", function () { onClickDateRangeBtn(this); });
-		btnSendGeneral.on("click", function () { g_approval_type = 'general'; onClickModalGeneralOpen(); });
-		btnSendGift.on("click", function () { g_approval_type = 'gift'; onClickModalGiftOpen(); });
-		btnCancel.on("click", function () { g_approval_type = 'cancel'; onClickModalGeneralOpen(); });
+		btnSendGeneral.on("click", function () { onClickModalGeneralOpen(this); });
+		btnSendGift.on("click", function () { onClickModalGiftOpen(this); });
+		btnCancel.on("click", function () { onClickModalGeneralOpen(this); });
 		modalClose.on("click", function () { fadeoutModal(); });
 		modalBackdrop.on("click", function () { fadeoutModal(); });
 		btnSubmitGeneral.on("click", function () { onSubmitGeneral(); });
@@ -85,7 +86,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -170,8 +171,9 @@
 		moveToMemberDetail($(obj).data('uuid'));
 	}
 
-	function onClickModalGeneralOpen()
+	function onClickModalGeneralOpen(obj)
 	{
+		btnId = obj.id;
 		if (modalValidation())
 		{
 			modalGeneral.fadeIn();
@@ -183,13 +185,14 @@
 
 	function initModalGeneral()
 	{
-		modalGeneral.find('h5').text(g_approval_type === 'general' ? "메모(일반상품 발송)" : "메모(신청취소)");
+		modalGeneral.find('h5').text(btnId === 'btnSendGeneral' ? "메모(일반상품 발송)" : "메모(신청취소)");
 		generalMemo.val("");
 		generalMemo.trigger('focus');
 	}
 
-	function onClickModalGiftOpen()
+	function onClickModalGiftOpen(obj)
 	{
+		btnId = obj.id;
 		if (modalValidation())
 		{
 			modalGift.fadeIn();
@@ -218,16 +221,16 @@
 		}
 
 		let msg
-		if (g_approval_type === 'gift' && hasGeneral())
+		if (btnId === 'btnSendGift' && hasGeneral())
 		{
-			msg = '상품유형 - 기프티콘만 선택 해 주세요.'
+			msg = '기프티콘(상품유형)만 선택해주세요.'
 			sweetToast(msg);
 			return false;
 		}
 
-		if (g_approval_type === 'general' && hasGift())
+		if (btnId === 'btnSendGeneral' && hasGift())
 		{
-			msg = '상품유형 -일반상품만 선택 해 주세요.'
+			msg = '일반상품(상품유형)만 선택해주세요.'
 			sweetToast(msg);
 			return false;
 		}
@@ -293,46 +296,39 @@
 
 	function reserveRequest()
 	{
-		const url = api.sendGifticon;
-		const errMsg = label.reserve+label.send+message.ajaxError;
-		const uuids = getSelectedRowsUuid();
 		const param = {
-			"exchange_list" : uuids,
+			"exchange_list" : getSelectedRowsUuid(),
 			"reservation_date" : replaceAll(reserveDate.val(), '-', ''),
 			"reservation_time" : selHour.val()+selMinute.val(),
 			"memo" : memo.val().trim()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reserveReqSuccessCallback, errMsg, false);
-	}
-
-	function reserveReqSuccessCallback(data)
-	{
-		isSuccessResp(data) ? sweetToastAndCallback(data, reqSuccess) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.sendGifticon, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reqSuccess);
+			})
+			.catch(reject => sweetToast(label.reserve + message.ajaxError));
 	}
 
 	function onSubmitGeneral()
 	{
-		const mgs = g_approval_type === 'general' ?  message.send : message.cancel;
+		const mgs = btnId === 'btnSendGeneral' ?  message.send : message.cancel;
 		sweetConfirm(mgs, generalRequest);
 	}
 
 	function generalRequest()
 	{
-		const url = g_approval_type === 'general' ? api.sendGeneralGift : api.rejectGift;
-		const errMsg = `${label.send}(${label.cancel})`+message.ajaxError;
-		const uuids = getSelectedRowsUuid();
+		const url = btnId === 'btnSendGeneral' ? api.sendGeneralGift : api.rejectGift;
 		const param = {
-			"exchange_list" : uuids,
+			"exchange_list" : getSelectedRowsUuid(),
 			"memo" : generalMemo.val().trim()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), generalReqCallback, errMsg, false);
-	}
-
-	function generalReqCallback(data)
-	{
-		sweetToastAndCallback(data, reqSuccess);
+		ajaxRequestWithJson(true, url, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reqSuccess);
+			})
+			.catch(reject => sweetToast(message.ajaxError));
 	}
 
 	function reqSuccess()
@@ -359,15 +355,11 @@
 
 	function getBalance()
 	{
-		const url = api.getGiftBalance;
-		const errMsg = `잔액 ${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getBalanceCallback, errMsg, false);
-	}
-
-	function getBalanceCallback(data)
-	{
-		isSuccessResp(data) ? buildBalance(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(false, api.getGiftBalance, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`잔액 ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)

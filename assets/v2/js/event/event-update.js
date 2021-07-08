@@ -5,7 +5,7 @@
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {calculateInputLength, initSearchDatepicker, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
-	import {getPathName, splitReverse, isEmpty, isDisplay} from "../modules/utils.js";
+	import {getPathName, splitReverse, isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";

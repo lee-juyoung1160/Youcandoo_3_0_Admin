@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
 		selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,} from '../modules/elements.js';
@@ -84,7 +84,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -172,7 +172,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -238,17 +238,13 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowsId();
-		const param = { "gift_uuid" : uuids };
-		const url 	= api.reorderGift;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "gift_uuid" : getRowIds() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
-	}
-
-	function reorderReqCallback(data)
-	{
-		sweetToastAndCallback(data, reorderSuccess);
+		ajaxRequestWithJson(true, api.reorderGift, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reorderSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()
@@ -259,7 +255,7 @@
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
+		let uuids = getRowIds();
 		if (uuids.length === 0)
 		{
 			sweetToast(message.emptyList);
@@ -269,7 +265,7 @@
 		return true;
 	}
 
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = updateTable.find('tbody').children();
 		let uuids = [];

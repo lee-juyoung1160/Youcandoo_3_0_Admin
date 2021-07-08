@@ -1,29 +1,10 @@
 
-	import {headers, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		body,
-		dateButtons,
-		dataTable,
-		dateFrom,
-		dateTo,
-		btnCancel,
-		keyword,
-		selPageLength,
-		btnSearch,
-		btnReset,
-		selSearchType,
-		memo,
-		btnSubmitMemo,
-		rdoType,
-		chkStatus,
-		modalBackdrop,
-		modalDetail,
-		modalClose,
-		selDateType,
-		modalDetailContent,
-		modalCancel,
-		btnSubmit,
+		body, dateButtons, dataTable, dateFrom, dateTo, btnCancel, keyword, selPageLength, btnSearch,
+		btnReset, selSearchType, memo, btnSubmitMemo, rdoType, chkStatus, modalBackdrop, modalDetail,
+		modalClose, selDateType, modalDetailContent, modalCancel, btnSubmit,
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
@@ -113,7 +94,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -212,9 +193,9 @@
 
 	function buildMemo(data)
 	{
-		const previewEL = isEmpty(data.memo) ? label.dash : `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data.memo}</span></i>`;
-		return `${previewEL}`;
-				//<button class="btn-i btn-text-teal" data-uuid="${data.exchange_uuid}" data-memo="${data.memo}"><i class="fas fa-edit"></i></button>
+		return isEmpty(data.memo)
+				? label.dash
+				: `<i class="tooltip-mark fas fa-sticky-note"><span class="tooltip-txt left">${data.memo}</span></i>`;
 	}
 
 	function onClickNickname(obj)
@@ -349,19 +330,16 @@
 
 	function cancelRequest()
 	{
-		const url = api.rejectGift;
-		const errMsg = label.cancel+message.ajaxError;
 		const param  = {
 			"exchange_list" : [getSelectedExchangeId()],
 			"memo" : memo.val().trim()
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), cancelReqCallback, errMsg, false);
-	}
-
-	function cancelReqCallback(data)
-	{
-		sweetToastAndCallback(data, cancelSuccess);
+		ajaxRequestWithJson(true, api.rejectGift, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, cancelSuccess);
+			})
+			.catch(reject => sweetToast(label.cancel + message.ajaxError));
 	}
 
 	function cancelSuccess()
@@ -379,18 +357,13 @@
 
 	function resendRequest()
 	{
-		const url = api.resendGift;
-		const errMsg = `재발송${message.ajaxError}`;
-		const param  = {
-			"tr_id" : g_tr_id,
-		};
+		const param  = { "tr_id" : g_tr_id };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), resendReqCallback, errMsg, false);
-	}
-
-	function resendReqCallback(data)
-	{
-		sweetToastAndCallback(data, onSubmitSearch);
+		ajaxRequestWithJson(true, api.resendGift, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, onSubmitSearch);
+			})
+			.catch(reject => sweetToast(`재발송${message.ajaxError}`));
 	}
 
 	function getSelectedExchangeId()

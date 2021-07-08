@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, btnUpdate, giftUuid, giftName, contentImage, price, isExposure, discontinuedDate, giftType} from '../modules/elements.js';
 	import {sweetToast} from '../modules/alert.js';
@@ -23,18 +23,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailGift;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : giftIdx
-		}
+		const param = { "idx" : giftIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailGift, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	function buildDetail(data)
@@ -61,5 +56,3 @@
 	{
 		location.href = page.updateGift + giftIdx;
 	}
-
-

@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithFormData, ajaxRequestWithJsonData, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {categoryTitle, categoryIcon, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
 		btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
@@ -20,7 +20,6 @@
 		initTableDefaultConfig();
 		/** 상세 불러오기 **/
 		getDetail();
-		getSubCategory();
 		/** 이벤트 **/
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		createAttachment.on("change", function () { onChangeValidateImageCustom(this); });
@@ -48,18 +47,14 @@
 
 	function getDetail()
 	{
-		const url = api.detailCategory;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : categoryIdx
-		}
+		const param = { "idx" : categoryIdx }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				await getSubCategory();
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_category_uuid;
@@ -74,19 +69,17 @@
 		g_category_uuid = category_uuid;
 
 		onErrorImage();
-
-		getSubCategory();
 	}
 
 	function getSubCategory()
 	{
-		const url = api.subCategoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		let param = {
-			"category_uuid" : g_category_uuid
-		}
+		const param = { "category_uuid" : g_category_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
+		ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getSubCategorySuccess(data)
@@ -190,37 +183,31 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.multi;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		for (let i=0; i<createAttachment.length; i++)
 			param.append('file', createAttachment[i].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, fileUploadReqCallback, errMsg, false);
-	}
-
-	function fileUploadReqCallback(data)
-	{
-		isSuccessResp(data) ? createSubcategoryRequest(data) : sweetToast(data.msg);
+		ajaxRequestWithFile(true, fileApiV2.multi, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createSubcategoryRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createSubcategoryRequest(data)
 	{
-		const url = api.createSubCategory;
-		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"category_uuid" : g_category_uuid,
 			"title" : subCategoryTitle.val().trim(),
 			"doit_image_list" : data.image_urls
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createSubcategoryCallback, errMsg, false);
-	}
-
-	function createSubcategoryCallback(data)
-	{
-		initCreateAttachment();
-		sweetToastAndCallback(data, createSubcategorySuccess)
+		ajaxRequestWithJson(true, api.createSubCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await initCreateAttachment();
+				await sweetToastAndCallback(data, createSubcategorySuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSubcategorySuccess()
@@ -286,40 +273,32 @@
 
 	function updateFileUploadRequest()
 	{
-		const url = fileApiV2.multi;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		for (let i=0; i<attachment.length; i++)
 			param.append('file', attachment[i].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateFileUploadReqCallback, errMsg, false);
-	}
-
-	function updateFileUploadReqCallback(data)
-	{
-		isSuccessResp(data) ? updateImageToApiServerReq(data) : sweetToast(data.msg);
+		ajaxRequestWithFile(true, fileApiV2.multi, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateImageToApiServerReq(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateImageToApiServerReq(data)
 	{
-		const url = api.updateSubCategoryDoitImg;
-		const errMsg = label.submit + message.ajaxError;
-		let param = {
-			"subcategory_uuid" : g_subcategory_uuid,
-		}
+		const param = { "subcategory_uuid" : g_subcategory_uuid }
 
 		if (!isEmpty(data))
 			param["add_image_list"] = data.image_urls;
 		if (g_delete_attachment_urls.length > 0)
 			param["delete_image_list"] = g_delete_attachment_urls;
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateImageToApiServerCallback, errMsg, false);
-	}
-
-	function updateImageToApiServerCallback(data)
-	{
-		initUpdateAttachment();
-		sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
+		ajaxRequestWithJson(true, api.updateSubCategoryDoitImg, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await initUpdateAttachment();
+				await sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function updateImageToApiServerCallbackSuccess()
@@ -457,5 +436,3 @@
 		emptyFile(inputFile)
 		$(obj).hide();
 	}
-
-

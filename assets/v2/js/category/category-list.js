@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import { dataTable, updateTable, btnUpdate, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -43,22 +43,18 @@
 
 	function getCategoryList()
 	{
-		const url = api.categoryList;
-		const errMsg = label.list + message.ajaxLoadError
-
-		ajaxRequestWithJsonData(true, url, null, getCategoryListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.categoryList, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getCategoryListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getCategoryListCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.count;
-			data.recordsFiltered = data.count;
-			buildTable(data);
-		}
-		else
-			sweetToast(data.msg);
+		data.recordsTotal = data.count;
+		data.recordsFiltered = data.count;
+		buildTable(data);
 	}
 
 	function buildTable(data)
@@ -139,17 +135,13 @@
 
 	function reorderRequest()
 	{
-		const uuids = getRowIds();
-		const param = { "category_list" : uuids };
-		const url 	= api.reorderCategory;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "category_list" : getRowIds() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderReqCallback, errMsg, false);
-	}
-
-	function reorderReqCallback(data)
-	{
-		sweetToastAndCallback(data, reorderSuccess);
+		ajaxRequestWithJson(true, api.reorderCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, reorderSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()

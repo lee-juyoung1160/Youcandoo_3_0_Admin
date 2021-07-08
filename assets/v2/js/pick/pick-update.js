@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url.js';
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit, rdoExposure,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -30,18 +30,13 @@
 
 	function getDetail()
 	{
-		const url = api.detailPick;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : pickIdx
-		}
+		const param = { "idx" : pickIdx }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailPick, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_pick_uuid;
@@ -131,7 +126,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -316,10 +311,8 @@
 
 	function updateRequest()
 	{
-		const url 	= api.updatePick;
-		const errMsg = label.submit+message.ajaxError;
 		const rows 	= updateTable.find('tbody').children();
-		let uuids 	= [];
+		let uuids = [];
 		for (let i=0; i<rows.length; i++) uuids.push(rows[i].id);
 		const param = {
 			"recommend_uuid" : g_pick_uuid,
@@ -328,12 +321,11 @@
 			"doit_list" : uuids
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
+		ajaxRequestWithJson(true, api.updatePick, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, updateSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function updateSuccess()
@@ -359,4 +351,3 @@
 
 		return true;
 	}
-

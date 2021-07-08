@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url.js';
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -50,7 +50,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -231,8 +231,6 @@
 
 	function createRequest()
 	{
-		const url 	= api.createPick;
-		const errMsg = label.submit+message.ajaxError;
 		const rows 	= updateTable.find('tbody').children();
 		let uuids 	= [];
 		for (let i=0; i<rows.length; i++) uuids.push(rows[i].id);
@@ -242,12 +240,11 @@
 			"doit_list" : uuids
 		}
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createPick, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -273,4 +270,3 @@
 
 		return true;
 	}
-

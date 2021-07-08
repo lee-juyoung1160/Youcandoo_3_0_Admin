@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
+	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {previewTable, dataTable, updateTable, btnUpdate, previewTitle, modalOpen, modalClose, modalBackdrop, btnCreate} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -54,22 +54,18 @@
 
 	function getPickList()
 	{
-		const url = api.pickList;
-		const errMsg = label.list + message.ajaxLoadError
-
-		ajaxRequestWithJsonData(true, url, null, getPickListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.pickList, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getPickListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getPickListCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.count;
-			data.recordsFiltered = data.count;
-			buildTable(data);
-		}
-		else
-			sweetToast(data.msg);
+		data.recordsTotal = data.count;
+		data.recordsFiltered = data.count;
+		buildTable(data);
 	}
 
 	function buildTable(data)
@@ -128,11 +124,13 @@
 
 	function getPreviewList(uuid)
 	{
-		const url = api.previewList;
-		const errMsg = label.list + message.ajaxLoadError;
 		const param = { "recommend_uuid" : uuid };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), buildPreview, errMsg, false);
+		ajaxRequestWithJson(false, api.previewList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildPreview(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function buildPreview(data)
@@ -234,17 +232,13 @@
 
 	function updateRequest()
 	{
-		const uuids = getRowIds();
-		const param = { "recommend_list" : uuids };
-		const url 	= api.reorderPick;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "recommend_list" : getRowIds() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, updateSuccess);
+		ajaxRequestWithJson(true, api.reorderPick, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, updateSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function updateSuccess()

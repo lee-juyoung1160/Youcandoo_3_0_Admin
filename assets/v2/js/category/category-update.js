@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {categoryTitle, categoryIcon, thumbnail, rdoExposure, btnSubmit, dataTable, lengthInput,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
@@ -18,7 +18,6 @@
 		initTableDefaultConfig();
 		/** 상세 불러오기 **/
 		getDetail();
-		getSubCategory();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		categoryIcon.on('change', function () { onChangeValidateImage(this); });
@@ -27,49 +26,42 @@
 
 	function getDetail()
 	{
-		const url = api.detailCategory;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : categoryIdx
-		}
+		const param = { "idx" : categoryIdx }
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), getDetailCallback, errMsg, false);
-	}
-
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.detailCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				await getSubCategory();
+			})
+			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_category_uuid;
 	function buildDetail(data)
 	{
-		const { category_title, is_exposure, is_establish, icon_image_url, category_uuid } = data.data;
+		const { category_title, is_exposure, icon_image_url, category_uuid } = data.data;
 
 		categoryTitle.val(category_title);
 		thumbnail.attr('src', icon_image_url);
 		rdoExposure.each(function () {
-			if ($(this).val() === is_exposure)
-				$(this).prop('checked', true);
+			$(this).prop('checked', $(this).val() === is_exposure);
 		});
 
 		g_category_uuid = category_uuid;
 
 		onErrorImage();
 		calculateInputLength();
-
-		getSubCategory();
 	}
 
 	function getSubCategory()
 	{
-		const url = api.subCategoryList;
-		const errMsg = label.list + message.ajaxLoadError
-		const param = {
-			"category_uuid" : g_category_uuid
-		}
+		const param = { "category_uuid" : g_category_uuid }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getSubCategorySuccess, errMsg, false);
+		ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getSubCategorySuccess(data)
@@ -200,19 +192,16 @@
 
 	function editSubcategoryRequest()
 	{
-		const url = api.editSubCategory;
-		const errMsg = label.modify+message.ajaxError;
 		const param = {
 			"subcategory_title" : inputValue,
 			"subcategory_uuid" : edit_subcategory_uuid
 		};
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), editSubcategoryReqCallback, errMsg, false);
-	}
-
-	function editSubcategoryReqCallback(data)
-	{
-		sweetToastAndCallback(data, getSubCategory);
+		ajaxRequestWithJson(true, api.editSubCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getSubCategory);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function addDeleteEvent()
@@ -251,31 +240,29 @@
 
 	function deleteSubCategoryRequest()
 	{
-		const url = api.deleteSubCategory;
-		const errMsg = `세부 카테고리 삭제 ${message.ajaxError}`;
 		const param = { "subcategory_list" : g_delete_uuids };
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), deleteSubCategoryCallback, errMsg, false)
-	}
-
-	function deleteSubCategoryCallback(data)
-	{
-		isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.deleteSubCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`세부 카테고리 삭제${message.ajaxError}`));
 	}
 
 	function reorderSubCategoryRequest()
 	{
-		const subUuids = getRowsId();
-		if (subUuids.length > 0)
+		if (getRowIds().length > 0)
 		{
-			const url = api.reorderSubCategory;
-			const errMsg = `세부 카테고리 정렬 ${message.ajaxError}`;
 			const param = {
 				"category_uuid" : g_category_uuid,
-				"subcategory_list" : subUuids
+				"subcategory_list" : getRowIds()
 			};
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), reorderSubcategoryReqCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.reorderSubCategory, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await isSuccessResp(data) ? reorderSubcategoryReqCallback(data) : sweetToast(invalidResp(data));
+				})
+				.catch(reject => sweetToast(`세부 카테고리 정렬${message.ajaxError}`));
 		}
 		else
 		{
@@ -286,31 +273,26 @@
 
 	function reorderSubcategoryReqCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			const imageFile = categoryIcon[0].files;
-			imageFile.length === 0 ? updateCategoryRequest() : fileUploadReq();
-		}
-		else
-			sweetToast(data.msg);
+		const imageFile = categoryIcon[0].files;
+		imageFile.length === 0 ? updateCategoryRequest() : fileUploadReq();
 	}
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', categoryIcon[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, updateCategoryRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? updateCategoryRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateCategoryRequest(data)
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const url = api.updateCategory;
-			const errMsg = label.modify + message.ajaxError;
 			const param = {
 				"category_uuid" : g_category_uuid,
 				"title" : categoryTitle.val().trim(),
@@ -320,15 +302,12 @@
 			if (!isEmpty(data))
 				param["icon_image_url"] = data.image_urls.file;
 
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateCategoryCallback, errMsg, false);
+			ajaxRequestWithJson(true, api.updateCategory, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateCategorySuccess);
+				})
+				.catch(reject => sweetToast(label.modify + message.ajaxError));
 		}
-		else
-			sweetToast(data.msg);
-	}
-
-	function updateCategoryCallback(data)
-	{
-		sweetToastAndCallback(data, updateCategorySuccess)
 	}
 
 	function updateCategorySuccess()
@@ -336,7 +315,7 @@
 		location.href = page.detailCategory + categoryIdx;
 	}
 
-	function getRowsId()
+	function getRowIds()
 	{
 		const rows = dataTable.find('tbody').children();
 		let uuids = [];
@@ -350,5 +329,3 @@
 
 		return uuids;
 	}
-
-

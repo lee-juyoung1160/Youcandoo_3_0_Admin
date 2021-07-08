@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, ajaxRequestWithFormData, isSuccessResp } from '../modules/request.js'
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, categoryTitle, categoryIcon, btnSubmit,} from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
@@ -25,35 +25,29 @@
 
 	function fileUploadReq()
 	{
-		const url = fileApiV2.single;
-		const errMsg = `이미지 등록 ${message.ajaxError}`;
 		let param  = new FormData();
 		param.append('file', categoryIcon[0].files[0]);
 
-		ajaxRequestWithFormData(true, url, param, createRequest, errMsg, false);
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
 	{
-		if (isSuccessResp(data))
-		{
-			const url = api.createCategory;
-			const errMsg = label.submit+message.ajaxError;
-			const param = {
-				"title" : categoryTitle.val().trim(),
-				"icon_image_url" : data.image_urls.file,
-				"is_exposure" : $('input[name=radio-exposure]:checked').val(),
-			}
-
-			ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
+		const param = {
+			"title" : categoryTitle.val().trim(),
+			"icon_image_url" : data.image_urls.file,
+			"is_exposure" : $('input[name=radio-exposure]:checked').val(),
 		}
-		else
-			sweetToast(data.msg);
-	}
 
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.createCategory, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -79,4 +73,3 @@
 
 		return true;
 	}
-

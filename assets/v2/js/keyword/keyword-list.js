@@ -1,5 +1,5 @@
 
-	import { ajaxRequestWithJsonData, isSuccessResp } from '../modules/request.js';
+	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate,
 		modalUpdate, modalCreate, keyword, btnSubmit, btnCreate, lengthInput} from '../modules/elements.js';
@@ -44,22 +44,18 @@
 
 	function getKeywordList()
 	{
-		const url = api.keywordList;
-		const errMsg = label.list + message.ajaxLoadError
-
-		ajaxRequestWithJsonData(true, url, null, getKeywordListCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.keywordList, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getKeywordListCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
 	}
 
 	function getKeywordListCallback(data)
 	{
-		if (isSuccessResp(data))
-		{
-			data.recordsTotal = data.count;
-			data.recordsFiltered = data.count;
-			buildTable(data);
-		}
-		else
-			sweetToast(data.msg);
+		data.recordsTotal = data.count;
+		data.recordsFiltered = data.count;
+		buildTable(data);
 	}
 
 	function buildTable(data)
@@ -146,23 +142,18 @@
 
 	function updateRequest()
 	{
-		const uuids = getRowsId();
-		const param = { "keyword_list" : uuids };
-		const url = api.updateKeyword;
-		const errMsg = label.modify + message.ajaxError;
+		const param = { "keyword_list" : getRowsId() };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), updateReqCallback, errMsg, false);
-	}
-
-	function updateReqCallback(data)
-	{
-		sweetToastAndCallback(data, requestSuccess);
+		ajaxRequestWithJson(true, api.updateKeyword, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, requestSuccess);
+			})
+			.catch(reject => sweetToast(label.modify + message.ajaxError));
 	}
 
 	function updateValidation()
 	{
-		let uuids = getRowsId();
-		if (uuids.length === 0)
+		if (getRowsId().length === 0)
 		{
 			sweetToast("추천검색어가 없습니다.");
 			return false;
@@ -207,18 +198,13 @@
 
 	function createRequest()
 	{
-		const url = api.createKeyword;
-		const errMsg = label.submit+message.ajaxError;
-		const param = {
-			"keyword" : keyword.val().trim(),
-		}
+		const param = { "keyword" : keyword.val().trim() }
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, requestSuccess);
+		ajaxRequestWithJson(true, api.createKeyword, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, requestSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function requestSuccess()

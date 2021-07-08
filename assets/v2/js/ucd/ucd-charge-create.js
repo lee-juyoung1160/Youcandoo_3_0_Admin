@@ -1,22 +1,9 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js'
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		lengthInput,
-		btnSubmit,
-		amount,
-		keyword,
-		modalClose,
-		modalBackdrop,
-		modalOpen,
-		btnXlsxImport,
-		updateTable,
-		btnXlsxExport,
-		description,
-		nickname,
-		dataTable,
-		btnSearch,
-		totalCount,
+		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
+		updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch, totalCount,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
@@ -26,6 +13,7 @@
 	import { page } from "../modules/page-url.js";
 	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
 	import {initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from "../modules/tables.js";
+
 	let addedUsers = [];
 	let addedUserObj = [];
 
@@ -95,7 +83,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -248,20 +236,17 @@
 
 	function createRequest()
 	{
-		const url = api.saveUserUcdBySystem;
-		const errMsg = label.submit + message.ajaxError;
 		const param = {
 			"profile_uuid" : addedUsers,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJsonData(false, url, JSON.stringify(param), createReqCallback, errMsg, false);
-	}
-
-	function createReqCallback(data)
-	{
-		sweetToastAndCallback(data, createSuccess);
+		ajaxRequestWithJson(true, api.saveUserUcdBySystem, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, createSuccess);
+			})
+			.catch(reject => sweetToast(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -323,11 +308,13 @@
 			return;
 		}
 
-		const url = api.getMemberFromXlsx;
-		const errMsg = `회원목록${message.ajaxLoadError}`
 		const param = { "profile_uuid" : data };
 
-		ajaxRequestWithJsonData(true, url, JSON.stringify(param), getExcelDataCallback, errMsg, false);
+		ajaxRequestWithJson(true, api.getMemberFromXlsx, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`회원목록${message.ajaxLoadError}`));
 	}
 
 	function getExcelDataCallback(data)

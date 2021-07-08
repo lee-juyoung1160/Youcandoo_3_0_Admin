@@ -1,8 +1,7 @@
 
-	import {headers, isSuccessResp, ajaxRequestWithJsonData} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable,
-		selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType, rdoType,
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons, dateFrom, dateTo, rdoReport, selDateType, rdoType,
 		modalReason, modalBackdrop, modalClose, reasonTable, btnBlinkTalk, btnDisplayTalk,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
@@ -32,6 +31,7 @@
 	import { page } from "../modules/page-url.js";
 	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
+
 	let _currentPage = 1;
 
 	$( () => {
@@ -76,12 +76,10 @@
 		dateTo.val(historyParams.to_date);
 		keyword.val(historyParams.keyword);
 		rdoType.each(function () {
-			if (historyParams.talk_division.indexOf($(this).val()) !== -1)
-				$(this).prop("checked", true);
+			$(this).prop("checked", historyParams.talk_division === $(this).val());
 		});
 		rdoReport.each(function () {
-			if (historyParams.report_status.indexOf($(this).val()) !== -1)
-				$(this).prop("checked", true);
+			$(this).prop("checked", historyParams.report_status === $(this).val());
 		});
 		selDateType.val(historyParams.date_type);
 		selPageLength.val(historyParams.limit);
@@ -119,7 +117,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -159,7 +157,7 @@
 					render: function (data, type, row, meta) {
 						const isBoard = isEmpty(row.comment_uuid);
 						const uuid = isEmpty(row.comment_uuid) ? row.board_uuid : row.comment_uuid;
-						return Number(data) > 0 ? `<a class="report-count" data-isboard="${isBoard}" data-uuid="${uuid}">${numberWithCommas(data)}</a>` : numberWithCommas(data);
+						return Number(data) > 0 ? `<a class="report-count" data-isboard="${isBoard}" data-uuid="${uuid}">${numberWithCommas(data)}</a>` : data;
 					}
 				}
 				,{title: "블라인드", 		data: "is_blind",   	width: "5%" }
@@ -243,7 +241,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);
@@ -304,14 +302,6 @@
 
 	function blindRequest()
 	{
-		const url = api.blindTalk;
-		const errMsg = `블라인드${message.ajaxError}`;
-
-		ajaxRequestWithJsonData(true, url, JSON.stringify(blindParams()), blindReqCallback, errMsg, false);
-	}
-
-	function blindParams()
-	{
 		const table = dataTable.DataTable();
 		const selectedData = table.rows('.selected').data();
 		const isTalk = $("input[name=radio-type]:checked").val() === 'talk';
@@ -329,18 +319,18 @@
 			else
 				actionComments.push(selectedData[i].comment_uuid);
 		}
-
-		return {
+		const param = {
 			"is_blind" : g_is_blind,
 			"board" : boards,
 			"board_comment" : boardComments,
 			"action_comment" : actionComments
 		}
-	}
 
-	function blindReqCallback(data)
-	{
-		sweetToastAndCallback(data, blindSuccess);
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, blindSuccess);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
 	}
 
 	function blindSuccess()

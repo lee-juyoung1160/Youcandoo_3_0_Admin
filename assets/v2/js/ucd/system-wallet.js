@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithJsonData, headers, isSuccessResp} from '../modules/request.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons,
 		dateFrom, dateTo, rdoStatus, checkTypeWrap,} from '../modules/elements.js';
@@ -14,8 +14,11 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
+		/** 데이트피커 초기화 **/
 		initSearchDatepicker();
-		getSystemType();
+		/** n개씩 보기 초기화 **/
+		initPageLength(selPageLength);
+		initPage();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -41,17 +44,15 @@
 		rdoStatus.eq(0).prop('checked', true);
 	}
 
-	function getSystemType()
+	function initPage()
 	{
-		const url = api.systemWalletType;
-		const errMsg = `구분${message.ajaxLoadError}`;
-
-		ajaxRequestWithJsonData(false, url, null, getSystemTypeCallback, errMsg, getSystemTypeComplete);
-	}
-
-	function getSystemTypeCallback(data)
-	{
-		isSuccessResp(data) ? buildSystemType(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.systemWalletType, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildSystemType(data) : sweetToast(invalidResp(data));
+				await initSearchForm();
+				await buildTable();
+			})
+			.catch(reject => sweetToast(`구분${message.ajaxLoadError}`));
 	}
 
 	function buildSystemType(data)
@@ -65,15 +66,6 @@
 
 			$("input[name=chk-type]").on('click', function () { atLeastChecked(this); });
 		}
-	}
-
-	function getSystemTypeComplete()
-	{
-		/** n개씩 보기 초기화 **/
-		initPageLength(selPageLength);
-		initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
 	}
 
 	function onKeydownSearch(event)
@@ -107,7 +99,7 @@
 					else
 					{
 						json.data = [];
-						sweetToast(json.msg);
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

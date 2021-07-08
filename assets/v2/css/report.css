@@ -148,6 +148,13 @@
 .comments-wrap .bottom {
 	position: relative;
 }
+.comments-wrap .btn-more {
+	border-radius: 0;
+	background-color: rgba(255,255,255,.4);
+}
+.comments-wrap .btn-more:hover {
+	background-color: rgba(255,255,255,.6);
+}
 /* 답글 달기 창 */
 .modal-content.comments-creat {
 	position: absolute;
@@ -156,6 +163,7 @@
 	transform: none;
 	box-shadow: 4px 5px 6px 0 rgb(0 0 0 / 5%);
 }
+
 
 /* 신고관리 - 인증 상세 모달 */
 .modal-content.auth-detail {

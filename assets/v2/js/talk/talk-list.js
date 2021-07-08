@@ -130,30 +130,35 @@
 				}
 			},
 			columns: [
-				{title: "유형", 			data: "talk_type",    	width: "10%" }
+				{title: "두잇명", 			data: "",    	width: "21%",
+					render: function (data) {
+						return `<a href="#" class="link">두잇명 클릭하면 두잇상세 이동</a>`;
+					}
+				}
+				,{title: "유형", 			data: "talk_type",    	width: "5%" }
 				,{title: "작성자", 		data: "nickname",    	width: "15%",
 					render: function (data, type, row, meta) {
 						return row.is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "내용", 		data: "contents", 		width: "30%",
+				,{title: "내용", 		data: "contents", 		width: "20%",
 					render: function (data, type, row, meta) {
 						const talkType = $("input[name=radio-type]:checked").val();
 						const detailUrl = talkType === 'talk' ? page.detailTalk : page.detailActionTalk;
-						return `<a class="line-clamp-1" style="max-width: 500px;" href="${detailUrl}${row.board_idx}">${data}</a>`;
+						return `<a class="line-clamp-1" style="max-width: 300px;" href="${detailUrl}${row.board_idx}">${data}</a>`;
 					}
 				}
-				,{title: "댓글수", 		data: "comment_cnt",	width: "5%",
+				,{title: "댓글수", 		data: "comment_cnt",	width: "4%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "좋아요", 		data: "like_count",		width: "5%",
+				,{title: "좋아요", 		data: "like_count",		width: "4%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "신고", 		data: "report_count",   width: "5%",
+				,{title: "신고", 		data: "report_count",   width: "4%",
 					render: function (data, type, row, meta) {
 						const isBoard = isEmpty(row.comment_uuid);
 						const uuid = isEmpty(row.comment_uuid) ? row.board_uuid : row.comment_uuid;
@@ -161,12 +166,12 @@
 					}
 				}
 				,{title: "블라인드", 		data: "is_blind",   	width: "5%" }
-				,{title: "작성일", 		data: "created",   		width: "10%",
+				,{title: "작성일", 		data: "created",   		width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);
 					}
 				}
-				,{title: "", 			data: "board_idx",   	width: "5%",
+				,{title: "", 			data: "board_idx",   	width: "4%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}

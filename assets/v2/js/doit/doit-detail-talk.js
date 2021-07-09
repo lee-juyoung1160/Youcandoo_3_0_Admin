@@ -76,6 +76,30 @@
 		onChangeAttachType();
 	}
 
+	let g_is_blind_talk;
+	export function onSubmitBlindTalk(obj)
+	{
+		g_is_blind_talk = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
+		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
+		sweetConfirm(msg, blindTalkRequest);
+	}
+
+	function blindTalkRequest()
+	{
+		const param = {
+			"is_blind" : g_is_blind_talk,
+			"board" : [g_board_uuid],
+			"board_comment" : [],
+			"action_comment" : []
+		}
+
+		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getDetailTalk);
+			})
+			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
+	}
+
 	export function onSubmitSearchTalk()
 	{
 		const table = talkTable.DataTable();
@@ -177,7 +201,6 @@
 	let g_talk_comment_last_idx = 0;
 	let g_talk_comment_page_num = 1;
 	let g_talk_comment_page_size = 1;
-	let g_talk_uuid;
 	let g_talk_idx;
 	function onClickDetailTalk(obj)
 	{
@@ -196,23 +219,20 @@
 
 		ajaxRequestWithJson(true, api.detailTalk, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getDetailTalkReqCallback(data) : sweetToast(invalidResp(data));
+				if (isSuccessResp(data))
+				{
+				 	await buildTalkDetail(data);
+					if (Number(data.data.comment_cnt) > 0)
+						await getTalkComments();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
 	}
 
-	function getDetailTalkReqCallback(data)
-	{
-		const {board_uuid, comment_cnt} = data.data;
-
-		g_talk_uuid = board_uuid;
-
-		buildTalkDetail(data);
-		Number(comment_cnt) > 0 ? getTalkComments() : 0;
-	}
-
-	let g_talk_attach_type;
 	let g_board_uuid;
+	let g_talk_attach_type;
 	function buildTalkDetail(data)
 	{
 		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, contents_type,} = data.data;
@@ -227,24 +247,6 @@
 		infoTalkLikeCount.text(like_count);
 		infoTalkContent.text(board_body);
 		infoTalkAttachWrap.html(buildTalkAttachWrap(data));
-		toggleShowBtns(data);
-
-		/** 수정폼 **/
-		updateTalk.val(board_body);
-		rdoUpdateAttachType.each(function () {
-			$(this).prop('checked', $(this).val() === contents_type);
-		})
-		buildUpdateAttachWrap(data);
-		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
-		calculateInputLength();
-		onErrorImage();
-
-		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
-	}
-
-		function toggleShowBtns(data)
-	{
-		const { is_company, is_blind } = data.data;
 		if (is_company === 'Y')
 		{
 			btnDeleteTalk.show();
@@ -266,30 +268,18 @@
 				btnBlindTalk.show()
 			}
 		}
-	}
 
-	let g_is_blind_talk;
-	export function onSubmitBlindTalk(obj)
-	{
-		g_is_blind_talk = $(obj).hasClass('btn-blind') ? 'Y' : 'N';
-		const msg = $(obj).hasClass('btn-blind') ? message.blind : message.display;
-		sweetConfirm(msg, blindTalkRequest);
-	}
+		/** 수정폼 **/
+		updateTalk.val(board_body);
+		rdoUpdateAttachType.each(function () {
+			$(this).prop('checked', $(this).val() === contents_type);
+		})
+		buildUpdateAttachWrap(data);
+		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
+		calculateInputLength();
+		onErrorImage();
 
-	function blindTalkRequest()
-	{
-		const param = {
-			"is_blind" : g_is_blind_talk,
-			"board" : [g_board_uuid],
-			"board_comment" : [],
-			"action_comment" : []
-		}
-
-		ajaxRequestWithJson(true, api.blindTalk, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				await sweetToastAndCallback(data, getDetailTalk);
-			})
-			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
+		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
 	function buildTalkAttachWrap(data)
@@ -317,23 +307,23 @@
 		modalAttach.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		let contentEl = ''
+
 		switch ($(obj).data('type')) {
 			case label.image :
-				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
+				modalAttachContentWrap.html(`<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`);
 				break;
 			case label.video :
-				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
+				modalAttachContentWrap.html(`<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`);
 				break;
 		}
-		modalAttachContentWrap.html(contentEl);
+
 		onErrorImage();
 	}
 
 	function getTalkComments(_pageLength)
 	{
 		const param = {
-			"board_uuid" : g_talk_uuid,
+			"board_uuid" : g_board_uuid,
 			"size" : isEmpty(_pageLength) ? g_talk_comment_page_length : g_param_view_page_length,
 			"last_idx" : g_talk_comment_last_idx
 		};
@@ -354,78 +344,12 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, parent_comment_uuid, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
 
-				let repliesEl = ''
-				if (recomment_data.length > 0)
-				{
-					recomment_data.map(replyObj => {
-						const isBlindReply = replyObj.is_blind === 'Y';
-						const btnBlindReply = isBlindReply
-							? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
-							: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${replyObj.comment_uuid}">삭제</button>`;
-						repliesEl +=
-							`<li>
-								<div class="top clearfix">
-									<p class="title">
-										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} 
-										<span class="desc-sub">${replyObj.created}</span>
-									</p>
-									<div class="right-wrap">
-										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
-									</div>
-								</div>
-								<div class="detail-data">
-									${replyObj.comment_body}
-								</div>
-							</li>`
-					})
-				}
-
-				const createReplyEl = isSponsorDoit
-					? `<a class="link btn-reply-talk">답글달기</a>
-					<!-- 답글달기 -->
-					<div class="modal-content comments-creat">
-						<div class="modal-header clearfix">
-							<h5>답글달기</h5>
-							<i class="modal-close btn-talk-reply-close">×</i>
-						</div>
-						<div class="modal-body">
-							<table class="detail-table reply-talk-table">
-								<colgroup>
-									<col style="width: 20%;">
-									<col style="width: 70%;">
-								</colgroup>
-								<tr>
-									<td colspan="2">
-										<div class="textarea-wrap">
-											<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
-											<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										<div class="right-wrap">
-											<button type="button" 
-													class="btn-sm btn-primary btn-submit-reply-talk"
-													data-parent="${comment_uuid}"
-													data-profile="${profile_uuid}"
-													data-nickname="${nickname}">등록</button>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>`
-					: '';
-
-				const isBlindComment = is_blind === 'Y';
-				const btnBlindComment = isBlindComment
+				const btnBlindComment = is_blind === 'Y'
 					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 					: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
@@ -444,12 +368,12 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${createReplyEl}
+							${(isSponsorDoit && recomment_data.length > 0) ? buildCreateReply({comment_uuid, profile_uuid, nickname}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
 							<ul>
-								${repliesEl}
+								${(recomment_data.length > 0) ? buildReplyComment({recomment_data, comment_cnt}) : ''}
 							</ul>
 						</div>
 					</div>`
@@ -472,6 +396,7 @@
 		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteTalkComment(this); });
 		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
+		$('.btn-viewmore-reply').on('click', function () { onClickBtnViewMoreReply(this); });
 	}
 
 	function buildTalkCommentPagination()
@@ -491,6 +416,140 @@
 		g_talk_comment_page_num++
 		g_param_view_page_length += 10;
 		getTalkComments();
+	}
+
+	function buildReplyComment({recomment_data, comment_cnt})
+	{
+		let repliesEl = ''
+		recomment_data.slice(0).reverse().map((obj, index, arr) => {
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const isBlindReply = is_blind === 'Y';
+			const btnBlindReply = isBlindReply
+				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const lastIdx = recomment_data[arr.length - 1].idx;
+
+			if (comment_cnt > 5 && index ===0)
+				repliesEl +=
+					`<button type="button"
+							 class="btn-more btn-viewmore-reply"
+							 data-parent="${parent_comment_uuid}"
+							 data-last="${lastIdx}"
+							 data-size="${comment_cnt}">이전 답글 더보기 <i class="fas fa-sort-down"></i></button>`;
+
+			repliesEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		return repliesEl;
+	}
+
+	let appendReplyTarget;
+	function onClickBtnViewMoreReply(obj)
+	{
+		appendReplyTarget = $(obj);
+
+		const param = {
+			"parent_comment_uuid" : $(obj).data('parent'),
+			"last_idx" : $(obj).data('last'),
+			"size" : $(obj).data('size')
+		}
+
+		ajaxRequestWithJson(true, api.talkReplyList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`답글 목록${message.ajaxLoadError}`));
+	}
+
+	function appendReply(data)
+	{
+		let appendReplyEl = ''
+		data.data.slice(0).reverse().map(obj => {
+			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const isBlindReply = is_blind === 'Y';
+			const btnBlindReply = isBlindReply
+				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+
+			appendReplyEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		appendReplyTarget.after(appendReplyEl);
+		appendReplyTarget.remove();
+		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteTalkComment(this); });
+		$('.btn-blind-comment').on('click', function () { onClickBtnBlindComment(this); });
+		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
+	}
+
+	function buildCreateReply({comment_uuid, profile_uuid, nickname})
+	{
+		return (
+			`<a class="link btn-reply-talk">답글달기</a>
+				<!-- 답글달기 -->
+				<div class="modal-content comments-creat">
+					<div class="modal-header clearfix">
+						<h5>답글달기</h5>
+						<i class="modal-close btn-talk-reply-close">×</i>
+					</div>
+					<div class="modal-body">
+						<table class="detail-table reply-talk-table">
+							<colgroup>
+								<col style="width: 20%;">
+								<col style="width: 70%;">
+							</colgroup>
+							<tr>
+								<td colspan="2">
+									<div class="textarea-wrap">
+										<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
+										<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="right-wrap">
+										<button type="button" 
+												class="btn-sm btn-primary btn-submit-reply-talk"
+												data-parent="${comment_uuid}"
+												data-profile="${profile_uuid}"
+												data-nickname="${nickname}">등록</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>`
+		)
 	}
 
 	function onClickModalReplyTalkOpen(obj)
@@ -537,7 +596,7 @@
 	{
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"board_uuid" : g_talk_uuid,
+			"board_uuid" : g_board_uuid,
 			"comment" : `@${g_talk_reply_target_nickname} ${g_talk_reply_value.trim()}`,
 			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "nickname": g_talk_reply_target_nickname}],
 			"parent_comment_uuid" : g_talk_reply_parent_uuid,
@@ -652,7 +711,7 @@
 	{
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"board_uuid" : g_talk_uuid,
+			"board_uuid" : g_board_uuid,
 			"comment" : commentTalk.val().trim(),
 		}
 
@@ -781,7 +840,7 @@
 
 	function deleteTalkRequest()
 	{
-		const param = { "board_uuid" : g_talk_uuid }
+		const param = { "board_uuid" : g_board_uuid }
 
 		ajaxRequestWithJson(true, api.deleteTalk, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
@@ -852,7 +911,7 @@
 		{
 			const param = {
 				"doit_uuid" : g_doit_uuid,
-				"board_uuid" : g_talk_uuid,
+				"board_uuid" : g_board_uuid,
 				"board_body" : updateTalk.val().trim(),
 				"is_notice" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
 			}

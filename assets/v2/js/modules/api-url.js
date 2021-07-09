@@ -93,6 +93,7 @@
         talkCommentList : baseApiUrl + 'board/get/commentList',
         createTalkComment : baseApiUrl + 'board/set/insertComment',
         deleteTalkComment : baseApiUrl + 'board/set/deleteComment',
+        talkReplyList : baseApiUrl + 'board/get/comment/child/list',
 
         pickList : baseApiUrl + 'recommend/list',
         previewList : baseApiUrl + 'recommend/get/doit',

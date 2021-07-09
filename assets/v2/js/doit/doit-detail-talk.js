@@ -538,8 +538,8 @@
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"board_uuid" : g_talk_uuid,
-			"comment" : g_talk_reply_value.trim(),
-			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "profile_nickname": g_talk_reply_target_nickname}],
+			"comment" : `@${g_talk_reply_target_nickname} ${g_talk_reply_value.trim()}`,
+			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "nickname": g_talk_reply_target_nickname}],
 			"parent_comment_uuid" : g_talk_reply_parent_uuid,
 		}
 

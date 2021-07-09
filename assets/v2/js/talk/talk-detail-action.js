@@ -86,9 +86,9 @@
 			"action_uuid" : g_action_uuid,
 			"size" : g_talk_comment_page_length,
 			"last_idx" : g_talk_comment_last_idx
-		};
+		}
 
-		ajaxRequestWithJson(true, api.actionCommentList, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.actionCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})
@@ -154,7 +154,7 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnBlindComment}
+								${is_company === 'Y' ? '' : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">

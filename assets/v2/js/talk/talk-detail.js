@@ -84,16 +84,24 @@
 
 	function toggleBtnBlind(data)
 	{
-		const { is_blind } = data.data;
-		if (is_blind === 'Y')
+		const { is_blind, is_company } = data.data;
+		if (is_company === 'Y')
 		{
 			btnBlindTalk.hide();
-			btnDisplayTalk.show();
+			btnDisplayTalk.hide();
 		}
 		else
 		{
-			btnBlindTalk.show();
-			btnDisplayTalk.hide();
+			if (is_blind === 'Y')
+			{
+				btnBlindTalk.hide();
+				btnDisplayTalk.show();
+			}
+			else
+			{
+				btnBlindTalk.show();
+				btnDisplayTalk.hide();
+			}
 		}
 	}
 
@@ -131,9 +139,9 @@
 			"board_uuid" : g_talk_uuid,
 			"size" : g_talk_comment_page_length,
 			"last_idx" : g_talk_comment_last_idx
-		};
+		}
 
-		ajaxRequestWithJson(true, api.talkCommentList, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.talkCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})
@@ -149,7 +157,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_seq, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_cnt, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -199,14 +207,14 @@
 								${is_company === 'Y' ? label.bizIcon + nickname : nickname} <span class="desc-sub">${created}</span>
 							</p>
 							<div class="right-wrap">
-								${btnBlindComment}
+								${is_company === 'Y' ? '' : btnBlindComment}
 							</div>
 						</div>
 						<div class="detail-data">
 							${comment_body}
 						</div>
 						<div class="bottom">
-							<span><i class="fas fa-comments"></i> ${comment_seq}</span>
+							<span><i class="fas fa-comments"></i> ${comment_cnt}</span>
 						</div>
 			
 						<div class="comments-wrap">

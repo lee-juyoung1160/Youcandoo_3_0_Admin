@@ -285,7 +285,7 @@
 			"last_idx" : g_action_comment_last_idx
 		};
 
-		ajaxRequestWithJson(true, api.actionCommentList, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.actionCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildActionComments(data) : sweetToast(invalidResp(data));
 			})
@@ -479,8 +479,8 @@
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"action_uuid" : g_action_uuid,
-			"comment" : g_action_reply_value.trim(),
-			"mention" : [{ "profile_uuid": g_action_reply_target_profile_uuid, "profile_nickname": g_action_reply_target_nickname}],
+			"comment" : `@${g_action_reply_target_nickname} ${g_action_reply_value.trim()}`,
+			"mention" : [{ "profile_uuid": g_action_reply_target_profile_uuid, "nickname": g_action_reply_target_nickname}],
 			"parent_comment_uuid" : g_action_reply_parent_uuid,
 		}
 

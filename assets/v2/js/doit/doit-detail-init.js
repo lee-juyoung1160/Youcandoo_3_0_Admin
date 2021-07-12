@@ -47,7 +47,7 @@
 		onChangeUpdateAttachType, onSubmitUpdateTalk, showTalkDetailForm, onSubmitBlindTalk,
 		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
 	} from "./doit-detail-talk.js";
-	import {api} from "../modules/api-url.js";
+	import {api} from "../modules/api-url-v1.js";
 	import {message} from "../modules/message.js";
 	import {sweetConfirm, sweetToastAndCallback} from "../modules/alert.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";

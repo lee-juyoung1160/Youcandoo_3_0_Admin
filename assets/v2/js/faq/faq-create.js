@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {lengthInput, btnSubmit, title, content, selFaqType} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { limitInputLength, } from "../modules/common.js";

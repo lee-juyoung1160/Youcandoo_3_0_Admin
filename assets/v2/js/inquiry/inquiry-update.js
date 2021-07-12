@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJson, isSuccessResp } from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle, content,
 		attachmentWrap, answerEl, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';

@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, isSuccessResp} from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {inputString, btnEncryption, btnDecryption, resultString} from '../modules/elements.js';
 	import { sweetToast, } from  '../modules/alert.js';
 	import {isEmpty} from "../modules/utils.js";

@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {
 		btnBack, btnList, commentCount, isBlind, likeCount, talkAttachWrap, talkCreated, userNickname,
 		content, talkCommentWrap, btnBlindTalk, btnDisplayTalk, doitTitle

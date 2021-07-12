@@ -7,7 +7,7 @@
 		rewardMemberTable, btnBan, selRewardType, rewardTableWrap, rewardKeyword, selNotiType, notiKeyword,
 		notiTableWrap, notiContent,} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
-	import {api} from "../modules/api-url.js";
+	import {api} from "../modules/api-url-v1.js";
 	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
 	import {label} from "../modules/label.js";

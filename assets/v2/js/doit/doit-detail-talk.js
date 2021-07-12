@@ -10,7 +10,7 @@
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
 	} from "../modules/common.js";
-	import {api, fileApiV2} from "../modules/api-url.js";
+	import {api, fileApiV2} from "../modules/api-url-v1.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
@@ -222,8 +222,7 @@
 				if (isSuccessResp(data))
 				{
 				 	await buildTalkDetail(data);
-					if (Number(data.data.comment_cnt) > 0)
-						await getTalkComments();
+					await getTalkComments();
 				}
 				else
 					sweetToast(invalidResp(data));
@@ -368,7 +367,7 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${(isSponsorDoit && recomment_data.length > 0) ? buildCreateReply({comment_uuid, profile_uuid, nickname}) : ''}
+							${(isSponsorDoit) ? buildCreateReply({comment_uuid, profile_uuid, nickname}) : ''}
 						</div>
 			
 						<div class="comments-wrap">

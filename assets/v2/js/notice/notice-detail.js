@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJson, isSuccessResp } from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {btnBack, btnList, btnUpdate, btnDelete, content, reserveDate, isExposure, noticeTitle, contentImageWrap} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";

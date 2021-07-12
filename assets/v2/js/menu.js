@@ -1,4 +1,4 @@
-    import { api } from './modules/api-url.js';
+    import { api } from './modules/api-url-v1.js';
     import { btnMenuToggle, mainMenu, subMenu, section, sideBar, btnScrollTop } from "./modules/elements.js";
     import { getPathName } from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";

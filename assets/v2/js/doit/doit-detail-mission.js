@@ -15,7 +15,7 @@
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {fileApiV2, api} from "../modules/api-url.js";
+	import {fileApiV2, api} from "../modules/api-url-v1.js";
 
 	export function showCreateMissionForm()
 	{

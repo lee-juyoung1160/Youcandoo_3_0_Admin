@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url.js';
+	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {lengthInput, btnSubmit, selEventType, title, content, eventNotice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";

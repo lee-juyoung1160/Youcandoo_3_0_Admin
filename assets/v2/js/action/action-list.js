@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import { api, } from '../modules/api-url.js';
+	import { api, } from '../modules/api-url-v1.js';
 	import {body, btnSearch, btnReset, selPageLength, dateButtons, modalDetail, modalWarning, modalOpen, modalClose,
 		modalBackdrop, btnCancel, chkStatus, dateFrom, dateTo, pagination, actionsWrap, selDateType, modalActionContentWrap,
 		modalActionDesc, modalActionWarningReason, modalActionExampleWrap, modalActionExampleDesc, totalActionCount,

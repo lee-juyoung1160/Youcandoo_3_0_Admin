@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson} from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {btnSubmit, versionDigit, versionDecimal} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {initInputNumberWithZero, initInputNumber, isEmpty} from "../modules/utils.js";

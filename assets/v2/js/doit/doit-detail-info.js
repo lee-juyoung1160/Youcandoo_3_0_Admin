@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import {api, fileApiV2} from '../modules/api-url.js';
+	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
 		doitTitle, sponsor, category, doitDesc, doitKeywords, doitThumbnail, publicType, isApply, doitQuestion,
 		isAnswer, btnDoitOpen, btnDoitStop, btnDoitDelete, doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply,

@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {lengthInput, btnSubmit, title, versionDigit, versionDecimal, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
 	import {initInputDatepickerMinDateToday, setDateToday, limitInputLength,} from "../modules/common.js";

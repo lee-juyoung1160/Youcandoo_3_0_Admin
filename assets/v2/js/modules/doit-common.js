@@ -1,6 +1,6 @@
 
     import {ajaxRequestWithJson, isSuccessResp, invalidResp,} from "./ajax-request.js";
-    import {api} from "./api-url.js";
+    import {api} from "./api-url-v1.js";
     import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,selCategory, selSubcategory} from "./elements.js";
     import {isEmpty} from "./utils.js";
     import {limitInputLength,} from "./common.js";

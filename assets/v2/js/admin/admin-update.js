@@ -1,5 +1,5 @@
 
-	import { api } from '../modules/api-url.js';
+	import { api } from '../modules/api-url-v1.js';
 	import {btnSubmit,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";

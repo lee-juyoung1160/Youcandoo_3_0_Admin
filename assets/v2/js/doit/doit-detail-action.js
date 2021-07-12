@@ -9,7 +9,7 @@
 	import {
 		initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength, initDayBtn
 	} from "../modules/common.js";
-	import {api} from "../modules/api-url.js";
+	import {api} from "../modules/api-url-v1.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
@@ -195,16 +195,16 @@
 
 		ajaxRequestWithJson(true, api.detailAction, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getDetailActionCallback(data) : sweetToast(invalidResp(data));
+				if (isSuccessResp(data))
+				{
+					g_action_uuid = data.data.action_uuid;
+					await buildDetailAction(data);
+					await getActionComments();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
-	}
-
-	function getDetailActionCallback(data)
-	{
-		g_action_uuid = data.data.action_uuid;
-		buildDetailAction(data);
-		getActionComments();
 	}
 
 	function buildDetailAction(data)
@@ -306,76 +306,7 @@
 				if (arr.length - 1 === index)
 					g_action_comment_last_idx = idx;
 
-				let repliesEl = ''
-				if (recomment_data.length > 0)
-				{
-					recomment_data.map(replyObj => {
-						const isBlindReply = replyObj.is_blind === 'Y';
-						const btnBlindReply = isBlindReply
-							? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
-							     <i class="fas fa-eye"></i> 블라인드 해제
-							   </button>`
-							: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
-                                 <i class="fas fa-eye-slash"></i> 블라인드 처리
-                               </button>`;
-						const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
-						repliesEl +=
-							`<li>
-								<div class="top clearfix">
-									<p class="title">
-										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} <span class="desc-sub">${replyObj.created}</span>
-									</p>
-									<div class="right-wrap">
-										${replyObj.is_company === 'Y' ? btnDeleteReply : btnBlindReply}
-									</div>
-								</div>
-								<div class="detail-data">
-									${replyObj.comment_body}
-								</div>
-							</li>`
-					})
-				}
-
-				const createReplyEl = isSponsorDoit
-					? `<a class="link btn-reply-action">답글달기</a>
-					<!-- 답글달기 -->
-					<div class="modal-content comments-creat">
-						<div class="modal-header clearfix">
-							<h5>답글달기</h5>
-							<i class="modal-close btn-action-reply-close">×</i>
-						</div>
-						<div class="modal-body">
-							<table class="detail-table reply-table">
-								<colgroup>
-									<col style="width: 20%;">
-									<col style="width: 70%;">
-								</colgroup>
-								<tr>
-									<td colspan="2">
-										<div class="textarea-wrap">
-											<textarea class="length-input reply-action" maxlength="100" rows="4" placeholder="답글을 입력해주세요."></textarea>
-											<p class="length-count-wrap"><span class="count-input">0</span>/100</p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										<div class="right-wrap">
-											<button type="button" 
-													class="btn-sm btn-primary btn-submit-reply-action"
-													data-parent="${comment_uuid}"
-													data-profile="${profile_uuid}"
-													data-nickname="${nickname}">등록</button>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>`
-					: '';
-
-				const isBlindComment = is_blind === 'Y';
-				const btnBlindComment = isBlindComment
+				const btnBlindComment = is_blind === 'Y'
 					? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
                          <i class="fas fa-eye"></i> 블라인드 해제
                        </button>`
@@ -398,12 +329,12 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${createReplyEl}
+							${(isSponsorDoit) ? buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
 							<ul>
-								${repliesEl}
+								${(recomment_data.length> 0) ? buildReplyActionComment({recomment_data, comment_cnt}) : ''}
 							</ul>
 						</div>
 					</div>`
@@ -426,6 +357,7 @@
 		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 		$('.btn-blind-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 		$('.btn-display-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+		$('.btn-viewmore-action-reply').on('click', function () { onClickBtnViewMoreReply(this); });
 	}
 
 	function buildCommentPagination()
@@ -445,6 +377,140 @@
 		g_action_comment_page_num++
 		g_view_page_length += 10;
 		getActionComments();
+	}
+
+	function buildReplyActionComment({recomment_data, comment_cnt})
+	{
+		let repliesEl = ''
+		recomment_data.slice(0).reverse().map((obj, index, arr) => {
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const isBlindReply = is_blind === 'Y';
+			const btnBlindReply = isBlindReply
+				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const lastIdx = recomment_data[arr.length - 1].idx;
+
+			if (comment_cnt > 5 && index ===0)
+				repliesEl +=
+					`<button type="button"
+							 class="btn-more btn-viewmore-action-reply"
+							 data-parent="${parent_comment_uuid}"
+							 data-last="${lastIdx}"
+							 data-size="${comment_cnt}">이전 답글 더보기 <i class="fas fa-sort-down"></i></button>`;
+
+			repliesEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		return repliesEl;
+	}
+
+	let appendReplyActionCommentTarget;
+	function onClickBtnViewMoreReply(obj)
+	{
+		appendReplyActionCommentTarget = $(obj);
+
+		const param = {
+			"parent_comment_uuid" : $(obj).data('parent'),
+			"last_idx" : $(obj).data('last'),
+			"size" : $(obj).data('size')
+		}
+
+		ajaxRequestWithJson(true, api, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? appendReplyActionComment(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`답글 목록${message.ajaxLoadError}`));
+	}
+
+	function appendReplyActionComment(data)
+	{
+		let appendReplyEl = ''
+		data.data.slice(0).reverse().map(obj => {
+			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const isBlindReply = is_blind === 'Y';
+			const btnBlindReply = isBlindReply
+				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+
+			appendReplyEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		appendReplyActionCommentTarget.after(appendReplyEl);
+		appendReplyActionCommentTarget.remove();
+		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-blind-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+		$('.btn-display-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+	}
+
+	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname})
+	{
+		return (
+			`<a class="link btn-reply-talk">답글달기</a>
+				<!-- 답글달기 -->
+				<div class="modal-content comments-creat">
+					<div class="modal-header clearfix">
+						<h5>답글달기</h5>
+						<i class="modal-close btn-talk-reply-close">×</i>
+					</div>
+					<div class="modal-body">
+						<table class="detail-table reply-talk-table">
+							<colgroup>
+								<col style="width: 20%;">
+								<col style="width: 70%;">
+							</colgroup>
+							<tr>
+								<td colspan="2">
+									<div class="textarea-wrap">
+										<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
+										<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="right-wrap">
+										<button type="button" 
+												class="btn-sm btn-primary btn-submit-reply-talk"
+												data-parent="${comment_uuid}"
+												data-profile="${profile_uuid}"
+												data-nickname="${nickname}">등록</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>`
+		)
 	}
 
 	let g_action_reply_parent_uuid;

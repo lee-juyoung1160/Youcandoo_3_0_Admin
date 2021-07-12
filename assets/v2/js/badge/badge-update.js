@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from '../modules/ajax-request.js'
-	import {api, fileApiV2} from '../modules/api-url.js';
+	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {content, badgeTitle, contentImage, thumbnail, qualification, difficulty, selType, lengthInput,
 		btnSubmit, rdoOpen, popupImage, rdoType, popupThumbnail,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';

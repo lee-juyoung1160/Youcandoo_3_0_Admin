@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url.js';
+	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {lengthInput, btnSubmit, giftName, contentImage, price, rdoManual, selectGiftName, goodsCode,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, btnSearch, ktImageUrl,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';

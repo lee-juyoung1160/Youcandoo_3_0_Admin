@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {api, fileApiV2} from '../modules/api-url.js';
+	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {categoryTitle, categoryIcon, isExposure, btnBack, btnList, btnUpdate, btnSubmit,
 		btnAdd, modalClose, modalBackdrop, dataTable, subCategoryTitle, lengthInput, modalSubcategory, modalDoitImage,
 		btnSubmitImage, attachment, deleteAttachment, createAttachment, modalDoitImageTitle} from '../modules/elements.js';

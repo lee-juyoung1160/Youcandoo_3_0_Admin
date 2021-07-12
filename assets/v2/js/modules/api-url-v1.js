@@ -84,6 +84,7 @@
         actionCommentList : baseApiUrl + 'action/get/commentList',
         createActionComment : baseApiUrl + 'action/set/insertComment',
         deleteActionComment : baseApiUrl + 'action/set/deleteComment',
+        actionReplyList : baseApiUrl + 'action/get/comment/child/list',
 
         talkList : baseApiUrl + 'board/get/list',
         createTalk: baseApiUrl + 'board/create',

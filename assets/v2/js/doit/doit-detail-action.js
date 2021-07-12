@@ -357,7 +357,7 @@
 		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 		$('.btn-blind-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 		$('.btn-display-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
-		$('.btn-viewmore-action-reply').on('click', function () { onClickBtnViewMoreReply(this); });
+		$('.btn-viewmore-action-reply').on('click', function () { onClickBtnViewMoreReplyAction(this); });
 	}
 
 	function buildCommentPagination()
@@ -420,7 +420,7 @@
 	}
 
 	let appendReplyActionCommentTarget;
-	function onClickBtnViewMoreReply(obj)
+	function onClickBtnViewMoreReplyAction(obj)
 	{
 		appendReplyActionCommentTarget = $(obj);
 
@@ -430,7 +430,7 @@
 			"size" : $(obj).data('size')
 		}
 
-		ajaxRequestWithJson(true, api, JSON.stringify(param))
+		ajaxRequestWithJson(true, api.actionReplyList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? appendReplyActionComment(data) : sweetToast(invalidResp(data));
 			})
@@ -475,15 +475,15 @@
 	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname})
 	{
 		return (
-			`<a class="link btn-reply-talk">답글달기</a>
+			`<a class="link btn-reply-action">답글달기</a>
 				<!-- 답글달기 -->
 				<div class="modal-content comments-creat">
 					<div class="modal-header clearfix">
 						<h5>답글달기</h5>
-						<i class="modal-close btn-talk-reply-close">×</i>
+						<i class="modal-close btn-action-reply-close">×</i>
 					</div>
 					<div class="modal-body">
-						<table class="detail-table reply-talk-table">
+						<table class="detail-table reply-action-table">
 							<colgroup>
 								<col style="width: 20%;">
 								<col style="width: 70%;">
@@ -491,7 +491,7 @@
 							<tr>
 								<td colspan="2">
 									<div class="textarea-wrap">
-										<textarea class="length-input reply-talk" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
+										<textarea class="length-input reply-action" maxlength="200" rows="4" placeholder="답글을 입력해주세요."></textarea>
 										<p class="length-count-wrap"><span class="count-input">0</span>/200</p>
 									</div>
 								</td>
@@ -500,7 +500,7 @@
 								<td colspan="2">
 									<div class="right-wrap">
 										<button type="button" 
-												class="btn-sm btn-primary btn-submit-reply-talk"
+												class="btn-sm btn-primary btn-submit-reply-action"
 												data-parent="${comment_uuid}"
 												data-profile="${profile_uuid}"
 												data-nickname="${nickname}">등록</button>
@@ -519,7 +519,7 @@
 	let g_action_reply_value;
 	function onSubmitActionReply(obj)
 	{
-		const replyEl = $(obj).parents('.reply-table');
+		const replyEl = $(obj).parents('.reply-action-table');
 		g_action_reply_parent_uuid = $(obj).data('parent');
 		g_action_reply_target_profile_uuid = $(obj).data('profile');
 		g_action_reply_target_nickname = $(obj).data('nickname');

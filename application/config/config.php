@@ -6,10 +6,17 @@ $config['version'] = date("YmdHis");
 $config['redis_session']="10.0.107.43";
 
 $config['api_server_url']="https://adminapi.youcandoo.co.kr";
-if(ENVIRONMENT!="production"){
-    $config['api_server_url']="10.0.16.138";
-}
 
+if($_SERVER['SERVER_ADDR']=="10.7.103.162")
+    $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
+if($_SERVER['SERVER_ADDR']=="10.7.100.4")
+    $config['api_server_url'] = 'https://testingadminapi.youcandoo.co.kr';
+if($_SERVER['SERVER_ADDR']=="10.7.27.10")
+    $config['api_server_url'] = 'https://stagingadminapi.youcandoo.co.kr';
+
+//if(ENVIRONMENT!="production"){
+//    $config['api_server_url']="10.0.16.138";
+//}
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -33,6 +40,14 @@ if(ENVIRONMENT!="production"){
 |
 */
 $config['base_url'] = 'https://admin.youcandoo.co.kr';
+
+
+if($_SERVER['SERVER_ADDR']=="10.7.103.162")
+    $config['base_url'] = 'https://developmentadmin.youcandoo.co.kr/';
+if($_SERVER['SERVER_ADDR']=="10.7.100.4")
+    $config['base_url'] = 'https://testingadmin.youcandoo.co.kr/';
+if($_SERVER['SERVER_ADDR']=="10.7.27.10")
+    $config['base_url'] = 'https://stagingadmin.youcandoo.co.kr/';
 
 /*
 |--------------------------------------------------------------------------

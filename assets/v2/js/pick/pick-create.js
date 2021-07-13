@@ -97,6 +97,8 @@
 				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
+				$(nRow).children().eq(2).addClass('txt-left');
+
 				/** 이미 추가된 경우 체크박스 disabled **/
 				const checkboxEl = $(nRow).children().eq(0).find('input');
 				if (g_added_doit.indexOf(aData.doit_uuid) > -1)

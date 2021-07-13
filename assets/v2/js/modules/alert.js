@@ -1,6 +1,6 @@
 
     import { label } from './label.js';
-    import { isSuccessResp, getStatusMessage } from "./request.js";
+    import { isSuccessResp, getStatusMessage } from "./ajax-request.js";
 
     export function sweetToast(msg)
     {

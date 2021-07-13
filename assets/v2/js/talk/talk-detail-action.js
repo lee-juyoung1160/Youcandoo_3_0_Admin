@@ -109,36 +109,6 @@
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
 
-				let repliesEl = ''
-				if (recomment_data.length > 0)
-				{
-					recomment_data.map(replyObj => {
-						const isBlindReply = replyObj.is_blind === 'Y';
-						const btnBlindReply = isBlindReply
-							? `<button type="button" class="btn-xs btn-orange btn-display" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
- 								 <i class="fas fa-eye"></i> 블라인드 해제
- 							   </button>`
-							: `<button type="button" class="btn-xs btn-warning btn-blind" id="${replyObj.comment_uuid}" data-uuid="${replyObj.comment_uuid}">
-								 <i class="fas fa-eye-slash"></i> 블라인드 처리
-							   </button>`;
-						repliesEl +=
-							`<li>
-								<div class="top clearfix">
-									<p class="title">
-										ㄴ ${replyObj.is_company === 'Y' ? label.bizIcon + replyObj.nickname : replyObj.nickname} 
-										<span class="desc-sub">${replyObj.created}</span>
-									</p>
-									<div class="right-wrap">
-										${replyObj.is_company === 'Y' ? '' : btnBlindReply}
-									</div>
-								</div>
-								<div class="detail-data">
-									${replyObj.comment_body}
-								</div>
-							</li>`
-					})
-				}
-
 				const isBlindComment = is_blind === 'Y';
 				const btnBlindComment = isBlindComment
 					? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}">
@@ -166,7 +136,7 @@
 			
 						<div class="comments-wrap">
 							<ul>
-								${repliesEl}
+								${(recomment_data.length > 0) ? buildReply({recomment_data, comment_cnt}) : ''}
 							</ul>
 						</div>
 					</div>`
@@ -179,6 +149,7 @@
 			$('#btnViewMore').on('click', function () { onClickViewMore(); });
 			$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
 			$('.btn-display').on('click', function () { onClickBtnBlind(this); });
+			$('.btn-viewmore-reply').on('click', function () { onClickBtnViewMoreReply(this); });
 		}
 	}
 
@@ -198,6 +169,99 @@
 	{
 		g_talk_comment_page_num++
 		getTalkComments();
+	}
+
+	function buildReply({recomment_data, comment_cnt})
+	{
+		let repliesEl = ''
+		recomment_data.slice(0).reverse().map((obj, index, arr) => {
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const btnBlindReply = is_blind === 'Y'
+				? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}">
+							 <i class="fas fa-eye"></i> 블라인드 해제
+						   </button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind" id="${comment_uuid}" data-uuid="${comment_uuid}">
+							 <i class="fas fa-eye-slash"></i> 블라인드 처리
+						   </button>`;
+			const lastIdx = recomment_data[arr.length - 1].idx;
+
+			if (comment_cnt > 5 && index ===0)
+				repliesEl +=
+					`<button type="button"
+							 class="btn-more btn-viewmore-reply"
+							 data-parent="${parent_comment_uuid}"
+							 data-last="${lastIdx}"
+							 data-size="${comment_cnt}">이전 답글 더보기 <i class="fas fa-sort-down"></i></button>`;
+
+			repliesEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? '' : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		return repliesEl;
+	}
+
+	let appendReplyTarget;
+	function onClickBtnViewMoreReply(obj)
+	{
+		appendReplyTarget = $(obj);
+
+		const param = {
+			"parent_comment_uuid" : $(obj).data('parent'),
+			"last_idx" : $(obj).data('last'),
+			"size" : $(obj).data('size')
+		}
+
+		ajaxRequestWithJson(true, api.actionReplyList, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetToast(`답글 목록${message.ajaxLoadError}`));
+	}
+
+	function appendReply(data)
+	{
+		let appendReplyEl = ''
+		data.data.slice(0).reverse().map(obj => {
+			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const isBlindReply = is_blind === 'Y';
+			const btnBlindReply = isBlindReply
+				? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+
+			appendReplyEl +=
+				`<li>
+					<div class="top clearfix">
+						<p class="title">
+							ㄴ ${is_company === 'Y' ? label.bizIcon + nickname : nickname} 
+							<span class="desc-sub">${created}</span>
+						</p>
+						<div class="right-wrap">
+							${is_company === 'Y' ? '' : btnBlindReply}
+						</div>
+					</div>
+					<div class="detail-data">
+						${comment_body}
+					</div>
+				</li>`
+		})
+
+		appendReplyTarget.after(appendReplyEl);
+		appendReplyTarget.remove();
+		$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
+		$('.btn-display').on('click', function () { onClickBtnBlind(this); });
 	}
 
 	let g_is_blind;

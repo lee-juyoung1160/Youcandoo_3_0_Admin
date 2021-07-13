@@ -219,8 +219,7 @@
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
 			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
-			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
+			const btnBlindReply = is_blind === 'Y'
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const lastIdx = recomment_data[arr.length - 1].idx;

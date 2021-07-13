@@ -388,7 +388,7 @@
 			const btnBlindReply = isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 			const lastIdx = recomment_data[arr.length - 1].idx;
 
 			if (comment_cnt > 5 && index ===0)
@@ -446,7 +446,7 @@
 			const btnBlindReply = isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 
 			appendReplyEl +=
 				`<li>
@@ -467,7 +467,7 @@
 
 		appendReplyActionCommentTarget.after(appendReplyEl);
 		appendReplyActionCommentTarget.remove();
-		$('.btn-delete-talk-comment').on('click', function () { onSubmitDeleteActionComment(this); });
+		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
 		$('.btn-blind-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 	}

@@ -141,14 +141,14 @@
 								return label.charge;
 							case 'level' :
 								return label.levelup;
-							case 'join' :
+							case 'signup' :
 								return label.join;
 							default :
 								return `[${row.receive_type}] ${data}`;
 						}
 					}
 				}
-				,{title: "구분",    		data: "transfer_type",  	width: "5%" }
+				,{title: "구분",    		data: "transfer_type",  	width: "10%" }
 				,{title: "상세 내용",    	data: "message",  			width: "30%" }
 				,{title: "UCD", 		data: "value",				width: "10%",
 					render: function (data, type, row, meta) {
@@ -156,7 +156,7 @@
 					}
 				}
 				,{title: "지급 일시",    	data: "sended",  			width: "15%" }
-				,{title: "상태",    		data: "status",  			width: "10%" }
+				,{title: "상태",    		data: "status",  			width: "5%" }
 			],
 			serverSide: true,
 			paging: true,

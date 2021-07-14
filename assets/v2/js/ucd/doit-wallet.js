@@ -82,6 +82,7 @@
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
 						"send_type" : 'doit',
+						"receive_type" : 'doit',
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}
@@ -93,8 +94,8 @@
 				}
 			},
 			columns: [
-				{title: "두잇명",    		data: "send_name",  	width: "19%" }
-				,{title: "내용",    		data: "message",  		width: "20%" }
+				{title: "두잇명",    		data: "send_name",  	width: "21%" }
+				,{title: "내용",    		data: "message",  		width: "21%" }
 				,{title: "실행자",    	data: "register_name",  width: "15%",
 					render: function (data, type, row, meta) {
 						return row.register_is_company === 'Y' ? label.bizIcon + data : data;
@@ -107,7 +108,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "지급 일시",    	data: "sended",  		width: "15%" }
+				,{title: "지급 일시",    	data: "sended",  		width: "12%" }
 			],
 			serverSide: true,
 			paging: true,

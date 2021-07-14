@@ -7,6 +7,9 @@
         saveDoitUcdByBiz : baseApiUrl + 'ucd/set/charge/doit/company',
         saveBizUcd : baseApiUrl + 'ucd/set/charge/company/system',
 
+        dashboardSummary : baseApiUrl + 'main/dashboard',
+        dashboardSummaryList : baseApiUrl + 'main/dashboard/get/list',
+
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update',
 

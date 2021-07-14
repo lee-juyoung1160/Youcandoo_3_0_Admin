@@ -154,7 +154,7 @@
     function getWeekAgoStr()
     {
         const d = new Date();
-        d.setDate(d.getDate() - 7);
+        d.setDate(d.getDate() - 6);
         return  getDateStr(d);
     }
 

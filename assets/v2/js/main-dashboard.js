@@ -11,29 +11,41 @@
         onChangeSearchDateTo
     } from "./modules/common.js";
     import {dateFrom, dateTo} from "./modules/elements.js";
+    import {numberWithCommas} from "./modules/utils.js";
 
 
     $( () => {
         initSearchDatepicker();
         initSearchDateRangeWeek();
+        getSummaryData();
         dateFrom.on('change', function () { onChangeSearchDateFrom(); });
         dateTo.on('change', function () { onChangeSearchDateTo(); });
     });
 
-    function getInfos()
+    function getSummaryData()
     {
-        const param = { "idx" : '' }
+        const param = {
+            'from_date' : dateFrom.val(),
+            'to_date' : dateTo.val(),
+        }
 
-        ajaxRequestWithJson(true, api, JSON.stringify(param))
+        ajaxRequestWithJson(true, api.dashboardSummary, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await isSuccessResp(data) ? buildInfos(data) : sweetToast(invalidResp(data));
+                await isSuccessResp(data) ? buildSummary(data) : sweetToast(invalidResp(data));
             })
             .catch(reject => sweetToast(`${message.ajaxLoadError}`));
     }
 
-    function buildInfos(data)
+    function buildSummary(data)
     {
-
+        const {sign_up_count, level2_member_count, action_count, create_doit_count, total_app_down_count, total_sign_up_count, total_give_ucd} = data.data;
+        $("#signupCount").text(numberWithCommas(sign_up_count));
+        $("#level2Count").text(numberWithCommas(level2_member_count));
+        $("#actionCount").text(numberWithCommas(action_count));
+        $("#openDoitCount").text(numberWithCommas(create_doit_count));
+        $("#downloadCount").text(numberWithCommas(total_app_down_count));
+        $("#memberCount").text(numberWithCommas(total_sign_up_count));
+        $("#issuedUcd").text(numberWithCommas(total_give_ucd));
     }
 
 
@@ -77,7 +89,7 @@
             elements: {
                 center: {
                     text: '',
-                    color: color.darkNavy,
+                    color: '',
                     fontStyle: 'Roboto',
                     sidePadding: 20, /** Default is 20 (as a percentage) **/
                     maxFontSize: 25,

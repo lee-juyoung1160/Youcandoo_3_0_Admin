@@ -18,28 +18,28 @@
             <div class="col-2">
                 <div class="card">
                     <p class="title">신규 가입</p>
-                    <strong class="data-num t-green count">333,333</strong>
+                    <strong class="data-num t-green count" id="signupCount"></strong>
                     <i class="fas fa-user-plus bg-icon"></i>
                 </div>
             </div>
             <div class="col-2">
                 <div class="card">
                     <p class="title">Level 2 진입</p>
-                    <strong class="data-num t-yellow">333,333,333</strong>
+                    <strong class="data-num t-yellow" id="level2Count"></strong>
                     <i class="fas fa-star-half-alt bg-icon"></i>
                 </div>
             </div>
             <div class="col-2">
                 <div class="card">
                     <p class="title">두잇 인증</p>
-                    <strong class="data-num t-purple">333,333</strong>
+                    <strong class="data-num t-purple" id="actionCount"></strong>
                     <i class="fas fa-camera-retro bg-icon"></i>
                 </div>
             </div>
             <div class="col-2">
                 <div class="card">
                     <p class="title">두잇 개설</p>
-                    <strong class="data-num t-blue">333,333</strong>
+                    <strong class="data-num t-blue" id="openDoitCount"></strong>
                     <i class="fas fa-plus-circle bg-icon"></i>
                 </div>
             </div>
@@ -47,15 +47,15 @@
                 <div class="card">
                     <dl>
                         <dt class="title"><i class="fas fa-download"></i> 누적 다운로드</dt>
-                        <dd class="data-num-m">333,333</dd>
+                        <dd class="data-num-m" id="downloadCount"></dd>
                     </dl>
                     <dl>
                         <dt class="title"><i class="fas fa-users"></i> 누적 회원 수</dt>
-                        <dd class="data-num-m">333,333</dd>
+                        <dd class="data-num-m" id="memberCount"></dd>
                     </dl>
                     <dl>
                         <dt class="title"><i class="fas fa-coins"></i> 누적 발행 UCD</dt>
-                        <dd class="data-num-m">333,333</dd>
+                        <dd class="data-num-m" id="issuedUcd"></dd>
                     </dl>
                 </div>
                 <p class="desc-sub" style="padding-top: 8px; text-align:right;">* 런칭일 ~ 기간조회 종료일 기준</p>
@@ -415,7 +415,7 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
-
+<script type="module" src="/assets/v2/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>
 
 <script>
 

@@ -179,8 +179,8 @@
 			btnUpdateDoit.hide();
 			btnDeleteMission.remove();
 			btnUpdateMission.remove();
-			btnBan.remove();
 			btnCreateMission.remove();
+			btnBan.remove();
 			actionCommentWrap.removeClass('col-8');
 			actionCommentWrap.addClass('col-12');
 			createCommentWrap.remove();
@@ -188,8 +188,6 @@
 			talkCommentWrap.addClass('col-12');
 			createTalkCommentWrap.remove();
 			btnCreateTalk.parent('.card').remove();
-			btnUpdateTalk.remove();
-			btnDeleteTalk.remove();
 			btnSaveUcd.remove();
 			btnApproval.remove()
 			btnReject.remove();

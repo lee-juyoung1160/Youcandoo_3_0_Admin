@@ -1,11 +1,39 @@
 
 	import {
-		modalCreateTalk, modalBackdrop, talkDetailForm, talkListForm, talkUpdateForm, talk, searchTalkDateFrom,
-		searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
-		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
-		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
-		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk, btnDisplayTalk, btnDeleteTalk,
-	} from "../modules/elements.js";
+	modalCreateTalk,
+	modalBackdrop,
+	talkDetailForm,
+	talkListForm,
+	talkUpdateForm,
+	talk,
+	searchTalkDateFrom,
+	searchTalkDateTo,
+	modalAttach,
+	modalAttachContentWrap,
+	talkAttachmentWrap,
+	rdoAttachType,
+	selTalkDateType,
+	selTalkPageLength,
+	talkTable,
+	chkNoticeTalk,
+	infoTalkNickname,
+	infoTalkCommentCount,
+	infoTalkLikeCount,
+	infoTalkContent,
+	infoTalkCreated,
+	infoTalkIsBlind,
+	infoTalkAttachWrap,
+	talkCommentWrap,
+	commentTalk,
+	updateTalk,
+	rdoUpdateAttachType,
+	chkUpdateNoticeTalk,
+	updateTalkAttachWrap,
+	btnBlindTalk,
+	btnDisplayTalk,
+	btnDeleteTalk,
+		btnUpdateTalk,
+} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
@@ -249,12 +277,14 @@
 		if (is_company === 'Y')
 		{
 			btnDeleteTalk.show();
+			btnUpdateTalk.show();
 			btnDisplayTalk.hide();
 			btnBlindTalk.hide()
 		}
 		else
 		{
 			btnDeleteTalk.hide();
+			btnUpdateTalk.hide();
 
 			if (is_blind === 'Y')
 			{

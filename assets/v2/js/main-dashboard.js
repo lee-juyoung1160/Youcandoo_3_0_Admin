@@ -5,28 +5,32 @@
     import {label} from "./modules/label.js";
     import {message} from "./modules/message.js";
     import {
+        getTodayStr,
+        getWeekAgoStr,
         initSearchDatepicker,
-        initSearchDateRangeWeek,
-        onChangeSearchDateFrom,
-        onChangeSearchDateTo
     } from "./modules/common.js";
-    import {dateFrom, dateTo} from "./modules/elements.js";
     import {numberWithCommas} from "./modules/utils.js";
 
+    const dateFromSummary = $("#dateFromSummary");
+    const dateToSummary = $("#dateToSummary");
+    const dateFromSummaryList = $("#dateFromSummaryList");
+    const dateToSummaryList = $("#dateToSummaryList");
 
     $( () => {
         initSearchDatepicker();
-        initSearchDateRangeWeek();
+        initDateRangeWeek();
         getSummaryData();
-        dateFrom.on('change', function () { onChangeSearchDateFrom(); });
-        dateTo.on('change', function () { onChangeSearchDateTo(); });
+        dateFromSummary.on('change', function () { onChangeSearchDateFromSummary(); });
+        dateToSummary.on('change', function () { onChangeSearchDateToSummary(); });
+        dateFromSummaryList.on('change', function () { onChangeSearchDateFromSummaryList(); });
+        dateToSummaryList.on('change', function () { onChangeSearchDateToSummaryList(); });
     });
 
     function getSummaryData()
     {
         const param = {
-            'from_date' : dateFrom.val(),
-            'to_date' : dateTo.val(),
+            'from_date' : dateFromSummary.val(),
+            'to_date' : dateToSummary.val(),
         }
 
         ajaxRequestWithJson(true, api.dashboardSummary, JSON.stringify(param))
@@ -98,4 +102,36 @@
                 }
             }
         },
+    }
+
+    function initDateRangeWeek()
+    {
+        dateFromSummary.val(getWeekAgoStr());
+        dateToSummary.val(getTodayStr());
+        dateFromSummaryList.val(getWeekAgoStr());
+        dateToSummaryList.val(getTodayStr());
+    }
+
+    function onChangeSearchDateFromSummary()
+    {
+        dateToSummary.datepicker("option", "minDate", new Date(dateFromSummary.datepicker("getDate")));
+        initDayBtn();
+    }
+
+    function onChangeSearchDateToSummary()
+    {
+        dateFromSummary.datepicker("option", "maxDate", new Date(dateToSummary.datepicker("getDate")));
+        initDayBtn();
+    }
+
+    function onChangeSearchDateFromSummaryList()
+    {
+        dateToSummaryList.datepicker("option", "minDate", new Date(dateFromSummaryList.datepicker("getDate")));
+        initDayBtn();
+    }
+
+    function onChangeSearchDateToSummaryList()
+    {
+        dateFromSummaryList.datepicker("option", "maxDate", new Date(dateToSummaryList.datepicker("getDate")));
+        initDayBtn();
     }

@@ -144,14 +144,14 @@
         return `${year}-${appendZero(month)}-${appendZero(day)}`;
     }
 
-    function getTodayStr()
+    export function getTodayStr()
     {
         const d = new Date();
 
         return  getDateStr(d);
     }
 
-    function getWeekAgoStr()
+    export function getWeekAgoStr()
     {
         const d = new Date();
         d.setDate(d.getDate() - 6);

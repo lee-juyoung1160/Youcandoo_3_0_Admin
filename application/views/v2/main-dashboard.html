@@ -58,18 +58,18 @@
                         <dd class="data-num-m">333,333</dd>
                     </dl>
                 </div>
-                <p class="desc-sub" style="padding-top: 8px; text-align:right;">* 기간조회 종료일 기준</p>
+                <p class="desc-sub" style="padding-top: 8px; text-align:right;">* 런칭일 ~ 기간조회 종료일 기준</p>
             </div>
         </div>
 
-        <div class="row" style="margin-top: 30px;">
+        <div class="row row2">
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
                         <p class="title">미션 등록 비율 <i class="fas fa-sync-alt"></i></p>
                         <span class="desc-sub">2021-08-01 00:00:00 기준</span>
                     </div>
-                    <div>
+                    <div class="chart-wrap">
                         <canvas id="doughnut1"></canvas>
                     </div>
                 </div>
@@ -80,9 +80,83 @@
                         <p class="title">카테고리 별 현황 <i class="fas fa-sync-alt"></i></p>
                         <span class="desc-sub">2021-08-01 00:00:00 기준</span>
                     </div>
-                    <div>
-                        <canvas id="pie1"></canvas>
+                    <div class="chart-wrap">
+                        <canvas id="pie1" width="250" height="250"></canvas>
                     </div>
+                    <ul class="chart-info">
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>건강/다이어트</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">20%</strong> (13,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>영어/외국어</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">15%</strong> (9,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>자기계발</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">20%</strong> (13,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>생활습관</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">20%</strong> (13,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>합격</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">20%</strong> (13,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>운동/스포츠</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">20%</strong> (13,000,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>부자되기</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">8%</strong> (600,000)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left-wrap">
+                                <i class="color-box"></i>
+                                <span>가족과 행복</span>
+                            </div>
+                            <div class="right-wrap">
+                                <strong class="data-num-s">8%</strong> (600,000)
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-3">
@@ -93,6 +167,7 @@
                     </div>
                     <ul class="rank">
                         <li class="clearfix">
+                            <i class="fas fa-crown rank-first"></i>
                             <div class="left-wrap">
                                 <span><em class="rank-num">1</em></span>
                                 <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
@@ -102,7 +177,7 @@
                         <li class="clearfix">
                             <div class="left-wrap">
                                 <span><em class="rank-num">2</em></span>
-                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                                <a href="#" class="rank-title link">리더닉네임노출클릭하면회원상세로이동</a>
                             </div>
                             <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
                         </li>
@@ -164,6 +239,7 @@
                         </li>
                     </ul>
                 </div>
+                <a href="#" class="rank-more card">리더 랭킹 더보기 <i class="fas fa-angle-right"></i></a>
             </div>
             <div class="col-3">
                 <div class="card">
@@ -173,6 +249,7 @@
                     </div>
                     <ul class="rank">
                         <li class="clearfix">
+                            <i class="fas fa-crown rank-first"></i>
                             <div class="left-wrap">
                                 <span><em class="rank-num">1</em></span>
                                 <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
@@ -182,7 +259,7 @@
                         <li class="clearfix">
                             <div class="left-wrap">
                                 <span><em class="rank-num">2</em></span>
-                                <a href="#" class="rank-title link">두잇명또르르</a>
+                                <a href="#" class="rank-title link">두잇명노출 클릭하면 두잇상세로 이동</a>
                             </div>
                             <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
                         </li>
@@ -244,22 +321,23 @@
                         </li>
                     </ul>
                 </div>
+                <a href="#" class="rank-more card">두잇 랭킹 더보기 <i class="fas fa-angle-right"></i></a>
             </div>
         </div>
 
         <div class="table-wrap row" style="margin-top: 30px;">
             <div class="top card clearfix">
                 <div class="left-wrap">
-                    <p class="title" style="font-size: 15px;">월 별 현황</p>
+                    <p class="title" style="font-size: 15px;">기간 별 현황</p>
                 </div>
                 <div class="right-wrap clearfix">
-                    <div class="form-box">
-                        <select class="select-box">
-                            <option value="">2021년</option>
-                        </select>
-                        <select class="select-box">
-                            <option value="">8월</option>
-                        </select>
+                    <div class="search-box">
+                        <p class="search-title">기간 조회</p>
+                        <div class="date-wrap">
+                            <input type="text" class="datepicker date-from" readonly>
+                            <span class="date-text"> ~ </span>
+                            <input type="text" class="datepicker date-to" readonly>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,6 +381,30 @@
                     <td>2,093</td>
                     <td>2,093</td>
                 </tr>
+                <tr>
+                    <td>2020-00-00</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                </tr>
+                <tr>
+                    <td>2020-00-00</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                </tr>
                 </tbody>
 
 
@@ -313,4 +415,62 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
+
+
+<script>
+
+
+    window.onload = function() {
+        const pie1 = document.getElementById('pie1');
+        const data = {
+            datasets: [{
+                labels: ['자기계발', '외국어', '생활 습관', '합격', '운동', '부자되기', '가족/행복', '건강/다이어트'],
+                data: [60, 60, 60, 40, 60, 30, 30, 20],
+                borderWidth: 1,
+                backgroundColor: ['#BED661', '#89E894', '#78D5E3', '#7AF5F5', '#34DDDD', '#FE8402', '#41924B', '#FFCC00'],
+            }]
+        };
+
+        const myChart = new Chart(pie1, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: false,
+                legend: {
+                    display: false
+                },
+                //legendCallback: customLegend
+            }
+        });
+    }
+
+    /*window.onload = function() {
+        const doughnut1 = document.getElementById('doughnut1');
+        const data = {
+            datasets: [{
+                labels: ['자기계발'],
+                data: [60],
+                borderWidth: 1,
+                backgroundColor: ['#BED661'],
+            }]
+        };
+
+        const myChart = new Chart(doughnut1, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: false,
+                legend: {
+                    display: false
+                },
+                //legendCallback: customLegend
+            }
+        });
+    }*/
+
+
+
+</script>
+
+
 

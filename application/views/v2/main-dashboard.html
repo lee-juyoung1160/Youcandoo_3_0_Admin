@@ -1,5 +1,316 @@
-<section>
+<link rel="stylesheet" href="/assets/v2/css/plugins/chart.min.css">
+<link rel="stylesheet" href="/assets/v2/css/dashboard.css?version=<?php echo $this->config->item('version');?>">
+<section class="dashboard">
     <div class="inner">
-        <h5>메인</h5>
+        <div class="main-top clearfix">
+            <h2 class="main-title">Dash Board</h2>
+            <div class="search-box">
+                <p class="search-title">기간 조회</p>
+                <div class="date-wrap">
+                    <input type="text" class="datepicker date-from" readonly>
+                    <span class="date-text"> ~ </span>
+                    <input type="text" class="datepicker date-to" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row1">
+            <div class="col-2">
+                <div class="card">
+                    <p class="title">신규 가입</p>
+                    <strong class="data-num t-green count">333,333</strong>
+                    <i class="fas fa-user-plus bg-icon"></i>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <p class="title">Level 2 진입</p>
+                    <strong class="data-num t-yellow">333,333,333</strong>
+                    <i class="fas fa-star-half-alt bg-icon"></i>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <p class="title">두잇 인증</p>
+                    <strong class="data-num t-purple">333,333</strong>
+                    <i class="fas fa-camera-retro bg-icon"></i>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <p class="title">두잇 개설</p>
+                    <strong class="data-num t-blue">333,333</strong>
+                    <i class="fas fa-plus-circle bg-icon"></i>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <dl>
+                        <dt class="title"><i class="fas fa-download"></i> 누적 다운로드</dt>
+                        <dd class="data-num-m">333,333</dd>
+                    </dl>
+                    <dl>
+                        <dt class="title"><i class="fas fa-users"></i> 누적 회원 수</dt>
+                        <dd class="data-num-m">333,333</dd>
+                    </dl>
+                    <dl>
+                        <dt class="title"><i class="fas fa-coins"></i> 누적 발행 UCD</dt>
+                        <dd class="data-num-m">333,333</dd>
+                    </dl>
+                </div>
+                <p class="desc-sub" style="padding-top: 8px; text-align:right;">* 기간조회 종료일 기준</p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-3">
+                <div class="card">
+                    <div class="title-wrap">
+                        <p class="title">미션 등록 비율 <i class="fas fa-sync-alt"></i></p>
+                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                    </div>
+                    <div>
+                        <canvas id="doughnut1"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="title-wrap">
+                        <p class="title">카테고리 별 현황 <i class="fas fa-sync-alt"></i></p>
+                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                    </div>
+                    <div>
+                        <canvas id="pie1"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="title-wrap">
+                        <p class="title">이번 주 리더 랭킹 <i class="fas fa-sync-alt"></i></p>
+                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                    </div>
+                    <ul class="rank">
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">1</em></span>
+                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">2</em></span>
+                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">3</em></span>
+                                <a href="#" class="rank-title link">리더닉네임</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">4</em></span>
+                                <a href="#" class="rank-title link">리더닉네임</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">5</em></span>
+                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">6</em></span>
+                                <a href="#" class="rank-title link">리더닉네임</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">7</em></span>
+                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">8</em></span>
+                                <a href="#" class="rank-title link">리더닉네임</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">9</em></span>
+                                <a href="#" class="rank-title link">리더닉네임몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">10</em></span>
+                                <a href="#" class="rank-title link">리더닉네임</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="title-wrap">
+                        <p class="title">이번 주 두잇 랭킹 <i class="fas fa-sync-alt"></i></p>
+                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                    </div>
+                    <ul class="rank">
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">1</em></span>
+                                <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">2</em></span>
+                                <a href="#" class="rank-title link">두잇명또르르</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">3</em></span>
+                                <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">4</em></span>
+                                <a href="#" class="rank-title link">두잇명또르르</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">5</em></span>
+                                <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">6</em></span>
+                                <a href="#" class="rank-title link">두잇명또르르</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">7</em></span>
+                                <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">8</em></span>
+                                <a href="#" class="rank-title link">두잇명또르르</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">9</em></span>
+                                <a href="#" class="rank-title link">두잇 명 몇글자까지가능할까두줄도가능가능핵가능</a>
+                            </div>
+                            <div class="right-wrap rank-up"><i class="fas fa-caret-up"></i> 3</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="left-wrap">
+                                <span><em class="rank-num">10</em></span>
+                                <a href="#" class="rank-title link">두잇명또르르</a>
+                            </div>
+                            <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap row" style="margin-top: 30px;">
+            <div class="top card clearfix">
+                <div class="left-wrap">
+                    <p class="title" style="font-size: 15px;">월 별 현황</p>
+                </div>
+                <div class="right-wrap clearfix">
+                    <div class="form-box">
+                        <select class="select-box">
+                            <option value="">2021년</option>
+                        </select>
+                        <select class="select-box">
+                            <option value="">8월</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>일자</th>
+                    <th>앱 설치</th>
+                    <th>회원 가입</th>
+                    <th>두잇 가입</th>
+                    <th>인증</th>
+                    <th>인증 댓글</th>
+                    <th>커뮤니티</th>
+                    <th>커뮤니티 댓글</th>
+                    <th>두잇 개설</th>
+                    <th>미션 등록</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>2020-00-00</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                    <td>2,093</td>
+                </tr>
+                </tbody>
+
+
+            </table>
+
+        </div>
+
     </div>
 </section>
+<script src="/assets/v2/js/plugins/chart.min.js"></script>
+

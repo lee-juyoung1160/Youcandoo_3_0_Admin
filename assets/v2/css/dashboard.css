@@ -1,0 +1,172 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap');
+
+/* dashboard */
+
+
+.dashboard .search-box {
+    display: flex;
+    float: right;
+    align-items: center;
+}
+.dashboard .search-box .search-title {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+.dashboard .card {
+    overflow: hidden;
+    position: relative;
+}
+.dashboard .title {
+    padding-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 숫자 데이터 */
+.dashboard .data-num {
+    display: block;
+    font-family: 'Roboto', "Noto Sans KR";
+    font-size: 28px;
+    font-weight: 600;
+}
+.dashboard .data-num-m {
+    font-size: 28px;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.dashboard .card dl {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.dashboard .card dl:last-child {
+    margin-bottom: 0;
+}
+.dashboard .card dl dt {
+    width: 40%;
+    margin-right: auto;
+}
+.dashboard .card dl dd {
+    width: 60%;
+    margin-left: auto;
+    text-align: right;
+}
+
+.dashboard .title-wrap {
+    display: flex;
+    align-items: center;
+}
+.dashboard .title-wrap > .title {
+    margin-right: auto;
+    padding-bottom: 0;
+}
+.dashboard .title-wrap > .title i {
+    color: #ccdffc;
+    transition: all .3s;
+}
+.dashboard .title-wrap > .title i:hover {
+    color: #0061f2;
+}
+.dashboard .title-wrap > .desc-sub {
+    margin-left: auto;
+}
+
+
+/* 폰트 컬러 */
+.t-green {
+    color: green;
+}
+.t-yellow {
+    color: orange;
+}
+.t-purple {
+    color: slateblue;
+}
+.t-blue {
+    color: #006AFD;
+}
+
+/* 배경 아이콘 */
+.dashboard .bg-icon {
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    font-size: 65px;
+    opacity: .07;
+}
+
+/* 최상단 row1*/
+.dashboard .row1 .card {
+    height: 108px;
+}
+.dashboard .row1 .card .data-num {
+    padding-top: 15px;
+}
+.dashboard .row1 .col-2:nth-of-type(1) .bg-icon {
+    color: green;
+}
+.dashboard .row1 .col-2:nth-of-type(2) .bg-icon {
+    color: orange;
+}
+.dashboard .row1 .col-2:nth-of-type(3) .bg-icon {
+    color: slateblue;
+}
+.dashboard .row1 .col-2:nth-of-type(4) .bg-icon {
+    color: #006AFD;
+}
+.dashboard .row1 .col-4 .card {
+    background-color: #ccdffc;
+}
+.dashboard .row1 .col-4 .card i {
+    color: aliceblue;
+}
+
+/* 랭크 공통 */
+.rank {
+    margin-top: 10px;
+}
+.rank li {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    border-top: 1px solid #f3f3f3;
+}
+.rank li .left-wrap {
+    display: flex;
+    margin-right: auto;
+    width: 90%;
+    align-items: center;
+}
+.rank li .right-wrap {
+    width: 13%;
+    text-align: left;
+    font-size: 13px;
+}
+
+.rank-up {
+    color: red;
+}
+.rank-down {
+    color: dodgerblue;
+}
+
+.rank li span {
+    width: 10%;
+}
+.rank li .rank-title {
+    width: 80%;
+    line-height: 1.5em;
+}
+.rank li .rank-num {
+    display: block;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+    background-color: #333;
+}

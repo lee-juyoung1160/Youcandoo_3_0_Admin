@@ -24,6 +24,8 @@
         memberActionDetail : baseApiUrl + 'profile/get/detail/action',
         countPerLevel : baseApiUrl + 'level/get/count',
         memberLevelList : baseApiUrl + 'level/get/list',
+        unlinkMemberList : baseApiUrl + 'profile/get/unlink',
+        changedMemberList : baseApiUrl + 'profile/get/changed',
 
         badgeList : baseApiUrl + 'badge/get/list',
         createBadge : baseApiUrl + 'badge/create',

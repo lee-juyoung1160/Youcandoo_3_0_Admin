@@ -20,24 +20,34 @@ class Member extends MY_Controller {
         $this->load->template('v2/member/level-list');
     }
 
+    public function unlinked()
+    {
+        $this->load->template('v2/member/unlinked-member-list');
+    }
 
-     public function badge($Route = "")
-        {
-            switch ($Route) {
-                case "":
-                    $this->load->template('v2/member/badge-list');
-                    break;
-                case "create" :
-                    $this->load->template('v2/member/badge-create');
-                    break;
-                case "update":
-                    $this->load->template('v2/member/badge-update');
-                    break;
-                case "detail":
-                    $this->load->template('v2/member/badge-detail');
-                    break;
-            }
+    public function changed()
+    {
+        $this->load->template('v2/member/changed-member-list');
+    }
+
+
+    public function badge($Route = "")
+    {
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/member/badge-list');
+                break;
+            case "create" :
+                $this->load->template('v2/member/badge-create');
+                break;
+            case "update":
+                $this->load->template('v2/member/badge-update');
+                break;
+            case "detail":
+                $this->load->template('v2/member/badge-detail');
+                break;
         }
+    }
 
 
 }

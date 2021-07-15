@@ -66,25 +66,25 @@
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">미션 등록 비율 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                        <p class="title">미션 등록 비율</p>
+                        <span class="desc-sub">당일 0시 기준</span>
                     </div>
                     <div class="chart-wrap">
-                        <canvas id="doughnut1"></canvas>
+                        <canvas id="missionChart"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">카테고리 별 현황 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                        <p class="title">카테고리 별 현황</p>
+                        <span class="desc-sub">당일 0시 기준</span>
                     </div>
                     <div class="chart-wrap">
-                        <canvas id="pie1" width="250" height="250"></canvas>
+                        <canvas id="categoryChart" width="250" height="250"></canvas>
                     </div>
-                    <ul class="chart-info">
-                        <li>
+                    <ul class="chart-info" id="categorySummary">
+                        <!--<li>
                             <div class="left-wrap">
                                 <i class="color-box"></i>
                                 <span>건강/다이어트</span>
@@ -155,18 +155,18 @@
                             <div class="right-wrap">
                                 <strong class="data-num-s">8%</strong> (600,000)
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">이번 주 리더 랭킹 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                        <p class="title">이번 주 리더 랭킹</p>
+                        <span class="desc-sub">당일 0시 기준</span>
                     </div>
-                    <ul class="rank">
-                        <li class="clearfix">
+                    <ul class="rank" id="leaderRank">
+                        <!--<li class="clearfix">
                             <i class="fas fa-crown rank-first"></i>
                             <div class="left-wrap">
                                 <span><em class="rank-num">1</em></span>
@@ -236,7 +236,7 @@
                                 <a href="#" class="rank-title link">리더닉네임</a>
                             </div>
                             <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <a href="#" class="rank-more card">리더 랭킹 더보기 <i class="fas fa-angle-right"></i></a>
@@ -244,11 +244,11 @@
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">이번 주 두잇 랭킹 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">2021-08-01 00:00:00 기준</span>
+                        <p class="title">이번 주 두잇 랭킹</p>
+                        <span class="desc-sub">당일 0시 기준</span>
                     </div>
-                    <ul class="rank">
-                        <li class="clearfix">
+                    <ul class="rank" id="doitRank">
+                        <!--<li class="clearfix">
                             <i class="fas fa-crown rank-first"></i>
                             <div class="left-wrap">
                                 <span><em class="rank-num">1</em></span>
@@ -318,7 +318,7 @@
                                 <a href="#" class="rank-title link">두잇명또르르</a>
                             </div>
                             <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <a href="#" class="rank-more card">두잇 랭킹 더보기 <i class="fas fa-angle-right"></i></a>
@@ -341,8 +341,8 @@
                     </div>
                 </div>
             </div>
-            <table>
-                <colgroup>
+            <table id="summaryTable">
+                <!--<colgroup>
                     <col style="width: 10%;">
                     <col style="width: 10%;">
                     <col style="width: 10%;">
@@ -405,11 +405,8 @@
                     <td>2,093</td>
                     <td>2,093</td>
                 </tr>
-                </tbody>
-
-
+                </tbody>-->
             </table>
-
         </div>
 
     </div>
@@ -427,8 +424,8 @@
                         <p class="title">이번 주 리더 랭킹 <i class="fas fa-sync-alt"></i></p>
                         <span class="desc-sub">2021-08-01 00:00:00 기준</span>
                     </div>
-                    <ul class="rank">
-                        <li class="clearfix">
+                    <ul class="rank" id="modalRank">
+                        <!--<li class="clearfix">
                             <i class="fas fa-crown rank-first"></i>
                             <div class="left-wrap">
                                 <span><em class="rank-num">1</em></span>
@@ -519,7 +516,7 @@
                                 <a href="#" class="rank-title link">리더닉네임</a>
                             </div>
                             <div class="right-wrap rank-down"><i class="fas fa-caret-down"></i> 208</div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -532,62 +529,8 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>
-
-<script>
-
-
-    window.onload = function() {
-        const pie1 = document.getElementById('pie1');
-        const data = {
-            datasets: [{
-                labels: ['자기계발', '외국어', '생활 습관', '합격', '운동', '부자되기', '가족/행복', '건강/다이어트'],
-                data: [60, 60, 60, 40, 60, 30, 30, 20],
-                borderWidth: 1,
-                backgroundColor: ['#BED661', '#89E894', '#78D5E3', '#7AF5F5', '#34DDDD', '#FE8402', '#41924B', '#FFCC00'],
-            }]
-        };
-
-        const myChart = new Chart(pie1, {
-            type: 'pie',
-            data: data,
-            options: {
-                responsive: false,
-                legend: {
-                    display: false
-                },
-                //legendCallback: customLegend
-            }
-        });
-    }
-
-    /*window.onload = function() {
-        const doughnut1 = document.getElementById('doughnut1');
-        const data = {
-            datasets: [{
-                labels: ['자기계발'],
-                data: [60],
-                borderWidth: 1,
-                backgroundColor: ['#BED661'],
-            }]
-        };
-
-        const myChart = new Chart(doughnut1, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: false,
-                legend: {
-                    display: false
-                },
-                //legendCallback: customLegend
-            }
-        });
-    }*/
-
-
-
-</script>
 
 
 

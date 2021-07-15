@@ -104,35 +104,35 @@
 }
 
 /* 차트 */
-.chart-wrap {
+.dashboard .chart-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
-.chart-info li {
+.dashboard .chart-info li {
     display: flex;
     padding: 7.4px 5px;
     border-top: 1px solid #f3f3f3;
 }
-.chart-info li .left-wrap {
+.dashboard .chart-info li .left-wrap {
     width: 50%;
     margin-right: auto;
 }
-.chart-info li .left-wrap i.color-box {
+.dashboard .chart-info li .left-wrap i.color-box {
     display: inline-flex;
     width: 10px;
     height: 10px;
     background-color: #BED661;
 }
-.chart-info li .right-wrap {
+.dashboard .chart-info li .right-wrap {
     width: 50%;
     margin-left: auto;
     text-align: left;
 }
 
-/* 최상단 row1*/
+/* row1 */
 .dashboard .row1 .card {
     height: 108px;
 }
@@ -157,16 +157,18 @@
 .dashboard .row1 .col-4 .card i {
     color: aliceblue;
 }
+.dashboard .row1 .desc-sub {
+    padding-top: 8px;
+    text-align:right;
+}
 
-
+/* row2 */
 .dashboard .row2 {
     margin-top: 30px;
 }
 .dashboard .row2 .col-3:nth-child(1) .card {
     height: 602px;
 }
-
-
 
 /* 랭크 공통 */
 .rank {

@@ -14,6 +14,7 @@
     const dateToSummary = $("#dateToSummary");
     const dateFromSummaryList = $("#dateFromSummaryList");
     const dateToSummaryList = $("#dateToSummaryList");
+    let isSearchAction = false;
 
     $( () => {
         /** dataTable default config **/
@@ -41,10 +42,13 @@
                 if (isSuccessResp(data))
                 {
                     await buildSummary(data);
-                    await buildLeaderRank(data);
-                    await buildDoitRank(data);
-                    await buildCategoryRateChart(data);
-                    await buildMissionRateChart(data);
+                    if (!isSearchAction)
+                    {
+                        await buildLeaderRank(data);
+                        await buildDoitRank(data);
+                        await buildCategoryRateChart(data);
+                        await buildMissionRateChart(data);
+                    }
                 }
                 else
                     sweetToast(invalidResp(data));
@@ -183,19 +187,36 @@
         });
     }
 
-    let totalMissions = 0;
+    let totalMissionCount = 0;
     function buildMissionRateChart(data)
     {
+        const missionSummary = $("#missionSummary");
         const {create_mission_rate} = data.data;
-        const backgroundColor = ['#BED661', '#89E894'];
 
+        missionSummary.empty();
         if (!isEmpty(create_mission_rate))
         {
             const {count, register_mission_rate, unregistered_mission_rate} = create_mission_rate;
-            totalMissions = count > 100000 ? `${numberWithCommas(Math.round(count/1000))}k` : numberWithCommas(count).toString();
-            $("#missionSummary").find('.color-box').each(function (index) { $(this).css('background-color', backgroundColor[index]); })
-            $("#missionResistRate").text(`${register_mission_rate}%`);
-            $("#missionUnResistRate").text(`${unregistered_mission_rate}%`);
+            const missionRate = [register_mission_rate, unregistered_mission_rate];
+            const backgroundColor = ['#BED661', '#89E894'];
+            const labels = ['등록', '미등록'];
+            totalMissionCount = count > 100000 ? `${numberWithCommas(Math.round(count/1000))}k` : numberWithCommas(count).toString();
+
+            missionRate.map((rate, index) => {
+                const mission =
+                    `<li>
+                        <div class="left-wrap">
+                            <i class="color-box" style="background-color: ${backgroundColor[index]}"></i>
+                            <span>${labels[index]}</span>
+                        </div>
+                        <div class="right-wrap">
+                            <strong class="data-num-s">${rate}%</strong>
+                        </div>
+                    </li>`
+
+                missionSummary.append(mission);
+            })
+
             const missionChart = document.getElementById('missionChart');
             new Chart(missionChart, {
                 type: 'doughnut',
@@ -235,7 +256,7 @@
             ctx.font = "36px Roboto, Helvetica, Arial, sans-serif"
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
-            ctx.fillText(totalMissions, 150, 160);
+            ctx.fillText(totalMissionCount, 150, 160);
             ctx.save();
         }
     };
@@ -247,6 +268,7 @@
                 url: api.dashboardSummaryList,
                 type: "POST",
                 headers: headers,
+                global: false,
                 dataFilter: function(data){
                     let json = JSON.parse(data);
                     if (isSuccessResp(json))
@@ -339,56 +361,6 @@
         });
     }
 
-
-    /** 차트 초기화 **/
-    function initChart(ctx, type, label, dataset, options)
-    {
-        return new Chart(ctx,{
-            type : type,
-            data : {
-                labels : label,
-                datasets : dataset
-            },
-            options : options,
-        });
-    }
-
-    const chartOptions = {
-        doughnutOptions: {
-            cutoutPercentage : 44,
-            legend: {
-                align: 'center',
-                position: 'left',
-                labels: {
-                    boxWidth: 12
-                }
-            },
-            plugins: {
-                labels: {
-                    render: function (args) {
-                        return numberWithCommas(args.value);
-                    },
-                    fontSize: 14,
-                    fontColor: '#fff',
-                    fontFamily: 'Roboto, sans-serif',
-                    position: 'default',
-                    showActualPercentages: false
-                }
-            },
-            elements: {
-                center: {
-                    text: '',
-                    color: '',
-                    fontStyle: 'Roboto',
-                    sidePadding: 20, /** Default is 20 (as a percentage) **/
-                    maxFontSize: 25,
-                    minFontSize: false, /** Default is 18 (in px), set to false and text will not wrap. **/
-                    lineHeight: 25 /** Default is 25 (in px), used for when text wraps **/
-                }
-            }
-        },
-    }
-
     function initDateRangeWeek()
     {
         dateFromSummary.val(getWeekAgoStr());
@@ -405,6 +377,7 @@
     function onChangeSearchDateToSummary()
     {
         dateFromSummary.datepicker("option", "maxDate", new Date(dateToSummary.datepicker("getDate")));
+        isSearchAction = true;
         getSummary();
     }
 

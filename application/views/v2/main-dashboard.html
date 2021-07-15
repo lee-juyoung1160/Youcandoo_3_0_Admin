@@ -73,13 +73,13 @@
                         <canvas id="missionChart"></canvas>
                     </div>
                     <ul class="chart-info" id="missionSummary">
-                        <li>
+                        <!--<li>
                             <div class="left-wrap">
                                 <i class="color-box"></i>
                                 <span>등록</span>
                             </div>
                             <div class="right-wrap">
-                                <strong class="data-num-s" id="missionResistRate"></strong>
+                                <strong class="data-num-s"></strong>
                             </div>
                         </li>
                         <li>
@@ -88,9 +88,9 @@
                                 <span>미등록</span>
                             </div>
                             <div class="right-wrap">
-                                <strong class="data-num-s" id="missionUnResistRate"></strong>
+                                <strong class="data-num-s"></strong>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -551,6 +551,50 @@
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--<script>
+    $( () => {
+        const pie1 = document.getElementById('categoryChart');
+        const data = {
+            datasets: [{
+                labels: ['자기계발', '외국어', '생활 습관', '합격', '운동', '부자되기', '가족/행복', '건강/다이어트'],
+                data: [60, 60, 60, 40, 60, 30, 30, 20],
+                borderWidth: 1,
+                backgroundColor: ['#BED661', '#89E894', '#78D5E3', '#7AF5F5', '#34DDDD', '#FE8402', '#41924B', '#FFCC00'],
+            }]
+        };
+
+        new Chart(pie1, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: false,
+                legend: {
+                    display: false
+                },
+            }
+        });
+
+        const pie2 = document.getElementById('missionChart');
+        const data2 = {
+            datasets: [{
+                labels: ['등록', '미등록'],
+                data: [70, 30],
+                borderWidth: 1,
+                backgroundColor: ['#BED661', '#FFCC00'],
+            }]
+        };
+        new Chart(pie2, {
+            type: 'doughnut',
+            data: data2,
+            options: {
+                responsive: false,
+                legend: {
+                    display: false
+                },
+            }
+        });
+    });
+</script>-->
 
 
 

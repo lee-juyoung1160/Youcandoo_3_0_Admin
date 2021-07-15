@@ -125,6 +125,7 @@
         }
     }
 
+    let categoryChartCtx;
     function buildCategoryRateChart(data)
     {
         const categorySummary = $("#categorySummary");
@@ -155,7 +156,7 @@
         }
 
         const categoryChart = document.getElementById('categoryChart');
-        new Chart(categoryChart, {
+        categoryChartCtx = new Chart(categoryChart, {
             type: 'pie',
             data: {
                 datasets: [{
@@ -184,6 +185,7 @@
     }
 
     let totalMissions = 0;
+    let missionChartCtx;
     function buildMissionRateChart(data)
     {
         const {create_mission_rate} = data.data;
@@ -197,7 +199,7 @@
             $("#missionResistRate").text(`${register_mission_rate}%`);
             $("#missionUnResistRate").text(`${unregistered_mission_rate}%`);
             const missionChart = document.getElementById('missionChart');
-            new Chart(missionChart, {
+            missionChartCtx = new Chart(missionChart, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
@@ -405,6 +407,8 @@
     function onChangeSearchDateToSummary()
     {
         dateFromSummary.datepicker("option", "maxDate", new Date(dateToSummary.datepicker("getDate")));
+        categoryChartCtx.destroy();
+        missionChartCtx.destroy();
         getSummary();
     }
 

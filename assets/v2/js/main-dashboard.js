@@ -193,6 +193,9 @@
         {
             const {count, register_mission_rate, unregistered_mission_rate} = create_mission_rate;
             totalMissions = count > 100000 ? `${numberWithCommas(Math.round(count/1000))}k` : numberWithCommas(count).toString();
+            $("#missionSummary").find('.color-box').each(function (index) { $(this).css('background-color', backgroundColor[index]); })
+            $("#missionResistRate").text(`${register_mission_rate}%`);
+            $("#missionUnResistRate").text(`${unregistered_mission_rate}%`);
             const missionChart = document.getElementById('missionChart');
             new Chart(missionChart, {
                 type: 'doughnut',

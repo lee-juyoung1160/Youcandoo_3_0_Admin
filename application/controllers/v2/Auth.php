@@ -125,25 +125,25 @@ class Auth extends CI_Controller {
         $UserEmail = $this->input->post("useremail");
         $Url = "/v2/main/join";
 
-        if($UserID == "") {
-            alert("ID 값이 입력되지 않았습니다", $Url);
+        if(!$UserID) {
+            alert("ID 값이 입력되지 않았습니다.", $Url);
             return;
         }
-        if($Password == "") {
-            alert("Password 값이 입력되지 않았습니다", $Url);
+        if(!$Password) {
+            alert("Password 값이 입력되지 않았습니다.", $Url);
             return;
         }
-        if($UserName == "") {
-            alert("사용자 이름이 입력되지 않았습니다", $Url);
+        if(!$UserName) {
+            alert("사용자 이름이 입력되지 않았습니다.", $Url);
             return;
         }
-        if($UserEmail == "") {
-            alert("이메일 값이 입력되지 않았습니다", $Url);
+        if(!$UserEmail) {
+            alert("이메일 값이 입력되지 않았습니다.", $Url);
             return;
         }
 
         // 중복여부
-        if(!($this->curl(array("userid" => $UserID), "/admin/getExistsAdminUser"))){
+        if(!($this->curl(array("userid" => $UserID), "/v3/admin/getExistsAdminUser"))){
             return;
         }
 
@@ -183,7 +183,7 @@ class Auth extends CI_Controller {
                     "useremail"=>$this->input->post("useremail"),
                     "secret"=>$Secret
                 );
-                if($this->curl($Body, "/admin/create")){
+                if($this->curl($Body, "/v3/admin/create")){
                     alert("회원가입 되었습니다.","/v2/main/login");
                 }
             }
@@ -267,7 +267,7 @@ class Auth extends CI_Controller {
 
         $Body = array("userid" => $UserID, "ip" => $LoginIP, "secret"=>$Secret);
 
-        return $this->curl($Body, "/admin/setLoginInfo");
+        return $this->curl($Body, "/v3/admin/setLoginInfo");
     }
 
     /**
@@ -275,7 +275,7 @@ class Auth extends CI_Controller {
      */
     public function updateFailCount($UserID, $Count)
     {
-        return $this->curl(array("userid" => $UserID, "count" => $Count), "/admin/setFailCount");
+        return $this->curl(array("userid" => $UserID, "count" => $Count), "/v3/admin/setFailCount");
     }
 
     /**
@@ -283,6 +283,6 @@ class Auth extends CI_Controller {
      */
     public function getAdminUserData($UserID)
     {
-        return $this->curl(array("userid" => $UserID), "/admin/getAdminUserData");
+        return $this->curl(array("userid" => $UserID), "/v3/admin/getAdminUserData");
     }
 }

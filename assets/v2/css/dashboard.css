@@ -248,3 +248,8 @@
 .rank-more:hover i {
     padding-left: 5px;
 }
+
+.modal-content .rank {
+    overflow-y: scroll;
+    max-height: 600px;
+}

@@ -1,15 +1,14 @@
 
-    import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
+    import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
     import {api} from "./modules/api-url-v1.js";
-    import {sweetToast} from "./modules/alert.js";
-    import {label} from "./modules/label.js";
+    import {sweetError, sweetToast} from "./modules/alert.js";
     import {message} from "./modules/message.js";
     import {
-        getTodayStr,
-        getWeekAgoStr,
-        initSearchDatepicker,
+        getTodayStr, getWeekAgoStr, initMaxDateToday, initSearchDatepicker,
     } from "./modules/common.js";
     import {numberWithCommas} from "./modules/utils.js";
+    import {label} from "./modules/label.js";
+    import { toggleBtnPreviousAndNextOnTable} from "./modules/tables.js";
 
     const dateFromSummary = $("#dateFromSummary");
     const dateToSummary = $("#dateToSummary");
@@ -19,14 +18,16 @@
     $( () => {
         initSearchDatepicker();
         initDateRangeWeek();
-        getSummaryData();
+        initMaxDateToday()
+        getSummary();
+        buildSummaryTable();
         dateFromSummary.on('change', function () { onChangeSearchDateFromSummary(); });
         dateToSummary.on('change', function () { onChangeSearchDateToSummary(); });
         dateFromSummaryList.on('change', function () { onChangeSearchDateFromSummaryList(); });
         dateToSummaryList.on('change', function () { onChangeSearchDateToSummaryList(); });
     });
 
-    function getSummaryData()
+    function getSummary()
     {
         const param = {
             'from_date' : dateFromSummary.val(),
@@ -52,7 +53,66 @@
         $("#issuedUcd").text(numberWithCommas(total_give_ucd));
     }
 
+    function buildSummaryTable()
+    {
+        $("#summaryTable").DataTable({
+            ajax : {
+                url: api.dashboardSummaryList,
+                type: "POST",
+                headers: headers,
+                dataFilter: function(data){
+                    let json = JSON.parse(data);
+                    if (isSuccessResp(json))
+                    {
+                        json.recordsTotal = json.count;
+                        json.recordsFiltered = json.count;
+                    }
+                    else
+                    {
+                        json.data = [];
+                        sweetToast(invalidResp(json));
+                    }
 
+                    return JSON.stringify(json);
+                },
+                data: function (d) {
+                    const param = {
+                        "from_date" : dateFrom.val(),
+                        "to_date" : dateTo.val(),
+                        "page" : (d.start / d.length) + 1
+                        ,"limit" : d.length
+                    }
+
+                    return JSON.stringify(param);
+                },
+                error: function (request, status) {
+                    sweetError(label.list+message.ajaxLoadError);
+                }
+            },
+            columns: [
+                {title: "닉네임",    	data: "nickname",  		width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
+                    }
+                }
+                ,{title: "PID", 	data: "profile_uuid",	width: "55%" }
+                ,{title: "사용여부", 	data: "is_active",		width: "10%" }
+                ,{title: "가입일시", 	data: "created",		width: "15%" }
+            ],
+            serverSide: true,
+            paging: true,
+            pageLength: 30,
+            select: false,
+            destroy: true,
+            initComplete: function () {
+            },
+            fnRowCallback: function( nRow, aData ) {
+            },
+            drawCallback: function (settings) {
+                toggleBtnPreviousAndNextOnTable(this);
+            }
+        });
+    }
 
 
     /** 차트 초기화 **/
@@ -115,23 +175,20 @@
     function onChangeSearchDateFromSummary()
     {
         dateToSummary.datepicker("option", "minDate", new Date(dateFromSummary.datepicker("getDate")));
-        initDayBtn();
     }
 
     function onChangeSearchDateToSummary()
     {
         dateFromSummary.datepicker("option", "maxDate", new Date(dateToSummary.datepicker("getDate")));
-        initDayBtn();
+        getSummary();
     }
 
     function onChangeSearchDateFromSummaryList()
     {
         dateToSummaryList.datepicker("option", "minDate", new Date(dateFromSummaryList.datepicker("getDate")));
-        initDayBtn();
     }
 
     function onChangeSearchDateToSummaryList()
     {
         dateFromSummaryList.datepicker("option", "maxDate", new Date(dateToSummaryList.datepicker("getDate")));
-        initDayBtn();
     }

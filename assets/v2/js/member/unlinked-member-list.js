@@ -9,6 +9,7 @@
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import {numberWithCommas} from "../modules/utils.js";
 
 	let _currentPage = 1;
 
@@ -98,14 +99,33 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    	data: "nickname",  		width: "20%",
+				{title: "닉네임",    		data: "nickname",  			width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "PID", 	data: "profile_uuid",	width: "55%" }
-				,{title: "사용여부", 	data: "is_active",		width: "10%" }
-				,{title: "가입일시", 	data: "created",		width: "15%" }
+				,{title: "두잇개설", 		data: "doit_created_count",	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "두잇참여", 		data: "doit_join_count",	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "두잇참여대기", 	data: "doit_apply_count",	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "활성여부", 		data: "is_active",			width: "10%" }
+				,{title: "보유 UCD", 	data: "ucd",				width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "비활성일시", 	data: "deactived",			width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -131,8 +151,8 @@
 	{
 		const param = {
 			"date_type" : selDateType.val(),
-			"from_date" : "9999-12-31",
-			"to_date" : "0000-01-01",
+			"from_date" : dateFrom.val(),
+			"to_date" : dateTo.val(),
 			"search_type": selSearchType.val(),
 			"keyword" : keyword.val().trim(),
 			"page": _currentPage,

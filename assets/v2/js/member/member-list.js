@@ -104,7 +104,7 @@
 					}
 				}
 				,{title: "PID", 	data: "profile_uuid",	width: "55%" }
-				,{title: "사용여부", 	data: "is_active",		width: "10%" }
+				,{title: "활성여부", 	data: "is_active",		width: "10%" }
 				,{title: "가입일시", 	data: "created",		width: "15%" }
 			],
 			serverSide: true,

@@ -113,7 +113,7 @@
 
 .dashboard .chart-info li {
     display: flex;
-    padding: 7.4px 5px;
+    padding: 7.9px 5px;
     border-top: 1px solid #f3f3f3;
 }
 .dashboard .chart-info li .left-wrap {
@@ -166,7 +166,8 @@
 .dashboard .row2 {
     margin-top: 30px;
 }
-.dashboard .row2 .col-3:nth-child(1) .card {
+.dashboard .row2 .col-3:nth-child(1) .card,
+.dashboard .row2 .col-3:nth-child(2) .card {
     height: 602px;
 }
 

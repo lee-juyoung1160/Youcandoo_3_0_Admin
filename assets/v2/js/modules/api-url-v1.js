@@ -9,6 +9,8 @@
 
         dashboardSummary : baseApiUrl + 'main/dashboard',
         dashboardSummaryList : baseApiUrl + 'main/dashboard/get/list',
+        dashboardMoreLeader : baseApiUrl + 'main/dashboard/get/leaderRanklist',
+        dashboardMoreDoit : baseApiUrl + 'main/dashboard/get/doitRanklist',
 
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update',

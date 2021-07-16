@@ -3,18 +3,21 @@
     import {api} from "./modules/api-url-v1.js";
     import {sweetError, sweetToast} from "./modules/alert.js";
     import {message} from "./modules/message.js";
-    import { getTodayStr, getWeekAgoStr, initMaxDateToday, initSearchDatepicker, moveToMemberDetail,
+    import {
+        fadeinModal, fadeoutModal, getTodayStr, getWeekAgoStr, initMaxDateToday, initSearchDatepicker, moveToMemberDetail,
     } from "./modules/common.js";
     import {isEmpty, numberWithCommas} from "./modules/utils.js";
     import {label} from "./modules/label.js";
     import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from "./modules/tables.js";
     import {page} from "./modules/page-url.js";
+    import {modalBackdrop, modalClose} from "./modules/elements.js";
 
     const dateFromSummary = $("#dateFromSummary");
     const dateToSummary = $("#dateToSummary");
     const dateFromSummaryList = $("#dateFromSummaryList");
     const dateToSummaryList = $("#dateToSummaryList");
     let isSearchAction = false;
+    let _currentPage = 1;
 
     $( () => {
         /** dataTable default config **/
@@ -24,10 +27,14 @@
         initMaxDateToday()
         getSummary();
         buildSummaryTable();
+        modalClose.on("click", function () { fadeoutModal(); });
+        modalBackdrop.on("click", function () { fadeoutModal(); });
         dateFromSummary.on('change', function () { onChangeSearchDateFromSummary(); });
         dateToSummary.on('change', function () { onChangeSearchDateToSummary(); });
         dateFromSummaryList.on('change', function () { onChangeSearchDateFromSummaryList(); });
         dateToSummaryList.on('change', function () { onChangeSearchDateToSummaryList(); });
+        $("#btnMoreLeader").on('click', function () { onClickBtnMore(this); });
+        $("#btnMoreDoit").on('click', function () { onClickBtnMore(this) });
     });
 
     function getSummary()
@@ -100,6 +107,97 @@
     function onClickLeaderNickname(obj)
     {
         moveToMemberDetail($(obj).data('uuid'));
+    }
+
+    function onClickBtnMore(obj)
+    {
+        fadeinModal();
+        initModal();
+        obj.id === 'btnMoreLeader' ? getMoreLeader() : getMoreDoit();
+    }
+
+    function initModal()
+    {
+        _currentPage = 1
+        $("#modalTitle").text('');
+        $("#modalRank").empty();
+    }
+
+    function getMoreLeader()
+    {
+        const param = {
+            "page" : _currentPage,
+            "limit" : 10,
+        }
+
+        ajaxRequestWithJson(true, api.dashboardMoreLeader, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+               isSuccessResp(data) ? buildMoreLeader(data) : sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetToast(`데이터${message.ajaxLoadError}`));
+    }
+
+    function buildMoreLeader(data)
+    {
+        if (!isEmpty(data.data) && data.data.length > 0)
+        {
+            let leader = '';
+            data.data.map((obj, index) => {
+                const {ranking, nickname, profile_uuid, rank_diff} = obj;
+                leader +=
+                    `<li class="clearfix">
+                        ${index === 0 ? '<i class="fas fa-crown rank-first"></i>' : ''}
+                        <div class="left-wrap">
+                            <span><em class="rank-num">${ranking}</em></span>
+                            <a class="rank-title link leader-nickname" data-uuid="${profile_uuid}">${nickname}</a>
+                        </div>
+                        <div class="right-wrap ${rank_diff === 0 ? label.dash : rank_diff > 0 ? 'rank-up' : 'rank-down'}">
+                            <i class="fas ${rank_diff === 0 ? '' : rank_diff > 0 ? 'fa-caret-up' : 'fa-caret-down'}"></i> ${rank_diff === 0 ? label.dash : Math.abs(rank_diff)}
+                        </div>
+                    </li>`
+            })
+            $("#modalTitle").text('리더 랭킹')
+            $("#modalRank").html(leader);
+            $(".leader-nickname").on('click', function () { onClickLeaderNickname(this) });
+        }
+    }
+
+    function getMoreDoit()
+    {
+        const param = {
+            "page" : _currentPage,
+            "limit" : 10,
+        }
+
+        ajaxRequestWithJson(true, api.dashboardMoreDoit, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                isSuccessResp(data) ? buildMoreDoit(data) : sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetToast(`데이터${message.ajaxLoadError}`));
+    }
+
+    function buildMoreDoit(data)
+    {
+        if (!isEmpty(data.data) && data.data.length > 0)
+        {
+            let doit = '';
+            data.data.map((obj, index) => {
+                const {idx, ranking, doit_title, rank_diff} = obj;
+                doit +=
+                    `<li class="clearfix">
+                        ${index === 0 ? '<i class="fas fa-crown rank-first"></i>' : ''}
+                        <div class="left-wrap">
+                            <span><em class="rank-num">${ranking}</em></span>
+                            <a href="${page.detailDoit}${idx}" class="rank-title link">${doit_title}</a>
+                        </div>
+                        <div class="right-wrap ${rank_diff === 0 ? label.dash : rank_diff > 0 ? 'rank-up' : 'rank-down'}">
+                            <i class="fas ${rank_diff === 0 ? '' : rank_diff > 0 ? 'fa-caret-up' : 'fa-caret-down'}"></i> ${rank_diff === 0 ? label.dash : Math.abs(rank_diff)}
+                        </div>
+                    </li>`
+            })
+            $("#modalTitle").text('두잇 랭킹');
+            $("#modalRank").html(doit);
+        }
     }
 
     function buildDoitRank(data)

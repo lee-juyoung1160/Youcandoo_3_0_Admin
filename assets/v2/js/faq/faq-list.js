@@ -65,7 +65,7 @@
 
 	function buildFaqType(data)
 	{
-		let options = '<option value="all" selected>전체</option>';
+		let options = '';
 		if (!isEmpty(data.data) && data.data.length  > 0)
 		{
 			data.data.map(type => {

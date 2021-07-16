@@ -397,7 +397,7 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${(isSponsorDoit) ? buildCreateReply({comment_uuid, profile_uuid, nickname}) : ''}
+							${(isSponsorDoit) ? buildCreateReply({comment_uuid, profile_uuid, nickname, is_company}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
@@ -540,7 +540,7 @@
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
 
-	function buildCreateReply({comment_uuid, profile_uuid, nickname})
+	function buildCreateReply({comment_uuid, profile_uuid, nickname, is_company})
 	{
 		return (
 			`<a class="link btn-reply-talk">답글달기</a>
@@ -571,6 +571,7 @@
 												class="btn-sm btn-primary btn-submit-reply-talk"
 												data-parent="${comment_uuid}"
 												data-profile="${profile_uuid}"
+												data-company="${is_company}"
 												data-nickname="${nickname}">등록</button>
 									</div>
 								</td>
@@ -598,12 +599,14 @@
 	let g_talk_reply_target_profile_uuid;
 	let g_talk_reply_target_nickname;
 	let g_talk_reply_value;
+	let g_talk_reply_company;
 	function onSubmitTalkReply(obj)
 	{
 		const replyEl = $(obj).parents('.reply-talk-table');
 		g_talk_reply_parent_uuid = $(obj).data('parent');
 		g_talk_reply_target_profile_uuid = $(obj).data('profile');
 		g_talk_reply_target_nickname = $(obj).data('nickname');
+		g_talk_reply_company = $(obj).data('company');
 		g_talk_reply_value = $(replyEl).find('.reply-talk').val();
 
 		if (replyTalkValid())
@@ -626,7 +629,7 @@
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"board_uuid" : g_board_uuid,
-			"comment" : `@${g_talk_reply_target_nickname} ${g_talk_reply_value.trim()}`,
+			"comment" : g_talk_reply_company === 'Y' ? g_talk_reply_value.trim() : `@${g_talk_reply_target_nickname} ${g_talk_reply_value.trim()}`,
 			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "nickname": g_talk_reply_target_nickname}],
 			"parent_comment_uuid" : g_talk_reply_parent_uuid,
 		}

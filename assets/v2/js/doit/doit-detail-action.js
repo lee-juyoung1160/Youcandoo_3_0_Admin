@@ -329,7 +329,7 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${(isSponsorDoit) ? buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname}) : ''}
+							${(isSponsorDoit) ? buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname, is_company}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
@@ -472,7 +472,7 @@
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 	}
 
-	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname})
+	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname, is_company})
 	{
 		return (
 			`<a class="link btn-reply-action">답글달기</a>
@@ -503,6 +503,7 @@
 												class="btn-sm btn-primary btn-submit-reply-action"
 												data-parent="${comment_uuid}"
 												data-profile="${profile_uuid}"
+												data-company="${is_company}"
 												data-nickname="${nickname}">등록</button>
 									</div>
 								</td>
@@ -517,12 +518,14 @@
 	let g_action_reply_target_profile_uuid;
 	let g_action_reply_target_nickname;
 	let g_action_reply_value;
+	let g_action_reply_company;
 	function onSubmitActionReply(obj)
 	{
 		const replyEl = $(obj).parents('.reply-action-table');
 		g_action_reply_parent_uuid = $(obj).data('parent');
 		g_action_reply_target_profile_uuid = $(obj).data('profile');
 		g_action_reply_target_nickname = $(obj).data('nickname');
+		g_action_reply_company = $(obj).data('company');
 		g_action_reply_value = $(replyEl).find('.reply-action').val();
 
 		if (replyActionValid())
@@ -545,7 +548,7 @@
 		const param = {
 			"doit_uuid" : g_doit_uuid,
 			"action_uuid" : g_action_uuid,
-			"comment" : `@${g_action_reply_target_nickname} ${g_action_reply_value.trim()}`,
+			"comment" : g_action_reply_company === 'Y' ? g_action_reply_value.trim() : `@${g_action_reply_target_nickname} ${g_action_reply_value.trim()}`,
 			"mention" : [{ "profile_uuid": g_action_reply_target_profile_uuid, "nickname": g_action_reply_target_nickname}],
 			"parent_comment_uuid" : g_action_reply_parent_uuid,
 		}

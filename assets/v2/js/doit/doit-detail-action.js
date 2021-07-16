@@ -384,10 +384,9 @@
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
 			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
-			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
-				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
-				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnBlindReply = is_blind === 'Y'
+				? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 			const lastIdx = recomment_data[arr.length - 1].idx;
 
@@ -442,10 +441,9 @@
 		let appendReplyEl = ''
 		data.data.slice(0).reverse().map(obj => {
 			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
-			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
-				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
-				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
+			const btnBlindReply = is_blind === 'Y'
+				? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
+				: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-action-comment" data-uuid="${comment_uuid}">삭제</button>`;
 
 			appendReplyEl +=
@@ -468,8 +466,8 @@
 		appendReplyActionCommentTarget.after(appendReplyEl);
 		appendReplyActionCommentTarget.remove();
 		$('.btn-delete-action-comment').on('click', function () { onSubmitDeleteActionComment(this); });
-		$('.btn-blind-comment').on('click', function () { onClickBtnBlindActionComment(this); });
-		$('.btn-display-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+		$('.btn-display-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
+		$('.btn-blind-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 	}
 
 	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname, is_company})

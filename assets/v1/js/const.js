@@ -131,7 +131,7 @@
 	const headers = {
 		"Authorization" : btoa(JSON.stringify({ "authorization" : "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7", "userid" : $("#session_userid").val()}))
 	};
- 	const baseApiUrl = 'https://adminapi.youcandoo.co.kr/';
+	const baseApiUrl = `${api_server_url}/`;
 	const api = {
 		/** 공통 **/
 		getBizName : baseApiUrl+'keyword/getCompanyName'

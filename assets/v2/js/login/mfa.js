@@ -1,5 +1,5 @@
 
-	import { qrImg, imgUrl, otpNum, type, userid, username, password, useremail, btnSubmit } from "../modules/elements.js";
+	import { qrImg, imgUrl, otpNum, type, secret,userid, username, password, useremail, btnSubmit } from "../modules/elements.js";
 	import { isEmpty } from "../modules/utils.js";
 	import { message } from "../modules/message.js";
 	import { sweetToast } from "../modules/alert.js";

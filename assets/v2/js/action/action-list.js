@@ -161,7 +161,7 @@
 
 		pagination.html(paginate(_currentPage, lastPage));
 
-		$(".paginate_button ").on('click', function () { onClickPageNum(this); })
+		$(".paginate_button").not('.disabled').on('click', function () { onClickPageNum(this); })
 	}
 
 	function onClickPageNum(obj)

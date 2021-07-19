@@ -241,11 +241,10 @@
     text-align: center;
     background-color: #999;
 }
-.rank li:nth-child(1) .rank-num,
-.rank li:nth-child(2) .rank-num,
-.rank li:nth-child(3) .rank-num {
+.rank li .rank-num.rank-top {
     background-color: #1da1f5;
 }
+
 
 .rank-more {
     display: block;
@@ -267,4 +266,7 @@
 
 .modal-content .rank {
     max-height: 700px;
+}
+.modal-content .rank li:last-child {
+    border-bottom: 2px solid #f3f3f3;
 }

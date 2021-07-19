@@ -2,47 +2,13 @@
 	import { ajaxRequestWithJson, isSuccessResp, invalidResp, headers } from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url-v1.js';
 	import {
-		btnBack,
-		btnList,
-		btnModalUcd,
-		modalUcd,
-		amount,
-		memo,
-		modalActionDetail,
-		modalClose,
-		modalBackdrop,
-		lengthInput,
-		ulDoitTab,
-		openedDoitWrap,
-		joinedDoitWrap,
-		pagination,
-		actionsWrap,
-		profileId,
-		contact,
-		userNickname,
-		useremail,
-		balance,
-		isAuth,
-		userLevel,
-		totalActionCount,
-		hiddenProfileId,
-		deviceInfoTableBody,
-		openedDoitTable,
-		joinedDoitTable,
-		modalActionContentWrap,
-		modalActionDesc,
-		modalActionExampleWrap,
-		modalActionExampleDesc,
-		modalActionWarningReason,
-		btnSubmitSaveUcd,
-		description,
-		ucdInfoTable,
-		categoryWrap,
-		ulLevelTab,
-		levelInfoWrap,
-		levelHistoryWrap,
-		openedDoitCount,
-		openedDoitAction, levelTable, btnLevelWrap, isStore
+		btnBack, btnList, btnModalUcd, modalUcd, amount, memo, modalActionDetail, modalClose, modalBackdrop,
+		lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, pagination, actionsWrap, profileId, contact,
+		userNickname, useremail, balance, isAuth, userLevel, totalActionCount, hiddenProfileId, deviceInfoTableBody,
+		openedDoitTable, joinedDoitTable, modalActionContentWrap, modalActionDesc, modalActionExampleWrap,
+		modalActionExampleDesc, modalActionWarningReason, btnSubmitSaveUcd, description, ucdInfoTable,
+		categoryWrap, ulLevelTab, levelInfoWrap, levelHistoryWrap, openedDoitCount, openedDoitAction,
+		levelTable, btnLevelWrap, isStore, modalLevelUp, levelUpReason, btnSubmit,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -78,6 +44,7 @@
 		ulDoitTab		.on('click', function (event) { onClickDoitTab(event); });
 		ulLevelTab		.on('click', function (event) { onClickLevelTab(event); });
 		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); })
+		btnSubmit		.on('click', function () { onSubmitLevelUp(); })
 	});
 
 	function moveSection()
@@ -769,11 +736,30 @@
 
 	let levelApi;
 	let level;
+	let btnId;
 	function onClickBtnLevel(obj)
 	{
-		const btnId = obj.id;
+		btnId = obj.id;
 		levelApi = getLevelApiUrl(btnId);
 		level = calculateLevel(btnId);
+		(btnId === 'btnPartner' || btnId === 'btnLevelUp' ) ? fadeinModalLevelUp() : sweetConfirm(getConfirmMessage(btnId), levelRequest);
+	}
+
+	function fadeinModalLevelUp()
+	{
+		modalLevelUp.fadeIn();
+		modalBackdrop.fadeIn();
+		levelUpReason.val('');
+		levelUpReason.trigger('focus');
+	}
+
+	function onSubmitLevelUp()
+	{
+		if (isEmpty(levelUpReason.val()))
+		{
+			sweetToast(`사유는 ${message.required}`);
+			return;
+		}
 		sweetConfirm(getConfirmMessage(btnId), levelRequest);
 	}
 
@@ -781,9 +767,11 @@
 	{
 		const param = { "profile_uuid" : g_profile_uuid }
 		if (!isEmpty(level)) param["level"] = level;
+		if (Number(level) >= 5) param["reason"] = levelUpReason.val().trim();
 
 		ajaxRequestWithJson(true, levelApi, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
+				fadeoutModal();
 				await sweetToastAndCallback(data, getLevelInfo);
 			})
 			.catch(reject => sweetToast(`레벨${message.ajaxError}`));

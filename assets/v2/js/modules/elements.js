@@ -465,6 +465,8 @@
     export const countLevel4 = $("#countLevel4");
     export const countLevel5 = $("#countLevel5");
     export const countLevel6 = $("#countLevel6");
+    export const modalLevelUp = $("#modalLevelUp");
+    export const levelUpReason = $("#levelUpReason");
     /** 뱃지 **/
     export const selType = $("#selType");
     export const qualification = $("#qualification");

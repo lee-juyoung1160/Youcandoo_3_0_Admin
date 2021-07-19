@@ -453,9 +453,9 @@
     <div class="modal-wrap">
 
         <!-- 회원 UCD 충전 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalLevelUp">
             <div class="modal-header clearfix">
-                <h5>파트너 레벨 설정</h5>
+                <h5>레벨 업 사유</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
@@ -469,7 +469,7 @@
                         <th>사유 *</th>
                         <td>
                             <div class="textarea-wrap">
-                                <textarea class="length-input" maxlength="100" rows="4"></textarea>
+                                <textarea id="levelUpReason" class="length-input" maxlength="100" rows="4"></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
@@ -480,7 +480,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="" type="button" class="btn btn-primary">완료</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">완료</button>
             </div>
         </div>
 

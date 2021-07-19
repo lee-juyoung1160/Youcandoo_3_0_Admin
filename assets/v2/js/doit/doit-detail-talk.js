@@ -946,6 +946,7 @@
 				"board_uuid" : g_board_uuid,
 				"board_body" : updateTalk.val().trim(),
 				"is_notice" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
+				"is_attached" : isEmpty(getUpdateAttachType()) ? 'N' : 'Y',
 			}
 
 			if (!isEmpty(data))

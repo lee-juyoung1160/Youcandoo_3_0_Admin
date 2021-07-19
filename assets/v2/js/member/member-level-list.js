@@ -7,7 +7,7 @@
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {numberWithCommas} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {page} from "../modules/page-url.js";
 
 	$( () => {
@@ -98,12 +98,21 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "nickname",  		width: "40%",
+				{title: "닉네임",    		data: "nickname",  		width: "30%",
 					render: function (data, type, row, meta) {
 						return row.is_company === 'Y' ? label.bizIcon + data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "PID",    		data: "profile_uuid",  	width: "35%" }
+				,{title: "처리자",    	data: "reason",  		width: "10%",	visible: false,
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data.split('||')[0];
+					}
+				}
+				,{title: "사유",    		data: "reason",  		width: "30%",	visible: false,
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data.split('||')[1];
+					}
+				}
 				,{title: "누적 인증 수", 	data: "action_count",	width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
@@ -121,6 +130,14 @@
 			fnRowCallback: function( nRow, aData ) {
 				if (aData.is_company === 'N')
 					$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
+
+				const level = Number(getLevel())
+				if (level === 5 || level === 6)
+				{
+					let table = dataTable.DataTable();
+					table.column(1).visible(true);
+					table.column(2).visible(true);
+				}
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);

@@ -225,58 +225,6 @@
 		onErrorImage();
 	}
 
-	function onClickAttachAction(obj)
-	{
-		modalAttach.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		modalAttachContentWrap.empty();
-		let contentEl = ''
-		switch ($(obj).data('type')) {
-			case label.image :
-				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
-				break;
-			case label.video :
-				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
-				break;
-		}
-		modalAttachContentWrap.html(contentEl);
-		onErrorImage();
-	}
-
-	function toggleTextBtnSendWarning(isFail)
-	{
-		btnSendWarning.removeClass('btn-danger btn-orange btn-send-warning');
-		if (isFail === 'Y')
-		{
-			btnSendWarning.addClass('btn-orange');
-			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송 취소`);
-		}
-		else
-		{
-			btnSendWarning.addClass('btn-danger btn-send-warning');
-			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송`);
-		}
-	}
-
-	function buildActionContent(data)
-	{
-		const {contents_type, contents_url, thumbnail_url} = data;
-
-		switch (contents_type) {
-			case label.image :
-				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
-							<img src="${contents_url}" alt="">
-						</div>`;
-			case label.audio :
-				return `<audio controls><source src="${contents_url}"></audio>`;
-			case label.video :
-				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
-							<img src="${thumbnail_url}" alt="">
-						</div>`;
-		}
-	}
-
 	function getActionComments(_pageLength)
 	{
 		const param = {
@@ -302,7 +250,7 @@
 
 			data.data.map((obj, index, arr) => {
 				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, recomment_data } = obj;
-
+				const parent_comment_uuid = comment_uuid;
 				if (arr.length - 1 === index)
 					g_action_comment_last_idx = idx;
 
@@ -329,7 +277,7 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${(isSponsorDoit) ? buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname, is_company}) : ''}
+							${(isSponsorDoit) ? buildCreateReplyActionComment({parent_comment_uuid, profile_uuid, nickname, is_company}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
@@ -383,7 +331,7 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body} = obj;
 			const btnBlindReply = is_blind === 'Y'
 				? `<button type="button" class="btn-xs btn-orange btn-display-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-action-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
@@ -411,6 +359,9 @@
 					</div>
 					<div class="detail-data">
 						${comment_body}
+					</div>
+					<div class="add-comments">
+						${isSponsorDoit ? buildCreateReplyActionComment({parent_comment_uuid, profile_uuid, nickname, is_company}) : ''}
 					</div>
 				</li>`
 		})
@@ -470,7 +421,7 @@
 		$('.btn-blind-action-comment').on('click', function () { onClickBtnBlindActionComment(this); });
 	}
 
-	function buildCreateReplyActionComment({comment_uuid, profile_uuid, nickname, is_company})
+	function buildCreateReplyActionComment({parent_comment_uuid, profile_uuid, nickname, is_company})
 	{
 		return (
 			`<a class="link btn-reply-action">답글달기</a>
@@ -499,7 +450,7 @@
 									<div class="right-wrap">
 										<button type="button" 
 												class="btn-sm btn-primary btn-submit-reply-action"
-												data-parent="${comment_uuid}"
+												data-parent="${parent_comment_uuid}"
 												data-profile="${profile_uuid}"
 												data-company="${is_company}"
 												data-nickname="${nickname}">등록</button>
@@ -564,6 +515,7 @@
 		initActionCommentLastIdx();
 		initActionCommentWrap();
 		getActionComments(g_view_page_length);
+		increaseActionCommentCountWithoutRequest();
 	}
 
 	let g_delete_action_comment_uuid;
@@ -586,10 +538,10 @@
 
 	function deleteActionCommentSuccess()
 	{
-		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getDetailAction();
+		getActionComments(g_view_page_length);
+		decreaseActionCommentCountWithoutRequest();
 	}
 
 	let g_is_blind_action_comment;
@@ -639,20 +591,14 @@
 
 	export function onSubmitActionComment()
 	{
-		if (commentActionValid())
-			sweetConfirm(message.create, createActionCommentRequest);
-	}
-
-	function commentActionValid()
-	{
 		if (isEmpty(commentAction.val()))
 		{
 			sweetToast(`댓글은 ${message.required}`);
 			commentAction.trigger('focus');
-			return false;
+			return;
 		}
 
-		return true;
+		sweetConfirm(message.create, createActionCommentRequest);
 	}
 
 	function createActionCommentRequest()
@@ -673,10 +619,10 @@
 	function createActionCommentSuccess()
 	{
 		commentAction.val('');
-		initActionCommentPageNum();
 		initActionCommentLastIdx();
 		initActionCommentWrap();
-		getDetailAction();
+		getActionComments(g_view_page_length);
+		increaseActionCommentCountWithoutRequest();
 	}
 
 	function buildPagination(data)
@@ -812,4 +758,66 @@
 	function onClickModalReplyActionClose()
 	{
 		$('.modal-content').fadeOut();
+	}
+
+	function onClickAttachAction(obj)
+	{
+		modalAttach.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+		modalAttachContentWrap.empty();
+		let contentEl = ''
+		switch ($(obj).data('type')) {
+			case label.image :
+				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
+				break;
+			case label.video :
+				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
+				break;
+		}
+		modalAttachContentWrap.html(contentEl);
+		onErrorImage();
+	}
+
+	function toggleTextBtnSendWarning(isFail)
+	{
+		btnSendWarning.removeClass('btn-danger btn-orange btn-send-warning');
+		if (isFail === 'Y')
+		{
+			btnSendWarning.addClass('btn-orange');
+			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송 취소`);
+		}
+		else
+		{
+			btnSendWarning.addClass('btn-danger btn-send-warning');
+			btnSendWarning.html(`<i class="fas fa-exclamation-triangle"></i> 경고장 발송`);
+		}
+	}
+
+	function buildActionContent(data)
+	{
+		const {contents_type, contents_url, thumbnail_url} = data;
+
+		switch (contents_type) {
+			case label.image :
+				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${contents_url}" alt="">
+						</div>`;
+			case label.audio :
+				return `<audio controls><source src="${contents_url}"></audio>`;
+			case label.video :
+				return `<div class="detail-img-wrap talk-file-img view-detail-action" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${thumbnail_url}" alt="">
+						</div>`;
+		}
+	}
+
+	function increaseActionCommentCountWithoutRequest()
+	{
+		actionCommentCount.text(Number(actionCommentCount.text())+1)
+	}
+
+	function decreaseActionCommentCountWithoutRequest()
+	{
+		actionCommentCount.text(Number(actionCommentCount.text())-1)
 	}

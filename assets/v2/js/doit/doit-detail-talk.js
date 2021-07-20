@@ -1,39 +1,12 @@
 
 	import {
-	modalCreateTalk,
-	modalBackdrop,
-	talkDetailForm,
-	talkListForm,
-	talkUpdateForm,
-	talk,
-	searchTalkDateFrom,
-	searchTalkDateTo,
-	modalAttach,
-	modalAttachContentWrap,
-	talkAttachmentWrap,
-	rdoAttachType,
-	selTalkDateType,
-	selTalkPageLength,
-	talkTable,
-	chkNoticeTalk,
-	infoTalkNickname,
-	infoTalkCommentCount,
-	infoTalkLikeCount,
-	infoTalkContent,
-	infoTalkCreated,
-	infoTalkIsBlind,
-	infoTalkAttachWrap,
-	talkCommentWrap,
-	commentTalk,
-	updateTalk,
-	rdoUpdateAttachType,
-	chkUpdateNoticeTalk,
-	updateTalkAttachWrap,
-	btnBlindTalk,
-	btnDisplayTalk,
-	btnDeleteTalk,
-		btnUpdateTalk,
-} from "../modules/elements.js";
+		modalCreateTalk, modalBackdrop, talkDetailForm, talkListForm, talkUpdateForm, talk, searchTalkDateFrom,
+		searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
+		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
+		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
+		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk,
+		btnDisplayTalk, btnDeleteTalk, btnUpdateTalk,
+	} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
@@ -234,7 +207,7 @@
 	{
 		g_talk_idx = $(obj).data('idx');
 		g_param_view_page_length = 10;
-		initTalkCommentPageNum();
+		g_talk_comment_page_num = 1;
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
 		showTalkDetailForm();
@@ -311,44 +284,6 @@
 		$(".view-detail-talk-attach").on('click', function () { onClickTalkAttach(this); });
 	}
 
-	function buildTalkAttachWrap(data)
-	{
-		const {contents_type, contents_url, thumbnail_url} = data.data;
-		switch (contents_type) {
-			case label.image :
-				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
-							<img src="${contents_url}" alt="">
-						</div>`;
-			case label.audio :
-				return `<audio controls><source src="${contents_url}"></audio>`;
-			case label.video :
-				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
-							<img src="${thumbnail_url}" alt="">
-						</div>`;
-			default :
-				return label.dash;
-		}
-	}
-
-	export function onClickTalkAttach(obj)
-	{
-		modalAttachContentWrap.empty();
-		modalAttach.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-
-		switch ($(obj).data('type')) {
-			case label.image :
-				modalAttachContentWrap.html(`<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`);
-				break;
-			case label.video :
-				modalAttachContentWrap.html(`<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`);
-				break;
-		}
-
-		onErrorImage();
-	}
-
 	function getTalkComments(_pageLength)
 	{
 		const param = {
@@ -374,7 +309,7 @@
 
 			data.data.map((obj, index, arr) => {
 				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, recomment_data } = obj;
-
+				const parent_comment_uuid = comment_uuid;
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
 
@@ -397,7 +332,7 @@
 						</div>
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i>  <a class="link">${comment_cnt}</a></span>
-							${(isSponsorDoit) ? buildCreateReply({comment_uuid, profile_uuid, nickname, is_company}) : ''}
+							${(isSponsorDoit) ? buildCreateReply({parent_comment_uuid, profile_uuid, nickname, is_company}) : ''}
 						</div>
 			
 						<div class="comments-wrap">
@@ -451,7 +386,7 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body} = obj;
 			const isBlindReply = is_blind === 'Y';
 			const btnBlindReply = isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
@@ -480,6 +415,9 @@
 					</div>
 					<div class="detail-data">
 						${comment_body}
+					</div>
+					<div class="add-comments">
+						${isSponsorDoit ? buildCreateReply({parent_comment_uuid, profile_uuid, nickname, is_company}) : ''}
 					</div>
 				</li>`
 		})
@@ -540,7 +478,7 @@
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 	}
 
-	function buildCreateReply({comment_uuid, profile_uuid, nickname, is_company})
+	function buildCreateReply({parent_comment_uuid, profile_uuid, nickname, is_company})
 	{
 		return (
 			`<a class="link btn-reply-talk">답글달기</a>
@@ -569,7 +507,7 @@
 									<div class="right-wrap">
 										<button type="button" 
 												class="btn-sm btn-primary btn-submit-reply-talk"
-												data-parent="${comment_uuid}"
+												data-parent="${parent_comment_uuid}"
 												data-profile="${profile_uuid}"
 												data-company="${is_company}"
 												data-nickname="${nickname}">등록</button>
@@ -609,19 +547,13 @@
 		g_talk_reply_company = $(obj).data('company');
 		g_talk_reply_value = $(replyEl).find('.reply-talk').val();
 
-		if (replyTalkValid())
-			sweetConfirm(message.create, createReplyTalkCommentReq);
-	}
-
-	function replyTalkValid()
-	{
 		if (isEmpty(g_talk_reply_value))
 		{
 			sweetToast(`답글은 ${message.required}`);
-			return false;
+			return;
 		}
 
-		return true;
+		sweetConfirm(message.create, createReplyTalkCommentReq);
 	}
 
 	function createReplyTalkCommentReq()
@@ -647,6 +579,8 @@
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
 		getTalkComments(g_param_view_page_length);
+		increaseCommentCountWithoutRequest();
+		onSubmitSearchTalk();
 	}
 
 	let g_delete_talk_comment_uuid;
@@ -662,17 +596,17 @@
 
 		ajaxRequestWithJson(true, api.deleteTalkComment, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await sweetToastAndCallback(data, deleteActionCommentSuccess);
+				await sweetToastAndCallback(data, deleteTalkCommentSuccess);
 			})
 			.catch(reject => sweetToast(`댓글 삭제${message.ajaxError}`));
 	}
 
-	function deleteActionCommentSuccess()
+	function deleteTalkCommentSuccess()
 	{
-		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getDetailTalk();
+		getTalkComments(g_param_view_page_length);
+		decreaseCommentCountWithoutRequest();
 		onSubmitSearchTalk();
 	}
 
@@ -723,12 +657,6 @@
 
 	export function onSubmitTalkComment()
 	{
-		if (createTalkCommentValid())
-			sweetConfirm(message.create, createTalkCommentRequest);
-	}
-
-	function createTalkCommentValid()
-	{
 		if (isEmpty(commentTalk.val()))
 		{
 			sweetToast(`댓글은 ${message.required}`);
@@ -736,7 +664,7 @@
 			return false;
 		}
 
-		return true;
+		sweetConfirm(message.create, createTalkCommentRequest);
 	}
 
 	function createTalkCommentRequest()
@@ -757,16 +685,11 @@
 	function createTalkCommentSuccess()
 	{
 		commentTalk.val('');
-		initTalkCommentPageNum();
 		initTalkCommentLastIdx();
 		initTalkCommentWrap();
-		getDetailTalk();
+		getTalkComments(g_param_view_page_length);
+		increaseCommentCountWithoutRequest();
 		onSubmitSearchTalk();
-	}
-
-	function initTalkCommentPageNum()
-	{
-		g_talk_comment_page_num = 1;
 	}
 
 	function initTalkCommentLastIdx()
@@ -979,6 +902,44 @@
 		getDetailTalk();
 	}
 
+	function buildTalkAttachWrap(data)
+	{
+		const {contents_type, contents_url, thumbnail_url} = data.data;
+		switch (contents_type) {
+			case label.image :
+				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${contents_url}" alt="">
+						</div>`;
+			case label.audio :
+				return `<audio controls><source src="${contents_url}"></audio>`;
+			case label.video :
+				return `<div class="detail-img-wrap talk-file-img view-detail-talk-attach" data-url="${contents_url}" data-type="${contents_type}">
+							<img src="${thumbnail_url}" alt="">
+						</div>`;
+			default :
+				return label.dash;
+		}
+	}
+
+	function onClickTalkAttach(obj)
+	{
+		modalAttachContentWrap.empty();
+		modalAttach.fadeIn();
+		modalBackdrop.fadeIn();
+		overflowHidden();
+
+		switch ($(obj).data('type')) {
+			case label.image :
+				modalAttachContentWrap.html(`<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`);
+				break;
+			case label.video :
+				modalAttachContentWrap.html(`<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`);
+				break;
+		}
+
+		onErrorImage();
+	}
+
 	export function onChangeAttachType()
 	{
 		let attachEl = '';
@@ -1138,4 +1099,14 @@
 	function getUpdateAttachType()
 	{
 		return $("input[name=radio-update-attach-type]:checked").val();
+	}
+
+	function increaseCommentCountWithoutRequest()
+	{
+		infoTalkCommentCount.text(Number(infoTalkCommentCount.text())+1)
+	}
+
+	function decreaseCommentCountWithoutRequest()
+	{
+		infoTalkCommentCount.text(Number(infoTalkCommentCount.text())-1)
 	}

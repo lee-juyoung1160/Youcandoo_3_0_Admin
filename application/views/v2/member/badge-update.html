@@ -61,10 +61,11 @@
                     <tr>
                         <th>이미지 *</th>
                         <td>
+                            <p class="desc-sub">업로드 사이즈 : 200 * 200</p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="contentImage">업로드</label>
-                                <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
+                                <input type="file" id="contentImage" class="upload-hidden" data-width="200" data-height="200" data-compare="같음" accept="image/png, image/jpg, image/jpeg">
                             </div>
                             <div class="detail-img-wrap">
                                 <img id="thumbnail" src="" alt="">
@@ -74,10 +75,11 @@
                     <tr>
                         <th>팝업 이미지 *</th>
                         <td>
+                            <p class="desc-sub">업로드 사이즈 : 400 * 400 </p>
                             <div class="file-wrap preview-image">
                                 <input class="upload-name" value="파일선택" disabled="disabled">
                                 <label for="popupImage">업로드</label>
-                                <input type="file" id="popupImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
+                                <input type="file" id="popupImage" class="upload-hidden" data-width="400" data-height="400" data-compare="같음" accept="image/png, image/jpg, image/jpeg">
                             </div>
                             <div class="detail-img-wrap">
                                 <img id="popupThumbnail" src="" alt="">

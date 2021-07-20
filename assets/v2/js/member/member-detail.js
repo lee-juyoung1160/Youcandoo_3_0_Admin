@@ -159,8 +159,18 @@
 		levelTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "레벨명",    	data: "level_name",  	width: "50%" }
-				,{title: "설정일시", 	data: "created",		width: "50%" }
+				{title: "레벨명",    	data: "level_name",  	width: "15%" }
+				,{title: "처리자", 	data: "reason",			width: "25%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data.split('||')[0];
+					}
+				}
+				,{title: "사유", 	data: "reason",			width: "40%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data.split('||')[1];
+					}
+				}
+				,{title: "설정일시", 	data: "created",		width: "20%" }
 			],
 			serverSide: false,
 			paging: true,

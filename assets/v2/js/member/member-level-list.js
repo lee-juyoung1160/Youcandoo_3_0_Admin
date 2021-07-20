@@ -132,11 +132,16 @@
 					$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
 
 				const level = Number(getLevel())
+				let table = dataTable.DataTable();
 				if (level === 5 || level === 6)
 				{
-					let table = dataTable.DataTable();
 					table.column(1).visible(true);
 					table.column(2).visible(true);
+				}
+				else
+				{
+					table.column(1).visible(false);
+					table.column(2).visible(false);
 				}
 			},
 			drawCallback: function (settings) {

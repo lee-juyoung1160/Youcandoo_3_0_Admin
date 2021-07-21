@@ -31,6 +31,7 @@
 		if (!isEmpty(data.data) && data.data.length  > 0)
 		{
 			data.data.map(type => {
+				if (type === '전체') return;
 				selFaqType.append(`<option value="${type}">${type}</option>`);
 			})
 		}

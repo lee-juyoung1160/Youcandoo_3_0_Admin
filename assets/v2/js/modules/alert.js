@@ -2,15 +2,23 @@
     import { label } from './label.js';
     import { isSuccessResp, getStatusMessage } from "./ajax-request.js";
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     export function sweetToast(msg)
     {
-        Swal.fire({
-            toast: true,
-            position: 'center',
-            icon: 'warning',
+        Toast.fire({
+            icon: 'info',
             title: msg,
-            showConfirmButton: false,
-            timer: 1500
         })
     }
 

@@ -200,7 +200,7 @@
 				},
 				data: function (d) {
 					const param = {
-						"faq_type" : 'all',
+						"faq_type" : '전체',
 						"search_type" : 'title_content',
 						"keyword" : '',
 						"is_exposure" : 'Y',

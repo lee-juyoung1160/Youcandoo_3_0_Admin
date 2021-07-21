@@ -103,7 +103,13 @@
 						return row.is_company === 'Y' ? label.bizIcon + data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "처리자",    	data: "reason",  		width: "10%",	visible: false,
+				,{title: "누적 인증 수", 	data: "action_count",	width: "15%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "가입일시",    	data: "created",  		width: "15%" }
+				,{title: "담당자",    	data: "reason",  		width: "10%",	visible: false,
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data.split('||')[0];
 					}
@@ -113,12 +119,6 @@
 						return isEmpty(data) ? label.dash : data.split('||')[1];
 					}
 				}
-				,{title: "누적 인증 수", 	data: "action_count",	width: "10%",
-					render: function (data, type, row, meta) {
-						return numberWithCommas(data);
-					}
-				}
-				,{title: "가입일시",    	data: "created",  		width: "15%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -135,13 +135,13 @@
 				let table = dataTable.DataTable();
 				if (level === 5 || level === 6)
 				{
-					table.column(1).visible(true);
-					table.column(2).visible(true);
+					table.column(3).visible(true);
+					table.column(4).visible(true);
 				}
 				else
 				{
-					table.column(1).visible(false);
-					table.column(2).visible(false);
+					table.column(3).visible(false);
+					table.column(4).visible(false);
 				}
 			},
 			drawCallback: function (settings) {

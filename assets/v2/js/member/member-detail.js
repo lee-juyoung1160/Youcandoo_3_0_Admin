@@ -159,8 +159,8 @@
 		levelTable.DataTable({
 			data: data.data,
 			columns: [
-				{title: "레벨명",    	data: "level_name",  	width: "15%" }
-				,{title: "처리자", 	data: "reason",			width: "25%",
+				{title: "레벨명",    	data: "level_name",  	width: "20%" }
+				,{title: "담당자", 	data: "reason",			width: "20%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data.split('||')[0];
 					}

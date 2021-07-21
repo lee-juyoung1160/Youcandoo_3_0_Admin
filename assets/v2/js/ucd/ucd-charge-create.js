@@ -16,11 +16,11 @@
 
 	let addedUsers = [];
 	let addedUserObj = [];
+	let initialize = true;
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		buildSearchMemberTable();
 		amount.trigger('focus');
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
@@ -47,7 +47,8 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		onSubmitSearchMember();
+		initialize ? buildSearchMemberTable() : onSubmitSearchMember();
+		initialize = false;
 	}
 
 	function onSubmitSearchMember()
@@ -93,7 +94,7 @@
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
 						,"search_type" : "nickname"
-						,"keyword" : isEmpty(keyword.val()) ? '!@#' : keyword.val().trim()
+						,"keyword" : keyword.val().trim()
 					}
 
 					return JSON.stringify(param);

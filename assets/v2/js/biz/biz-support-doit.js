@@ -15,11 +15,11 @@
 
 	let addedDoits = [];
 	let addedDoitObj = [];
+	let initialize = true;
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		buildSearchDoitTable();
 		getBizInfo();
 		amount.trigger('focus');
 		/** 이벤트 **/
@@ -30,7 +30,7 @@
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport	.on('click', function () { onClickImportDoitFormExport(); });
-		btnSearch		.on('click', function () { onSubmitSearchMember(); })
+		btnSearch		.on('click', function () { onSubmitSearchDoit(); })
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
 	});
 
@@ -96,10 +96,11 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		onSubmitSearchMember();
+		initialize ? buildSearchDoitTable() : onSubmitSearchDoit();
+		initialize = false;
 	}
 
-	function onSubmitSearchMember()
+	function onSubmitSearchDoit()
 	{
 		if (isEmpty(keyword.val()))
 		{
@@ -141,7 +142,7 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"keyword" : isEmpty(keyword.val().trim()) ? '$!@' : keyword.val().trim()
+						,"keyword" : keyword.val().trim()
 						,"search_type" : "doit_title"
 					}
 

@@ -1,10 +1,14 @@
 
     import {
-    lengthInput, authCode, authName, btnSubmitAuth, btnSubmit,
-    modalBackdrop, modalClose, modalOpen, authWrap,
-} from "../modules/elements.js";
+        lengthInput, authCode, authName, btnSubmitAuth, btnSubmit,
+        modalBackdrop, modalClose, modalOpen, authWrap,
+    } from "../modules/elements.js";
     import {initInputNumber} from "../modules/utils.js";
     import {fadeinModal, fadeoutModal, limitInputLength} from "../modules/common.js";
+    import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request";
+    import {api} from "../modules/api-url-v1";
+    import {sweetToast} from "../modules/alert";
+    import {message} from "../modules/message";
 
     $( () => {
         /** 권한 불러오기 **/
@@ -31,14 +35,12 @@
 
     function getAuthList()
     {
-        const url = api.authList;
-        let errMsg 	= `권한목록을 ${message.ajaxLoadError}`;
-
-    }
-
-    function getAuthListCallback(data)
-    {
-        isSuccessResp(data) ? buildAuthList(data) : sweetError(invalidResp(data));
+        ajaxRequestWithJson(false, api.authList, null)
+            .then( async function( data, textStatus, jqXHR ) {
+                await isSuccessResp(data) ? buildAuthList(data) : sweetToast(invalidResp(data));
+                await getDetail();
+            })
+            .catch(reject => sweetError(`권한목록을${message.ajaxLoadError}`));
     }
 
     function buildAuthList(data)
@@ -84,9 +86,9 @@
 
     function deleteRequest()
     {
-        let param   = JSON.stringify({"code" : selectedAuthCode()})
-        let url 	= api.deleteAuth;
-        let errMsg 	= label.delete+message.ajaxError;
+        const param = JSON.stringify({"code" : selectedAuthCode()})
+        const url = api.deleteAuth;
+        const errMsg = label.delete+message.ajaxError;
 
     }
 

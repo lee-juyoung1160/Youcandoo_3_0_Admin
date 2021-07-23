@@ -52,7 +52,7 @@
 				await initSearchForm();
 				await buildTable();
 			})
-			.catch(reject => sweetToast(`구분${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`구분${message.ajaxLoadError}`));
 	}
 
 	function buildSystemType(data)

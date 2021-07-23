@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {dataTable, updateTable, btnUpdate, modalClose, modalBackdrop, btnSubmitUpdate,
 		modalUpdate, modalCreate, keyword, btnSubmit, btnCreate, lengthInput} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {calculateInputLength, fadeoutModal, limitInputLength, overflowHidden} from "../modules/common.js";
 	import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -48,7 +48,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getKeywordListCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getKeywordListCallback(data)
@@ -148,7 +148,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, requestSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function updateValidation()
@@ -204,7 +204,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, requestSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function requestSuccess()

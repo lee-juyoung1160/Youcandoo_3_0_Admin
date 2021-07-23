@@ -77,7 +77,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_profile_uuid;
@@ -110,7 +110,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`보유 UCD ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`보유 UCD ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)
@@ -306,7 +306,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSubcategorySuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSubcategorySuccess()

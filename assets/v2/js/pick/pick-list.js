@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {previewTable, dataTable, updateTable, btnUpdate, previewTitle, modalOpen, modalClose, modalBackdrop, btnCreate} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount } from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -58,7 +58,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getPickListCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getPickListCallback(data)
@@ -130,7 +130,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildPreview(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function buildPreview(data)
@@ -238,7 +238,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, updateSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function updateSuccess()

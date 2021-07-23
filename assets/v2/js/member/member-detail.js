@@ -10,7 +10,7 @@
 		categoryWrap, ulLevelTab, levelInfoWrap, levelHistoryWrap, openedDoitCount, openedDoitAction,
 		levelTable, btnLevelWrap, isStore, modalLevelUp, levelUpReason, btnSubmit,
 	} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
 	import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import {isEmpty, initInputNumber, isNegative, numberWithCommas} from "../modules/utils.js";
@@ -86,7 +86,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`기본정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`기본정보${message.ajaxLoadError}`));
 	}
 
 	function buildBasicInfo(data)
@@ -130,7 +130,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`레벨정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`레벨정보${message.ajaxLoadError}`));
 	}
 
 	function buildLevelInfo(data)
@@ -151,7 +151,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildLeveTable(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`레벨 변경 내역을 ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`레벨 변경 내역을 ${message.ajaxLoadError}`));
 	}
 
 	function buildLeveTable(data)
@@ -194,7 +194,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`기기정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`기기정보${message.ajaxLoadError}`));
 	}
 
 	function buildDeviceInfo(data)
@@ -229,7 +229,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildCategory(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`관심카테고리${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`관심카테고리${message.ajaxLoadError}`));
 	}
 
 	function buildCategory(data)
@@ -438,7 +438,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await  getActionsCallback(data);
 			})
-			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function getActionsCallback(data)
@@ -544,7 +544,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function buildModalActionDetail(data)
@@ -672,7 +672,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, saveUcdSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function saveUcdSuccess()
@@ -784,7 +784,7 @@
 				fadeoutModal();
 				await sweetToastAndCallback(data, getLevelInfo);
 			})
-			.catch(reject => sweetToast(`레벨${message.ajaxError}`));
+			.catch(reject => sweetError(`레벨${message.ajaxError}`));
 	}
 
 	function calculateLevel(btnId)

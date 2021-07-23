@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson} from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url-v1.js';
 	import {btnSubmit, versionDigit, versionDecimal} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {initInputNumberWithZero, initInputNumber, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -33,7 +33,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()

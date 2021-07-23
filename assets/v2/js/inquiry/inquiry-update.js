@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle, content,
 		attachmentWrap, answerEl, memoEl, btnSubmit, thumbnail} from '../modules/elements.js';
-	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
+	import {sweetToast, sweetConfirm, sweetToastAndCallback, sweetError} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, moveToMemberDetail} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -33,7 +33,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_inquiry_uuid;
@@ -115,7 +115,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, answerSuccess);
 			})
-			.catch(reject => sweetToast(message.ajaxLoadError));
+			.catch(reject => sweetError(message.ajaxLoadError));
 	}
 
 	function answerSuccess()

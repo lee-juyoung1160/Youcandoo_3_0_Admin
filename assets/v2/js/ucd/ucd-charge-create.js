@@ -247,7 +247,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -315,7 +315,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`회원목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`회원목록${message.ajaxLoadError}`));
 	}
 
 	function getExcelDataCallback(data)

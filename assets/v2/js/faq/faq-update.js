@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url-v1.js';
 	import {btnSubmit, content, lengthInput, rdoExposure, selFaqType, faqTitle,} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {limitInputLength, calculateInputLength} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -26,7 +26,7 @@
 				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
 				await getDetail();
 			})
-			.catch(reject => sweetToast(`faq 타입${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`faq 타입${message.ajaxLoadError}`));
 	}
 
 	function buildFaqType(data)
@@ -48,7 +48,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_faq_uuid;
@@ -87,7 +87,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, updateSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function updateSuccess()

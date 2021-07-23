@@ -49,7 +49,7 @@
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url-v1.js";
 	import {message} from "../modules/message.js";
-	import {sweetConfirm, sweetToastAndCallback} from "../modules/alert.js";
+	import {sweetConfirm, sweetToastAndCallback, sweetError} from "../modules/alert.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
 
@@ -251,7 +251,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, doitStatusChangeSuccess);
 			})
-			.catch(reject => sweetToast(message.ajaxError));
+			.catch(reject => sweetError(message.ajaxError));
 	}
 
 	function doitStatusChangeSuccess()

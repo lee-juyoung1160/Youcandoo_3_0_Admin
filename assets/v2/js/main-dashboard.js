@@ -58,7 +58,7 @@
                 else
                     sweetToast(invalidResp(data));
             })
-            .catch(reject => sweetToast(`데이터${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
     }
 
     function buildSummary(data)
@@ -138,7 +138,7 @@
                else
                    sweetToast(invalidResp(data));
             })
-            .catch(reject => sweetToast(`데이터${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
     }
 
     function buildMoreLeader(data)
@@ -210,7 +210,7 @@
                 else
                     sweetToast(invalidResp(data));
             })
-            .catch(reject => sweetToast(`데이터${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
     }
 
     function buildMoreDoit(data)

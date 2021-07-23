@@ -3,7 +3,7 @@
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {lengthInput, btnSubmit, giftName, contentImage, price, rdoManual, selectGiftName, goodsCode,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, btnSearch, ktImageUrl,} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal, onErrorImage, emptyFile} from "../modules/common.js";
 	import {initInputNumber, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -156,7 +156,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
@@ -183,7 +183,7 @@
 				.then( async function( data, textStatus, jqXHR ) {
 					await sweetToastAndCallback(data, createSuccess);
 				})
-				.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+				.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 		}
 		else
 			sweetToast(data.msg);

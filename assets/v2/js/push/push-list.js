@@ -211,7 +211,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, onSubmitSearch);
 			})
-			.catch(reject => sweetToast(`취소 ${message.ajaxError}`));
+			.catch(reject => sweetError(`취소 ${message.ajaxError}`));
 	}
 
 	function deleteValid()

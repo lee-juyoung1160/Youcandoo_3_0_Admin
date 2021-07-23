@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {dataTable, updateTable, modalClose, modalBackdrop, btnSubmitUpdate, modalUpdate, modalDetail, modalImage, btnUpdate,} from '../modules/elements.js';
-	import {sweetConfirm, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
+	import {sweetConfirm, sweetToast, sweetToastAndCallback, sweetError} from '../modules/alert.js';
 	import { fadeoutModal, onErrorImage, overflowHidden } from "../modules/common.js";
 	import { initTableDefaultConfig,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
@@ -49,7 +49,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getStoryListCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getStoryListCallback(data)
@@ -157,7 +157,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, reorderSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()

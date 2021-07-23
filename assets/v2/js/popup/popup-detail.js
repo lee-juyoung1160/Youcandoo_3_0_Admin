@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {osType, popupTitle, version, link, exposureDate, viewOption, isExposure, btnBack, btnList, btnUpdate, btnDelete} from '../modules/elements.js';
-	import {sweetConfirm, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
+	import {sweetConfirm, sweetToast, sweetToastAndCallback, sweetError} from '../modules/alert.js';
 	import {historyBack,} from "../modules/common.js";
 	import { getPathName, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -30,7 +30,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_popup_uuid;
@@ -78,7 +78,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, deleteSuccess);
 			})
-			.catch(reject => sweetToast(label.delete + message.ajaxError));
+			.catch(reject => sweetError(label.delete + message.ajaxError));
 	}
 
 	function deleteSuccess()

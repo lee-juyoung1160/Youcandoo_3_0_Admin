@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {btnBack, btnList, btnUpdate, giftUuid, giftName, contentImage, price, isExposure, discontinuedDate, giftType} from '../modules/elements.js';
-	import {sweetToast} from '../modules/alert.js';
+	import {sweetToast, sweetError} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import {getPathName, splitReverse, numberWithCommas, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -29,7 +29,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	function buildDetail(data)

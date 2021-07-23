@@ -42,7 +42,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_company_uuid;
@@ -73,7 +73,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`보유 UCD ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`보유 UCD ${message.ajaxLoadError}`));
 	}
 
 	let g_balance;
@@ -298,7 +298,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()
@@ -373,7 +373,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`회원목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`회원목록${message.ajaxLoadError}`));
 	}
 
 	function getExcelDataCallback(data)

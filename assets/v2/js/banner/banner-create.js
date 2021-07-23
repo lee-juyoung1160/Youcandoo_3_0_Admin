@@ -3,7 +3,7 @@
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {targetUrl, btnSubmit, contentImage, title, dateFrom, dateTo, rdoTargetPageType, targetPage, modalOpen,
 		modalClose, modalBackdrop, dataTable, targetUuid, keyword,} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {initMinDateToday, initInputDateRangeWeek, initSearchDatepicker, onChangeValidateImage, onChangeSearchDateFrom,
 		onChangeSearchDateTo, fadeoutModal, fadeinModal,} from "../modules/common.js";
 	import {isEmpty, isDomainName} from "../modules/utils.js";
@@ -46,7 +46,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createRequest(data)
@@ -68,7 +68,7 @@
 				.then( async function( data, textStatus, jqXHR ) {
 					await sweetToastAndCallback(data, createSuccess);
 				})
-				.catch(reject => sweetToast(label.submit + message.ajaxError));
+				.catch(reject => sweetError(label.submit + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);

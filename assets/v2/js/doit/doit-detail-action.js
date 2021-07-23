@@ -13,7 +13,7 @@
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from "../modules/alert.js";
 	import {isEmpty} from "../modules/utils.js";
 	import {ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 
@@ -70,7 +70,7 @@
 				await isSuccessResp(data) ? buildSelActionMission(data) : sweetToast(invalidResp(data));
 				await onSubmitSearchActions();
 			})
-			.catch(reject => sweetToast(`미션 목록 ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`미션 목록 ${message.ajaxLoadError}`));
 	}
 
 	function buildSelActionMission(data)
@@ -105,7 +105,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getActionListCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getActionListCallback(data)
@@ -204,7 +204,7 @@
 				else
 					sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	function buildDetailAction(data)
@@ -237,7 +237,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildActionComments(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`댓글 목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`댓글 목록${message.ajaxLoadError}`));
 	}
 
 	function buildActionComments(data)
@@ -384,7 +384,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? appendReplyActionComment(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`답글 목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`답글 목록${message.ajaxLoadError}`));
 	}
 
 	function appendReplyActionComment(data)
@@ -506,7 +506,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createActionReplySuccess);
 			})
-			.catch(reject => sweetToast(`답글 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`답글 등록${message.ajaxError}`));
 	}
 
 	function createActionReplySuccess()
@@ -533,7 +533,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, deleteActionCommentSuccess);
 			})
-			.catch(reject => sweetToast(`댓글 삭제${message.ajaxError}`));
+			.catch(reject => sweetError(`댓글 삭제${message.ajaxError}`));
 	}
 
 	function deleteActionCommentSuccess()
@@ -569,7 +569,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, blindActionCommentSuccess);
 			})
-			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
+			.catch(reject => sweetError(`블라인드${message.ajaxError}`));
 	}
 
 	function blindActionCommentSuccess()
@@ -613,7 +613,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createActionCommentSuccess);
 			})
-			.catch(reject => sweetToast(`댓글 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`댓글 등록${message.ajaxError}`));
 	}
 
 	function createActionCommentSuccess()
@@ -704,7 +704,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, sendWarningSuccess);
 			})
-			.catch(reject => sweetToast(`발송${message.ajaxError}`));
+			.catch(reject => sweetError(`발송${message.ajaxError}`));
 	}
 
 	function sendWarningSuccess()
@@ -729,7 +729,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, getDetailAction);
 			})
-			.catch(reject => sweetToast(`경고장 발송 취소${message.ajaxError}`));
+			.catch(reject => sweetError(`경고장 발송 취소${message.ajaxError}`));
 	}
 
 	function initActionCommentPageNum()

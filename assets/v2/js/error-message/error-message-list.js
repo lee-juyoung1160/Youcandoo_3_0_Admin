@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {keyword, dataTable,} from '../modules/elements.js';
-	import {sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
+	import {sweetToast, sweetConfirm, sweetToastAndCallback, sweetError} from '../modules/alert.js';
 	import {initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -47,7 +47,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildTable(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function buildTable(data)
@@ -154,5 +154,5 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, getErrorList);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}

@@ -35,7 +35,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`두잇 UCD ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`두잇 UCD ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)
@@ -154,7 +154,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, saveUcdWalletSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function saveUcdWalletSuccess()

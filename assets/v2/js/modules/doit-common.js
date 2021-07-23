@@ -4,7 +4,7 @@
     import {chkIsAnswer, chkIsQuestion, dateFrom, dateTo, doitKeyword, doitKeywords,selCategory, selSubcategory} from "./elements.js";
     import {isEmpty} from "./utils.js";
     import {limitInputLength,} from "./common.js";
-    import {sweetToast} from "./alert.js";
+    import {sweetToast, sweetError} from "./alert.js";
     import {label} from "./label.js";
     import {message} from "./message.js";
 
@@ -17,7 +17,7 @@
                 await isSuccessResp(data) ? buildSelCategory(data) : sweetToast(invalidResp(data));
                 await getSubCategory();
             })
-            .catch(reject => sweetToast(`카테고리 목록${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`카테고리 목록${message.ajaxLoadError}`));
     }
 
     export function buildSelCategory(data)
@@ -38,7 +38,7 @@
             .then( async function( data, textStatus, jqXHR ) {
                 await isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
             })
-            .catch(reject => sweetToast(label.list + message.ajaxLoadError));
+            .catch(reject => sweetError(label.list + message.ajaxLoadError));
     }
 
     export function buildSelSubCategory(data)

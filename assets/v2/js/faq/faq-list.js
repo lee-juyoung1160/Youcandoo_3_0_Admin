@@ -60,7 +60,7 @@
 				await isBackAction() ? setHistoryForm() : initSearchForm();
 				await buildTable();
 			})
-			.catch(reject => sweetToast(`faq 타입${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`faq 타입${message.ajaxLoadError}`));
 	}
 
 	function buildFaqType(data)
@@ -272,7 +272,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, reorderSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function reorderSuccess()

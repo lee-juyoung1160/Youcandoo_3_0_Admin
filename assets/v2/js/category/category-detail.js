@@ -54,7 +54,7 @@
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 				await getSubCategory();
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_category_uuid;
@@ -79,7 +79,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getSubCategorySuccess(data)
@@ -191,7 +191,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? createSubcategoryRequest(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function createSubcategoryRequest(data)
@@ -207,7 +207,7 @@
 				await initCreateAttachment();
 				await sweetToastAndCallback(data, createSubcategorySuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSubcategorySuccess()
@@ -281,7 +281,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? updateImageToApiServerReq(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateImageToApiServerReq(data)
@@ -298,7 +298,7 @@
 				await initUpdateAttachment();
 				await sweetToastAndCallback(data, updateImageToApiServerCallbackSuccess);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function updateImageToApiServerCallbackSuccess()

@@ -323,7 +323,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, blindSuccess);
 			})
-			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
+			.catch(reject => sweetError(`블라인드${message.ajaxError}`));
 	}
 
 	function blindSuccess()

@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, isSuccessResp} from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url-v1.js';
 	import {inputString, btnEncryption, btnDecryption, resultString} from '../modules/elements.js';
-	import { sweetToast, } from  '../modules/alert.js';
+	import { sweetToast, sweetError } from  '../modules/alert.js';
 	import {isEmpty} from "../modules/utils.js";
 	import { message } from "../modules/message.js";
 
@@ -33,7 +33,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? encryptionReqCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`암호화 ${message.ajaxError}`));
+			.catch(reject => sweetError(`암호화 ${message.ajaxError}`));
 	}
 
 	function encryptionReqCallback(data)
@@ -61,7 +61,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? decryptionReqCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`복호화${message.ajaxError}`));
+			.catch(reject => sweetError(`복호화${message.ajaxError}`));
 	}
 
 	function decryptionReqCallback(data)

@@ -84,7 +84,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getActionsCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getActionsCallback(data)
@@ -192,7 +192,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`인증 정보${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`인증 정보${message.ajaxLoadError}`));
 	}
 
 	function buildModalActionDetail(data)
@@ -309,7 +309,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, requestSuccess);
 			})
-			.catch(reject => sweetToast(`경고장 발송 취소 ${message.ajaxError}`));
+			.catch(reject => sweetError(`경고장 발송 취소 ${message.ajaxError}`));
 	}
 
 	function onClickModalWarningOpen()
@@ -355,7 +355,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, requestSuccess);
 			})
-			.catch(reject => sweetToast(message.ajaxLoadError));
+			.catch(reject => sweetError(message.ajaxLoadError));
 	}
 
 	function requestSuccess()

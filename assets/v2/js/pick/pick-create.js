@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api} from '../modules/api-url-v1.js';
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit,} from '../modules/elements.js';
-	import { sweetConfirm, sweetToast, sweetToastAndCallback } from  '../modules/alert.js';
+	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { limitInputLength, onErrorImage} from "../modules/common.js";
 	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -246,7 +246,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function createSuccess()

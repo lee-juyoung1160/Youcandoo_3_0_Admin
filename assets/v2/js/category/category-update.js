@@ -2,7 +2,7 @@
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {categoryTitle, categoryIcon, thumbnail, rdoExposure, btnSubmit, dataTable, lengthInput,} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {limitInputLength, calculateInputLength, onChangeValidateImage, onErrorImage,} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -33,7 +33,7 @@
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 				await getSubCategory();
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_category_uuid;
@@ -61,7 +61,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function getSubCategorySuccess(data)
@@ -201,7 +201,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, getSubCategory);
 			})
-			.catch(reject => sweetToast(label.modify + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
 	function addDeleteEvent()
@@ -246,7 +246,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`세부 카테고리 삭제${message.ajaxError}`));
+			.catch(reject => sweetError(`세부 카테고리 삭제${message.ajaxError}`));
 	}
 
 	function reorderSubCategoryRequest()
@@ -262,7 +262,7 @@
 				.then( async function( data, textStatus, jqXHR ) {
 					await isSuccessResp(data) ? reorderSubcategoryReqCallback(data) : sweetToast(invalidResp(data));
 				})
-				.catch(reject => sweetToast(`세부 카테고리 정렬${message.ajaxError}`));
+				.catch(reject => sweetError(`세부 카테고리 정렬${message.ajaxError}`));
 		}
 		else
 		{
@@ -286,7 +286,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? updateCategoryRequest(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateCategoryRequest(data)
@@ -306,7 +306,7 @@
 				.then( async function( data, textStatus, jqXHR ) {
 					await sweetToastAndCallback(data, updateCategorySuccess);
 				})
-				.catch(reject => sweetToast(label.modify + message.ajaxError));
+				.catch(reject => sweetError(label.modify + message.ajaxError));
 		}
 	}
 

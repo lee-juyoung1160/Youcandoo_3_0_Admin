@@ -339,7 +339,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, cancelSuccess);
 			})
-			.catch(reject => sweetToast(label.cancel + message.ajaxError));
+			.catch(reject => sweetError(label.cancel + message.ajaxError));
 	}
 
 	function cancelSuccess()
@@ -363,7 +363,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, onSubmitSearch);
 			})
-			.catch(reject => sweetToast(`재발송${message.ajaxError}`));
+			.catch(reject => sweetError(`재발송${message.ajaxError}`));
 	}
 
 	function getSelectedExchangeId()

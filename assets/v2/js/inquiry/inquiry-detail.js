@@ -5,7 +5,7 @@
 		btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
 		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate
 	} from '../modules/elements.js';
-	import {sweetToast,} from '../modules/alert.js';
+	import {sweetToast, sweetError} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -34,7 +34,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_inquiry_uuid;

@@ -83,7 +83,7 @@
 				await isBackAction() ? setHistoryForm() : initSearchForm();
 				await buildTable();
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	function buildSelCategory(data)

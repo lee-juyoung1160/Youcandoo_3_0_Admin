@@ -3,7 +3,7 @@
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, initSearchDatepicker, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -38,7 +38,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_event_uuid;
@@ -99,7 +99,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`이미지 등록${message.ajaxError}`));
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
 
 	function updateRequest(data)
@@ -133,7 +133,7 @@
 				.then( async function( data, textStatus, jqXHR ) {
 					await sweetToastAndCallback(data, updateSuccess);
 				})
-				.catch(reject => sweetToast(label.modify + message.ajaxError));
+				.catch(reject => sweetError(label.modify + message.ajaxError));
 		}
 		else
 			sweetToast(data.msg);

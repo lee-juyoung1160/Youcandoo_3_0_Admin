@@ -67,7 +67,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildCountMember(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`가입/대기자 수${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`가입/대기자 수${message.ajaxLoadError}`));
 	}
 
 	function buildCountMember(data)
@@ -85,7 +85,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildSelMission(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`미션 목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`미션 목록${message.ajaxLoadError}`));
 	}
 
 	function buildSelMission(data)
@@ -203,7 +203,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getMemberInfoCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	function getMemberInfoCallback(data)
@@ -245,7 +245,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, banSuccess);
 			})
-			.catch(reject => sweetToast(`강퇴${message.ajaxError}`));
+			.catch(reject => sweetError(`강퇴${message.ajaxError}`));
 	}
 
 	function banSuccess()
@@ -263,7 +263,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildQuestion(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`질문을${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`질문을${message.ajaxLoadError}`));
 	}
 
 	function buildQuestion(data)
@@ -418,7 +418,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, approvalMemberSuccess);
 			})
-			.catch(reject => sweetToast(`승인 ${message.ajaxError}`));
+			.catch(reject => sweetError(`승인 ${message.ajaxError}`));
 	}
 
 	function approvalMemberSuccess()
@@ -444,7 +444,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, approvalMemberSuccess);
 			})
-			.catch(reject => sweetToast(`거절 ${message.ajaxError}`));
+			.catch(reject => sweetError(`거절 ${message.ajaxError}`));
 	}
 
 	function getSelectedApprovalMemberUuid()
@@ -527,7 +527,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.list + message.ajaxLoadError));
+			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
 
 	let rewardMembers = [];
@@ -639,7 +639,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, fadeoutModal);
 			})
-			.catch(reject => sweetToast(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.submit + message.ajaxError));
 	}
 
 	function getSelectedIdsFromTableRow()

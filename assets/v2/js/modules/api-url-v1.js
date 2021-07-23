@@ -220,8 +220,8 @@
         detailAdmin : baseApiUrl + 'admin/detail',
         updateAdmin : baseApiUrl + 'admin/update',
         deleteAdmin : baseApiUrl + 'admin/delete',
-        authList : baseApiUrl + 'auth/list',
-        createAuth : baseApiUrl + 'auth/list',
+        authList : baseApiUrl + 'auth/get/list',
+        createAuth : baseApiUrl + 'auth/create',
         deleteAuth : baseApiUrl + 'auth/delete',
     }
 

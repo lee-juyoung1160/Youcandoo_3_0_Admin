@@ -5,7 +5,7 @@
 		btnBack, btnList, commentCount, likeCount, talkAttachWrap, talkCreated, userNickname,
 		content, talkCommentWrap, doitTitle,
 	} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -31,7 +31,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_action_uuid;
@@ -92,7 +92,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`댓글 목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`댓글 목록${message.ajaxLoadError}`));
 	}
 
 	function buildTalkComments(data)
@@ -228,7 +228,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`답글 목록${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`답글 목록${message.ajaxLoadError}`));
 	}
 
 	function appendReply(data)
@@ -289,7 +289,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, blindSuccess);
 			})
-			.catch(reject => sweetToast(`블라인드${message.ajaxError}`));
+			.catch(reject => sweetError(`블라인드${message.ajaxError}`));
 	}
 
 	function blindSuccess() {

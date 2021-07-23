@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url-v1.js';
 	import { btnBack, btnList, btnUpdate, btnDelete, eventType, eventTitle, link, content, contentImage, eventNotice,
 		thumbnailImage, eventDate, isExposure} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -36,7 +36,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(label.detailContent + message.ajaxLoadError));
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
 	let g_event_uuid;
@@ -86,7 +86,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, goListPage);
 			})
-			.catch(reject => sweetToast(label.delete + message.ajaxError));
+			.catch(reject => sweetError(label.delete + message.ajaxError));
 	}
 
 	function goListPage()

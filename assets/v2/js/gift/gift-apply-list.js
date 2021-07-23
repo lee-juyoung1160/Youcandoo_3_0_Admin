@@ -307,7 +307,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, reqSuccess);
 			})
-			.catch(reject => sweetToast(label.reserve + message.ajaxError));
+			.catch(reject => sweetError(label.reserve + message.ajaxError));
 	}
 
 	function onSubmitGeneral()
@@ -328,7 +328,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, reqSuccess);
 			})
-			.catch(reject => sweetToast(message.ajaxError));
+			.catch(reject => sweetError(message.ajaxError));
 	}
 
 	function reqSuccess()
@@ -359,7 +359,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetToast(`잔액 ${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`잔액 ${message.ajaxLoadError}`));
 	}
 
 	function buildBalance(data)

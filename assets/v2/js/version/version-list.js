@@ -126,7 +126,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, onSubmitSearch);
 			})
-			.catch(reject => sweetToast(label.delete + message.ajaxError));
+			.catch(reject => sweetError(label.delete + message.ajaxError));
 	}
 
 	function deleteValidation()

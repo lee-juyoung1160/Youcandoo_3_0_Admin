@@ -220,7 +220,9 @@
         detailAdmin : baseApiUrl + 'admin/detail',
         updateAdmin : baseApiUrl + 'admin/update',
         deleteAdmin : baseApiUrl + 'admin/delete',
-        authList : baseApiUrl + 'auth/get/list',
+        authList : baseApiUrl + 'auth/list',
+        getMenuWithAuth : baseApiUrl + 'auth/get/menu',
+        setMenuWithAuth : baseApiUrl + 'auth/set/menu',
         createAuth : baseApiUrl + 'auth/create',
         deleteAuth : baseApiUrl + 'auth/delete',
     }

@@ -20,7 +20,7 @@ class Admin extends MY_Controller {
 
     public function auth()
     {
-        $this->load->template('v2/admin/auth-create');
+        $this->load->template('v2/admin/admin-auth');
     }
 
 }

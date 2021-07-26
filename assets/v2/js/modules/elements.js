@@ -426,6 +426,7 @@
     export const authCode = $("#authCode");
     export const authName = $("#authName");
     export const btnSubmitAuth = $("#btnSubmitAuth");
+    export const menuWrap = $("#menuWrap");
 
     /** 회원 **/
     export const isStore = $("#isStore");

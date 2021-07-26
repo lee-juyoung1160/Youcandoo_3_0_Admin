@@ -145,16 +145,36 @@
 
     function onSubmitMenuWithAuth()
     {
+        sweetConfirm(message.create, setMenuRequest);
+    }
+
+    function setMenuRequest()
+    {
+        let menuObj = {};
+        $(".chk-main-menu").each(function () {
+            const submenu = $(`input[name=${this.name}].chk-sub-menu`);
+            let subObj = {};
+            submenu.each(function () {
+                subObj[$(this).attr('id')] = {
+                    'view' : $(this).is(':checked')
+                }
+            })
+
+            menuObj[$(this).attr('id')] = {
+                "view" : $(this).is(':checked'),
+                "children" : subObj
+            }
+        })
         const param = {
-            "name" : authName.val().trim(),
-            "code" : authCode.val().trim()
+            "code" : selectedAuthCode(),
+            "menu" : menuObj,
         };
 
         ajaxRequestWithJson(true, api.setMenuWithAuth, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await sweetToastAndCallback(data, requestSuccess);
+                await sweetToastAndCallback(data, getMenuWithAuth);
             })
-            .catch(reject => sweetError(`권한목록을${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`메뉴 목록을${message.ajaxLoadError}`));
     }
 
     function onSubmitAuth()
@@ -193,7 +213,7 @@
             .then( async function( data, textStatus, jqXHR ) {
                 await sweetToastAndCallback(data, requestSuccess);
             })
-            .catch(reject => sweetError(`권한목록을${message.ajaxLoadError}`));
+            .catch(reject => sweetError(`권한 목록을${message.ajaxLoadError}`));
     }
 
     function requestSuccess()

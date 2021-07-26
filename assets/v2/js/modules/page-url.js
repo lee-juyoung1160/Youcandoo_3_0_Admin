@@ -7,7 +7,7 @@
         ,mfa : rootContext + 'auth/mfa'
 
         ,listMember : rootContext + 'member'
-        ,detailMember : rootContext + 'member/detail/'
+        ,detailMember : rootContext + 'member/detail'
 
         ,listBadge : rootContext + 'member/badge/'
         ,detailBadge : rootContext + 'member/badge/detail/'

@@ -90,6 +90,9 @@ select {
 select:focus {
   outline: none;
 }
+.datalist input::-webkit-calendar-picker-indicator {
+	opacity: 0;
+}
 input:focus {
   outline: none;
 }

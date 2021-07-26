@@ -142,6 +142,7 @@ p.message {
 
 /* form style */
 .select-box {
+	display: block;
 	float: left;
 	position: relative;
 	width: 150px;

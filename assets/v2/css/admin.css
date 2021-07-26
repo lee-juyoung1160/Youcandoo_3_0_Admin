@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/* 운영자 관리 */
+.datalist input {
+    width: 260px;
+}
+
 /* 권한관리 */
 .auth-create .auth-list {
     position: fixed;

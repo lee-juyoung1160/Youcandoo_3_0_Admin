@@ -144,13 +144,13 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",			width: "30%",
+				{title: "닉네임", 			data: "nickname",			width: "15%",
 					render: function (data, type, row, meta) {
 						const nickname = row.is_company === 'Y' ? label.bizIcon + data : data;
 						return `<a data-uuid="${row.profile_uuid}" data-type="${row.member_type}">${nickname}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 		data: "profile_uuid",		width: "25%"}
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "20%"}
 				,{title: "등급",    			data: "member_type",  		width: "10%" }
 				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%",
 					render: function (data) {
@@ -158,6 +158,16 @@
 					}
 				}
 				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "최근 7일 인증 수",   data: "ongoing_action",  	width: "10%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "최근 30일 인증 수",   data: "ongoing_action",  	width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

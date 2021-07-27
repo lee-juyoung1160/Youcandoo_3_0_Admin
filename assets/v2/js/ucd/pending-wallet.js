@@ -121,7 +121,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "보낸 날짜",    	data: "sended",  	width: "15%",
+				,{title: "보낸 날짜",    	data: "sent",  	width: "15%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : data;
 					}

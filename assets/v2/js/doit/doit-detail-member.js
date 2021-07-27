@@ -39,10 +39,10 @@
 		keyword.val('');
 		actionCount.val(0);
 		initSelectOption();
-		onChangeSelMemberFilter(selMemberFilter);
+		// onChangeSelMemberFilter(selMemberFilter);
 	}
 
-	export function onChangeSelMemberFilter(obj)
+	/*export function onChangeSelMemberFilter(obj)
 	{
 		const filterValue = $(obj).val();
 		if (filterValue === 'today_action')
@@ -57,7 +57,7 @@
 			memberActionCntFilterWrap2.hide();
 			actionCount.val(0);
 		}
-	}
+	}*/
 
 	function countMember()
 	{
@@ -144,30 +144,30 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",			width: "15%",
+				{title: "닉네임", 			data: "nickname",			width: "17%",
 					render: function (data, type, row, meta) {
 						const nickname = row.is_company === 'Y' ? label.bizIcon + data : data;
 						return `<a data-uuid="${row.profile_uuid}" data-type="${row.member_type}">${nickname}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 		data: "profile_uuid",		width: "20%"}
-				,{title: "등급",    			data: "member_type",  		width: "10%" }
-				,{title: "누적 인증 수",   	data: "total_action",  		width: "10%",
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "24%"}
+				,{title: "등급",    			data: "member_type",  		width: "8%" }
+				,{title: "누적 인증",   		data: "total_action",  		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "현재 연속 인증 수",   data: "ongoing_action",  	width: "10%",
+				,{title: "현재 연속 인증",   	data: "ongoing_action",  		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "최근 7일 인증 수",   data: "ongoing_action",  	width: "10%",
+				,{title: "최근 7일 인증",   	data: "day7_action",  			width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "최근 30일 인증 수",   data: "ongoing_action",  	width: "10%",
+				,{title: "최근 30일 인증",   	data: "day30_action",  		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

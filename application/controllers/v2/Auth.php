@@ -184,7 +184,7 @@ class Auth extends CI_Controller {
                     "secret"=>$Secret
                 );
                 if($this->curl($Body, "/v3/admin/create")){
-                    alert("회원가입 되었습니다.","/v2/main/login");
+                    alert("관리자 등록 요청이 완료되었습니다.","/v2/main/login");
                 }
             }
 

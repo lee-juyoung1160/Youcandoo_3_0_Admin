@@ -18,41 +18,36 @@
                         <th>권한</th>
                         <td>
                             <select id="selAuthType" class="select-box">
-                                <option value="">개발팀</option>
+<!--                                <option value="">개발팀</option>-->
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th>기업명</th>
                         <td>
-                            <div class="datalist">
-                                <input list="biz" class="select-box">
-                                <datalist id="biz">
-                                    <option value="유캔두">
-                                    <option value="세리박스">
-                                    <option value="아디다스">
-                                    <option value="나이키">
-                                    <option value="삼성전자">
-                                    <option value="기업명히기업명히기업명히기업명히">
-                                    <option value="비즈비즈">
-                                    <option value="기업">
-                                </datalist>
-                            </div>
+                            <select id="selBiz" class="select-box">
+                                <option value="">선택</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <th>이름</th>
                         <td>
-                            <p class="detail-data" id="name">
-                                이주영
+                            <p class="detail-data" id="username">
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <th>이메일</th>
                         <td>
-                            <p class="detail-data" id="nickname">
-                                eeeeee@eeeeee.ee.ee
+                            <p class="detail-data" id="useremail">
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>승인여부</th>
+                        <td>
+                            <p class="detail-data" id="isApproval">
                             </p>
                         </td>
                     </tr>
@@ -60,10 +55,10 @@
                         <th>사용 여부</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r3" type="radio" name="radio-exposure" value="Y">
+                                <input id="r3" type="radio" name="radio-status" value="Y">
                                 <label for="r3"><span></span>Y</label>
 
-                                <input  id="r4" type="radio" name="radio-exposure" value="N">
+                                <input  id="r4" type="radio" name="radio-status" value="N">
                                 <label for="r4"><span></span>N</label>
                             </div>
                         </td>

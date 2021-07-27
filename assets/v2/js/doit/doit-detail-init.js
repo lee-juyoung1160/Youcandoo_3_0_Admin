@@ -2,7 +2,7 @@
 	import {
 		modalClose, modalBackdrop, tabUl, tabContents, btnBack, btnList, lengthInput, btnDoitOpen, btnDoitStop, btnDoitDelete,
 		btnCreateMission, btnDeleteMission, btnUpdateMission, btnSubmitUpdateMission, btnSubmitMission, btnCreateTalk,
-		selMemberFilter, btnPendingMembers, btnJoinMembers, btnReset, actionCount, btnResetSearchAction, btnSaveUcd,
+		btnPendingMembers, btnJoinMembers, btnReset, actionCount, btnResetSearchAction, btnSaveUcd,
 		amount, btnSendWarning, btnSearchTalk, btnResetSearchTalk, btnUpdateTalk, searchActionDateFrom, searchActionDateTo,
 		searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate, rdoActionType, updateMissionStartDate,
 		updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength, selApplyMemberPageLength, btnSearch, selSort, btnBan,
@@ -30,7 +30,7 @@
 	} from "./doit-detail-mission.js";
 	import {
 		showJoinMemberForm, showPendingMemberForm, initSearchMemberForm, onClickModalSaveUcdOpen,
-		onChangeSelMemberFilter, searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd,
+		searchJoinMember, banMember, searchApplyMember, onSubmitSaveUcd,
 		onChangeSelRewardType, searchRewardMember, onClickBtnApproval, onClickBtnReject,
 	} from "./doit-detail-member.js";
 	import {
@@ -108,7 +108,7 @@
 		/*btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });*/
 		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
-		selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
+		// selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnBan.on('click', function () { banMember(); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });

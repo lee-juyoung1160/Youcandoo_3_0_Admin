@@ -101,6 +101,7 @@
             '/v2/service/notice',
             '/v2/service/faq',
             '/v2/service/inquiry',
+            '/v2/admin',
             '/v2/operate/version',
         ];
         switch (_auth) {

@@ -1,19 +1,20 @@
 
 	import { api } from '../modules/api-url-v1.js';
-	import {btnBack, btnList, btnUpdate, btnDelete} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {btnBack, btnList, btnUpdate, btnDelete, authName, bizName, username, useremail, isApproval, isExposure} from '../modules/elements.js';
+	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, historyBack} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 
 	const pathName	= getPathName();
 	const adminIdx	= splitReverse(pathName, '/');
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		btnBack	 .on('click', function () { historyBack(); });
 		btnList	 .on('click', function () { goListPage(); });
@@ -23,27 +24,28 @@
 
 	function getDetail()
 	{
-		const url = api.detailAdmin;
-		const errMsg = label.detailContent+message.ajaxLoadError;
-		const param = {
-			"idx" : adminIdx
-		}
+		const param = { "idx" : adminIdx }
 
+		ajaxRequestWithJson(true, api.detailAdmin, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(label.detailContent+message.ajaxLoadError));
 	}
 
-	function getDetailCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
-	}
-
-	let g_profile_uuid;
+	let g_userid;
 	function buildDetail(data)
 	{
-		const { profile_uuid, is_exposure } = data.data;
+		const { userid, auth_name, company_name, name, email, status, is_active } = data.data;
 
-		g_profile_uuid = profile_uuid;
+		g_userid = userid
 
-		calculateInputLength();
+		authName.text(auth_name);
+		bizName.text(isEmpty(company_name) ? label.dash : company_name);
+		username.text(name);
+		useremail.text(email);
+		isApproval.text(status);
+		isExposure.text(is_active);
 	}
 
 	function onSubmitDeleteAdmin()
@@ -53,22 +55,13 @@
 
 	function deleteRequest()
 	{
-		const url = api.deleteAdmin;
-		const errMsg = label.delete + message.ajaxError;
-		const param = {
-			"profile_uuid" : g_profile_uuid,
-		}
+		const param = { "adminid" : g_userid }
 
-	}
-
-	function deleteReqCallback(data)
-	{
-		sweetToastAndCallback(data, deleteSuccess);
-	}
-
-	function deleteSuccess()
-	{
-		goListPage();
+		ajaxRequestWithJson(true, api.deleteAdmin, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, goListPage);
+			})
+			.catch(reject => sweetError(`삭제${message.ajaxError}`));
 	}
 
 	function goListPage()
@@ -80,5 +73,3 @@
 	{
 		location.href = page.updateAdmin + adminIdx;
 	}
-
-

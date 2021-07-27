@@ -421,6 +421,7 @@
     export const auth = $("#auth");
     export const name = $("#name");
     export const isApproval = $("#isApproval");
+    export const bizName = $("#bizName");
     export const authWrap = $("#authWrap");
     export const authCode = $("#authCode");
     export const authName = $("#authName");

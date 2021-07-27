@@ -418,6 +418,7 @@
     export const modalCancel = $("#modalCancel");
     /** 관리자 **/
     export const selAuthType = $("#selAuthType");
+    export const selBiz = $("#selBiz");
     export const auth = $("#auth");
     export const name = $("#name");
     export const isApproval = $("#isApproval");

@@ -214,7 +214,7 @@
 			.then( async function( data, textStatus, jqXHR ) {
 				await isSuccessResp(data) ? buildBiz(data) : sweetToast(invalidResp(data));
 			})
-			.catch(reject => sweetError(`권한 목록을${message.ajaxLoadError}`));
+			.catch(reject => sweetError(`기업 목록을${message.ajaxLoadError}`));
 	}
 
 	function buildBiz(data)
@@ -256,7 +256,7 @@
 		}
 
 		const selectBiz = $(selectedRow).children().eq(1).find('select')
-		if (isEmpty($(selectBiz).val()))
+		if ($(selectAuth).val() === 'biz' && isEmpty($(selectBiz).val()))
 		{
 			sweetToast(`기업명을 ${message.select}`);
 			$(selectBiz).trigger('focus');

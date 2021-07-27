@@ -43,8 +43,6 @@
 		,overBalanceWithdraw : `보유 UCD가 출금(취소) UCD보다 작은 사용자가 포함돼있습니다.
 								해당 사용자 삭제 후 다시 시도해주세요.`
 		,minimumChecked : '최소 하나 이상의 값을 선택해야 합니다.'
-		,alreadyHasUser : `이미 추가된 회원이 포함돼 있습니다.
-							해당 회원을 체크 해제 후 다시 시도해주세요.`
 		,pushHasBeenSent : '선택한 푸시는 이미 발송됐습니다. 발송된 푸시는 취소할 수 없습니다.'
 		,moveToCreatePush : '푸시 알림을 등록하시겠습니까?'
 		,doitOpen : '확인을 누르면 두잇이 시작됩니다.'

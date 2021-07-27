@@ -6,8 +6,7 @@
     export const img        = $('img');
     export const btnMenuToggle   = $('.side-toggle-btn');
     export const sideBar    = $('aside.main-menu');
-    export const mainMenu   = $('.main-mnu');
-    export const subMenu    = $('.sub-mnu li');
+    export const mainMenu    = $('#mainMenu');
     export const sessionUserId   = $("#sessionUserid");
     export const sessionUserIp   = $("#sessionUserIp");
     export const sessionAuthCode = $("#sessionAuthCode");

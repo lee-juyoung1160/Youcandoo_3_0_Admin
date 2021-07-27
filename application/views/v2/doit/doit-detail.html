@@ -654,11 +654,10 @@
                                 <div class="card clearfix">
                                     <p class="search-title">필터</p>
                                     <select id="selMemberFilter" class="select-box filter">
+                                        <option value="total_action">누적 인증 수</option>
                                         <option value="ongoing_action">연속 인증 수</option>
-                                        <!--<option value="today_action">오늘 인증 여부</option>-->
-                                        <option value="">누적 인증 수</option>
-                                        <option value="">최근 7일 인증 수</option>
-                                        <option value="">최근 30일 인증 수</option>
+                                        <option value="day7_action">최근 7일 인증 수</option>
+                                        <option value="day30_action">최근 30일 인증 수</option>
                                     </select>
                                 </div>
                             </div>
@@ -699,9 +698,10 @@
                                         </select>
                                         <select id="selSort" class="select-box">
                                             <option value="nickname">닉네임 순</option>
-                                            <option value="total_action">누적 인증 수 순</option>
-                                            <option value="max_recycle_action">최대 연속 수 순</option>
-                                            <option value="ongoing_action">현재 연속 수 순</option>
+                                            <option value="total_action">누적 인증 순</option>
+                                            <option value="ongoing_action">현재 연속 인증 순</option>
+                                            <option value="day7_action">최근 7일 인증 순</option>
+                                            <option value="day30_action">최근 30일 인증 순</option>
                                         </select>
                                     </div>
                                 </div>

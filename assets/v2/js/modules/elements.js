@@ -197,8 +197,6 @@
     export const applyMemberCount = $(".apply-member-count");
     export const selMissions = $("#selMissions");
     export const selMemberFilter = $("#selMemberFilter");
-    export const memberActionCntFilterWrap1 = $("#memberActionCntFilterWrap1");
-    export const memberActionCntFilterWrap2 = $("#memberActionCntFilterWrap2");
     export const rdoActionCount = $("input[name=radio-action-count]");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
@@ -216,6 +214,7 @@
     export const rewardKeyword = $("#rewardKeyword");
     export const rewardTableWrap = $("#rewardTableWrap");
     export const rewardMemberTable = $("#rewardMemberTable");
+    export const actionTimes = $("#actionTimes");
     export const btnSubmitSaveUcd = $("#btnSubmitSaveUcd");
     export const modalSendNotice = $("#modalSendNotice");
     export const notiContent = $("#notiContent");

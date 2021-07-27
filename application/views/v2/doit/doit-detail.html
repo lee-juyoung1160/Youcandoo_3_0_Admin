@@ -661,13 +661,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-2" id="memberActionCntFilterWrap1">
+                            <div class="col-2">
                                 <div class="card clearfix">
                                     <p class="search-title">인증 수</p>
                                     <input id="actionCount" type="text" class="action-num" maxlength="4" value="0"> 회 이상
                                 </div>
                             </div>
-                            <div class="col-3" id="memberActionCntFilterWrap2" style="display: none;">
+                            <!--<div class="col-3" id="memberActionCntFilterWrap2" style="display: none;">
                                 <div class="card clearfix">
                                     <p class="search-title">인증 여부</p>
                                     <div class="radio-wrap">
@@ -681,7 +681,7 @@
                                         <label for="r22"><span></span>미인증</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="search-btn row">
@@ -2073,15 +2073,15 @@
                         <td>
                             <select id="selRewardType" class="select-box add-ucd-select">
                                 <option value="all">참여자 전체</option>
-                                <option value="ongoing">연속 인증 수</option>
-                                <option value="weekly">주간 인증 수</option>
-                                <option value="monthly">월간 인증 수</option>
-                                <option value="total">누적 인증 수</option>
+                                <option value="total">누적 인증</option>
+                                <option value="ongoing">현재 연속 인증</option>
+                                <option value="weekly">최근 7일 인증</option>
+                                <option value="monthly">최근 30일 인증</option>
                                 <option value="user">직접 선택</option>
                             </select>
                             <div class="ucd-input-wrap">
                                 <input id="rewardKeyword" type="text" placeholder="닉네임을 입력해주세요." style="display: none;">
-                                <p><input id="" class="action-num" type="text"> <span>회 이상</span></p>
+                                <p style="display: none;"><input id="actionTimes" class="action-num" type="text" maxlength="5"> <span>회 이상</span></p>
                             </div>
                         </td>
                     </tr>

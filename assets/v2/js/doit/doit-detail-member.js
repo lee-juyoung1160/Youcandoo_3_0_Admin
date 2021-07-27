@@ -1,11 +1,12 @@
 
-	import {keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent,
-		amount, modalSendNotice, modalMemberInfo, memberActionCntFilterWrap1, memberActionCntFilterWrap2,
-		rdoActionCount, joinMemberTable, applyMemberTable, selMissions, selSearchType, selMemberFilter,
+	import {
+		keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent,
+		amount, modalMemberInfo,  joinMemberTable, applyMemberTable, selMissions, selSearchType, selMemberFilter,
 		selJoinMemberPageLength, selSort, modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion,
 		modalMemberInfoAnswer, totalMemberCount, applyMemberCount, selApplyMemberPageLength, applyQuestion,
 		rewardMemberTable, btnBan, selRewardType, rewardTableWrap, rewardKeyword, selNotiType, notiKeyword,
-		notiTableWrap, notiContent,} from "../modules/elements.js";
+		notiTableWrap, notiContent, modalSendNotice, actionTimes,
+	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url-v1.js";
 	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
@@ -472,7 +473,7 @@
 		return uuids;
 	}
 
-	export function onChangeSelNotiType()
+	/*export function onChangeSelNotiType()
 	{
 		switch (selNotiType.val()) {
 			case 'user' :
@@ -486,7 +487,7 @@
 				notiTableWrap.hide();
 				break;
 		}
-	}
+	}*/
 
 	// export function onClickModalSendNoticeOpen()
 	// {
@@ -504,11 +505,23 @@
 				rewardKeyword.trigger('focus');
 				rewardKeyword.show();
 				rewardTableWrap.show();
+				actionTimes.val('');
+				actionTimes.parent().hide();
+				getRewardMemberList();
+				break;
+			case 'all' :
+				rewardKeyword.val('');
+				rewardKeyword.hide();
+				rewardTableWrap.hide();
+				actionTimes.val('');
+				actionTimes.parent().hide();
 				break;
 			default :
 				rewardKeyword.val('');
 				rewardKeyword.hide();
 				rewardTableWrap.hide();
+				actionTimes.parent().show();
+				actionTimes.trigger('focus');
 				break;
 		}
 	}
@@ -518,11 +531,10 @@
 		modalSaveUcd.fadeIn();
 		modalBackdrop.fadeIn();
 		overflowHidden();
-		saveUcdContent.trigger('focus');
-		saveUcdContent.val('');
+		amount.trigger('focus');
 		amount.val('');
-
-		getRewardMemberList();
+		saveUcdContent.val('');
+		actionTimes.val('');
 	}
 
 	function getRewardMemberList()
@@ -630,6 +642,12 @@
 			return false;
 		}
 
+		if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionTimes.val()))
+		{
+			sweetToast(`인증 횟수를 ${message.input}`);
+			return false;
+		}
+
 		return true;
 	}
 
@@ -644,6 +662,9 @@
 
 		if (selRewardType.val() === 'user')
 			param["profile_uuid"] = getSelectedIdsFromTableRow();
+
+		if (['user', 'all'].indexOf(selRewardType.val()) === -1)
+			param["type_value"] = actionTimes.val().trim();
 
 		ajaxRequestWithJson(true, api.createReward, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {

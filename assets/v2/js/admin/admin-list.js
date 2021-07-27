@@ -125,9 +125,9 @@
 						return row.status === '승인' ? data : buildAuth();
 					}
 				}
-				,{title: "기업명", 	data: "company_idx",		width: "10%",
+				,{title: "기업명", 	data: "company_name",		width: "10%",
 					render: function (data, type, row, meta) {
-						return row.status === '승인' ? data : label.dash;
+						return row.status === '승인' ? isEmpty(data) ? label.dash : data : label.dash;
 					}
 				}
 				,{title: "이름",    	data: "name",  				width: "10%",

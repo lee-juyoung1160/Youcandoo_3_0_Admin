@@ -1,14 +1,15 @@
 
 	import { api } from '../modules/api-url-v1.js';
-	import {password, passwordCheck, passwordCheckTxt, sessionUserId, btnSubmit,} from '../modules/elements.js';
-	import {sweetToast, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {password, passwordCheck, passwordCheckTxt, sessionUserId, btnSubmit, useremail, userid, username} from '../modules/elements.js';
+	import {sweetToast, sweetConfirm, sweetError, sweetToastAndCallback} from '../modules/alert.js';
 	import {isEmpty,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 
 	$( () => {
 		/** 상세 불러오기 **/
-		//getProfile();
+		getProfile();
 		/** 이벤트 **/
 		password    .on("keyup", function () { onKeyupPassword(); });
 		passwordCheck .on("keyup", function () { onKeyupPasswordChk(); });
@@ -28,44 +29,47 @@
 
 	function getProfile()
 	{
-		const url = api.getProfile;
-		const errMsg = label.detailContent+message.ajaxLoadError;
 		const param = { "userid" : sessionUserId.val() };
 
-	}
-
-	function getProfileCallback(data)
-	{
-		isSuccessResp(data) ? buildDetail(data) : sweetToast(data.msg);
+		ajaxRequestWithJson(true, api.getProfile, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(label.detailContent+message.ajaxLoadError));
 	}
 
 	function buildDetail(data)
 	{
-		const { username, userid, useremail } = data.data;
+		userid.text(data.data.userid);
+		username.text(data.data.name);
+		useremail.text(data.data.email);
 	}
-
 
 	function onSubmitUpdatePassword()
 	{
 		if (validation())
-			sweetConfirm(message.create, updateRequest);
+			sweetConfirm(message.modify, updateRequest);
 	}
 
 	function updateRequest()
 	{
-		const url = api.updatePassword;
-		const errMsg = label.detailContent+message.ajaxLoadError;
 		const passwd = CryptoJS.SHA512(password.val().trim());
 		const param = {
 			"userid" : sessionUserId.val()
 			,"password" : passwd.toString()
 		}
 
+		ajaxRequestWithJson(true, api.updatePassword, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, updateSuccess);
+			})
+			.catch(reject => sweetError(`수정${message.ajaxError}`));
 	}
 
-	function updateReqCallback(data)
+	function updateSuccess()
 	{
-		sweetToastAndCallback(data, getProfile);
+		password.val('');
+		passwordCheck.val('');
 	}
 
 	function validation()
@@ -103,10 +107,10 @@
 
 	function isValidPassword()
 	{
-		let passwd  = password.val().trim();
-		let regExp  = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-		let regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
-		let regExp2 = /(\w)\1\1\1/;
+		const passwd  = password.val().trim();
+		const regExp  = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+		const regExp1 = /(0123)|(1234)|(2345)|(3456)|(4567)|(5678)|(6789)|(7890)/;
+		const regExp2 = /(\w)\1\1\1/;
 
 		return regExp.test(passwd) && (!regExp1.test(passwd) && !regExp2.test(passwd));
 	}

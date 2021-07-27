@@ -13,7 +13,7 @@
         dashboardMoreDoit : baseApiUrl + 'main/dashboard/get/doitRanklist',
 
         getProfile : baseApiUrl + 'admin/get',
-        updatePassword : baseApiUrl + 'admin/update',
+        updatePassword : baseApiUrl + 'admin/update/pwd',
 
         memberList : baseApiUrl + 'profile/get/list',
         detailMember : baseApiUrl + 'profile/get/detail/info',

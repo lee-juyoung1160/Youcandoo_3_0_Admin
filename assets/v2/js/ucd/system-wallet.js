@@ -155,7 +155,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "지급 일시",    	data: "sended",  			width: "15%" }
+				,{title: "지급 일시",    	data: "sent",  			width: "15%" }
 				,{title: "상태",    		data: "status",  			width: "5%" }
 			],
 			serverSide: true,

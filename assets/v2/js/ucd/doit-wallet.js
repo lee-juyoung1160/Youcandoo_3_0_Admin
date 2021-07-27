@@ -108,7 +108,7 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "지급 일시",    	data: "sended",  		width: "12%" }
+				,{title: "지급 일시",    	data: "sent",  		width: "12%" }
 			],
 			serverSide: true,
 			paging: true,

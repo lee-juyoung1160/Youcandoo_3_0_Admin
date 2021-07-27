@@ -88,7 +88,7 @@
             const mainKeys = Object.getOwnPropertyNames(menus);
             if (!isEmpty(mainKeys) && mainKeys.length > 0)
             {
-                mainKeys.map(mainKey => {
+                mainKeys.map((mainKey, index) => {
                     const {name, view, children} = menus[mainKey];
 
                     const subKeys = Object.getOwnPropertyNames(children);
@@ -98,8 +98,8 @@
                         subKeys.map(subKey => {
                             subMenu +=
                                 `<div class="checkbox-wrap">
-                                    <input id="${subKey}" type="checkbox" name="${mainKey}" class="chk-sub-menu" ${children[subKey].view ? 'checked' : ''}>
-                                    <label for="${subKey}"><span></span>${children[subKey].name}</label>
+                                    <input id="${subKey}_${index}" type="checkbox" name="${mainKey}" class="chk-sub-menu" ${children[subKey].view ? 'checked' : ''}>
+                                    <label for="${subKey}_${index}"><span></span>${children[subKey].name}</label>
                                 </div>`
                         })
                     }

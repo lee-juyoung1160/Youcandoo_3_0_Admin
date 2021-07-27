@@ -6,11 +6,22 @@
 	import { fadeinLoader, fadeoutLoader, onErrorImage } from "../modules/common.js";
 
 	$( () => {
-		qrImageLoad();
-		otpNum.trigger('focus');
+		//qrImageLoad();
+		initPage();
 		$("body").on("keydown", function (event) { onKeydownBody(event) });
+		qrImg.on("load", function () { fadeoutLoader(); });
+		qrImg.on("error", function () { fadeoutLoader(); });
 		btnSubmit.on("click", function () { onSubmitAuthNum(); });
 	});
+
+	function initPage()
+	{
+		if ($("#invalidOtp").val() === 'Y')
+			sweetToast(`인증번호를 ${message.doubleChk}`);
+
+		qrImageLoad();
+		otpNum.trigger('focus');
+	}
 
 	function qrImageLoad()
 	{
@@ -19,7 +30,7 @@
 		const imageUrl = isEmpty(imgUrl.val()) ? label.noImage : imgUrl.val();
 
 		qrImg.attr('src', imageUrl);
-		qrImg.on("load", function () { fadeoutLoader(); });
+		//qrImg.on("load", function () { fadeoutLoader(); });
 
 		onErrorImage();
 	}

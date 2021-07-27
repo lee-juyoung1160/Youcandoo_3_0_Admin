@@ -189,7 +189,16 @@ class Auth extends CI_Controller {
             }
 
         } else {
-            alert("인증번호를 확인해주세요");
+            require_once APPPATH.'third_party/PHPGangsta/GoogleAuthenticator.php';
+            $ga = new PHPGangsta_GoogleAuthenticator();
+
+            $this->load->view('/v2/login/mfa',array(
+                "secret"=>$Secret,
+                "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $Secret),
+                "type"=>$Type,
+                "userid"=>$UserID,
+                "invalid_otp"=>"Y"
+            ));
         }
     }
 

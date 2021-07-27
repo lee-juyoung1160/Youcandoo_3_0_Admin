@@ -53,8 +53,8 @@
 .doit-member select.filter {
 	width: 200px;
 }
-.doit-member input.action-num {
-	width: 100px;
+input.action-num {
+	width: 100px !important;
 }
 .modal-content.member-add-ucd {
 	width: 1000px;

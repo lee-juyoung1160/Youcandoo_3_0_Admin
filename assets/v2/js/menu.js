@@ -1,11 +1,12 @@
 
     import { api } from './modules/api-url-v1.js';
-    import {btnMenuToggle, section, sideBar, btnScrollTop, sessionAuthCode, mainMenu} from "./modules/elements.js";
+    import {btnMenuToggle, section, sideBar, btnScrollTop, sessionAuthCode, mainMenu, sessionBizIdx} from "./modules/elements.js";
     import {getPathName, isEmpty} from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";
     import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
     import {sweetError, sweetToast} from "./modules/alert.js";
     import {message} from "./modules/message.js";
+    import {page} from "./modules/page-url.js";
 
     $(document)     .ajaxStart(function () { fadeinLoader(); });
     $(document)     .ajaxComplete(function () { fadeoutLoader(); });
@@ -21,9 +22,15 @@
 
         ajaxRequestWithJson(false, api.getMenuWithAuth, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await isSuccessResp(data) ? buildMenu(data) : sweetToast(invalidResp(data));
-                await activeMenu();
-                await validAccessiblePage();
+                if (isSuccessResp(data))
+                {
+                    await buildMenu(data);
+                    await activeMenu();
+                    await validAccessiblePage();
+                }
+                else
+                    sweetToast(invalidResp(data));
+
             })
             .catch(reject => sweetError(`메뉴를${message.ajaxLoadError}`));
     }
@@ -39,7 +46,6 @@
                 mainMenu.empty();
                 mainKeys.map(mainKey => {
                     const {name, icon, view, children} = menus[mainKey];
-
                     if (!view) return;
 
                     const subKeys = Object.getOwnPropertyNames(children);
@@ -130,13 +136,33 @@
     function validAccessiblePage()
     {
         let pathName = getPathName();
-        if (pathName !== '/v2/member/detail' && (pathName.includes('update') || pathName.includes('detail')))
-            pathName = pathName.replace(`/${pathName.split('/').pop()}`, '');
 
-        if (accessiblePages.indexOf(pathName) === -1)
+        if (!isEmpty(sessionBizIdx.val()))
         {
-            alert(message.accessDenied);
-            location.href = '/v2';
+            const sessionBizIndex = sessionBizIdx.val()
+            accessiblePages = [
+                `/v2/biz/detail/${sessionBizIndex}`,
+                `/v2/biz/update/${sessionBizIndex}`,
+                '/v2/biz/support/doit',
+                '/v2/biz/support/leader'
+            ];
+            if (pathName.startsWith('/v2/doit/detail')) return;
+            if (accessiblePages.indexOf(pathName) === -1)
+            {
+                alert('접근 권한이 없습니다. 기업 상세페이지로 이동합니다.');
+                location.href = page.detailBiz + sessionBizIndex;
+            }
+        }
+        else
+        {
+            if (pathName !== '/v2/member/detail' && (pathName.includes('update') || pathName.includes('detail')))
+                pathName = pathName.replace(`/${pathName.split('/').pop()}`, '');
+
+            if (accessiblePages.indexOf(pathName) === -1)
+            {
+                alert(message.accessDenied);
+                location.href = '/v2';
+            }
         }
     }
 

@@ -98,7 +98,7 @@
                         subKeys.map(subKey => {
                             subMenu +=
                                 `<div class="checkbox-wrap">
-                                    <input id="${subKey}_${index}" type="checkbox" name="${mainKey}" class="chk-sub-menu" ${children[subKey].view ? 'checked' : ''}>
+                                    <input id="${subKey}_${index}" data-key="${subKey}" type="checkbox" name="${mainKey}" class="chk-sub-menu" ${children[subKey].view ? 'checked' : ''}>
                                     <label for="${subKey}_${index}"><span></span>${children[subKey].name}</label>
                                 </div>`
                         })
@@ -108,7 +108,7 @@
                         `<tr>
                             <th>
                                 <div class="checkbox-wrap">
-                                    <input id="${mainKey}" type="checkbox" name="${mainKey}" class="chk-main-menu" ${view ? 'checked' : ''}>
+                                    <input id="${mainKey}" data-key="${mainKey}" type="checkbox" name="${mainKey}" class="chk-main-menu" ${view ? 'checked' : ''}>
                                     <label for="${mainKey}"><span></span>${name}</label>
                                 </div>
                             </th>
@@ -155,12 +155,12 @@
             const submenu = $(`input[name=${this.name}].chk-sub-menu`);
             let subObj = {};
             submenu.each(function () {
-                subObj[$(this).attr('id')] = {
+                subObj[$(this).data('key')] = {
                     'view' : $(this).is(':checked')
                 }
             })
 
-            menuObj[$(this).attr('id')] = {
+            menuObj[$(this).data('key')] = {
                 "view" : $(this).is(':checked'),
                 "children" : subObj
             }

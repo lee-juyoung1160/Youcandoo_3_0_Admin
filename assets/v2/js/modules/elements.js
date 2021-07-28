@@ -10,8 +10,8 @@
     export const sessionUserId   = $("#sessionUserid");
     export const sessionUserIp   = $("#sessionUserIp");
     export const sessionAuthCode = $("#sessionAuthCode");
-    export const sessionIsDept   = $("#sessionIsDept");
     export const sessionDeptName = $("#sessionDeptName");
+    export const sessionBizIdx   = $("#sessionBizIdx");
     export const environment     = $("#env");
     export const loader          = $("#loader");
     export const btnScrollTop    = $("#btnScrollTop");

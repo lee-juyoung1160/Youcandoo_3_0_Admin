@@ -3,9 +3,9 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {
 		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate,
-		btnSubmit, modalOpen, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd,
+		btnSubmit, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd,
 		tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,
-		doitTable, btnSupportDoit, btnSupportLeader, balance
+		doitTable, btnSupportDoit, btnSupportLeader, balance, sessionBizIdx, btnSaveUcd
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
@@ -17,6 +17,13 @@
 
 	const pathName	= getPathName();
 	const bizIdx	= splitReverse(pathName, '/');
+
+	if (!isEmpty(sessionBizIdx.val()))
+	{
+		btnSaveUcd.remove();
+		btnBack.remove();
+		btnList.remove();
+	}
 
 	$( () => {
 		/** dataTable default config **/
@@ -32,7 +39,7 @@
 		tabUl			.on('click', function (event) { onClickTab(event.target); });
 		selPageLengthDoit.on("change", function () { buildDoitTable(); });
 		selPageLengthUcd.on("change", function () { buildUcdTable(); });
-		modalOpen		.on("click", function () { onClickModalOpen(); });
+		btnSaveUcd		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnBack	 		.on('click', function () { historyBack(); });
@@ -75,7 +82,7 @@
 
 		ajaxRequestWithJson(true, api.detailBiz, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -106,9 +113,9 @@
 	{
 		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJson(true, api.getBizUcd, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.getBizUcd, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`보유 UCD ${message.ajaxLoadError}`));
 	}

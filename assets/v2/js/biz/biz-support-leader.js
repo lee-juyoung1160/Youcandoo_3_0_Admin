@@ -40,7 +40,7 @@
 
 		ajaxRequestWithJson(true, api.detailBiz, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -69,9 +69,9 @@
 	{
 		const param = { "profile_uuid" : g_profile_uuid }
 
-		ajaxRequestWithJson(true, api.getBizUcd, JSON.stringify(param))
+		ajaxRequestWithJson(false, api.getBizUcd, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`보유 UCD ${message.ajaxLoadError}`));
 	}

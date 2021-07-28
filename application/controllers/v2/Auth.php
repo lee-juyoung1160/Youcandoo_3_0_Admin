@@ -40,12 +40,17 @@ class Auth extends CI_Controller {
 
         if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
-            alert("비밀번호가 일치하지 않습니다", "/v2/main/login");
+            alert("비밀번호가 일치하지 않습니다.", "/v2/main/login");
             return;
         }
 
         if ($UserData->is_active == "N") {
-            alert("로그인 할수 없습니다", "/v2/main/login");
+            alert("로그인 할수 없습니다.", "/v2/main/login");
+            return;
+        }
+
+        if (!empty($UserData->company_idx)) {
+            alert("기업 계정으로 로그인할 수 없습니다.", "/v2/main/login");
             return;
         }
 
@@ -104,6 +109,12 @@ class Auth extends CI_Controller {
         $UserData->recent_ip = $LoginIP;
         $this->session->set_userdata("user_data", $UserData);
         $_SESSION["user"] = $UserData;
+
+        $bizIdx = $UserData->company_idx;
+        if (!empty($bizIdx)) {
+            redirect('/v2/biz/detail/'.$bizIdx, 'refresh');
+        }
+
         if(get_cookie('referer'))
         {
             $ReferPage='/'.get_cookie('referer');

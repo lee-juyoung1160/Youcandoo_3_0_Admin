@@ -1,6 +1,6 @@
 
 	import { api } from '../modules/api-url-v1.js';
-	import {password, passwordCheck, passwordCheckTxt, btnSubmit, useremail, userid, username} from '../modules/elements.js';
+	import {password, passwordCheck, passwordCheckTxt, btnSubmit, useremail, userid, username, sessionUserId} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetError, sweetToastAndCallback} from '../modules/alert.js';
 	import {isEmpty,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -29,7 +29,7 @@
 
 	function getProfile()
 	{
-		const param = { "userid" : session_userid };
+		const param = { "userid" : sessionUserId.val() };
 
 		ajaxRequestWithJson(true, api.getProfile, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
@@ -55,7 +55,7 @@
 	{
 		const passwd = CryptoJS.SHA512(password.val().trim());
 		const param = {
-			"userid" : session_userid
+			"userid" : sessionUserId.val()
 			,"password" : passwd.toString()
 		}
 

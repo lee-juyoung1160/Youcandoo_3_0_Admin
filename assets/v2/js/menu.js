@@ -1,6 +1,6 @@
 
     import { api } from './modules/api-url-v1.js';
-    import {btnMenuToggle, section, sideBar, btnScrollTop, mainMenu} from "./modules/elements.js";
+    import {btnMenuToggle, section, sideBar, btnScrollTop, mainMenu, sessionAuthCode} from "./modules/elements.js";
     import {getPathName, isEmpty} from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";
     import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
@@ -17,7 +17,7 @@
     /** 사이드 메뉴 세팅 **/
     function getMenu()
     {
-        const param = {"code" : session_auth_code};
+        const param = {"code" : sessionAuthCode.val()};
 
         ajaxRequestWithJson(false, api.getMenuWithAuth, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {

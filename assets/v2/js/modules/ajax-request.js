@@ -1,6 +1,8 @@
 
+    import {sessionUserId} from "./elements.js";
+
     const authorization = "9c3a60d74726c4e1cc0732fd280c89dbf80a344e7c3dc2c4ad4fdf12b97e52c7";
-    const encryptAuth = btoa( JSON.stringify({ "authorization" : authorization,  "userid" : session_userid} ) );
+    const encryptAuth = btoa( JSON.stringify({ "authorization" : authorization,  "userid" : sessionUserId.val()} ) );
     export const headers = { "Authorization" : encryptAuth };
 
     /**

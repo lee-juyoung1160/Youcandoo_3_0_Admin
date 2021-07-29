@@ -17,7 +17,6 @@
     export const btnScrollTop    = $("#btnScrollTop");
     export const btnXlsxImport   = $("#btnXlsxImport");
     export const btnXlsxExport   = $("#btnXlsxExport");
-
     export const dateButtons    = $(".date-btn .btn");
     export const datePicker     = $(".datepicker");
     export const dateFrom       = $(".date-from");
@@ -41,12 +40,10 @@
     export const btnList	= $("#btnList");
     export const btnBack	= $("#btnBack");
     export const checkTypeWrap = $("#checkTypeWrap");
-
     export const selPageLength = $("#selPageLength");
     export const selSort    = $("#selSort");
     export const dataTable  = $("#dataTable");
     export const pagination = $("#dataTable_paginate");
-
     export const totalCount  = $("#totalCount");
     export const thumbnail  = $("#thumbnail");
     export const amount     = $("#amount");
@@ -64,10 +61,8 @@
     export const exposureDate   = $("#exposureDate");
     export const link = $("#link");
     export const deviceInfo = $("#deviceInfo");
-
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
-    export const inputNumberWithZero = $(".only-num-with-zero");
 
     /** 모달 **/
     export const modalOpen      = $('.modal-btn');

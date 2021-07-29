@@ -1,5 +1,7 @@
     <script>
         const api_server_url = "<?php echo $this->config->item('api_server_url');?>";
+        const session_userid = "<?php echo ($this->session->userdata['user_data']->userid);?>";
+        const session_auth_code = "<?php echo ($this->session->userdata['user_data']->auth_code);?>";
     </script>
     <!-- Common CSS Load -->
     <link rel="stylesheet" href="/assets/v2/css/plugins/jquery-ui.min.css">

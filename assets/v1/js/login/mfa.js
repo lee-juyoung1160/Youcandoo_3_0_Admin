@@ -26,7 +26,7 @@
 
 		qrImg.attr('src', imageUrl);
 		qrImg.on("load", function () { fadeoutLoader(); });
-		qrImg.on("error", function () { onErrorImage(this); });
+		qrImg.on("error", function () { fadeoutLoader(); onErrorImage(this); });
 	}
 
 	function onKeydownBody(event)

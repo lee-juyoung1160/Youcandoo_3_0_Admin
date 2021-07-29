@@ -12,7 +12,18 @@ class Auth extends CI_Controller {
     {
         // TODO: Implement __destruct() method.
     }
+    private function GetQRCode($name, $secret, $title = null, $params = array())
+    {
+        $width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
+        $height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
+        $level = !empty($params['level']) && array_search($params['level'], array('L', 'M', 'Q', 'H')) !== false ? $params['level'] : 'M';
 
+        $urlencoded = urlencode('otpauth://totp/'.$name.'?secret='.$secret.'');
+        if (isset($title)) {
+            $urlencoded .= urlencode('&issuer='.urlencode($title));
+        }
+        return $this->config->item("api_server_url")."/v3/auth/get/qrcode?data={$urlencoded}&size={$width}x{$height}&ecc={$level}";
+    }
     /**
      * 1. 로그인
      */
@@ -54,7 +65,7 @@ class Auth extends CI_Controller {
 
             $this->load->view('/v1/login/mfa',array(
                 "secret"=>$secret,
-                //"qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
+                "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $secret),
                 "type"=>"login",
                 "userid"=>$UserID
             ));
@@ -151,7 +162,7 @@ class Auth extends CI_Controller {
             "password"=>hash("sha512",$Password),
             "username"=>$UserName,
             "useremail"=>$UserEmail,
-            "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
+            "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $secret),
             "secret"=>$secret,
             "type"=>"join"
         ));

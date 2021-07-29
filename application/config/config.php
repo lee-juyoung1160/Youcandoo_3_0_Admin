@@ -14,9 +14,10 @@ if($_SERVER['SERVER_ADDR']=="10.7.100.4")
 if($_SERVER['SERVER_ADDR']=="10.7.27.10")
     $config['api_server_url'] = 'https://stagingadminapi.youcandoo.co.kr';
 
-//if(ENVIRONMENT!="production"){
-//    $config['api_server_url']="10.0.16.138";
-//}
+$config['otp_name']="YOUCANDOO";
+if(ENVIRONMENT!="production"){
+    $config['otp_name']="DEV:YOUCANDOO";
+}
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

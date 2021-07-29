@@ -110,11 +110,6 @@ class Auth extends CI_Controller {
         $this->session->set_userdata("user_data", $UserData);
         $_SESSION["user"] = $UserData;
 
-        $bizIdx = $UserData->company_idx;
-        if (!empty($bizIdx)) {
-            redirect('/v2/biz/detail/'.$bizIdx, 'refresh');
-        }
-
         if(get_cookie('referer'))
         {
             $ReferPage='/'.get_cookie('referer');

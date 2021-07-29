@@ -13,7 +13,7 @@
 		saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveDoitUcd, btnSubmitSaveUcd, btnBackToTalkList,
 		btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail, btnBlindTalk, btnDisplayTalk,
 		selRewardType, rewardKeyword, btnApproval, btnReject, doitImage, selCategory, btnAddKeyword, chkIsApply,
-		chkIsQuestion, btnUpdateDoit, btnBackDoitList, btnSubmitUpdateDoit, actionTimes, sessionBizIdx,
+		chkIsQuestion, btnUpdateDoit, btnBackDoitList, btnSubmitUpdateDoit, actionTimes,
 	} from '../modules/elements.js';
 	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
@@ -54,12 +54,6 @@
 	import {sweetConfirm, sweetToastAndCallback, sweetError} from "../modules/alert.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
-
-	if (!isEmpty(sessionBizIdx.val()))
-	{
-		btnBack.remove();
-		btnList.remove();
-	}
 
 	$( () => {
 		/** dataTable default config **/

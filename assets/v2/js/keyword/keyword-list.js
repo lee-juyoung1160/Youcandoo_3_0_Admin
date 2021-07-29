@@ -46,7 +46,7 @@
 	{
 		ajaxRequestWithJson(true, api.keywordList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getKeywordListCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getKeywordListCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

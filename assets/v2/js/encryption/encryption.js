@@ -31,7 +31,7 @@
 
 		ajaxRequestWithJson(true, api.createEncryption, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? encryptionReqCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? encryptionReqCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`암호화 ${message.ajaxError}`));
 	}
@@ -59,7 +59,7 @@
 
 		ajaxRequestWithJson(true, api.createDecryption, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? decryptionReqCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? decryptionReqCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`복호화${message.ajaxError}`));
 	}

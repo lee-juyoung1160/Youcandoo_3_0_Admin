@@ -32,7 +32,7 @@
 
 		ajaxRequestWithJson(true, api.detailDoit, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -123,7 +123,7 @@
 
 		ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
@@ -243,7 +243,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.single, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}

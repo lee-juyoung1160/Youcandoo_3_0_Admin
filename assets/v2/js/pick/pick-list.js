@@ -56,7 +56,7 @@
 	{
 		ajaxRequestWithJson(true, api.pickList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getPickListCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getPickListCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
@@ -128,7 +128,7 @@
 
 		ajaxRequestWithJson(false, api.previewList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildPreview(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildPreview(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

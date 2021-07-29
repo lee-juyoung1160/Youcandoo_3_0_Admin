@@ -74,7 +74,7 @@
 
         ajaxRequestWithJson(true, api.getMenuWithAuth, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await isSuccessResp(data) ? buildMenuWithAuth(data) : sweetToast(invalidResp(data));
+                isSuccessResp(data) ? buildMenuWithAuth(data) : sweetToast(invalidResp(data));
             })
             .catch(reject => sweetError(`메뉴 목록을${message.ajaxLoadError}`));
     }

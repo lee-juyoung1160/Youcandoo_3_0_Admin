@@ -14,8 +14,13 @@
 
         ajaxRequestWithJson(false, api.createDoitCategoryList, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await isSuccessResp(data) ? buildSelCategory(data) : sweetToast(invalidResp(data));
-                await getSubCategory();
+                if (isSuccessResp(data))
+                {
+                    await buildSelCategory(data);
+                    await getSubCategory();
+                }
+                else
+                    sweetToast(invalidResp(data));
             })
             .catch(reject => sweetError(`카테고리 목록${message.ajaxLoadError}`));
     }
@@ -36,7 +41,7 @@
 
         ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
+                isSuccessResp(data) ? buildSelSubCategory(data) : sweetToast(invalidResp(data));
             })
             .catch(reject => sweetError(label.list + message.ajaxLoadError));
     }

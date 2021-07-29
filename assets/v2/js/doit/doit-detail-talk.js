@@ -294,7 +294,7 @@
 
 		ajaxRequestWithJson(false, api.talkCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`댓글 목록${message.ajaxLoadError}`));
 	}
@@ -438,7 +438,7 @@
 
 		ajaxRequestWithJson(true, api.talkReplyList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`답글 목록${message.ajaxLoadError}`));
 	}
@@ -746,7 +746,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.mission, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? createTalkRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? createTalkRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}
@@ -855,7 +855,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.mission, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? updateTalkRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? updateTalkRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}

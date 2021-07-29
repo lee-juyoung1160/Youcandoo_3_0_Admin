@@ -357,7 +357,7 @@
 	{
 		ajaxRequestWithJson(false, api.getGiftBalance, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`잔액 ${message.ajaxLoadError}`));
 	}

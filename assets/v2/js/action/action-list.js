@@ -82,7 +82,7 @@
 
 		ajaxRequestWithJson(true, api.reportActionList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getActionsCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getActionsCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
@@ -190,7 +190,7 @@
 
 		ajaxRequestWithJson(false, api.memberActionDetail, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`인증 정보${message.ajaxLoadError}`));
 	}

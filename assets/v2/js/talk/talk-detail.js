@@ -133,7 +133,7 @@
 
 		ajaxRequestWithJson(false, api.talkCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildTalkComments(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`댓글 목록${message.ajaxLoadError}`));
 	}
@@ -265,7 +265,7 @@
 
 		ajaxRequestWithJson(true, api.talkReplyList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? appendReply(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`답글 목록${message.ajaxLoadError}`));
 	}

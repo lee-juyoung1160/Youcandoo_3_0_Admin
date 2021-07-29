@@ -23,8 +23,13 @@
 	{
 		ajaxRequestWithJson(false, api.faqType, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
-				await getDetail();
+				if (isSuccessResp(data))
+				{
+					await buildFaqType(data)
+					await getDetail();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`faq 타입${message.ajaxLoadError}`));
 	}
@@ -46,7 +51,7 @@
 
 		ajaxRequestWithJson(true, api.detailFaq,  JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}

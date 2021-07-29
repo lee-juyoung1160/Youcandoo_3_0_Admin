@@ -66,7 +66,7 @@
 
 		ajaxRequestWithJson(false, api.countMember, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildCountMember(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildCountMember(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`가입/대기자 수${message.ajaxLoadError}`));
 	}
@@ -84,7 +84,7 @@
 
 		ajaxRequestWithJson(false, api.missionList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildSelMission(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildSelMission(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`미션 목록${message.ajaxLoadError}`));
 	}
@@ -212,7 +212,7 @@
 
 		ajaxRequestWithJson(false, api.infoJoinMember, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getMemberInfoCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getMemberInfoCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -272,7 +272,7 @@
 
 		ajaxRequestWithJson(true, api.detailDoit, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildQuestion(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildQuestion(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`질문을${message.ajaxLoadError}`));
 	}
@@ -547,7 +547,7 @@
 
 		ajaxRequestWithJson(true, api.rewardMemberList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

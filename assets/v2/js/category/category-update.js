@@ -30,8 +30,13 @@
 
 		ajaxRequestWithJson(true, api.detailCategory, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
-				await getSubCategory();
+				if (isSuccessResp(data))
+				{
+					await buildDetail(data);
+					await getSubCategory();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -59,7 +64,7 @@
 
 		ajaxRequestWithJson(false, api.subCategoryList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getSubCategorySuccess(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
@@ -244,7 +249,7 @@
 
 		ajaxRequestWithJson(true, api.deleteSubCategory, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? reorderSubCategoryRequest() : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`세부 카테고리 삭제${message.ajaxError}`));
 	}
@@ -260,7 +265,7 @@
 
 			ajaxRequestWithJson(true, api.reorderSubCategory, JSON.stringify(param))
 				.then( async function( data, textStatus, jqXHR ) {
-					await isSuccessResp(data) ? reorderSubcategoryReqCallback(data) : sweetToast(invalidResp(data));
+					isSuccessResp(data) ? reorderSubcategoryReqCallback(data) : sweetToast(invalidResp(data));
 				})
 				.catch(reject => sweetError(`세부 카테고리 정렬${message.ajaxError}`));
 		}
@@ -284,7 +289,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.single, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? updateCategoryRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? updateCategoryRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}

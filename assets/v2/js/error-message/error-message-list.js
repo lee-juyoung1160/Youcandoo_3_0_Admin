@@ -45,7 +45,7 @@
 	{
 		ajaxRequestWithJson(true, api.errorList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildTable(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildTable(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

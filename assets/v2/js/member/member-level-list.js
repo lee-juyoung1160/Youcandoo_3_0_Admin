@@ -46,7 +46,7 @@
 	{
 		ajaxRequestWithJson(false, api.countPerLevel, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildCountPerLevel(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildCountPerLevel(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`레벨 별 회원 수${message.ajaxError}`));
 	}

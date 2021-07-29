@@ -33,7 +33,7 @@
 
 		ajaxRequestWithJson(false, api.getDoitUcd, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`두잇 UCD ${message.ajaxLoadError}`));
 	}

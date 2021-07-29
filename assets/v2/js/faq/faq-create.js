@@ -21,7 +21,7 @@
 	{
 		ajaxRequestWithJson(false, api.faqType, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`faq 타입${message.ajaxLoadError}`));
 	}

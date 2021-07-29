@@ -67,8 +67,13 @@
 
 		ajaxRequestWithJson(false, api.missionList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildSelActionMission(data) : sweetToast(invalidResp(data));
-				await onSubmitSearchActions();
+				if (isSuccessResp(data))
+				{
+					await buildSelActionMission(data);
+					await onSubmitSearchActions();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`미션 목록 ${message.ajaxLoadError}`));
 	}
@@ -103,7 +108,7 @@
 
 		ajaxRequestWithJson(true, api.actionList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getActionListCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getActionListCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}
@@ -235,7 +240,7 @@
 
 		ajaxRequestWithJson(false, api.actionCommentList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildActionComments(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildActionComments(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`댓글 목록${message.ajaxLoadError}`));
 	}
@@ -382,7 +387,7 @@
 
 		ajaxRequestWithJson(true, api.actionReplyList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? appendReplyActionComment(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? appendReplyActionComment(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`답글 목록${message.ajaxLoadError}`));
 	}

@@ -56,9 +56,14 @@
 	{
 		ajaxRequestWithJson(false, api.faqType, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildFaqType(data) : sweetToast(invalidResp(data));
-				await isBackAction() ? setHistoryForm() : initSearchForm();
-				await buildTable();
+				if (isSuccessResp(data))
+				{
+					await buildFaqType(data);
+					await isBackAction() ? setHistoryForm() : initSearchForm();
+					await buildTable();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`faq 타입${message.ajaxLoadError}`));
 	}

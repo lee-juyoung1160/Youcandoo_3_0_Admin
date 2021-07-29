@@ -36,7 +36,7 @@
 
 		ajaxRequestWithJson(true, api.detailEvent, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -97,7 +97,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.event, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}

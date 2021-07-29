@@ -34,7 +34,7 @@
 
 		ajaxRequestWithJson(true, api.detailPick, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}

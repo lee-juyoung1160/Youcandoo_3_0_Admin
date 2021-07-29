@@ -1,8 +1,8 @@
 
-	import {headers, isSuccessResp} from '../modules/ajax-request.js';
+	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url-v1.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
-	import { sweetError, } from '../modules/alert.js';
+	import { sweetError, sweetToast } from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
 		initSearchDateRangeWeek, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
@@ -70,7 +70,7 @@
 					else
 					{
 						json.data = [];
-						//sweetToast(invalidResp(json));
+						sweetToast(invalidResp(json));
 					}
 
 					return JSON.stringify(json);

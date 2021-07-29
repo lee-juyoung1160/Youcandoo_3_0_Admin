@@ -79,9 +79,14 @@
 
 		ajaxRequestWithJson(false, api.categoryList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildSelCategory(data) : sweetToast(invalidResp(data));
-				await isBackAction() ? setHistoryForm() : initSearchForm();
-				await buildTable();
+				if (isSuccessResp(data))
+				{
+					await buildSelCategory(data);
+					await isBackAction() ? setHistoryForm() : initSearchForm();
+					await buildTable();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

@@ -84,7 +84,7 @@
 
 		ajaxRequestWithJson(true, api.detailMember, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBasicInfo(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`기본정보${message.ajaxLoadError}`));
 	}
@@ -128,7 +128,7 @@
 
 		ajaxRequestWithJson(false, api.levelInfo, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildLevelInfo(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`레벨정보${message.ajaxLoadError}`));
 	}
@@ -149,7 +149,7 @@
 
 		ajaxRequestWithJson(false, api.levelHistory, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildLeveTable(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildLeveTable(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`레벨 변경 내역을 ${message.ajaxLoadError}`));
 	}
@@ -192,7 +192,7 @@
 
 		ajaxRequestWithJson(true, api.deviceInfo, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildDeviceInfo(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`기기정보${message.ajaxLoadError}`));
 	}
@@ -227,7 +227,7 @@
 
 		ajaxRequestWithJson(true, api.memberCategoryList, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildCategory(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildCategory(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`관심카테고리${message.ajaxLoadError}`));
 	}
@@ -542,7 +542,7 @@
 
 		ajaxRequestWithJson(true, api.memberActionDetail, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildModalActionDetail(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`인증 정보${message.ajaxLoadError}`));
 	}

@@ -370,7 +370,7 @@
 
 		ajaxRequestWithJson(true, api.getDoitFromXlsx, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`두잇목록${message.ajaxLoadError}`));
 	}

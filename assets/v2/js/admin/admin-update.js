@@ -122,7 +122,7 @@
 	{
 		ajaxRequestWithJson(false, api.authBizList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildBiz(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? buildBiz(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`기업 목록을${message.ajaxLoadError}`));
 	}

@@ -47,7 +47,7 @@
 	{
 		ajaxRequestWithJson(true, api.storyList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? getStoryListCallback(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? getStoryListCallback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.list + message.ajaxLoadError));
 	}

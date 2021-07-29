@@ -46,11 +46,16 @@
 
 	function initPage()
 	{
-		ajaxRequestWithJson(true, api.systemWalletType, null)
+		ajaxRequestWithJson(false, api.systemWalletType, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? buildSystemType(data) : sweetToast(invalidResp(data));
-				await initSearchForm();
-				await buildTable();
+				if (isSuccessResp(data))
+				{
+					await buildSystemType(data);
+					await initSearchForm();
+					await buildTable();
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`구분${message.ajaxLoadError}`));
 	}

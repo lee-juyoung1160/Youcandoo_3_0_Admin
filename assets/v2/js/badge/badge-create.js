@@ -34,7 +34,7 @@
 
 		ajaxRequestWithFile(true, fileApiV2.mission, param)
 			.then( async function( data, textStatus, jqXHR ) {
-				await isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
 	}

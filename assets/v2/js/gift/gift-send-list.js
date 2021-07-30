@@ -129,7 +129,7 @@
 						return isEmpty(data) ? label.gift : label.gifticon;
 					}
 				}
-				,{title: "상품명", 		data: "gift_name",    	width: "15%" }
+				,{title: "상품명", 		data: "gift_name",    	width: "18%" }
 				,{title: "신청자", 		data: "nickname",    	width: "20%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
@@ -141,8 +141,8 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "승인/발송/취소일시",   data: "updated", 		width: "13%" }
-				,{title: "예약일시",   		data: "reserved", 		width: "13%",
+				,{title: "승인/발송/취소일시",   data: "updated", 		width: "12%" }
+				,{title: "예약일시",   		data: "reserved", 		width: "12%",
 					render: function (data, type, row, meta) {
 						return (isEmpty(row.goods_code) || row.status === '취소') ? label.dash : data;
 					}

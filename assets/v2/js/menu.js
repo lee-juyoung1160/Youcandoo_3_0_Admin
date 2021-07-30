@@ -101,7 +101,6 @@
             '/v2/marketing/event',
             '/v2/marketing/push',
             '/v2/marketing/popup',
-            '/v2/report/talk',
             '/v2/gift',
             '/v2/service/notice',
             '/v2/service/faq',
@@ -120,6 +119,10 @@
                 break;
             case '/v2/ucd/charge' :
                 accessiblePages.push('/v2/ucd/create');
+                break;
+            case '/v2/report/talk' :
+                accessiblePages.push(_auth + '/detail_talk');
+                accessiblePages.push(_auth + '/detail_action');
                 break;
             default :
                 if (defaultAccessiblePages.indexOf(_auth) > -1)

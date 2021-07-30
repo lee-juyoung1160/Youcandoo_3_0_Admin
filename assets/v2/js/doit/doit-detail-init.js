@@ -180,9 +180,6 @@
 			case '#tabDoitMember' :
 				showJoinMemberForm();
 				break;
-			case '#tabDoitReview' :
-				//getDetail();
-				break;
 			case '#tabDoitUcd' :
 				showUcdListForm();
 				buildUcdTable();

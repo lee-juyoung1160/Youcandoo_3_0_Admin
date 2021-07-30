@@ -4,6 +4,7 @@
 /* side-menu */
 aside.main-menu {
 	overflow-y: scroll;
+	overflow-x: hidden;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -70,6 +71,10 @@ h1 span {
 	font-weight: 800;
 	margin-right: 10px;
 	line-height: 47px;
+	transition: .3s;
+}
+.side-nav > li.active > .main-mnu > i:last-of-type {
+	transform: rotate(90deg);
 }
 .side-nav > li > .main-mnu > span {
 	display: inline-block;

@@ -1,6 +1,7 @@
 
     const baseApiUrl = `${api_server_url}/v3/`;
     export const api = {
+        saveUserUcdFromXlsx : baseApiUrl + 'ucd/set/charge/user/system/excel',
         saveUserUcdBySystem : baseApiUrl + 'ucd/set/charge/user/system',
         saveUserUcdByBiz : baseApiUrl + 'ucd/set/charge/user/company',
         saveDoitUcdBySystem : baseApiUrl + 'ucd/set/charge/doit/system',

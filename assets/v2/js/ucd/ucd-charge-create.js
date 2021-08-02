@@ -2,16 +2,16 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {
-		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
-		updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch, totalCount,
+		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, btnXlsxImport, updateTable, btnXlsxExport,
+		description, nickname, dataTable, btnSearch, totalCount, btnAdd, modalCreate, modalUpdate, btnSubmitUpdate
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile,} from "../modules/common.js";
+	import {fadeoutModal, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {readExcelData, onClickImportMemberFormExport} from "../modules/export-excel.js";
+	import {setExcelData} from "../modules/export-excel.js";
 	import {initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from "../modules/tables.js";
 
 	let addedUsers = [];
@@ -25,16 +25,18 @@
 		/** 이벤트 **/
 		amount 			.on('propertychange change keyup paste input', function () { initInputNumber(this); });
 		lengthInput 	.on('propertychange change keyup paste input', function () { limitInputLength(this); });
-		modalOpen		.on('click', function () { onClickModalOpen(this); });
+		$("#btnSearchNickname").on('click', function () { modalSearchOpen(this); });
 		modalClose		.on('click', function () { fadeoutModal(); });
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
-		btnXlsxExport	.on('click', function () { onClickImportMemberFormExport(); });
+		btnXlsxExport	.on('click', function () { downloadForm(); });
 		btnSearch		.on('click', function () { onSubmitSearchMember(); })
 		btnSubmit		.on('click', function () { onSubmitUcd(); });
+		btnAdd.on('click', function () { onClickBtnAdd(); });
+		btnSubmitUpdate.on('click', function () { onSubmitXlsxData(); });
 	});
 
-	function onClickModalOpen(obj)
+	function modalSearchOpen(obj)
 	{
 		if (isEmpty(nickname.val()))
 		{
@@ -43,7 +45,8 @@
 			return;
 		}
 
-		fadeinModal();
+		modalCreate.fadeIn();
+		modalBackdrop.fadeIn();
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
@@ -287,46 +290,131 @@
 		return true;
 	}
 
+	function onClickBtnAdd()
+	{
+		modalUpdate.fadeIn();
+		modalBackdrop.fadeIn();
+	}
+
 	function onClickBtnImport(obj)
 	{
-		if (!isXlsX(obj))
+		if (!obj.files[0])
 		{
-			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
-			emptyFile(obj);
+			$(obj).val(null);
+			$(obj).siblings('input').val('');
 			return ;
 		}
 
-		readExcelData(obj, getMemberFromXlsx);
+		if (!isXlsX(obj) && obj.files[0])
+		{
+			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
+			$(obj).val(null);
+			$(obj).siblings('input').val('');
+			return ;
+		}
 
-		emptyFile(obj);
+		const fileName = obj.files[0].name;
+		$(obj).siblings('input').val(fileName);
+
+		readXlsxData(obj, setDataFromXlsx)
 	}
 
-	function getMemberFromXlsx(data)
+	function readXlsxData(obj, callback)
 	{
-		if (isEmpty(data))
+		let reader = new FileReader();
+		reader.onload = function(e) {
+
+			const data = new Uint8Array(reader.result);
+			const workbook = XLSX.read(data, {type: 'array'});
+
+			let readData = [];
+			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
+
+			let callbackArgs = [];
+			readData.map( value => {
+				if (!isEmpty(value[0]) && !isEmpty(value[1]))
+					callbackArgs.push({
+						"profile_uuid" : value[0],
+						"value" : value[1],
+						"description" : isEmpty(value[2]) ? '' : value[2]
+					})
+			})
+
+			callback(callbackArgs);
+		}
+
+		reader.readAsArrayBuffer(obj.files[0]);
+	}
+
+	let chunkData = [];
+	function setDataFromXlsx(data)
+	{
+		chunkData.length = 0;
+
+		if (!isEmpty(data) && data.length > 0)
+			chunkData = chunkArray(data, 100);
+
+		console.log(chunkData)
+	}
+
+	function onSubmitXlsxData()
+	{
+		if (isEmpty(chunkData) || chunkData.length === 0)
 		{
-			sweetToast(message.invalidFileContent);
+			sweetToast(`충전 ${message.emptyList}`);
 			return;
 		}
 
-		const param = { "profile_uuid" : data };
-
-		ajaxRequestWithJson(true, api.getMemberFromXlsx, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? getExcelDataCallback(data) : sweetToast(invalidResp(data));
-			})
-			.catch(reject => sweetError(`회원목록${message.ajaxLoadError}`));
+		sweetConfirm(message.create, xlsxDataRequest)
 	}
 
-	function getExcelDataCallback(data)
+	let reqCount = 0;
+	function xlsxDataRequest()
 	{
-		if (!isEmpty(data.data) && data.data.list.length > 0)
-		{
-			addedUserObj = data.data.list;
-			addedUsers.length = 0;
-			data.data.list.map(obj => addedUsers.push(obj.profile_uuid));
-		}
+		const param = { "profile_list" : chunkData[reqCount] };
 
-		buildUpdateTable();
-		displayCountAddedUser();
+		ajaxRequestWithJson(true, api.saveUserUcdFromXlsx, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				if (isSuccessResp(data))
+				{
+					if (reqCount === chunkData.length - 1)
+					{
+						reqCount = 0;
+						sweetToastAndCallback(data, fadeoutModal);
+					}
+					else
+					{
+						reqCount++;
+						xlsxDataRequest();
+					}
+				}
+				else
+					sweetToast(invalidResp(data));
+			})
+			.catch(reject => {
+				reqCount = 0;
+				sweetError(`충전${message.ajaxError}`);
+			});
+	}
+
+	function chunkArray(array, size)
+	{
+		const chunked_arr = [];
+		let copied = [...array];
+		const numOfChild = Math.ceil(copied.length / size);
+		for (let i = 0; i < numOfChild; i++) {
+			chunked_arr.push(copied.splice(0, size));
+		}
+		return chunked_arr;
+	}
+
+	function downloadForm()
+	{
+		const data = [{
+				"PID(프로필아이디)" : "PID-ABC000...",
+				"금액(UCD)" : 100,
+				"설명" : "테스트 충전..."
+			}];
+
+		setExcelData("UCD 충전양식", "회원목록", data);
 	}

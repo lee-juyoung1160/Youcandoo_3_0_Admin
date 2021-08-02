@@ -112,6 +112,7 @@
             case '/v2/biz' :
                 accessiblePages.push(_auth + '/support/doit');
                 accessiblePages.push(_auth + '/support/leader');
+                accessiblePages.push(_auth + '/update');
                 accessiblePages.push(_auth + '/detail');
                 break;
             case '/v2/doit' :

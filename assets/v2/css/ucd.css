@@ -7,3 +7,11 @@
 .top input[type="search"] {
     width: 300px;
 }
+
+.modal-content.add-ucd {
+    width: 475px;
+}
+.modal-content.add-ucd .file-name {
+    width: 300px;
+    margin-right: 5px;
+}

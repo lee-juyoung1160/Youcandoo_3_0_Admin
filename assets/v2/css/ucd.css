@@ -15,3 +15,7 @@
     width: 300px;
     margin-right: 5px;
 }
+.modal-content.add-ucd .desc strong {
+    color: #333;
+    font-weight: 600;
+}

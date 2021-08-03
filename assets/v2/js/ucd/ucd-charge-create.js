@@ -371,10 +371,9 @@
 	{
 		chunkData.length = 0;
 		totalMemberCount.text(data.length);
-		
+
 		if (!isEmpty(data) && data.length > 0)
 			chunkData = chunkArray(data, 100);
-
 	}
 
 	function onSubmitXlsxData()

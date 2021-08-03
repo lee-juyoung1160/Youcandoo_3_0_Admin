@@ -311,6 +311,9 @@
 	{
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
+		btnXlsxImport.val(null);
+		btnXlsxImport.siblings('input').val('');
+		totalMemberCount.text(0);
 	}
 
 	function onClickBtnImport(obj)

@@ -43,7 +43,7 @@
 
 		g_inquiry_uuid = qna_uuid;
 
-		userNickname.html(`<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
+		userNickname.html(isEmpty(profile_uuid) ? `${nickname}(비회원)` : `<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		deviceInfo.text(`앱버전: ${app_version}, os버전: ${os_version} , 기기: ${device}`);
 		inquiryTitle.text(title);
 		content.text(contents);

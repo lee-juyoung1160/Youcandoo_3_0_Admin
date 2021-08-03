@@ -151,7 +151,7 @@
 				previewEl +=
 					`<tr>
 					<td>
-						<div class="list-img-wrap banner-img-wrap">
+						<div class="banner-img-wrap">
 							<img src="${doit_image_url}" alt="">
 						</div>
 					</td>

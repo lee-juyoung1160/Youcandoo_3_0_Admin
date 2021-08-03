@@ -2,8 +2,25 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
 	import {
-		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, btnXlsxImport, updateTable, btnXlsxExport,
-		description, nickname, dataTable, btnSearch, totalCount, btnAdd, modalCreate, modalUpdate, btnSubmitUpdate
+		lengthInput,
+		btnSubmit,
+		amount,
+		keyword,
+		modalClose,
+		modalBackdrop,
+		btnXlsxImport,
+		updateTable,
+		btnXlsxExport,
+		description,
+		nickname,
+		dataTable,
+		btnSearch,
+		totalCount,
+		btnAdd,
+		modalCreate,
+		modalUpdate,
+		btnSubmitUpdate,
+		totalMemberCount
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {fadeoutModal, limitInputLength,} from "../modules/common.js";
@@ -302,6 +319,7 @@
 		{
 			$(obj).val(null);
 			$(obj).siblings('input').val('');
+			totalMemberCount.text(0);
 			return ;
 		}
 
@@ -310,6 +328,7 @@
 			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
 			$(obj).val(null);
 			$(obj).siblings('input').val('');
+			totalMemberCount.text(0);
 			return ;
 		}
 
@@ -331,8 +350,9 @@
 			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
 
 			let callbackArgs = [];
-			readData.map( value => {
-				if (!isEmpty(value[0]) && !isEmpty(value[1]))
+			readData.map( (value, index) => {
+				if (index === 0) return;
+				if (!isEmpty(value[0]) && !isEmpty(value[1]) && value[0].toString().startsWith('PID-'))
 					callbackArgs.push({
 						"profile_uuid" : value[0],
 						"value" : value[1],
@@ -350,11 +370,11 @@
 	function setDataFromXlsx(data)
 	{
 		chunkData.length = 0;
-
+		totalMemberCount.text(data.length);
+		
 		if (!isEmpty(data) && data.length > 0)
 			chunkData = chunkArray(data, 100);
 
-		console.log(chunkData)
 	}
 
 	function onSubmitXlsxData()

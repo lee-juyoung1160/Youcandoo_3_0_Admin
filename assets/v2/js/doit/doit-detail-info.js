@@ -6,12 +6,11 @@
 		isAnswer, btnDoitOpen, btnDoitStop, btnDoitDelete, doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply,
 		chkIsQuestion, chkIsAnswer, rdoPublicType, infoDoitTitle, infoDoitDesc, infoDoitKeywords, infoQuestion,
 		selCategory, doitImage, selSubcategory, doitKeyword, btnUpdateDoit, btnCreateMission, btnDeleteMission,
-		btnUpdateMission, btnBan, createCommentWrap, actionCommentWrap, btnUpdateTalk, btnDeleteTalk,
+		btnUpdateMission, btnBan, createCommentWrap, actionCommentWrap, applyMemberCountWrap,
 		btnCreateTalk, talkCommentWrap, createTalkCommentWrap, btnSaveUcd, btnReject, btnApproval,
-		applyMemberCountWrap,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import {calculateInputLength, onErrorImage} from "../modules/common.js";
+	import {calculateInputLength, moveToMemberDetail, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -77,6 +76,13 @@
 		onErrorImage();
 
 		toggleButtons(doit_status);
+
+		doitSponsor.find('a').on('click', function () { onClickNickname(this); });
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}
 
 	export let g_category_uuid;

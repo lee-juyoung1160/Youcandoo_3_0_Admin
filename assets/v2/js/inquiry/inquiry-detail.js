@@ -6,7 +6,7 @@
 		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate
 	} from '../modules/elements.js';
 	import {sweetToast, sweetError} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, historyBack, moveToMemberDetail, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -56,6 +56,7 @@
 		onErrorImage();
 
 		$(".view-attach").on('click', function () { viewAttachment(this); });
+		userNickname.find('a').on('click', function () { onClickNickname(this); });
 	}
 
 	function buildAttachment(data)
@@ -74,6 +75,11 @@
 		fadeinModal();
 		thumbnail.attr('src', $(obj).prop('src'));
 		onErrorImage();
+	}
+
+	function onClickNickname(obj)
+	{
+		moveToMemberDetail($(obj).data('uuid'));
 	}
 
 	function goListPage()

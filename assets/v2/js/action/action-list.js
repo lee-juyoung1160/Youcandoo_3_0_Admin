@@ -252,6 +252,7 @@
 				url: api.actionReportReasonList,
 				type: "POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))

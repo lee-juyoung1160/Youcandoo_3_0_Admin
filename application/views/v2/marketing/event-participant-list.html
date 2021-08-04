@@ -1,4 +1,5 @@
-<section>
+<link rel="stylesheet" href="/assets/v2/css/marketing.css?version=<?php echo $this->config->item('version');?>">
+<section class="event-participant">
     <div class="inner">
 
         <div class="main-top clearfix">
@@ -30,12 +31,17 @@
                                 <option value="title_contents">제목/내용</option>
                             </select>
                             <div class="search-txt-wrap">
-                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요." style="width: 400px;">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
                     </li>
                 </ul>
+            </div>
+
+            <div class="search-btn row">
+                <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+                <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
             </div>
 
             <div class="table-wrap">
@@ -72,12 +78,12 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 participant-list">
             <div class="card">
                 <p class="title"><i class="fas fa-users"></i> 참여자 목록</p>
             </div>
 
-            <div class="search-wrap" style="margin-top: 10px;">
+            <div class="search-wrap">
                 <ul class="card">
                     <li>
                         <p class="search-title">검색어</p>
@@ -86,12 +92,17 @@
                                 <option value="title_contents">닉네임</option>
                             </select>
                             <div class="search-txt-wrap">
-                                <input id="" type="search" placeholder="검색어를 입력해주세요." style="width: 400px;">
+                                <input id="" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
                     </li>
                 </ul>
+            </div>
+
+            <div class="search-btn row">
+                <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+                <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
             </div>
 
             <div class="table-wrap">

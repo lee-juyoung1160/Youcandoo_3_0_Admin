@@ -43,3 +43,18 @@
 .banner-create .result-wrap {
 	margin-top: 10px;
 }
+
+
+/* 참여 이벤트 관리 */
+.event-participant input[type="search"] {
+	width: 400px;
+}
+.event-participant .search-btn {
+	margin-bottom: 10px;
+}
+.event-participant .participant-list .search-wrap {
+	margin-top: 15px;
+}
+.event-participant .participant-list .search-wrap ul {
+	padding: 29px 15px;
+}

@@ -48,9 +48,12 @@
 		inquiryTitle.text(title);
 		content.text(contents);
 		attachmentWrap.html(buildAttachment(data));
-		answerEl.val(isEmpty(answer) ? `${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)` : answer);
+		const answerStart = `${nickname}님 안녕하세요, 너두나두 목표달성 유캔두예요 :-)`;
+		const answerEnd = '감사합니다.\n유캔두 드림';
+		const defaultAnswer = answerStart +'\n\n\n'+ answerEnd;
+		answerEl.val(isEmpty(answer) ? defaultAnswer : answer);
+		answerEl.prop('selectionEnd', answerStart.length + 1);
 		memoEl.val(memo);
-
 		onErrorImage();
 
 		$(".view-attach").on('click', function () { viewAttachment(this); });

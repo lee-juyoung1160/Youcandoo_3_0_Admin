@@ -91,8 +91,8 @@
 				}
 			},
 			columns: [
-				{title: "제목",    		data: "title",  		width: "70%" }
-				,{title: "기간", 		data: "event_uuid",		width: "30%",
+				{title: "제목",    		data: "title",  		width: "65%" }
+				,{title: "기간", 		data: "event_uuid",		width: "35%",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ~ ${row.end_date}`;
 					}
@@ -183,8 +183,8 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "nickname",  		width: "20%" }
-				,{title: "PID", 		data: "profile_uuid",	width: "60%" }
+				{title: "닉네임",    		data: "nickname",  		width: "35%" }
+				,{title: "PID", 		data: "profile_uuid",	width: "45%" }
 				,{title: "참여일시", 		data: "created",		width: "20%" }
 			],
 			serverSide: true,

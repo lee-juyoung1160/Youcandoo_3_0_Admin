@@ -11,6 +11,7 @@
 	import {isEmpty, numberWithCommas, isNegative} from "../modules/utils.js";
 
 	$( () => {
+		keyword.trigger('focus');
 		/** dataTable default config **/
 		initTableDefaultConfig();
 		initSearchDatepicker();
@@ -46,6 +47,12 @@
 
 	function onSubmitSearch()
 	{
+		if (isEmpty(keyword.val()))
+		{
+			sweetToast(`검색어를 ${message.input}`);
+			return;
+		}
+
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
@@ -68,10 +75,7 @@
 						json.data = json.data.list;
 					}
 					else
-					{
 						json.data = [];
-						sweetToast(invalidResp(json));
-					}
 
 					return JSON.stringify(json);
 				},
@@ -80,7 +84,7 @@
 						"from_date" : dateFrom.val(),
 						"to_date" : dateTo.val(),
 						"search_type" : selSearchType.val(),
-						"keyword" : keyword.val().trim(),
+						"keyword" : isEmpty(keyword.val()) ? '검색어 입력 필수' : keyword.val().trim(),
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
 					}

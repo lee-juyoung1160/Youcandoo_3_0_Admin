@@ -8,7 +8,7 @@
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {isNegative, numberWithCommas,} from "../modules/utils.js";
+	import {isEmpty, isNegative, numberWithCommas,} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -98,10 +98,14 @@
 				,{title: "내용",    		data: "message",  		width: "21%" }
 				,{title: "실행자",    	data: "register_name",  width: "15%",
 					render: function (data, type, row, meta) {
-						return row.register_is_company === 'Y' ? label.bizIcon + data : data;
+						return isEmpty(data) ? label.dash : row.register_is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "To",    		data: "receive_name",  	width: "15%" }
+				,{title: "To",    		data: "receive_name",  	width: "15%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
 				,{title: "구분",    		data: "transfer_type",  width: "8%" }
 				,{title: "UCD", 		data: "value",			width: "8%",
 					render: function (data, type, row, meta) {

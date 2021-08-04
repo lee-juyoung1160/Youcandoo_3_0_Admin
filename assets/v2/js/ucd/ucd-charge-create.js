@@ -312,28 +312,21 @@
 	{
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
-		chunkData.length = 0
-		btnXlsxImport.val(null);
-		btnXlsxImport.siblings('input').val('');
-		totalMemberCount.text(0);
+		initXlsx();
 	}
 
 	function onClickBtnImport(obj)
 	{
 		if (!obj.files[0])
 		{
-			$(obj).val(null);
-			$(obj).siblings('input').val('');
-			totalMemberCount.text(0);
+			initXlsx();
 			return ;
 		}
 
 		if (!isXlsX(obj) && obj.files[0])
 		{
 			sweetToast(`엑셀(.xlsx) 파일을 ${message.select}`);
-			$(obj).val(null);
-			$(obj).siblings('input').val('');
-			totalMemberCount.text(0);
+			initXlsx();
 			return ;
 		}
 
@@ -418,6 +411,14 @@
 				reqCount = 0;
 				sweetError(`충전${message.ajaxError}`);
 			});
+	}
+
+	function initXlsx()
+	{
+		chunkData.length = 0
+		btnXlsxImport.val(null);
+		btnXlsxImport.siblings('input').val('');
+		totalMemberCount.text(0);
 	}
 
 	function chunkArray(array, size)

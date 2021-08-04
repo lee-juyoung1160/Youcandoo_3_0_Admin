@@ -165,6 +165,8 @@
         detailEvent : baseApiUrl + 'event/get/detail/info',
         deleteEvent : baseApiUrl + 'event/delete',
         updateEvent : baseApiUrl + 'event/update',
+        customEvent : baseApiUrl + 'event/popup/get/list',
+        customEventProfile : baseApiUrl + 'event/popup/get/profile',
 
         pushList : baseApiUrl + 'push/list',
         cancelPush : baseApiUrl + 'push/set/cancel',

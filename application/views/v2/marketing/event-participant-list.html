@@ -27,8 +27,8 @@
                     <li>
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
-                            <select id="selSearchType" class="select-box">
-                                <option value="title_contents">제목/내용</option>
+                            <select class="select-box">
+                                <option value="title">제목</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -52,29 +52,29 @@
                         </div>
                     </div>
                 </div>
-                <table id="">
-                <thead>
-                <colgroup>
-                    <col style="width: 70%;">
-                    <col style="width: 30%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>이벤트명 </th>
-                    <th>기간</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="selected">
-                    <td><a href="#">이벤트명이 들어가는 자리입니다.</a></td>
-                    <td>2020-02-02 ~ 2020-02-02</td>
-                </tr>
-                <tr>
-                    <td><a href="#">이벤트명이 들어가는 자리입니다.</a></td>
-                    <td>2020-02-02 ~ 2020-02-02</td>
-                </tr>
-                </tbody>
-            </table>
+                <table id="dataTable">
+                    <!--<thead>
+                    <colgroup>
+                        <col style="width: 70%;">
+                        <col style="width: 30%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>이벤트명 </th>
+                        <th>기간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="selected">
+                        <td><a href="#">이벤트명이 들어가는 자리입니다.</a></td>
+                        <td>2020-02-02 ~ 2020-02-02</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">이벤트명이 들어가는 자리입니다.</a></td>
+                        <td>2020-02-02 ~ 2020-02-02</td>
+                    </tr>
+                    </tbody>-->
+                </table>
             </div>
         </div>
 
@@ -88,11 +88,11 @@
                     <li>
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
-                            <select id="" class="select-box">
-                                <option value="title_contents">닉네임</option>
+                            <select class="select-box">
+                                <option value="nickname">닉네임</option>
                             </select>
                             <div class="search-txt-wrap">
-                                <input id="" type="search" placeholder="검색어를 입력해주세요.">
+                                <input id="nickname" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
@@ -101,8 +101,8 @@
             </div>
 
             <div class="search-btn row">
-                <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
-                <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+                <button id="btnSubmit" type="submit" class="btn btn-primary">검색</button>
+                <button id="btnCancel" type="reset" class="btn btn-outline-primary">초기화</button>
             </div>
 
             <div class="table-wrap">
@@ -113,30 +113,32 @@
                         </div>
                     </div>
                 </div>
-                <table id="">
-                <thead>
-                <colgroup>
-                    <col style="width: 20%;">
-                    <col style="width: 60%;">
-                    <col style="width: 20%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>닉네임</th>
-                    <th>P-ID</th>
-                    <th>참여일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>닉네임</td>
-                    <td>P-ID</td>
-                    <td>2020-02-02</td>
-                </tr>
-                </tbody>
-            </table>
+                <table id="updateTable">
+                    <!--<thead>
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 60%;">
+                        <col style="width: 20%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>닉네임</th>
+                        <th>P-ID</th>
+                        <th>참여일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>닉네임</td>
+                        <td>P-ID</td>
+                        <td>2020-02-02</td>
+                    </tr>
+                    </tbody>-->
+                </table>
             </div>
         </div>
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
+<script type="module" src="/assets/v2/js/custom-event/custom-event-list.js?version=<?php echo $this->config->item('version');?>"></script>

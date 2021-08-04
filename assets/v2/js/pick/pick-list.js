@@ -89,7 +89,8 @@
 			paging: false,
 			select: {
 				style: 'single',
-				selector: 'a'
+				selector: 'a',
+				toggleable: false
 			},
 			destroy: true,
 			initComplete: function () {

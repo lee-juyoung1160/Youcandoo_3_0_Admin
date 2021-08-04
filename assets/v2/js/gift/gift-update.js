@@ -1,8 +1,9 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
-	import {lengthInput, btnSubmit, price, contentImage, giftName, rdoExposure, modalOpen,
-		modalClose, modalBackdrop, giftType, selectGiftName, goodsCode, ktImageUrl, keyword, dataTable
+	import {
+		lengthInput, btnSubmit, price, contentImage, giftName, rdoExposure, modalOpen,
+		modalClose, modalBackdrop, giftType, selectGiftName, goodsCode, ktImageUrl, keyword, dataTable, btnSearch
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, emptyFile, fadeinModal, fadeoutModal, limitInputLength,
@@ -28,6 +29,7 @@
 		price.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
+		btnSearch.on('click', function () { buildKtGoods(); });
 		btnSubmit.on('click', function () { onSubmitUpdateGift(); });
 	});
 

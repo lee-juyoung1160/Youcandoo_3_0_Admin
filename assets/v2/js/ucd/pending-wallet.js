@@ -107,7 +107,7 @@
 								return label.charge;
 							case 'level' :
 								return label.levelup;
-							case 'join' :
+							case 'signup' :
 								return label.join;
 							default :
 								return `[${row.send_type}] ${data}`;

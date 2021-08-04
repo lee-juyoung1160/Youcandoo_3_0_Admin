@@ -453,7 +453,7 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "커뮤니티", 	    data: "board",		            width: "10%",
+                ,{title: "커뮤니티", 	    data: "board_count",		    width: "10%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }

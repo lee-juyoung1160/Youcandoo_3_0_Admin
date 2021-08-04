@@ -307,10 +307,12 @@
 		return true;
 	}
 
+	let chunkData = [];
 	function onClickBtnAdd()
 	{
 		modalUpdate.fadeIn();
 		modalBackdrop.fadeIn();
+		chunkData.length = 0
 		btnXlsxImport.val(null);
 		btnXlsxImport.siblings('input').val('');
 		totalMemberCount.text(0);
@@ -369,7 +371,6 @@
 		reader.readAsArrayBuffer(obj.files[0]);
 	}
 
-	let chunkData = [];
 	function setDataFromXlsx(data)
 	{
 		chunkData.length = 0;
@@ -383,7 +384,7 @@
 	{
 		if (isEmpty(chunkData) || chunkData.length === 0)
 		{
-			sweetToast(`충전 ${message.emptyList}`);
+			sweetToast(`충전 대상 ${message.emptyList}`);
 			return;
 		}
 

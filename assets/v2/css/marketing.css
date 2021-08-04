@@ -48,6 +48,10 @@
 /* 참여 이벤트 관리 */
 .event-participant input[type="search"] {
 	width: 400px;
+	padding-right: 5px;
+}
+.event-participant input[type="text"] {
+	width: 120px;
 }
 .event-participant .search-btn {
 	margin-bottom: 10px;
@@ -57,4 +61,7 @@
 }
 .event-participant .participant-list .search-wrap ul {
 	padding: 29px 15px;
+}
+.event-participant .col-5 table tr {
+	cursor: pointer;
 }

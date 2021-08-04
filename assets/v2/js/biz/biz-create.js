@@ -1,5 +1,5 @@
 
-	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp} from "../modules/ajax-request.js";
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
 	import {lengthInput, title, bizNo, bizWeb, content, contentImage, btnSubmit, inputNumber,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';

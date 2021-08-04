@@ -51,6 +51,11 @@ class Marketing extends MY_Controller {
         }
     }
 
+    public function participant()
+    {
+        $this->load->template('v2/marketing/event-participant-list');
+    }
+
     public function push($Route = "")
     {
         switch ($Route) {

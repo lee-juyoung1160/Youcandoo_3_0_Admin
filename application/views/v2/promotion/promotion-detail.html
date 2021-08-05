@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="/assets/v2/css/promotion.css?version=<?php echo $this->config->item('version');?>">
+<section class="promotion-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">
+                <span class="badge badge-info">생성</span>
+                <!--<span class="badge badge-success">진행중</span>
+                <span class="badge badge-warning">운영종료</span>
+                <span class="badge badge-danger">삭제</span>-->
+                프로모션명 노출시켜 주세용
+            </h2>
+            <div class="right-wrap">
+                <button id="btnSupportDoit" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-hourglass-end"></i> 프로모션 종료</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 70%;">
+                    </colgroup>
+                    <tr>
+                        <th rowspan="5">
+                            <div class="promotion-img-wrap">
+                                <img src="https://youcandoo.yanadoocdn.com/v3/banner/2021/06/25/642b656affd7b307c68ea1cec5fbe346.png" alt="프로모션이미지" id="contentImage">
+                            </div>
+                        </th>
+                        <th>스폰서</th>
+                        <td>
+                            <p class="detail-data" id="">카카오 키즈</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기간</th>
+                        <td>
+                            <p class="detail-data" id="">2020-00-00 ~ 2020-00-00</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>등록일</th>
+                        <td>
+                            <p class="detail-data">2020-00-00</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="right-wrap">
+                                <button id="btnUpdate" type="button" class="btn-sm btn-teal">수정</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="card doit-info">
+            <p class="title"><i class="far fas fa-tasks"></i> 두잇 정보</p>
+        </div>
+        <!-- 두잇정보 -->
+        <div class="table-wrap">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num">0</strong></p>
+                        <select id="selPageLengthDoit" class="select-box">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="doitTable">
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 40%;">
+                    <col style="width: 20%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>카테고리</th>
+                    <th>세부 카테고리</th>
+                    <th>두잇명</th>
+                    <th>리더</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>운동</td>
+                    <td>필라테스</td>
+                    <td><a href="v2/doit/detail">두잇며어어어어엉</a></td>
+                    <td>리더명어엉</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer-btn-wrap">
+            <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
+            <button id="btnList" type="button" class="btn btn-primary">목록</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>기업 UCD 충전</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 75%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>UCD *</th>
+                        <td>
+                            <div class="ucd-input-wrap">
+                                <input id="amount" type="text" class="only-num" maxlength="9">
+                                <span>UCD</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="description" type="text" class="length-input" maxlength="30">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary">충전완료</button>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

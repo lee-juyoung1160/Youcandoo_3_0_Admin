@@ -1,0 +1,108 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">프로모션 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>프로모션명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="title" type="text" class="length-input" maxlength="20" placeholder="프로모션명을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>스폰서 명 *</th>
+                        <td>
+                            <input id="sponsor" type="text" class="modal-btn" placeholder="클릭 후 스폰서명을 선택해주세요." readonly>
+                            <input id="sponsorUuid" type="hidden">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이미지 *</th>
+                        <td>
+                            <p class="desc-sub">업로드 사이즈 : 656 * 656</p>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="thumbnailImage">업로드</label>
+                                <input type="file" id="thumbnailImage" class="upload-hidden" data-width="656" data-height="656" data-compare="같음" accept="image/png, image/jpg, image/jpeg">
+                            </div>
+                            <!--<div class="detail-img-wrap">
+                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기간 *</th>
+                        <td>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>스폰서 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="스폰서를 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <!--<thead>
+                        <colgroup>
+                            <col style="width: 100%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>스폰서 명</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>세리박스</td>
+                        </tr>
+                        <tr>
+                            <td>야나두</td>
+                        </tr>
+                        <tr>
+                            <td>나이키</td>
+                        </tr>
+                        <tr>
+                            <td>아디다스</td>
+                        </tr>
+                        </tbody>-->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+</section>

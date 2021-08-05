@@ -1,6 +1,24 @@
 @charset "UTF-8";
 
 /* 두잇 상세 */
+
+.promotion-info li {
+	float: left;
+	padding: 0 10px;
+	border-right: 1px solid #aaa;
+}
+.promotion-info li:last-child {
+	border-right: none;
+}
+.promotion-name {
+	font-weight: 600;
+}
+.promotion-date {
+	color: #666;
+}
+.promotion-modal table tr {
+	cursor: pointer;
+}
 .doit-detail-teb li {
 	width: calc(100%/6);
 }

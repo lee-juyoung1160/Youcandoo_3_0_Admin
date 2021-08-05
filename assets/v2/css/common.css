@@ -542,6 +542,17 @@ button i {
 	background-color: #00ac69;
 	border-color: #00ac69;
 }
+.btn-purple {
+	color: #fff;
+	background-color: darkslateblue;
+	border-color: darkslateblue;
+}
+.btn-purple:hover {
+	color: #fff;
+	background-color: darkslateblue;
+	border-color: darkslateblue;
+}
+
 .btn-outline-primary {
 	color: #0061f2;
 	border-color: #0061f2;
@@ -593,6 +604,16 @@ button i {
 	color: #fff;
 	border-color: #6900c7;
 	background-color: #6900c7;
+}
+.btn-outline-purple {
+	color: darkslateblue;
+	background-color: #fff;
+	border-color: darkslateblue;
+}
+.btn-outline-purple:hover {
+	color: #fff;
+	background-color: darkslateblue;
+	border-color: darkslateblue;
 }
 .btn-teal {
 	color: #fff;
@@ -664,6 +685,10 @@ button i {
 .badge-danger {
 	color: #fff;
 	background-color: #e81500;
+}
+.badge-purple {
+	color: #fff;
+	background-color: darkslateblue;
 }
 
 /* tool tip */

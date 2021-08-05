@@ -59,6 +59,7 @@
 
         doitSponsorList : baseApiUrl + 'doit/get/company',
         doitList : baseApiUrl + 'doit/list',
+        doitSetRecommend : baseApiUrl + 'doit/set/recommend',
         createDoit : baseApiUrl + 'doit/create',
         createDoitCategoryList : baseApiUrl + 'category/exposure/list',
         detailDoit : baseApiUrl + 'doit/detail',

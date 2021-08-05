@@ -1,7 +1,20 @@
 
 	import {headers, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url-v1.js';
-	import {dateButtons, dataTable, dateFrom, dateTo, keyword, btnSearch, btnReset, updateTable, btnSubmit, btnCancel, nickname} from '../modules/elements.js';
+	import {
+	dateButtons,
+	dataTable,
+	dateFrom,
+	dateTo,
+	keyword,
+	btnSearch,
+	btnReset,
+	updateTable,
+	btnSubmit,
+	btnCancel,
+	nickname,
+		body
+	} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
 	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonth, initMaxDateMonths,
 		initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo} from "../modules/common.js";
@@ -19,6 +32,7 @@
 		/** 목록 불러오기 **/
 		buildEventTable();
 		/** 이벤트 **/
+		body  		.on("keydown", function (event) { onKeydownBody(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		dateTo.on('change', function () { onChangeSearchDateTo(); });
 		btnSearch 	.on("click", function () { onSubmitSearch(); });
@@ -35,15 +49,34 @@
 		initSearchDateRangeMonth();
 		initSelectOption();
 		keyword.val('');
+		keyword.trigger('focus');
+	}
+
+	function onKeydownBody(event)
+	{
+		if (event.keyCode === 13)
+		{
+			switch (event.target.id) {
+				case 'keyword' :
+					onSubmitSearch();
+					break;
+				case 'nickname' :
+					onSubmitSearchNickname();
+					break;
+				default :
+					return;
+			}
+		}
 	}
 
 	function onSubmitSearch()
 	{
+		initProfileSearchForm();
+		initMaxDateMonths();
+		initDayBtn();
 		let table = dataTable.DataTable();
 		table.page.len(30);
 		table.ajax.reload();
-		initMaxDateMonths();
-		initDayBtn();
 	}
 
 	function buildEventTable()

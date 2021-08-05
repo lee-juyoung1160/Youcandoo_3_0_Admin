@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, chkStatus,
 		selPageLength, selSort, btnSearch, btnReset, selSearchType, selCategory} from '../modules/elements.js';
-	import { sweetToast, sweetError } from  '../modules/alert.js';
+	import {sweetToast, sweetConfirm, sweetError, sweetToastAndCallback} from '../modules/alert.js';
 	import {
 		onClickDateRangeBtn,
 		initDayBtn,
@@ -18,7 +18,14 @@
 		getDoitStatusName,
 		moveToMemberDetail
 	} from "../modules/common.js";
-	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
+	import {
+		initTableDefaultConfig,
+		buildTotalCount,
+		toggleBtnPreviousAndNextOnTable,
+		getCurrentPage,
+		redrawPage,
+		tableReloadAndStayCurrentPage
+	} from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -143,9 +150,9 @@
 			columns: [
 				{title: "카테고리",    	data: "category_title",  	width: "10%" }
 				,{title: "세부 카테고리", 	data: "subcategory_title",	width: "15%" }
-				,{title: "두잇명", 		data: "doit_title",			width: "25%",
+				,{title: "두잇명", 		data: "doit_title",			width: "20%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}" class="line-clamp-1" style="max-width: 320px;">${data}</a>`;
+						return `<a href="${page.detailDoit}${row.idx}" class="line-clamp-1" style="max-width: 280px;">${data}</a>`;
 					}
 				}
 				,{title: "리더", 		data: "nickname",			width: "20%",
@@ -169,6 +176,11 @@
 						return getDoitStatusName(data);
 					}
 				}
+				,{title: "추천기능",    	data: "doit_uuid",  		width: "5%",
+					render: function (data, type, row, meta) {
+						return buildSwitch(row);
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,
@@ -181,6 +193,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(3).find('a').on('click', function () { onClickNickname(this); });
+				$(nRow).children().eq(8).find('input').on('click', function () { changeStatus(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -213,6 +226,51 @@
 		setHistoryParam(param);
 
 		return JSON.stringify(param);
+	}
+
+	function buildSwitch(data)
+	{
+		/** 사용여부 컬럼에 on off 스위치 **/
+		let checked   = data.is_recommend === 'Y' ? 'checked' : '';
+		return (
+			`<div class="toggle-btn-wrap">
+				<div class="toggle-btn on">
+					<input data-uuid="${data.doit_uuid}" type="radio" class="checkbox ${checked}">
+					<div class="knobs"></div>
+					<div class="layer"></div>
+				</div>
+			</div>`
+		)
+	}
+
+	/** 노출여부 변경 **/
+	let g_is_recommend;
+	let g_uuid;
+	function changeStatus(obj)
+	{
+		g_is_recommend = $(obj).hasClass('checked') ? 'N' : 'Y';
+		g_uuid = $(obj).data('uuid');
+
+		sweetConfirm(message.change, changeRequest);
+	}
+
+	function changeRequest()
+	{
+		const param = {
+			"doit_uuid" : g_uuid,
+			"is_recommend" : g_is_recommend
+		}
+
+		ajaxRequestWithJson(true, api.doitSetRecommend, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				sweetToastAndCallback(data, changeSuccess);
+			})
+			.catch(reject => sweetError(`기본정보${message.ajaxLoadError}`));
+	}
+
+	function changeSuccess()
+	{
+		tableReloadAndStayCurrentPage(dataTable);
 	}
 
 	function onClickNickname(obj)

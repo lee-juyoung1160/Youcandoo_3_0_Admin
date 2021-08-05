@@ -68,4 +68,8 @@
         ,listTalk : rootContext + 'report/talk'
 
         ,listVersion : rootContext + 'operate/version'
+
+        ,listPromotion : rootContext + 'promotion'
+        ,detailPromotion : rootContext + 'promotion/detail/'
+        ,updatePromotion : rootContext + 'promotion/update/'
     }

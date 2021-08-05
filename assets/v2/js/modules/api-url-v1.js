@@ -231,6 +231,11 @@
         setMenuWithAuth : baseApiUrl + 'auth/set/menu',
         createAuth : baseApiUrl + 'auth/create',
         deleteAuth : baseApiUrl + 'auth/delete',
+
+        promotionList : baseApiUrl + 'promotion/get/list',
+        createPromotion : baseApiUrl + 'promotion/create',
+        detailPromotion : baseApiUrl + 'promotion/detail',
+        updatePromotion : baseApiUrl + 'promotion/update',
     }
 
     const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';

@@ -115,6 +115,10 @@
                 accessiblePages.push(_auth + '/update');
                 accessiblePages.push(_auth + '/detail');
                 break;
+            case '/v2/promotion' :
+                accessiblePages.push(_auth + '/detail');
+                accessiblePages.push(_auth + '/update');
+                break;
             case '/v2/doit' :
                 accessiblePages.push(_auth + '/detail');
                 break;

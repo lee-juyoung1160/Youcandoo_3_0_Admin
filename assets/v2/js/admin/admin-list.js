@@ -1,8 +1,10 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType,
-		selAuthType, btnApproval} from '../modules/elements.js';
+	import {
+	body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType,
+	selAuthType, btnApproval, sessionUserId
+	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {initSelectOption, initPageLength} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,
@@ -272,7 +274,7 @@
 		const selectAuth = $(selectedRow).children().eq(0).find('select')
 		const param = {
 			"userid" : getSelectedData().userid,
-			"app_user" : getSelectedData().name,
+			"app_user" : sessionUserId.val(),
 			"auth_code" : $(selectAuth).val(),
 		}
 

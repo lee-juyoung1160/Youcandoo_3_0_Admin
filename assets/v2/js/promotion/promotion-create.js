@@ -1,22 +1,112 @@
 
-	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
+	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
-	import {lengthInput, title, bizNo, bizWeb, content, contentImage, btnSubmit, inputNumber,} from '../modules/elements.js';
+	import {
+		lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor,
+		modalOpen, modalClose, modalBackdrop, keyword, dataTable, dateTo, dateFrom,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import { onChangeValidateImage, limitInputLength } from "../modules/common.js";
-	import {isEmpty, isDomainName, initInputNumber, bizNoFormatter} from "../modules/utils.js";
+	import {
+		onChangeValidateImage,
+		limitInputLength,
+		fadeoutModal,
+		fadeinModal,
+		initInputDateRangeWeek,
+		initInputDatepickerMinDateToday
+	} from "../modules/common.js";
+	import {isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
+	import {initTableDefaultConfig} from "../modules/tables.js";
 
 	$( () => {
-		title.trigger('focus');
+		/** dataTable default config **/
+		initTableDefaultConfig();
+		initInputDatepickerMinDateToday();
+		initInputDateRangeWeek();
 		/** 이벤트 **/
+		title.trigger('focus');
 		inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
+		dateFrom	.on('change', function () { onChangeDateFrom() });
 		contentImage.on('change', function () { onChangeValidateImage(this); });
+		keyword			.on('keyup', function () { onKeyupKeyword(); });
+		modalOpen		.on("click", function () { onClickModalOpen(); });
+		modalClose		.on("click", function () { fadeoutModal(); });
+		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		//btnSubmit	.on('click', function () { onSubmitPromotion(); });
 	});
+
+	function onClickModalOpen()
+	{
+		fadeinModal();
+		initModal();
+		buildSponsor();
+	}
+
+	function initModal()
+	{
+		keyword.trigger('focus');
+		keyword.val('');
+	}
+
+	function buildSponsor()
+	{
+		dataTable.DataTable({
+			ajax : {
+				url: api.doitSponsorList,
+				type:"POST",
+				headers: headers,
+				global: false,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (!isSuccessResp(json))
+					{
+						json.data = [];
+						sweetToast(invalidResp(json));
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					return JSON.stringify({ "nickname" : keyword.val() });
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "스폰서 명",	data: "nickname" }
+			],
+			serverSide: true,
+			paging: false,
+			select: false,
+			scrollY: 450,
+			scrollCollapse: true,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('data-uuid', aData.profile_uuid);
+				$(nRow).attr('data-name', aData.nickname);
+				$(nRow).on('click', function () { onSelectSponsor(this); })
+			}
+		});
+	}
+
+	function onSelectSponsor(obj)
+	{
+		sponsorUuid.val($(obj).data('uuid'));
+		sponsor.val($(obj).data('name'));
+		fadeoutModal();
+	}
+
+	function onKeyupKeyword()
+	{
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+	}
 
 	function onSubmitPromotion()
 	{
@@ -40,9 +130,6 @@
 	{
 		const param = {
 			"company_name" : title.val().trim(),
-			"company_number" : bizNoFormatter(bizNo.val()),
-			"company_site_url" : bizWeb.val().trim(),
-			"contents" : content.val().trim(),
 			"company_image_url" : data.image_urls.file
 		}
 
@@ -55,7 +142,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listBiz;
+		location.href = page.listPromotion;
 	}
 
 	function validation()
@@ -67,40 +154,24 @@
 			return false;
 		}
 
-		if (isEmpty(bizNo.val()))
+		if (isEmpty(sponsor.val()))
 		{
-			sweetToast(`사업자번호는 ${message.required}`);
-			bizNo.trigger('focus');
+			sweetToast(`스폰서를 ${message.select}`);
+			sponsor.trigger('focus');
 			return false;
 		}
 
-		const bizImg = contentImage[0].files;
-		if (bizImg.length === 0)
+		const promotionImg = contentImage[0].files;
+		if (promotionImg.length === 0)
 		{
-			sweetToast(`프로필 이미지는 ${message.required}`);
-			return false;
-		}
-
-		if (isEmpty(bizWeb.val()))
-		{
-			sweetToast(`홈페이지는 ${message.required}`);
-			bizWeb.trigger('focus');
-			return false;
-		}
-
-		if (!isDomainName(bizWeb.val().trim()))
-		{
-			sweetToast(`홈페이지 형식을 ${message.doubleChk}`);
-			bizWeb.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(content.val()))
-		{
-			sweetToast(`기업 소개는 ${message.required}`);
-			content.trigger('focus');
+			sweetToast(`이미지는 ${message.required}`);
 			return false;
 		}
 
 		return true;
+	}
+
+	function onChangeDateFrom()
+	{
+		dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
 	}

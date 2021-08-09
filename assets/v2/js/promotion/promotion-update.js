@@ -1,19 +1,20 @@
 
-	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp, ajaxRequestWithFile} from "../modules/ajax-request.js";
+	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate,
-		btnSubmit, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd,
-		tabUl, tabContents, amount, inputNumber, lengthInput, description, ucdInfoTable,
-		doitTable,balance, btnSaveUcd
+		contentImage, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
+		keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, historyBack, onErrorImage, initPageLength, limitInputLength, getDoitStatusName} from "../modules/common.js";
-	import {getPathName, splitReverse, isEmpty, initInputNumber, numberWithCommas, isNegative} from "../modules/utils.js";
+	import {
+		fadeinModal, fadeoutModal, onErrorImage, limitInputLength,
+		onChangeValidateImage, calculateInputLength, initSearchDatepicker
+	} from "../modules/common.js";
+	import {getPathName, splitReverse, isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {buildTotalCount, initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+	import {initTableDefaultConfig,} from "../modules/tables.js";
 
 	const pathName	= getPathName();
 	const promotionIdx	= splitReverse(pathName, '/');
@@ -21,51 +22,21 @@
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		/** n개씩 보기 초기화 **/
-		//initPageLength(selPageLengthDoit);
-		//initPageLength(selPageLengthUcd);
+		initSearchDatepicker();
 		/** 상세 불러오기 **/
 		//getDetail();
 		/** 이벤트 **/
+		title.trigger('focus');
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		inputNumber 	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
-		tabUl			.on('click', function (event) { onClickTab(event.target); });
-		selPageLengthDoit.on("change", function () { buildDoitTable(); });
-		selPageLengthUcd.on("change", function () { buildUcdTable(); });
-		btnSaveUcd		.on("click", function () { onClickModalOpen(); });
+		dateFrom	.on('change', function () { onChangeDateFrom() });
+		contentImage.on('change', function () { onChangeValidateImage(this); });
+		keyword			.on('keyup', function () { onKeyupKeyword(); });
+		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		btnBack	 		.on('click', function () { historyBack(); });
-		btnList	 		.on('click', function () { goListPage(); });
-		btnUpdate		.on('click', function () { goUpdatePage(); });
-		btnSubmit		.on('click', function () { onSubmitBizUcd(); });
+		//btnSubmit		.on('click', function () { onSubmitUpdatePromotion(); });
 	});
-
-	function onClickTab(selectedTab)
-	{
-		const target = $(selectedTab).data('target')
-
-		switch (target) {
-			case '#tabDoitInfo' :
-				buildDoitTable();
-				break;
-			case '#tabUcdInfo' :
-				buildUcdTable();
-				break;
-		}
-
-		$(selectedTab).siblings().removeClass('active');
-		$(selectedTab).addClass('active');
-		tabContents.hide();
-		$(target).show();
-	}
-
-	function onClickModalOpen()
-	{
-		fadeinModal();
-		amount.trigger('focus');
-		amount.val('');
-	}
 
 	function getDetail()
 	{
@@ -78,247 +49,164 @@
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
-	let g_profile_uuid;
+	let g_promotion_uuid;
 	function getDetailSuccess(data)
 	{
-		g_profile_uuid = data.data.profile_uuid;
+		g_promotion_uuid = data.data.promotion_uuid;
 		buildDetail(data);
-		getBalance();
-		buildDoitTable();
 	}
 
 	function buildDetail(data)
 	{
-		const { company_number,profile_image_url, nickname, site_url, description } = data.data;
+		const { promotion_title, image_url, start_date, end_date } = data.data;
 
-		contentImage.attr('src', profile_image_url);
-		title.text(nickname);
-		bizNo.text(company_number);
-		bizWeb.html(`<a href="${site_url}" class="link" target="_blank">${site_url}</a>`);
-		content.text(description);
+		title.text(promotion_title);
+		contentImage.attr('src', image_url);
+		dateFrom.val(start_date);
+		dateFrom.datepicker("option", "minDate", start_date);
+		dateTo.val(end_date);
+		dateTo.datepicker("option", "minDate", start_date);
 
 		onErrorImage();
+		calculateInputLength();
 	}
 
-	function getBalance()
+	function onClickModalOpen()
 	{
-		const param = { "profile_uuid" : g_profile_uuid }
-
-		ajaxRequestWithJson(false, api.getBizUcd, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
-			})
-			.catch(reject => sweetError(`보유 UCD ${message.ajaxLoadError}`));
+		fadeinModal();
+		initModal();
+		buildSponsor();
 	}
 
-	function buildBalance(data)
+	function initModal()
 	{
-		balance.text(numberWithCommas(data.data.ucd));
+		keyword.trigger('focus');
+		keyword.val('');
 	}
 
-	function buildDoitTable()
+	function buildSponsor()
 	{
-		doitTable.DataTable({
+		dataTable.DataTable({
 			ajax : {
-				url: api.bizDoitList,
+				url: api.doitSponsorList,
 				type:"POST",
 				headers: headers,
 				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
-					if (isSuccessResp(json))
-					{
-						json.recordsTotal = json.count;
-						json.recordsFiltered = json.count;
-					}
-					else
+					if (!isSuccessResp(json))
 					{
 						json.data = [];
 						sweetToast(invalidResp(json));
 					}
 
-
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					const param = {
-						"profile_uuid" : g_profile_uuid,
-						"page" : (d.start / d.length) + 1
-						,"limit" : d.length
-					}
-
-					return JSON.stringify(param);
+					return JSON.stringify({ "nickname" : keyword.val() });
 				},
 				error: function (request, status) {
-					sweetError('두잇'+label.list+message.ajaxLoadError);
+					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "카테고리",    	data: "category_title",  		width: "15%" }
-				,{title: "세부 카테고리",   data: "subcategory_title",  	width: "15%" }
-				,{title: "두잇명",    	data: "doit_title",  			width: "40%",
-					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`
-					}
-				}
-				,{title: "개설일",    	data: "created",  				width: "10%",
-					render:function (data) {
-						return data.substring(0, 10);
-					}
-				}
-				,{title: "참여인원",    	data: "member_cnt",  			width: "10%",
-					render:function (data) {
-						return numberWithCommas(data);
-					}
-				}
-				,{title: "상태",    		data: "doit_status",			width: "10%",
-					render:function (data) {
-						return getDoitStatusName(data);
-					}
-				}
+				{title: "스폰서 명",	data: "nickname" }
 			],
 			serverSide: true,
-			paging: true,
-			pageLength: Number(selPageLengthDoit.val()),
+			paging: false,
 			select: false,
+			scrollY: 450,
+			scrollCollapse: true,
 			destroy: true,
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
-			},
-			drawCallback: function (settings) {
-				buildTotalCount(this);
-				toggleBtnPreviousAndNextOnTable(this);
+				$(nRow).attr('data-uuid', aData.profile_uuid);
+				$(nRow).attr('data-name', aData.nickname);
+				$(nRow).on('click', function () { onSelectSponsor(this); })
 			}
 		});
 	}
 
-	function buildUcdTable()
+	function onSelectSponsor(obj)
 	{
-		ucdInfoTable.DataTable({
-			ajax : {
-				url: api.bizUcdList,
-				type:"POST",
-				headers: headers,
-				global: false,
-				dataFilter: function(data){
-					let json = JSON.parse(data);
-					if (isSuccessResp(json))
-					{
-						json.recordsTotal = json.data.count;
-						json.recordsFiltered = json.data.count;
-						json.data = json.data.list;
-					}
-					else
-					{
-						json.data = [];
-						sweetToast(invalidResp(json));
-					}
-
-
-					return JSON.stringify(json);
-				},
-				data: function (d) {
-					const param = {
-						"from_date" : "",
-						"to_date" : "",
-						"search_type" : "profile_uuid",
-						"keyword" : g_profile_uuid,
-						"page" : (d.start / d.length) + 1,
-						"limit" : d.length
-					}
-
-					return JSON.stringify(param);
-				},
-				error: function (request, status) {
-					sweetError('UCD'+label.list+message.ajaxLoadError);
-				}
-			},
-			columns: [
-				{title: "구분",    	data: "division",  		width: "10%" }
-				,{title: "제목",    	data: "title",  		width: "15%" }
-				,{title: "내용",    	data: "description",  	width: "40%",
-					render: function (data, type, row, meta) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
-				,{title: "UCD", 	data: "value",		width: "10%",
-					render: function (data, type, row, meta) {
-						return numberWithCommas(data);
-					}
-				}
-				,{title: "일시",    	data: "created",  		width: "15%" }
-			],
-			serverSide: true,
-			paging: true,
-			pageLength: Number(selPageLengthUcd.val()),
-			select: false,
-			destroy: true,
-			initComplete: function () {
-			},
-			fnRowCallback: function( nRow, aData ) {
-				if (isNegative(aData.value))
-					$(nRow).addClass('minus-pay');
-			},
-			drawCallback: function (settings) {
-				buildTotalCount(this);
-				toggleBtnPreviousAndNextOnTable(this);
-			}
-		});
+		sponsorUuid.val($(obj).data('uuid'));
+		sponsor.val($(obj).data('name'));
+		fadeoutModal();
 	}
 
-	function createValidation()
+	function onKeyupKeyword()
 	{
-		if (isEmpty(amount.val()))
+		let table = dataTable.DataTable();
+		table.ajax.reload();
+	}
+
+	function onChangeDateFrom()
+	{
+		dateTo.datepicker("option", "minDate", new Date(dateFrom.datepicker("getDate")));
+	}
+
+	function onSubmitUpdatePromotion()
+	{
+		if (validation())
 		{
-			sweetToast(`ucd는 ${message.required}`);
-			amount.trigger('focus');
+			const contentImgFile = contentImage[0].files;
+			const callback = contentImgFile.length > 0 ? fileUploadReq : updateRequest;
+
+			sweetConfirm(message.modify, callback);
+		}
+	}
+
+	function fileUploadReq()
+	{
+		let param  = new FormData();
+		param.append('file', contentImage[0].files[0]);
+
+		ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));
+	}
+
+	function updateRequest(data)
+	{
+		if (isEmpty(data) || isSuccessResp(data))
+		{
+			const param = {
+				"promotion_uuid" : g_promotion_uuid,
+				"company_name" : title.val().trim(),
+				"company_image_url" : data.image_urls.file
+			}
+
+			ajaxRequestWithJson(true, api.createBiz, JSON.stringify(param))
+				.then( async function( data, textStatus, jqXHR ) {
+					await sweetToastAndCallback(data, updateSuccess);
+				})
+				.catch(reject => sweetError(label.modify + message.ajaxError));
+		}
+	}
+
+	function updateSuccess()
+	{
+		location.href = page.detailPromotion + promotionIdx;
+	}
+
+	function validation()
+	{
+		if (isEmpty(title.val()))
+		{
+			sweetToast(`기업명은 ${message.required}`);
+			title.trigger('focus');
 			return false;
 		}
 
-		if (amount.val() > 100000000)
+		if (isEmpty(sponsor.val()))
 		{
-			sweetToast(message.maxAvailableBizUcd);
-			amount.trigger('focus');
+			sweetToast(`스폰서를 ${message.select}`);
+			sponsor.trigger('focus');
 			return false;
 		}
 
 		return true;
-	}
-
-	function onSubmitBizUcd()
-	{
-		if (createValidation())
-			sweetConfirm(message.create, createBizUcdRequest);
-	}
-
-	function createBizUcdRequest()
-	{
-		const param = {
-			"profile_uuid" : [g_profile_uuid],
-			"value" : amount.val().trim(),
-			"description" : description.val().trim(),
-		}
-
-		ajaxRequestWithJson(true, api.saveBizUcd, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				await sweetToastAndCallback(data, createSubcategorySuccess);
-			})
-			.catch(reject => sweetError(label.submit + message.ajaxError));
-	}
-
-	function createSubcategorySuccess()
-	{
-		fadeoutModal();
-		getDetail();
-	}
-
-	function goListPage()
-	{
-		location.href = page.listPromotion;
-	}
-
-	function goUpdatePage()
-	{
-		location.href = page.updatePromotion + 1;// + promotionIdx;
 	}

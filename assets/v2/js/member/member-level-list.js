@@ -98,12 +98,12 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "nickname",  		width: "30%",
+				{title: "닉네임",    		data: "nickname",  		width: "25%",
 					render: function (data, type, row, meta) {
 						return row.is_company === 'Y' ? label.bizIcon + data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "누적 인증 수", 	data: "action_count",	width: "15%",
+				,{title: "누적 인증 수", 	data: "action_count",	width: "10%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
@@ -114,11 +114,12 @@
 						return isEmpty(data) ? label.dash : data.split('||')[0];
 					}
 				}
-				,{title: "사유",    		data: "reason",  		width: "30%",	visible: false,
+				,{title: "사유",    		data: "reason",  		width: "25%",	visible: false,
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data.split('||')[1];
 					}
 				}
+				,{title: "반영일시",    	data: "changed",  		width: "15%",	visible: false}
 			],
 			serverSide: true,
 			paging: true,
@@ -137,11 +138,13 @@
 				{
 					table.column(3).visible(true);
 					table.column(4).visible(true);
+					table.column(5).visible(true);
 				}
 				else
 				{
 					table.column(3).visible(false);
 					table.column(4).visible(false);
+					table.column(5).visible(false);
 				}
 			},
 			drawCallback: function (settings) {

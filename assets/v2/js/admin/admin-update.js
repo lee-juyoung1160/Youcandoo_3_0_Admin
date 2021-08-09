@@ -36,7 +36,7 @@
 
 	function buildAuthType(data)
 	{
-		let options = '<option value="all">전체</option>';
+		let options = '';
 		if (!isEmpty(data.data) && data.data.length  > 0)
 		{
 			data.data.map(auth => {
@@ -68,8 +68,7 @@
 
 		selAuthType.val(auth_code);
 		onChangeAuth(selAuthType);
-		if (!isEmpty(company_idx))
-			selBiz.val(company_idx);
+		selBiz.val(company_idx);
 		username.text(name);
 		useremail.text(email);
 		isApproval.text(status);
@@ -114,7 +113,7 @@
 
 	function onChangeAuth(obj)
 	{
-		selBiz.val('');
+		selBiz.val('0');
 		selBiz.prop('disabled', $(obj).val() !== 'biz');
 	}
 
@@ -131,7 +130,7 @@
 	{
 		if (!isEmpty(data.data) && data.data.length > 0)
 		{
-			let options = '<option value="">선택</option>';
+			let options = '<option value="0">선택</option>';
 			data.data.map(biz => {
 				const {idx, nickname} = biz;
 				options += `<option value="${idx}">${nickname}</option>`;

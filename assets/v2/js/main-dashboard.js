@@ -428,47 +428,52 @@
             },
             columns: [
                 {title: "일자",    	    data: "basedate",  		        width: "10%" }
-                ,{title: "앱 설치", 	    data: "app_down_count",	        width: "10%",
+                ,{title: "앱 설치", 	    data: "app_down_count",	        width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "회원 가입", 	data: "sign_up_count",		    width: "10%",
+                ,{title: "회원 가입", 	data: "sign_up_count",		    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "두잇 가입", 	data: "doit_sign_up_count",		width: "10%",
+                ,{title: "두잇 가입", 	data: "doit_sign_up_count",		width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "인증", 	    data: "action_count",		    width: "10%",
+                ,{title: "인증", 	    data: "action_count",		    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "인증 댓글", 	data: "action_comment_count",	width: "10%",
+                ,{title: "인증 댓글", 	data: "action_comment_count",	width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "커뮤니티", 	    data: "board_count",		    width: "10%",
+                ,{title: "커뮤니티", 	    data: "board_count",		    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "커뮤니티 댓글", 	data: "board_comment_count",	width: "10%",
+                ,{title: "커뮤니티 댓글", 	data: "board_comment_count",	width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "두잇 개설", 	data: "create_doit_count",		width: "10%",
+                ,{title: "두잇 개설", 	data: "create_doit_count",		width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "미션 등록", 	data: "create_mission_count",	width: "10%",
+                ,{title: "미션 등록", 	data: "create_mission_count",	width: "9%",
+                    render: function (data) {
+                        return numberWithCommas(data);
+                    }
+                }
+                ,{title: "발행 UCD", 	data: "ucd_amount",	            width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }

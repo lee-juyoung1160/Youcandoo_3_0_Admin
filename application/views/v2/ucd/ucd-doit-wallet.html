@@ -2,7 +2,7 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">시스템 지갑</h2>
+            <h2 class="main-title">두잇 지갑</h2>
         </div>
 
         <div class="search-wrap row">
@@ -31,7 +31,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="nickname">닉네임</option>
+                                <option value="nickname">두잇/실행자/To</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -40,45 +40,6 @@
                         </div>
                     </li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="search-wrap row">
-            <div class="col-4">
-                <div class="card clearfix">
-                    <p class="search-title">구분</p>
-                    <div class="checkbox-wrap" id="checkTypeWrap">
-                        <!--<input id="c1" type="checkbox" name="chk-type" value="join">
-                        <label for="c1"><span></span>신규 가입</label>
-
-                        <input id="c2" type="checkbox" name="chk-type" value="invite">
-                        <label for="c2"><span></span>친구 초대</label>
-
-                        <input id="c3" type="checkbox" name="chk-type" value="level">
-                        <label for="c3"><span></span>레벨업 보상</label>
-
-                        <input id="c4" type="checkbox" name="chk-type" value="charge">
-                        <label for="c4"><span></span>충전</label>-->
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card clearfix">
-                    <p class="search-title">상태</p>
-                    <div class="radio-wrap">
-                        <input id="r4" type="radio" name="radio-status" value="all">
-                        <label for="r4"><span></span>전체</label>
-
-                        <input id="r5" type="radio" name="radio-status" value="pending">
-                        <label for="r5"><span></span>대기</label>
-
-                        <input id="r6" type="radio" name="radio-status" value="complete">
-                        <label for="r6"><span></span>완료</label>
-
-                        <input id="r7" type="radio" name="radio-status" value="expired">
-                        <label for="r7"><span></span>소멸</label>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -101,30 +62,33 @@
                 <!--<thead>
                 <colgroup>
                     <col style="width: 15%;">
-                    <col style="width: 10%;">
-                    <col style="width: 40%;">
+                    <col style="width: 20%;">
+                    <col style="width: 15%;">
+                    <col style="width: 20%;">
+                    <col style="width: 5%;">
                     <col style="width: 10%;">
                     <col style="width: 15%;">
-                    <col style="width: 10%;">
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>닉네임</th>
-                    <th>구분</th>
+                    <th>두잇명</th>
                     <th>상세 내용</th>
+                    <th>실행자</th>
+                    <th>수령자</th>
+                    <th>구분</th>
                     <th>UCD</th>
                     <th>지급 일시</th>
-                    <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>베리네모카</td>
-                    <td>어드민 지정</td>
-                    <td>사아아아앙세에에에내요오오오옹</td>
+                    <td>두잇며어어어어어어어엉</td>
+                    <td>사아아아아아앙세에에에에에내에에에요오오옹</td>
+                    <td>강남대로무법자</td>
+                    <td>[두잇] 홈트의 왕</td>
+                    <td>적립</td>
                     <td>1,000</td>
                     <td>2020-02-02 00:00:00</td>
-                    <td>대기</td>
                 </tr>
                 </tbody>-->
             </table>
@@ -132,4 +96,4 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/ucd/system-wallet.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/ucd-doit-wallet.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

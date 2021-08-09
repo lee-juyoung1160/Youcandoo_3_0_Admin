@@ -2,7 +2,7 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">사용자 지갑</h2>
+            <h2 class="main-title">적립 대기 지갑</h2>
         </div>
 
         <div class="search-wrap row">
@@ -25,15 +25,10 @@
                         </div>
                     </li>
                     <li>
-                        <p class="search-title">검색어
-                            <i class="tooltip-mark fas fa-question-circle">
-                                <span class="tooltip-txt right">검색어 입력 필수</span>
-                            </i>
-                        </p>
+                        <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="nickname">닉네임</option>
-                                <option value="profile_uuid">PID</option>
+                                <option value="nickname">From/To</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -42,6 +37,27 @@
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">상태</p>
+                    <div class="radio-wrap">
+                        <input id="r4" type="radio" name="radio-status" value="all">
+                        <label for="r4"><span></span>전체</label>
+
+                        <input id="r5" type="radio" name="radio-status" value="pending">
+                        <label for="r5"><span></span>대기</label>
+
+                        <input id="r6" type="radio" name="radio-status" value="complete">
+                        <label for="r6"><span></span>적립</label>
+
+                        <input id="r7" type="radio" name="radio-status" value="expired">
+                        <label for="r7"><span></span>소멸</label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -64,33 +80,36 @@
                 <!--<thead>
                 <colgroup>
                     <col style="width: 15%;">
-                    <col style="width: 5%;">
-                    <col style="width: 25%;">
-                    <col style="width: 25%;">
-                    <col style="width: 10%;">
                     <col style="width: 15%;">
+                    <col style="width: 15%;">
+                    <col style="width: 20%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
                     <col style="width: 5%;">
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>닉네임</th>
-                    <th>구분</th>
+                    <th>From</th>
+                    <th>To</th>
                     <th>제목</th>
                     <th>상세내용</th>
                     <th>UCD</th>
-                    <th>일시</th>
+                    <th>수신일</th>
+                    <th>만료일</th>
                     <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>강남대로무법자</td>
-                    <td>적립</td>
-                    <td>친구초대</td>
-                    <td>유효기간 초과 UCD 소멸</td>
+                    <td>[두잇] 계단 오르기</td>
+                    <td>맥</td>
+                    <td>두잇 보상</td>
+                    <td>상세내요오오오오오오오오옹</td>
                     <td>1,000</td>
-                    <td>2020-02-02 00:00:00</td>
-                    <td>대기</td>
+                    <td>2021-01-21</td>
+                    <td>2021-02-20</td>
+                    <td>소멸</td>
                 </tr>
                 </tbody>-->
             </table>
@@ -98,4 +117,4 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/ucd/member-wallet.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/ucd-pending-wallet.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

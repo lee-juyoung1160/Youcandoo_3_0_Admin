@@ -5,22 +5,22 @@ class Ucd extends MY_Controller {
 
     public function index()
     {
-        $this->load->template('v2/ucd/ucd-system-list');
+        $this->load->template('v2/ucd/ucd-system-wallet');
     }
 
     public function doit()
     {
-        $this->load->template('v2/ucd/ucd-doit-list');
+        $this->load->template('v2/ucd/ucd-doit-wallet');
     }
 
     public function user()
     {
-        $this->load->template('v2/ucd/ucd-user-list');
+        $this->load->template('v2/ucd/ucd-member-wallet');
     }
 
     public function waiting()
     {
-        $this->load->template('v2/ucd/ucd-waiting-list');
+        $this->load->template('v2/ucd/ucd-pending-wallet');
     }
 
     public function charge()

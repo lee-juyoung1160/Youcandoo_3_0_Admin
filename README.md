@@ -1,8 +1,6 @@
 
 # 유캔두 어드민
-
 유캔두 어드민
-
 
 ## Plugins
 [jQuery3.3.1](https://jquery.com/)
@@ -86,4 +84,54 @@ getHistoryParam : 목록 페이지에서 이전 검색 조건을 localStorage부
 #### utils.js : util 모음
 ```javascript
 설명 생략.
+```
+## js 파일 Bundle
+* js파일을 모듈로 구현했기 때문에 bundle 후 사용을 권장.(필수는 아님)
+* 라이브러리 : [webpack](https://webpack.js.org/)
+* nodejs LTS 버전 설치 필수
+```bash
+  1. 임의의 경로에 임의의 폴더를 하나 생성한다.
+  mkdir webpack-demo
+  
+  2. 생성된 폴더로 이동
+  cd webpack-demo
+  
+  3. npm 초기화(pakage.json 파일생성)
+  npm init -y
+  
+  4. webpack 및 webpack cli 설치
+  npm install webpack webpack-cli --save-dev
+  
+  5. pakage.json 파일을 열어 scripts 항목에 아래 내용 추가
+  "scripts": {
+    "build": "webpack"
+  }
+```
+```javascript
+6. 폴더 최상위 레벨에 webpack.config.js 파일 생성 및 아래 내용 추가
+const path = require('path');
+
+module.exports = {
+  entry: {
+    menu: './src/menu.js',
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+};
+
+// entry : bundling 대상이 될 파일 위치 및 이름 설정
+// output : bundling 된 파일이 생설될 위치 및 파일 이름에 대한 설정
+output.filename : bundling 된 파일이름
+output.path : bundling 된 파일이 생성될 위치
+
+위 예시 에서 output.filename의 [name]부분은 entry.menu에 해당 됨.
+```
+```bash
+  7. 모든 설정이 완료되면 아래 명렬어로 bundling
+  - npm 사용할 경우 : npm run build
+  - yarn 사용할 경우 : yarn build
+
+  8. output에 설정한 폴더에서 최종 결과물 확인
 ```

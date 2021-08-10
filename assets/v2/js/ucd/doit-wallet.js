@@ -49,7 +49,6 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMaxDateToday();
 	}
 
 	function buildTable()

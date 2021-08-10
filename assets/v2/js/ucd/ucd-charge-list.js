@@ -3,7 +3,8 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday, initSearchDateRangeWeek} from "../modules/common.js";
+	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
+		onChangeSearchDateFrom, onChangeSearchDateTo, initSearchDateRangeWeek} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -31,7 +32,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
+		initMaxDateToday();
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');

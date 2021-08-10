@@ -32,7 +32,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
+		initMaxDateToday();
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');

@@ -42,7 +42,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
+		initMaxDateToday();
 		initSearchDateRangeMonths();
 		initSelectOption();
 		keyword.val('');

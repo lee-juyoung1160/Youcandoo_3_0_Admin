@@ -60,7 +60,6 @@
 	function onSubmitSearch()
 	{
 		_currentPage = 1;
-		initMaxDateToday();
 		getActions();
 	}
 

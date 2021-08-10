@@ -47,7 +47,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
+		initMaxDateToday();
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
@@ -66,7 +66,6 @@
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
 		uncheckedCheckAll();
-		initMaxDateToday();
 	}
 
 	function buildTable()

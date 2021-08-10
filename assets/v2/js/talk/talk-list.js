@@ -6,7 +6,7 @@
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback,} from '../modules/alert.js';
 	import {
-		initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths, fadeoutModal,
+		initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, fadeoutModal,
 		setDateToday, onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, overflowHidden,
 	} from "../modules/common.js";
 	import {
@@ -47,7 +47,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateMonths()
+		initMaxDateToday();
 		setDateToday();
 		initSelectOption();
 		keyword.val('');

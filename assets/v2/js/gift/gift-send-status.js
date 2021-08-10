@@ -46,7 +46,6 @@
 	{
 		let table = dataTable.DataTable();
 		table.ajax.reload();
-		initMaxDateToday();
 	}
 
 	function buildTable()

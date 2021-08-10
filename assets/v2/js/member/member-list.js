@@ -34,7 +34,7 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
+		initMaxDateToday();
 		initSearchDateRangeMonths();
 		initSelectOption();
 		keyword.val('');
@@ -65,7 +65,6 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMaxDateToday();
 	}
 
 	function buildTable()

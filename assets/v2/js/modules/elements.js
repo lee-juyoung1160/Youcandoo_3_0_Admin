@@ -124,6 +124,11 @@
     export const btnDoitOpen    = $("#btnDoitOpen");
     export const btnDoitDelete  = $("#btnDoitDelete");
     export const btnDoitStop    = $("#btnDoitStop");
+    export const promotionInfo  = $("#promotionInfo");
+    export const modalPromotion  = $("#modalPromotion");
+    export const promotionTable  = $("#promotionTable");
+    export const btnPromotion   = $("#btnPromotion");
+    export const btnPromotionCancel   = $("#btnPromotionCancel");
     export const tabUl          = $("#tabUl");
     export const tabContents    = $(".tab-contents");
     export const category       = $("#category");

@@ -1,19 +1,94 @@
 
 	import {
-		modalClose, modalBackdrop, tabUl, tabContents, btnBack, btnList, lengthInput, btnDoitOpen, btnDoitStop,
-		btnDoitDelete, btnCreateMission, btnDeleteMission, btnUpdateMission, btnSubmitUpdateMission, btnSubmitMission,
-		btnCreateTalk, btnPendingMembers, btnJoinMembers, btnReset, actionCount, btnResetSearchAction, btnSaveUcd,
-		amount, btnSendWarning, btnSearchTalk, btnResetSearchTalk, btnUpdateTalk, searchActionDateFrom,
-		searchActionDateTo, searchTalkDateFrom, searchTalkDateTo, dateButtons, missionStartDate, missionEndDate,
-		rdoActionType, updateMissionStartDate, updateMissionEndDate, rdoUpdateActionType, selJoinMemberPageLength,
-		selApplyMemberPageLength, btnSearch, selSort, btnBan, btnBackActionList, chkPermanent, chkUpdatePermanent,
-		btnSearchAction, selActionPageLength, btnSendWarnings, btnSubmitSendWarning, btnSubmitCommentAction,
-		rdoAttachType, selTalkPageLength, btnSubmitTalk, btnSubmitCommentTalk, btnDeleteTalk, rdoUpdateAttachType,
-		btnSubmitUpdateTalk, selUcdPageLength, searchUcdDateTo, searchUcdDateFrom, btnSaveUcdWallet,
-		saveWalletAmount, btnSearchUcd, btnResetSearchUcd, btnSubmitSaveDoitUcd, btnSubmitSaveUcd, btnBackToTalkList,
-		btnBackToTalkDetail, btnBackToMissionList, btnBackToMissionDetail, btnBlindTalk, btnDisplayTalk,
-		selRewardType, rewardKeyword, btnApproval, btnReject, doitImage, selCategory, btnAddKeyword, chkIsApply,
-		chkIsQuestion, btnUpdateDoit, btnBackDoitList, btnSubmitUpdateDoit, actionTimes,
+		modalClose,
+		modalBackdrop,
+		tabUl,
+		tabContents,
+		btnBack,
+		btnList,
+		lengthInput,
+		btnDoitOpen,
+		btnDoitStop,
+		btnDoitDelete,
+		btnCreateMission,
+		btnDeleteMission,
+		btnUpdateMission,
+		btnSubmitUpdateMission,
+		btnSubmitMission,
+		btnCreateTalk,
+		btnPendingMembers,
+		btnJoinMembers,
+		btnReset,
+		actionCount,
+		btnResetSearchAction,
+		btnSaveUcd,
+		amount,
+		btnSendWarning,
+		btnSearchTalk,
+		btnResetSearchTalk,
+		btnUpdateTalk,
+		searchActionDateFrom,
+		searchActionDateTo,
+		searchTalkDateFrom,
+		searchTalkDateTo,
+		dateButtons,
+		missionStartDate,
+		missionEndDate,
+		rdoActionType,
+		updateMissionStartDate,
+		updateMissionEndDate,
+		rdoUpdateActionType,
+		selJoinMemberPageLength,
+		selApplyMemberPageLength,
+		btnSearch,
+		selSort,
+		btnBan,
+		btnBackActionList,
+		chkPermanent,
+		chkUpdatePermanent,
+		btnSearchAction,
+		selActionPageLength,
+		btnSendWarnings,
+		btnSubmitSendWarning,
+		btnSubmitCommentAction,
+		rdoAttachType,
+		selTalkPageLength,
+		btnSubmitTalk,
+		btnSubmitCommentTalk,
+		btnDeleteTalk,
+		rdoUpdateAttachType,
+		btnSubmitUpdateTalk,
+		selUcdPageLength,
+		searchUcdDateTo,
+		searchUcdDateFrom,
+		btnSaveUcdWallet,
+		saveWalletAmount,
+		btnSearchUcd,
+		btnResetSearchUcd,
+		btnSubmitSaveDoitUcd,
+		btnSubmitSaveUcd,
+		btnBackToTalkList,
+		btnBackToTalkDetail,
+		btnBackToMissionList,
+		btnBackToMissionDetail,
+		btnBlindTalk,
+		btnDisplayTalk,
+		selRewardType,
+		rewardKeyword,
+		btnApproval,
+		btnReject,
+		doitImage,
+		selCategory,
+		btnAddKeyword,
+		chkIsApply,
+		chkIsQuestion,
+		btnUpdateDoit,
+		btnBackDoitList,
+		btnSubmitUpdateDoit,
+		actionTimes,
+		btnPromotion,
+		modalPromotion,
+		promotionTable, btnPromotionCancel,
 	} from '../modules/elements.js';
 	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
@@ -23,7 +98,14 @@
 	import { initTableDefaultConfig } from "../modules/tables.js";
 	import {getCategoryList, initSearchDatepickerMaxDateToday, onChangeSelCategory,
 		onClickAddKeyword, onClickChkIsApply, onClickChkIsQuestion} from "../modules/doit-common.js"
-	import {getDetail, showDoitInfoForm, onClickBtnUpdateDoit, onSubmitUpdateDoit} from "./doit-detail-info.js";
+	import {
+		getDetail,
+		showDoitInfoForm,
+		onClickBtnUpdateDoit,
+		onSubmitUpdateDoit,
+		isPromotion,
+		g_doit_uuid,
+	} from "./doit-detail-info.js";
 	import {
 		showCreateMissionForm, showMissionListForm, onClickBtnUpdateMission, onChangeActionType, onSubmitMission,
 		onSubmitUpdateMission, deleteMission, onChangeMissionEndDate, onChangeMissionStartDate,
@@ -51,9 +133,9 @@
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url-v1.js";
 	import {message} from "../modules/message.js";
-	import {sweetConfirm, sweetToastAndCallback, sweetError} from "../modules/alert.js";
-	import {g_doit_uuid} from "./doit-detail-info.js";
-	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
+	import {sweetConfirm, sweetToastAndCallback, sweetError, sweetToast} from "../modules/alert.js";
+	import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
+	import {label} from "../modules/label.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -71,6 +153,8 @@
 		btnDoitOpen		.on('click', function () { onSubmitChangeDoitStatus(this); });
 		btnDoitStop		.on('click', function () { onSubmitChangeDoitStatus(this); });
 		btnDoitDelete	.on('click', function () { onSubmitChangeDoitStatus(this); });
+		btnPromotion	.on('click', function () { onClickBtnPromotion(); });
+		btnPromotionCancel	.on('click', function () { onClickBtnPromotionCancel(this); });
 		/** 정보탭 **/
 		getCategoryList();
 		getDetail();
@@ -236,6 +320,12 @@
 				break;
 		}
 
+		if (isPromotion && btnId === 'btnDoitDelete')
+		{
+			sweetToast(message.canDeleteAfterCancelPromotion);
+			return;
+		}
+
 		sweetConfirm(confirmMessage, changeDoitStatusRequest);
 	}
 
@@ -257,6 +347,108 @@
 	function doitStatusChangeSuccess()
 	{
 		onClickTab(tabUl.children().eq(0))
+	}
+
+	function onClickBtnPromotion()
+	{
+		modalPromotion.fadeIn();
+		modalBackdrop.fadeIn();
+		buildPromotion();
+	}
+
+	function buildPromotion()
+	{
+		promotionTable.DataTable({
+			ajax : {
+				url: api.promotionProceedList,
+				type:"POST",
+				headers: headers,
+				global: false,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (!isSuccessResp(json))
+					{
+						json.data = [];
+						sweetToast(invalidResp(json));
+					}
+
+					return JSON.stringify(json);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "프로모션",	data: "promotion_title",	width: '65%' }
+				,{title: "스폰서",	data: "nickname",			width: '35%',
+					render: function (data) {
+						return label.bizIcon + data;
+					}
+				}
+			],
+			serverSide: true,
+			paging: false,
+			select: false,
+			scrollY: 450,
+			scrollCollapse: true,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+				$(nRow).attr('data-uuid', aData.promotion_uuid);
+				$(nRow).attr('data-name', aData.promotion_title);
+				$(nRow).on('click', function () { onClickPromotion(this); });
+			}
+		});
+	}
+
+	let approval_promotion_uuid;
+	function onClickPromotion(obj)
+	{
+		approval_promotion_uuid = $(obj).data('uuid');
+		const msg = `${$(obj).data('name')} 프로모션으로 ${message.approve}`;
+		sweetConfirm(msg, approvalPromotionReq);
+	}
+
+	function approvalPromotionReq()
+	{
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"promotion_uuid" : approval_promotion_uuid
+		}
+
+		ajaxRequestWithJson(true, api.setDoitPromotion, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, approvalPromotionSuccess);
+			})
+			.catch(reject => sweetError(label.approval + message.ajaxError));
+	}
+
+	function approvalPromotionSuccess()
+	{
+		fadeoutModal();
+		getDetail();
+	}
+
+	let cancel_promotion_uuid;
+	function onClickBtnPromotionCancel(obj)
+	{
+		cancel_promotion_uuid = $(obj).data('uuid');
+		sweetConfirm(message.cancel, cancelPromotionReq);
+	}
+
+	function cancelPromotionReq()
+	{
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"promotion_uuid" : cancel_promotion_uuid
+		}
+
+		ajaxRequestWithJson(true, api.cancelDoitPromotion, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, getDetail);
+			})
+			.catch(reject => sweetError(label.cancel + message.ajaxError));
 	}
 
 	function goListPage()

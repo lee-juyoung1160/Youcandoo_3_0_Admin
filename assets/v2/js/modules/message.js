@@ -52,4 +52,5 @@
 		,banMember : '확인을 누르면 강퇴 처리됩니다.'
 		,invalidFileContent : '파일 내용을 양식에 맞게 입력해주세요.'
 		,notModified: '변경 사항이 없습니다.'
+		,canDeleteAfterCancelPromotion: '프로모션 해제 후 삭제할 수 있습니다.'
 	}

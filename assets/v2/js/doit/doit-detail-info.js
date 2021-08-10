@@ -2,13 +2,51 @@
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-		doitTitle, sponsor, category, doitDesc, doitKeywords, doitThumbnail, publicType, isApply, doitQuestion,
-		isAnswer, btnDoitOpen, btnDoitStop, btnDoitDelete, doitUpdateForm, doitInfoForm, doitSponsor, chkIsApply,
-		chkIsQuestion, chkIsAnswer, rdoPublicType, infoDoitTitle, infoDoitDesc, infoDoitKeywords, infoQuestion,
-		selCategory, doitImage, selSubcategory, doitKeyword, btnUpdateDoit, btnCreateMission, btnDeleteMission,
-		btnUpdateMission, btnBan, createCommentWrap, actionCommentWrap, applyMemberCountWrap,
-		btnCreateTalk, talkCommentWrap, createTalkCommentWrap, btnSaveUcd, btnReject, btnApproval,
-	} from '../modules/elements.js';
+	doitTitle,
+	sponsor,
+	category,
+	doitDesc,
+	doitKeywords,
+	doitThumbnail,
+	publicType,
+	isApply,
+	doitQuestion,
+	isAnswer,
+	btnDoitOpen,
+	btnDoitStop,
+	btnDoitDelete,
+	doitUpdateForm,
+	doitInfoForm,
+	doitSponsor,
+	chkIsApply,
+	chkIsQuestion,
+	chkIsAnswer,
+	rdoPublicType,
+	infoDoitTitle,
+	infoDoitDesc,
+	infoDoitKeywords,
+	infoQuestion,
+	selCategory,
+	doitImage,
+	selSubcategory,
+	doitKeyword,
+	btnUpdateDoit,
+	btnCreateMission,
+	btnDeleteMission,
+	btnUpdateMission,
+	btnBan,
+	createCommentWrap,
+	actionCommentWrap,
+	applyMemberCountWrap,
+	btnCreateTalk,
+	talkCommentWrap,
+	createTalkCommentWrap,
+	btnSaveUcd,
+	btnReject,
+	btnApproval,
+	promotionInfo,
+	btnPromotion, btnPromotionCancel,
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, moveToMemberDetail, onErrorImage} from "../modules/common.js";
 	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
@@ -42,19 +80,22 @@
 		buildUpdate(data);
 	}
 
+	export let isPromotion;
 	export let isSponsorDoit;
 	export let g_doit_uuid;
 	export let g_leader_profile_uuid;
 	function buildDetail(data)
 	{
 		const { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
-			public_type, approve_member, question, answer_type, doit_image_url, profile_uuid } = data.data;
+			public_type, approve_member, question, answer_type, doit_image_url, profile_uuid, is_promotion } = data.data;
 
+		isPromotion = is_promotion === 'Y'
 		isSponsorDoit = doit_type === 'sponsor';
 		g_doit_uuid = doit_uuid;
 		g_leader_profile_uuid = profile_uuid;
 
 		infoDoitTitle.html(buildDoitStatus(doit_status) + doit_title);
+		isPromotion ? promotionInfo.html(buildPromotionInfo(data)) : promotionInfo.empty();
 		doitSponsor.html(isSponsorDoit
 				? label.bizIcon + nickname
 				: `<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
@@ -76,6 +117,7 @@
 		onErrorImage();
 
 		toggleButtons(doit_status);
+		toggleBtnPromotion(data);
 
 		doitSponsor.find('a').on('click', function () { onClickNickname(this); });
 	}
@@ -198,6 +240,36 @@
 			btnApproval.remove()
 			btnReject.remove();
 		}
+	}
+
+	function toggleBtnPromotion(data)
+	{
+		const {is_promotion, promotion_uuid, doit_status} = data.data;
+		switch (is_promotion) {
+			case 'Y' :
+				btnPromotion.hide();
+				btnPromotionCancel.show();
+				btnPromotionCancel.attr('data-uuid', promotion_uuid);
+				break;
+			case 'N' :
+				doit_status === 'open' ? btnPromotion.show() : btnPromotion.hide();
+				btnPromotionCancel.hide();
+				break;
+			default :
+				btnPromotion.hide();
+				btnPromotionCancel.hide();
+		}
+	}
+
+	function buildPromotionInfo(data)
+	{
+		const { promotion_title, sponsored, promotion_start_date, promotion_end_date } = data.data
+		return	`<ul class="card promotion-info clearfix">
+					<li><span class="badge badge-purple">프로모션</span></li>
+					<li class="promotion-name">${promotion_title}</li>
+					<li class="promotion-sponsor">${label.bizIcon} ${sponsored}</li>
+					<li class="promotion-date">${promotion_start_date} ~ ${promotion_end_date}</li>
+				</ul>`
 	}
 
 	function buildDoitStatus(status)

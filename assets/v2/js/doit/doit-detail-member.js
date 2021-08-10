@@ -371,7 +371,7 @@
 
 	function buildAnswer(data)
 	{
-		return	`<div class="detail-data line-clamp-2">${data}</div>
+		return	`<div class="detail-data line-clamp" style="max-width: 500px;">${data}</div>
 				<div class="toast-box">
 					<div class="toast-header">
 						<i class="close">×</i>

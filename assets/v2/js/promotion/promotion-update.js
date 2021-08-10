@@ -58,7 +58,21 @@
 
 	function buildDetail(data)
 	{
-		const { promotion_title, promotion_image_url, profile_uuid, nickname, start_date, end_date, } = data.data;
+		const { promotion_title, promotion_image_url, profile_uuid, nickname, start_date, end_date, state } = data.data;
+
+		switch (state) {
+			case '진행중' :
+				sponsor.prop('disabled', true);
+				dateFrom.prop('disabled', true);
+				break;
+			case '종료' :
+				title.prop('disabled', true);
+				sponsor.prop('disabled', true);
+				contentImage.prop('disabled', true);
+				dateFrom.prop('disabled', true);
+				dateTo.prop('disabled', true);
+				break;
+		}
 
 		title.val(promotion_title);
 		sponsor.val(nickname);

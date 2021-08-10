@@ -75,6 +75,21 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">기기 구분</p>
+                    <div class="radio-wrap">
+                        <input id="r4" type="radio" name="radio-type" value="all">
+                        <label for="r4"><span></span>전체</label>
+
+                        <input id="r5" type="radio" name="radio-type" value="AOS">
+                        <label for="r5"><span></span>AOS</label>
+
+                        <input id="r6" type="radio" name="radio-type" value="IOS">
+                        <label for="r6"><span></span>IOS</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="search-btn row">
@@ -160,4 +175,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/inquiry/inquiry-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/inquiry-list.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

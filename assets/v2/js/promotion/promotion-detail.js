@@ -122,7 +122,7 @@
 				,{title: "세부 카테고리",   data: "subcategory_title",  	width: "20%" }
 				,{title: "두잇명",    	data: "doit_title",  			width: "40%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.idx}">${data}</a>`
+						return `<a href="${page.detailDoit}${row.doit_idx}">${data}</a>`
 					}
 				}
 				,{title: "리더",   		data: "nickname",  				width: "20%",

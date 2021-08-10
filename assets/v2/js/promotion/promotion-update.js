@@ -2,9 +2,9 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp, ajaxRequestWithFile} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-		contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
-		keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo
-	} from '../modules/elements.js';
+	contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
+	keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo, promotionStatus
+} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {
 		fadeinModal, fadeoutModal, onErrorImage, limitInputLength,
@@ -36,6 +36,7 @@
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnSubmit		.on('click', function () { onSubmitUpdatePromotion(); });
+		$('.hover-btn').on('mouseenter mouseleave', function () { $(this).siblings('.hover-content').toggleClass('active'); });
 	});
 
 	function getDetail()
@@ -74,6 +75,7 @@
 				break;
 		}
 
+		promotionStatus.text(state);
 		title.val(promotion_title);
 		sponsor.val(nickname);
 		sponsorUuid.val(profile_uuid);

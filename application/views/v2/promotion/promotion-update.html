@@ -54,6 +54,12 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
+                        <th>상태 </th>
+                        <td>
+                            <div class="detail-data" id="promotionStatus"></div>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>프로모션명 *</th>
                         <td>
                             <div class="input-wrap">
@@ -148,13 +154,3 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/bundles/promotion-update.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
-<script>
-
-    $('.hover-btn').on('mouseenter', function(){
-        $('.hover-content').addClass('active');
-    });
-    $('.hover-btn').on('mouseleave', function(){
-        $('.hover-content').removeClass('active');
-    });
-
-</script>

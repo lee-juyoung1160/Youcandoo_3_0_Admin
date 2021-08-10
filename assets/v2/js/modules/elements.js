@@ -490,3 +490,4 @@
     /** 프로모션 **/
     export const promotionDate = $("#promotionDate");
     export const createDate = $("#createDate");
+    export const promotionStatus = $("#promotionStatus");

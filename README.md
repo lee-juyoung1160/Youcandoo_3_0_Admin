@@ -121,12 +121,12 @@ module.exports = {
   },
 };
 
-// entry : bundling 대상이 될 파일 위치 및 이름 설정
-// output : bundling 된 파일이 생설될 위치 및 파일 이름에 대한 설정
-output.filename : bundling 된 파일이름
-output.path : bundling 된 파일이 생성될 위치
+// entry : bundle 대상이 될 파일 위치 및 이름 설정
+// output : bundle 파일이 생설될 위치 및 파일 이름에 대한 설정
+output.filename : bundle 파일이름
+output.path : bundle 파일이 생성될 위치(위 예제에선 폴더 최상위 레벨 dist라는 폴더에 생성됨)
 
-위 예시 에서 output.filename의 [name]부분은 entry.menu에 해당 됨.
+위 예시 에서 output.filename의 [name]부분은 entry의 menu에 해당 됨.
 ```
 ```bash
   7. 모든 설정이 완료되면 아래 명렬어로 bundling
@@ -134,4 +134,5 @@ output.path : bundling 된 파일이 생성될 위치
   - yarn 사용할 경우 : yarn build
 
   8. output에 설정한 폴더에서 최종 결과물 확인
+  9. bundle 된 파일을 html에 사용
 ```

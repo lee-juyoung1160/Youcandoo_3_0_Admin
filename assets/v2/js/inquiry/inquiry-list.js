@@ -1,13 +1,13 @@
 
 	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url-v1.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus,
+	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus, rdoType,
 		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, initSearchDateRangeMonth,
 		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail,} from "../modules/common.js";
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage} from '../modules/tables.js';
-	import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
+		import {getHistoryParam, isBackAction, setHistoryParam} from "../modules/history.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -46,6 +46,7 @@
 		initSelectOption();
 		keyword.val('');
 		rdoStatus.eq(0).prop('checked', true);
+		rdoType.eq(0).prop('checked', true);
 	}
 
 	function setHistoryForm()
@@ -59,6 +60,9 @@
 		selInquiryType.val(historyParams.qna_type);
 		rdoStatus.each(function () {
 			$(this).prop('checked', $(this).val() === historyParams.status);
+		})
+		rdoType.each(function () {
+			$(this).prop('checked', $(this).val() === historyParams.device_type);
 		})
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
@@ -115,7 +119,7 @@
 						return `<a href="${baseUrl}${row.idx}" class="line-clamp-1" style="max-width: 200px">${data}</a>`;
 					}
 				}
-				, {title: "회원구분",  data: "profile_uuid", 		width: "5%",
+				,{title: "회원구분",  data: "profile_uuid", 		width: "5%",
 					render: function (data) {
 						return isEmpty(data) ? label.guest : label.member;
 					}
@@ -174,6 +178,7 @@
 			"to_date" : dateTo.val(),
 			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
+			"device_type" : $("input[name=radio-type]:checked").val(),
 			"qna_type" : selInquiryType.val(),
 			"status" : $("input[name=radio-status]:checked").val(),
 			"page": _currentPage,

@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp, ajaxRequestWithFile} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-		contentImage, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
+		contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
 		keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
@@ -24,7 +24,7 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		/** 상세 불러오기 **/
-		//getDetail();
+		getDetail();
 		/** 이벤트 **/
 		title.trigger('focus');
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
@@ -35,7 +35,7 @@
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		//btnSubmit		.on('click', function () { onSubmitUpdatePromotion(); });
+		btnSubmit		.on('click', function () { onSubmitUpdatePromotion(); });
 	});
 
 	function getDetail()
@@ -58,10 +58,12 @@
 
 	function buildDetail(data)
 	{
-		const { promotion_title, image_url, start_date, end_date } = data.data;
+		const { promotion_title, promotion_image_url, profile_uuid, nickname, start_date, end_date, } = data.data;
 
-		title.text(promotion_title);
-		contentImage.attr('src', image_url);
+		title.val(promotion_title);
+		sponsor.val(nickname);
+		sponsorUuid.val(profile_uuid);
+		thumbnail.attr('src', promotion_image_url);
 		dateFrom.val(start_date);
 		dateFrom.datepicker("option", "minDate", start_date);
 		dateTo.val(end_date);
@@ -175,11 +177,16 @@
 		{
 			const param = {
 				"promotion_uuid" : g_promotion_uuid,
-				"company_name" : title.val().trim(),
-				"company_image_url" : data.image_urls.file
+				"promotion_title" : title.val().trim(),
+				"start_date" : dateFrom.val(),
+				"end_date" : dateTo.val(),
+				"profile_uuid" : sponsorUuid.val().trim(),
 			}
 
-			ajaxRequestWithJson(true, api.createBiz, JSON.stringify(param))
+			if (!isEmpty(data))
+				param['promotion_image_url'] = data.image_urls.file;
+
+			ajaxRequestWithJson(true, api.updatePromotion, JSON.stringify(param))
 				.then( async function( data, textStatus, jqXHR ) {
 					await sweetToastAndCallback(data, updateSuccess);
 				})
@@ -196,7 +203,7 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast(`기업명은 ${message.required}`);
+			sweetToast(`프로모션명은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}

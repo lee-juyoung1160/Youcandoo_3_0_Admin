@@ -3,15 +3,14 @@
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">
-                <span class="badge badge-info">생성</span>
-                <!--<span class="badge badge-success">진행중</span>
-                <span class="badge badge-warning">운영종료</span>
-                <span class="badge badge-danger">삭제</span>-->
-                프로모션명 노출시켜 주세용
+            <h2 class="main-title" id="title">
+                <!--<span class="badge badge-info">대기중</span>
+                <span class="badge badge-success">진행중</span>
+                <span class="badge badge-warning">종료</span>
+                프로모션명 노출시켜 주세용-->
             </h2>
             <div class="right-wrap">
-                <button id="btnSupportDoit" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-hourglass-end"></i> 프로모션 종료</button>
+                <button id="btnClose" type="button" class="btn-sm btn-outline-danger" style="display: none;"><i class="fas fa-hourglass-end"></i> 프로모션 종료</button>
             </div>
         </div>
 
@@ -27,24 +26,24 @@
                     <tr>
                         <th rowspan="5">
                             <div class="promotion-img-wrap">
-                                <img src="https://youcandoo.yanadoocdn.com/v3/banner/2021/06/25/642b656affd7b307c68ea1cec5fbe346.png" alt="프로모션이미지" id="contentImage">
+                                <img src="" alt="프로모션이미지" id="contentImage">
                             </div>
                         </th>
                         <th>스폰서</th>
                         <td>
-                            <p class="detail-data" id="">카카오 키즈</p>
+                            <p class="detail-data" id="sponsor"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>기간</th>
                         <td>
-                            <p class="detail-data" id="">2020-00-00 ~ 2020-00-00</p>
+                            <p class="detail-data" id="promotionDate"></p>
                         </td>
                     </tr>
                     <tr>
                         <th>등록일</th>
                         <td>
-                            <p class="detail-data">2020-00-00</p>
+                            <p class="detail-data" id="createDate"></p>
                         </td>
                     </tr>
                     <tr>
@@ -67,14 +66,14 @@
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
-                        <p>Total <strong class="data-num">0</strong></p>
-                        <select id="selPageLengthDoit" class="select-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
                         </select>
                     </div>
                 </div>
             </div>
-            <table id="doitTable">
-                <colgroup>
+            <table id="dataTable">
+                <!--<colgroup>
                     <col style="width: 20%;">
                     <col style="width: 20%;">
                     <col style="width: 40%;">
@@ -95,7 +94,7 @@
                     <td><a href="v2/doit/detail">두잇며어어어어엉</a></td>
                     <td>리더명어엉</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
 
@@ -150,4 +149,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/promotion/promotion-detail.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/promotion-detail.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

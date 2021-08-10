@@ -13,9 +13,9 @@
                         <p class="search-title">날짜</p>
                         <div class="form-box">
                             <select id="selDateType" class="select-box">
-                                <option value="">시작일</option>
-                                <option value="">종료일</option>
-                                <option value="">등록일</option>
+                                <option value="created">등록일</option>
+                                <option value="start_date">시작일</option>
+                                <option value="end_date">종료일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -34,8 +34,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">프로모션명</option>
-                                <option value="">스폰서</option>
+                                <option value="promotion_title">프로모션명</option>
+                                <option value="nickname">스폰서</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -47,17 +47,24 @@
             </div>
         </div>
 
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
         <div class="table-wrap row">
             <div class="top clearfix">
                 <div class="left-wrap clearfix">
                     <div class="form-box">
                         <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
                     </div>
                 </div>
 
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 30%;">
                     <col style="width: 25%;">
@@ -86,11 +93,11 @@
                     <td>2020-00-00 ~ 2020-00-00</td>
                     <td>진행중</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/promotion/promotion-list.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/promotion-list.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
 

@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url-v1.js';
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateToday,
+	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths,
 		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
@@ -21,7 +21,7 @@
 		initPageLength(selPageLength);
 		isBackAction() ? setHistoryForm() : initSearchForm();
 		/** 목록 불러오기 **/
-		//buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -35,7 +35,6 @@
 	function initSearchForm()
 	{
 		initDayBtn();
-		initMaxDateToday()
 		initSearchDateRangeMonths();
 		initSelectOption();
 		keyword.val('');
@@ -66,7 +65,6 @@
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
-		initMaxDateToday();
 	}
 
 	function buildTable()
@@ -99,15 +97,23 @@
 				}
 			},
 			columns: [
-				{title: "프로모션명",  data: "promotion_uuid",  	width: "20%",
+				{title: "프로모션명",  data: "promotion_title",  		width: "30%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailPromotion}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "스폰서", 	data: "promotion_uuid",	   width: "20%" }
-				,{title: "이미지", 	data: "promotion_uuid",	   width: "20%" }
-				,{title: "기간", 	data: "promotion_uuid",	   width: "20%" }
-				,{title: "상태", 	data: "promotion_uuid",	   width: "20%" }
+				,{title: "스폰서", 	data: "nickname",	   			width: "25%" }
+				,{title: "이미지", 	data: "promotion_image_url",	width: "15%",
+					render: function (data) {
+						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
+					}
+				}
+				,{title: "기간", 	data: "start_date",	   			width: "20%",
+					render: function (data, type, row, meta) {
+						return `${row.start_date} ~ ${row.end_date}`;
+					}
+				}
+				,{title: "상태", 	data: "state",	   				width: "10%" }
 			],
 			serverSide: true,
 			paging: true,

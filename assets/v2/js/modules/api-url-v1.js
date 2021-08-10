@@ -234,8 +234,10 @@
 
         promotionList : baseApiUrl + 'promotion/get/list',
         createPromotion : baseApiUrl + 'promotion/create',
-        detailPromotion : baseApiUrl + 'promotion/detail',
+        detailPromotion : baseApiUrl + 'promotion/get/detail',
         updatePromotion : baseApiUrl + 'promotion/update',
+        closePromotion : baseApiUrl + 'promotion/set/end',
+        promotionDoitList : baseApiUrl + 'promotion/get/doit/list',
     }
 
     const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';

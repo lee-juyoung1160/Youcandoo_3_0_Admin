@@ -1,19 +1,12 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
-	import {
-		lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor,
+	import {lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, dateTo, dateFrom,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {
-		onChangeValidateImage,
-		limitInputLength,
-		fadeoutModal,
-		fadeinModal,
-		initInputDateRangeWeek,
-		initInputDatepickerMinDateToday
-	} from "../modules/common.js";
+	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal,
+		initInputDateRangeWeek, initInputDatepickerMinDateToday} from "../modules/common.js";
 	import {isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -35,7 +28,7 @@
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
-		//btnSubmit	.on('click', function () { onSubmitPromotion(); });
+		btnSubmit		.on('click', function () { onSubmitPromotion(); });
 	});
 
 	function onClickModalOpen()
@@ -129,11 +122,14 @@
 	function createRequest(data)
 	{
 		const param = {
-			"company_name" : title.val().trim(),
-			"company_image_url" : data.image_urls.file
+			"promotion_title" : title.val().trim(),
+			"profile_uuid" : sponsorUuid.val().trim(),
+			"start_date" : dateFrom.val(),
+			"end_date" : dateTo.val(),
+			"promotion_image_url" : data.image_urls.file
 		}
 
-		ajaxRequestWithJson(true, api.createBiz, JSON.stringify(param))
+		ajaxRequestWithJson(true, api.createPromotion, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
@@ -149,7 +145,7 @@
 	{
 		if (isEmpty(title.val()))
 		{
-			sweetToast(`기업명은 ${message.required}`);
+			sweetToast(`프로모션명은 ${message.required}`);
 			title.trigger('focus');
 			return false;
 		}

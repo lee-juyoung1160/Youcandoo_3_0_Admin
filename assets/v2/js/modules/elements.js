@@ -32,6 +32,7 @@
     export const btnReset 	= $("#btnReset");
     export const btnSubmit	= $("#btnSubmit");
     export const btnCancel	= $("#btnCancel");
+    export const btnClose	= $("#btnClose");
     export const btnCreate	= $("#btnCreate");
     export const btnUpdate	= $("#btnUpdate");
     export const btnSubmitUpdate = $("#btnSubmitUpdate");
@@ -480,3 +481,7 @@
     export const resultString = $("#resultString");
     export const btnEncryption = $("#btnEncryption");
     export const btnDecryption = $("#btnDecryption");
+
+    /** 프로모션 **/
+    export const promotionDate = $("#promotionDate");
+    export const createDate = $("#createDate");

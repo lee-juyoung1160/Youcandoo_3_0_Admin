@@ -1,8 +1,48 @@
-<section class="detail-page">
+<link rel="stylesheet" href="/assets/v2/css/promotion.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page promotion-update">
     <div class="inner">
 
         <div class="main-top clearfix">
-            <h2 class="main-title">프로모션 수정</h2>
+            <h2 class="main-title clearfix">프로모션 수정</h2>
+            <div class="hover-btn-wrap">
+                <strong class="hover-btn badge badge-info">프로모션 수정 가능 여부 <i class="fas fa-chevron-down arrow-i arrow-i"></i></strong>
+                <div class="hover-content">
+                    <div class="table-wrap">
+                        <table>
+                            <colgroup>
+                                <col style="width: 25%;">
+                                <col style="width: 25%;">
+                                <col style="width: 25%;">
+                                <col style="width: 25%;">
+                            </colgroup>
+                            <tr>
+                                <th>구분</th>
+                                <th>대기중</th>
+                                <th>진행중</th>
+                                <th>종료</th>
+                            </tr>
+                            <tr>
+                                <td>프로모션명</td>
+                                <td rowspan="4">가능</td>
+                                <td>가능</td>
+                                <td rowspan="4">불가능</td>
+                            </tr>
+                            <tr>
+                                <td>스폰서 명</td>
+                                <td>불가능</td>
+                            </tr>
+                            <tr>
+                                <td>이미지</td>
+                                <td>가능</td>
+                            </tr>
+                            <tr>
+                                <td>기간</td>
+                                <td>종료일만 가능</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -108,3 +148,13 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script type="module" src="/assets/v2/js/bundles/promotion-update.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
+<script>
+
+    $('.hover-btn').on('mouseenter', function(){
+        $('.hover-content').addClass('active');
+    });
+    $('.hover-btn').on('mouseleave', function(){
+        $('.hover-content').removeClass('active');
+    });
+
+</script>

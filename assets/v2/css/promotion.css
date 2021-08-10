@@ -7,3 +7,47 @@
 .doit-info {
 	margin-top: 30px;
 }
+
+.promotion-update .hover-btn-wrap {
+	position: relative;
+	float: left;
+	width: 350px;
+	margin: 10px 0 0 20px;
+}
+.promotion-update .hover-btn-wrap strong {
+	padding: 5px;
+	font-size:14px;
+	cursor: pointer;
+}
+.promotion-update .hover-btn-wrap strong i {
+	font-size: 12px;
+}
+
+.promotion-update .hover-content {
+	display: none;
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 355px;
+	background-color: #f2f6fc;
+	border: 1px solid #ddd;
+	z-index: 100000;
+}
+.promotion-update .hover-content.active{
+	display: block;
+}
+.promotion-update .hover-content .table-wrap {
+	margin-top: 0;
+}
+
+.promotion-update .table-wrap table tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+.promotion-update .table-wrap table tbody tr:hover,
+.promotion-update .table-wrap table tbody tr:nth-child(even):hover {
+	background-color: #fff;
+}
+.promotion-update .table-wrap table tr td {
+	border: 1px solid #f1f1f1;;
+}
+

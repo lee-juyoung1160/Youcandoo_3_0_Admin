@@ -26,6 +26,9 @@
 	overflow-y: scroll;
 	max-height: 700px;
 }
+.doit.detail-page .ucd-input-wrap input {
+	width: 150px;
+}
 
 .file-value {
 	margin-bottom: 10px;

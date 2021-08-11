@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
 <link rel="stylesheet" href="/assets/v2/css/report.css?version=<?php echo $this->config->item('version');?>">
 
-<section class="detail-page">
+<section class="detail-page doit">
     <div class="inner">
         <div class="main-top clearfix">
             <h2 class="main-title" id="infoDoitTitle">
@@ -64,6 +64,10 @@
                                 <td>
                                     <p class="detail-data" id="infoDoitDesc">
                                 </td>
+                            </tr>
+                            <tr>
+                                <th>참여 인원 / 최대 참여 인원</th>
+                                <td>200 / 1,000</td>
                             </tr>
                             <tr>
                                 <th>검색 키워드 (태그)</th>
@@ -166,6 +170,20 @@
                                 <div class="textarea-wrap">
                                     <textarea id="doitDesc" class="length-input" maxlength="1000" rows="4"></textarea>
                                     <p class="length-count-wrap"><span class="count-input">0</span>/1000</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                최대 참여 인원
+                                <i class="tooltip-mark fas fa-question-circle">
+                                    <span class="tooltip-txt right">최대 100,000명까지 가능</span>
+                                </i>
+                            </th>
+                            <td>
+                                <div class="ucd-input-wrap">
+                                    <input id="" type="text" maxlength="6">
+                                    <span>명</span>
                                 </div>
                             </td>
                         </tr>

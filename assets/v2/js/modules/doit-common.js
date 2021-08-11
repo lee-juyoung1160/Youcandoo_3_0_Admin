@@ -99,7 +99,6 @@
 
     export function onClickAddKeyword()
     {
-        console.log('onClickAddKeyword')
         if (addKeywordValidation())
         {
             const inputValue = doitKeyword.val().trim();

@@ -32,6 +32,7 @@
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'
 		,maxAddFour : '최대 4개까지 등록 가능합니다.'
 		,maxAddThree : '최대 3개까지 등록 가능합니다.'
+		,maxUserCount : '최대 100,000까지 등록 가능합니다.'
 		,maxAvailableBizUcd : '최대 1억 UCD까지 가능합니다.'
 		,maxAvailableUserUcd : '최대 1백만 UCD까지 가능합니다.'
 		,compareActionTime: '인증 시작시간은 인증 종료시간 이전으로 설정해야 합니다.'

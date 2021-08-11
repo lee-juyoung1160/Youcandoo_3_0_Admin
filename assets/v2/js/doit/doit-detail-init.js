@@ -88,7 +88,7 @@
 		actionTimes,
 		btnPromotion,
 		modalPromotion,
-		promotionTable, btnPromotionCancel,
+		promotionTable, btnPromotionCancel, maxUserCount,
 	} from '../modules/elements.js';
 	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
@@ -158,6 +158,7 @@
 		/** 정보탭 **/
 		getCategoryList();
 		getDetail();
+		maxUserCount	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		doitImage		.on('change', function () { onChangeValidateImage(this); });
 		selCategory		.on('change', function () { onChangeSelCategory(); });
 		btnAddKeyword	.on('click', function () { onClickAddKeyword(); });

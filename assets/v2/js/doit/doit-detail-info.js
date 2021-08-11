@@ -2,54 +2,54 @@
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-	doitTitle,
-	sponsor,
-	category,
-	doitDesc,
-	doitKeywords,
-	doitThumbnail,
-	publicType,
-	isApply,
-	doitQuestion,
-	isAnswer,
-	btnDoitOpen,
-	btnDoitStop,
-	btnDoitDelete,
-	doitUpdateForm,
-	doitInfoForm,
-	doitSponsor,
-	chkIsApply,
-	chkIsQuestion,
-	chkIsAnswer,
-	rdoPublicType,
-	infoDoitTitle,
-	infoDoitDesc,
-	infoDoitKeywords,
-	infoQuestion,
-	selCategory,
-	doitImage,
-	selSubcategory,
-	doitKeyword,
-	btnUpdateDoit,
-	btnCreateMission,
-	btnDeleteMission,
-	btnUpdateMission,
-	btnBan,
-	createCommentWrap,
-	actionCommentWrap,
-	applyMemberCountWrap,
-	btnCreateTalk,
-	talkCommentWrap,
-	createTalkCommentWrap,
-	btnSaveUcd,
-	btnReject,
-	btnApproval,
-	promotionInfo,
-	btnPromotion, btnPromotionCancel,
-} from '../modules/elements.js';
+		doitTitle,
+		sponsor,
+		category,
+		doitDesc,
+		doitKeywords,
+		doitThumbnail,
+		publicType,
+		isApply,
+		doitQuestion,
+		isAnswer,
+		btnDoitOpen,
+		btnDoitStop,
+		btnDoitDelete,
+		doitUpdateForm,
+		doitInfoForm,
+		doitSponsor,
+		chkIsApply,
+		chkIsQuestion,
+		chkIsAnswer,
+		rdoPublicType,
+		infoDoitTitle,
+		infoDoitDesc,
+		infoDoitKeywords,
+		infoQuestion,
+		selCategory,
+		doitImage,
+		selSubcategory,
+		doitKeyword,
+		btnUpdateDoit,
+		btnCreateMission,
+		btnDeleteMission,
+		btnUpdateMission,
+		btnBan,
+		createCommentWrap,
+		actionCommentWrap,
+		applyMemberCountWrap,
+		btnCreateTalk,
+		talkCommentWrap,
+		createTalkCommentWrap,
+		btnSaveUcd,
+		btnReject,
+		btnApproval,
+		promotionInfo,
+		btnPromotion, btnPromotionCancel, infoMaxUserCount, maxUserCount,
+	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, moveToMemberDetail, onErrorImage} from "../modules/common.js";
-	import {getPathName, isEmpty, splitReverse} from "../modules/utils.js";
+	import {getPathName, isEmpty, numberWithCommas, splitReverse} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {onClickChkIsApply, onClickChkIsQuestion, addRemoveKeywordEvent,} from "../modules/doit-common.js"
@@ -87,7 +87,7 @@
 	function buildDetail(data)
 	{
 		const { doit_uuid, doit_status, doit_type, doit_title, doit_description, nickname, category_title, subcategory_title, doit_keyword,
-			public_type, approve_member, question, answer_type, doit_image_url, profile_uuid, is_promotion } = data.data;
+			public_type, approve_member, question, answer_type, doit_image_url, profile_uuid, max_user, is_promotion } = data.data;
 
 		isPromotion = is_promotion === 'Y'
 		isSponsorDoit = doit_type === 'sponsor';
@@ -101,6 +101,7 @@
 				: `<a style="text-decoration: underline;" data-uuid="${profile_uuid}">${nickname}</a>`);
 		category.html(`${category_title} - <span>${subcategory_title}</span>`);
 		infoDoitDesc.text(doit_description);
+		infoMaxUserCount.text(numberWithCommas(max_user));
 		infoDoitKeywords.empty();
 		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
 		{
@@ -132,13 +133,14 @@
 	function buildUpdate(data)
 	{
 		const { doit_title, doit_description, category_uuid, subcategory_uuid, doit_keyword,
-			public_type, approve_member, is_question, question, answer_type } = data.data;
+			public_type, approve_member, is_question, question, answer_type, max_user } = data.data;
 
 		g_category_uuid = category_uuid;
 		g_subcategory_uuid = subcategory_uuid;
 
 		doitTitle.val(doit_title);
 		doitDesc.val(doit_description);
+		maxUserCount.val(max_user);
 		doitKeywords.empty();
 		if (!isEmpty(doit_keyword) && doit_keyword.length > 0)
 		{
@@ -340,6 +342,7 @@
 				"subcategory_uuid" : selSubcategory.val(),
 				"doit_title" : doitTitle.val().trim(),
 				"doit_description" : doitDesc.val().trim(),
+				"max_user" : maxUserCount.val().trim(),
 				"doit_keyword" : keywords,
 				"public_type" : $("input[name=radio-public-type]:checked").val(),
 				"approve_member" : chkIsApply.is(':checked') ? 'Y' : 'N',
@@ -392,6 +395,20 @@
 		{
 			sweetToast(`두잇 소개 및 목표는 ${message.required}`);
 			doitDesc.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(maxUserCount.val()))
+		{
+			sweetToast(`최대 참여 인원은 ${message.required}`);
+			maxUserCount.trigger('focus');
+			return false;
+		}
+
+		if (Number(maxUserCount.val()) > 100000)
+		{
+			sweetToast(`최대 참여 인원은 ${message.maxUserCount}`);
+			maxUserCount.trigger('focus');
 			return false;
 		}
 

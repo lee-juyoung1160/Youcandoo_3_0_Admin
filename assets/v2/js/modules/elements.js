@@ -113,6 +113,8 @@
     export const selSubcategory = $("#selSubcategory");
     export const doitTitle      = $("#doitTitle");
     export const doitKeyword    = $("#doitKeyword");
+    export const infoMaxUserCount   = $("#infoMaxUserCount");
+    export const maxUserCount   = $("#maxUserCount");
     export const doitDesc       = $("#doitDesc");
     export const rdoPublicType  = $("input[name=radio-public-type]");
     export const chkIsApply     = $("input[name=chk-is-apply]");

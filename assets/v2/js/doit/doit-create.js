@@ -1,12 +1,14 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, headers, invalidResp} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
-	import {lengthInput, keyword, dataTable, selCategory, btnAdd, doitTitle, doitDesc, doitKeywords, doitKeyword,
+	import {
+		lengthInput, keyword, dataTable, selCategory, btnAdd, doitTitle, doitDesc, doitKeywords, doitKeyword,
 		doitImage, doitQuestion, selSubcategory, btnSubmit, modalOpen, modalClose, modalBackdrop,
-		sponsor, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer,} from '../modules/elements.js';
+		sponsor, sponsorUuid, chkIsApply, chkIsQuestion, chkIsAnswer, maxUserCount,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal} from "../modules/common.js";
-	import { isEmpty } from "../modules/utils.js";
+	import {initInputNumber, isEmpty} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -19,6 +21,8 @@
 		/** 카테고리 목록 **/
 		getCategoryList();
 		/** 이벤트 **/
+		maxUserCount	.val(100000);
+		maxUserCount	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		modalOpen		.on("click", function () { onClickModalOpen(); });
 		modalClose		.on("click", function () { fadeoutModal(); });
@@ -132,6 +136,7 @@
 			"subcategory_uuid" : selSubcategory.val(),
 			"doit_title" : doitTitle.val().trim(),
 			"doit_description" : doitDesc.val().trim(),
+			"max_user" : maxUserCount.val().trim(),
 			"doit_keyword" : keywords,
 			"doit_image_url" : data.image_urls.file,
 			"public_type" : $("input[name=radio-public-type]:checked").val(),
@@ -187,6 +192,20 @@
 		{
 			sweetToast(`두잇 소개 및 목표는 ${message.required}`);
 			doitDesc.trigger('focus');
+			return false;
+		}
+
+		if (isEmpty(maxUserCount.val()))
+		{
+			sweetToast(`최대 참여 인원은 ${message.required}`);
+			maxUserCount.trigger('focus');
+			return false;
+		}
+
+		if (Number(maxUserCount.val()) > 100000)
+		{
+			sweetToast(`최대 참여 인원은 ${message.maxUserCount}`);
+			maxUserCount.trigger('focus');
 			return false;
 		}
 

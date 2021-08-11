@@ -38,11 +38,21 @@
 	cursor: pointer;
 	transition: all .5s;
 }
+.level-list .top .card img {
+	position: absolute;
+	width: 85px;
+	right: -13px;
+	top: 20px;
+	opacity: 0.3;
+}
 .level-list .top .card:hover,
-.level-list .top .card.active
-{
-	background-color: #fff;
-	border: 1px solid #fff;
+.level-list .top .card.active {
+	background-color: #ccdffc;
+	border: 1px solid #ccdffc;
+}
+.level-list .top .card:hover img,
+.level-list .top .card.active img {
+	opacity: 1;
 }
 .level-list .top .card:hover .title,
 .level-list .top .card.active .title {
@@ -51,6 +61,10 @@
 .level-list .top .card:hover .user span,
 .level-list .top .card.active .user span {
 	color: #404040;
+}
+.level-list .top .card:hover .user i,
+.level-list .top .card.active .user i {
+	color: #999;
 }
 
 .level-list .top .title {

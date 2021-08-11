@@ -4,7 +4,14 @@
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import {calculateInputLength, initSearchDatepicker, limitInputLength, onChangeValidateImage, onErrorImage} from "../modules/common.js";
+	import {
+		calculateInputLength,
+		initMinDateToday,
+		initSearchDatepicker,
+		limitInputLength,
+		onChangeValidateImage,
+		onErrorImage
+	} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, isDisplay, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -20,6 +27,7 @@
 
 	$( () => {
 		initSearchDatepicker();
+		initMinDateToday();
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
@@ -60,9 +68,7 @@
 		eventContentThumbnail.attr('src', image_url);
 		eventThumbnail.attr('src', thumbnail_image_url);
 		dateFrom.val(start_date);
-		dateFrom.datepicker("option", "minDate", start_date);
 		dateTo.val(end_date);
-		dateTo.datepicker("option", "minDate", start_date);
 		rdoExposure.each(function () {
 			$(this).prop('checked', $(this).val() === is_exposure);
 		})

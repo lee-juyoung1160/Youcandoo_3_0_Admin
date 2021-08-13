@@ -106,6 +106,7 @@
     export const btnSubmitImage = $("#btnSubmitImage");
 
     /** 두잇 **/
+    export const doitUuid        = $("#doitUuid");
     export const sponsor        = $("#sponsor");
     export const doitSponsor    = $(".doit-sponsor");
     export const sponsorUuid    = $("#sponsorUuid");

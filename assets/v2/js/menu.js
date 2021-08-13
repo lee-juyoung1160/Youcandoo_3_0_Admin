@@ -114,6 +114,7 @@
                 accessiblePages.push(_auth + '/support/leader');
                 accessiblePages.push(_auth + '/update');
                 accessiblePages.push(_auth + '/detail');
+                accessiblePages.push(_auth + '/create');
                 break;
             case '/v2/promotion' :
                 accessiblePages.push(_auth + '/detail');

@@ -232,9 +232,10 @@
     line-height: 1.5em;
 }
 .rank li .rank-num {
-    display: block;
-    width: 20px;
+    display: inline-block;
+    min-width: 20px;
     height: 20px;
+    padding: 0 3px;
     color: #fff;
     font-weight: 600;
     line-height: 18px;

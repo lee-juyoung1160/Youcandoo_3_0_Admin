@@ -183,7 +183,7 @@
                 <div class="card">
                     <div class="title-wrap">
                         <p class="title">리더 랭킹</p>
-                        <span class="desc-sub">당일 0시 기준</span>
+                        <span class="desc-sub">매주 월요일 0시 기준</span>
                     </div>
                     <ul class="rank" id="leaderRank">
                         <!--<li class="clearfix">
@@ -265,7 +265,7 @@
                 <div class="card">
                     <div class="title-wrap">
                         <p class="title">두잇 랭킹</p>
-                        <span class="desc-sub">당일 0시 기준</span>
+                        <span class="desc-sub">매주 월요일 0시 기준</span>
                     </div>
                     <ul class="rank" id="doitRank">
                         <!--<li class="clearfix">
@@ -442,7 +442,7 @@
                 <div class="card">
                     <div class="title-wrap">
                         <p class="title" id="modalTitle"></p>
-                        <span class="desc-sub">당일 0시 기준</span>
+                        <span class="desc-sub">매주 월요일 0시 기준</span>
                     </div>
                     <ul class="rank" id="modalRank" style="display:block;">
                         <!--<li class="clearfix">
@@ -551,4 +551,5 @@
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/bundles/main-dashboard.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--<script type="module" src="/assets/v2/js/bundles/main-dashboard.bundle.js?version=<?php echo $this->config->item('version');?>"></script>-->
+<script type="module" src="/assets/v2/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>

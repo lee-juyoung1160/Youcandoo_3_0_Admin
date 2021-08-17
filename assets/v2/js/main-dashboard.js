@@ -46,13 +46,13 @@
             .then( async function( data, textStatus, jqXHR ) {
                 if (isSuccessResp(data))
                 {
-                    await buildSummary(data);
+                    buildSummary(data);
                     if (!isSearchAction)
                     {
-                        await buildLeaderRank(data);
-                        await buildDoitRank(data);
-                        await buildCategoryRateChart(data);
-                        await buildMissionRateChart(data);
+                        buildLeaderRank(data);
+                        buildDoitRank(data);
+                        buildCategoryRateChart(data);
+                        buildMissionRateChart(data);
                     }
                 }
                 else

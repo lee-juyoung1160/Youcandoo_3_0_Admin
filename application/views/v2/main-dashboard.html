@@ -66,8 +66,7 @@
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">미션 등록 비율 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">당일 0시 기준</span>
+                        <p class="title">미션 등록 비율 <i class="fas fa-sync-alt" id="btnRefreshMission"></i></p>
                     </div>
                     <div class="chart-wrap">
                         <canvas id="missionChart"></canvas>
@@ -97,8 +96,7 @@
             <div class="col-3">
                 <div class="card">
                     <div class="title-wrap">
-                        <p class="title">카테고리 별 현황 <i class="fas fa-sync-alt"></i></p>
-                        <span class="desc-sub">당일 0시 기준</span>
+                        <p class="title">카테고리 별 현황 <i class="fas fa-sync-alt" id="btnRefreshCategory"></i></p>
                     </div>
                     <div class="chart-wrap">
                         <canvas id="categoryChart" width="250" height="250"></canvas>
@@ -551,5 +549,4 @@
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<!--<script type="module" src="/assets/v2/js/bundles/main-dashboard.bundle.js?version=<?php echo $this->config->item('version');?>"></script>-->
-<script type="module" src="/assets/v2/js/main-dashboard.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/main-dashboard.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

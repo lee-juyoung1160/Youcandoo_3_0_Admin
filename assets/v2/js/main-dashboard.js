@@ -8,12 +8,19 @@
     import {label} from "./modules/label.js";
     import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from "./modules/tables.js";
     import {page} from "./modules/page-url.js";
-    import {modalBackdrop, modalClose, pagination} from "./modules/elements.js";
+    import {
+        dateFromSummary,
+        dateToSummary,
+        dateFromSummaryList,
+        dateToSummaryList,
+        modalBackdrop,
+        modalClose,
+        pagination,
+        btnRefreshCategory, btnRefreshMission
+    } from "./modules/elements.js";
 
-    const dateFromSummary = $("#dateFromSummary");
-    const dateToSummary = $("#dateToSummary");
-    const dateFromSummaryList = $("#dateFromSummaryList");
-    const dateToSummaryList = $("#dateToSummaryList");
+    let missionChartCtx;
+    let categoryChartCtx;
     let isSearchAction = false;
     let _currentPage = 1;
 
@@ -31,6 +38,8 @@
         dateToSummary.on('change', function () { onChangeSearchDateToSummary(); });
         dateFromSummaryList.on('change', function () { onChangeSearchDateFromSummaryList(); });
         dateToSummaryList.on('change', function () { onChangeSearchDateToSummaryList(); });
+        btnRefreshCategory.on('click', function () { getChart(this); });
+        btnRefreshMission.on('click', function () { getChart(this); });
         $("#btnMoreLeader").on('click', function () { onClickBtnMore(this); });
         $("#btnMoreDoit").on('click', function () { onClickBtnMore(this) });
     });
@@ -49,10 +58,10 @@
                     buildSummary(data);
                     if (!isSearchAction)
                     {
-                        buildLeaderRank(data);
-                        buildDoitRank(data);
                         buildCategoryRateChart(data);
                         buildMissionRateChart(data);
+                        buildLeaderRank(data);
+                        buildDoitRank(data);
                     }
                 }
                 else
@@ -128,7 +137,7 @@
             "limit" : 10,
         }
 
-        ajaxRequestWithJson(true, api.dashboardMoreLeader, JSON.stringify(param))
+        ajaxRequestWithJson(false, api.dashboardMoreLeader, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
                if (isSuccessResp(data))
                {
@@ -200,7 +209,7 @@
             "limit" : 10,
         }
 
-        ajaxRequestWithJson(true, api.dashboardMoreDoit, JSON.stringify(param))
+        ajaxRequestWithJson(false, api.dashboardMoreDoit, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
                 if (isSuccessResp(data))
                 {
@@ -257,6 +266,34 @@
         $("#modalTitle").text() === '리더 랭킹' ? getMoreLeader() : getMoreDoit();
     }
 
+    function getChart(obj)
+    {
+        const param = {
+            'from_date' : dateFromSummary.val(),
+            'to_date' : dateToSummary.val(),
+        }
+
+        ajaxRequestWithJson(true, api.dashboardSummary, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                if (isSuccessResp(data))
+                {
+                    switch (obj.id) {
+                        case 'btnRefreshMission' :
+                            missionChartCtx.destroy();
+                            buildMissionRateChart(data);
+                            break;
+                        case 'btnRefreshCategory' :
+                            categoryChartCtx.destroy();
+                            buildCategoryRateChart(data);
+                            break;
+                    }
+                }
+                else
+                    sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
+    }
+
     function buildCategoryRateChart(data)
     {
         const categorySummary = $("#categorySummary");
@@ -287,7 +324,7 @@
         }
 
         const categoryChart = document.getElementById('categoryChart');
-        new Chart(categoryChart, {
+        categoryChartCtx = new Chart(categoryChart, {
             type: 'pie',
             data: {
                 datasets: [{
@@ -346,7 +383,7 @@
             })
 
             const missionChart = document.getElementById('missionChart');
-            new Chart(missionChart, {
+            missionChartCtx = new Chart(missionChart, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
@@ -504,7 +541,8 @@
 
     function onChangeSearchDateFromSummary()
     {
-        dateToSummary.datepicker("option", "minDate", new Date(dateFromSummary.datepicker("getDate")));
+        isSearchAction = true;
+        getSummary();
     }
 
     function onChangeSearchDateToSummary()
@@ -516,12 +554,17 @@
 
     function onChangeSearchDateFromSummaryList()
     {
-        dateToSummaryList.datepicker("option", "minDate", new Date(dateFromSummaryList.datepicker("getDate")));
+        reloadSummaryList();
     }
 
     function onChangeSearchDateToSummaryList()
     {
         dateFromSummaryList.datepicker("option", "maxDate", new Date(dateToSummaryList.datepicker("getDate")));
+        reloadSummaryList();
+    }
+
+    function reloadSummaryList()
+    {
         let table = $("#summaryTable").DataTable();
         table.ajax.reload();
     }

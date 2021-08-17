@@ -494,3 +494,11 @@
     export const promotionDate = $("#promotionDate");
     export const createDate = $("#createDate");
     export const promotionStatus = $("#promotionStatus");
+
+    /** 메인 대시보드 **/
+    export const dateFromSummary = $("#dateFromSummary");
+    export const dateToSummary = $("#dateToSummary");
+    export const dateFromSummaryList = $("#dateFromSummaryList");
+    export const dateToSummaryList = $("#dateToSummaryList");
+    export const btnRefreshMission = $("#btnRefreshMission");
+    export const btnRefreshCategory = $("#btnRefreshCategory");

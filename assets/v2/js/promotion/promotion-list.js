@@ -97,12 +97,12 @@
 				}
 			},
 			columns: [
-				{title: "프로모션명",  data: "promotion_title",  		width: "30%",
+				{title: "프로모션명",  data: "promotion_title",  		width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailPromotion}${row.idx}">${data}</a>`;
 					}
 				}
-				,{title: "스폰서", 	data: "nickname",	   			width: "25%" }
+				,{title: "스폰서", 	data: "nickname",	   			width: "20%" }
 				,{title: "이미지", 	data: "promotion_image_url",	width: "15%",
 					render: function (data) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
@@ -113,6 +113,7 @@
 						return `${row.start_date} ~ ${row.end_date}`;
 					}
 				}
+				,{title: "참여두잇", 	data: "",	   			width: "10%" }
 				,{title: "상태", 	data: "state",	   				width: "10%" }
 			],
 			serverSide: true,

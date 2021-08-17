@@ -50,7 +50,7 @@
 
 	function buildDetail(data)
 	{
-		const { promotion_image_url, nickname, start_date, end_date, created, state } = data.data;
+		const { promotion_image_url, nickname, start_date, end_date, start_time, end_time, created, state } = data.data;
 
 		if (state === '진행중') btnClose.show();
 		if (state === '종료') btnUpdate.remove();
@@ -58,7 +58,7 @@
 		title.html(buildTitle(data));
 		sponsor.text(nickname);
 		contentImage.attr('src', promotion_image_url);
-		promotionDate.text(`${start_date} ~ ${end_date}`);
+		promotionDate.text(`${start_date} ${start_time} ~ ${end_date} ${end_time}`);
 		createDate.text(created.substring(0, 10));
 
 		onErrorImage();

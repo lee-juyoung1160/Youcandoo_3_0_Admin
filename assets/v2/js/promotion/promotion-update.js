@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp, ajaxRequestWithFile} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url-v1.js';
 	import {
-		contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput,
+		contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput, startTime, endTime,
 		keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo, promotionStatus
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
@@ -59,12 +59,13 @@
 
 	function buildDetail(data)
 	{
-		const { promotion_title, promotion_image_url, profile_uuid, nickname, start_date, end_date, state } = data.data;
+		const { promotion_title, promotion_image_url, profile_uuid, nickname, start_date, end_date, start_time, end_time, state } = data.data;
 
 		switch (state) {
 			case '진행중' :
 				sponsor.prop('disabled', true);
 				dateFrom.prop('disabled', true);
+				startTime.prop('disabled', true);
 				break;
 			case '종료' :
 				title.prop('disabled', true);
@@ -72,6 +73,8 @@
 				contentImage.prop('disabled', true);
 				dateFrom.prop('disabled', true);
 				dateTo.prop('disabled', true);
+				startTime.prop('disabled', true);
+				endTime.prop('disabled', true);
 				break;
 		}
 
@@ -82,6 +85,8 @@
 		thumbnail.attr('src', promotion_image_url);
 		dateFrom.val(start_date);
 		dateTo.val(end_date);
+		startTime.val(start_time.slice(0, 5));
+		endTime.val(end_time.slice(0, 5));
 
 		onErrorImage();
 		calculateInputLength();
@@ -192,9 +197,11 @@
 			const param = {
 				"promotion_uuid" : g_promotion_uuid,
 				"promotion_title" : title.val().trim(),
+				"profile_uuid" : sponsorUuid.val().trim(),
 				"start_date" : dateFrom.val(),
 				"end_date" : dateTo.val(),
-				"profile_uuid" : sponsorUuid.val().trim(),
+				"start_time" : `${startTime.val()}:00`,
+				"end_time" : `${endTime.val()}:59`,
 			}
 
 			if (!isEmpty(data))
@@ -226,6 +233,14 @@
 		{
 			sweetToast(`스폰서를 ${message.select}`);
 			sponsor.trigger('focus');
+			return false;
+		}
+
+		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${endTime.val()}:00`).getTime();
+		if (startDatetime > endDatetime)
+		{
+			sweetToast(`프로모션 ${message.compareActionTime}`);
 			return false;
 		}
 

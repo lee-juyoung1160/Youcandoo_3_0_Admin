@@ -1,7 +1,7 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url-v1.js';
-	import {lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor,
+	import {lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor, startTime, endTime,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, dateTo, dateFrom,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
@@ -126,6 +126,8 @@
 			"profile_uuid" : sponsorUuid.val().trim(),
 			"start_date" : dateFrom.val(),
 			"end_date" : dateTo.val(),
+			"start_time" : `${startTime.val()}:00`,
+			"end_time" : `${endTime.val()}:59`,
 			"promotion_image_url" : data.image_urls.file
 		}
 
@@ -143,6 +145,7 @@
 
 	function validation()
 	{
+
 		if (isEmpty(title.val()))
 		{
 			sweetToast(`프로모션명은 ${message.required}`);
@@ -161,6 +164,14 @@
 		if (promotionImg.length === 0)
 		{
 			sweetToast(`이미지는 ${message.required}`);
+			return false;
+		}
+
+		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${endTime.val()}:00`).getTime();
+		if (startDatetime > endDatetime)
+		{
+			sweetToast(`프로모션 ${message.compareActionTime}`);
 			return false;
 		}
 

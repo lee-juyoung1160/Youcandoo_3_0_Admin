@@ -35,7 +35,7 @@
 		,maxUserCount : '최대 100,000까지 등록 가능합니다.'
 		,maxAvailableBizUcd : '최대 1억 UCD까지 가능합니다.'
 		,maxAvailableUserUcd : '최대 1백만 UCD까지 가능합니다.'
-		,compareActionTime: '인증 시작시간은 인증 종료시간 이전으로 설정해야 합니다.'
+		,compareActionTime: '시작시간은 종료시간 이전으로 설정해야 합니다.'
 		,compareReserveDatetime: '예약발송일시는 현재시간 이후로 설정해야 합니다.'
 		,onlyAlphabet : '영문만 입력할 수 있습니다.'
 		,ajaxError : ` 처리 중, 오류가 발생했습니다.`

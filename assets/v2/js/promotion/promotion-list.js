@@ -97,7 +97,7 @@
 				}
 			},
 			columns: [
-				{title: "프로모션명",  data: "promotion_title",  		width: "30%",
+				{title: "프로모션명",  data: "promotion_title",  		width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a href="${page.detailPromotion}${row.idx}">${data}</a>`;
 					}
@@ -108,9 +108,9 @@
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "기간", 	data: "start_date",	   			width: "20%",
+				,{title: "기간", 	data: "start_date",	   			width: "25%",
 					render: function (data, type, row, meta) {
-						return `${row.start_date} ~ ${row.end_date}`;
+						return `${row.start_date} ${row.start_time} ~ ${row.end_date} ${row.end_time}`;
 					}
 				}
 				,{title: "참여두잇 수", 	data: "doit_count",	   			width: "10%" }

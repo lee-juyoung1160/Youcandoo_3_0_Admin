@@ -236,11 +236,27 @@
 			return false;
 		}
 
+		const currentDatetime = new Date().getTime();
 		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();
 		const endDatetime = new Date(`${dateTo.val()} ${endTime.val()}:00`).getTime();
+		if (!dateFrom.prop('disabled') && currentDatetime > startDatetime)
+		{
+			sweetToast(`시작시간은 ${message.compareCurrentTime}`);
+			startTime.trigger('focus');
+			return false;
+		}
+
+		if (currentDatetime > endDatetime)
+		{
+			sweetToast(`종료시간은 ${message.compareCurrentTime}`);
+			endTime.trigger('focus');
+			return false;
+		}
+
 		if (startDatetime > endDatetime)
 		{
 			sweetToast(`프로모션 ${message.compareActionTime}`);
+			startTime.trigger('focus');
 			return false;
 		}
 

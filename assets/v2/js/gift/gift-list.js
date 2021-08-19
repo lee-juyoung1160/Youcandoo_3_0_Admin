@@ -97,21 +97,31 @@
 				}
 			},
 			columns: [
-				{title: "상품코드",    	data: "gift_uuid",  		width: "30%" }
-				,{title: "상품명", 		data: "gift_name",			width: "30%",
+				{title: "상품 ID",    	data: "gift_uuid",  		width: "25%" }
+				,{title: "상품코드",    	data: "goods_code",  		width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "상품명", 		data: "gift_name",			width: "25%",
 					render: function (data, type, row, meta) {
 						let detailUrl = page.detailGift + row.idx;
 						return `<a href="${detailUrl}">${data}</a>`;
 					}
 				}
-				,{title: "금액(UCD)",    data: "gift_ucd",  			width: "15%",
+				,{title: "금액(UCD)",    data: "gift_ucd",  			width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "이미지",    	data: "gift_image_url",  	width: "15%",
+				,{title: "이미지",    	data: "gift_image_url",  	width: "10%",
 					render: function (data) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`
+					}
+				}
+				,{title: "판매종료일",    data: "end_date",  			width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data.slice(0, 10);
 					}
 				}
 				,{title: "노출여부",    	data: "is_exposure",  		width: "10%" }

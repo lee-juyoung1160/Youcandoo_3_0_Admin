@@ -242,11 +242,11 @@
 								</tr>
 								<tr>
 									<th>상품코드</th>
-									<td>${goodsCd}</td>
+									<td>${isEmpty(goodsCd) ? label.dash : goodsCd}</td>
 								</tr>
 								<tr>
 									<th>상품명</th>
-									<td>[${brandNm}] ${goodsNm}</td>
+									<td>[${isEmpty(brandNm) ? label.dash : brandNm}] ${isEmpty(goodsNm) ? label.dash : goodsNm}</td>
 								</tr>
 								<tr>
 									<th>판매단가</th>
@@ -254,7 +254,7 @@
 								</tr>
 								<tr>
 									<th>수신자 번호</th>
-									<td>${recverTelNo}</td>
+									<td>${isEmpty(recverTelNo) ? label.dash : recverTelNo}</td>
 								</tr>
 								<tr>
 									<th>유효기간 만료일</th>
@@ -262,11 +262,11 @@
 								</tr>
 								<tr>
 									<th>발송 상태</th>
-									<td>${sendStatusCd}</td>
+									<td>${isEmpty(sendStatusCd) ? label.dash : sendStatusCd}</td>
 								</tr>
 								<tr>
 									<th>쿠폰 상태</th>
-									<td>${pinStatusNm}</td>
+									<td>${isEmpty(pinStatusNm) ? label.dash : pinStatusNm}</td>
 								</tr>
 							</tbody>
 						</table>

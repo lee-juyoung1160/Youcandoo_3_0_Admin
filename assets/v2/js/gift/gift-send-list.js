@@ -375,5 +375,7 @@
 
 	function formattingToCouponExpireDate(x)
 	{
-		return `${x.substring(0, 4)}-${x.substring(4, 6)}-${x.substring(6, 8)} ${x.substring(8, 10)}:${x.substring(10, 12)}:${x.substring(12, 14)}`;
+		return isEmpty(x)
+			? ''
+			: `${x.substring(0, 4)}-${x.substring(4, 6)}-${x.substring(6, 8)} ${x.substring(8, 10)}:${x.substring(10, 12)}:${x.substring(12, 14)}`;
 	}

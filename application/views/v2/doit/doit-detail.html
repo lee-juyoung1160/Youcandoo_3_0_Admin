@@ -657,6 +657,12 @@
                                     <strong class="num apply-member-count"></strong>
                                 </div>
                             </div>
+                            <div class="col-3" id="">
+                                <div class="card">
+                                    <p class="desc clearfix">차단 수 <a id="" class="link"><i class="fas fa-cog"></i> 차단 관리</a></p>
+                                    <strong class="num">300</strong>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="search-wrap row">
@@ -742,6 +748,7 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
+                                    <button id="" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 강퇴하기</button>
                                     <button id="btnSaveUcd" type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
                                     <!--<button id="btnSendNotice" type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>-->
                                 </div>
@@ -872,6 +879,75 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- s: 차단 관리 목록-->
+                    <div class="detail-detail" style="display: none;">
+                        <div class="card doit-tit-warp member-top">
+                            <button id="btnJoinMembers2" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <p class="title">차단 관리 목록</p>
+                        </div>
+                        <div class="row member-top">
+                            <div class="col-3">
+                                <div class="card">
+                                    <p class="desc">차단 수</p>
+                                    <strong class="num">300</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="top clearfix">
+                                <div class="left-wrap clearfix">
+                                    <div class="form-box">
+                                        <p>Total <strong class="data-num"></strong></p>
+                                        <select id="" class="select-box">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="btn-wrap">
+                                    <button id="" type="button" class="btn-sm btn-orange"><i class="fas fa-ban"></i> 차단 취소</button>
+                                </div>
+                            </div>
+                            <table id="">
+                                <thead>
+                                <colgroup>
+                                    <col style="width: 20%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 40%;">
+                                    <col style="width: 20%;">
+                                    <col style="width: 5%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>닉네임</th>
+                                    <th>차단 일시</th>
+                                    <th>차단 사유</th>
+                                    <th>차단 처리자</th>
+                                    <th>
+                                        <div class="check-wrap">
+                                            <input id="c6" type="checkbox">
+                                            <label for="c6"><span></span></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>베리네모카</td>
+                                    <td>2020-02-02 00:00:00</td>
+                                    <td>유캔두 내 운영 원칙에 위배되는 활동</td>
+                                    <td>두잇두잇츄</td>
+                                    <td>
+                                        <div class="check-wrap">
+                                            <input id="c7" type="checkbox">
+                                            <label for="c7"><span></span></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
 
                 </div>
 
@@ -2092,6 +2168,68 @@
             </div>
         </div>
 
+        <!-- 참여자 탭 - 강퇴하기 버튼 클릭 시 오픈 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>강퇴하기</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 75%;">
+                    </colgroup>
+                    <tr>
+                        <th colspan="2">
+                            <div class="checkbox-wrap">
+                                <input id="c50" type="checkbox" name="chk-status" value="">
+                                <label for="c50"><span></span>강제 탈퇴 후 차단하기</label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>강제 탈퇴 사유</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r20" type="radio" name="chk-status" value="">
+                                <label for="r20"><span></span>유캔두 내 운영 원칙에 위배되는 활동</label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input id="r21" type="radio" name="chk-status" value="">
+                                <label for="r21"><span></span>광고, 도배, 욕설 등</label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input id="r22" type="radio" name="chk-status" value="">
+                                <label for="r22"><span></span>개인정보 유출, 사생활 침해</label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input id="r23" type="radio" name="chk-status" value="">
+                                <label for="r23"><span></span>성인/도박 등 불법 관고 및 스팸 활동</label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input id="r24" type="radio" name="chk-status" value="">
+                                <label for="r24"><span></span>두잇 폐쇄를 위한 탈퇴 진행</label>
+                            </div>
+                            <div class="radio-wrap">
+                                <input id="r25" type="radio" name="chk-status" value="">
+                                <label for="r25"><span></span>기타</label>
+                            </div>
+                            <div class="textarea-wrap" style="display: none;">
+                                <textarea id="" class="length-input" maxlength="50" rows="3" placeholder="강제 탈퇴 사유를 입력해주세요."></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="" type="button" class="btn btn-danger">강퇴하기</button>
+            </div>
+        </div>
+
         <!-- 참여자 탭 - ucd 적립 -->
         <div class="modal-content member-add-ucd" id="modalSaveUcd">
             <div class="modal-header clearfix">
@@ -2361,72 +2499,6 @@
             </div>
         </div>
 
-     <!--   &lt;!&ndash; UCD 탭 - 닉네임 검색 &ndash;&gt; ** 보류 **
-        <div class="modal-content">
-            <div class="modal-header clearfix">
-                <h5>닉네임 검색</h5>
-                <i class="modal-close">×</i>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card clearfix">
-                            <div class="search-txt-wrap">
-                                <input type="search" placeholder="닉네임을 입력해주세요.">
-                                <i class="fas fa-search"></i>
-                            </div>
-                        </div>
-                        <div class="table-wrap">
-                            <table>
-                                <colgroup>
-                                    <col style="width: 30%;">
-                                    <col style="width: 45%;">
-                                    <col style="width: 20%;">
-                                    <col style="width: 5%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>닉네임</th>
-                                    <th>P-ID</th>
-                                    <th>보유 UCD</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>깐깐찡엉</td>
-                                    <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-                                    <td>20,000,000</td>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input id="c43" type="checkbox">
-                                            <label for="c43"><span></span></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>깐깐찡엉깐깐찡엉깐깐찡엉깐깐찡엉</td>
-                                    <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-                                    <td>20,000,000</td>
-                                    <td>
-                                        <div class="checkbox-wrap">
-                                            <input id="c44" type="checkbox">
-                                            <label for="c44"><span></span></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn modal-close">닫기</button>
-                <button type="button" class="btn btn-primary">선택완료</button>
-            </div>
-        </div>-->
-
         <!-- 인증 탭 - 경고장 발송 버튼 클릭 시 오픈 -->
         <div class="modal-content" id="modalWarning">
             <div class="modal-header clearfix">
@@ -2582,6 +2654,7 @@
         </div>
 
 
+        <!-- 프로모션 선택 -->
         <div class="modal-content promotion-modal" id="modalPromotion">
             <div class="modal-header clearfix">
                 <h5>프로모션</h5>

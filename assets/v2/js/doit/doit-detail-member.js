@@ -145,13 +145,13 @@
 				}
 			},
 			columns: [
-				{title: "닉네임", 			data: "nickname",			width: "17%",
+				{title: "닉네임", 			data: "nickname",			width: "15%",
 					render: function (data, type, row, meta) {
 						const nickname = row.is_company === 'Y' ? label.bizIcon + data : data;
 						return `<a data-uuid="${row.profile_uuid}" data-type="${row.member_type}">${nickname}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 		data: "profile_uuid",		width: "24%"}
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "21%"}
 				,{title: "등급",    			data: "member_type",  		width: "8%" }
 				,{title: "누적 인증",   		data: "total_action",  		width: "8%",
 					render: function (data) {
@@ -174,6 +174,11 @@
 					}
 				}
 				,{title: "가입일시",   		data: "joined",  			width: "15%" }
+				,{title: checkBoxCheckAllElement(),			data: "",  	width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(meta.row);
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,

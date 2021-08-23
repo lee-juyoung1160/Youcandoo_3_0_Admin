@@ -244,6 +244,8 @@
 				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.member_type === 'leader')
+					$(nRow).children().eq(8).find('input').prop('disabled', true);
 				$(nRow).children().eq(0).find('a').on('click', function () { viewMemberInfo(this);})
 			},
 			drawCallback: function (settings) {

@@ -194,17 +194,19 @@
 
     export const joinMemberForm = $("#joinMemberForm");
     export const pendingMemberForm = $("#pendingMemberForm");
-    export const btnJoinMembers = $("#btnJoinMembers");
+    export const btnJoinMembers = $(".btn-join-members");
     export const btnPendingMembers = $("#btnPendingMembers");
     export const applyMemberCountWrap = $("#applyMemberCountWrap");
     export const totalMemberCount = $("#totalMemberCount");
     export const applyMemberCount = $(".apply-member-count");
+    export const banMemberCount = $(".ban-member-count");
     export const selMissions = $("#selMissions");
     export const selMemberFilter = $("#selMemberFilter");
     export const rdoActionCount = $("input[name=radio-action-count]");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
     export const selApplyMemberPageLength = $("#selApplyMemberPageLength");
+    export const selBlockMemberPageLength = $("#selBlockMemberPageLength");
     export const btnSaveUcd = $("#btnSaveUcd");
     export const btnSendNotice = $("#btnSendNotice");
     export const applyQuestion = $("#applyQuestion");
@@ -232,7 +234,17 @@
     export const modalMemberInfoJoinDate = $("#modalMemberInfoJoinDate");
     export const modalMemberInfoQuestion = $("#modalMemberInfoQuestion");
     export const modalMemberInfoAnswer = $("#modalMemberInfoAnswer");
+    export const btnBlockMembers = $("#btnBlockMembers");
+    export const blockMemberForm = $("#blockMemberForm");
     export const btnBan = $("#btnBan");
+    export const btnSubmitBan = $("#btnSubmitBan");
+    export const btnCancelBlock = $("#btnCancelBlock");
+    export const blockMemberTable = $("#blockMemberTable");
+    export const modalBan = $("#modalBan");
+    export const chkBlock = $("input[name=chk-block]");
+    export const banReasonWrap = $("#banReasonWrap");
+    export const rdoReason = $("input[name=radio-reason]");
+    export const banReason = $("#banReason");
 
     export const ucdListForm = $("#ucdListForm");
     export const publicWalletBalance = $("#publicWalletBalance");

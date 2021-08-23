@@ -45,7 +45,7 @@
 	btnReject,
 	btnApproval,
 	promotionInfo,
-	btnPromotion, btnPromotionCancel, infoMaxUserCount, maxUserCount, doitUuid,
+	btnPromotion, btnPromotionCancel, infoMaxUserCount, maxUserCount, doitUuid, btnCancelBlock,
 } from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, moveToMemberDetail, onErrorImage} from "../modules/common.js";
@@ -232,6 +232,7 @@
 			btnUpdateMission.remove();
 			btnCreateMission.remove();
 			btnBan.remove();
+			btnCancelBlock.remove();
 			actionCommentWrap.removeClass('col-8');
 			actionCommentWrap.addClass('col-12');
 			createCommentWrap.remove();

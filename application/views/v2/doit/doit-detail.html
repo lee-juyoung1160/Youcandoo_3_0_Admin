@@ -657,10 +657,10 @@
                                     <strong class="num apply-member-count"></strong>
                                 </div>
                             </div>
-                            <div class="col-3" id="">
+                            <div class="col-3">
                                 <div class="card">
-                                    <p class="desc clearfix">차단 수 <a id="" class="link"><i class="fas fa-cog"></i> 차단 관리</a></p>
-                                    <strong class="num">300</strong>
+                                    <p class="desc clearfix">차단 멤버 <a id="btnBlockMembers" class="link"><i class="fas fa-cog"></i> 차단 관리</a></p>
+                                    <strong class="num ban-member-count"></strong>
                                 </div>
                             </div>
                         </div>
@@ -748,7 +748,7 @@
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button id="" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 강퇴하기</button>
+                                    <button id="btnBan" type="button" class="btn-sm btn-danger"><i class="fas fa-ban"></i> 강퇴하기</button>
                                     <button id="btnSaveUcd" type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> ucd 적립</button>
                                     <!--<button id="btnSendNotice" type="button" class="btn-sm btn-warning"><i class="fas fa-bell"></i> 알림 발송</button>-->
                                 </div>
@@ -793,7 +793,7 @@
                     <!-- s: 참여 대기자 목록-->
                     <div class="detail-detail" style="display: none;" id="pendingMemberForm">
                         <div class="card doit-tit-warp member-top">
-                            <button id="btnJoinMembers" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-join-members"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">가입 승인 대기자 목록</p>
                         </div>
                         <div class="row member-top">
@@ -881,16 +881,16 @@
                     </div>
 
                     <!-- s: 차단 관리 목록-->
-                    <div class="detail-detail" style="display: none;">
+                    <div class="detail-detail" style="display: none;" id="blockMemberForm">
                         <div class="card doit-tit-warp member-top">
-                            <button id="btnJoinMembers2" type="button" class="btn-i btn-back"><i class="fas fa-arrow-left"></i></button>
+                            <button type="button" class="btn-i btn-back btn-join-members"><i class="fas fa-arrow-left"></i></button>
                             <p class="title">차단 관리 목록</p>
                         </div>
                         <div class="row member-top">
                             <div class="col-3">
                                 <div class="card">
-                                    <p class="desc">차단 수</p>
-                                    <strong class="num">300</strong>
+                                    <p class="desc">차단 멤버</p>
+                                    <strong class="num ban-member-count"></strong>
                                 </div>
                             </div>
                         </div>
@@ -899,16 +899,16 @@
                                 <div class="left-wrap clearfix">
                                     <div class="form-box">
                                         <p>Total <strong class="data-num"></strong></p>
-                                        <select id="" class="select-box">
+                                        <select id="selBlockMemberPageLength" class="select-box">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="btn-wrap">
-                                    <button id="" type="button" class="btn-sm btn-orange"><i class="fas fa-ban"></i> 차단 취소</button>
+                                    <button id="btnCancelBlock" type="button" class="btn-sm btn-orange"><i class="fas fa-ban"></i> 차단 취소</button>
                                 </div>
                             </div>
-                            <table id="">
-                                <thead>
+                            <table id="blockMemberTable">
+                                <!--<thead>
                                 <colgroup>
                                     <col style="width: 20%;">
                                     <col style="width: 15%;">
@@ -943,7 +943,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>
@@ -2163,13 +2163,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnBan" type="button" class="btn btn-outline-danger">강퇴</button>
-<!--                <button id="btnBlock" type="button" class="btn btn-danger">차단</button>-->
             </div>
         </div>
 
         <!-- 참여자 탭 - 강퇴하기 버튼 클릭 시 오픈 -->
-        <div class="modal-content">
+        <div class="modal-content" id="modalBan">
             <div class="modal-header clearfix">
                 <h5>강퇴하기</h5>
                 <i class="modal-close">×</i>
@@ -2183,40 +2181,40 @@
                     <tr>
                         <th colspan="2">
                             <div class="checkbox-wrap">
-                                <input id="c50" type="checkbox" name="chk-status" value="">
+                                <input id="c50" type="checkbox" name="chk-block">
                                 <label for="c50"><span></span>강제 탈퇴 후 차단하기</label>
                             </div>
                         </th>
                     </tr>
-                    <tr>
+                    <tr id="banReasonWrap" style="display: none;">
                         <th>강제 탈퇴 사유</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r20" type="radio" name="chk-status" value="">
+                                <input id="r20" type="radio" name="radio-reason" value="유캔두 내 운영 원칙에 위배되는 활동">
                                 <label for="r20"><span></span>유캔두 내 운영 원칙에 위배되는 활동</label>
                             </div>
                             <div class="radio-wrap">
-                                <input id="r21" type="radio" name="chk-status" value="">
+                                <input id="r21" type="radio" name="radio-reason" value="광고, 도배, 욕설 등">
                                 <label for="r21"><span></span>광고, 도배, 욕설 등</label>
                             </div>
                             <div class="radio-wrap">
-                                <input id="r22" type="radio" name="chk-status" value="">
+                                <input id="r22" type="radio" name="radio-reason" value="개인정보 유출, 사생활 침해">
                                 <label for="r22"><span></span>개인정보 유출, 사생활 침해</label>
                             </div>
                             <div class="radio-wrap">
-                                <input id="r23" type="radio" name="chk-status" value="">
+                                <input id="r23" type="radio" name="radio-reason" value="성인/도박 등 불법 관고 및 스팸 활동">
                                 <label for="r23"><span></span>성인/도박 등 불법 관고 및 스팸 활동</label>
                             </div>
                             <div class="radio-wrap">
-                                <input id="r24" type="radio" name="chk-status" value="">
+                                <input id="r24" type="radio" name="radio-reason" value="두잇 폐쇄를 위한 탈퇴 진행">
                                 <label for="r24"><span></span>두잇 폐쇄를 위한 탈퇴 진행</label>
                             </div>
                             <div class="radio-wrap">
-                                <input id="r25" type="radio" name="chk-status" value="">
+                                <input id="r25" type="radio" name="radio-reason" value="manual">
                                 <label for="r25"><span></span>기타</label>
                             </div>
                             <div class="textarea-wrap" style="display: none;">
-                                <textarea id="" class="length-input" maxlength="50" rows="3" placeholder="강제 탈퇴 사유를 입력해주세요."></textarea>
+                                <textarea id="banReason" class="length-input" maxlength="50" rows="3" placeholder="강제 탈퇴 사유를 입력해주세요."></textarea>
                                 <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
                             </div>
                         </td>
@@ -2226,7 +2224,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-                <button id="" type="button" class="btn btn-danger">강퇴하기</button>
+                <button id="btnSubmitBan" type="button" class="btn btn-danger">강퇴하기</button>
             </div>
         </div>
 

@@ -1,12 +1,46 @@
 
 	import {
-		keyword, actionCount, joinMemberForm, pendingMemberForm, modalSaveUcd, modalBackdrop, saveUcdContent,
-		amount, modalMemberInfo,  joinMemberTable, applyMemberTable, selMissions, selSearchType, selMemberFilter,
-		selJoinMemberPageLength, selSort, modalMemberInfoNickname, modalMemberInfoJoinDate, modalMemberInfoQuestion,
-		modalMemberInfoAnswer, totalMemberCount, applyMemberCount, selApplyMemberPageLength, applyQuestion,
-		rewardMemberTable, btnBan, selRewardType, rewardTableWrap, rewardKeyword, selNotiType, notiKeyword,
-		notiTableWrap, notiContent, modalSendNotice, actionTimes,
-	} from "../modules/elements.js";
+	keyword,
+	actionCount,
+	joinMemberForm,
+	pendingMemberForm,
+	modalSaveUcd,
+	modalBackdrop,
+	saveUcdContent,
+	amount,
+	modalMemberInfo,
+	joinMemberTable,
+	applyMemberTable,
+	selMissions,
+	selSearchType,
+	selMemberFilter,
+	selJoinMemberPageLength,
+	selSort,
+	modalMemberInfoNickname,
+	modalMemberInfoJoinDate,
+	modalMemberInfoQuestion,
+	modalMemberInfoAnswer,
+	totalMemberCount,
+	applyMemberCount,
+	selApplyMemberPageLength,
+	applyQuestion,
+	rewardMemberTable,
+	selRewardType,
+	rewardTableWrap,
+	rewardKeyword,
+	selNotiType,
+	notiKeyword,
+	notiTableWrap,
+	notiContent,
+	modalSendNotice,
+	actionTimes,
+	banMemberCount,
+	modalBan,
+	chkBlock,
+	rdoReason,
+	banReason,
+	banReasonWrap, blockMemberForm, blockMemberTable, selBlockMemberPageLength,
+} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url-v1.js";
 	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
@@ -22,6 +56,7 @@
 	{
 		joinMemberForm.show();
 		pendingMemberForm.hide();
+		blockMemberForm.hide();
 		countMember();
 		getMissionListForMember();
 	}
@@ -30,9 +65,19 @@
 	{
 		pendingMemberForm.show();
 		joinMemberForm.hide();
+		blockMemberForm.hide();
 		getQuestion()
 		countMember();
 		buildPendingMember();
+	}
+
+	export function showBlockMemberForm()
+	{
+		blockMemberForm.show();
+		pendingMemberForm.hide();
+		joinMemberForm.hide();
+		countMember();
+		buildBlockMember();
 	}
 
 	export function initSearchMemberForm()
@@ -73,9 +118,10 @@
 
 	function buildCountMember(data)
 	{
-		const {totalMemberCnt, totalApplyMemberCnt} = data.data;
+		const {totalMemberCnt, totalApplyMemberCnt, totalBanMemberCnt} = data.data;
 		totalMemberCount.text(totalMemberCnt);
 		applyMemberCount.text(totalApplyMemberCnt);
+		banMemberCount.text(totalBanMemberCnt);
 	}
 
 	function getMissionListForMember()
@@ -151,7 +197,7 @@
 						return `<a data-uuid="${row.profile_uuid}" data-type="${row.member_type}">${nickname}</a>`;
 					}
 				}
-				,{title: "프로필 ID", 		data: "profile_uuid",		width: "21%"}
+				,{title: "프로필 ID", 		data: "profile_uuid",		width: "24%"}
 				,{title: "등급",    			data: "member_type",  		width: "8%" }
 				,{title: "누적 인증",   		data: "total_action",  		width: "8%",
 					render: function (data) {
@@ -173,19 +219,29 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "가입일시",   		data: "joined",  			width: "15%" }
-				,{title: checkBoxCheckAllElement(),			data: "",  	width: "5%",
+				,{title: "가입일시",   		data: "joined",  			width: "12%" }
+				,{title: '',				data: "profile_uuid",  		width: "5%",
 					render: function (data, type, row, meta) {
-						return checkBoxElement(meta.row);
+						return checkBoxElement(`join_${meta.row}`);
 					}
 				}
 			],
 			serverSide: true,
 			paging: true,
 			pageLength: Number(selJoinMemberPageLength.val()),
-			select: false,
+			select: {
+				style: 'single',
+				selector: ':checkbox'
+			},
 			destroy: true,
 			initComplete: function () {
+				if (!isSponsorDoit)
+				{
+					let table = joinMemberTable.DataTable();
+					table.column(8).visible(false);
+				}
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(0).find('a').on('click', function () { viewMemberInfo(this);})
@@ -204,15 +260,11 @@
 		table.ajax.reload();
 	}
 
-	let g_info_profile_uuid;
 	function viewMemberInfo(obj)
 	{
-		toggleBtnBan(obj);
-
-		g_info_profile_uuid = $(obj).data('uuid');
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"profile_uuid" : g_info_profile_uuid
+			"profile_uuid" : $(obj).data('uuid')
 		}
 
 		ajaxRequestWithJson(false, api.infoJoinMember, JSON.stringify(param))
@@ -240,24 +292,73 @@
 		modalMemberInfoAnswer.text(isEmpty(answer) ? label.dash : answer);
 	}
 
-	function toggleBtnBan(obj)
+	export function onClickBtnBan()
 	{
-		$(obj).data('type') === 'leader' ? btnBan.hide() : btnBan.show();
+		if (isEmpty(getSelectedJoinMemberUuid()))
+		{
+			sweetToast(`대상을 ${message.select}`);
+			return;
+		}
+
+		modalBan.fadeIn();
+		modalBackdrop.fadeIn();
+		initModalBan();
 	}
 
-	export function banMember()
+	function initModalBan()
 	{
+		chkBlock.prop('checked', false);
+		onChangeChkBlock(chkBlock);
+		rdoReason.eq(0).prop('checked', true);
+		onChangeRdoReason(rdoReason);
+	}
+
+	export function onChangeChkBlock(obj)
+	{
+		$(obj).is(':checked') ? banReasonWrap.show() : banReasonWrap.hide();
+	}
+
+	export function onChangeRdoReason(obj)
+	{
+		switch ($(obj).val()) {
+			case 'manual' :
+				banReason.parent().show();
+				banReason.trigger('focus');
+				break;
+			default :
+				banReason.val('');
+				banReason.parent().hide();
+		}
+	}
+
+	export function onSubmitBan()
+	{
+		if ($("input[name=radio-reason]:checked").val() === 'manual' && isEmpty(banReason.val()))
+		{
+			sweetToast(`강퇴 사유는 ${message.required}`);
+			banReason.trigger('focus');
+			return;
+		}
+
 		sweetConfirm(message.banMember, banMemberRequest);
 	}
 
 	function banMemberRequest()
 	{
+		const isBlock = chkBlock.is(':checked')
+		const url = isBlock ? api.blockMember : api.banMember;
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"profile_uuid" : g_info_profile_uuid
+			"profile_uuid" : getSelectedJoinMemberUuid()
 		}
 
-		ajaxRequestWithJson(true, api.banMember, JSON.stringify(param))
+		if (isBlock)
+		{
+			const reason = $("input[name=radio-reason]:checked").val();
+			param['description'] = reason === 'manual' ? banReason.val().trim() : reason;
+		}
+
+		ajaxRequestWithJson(true, url, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, banSuccess);
 			})
@@ -333,7 +434,7 @@
 				}
 				,{title: checkBoxCheckAllElement(),			data: "profile_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
-						return checkBoxElement(meta.row);
+						return checkBoxElement(`apply_${meta.row}`);
 					}
 				}
 			],
@@ -413,7 +514,7 @@
 
 	function approvalMemberValid()
 	{
-		const uuids = getSelectedApprovalMemberUuid();
+		const uuids = getSelectedApplyMemberUuid();
 		if (uuids.length === 0)
 		{
 			sweetToast(`대상을 ${message.select}`);
@@ -427,7 +528,7 @@
 	{
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"profile_uuid" : getSelectedApprovalMemberUuid(),
+			"profile_uuid" : getSelectedApplyMemberUuid(),
 		}
 
 		ajaxRequestWithJson(true, api.approvalMember, JSON.stringify(param))
@@ -453,7 +554,7 @@
 	{
 		const param = {
 			"doit_uuid" : g_doit_uuid,
-			"profile_uuid" : getSelectedApprovalMemberUuid(),
+			"profile_uuid" : getSelectedApplyMemberUuid(),
 		}
 
 		ajaxRequestWithJson(true, api.rejectMember, JSON.stringify(param))
@@ -463,7 +564,7 @@
 			.catch(reject => sweetError(`거절 ${message.ajaxError}`));
 	}
 
-	function getSelectedApprovalMemberUuid()
+	function getSelectedApplyMemberUuid()
 	{
 		const table = applyMemberTable.DataTable();
 		const selectedData = table.rows('.selected').data();
@@ -476,6 +577,151 @@
 		}
 
 		return uuids;
+	}
+
+	function buildBlockMember()
+	{
+		blockMemberTable.DataTable({
+			ajax : {
+				url: api.blockMemberList,
+				type: "POST",
+				headers: headers,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(invalidResp(json));
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"doit_uuid" : g_doit_uuid,
+						"page" : (d.start / d.length) + 1,
+						"limit" : selBlockMemberPageLength.val(),
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "닉네임", 		data: "nickname",				width: "20%" }
+				,{title: "사유", 		data: "description",			width: "45%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "차단일시",   	data: "blocked",  				width: "15%" }
+				,{title: "처리자",   		data: "register_nickname",  	width: "15%" }
+				,{title: checkBoxCheckAllElement(),			data: "profile_uuid",  	width: "5%",
+					render: function (data, type, row, meta) {
+						return checkBoxElement(`block_${meta.row}`);
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: Number(selBlockMemberPageLength.val()),
+			select: {
+				style: 'multi',
+				selector: ':checkbox'
+			},
+			destroy: true,
+			initComplete: function () {
+				if (!isSponsorDoit)
+				{
+					let table = blockMemberTable.DataTable();
+					table.column(4).visible(false);
+				}
+				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
+				$("#checkAll").on('click', function () { onClickCheckAll(this); });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', true);
+					toggleCheckAll(this);
+				});
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
+					$("input[name=chk-row]").eq(indexes).prop('checked', false);
+					toggleCheckAll(this);
+				});
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
+	}
+
+	export function searchBlockMember()
+	{
+		const table = blockMemberTable.DataTable();
+		table.page.len(Number(selBlockMemberPageLength.val()));
+		table.ajax.reload();
+	}
+
+	export function onClickBtnCancelBlock()
+	{
+		if (isEmpty(getSelectedBlockMemberUuid()))
+		{
+			sweetToast(`대상을 ${message.select}`);
+			return;
+		}
+
+		sweetConfirm(`차단을 ${message.cancel}`, cancelBlockRequest);
+	}
+
+	function cancelBlockRequest()
+	{
+		const param = {
+			"doit_uuid" : g_doit_uuid,
+			"profile_uuid" : getSelectedBlockMemberUuid()
+		}
+
+		ajaxRequestWithJson(true, api.cancelBlockMember, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				await sweetToastAndCallback(data, cancelBlockSuccess);
+			})
+			.catch(reject => sweetError(`취소${message.ajaxError}`));
+	}
+
+	function cancelBlockSuccess()
+	{
+		countMember();
+		tableReloadAndStayCurrentPage(blockMemberTable);
+	}
+
+	function getSelectedBlockMemberUuid()
+	{
+		const table = blockMemberTable.DataTable();
+		const selectedData = table.rows('.selected').data();
+
+		let uuids = [];
+		for (let i=0; i<selectedData.length; i++)
+		{
+			const uuid = selectedData[i].profile_uuid;
+			uuids.push(uuid);
+		}
+
+		return uuids;
+	}
+
+	function getSelectedJoinMemberUuid()
+	{
+		const table = joinMemberTable.DataTable();
+		const selectedData = table.rows('.selected').data()[0];
+
+		return selectedData?.profile_uuid;
 	}
 
 	/*export function onChangeSelNotiType()
@@ -588,7 +834,7 @@
 				}
 				,{title: '', 			data: "profile_uuid",   width: "5%",
 					render: function (data, type, row, meta) {
-						return checkBoxElement(meta.row);
+						return checkBoxElement(`reward_${meta.row}`);
 					}
 				}
 			],

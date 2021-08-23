@@ -81,10 +81,13 @@
         rewardMemberList : baseApiUrl + 'ucd/get/reward/profile',
         createReward : baseApiUrl + 'ucd/set/reward/profile',
         countMember : baseApiUrl + 'member/get/count',
+        blockMember : baseApiUrl + 'member/set/retire/ban',
         banMember : baseApiUrl + 'member/set/retire',
         applyMemberList : baseApiUrl + 'member/get/applylist',
         approvalMember : baseApiUrl + 'member/get/applyConfirm',
         rejectMember : baseApiUrl + 'member/get/applyReject',
+        blockMemberList : baseApiUrl + 'member/get/retire/ban/list',
+        cancelBlockMember : baseApiUrl + 'member/set/retire/ban/cancel',
 
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',

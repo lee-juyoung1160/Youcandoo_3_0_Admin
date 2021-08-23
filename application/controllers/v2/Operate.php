@@ -25,6 +25,11 @@ class Operate extends MY_Controller {
         }
     }
 
+    public function logs()
+    {
+        $this->load->template('v2/operate/log-list');
+    }
+
 }
 
 

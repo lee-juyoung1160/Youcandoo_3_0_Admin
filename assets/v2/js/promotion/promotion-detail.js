@@ -53,7 +53,11 @@
 		const { promotion_image_url, nickname, start_date, end_date, start_time, end_time, created, state } = data.data;
 
 		if (state === '진행중') btnClose.show();
-		if (state === '종료') btnUpdate.remove();
+		if (state === '종료')
+		{
+			btnClose.remove();
+			btnUpdate.remove();
+		}
 
 		title.html(buildTitle(data));
 		sponsor.text(nickname);

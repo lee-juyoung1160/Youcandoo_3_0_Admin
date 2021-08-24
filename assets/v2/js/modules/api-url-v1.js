@@ -196,6 +196,8 @@
         createVersion : baseApiUrl + 'operate/version/create',
         deleteVersion : baseApiUrl + 'operate/version/delete',
 
+        logList : baseApiUrl + 'log/get/list',
+
         getMemberForSaveUcd : baseApiUrl + 'ucd/get/user/list',
         getMemberFromXlsx : baseApiUrl + 'excel/import/profile',
         getDoitFromXlsx : baseApiUrl + 'excel/import/doit',

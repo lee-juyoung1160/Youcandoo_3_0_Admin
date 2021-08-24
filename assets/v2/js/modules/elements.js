@@ -501,6 +501,8 @@
     export const resultString = $("#resultString");
     export const btnEncryption = $("#btnEncryption");
     export const btnDecryption = $("#btnDecryption");
+    /** 로그관리 **/
+    export const keywordWrap = $("#keywordWrap");
 
     /** 프로모션 **/
     export const promotionDate = $("#promotionDate");
@@ -514,3 +516,4 @@
     export const dateToSummaryList = $("#dateToSummaryList");
     export const btnRefreshMission = $("#btnRefreshMission");
     export const btnRefreshCategory = $("#btnRefreshCategory");
+

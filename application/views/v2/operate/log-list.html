@@ -11,13 +11,12 @@
                     <li>
                         <p class="search-title">날짜</p>
                         <div class="form-box">
-                            <select id="selDateType" class="select-box">
-                                <option value="created">생성일</option>
-                            </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
+                                <input id="" type="time" step="2" value="00:00:00">
                                 <span class="date-text"> ~ </span>
                                 <input type="text" class="datepicker date-to" readonly>
+                                <input id="" type="time" step="2" value="00:00:00">
                             </div>
                             <div class="date-btn">
                                 <button type="button" class="btn today">오늘</button>
@@ -31,7 +30,7 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="nickname">내용</option>
+                                <option value="">내용</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -40,6 +39,36 @@
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <div class="card clearfix">
+                    <p class="search-title">구분</p>
+                    <div class="checkbox-wrap">
+                        <input id="c1" type="checkbox" name="chk-status" value="apache_idx">
+                        <label for="c1"><span></span>apache_idx</label>
+
+                        <input id="c2" type="checkbox" name="chk-status" value="uniqueid">
+                        <label for="c2"><span></span>uniqueid</label>
+
+                        <input id="c3" type="checkbox" name="chk-status" value="apache_requset">
+                        <label for="c3"><span></span>apache_requset</label>
+
+                        <input id="c4" type="checkbox" name="chk-status" value="apache_status">
+                        <label for="c4"><span></span>apache_status</label>
+
+                        <input id="c5" type="checkbox" name="chk-status" value="php_idx">
+                        <label for="c5"><span></span>php_idx</label>
+
+                        <input id="c6" type="checkbox" name="chk-status" value="php_status">
+                        <label for="c6"><span></span>php_status</label>
+
+                        <input id="c7" type="checkbox" name="chk-status" value="account_token">
+                        <label for="c7"><span></span>account_token</label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -59,6 +88,41 @@
                 </div>
             </div>
             <table id="dataTable">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>uniqueid</th>
+                    <th>닉네임</th>
+                    <th>profileID</th>
+                    <th>Token</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>000000000000</td>
+                    <td><a href="#">베리베리</a></td>
+                    <td>
+                        <div>
+                            <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                            <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" class="input-copy" style="width: 100px" value="000000000000000000000" readonly="">
+                            <i class="fas fa-copy" onclick="copyToClipboard(this);"></i>
+                        </div>
+                    </td>
+                    <td>000000000000</td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>

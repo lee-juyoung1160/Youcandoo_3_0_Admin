@@ -61,7 +61,7 @@
 
 		title.html(buildTitle(data));
 		sponsor.text(nickname);
-		contentImage.attr('src', promotion_image_url);
+		// contentImage.attr('src', promotion_image_url);
 		promotionDate.text(`${start_date} ${start_time} ~ ${end_date} ${end_time}`);
 		createDate.text(created.substring(0, 10));
 

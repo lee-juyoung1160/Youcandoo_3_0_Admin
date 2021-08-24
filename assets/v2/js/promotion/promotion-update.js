@@ -171,10 +171,12 @@
 	{
 		if (validation())
 		{
-			const contentImgFile = contentImage[0].files;
+			//이미지 등록 임시 삭제
+			/*const contentImgFile = contentImage[0].files;
 			const callback = contentImgFile.length > 0 ? fileUploadReq : updateRequest;
 
-			sweetConfirm(message.modify, callback);
+			sweetConfirm(message.modify, callback);*/
+			sweetConfirm(message.modify, updateRequest);
 		}
 	}
 
@@ -204,8 +206,8 @@
 				"end_time" : `${endTime.val()}:59`,
 			}
 
-			if (!isEmpty(data))
-				param['promotion_image_url'] = data.image_urls.file;
+			/*if (!isEmpty(data))
+				param['promotion_image_url'] = data.image_urls.file;*/
 
 			ajaxRequestWithJson(true, api.updatePromotion, JSON.stringify(param))
 				.then( async function( data, textStatus, jqXHR ) {

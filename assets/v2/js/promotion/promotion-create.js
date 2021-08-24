@@ -104,7 +104,9 @@
 	function onSubmitPromotion()
 	{
 		if (validation())
-			sweetConfirm(message.create, fileUploadReq);
+			sweetConfirm(message.create, createRequest);
+			//이미지 등록 임시 삭제
+			//sweetConfirm(message.create, fileUploadReq);
 	}
 
 	function fileUploadReq()
@@ -128,7 +130,7 @@
 			"end_date" : dateTo.val(),
 			"start_time" : `${startTime.val()}:00`,
 			"end_time" : `${endTime.val()}:59`,
-			"promotion_image_url" : data.image_urls.file
+			// "promotion_image_url" : data.image_urls.file
 		}
 
 		ajaxRequestWithJson(true, api.createPromotion, JSON.stringify(param))
@@ -160,12 +162,12 @@
 			return false;
 		}
 
-		const promotionImg = contentImage[0].files;
+		/*const promotionImg = contentImage[0].files;
 		if (promotionImg.length === 0)
 		{
 			sweetToast(`이미지는 ${message.required}`);
 			return false;
-		}
+		}*/
 
 		const currentDatetime = new Date().getTime();
 		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();

@@ -103,11 +103,11 @@
 					}
 				}
 				,{title: "스폰서", 	data: "nickname",	   			width: "20%" }
-				,{title: "이미지", 	data: "promotion_image_url",	width: "10%",
+				/*,{title: "이미지", 	data: "promotion_image_url",	width: "10%",
 					render: function (data) {
 						return `<div class="list-img-wrap"><img src="${data}" alt=""></div>`;
 					}
-				}
+				}*/
 				,{title: "기간", 	data: "start_date",	   			width: "25%",
 					render: function (data, type, row, meta) {
 						return `${row.start_date} ${row.start_time} ~ ${row.end_date} ${row.end_time}`;

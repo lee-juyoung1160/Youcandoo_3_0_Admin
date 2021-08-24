@@ -30,11 +30,21 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">내용</option>
+                                <option value="all">전체</option>
+                                <option value="apache_idx">apache_idx</option>
+                                <option value="uniqueid">uniqueid</option>
+                                <option value="apache_requset">apache_requset</option>
+                                <option value="apache_status">apache_status</option>
+                                <option value="php_idx">php_idx</option>
+                                <option value="php_status">php_status</option>
+                                <option value="account_token">account_token</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
                                 <i class="fas fa-search"></i>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn">추가</button>
                             </div>
                         </div>
                     </li>
@@ -42,34 +52,29 @@
             </div>
         </div>
 
-        <div class="search-wrap row">
-            <div class="col-12">
-                <div class="card clearfix">
-                    <p class="search-title">구분</p>
-                    <div class="checkbox-wrap">
-                        <input id="c1" type="checkbox" name="chk-status" value="apache_idx">
-                        <label for="c1"><span></span>apache_idx</label>
-
-                        <input id="c2" type="checkbox" name="chk-status" value="uniqueid">
-                        <label for="c2"><span></span>uniqueid</label>
-
-                        <input id="c3" type="checkbox" name="chk-status" value="apache_requset">
-                        <label for="c3"><span></span>apache_requset</label>
-
-                        <input id="c4" type="checkbox" name="chk-status" value="apache_status">
-                        <label for="c4"><span></span>apache_status</label>
-
-                        <input id="c5" type="checkbox" name="chk-status" value="php_idx">
-                        <label for="c5"><span></span>php_idx</label>
-
-                        <input id="c6" type="checkbox" name="chk-status" value="php_status">
-                        <label for="c6"><span></span>php_status</label>
-
-                        <input id="c7" type="checkbox" name="chk-status" value="account_token">
-                        <label for="c7"><span></span>account_token</label>
-                    </div>
-                </div>
-            </div>
+        <div class="card">
+            <ol class="tag-list clearfix">
+                <li>
+                    <strong>account_token</strong>
+                    <span>asd0000009999999</span>
+                    <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                </li>
+                <li>
+                    <strong>php_status</strong>
+                    <span>asd0000009999999</span>
+                    <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                </li>
+                <li>
+                    <strong>php_status</strong>
+                    <span>asd0000009999999</span>
+                    <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                </li>
+                <li>
+                    <strong>php_status</strong>
+                    <span>asd0000009999999</span>
+                    <button class="btn-i"><i class="fas fa-times-circle"></i></button>
+                </li>
+            </ol>
         </div>
 
         <div class="search-btn row">

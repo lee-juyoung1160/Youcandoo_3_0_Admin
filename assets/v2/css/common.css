@@ -830,6 +830,7 @@ h2.main-title {
 .search-txt-wrap {
 	position: relative;
 	float: left;
+	margin-right: 5px;
 }
 .search-txt-wrap input[type="search"] {
 	padding: 0 75px 0 35px;

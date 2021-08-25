@@ -10,6 +10,8 @@
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas, isNegative} from "../modules/utils.js";
 
+	let firstSearch = true;
+
 	$( () => {
 		keyword.trigger('focus');
 		/** dataTable default config **/
@@ -18,8 +20,7 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
+		buildEmptyTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -53,6 +54,13 @@
 			return;
 		}
 
+		if (firstSearch)
+		{
+			buildTable();
+			firstSearch = false;
+			return;
+		}
+
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
@@ -60,6 +68,9 @@
 
 	function buildTable()
 	{
+		const table = dataTable.DataTable();
+		table.destroy();
+		dataTable.empty();
 		dataTable.DataTable({
 			ajax : {
 				url: api.memberWalletList,
@@ -74,7 +85,10 @@
 						json.data = json.data.list;
 					}
 					else
+					{
 						json.data = [];
+						sweetToast(invalidResp(data));
+					}
 
 					return JSON.stringify(json);
 				},
@@ -125,5 +139,32 @@
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
+		});
+	}
+
+	function buildEmptyTable()
+	{
+		dataTable.DataTable({
+			data: [],
+			columns: [
+				{title: "닉네임",    	data: "nickname",  		width: "20%" }
+				,{title: "구분",    	data: "division",  		width: "10%" }
+				,{title: "제목",    	data: "title",  		width: "15%" }
+				,{title: "내용",    	data: "description",  	width: "30%",
+					render: function (data, type, row, meta) {
+						return isEmpty(data) ? label.dash : data;
+					}
+				}
+				,{title: "UCD", 	data: "value",		width: "10%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "일시",    	data: "created",  		width: "15%" }
+			],
+			serverSide: false,
+			paging: false,
+			select: false,
+			destroy: true,
 		});
 	}

@@ -240,8 +240,12 @@
 					let table = joinMemberTable.DataTable();
 					table.column(8).visible(false);
 				}
-				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', true); });
-				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) { $("input[name=chk-row]").eq(indexes).prop('checked', false) });
+				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', true);
+				});
+				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', false)
+				});
 			},
 			fnRowCallback: function( nRow, aData ) {
 				if (aData.member_type === 'leader')
@@ -457,11 +461,11 @@
 				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
 				$("#checkAll").on('click', function () { onClickCheckAll(this); });
 				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
-					$("input[name=chk-row]").eq(indexes).prop('checked', true);
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', true);
 					toggleCheckAll(this);
 				});
 				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
-					$("input[name=chk-row]").eq(indexes).prop('checked', false);
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', false);
 					toggleCheckAll(this);
 				});
 			},
@@ -625,7 +629,7 @@
 				}
 				,{title: "차단일시",   	data: "blocked",  				width: "15%" }
 				,{title: "처리자",   		data: "register_nickname",  	width: "15%" }
-				,{title: checkBoxCheckAllElement(),			data: "profile_uuid",  	width: "5%",
+				,{title: '',			data: "profile_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(`block_${meta.row}`);
 					}
@@ -648,11 +652,11 @@
 				$(this).on( 'page.dt', function () { uncheckedCheckAll(); });
 				$("#checkAll").on('click', function () { onClickCheckAll(this); });
 				$(this).on( 'select.dt', function ( e, dt, type, indexes ) {
-					$("input[name=chk-row]").eq(indexes).prop('checked', true);
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', true);
 					toggleCheckAll(this);
 				});
 				$(this).on( 'deselect.dt', function ( e, dt, type, indexes ) {
-					$("input[name=chk-row]").eq(indexes).prop('checked', false);
+					$(this).find("input[name=chk-row]").eq(indexes).prop('checked', false);
 					toggleCheckAll(this);
 				});
 			},

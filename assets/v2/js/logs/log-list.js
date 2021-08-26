@@ -15,6 +15,8 @@
 	import { message } from "../modules/message.js";
 	import {isEmpty, numberWithCommas,} from "../modules/utils.js";
 
+	let firstBuild = true;
+
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
@@ -22,8 +24,7 @@
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
 		initSearchForm();
-		/** 목록 불러오기 **/
-		buildTable();
+		buildEmptyTable();
 		/** 이벤트 **/
 		body  			.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -42,6 +43,8 @@
 		setDateToday();
 		initSelectOption();
 		keyword.val('');
+		startTime.val('00:00:00');
+		endTime.val('23:59:59');
 		keywordWrap.empty();
 	}
 
@@ -83,8 +86,8 @@
 		{
 			const addKeyword =
 				`<li>
-                    <strong>${type}</strong> 
-                    <span> : ${keyword.val().trim()}</span>
+                    <strong>${type}</strong>
+                     : <span>${keyword.val().trim()}</span>
                     <button class="btn-i btn-del-keyword"><i class="fas fa-times-circle"></i></button>
                 </li>`
 
@@ -116,6 +119,13 @@
 			return;
 		}
 
+		if (firstBuild)
+		{
+			buildTable();
+			firstBuild = false;
+			return;
+		}
+
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
@@ -123,6 +133,9 @@
 
 	function buildTable()
 	{
+		const table = dataTable.DataTable();
+		table.destroy();
+		dataTable.empty();
 		dataTable.DataTable({
 			ajax : {
 				url: api.logList,
@@ -204,5 +217,41 @@
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
+		});
+	}
+
+	function buildEmptyTable()
+	{
+		dataTable.DataTable({
+			data: [],
+			columns: [
+				{title: "apache_idx",			data: "apache_idx",  	width: "7%" }
+				,{title: "uniqueid",			data: "uniqueid",  		width: "13%",
+					render: function (data) {
+						return `<div><input type="text" class="input-copy" style="width: 150px" value="${data}" readonly=""><i class="fas fa-copy"></i></div>`
+					}
+				}
+				,{title: "apache_request",		data: "apache_request", width: "24%" }
+				,{title: "apache_status",		data: "apache_status",  width: "8%" }
+				,{title: "php_idx",				data: "php_idx",  		width: "7%" }
+				,{title: "php_status",			data: "php_status",  	width: "7%" }
+				,{title: "account_token",		data: "account_token",  width: "13%",
+					render: function (data) {
+						return isEmpty(data)
+							? label.dash
+							: `<div><input type="text" class="input-copy" style="width: 150px" value="${data}" readonly=""><i class="fas fa-copy"></i></div>`
+					}
+				}
+				,{title: "time",				data: "time",  			width: "13%" }
+				,{title: "process_time",		data: "process_time",  	width: "8%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+			],
+			serverSide: false,
+			paging: false,
+			select: false,
+			destroy: true,
 		});
 	}

@@ -1,18 +1,17 @@
 
 	import {ajaxRequestWithJson} from '../modules/ajax-request.js'
 	import { api } from '../modules/api-url-v1.js';
-	import {btnSubmit, versionDigit, versionDecimal} from '../modules/elements.js';
+	import {btnSubmit, version,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {initInputNumberWithZero, initInputNumber, isEmpty} from "../modules/utils.js";
+	import { initInputNumber } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
 
 	$( () => {
 		/** 이벤트 **/
-		versionDigit   	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
-		versionDecimal  .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnSubmit		.on('click', function () { onSubmitVersion(); });
+		version   	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
+		btnSubmit	.on('click', function () { onSubmitVersion(); });
 	});
 
 	function onSubmitVersion()
@@ -26,7 +25,7 @@
 		const param = {
 			"force_update" : $('input:radio[name=radio-type]:checked').val(),
 			"store" : $('input:radio[name=radio-os-type]:checked').val(),
-			"target_version" : `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
+			"target_version" : version.val().trim(),
 		}
 
 		ajaxRequestWithJson(true, api.createVersion, JSON.stringify(param))
@@ -43,17 +42,10 @@
 
 	function validation()
 	{
-		if (isEmpty(versionDigit.val()))
+		if (version.val().length < 3)
 		{
-			sweetToast(`버전은 ${message.required}`);
-			versionDigit.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(versionDecimal.val()))
-		{
-			sweetToast(`버전은 ${message.required}`);
-			versionDecimal.trigger('focus');
+			sweetToast(`버전은 세 자리로 ${message.input}`);
+			version.trigger('focus');
 			return false;
 		}
 

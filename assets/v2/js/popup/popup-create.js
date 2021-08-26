@@ -1,10 +1,10 @@
 
 	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url-v1.js';
-	import {lengthInput, btnSubmit, title, versionDigit, versionDecimal, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
+	import {lengthInput, btnSubmit, title, version, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {initInputDatepickerMinDateToday, setDateToday, limitInputLength,} from "../modules/common.js";
-	import {isEmpty, initInputNumberWithZero, isDomainName} from "../modules/utils.js";
+	import {isEmpty, initInputNumber, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -15,19 +15,10 @@
 		setDateToday();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		dateFrom		.on('change', function () { onChangeDateFrom(); });
-		versionDigit   	.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); validDigit(this);});
-		versionDecimal  .on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
-		btnSubmit		.on('click', function () { onSubmitPopup(); });
+		dateFrom	.on('change', function () { onChangeDateFrom(); });
+		version  	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
+		btnSubmit	.on('click', function () { onSubmitPopup(); });
 	});
-
-	function validDigit(obj)
-	{
-		let inputValue = $(obj).val();
-		let inputValueArr = inputValue.split("");
-		if (Number(inputValueArr[0]) === 0)
-			$(obj).val(0);
-	}
 
 	function onChangeDateFrom()
 	{
@@ -45,7 +36,7 @@
 		const param = {
 			"store": $("input[name=radio-os-type]:checked").val(),
 			"title": title.val().trim(),
-			"target_version": `${versionDigit.val().trim()}${versionDecimal.val().trim()}`,
+			"target_version": version.val().trim(),
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
 			"start_date": `${dateFrom.val()} ${startTime.val()}:00`,
@@ -74,24 +65,10 @@
 			return false;
 		}
 
-		if (isEmpty(versionDigit.val()))
+		if (version.val().length < 3)
 		{
-			sweetToast(`앱 버전은 ${message.required}`);
-			versionDigit.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(versionDecimal.val()))
-		{
-			sweetToast(`앱 버전은 ${message.required}`);
-			versionDecimal.trigger('focus');
-			return false;
-		}
-
-		if (versionDecimal.val().length < 2)
-		{
-			sweetToast(`소수점은 두 자리로 ${message.input}`);
-			versionDecimal.trigger('focus');
+			sweetToast(`버전은 세 자리로 ${message.input}`);
+			version.trigger('focus');
 			return false;
 		}
 

@@ -45,7 +45,7 @@
 		const param = {
 			"store": $("input[name=radio-os-type]:checked").val(),
 			"title": title.val().trim(),
-			"target_version": `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
+			"target_version": `${versionDigit.val().trim()}${versionDecimal.val().trim()}`,
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
 			"start_date": `${dateFrom.val()} ${startTime.val()}:00`,
@@ -84,6 +84,13 @@
 		if (isEmpty(versionDecimal.val()))
 		{
 			sweetToast(`앱 버전은 ${message.required}`);
+			versionDecimal.trigger('focus');
+			return false;
+		}
+
+		if (versionDecimal.val().length < 2)
+		{
+			sweetToast(`소수점은 두 자리로 ${message.input}`);
 			versionDecimal.trigger('focus');
 			return false;
 		}

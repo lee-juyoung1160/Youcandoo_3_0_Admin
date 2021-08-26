@@ -71,10 +71,8 @@
 			$(this).prop('checked', $(this).val() === store);
 		})
 		popupTitle.val(title);
-		let version = parseFloat(target_version);
-		version = version.toString().length === 1 ? `${version}.0` : version.toString();
-		versionDigit.val(version.split('.')[0]);
-		versionDecimal.val(version.split('.')[1]);
+		versionDigit.val(target_version.substring(0, 1));
+		versionDecimal.val(target_version.substring(1));
 		link.val(popup_url);
 		rdoViewOption.each(function () {
 			$(this).prop('checked', $(this).val() === close_type);
@@ -105,7 +103,7 @@
 			"popup_uuid" : g_popup_uuid,
 			"store": $("input[name=radio-os-type]:checked").val(),
 			"title": popupTitle.val().trim(),
-			"target_version": `${versionDigit.val().trim()}.${versionDecimal.val().trim()}`,
+			"target_version": `${versionDigit.val().trim()}${versionDecimal.val().trim()}`,
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
 			"start_date": `${dateFrom.val()} ${startTime.val()}:00`,
@@ -145,6 +143,13 @@
 		if (isEmpty(versionDecimal.val()))
 		{
 			sweetToast(`앱 버전은 ${message.required}`);
+			versionDecimal.trigger('focus');
+			return false;
+		}
+
+		if (versionDecimal.val().length < 2)
+		{
+			sweetToast(`소수점은 두 자리로 ${message.input}`);
 			versionDecimal.trigger('focus');
 			return false;
 		}

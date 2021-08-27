@@ -253,6 +253,4 @@
         single : fileUploadBaseUrlV2+'single'
         ,multi : fileUploadBaseUrlV2+'multi'
         ,double : fileUploadBaseUrlV2+'double'
-        ,event : fileUploadBaseUrlV2+'event'
-        ,mission : fileUploadBaseUrlV2+'mission'
     }

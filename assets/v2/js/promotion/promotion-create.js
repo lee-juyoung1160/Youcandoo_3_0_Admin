@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp, headers} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor, startTime, endTime,
 		modalOpen, modalClose, modalBackdrop, keyword, dataTable, dateTo, dateFrom,
 	} from '../modules/elements.js';

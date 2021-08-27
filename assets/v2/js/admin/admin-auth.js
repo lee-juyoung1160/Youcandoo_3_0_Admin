@@ -4,7 +4,7 @@
     import {isEmpty} from "../modules/utils.js";
     import {fadeinModal, fadeoutModal, limitInputLength} from "../modules/common.js";
     import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-    import {api} from "../modules/api-url-v1.js";
+    import {api} from "../modules/api-url.js";
     import {sweetConfirm, sweetToast, sweetToastAndCallback, sweetError} from "../modules/alert.js";
     import {message} from "../modules/message.js";
 

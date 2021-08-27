@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, title, content, contentImage, difficulty, qualification, selType, popupImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength,} from "../modules/common.js";
@@ -29,10 +29,10 @@
 	function fileUploadReq()
 	{
 		let param  = new FormData();
-		param.append('example', contentImage[0].files[0]);
-		param.append('thumbnail', popupImage[0].files[0]);
+		param.append('main_attach', contentImage[0].files[0]);
+		param.append('sub_attach', popupImage[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -46,8 +46,8 @@
 			const param = {
 				"title" : title.val().trim(),
 				"description" : content.val().trim(),
-				"image_url" : data.image_urls.example,
-				"popup_image_url" : data.image_urls.thumbnail,
+				"image_url" : data.image_urls.main_attach,
+				"popup_image_url" : data.image_urls.sub_attach,
 				"popup_lottie_type" : $('input:radio[name=radio-type]:checked').val(),
 				"type" : selType.val(),
 				"terms" : qualification.val().trim(),

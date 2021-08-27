@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJson, isSuccessResp, invalidResp, headers } from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, btnModalUcd, modalUcd, amount, memo, modalActionDetail, modalClose, modalBackdrop,
 		lengthInput, ulDoitTab, openedDoitWrap, joinedDoitWrap, pagination, actionsWrap, profileId, contact,

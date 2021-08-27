@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, selEventType, title, content, eventNotice, link, dateFrom, dateTo, contentImage, thumbnailImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, initInputDateRangeWeek, initInputDatepickerMinDateToday } from "../modules/common.js";
@@ -71,11 +71,11 @@
 	function fileUploadReq()
 	{
 		let param  = new FormData();
-		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
+		param.append('sub_attach', thumbnailImage[0].files[0]);
 		if (isDisplay(contentImgWrap))
-			param.append('event_content_img', contentImage[0].files[0]);
+			param.append('main_attach', contentImage[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.event, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -86,7 +86,7 @@
 	{
 		if (isEmpty(data) || isSuccessResp(data))
 		{
-			const { event_thumbnail_img, event_content_img } = data.image_urls;
+			const { sub_attach, main_attach } = data.image_urls;
 			const param = {
 				"event_type" : selEventType.val(),
 				"title" : title.val().trim(),
@@ -95,8 +95,8 @@
 				"start_date" : isDisplay(dateWrap) ? dateFrom.val() : '',
 				"end_date" : isDisplay(dateWrap) ? dateTo.val() : '',
 				"link_url" : isDisplay(linkWrap) ? link.val().trim() : '',
-				"image_url" : isDisplay(contentImgWrap) ? event_content_img : '',
-				"thumbnail_image_url" : event_thumbnail_img,
+				"image_url" : isDisplay(contentImgWrap) ? main_attach : '',
+				"thumbnail_image_url" : sub_attach,
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
 			}
 

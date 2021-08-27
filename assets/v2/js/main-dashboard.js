@@ -1,6 +1,6 @@
 
     import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
-    import {api} from "./modules/api-url-v1.js";
+    import {api} from "./modules/api-url.js";
     import {sweetError, sweetToast} from "./modules/alert.js";
     import {message} from "./modules/message.js";
     import {fadeinModal, fadeoutModal, getTodayStr, getWeekAgoStr, initMaxDateToday, initSearchDatepicker, moveToMemberDetail, paginate,} from "./modules/common.js";

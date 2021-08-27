@@ -9,7 +9,7 @@
 	import {
 		initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength, initDayBtn
 	} from "../modules/common.js";
-	import {api} from "../modules/api-url-v1.js";
+	import {api} from "../modules/api-url.js";
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";

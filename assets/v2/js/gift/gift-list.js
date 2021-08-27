@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, updateTable,
 		selPageLength, modalOpen, modalClose, modalBackdrop, btnUpdate, selSearchType,} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';

@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {api, fileApiV2} from '../modules/api-url-v1.js';
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
 		lengthInput, btnSubmit, price, contentImage, giftName, rdoExposure, modalOpen,
 		modalClose, modalBackdrop, giftType, selectGiftName, goodsCode, ktImageUrl, keyword, dataTable, btnSearch

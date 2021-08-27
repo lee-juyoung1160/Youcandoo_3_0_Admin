@@ -1,6 +1,6 @@
 
 	import { ajaxRequestWithJson, isSuccessResp, invalidResp } from '../modules/ajax-request.js'
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, btnUpdate, btnDelete, content, badgeTitle, contentImage, badgeType, qualification, isOpen, difficulty,
 		popupImage, lottieType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';

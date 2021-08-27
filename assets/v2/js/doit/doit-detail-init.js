@@ -151,7 +151,7 @@
 		onChangeUpdateAttachType, onSubmitUpdateTalk, showTalkDetailForm, onSubmitBlindTalk,
 		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
 	} from "./doit-detail-talk.js";
-	import {api} from "../modules/api-url-v1.js";
+	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
 	import {sweetConfirm, sweetToastAndCallback, sweetError, sweetToast} from "../modules/alert.js";
 	import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "../modules/ajax-request.js";

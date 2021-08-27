@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {
 		contentImage, title, bizNo, bizWeb, content, btnBack, btnList, btnUpdate,
 		btnSubmit, modalClose, modalBackdrop, selPageLengthDoit, selPageLengthUcd,

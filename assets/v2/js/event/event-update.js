@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import {api, fileApiV2} from '../modules/api-url-v1.js';
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
 		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
@@ -97,11 +97,11 @@
 	function fileUploadReq()
 	{
 		let param  = new FormData();
-		param.append('event_thumbnail_img', thumbnailImage[0].files[0]);
+		param.append('sub_attach', thumbnailImage[0].files[0]);
 		if (isDisplay(contentImgWrap))
-			param.append('event_content_img', contentImage[0].files[0]);
+			param.append('main_attach', contentImage[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.event, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -126,13 +126,13 @@
 
 			if (!isEmpty(data))
 			{
-				const { event_thumbnail_img, event_content_img } = data.image_urls;
+				const { sub_attach, main_attach } = data.image_urls;
 
-				if (!isEmpty(event_thumbnail_img))
-					param["thumbnail_image_url"] = event_thumbnail_img;
+				if (!isEmpty(sub_attach))
+					param["thumbnail_image_url"] = sub_attach;
 
-				if (!isEmpty(event_content_img))
-					param["image_url"] = event_content_img;
+				if (!isEmpty(main_attach))
+					param["image_url"] = main_attach;
 			}
 
 			ajaxRequestWithJson(true, api.updateEvent, JSON.stringify(param))

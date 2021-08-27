@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp} from '../modules/ajax-request.js'
-	import {api, fileApiV2} from '../modules/api-url-v1.js';
+	import {api, fileApiV2} from '../modules/api-url.js';
 	import {content, badgeTitle, contentImage, thumbnail, qualification, difficulty, selType, lengthInput,
 		btnSubmit, rdoOpen, popupImage, rdoType, popupThumbnail,} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
@@ -78,10 +78,10 @@
 		let param  = new FormData();
 		const imageFile = contentImage[0].files;
 		const popupFile = popupImage[0].files;
-		param.append('example', imageFile.length > 0 ? contentImage[0].files[0] : '');
-		param.append('thumbnail', popupFile.length > 0 ? popupImage[0].files[0] : '');
+		param.append('main_attach', imageFile.length > 0 ? contentImage[0].files[0] : '');
+		param.append('sub_attach', popupFile.length > 0 ? popupImage[0].files[0] : '');
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -105,11 +105,11 @@
 
 			if (!isEmpty(data))
 			{
-				const {example, thumbnail} = data.image_urls;
-				if (!isEmpty(example))
-					param["image_url"] = data.image_urls.example;
-				if (!isEmpty(thumbnail))
-					param["popup_image_url"] = data.image_urls.thumbnail;
+				const {main_attach, sub_attach} = data.image_urls;
+				if (!isEmpty(main_attach))
+					param["image_url"] = main_attach;
+				if (!isEmpty(sub_attach))
+					param["popup_image_url"] = sub_attach;
 			}
 
 			ajaxRequestWithJson(true, api.updateBadge, JSON.stringify(param))

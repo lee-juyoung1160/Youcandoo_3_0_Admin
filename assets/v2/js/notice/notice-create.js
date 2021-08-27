@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {lengthInput, btnSubmit, title, content, reserveDate, contentImage,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { onChangeValidateImage, limitInputLength, setDateToday, initInputDatepickerMinDateToday } from "../modules/common.js";
@@ -34,7 +34,13 @@
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.single, param)
+		/*ajaxRequestWithFile(true, fileApiV2.single, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));*/
+
+		ajaxRequestWithFile(true,  'https://fileuploader.youcandoo.co.kr/file/upload/single', param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})

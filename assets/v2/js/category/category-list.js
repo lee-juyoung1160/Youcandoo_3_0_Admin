@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import { dataTable, updateTable, btnUpdate, modalOpen, modalClose, modalBackdrop } from  '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import { fadeinModal, fadeoutModal, onErrorImage } from "../modules/common.js";

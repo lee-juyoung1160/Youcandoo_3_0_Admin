@@ -29,7 +29,7 @@ ajaxRequestWithFile : multipart/form-data로 파일 첨부할 때 사용.
 설명 생략.
 ```
 
-#### api-url-v1.js : api 호출 url이 선언된 모듈
+#### api-url.js : api 호출 url이 선언된 모듈
 ```javascript
 설명 생략.
 ```

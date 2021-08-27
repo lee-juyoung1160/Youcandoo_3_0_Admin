@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {api} from '../modules/api-url-v1.js';
+	import {api} from '../modules/api-url.js';
 	import {curationTitle, keyword, lengthInput, dataTable, updateTable, btnSubmit, rdoExposure,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {calculateInputLength, limitInputLength, onErrorImage} from "../modules/common.js";

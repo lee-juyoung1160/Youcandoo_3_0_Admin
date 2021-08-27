@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp, headers} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {targetUrl, btnSubmit, title, dateFrom, dateTo, rdoTargetPageType, targetPage, modalOpen, modalClose,
 		modalBackdrop, dataTable, targetUuid, thumbnail, contentImage, keyword,} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';

@@ -1,5 +1,5 @@
 
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {password, passwordCheck, passwordCheckTxt, btnSubmit, useremail, userid, username, sessionUserId} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetError, sweetToastAndCallback} from '../modules/alert.js';
 	import {isEmpty,} from "../modules/utils.js";

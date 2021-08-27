@@ -248,10 +248,11 @@
         cancelDoitPromotion : baseApiUrl + 'promotion/set/release',
     }
 
-    const fileUploadBaseUrlV2 = 'https://adminupload.youcandoo.co.kr/file/upload/';
+    const fileUploadBaseUrlV2 = 'https://fileuploader.youcandoo.co.kr/';
     export const fileApiV2 = {
         single : fileUploadBaseUrlV2+'single'
         ,multi : fileUploadBaseUrlV2+'multi'
+        ,double : fileUploadBaseUrlV2+'double'
         ,event : fileUploadBaseUrlV2+'event'
         ,mission : fileUploadBaseUrlV2+'mission'
     }

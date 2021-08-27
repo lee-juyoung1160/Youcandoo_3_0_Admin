@@ -1,5 +1,5 @@
 
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {btnBack, btnList, btnUpdate, btnDelete, authName, bizName, username, useremail, isApproval, isExposure} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {calculateInputLength, historyBack} from "../modules/common.js";

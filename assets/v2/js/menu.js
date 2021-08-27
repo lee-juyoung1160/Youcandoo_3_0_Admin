@@ -1,5 +1,5 @@
 
-    import { api } from './modules/api-url-v1.js';
+    import { api } from './modules/api-url.js';
     import {btnMenuToggle, section, sideBar, btnScrollTop, mainMenu, sessionAuthCode} from "./modules/elements.js";
     import {getPathName, isEmpty} from "./modules/utils.js";
     import { fadeinLoader, fadeoutLoader } from "./modules/common.js";

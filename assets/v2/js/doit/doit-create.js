@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, headers, invalidResp} from "../modules/ajax-request.js";
-	import { api, fileApiV2 } from '../modules/api-url-v1.js';
+	import { api, fileApiV2 } from '../modules/api-url.js';
 	import {
 		lengthInput, keyword, dataTable, selCategory, btnAdd, doitTitle, doitDesc, doitKeywords, doitKeyword,
 		doitImage, doitQuestion, selSubcategory, btnSubmit, modalOpen, modalClose, modalBackdrop,

@@ -11,7 +11,7 @@
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
 	} from "../modules/common.js";
-	import {api, fileApiV2} from "../modules/api-url-v1.js";
+	import {api, fileApiV2} from "../modules/api-url.js";
 	import {g_doit_uuid, isSponsorDoit} from "./doit-detail-info.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {label} from "../modules/label.js";
@@ -740,11 +740,11 @@
 	function createTalkAttachRequest()
 	{
 		let param  = new FormData();
-		param.append('example', $("#talkAttachment")[0].files[0]);
+		param.append('main_attach', $("#talkAttachment")[0].files[0]);
 		if (getAttachType() === label.video)
-			param.append('thumbnail', $("#talkAttachThumbnail")[0].files[0]);
+			param.append('sub_attach', $("#talkAttachThumbnail")[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createTalkRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -765,11 +765,11 @@
 			{
 				const talkAttachObj = {
 					"contents_type" : getAttachType(),
-					"path" : data.image_urls.example
+					"path" : data.image_urls.main_attach
 				}
 
 				if (getAttachType() === label.video)
-					talkAttachObj['thumbnail_path'] = data.image_urls.thumbnail;
+					talkAttachObj['thumbnail_path'] = data.image_urls.sub_attach;
 
 				param["attach"] =  talkAttachObj;
 			}
@@ -849,11 +849,11 @@
 	function updateTalkAttachRequest()
 	{
 		let param  = new FormData();
-		param.append('example', $("#updateTalkAttachment")[0].files[0]);
+		param.append('main_attach', $("#updateTalkAttachment")[0].files[0]);
 		if (getUpdateAttachType() === label.video)
-			param.append('thumbnail', $("#updateTalkAttachThumbnail")[0].files[0]);
+			param.append('sub_attach', $("#updateTalkAttachThumbnail")[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? updateTalkRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -876,11 +876,11 @@
 			{
 				const talkAttachObj = {
 					"contents_type" : getUpdateAttachType(),
-					"path" : data.image_urls.example
+					"path" : data.image_urls.main_attach
 				}
 
 				if (getUpdateAttachType() === label.video)
-					talkAttachObj['thumbnail_path'] = data.image_urls.thumbnail;
+					talkAttachObj['thumbnail_path'] = data.image_urls.sub_attach;
 
 				param["attach"] =  talkAttachObj;
 			}

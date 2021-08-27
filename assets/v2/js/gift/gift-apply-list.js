@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,
 		rdoType, reserveDate, modalClose, modalBackdrop, btnSubmitGift, btnSubmitGeneral, btnCancel, modalGeneral, generalMemo,
 		modalGift, selHour, selMinute, btnSendGeneral, btnSendGift, selDateType, memo, balance} from '../modules/elements.js';

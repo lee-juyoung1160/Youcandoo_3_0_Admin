@@ -1,6 +1,6 @@
 
 	import {headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {api} from '../modules/api-url-v1.js';
+	import {api} from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, dateButtons,dateFrom, dateTo, selDateType, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateMonths, initSearchDateRangeMonth,

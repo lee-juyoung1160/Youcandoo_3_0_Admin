@@ -15,7 +15,7 @@
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
 	import {g_doit_uuid} from "./doit-detail-info.js";
 	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
-	import {fileApiV2, api} from "../modules/api-url-v1.js";
+	import {fileApiV2, api} from "../modules/api-url.js";
 
 	export function showCreateMissionForm()
 	{
@@ -194,11 +194,11 @@
 	function fileUploadReq()
 	{
 		let param  = new FormData();
-		param.append('example', $("#actionExample")[0].files[0]);
+		param.append('main_attach', $("#actionExample")[0].files[0]);
 		if (getActionType() === label.video)
-			param.append('thumbnail', $("#actionExampleThumbnail")[0].files[0]);
+			param.append('sub_attach', $("#actionExampleThumbnail")[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -209,10 +209,10 @@
 	{
 		const missionExampleObj = {
 			"contents_type" : getActionType(),
-			"path" : data.image_urls.example
+			"path" : data.image_urls.main_attach
 		}
 		if (getActionType() === label.video)
-			missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
+			missionExampleObj['thumbnail_path'] = data.image_urls.sub_attach;
 
 		const param = {
 			"doit_uuid" : g_doit_uuid,
@@ -406,11 +406,11 @@
 	function updateFileUploadReq()
 	{
 		let param  = new FormData();
-		param.append('example', $("#updateExample")[0].files[0]);
+		param.append('main_attach', $("#updateExample")[0].files[0]);
 		if (getUpdateActionType() === label.video)
-			param.append('thumbnail', $("#updateThumbnail")[0].files[0]);
+			param.append('sub_attach', $("#updateThumbnail")[0].files[0]);
 
-		ajaxRequestWithFile(true, fileApiV2.mission, param)
+		ajaxRequestWithFile(true, fileApiV2.double, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? updateRequest(data) : sweetToast(invalidResp(data));
 			})
@@ -438,10 +438,10 @@
 			{
 				const missionExampleObj = {
 					"contents_type" : getUpdateActionType(),
-					"path" : data.image_urls.example
+					"path" : data.image_urls.main_attach
 				}
 				if (getUpdateActionType() === label.video)
-					missionExampleObj['thumbnail_path'] = data.image_urls.thumbnail;
+					missionExampleObj['thumbnail_path'] = data.image_urls.sub_attach;
 
 				param["mission_example"] =  missionExampleObj;
 			}

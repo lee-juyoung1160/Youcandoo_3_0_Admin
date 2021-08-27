@@ -1,6 +1,6 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
-	import { api } from '../modules/api-url-v1.js';
+	import { api } from '../modules/api-url.js';
 	import {keyword, dataTable,} from '../modules/elements.js';
 	import {sweetToast, sweetConfirm, sweetToastAndCallback, sweetError} from '../modules/alert.js';
 	import {initTableDefaultConfig, buildTotalCount,} from '../modules/tables.js';

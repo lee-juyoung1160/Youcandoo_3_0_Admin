@@ -141,6 +141,7 @@
         inquiryList : baseApiUrl + 'qna/get/list',
         updateInquiry : baseApiUrl + 'qna/set/insertComment',
         detailInquiry : baseApiUrl + 'qna/get/detail/info',
+        deleteInquiry : baseApiUrl + 'qna/delete',
 
         reportActionList : baseApiUrl + 'report/get/action/list',
         actionReportReasonList : baseApiUrl + 'report/get/action/descriptionList',

@@ -3,9 +3,9 @@
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
-		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate, btnDelete
+		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate
 	} from '../modules/elements.js';
-	import {sweetToast, sweetError, sweetToastAndCallback, sweetConfirm} from '../modules/alert.js';
+	import {sweetToast, sweetError,} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, moveToMemberDetail, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -24,7 +24,6 @@
 		btnBack	 		.on('click', function () { historyBack(); });
 		btnList	 		.on('click', function () { goListPage(); });
 		btnUpdate		.on('click', function () { goUpdatePage(); });
-		btnDelete		.on('click', function () { onSubmitDeleteInquiry(); });
 	});
 
 	function getDetail()
@@ -82,22 +81,6 @@
 	function onClickNickname(obj)
 	{
 		moveToMemberDetail($(obj).data('uuid'));
-	}
-
-	function onSubmitDeleteInquiry()
-	{
-		sweetConfirm(message.delete, deleteRequest);
-	}
-
-	function deleteRequest()
-	{
-		const param = { "qna_uuid" : g_inquiry_uuid }
-
-		ajaxRequestWithJson(true, api.deleteInquiry, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				sweetToastAndCallback(data, historyBack)
-			})
-			.catch(reject => sweetError(`삭제${message.ajaxError}`));
 	}
 
 	function goListPage()

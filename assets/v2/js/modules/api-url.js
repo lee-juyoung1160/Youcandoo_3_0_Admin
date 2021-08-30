@@ -89,6 +89,8 @@
         blockMemberList : baseApiUrl + 'member/get/retire/ban/list',
         cancelBlockMember : baseApiUrl + 'member/set/retire/ban/cancel',
 
+        lankMember : baseApiUrl + 'doit/get/member/rank',
+
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',
         sendWarning : baseApiUrl + 'action/set/yellow',

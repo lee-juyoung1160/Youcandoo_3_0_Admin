@@ -137,7 +137,7 @@
 		onChangeRdoReason,
 		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock,
 	} from "./doit-detail-member.js";
-	import {onClickSearchTab, buildOngoingRank, buildTotalRank, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
+	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
 		showUcdListForm, initSearchUcdForm, onClinkBtnSaveUcdWallet, onSubmitSearchUcd, onSubmitSaveDoitUcd, buildUcdTable
 	} from "./doit-detail-ucd.js";

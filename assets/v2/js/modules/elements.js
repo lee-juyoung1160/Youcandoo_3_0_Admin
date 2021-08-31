@@ -246,10 +246,11 @@
     export const rdoReason = $("input[name=radio-reason]");
     export const banReason = $("#banReason");
 
-    export const rankForm = $("#rankForm");
     export const searchTab = $("#searchTab li");
     export const ongoingRankTable = $("#ongoingRankTable");
     export const totalRankTable = $("#totalRankTable");
+    export const btnRefreshTotalRank = $("#btnRefreshTotalRank");
+    export const btnRefreshOngoingRank = $("#btnRefreshOngoingRank");
 
     export const ucdListForm = $("#ucdListForm");
     export const publicWalletBalance = $("#publicWalletBalance");

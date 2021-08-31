@@ -957,7 +957,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="card">
-                                <p class="title">연속 인증 랭킹 <i class="fas fa-sync-alt" id=""></i></p>
+                                <p class="title">연속 인증 랭킹 <i class="fas fa-sync-alt" id="btnRefreshOngoingRank"></i></p>
                             </div>
                             <div class="table-wrap">
                                 <div class="top clearfix">
@@ -967,8 +967,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table>
-                                    <thead>
+                                <table id="ongoingRankTable">
+                                    <!--<thead>
                                     <colgroup>
                                         <col style="width: 15%;">
                                         <col style="width: 45%;">
@@ -993,14 +993,14 @@
                                         <td>부리더</td>
                                         <td>50</td>
                                     </tr>
-                                    </tbody>
+                                    </tbody>-->
                                 </table>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="card">
-                                <p class="title">누적 인증 랭킹 <i class="fas fa-sync-alt" id=""></i></p>
+                                <p class="title">누적 인증 랭킹 <i class="fas fa-sync-alt" id="btnRefreshTotalRank"></i></p>
                             </div>
                             <div class="table-wrap">
                                 <div class="top clearfix">
@@ -1009,14 +1009,14 @@
                                             <p>Total <strong class="data-num"></strong></p>
                                         </div>
                                     </div>
-                                    <ul class="btn-wrap btn-sort clearfix">
-                                        <li class="active">전체</li>
-                                        <li>주간</li>
-                                        <li>월간</li>
+                                    <ul class="btn-wrap btn-sort clearfix" id="searchTab">
+                                        <li data-type="total" class="active">전체</li>
+                                        <li data-type="day7">주간</li>
+                                        <li data-type="day30">월간</li>
                                     </ul>
                                 </div>
-                                <table>
-                                    <thead>
+                                <table id="totalRankTable">
+                                    <!--<thead>
                                     <colgroup>
                                         <col style="width: 15%;">
                                         <col style="width: 45%;">
@@ -1041,7 +1041,7 @@
                                         <td>부리더</td>
                                         <td>50</td>
                                     </tr>
-                                    </tbody>
+                                    </tbody>-->
                                 </table>
                             </div>
                         </div>

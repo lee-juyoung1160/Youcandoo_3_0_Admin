@@ -96,7 +96,7 @@
 		rdoReason,
 		btnSubmitBan,
 		selBlockMemberPageLength,
-		btnCancelBlock, searchTab,
+		btnCancelBlock, searchTab, btnRefreshOngoingRank, btnRefreshTotalRank
 	} from '../modules/elements.js';
 	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
 		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
@@ -137,7 +137,7 @@
 		onChangeRdoReason,
 		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock,
 	} from "./doit-detail-member.js";
-	import {onClickSearchTab, buildOngoingRank, buildTotalRank} from "./doit-detail-rank";
+	import {onClickSearchTab, buildOngoingRank, buildTotalRank, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
 		showUcdListForm, initSearchUcdForm, onClinkBtnSaveUcdWallet, onSubmitSearchUcd, onSubmitSaveDoitUcd, buildUcdTable
 	} from "./doit-detail-ucd.js";
@@ -236,6 +236,8 @@
 		btnCancelBlock.on('click', function () { onClickBtnCancelBlock(); });
 		/** 랭크탭 **/
 		searchTab.on('click', function () { onClickSearchTab(this); });
+		btnRefreshOngoingRank.on('click', function () { refreshOngoingRank(); });
+		btnRefreshTotalRank.on('click', function () { refreshTotalRank(); });
 		/** UCD탭 **/
 		initPageLength(selUcdPageLength);
 		searchUcdDateFrom.on('change', function () { onChangeSearchDateFrom(); });
@@ -296,8 +298,7 @@
 				showJoinMemberForm();
 				break;
 			case '#tabDoitMemberRanking' :
-				buildOngoingRank();
-				buildTotalRank();
+				initMemberRankForm(searchTab[0])
 				break;
 			case '#tabDoitUcd' :
 				showUcdListForm();

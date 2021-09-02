@@ -256,6 +256,26 @@
         });
     }
 
+    export function initSelHour(_obj)
+    {
+        let options = '';
+        for (let i=0; i<24; i++)
+        {
+            options += `<option selected value="${appendZero(i)}">${i}시</ooption>`
+        }
+        _obj.html(options);
+    }
+
+    export function initSelMinute(_obj)
+    {
+        let options = '';
+        for (let i=0; i<60; i++)
+        {
+            options += `<option selected value="${appendZero(i)}">${appendZero(i)}분</ooption>`
+        }
+        _obj.html(options);
+    }
+
     /** 체크박스 최소 1개 체크 검사 **/
     export function atLeastChecked(obj)
     {

@@ -29,12 +29,12 @@
                                 <i class="fas fa-calendar-day"></i>
                                 <input id="reserveDate" type="text" class="datepicker" readonly>
 
-                                <div id="reserveTime" class="form-box time-from">
+                                <div class="form-box time-from">
                                     <i class="fas fa-clock"></i>
-                                    <select class="select-box hour">
+                                    <select class="select-box hour" id="selHour">
                                     </select>
                                     <span class="date-text">:</span>
-                                    <select class="select-box minute">
+                                    <select class="select-box minute" id="selMinute">
                                     </select>
                                 </div>
                             </div>
@@ -337,17 +337,3 @@
 <script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
 <script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
 <script type="module" src="/assets/v2/js/bundles/push-create.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
-
-<script>
-    let htm = '';
-    for (var h = 0; h < 24; h++) {
-        htm += "<option value = '" + h + "' >" + h + "</option>";
-    }
-    $('.hour').append(htm);
-
-    let html = '';
-    for (var m = 0; m < 60; m++) {
-        html += "<option value = '" + m + "' >" + m + "</option>";
-    }
-    $('.minute').append(html);
-</script>

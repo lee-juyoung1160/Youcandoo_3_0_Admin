@@ -2,20 +2,19 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-	btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
-	modalTargetMember, targetPage, modalTargetPage, rdoReserveType, rdoTargetMemberType,
-	rdoTargetPageType, reserveDate, reserveTime, btnXlsxExport, dataTable, keyword, targetUuid,
-	nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport, dateFrom, startTime
+		btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
+		modalTargetMember, targetPage, modalTargetPage, rdoReserveType, rdoTargetMemberType,
+		rdoTargetPageType, reserveDate, btnXlsxExport, dataTable, keyword, targetUuid,
+		nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport, selHour, selMinute,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
-	emptyFile,
-	fadeinLoader, fadeoutLoader,
-	fadeoutModal,
-	initInputDatepickerMinDateToday,
-	overflowHidden,
-	setDateToday
-} from "../modules/common.js";
+		emptyFile,
+		fadeoutModal,
+		initInputDatepickerMinDateToday, initSelHour, initSelMinute,
+		overflowHidden,
+		setDateToday
+	} from "../modules/common.js";
 	import {
 		getCurrentHours, getCurrentMinutes, getCurrentSecond,
 		getStringFormatToDate,
@@ -37,6 +36,8 @@
 		initTableDefaultConfig();
 		initInputDatepickerMinDateToday();
 		setDateToday();
+		initSelHour(selHour);
+		initSelMinute(selMinute);
 		buildSearchMemberTable();
 		/** 이벤트 **/
 		targetPage.on("click", function () { onClickModalTargetPageOpen(); });
@@ -53,9 +54,16 @@
 		btnSearch.on('click', function () { onSubmitSearchMember(); });
 	});
 
+	function initTimes()
+	{
+		selHour.val('12');
+		selMinute.val('00');
+	}
+
 	function onChangeRdoReserveType(obj)
 	{
 		$(obj).val() === 'reserve' ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
+		initTimes();
 	}
 
 	function onChangeRdoTargetPageType(obj)
@@ -451,7 +459,7 @@
 		const sendType = $('input:radio[name=radio-reserve-type]:checked').val();
 		const sendDatetime = sendType === 'immediately'
 			? `${getStringFormatToDate(new Date(), '-')} ${getCurrentHours()}:${getCurrentMinutes()}:${getCurrentSecond()}`
-			: `${reserveDate.val()} ${reserveTime.val()}:00`;
+			: `${reserveDate.val()} ${selHour.val()}:${selMinute.val()}:00`;
 		const param = {
 			"reserve_type" : sendType,
 			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
@@ -480,20 +488,14 @@
 
 	function validation()
 	{
-		const reserveType = $("input[name=radio-reserve-type]:checked").val();
-		if (reserveType === 'reserve' && isEmpty(reserveTime.val()))
-		{
-			sweetToast(`발송 시간은 ${message.required}`);
-			reserveTime.trigger('focus');
-			return false;
-		}
 
+		const reserveType = $("input[name=radio-reserve-type]:checked").val();
 		const currentDatetime = new Date().getTime();
-		const reserveDatetime = new Date(`${reserveDate.val()} ${reserveTime.val()}:00`).getTime();
+		const reserveDatetime = new Date(`${reserveDate.val()} ${selHour.val()}:${selMinute.val()}:00`).getTime();
 		if (reserveType === 'reserve' && currentDatetime > reserveDatetime)
 		{
 			sweetToast(`발송 시간은 ${message.compareCurrentTime}`);
-			reserveTime.trigger('focus');
+			selHour.trigger('focus');
 			return false;
 		}
 

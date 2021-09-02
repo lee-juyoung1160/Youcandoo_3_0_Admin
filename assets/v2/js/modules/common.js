@@ -59,12 +59,12 @@
 
     export function fadeinLoader()
     {
-        loader.fadeIn(100);
+        loader.show();
     }
 
     export function fadeoutLoader()
     {
-        loader.fadeOut(100);
+        loader.hide();
     }
 
     export function initInputDatepickerMinDateToday()

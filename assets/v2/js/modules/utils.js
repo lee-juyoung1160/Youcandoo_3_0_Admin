@@ -63,6 +63,11 @@
 		return new Date().getMinutes();
 	}
 
+	export function getCurrentSecond()
+	{
+		return new Date().getSeconds();
+	}
+
 	export function getStringFormatToDate(_date, separator)
 	{
 		let yyyy 	= _date.getFullYear().toString();
@@ -174,7 +179,7 @@
 	{
 		if (obj.files[0])
 		{
-			const maxSize = 10 * 1024 * 1024;
+			const maxSize = 100 * 1024 * 1024;
 			return obj.files[0].size > maxSize;
 		}
 	}

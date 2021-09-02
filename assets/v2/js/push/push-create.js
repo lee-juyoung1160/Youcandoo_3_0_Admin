@@ -2,14 +2,27 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import {
-		btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
-		modalTargetMember, targetPage, modalTargetPage, rdoReserveType, rdoTargetMemberType,
-		rdoTargetPageType, reserveDate, reserveTime, btnXlsxExport, dataTable, keyword, targetUuid,
-		nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport
+	btnSubmit, content, modalClose, modalBackdrop, btnModalTargetMemberOpen,
+	modalTargetMember, targetPage, modalTargetPage, rdoReserveType, rdoTargetMemberType,
+	rdoTargetPageType, reserveDate, reserveTime, btnXlsxExport, dataTable, keyword, targetUuid,
+	nickname, memberTable, btnSearch, updateTable, totalCount, btnXlsxImport, dateFrom, startTime
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
-	import {emptyFile, fadeoutModal, initInputDatepickerMinDateToday, overflowHidden, setDateToday} from "../modules/common.js";
-	import {isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
+	import {
+	emptyFile,
+	fadeinLoader, fadeoutLoader,
+	fadeoutModal,
+	initInputDatepickerMinDateToday,
+	overflowHidden,
+	setDateToday
+} from "../modules/common.js";
+	import {
+		getCurrentHours, getCurrentMinutes, getCurrentSecond,
+		getStringFormatToDate,
+		isEmpty,
+		isXlsX,
+		numberWithCommas
+	} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
@@ -435,9 +448,14 @@
 
 	function createRequest()
 	{
+		const sendType = $('input:radio[name=radio-reserve-type]:checked').val();
+		const sendDatetime = sendType === 'immediately'
+			? `${getStringFormatToDate(new Date(), '-')} ${getCurrentHours()}:${getCurrentMinutes()}:${getCurrentSecond()}`
+			: `${reserveDate.val()} ${reserveTime.val()}:00`;
 		const param = {
+			"reserve_type" : sendType,
 			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
-			"send_datetime" : `${reserveDate.val()} ${reserveTime.val()}`,
+			"send_datetime" : sendDatetime,
 			"send_profile_type" : $('input:radio[name=radio-target-member-type]:checked').val(),
 			"send_profile" : isIndividual() ? addedUsers : [],
 			"target_type" : $('input:radio[name=radio-target-page-type]:checked').val(),
@@ -466,6 +484,15 @@
 		if (reserveType === 'reserve' && isEmpty(reserveTime.val()))
 		{
 			sweetToast(`발송 시간은 ${message.required}`);
+			reserveTime.trigger('focus');
+			return false;
+		}
+
+		const currentDatetime = new Date().getTime();
+		const reserveDatetime = new Date(`${reserveDate.val()} ${reserveTime.val()}:00`).getTime();
+		if (reserveType === 'reserve' && currentDatetime > reserveDatetime)
+		{
+			sweetToast(`발송 시간은 ${message.compareCurrentTime}`);
 			reserveTime.trigger('focus');
 			return false;
 		}

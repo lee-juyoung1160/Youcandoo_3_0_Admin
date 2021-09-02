@@ -1,4 +1,5 @@
 	import {isEmpty} from "./utils.js";
+	import {fadeinLoader, fadeoutLoader} from "./common.js"
 
 	let excelHandler = {
 		fileName : "sample.xlsx",
@@ -32,14 +33,28 @@
 
 	export function readExcelData(obj, callback)
 	{
+		fadeinLoader();
 		let reader = new FileReader();
 		reader.onload = function(e) {
-
-			const data = new Uint8Array(reader.result);
-			const workbook = XLSX.read(data, {type: 'array'});
+			const data =reader.result;
+		 	const workbook = XLSX.read(data, {type: 'binary'});
 
 			let readData = [];
-			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
+			try {
+				workbook.SheetNames.map( name => {
+					const options = {
+						header: 1,
+						range: 0,
+						blankrows: false,
+						defval: null,
+						raw: true,
+					}
+					readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], options))
+				})
+			} catch (e) {
+				fadeoutLoader();
+			}
+
 
 			let callbackArgs = [];
 			readData.map( value => {
@@ -50,7 +65,7 @@
 			callback(callbackArgs);
 		}
 
-		reader.readAsArrayBuffer(obj.files[0]);
+		reader.readAsBinaryString(obj.files[0]);
 	}
 
 	export function onClickImportMemberFormExport()

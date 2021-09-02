@@ -47,11 +47,29 @@
                         <th>기간 *</th>
                         <td>
                             <div class="date-wrap">
+
                                 <input type="text" class="datepicker date-from" readonly>
-                                <input id="startTime" type="time" value="00:00">
+                                <div class="form-box time-from">
+                                    <i class="fas fa-clock"></i>
+                                    <select class="select-box hour" id="selHour">
+                                    </select>
+                                    <span class="date-text">:</span>
+                                    <select class="select-box minute" id="selMinute">
+                                    </select>
+                                </div>
+
                                 <span class="date-text"> ~ </span>
+
                                 <input type="text" class="datepicker date-to" readonly>
-                                <input id="endTime" type="time" value="23:59" max="23:59">
+                                <div class="form-box time-from">
+                                    <i class="fas fa-clock"></i>
+                                    <select class="select-box hour" id="selHour2">
+                                    </select>
+                                    <span class="date-text">:</span>
+                                    <select class="select-box minute" id="selMinute2">
+                                    </select>
+                                </div>
+
                             </div>
                         </td>
                     </tr>

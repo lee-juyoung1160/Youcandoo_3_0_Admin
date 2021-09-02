@@ -856,6 +856,9 @@ h2.main-title {
 	align-items: center;
 	margin-right: 10px;
 }
+.date-wrap .date-text {
+	margin: 0 5px;
+}
 .date-wrap i {
 	margin-right: 5px;
 	color: #999;
@@ -865,11 +868,11 @@ h2.main-title {
 	align-items: center;
 	margin-left: 10px;
 }
-.date-wrap .time-from .select-box {
+.detail-page .date-wrap .time-from .select-box {
 	width: 70px;
 	background-position: 90% 50%;
 }
-.date-wrap .time-from .date-text {
+.detail-page .date-wrap .time-from .date-text {
 	float: left;
 	margin-right: 10px;
 }

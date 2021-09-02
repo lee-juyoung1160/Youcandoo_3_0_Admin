@@ -851,9 +851,29 @@ h2.main-title {
 	border-radius: 0 3px 3px 0;
 }
 .date-wrap {
+	display: flex;
+	float: left;
+	align-items: center;
+	margin-right: 10px;
+}
+.date-wrap i {
+	margin-right: 5px;
+	color: #999;
+}
+.date-wrap .time-from {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+.date-wrap .time-from .select-box {
+	width: 70px;
+	background-position: 90% 50%;
+}
+.date-wrap .time-from .date-text {
 	float: left;
 	margin-right: 10px;
 }
+
 .date-btn .btn {
 	height: 35px;
 	padding: 0 10px;

@@ -1,12 +1,31 @@
 
 	import {ajaxRequestWithFile, ajaxRequestWithJson, isSuccessResp, invalidResp, headers} from "../modules/ajax-request.js";
 	import { api, fileApiV2 } from '../modules/api-url.js';
-	import {lengthInput, title, contentImage, btnSubmit, inputNumber, sponsorUuid, sponsor, startTime, endTime,
-		modalOpen, modalClose, modalBackdrop, keyword, dataTable, dateTo, dateFrom,
+	import {
+		lengthInput,
+		title,
+		contentImage,
+		btnSubmit,
+		inputNumber,
+		sponsorUuid,
+		sponsor,
+		selEndHour,
+		selEndMinute,
+		modalOpen,
+		modalClose,
+		modalBackdrop,
+		keyword,
+		dataTable,
+		dateTo,
+		dateFrom,
+		selStartHour,
+		selStartMinute,
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal,
-		initInputDateRangeWeek, initInputDatepickerMinDateToday} from "../modules/common.js";
+	import {
+		onChangeValidateImage, limitInputLength, fadeoutModal, fadeinModal, initSelHour, initSelMinute,
+		initInputDateRangeWeek, initInputDatepickerMinDateToday,
+	} from "../modules/common.js";
 	import {isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -18,6 +37,11 @@
 		initTableDefaultConfig();
 		initInputDatepickerMinDateToday();
 		initInputDateRangeWeek();
+		initSelHour(selStartHour);
+		initSelMinute(selStartMinute);
+		initSelHour(selEndHour);
+		initSelMinute(selEndMinute);
+		initTimes();
 		/** 이벤트 **/
 		title.trigger('focus');
 		inputNumber .on("propertychange change keyup paste input", function () { initInputNumber(this); });
@@ -30,6 +54,14 @@
 		modalBackdrop	.on("click", function () { fadeoutModal(); });
 		btnSubmit		.on('click', function () { onSubmitPromotion(); });
 	});
+
+	function initTimes()
+	{
+		selStartHour.val('00');
+		selStartMinute.val('00');
+		selEndHour.val('23');
+		selEndMinute.val('59');
+	}
 
 	function onClickModalOpen()
 	{
@@ -128,8 +160,8 @@
 			"profile_uuid" : sponsorUuid.val().trim(),
 			"start_date" : dateFrom.val(),
 			"end_date" : dateTo.val(),
-			"start_time" : `${startTime.val()}:00`,
-			"end_time" : `${endTime.val()}:59`,
+			"start_time" : `${selStartHour.val()}:${selStartMinute.val()}:00`,
+			"end_time" : `${selEndHour.val()}:${selEndMinute.val()}:59`,
 			// "promotion_image_url" : data.image_urls.file
 		}
 
@@ -170,19 +202,19 @@
 		}*/
 
 		const currentDatetime = new Date().getTime();
-		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();
-		const endDatetime = new Date(`${dateTo.val()} ${endTime.val()}:00`).getTime();
+		const startDatetime = new Date(`${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:00`).getTime();
 		if (startDatetime > endDatetime)
 		{
 			sweetToast(`프로모션 ${message.compareActionTime}`);
-			startTime.trigger('focus');
+			selStartHour.trigger('focus');
 			return false;
 		}
 
 		if (currentDatetime > endDatetime)
 		{
 			sweetToast(`종료시간은 ${message.compareCurrentTime}`);
-			endTime.trigger('focus');
+			selEndHour.trigger('focus');
 			return false;
 		}
 

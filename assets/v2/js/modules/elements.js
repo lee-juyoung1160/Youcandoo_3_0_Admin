@@ -64,6 +64,10 @@
     export const deviceInfo = $("#deviceInfo");
     export const lengthInput  = $(".length-input");
     export const inputNumber  = $(".only-num");
+    export const selStartHour = $("#selStartHour");
+    export const selStartMinute = $("#selStartMinute");
+    export const selEndHour = $("#selEndHour");
+    export const selEndMinute = $("#selEndMinute");
 
     /** 모달 **/
     export const modalOpen      = $('.modal-btn');

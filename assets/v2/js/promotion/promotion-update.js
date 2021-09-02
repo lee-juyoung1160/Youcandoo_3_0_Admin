@@ -2,12 +2,32 @@
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp, ajaxRequestWithFile} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {
-		contentImage, thumbnail, title, btnSubmit, modalClose, modalBackdrop, inputNumber, lengthInput, startTime, endTime,
-		keyword, modalOpen, dataTable, sponsorUuid, sponsor, dateFrom, dateTo, promotionStatus
+	contentImage,
+	thumbnail,
+	title,
+	btnSubmit,
+	modalClose,
+	modalBackdrop,
+	inputNumber,
+	lengthInput,
+	startTime,
+	endTime,
+	keyword,
+	modalOpen,
+	dataTable,
+	sponsorUuid,
+	sponsor,
+	dateFrom,
+	dateTo,
+	promotionStatus,
+	selStartHour,
+	selStartMinute,
+	selEndHour, selEndMinute
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import {fadeinModal, fadeoutModal, onErrorImage, limitInputLength, onChangeValidateImage,
-		calculateInputLength, initSearchDatepicker, initMinDateToday
+	import {
+	fadeinModal, fadeoutModal, onErrorImage, limitInputLength, onChangeValidateImage,
+	calculateInputLength, initSearchDatepicker, initMinDateToday, initSelHour, initSelMinute
 	} from "../modules/common.js";
 	import {getPathName, splitReverse, isEmpty, initInputNumber,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
@@ -45,7 +65,16 @@
 
 		ajaxRequestWithJson(true, api.detailPromotion, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? getDetailSuccess(data) : sweetToast(invalidResp(data));
+				if (isSuccessResp(data))
+				{
+					await initSelHour(selStartHour);
+					await initSelMinute(selStartMinute);
+					await initSelHour(selEndHour);
+					await initSelMinute(selEndMinute);
+					getDetailSuccess(data);
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -65,7 +94,8 @@
 			case '진행중' :
 				sponsor.prop('disabled', true);
 				dateFrom.prop('disabled', true);
-				startTime.prop('disabled', true);
+				selStartHour.prop('disabled', true);
+				selStartMinute.prop('disabled', true);
 				break;
 			case '종료' :
 				title.prop('disabled', true);
@@ -73,8 +103,10 @@
 				contentImage.prop('disabled', true);
 				dateFrom.prop('disabled', true);
 				dateTo.prop('disabled', true);
-				startTime.prop('disabled', true);
-				endTime.prop('disabled', true);
+				selStartHour.prop('disabled', true);
+				selStartMinute.prop('disabled', true);
+				selEndHour.prop('disabled', true);
+				selEndMinute.prop('disabled', true);
 				break;
 		}
 
@@ -85,8 +117,10 @@
 		thumbnail.attr('src', promotion_image_url);
 		dateFrom.val(start_date);
 		dateTo.val(end_date);
-		startTime.val(start_time.slice(0, 5));
-		endTime.val(end_time.slice(0, 5));
+		selStartHour.val(start_time.slice(0, 2));
+		selStartMinute.val(start_time.slice(3, 5));
+		selEndHour.val(end_time.slice(0, 2));
+		selEndMinute.val(end_time.slice(3, 5));
 
 		onErrorImage();
 		calculateInputLength();
@@ -202,8 +236,8 @@
 				"profile_uuid" : sponsorUuid.val().trim(),
 				"start_date" : dateFrom.val(),
 				"end_date" : dateTo.val(),
-				"start_time" : `${startTime.val()}:00`,
-				"end_time" : `${endTime.val()}:59`,
+				"start_time" : `${selStartHour.val()}:${selStartMinute.val()}:00`,
+				"end_time" : `${selEndHour.val()}:${selEndMinute.val()}:59`,
 			}
 
 			/*if (!isEmpty(data))
@@ -239,19 +273,19 @@
 		}
 
 		const currentDatetime = new Date().getTime();
-		const startDatetime = new Date(`${dateFrom.val()} ${startTime.val()}:00`).getTime();
-		const endDatetime = new Date(`${dateTo.val()} ${endTime.val()}:00`).getTime();
+		const startDatetime = new Date(`${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:00`).getTime();
 		if (!dateFrom.prop('disabled') && currentDatetime > startDatetime)
 		{
 			sweetToast(`시작시간은 ${message.compareCurrentTime}`);
-			startTime.trigger('focus');
+			selStartHour.trigger('focus');
 			return false;
 		}
 
 		if (currentDatetime > endDatetime)
 		{
 			sweetToast(`종료시간은 ${message.compareCurrentTime}`);
-			endTime.trigger('focus');
+			selEndHour.trigger('focus');
 			return false;
 		}
 

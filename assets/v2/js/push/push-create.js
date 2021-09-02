@@ -30,6 +30,7 @@
 
 	let addedUsers = [];
 	let addedUserObj = [];
+	let initialize = true;
 
 	$( () => {
 		/** dataTable default config **/
@@ -38,7 +39,6 @@
 		setDateToday();
 		initSelHour(selHour);
 		initSelMinute(selMinute);
-		buildSearchMemberTable();
 		/** 이벤트 **/
 		targetPage.on("click", function () { onClickModalTargetPageOpen(); });
 		rdoReserveType.on('change', function () { onChangeRdoReserveType(this); });
@@ -219,7 +219,8 @@
 		overflowHidden();
 
 		nickname.val($(inputEl).val().trim());
-		onSubmitSearchMember();
+		initialize ? buildSearchMemberTable() : onSubmitSearchMember();
+		initialize = false;
 	}
 
 	function onSubmitSearchMember()
@@ -263,7 +264,7 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"keyword" : isEmpty(nickname.val()) ? '!@#' : nickname.val().trim()
+						,"keyword" : nickname.val().trim()
 					}
 
 					return JSON.stringify(param);

@@ -8,13 +8,16 @@
 		rdoViewOption,
 		dateFrom,
 		dateTo,
-		startTime,
-		endTime,
 		rdoExposure,
-		lengthInput, datePicker, btnSubmit, version
+		lengthInput, datePicker, btnSubmit, version, selStartHour, selStartMinute, selEndHour, selEndMinute
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetToast, sweetToastAndCallback, sweetError} from '../modules/alert.js';
-	import {calculateInputLength, initInputDatepickerMinDateToday, limitInputLength,} from "../modules/common.js";
+	import {
+		calculateInputLength,
+		initInputDatepickerMinDateToday,
+		initSelHour, initSelMinute,
+		limitInputLength,
+	} from "../modules/common.js";
 	import {getPathName, initInputNumber, isDomainName, isEmpty, splitReverse,} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -29,8 +32,8 @@
 		getDetail();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
-		dateFrom		.on('change', function () { onChangeDateFrom(); });
-		version  .on("propertychange change keyup paste input", function () { initInputNumber(this); });
+		dateFrom	.on('change', function () { onChangeDateFrom(); });
+		version  	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnSubmit	.on('click', function () { onSubmitUpdatePopup(); });
 	});
 
@@ -45,7 +48,16 @@
 
 		ajaxRequestWithJson(true, api.detailPopup, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? buildDetail(data) : sweetToast(invalidResp(data));
+				if (isSuccessResp(data))
+				{
+					await initSelHour(selStartHour);
+					await initSelMinute(selStartMinute);
+					await initSelHour(selEndHour);
+					await initSelMinute(selEndMinute);
+					buildDetail(data);
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -70,8 +82,10 @@
 		const splitEndDate = end_date.split(' ');
 		dateTo.val(splitEndDate[0]);
 		datePicker.datepicker("option", "minDate", start_date);
-		startTime.val(splitStartDate[1].substring(0, 5));
-		endTime.val(splitEndDate[1].substring(0, 5));
+		selStartHour.val(splitStartDate[1].slice(0, 2));
+		selStartMinute.val(splitStartDate[1].slice(3, 5));
+		selEndHour.val(splitEndDate[1].slice(0, 2));
+		selEndMinute.val(splitEndDate[1].slice(3, 5));
 		rdoExposure.each(function () {
 			$(this).prop('checked', $(this).val() === is_exposure);
 		})
@@ -94,8 +108,8 @@
 			"target_version": version.val().trim(),
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
-			"start_date": `${dateFrom.val()} ${startTime.val()}:00`,
-			"end_date": `${dateTo.val()} ${endTime.val()}:59`,
+			"start_date": `${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`,
+			"end_date": `${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:59`,
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
@@ -142,17 +156,20 @@
 			return false;
 		}
 
-		if (isEmpty(startTime.val()))
+		const currentDatetime = new Date().getTime();
+		const startDatetime = new Date(`${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:00`).getTime();
+		if (currentDatetime > endDatetime)
 		{
-			sweetToast(`노출시간(시작)은 ${message.required}`);
-			startTime.trigger('focus');
+			sweetToast(`종료시간은 ${message.compareCurrentTime}`);
+			selEndHour.trigger('focus');
 			return false;
 		}
 
-		if (isEmpty(endTime.val()))
+		if (startDatetime > endDatetime)
 		{
-			sweetToast(`노출시간(종료)은 ${message.required}`);
-			endTime.trigger('focus');
+			sweetToast(message.compareActionTime);
+			selStartHour.trigger('focus');
 			return false;
 		}
 

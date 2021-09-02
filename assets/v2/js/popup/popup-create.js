@@ -1,9 +1,24 @@
 
 	import {ajaxRequestWithJson} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, title, version, dateFrom, dateTo, startTime, endTime, link} from '../modules/elements.js';
+	import {
+		lengthInput,
+		btnSubmit,
+		title,
+		version,
+		dateFrom,
+		dateTo,
+		link,
+		selStartHour, selStartMinute, selEndHour, selEndMinute
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {initInputDatepickerMinDateToday, setDateToday, limitInputLength,} from "../modules/common.js";
+	import {
+		initInputDatepickerMinDateToday,
+		setDateToday,
+		limitInputLength,
+		initSelHour,
+		initSelMinute,
+	} from "../modules/common.js";
 	import {isEmpty, initInputNumber, isDomainName} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -13,12 +28,25 @@
 		title.trigger('focus');
 		initInputDatepickerMinDateToday();
 		setDateToday();
+		initSelHour(selStartHour);
+		initSelMinute(selStartMinute);
+		initSelHour(selEndHour);
+		initSelMinute(selEndMinute);
+		initTimes();
 		/** 이벤트 **/
 		lengthInput .on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		dateFrom	.on('change', function () { onChangeDateFrom(); });
 		version  	.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnSubmit	.on('click', function () { onSubmitPopup(); });
 	});
+
+	function initTimes()
+	{
+		selStartHour.val('00');
+		selStartMinute.val('00');
+		selEndHour.val('23');
+		selEndMinute.val('59');
+	}
 
 	function onChangeDateFrom()
 	{
@@ -39,8 +67,8 @@
 			"target_version": version.val().trim(),
 			"popup_url": link.val().trim(),
 			"close_type": $("input[name=radio-view-option]:checked").val(),
-			"start_date": `${dateFrom.val()} ${startTime.val()}:00`,
-			"end_date": `${dateTo.val()} ${endTime.val()}:59`,
+			"start_date": `${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`,
+			"end_date": `${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:59`,
 			"is_exposure": $("input[name=radio-exposure]:checked").val()
 		}
 
@@ -86,17 +114,20 @@
 			return false;
 		}
 
-		if (isEmpty(startTime.val()))
+		const currentDatetime = new Date().getTime();
+		const startDatetime = new Date(`${dateFrom.val()} ${selStartHour.val()}:${selStartMinute.val()}:00`).getTime();
+		const endDatetime = new Date(`${dateTo.val()} ${selEndHour.val()}:${selEndMinute.val()}:00`).getTime();
+		if (startDatetime > endDatetime)
 		{
-			sweetToast(`노출시간(시작)은 ${message.required}`);
-			startTime.trigger('focus');
+			sweetToast(`노출 ${message.compareActionTime}`);
+			selStartHour.trigger('focus');
 			return false;
 		}
 
-		if (isEmpty(endTime.val()))
+		if (currentDatetime > endDatetime)
 		{
-			sweetToast(`노출시간(종료)은 ${message.required}`);
-			endTime.trigger('focus');
+			sweetToast(`노출 종료 시간은 ${message.compareCurrentTime}`);
+			selEndHour.trigger('focus');
 			return false;
 		}
 

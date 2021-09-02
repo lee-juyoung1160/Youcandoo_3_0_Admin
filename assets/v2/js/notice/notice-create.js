@@ -34,13 +34,7 @@
 		let param  = new FormData();
 		param.append('file', contentImage[0].files[0]);
 
-		/*ajaxRequestWithFile(true, fileApiV2.single, param)
-			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
-			})
-			.catch(reject => sweetError(`이미지 등록${message.ajaxError}`));*/
-
-		ajaxRequestWithFile(true,  'https://fileuploader.youcandoo.co.kr/file/upload/single', param)
+		ajaxRequestWithFile(true, fileApiV2.single, param)
 			.then( async function( data, textStatus, jqXHR ) {
 				isSuccessResp(data) ? createRequest(data) : sweetToast(invalidResp(data));
 			})

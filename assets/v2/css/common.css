@@ -871,10 +871,10 @@ h2.main-title {
 .detail-page .date-wrap .time-from .select-box {
 	width: 70px;
 	background-position: 90% 50%;
+	margin-right: 0;
 }
 .detail-page .date-wrap .time-from .date-text {
 	float: left;
-	margin-right: 10px;
 }
 
 .date-btn .btn {

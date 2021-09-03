@@ -170,8 +170,6 @@
     export const missionStartDate   = $("#missionStartDate");
     export const missionEndDate     = $("#missionEndDate");
     export const chkPermanent  = $("input[name=chk-permanent]");
-    export const missionStartTime   = $("#missionStartTime");
-    export const missionEndTime     = $("#missionEndTime");
     export const rdoActionType  = $("input[name=radio-action-type]");
     export const actionExampleWrap  = $("#actionExampleWrap");
     export const chkGalleryAllowed  = $("input[name=chk-gallery-allowed]");
@@ -181,8 +179,10 @@
     export const updateMissionStartDate = $("#updateMissionStartDate");
     export const updateMissionEndDate = $("#updateMissionEndDate");
     export const chkUpdatePermanent  = $("input[name=chk-update-permanent]");
-    export const updateMissionStartTime = $("#updateMissionStartTime");
-    export const updateMissionEndTime   = $("#updateMissionEndTime");
+    export const selUpdateStartHour   = $("#selUpdateStartHour");
+    export const selUpdateStartMinute = $("#selUpdateStartMinute");
+    export const selUpdateEndHour = $("#selUpdateEndHour");
+    export const selUpdateEndMinute = $("#selUpdateEndMinute");
     export const rdoUpdateActionType  = $("input[name=radio-update-action-type]");
     export const chkUpdateGalleryAllowed  = $("input[name=chk-update-gallery-allowed]");
     export const updateExampleWrap  = $("#updateExampleWrap");

@@ -1,15 +1,54 @@
 
 	import {
-		missionCreateForm, missionDetailForm, missionListForm, missionUpdateForm, missionTitle, missionStartDate,
-		missionEndDate, rdoActionType, promise, actionExampleWrap, missionTable, infoMissionDate, infoMissionTime,
-		infoActionType, infoActionExampleWrap, infoActionExampleDesc, infoPromise, updateMissionStartDate,
-		updateMissionEndDate, updateMissionStartTime, updateMissionEndTime, rdoUpdateActionType, updatePromise,
-		missionStartTime, missionEndTime, chkGalleryAllowed, infoMissionTitle, chkUpdateGalleryAllowed, chkPermanent,
-		updateMissionTitle, updateActionExampleDesc, updateExampleWrap, chkUpdatePermanent, actionExampleDesc, btnDeleteMission
+		missionCreateForm,
+		missionDetailForm,
+		missionListForm,
+		missionUpdateForm,
+		missionTitle,
+		missionStartDate,
+		missionEndDate,
+		rdoActionType,
+		promise,
+		actionExampleWrap,
+		missionTable,
+		infoMissionDate,
+		infoMissionTime,
+		infoActionType,
+		infoActionExampleWrap,
+		infoActionExampleDesc,
+		infoPromise,
+		updateMissionStartDate,
+		updateMissionEndDate,
+		rdoUpdateActionType,
+		updatePromise,
+		chkGalleryAllowed,
+		infoMissionTitle,
+		chkUpdateGalleryAllowed,
+		chkPermanent,
+		updateMissionTitle,
+		updateActionExampleDesc,
+		updateExampleWrap,
+		chkUpdatePermanent,
+		actionExampleDesc,
+		btnDeleteMission,
+		selStartHour,
+		selStartMinute,
+		selEndMinute,
+		selEndHour,
+		selUpdateStartHour,
+		selUpdateStartMinute,
+		selUpdateEndHour,
+		selUpdateEndMinute,
 	} from "../modules/elements.js";
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
-	import {onChangeValidateImage, onChangeValidationVideo, onChangeValidationAudio, onErrorImage} from "../modules/common.js";
+	import {
+		onChangeValidateImage,
+		onChangeValidationVideo,
+		onChangeValidationAudio,
+		onErrorImage,
+		initSelHour, initSelMinute
+	} from "../modules/common.js";
 	import {isEmpty, replaceAll} from "../modules/utils.js";
 	import {label} from "../modules/label.js";
 	import {toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
@@ -60,6 +99,14 @@
 		missionEndDate.datepicker("setDate", "9999-12-31");
 		chkPermanent.prop('checked', true);
 		onChangeCheckPermanent(chkPermanent);
+		initSelHour(selStartHour);
+		initSelMinute(selStartMinute);
+		initSelHour(selEndHour);
+		initSelMinute(selEndMinute);
+		selStartHour.val('00');
+		selStartMinute.val('00');
+		selEndHour.val('23');
+		selEndMinute.val('59');
 		rdoActionType.eq(0).prop('checked', true);
 		onChangeActionType();
 		actionExampleDesc.val('');
@@ -150,12 +197,12 @@
 			return false;
 		}
 
-		const actionStartTime = Number(replaceAll(missionStartTime.val(), ':', ''));
-		const actionEndTime	= Number(replaceAll(missionEndTime.val(), ':', ''));
+		const actionStartTime = Number(`${selStartHour.val()}${selStartMinute.val()}`);
+		const actionEndTime	= Number(`${selEndHour.val()}${selEndMinute.val()}`);
 		if (actionStartTime > actionEndTime)
 		{
 			sweetToast(message.compareActionTime);
-			missionStartTime.trigger('focus');
+			selStartHour.trigger('focus');
 			return false;
 		}
 
@@ -219,8 +266,8 @@
 			"mission_title" : missionTitle.val().trim(),
 			"start_date" : missionStartDate.val(),
 			"end_date" : chkPermanent.is(':checked') ? '9999-12-31' : missionEndDate.val(),
-			"start_time" : missionStartTime.val().trim(),
-			"end_time" : missionEndTime.val().trim(),
+			"start_time" : `${selStartHour.val()}:${selStartMinute.val()}`,
+			"end_time" : `${selEndHour.val()}:${selEndMinute.val()}`,
 			"mission_description" : actionExampleDesc.val().trim(),
 			"mission_type" : getActionType(),
 			"allow_gallery_image" : chkGalleryAllowed.is(':checked') ? 'Y' : 'N',
@@ -241,7 +288,16 @@
 
 		ajaxRequestWithJson(true, api.detailMission, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? buildMissionDetail(data) : sweetToast(invalidResp(data));
+				if (isSuccessResp(data))
+				{
+					await initSelHour(selUpdateStartHour);
+					await initSelMinute(selUpdateStartMinute);
+					await initSelHour(selUpdateEndHour);
+					await initSelMinute(selUpdateEndMinute);
+					buildMissionDetail(data);
+				}
+				else
+					sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
@@ -252,6 +308,7 @@
 	{
 		const { idx, mission_uuid, state, mission_title, start_date, end_date, start_time, end_time,
 			mission_type, allow_gallery_image, mission_description, promise_description } = data.data;
+
 		g_mission_uuid = mission_uuid;
 		g_action_type = mission_type;
 		if (state === '진행중')
@@ -273,8 +330,10 @@
 		updateMissionEndDate.datepicker("option", "minDate", start_date);
 		chkUpdatePermanent.prop('checked', end_date === '9999-12-31');
 		onChangeUpdateCheckPermanent(chkUpdatePermanent);
-		updateMissionStartTime.val(start_time);
-		updateMissionEndTime.val(end_time);
+		selUpdateStartHour.val(start_time.slice(0, 2));
+		selUpdateStartMinute.val(start_time.slice(3, 5));
+		selUpdateEndHour.val(end_time.slice(0, 2));
+		selUpdateEndMinute.val(end_time.slice(3, 5));
 		rdoUpdateActionType.each(function () {
 			$(this).prop('checked', $(this).val() === mission_type);
 		});
@@ -368,12 +427,12 @@
 			return false;
 		}
 
-		const actionStartTime = Number(replaceAll(updateMissionStartTime.val(), ':', ''));
-		const actionEndTime	= Number(replaceAll(updateMissionEndTime.val(), ':', ''));
+		const actionStartTime = Number(`${selUpdateStartHour.val()}${selUpdateStartMinute.val()}`);
+		const actionEndTime	= Number(`${selUpdateEndHour.val()}${selUpdateEndMinute.val()}`);
 		if (actionStartTime > actionEndTime)
 		{
 			sweetToast(message.compareActionTime);
-			updateMissionStartTime.trigger('focus');
+			selUpdateStartHour.trigger('focus');
 			return false;
 		}
 
@@ -426,8 +485,8 @@
 				"mission_title" : updateMissionTitle.val().trim(),
 				"start_date" : updateMissionStartDate.val(),
 				"end_date" : chkUpdatePermanent.is(':checked') ? '9999-12-31' : updateMissionEndDate.val(),
-				"start_time" : updateMissionStartTime.val().trim(),
-				"end_time" : updateMissionEndTime.val().trim(),
+				"start_time" : `${selUpdateStartHour.val()}:${selUpdateStartMinute.val()}`,
+				"end_time" : `${selUpdateEndHour.val()}:${selUpdateEndMinute.val()}`,
 				"mission_description" : updateActionExampleDesc.val().trim(),
 				"mission_type" : getUpdateActionType(),
 				"allow_gallery_image" : chkUpdateGalleryAllowed.is(':checked') ? 'Y' : 'N',
@@ -493,6 +552,7 @@
 
 	export function onChangeActionType()
 	{
+		console.log(getActionType())
 		let exampleFileEl = '';
 		switch (getActionType()) {
 			case label.image :

@@ -384,6 +384,7 @@
     /** 톡 **/
     export const rdoReport = $("input[name=radio-report]");
     export const isBlind = $("#isBlind");
+    export const isDel = $("#isDel");
     export const talkCreated = $("#talkCreated");
     export const likeCount = $("#likeCount");
     export const commentCount = $("#commentCount");

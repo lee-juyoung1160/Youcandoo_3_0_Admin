@@ -117,9 +117,9 @@
 				}
 			},
 			columns: [
-				{title: "두잇명", 			data: "doit_title",    	width: "21%",
+				{title: "두잇명", 			data: "doit_title",    	width: "16%",
 					render: function (data, type, row, meta) {
-						return `<a href="${page.detailDoit}${row.doit_idx}" class="link">${data}</a>`;
+						return `<a href="${page.detailDoit}${row.doit_idx}" class="link line-clamp-1">${data}</a>`;
 					}
 				}
 				,{title: "유형", 			data: "talk_type",    	width: "5%" }
@@ -153,6 +153,7 @@
 					}
 				}
 				,{title: "블라인드", 		data: "is_blind",   	width: "5%" }
+				,{title: "삭제", 		data: "is_del",   		width: "5%" }
 				,{title: "작성일", 		data: "created",   		width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);
@@ -177,6 +178,12 @@
 				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.is_del === 'Y')
+				{
+					$(nRow).addClass('text-danger');
+					$(nRow).children().eq(10).find('input').prop('disabled', true);
+				}
+
 				$(nRow).children().eq(6).find('a').on('click', function () { onClickReportCount(this); });
 			},
 			drawCallback: function (settings) {

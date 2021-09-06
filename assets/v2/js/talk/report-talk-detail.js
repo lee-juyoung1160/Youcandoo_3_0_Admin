@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, commentCount, isBlind, likeCount, talkAttachWrap, talkCreated, userNickname,
-		content, talkCommentWrap, btnBlindTalk, btnDisplayTalk, doitTitle
+		content, talkCommentWrap, btnBlindTalk, btnDisplayTalk, doitTitle, isDel
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
@@ -58,7 +58,7 @@
 				if (isSuccessResp(data))
 				{
 					await buildDetail(data);
-					await Number(data.data.comment_cnt) > 0 ? getTalkComments() : talkCommentWrap.siblings().remove();
+					await getTalkComments();
 				}
 				else
 					sweetToast(invalidResp(data));
@@ -69,13 +69,14 @@
 	let g_board_uuid;
 	function buildDetail(data)
 	{
-		const { board_uuid, nickname, is_company, board_body, comment_cnt, like_count, is_blind, created, doit_title, doit_idx } = data.data;
+		const { board_uuid, nickname, is_company, board_body, comment_cnt, like_count, is_del, is_blind, created, doit_title, doit_idx } = data.data;
 
 		g_board_uuid = board_uuid;
 
 		doitTitle.html(`<a href="${page.detailDoit}${doit_idx}" class="link">${doit_title}</a>`)
 		userNickname.html(is_company === 'Y' ? label.bizIcon + nickname : nickname);
 		isBlind.text(is_blind);
+		isDel.text(is_del);
 		talkCreated.text(created);
 		likeCount.text(numberWithCommas(like_count));
 		commentCount.text(numberWithCommas(comment_cnt));
@@ -147,13 +148,15 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_blind, comment_cnt, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, comment_body, is_del, is_blind, comment_cnt, recomment_data } = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
 
+				const isDel = is_del === 'Y';
+				const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 				const isBlindComment = is_blind === 'Y';
-				const btnBlindComment = isBlindComment
+				const btnBlindComment = isDel ? delComment : isBlindComment
 					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}">
   						 <i class="fas fa-eye"></i> 블라인드 해제
   					   </button>`
@@ -218,8 +221,11 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
-			const btnBlindReply = is_blind === 'Y'
+			const {comment_uuid, is_del, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+
+			const isDel = is_del === 'Y';
+			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
+			const btnBlindReply = isDel ? delComment : is_blind === 'Y'
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const lastIdx = recomment_data[arr.length - 1].idx;
@@ -274,9 +280,12 @@
 	{
 		let appendReplyEl = ''
 		data.data.slice(0).reverse().map(obj => {
-			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_del, is_blind, is_company, created, nickname, comment_body} = obj;
+
+			const isDel = is_del === 'Y';
+			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
+			const btnBlindReply = isDel ? delComment : isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 

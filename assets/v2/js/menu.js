@@ -124,7 +124,10 @@
                 accessiblePages.push(_auth + '/detail');
                 break;
             case '/v2/ucd/charge' :
-                accessiblePages.push('/v2/ucd/create');
+                accessiblePages.push('/v2/ucd/create/member');
+                break;
+            case '/v2/ucd/doit' :
+                accessiblePages.push('/v2/ucd/create/doit');
                 break;
             case '/v2/report/talk' :
                 accessiblePages.push(_auth + '/detail_talk');

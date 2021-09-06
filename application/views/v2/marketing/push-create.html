@@ -40,73 +40,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>발송 구분 *</th>
+                        <th>알림 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r5" type="radio" name="radio-target-page-type" value="normal" checked>
-                                <label for="r5"><span></span>일반</label>
+                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
+                                <label for="r8"><span></span>두잇</label>
+
+                                <input  id="r9" type="radio" name="radio-target-page-type" value="normal">
+                                <label for="r9"><span></span>활동</label>
+
+                                <input  id="r5" type="radio" name="radio-target-page-type" value="event">
+                                <label for="r5"><span></span>UCD</label>
 
                                 <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
                                 <label for="r6"><span></span>공지</label>
 
                                 <input  id="r7" type="radio" name="radio-target-page-type" value="event">
-                                <label for="r7"><span></span>이벤트</label>
-
-                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
-                                <label for="r8"><span></span>두잇</label>
-                            </div>
-
-                            <div class="result-wrap" style="display: none;">
-                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
-                                <input id="targetUuid" type="hidden">
+                                <label for="r7"><span></span>마케팅/이벤트</label>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>수신 구분 *</th>
-                        <td>
-                            <div class="radio-wrap">
-                                <input id="r9" type="radio" name="radio-receive-type" value="all" checked>
-                                <label for="r9"><span></span>알림+푸시</label>
 
-                                <input  id="r10" type="radio" name="radio-receive-type" value="notification">
-                                <label for="r10"><span></span>알림</label>
-
-                                <input  id="r11" type="radio" name="radio-receive-type" value="push">
-                                <label for="r11"><span></span>푸시</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>기기 구분 *</th>
-                        <td>
-                            <div class="radio-wrap">
-                                <input id="r12" type="radio" name="radio-os-type" value="all" checked>
-                                <label for="r12"><span></span>전체</label>
-
-                                <input  id="r13" type="radio" name="radio-os-type" value="apple">
-                                <label for="r13"><span></span>애플</label>
-
-                                <input  id="r14" type="radio" name="radio-os-type" value="google">
-                                <label for="r14"><span></span>구글</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>카테고리 *</th>
-                        <td>
-                            <div class="radio-wrap">
-                                <input id="r15" type="radio" name="radio-category" value="doit" checked>
-                                <label for="r15"><span></span>두잇</label>
-
-                                <input  id="r16" type="radio" name="radio-category" value="activity">
-                                <label for="r16"><span></span>활동</label>
-
-                                <input  id="r17" type="radio" name="radio-category" value="ucd">
-                                <label for="r17"><span></span>ucd</label>
-                            </div>
-                        </td>
-                    </tr>
                     <tr>
                         <th>아이콘 타입 *</th>
                         <td>
@@ -131,26 +85,71 @@
                             </div>
                         </td>
                     </tr>
+
+                    <tr>
+                        <th>수신 구분 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="10" type="radio" name="radio-receive-type" value="all" checked>
+                                <label for="r9"><span></span>알림+푸시</label>
+
+                                <input  id="r10" type="radio" name="radio-receive-type" value="notification">
+                                <label for="r10"><span></span>알림</label>
+
+                                <input  id="r11" type="radio" name="radio-receive-type" value="push">
+                                <label for="r11"><span></span>푸시</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>페이지 이동 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r30" type="radio" name="radio-category" value="doit" checked>
+                                <label for="r30"><span></span>없음</label>
+
+                                <input id="r15" type="radio" name="radio-category" value="doit" checked>
+                                <label for="r15"><span></span>공지사항</label>
+
+                                <input  id="r16" type="radio" name="radio-category" value="activity">
+                                <label for="r16"><span></span>이벤트</label>
+
+                                <input  id="r17" type="radio"트name="radio-category" value="ucd">
+                                <label for="r17"><span></span>두잇</label>
+                            </div>
+
+                            <div class="result-wrap">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                                <input id="targetUuid" type="hidden">
+                            </div>
+
+                        </td>
+                    </tr>
+
                     <tr>
                         <th>내용 *</th>
                         <td>
                             <textarea id="content" rows="4" placeholder="내용을 입력해주세요."></textarea>
                         </td>
                     </tr>
-<!--                    <tr>-->
-<!--                        <th>이미지</th>-->
-<!--                        <td>-->
-<!--                            &lt;!&ndash;<p class="desc-sub">( 이미지 크기 : 가로 750 이상)</p>&ndash;&gt;-->
-<!--                            <div class="file-wrap preview-image">-->
-<!--                                <input class="upload-name" value="파일선택" disabled="disabled">-->
-<!--                                <label for="contentImage">업로드</label>-->
-<!--                                <input type="file" id="contentImage" class="upload-hidden" data-width="750" data-compare="ge">-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash;<div class="detail-img-wrap">-->
-<!--                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">-->
-<!--                            </div>&ndash;&gt;-->
-<!--                        </td>-->
-<!--                    </tr>-->
+
+                    <tr>
+                        <th>기기 대상 *</th>
+                        <td>
+                            <div class="radio-wrap">
+                                <input id="r12" type="radio" name="radio-os-type" value="all" checked>
+                                <label for="r12"><span></span>전체</label>
+
+                                <input  id="r13" type="radio" name="radio-os-type" value="apple">
+                                <label for="r13"><span></span>애플</label>
+
+                                <input  id="r14" type="radio" name="radio-os-type" value="google">
+                                <label for="r14"><span></span>구글</label>
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <th>발송 대상 *</th>
                         <td>

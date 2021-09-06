@@ -5,7 +5,7 @@
 		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
 		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
 		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk,
-		btnDisplayTalk, btnDeleteTalk, btnUpdateTalk,
+		btnDisplayTalk, btnDeleteTalk, btnUpdateTalk, isDel
 	} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
@@ -158,9 +158,9 @@
 						return row.is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "내용", 	data: "board_body",		width: "30%",
+				,{title: "내용", 	data: "board_body",		width: "25%",
 					render: function (data, type, row, meta) {
-						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}" class="line-clamp-1" style="max-width: 450px;">${isEmpty(data) ? label.dash : data}</a>`;
+						return `<a data-idx="${row.idx}" data-notice="${row.is_notice}" class="line-clamp-1" style="max-width: 400px;">${isEmpty(data) ? label.dash : data}</a>`;
 					}
 				}
 				,{title: "댓글수", 	data: "comment_cnt",	width: "5%",
@@ -179,6 +179,7 @@
 					}
 				}
 				,{title: "블라인드",   data: "is_blind",  	width: "5%" }
+				,{title: "삭제",   	data: "is_del",  		width: "5%" }
 			],
 			serverSide: true,
 			paging: true,
@@ -188,6 +189,9 @@
 			initComplete: function () {
 			},
 			fnRowCallback: function( nRow, aData ) {
+				if (aData.is_del === 'Y')
+					$(nRow).addClass('text-danger');
+
 				$(nRow).children().eq(2).find('a').on('click', function () { onClickDetailTalk(this); });
 			},
 			drawCallback: function (settings) {
@@ -235,7 +239,7 @@
 	let g_talk_attach_type;
 	function buildTalkDetail(data)
 	{
-		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, contents_type,} = data.data;
+		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, is_del, contents_type,} = data.data;
 
 		g_board_uuid = board_uuid;
 		g_talk_attach_type = contents_type;
@@ -243,31 +247,42 @@
 		infoTalkNickname.html(is_company === 'Y' ? label.bizIcon + nickname : nickname);
 		infoTalkCreated.text(created);
 		infoTalkIsBlind.text(is_blind);
+		isDel.text(is_del);
 		infoTalkCommentCount.text(comment_cnt);
 		infoTalkLikeCount.text(like_count);
 		infoTalkContent.text(board_body);
 		infoTalkAttachWrap.html(buildTalkAttachWrap(data));
-		if (is_company === 'Y')
+		if (is_del === 'Y')
 		{
-			btnDeleteTalk.show();
-			btnUpdateTalk.show();
-			btnDisplayTalk.hide();
-			btnBlindTalk.hide()
+			btnDeleteTalk.remove();
+			btnUpdateTalk.remove();
+			btnDisplayTalk.remove();
+			btnBlindTalk.remove()
 		}
 		else
 		{
-			btnDeleteTalk.hide();
-			btnUpdateTalk.hide();
-
-			if (is_blind === 'Y')
+			if (is_company === 'Y')
 			{
-				btnDisplayTalk.show();
+				btnDeleteTalk.show();
+				btnUpdateTalk.show();
+				btnDisplayTalk.hide();
 				btnBlindTalk.hide()
 			}
 			else
 			{
-				btnDisplayTalk.hide();
-				btnBlindTalk.show()
+				btnDeleteTalk.hide();
+				btnUpdateTalk.hide();
+
+				if (is_blind === 'Y')
+				{
+					btnDisplayTalk.show();
+					btnBlindTalk.hide()
+				}
+				else
+				{
+					btnDisplayTalk.hide();
+					btnBlindTalk.show()
+				}
 			}
 		}
 
@@ -308,12 +323,14 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_blind, comment_cnt, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, profile_uuid, comment_body, is_del, is_blind, comment_cnt, recomment_data } = obj;
 				const parent_comment_uuid = comment_uuid;
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
 
-				const btnBlindComment = is_blind === 'Y'
+				const isDel = is_del === 'Y';
+				const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
+				const btnBlindComment = isDel ? delComment : is_blind === 'Y'
 					? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 					: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 				const btnDeleteCommentEl = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
@@ -386,9 +403,12 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body} = obj;
+			const {comment_uuid, is_del, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body} = obj;
+
+			const isDel = is_del === 'Y';
+			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
+			const btnBlindReply = isDel ?  delComment : isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
@@ -447,9 +467,11 @@
 	{
 		let appendReplyEl = ''
 		data.data.slice(0).reverse().map(obj => {
-			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_del, is_blind, is_company, created, nickname, comment_body} = obj;
+			const isDel = is_del === 'Y';
+			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isBlindReply
+			const btnBlindReply = isDel ? delComment : isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
 			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;

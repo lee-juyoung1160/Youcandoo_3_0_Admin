@@ -32,10 +32,10 @@ class Ucd extends MY_Controller {
     {
         switch ($Route) {
             case "member":
-                $this->load->template('v2/ucd/ucd-charge-create');
+                $this->load->template('v2/ucd/ucd-create-member');
                 break;
-            case "doit" :
-                $this->load->template('v2/ucd/ucd-charge-doit');
+            case "doit":
+                $this->load->template('v2/ucd/ucd-create-doit');
                 break;
         }
     }

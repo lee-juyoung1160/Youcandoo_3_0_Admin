@@ -337,6 +337,16 @@
 						return data.substring(0, 10);
 					}
 				}
+				,{title: "상태", 		data: "doit_status",    width: "10%",
+					render: function (data) {
+						switch (data) {
+							case 'create' : return '생성';
+							case 'open' : return '진행중';
+							case 'stop' : return '운영정지';
+							case 'delete' : return '삭제';
+						}
+					}
+				}
 			],
 			serverSide: true,
 			paging: true,

@@ -62,7 +62,7 @@
 
 	function onChangeRdoReserveType(obj)
 	{
-		$(obj).val() === 'reserve' ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
+		isReserve() ? $(obj).parent().siblings().show() : $(obj).parent().siblings().hide();
 		initTimes();
 	}
 
@@ -457,12 +457,11 @@
 
 	function createRequest()
 	{
-		const sendType = $('input:radio[name=radio-reserve-type]:checked').val();
-		const sendDatetime = sendType === 'immediately'
-			? `${getStringFormatToDate(new Date(), '-')} ${getCurrentHours()}:${getCurrentMinutes()}:${getCurrentSecond()}`
-			: `${reserveDate.val()} ${selHour.val()}:${selMinute.val()}:00`;
+		const sendDatetime = isReserve()
+			? `${reserveDate.val()} ${selHour.val()}:${selMinute.val()}:00`
+			: `${getStringFormatToDate(new Date(), '-')} ${getCurrentHours()}:${getCurrentMinutes()}:${getCurrentSecond()}`;
 		const param = {
-			"reserve_type" : sendType,
+			"reserve_type" : $('input:radio[name=radio-reserve-type]:checked').val(),
 			"send_type" : $('input:radio[name=radio-receive-type]:checked').val(),
 			"send_datetime" : sendDatetime,
 			"send_profile_type" : $('input:radio[name=radio-target-member-type]:checked').val(),
@@ -472,7 +471,7 @@
 			"store" : $('input:radio[name=radio-os-type]:checked').val(),
 			"message" : content.val().trim(),
 			"icon_type" :  $('input:radio[name=radio-icon-type]:checked').val(),
-			"category" : $('input:radio[name=radio-category]:checked').val(),
+			"category" : $('input:radio[name=radio-type]:checked').val(),
 		}
 
 		ajaxRequestWithJson(true, api.createPush, JSON.stringify(param))
@@ -490,10 +489,9 @@
 	function validation()
 	{
 
-		const reserveType = $("input[name=radio-reserve-type]:checked").val();
 		const currentDatetime = new Date().getTime();
 		const reserveDatetime = new Date(`${reserveDate.val()} ${selHour.val()}:${selMinute.val()}:00`).getTime();
-		if (reserveType === 'reserve' && currentDatetime > reserveDatetime)
+		if (isReserve() && currentDatetime > reserveDatetime)
 		{
 			sweetToast(`발송 시간은 ${message.compareCurrentTime}`);
 			selHour.trigger('focus');
@@ -530,6 +528,10 @@
 
 	function isIndividual()
 	{
-		const targetMemberType = $("input[name=radio-target-member-type]:checked").val();
-		return targetMemberType === 'individual';
+		return $("input[name=radio-target-member-type]:checked").val() === 'individual';
+	}
+
+	function isReserve()
+	{
+		return $("input[name=radio-reserve-type]:checked").val() === 'reserve';
 	}

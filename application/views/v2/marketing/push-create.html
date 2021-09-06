@@ -43,19 +43,19 @@
                         <th>알림 구분 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input  id="r8" type="radio" name="radio-target-page-type" value="doit">
+                                <input  id="r8" type="radio" name="radio-type" value="doit" checked>
                                 <label for="r8"><span></span>두잇</label>
 
-                                <input  id="r9" type="radio" name="radio-target-page-type" value="normal">
+                                <input  id="r9" type="radio" name="radio-type" value="activity">
                                 <label for="r9"><span></span>활동</label>
 
-                                <input  id="r5" type="radio" name="radio-target-page-type" value="event">
+                                <input  id="r5" type="radio" name="radio-type" value="ucd">
                                 <label for="r5"><span></span>UCD</label>
 
-                                <input  id="r6" type="radio" name="radio-target-page-type" value="notice">
+                                <input  id="r6" type="radio" name="radio-type" value="notice">
                                 <label for="r6"><span></span>공지</label>
 
-                                <input  id="r7" type="radio" name="radio-target-page-type" value="event">
+                                <input  id="r7" type="radio" name="radio-type" value="marketing">
                                 <label for="r7"><span></span>마케팅/이벤트</label>
                             </div>
                         </td>
@@ -106,21 +106,21 @@
                         <th>페이지 이동 *</th>
                         <td>
                             <div class="radio-wrap">
-                                <input id="r30" type="radio" name="radio-category" value="doit" checked>
+                                <input id="r30" type="radio" name="radio-target-page-type" value="none" checked>
                                 <label for="r30"><span></span>없음</label>
 
-                                <input id="r15" type="radio" name="radio-category" value="doit" checked>
+                                <input id="r15" type="radio" name="radio-target-page-type" value="notice">
                                 <label for="r15"><span></span>공지사항</label>
 
-                                <input  id="r16" type="radio" name="radio-category" value="activity">
+                                <input  id="r16" type="radio" name="radio-target-page-type" value="event">
                                 <label for="r16"><span></span>이벤트</label>
 
-                                <input  id="r17" type="radio"트name="radio-category" value="ucd">
+                                <input  id="r17" type="radio" name="radio-target-page-type" value="doit">
                                 <label for="r17"><span></span>두잇</label>
                             </div>
 
-                            <div class="result-wrap">
-                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 도착페이지를 선택해주세요." readonly>
+                            <div class="result-wrap" style="display: none;">
+                                <input id="targetPage" type="text" class="modal-btn" placeholder="클릭 후 페이지를 선택해주세요." readonly>
                                 <input id="targetUuid" type="hidden">
                             </div>
 
@@ -230,16 +230,16 @@
 
     <div class="modal-wrap">
 
-        <!-- 도착페이지 검색 -->
+        <!-- 이동 페이지 검색 -->
         <div class="modal-content" id="modalTargetPage">
             <div class="modal-header clearfix">
-                <h5>도착페이지 검색</h5>
+                <h5>이동 페이지</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="card clearfix">
                     <div class="search-txt-wrap">
-                        <input id="keyword" type="search" placeholder="도착페이지를 입력해주세요.">
+                        <input id="keyword" type="search" placeholder="이동 페이지를 입력해주세요.">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>

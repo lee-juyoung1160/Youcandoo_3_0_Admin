@@ -28,9 +28,16 @@ class Ucd extends MY_Controller {
         $this->load->template('v2/ucd/ucd-charge-list');
     }
 
-    public function create()
+    public function create($Route = "")
     {
-        $this->load->template('v2/ucd/ucd-charge-create');
+        switch ($Route) {
+            case "member":
+                $this->load->template('v2/ucd/ucd-charge-create');
+                break;
+            case "doit" :
+                $this->load->template('v2/ucd/ucd-charge-doit');
+                break;
+        }
     }
 
 }

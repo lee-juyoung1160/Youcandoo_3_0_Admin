@@ -1,7 +1,19 @@
 
 	import {headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, selSearchType, dateButtons, dateFrom, dateTo,} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		selSearchType,
+		dateButtons,
+		dateFrom,
+		dateTo,
+		chkStatus,
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
 		initSearchDateRangeWeek, onChangeSearchDateFrom, onChangeSearchDateTo,} from "../modules/common.js";
@@ -36,6 +48,8 @@
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
+		chkStatus.eq(0).prop('checked', true);
+		chkStatus.eq(1).prop('checked', true);
 	}
 
 	function onKeydownSearch(event)
@@ -75,11 +89,17 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
+					let status = [];
+					chkStatus.each(function () {
+						if ($(this).is(':checked'))
+							status.push($(this).val());
+					})
 					const param = {
 						"from_date" : dateFrom.val(),
 						"to_date" : dateTo.val(),
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
+						"state" : status,
 						"send_type" : 'doit',
 						"receive_type" : 'doit',
 						"page" : (d.start / d.length) + 1,
@@ -93,7 +113,7 @@
 				}
 			},
 			columns: [
-				{title: "두잇명",    		data: "send_name",  	width: "21%" }
+				{title: "From",    		data: "send_name",  	width: "21%" }
 				,{title: "내용",    		data: "message",  		width: "21%" }
 				,{title: "실행자",    	data: "register_name",  width: "15%",
 					render: function (data, type, row, meta) {

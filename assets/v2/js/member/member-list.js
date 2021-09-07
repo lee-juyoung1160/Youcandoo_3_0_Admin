@@ -3,8 +3,10 @@
 	import { api } from '../modules/api-url.js';
 	import {body, dateButtons, dataTable, selDateType, dateFrom, dateTo, keyword, selPageLength, btnSearch, btnReset, selSearchType,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
-	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateToday,
-		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail} from "../modules/common.js";
+	import {
+		onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initMaxDateToday, moveToMemberDetail,
+		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, setDateToday
+	} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
 	import { label } from "../modules/label.js";
@@ -35,7 +37,7 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeMonths();
+		setDateToday();
 		initSelectOption();
 		keyword.val('');
 	}

@@ -459,6 +459,7 @@
     export const profileId = $("#profileId");
     export const userNickname = $("#userNickname");
     export const contact = $("#contact");
+    export const leaveDate = $("#leaveDate");
     export const balance = $("#balance");
     export const isAuth = $("#isAuth");
     export const levelInfoWrap = $("#levelInfoWrap");

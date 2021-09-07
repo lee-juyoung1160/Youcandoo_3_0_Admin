@@ -132,7 +132,9 @@
         else if ($(obj).hasClass("month"))
             initSearchDateRangeMonth();
         else if ($(obj).hasClass("months"))
-            initSearchDateRangeMonths()
+            initSearchDateRangeMonths();
+        else
+            initSearchDateRangeAll();
     }
 
     function getDateStr(_date)
@@ -187,6 +189,12 @@
     export function initSearchDateRangeMonths()
     {
         dateFrom.val(getMonthsAgoStr());
+        dateTo.val(getTodayStr());
+    }
+
+    export function initSearchDateRangeAll()
+    {
+        dateFrom.val("2020-07-01");
         dateTo.val(getTodayStr());
     }
 

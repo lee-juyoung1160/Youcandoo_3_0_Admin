@@ -23,7 +23,7 @@
 		totalMemberCount
 	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
-	import {fadeoutModal, limitInputLength,} from "../modules/common.js";
+	import {fadeinLoader, fadeoutLoader, fadeoutModal, limitInputLength,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -48,16 +48,16 @@
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport	.on('click', function () { downloadForm(); });
 		btnSearch		.on('click', function () { onSubmitSearchMember(); })
-		btnSubmit		.on('click', function () { onSubmitUcd(); });
+		//btnSubmit		.on('click', function () { onSubmitUcd(); });
 		btnAdd.on('click', function () { onClickBtnAdd(); });
-		btnSubmitUpdate.on('click', function () { onSubmitXlsxData(); });
+		//btnSubmitUpdate.on('click', function () { onSubmitXlsxData(); });
 	});
 
 	function modalSearchOpen(obj)
 	{
 		if (isEmpty(nickname.val()))
 		{
-			sweetToast(`닉네임을 ${message.input}`);
+			sweetToast(`두잇명을 ${message.input}`);
 			nickname.trigger('focus');
 			return;
 		}
@@ -75,7 +75,7 @@
 	{
 		if (isEmpty(keyword.val()))
 		{
-			sweetToast(`닉네임을 ${message.input}`);
+			sweetToast(`두잇명을 ${message.input}`);
 			keyword.trigger('focus');
 			return;
 		}
@@ -124,9 +124,9 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",		data: "nickname",    	width: "30%" }
-				,{title: "PID",		data: "profile_uuid",   width: "45%" }
-				,{title: "보유UCD",	data: "ucd",   			width: "20%",
+				{title: "두잇명",			data: "nickname",    	width: "30%" }
+				,{title: "리더",			data: "profile_uuid",   width: "45%" }
+				,{title: "두잇지갑(UCD)",	data: "ucd",   			width: "20%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -333,19 +333,32 @@
 		const fileName = obj.files[0].name;
 		$(obj).siblings('input').val(fileName);
 
-		readXlsxData(obj, setDataFromXlsx)
+		readXlsxData(obj, setDataFromXlsx);
 	}
 
 	function readXlsxData(obj, callback)
 	{
+		fadeinLoader();
 		let reader = new FileReader();
 		reader.onload = function(e) {
-
-			const data = new Uint8Array(reader.result);
-			const workbook = XLSX.read(data, {type: 'array'});
+			const data = reader.result;
+			const workbook = XLSX.read(data, {type: 'binary'});
 
 			let readData = [];
-			workbook.SheetNames.map( name => readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], { header : 1 })) )
+			try {
+				workbook.SheetNames.map( name => {
+					const options = {
+						header: 1,
+						range: 0,
+						blankrows: false,
+						defval: null,
+						raw: true,
+					}
+					readData.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], options))
+				})
+			} catch (e) {
+				fadeoutLoader();
+			}
 
 			let callbackArgs = [];
 			readData.map( (value, index) => {
@@ -358,10 +371,11 @@
 					})
 			})
 
+			fadeoutLoader();
 			callback(callbackArgs);
 		}
 
-		reader.readAsArrayBuffer(obj.files[0]);
+		reader.readAsBinaryString(obj.files[0]);
 	}
 
 	function setDataFromXlsx(data)
@@ -435,10 +449,10 @@
 	function downloadForm()
 	{
 		const data = [{
-				"PID(프로필아이디)" : "PID-ABC000...",
+				"UUID(두잇아이디)" : "DOI-ABC000...",
 				"금액(UCD)" : 100,
 				"설명" : "테스트 충전..."
 			}];
 
-		setExcelData("UCD 충전양식", "회원목록", data);
+		setExcelData("UCD 충전양식(두잇)", "두잇목록", data);
 	}

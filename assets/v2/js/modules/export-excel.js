@@ -36,7 +36,7 @@
 		fadeinLoader();
 		let reader = new FileReader();
 		reader.onload = function(e) {
-			const data =reader.result;
+			const data = reader.result;
 		 	const workbook = XLSX.read(data, {type: 'binary'});
 
 			let readData = [];

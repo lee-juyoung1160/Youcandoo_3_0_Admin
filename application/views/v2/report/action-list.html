@@ -158,8 +158,14 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-                        <div class="card">
-                            <div class="auth-data-wrap" id="modalActionContentWrap">
+                        <table class="detail-table txt-left">
+                            <colgroup>
+                                <col style="width: 15%;">
+                                <col style="width: 85%;">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                            <td colspan="2" class="auth-data-wrap" id="modalActionContentWrap">
 
 <!--                                <button type="button" class="btn-xs btn-outline-success btn-download"><i class="fas fa-download"></i> 인증 다운로드</button>-->
 
@@ -179,17 +185,11 @@
                                         <source src="/assets/v2/img/audio_test.m4a"/>
                                     </audio>
                                 </div>-->
-                            </div>
-                        </div>
-                        <table class="detail-table txt-left">
-                            <colgroup>
-                                <col style="width: 15%;">
-                                <col style="width: 85%;">
-                            </colgroup>
-                            <tbody>
+                            </td>
+                            </tr>
                             <tr>
                                 <th>인증 내용</th>
-                                <td>
+                                <td class="scroll-wrap">
                                     <p class="detail-data" id="modalActionDesc">
                                     </p>
                                 </td>
@@ -227,7 +227,8 @@
                             </tr>
                             <tr>
                                 <th>ㄴ 설명</th>
-                                <td colspan="2" class="detail-data" id="modalActionExampleDesc">
+                                <td colspan="2" class="scroll-wrap">
+                                    <p class="detail-data" id="modalActionExampleDesc"></p>
                                 </td>
                             </tr>
                             </tbody>

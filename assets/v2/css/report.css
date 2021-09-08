@@ -202,8 +202,11 @@
 .auth-detail .video-wrap {
 	background-color: #000;
 }
-.auth-detail .txt-left .video-wrap {
-	width: 500px;
+.auth-detail .detail-table .scroll-wrap {
+	overflow-y: scroll;
+}
+.auth-detail .detail-table .scroll-wrap .detail-data {
+	height: 60px;
 }
 .video-wrap video {
 	width: 100%;

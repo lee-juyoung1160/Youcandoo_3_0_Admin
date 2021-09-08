@@ -153,7 +153,7 @@
 					}
 				}
 				,{title: "블라인드", 		data: "is_blind",   	width: "5%" }
-				,{title: "삭제", 		data: "is_del",   		width: "5%" }
+				,{title: "삭제", 		data: "is_del",   		width: "5%",	defaultContent: label.dash }
 				,{title: "작성일", 		data: "created",   		width: "8%",
 					render: function (data) {
 						return data.substring(0, 10);

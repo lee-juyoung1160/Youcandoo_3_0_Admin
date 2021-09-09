@@ -2,17 +2,17 @@
 	import {headers, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {
-	dateButtons,
-	dataTable,
-	dateFrom,
-	dateTo,
-	keyword,
-	btnSearch,
-	btnReset,
-	updateTable,
-	btnSubmit,
-	btnCancel,
-	nickname,
+		dateButtons,
+		dataTable,
+		dateFrom,
+		dateTo,
+		keyword,
+		btnSearch,
+		btnReset,
+		updateTable,
+		btnSubmit,
+		btnCancel,
+		nickname,
 		body
 	} from '../modules/elements.js';
 	import { sweetToast, sweetError } from  '../modules/alert.js';
@@ -29,6 +29,7 @@
 		initTableDefaultConfig();
 		initSearchDatepicker();
 		initEventSearchForm();
+		updateTable.DataTable();
 		/** 목록 불러오기 **/
 		buildEventTable();
 		/** 이벤트 **/
@@ -93,17 +94,13 @@
 						json.recordsTotal = json.count;
 						json.recordsFiltered = json.count;
 						if (json.count === 0)
-						{
-							g_event_uuid = '';
-							onSubmitSearchNickname();
-						}
+							buildEmptyTable();
 					}
 					else
 					{
 						json.data = [];
 						sweetToast(invalidResp(json));
-						g_event_uuid = '';
-						onSubmitSearchNickname();
+						buildEmptyTable();
 					}
 
 					return JSON.stringify(json);
@@ -180,6 +177,7 @@
 
 	function buildEventProfileTable()
 	{
+		destroyUpdateTable();
 		updateTable.DataTable({
 			ajax : {
 				url: api.customEventProfile,
@@ -234,5 +232,32 @@
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
+	}
+
+	function buildEmptyTable()
+	{
+		destroyUpdateTable();
+		updateTable.DataTable({
+			data: [],
+			columns: [
+				{title: "닉네임",    		data: "nickname",  		width: "35%" }
+				,{title: "PID", 		data: "profile_uuid",	width: "45%" }
+				,{title: "참여일시", 		data: "created",		width: "20%" }
+			],
+			serverSide: false,
+			paging: false,
+			select: false,
+			destroy: true,
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+			}
+		});
+	}
+
+	function destroyUpdateTable()
+	{
+		let table = updateTable.DataTable();
+		table.destroy();
+		updateTable.empty();
 	}
 

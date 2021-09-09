@@ -12,7 +12,7 @@
 		dateButtons,
 		dateFrom,
 		dateTo,
-		chkStatus,
+		rdoType,
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
@@ -48,8 +48,7 @@
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
-		chkStatus.eq(0).prop('checked', true);
-		chkStatus.eq(1).prop('checked', true);
+		rdoType.eq(0).prop('checked', true);
 	}
 
 	function onKeydownSearch(event)
@@ -89,19 +88,14 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					let status = [];
-					chkStatus.each(function () {
-						if ($(this).is(':checked'))
-							status.push($(this).val());
-					})
 					const param = {
 						"from_date" : dateFrom.val(),
 						"to_date" : dateTo.val(),
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val().trim(),
-						"state" : status,
 						"send_type" : 'doit',
 						"receive_type" : 'doit',
+						"transfer_type" : $("input[name=radio-type]:checked").val(),
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}

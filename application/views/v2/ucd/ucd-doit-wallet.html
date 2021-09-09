@@ -3,7 +3,7 @@
 
         <div class="main-top clearfix">
             <h2 class="main-title">두잇 지갑</h2>
-<!--            <a href="/v2/ucd/create/doit"><i class="fas fa-plus"></i> UCD 충전</a>-->
+            <a href="/v2/ucd/create/doit"><i class="fas fa-plus"></i> UCD 충전</a>
         </div>
 
         <div class="search-wrap row">
@@ -44,21 +44,24 @@
             </div>
         </div>
 
-        <!--<div class="search-wrap row">
+        <div class="search-wrap row">
             <div class="col-3">
                 <div class="card clearfix">
-                    <p class="search-title">두잇 상태</p>
-                    <div class="checkbox-wrap">
-                        <input id="c1" type="checkbox" name="chk-status" value="">
-                        <label for="c1"><span></span>멤버 보상</label>
+                    <p class="search-title">구분</p>
+                    <div class="radio-wrap">
+                        <input id="r0" type="radio" name="radio-type" value="">
+                        <label for="r0"><span></span>전체</label>
 
-                        <input id="c2" type="checkbox" name="chk-status" value="">
-                        <label for="c2"><span></span>UCD 적립</label>
+                        <input id="r1" type="radio" name="radio-type" value="reward">
+                        <label for="r1"><span></span>멤버 보상</label>
+
+                        <input id="r2" type="radio" name="radio-type" value="charge">
+                        <label for="r2"><span></span>UCD 적립</label>
 
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
         <div class="search-btn row">
             <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
@@ -113,4 +116,5 @@
     </div>
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
-<script type="module" src="/assets/v2/js/bundles/ucd-doit-wallet.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
+<!--<script type="module" src="/assets/v2/js/bundles/ucd-doit-wallet.bundle.js?version=<?php echo $this->config->item('version');?>"></script>-->
+<script type="module" src="/assets/v2/js/ucd/ucd-doit-wallet.js?version=<?php echo $this->config->item('version');?>"></script>

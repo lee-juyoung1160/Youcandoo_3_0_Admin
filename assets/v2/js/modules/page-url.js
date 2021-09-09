@@ -54,6 +54,7 @@
         ,updatePopup : rootContext + 'marketing/popup/update/'
 
         ,listUcdCharge : rootContext + 'ucd/charge'
+        ,listUcdDoit : rootContext + 'ucd/doit'
 
         ,listGift : rootContext + 'gift'
         ,detailGift : rootContext + 'gift/detail/'

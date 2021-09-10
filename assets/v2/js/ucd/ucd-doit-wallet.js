@@ -107,25 +107,29 @@
 				}
 			},
 			columns: [
-				{title: "From",    		data: "send_name",  	width: "21%" }
-				,{title: "내용",    		data: "message",  		width: "21%" }
+				{title: "From",    		data: "send_name",  	width: "15%",
+					render: function (data) {
+						return `<div class="line-clamp-1" title="${data}">${data}</div>`
+					}
+				}
+				,{title: "To",    		data: "receive_name",  	width: "15%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : `<div class="line-clamp-1" title="${data}">${data}</div>`;
+					}
+				}
+				,{title: "내용",    		data: "message",  		width: "25%" }
 				,{title: "실행자",    	data: "register_name",  width: "15%",
 					render: function (data, type, row, meta) {
 						return isEmpty(data) ? label.dash : row.register_is_company === 'Y' ? label.bizIcon + data : data;
 					}
 				}
-				,{title: "To",    		data: "receive_name",  	width: "15%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
 				,{title: "구분",    		data: "transfer_type",  width: "8%" }
-				,{title: "UCD", 		data: "value",			width: "8%",
+				,{title: "UCD", 		data: "value",			width: "9%",
 					render: function (data, type, row, meta) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "지급 일시",    	data: "sent",  		width: "12%" }
+				,{title: "지급 일시",    	data: "sent",  		width: "13%" }
 			],
 			serverSide: true,
 			paging: true,

@@ -4,6 +4,7 @@
         saveUserUcdFromXlsx : baseApiUrl + 'ucd/set/charge/user/system/excel',
         saveUserUcdBySystem : baseApiUrl + 'ucd/set/charge/user/system',
         saveUserUcdByBiz : baseApiUrl + 'ucd/set/charge/user/company',
+        saveDoitUcdFromXlsx : baseApiUrl + 'ucd/set/charge/doit/system/excel',
         saveDoitUcdBySystem : baseApiUrl + 'ucd/set/charge/doit/system',
         saveDoitUcdByBiz : baseApiUrl + 'ucd/set/charge/doit/company',
         saveBizUcd : baseApiUrl + 'ucd/set/charge/company/system',

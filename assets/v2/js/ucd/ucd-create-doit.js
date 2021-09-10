@@ -31,8 +31,8 @@
 	import {setExcelData} from "../modules/export-excel.js";
 	import {initTableDefaultConfig, tableReloadAndStayCurrentPage, toggleBtnPreviousAndNextOnTable, checkBoxElement,} from "../modules/tables.js";
 
-	let addedUsers = [];
-	let addedUserObj = [];
+	let addedDoit = [];
+	let addedDoitObj = [];
 	let initialize = true;
 
 	$( () => {
@@ -47,10 +47,10 @@
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnXlsxImport	.on('change', function () { onClickBtnImport(this); });
 		btnXlsxExport	.on('click', function () { downloadForm(); });
-		btnSearch		.on('click', function () { onSubmitSearchMember(); })
-		//btnSubmit		.on('click', function () { onSubmitUcd(); });
+		btnSearch		.on('click', function () { onSubmitSearchDoit(); })
+		btnSubmit		.on('click', function () { onSubmitUcd(); });
 		btnAdd.on('click', function () { onClickBtnAdd(); });
-		//btnSubmitUpdate.on('click', function () { onSubmitXlsxData(); });
+		btnSubmitUpdate.on('click', function () { onSubmitXlsxData(); });
 	});
 
 	function modalSearchOpen(obj)
@@ -67,11 +67,11 @@
 
 		const inputValue = $(obj).siblings('input').val();
 		keyword.val(inputValue);
-		initialize ? buildSearchMemberTable() : onSubmitSearchMember();
+		initialize ? buildSearchDoitTable() : onSubmitSearchDoit();
 		initialize = false;
 	}
 
-	function onSubmitSearchMember()
+	function onSubmitSearchDoit()
 	{
 		if (isEmpty(keyword.val()))
 		{
@@ -85,11 +85,11 @@
 		table.ajax.reload();
 	}
 
-	function buildSearchMemberTable()
+	function buildSearchDoitTable()
 	{
 		dataTable.DataTable({
 			ajax : {
-				url: api.getMemberForSaveUcd,
+				url: api.getUcdDoitList,
 				type:"POST",
 				headers: headers,
 				global: false,
@@ -113,7 +113,7 @@
 					const param = {
 						"page" : (d.start / d.length) + 1
 						,"limit" : d.length
-						,"search_type" : "nickname"
+						,"search_type" : "doit_title"
 						,"keyword" : keyword.val().trim()
 					}
 
@@ -124,14 +124,14 @@
 				}
 			},
 			columns: [
-				{title: "두잇명",			data: "nickname",    	width: "30%" }
-				,{title: "리더",			data: "profile_uuid",   width: "45%" }
-				,{title: "두잇지갑(UCD)",	data: "ucd",   			width: "20%",
+				{title: "두잇명",			data: "doit_title",    	width: "45%" }
+				,{title: "리더",			data: "nickname",   	width: "40%" }
+				,{title: "두잇지갑(UCD)",	data: "ucd",   			width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: '', 		data: "profile_uuid",   width: "5%",
+				,{title: '', 			data: "doit_uuid",   	width: "5%",
 					render: function (data, type, row, meta) {
 						return checkBoxElement(meta.row);
 					}
@@ -151,7 +151,7 @@
 			fnRowCallback: function( nRow, aData ) {
 				/** 이미 추가된 경우 체크박스 disabled **/
 				const checkboxEl = $(nRow).children().eq(3).find('input');
-				if (addedUsers.indexOf(aData.profile_uuid) > -1)
+				if (addedDoit.indexOf(aData.doit_uuid) > -1)
 					$(checkboxEl).prop('disabled', true);
 			},
 			drawCallback: function (settings) {
@@ -168,14 +168,14 @@
 
 	function addUser(data)
 	{
-		const {profile_uuid, nickname, ucd} = data;
+		const {doit_uuid, doit_title, nickname, ucd} = data;
 		let userObj = [];
-		userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
-		addedUserObj = userObj.concat(addedUserObj);
+		userObj.push({ "doit_uuid" : doit_uuid, "doit_title" : doit_title, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
+		addedDoitObj = userObj.concat(addedDoitObj);
 
 		let users = [];
-		users.push(profile_uuid);
-		addedUsers = users.concat(addedUsers);
+		users.push(doit_uuid);
+		addedDoit = users.concat(addedDoit);
 
 		buildUpdateTable();
 		displayCountAddedUser();
@@ -184,16 +184,16 @@
 	function buildUpdateTable()
 	{
 		updateTable.DataTable({
-			data: addedUserObj,
+			data: addedDoitObj,
 			columns: [
-				{title: "닉네임", 		data: "nickname",		width: "20%" }
-				,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
-				,{title: "보유 UCD",    	data: "ucd",  			width: "20%",
+				{title: "닉네임", 		data: "doit_title",		width: "45%" }
+				,{title: "PID",    		data: "nickname",  		width: "40%" }
+				,{title: "보유 UCD",    	data: "ucd",  			width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "",    		data: "profile_uuid",  	width: "10%",
+				,{title: "",    		data: "doit_uuid",  	width: "5%",
 					render: function (data, type, row, meta) {
 						return `<button type="button" class="btn-xs btn-text-red delete-btn" data-rownum="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
 					}
@@ -208,7 +208,7 @@
 				tableReloadAndStayCurrentPage(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
-				$(nRow).attr('id', aData.profile_uuid);
+				$(nRow).attr('id', aData.doit_uuid);
 				$(nRow).children().eq(3).find('button').on('click', function () { removeRow(this); });
 			},
 			drawCallback: function (settings) {
@@ -227,8 +227,8 @@
 
 	function initAddedUserData()
 	{
-		addedUsers.length = 0;
-		addedUserObj.length = 0;
+		addedDoit.length = 0;
+		addedDoitObj.length = 0;
 
 		let table = updateTable.DataTable();
 		const tableData = table.rows().data();
@@ -236,17 +236,17 @@
 		{
 			for (let i=0; i<tableData.length; i++)
 			{
-				const {profile_uuid, nickname, ucd} = tableData[i];
+				const {doit_uuid, doit_title,  nickname, ucd} = tableData[i];
 
-				addedUsers.push(profile_uuid)
-				addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
+				addedDoit.push(doit_uuid)
+				addedDoitObj.push({ "doit_uuid" : doit_uuid, "doit_title" : doit_title, "nickname" : nickname, "ucd" : isEmpty(ucd) ? 0 : ucd});
 			}
 		}
 	}
 
 	function displayCountAddedUser()
 	{
-		totalCount.text(numberWithCommas(addedUserObj.length));
+		totalCount.text(numberWithCommas(addedDoitObj.length));
 	}
 
 	function onSubmitUcd()
@@ -258,12 +258,12 @@
 	function createRequest()
 	{
 		const param = {
-			"profile_uuid" : addedUsers,
+			"doit_uuid" : addedDoit,
 			"value" : amount.val().trim(),
 			"description" : description.val().trim(),
 		}
 
-		ajaxRequestWithJson(true, api.saveUserUcdBySystem, JSON.stringify(param))
+		ajaxRequestWithJson(true, api.saveDoitUcdBySystem, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				await sweetToastAndCallback(data, createSuccess);
 			})
@@ -272,7 +272,7 @@
 
 	function createSuccess()
 	{
-		location.href = page.listUcdCharge;
+		location.href = page.listUcdDoit;
 	}
 
 	function validation()
@@ -284,9 +284,9 @@
 			return false;
 		}
 
-		if (Number(amount.val()) > 1000000)
+		if (Number(amount.val()) > 10000000)
 		{
-			sweetToast(message.maxAvailableUserUcd);
+			sweetToast(message.maxAvailableBizUcd);
 			amount.trigger('focus');
 			return false;
 		}
@@ -298,9 +298,9 @@
 			return false;
 		}
 
-		if (isEmpty(addedUsers) || addedUsers.length === 0)
+		if (isEmpty(addedDoit) || addedDoit.length === 0)
 		{
-			sweetToast(`대상자 ${message.emptyList}`);
+			sweetToast(`대상 두잇 ${message.emptyList}`);
 			return false;
 		}
 
@@ -363,9 +363,9 @@
 			let callbackArgs = [];
 			readData.map( (value, index) => {
 				if (index === 0) return;
-				if (!isEmpty(value[0]) && !isEmpty(value[1]) && value[0].toString().startsWith('PID-'))
+				if (!isEmpty(value[0]) && !isEmpty(value[1]) && value[0].toString().startsWith('DOI-'))
 					callbackArgs.push({
-						"profile_uuid" : value[0],
+						"doit_uuid" : value[0],
 						"value" : value[1],
 						"description" : isEmpty(value[2]) ? '' : value[2]
 					})
@@ -401,9 +401,9 @@
 	let reqCount = 0;
 	function xlsxDataRequest()
 	{
-		const param = { "profile_list" : chunkData[reqCount] };
+		const param = { "doit_list" : chunkData[reqCount] };
 
-		ajaxRequestWithJson(true, api.saveUserUcdFromXlsx, JSON.stringify(param))
+		ajaxRequestWithJson(true, api.saveDoitUcdFromXlsx, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
 				if (isSuccessResp(data))
 				{

@@ -95,7 +95,7 @@
 						"keyword" : keyword.val().trim(),
 						"send_type" : 'doit',
 						"receive_type" : 'doit',
-						// "transfer_type" : $("input[name=radio-type]:checked").val(),
+						"transfer_type" : $("input[name=radio-type]:checked").val(),
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}

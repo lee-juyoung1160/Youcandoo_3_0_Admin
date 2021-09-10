@@ -365,7 +365,7 @@
 				if (index === 0) return;
 				if (!isEmpty(value[0]) && !isEmpty(value[1]) && value[0].toString().startsWith('DOI-'))
 					callbackArgs.push({
-						"doti_uuid" : value[0],
+						"doit_uuid" : value[0],
 						"value" : value[1],
 						"description" : isEmpty(value[2]) ? '' : value[2]
 					})

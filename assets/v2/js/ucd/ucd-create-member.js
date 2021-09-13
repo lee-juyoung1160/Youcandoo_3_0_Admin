@@ -411,7 +411,7 @@
 					if (reqCount === chunkData.length - 1)
 					{
 						reqCount = 0;
-						sweetToastAndCallback(data, fadeoutModal);
+						sweetToastAndCallback(data, createSuccess);
 					}
 					else
 					{

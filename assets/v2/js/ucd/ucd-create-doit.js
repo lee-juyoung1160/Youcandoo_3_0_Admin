@@ -126,7 +126,7 @@
 			columns: [
 				{title: "두잇명",			data: "doit_title",    	width: "45%" }
 				,{title: "리더",			data: "nickname",   	width: "40%" }
-				,{title: "두잇지갑(UCD)",	data: "ucd",   			width: "10%",
+				,{title: "보유 UCD",		data: "ucd",   			width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
@@ -186,8 +186,8 @@
 		updateTable.DataTable({
 			data: addedDoitObj,
 			columns: [
-				{title: "닉네임", 		data: "doit_title",		width: "45%" }
-				,{title: "PID",    		data: "nickname",  		width: "40%" }
+				{title: "두잇명", 		data: "doit_title",		width: "45%" }
+				,{title: "리더",    		data: "nickname",  		width: "40%" }
 				,{title: "보유 UCD",    	data: "ucd",  			width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
@@ -410,7 +410,7 @@
 					if (reqCount === chunkData.length - 1)
 					{
 						reqCount = 0;
-						sweetToastAndCallback(data, fadeoutModal);
+						sweetToastAndCallback(data, createSuccess);
 					}
 					else
 					{

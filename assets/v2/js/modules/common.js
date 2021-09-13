@@ -481,15 +481,15 @@
         let pageDom = '';
 
         pageDom += _currentPage === 1 ?
-            `<a class="paginate_button previous disabled" id="dataTable_previous">${label.previous}</a><span>` :
-            `<a class="paginate_button previous" data-page="${(_currentPage-1)}" id="dataTable_previous">${label.previous}</a><span>`
+            `<a class="paginate_button btn_paginate previous disabled" id="dataTable_previous">${label.previous}</a><span>` :
+            `<a class="paginate_button btn_paginate previous" data-page="${(_currentPage-1)}" id="dataTable_previous">${label.previous}</a><span>`
 
         if (_lastPage <= pageButtonLength)
         {
             for (i=1; i<=_lastPage; i++)
             {
                 current = _lastPage > 1 && _currentPage === i ? 'current' : '';
-                pageDom += `<a class="paginate_button ${current}" data-page="${i}">${i}</a>`
+                pageDom += `<a class="paginate_button btn_paginate ${current}" data-page="${i}">${i}</a>`
             }
         }
         else
@@ -502,7 +502,7 @@
                     pageNum = i === pageButtonLength ? _lastPage : i;
                     pageDom += i === pageButtonLength - 1 ?
                         `<span class="ellipsis">…</span>` :
-                        `<a class="paginate_button ${current}" data-page="${pageNum}">${pageNum}</a>`
+                        `<a class="paginate_button btn_paginate ${current}" data-page="${pageNum}">${pageNum}</a>`
                 }
             }
             else if (_currentPage >= 5 && _currentPage <= _lastPage - 4)
@@ -512,23 +512,23 @@
                     if (i === 1)
                     {
                         pageDom +=
-                            `<a class="paginate_button" data-page="${i}">${i}</a>
+                            `<a class="paginate_button btn_paginate" data-page="${i}">${i}</a>
 							<span class="ellipsis">…</span>`
                     }
 
                     if (_currentPage === i)
                     {
                         pageDom +=
-                            `<a class="paginate_button" data-page="${(i - 1)}">${(i - 1)}</a>
-							<a class="paginate_button current" data-page="${i}">${i}</a>
-							<a class="paginate_button" data-page="${(i + 1)}">${(i + 1)}</a>`
+                            `<a class="paginate_button btn_paginate" data-page="${(i - 1)}">${(i - 1)}</a>
+							<a class="paginate_button btn_paginate current" data-page="${i}">${i}</a>
+							<a class="paginate_button btn_paginate" data-page="${(i + 1)}">${(i + 1)}</a>`
                     }
 
                     if (_lastPage === i)
                     {
                         pageDom +=
                             `<span class="ellipsis">…</span>
-							<a class="paginate_button" data-page="${_lastPage}">${_lastPage}</a>`
+							<a class="paginate_button btn_paginate" data-page="${_lastPage}">${_lastPage}</a>`
                     }
                 }
             }
@@ -540,14 +540,14 @@
                     pageNum = i >= pageButtonLength - 4 ? (_lastPage-(pageButtonLength-i)) : i;
                     pageDom += i === 2 ?
                         `<span class="ellipsis">…</span>` :
-                        `<a class="paginate_button ${current}" data-page="${pageNum}">${pageNum}</a>`
+                        `<a class="paginate_button btn_paginate ${current}" data-page="${pageNum}">${pageNum}</a>`
                 }
             }
         }
 
         pageDom += _lastPage === _currentPage || Number(_lastPage) === 0 ?
-            `</span><a class="paginate_button next disabled" id="dataTable_next">${label.next}</a>` :
-            `</span><a class="paginate_button next" data-page="${(_currentPage+1)}" id="dataTable_next">${label.next}</a>`
+            `</span><a class="paginate_button btn_paginate next disabled" id="dataTable_next">${label.next}</a>` :
+            `</span><a class="paginate_button btn_paginate next" data-page="${(_currentPage+1)}" id="dataTable_next">${label.next}</a>`
 
         return pageDom;
     }

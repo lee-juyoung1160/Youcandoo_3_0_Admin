@@ -440,7 +440,8 @@
                 <div class="card">
                     <div class="title-wrap">
                         <p class="title" id="modalTitle"></p>
-                        <span class="desc-sub">매주 월요일 0시 기준</span>
+<!--                        <span class="desc-sub">매주 월요일 0시 기준</span>-->
+                        <button id="btnXlsxExport" class="btn-sm btn-success" type="button"><i class="fas fa-table"></i>랭킹 다운받기</button>
                     </div>
                     <ul class="rank" id="modalRank" style="display:block;">
                         <!--<li class="clearfix">
@@ -549,4 +550,5 @@
 </section>
 <script src="/assets/v2/js/plugins/chart.min.js"></script>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
 <script type="module" src="/assets/v2/js/bundles/main-dashboard.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

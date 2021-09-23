@@ -1,10 +1,10 @@
 
     import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "./modules/ajax-request.js";
     import {api} from "./modules/api-url.js";
-    import {sweetError, sweetToast} from "./modules/alert.js";
+    import {sweetError, sweetToast, sweetToastAndCallback} from "./modules/alert.js";
     import {message} from "./modules/message.js";
     import {fadeinModal, fadeoutModal, getTodayStr, getWeekAgoStr, initMaxDateToday, initSearchDatepicker, moveToMemberDetail, paginate,} from "./modules/common.js";
-    import {isEmpty, numberWithCommas} from "./modules/utils.js";
+    import {getStringFormatToDate, isEmpty, numberWithCommas} from "./modules/utils.js";
     import {label} from "./modules/label.js";
     import {initTableDefaultConfig, toggleBtnPreviousAndNextOnTable} from "./modules/tables.js";
     import {page} from "./modules/page-url.js";
@@ -15,9 +15,10 @@
         dateToSummaryList,
         modalBackdrop,
         modalClose,
-        pagination,
+        pagination, btnXlsxExport,
         btnRefreshCategory, btnRefreshMission
     } from "./modules/elements.js";
+    import {setExcelData} from "./modules/export-excel.js";
 
     let missionChartCtx;
     let categoryChartCtx;
@@ -42,6 +43,7 @@
         btnRefreshMission.on('click', function () { getChart(this); });
         $("#btnMoreLeader").on('click', function () { onClickBtnMore(this); });
         $("#btnMoreDoit").on('click', function () { onClickBtnMore(this) });
+        btnXlsxExport.on('click', function () { onClickBtnXlsxExport(); });
     });
 
     function getSummary()
@@ -567,4 +569,37 @@
     {
         let table = $("#summaryTable").DataTable();
         table.ajax.reload();
+    }
+
+    function onClickBtnXlsxExport()
+    {
+        const modalTitle = $("#modalTitle").text();
+        const url = modalTitle === '리더 랭킹' ? api.dashboardMoreLeader : api.dashboardMoreDoit;
+        const param = {
+            "page" : 1,
+            "limit" : 20,
+        }
+
+        ajaxRequestWithJson(true, url, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                isSuccessResp(data) ? downloadRankSuccessCallback(data) : sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
+    }
+
+    function downloadRankSuccessCallback(data)
+    {
+        const modalTitle = $("#modalTitle").text();
+        const keyTitle = modalTitle === '리더 랭킹' ? '닉네임' : '두잇명';
+        const keyUuid = modalTitle === '리더 랭킹' ? '프로필 아이디' : '두잇 아이디';
+        const fileName = `${modalTitle}_${getStringFormatToDate(new Date(), '')}`;
+        const xlsxData = data.data.map(obj => {
+            return {
+                '랭킹' : obj.ranking,
+                [keyTitle] : obj.doit_title?? obj.nickname,
+                [keyUuid] : obj.doit_uuid?? obj.profile_uuid
+            }
+        })
+
+        setExcelData(fileName, modalTitle, xlsxData);
     }

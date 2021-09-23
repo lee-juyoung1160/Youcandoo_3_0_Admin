@@ -339,10 +339,10 @@
 		updateTable.DataTable({
 			data: addedUserObj,
 			columns: [
-				{title: "닉네임",		data: "nickname",    		width: "35%" }
+				{title: "닉네임",			data: "nickname",    		width: "35%" }
 				,{title: "PID",			data: "profile_uuid",   	width: "36%" }
 				,{title: "두잇알림",		data: "noti_doit",   		width: "8%" }
-				,{title: "마케팅알림",	data: "noti_marketing",   	width: "8%" }
+				,{title: "마케팅알림",		data: "noti_marketing",   	width: "8%" }
 				,{title: "공지알림",		data: "noti_notice",   		width: "8%" }
 				,{title: "",    		data: "profile_uuid",  		width: "5%",
 					render: function (data, type, row, meta) {
@@ -356,7 +356,8 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				tableReloadAndStayCurrentPage(memberTable);
+				initialize ? buildSearchMemberTable() : tableReloadAndStayCurrentPage(memberTable);
+				initialize = false;
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.profile_uuid);

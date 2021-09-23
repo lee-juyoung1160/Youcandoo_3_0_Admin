@@ -1,9 +1,11 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
-	import {lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
+	import {
+		lengthInput, btnSubmit, amount, keyword, modalClose, modalBackdrop, modalOpen, btnXlsxImport,
 		updateTable, btnXlsxExport, description, nickname, dataTable, btnSearch, totalCount, contentImage,
-		title, balance,} from '../modules/elements.js';
+		title, balance,
+	} from '../modules/elements.js';
 	import { sweetConfirm, sweetToast, sweetToastAndCallback, sweetError } from  '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, limitInputLength, emptyFile, onErrorImage,} from "../modules/common.js";
 	import {initInputNumber, isEmpty, isXlsX, numberWithCommas} from "../modules/utils.js";
@@ -234,7 +236,8 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				tableReloadAndStayCurrentPage(dataTable);
+				initialize ? buildSearchDoitTable() : tableReloadAndStayCurrentPage(dataTable);
+				initialize = false;
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.doit_uuid);

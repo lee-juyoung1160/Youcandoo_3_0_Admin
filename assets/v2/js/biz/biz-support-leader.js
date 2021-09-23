@@ -234,7 +234,8 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				tableReloadAndStayCurrentPage(dataTable);
+				initialize ? buildSearchMemberTable() : tableReloadAndStayCurrentPage(dataTable);
+				initialize = false;
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.profile_uuid);

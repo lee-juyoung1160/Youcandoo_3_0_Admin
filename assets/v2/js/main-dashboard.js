@@ -590,14 +590,20 @@
     function downloadRankSuccessCallback(data)
     {
         const modalTitle = $("#modalTitle").text();
-        const keyTitle = modalTitle === '리더 랭킹' ? '닉네임' : '두잇명';
-        const keyUuid = modalTitle === '리더 랭킹' ? '프로필 아이디' : '두잇 아이디';
         const fileName = `${modalTitle}_${getStringFormatToDate(new Date(), '')}`;
         const xlsxData = data.data.map(obj => {
-            return {
-                '랭킹' : obj.ranking,
-                [keyTitle] : obj.doit_title?? obj.nickname,
-                [keyUuid] : obj.doit_uuid?? obj.profile_uuid
+            switch (modalTitle) {
+                case '리더 랭킹' :
+                    return {
+                        '랭킹' : obj.ranking,
+                        '프로필 아이디' : obj.profile_uuid
+                    }
+                case '두잇 랭킹' :
+                    return {
+                        '랭킹' : obj.ranking,
+                        '두잇명' : obj.doit_title,
+                        '두잇 아이디' : obj.doit_uuid
+                    }
             }
         })
 

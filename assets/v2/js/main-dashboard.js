@@ -505,7 +505,7 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "연속인증20일이상", 	data: "ongoing_user_count",	    width: "9%",
+                ,{title: "연속인증21일이상", 	data: "ongoing_user_count",	    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }

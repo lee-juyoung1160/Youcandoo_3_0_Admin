@@ -9,14 +9,18 @@
 
 	export function exportExcel()
 	{
-		/** workbook 생성 **/
-		let wb = XLSX.utils.book_new();
-		/** sheet 생성 **/
-		let sheet = XLSX.utils.json_to_sheet(excelHandler.jsonData);
-		/** 생성된 workbook에 sheet 붙이기 **/
-		XLSX.utils.book_append_sheet(wb, sheet, excelHandler.sheetName);
-		/** 파일 내보내기 **/
-		XLSX.writeFile(wb, excelHandler.fileName);
+		try {
+			/** workbook 생성 **/
+			let wb = XLSX.utils.book_new();
+			/** sheet 생성 **/
+			let sheet = XLSX.utils.json_to_sheet(excelHandler.jsonData);
+			/** 생성된 workbook에 sheet 붙이기 **/
+			XLSX.utils.book_append_sheet(wb, sheet, excelHandler.sheetName);
+			/** 파일 내보내기 **/
+			XLSX.writeFile(wb, excelHandler.fileName);
+		} catch (e) {
+			console.log(e)
+		}
 	}
 
 	export function setExcelData(_fileName, _sheetName, _data)

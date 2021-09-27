@@ -1,8 +1,8 @@
 
-	import {headers, isSuccessResp, invalidResp} from '../modules/ajax-request.js';
+	import {headers, isSuccessResp, invalidResp, ajaxRequestWithJson} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
 	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus, rdoType,
-		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType,} from '../modules/elements.js';
+		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType, btnXlsxExport} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, initSearchDateRangeMonth,
 		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail,} from "../modules/common.js";
@@ -11,7 +11,8 @@
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import { page } from "../modules/page-url.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, getStringFormatToDate} from "../modules/utils.js";
+	import {setExcelData} from "../modules/export-excel.js";
 
 	let _currentPage = 1;
 
@@ -36,6 +37,7 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		btnXlsxExport	.on("click", function () { onClickBtnXlsxExport(); })
 	});
 
 	function initSearchForm()
@@ -201,4 +203,28 @@
 	function onClickNickname(obj)
 	{
 		moveToMemberDetail($(obj).data('uuid'));
+	}
+
+	function onClickBtnXlsxExport()
+	{
+		const param = {
+			"from_date" : dateFrom.val(),
+			"to_date" : dateTo.val(),
+			"search_type" : selSearchType.val(),
+			"keyword" : keyword.val().trim(),
+			"device_type" : $("input[name=radio-type]:checked").val(),
+			"qna_type" : selInquiryType.val(),
+			"status" : $("input[name=radio-status]:checked").val(),
+		}
+
+		ajaxRequestWithJson(true, api.xlsxOutInquiry, JSON.stringify(param))
+			.then( async function( data, textStatus, jqXHR ) {
+				isSuccessResp(data) ? getInquirySuccessCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(`데이터${message.ajaxLoadError}`));
+	}
+
+	function getInquirySuccessCallback(data)
+	{
+		setExcelData(`문의목록_${getStringFormatToDate(new Date(), '')}`, '1:1문의', data.data);
 	}

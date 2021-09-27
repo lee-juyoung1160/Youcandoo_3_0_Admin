@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="btn-wrap">
-                    <button type="button" class="btn-sm btn-success"><i class="fas fa-file-excel"></i> 엑셀 다운로드</button>
+                    <button id="btnXlsxExport" type="button" class="btn-sm btn-success"><i class="fas fa-file-excel"></i> 엑셀 다운로드</button>
                 </div>
             </div>
             <table id="dataTable">
@@ -178,4 +178,5 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
 <script type="module" src="/assets/v2/js/bundles/inquiry-list.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -217,6 +217,9 @@ class Auth extends CI_Controller {
                 "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $Secret),
                 "type"=>$Type,
                 "userid"=>$UserID,
+                "password"=>$this->input->post("password"),
+                "username"=>$this->input->post("username"),
+                "useremail"=>$this->input->post("useremail"),
                 "invalid_otp"=>"Y"
             ));
         }

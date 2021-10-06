@@ -96,10 +96,17 @@
 		rdoReason,
 		btnSubmitBan,
 		selBlockMemberPageLength,
-		btnCancelBlock, searchTab, btnRefreshOngoingRank, btnRefreshTotalRank
+		btnCancelBlock,
+		searchTab,
+		btnRefreshOngoingRank,
+		btnRefreshTotalRank,
+		chkNoticeType,
+		chkNoticeTalk,
+		chkUpdateNoticeTalk
 	} from '../modules/elements.js';
-	import {historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
-		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage
+	import {
+		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
+		onChangeSearchDateFrom, onClickDateRangeBtn, initPageLength, onChangeValidateImage, atLeastChecked
 	} from "../modules/common.js";
 	import {initInputNumber, initInputNumberWithZero, isEmpty,} from "../modules/utils.js";
 	import { page } from "../modules/page-url.js";
@@ -150,7 +157,7 @@
 		buildTalkTable, onClickBtnCreateTalk, initSearchTalkForm, showTalkListForm, onClickBtnUpdateTalk,
 		onChangeAttachType, onSubmitSearchTalk, onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk,
 		onChangeUpdateAttachType, onSubmitUpdateTalk, showTalkDetailForm, onSubmitBlindTalk,
-		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo
+		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo, onClickChkNoticeTalk, onClickChkUpdateNoticeTalk
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -262,6 +269,9 @@
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
 		/** 두잇톡탭 **/
 		initPageLength(selTalkPageLength);
+		chkNoticeTalk.on('click', function () { onClickChkNoticeTalk(); });
+		chkUpdateNoticeTalk.on('click', function () { onClickChkUpdateNoticeTalk(); });
+		chkNoticeType.on('click', function () { atLeastChecked(this); });
 		rdoAttachType.on('change', function () { onChangeAttachType(); });
 		rdoUpdateAttachType.on('change', function () { onChangeUpdateAttachType(); });
 		searchTalkDateFrom.on('change', function () { onChangeSearchTalkDateFrom(); });

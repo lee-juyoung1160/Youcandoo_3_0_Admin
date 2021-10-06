@@ -1,12 +1,12 @@
 
 	import {
-		modalCreateTalk, modalBackdrop, talkDetailForm, talkListForm, talkUpdateForm, talk, searchTalkDateFrom,
-		searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
-		selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
-		infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
-		updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk,
-		btnDisplayTalk, btnDeleteTalk, btnUpdateTalk, isDel
-	} from "../modules/elements.js";
+	modalCreateTalk, modalBackdrop, talkDetailForm, talkListForm, talkUpdateForm, talk, searchTalkDateFrom,
+	searchTalkDateTo, modalAttach, modalAttachContentWrap, talkAttachmentWrap, rdoAttachType, selTalkDateType,
+	selTalkPageLength, talkTable, chkNoticeTalk, infoTalkNickname, infoTalkCommentCount, infoTalkLikeCount,
+	infoTalkContent, infoTalkCreated, infoTalkIsBlind, infoTalkAttachWrap, talkCommentWrap, commentTalk,
+	updateTalk, rdoUpdateAttachType, chkUpdateNoticeTalk, updateTalkAttachWrap, btnBlindTalk,
+	btnDisplayTalk, btnDeleteTalk, btnUpdateTalk, isDel, chkNoticeType, chkSpecialNoticeTalk, chkUpdateSpecialNoticeTalk
+} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
@@ -51,6 +51,9 @@
 
 	export function initSearchTalkForm()
 	{
+		chkNoticeType.eq(0).prop('checked', true);
+		chkNoticeType.eq(1).prop('checked', true);
+		chkNoticeType.eq(2).prop('checked', true);
 		searchTalkDateFrom.datepicker("setDate", "-6D");
 		searchTalkDateTo.datepicker("setDate", "today");
 		initDayBtn();
@@ -68,12 +71,28 @@
 		initDayBtn();
 	}
 
+	export function onClickChkNoticeTalk()
+	{
+		const isChecked = chkNoticeTalk.is(':checked');
+		chkSpecialNoticeTalk.prop('disabled', !isChecked);
+		chkSpecialNoticeTalk.prop('checked', false);
+	}
+
+	export function onClickChkUpdateNoticeTalk()
+	{
+		const isChecked = chkUpdateNoticeTalk.is(':checked');
+		chkUpdateSpecialNoticeTalk.prop('disabled', !isChecked);
+		chkUpdateSpecialNoticeTalk.prop('checked', false);
+	}
+
 	export function initCreateTalkModal()
 	{
 		talk.trigger('focus');
 		talk.val('');
 		rdoAttachType.eq(0).prop('checked', true);
 		chkNoticeTalk.prop('checked', false);
+		chkSpecialNoticeTalk.prop('checked', false);
+		chkSpecialNoticeTalk.prop('disabled', true);
 		onChangeAttachType();
 	}
 
@@ -132,11 +151,17 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
+					let noticeType = [];
+					chkNoticeType.each(function () {
+						if ($(this).is(':checked'))
+							noticeType.push($(this).val())
+					})
 					const param = {
 						"doit_uuid": g_doit_uuid,
 						"date_type" : selTalkDateType.val(),
 						"from_date" : searchTalkDateFrom.val(),
 						"to_date" : searchTalkDateTo.val(),
+						"notice_type" : noticeType,
 						"page" : (d.start / d.length) + 1,
 						"limit" : Number(selTalkPageLength.val())
 					}
@@ -148,9 +173,14 @@
 				}
 			},
 			columns: [
-				{title: "구분",    	data: "is_notice",  	width: "10%",
-					render: function (data) {
-						return data === 'Y' ? label.notice : label.general;
+				{title: "구분",    	data: "is_important",  	width: "10%",
+					render: function (data, type, row, meta) {
+						switch (data) {
+							case 'Y' :
+								return label.specialNotice;
+							default :
+								return row.is_notice === 'Y' ? label.notice : label.general;
+						}
 					}
 				}
 				,{title: "작성자",    data: "nickname",  		width: "15%",
@@ -239,7 +269,7 @@
 	let g_talk_attach_type;
 	function buildTalkDetail(data)
 	{
-		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_blind, is_del, contents_type,} = data.data;
+		const {board_uuid, created, nickname, is_company, board_body, comment_cnt, like_count, is_notice, is_important, is_blind, is_del, contents_type,} = data.data;
 
 		g_board_uuid = board_uuid;
 		g_talk_attach_type = contents_type;
@@ -293,6 +323,8 @@
 		})
 		buildUpdateAttachWrap(data);
 		chkUpdateNoticeTalk.prop('checked', is_notice === 'Y');
+		chkUpdateSpecialNoticeTalk.prop('disabled', is_notice === 'N');
+		chkUpdateSpecialNoticeTalk.prop('checked', is_important === 'Y');
 		calculateInputLength();
 		onErrorImage();
 
@@ -781,6 +813,7 @@
 				"doit_uuid" : g_doit_uuid,
 				"board_body" : talk.val().trim(),
 				"is_notice" : chkNoticeTalk.is(":checked") ? 'Y' : 'N',
+				"is_important" : chkSpecialNoticeTalk.is(":checked") ? 'Y' : 'N',
 			}
 
 			if (!isEmpty(data))
@@ -891,6 +924,7 @@
 				"board_uuid" : g_board_uuid,
 				"board_body" : updateTalk.val().trim(),
 				"is_notice" : chkUpdateNoticeTalk.is(':checked') ? 'Y' : 'N',
+				"is_important" : chkUpdateSpecialNoticeTalk.is(':checked') ? 'Y' : 'N',
 				"is_attached" : isEmpty(getUpdateAttachType()) ? 'N' : 'Y',
 			}
 

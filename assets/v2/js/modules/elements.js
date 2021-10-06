@@ -305,6 +305,7 @@
     export const rdoAttachType = $("input[name=radio-attach-type]");
     export const talkAttachmentWrap = $("#talkAttachmentWrap");
     export const chkNoticeTalk = $("input[name=chk-notice-talk]");
+    export const chkSpecialNoticeTalk = $("input[name=chk-special-notice-talk]");
     export const btnSubmitTalk = $("#btnSubmitTalk");
     export const talkListForm   = $("#talkListForm");
     export const talkDetailForm = $("#talkDetailForm");
@@ -314,6 +315,7 @@
     export const selTalkDateType = $("#selTalkDateType");
     export const selTalkPageLength = $("#selTalkPageLength");
     export const btnSearchTalk = $("#btnSearchTalk");
+    export const chkNoticeType = $("input[name=chk-notice-type]");
     export const btnResetSearchTalk = $("#btnResetSearchTalk");
     export const talkTable   = $("#talkTable");
     export const btnBackToTalkList = $("#btnBackToTalkList");
@@ -337,6 +339,7 @@
     export const rdoUpdateAttachType = $("input[name=radio-update-attach-type]");
     export const updateTalkAttachWrap = $("#updateTalkAttachWrap");
     export const chkUpdateNoticeTalk = $("input[name=chk-update-notice-talk]");
+    export const chkUpdateSpecialNoticeTalk = $("input[name=chk-update-special-notice-talk]");
     export const btnSubmitUpdateTalk = $("#btnSubmitUpdateTalk");
     export const modalAttach = $("#modalAttach");
     export const modalAttachContentWrap = $("#modalAttachContentWrap");

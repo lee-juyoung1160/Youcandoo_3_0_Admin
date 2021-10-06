@@ -34,6 +34,7 @@
 		, generalDoit: '일반 두잇'
 		, general: '일반'
 		, notice: '공지'
+		, specialNotice: '중요 공지'
 		, personal: '개인'
 		, member: '회원'
 		, guest: '비회원'

@@ -98,7 +98,8 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    		data: "nickname",  			width: "25%",
+				{title: "비활성일시", 	data: "deactived",			width: "15%" }
+				,{title: "닉네임",    		data: "nickname",  			width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
@@ -124,7 +125,6 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "비활성일시", 	data: "deactived",			width: "15%" }
 			],
 			serverSide: true,
 			paging: true,

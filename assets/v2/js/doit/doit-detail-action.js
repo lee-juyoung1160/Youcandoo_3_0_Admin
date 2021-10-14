@@ -4,7 +4,7 @@
 		actionsWrap, selActionDateType, chkActionStatus, modalBackdrop, modalWarning, searchActionDateFrom,
 		searchActionDateTo, selActionMissions, pagination, selActionPageLength, totalActionCount,
 		actionNickname, actionContentWrap, actionCommentWrap, commentAction, btnSendWarning, modalAttach,
-		modalAttachContentWrap, selReason, warningReason,
+		modalAttachContentWrap, selReason, warningReason, selSearchTypeInAction, keywordInAction,
 	} from "../modules/elements.js";
 	import {
 		initSelectOption, overflowHidden, onErrorImage, paginate, fadeoutModal, limitInputLength, initDayBtn
@@ -38,6 +38,7 @@
 		chkActionStatus.eq(0).prop('checked', true);
 		chkActionStatus.eq(1).prop('checked', true);
 		chkActionStatus.eq(2).prop('checked', true);
+		keywordInAction.val('');
 		initSelectOption();
 		initDayBtn();
 	}
@@ -102,6 +103,8 @@
 			"to_date" : searchActionDateTo.val(),
 			"mission_uuid" : selActionMissions.val(),
 			"action_status" : actionStatus,
+			"search_type" : selSearchTypeInAction.val(),
+			"keyword" : keywordInAction.val().trim(),
 			"page" : _actionCurrentPage,
 			"limit" : selActionPageLength.val()
 		}

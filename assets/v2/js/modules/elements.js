@@ -277,6 +277,8 @@
     export const selActionDateType = $("#selActionDateType");
     export const searchActionDateFrom = $("#searchActionDateFrom");
     export const searchActionDateTo = $("#searchActionDateTo");
+    export const selSearchTypeInAction = $("#selSearchTypeInAction");
+    export const keywordInAction = $("#keywordInAction");
     export const selActionMissions = $("#selActionMissions");
     export const chkActionStatus = $("input[name=chk-action-status]");
     export const btnSearchAction = $("#btnSearchAction");

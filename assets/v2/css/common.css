@@ -659,7 +659,15 @@ button i {
 	color: #333;
 	border-radius: 30px;
 	background-color: #fff;
-
+}
+.btn-modal {
+	margin-right: 5px;
+	color: #666;
+	text-decoration: underline;
+}
+.btn-modal:hover {
+	color: #00327e;
+	font-weight: 600;
 }
 
 /*badge*/

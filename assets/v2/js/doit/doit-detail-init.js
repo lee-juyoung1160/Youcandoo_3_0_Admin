@@ -102,7 +102,7 @@
 		btnRefreshTotalRank,
 		chkNoticeType,
 		chkNoticeTalk,
-		chkUpdateNoticeTalk
+		chkUpdateNoticeTalk, btnReward
 	} from '../modules/elements.js';
 	import {
 		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -146,7 +146,13 @@
 	} from "./doit-detail-member.js";
 	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
-		showUcdListForm, initSearchUcdForm, onClinkBtnSaveUcdWallet, onSubmitSearchUcd, onSubmitSaveDoitUcd, buildUcdTable
+		showUcdListForm,
+		initSearchUcdForm,
+		onClinkBtnSaveUcdWallet,
+		onSubmitSearchUcd,
+		onSubmitSaveDoitUcd,
+		buildUcdTable,
+		onClickBtnReward
 	} from "./doit-detail-ucd.js";
 	import {
 		initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
@@ -255,6 +261,7 @@
 		btnSaveUcdWallet.on('click', function () { onClinkBtnSaveUcdWallet(); });
 		saveWalletAmount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnSubmitSaveDoitUcd.on('click', function () { onSubmitSaveDoitUcd(); });
+		btnReward.on('click', function () { onClickBtnReward(); });
 		/** 인증탭 **/
 		initPageLength(selActionPageLength);
 		btnSearchAction.on('click', function () { onSubmitSearchActions(); });

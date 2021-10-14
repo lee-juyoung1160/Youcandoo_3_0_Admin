@@ -259,6 +259,7 @@
     export const ucdListForm = $("#ucdListForm");
     export const publicWalletBalance = $("#publicWalletBalance");
     export const btnSaveUcdWallet = $("#btnSaveUcdWallet");
+    export const btnReward = $("#btnReward");
     export const searchUcdDateFrom = $("#searchUcdDateFrom");
     export const searchUcdDateTo = $("#searchUcdDateTo");
     export const ucdKeyword = $("#ucdKeyword");
@@ -269,6 +270,8 @@
     export const saveWalletAmount = $("#saveWalletAmount");
     export const saveWalletDesc = $("#saveWalletDesc");
     export const btnSubmitSaveDoitUcd = $("#btnSubmitSaveDoitUcd");
+    export const modalReward = $("#modalReward");
+    export const rewardTable = $("#rewardTable");
 
     export const btnBackActionList = $("#btnBackActionList");
     export const actionListForm = $("#actionListForm");

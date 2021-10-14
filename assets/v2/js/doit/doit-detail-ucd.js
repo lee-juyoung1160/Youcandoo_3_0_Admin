@@ -1,6 +1,8 @@
 
-	import {ucdListForm, ucdTable, searchUcdDateFrom, searchUcdDateTo, ucdKeyword, selUcdPageLength, modalSaveUcdWallet,
-		modalBackdrop, saveWalletAmount, saveWalletDesc, publicWalletBalance,} from "../modules/elements.js";
+	import {
+		ucdListForm, ucdTable, searchUcdDateFrom, searchUcdDateTo, ucdKeyword, selUcdPageLength, modalSaveUcdWallet,
+		modalBackdrop, saveWalletAmount, saveWalletDesc, publicWalletBalance, modalReward, rewardTable,
+	} from "../modules/elements.js";
 	import { api } from '../modules/api-url.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
 	import {message} from "../modules/message.js";
@@ -171,4 +173,78 @@
 		saveWalletAmount.val('');
 		saveWalletAmount.trigger('focus');
 		saveWalletDesc.val('');
+	}
+
+	export function onClickBtnReward()
+	{
+		modalReward.fadeIn();
+		modalBackdrop.fadeIn();
+		buildRewardHistory();
+	}
+
+	function buildRewardHistory()
+	{
+		rewardTable.DataTable({
+			ajax : {
+				url: api.getDoitRewardList,
+				type: "POST",
+				headers: headers,
+				global: false,
+				dataFilter: function(data){
+					let json = JSON.parse(data);
+					if (isSuccessResp(json))
+					{
+						json.recordsTotal = json.count;
+						json.recordsFiltered = json.count;
+					}
+					else
+					{
+						json.data = [];
+						sweetToast(invalidResp(json));
+					}
+
+					return JSON.stringify(json);
+				},
+				data: function (d) {
+					const param = {
+						"doit_uuid" : g_doit_uuid,
+						"page" : (d.start / d.length) + 1,
+						"limit" : d.length,
+					}
+
+					return JSON.stringify(param);
+				},
+				error: function (request, status) {
+					sweetError(label.list+message.ajaxLoadError);
+				}
+			},
+			columns: [
+				{title: "지급일시",   	data: "created",  		width: "30%" }
+				,{title: "지급기준",    	data: "type",  			width: "20%" }
+				,{title: "기준값",    	data: "type_value",  	width: "15%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "기준일",    	data: "basedate",  		width: "20%" }
+				,{title: "지급 UCD", 	data: "value",			width: "15%",
+					render: function (data, type, row, meta) {
+						return numberWithCommas(data);
+					}
+				}
+			],
+			serverSide: true,
+			paging: true,
+			pageLength: 10,
+			select: false,
+			destroy: true,
+			initComplete: function () {
+			},
+			fnRowCallback: function( nRow, aData ) {
+			},
+			drawCallback: function (settings) {
+				buildTotalCount(this);
+				toggleBtnPreviousAndNextOnTable(this);
+			}
+		});
 	}

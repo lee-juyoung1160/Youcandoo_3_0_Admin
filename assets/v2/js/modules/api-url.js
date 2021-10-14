@@ -70,6 +70,7 @@
         stopDoit : baseApiUrl + 'doit/set/stop',
         getDoitUcd : baseApiUrl + 'ucd/get/doit',
         getUcdDoitList : baseApiUrl + 'ucd/get/doit/list',
+        getDoitRewardList : baseApiUrl + 'ucd/get/reward/doit',
 
         missionList : baseApiUrl + 'mission/get/list',
         createMission : baseApiUrl + 'mission/create',

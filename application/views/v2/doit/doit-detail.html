@@ -1093,7 +1093,7 @@
                                 <strong class="num" id="publicWalletBalance">0 UCD</strong>
                             </div>
                             <div class="right-wrap">
-                                <a href="#none" class="btn-modal">리워드 지급 내역</a>
+                                <a id="btnReward" class="btn-modal">리워드 지급 내역</a>
                                 <button id="btnSaveUcdWallet" type="button" class="btn-sm btn-success modal-btn"><i class="fas fa-coins"></i> UCD 충전</button>
                             </div>
                         </div>
@@ -2885,18 +2885,19 @@
         </div>
 
         <!-- UCD-리워드 지급 내역 -->
-        <div class="modal-content promotion-modal" id="">
+        <div class="modal-content promotion-modal" id="modalReward">
             <div class="modal-header clearfix">
                 <h5>리워드 지급 내역</h5>
                 <i class="modal-close">×</i>
             </div>
             <div class="modal-body">
                 <div class="table-wrap">
-                    <table>
-                        <thead>
+                    <table id="rewardTable">
+                        <!--<thead>
                         <colgroup>
                             <col style="width: 20%;">
                             <col style="width: 30%;">
+                            <col style="width: 20%;">
                             <col style="width: 30%;">
                             <col style="width: 20%;">
                         </colgroup>
@@ -2905,6 +2906,7 @@
                             <th>일자</th>
                             <th>지급기준</th>
                             <th>기준값</th>
+                            <th>기준일</th>
                             <th>지급 UCD</th>
                         </thead>
                         <tbody>
@@ -2912,9 +2914,10 @@
                             <td>2020-00-00</td>
                             <td>연속인증</td>
                             <td>20</td>
+                            <td>2020-00-00</td>
                             <td>3,000</td>
                         </tr>
-                        </tbody>
+                        </tbody>-->
                     </table>
                 </div>
             </div>

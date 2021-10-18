@@ -122,6 +122,7 @@
                 break;
             case '/v2/doit' :
                 accessiblePages.push(_auth + '/detail');
+                accessiblePages.push(_auth + '/reward');
                 break;
             case '/v2/ucd/charge' :
                 accessiblePages.push('/v2/ucd/create/member');
@@ -147,7 +148,7 @@
     function validAccessiblePage()
     {
         let pathName = getPathName();
-        if (pathName !== '/v2/member/detail' && (pathName.includes('update') || pathName.includes('detail')))
+        if (pathName !== '/v2/member/detail' && (pathName.includes('update') || pathName.includes('detail')  || pathName.includes('reward')))
             pathName = pathName.replace(`/${pathName.split('/').pop()}`, '');
 
         if (accessiblePages.indexOf(pathName) === -1)

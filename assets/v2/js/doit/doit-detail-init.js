@@ -131,7 +131,6 @@
 		showJoinMemberForm,
 		showPendingMemberForm,
 		initSearchMemberForm,
-		onClickModalSaveUcdOpen,
 		searchJoinMember,
 		onClickBtnBan,
 		searchApplyMember,
@@ -142,7 +141,7 @@
 		onClickBtnReject,
 		onChangeChkBlock,
 		onChangeRdoReason,
-		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock,
+		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock, onClickBtnSaveUcd,
 	} from "./doit-detail-member.js";
 	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
@@ -226,7 +225,7 @@
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
-		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
+		btnSaveUcd.on('click', function () { onClickBtnSaveUcd(); });
 		/*btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });*/
 		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		actionTimes.on("propertychange change keyup paste input", function () { initInputNumber(this); });

@@ -18,13 +18,13 @@
                     <tr>
                         <th>적립 조건 *</th>
                         <td>
-                            <select class="select-box">
-                                <option value="">참여자 전체</option>
+                            <select class="select-box" id="selRewardType">
+                                <option value="all">참여자 전체</option>
                                 <option value="">연속 인증 기준</option>
                                 <option value="">7일 누적 인증 기준</option>
                                 <option value="">30일 누적 인증 기준</option>
                                 <option value="">전체 누적 인증 기준</option>
-                                <option value="">멤버 직접 선택</option>
+                                <option value="user">멤버 직접 선택</option>
                             </select>
                             <div class="input-wrap" style="display: none;">
                                 <input id="actionCount" type="text" class="action-num" maxlength="4" value="0"> 회 이상
@@ -35,14 +35,14 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="baseDateWrap" style="display: none;">
                         <th>날짜 *</th>
                         <td>
                             <div class="date-wrap">
-                                <input type="text" class="datepicker date-from" readonly>
+                                <input type="text" class="datepicker date-from" disabled>
                                 <span class="date-text"> ~ </span>
-                                <input type="text" class="datepicker date-to" readonly>
-                                <button type="button" class="btn btn-sm" style="margin-left: 5px;">조회</button>
+                                <input type="text" class="datepicker date-to" placeholder="날짜 설정" readonly>
+                                <button id="btnSearchTarget" type="button" class="btn btn-sm" style="margin-left: 5px;">대상자 조회</button>
                             </div>
                         </td>
                     </tr>
@@ -124,7 +124,7 @@
 
     <div class="modal-wrap">
         <!-- 닉네임 검색 -->
-        <div class="modal-content" id="modalCreate">
+        <div class="modal-content" id="modalSearchMember">
             <div class="modal-header clearfix">
                 <h5>닉네임 검색</h5>
                 <i class="modal-close">×</i>
@@ -186,7 +186,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-<!--                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>-->
             </div>
         </div>
 
@@ -196,5 +195,4 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
-<script type="module" src="/assets/v2/js/bundles/ucd-create-member.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/doit/doit-reward.js?version=<?php echo $this->config->item('version');?>"></script>

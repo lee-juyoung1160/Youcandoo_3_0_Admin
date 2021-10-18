@@ -783,15 +783,16 @@
 		}
 	}
 
-	export function onClickModalSaveUcdOpen()
+	export function onClickBtnSaveUcd()
 	{
-		modalSaveUcd.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		amount.trigger('focus');
-		amount.val('');
-		saveUcdContent.val('');
-		actionTimes.val('');
+		location.href = `/v2/doit/reward/${doitIdx}`
+		// modalSaveUcd.fadeIn();
+		// modalBackdrop.fadeIn();
+		// overflowHidden();
+		// amount.trigger('focus');
+		// amount.val('');
+		// saveUcdContent.val('');
+		// actionTimes.val('');
 	}
 
 	function getRewardMemberList()

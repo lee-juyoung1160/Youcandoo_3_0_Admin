@@ -20,9 +20,8 @@ class Doit extends MY_Controller {
 
     public function reward()
     {
-        $this->load->template('v2/doit/reward-create-member');
+        $this->load->template('v2/doit/doit-reward');
     }
-
 
     public function pick($Route = "")
     {
@@ -57,13 +56,9 @@ class Doit extends MY_Controller {
         }
     }
 
-    public function keyword($Route = "")
+    public function keyword()
     {
-        switch ($Route) {
-            case "":
-                $this->load->template('v2/doit/keyword-list');
-                break;
-        }
+        $this->load->template('v2/doit/keyword-list');
     }
 
 }

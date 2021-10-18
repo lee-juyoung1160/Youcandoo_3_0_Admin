@@ -83,6 +83,13 @@ input.action-num {
 .modal-content.member-add-ucd .add-ucd-select {
 	width: 300px;
 }
+.nickname_search {
+	width: 300px !important;
+}
+a.btn-save-ucd {
+	color: #fff;
+	border-radius: 5px;
+}
 
 /* 멤버 랭킹 */
 .btn-sort {
@@ -109,6 +116,7 @@ input.action-num {
 .doit-member-ranking .title i:hover {
 	color: #0061f2;
 }
+
 
 /* 두잇 수정 */
 .detail-update .detail-tit-warp button {

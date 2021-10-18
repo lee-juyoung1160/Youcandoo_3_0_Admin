@@ -696,8 +696,8 @@
                                     <strong class="num ban-member-count"></strong>
                                 </div>
                             </div>
-                            <div class="col-3" style="text-align:right;">
-                                <button id="btnSaveUcd" type="button" class="btn-sm btn-success"><i class="fas fa-coins"></i> 참여자 ucd 적립</button>
+                            <div style="float:right;">
+                                <a href="/v2/doit/reward" id="btnSaveUcd" type="button" class="btn-sm btn-success btn-save-ucd"><i class="fas fa-coins"></i> 참여자 ucd 적립</a>
                             </div>
                         </div>
 
@@ -775,6 +775,7 @@
                                         <select id="selJoinMemberPageLength" class="select-box">
                                         </select>
                                         <select id="selSort" class="select-box">
+                                            <option value="joined">가입일시 순</option>
                                             <option value="nickname">닉네임 순</option>
                                             <option value="total_action">누적 인증 순</option>
                                             <option value="ongoing_action">현재 연속 인증 순</option>
@@ -2404,119 +2405,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
                 <button id="btnSubmitBan" type="button" class="btn btn-danger">강퇴하기</button>
-            </div>
-        </div>
-
-        <!-- 참여자 탭 - ucd 적립 -->
-        <div class="modal-content member-add-ucd" id="modalSaveUcd">
-            <div class="modal-header clearfix">
-                <h5>UCD 적립</h5>
-                <i class="modal-close">×</i>
-            </div>
-            <div class="modal-body">
-                <table class="detail-table">
-                    <colgroup>
-                        <col style="width: 25%;">
-                        <col style="width: 75%;">
-                    </colgroup>
-                    <tr>
-                    <tr>
-                        <th>적립 조건 *</th>
-                        <td>
-                            <select id="selRewardType" class="select-box add-ucd-select">
-                                <option value="all">참여자 전체</option>
-                                <option value="total">누적 인증</option>
-                                <option value="ongoing">현재 연속 인증</option>
-                                <option value="weekly">최근 7일 인증</option>
-                                <option value="monthly">최근 30일 인증</option>
-                                <option value="user">직접 선택</option>
-                            </select>
-                            <div class="ucd-input-wrap">
-                                <input id="rewardKeyword" type="text" placeholder="닉네임을 입력해주세요." style="display: none;">
-                                <p style="display: none;"><input id="actionTimes" class="action-num" type="text" maxlength="5"> <span>회 이상</span></p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>적립 UCD *</th>
-                        <td>
-                            <div class="ucd-input-wrap">
-                                <input id="amount" type="text" class="only-num" maxlength="7">
-                                <span>UCD</span>
-                            </div>
-                        </td>
-                    </tr>
-                        <th>내용 *</th>
-                        <td>
-                            <div class="input-wrap">
-                                <input id="saveUcdContent" type="text" class="length-input" maxlength="30">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <!--<tr>
-                        <th>비고 </th>
-                        <td>
-                            <div class="textarea-wrap">
-                                <textarea id="saveUcdEtc" class="length-input" maxlength="50" rows="4"></textarea>
-                                <p class="length-count-wrap"><span class="count-input">0</span>/50</p>
-                            </div>
-                        </td>
-                    </tr>-->
-                </table>
-                <div class="table-wrap" id="rewardTableWrap" style="display: none;">
-                    <div class="top clearfix">
-                        <div class="left-wrap clearfix">
-                            <div class="form-box">
-                                <p>총 <strong class="data-num"></strong>명</p>
-                            </div>
-                        </div>
-                    </div>
-                    <table id="rewardMemberTable">
-                        <!--<colgroup>
-                            <col style="width: 20%;">
-                            <col style="width: 50%;">
-                            <col style="width: 20%;">
-                            <col style="width: 10%;">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>닉네임</th>
-                            <th>P-ID</th>
-                            <th>보유 UCD</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>깐깐찡엉</td>
-                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-                            <td>20,000,000</td>
-                            <td>
-                                <div class="checkbox-wrap">
-                                    <input id="c33" type="checkbox" name="chk-status" value="create">
-                                    <label for="c33"><span></span></label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>깐깐찡엉</td>
-                            <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
-                            <td>20,000,000</td>
-                            <td>
-                                <div class="checkbox-wrap">
-                                    <input id="c35" type="checkbox" name="chk-status" value="create">
-                                    <label for="c35"><span></span></label>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>-->
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn modal-close">닫기</button>
-                <button id="btnSubmitSaveUcd" type="button" class="btn btn-primary">적립완료</button>
             </div>
         </div>
 

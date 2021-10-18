@@ -18,6 +18,12 @@ class Doit extends MY_Controller {
         $this->load->template('v2/doit/doit-detail');
     }
 
+    public function reward()
+    {
+        $this->load->template('v2/doit/reward-create-member');
+    }
+
+
     public function pick($Route = "")
     {
         switch ($Route) {

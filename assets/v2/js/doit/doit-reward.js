@@ -1,5 +1,6 @@
 
     import {
+        doitTitle,
         actionTimes,
         amount,
         nickname,
@@ -14,7 +15,16 @@
         modalBackdrop,
         btnSearch,
         keyword,
-        dataTable, modalSearchMember, baseDateWrap, btnSearchTarget,
+        dataTable,
+        modalSearchMember,
+        baseDateWrap,
+        btnSearchTarget,
+        lengthInput,
+        updateTable,
+        totalCount,
+        searchTable,
+        targetTable,
+        btnSearchNickname, addedTable
     } from "../modules/elements.js";
     import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
     import {message} from "../modules/message.js";
@@ -28,25 +38,37 @@
     } from "../modules/utils.js";
     import {ajaxRequestWithJson, headers, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
     import {api} from "../modules/api-url.js";
-    import {fadeoutModal} from "../modules/common.js";
+    import {fadeoutModal, limitInputLength} from "../modules/common.js";
     import {label} from "../modules/label.js";
-    import {checkBoxElement, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
+    import {
+        buildTotalCount,
+        checkBoxElement,
+        initTableDefaultConfig,
+        tableReloadAndStayCurrentPage,
+        toggleBtnPreviousAndNextOnTable
+    } from "../modules/tables.js";
 
     const pathName	= getPathName();
     const doitIdx = splitReverse(pathName, '/');
+    let addedUsers = [];
+    let addedUserObj = [];
     let initialize = true;
 
     $(() => {
+        /** dataTable default config **/
+        initTableDefaultConfig();
         initDatepicker();
         initDateRange();
         getDetail();
         amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
+        actionCount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
+        lengthInput.on('propertychange change keyup paste input', function () { limitInputLength(this); });
         modalClose.on('click', function () { fadeoutModal(); });
         modalBackdrop.on('click', function () { fadeoutModal(); });
-        $("#btnSearchNickname").on('click', function () { onClickBtnSearchNickname(this); });
-        // btnSearch.on('click', function () { onSubmitSearchMember(); })
+        btnSearchNickname.on('click', function () { onClickBtnSearchNickname(this); });
+        btnSearch.on('click', function () { onSubmitSearchMember(); })
         selRewardType.on('change', function () { onChangeSelRewardType(); });
-        btnSearchTarget.on('change', function () { onClickBtnSearchTarget(); });
+        btnSearchTarget.on('click', function () { onClickBtnSearchTarget(); });
     })
 
     function getDetail()
@@ -66,6 +88,7 @@
         const { doit_uuid, doit_title } = data.data;
 
         g_doit_uuid = doit_uuid;
+        doitTitle.text(doit_title);
     }
 
     function onChangeSelRewardType()
@@ -74,6 +97,14 @@
         dateTo.val('');
         nickname.val('');
         actionCount.val('');
+        description.val('');
+        totalCount.text(0);
+        let targetTableInstance = targetTable.DataTable();
+        targetTableInstance.destroy();
+        targetTable.empty();
+        let addedTableInstance = addedTable.DataTable();
+        addedTableInstance.destroy();
+        addedTable.empty();
 
         switch (selRewardType.val()) {
             case 'user' :
@@ -83,17 +114,122 @@
                 actionCount.parent().hide();
                 break;
             case 'all' :
-                baseDateWrap.hide();
+                baseDateWrap.show();
+                dateTo.prop('disabled', true);
                 nickname.parent().hide();
                 actionCount.parent().hide();
                 break;
             default :
                 baseDateWrap.show();
+                dateTo.prop('disabled', false);
                 nickname.parent().hide();
                 actionCount.parent().show();
                 actionCount.trigger('focus');
                 break;
         }
+    }
+
+
+    function onClickBtnSearchTarget()
+    {
+        const isSearchAll = selRewardType.val() === 'all';
+        if (!isSearchAll && isEmpty(actionCount.val()))
+        {
+            sweetToast(`인증 횟수를 ${message.input}`);
+            actionCount.trigger('focus');
+            return;
+        }
+
+        if (!isSearchAll && isEmpty(dateTo.val()))
+        {
+            sweetToast(`조회 기준일은 ${message.required}`);
+            dateTo.trigger('focus');
+            return;
+        }
+
+        buildTargetTable();
+    }
+
+    function buildTargetTable()
+    {
+        targetTable.show();
+        targetTable.DataTable({
+            ajax : {
+                url: api.rewardMemberList,
+                type:"POST",
+                headers: headers,
+                dataFilter: function(data){
+                    let json = JSON.parse(data);
+                    if (isSuccessResp(json))
+                    {
+                        json.recordsTotal = json.count;
+                        json.recordsFiltered = json.count;
+                    }
+                    else
+                    {
+                        json.data = [];
+                        sweetToast(invalidResp(json));
+                    }
+
+                    return JSON.stringify(json);
+                },
+                data: function (d) {
+                    const param = {
+                        "doit_uuid" : g_doit_uuid
+                        ,"type" : selRewardType.val()
+                        ,"page" : (d.start / d.length) + 1
+                        ,"limit" : d.length
+                    }
+
+                    switch (selRewardType.val()) {
+                        case 'all' :
+                            break;
+                        default :
+                            param['type_value'] = actionCount.val().trim();
+                            param['basedate'] = dateTo.val();
+                    }
+
+                    return JSON.stringify(param);
+                },
+                error: function (request, status) {
+                    sweetError(label.list+message.ajaxLoadError);
+                }
+            },
+            columns: [
+                {title: "닉네임",		data: "profile",   	width: "30%",
+                    render: function (data) {
+                        return data.nickname;
+                    }
+                }
+                ,{title: "PID",		data: "profile",    width: "45%",
+                    render: function (data) {
+                        return data.profile_uuid;
+                    }
+                }
+                ,{title: "인증횟수",	data: "profile",   	width: "20%",
+                    render: function (data) {
+                        return numberWithCommas(data.action_count);
+                    }
+                }
+            ],
+            serverSide: true,
+            paging: true,
+            pageLength: 30,
+            select: false,
+            destroy: true,
+            initComplete: function () {
+                const table = targetTable.DataTable();
+                const tableData = table.rows().data();
+                if (!isEmpty(tableData) && tableData.length > 0)
+                    description.val(`${tableData[0].profile.nickname} 외 ${tableData.length -1}명`);
+            },
+            fnRowCallback: function( nRow, aData ) {
+            },
+            drawCallback: function (settings) {
+                buildTotalCount(this);
+                toggleBtnPreviousAndNextOnTable(this);
+            }
+        });
     }
 
     function onClickBtnSearchNickname(obj)
@@ -108,10 +244,10 @@
         modalSearchMember.fadeIn();
         modalBackdrop.fadeIn();
 
-        // const inputValue = $(obj).siblings('input').val();
-        // keyword.val(inputValue);
-        // initialize ? buildSearchMemberTable() : onSubmitSearchMember();
-        // initialize = false;
+        const inputValue = $(obj).siblings('input').val();
+        keyword.val(inputValue);
+        initialize ? buildSearchTable() : onSubmitSearchMember();
+        initialize = false;
     }
 
     function onSubmitSearchMember()
@@ -123,16 +259,16 @@
             return;
         }
 
-        const table = dataTable.DataTable();
+        const table = searchTable.DataTable();
         table.page.len(5);
         table.ajax.reload();
     }
 
-    function buildSearchMemberTable()
+    function buildSearchTable()
     {
-        dataTable.DataTable({
+        searchTable.DataTable({
             ajax : {
-                url: api.getMemberForSaveUcd,
+                url: api.rewardMemberList,
                 type:"POST",
                 headers: headers,
                 global: false,
@@ -140,9 +276,8 @@
                     let json = JSON.parse(data);
                     if (isSuccessResp(json))
                     {
-                        json.recordsTotal = json.data.count;
-                        json.recordsFiltered = json.data.count;
-                        json.data = json.data.list;
+                        json.recordsTotal = json.count;
+                        json.recordsFiltered = json.count;
                     }
                     else
                     {
@@ -154,10 +289,11 @@
                 },
                 data: function (d) {
                     const param = {
-                        "page" : (d.start / d.length) + 1
+                        "doit_uuid" : g_doit_uuid
+                        ,"type" : selRewardType.val()
+                        ,"type_value" : keyword.val().trim()
+                        ,"page" : (d.start / d.length) + 1
                         ,"limit" : d.length
-                        ,"search_type" : "nickname"
-                        ,"keyword" : keyword.val().trim()
                     }
 
                     return JSON.stringify(param);
@@ -167,14 +303,17 @@
                 }
             },
             columns: [
-                {title: "닉네임",		data: "nickname",    	width: "30%" }
-                ,{title: "PID",		data: "profile_uuid",   width: "45%" }
-                ,{title: "보유UCD",	data: "ucd",   			width: "20%",
+                {title: "닉네임",		data: "profile",   	width: "40%",
                     render: function (data) {
-                        return numberWithCommas(data);
+                        return data.nickname;
                     }
                 }
-                ,{title: '', 		data: "profile_uuid",   width: "5%",
+                ,{title: "PID",		data: "profile",    width: "55%",
+                    render: function (data) {
+                        return data.profile_uuid;
+                    }
+                }
+                ,{title: '', 		data: "profile",   width: "5%",
                     render: function (data, type, row, meta) {
                         return checkBoxElement(meta.row);
                     }
@@ -193,8 +332,8 @@
             },
             fnRowCallback: function( nRow, aData ) {
                 /** 이미 추가된 경우 체크박스 disabled **/
-                const checkboxEl = $(nRow).children().eq(3).find('input');
-                if (addedUsers.indexOf(aData.profile_uuid) > -1)
+                const checkboxEl = $(nRow).children().eq(2).find('input');
+                if (addedUsers.indexOf(aData.profile.profile_uuid) > -1)
                     $(checkboxEl).prop('disabled', true);
             },
             drawCallback: function (settings) {
@@ -203,9 +342,92 @@
         });
     }
 
-    function onClickBtnSearchTarget()
+    function onClickCheckBox(dt, indexes)
     {
+        const selectedData = dt.rows(indexes).data()[0];
+        addUser(selectedData);
+    }
 
+    function addUser(data)
+    {
+        const {profile_uuid, nickname} = data.profile;
+        let userObj = [];
+        userObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname });
+        addedUserObj = userObj.concat(addedUserObj);
+
+        let users = [];
+        users.push(profile_uuid);
+        addedUsers = users.concat(addedUsers);
+
+        buildUpdateTable();
+        displayCountAddedUser();
+    }
+
+    function buildUpdateTable()
+    {
+        addedTable.show();
+        addedTable.DataTable({
+            data: addedUserObj,
+            columns: [
+                {title: "닉네임", 		data: "nickname",		width: "40%" }
+                ,{title: "PID",    		data: "profile_uuid",  	width: "50%" }
+                ,{title: "",    		data: "profile_uuid",  	width: "10%",
+                    render: function (data, type, row, meta) {
+                        return `<button type="button" class="btn-xs btn-text-red delete-btn" data-rownum="${meta.row}"><i class="fas fa-minus-circle"></i></button>`;
+                    }
+                }
+            ],
+            serverSide: false,
+            paging: true,
+            pageLength: 30,
+            select: false,
+            destroy: true,
+            initComplete: function () {
+                tableReloadAndStayCurrentPage(searchTable);
+            },
+            fnRowCallback: function( nRow, aData ) {
+                $(nRow).attr('id', aData.profile_uuid);
+                $(nRow).children().eq(2).find('button').on('click', function () { removeRow(this); });
+            },
+            drawCallback: function (settings) {
+            }
+        });
+    }
+
+    function removeRow(obj)
+    {
+        let table = addedTable.DataTable();
+        table.row($(obj).closest('tr')).remove().draw(false);
+
+        initAddedUserData();
+        displayCountAddedUser();
+    }
+
+    function initAddedUserData()
+    {
+        addedUsers.length = 0;
+        addedUserObj.length = 0;
+
+        let table = addedTable.DataTable();
+        const tableData = table.rows().data();
+        if (tableData.length > 0)
+        {
+            for (let i=0; i<tableData.length; i++)
+            {
+                const {profile_uuid, nickname} = tableData[i];
+
+                addedUsers.push(profile_uuid)
+                addedUserObj.push({ "profile_uuid" : profile_uuid, "nickname" : nickname });
+            }
+        }
+    }
+
+    function displayCountAddedUser()
+    {
+        totalCount.text(numberWithCommas(addedUserObj.length));
+        addedUserObj.length > 0
+            ? description.val(`${addedUserObj[0].nickname} 외 ${addedUserObj.length -1}명`)
+            : description.val('');
     }
 
     function onSubmitReward()
@@ -302,9 +524,19 @@
             ,dayNamesMin: label.dayNames
             ,onSelect : function (dateText, inst) {
                 let date = new Date(dateText);
-                const selectedDay = date.getDate()
-                date.setDate(selectedDay -20)
-                const fromDate = getStringFormatToDate(date, '-');
+                const selectedDay = date.getDate();
+                let fromDate = '';
+                switch (selRewardType.val()) {
+                    case 'weekly' :
+                        date.setDate(selectedDay -6);
+                        fromDate = getStringFormatToDate(date, '-');
+                        break;
+                    case 'monthly' :
+                        date.setDate(selectedDay -29);
+                        fromDate = getStringFormatToDate(date, '-');
+                        break;
+                }
+
                dateFrom.val(fromDate);
             }
         });
@@ -314,8 +546,8 @@
     {
         let date = new Date();
         const hour = date.getHours();
-        const minDate = hour < 6 ? '-5' : '-6';
+        const minDate = hour < 6 ? '-6' : '-7';
 
         datePicker.datepicker("option", "minDate", minDate);
-        datePicker.datepicker("option", "maxDate", "today");
+        datePicker.datepicker("option", "maxDate", "-1");
     }

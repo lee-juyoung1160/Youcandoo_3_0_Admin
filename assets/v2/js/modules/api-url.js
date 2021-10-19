@@ -80,8 +80,9 @@
 
         joinMemberList : baseApiUrl + 'member/get/list',
         infoJoinMember : baseApiUrl + 'member/get/profile',
-        rewardMemberList : baseApiUrl + 'ucd/get/reward/profile',
+        // rewardMemberList : baseApiUrl + 'ucd/get/reward/profile',
         createReward : baseApiUrl + 'ucd/set/reward/profile',
+        rewardMemberList : baseApiUrl + 'ucd/get/reward/list',
         countMember : baseApiUrl + 'member/get/count',
         blockMember : baseApiUrl + 'member/set/retire/ban',
         banMember : baseApiUrl + 'member/set/retire',

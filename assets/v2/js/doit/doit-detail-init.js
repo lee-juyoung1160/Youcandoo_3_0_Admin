@@ -66,15 +66,12 @@
 		btnSearchUcd,
 		btnResetSearchUcd,
 		btnSubmitSaveDoitUcd,
-		btnSubmitSaveUcd,
 		btnBackToTalkList,
 		btnBackToTalkDetail,
 		btnBackToMissionList,
 		btnBackToMissionDetail,
 		btnBlindTalk,
 		btnDisplayTalk,
-		selRewardType,
-		rewardKeyword,
 		btnApproval,
 		btnReject,
 		doitImage,
@@ -134,9 +131,6 @@
 		searchJoinMember,
 		onClickBtnBan,
 		searchApplyMember,
-		onSubmitSaveUcd,
-		onChangeSelRewardType,
-		searchRewardMember,
 		onClickBtnApproval,
 		onClickBtnReject,
 		onChangeChkBlock,
@@ -233,9 +227,9 @@
 		// selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });
-		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
-		selRewardType.on('change', function () { onChangeSelRewardType(); });
-		rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
+		// btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
+		// selRewardType.on('change', function () { onChangeSelRewardType(); });
+		// rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
 		/*selNotiType.on('change', function () { onChangeSelNotiType(); });*/
 		btnApproval.on('click', function () { onClickBtnApproval(); });
 		btnReject.on('click', function () { onClickBtnReject(); });

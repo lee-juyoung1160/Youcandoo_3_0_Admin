@@ -20,6 +20,10 @@
                         <td id="doitTitle"></td>
                     </tr>
                     <tr>
+                        <th>보유 UCD</th>
+                        <td id="balance"></td>
+                    </tr>
+                    <tr>
                         <th>적립 조건 *</th>
                         <td>
                             <select class="select-box" id="selRewardType">
@@ -191,4 +195,4 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
-<script type="module" src="/assets/v2/js/doit/doit-reward.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/doit-reward.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

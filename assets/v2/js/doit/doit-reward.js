@@ -1,13 +1,11 @@
 
     import {
         doitTitle,
-        actionTimes,
         amount,
         nickname,
         actionCount,
         description,
         selRewardType,
-        rewardMemberTable,
         datePicker,
         dateFrom,
         dateTo,
@@ -15,16 +13,14 @@
         modalBackdrop,
         btnSearch,
         keyword,
-        dataTable,
         modalSearchMember,
         baseDateWrap,
         btnSearchTarget,
         lengthInput,
-        updateTable,
         totalCount,
         searchTable,
         targetTable,
-        btnSearchNickname, addedTable
+        btnSearchNickname, addedTable, btnSubmit, balance
     } from "../modules/elements.js";
     import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from "../modules/alert.js";
     import {message} from "../modules/message.js";
@@ -47,6 +43,7 @@
         tableReloadAndStayCurrentPage,
         toggleBtnPreviousAndNextOnTable
     } from "../modules/tables.js";
+    import {page} from "../modules/page-url.js";
 
     const pathName	= getPathName();
     const doitIdx = splitReverse(pathName, '/');
@@ -69,6 +66,7 @@
         btnSearch.on('click', function () { onSubmitSearchMember(); })
         selRewardType.on('change', function () { onChangeSelRewardType(); });
         btnSearchTarget.on('click', function () { onClickBtnSearchTarget(); });
+        btnSubmit.on('click', function () { onSubmitReward(); });
     })
 
     function getDetail()
@@ -89,6 +87,23 @@
 
         g_doit_uuid = doit_uuid;
         doitTitle.text(doit_title);
+        getDoitBalance();
+    }
+
+    function getDoitBalance()
+    {
+        const param = { "doit_uuid" : g_doit_uuid }
+
+        ajaxRequestWithJson(false, api.getDoitUcd, JSON.stringify(param))
+            .then( async function( data, textStatus, jqXHR ) {
+                isSuccessResp(data) ? buildBalance(data) : sweetToast(invalidResp(data));
+            })
+            .catch(reject => sweetError(`두잇 UCD ${message.ajaxLoadError}`));
+    }
+
+    function buildBalance(data)
+    {
+        balance.text(`${numberWithCommas(data.data.ucd)} UCD`);
     }
 
     function onChangeSelRewardType()
@@ -222,6 +237,8 @@
                 const tableData = table.rows().data();
                 if (!isEmpty(tableData) && tableData.length > 0)
                     description.val(`${tableData[0].profile.nickname} 외 ${tableData.length -1}명`);
+
+                table.column(2).visible(!selRewardType.val() === 'all');
             },
             fnRowCallback: function( nRow, aData ) {
             },
@@ -438,16 +455,29 @@
 
     function validation()
     {
-        if (isEmpty(description.val()))
+        if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionCount.val()))
         {
-            sweetToast(`내용은 ${message.required}`);
-            description.trigger('focus');
+            sweetToast(`인증 횟수를 ${message.input}`);
+            actionCount.trigger('focus');
+            return false;
+        }
+
+        if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(dateTo.val()))
+        {
+            sweetToast(`기준일은 ${message.required}`);
+            dateTo.trigger('focus');
+            return false;
+        }
+
+        if (selRewardType.val() === 'user' && getAddedProfileFromTableRow().length === 0)
+        {
+            sweetToast(`적립 대상을 ${message.select}`);
             return false;
         }
 
         if (isEmpty(amount.val()))
         {
-            sweetToast(`적립 UCD는 ${message.required}`);
+            sweetToast(`적립 UCD를 ${message.input}`);
             amount.trigger('focus');
             return false;
         }
@@ -459,15 +489,9 @@
             return false;
         }
 
-        if (selRewardType.val() === 'user' && getSelectedIdsFromTableRow().length === 0)
+        if (isEmpty(description.val()))
         {
-            sweetToast(`적립 대상을 ${message.select}`);
-            return false;
-        }
-
-        if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionTimes.val()))
-        {
-            sweetToast(`인증 횟수를 ${message.input}`);
+            sweetToast(`적립 대상을 ${message.doubleChk}`);
             return false;
         }
 
@@ -478,29 +502,37 @@
     {
         const param = {
             "doit_uuid" : g_doit_uuid,
-            "description" : content.val().trim(),
+            "description" : description.val().trim(),
             "value" : amount.val().trim(),
             "type" : selRewardType.val(),
         }
 
         if (selRewardType.val() === 'user')
-            param["profile_uuid"] = getSelectedIdsFromTableRow();
+            param["profile_uuid"] = getAddedProfileFromTableRow();
 
         if (['user', 'all'].indexOf(selRewardType.val()) === -1)
-            param["type_value"] = actionTimes.val().trim();
+        {
+            param["type_value"] = actionCount.val().trim();
+            param["basedate"] = dateTo.val();
+        }
 
         ajaxRequestWithJson(true, api.createReward, JSON.stringify(param))
             .then( async function( data, textStatus, jqXHR ) {
-                await sweetToastAndCallback(data, fadeoutModal);
+                await sweetToastAndCallback(data, rewardReqCallback);
             })
             .catch(reject => sweetError(label.submit + message.ajaxError));
     }
 
-    function getSelectedIdsFromTableRow()
+    function rewardReqCallback()
+    {
+        location.href = page.detailDoit + doitIdx;
+    }
+
+    function getAddedProfileFromTableRow()
     {
         let profileUuids = [];
-        const rewardTable = rewardMemberTable.DataTable();
-        const selectedData = rewardTable.rows('.selected').data();
+        const table = addedTable.DataTable();
+        const selectedData = table.rows().data();
         if (!isEmpty(selectedData) && selectedData.length > 0)
         {
             for (let i=0; i<selectedData.length; i++)

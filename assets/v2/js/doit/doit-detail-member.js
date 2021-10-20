@@ -1,46 +1,33 @@
 
 	import {
-	keyword,
-	actionCount,
-	joinMemberForm,
-	pendingMemberForm,
-	modalSaveUcd,
-	modalBackdrop,
-	saveUcdContent,
-	amount,
-	modalMemberInfo,
-	joinMemberTable,
-	applyMemberTable,
-	selMissions,
-	selSearchType,
-	selMemberFilter,
-	selJoinMemberPageLength,
-	selSort,
-	modalMemberInfoNickname,
-	modalMemberInfoJoinDate,
-	modalMemberInfoQuestion,
-	modalMemberInfoAnswer,
-	totalMemberCount,
-	applyMemberCount,
-	selApplyMemberPageLength,
-	applyQuestion,
-	rewardMemberTable,
-	selRewardType,
-	rewardTableWrap,
-	rewardKeyword,
-	selNotiType,
-	notiKeyword,
-	notiTableWrap,
-	notiContent,
-	modalSendNotice,
-	actionTimes,
-	banMemberCount,
-	modalBan,
-	chkBlock,
-	rdoReason,
-	banReason,
-	banReasonWrap, blockMemberForm, blockMemberTable, selBlockMemberPageLength,
-} from "../modules/elements.js";
+		keyword,
+		actionCount,
+		joinMemberForm,
+		pendingMemberForm,
+		modalBackdrop,
+		modalMemberInfo,
+		joinMemberTable,
+		applyMemberTable,
+		selMissions,
+		selSearchType,
+		selMemberFilter,
+		selJoinMemberPageLength,
+		selSort,
+		modalMemberInfoNickname,
+		modalMemberInfoJoinDate,
+		modalMemberInfoQuestion,
+		modalMemberInfoAnswer,
+		totalMemberCount,
+		applyMemberCount,
+		selApplyMemberPageLength,
+		applyQuestion,
+		banMemberCount,
+		modalBan,
+		chkBlock,
+		rdoReason,
+		banReason,
+		banReasonWrap, blockMemberForm, blockMemberTable, selBlockMemberPageLength,
+	} from "../modules/elements.js";
 	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
@@ -755,194 +742,195 @@
 	// 	notiContent.val('');
 	// }
 
-	export function onChangeSelRewardType()
+	// export function onChangeSelRewardType()
+	// {
+	// 	switch (selRewardType.val()) {
+	// 		case 'user' :
+	// 			rewardKeyword.trigger('focus');
+	// 			rewardKeyword.show();
+	// 			rewardTableWrap.show();
+	// 			actionTimes.val('');
+	// 			actionTimes.parent().hide();
+	// 			getRewardMemberList();
+	// 			break;
+	// 		case 'all' :
+	// 			rewardKeyword.val('');
+	// 			rewardKeyword.hide();
+	// 			rewardTableWrap.hide();
+	// 			actionTimes.val('');
+	// 			actionTimes.parent().hide();
+	// 			break;
+	// 		default :
+	// 			rewardKeyword.val('');
+	// 			rewardKeyword.hide();
+	// 			rewardTableWrap.hide();
+	// 			actionTimes.parent().show();
+	// 			actionTimes.trigger('focus');
+	// 			break;
+	// 	}
+	// }
+
+	export function onClickBtnSaveUcd()
 	{
-		switch (selRewardType.val()) {
-			case 'user' :
-				rewardKeyword.trigger('focus');
-				rewardKeyword.show();
-				rewardTableWrap.show();
-				actionTimes.val('');
-				actionTimes.parent().hide();
-				getRewardMemberList();
-				break;
-			case 'all' :
-				rewardKeyword.val('');
-				rewardKeyword.hide();
-				rewardTableWrap.hide();
-				actionTimes.val('');
-				actionTimes.parent().hide();
-				break;
-			default :
-				rewardKeyword.val('');
-				rewardKeyword.hide();
-				rewardTableWrap.hide();
-				actionTimes.parent().show();
-				actionTimes.trigger('focus');
-				break;
-		}
+		location.href = `/v2/doit/reward/${doitIdx}`
+		// modalSaveUcd.fadeIn();
+		// modalBackdrop.fadeIn();
+		// overflowHidden();
+		// amount.trigger('focus');
+		// amount.val('');
+		// saveUcdContent.val('');
+		// actionTimes.val('');
 	}
 
-	export function onClickModalSaveUcdOpen()
-	{
-		modalSaveUcd.fadeIn();
-		modalBackdrop.fadeIn();
-		overflowHidden();
-		amount.trigger('focus');
-		amount.val('');
-		saveUcdContent.val('');
-		actionTimes.val('');
-	}
+	// function getRewardMemberList()
+	// {
+	// 	const param = {
+	// 		"doit_uuid" : g_doit_uuid,
+	// 		"search_type" : "nickname",
+	// 		"keyword" : ''
+	// 	}
+	//
+	// 	ajaxRequestWithJson(true, api.rewardMemberList, JSON.stringify(param))
+	// 		.then( async function( data, textStatus, jqXHR ) {
+	// 			isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
+	// 		})
+	// 		.catch(reject => sweetError(label.list + message.ajaxLoadError));
+	// }
 
-	function getRewardMemberList()
-	{
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"search_type" : "nickname",
-			"keyword" : ''
-		}
+	// let rewardMembers = [];
+	// function getRewardMemberListCallback(data)
+	// {
+	// 	data.recordsTotal = data.data.count;
+	// 	data.recordsFiltered = data.data.count;
+	// 	rewardMembers = data.data.list;
+	// 	buildRewardMember();
+	// }
 
-		ajaxRequestWithJson(true, api.rewardMemberList, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? getRewardMemberListCallback(data) : sweetToast(invalidResp(data));
-			})
-			.catch(reject => sweetError(label.list + message.ajaxLoadError));
-	}
+	// export function searchRewardMember()
+	// {
+	// 	const rewardTable = rewardMemberTable.DataTable();
+	// 	const inputValue = rewardKeyword.val().trim();
+	//
+	// 	rewardTable.search(inputValue).draw();
+	// }
 
-	let rewardMembers = [];
-	function getRewardMemberListCallback(data)
-	{
-		data.recordsTotal = data.data.count;
-		data.recordsFiltered = data.data.count;
-		rewardMembers = data.data.list;
-		buildRewardMember();
-	}
+	// function buildRewardMember()
+	// {
+	// 	rewardMemberTable.DataTable({
+	// 		data: rewardMembers,
+	// 		columns: [
+	// 			{title: "닉네임",    		data: "nickname",  		width: "40%" }
+	// 			,{title: "P-ID", 		data: "profile_uuid",	width: "40%" }
+	// 			,{title: "보유 UCD",    	data: "ucd",  			width: "15%",
+	// 				render: function (data) {
+	// 					return numberWithCommas(data);
+	// 				}
+	// 			}
+	// 			,{title: '', 			data: "profile_uuid",   width: "5%",
+	// 				render: function (data, type, row, meta) {
+	// 					return checkBoxElement(`reward_${meta.row}`);
+	// 				}
+	// 			}
+	// 		],
+	// 		serverSide: false,
+	// 		searching: true,
+	// 		dom: 'lrtp',
+	// 		paging: true,
+	// 		pageLength: 5,
+	// 		select: {
+	// 			style: 'multi',
+	// 			selector: ':checkbox'
+	// 		},
+	// 		destroy: true,
+	// 		initComplete: function () {
+	// 		},
+	// 		fnRowCallback: function( nRow, aData ) {
+	// 		},
+	// 		drawCallback: function (settings) {
+	// 			buildTotalCount(this);
+	// 		}
+	// 	});
+	// }
 
-	export function searchRewardMember()
-	{
-		const rewardTable = rewardMemberTable.DataTable();
-		const inputValue = rewardKeyword.val().trim();
+	// export function onSubmitSaveUcd()
+	// {
+	// 	if (saveUcdValid())
+	// 		sweetConfirm(message.create, saveUcdRequest);
+	// }
 
-		rewardTable.search(inputValue).draw();
-	}
+	// function saveUcdValid()
+	// {
+	// 	if (isEmpty(saveUcdContent.val()))
+	// 	{
+	// 		sweetToast(`내용은 ${message.required}`);
+	// 		saveUcdContent.trigger('focus');
+	// 		return false;
+	// 	}
+	//
+	// 	if (isEmpty(amount.val()))
+	// 	{
+	// 		sweetToast(`적립 UCD는 ${message.required}`);
+	// 		amount.trigger('focus');
+	// 		return false;
+	// 	}
+	//
+	// 	if (Number(amount.val()) > 1000000)
+	// 	{
+	// 		sweetToast(message.maxAvailableUserUcd);
+	// 		amount.trigger('focus');
+	// 		return false;
+	// 	}
+	//
+	// 	if (selRewardType.val() === 'user' && getSelectedIdsFromTableRow().length === 0)
+	// 	{
+	// 		sweetToast(`적립 대상을 ${message.select}`);
+	// 		return false;
+	// 	}
+	//
+	// 	if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionTimes.val()))
+	// 	{
+	// 		sweetToast(`인증 횟수를 ${message.input}`);
+	// 		return false;
+	// 	}
+	//
+	// 	return true;
+	// }
 
-	function buildRewardMember()
-	{
-		rewardMemberTable.DataTable({
-			data: rewardMembers,
-			columns: [
-				{title: "닉네임",    		data: "nickname",  		width: "40%" }
-				,{title: "P-ID", 		data: "profile_uuid",	width: "40%" }
-				,{title: "보유 UCD",    	data: "ucd",  			width: "15%",
-					render: function (data) {
-						return numberWithCommas(data);
-					}
-				}
-				,{title: '', 			data: "profile_uuid",   width: "5%",
-					render: function (data, type, row, meta) {
-						return checkBoxElement(`reward_${meta.row}`);
-					}
-				}
-			],
-			serverSide: false,
-			searching: true,
-			dom: 'lrtp',
-			paging: true,
-			pageLength: 5,
-			select: {
-				style: 'multi',
-				selector: ':checkbox'
-			},
-			destroy: true,
-			initComplete: function () {
-			},
-			fnRowCallback: function( nRow, aData ) {
-			},
-			drawCallback: function (settings) {
-				buildTotalCount(this);
-			}
-		});
-	}
+	// function saveUcdRequest()
+	// {
+	// 	const param = {
+	// 		"doit_uuid" : g_doit_uuid,
+	// 		"description" : saveUcdContent.val().trim(),
+	// 		"value" : amount.val().trim(),
+	// 		"type" : selRewardType.val(),
+	// 	}
+	//
+	// 	if (selRewardType.val() === 'user')
+	// 		param["profile_uuid"] = getSelectedIdsFromTableRow();
+	//
+	// 	if (['user', 'all'].indexOf(selRewardType.val()) === -1)
+	// 		param["type_value"] = actionTimes.val().trim();
+	//
+	// 	ajaxRequestWithJson(true, api.createReward, JSON.stringify(param))
+	// 		.then( async function( data, textStatus, jqXHR ) {
+	// 			await sweetToastAndCallback(data, fadeoutModal);
+	// 		})
+	// 		.catch(reject => sweetError(label.submit + message.ajaxError));
+	// }
 
-	export function onSubmitSaveUcd()
-	{
-		if (saveUcdValid())
-			sweetConfirm(message.create, saveUcdRequest);
-	}
-
-	function saveUcdValid()
-	{
-		if (isEmpty(saveUcdContent.val()))
-		{
-			sweetToast(`내용은 ${message.required}`);
-			saveUcdContent.trigger('focus');
-			return false;
-		}
-
-		if (isEmpty(amount.val()))
-		{
-			sweetToast(`적립 UCD는 ${message.required}`);
-			amount.trigger('focus');
-			return false;
-		}
-
-		if (Number(amount.val()) > 1000000)
-		{
-			sweetToast(message.maxAvailableUserUcd);
-			amount.trigger('focus');
-			return false;
-		}
-
-		if (selRewardType.val() === 'user' && getSelectedIdsFromTableRow().length === 0)
-		{
-			sweetToast(`적립 대상을 ${message.select}`);
-			return false;
-		}
-
-		if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionTimes.val()))
-		{
-			sweetToast(`인증 횟수를 ${message.input}`);
-			return false;
-		}
-
-		return true;
-	}
-
-	function saveUcdRequest()
-	{
-		const param = {
-			"doit_uuid" : g_doit_uuid,
-			"description" : saveUcdContent.val().trim(),
-			"value" : amount.val().trim(),
-			"type" : selRewardType.val(),
-		}
-
-		if (selRewardType.val() === 'user')
-			param["profile_uuid"] = getSelectedIdsFromTableRow();
-
-		if (['user', 'all'].indexOf(selRewardType.val()) === -1)
-			param["type_value"] = actionTimes.val().trim();
-
-		ajaxRequestWithJson(true, api.createReward, JSON.stringify(param))
-			.then( async function( data, textStatus, jqXHR ) {
-				await sweetToastAndCallback(data, fadeoutModal);
-			})
-			.catch(reject => sweetError(label.submit + message.ajaxError));
-	}
-
-	function getSelectedIdsFromTableRow()
-	{
-		let profileUuids = [];
-		const rewardTable = rewardMemberTable.DataTable();
-		const selectedData = rewardTable.rows('.selected').data();
-		if (!isEmpty(selectedData) && selectedData.length > 0)
-		{
-			for (let i=0; i<selectedData.length; i++)
-			{
-				const uuid = selectedData[i].profile_uuid;
-				profileUuids.push(uuid);
-			}
-		}
-
-		return profileUuids;
-	}
+	// function getSelectedIdsFromTableRow()
+	// {
+	// 	let profileUuids = [];
+	// 	const rewardTable = rewardMemberTable.DataTable();
+	// 	const selectedData = rewardTable.rows('.selected').data();
+	// 	if (!isEmpty(selectedData) && selectedData.length > 0)
+	// 	{
+	// 		for (let i=0; i<selectedData.length; i++)
+	// 		{
+	// 			const uuid = selectedData[i].profile_uuid;
+	// 			profileUuids.push(uuid);
+	// 		}
+	// 	}
+	//
+	// 	return profileUuids;
+	// }

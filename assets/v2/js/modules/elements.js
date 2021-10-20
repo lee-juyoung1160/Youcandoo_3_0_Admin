@@ -349,6 +349,14 @@
     export const modalAttach = $("#modalAttach");
     export const modalAttachContentWrap = $("#modalAttachContentWrap");
 
+    export const baseDateWrap = $("#baseDateWrap");
+    export const btnSearchNickname = $("#btnSearchNickname");
+    export const btnSearchTarget = $("#btnSearchTarget");
+    export const modalSearchMember = $("#modalSearchMember");
+    export const targetTable = $("#targetTable");
+    export const searchTable = $("#searchTable");
+    export const addedTable = $("#addedTable");
+
     /** 비즈 **/
     export const doitTable = $("#doitTable");
     export const ucdTable = $("#ucdTable");

@@ -16,15 +16,23 @@
                         <col style="width: 80%;">
                     </colgroup>
                     <tr>
+                        <th>두잇명</th>
+                        <td id="doitTitle"></td>
+                    </tr>
+                    <tr>
+                        <th>보유 UCD</th>
+                        <td id="balance"></td>
+                    </tr>
+                    <tr>
                         <th>적립 조건 *</th>
                         <td>
-                            <select class="select-box">
-                                <option value="">참여자 전체</option>
-                                <option value="">연속 인증 기준</option>
-                                <option value="">7일 누적 인증 기준</option>
-                                <option value="">30일 누적 인증 기준</option>
-                                <option value="">전체 누적 인증 기준</option>
-                                <option value="">멤버 직접 선택</option>
+                            <select class="select-box" id="selRewardType">
+                                <option value="all">참여자 전체</option>
+                                <option value="ongoing">연속 인증 기준</option>
+                                <option value="weekly">7일 누적 인증 기준</option>
+                                <option value="monthly">30일 누적 인증 기준</option>
+                                <option value="total">전체 누적 인증 기준</option>
+                                <option value="user">멤버 직접 선택</option>
                             </select>
                             <div class="input-wrap" style="display: none;">
                                 <input id="actionCount" type="text" class="action-num" maxlength="4" value="0"> 회 이상
@@ -35,14 +43,14 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="baseDateWrap">
                         <th>날짜 *</th>
                         <td>
                             <div class="date-wrap">
-                                <input type="text" class="datepicker date-from" readonly>
+                                <input type="text" class="datepicker date-from" placeholder="자동 입력" disabled>
                                 <span class="date-text"> ~ </span>
-                                <input type="text" class="datepicker date-to" readonly>
-                                <button type="button" class="btn btn-sm" style="margin-left: 5px;">조회</button>
+                                <input type="text" class="datepicker date-to" placeholder="날짜 설정" readonly disabled>
+                                <button id="btnSearchTarget" type="button" class="btn btn-sm" style="margin-left: 5px;">대상자 조회</button>
                             </div>
                         </td>
                     </tr>
@@ -58,8 +66,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <table id="updateTable">
-                                        <colgroup>
+                                    <table id="targetTable"></table>
+                                    <table id="addedTable" style="display: none;">
+                                        <!--<colgroup>
                                             <col style="width: 20%;">
                                             <col style="width: 50%;">
                                             <col style="width: 20%;">
@@ -70,12 +79,7 @@
                                             <th>닉네임</th>
                                             <th>P-ID</th>
                                             <th>연속 인증 횟수</th>
-                                            <th>
-                                                <div class="checkbox-wrap">
-                                                    <input id="c1" type="checkbox" name="chk-status" value="all">
-                                                    <label for="c1"><span></span></label>
-                                                </div>
-                                            </th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -84,13 +88,10 @@
                                             <td>PID-485CAEDB-9DD0-861D-CB67-216AAD7B7929</td>
                                             <td>104</td>
                                             <td>
-                                                <div class="checkbox-wrap">
-                                                    <input id="c2" type="checkbox" name="chk-status">
-                                                    <label for="c2"><span></span></label>
-                                                </div>
+                                                <button type="button" class="btn-xs btn-text-red delete-btn"><i class="fas fa-minus-circle"></i></button>
                                             </td>
                                         </tr>
-                                        </tbody>
+                                        </tbody>-->
                                     </table>
                                 </div>
                             </div>
@@ -109,8 +110,7 @@
                         <th>내용 *</th>
                         <td>
                             <div class="input-wrap">
-                                <input id="description" type="text" class="length-input" maxlength="30" placeholder="내용을 입력해주세요.">
-                                <p class="length-count-wrap"><span class="count-input">0</span>/30</p>
+                                <input id="description" type="text" placeholder="내용은 자동 입력됩니다." readonly>
                             </div>
                         </td>
                     </tr>
@@ -124,7 +124,7 @@
 
     <div class="modal-wrap">
         <!-- 닉네임 검색 -->
-        <div class="modal-content" id="modalCreate">
+        <div class="modal-content" id="modalSearchMember">
             <div class="modal-header clearfix">
                 <h5>닉네임 검색</h5>
                 <i class="modal-close">×</i>
@@ -140,8 +140,8 @@
                             </div>
                         </div>
                         <div class="table-wrap">
-                            <table id="dataTable">
-                                <colgroup>
+                            <table id="searchTable">
+                                <!--<colgroup>
                                     <col style="width: 30%;">
                                     <col style="width: 45%;">
                                     <col style="width: 20%;">
@@ -178,7 +178,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                </tbody>
+                                </tbody>-->
                             </table>
                         </div>
                     </div>
@@ -186,7 +186,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-close">닫기</button>
-<!--                <button id="btnUpdate" type="button" class="btn btn-primary">선택완료</button>-->
             </div>
         </div>
 
@@ -196,5 +195,4 @@
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
 <script src="/assets/v2/js/plugins/dataTables.select.min.js"></script>
-<script src="/assets/v2/js/plugins/xlsx.full.min.js"></script>
-<script type="module" src="/assets/v2/js/bundles/ucd-create-member.bundle.js?version=<?php echo $this->config->item('version');?>"></script>
+<script type="module" src="/assets/v2/js/bundles/doit-reward.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

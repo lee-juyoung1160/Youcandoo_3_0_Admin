@@ -66,15 +66,12 @@
 		btnSearchUcd,
 		btnResetSearchUcd,
 		btnSubmitSaveDoitUcd,
-		btnSubmitSaveUcd,
 		btnBackToTalkList,
 		btnBackToTalkDetail,
 		btnBackToMissionList,
 		btnBackToMissionDetail,
 		btnBlindTalk,
 		btnDisplayTalk,
-		selRewardType,
-		rewardKeyword,
 		btnApproval,
 		btnReject,
 		doitImage,
@@ -131,18 +128,14 @@
 		showJoinMemberForm,
 		showPendingMemberForm,
 		initSearchMemberForm,
-		onClickModalSaveUcdOpen,
 		searchJoinMember,
 		onClickBtnBan,
 		searchApplyMember,
-		onSubmitSaveUcd,
-		onChangeSelRewardType,
-		searchRewardMember,
 		onClickBtnApproval,
 		onClickBtnReject,
 		onChangeChkBlock,
 		onChangeRdoReason,
-		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock,
+		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock, onClickBtnSaveUcd,
 	} from "./doit-detail-member.js";
 	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
@@ -226,7 +219,7 @@
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
-		btnSaveUcd.on('click', function () { onClickModalSaveUcdOpen(); });
+		btnSaveUcd.on('click', function () { onClickBtnSaveUcd(); });
 		/*btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });*/
 		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		actionTimes.on("propertychange change keyup paste input", function () { initInputNumber(this); });
@@ -234,9 +227,9 @@
 		// selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });
-		btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
-		selRewardType.on('change', function () { onChangeSelRewardType(); });
-		rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
+		// btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
+		// selRewardType.on('change', function () { onChangeSelRewardType(); });
+		// rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
 		/*selNotiType.on('change', function () { onChangeSelNotiType(); });*/
 		btnApproval.on('click', function () { onClickBtnApproval(); });
 		btnReject.on('click', function () { onClickBtnReject(); });

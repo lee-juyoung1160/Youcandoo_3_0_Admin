@@ -180,3 +180,22 @@ a.btn-save-ucd {
 	width: 455px;
 }
 
+/* 유캔두 픽 랭킹관리 */
+.rank .lank-num {
+	width: 20px;
+	height: 20px;
+	padding: 0 3px;
+	color: #fff;
+	font-weight: 600;
+	line-height: 18px;
+	text-align: center;
+	background-color: #999;
+}
+.rank .lank-num.lank-top {
+	background-color: #1da1f5;
+}
+.scroll-wrap {
+	overflow-y: scroll;
+	max-height: 500px;
+}
+

@@ -1,0 +1,216 @@
+<link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
+<section class="detail-page doit">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">유캔두 픽 랭킹 등록</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>랭킹 명 *</th>
+                        <td>
+                            <div class="input-wrap">
+                                <input id="" type="text" class="length-input" maxlength="20" placeholder="랭킹명을 입력해주세요.">
+                                <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            노출기간 *
+                            <i class="tooltip-mark fas fa-question-circle">
+                                <span class="tooltip-txt right">
+                                    - 노출기간<br>: 등록일 기준, 차주 요일 00시 ~ 일요일 23:59<br>
+                                    - 수정가능기간<br>: 등록일 ~ 등록일 기준, 금주 일요일 23:59
+                                </span>
+                            </i>
+                        </th>
+                        <td>
+                            2020-00-00 ~ 2020-00-00
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-12" style="margin-top: 30px;">
+                <div class="table-wrap">
+                    <div class="top clearfix">
+                        <div class="btn-wrap clearfix">
+                            <button type="button" class="btn-sm btn-outline-warning"><i class="fas fa-eye"></i> 랭킹미리보기</button>
+                            <button type="button" class="btn-sm btn-success"><i class="fas fa-plus"></i> 두잇추가</button>
+                        </div>
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col style="width: 15%;">
+                            <col style="width: 20%;">
+                            <col style="width: 15%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 15%;">
+                            <col style="width: 5%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>썸네일</th>
+                            <th>두잇명</th>
+                            <th>리더</th>
+                            <th>한달간<br>리더 스토어</th>
+                            <th>한달간<br>열정 지수</th>
+                            <th>참여자 수</th>
+                            <th>인당 열정지수</th>
+                            <th>오픈일</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap doit-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                </div>
+                            </td>
+                            <td>달리기 열심히 으쌰으쌰</td>
+                            <td>베리네모카</td>
+                            <td>12</td>
+                            <td>133</td>
+                            <td>2,300</td>
+                            <td>45</td>
+                            <td>2020-02-00</td>
+                            <th><button type="button" class="btn-xs btn-text-red">
+                                <i class="fas fa-minus-circle"></i>
+                            </button></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="card">
+                        <p class="message">
+                            두잇을 추가해주세요.<br>
+                            (최소5개 ~ 최대30개)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">등록 완료</button>
+        </div>
+    </div>
+
+    <div class="modal-wrap">
+        <!-- 두잇 검색 -->
+        <div class="modal-content" style="width: 900px;">
+            <div class="modal-header clearfix">
+                <h5>두잇 검색</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card clearfix">
+                    <div class="search-txt-wrap">
+                        <input id="keyword" type="search" placeholder="두잇명을 입력해주세요.">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="dataTable">
+                        <thead>
+                        <colgroup>
+                            <col style="width: 15%;">
+                            <col style="width: 35%;">
+                            <col style="width: 20%;">
+                            <col style="width: 10%;">
+                            <col style="width: 15%;">
+                            <col style="width: 5%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>썸네일</th>
+                            <th>두잇명</th>
+                            <th>리더</th>
+                            <th>참여자 수</th>
+                            <th>오픈일</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="list-img-wrap doit-img-wrap">
+                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                </div>
+                            </td>
+                            <td>두잇며어어어어엉</td>
+                            <td>베리네모카</td>
+                            <td>300</td>
+                            <td>2020-00-00</td>
+                            <td>
+                                <div class="checkbox-wrap">
+                                    <input id="c1" type="checkbox" name="chk-status" value="create">
+                                    <label for="c1"><span></span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button id="btnSubmitTalk" type="button" class="btn btn-primary">추가</button>
+            </div>
+        </div>
+
+        <!-- 랭킹 미리보기 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>랭킹 미리보기</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <p class="desc">* 유캔두픽 랭킹은 <strong>인당 열정지수 높은순</strong>으로 순위가 정해집니다.</p>
+                </div>
+                <div class="table-wrap scroll-wrap">
+                    <table id="" class="rank">
+                        <colgroup>
+                            <col style="width: 5%;">
+                            <col style="width: 85%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td><p class="lank-num lank-top">1</p></td>
+                            <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                        </tr>
+                        <tr>
+                            <td><p class="lank-num lank-top">2</p></td>
+                            <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                        </tr>
+                        <tr>
+                            <td><p class="lank-num lank-top">3</p></td>
+                            <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                        </tr>
+                        <tr>
+                            <td><p class="lank-num">4</p></td>
+                            <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                        </tr>
+                        <tr>
+                            <td><p class="lank-num">5</p></td>
+                            <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-bg"></div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

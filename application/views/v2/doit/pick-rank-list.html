@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="/assets/v2/css/doit.css?version=<?php echo $this->config->item('version');?>">
+<section>
+    <div class="inner">
+        <div class="main-top clearfix">
+            <h2 class="main-title">유캔두 픽 랭킹 관리</h2>
+            <a href="/v2/doit/rank/create"><i class="fas fa-plus"></i>유캔두 픽 랭킹 등록</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">날짜</p>
+                    <select id="selCategory" class="select-box">
+                        <option value="">10월 3주차(예정)</option>
+                        <option value="">10월 2주차</option>
+                        <option value="">10월 1주차</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <ul class="border-right-list clearfix">
+                <li class="title"><i class="far fas fa-tasks"></i> 집에서 3kg 빼기</li>
+                <li>2020-00-00 ~ 2020-00-00</li>
+                <li><button type="button" class="btn-xs btn-teal">수정</button></li>
+            </ul>
+        </div>
+
+
+        <div class="table-wrap row">
+            <table id="dataTable" class="rank">
+                <colgroup>
+                    <col style="width: 5%;">
+                    <col style="width: 85%;">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td><p class="lank-num lank-top">1</p></td>
+                    <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                </tr>
+                <tr>
+                    <td><p class="lank-num lank-top">2</p></td>
+                    <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                </tr>
+                <tr>
+                    <td><p class="lank-num lank-top">3</p></td>
+                    <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                </tr>
+                <tr>
+                    <td><p class="lank-num">4</p></td>
+                    <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                </tr>
+                <tr>
+                    <td><p class="lank-num">5</p></td>
+                    <td class="txt-left"><a href="#">야!나두 했어! 너도 할 수 있엉!</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

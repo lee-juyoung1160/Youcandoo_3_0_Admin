@@ -103,6 +103,10 @@
 	font-size: 15px;
 	font-weight: 500;
 }
+.desc strong {
+	color: #000;
+	font-weight: 600;
+}
 .desc-sub {
 	padding: 5px 0;
 	color: #999;
@@ -132,6 +136,7 @@
 p.message {
 	padding: 30px 0;
 	text-align: center;
+	line-height: 1.3em;
 }
 .link {
 	text-decoration: underline;
@@ -233,6 +238,22 @@ textarea {
 	padding: 10px;
 	border: 1px solid #c5ccd6;
 	border-radius: 3px;
+}
+.border-right-list {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+
+.border-right-list li:first-child {
+	padding-left: 0;
+}
+.border-right-list li {
+	padding: 0 10px;
+	border-right: 1px solid #aaa;
+}
+.border-right-list li:last-child {
+	border-right: none;
 }
 
 /* 글자수 체크 */

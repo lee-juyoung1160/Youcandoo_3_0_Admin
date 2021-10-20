@@ -107,6 +107,7 @@
             '/v2/service/inquiry',
             '/v2/admin',
             '/v2/operate/version',
+            '/v2/doit/rank',
         ];
         switch (_auth) {
             case '/v2/biz' :

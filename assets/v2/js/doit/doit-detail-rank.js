@@ -21,7 +21,7 @@
 	{
 		ongoingRankTable.DataTable({
 			ajax : {
-				url: api.lankMember,
+				url: api.rankMember,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){
@@ -104,7 +104,7 @@
 	{
 		totalRankTable.DataTable({
 			ajax : {
-				url: api.lankMember,
+				url: api.rankMember,
 				type: "POST",
 				headers: headers,
 				dataFilter: function(data){

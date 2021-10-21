@@ -357,6 +357,9 @@
     export const searchTable = $("#searchTable");
     export const addedTable = $("#addedTable");
 
+    export const selWeekly = $("#selWeekly");
+    export const dateRange = $("#dateRange");
+
     /** 비즈 **/
     export const doitTable = $("#doitTable");
     export const ucdTable = $("#ucdTable");

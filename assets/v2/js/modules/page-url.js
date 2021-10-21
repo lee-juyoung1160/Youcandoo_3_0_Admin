@@ -31,6 +31,10 @@
         ,updatePick : rootContext + 'doit/pick/update/'
         ,createPick : rootContext + 'doit/pick/create'
 
+        ,listRank : rootContext + 'doit/rank'
+        ,createRank : rootContext + 'doit/rank/create'
+        ,updateRank : rootContext + 'doit/rank/update/'
+
         ,listNotice : rootContext + 'service/notice'
         ,detailNotice : rootContext + 'service/notice/detail/'
         ,updateNotice : rootContext + 'service/notice/update/'

@@ -93,7 +93,7 @@
         blockMemberList : baseApiUrl + 'member/get/retire/ban/list',
         cancelBlockMember : baseApiUrl + 'member/set/retire/ban/cancel',
 
-        lankMember : baseApiUrl + 'doit/get/member/rank',
+        rankMember : baseApiUrl + 'doit/get/member/rank',
 
         actionList : baseApiUrl + 'action/get/list',
         detailAction : baseApiUrl + 'action/get/detail/info',
@@ -121,6 +121,11 @@
         createPick : baseApiUrl + 'recommend/create',
         updatePick : baseApiUrl + 'recommend/update',
         detailPick : baseApiUrl + 'recommend/detail',
+
+        getWeek : baseApiUrl + 'doit/rank/get/week',
+        createRank : baseApiUrl + 'doit/rank/set',
+        targetRankList : baseApiUrl + 'doit/rank/popup/get',
+
 
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',

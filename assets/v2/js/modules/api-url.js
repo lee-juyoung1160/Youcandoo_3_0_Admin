@@ -123,9 +123,9 @@
         detailPick : baseApiUrl + 'recommend/detail',
 
         getWeek : baseApiUrl + 'doit/rank/get/week',
+        rankList : baseApiUrl + 'doit/rank/get/list',
         createRank : baseApiUrl + 'doit/rank/set',
         targetRankList : baseApiUrl + 'doit/rank/popup/get',
-
 
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',

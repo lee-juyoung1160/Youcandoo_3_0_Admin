@@ -69,9 +69,9 @@
 				selectedWeekData[0].doit_list.map((doit, index) => {
 					const rowEl =
 						`<tr>
-						<td><p class="lank-num lank-top">${index + 1}</p></td>
-						<td class="txt-left"><a>${doit.doit_title}</a></td>
-					</tr>`
+							<td><p class="lank-num lank-top">${index + 1}</p></td>
+							<td class="txt-left"><a href="${page.detailDoit}${doit.idx}">${doit.doit_title}</a></td>
+						</tr>`
 
 					dataTable.find('tbody').append(rowEl);
 				})
@@ -93,7 +93,7 @@
 	function onClickBtnCreate()
 	{
 		const currentDate = new Date();
-		const startDate = new Date(rankObj[0].start_date);
+		const startDate = new Date(isEmpty(rankObj[0]) ? currentDate : rankObj[0].start_date);
 
 		if (currentDate < startDate)
 		{

@@ -236,7 +236,11 @@
                 const table = targetTable.DataTable();
                 const tableData = table.rows().data();
                 if (!isEmpty(tableData) && tableData.length > 0)
-                    description.val(`${tableData[0].profile.nickname} 외 ${tableData.length -1}명`);
+                {
+                    const descText = tableData.length === 1 ? `${tableData[0].profile.nickname}` : `${tableData[0].profile.nickname} 외 ${tableData.length -1}명`
+                    description.val(descText);
+                }
+
 
                 table.column(2).visible(!selRewardType.val() === 'all');
             },
@@ -442,9 +446,13 @@
     function displayCountAddedUser()
     {
         totalCount.text(numberWithCommas(addedUserObj.length));
-        addedUserObj.length > 0
-            ? description.val(`${addedUserObj[0].nickname} 외 ${addedUserObj.length -1}명`)
-            : description.val('');
+        if (addedUserObj.length > 0)
+        {
+            const descText = addedUserObj.length === 1 ? `${addedUserObj[0].nickname}` : `${addedUserObj[0].nickname} 외 ${addedUserObj.length -1}명`
+            description.val(descText);
+        }
+        else
+            description.val('');
     }
 
     function onSubmitReward()
@@ -455,6 +463,14 @@
 
     function validation()
     {
+        const date = new Date();
+        const currentHour = date.getHours();
+        if (currentHour >= 0 && currentHour <= 6)
+        {
+            sweetToast('등록 가능한 시간이 아닙니다.(0 ~ 6시 등록 불가)');
+            return false;
+        }
+
         if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionCount.val()))
         {
             sweetToast(`인증 횟수를 ${message.input}`);

@@ -56,6 +56,7 @@
         initTableDefaultConfig();
         initDatepicker();
         initDateRange();
+        toggleDisableSelRewardType();
         getDetail();
         amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
         actionCount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
@@ -68,6 +69,17 @@
         btnSearchTarget.on('click', function () { onClickBtnSearchTarget(); });
         btnSubmit.on('click', function () { onSubmitReward(); });
     })
+
+    function toggleDisableSelRewardType()
+    {
+        const date = new Date();
+        const currentHour = date.getHours();
+        const isCalculating = currentHour >= 0 && currentHour <= 6;
+        selRewardType.children().each(function () {
+            if (isCalculating && ($(this).val() === 'total' || $(this).val() === 'ongoing'))
+                $(this).prop('disabled', true);
+        })
+    }
 
     function getDetail()
     {
@@ -465,9 +477,10 @@
     {
         const date = new Date();
         const currentHour = date.getHours();
-        if (currentHour >= 0 && currentHour <= 6)
+        const isCalculating = currentHour >= 0 && currentHour <= 6;
+        if (isCalculating && (selRewardType.val() === 'total' || selRewardType.val() === 'ongoing'))
         {
-            sweetToast('등록 가능한 시간이 아닙니다.(0 ~ 6시 등록 불가)');
+            sweetToast('등록 가능한 시간이 아닙니다.(연속인증, 전체 누적인증 : 0 ~ 6시 등록 불가)');
             return false;
         }
 

@@ -455,6 +455,14 @@
 
     function validation()
     {
+        const date = new Date();
+        const currentHour = date.getHours();
+        if (currentHour >= 0 && currentHour <= 6)
+        {
+            sweetToast('등록 가능한 시간이 아닙니다.(0 ~ 6시 등록 불가)');
+            return false;
+        }
+
         if (['user', 'all'].indexOf(selRewardType.val()) === -1 && isEmpty(actionCount.val()))
         {
             sweetToast(`인증 횟수를 ${message.input}`);

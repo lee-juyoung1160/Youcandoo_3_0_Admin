@@ -594,8 +594,9 @@
     {
         let date = new Date();
         const hour = date.getHours();
-        const minDate = hour < 6 ? '-6' : '-7';
+        const minDate = '-7';
+        const maxDate = hour < 6 ? '-2' : '-1';
 
         datePicker.datepicker("option", "minDate", minDate);
-        datePicker.datepicker("option", "maxDate", "-1");
+        datePicker.datepicker("option", "maxDate", maxDate);
     }

@@ -23,25 +23,21 @@ class Doit extends MY_Controller {
         $this->load->template('v2/doit/doit-reward');
     }
 
-<<<<<<< HEAD
     public function rank($Route = "")
-        {
-            switch ($Route) {
-                case "":
-                    $this->load->template('v2/doit/pick-rank-list');
-                    break;
-                case "create" :
-                    $this->load->template('v2/doit/pick-rank-create');
-                    break;
-                case "update" :
-                    $this->load->template('v2/doit/pick-rank-update');
-                    break;
-            }
+    {
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/doit/pick-rank-list');
+                break;
+            case "create" :
+                $this->load->template('v2/doit/pick-rank-create');
+                break;
+            case "update" :
+                $this->load->template('v2/doit/pick-rank-update');
+                break;
         }
+    }
 
-
-=======
->>>>>>> 8cad52e2d000e78ac930f319ae9570595c5c3a6c
     public function pick($Route = "")
     {
         switch ($Route) {

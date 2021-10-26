@@ -479,6 +479,7 @@
     export const userNickname = $("#userNickname");
     export const contact = $("#contact");
     export const leaveDate = $("#leaveDate");
+    export const loginDate = $("#loginDate");
     export const balance = $("#balance");
     export const isAuth = $("#isAuth");
     export const levelInfoWrap = $("#levelInfoWrap");

@@ -8,7 +8,7 @@
 		openedDoitTable, joinedDoitTable, modalActionContentWrap, modalActionDesc, modalActionExampleWrap,
 		modalActionExampleDesc, modalActionWarningReason, btnSubmitSaveUcd, description, ucdInfoTable,
 		categoryWrap, ulLevelTab, levelInfoWrap, levelHistoryWrap, openedDoitCount, openedDoitAction,
-		levelTable, btnLevelWrap, isStore, modalLevelUp, levelUpReason, btnSubmit, createDate, leaveDate,
+		levelTable, btnLevelWrap, isStore, modalLevelUp, levelUpReason, btnSubmit, createDate, leaveDate, loginDate,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {copyToClipboard, fadeoutModal, historyBack, limitInputLength, overflowHidden, paginate, onErrorImage} from "../modules/common.js";
@@ -91,7 +91,7 @@
 
 	function buildBasicInfo(data)
 	{
-		const { profile_uuid, nickname, phone, email, joined, deactived, is_auth, ucd } = data.data;
+		const { profile_uuid, nickname, phone, email, joined, accessed, deactived, is_auth, ucd } = data.data;
 
 		profileId.text(profile_uuid);
 		contact.text(phone);
@@ -99,6 +99,7 @@
 		useremail.text(email);
 		createDate.text(joined);
 		leaveDate.text(isEmpty(deactived) ? label.dash : deactived);
+		loginDate.text(isEmpty(accessed) ? label.dash : accessed);
 		balance.text(numberWithCommas(ucd));
 		isAuth.text(is_auth);
 	}

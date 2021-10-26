@@ -38,7 +38,7 @@
 	function buildSelWeekly()
 	{
 		const date = new Date();
-		const thisMonday = date.setDate(date.getDate() + ((1 + 7 - date.getDay()) % 7));
+		const thisMonday = date.setDate(date.getDate() - date.getDay() + 1);
 		const thisWeek = new Date(thisMonday).getWeek();
 		isEmpty(rankObj)
 			? selWeekly.append(`<option value="">${label.dash}</option>`)

@@ -105,7 +105,7 @@
 
 		if (currentDate < startDate)
 		{
-			sweetToast('차주에 예정된 랭킹이 있습니다.');
+			sweetToast('다음 주 예정된 랭킹이 있습니다.');
 			return;
 		}
 

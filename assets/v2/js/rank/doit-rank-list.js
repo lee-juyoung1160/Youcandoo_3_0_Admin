@@ -37,9 +37,17 @@
 
 	function buildSelWeekly()
 	{
+		const date = new Date();
+		const thisMonday = date.setDate(date.getDate() + ((1 + 7 - date.getDay()) % 7));
+		const thisWeek = new Date(thisMonday).getWeek();
 		isEmpty(rankObj)
 			? selWeekly.append(`<option value="">${label.dash}</option>`)
 			: rankObj.map(rank => selWeekly.append(`<option value="${rank.week}">${rank.week_name}</option>`));
+
+		selWeekly.children().each(function () {
+			if (Number($(this).val()) === Number(thisWeek))
+				$(this).prop('selected', true);
+		})
 	}
 
 	function buildTitle()
@@ -69,9 +77,9 @@
 				selectedWeekData[0].doit_list.map((doit, index) => {
 					const rowEl =
 						`<tr>
-						<td><p class="lank-num lank-top">${index + 1}</p></td>
-						<td class="txt-left"><a>${doit.doit_title}</a></td>
-					</tr>`
+							<td><p class="lank-num lank-top">${index + 1}</p></td>
+							<td class="txt-left"><a href="${page.detailDoit}${doit.idx}">${doit.doit_title}</a></td>
+						</tr>`
 
 					dataTable.find('tbody').append(rowEl);
 				})
@@ -93,13 +101,45 @@
 	function onClickBtnCreate()
 	{
 		const currentDate = new Date();
-		const startDate = new Date(rankObj[0].start_date);
+		const startDate = new Date(isEmpty(rankObj[0]) ? currentDate : rankObj[0].start_date);
 
 		if (currentDate < startDate)
 		{
-			sweetToast('차주에 예정된 랭킹이 있습니다.');
+			sweetToast('다음 주 예정된 랭킹이 있습니다.');
 			return;
 		}
 
 		location.href = page.createRank;
+	}
+
+	Date.prototype.getWeek = function (baseDayOfWeek)
+	{
+		/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
+
+		baseDayOfWeek = typeof(baseDayOfWeek) == 'number' ? baseDayOfWeek : 0; // dowOffset이 숫자면 넣고 아니면 0
+		const newYear = new Date(this.getFullYear(),0,1);
+		let day = newYear.getDay() - baseDayOfWeek; //the day of week the year begins on
+		day = (day >= 0 ? day : day + 7);
+		let dayCount = Math.floor((this.getTime() - newYear.getTime() -
+			(this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
+		let weekOfYear;
+		//if the year starts before the middle of a week
+		if(day < 4)
+		{
+			weekOfYear = Math.floor((dayCount + day - 1) / 7) + 1;
+			if(weekOfYear > 52)
+			{
+				let nYear = new Date(this.getFullYear() + 1,0,1);
+				let nDay = nYear.getDay() - baseDayOfWeek;
+				nDay = nDay >= 0 ? nDay : nDay + 7;
+				/*if the next year starts before the middle of
+                  the week, it is week #1 of that year*/
+				weekOfYear = nDay < 4 ? 1 : 53;
+			}
+		}
+		else
+		{
+			weekOfYear = Math.floor((dayCount + day - 1) / 7);
+		}
+		return weekOfYear;
 	}

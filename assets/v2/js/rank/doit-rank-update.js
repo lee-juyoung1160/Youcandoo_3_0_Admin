@@ -13,7 +13,7 @@
 		modalBackdrop, lengthInput,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
-	import {fadeoutModal, fadeinModal, limitInputLength, onErrorImage} from "../modules/common.js";
+	import {fadeoutModal, fadeinModal, limitInputLength, onErrorImage, calculateInputLength} from "../modules/common.js";
 	import {
 		initTableDefaultConfig,
 		toggleBtnPreviousAndNextOnTable,
@@ -22,21 +22,20 @@
 	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {isEmpty, numberWithCommas, getStringFormatToDate} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas, getPathName, splitReverse} from "../modules/utils.js";
 	import {page} from "../modules/page-url.js";
 
 	let addedDoit = [];
 	let addedDoitObj = [];
 	let initialize = true;
-	let weekOfYear;
+	const pathName = getPathName();
+	const weekOnRank = splitReverse(pathName, '/');
 
 	$( () => {
 		/** dataTable default config **/
 		initTableDefaultConfig();
-		buildUpdateTable();
-		setDate();
+		getDetail();
 		/** 이벤트 **/
-		title.trigger('focus');
 		lengthInput 	.on("propertychange change keyup paste input", function () { limitInputLength(this); });
 		modalClose		.on('click', function () { fadeoutModal(); });
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
@@ -44,13 +43,53 @@
 		btnSubmit		.on('click', function () { onSubmitRank(); });
 	});
 
-	function setDate()
+	function getDetail()
 	{
-		const date = new Date();
-		const fromDate = date.setDate(date.getDate() + (((1 + 7 - date.getDay()) % 7) || 7));
-		const toDate = date.setDate(date.getDate() + 6);
-		dateRange.text(`${getStringFormatToDate(new Date(fromDate), '-')} ~ ${getStringFormatToDate(new Date(toDate), '-')}`);
-		weekOfYear = new Date(fromDate).getWeek();
+		ajaxRequestWithJson(true, `${api.rankList}/${weekOnRank}`, null)
+			.then( async function( data, textStatus, jqXHR ) {
+				isSuccessResp(data) ? getDetailCallback(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
+	}
+
+	function getDetailCallback(data)
+	{
+		buildDetail(data);
+
+		data.data.map(doit => {
+			const {doit_uuid, doit_title, doit_image_url, nickname, profile_uuid, grit, grit_per_person, score, join_user, opened} = doit;
+
+			addedDoitObj.push({
+				"doit_uuid" : doit_uuid,
+				"doit_title" : doit_title,
+				"doit_image_url" : doit_image_url,
+				"nickname" : nickname,
+				"profile_uuid" : profile_uuid,
+				"grit" : grit,
+				"grit_per_person" : grit_per_person,
+				"score" : score,
+				"join_user" : join_user,
+				"opened" : opened
+			})
+
+			addedDoit.push(doit_uuid);
+		})
+
+		addedDoitObj.sort((a, b) => {
+			if (a.grit_per_person === b.grit_per_person)
+				return Number(b.join_user) - Number(a.join_user);
+
+			return Math.floor(b.grit_per_person) - Math.floor(a.grit_per_person);
+		});
+
+		buildUpdateTable();
+	}
+
+	function buildDetail(data)
+	{
+		title.val(data.title);
+		dateRange.text(`${data.start_date} ~ ${data.end_date}`);
+		calculateInputLength();
 	}
 
 	function onClickBtnAdd()
@@ -220,8 +259,16 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "한달간 열정지수",	data: "grit",  				width: "10%" }
-				,{title: "인당 열정지수",	data: "grit_per_person",    width: "10%" }
+				,{title: "한달간 열정지수",	data: "grit",  	width: "10%",
+					render: function (data) {
+						return Math.round(Number(data) * 100) / 100;
+					}
+				}
+				,{title: "인당 열정지수",	data: "grit_per_person",    width: "10%",
+					render: function (data) {
+						return Math.round(Number(data) * 100) / 100;
+					}
+				}
 				,{title: "오픈일",		data: "opened",   			width: "15%",
 					render: function (data) {
 						return data.slice(0, 10);
@@ -241,15 +288,17 @@
 			select: false,
 			destroy: true,
 			initComplete: function () {
-				onErrorImage();
 				if (!initialize)
 					tableReloadAndStayCurrentPage(dataTable);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.doit_uuid);
-				$(nRow).children().eq(7).find('button').on('click', function () { removeRow(this); });
+				$(nRow).children().eq(8).find('button').on('click', function () { removeRow(this); });
+				if (aData.is_new === 'Y')
+					$(nRow).addClass('selected');
 			},
 			drawCallback: function (settings) {
+				onErrorImage();
 			}
 		});
 	}
@@ -302,7 +351,7 @@
 	function onSubmitRank()
 	{
 		if (validation())
-			sweetConfirm(message.create, createRequest)
+			sweetConfirm(message.modify, updateRequest)
 	}
 
 	function validation()
@@ -329,7 +378,7 @@
 		return true;
 	}
 
-	function createRequest()
+	function updateRequest()
 	{
 		const doitList = addedDoitObj.map(doit => {
 			return {
@@ -340,51 +389,19 @@
 			}
 		})
 		const param = {
-			"week" : weekOfYear,
+			"week" : weekOnRank,
 			"title" : title.val().trim(),
 			"doit_list" : doitList
 		}
 
 		ajaxRequestWithJson(true, api.createRank, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
-				sweetToastAndCallback(data, createSuccess);
+				await sweetToastAndCallback(data, updateSuccess);
 			})
-			.catch(reject => sweetError(label.submit + message.ajaxError));
+			.catch(reject => sweetError(label.modify + message.ajaxError));
 	}
 
-	function createSuccess()
+	function updateSuccess()
 	{
 		location.href = page.listRank;
-	}
-
-	Date.prototype.getWeek = function (baseDayOfWeek)
-	{
-		/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
-
-		baseDayOfWeek = typeof(baseDayOfWeek) == 'number' ? baseDayOfWeek : 0; // dowOffset이 숫자면 넣고 아니면 0
-		const newYear = new Date(this.getFullYear(),0,1);
-		let day = newYear.getDay() - baseDayOfWeek; //the day of week the year begins on
-		day = (day >= 0 ? day : day + 7);
-		let dayCount = Math.floor((this.getTime() - newYear.getTime() -
-			(this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
-		let weekOfYear;
-		//if the year starts before the middle of a week
-		if(day < 4)
-		{
-			weekOfYear = Math.floor((dayCount + day - 1) / 7) + 1;
-			if(weekOfYear > 52)
-			{
-				let nYear = new Date(this.getFullYear() + 1,0,1);
-				let nDay = nYear.getDay() - baseDayOfWeek;
-				nDay = nDay >= 0 ? nDay : nDay + 7;
-				/*if the next year starts before the middle of
-                  the week, it is week #1 of that year*/
-				weekOfYear = nDay < 4 ? 1 : 53;
-			}
-		}
-		else
-		{
-			weekOfYear = Math.floor((dayCount + day - 1) / 7);
-		}
-		return weekOfYear;
 	}

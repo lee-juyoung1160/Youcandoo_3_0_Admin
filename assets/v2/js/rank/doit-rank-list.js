@@ -1,17 +1,19 @@
 
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
-	import {dataTable, selWeekly, btnUpdate, title, dateRange, btnCreate} from '../modules/elements.js';
+	import {dataTable, selWeekly, btnUpdate, title, dateRange, btnCreate,} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {isEmpty} from "../modules/utils.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 	import {page} from "../modules/page-url.js";
+	import {initTableDefaultConfig} from "../modules/tables.js";
 
 	let rankObj = [];
 
 	$( () => {
-		/** n개씩 보기 초기화 **/
+		/** dataTable default config **/
+		initTableDefaultConfig();
 		getWeek();
 		/** 이벤트 **/
 		selWeekly.on('change', function () { onChangeSelWeekly(); });
@@ -68,22 +70,55 @@
 
 	function buildRankTable()
 	{
-		dataTable.find('tbody').empty();
 		if (rankObj.length > 0)
 		{
 			const selectedWeekData = rankObj.filter(rank => rank.week === selWeekly.val());
-			if (!isEmpty(selectedWeekData) && selectedWeekData.length > 0)
-			{
-				selectedWeekData[0].doit_list.map((doit, index) => {
-					const rowEl =
-						`<tr>
-							<td><p class="lank-num lank-top">${index + 1}</p></td>
-							<td class="txt-left"><a href="${page.detailDoit}${doit.idx}">${doit.doit_title}</a></td>
-						</tr>`
-
-					dataTable.find('tbody').append(rowEl);
-				})
-			}
+			console.log(selectedWeekData)
+			dataTable.DataTable({
+				data: selectedWeekData[0].doit_list,
+				columns: [
+					{title: "순위",				data: "doit_title",    		width: "5%",	className: "txt-left",
+						render: function (data, type, row, meta) {
+							return `<p class="lank-num lank-top">${meta.row + 1}</p>`;
+						}
+					}
+					,{title: "두잇명",			data: "doit_title",    		width: "55%",	className: "txt-left",
+						render: function (data, type, row, meta) {
+							return `<a href="${page.detailDoit}${row.idx}">${data}</a>`;
+						}
+					}
+					,{title: "참여자 수",			data: "join_user",   		width: "10%",
+						render: function (data) {
+							return numberWithCommas(data);
+						}
+					}
+					,{title: "월간 리더 스코어",	data: "score",    			width: "10%",
+						render: function (data) {
+							return numberWithCommas(data);
+						}
+					}
+					,{title: "월간 열정지수",		data: "grit",    			width: "10%",
+						render: function (data) {
+							return Math.round(Number(data) * 100) / 100;
+						}
+					}
+					,{title: "인당 열정지수",		data: "grit_per_person",    width: "10%",
+						render: function (data) {
+							return Math.round(Number(data) * 100) / 100;
+						}
+					}
+				],
+				serverSide: false,
+				paging: false,
+				select: false,
+				destroy: true,
+				initComplete: function () {
+				},
+				fnRowCallback: function( nRow, aData ) {
+				},
+				drawCallback: function (settings) {
+				}
+			});
 		}
 	}
 

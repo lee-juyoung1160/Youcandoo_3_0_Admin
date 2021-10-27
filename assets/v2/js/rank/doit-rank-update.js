@@ -254,12 +254,12 @@
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "한달간 리더 스코어",	data: "score",    		width: "10%",
+				,{title: "월간 리더 스코어",	data: "score",    		width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "한달간 열정지수",	data: "grit",  	width: "10%",
+				,{title: "월간 열정지수",		data: "grit",  			width: "10%",
 					render: function (data) {
 						return Math.round(Number(data) * 100) / 100;
 					}
@@ -383,7 +383,9 @@
 		const doitList = addedDoitObj.map(doit => {
 			return {
 				"doit_uuid" : doit.doit_uuid,
+				"join_user" : doit.join_user,
 				"grit" : doit.grit,
+				"grit_per_person" : doit.grit_per_person,
 				"profile_uuid" : doit.profile_uuid,
 				"score" : doit.score
 			}

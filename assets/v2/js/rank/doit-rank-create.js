@@ -10,7 +10,7 @@
 		dateRange,
 		keyword,
 		modalClose,
-		modalBackdrop, lengthInput,
+		modalBackdrop, lengthInput, btnSearch,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {fadeoutModal, fadeinModal, limitInputLength, onErrorImage} from "../modules/common.js";
@@ -41,6 +41,7 @@
 		modalClose		.on('click', function () { fadeoutModal(); });
 		modalBackdrop	.on('click', function () { fadeoutModal(); });
 		btnAdd			.on('click', function () { onClickBtnAdd(); });
+		btnSearch		.on('click', function () { onSubmitSearchDoit(); });
 		btnSubmit		.on('click', function () { onSubmitRank(); });
 	});
 
@@ -56,9 +57,6 @@
 	function onClickBtnAdd()
 	{
 		fadeinModal();
-
-		// if (addedDoitObj.length > 0)
-		// 	addedDoitObj.map(doit => )
 
 		initialize ? buildSearchDoitTable() : onSubmitSearchDoit();
 		initialize = false;
@@ -190,7 +188,7 @@
 			if (a.grit_per_person === b.grit_per_person)
 				return Number(b.join_user) - Number(a.join_user);
 
-			return Math.floor(b.grit_per_person) - Math.floor(a.grit_per_person);
+			return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
 		});
 
 		addedDoit.push(doit_uuid);
@@ -294,7 +292,7 @@
 				if (a.grit_per_person === b.grit_per_person)
 					return Number(b.join_user) - Number(a.join_user);
 
-				return Math.floor(b.grit_per_person) - Math.floor(a.grit_per_person);
+				return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
 			});
 		}
 	}

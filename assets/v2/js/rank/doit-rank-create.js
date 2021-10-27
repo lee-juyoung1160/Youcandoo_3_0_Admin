@@ -57,7 +57,7 @@
 	function onClickBtnAdd()
 	{
 		fadeinModal();
-
+		keyword.val('');
 		initialize ? buildSearchDoitTable() : onSubmitSearchDoit();
 		initialize = false;
 	}

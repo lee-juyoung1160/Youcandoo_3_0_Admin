@@ -97,10 +97,7 @@
 	function onClickBtnAdd()
 	{
 		fadeinModal();
-
-		// if (addedDoitObj.length > 0)
-		// 	addedDoitObj.map(doit => )
-
+		keyword.val('');
 		initialize ? buildSearchDoitTable() : onSubmitSearchDoit();
 		initialize = false;
 	}

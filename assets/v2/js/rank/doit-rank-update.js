@@ -59,27 +59,18 @@
 		buildDetail(data);
 
 		data.data.map(doit => {
-			const {doit_uuid, doit_title, doit_image_url, nickname, profile_uuid, grit, grit_per_person, score, join_user, opened} = doit;
-
-			addedDoitObj.push({
-				"doit_uuid" : doit_uuid,
-				"doit_title" : doit_title,
-				"doit_image_url" : doit_image_url,
-				"nickname" : nickname,
-				"profile_uuid" : profile_uuid,
-				"grit" : grit,
-				"grit_per_person" : grit_per_person,
-				"score" : score,
-				"join_user" : join_user,
-				"opened" : opened
-			})
-
-			addedDoit.push(doit_uuid);
+			addedDoitObj.push({...doit});
+			addedDoit.push(doit.doit_uuid);
 		})
 
 		addedDoitObj.sort((a, b) => {
 			if (a.grit_per_person === b.grit_per_person)
-				return Number(b.join_user) - Number(a.join_user);
+			{
+				if (Number(b.join_user) === Number(a.join_user))
+					return Number(b.ongoing_action_count) - Number(a.ongoing_action_count)
+				else
+					return Number(b.join_user) - Number(a.join_user)
+			}
 
 			return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
 		});
@@ -178,7 +169,6 @@
 			},
 			destroy: true,
 			initComplete: function () {
-				onErrorImage();
 				$(this).on( 'select.dt', function ( e, dt, type, indexes ) { onClickCheckBox(dt, indexes);});
 			},
 			fnRowCallback: function( nRow, aData ) {
@@ -188,6 +178,7 @@
 					$(checkboxEl).prop('disabled', true);
 			},
 			drawCallback: function (settings) {
+				onErrorImage();
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
@@ -209,29 +200,20 @@
 
 	function addUser(data)
 	{
-		const {doit_uuid, doit_title, doit_image_url, nickname, profile_uuid, grit, grit_per_person, score, join_user, opened} = data;
-		addedDoitObj.push({
-			"doit_uuid" : doit_uuid,
-			"doit_title" : doit_title,
-			"doit_image_url" : doit_image_url,
-			"nickname" : nickname,
-			"profile_uuid" : profile_uuid,
-			"grit" : grit,
-			"grit_per_person" : grit_per_person,
-			"score" : score,
-			"join_user" : join_user,
-			"opened" : opened,
-			"is_new" : 'Y',
-		})
+		addedDoitObj.push({...data})
+		addedDoit.push(data.doit_uuid);
 
 		addedDoitObj.sort((a, b) => {
 			if (a.grit_per_person === b.grit_per_person)
-				return Number(b.join_user) - Number(a.join_user);
+			{
+				if (Number(b.join_user) === Number(a.join_user))
+					return Number(b.ongoing_action_count) - Number(a.ongoing_action_count)
+				else
+					return Number(b.join_user) - Number(a.join_user)
+			}
 
 			return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
 		});
-
-		addedDoit.push(doit_uuid);
 
 		buildUpdateTable();
 	}
@@ -241,26 +223,26 @@
 		updateTable.DataTable({
 			data: addedDoitObj,
 			columns: [
-				{title: "썸네일",			data: "doit_image_url",    	width: "10%",
+				{title: "썸네일",			data: "doit_image_url",    	width: "5%",
 					render: function (data) {
 						return `<div class="list-img-wrap doit-img-wrap"><img src="${data}" alt=""></div>`;
 					}
 				}
-				,{title: "두잇명",		data: "doit_title",    		width: "15%" }
+				,{title: "두잇명",		data: "doit_title",    		width: "22%" }
 				,{title: "리더",			data: "nickname",    		width: "20%" }
-				,{title: "참여자 수",		data: "join_user",   		width: "10%",
+				,{title: "참여자 수",		data: "join_user",   		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "월간 리더 스코어",	data: "score",    		width: "10%",
+				,{title: "리더 연속 인증 수",	data: "ongoing_action_count",    	width: "10%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "월간 열정지수",		data: "grit",  			width: "10%",
+				,{title: "리더 커뮤니티지수",	data: "community_score",  			width: "10%",
 					render: function (data) {
-						return Math.round(Number(data) * 100) / 100;
+						return numberWithCommas(data);
 					}
 				}
 				,{title: "인당 열정지수",	data: "grit_per_person",    width: "10%",
@@ -268,7 +250,7 @@
 						return Math.round(Number(data) * 100) / 100;
 					}
 				}
-				,{title: "오픈일",		data: "opened",   			width: "15%",
+				,{title: "오픈일",		data: "opened",   			width: "10%",
 					render: function (data) {
 						return data.slice(0, 10);
 					}
@@ -321,26 +303,18 @@
 		{
 			for (let i=0; i<tableData.length; i++)
 			{
-				const {doit_uuid, doit_title, doit_image_url, nickname, profile_uuid, grit, grit_per_person, score, join_user, opened} = tableData[i];
-
-				addedDoit.push(doit_uuid)
-				addedDoitObj.push({
-					"doit_uuid" : doit_uuid,
-					"doit_title" : doit_title,
-					"doit_image_url" : doit_image_url,
-					"nickname" : nickname,
-					"profile_uuid" : profile_uuid,
-					"grit" : grit,
-					"grit_per_person" : grit_per_person,
-					"score" : score,
-					"join_user" : join_user,
-					"opened" : opened,
-				});
+				addedDoitObj.push({...tableData[i]});
+				addedDoit.push(tableData[i].doit_uuid);
 			}
 
 			addedDoitObj.sort((a, b) => {
 				if (a.grit_per_person === b.grit_per_person)
-					return Number(b.join_user) - Number(a.join_user);
+				{
+					if (Number(b.join_user) === Number(a.join_user))
+						return Number(b.ongoing_action_count) - Number(a.ongoing_action_count)
+					else
+						return Number(b.join_user) - Number(a.join_user)
+				}
 
 				return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
 			});
@@ -386,9 +360,12 @@
 				"grit" : doit.grit,
 				"grit_per_person" : doit.grit_per_person,
 				"profile_uuid" : doit.profile_uuid,
-				"score" : doit.score
+				"score" : doit.score,
+				"ongoing_action_count" : doit.ongoing_action_count,
+				"community_score" : doit.community_score,
 			}
-		})
+		});
+
 		const param = {
 			"week" : weekOnRank,
 			"title" : title.val().trim(),

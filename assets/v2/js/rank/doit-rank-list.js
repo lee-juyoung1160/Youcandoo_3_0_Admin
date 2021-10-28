@@ -92,14 +92,14 @@
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "월간 리더 스코어",	data: "score",    			width: "10%",
+					,{title: "리더 연속 인증 수",	data: "ongoing_action_count",    width: "10%",
 						render: function (data) {
 							return numberWithCommas(data);
 						}
 					}
-					,{title: "월간 열정지수",		data: "grit",    			width: "10%",
+					,{title: "리더 커뮤니티지수",	data: "community_score",    	width: "10%",
 						render: function (data) {
-							return Math.round(Number(data) * 100) / 100;
+							return numberWithCommas(data);
 						}
 					}
 					,{title: "인당 열정지수",		data: "grit_per_person",    width: "10%",

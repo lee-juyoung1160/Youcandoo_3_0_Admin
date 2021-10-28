@@ -245,7 +245,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.doit_uuid);
-				$(nRow).children().eq(7).find('button').on('click', function () { removeRow(this); });
+				$(nRow).children().eq(8).find('button').on('click', function () { removeRow(this); });
 			},
 			drawCallback: function (settings) {
 			}

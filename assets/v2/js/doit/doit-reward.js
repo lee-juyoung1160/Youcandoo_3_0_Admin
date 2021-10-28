@@ -247,12 +247,12 @@
             initComplete: function () {
                 const table = targetTable.DataTable();
                 const tableData = table.rows().data();
+                const info = table.page.info();
                 if (!isEmpty(tableData) && tableData.length > 0)
                 {
-                    const descText = tableData.length === 1 ? `${tableData[0].profile.nickname}` : `${tableData[0].profile.nickname} 외 ${tableData.length -1}명`
+                    const descText = tableData.length === 1 ? `${tableData[0].profile.nickname}` : `${tableData[0].profile.nickname} 외 ${info.recordsTotal -1}명`
                     description.val(descText);
                 }
-
 
                 table.column(2).visible(!selRewardType.val() === 'all');
             },

@@ -552,7 +552,6 @@
 
 	export function onChangeActionType()
 	{
-		console.log(getActionType())
 		let exampleFileEl = '';
 		switch (getActionType()) {
 			case label.image :

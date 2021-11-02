@@ -99,7 +99,7 @@
 		btnRefreshTotalRank,
 		chkNoticeType,
 		chkNoticeTalk,
-		chkUpdateNoticeTalk, btnReward
+		chkUpdateNoticeTalk, btnReward, btnSubmitMemo
 	} from '../modules/elements.js';
 	import {
 		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -134,7 +134,7 @@
 		onClickBtnApproval,
 		onClickBtnReject,
 		onChangeChkBlock,
-		onChangeRdoReason,
+		onChangeRdoReason, onSubmitMemo,
 		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock, onClickBtnSaveUcd,
 	} from "./doit-detail-member.js";
 	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
@@ -220,17 +220,11 @@
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
 		btnSaveUcd.on('click', function () { onClickBtnSaveUcd(); });
-		/*btnSendNotice.on('click', function () { onClickModalSendNoticeOpen(); });*/
 		amount.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		actionTimes.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 		btnJoinMembers.on('click', function () { showJoinMemberForm(); });
-		// selMemberFilter.on('change', function () { onChangeSelMemberFilter(this); });
 		btnPendingMembers.on('click', function () { showPendingMemberForm(); });
 		selApplyMemberPageLength.on('change', function () { searchApplyMember(); });
-		// btnSubmitSaveUcd.on('click', function () { onSubmitSaveUcd(); });
-		// selRewardType.on('change', function () { onChangeSelRewardType(); });
-		// rewardKeyword.on("propertychange change keyup paste input", function () { searchRewardMember() });
-		/*selNotiType.on('change', function () { onChangeSelNotiType(); });*/
 		btnApproval.on('click', function () { onClickBtnApproval(); });
 		btnReject.on('click', function () { onClickBtnReject(); });
 		btnBlockMembers.on('click', function () { showBlockMemberForm(); });
@@ -240,6 +234,7 @@
 		btnSubmitBan.on('click', function () { onSubmitBan() });
 		selBlockMemberPageLength.on('change', function () { searchBlockMember() });
 		btnCancelBlock.on('click', function () { onClickBtnCancelBlock(); });
+		btnSubmitMemo.on('click', function () { onSubmitMemo(); });
 		/** 랭크탭 **/
 		searchTab.on('click', function () { onClickSearchTab(this); });
 		btnRefreshOngoingRank.on('click', function () { refreshOngoingRank(); });

@@ -92,6 +92,7 @@
         rejectMember : baseApiUrl + 'member/get/applyReject',
         blockMemberList : baseApiUrl + 'member/get/retire/ban/list',
         cancelBlockMember : baseApiUrl + 'member/set/retire/ban/cancel',
+        createBlockMemo : baseApiUrl + 'member/set/retire/ban/memo',
 
         rankMember : baseApiUrl + 'doit/get/member/rank',
 

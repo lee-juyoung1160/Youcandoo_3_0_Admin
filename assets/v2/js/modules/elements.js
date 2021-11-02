@@ -249,6 +249,7 @@
     export const banReasonWrap = $("#banReasonWrap");
     export const rdoReason = $("input[name=radio-reason]");
     export const banReason = $("#banReason");
+    export const modalMemo = $("#modalMemo");
 
     export const searchTab = $("#searchTab li");
     export const ongoingRankTable = $("#ongoingRankTable");

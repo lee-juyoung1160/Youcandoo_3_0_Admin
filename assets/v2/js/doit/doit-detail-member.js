@@ -458,7 +458,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).children().eq(2).addClass('toast-wrap');
-				$(nRow).children().eq(2).find('.line-clamp-2').on('click', function () { onClickAnswer(this); });
+				$(nRow).children().eq(2).find('.line-clamp').on('click', function () { onClickAnswer(this); });
 				$(nRow).children().eq(2).find('.close').on('click', function () { closeAnswerBox(); });
 			},
 			drawCallback: function (settings) {

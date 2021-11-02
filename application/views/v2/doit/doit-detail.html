@@ -948,8 +948,9 @@
                                 <colgroup>
                                     <col style="width: 20%;">
                                     <col style="width: 15%;">
-                                    <col style="width: 40%;">
-                                    <col style="width: 20%;">
+                                    <col style="width: 35%;">
+                                    <col style="width: 15%;">
+                                    <col style="width: 10%;">
                                     <col style="width: 5%;">
                                 </colgroup>
                                 <thead>
@@ -958,6 +959,7 @@
                                     <th>차단 일시</th>
                                     <th>차단 사유</th>
                                     <th>차단 처리자</th>
+                                    <th>메모</th>
                                     <th>
                                         <div class="check-wrap">
                                             <input id="c6" type="checkbox">
@@ -972,6 +974,14 @@
                                     <td>2020-02-02 00:00:00</td>
                                     <td>유캔두 내 운영 원칙에 위배되는 활동</td>
                                     <td>두잇두잇츄</td>
+                                    <td>
+                                        <div class="memo-wrap">
+                                            <button type="button" class="btn-xs"><i class="fas fa-pen"></i></button>
+                                            <i class="fas fa-sticky-note tooltip-mark">
+                                                <span class="tooltip-txt left">최대 6개까지 등록 가능</span>
+                                            </i>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="check-wrap">
                                             <input id="c7" type="checkbox">
@@ -2808,6 +2818,24 @@
                         </tbody>-->
                     </table>
                 </div>
+            </div>
+        </div>
+
+
+        <!-- 차단목록 > 메모 등록 -->
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h5>차단목록 - 메모 등록</h5>
+                <i class="modal-close">×</i>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-close">닫기</button>
+                <button type="button" class="btn btn-primary">등록 완료</button>
             </div>
         </div>
 

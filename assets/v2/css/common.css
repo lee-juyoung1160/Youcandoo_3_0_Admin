@@ -723,6 +723,19 @@ button i {
 	color: #fff;
 	background-color: darkslateblue;
 }
+/* 메모 쓰기 보기 */
+.memo-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.memo-wrap .fa-pen {
+	font-size: 17px;
+	color: #0061f2;
+}
+.memo-wrap .tooltip-mark  {
+	margin-left: 5px;
+}
 
 /* tool tip */
 .tooltip-mark {

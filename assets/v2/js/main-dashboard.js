@@ -455,8 +455,8 @@
                     const param = {
                         "from_date" : dateFromSummaryList.val(),
                         "to_date" : dateToSummaryList.val(),
-                        "page" : (d.start / d.length) + 1
-                        ,"limit" : d.length
+                        "page" : (d.start / d.length) + 1,
+                        "limit" : d.length
                     }
 
                     return JSON.stringify(param);
@@ -502,17 +502,17 @@
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "두잇 개설", 	data: "create_doit_count",		width: "9%",
+                ,{title: "연속인증 21+", 	data: "ongoing_user_count",	    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "연속인증21일이상", 	data: "ongoing_user_count",	    width: "9%",
+                ,{title: "연속인증 66+", 	data: "ongoing_user_count_66",		width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }
                 }
-                ,{title: "발행 UCD", 	data: "ucd_amount",	            width: "9%",
+                ,{title: "연속인증 100+", data: "ongoing_user_count_100",	    width: "9%",
                     render: function (data) {
                         return numberWithCommas(data);
                     }

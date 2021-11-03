@@ -5,13 +5,10 @@
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initSearchDateRangeMonths, initMaxDateToday,
 		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail} from "../modules/common.js";
-	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
-	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
+	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, } from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {numberWithCommas} from "../modules/utils.js";
-
-	let _currentPage = 1;
 
 	$( () => {
 		/** dataTable default config **/
@@ -19,7 +16,7 @@
 		initSearchDatepicker();
 		/** n개씩 보기 초기화 **/
 		initPageLength(selPageLength);
-		isBackAction() ? setHistoryForm() : initSearchForm();
+		initSearchForm();
 		/** 목록 불러오기 **/
 		buildTable();
 		/** 이벤트 **/
@@ -41,19 +38,6 @@
 		keyword.val('');
 	}
 
-	function setHistoryForm()
-	{
-		const historyParams = getHistoryParam();
-
-		selDateType.val(historyParams.date_type);
-		dateFrom.val(historyParams.from_date);
-		dateTo.val(historyParams.to_date);
-		selSearchType.val(historyParams.search_type);
-		keyword.val(historyParams.keyword);
-		selPageLength.val(historyParams.limit);
-		_currentPage = historyParams.page;
-	}
-
 	function onKeydownSearch(event)
 	{
 		if (event.keyCode === 13)
@@ -62,7 +46,6 @@
 
 	function onSubmitSearch()
 	{
-		_currentPage = 1;
 		let table = dataTable.DataTable();
 		table.page.len(Number(selPageLength.val()));
 		table.ajax.reload();
@@ -91,15 +74,25 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return tableParams();
+					const param = {
+						"date_type" : selDateType.val(),
+						"from_date" : dateFrom.val(),
+						"to_date" : dateTo.val(),
+						"search_type": selSearchType.val(),
+						"keyword" : keyword.val().trim(),
+						"page": (d.start / d.length) + 1,
+						"limit": selPageLength.val(),
+					}
+
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
 				}
 			},
 			columns: [
-				{title: "비활성일시", 	data: "deactived",			width: "15%" }
-				,{title: "닉네임",    		data: "nickname",  			width: "25%",
+				{title: "비활성일시", 		data: "deactived",			width: "15%" }
+				,{title: "닉네임",    	data: "nickname",  			width: "25%",
 					render: function (data, type, row, meta) {
 						return `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
@@ -132,36 +125,16 @@
 			select: false,
 			destroy: false,
 			initComplete: function () {
-				$(this).on('page.dt', function () { _currentPage = getCurrentPage(this); });
-				redrawPage(this, _currentPage);
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 닉네임 클릭이벤트 **/
-				$(nRow).children().eq(0).find('a').on('click', function () { onClickNickname(this); });
+				$(nRow).children().eq(1).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
 				toggleBtnPreviousAndNextOnTable(this);
 			}
 		});
-	}
-
-	function tableParams()
-	{
-		const param = {
-			"date_type" : selDateType.val(),
-			"from_date" : dateFrom.val(),
-			"to_date" : dateTo.val(),
-			"search_type": selSearchType.val(),
-			"keyword" : keyword.val().trim(),
-			"page": _currentPage,
-			"limit": selPageLength.val(),
-		}
-
-		/** sessionStorage에 정보 저장 : 뒤로가기 액션 히스토리 체크용 **/
-		setHistoryParam(param);
-
-		return JSON.stringify(param);
 	}
 
 	function onClickNickname(obj)

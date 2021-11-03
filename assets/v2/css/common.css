@@ -736,6 +736,10 @@ button i {
 .memo-wrap .tooltip-mark  {
 	margin-left: 5px;
 }
+.memo-wrap .tooltip-txt {
+	word-break: break-all;
+	white-space: pre;
+}
 
 /* tool tip */
 .tooltip-mark {

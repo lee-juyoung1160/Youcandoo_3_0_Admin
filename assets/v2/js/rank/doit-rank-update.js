@@ -206,7 +206,7 @@
 	function addDoit(data)
 	{
 		let tempObj = []
-		tempObj.push({...data})
+		tempObj.push({...data, is_new : 'Y'});
 		addedDoitObj = tempObj.concat(addedDoitObj);
 
 		addedDoit.push(data.doit_uuid);

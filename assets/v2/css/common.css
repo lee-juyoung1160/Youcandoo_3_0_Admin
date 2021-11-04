@@ -524,7 +524,7 @@ button i {
 .btn-primary {
 	color: #fff;
 	background-color: #0061f2;
-	border-color: #0061f2;
+	border: 1px solid #0061f2;
 }
 .btn-primary:hover {
 	color: #fff;
@@ -582,6 +582,7 @@ button i {
 	color: #0061f2;
 	border-color: #0061f2;
 	background-color: #fff;
+	box-sizing: border-box;
 }
 .btn-outline-danger {
 	color: #e81500;
@@ -747,6 +748,9 @@ button i {
 	color: #777;
 	font-size: 17px;
 	z-index: 100;
+}
+button .tooltip-mark {
+	font-size: 14px;
 }
 .tooltip-txt {
 	display: none;
@@ -952,6 +956,8 @@ table {
 	margin-top: 10px;
 }
 .table-wrap .top {
+	display: flex;
+	align-items: center;
 	margin-bottom: 10px;
 }
 .table-wrap .top .left-wrap {
@@ -968,6 +974,7 @@ table {
 }
 .table-wrap .top .btn-wrap {
 	float: right;
+	margin-left: auto;
 }
 .table-wrap .top .btn-wrap i {
 	margin-right: 5px;

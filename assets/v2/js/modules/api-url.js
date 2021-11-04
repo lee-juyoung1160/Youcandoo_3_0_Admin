@@ -127,6 +127,7 @@
         rankList : baseApiUrl + 'doit/rank/get/list',
         createRank : baseApiUrl + 'doit/rank/set',
         targetRankList : baseApiUrl + 'doit/rank/popup/get',
+        copyRank : baseApiUrl + 'doit/rank/set/copy',
 
         bizList : baseApiUrl + 'biz/get/list',
         createBiz : baseApiUrl + 'biz/create',

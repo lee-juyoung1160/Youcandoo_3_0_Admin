@@ -73,7 +73,6 @@
 		if (rankObj.length > 0)
 		{
 			const selectedWeekData = rankObj.filter(rank => rank.week === selWeekly.val());
-			console.log(selectedWeekData)
 			dataTable.DataTable({
 				data: selectedWeekData[0].doit_list,
 				columns: [

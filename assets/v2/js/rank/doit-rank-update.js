@@ -63,7 +63,7 @@
 			addedDoit.push(doit.doit_uuid);
 		})
 
-		addedDoitObj.sort((a, b) => {
+		/*addedDoitObj.sort((a, b) => {
 			if (a.grit_per_person === b.grit_per_person)
 			{
 				if (Number(b.join_user) === Number(a.join_user))
@@ -73,9 +73,11 @@
 			}
 
 			return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
-		});
+		});*/
 
 		buildUpdateTable();
+		/** 테이블 drag and drop 정렬 초기화 **/
+		initSortTable();
 	}
 
 	function buildDetail(data)
@@ -195,15 +197,21 @@
 		}
 
 		const selectedData = dt.rows(indexes).data()[0];
-		addUser(selectedData);
+		addDoit(selectedData);
+		/** 테이블 drag and drop 정렬 초기화 **/
+		updateTable.find('tbody').sortable("destroy");
+		initSortTable();
 	}
 
-	function addUser(data)
+	function addDoit(data)
 	{
-		addedDoitObj.push({...data})
+		let tempObj = []
+		tempObj.push({...data})
+		addedDoitObj = tempObj.concat(addedDoitObj);
+
 		addedDoit.push(data.doit_uuid);
 
-		addedDoitObj.sort((a, b) => {
+		/*addedDoitObj.sort((a, b) => {
 			if (a.grit_per_person === b.grit_per_person)
 			{
 				if (Number(b.join_user) === Number(a.join_user))
@@ -213,7 +221,7 @@
 			}
 
 			return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
-		});
+		});*/
 
 		buildUpdateTable();
 	}
@@ -274,6 +282,13 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				$(nRow).attr('id', aData.doit_uuid);
+				$(nRow).attr('data-join_user', aData.join_user);
+				$(nRow).attr('data-grit', aData.grit);
+				$(nRow).attr('data-grit_per_person', aData.grit_per_person);
+				$(nRow).attr('data-profile_uuid', aData.profile_uuid);
+				$(nRow).attr('data-score', aData.score);
+				$(nRow).attr('data-ongoing_action_count', aData.ongoing_action_count);
+				$(nRow).attr('data-community_score', aData.community_score);
 				$(nRow).children().eq(8).find('button').on('click', function () { removeRow(this); });
 				if (aData.is_new === 'Y')
 					$(nRow).addClass('selected');
@@ -289,15 +304,8 @@
 		let table = updateTable.DataTable();
 		table.row($(obj).closest('tr')).remove().draw(false);
 
-		initAddedDoitData();
-	}
-
-	function initAddedDoitData()
-	{
 		addedDoit.length = 0;
 		addedDoitObj.length = 0;
-
-		let table = updateTable.DataTable();
 		const tableData = table.rows().data();
 		if (tableData.length > 0)
 		{
@@ -307,7 +315,7 @@
 				addedDoit.push(tableData[i].doit_uuid);
 			}
 
-			addedDoitObj.sort((a, b) => {
+			/*addedDoitObj.sort((a, b) => {
 				if (a.grit_per_person === b.grit_per_person)
 				{
 					if (Number(b.join_user) === Number(a.join_user))
@@ -317,8 +325,32 @@
 				}
 
 				return parseFloat(b.grit_per_person) - parseFloat(a.grit_per_person);
-			});
+			});*/
 		}
+	}
+
+	function initSortTable()
+	{
+		updateTable.find('tbody').sortable({
+			helper: function (e, el) {
+				return addAttrDragonElement(el);
+			}
+		});
+	}
+
+	function addAttrDragonElement(el)
+	{
+		let tdElement = $(el).children();
+		$(tdElement[0]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
+		$(tdElement[1]).css("width", Math.ceil(($(el).width()/100)*22)+'px');
+		$(tdElement[2]).css("width", Math.ceil(($(el).width()/100)*20)+'px');
+		$(tdElement[3]).css("width", Math.ceil(($(el).width()/100)*8)+'px');
+		$(tdElement[4]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[5]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[6]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[7]).css("width", Math.ceil(($(el).width()/100)*10)+'px');
+		$(tdElement[8]).css("width", Math.ceil(($(el).width()/100)*5)+'px');
+		return $(el);
 	}
 
 	function onSubmitRank()
@@ -353,18 +385,22 @@
 
 	function updateRequest()
 	{
-		const doitList = addedDoitObj.map(doit => {
-			return {
-				"doit_uuid" : doit.doit_uuid,
-				"join_user" : doit.join_user,
-				"grit" : doit.grit,
-				"grit_per_person" : doit.grit_per_person,
-				"profile_uuid" : doit.profile_uuid,
-				"score" : doit.score,
-				"ongoing_action_count" : doit.ongoing_action_count,
-				"community_score" : doit.community_score,
-			}
-		});
+		const rows 	= updateTable.find('tbody').children();
+		let doitList = [];
+		for (let i=0; i<rows.length; i++)
+		{
+			doitList.push({
+				"ranking" : i + 1,
+				"doit_uuid" : rows[i].id,
+				"join_user" : $(rows[i]).data('join_user'),
+				"grit" : $(rows[i]).data('grit'),
+				"grit_per_person" : $(rows[i]).data('grit_per_person'),
+				"profile_uuid" : $(rows[i]).data('profile_uuid'),
+				"score" : $(rows[i]).data('score'),
+				"ongoing_action_count" : $(rows[i]).data('ongoing_action_count'),
+				"community_score" : $(rows[i]).data('community_score'),
+			})
+		}
 
 		const param = {
 			"week" : weekOnRank,

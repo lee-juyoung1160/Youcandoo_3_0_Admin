@@ -55,6 +55,12 @@
  */
 //	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 define('ENVIRONMENT', 'development');
+// 로컬 서버 확인 
+if(php_sapi_name() == 'cli') { // php cli는 document_root 체크
+	define('SERVER', ( "/htdocs" ==  $_SERVER['PWD'])? ENVIRONMENT : 'local');
+} else { // docker 서버 아이피는 172.17로 시작
+	define('SERVER', preg_match( "/^172\.17\.0\./", $_SERVER['SERVER_ADDR'])? 'local' : ENVIRONMENT);
+}
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

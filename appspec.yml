@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/release
+permissions:
+  - object: /var/www/release
+    owner: yanadoo
+    group: yanadoo
+hooks:
+  BeforeInstall:
+    - location: aws-scripts/beforeInstall.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: aws-scripts/afterInstall.sh
+      timeout: 300
+      runas: root

@@ -101,6 +101,7 @@
             '/v2/marketing/event',
             '/v2/marketing/push',
             '/v2/marketing/popup',
+            '/v2/marketing/customevent',
             '/v2/gift',
             '/v2/service/notice',
             '/v2/service/faq',

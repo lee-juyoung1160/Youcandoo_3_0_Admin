@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ucd extends MY_Controller {
 
-    public function index()
+    public function system()
     {
         $this->load->template('v2/ucd/ucd-system-wallet');
     }
@@ -18,7 +18,7 @@ class Ucd extends MY_Controller {
         $this->load->template('v2/ucd/ucd-member-wallet');
     }
 
-    public function waiting()
+    public function pending()
     {
         $this->load->template('v2/ucd/ucd-pending-wallet');
     }

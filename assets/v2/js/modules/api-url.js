@@ -184,8 +184,10 @@
         detailEvent : baseApiUrl + 'event/get/detail/info',
         deleteEvent : baseApiUrl + 'event/delete',
         updateEvent : baseApiUrl + 'event/update',
+
         customEvent : baseApiUrl + 'event/popup/get/list',
         customEventProfile : baseApiUrl + 'event/popup/get/profile',
+        createCustomEvent : baseApiUrl + 'event/popup/set',
 
         pushList : baseApiUrl + 'push/list',
         cancelPush : baseApiUrl + 'push/set/cancel',
@@ -201,6 +203,8 @@
         detailPopup : baseApiUrl + 'popup/get/detail/info',
         updatePopup : baseApiUrl + 'popup/update',
         deletePopup : baseApiUrl + 'popup/delete',
+
+        inviteList : baseApiUrl + '',
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',

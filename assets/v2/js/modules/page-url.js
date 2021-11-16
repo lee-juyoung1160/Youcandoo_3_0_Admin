@@ -52,6 +52,7 @@
         ,listEvent : rootContext + 'marketing/event'
         ,detailEvent : rootContext + 'marketing/event/detail/'
         ,updateEvent : rootContext + 'marketing/event/update/'
+        ,listCustomEvent : rootContext + 'marketing/customevent'
         ,listPush : rootContext + 'marketing/push'
         ,listPopup : rootContext + 'marketing/popup'
         ,detailPopup : rootContext + 'marketing/popup/detail/'

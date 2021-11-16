@@ -174,6 +174,8 @@
 
 			onErrorImage();
 		}
+		else
+			previewTable.find('tbody').empty();
 	}
 
 	function onClickModalOpen()

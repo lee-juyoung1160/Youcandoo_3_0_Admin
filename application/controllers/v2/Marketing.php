@@ -51,9 +51,16 @@ class Marketing extends MY_Controller {
         }
     }
 
-    public function participant()
+    public function customevent($Route = "")
     {
-        $this->load->template('v2/marketing/event-participant-list');
+        switch ($Route) {
+            case "":
+                $this->load->template('v2/marketing/customevent-list');
+                break;
+            case "create":
+                $this->load->template('v2/marketing/customevent-create');
+                break;
+        }
     }
 
     public function push($Route = "")
@@ -84,6 +91,11 @@ class Marketing extends MY_Controller {
                 $this->load->template('v2/marketing/popup-update');
                 break;
         }
+    }
+
+    public function invite()
+    {
+        $this->load->template('v2/marketing/invite-list');
     }
 
 }

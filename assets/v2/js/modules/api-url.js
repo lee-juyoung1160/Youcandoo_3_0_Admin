@@ -204,7 +204,7 @@
         updatePopup : baseApiUrl + 'popup/update',
         deletePopup : baseApiUrl + 'popup/delete',
 
-        inviteList : baseApiUrl + '',
+        inviteList : baseApiUrl + 'invite/list',
 
         errorList : baseApiUrl + 'error/list',
         updateError : baseApiUrl + 'error/update',

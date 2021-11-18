@@ -12,8 +12,8 @@
                         <p class="search-title">날짜</p>
                         <div class="form-box">
                             <select id="selDateType" class="select-box">
-                                <option value="created">가입일</option>
-                                <option value="">첫 인증일</option>
+                                <option value="join">가입일</option>
+                                <option value="action">첫 인증일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -32,8 +32,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">추천인</option>
-                                <option value="">초대된 친구</option>
+                                <option value="sender">추천인</option>
+                                <option value="receiver">초대된 친구</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -50,11 +50,11 @@
                 <div class="card clearfix">
                     <p class="search-title">구분</p>
                     <div class="radio-wrap">
-                        <input id="c1" type="radio" name="radio-type" value="all" checked>
+                        <input id="c1" type="radio" name="radio-type" value="" checked>
                         <label for="c1"><span></span>전체</label>
 
                         <input id="c2" type="radio" name="radio-type" value="Y">
-                        <label for="c2"><span></span>인증완료</label>
+                        <label for="c2"><span></span>첫 인증완료</label>
                     </div>
                 </div>
             </div>
@@ -76,19 +76,23 @@
                 </div>
             </div>
             <table id="dataTable">
-                <thead>
+                <!--<thead>
                 <colgroup>
                     <col style="width: 25%;">
+                    <col style="width: 15%;">
+                    <col style="width: 15%;">
                     <col style="width: 25%;">
-                    <col style="width: 25%;">
-                    <col style="width: 25%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>닉네임</th>
-                    <th>가입일</th>
-                    <th>첫 인증일</th>
+                    <th>가입일시</th>
+                    <th>첫 인증일시</th>
                     <th>추천인</th>
+                    <th>본인인증</th>
+                    <th>지급 UCD</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -97,8 +101,10 @@
                     <td>2020-02-02</td>
                     <td>2020-02-02</td>
                     <td>두목고양이</td>
+                    <td>완료</td>
+                    <td>3,000</td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>

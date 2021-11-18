@@ -22,6 +22,7 @@
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, } from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
+	import {isEmpty, numberWithCommas} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -31,13 +32,13 @@
 		initPageLength(selPageLength);
 		initSearchForm();
 		/** 목록 불러오기 **/
-		// buildTable();
+		buildTable();
 		/** 이벤트 **/
 		body  		.on("keydown", function (event) { onKeydownSearch(event) });
 		dateFrom.on('change', function () { onChangeSearchDateFrom(); });
 		dateTo.on('change', function () { onChangeSearchDateTo(); });
-		// selPageLength	.on("change", function () { onSubmitSearch(); });
-		// btnSearch 	.on("click", function () { onSubmitSearch(); });
+		selPageLength	.on("change", function () { onSubmitSearch(); });
+		btnSearch 	.on("click", function () { onSubmitSearch(); });
 		btnReset	.on("click", function () { initSearchForm(); });
 		dateButtons	.on("click", function () { onClickDateRangeBtn(this); });
 	});
@@ -94,7 +95,7 @@
 						"to_date" : dateTo.val(),
 						"search_type": selSearchType.val(),
 						"keyword" : keyword.val().trim(),
-						"is_exposure": $("input[name=radio-type]:checked").val(),
+						"is_action": $("input[name=radio-type]:checked").val(),
 						"page": (d.start / d.length) + 1,
 						"limit": selPageLength.val(),
 					}
@@ -106,18 +107,20 @@
 				}
 			},
 			columns: [
-				{title: "닉네임",    	data: "nickname",  		width: "25%" }
-				,{title: "가입일", 		data: "created",		width: "25%",
-					render: function (data, type, row, meta) {
-						return data.slice(0, 10);
+				{title: "닉네임",    		data: "reciever_nickname",  	width: "25%" }
+				,{title: "가입일시", 		data: "join_date",				width: "15%" }
+				,{title: "첫 인증일시", 	data: "action_date",			width: "15%",
+					render: function (data) {
+						return data.startsWith('0') ? label.dash : data;
 					}
 				}
-				,{title: "첫 인증일", 	data: "event_type",		width: "25%",
-					render: function (data, type, row, meta) {
-						return data.slice(0, 10);
+				,{title: "추천인",    	data: "sender_nickname",  		width: "25%" }
+				,{title: "본인인증",    	data: "is_auth",  				width: "10%" }
+				,{title: "지급 UCD",    	data: "receiver_ucd",  			width: "10%",
+					render: function (data) {
+						return isEmpty(data) ? label.dash : numberWithCommas(data);
 					}
 				}
-				,{title: "추천인",    	data: "is_exposure",  	width: "25%" }
 			],
 			serverSide: true,
 			paging: true,

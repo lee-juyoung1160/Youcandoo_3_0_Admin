@@ -7,8 +7,10 @@ $config['redis_session']="10.0.107.43";
 
 $config['api_server_url']="https://adminapi.youcandoo.co.kr";
 
-if(SERVER == 'local'){
+if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
     $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
+} else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
+    $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
 }
 
 if($_SERVER['SERVER_ADDR']=="10.7.103.162")

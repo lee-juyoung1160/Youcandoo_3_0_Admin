@@ -869,7 +869,7 @@
 	{
 		if (updateTalkValid())
 		{
-			const callback = (isEmpty(getUpdateAttachType()) || g_talk_attach_type === getUpdateAttachType()) ? updateTalkRequest : updateTalkAttachRequest;
+			const callback = isEmpty(getUpdateAttachType()) ? updateTalkRequest : updateTalkAttachRequest;
 			sweetConfirm(message.modify, callback);
 		}
 	}

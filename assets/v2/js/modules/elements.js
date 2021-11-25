@@ -390,6 +390,10 @@
     export const faqTitle = $("#faqTitle");
     /** 문의 **/
     export const selInquiryType = $("#selInquiryType");
+    export const selVocType = $("#selVocType");
+    export const selVocTypeDetail = $("#selVocTypeDetail");
+    export const selRiskGrade = $("#selRiskGrade");
+    export const vocType = $("#vocType");
     export const inquiryTitle = $("#inquiryTitle");
     export const attachmentWrap = $("#attachmentWrap");
     export const answerEl = $("#answerEl");

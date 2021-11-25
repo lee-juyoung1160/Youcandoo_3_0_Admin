@@ -1,8 +1,25 @@
 
 	import {headers, isSuccessResp, invalidResp, ajaxRequestWithJson} from '../modules/ajax-request.js';
 	import { api } from '../modules/api-url.js';
-	import {body, btnSearch, btnReset, keyword, dataTable, selPageLength, rdoStatus, rdoType,
-		dateButtons, dateFrom, dateTo, selInquiryType, selSearchType, btnXlsxExport} from '../modules/elements.js';
+	import {
+		body,
+		btnSearch,
+		btnReset,
+		keyword,
+		dataTable,
+		selPageLength,
+		rdoStatus,
+		rdoType,
+		dateButtons,
+		dateFrom,
+		dateTo,
+		selInquiryType,
+		selSearchType,
+		btnXlsxExport,
+		selVocType,
+		selVocTypeDetail,
+		selRiskGrade
+	} from '../modules/elements.js';
 	import {sweetError, sweetToast,} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, initDayBtn, initMaxDateToday, initSearchDateRangeMonth,
 		onClickDateRangeBtn, onChangeSearchDateFrom, onChangeSearchDateTo, moveToMemberDetail,} from "../modules/common.js";
@@ -38,6 +55,7 @@
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
 		btnXlsxExport	.on("click", function () { onClickBtnXlsxExport(); })
+		selVocType		.on("change", function () { onChangeSelVocType(); })
 	});
 
 	function initSearchForm()
@@ -49,6 +67,7 @@
 		keyword.val('');
 		rdoStatus.eq(0).prop('checked', true);
 		rdoType.eq(0).prop('checked', true);
+		onChangeSelVocType();
 	}
 
 	function setHistoryForm()
@@ -60,6 +79,10 @@
 		selSearchType.val(historyParams.search_type);
 		keyword.val(historyParams.keyword);
 		selInquiryType.val(historyParams.qna_type);
+		selVocType.val(historyParams.voc_type);
+		onChangeSelVocType();
+		selVocTypeDetail.val(historyParams.voc_detail_type);
+		selRiskGrade.val(historyParams.risk_grade);
 		rdoStatus.each(function () {
 			$(this).prop('checked', $(this).val() === historyParams.status);
 		})
@@ -114,40 +137,32 @@
 				}
 			},
 			columns: [
-				{title: "문의구분",    data: "qna_type",    		width: "10%" }
-				,{title: "제목",  	 data: "title",    			width: "15%",
+				{title: "문의구분",    	data: "qna_type",    	width: "10%" }
+				,{title: "제목",  	 	data: "title",    		width: "15%",
 					render: function (data, type, row, meta) {
 						let baseUrl = row.status === '대기' ? page.updateInquiry : page.detailInquiry;
 						return `<a href="${baseUrl}${row.idx}" class="line-clamp-1" style="max-width: 200px">${data}</a>`;
 					}
 				}
-				,{title: "회원구분",  data: "profile_uuid", 		width: "5%",
-					render: function (data) {
-						return isEmpty(data) ? label.guest : label.member;
-					}
-				}
-				,{title: "닉네임", 	 data: "nickname",			width: "20%",
+				,{title: "닉네임", 	 	data: "nickname",		width: "20%",
 					render: function (data, type, row, meta) {
 						return isEmpty(row.profile_uuid) ? data : `<a data-uuid="${row.profile_uuid}">${data}</a>`;
 					}
 				}
-				,{title: "등록일시",   data: "created",  			width: "10%",
+				,{title: "등록일시",   	data: "created",  		width: "15%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "담당자",  	 data: "userid",    		width: "10%",
+				,{title: "담당자",  	 	data: "userid",    		width: "10%",
 					render: function (data) {
 						return isEmpty(data) ? label.dash : data;
 					}
 				}
-				,{title: "처리일시",   data: "answered",  		width: "10%",
-					render: function (data) {
-						return isEmpty(data) ? label.dash : data;
-					}
-				}
-				,{title: "답변상태",  data: "status",  			width: "5%" }
-				,{title: "메모",  	data: "memo",    			width: "5%",
+				,{title: "VOC 분류",   	data: "voc_type",  		width: "10%" }
+				,{title: "리스크 등급",   	data: "risk_grade",  	width: "10%" }
+				,{title: "답변상태",  	data: "status",  		width: "5%" }
+				,{title: "메모",  		data: "memo",    		width: "5%",
 					render: function (data) {
 						return buildMemo(data);
 					}
@@ -164,7 +179,7 @@
 			},
 			fnRowCallback: function( nRow, aData ) {
 				/** 닉네임 클릭이벤트 **/
-				$(nRow).children().eq(3).find('a').on('click', function () { onClickNickname(this); });
+				$(nRow).children().eq(2).find('a').on('click', function () { onClickNickname(this); });
 			},
 			drawCallback: function (settings) {
 				buildTotalCount(this);
@@ -180,9 +195,11 @@
 			"to_date" : dateTo.val(),
 			"search_type" : selSearchType.val(),
 			"keyword" : keyword.val().trim(),
-			"device_type" : $("input[name=radio-type]:checked").val(),
 			"qna_type" : selInquiryType.val(),
 			"status" : $("input[name=radio-status]:checked").val(),
+			"voc_type" : selVocType.val(),
+			"voc_detail_type" : selVocTypeDetail.val(),
+			"risk_grade" : selRiskGrade.val(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
 		}
@@ -228,3 +245,34 @@
 	{
 		setExcelData(`문의목록_${getStringFormatToDate(new Date(), '')}`, '1:1문의', data.data);
 	}
+
+	function onChangeSelVocType()
+	{
+		let options = '<option value="all">전체</option>';
+
+		switch (selVocType.val()) {
+			case '개선 요청' :
+				options +=
+					`<option value="현 기능">현 기능</option>
+					<option value="신규 기능">신규 기능</option>
+					<option value="디자인">디자인</option>
+					<option value="운영 정책">운영 정책</option>`
+				break;
+			case '이용 문의' :
+				options +=
+					`<option value="서비스 안내">서비스 안내</option>
+					<option value="회원 정보">회원 정보</option>
+					<option value="기능 문의">기능 문의</option>
+					<option value="운영 정책">운영 정책</option>`
+				break;
+			case '기타' :
+				options +=
+					`<option value="이벤트 참여">이벤트 참여</option>
+					<option value="사용후기">사용후기</option>
+					<option value="제휴">제휴</option>`
+				break;
+		}
+
+		selVocTypeDetail.html(options);
+	}
+

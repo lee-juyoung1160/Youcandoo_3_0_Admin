@@ -596,13 +596,24 @@
                 case '리더 랭킹' :
                     return {
                         '랭킹' : obj.ranking,
-                        '프로필 아이디' : obj.profile_uuid
+                        '프로필 아이디' : obj.profile_uuid,
+                        '닉네임' : obj.nickname,
+                        '연속인증 수' : obj.ongoing_action_count,
+                        '게시글 수' : obj.board_count,
+                        '게시글 댓글 수' : obj.board_comment_count,
+                        '인증 댓글 수' : obj.action_comment_count,
+                        '총점' : obj.score,
                     }
                 case '두잇 랭킹' :
                     return {
                         '랭킹' : obj.ranking,
                         '두잇명' : obj.doit_title,
-                        '두잇 아이디' : obj.doit_uuid
+                        '두잇 아이디' : obj.doit_uuid,
+                        '누적 인증 수' : obj.total_action_count,
+                        '게시글 수' : obj.board_count,
+                        '게시글 댓글 수' : obj.board_comment_count,
+                        '인증 댓글 수' : obj.action_comment_count,
+                        '두잇 그릿지수' : obj.grit,
                     }
             }
         })

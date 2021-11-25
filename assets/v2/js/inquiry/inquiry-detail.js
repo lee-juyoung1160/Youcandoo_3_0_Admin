@@ -3,7 +3,7 @@
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, modalClose, modalBackdrop, userNickname, deviceInfo, inquiryTitle,
-		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate
+		content, attachmentWrap, answerEl, memoEl, admin, answerDate, thumbnail, btnUpdate, vocType
 	} from '../modules/elements.js';
 	import {sweetToast, sweetError,} from '../modules/alert.js';
 	import {fadeinModal, fadeoutModal, historyBack, moveToMemberDetail, onErrorImage} from "../modules/common.js";
@@ -40,7 +40,23 @@
 	let g_inquiry_uuid;
 	function buildDetail(data)
 	{
-		const { qna_uuid, app_version, os_version, device, nickname, profile_uuid, title, contents, userid, answer, answered, memo } = data.data;
+		const {
+			qna_uuid,
+			app_version,
+			os_version,
+			device,
+			nickname,
+			profile_uuid,
+			title,
+			contents,
+			userid,
+			answer,
+			answered,
+			memo,
+			voc_type,
+			voc_detail_type,
+			risk_grade
+		} = data.data;
 
 		g_inquiry_uuid = qna_uuid;
 
@@ -53,6 +69,7 @@
 		memoEl.text(isEmpty(memo) ? label.dash : memo);
 		admin.text(userid);
 		answerDate.text(answered);
+		vocType.html(`문의유형 : ${voc_type} <br>상세 구분 : ${voc_detail_type} <br>리스크 등급 : ${risk_grade}`);
 
 		onErrorImage();
 

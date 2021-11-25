@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/assets/v2/css/service.css?version=<?php echo $this->config->item('version');?>">
-<section class="faq-list">
+<section class="inquiry-list">
     <div class="inner">
 
         <div class="main-top clearfix">
@@ -63,7 +63,7 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">답변 상태</p>
-                    <div class="radio-wrap">
+                    <div class="radio-wrap" style="padding: 6px 0;">
                         <input id="r1" type="radio" name="radio-status" value="all">
                         <label for="r1"><span></span>전체</label>
 
@@ -75,19 +75,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <div class="card clearfix">
-                    <p class="search-title">기기 구분</p>
-                    <div class="radio-wrap">
-                        <input id="r4" type="radio" name="radio-type" value="all">
-                        <label for="r4"><span></span>전체</label>
-
-                        <input id="r5" type="radio" name="radio-type" value="AOS">
-                        <label for="r5"><span></span>AOS</label>
-
-                        <input id="r6" type="radio" name="radio-type" value="IOS">
-                        <label for="r6"><span></span>IOS</label>
-                    </div>
+                    <p class="search-title">VOC 분류</p>
+                    <select id="" class="select-box">
+                        <option value="all">전체</option>
+                        <option value="개선 요청">개선 요청</option>
+                        <option value="이용 문의">이용 문의</option>
+                        <option value="기타">기타</option>
+                    </select>
+                    <select id="" class="select-box">
+                        <option value="all">전체</option>
+                        <option value="현 기능">현 기능</option>
+                        <option value="신규 기능">신규 기능</option>
+                        <option value="디자인">디자인</option>
+                        <option value="운영 정책">운영 정책</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card clearfix">
+                    <p class="search-title">리스크 등급</p>
+                    <select id="" class="select-box">
+                        <option value="all">전체</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
                 </div>
             </div>
         </div>

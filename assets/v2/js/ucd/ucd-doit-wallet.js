@@ -12,7 +12,7 @@
 		dateButtons,
 		dateFrom,
 		dateTo,
-		rdoType,
+		rdoType, rdoStatus,
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
@@ -49,6 +49,7 @@
 		initSelectOption();
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
+		rdoStatus.eq(0).prop('checked', true);
 	}
 
 	function onKeydownSearch(event)

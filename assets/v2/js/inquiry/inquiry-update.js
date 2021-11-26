@@ -72,9 +72,9 @@
 		answerEl.val(isEmpty(answer) ? defaultAnswer : answer);
 		answerEl.prop('selectionEnd', answerStart.length + 1);
 		memoEl.val(memo);
-		selVocType.val(voc_type);
+		selVocType.val(isEmpty(voc_type) ? selVocType.children().eq(1).val() : voc_type);
 		onChangeSelVocType();
-		selVocTypeDetail.val(voc_detail_type);
+		selVocTypeDetail.val(isEmpty(voc_detail_type) ? selVocTypeDetail.children().eq(1).val() : voc_detail_type);
 		selRiskGrade.val(risk_grade);
 		onErrorImage();
 
@@ -183,25 +183,25 @@
 
 	function onChangeSelVocType()
 	{
-		let options = '<option value="" disabled selected>상세유형</option>';
+		let options = '<option value="" disabled>상세유형</option>';
 
 		switch (selVocType.val()) {
 			case '개선 요청' :
-				options =
+				options +=
 					`<option value="현 기능">현 기능</option>
 					<option value="신규 기능">신규 기능</option>
 					<option value="디자인">디자인</option>
 					<option value="운영 정책">운영 정책</option>`
 				break;
 			case '이용 문의' :
-				options =
+				options +=
 					`<option value="서비스 안내">서비스 안내</option>
 					<option value="회원 정보">회원 정보</option>
 					<option value="기능 문의">기능 문의</option>
 					<option value="운영 정책">운영 정책</option>`
 				break;
 			case '기타' :
-				options =
+				options +=
 					`<option value="이벤트 참여">이벤트 참여</option>
 					<option value="사용후기">사용후기</option>
 					<option value="제휴">제휴</option>`

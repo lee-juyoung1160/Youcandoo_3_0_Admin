@@ -223,7 +223,7 @@ input[type="radio"] + label span {
 	background-color: #fff;
 }
 input[type="radio"]:checked + label span {
-	background-size: 13px;
+	background-size: 12px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-image: url("/assets/v2/img/radio-on.png");

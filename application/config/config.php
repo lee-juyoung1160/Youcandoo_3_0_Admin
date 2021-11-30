@@ -2,16 +2,34 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['version'] = date("YmdHis");
-
 $config['redis_session']="10.0.107.43";
 
-if($_SERVER['SERVER_ADDR']=="10.7.103.162")
+$config['base_url'] = 'https://admin.youcandoo.co.kr';
+$config['api_server_url']="https://adminapi.youcandoo.co.kr";
+if($_SERVER['SERVER_ADDR']=="10.7.103.162") {
+    $config['base_url'] = 'https://developmentadmin.youcandoo.co.kr/';
     $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
-if($_SERVER['SERVER_ADDR']=="10.7.100.4")
+}
+if($_SERVER['SERVER_ADDR']=="10.7.100.4") {
+    $config['base_url'] = 'https://testingadmin.youcandoo.co.kr/';
     $config['api_server_url'] = 'https://testingadminapi.youcandoo.co.kr';
-if($_SERVER['SERVER_ADDR']=="10.7.27.10")
+}
+if($_SERVER['SERVER_ADDR']=="10.7.27.10") {
+    $config['base_url'] = 'https://stagingadmin.youcandoo.co.kr/';
     $config['api_server_url'] = 'https://stagingadminapi.youcandoo.co.kr';
+}
 
+if(ENVIRONMENT!="prodcution")
+{
+    if(SERVER == 'local'){
+        $config['base_url']="http://admin.youcandoo.co.kr:8080";
+    }
+    if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
+        $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
+    } else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
+        $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
+    }
+}
 $config['otp_name']="YOUCANDOO";
 if(ENVIRONMENT!="production"){
     $config['otp_name']="DEV:YOUCANDOO";
@@ -38,27 +56,8 @@ if(ENVIRONMENT!="production"){
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://admin.youcandoo.co.kr';
-$config['api_server_url']="https://adminapi.youcandoo.co.kr";
-if(ENVIRONMENT!="prodcution")
-{
-    if(SERVER == 'local'){
-        $config['base_url']="http://admin.youcandoo.co.kr:8080";
-    }
 
-    if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
-        $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
-    } else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
-        $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
-    }
-}
 
-if($_SERVER['SERVER_ADDR']=="10.7.103.162")
-    $config['base_url'] = 'https://developmentadmin.youcandoo.co.kr/';
-if($_SERVER['SERVER_ADDR']=="10.7.100.4")
-    $config['base_url'] = 'https://testingadmin.youcandoo.co.kr/';
-if($_SERVER['SERVER_ADDR']=="10.7.27.10")
-    $config['base_url'] = 'https://stagingadmin.youcandoo.co.kr/';
 
 /*
 |--------------------------------------------------------------------------

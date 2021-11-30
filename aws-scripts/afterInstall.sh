@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-rsync --delete-before --verbose --archive --delete-excluded=index.php /var/www/release/ /htdocs/ > /var/log/deploy.log
+rsync --delete-before --verbose --archive --exclude="index.php" /home/yanadoo/test/ /htdocs/ > /var/log/deploy.log
 
 chown yanadoo:yanadoo /htdocs/
 

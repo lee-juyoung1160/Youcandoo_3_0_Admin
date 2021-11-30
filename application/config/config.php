@@ -22,10 +22,10 @@ if($_SERVER['SERVER_ADDR']=="10.7.27.10") {
 if(ENVIRONMENT!="prodcution")
 {
     if(SERVER == 'local'){
-        $config['base_url']="http://admin.youcandoo.co.kr:8080";
+        $config['base_url']="http://localadmin.youcandoo.co.kr";
     }
     if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
-        $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
+        $config['api_server_url']="http://localadminapi.youcandoo.co.kr";
     } else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
         $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
     }

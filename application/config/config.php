@@ -5,14 +5,6 @@ $config['version'] = date("YmdHis");
 
 $config['redis_session']="10.0.107.43";
 
-$config['api_server_url']="https://adminapi.youcandoo.co.kr";
-
-if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
-    $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
-} else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
-    $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
-}
-
 if($_SERVER['SERVER_ADDR']=="10.7.103.162")
     $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
 if($_SERVER['SERVER_ADDR']=="10.7.100.4")
@@ -47,9 +39,18 @@ if(ENVIRONMENT!="production"){
 |
 */
 $config['base_url'] = 'https://admin.youcandoo.co.kr';
+$config['api_server_url']="https://adminapi.youcandoo.co.kr";
+if(ENVIRONMENT!="prodcution")
+{
+    if(SERVER == 'local'){
+        $config['base_url']="http://admin.youcandoo.co.kr:8080";
+    }
 
-if(SERVER == 'local'){
-    $config['base_url']="http://admin.youcandoo.co.kr:8080";
+    if(SERVER == 'local' && getenv('developPart') != 'FrontEnd') {
+        $config['api_server_url']="http://adminapi.youcandoo.co.kr:8080";
+    } else if(SERVER == 'local' && getenv('developPart') == 'FrontEnd') {
+        $config['api_server_url'] = 'https://developmentadminapi.youcandoo.co.kr';
+    }
 }
 
 if($_SERVER['SERVER_ADDR']=="10.7.103.162")

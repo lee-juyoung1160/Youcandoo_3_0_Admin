@@ -12,7 +12,7 @@
 		dateButtons,
 		dateFrom,
 		dateTo,
-		rdoType, rdoStatus,
+		rdoType, rdoStatus, amount
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {initSelectOption, initPageLength, initSearchDatepicker, onClickDateRangeBtn, initDayBtn, initMaxDateToday,
@@ -20,7 +20,7 @@
 	import {initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable,} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
-	import {isEmpty, isNegative, numberWithCommas,} from "../modules/utils.js";
+	import {initInputNumber, isEmpty, isNegative, numberWithCommas,} from "../modules/utils.js";
 
 	$( () => {
 		/** dataTable default config **/
@@ -39,6 +39,7 @@
 		btnSearch		.on("click", function () { onSubmitSearch(); });
 		btnReset		.on("click", function () { initSearchForm(); });
 		dateButtons		.on("click", function () { onClickDateRangeBtn(this); });
+		amount			.on("propertychange change keyup paste input", function () { initInputNumber(this); });
 	});
 
 	function initSearchForm()
@@ -50,6 +51,7 @@
 		keyword.val('');
 		rdoType.eq(0).prop('checked', true);
 		rdoStatus.eq(0).prop('checked', true);
+		amount.val(5000);
 	}
 
 	function onKeydownSearch(event)
@@ -97,6 +99,7 @@
 						"send_type" : 'doit',
 						"receive_type" : 'doit',
 						"transfer_type" : $("input[name=radio-type]:checked").val(),
+						"value" : $("input[name=radio-status]:checked").val() === 'all' ? 0 : amount.val().trim(),
 						"page" : (d.start / d.length) + 1,
 						"limit" : d.length,
 					}

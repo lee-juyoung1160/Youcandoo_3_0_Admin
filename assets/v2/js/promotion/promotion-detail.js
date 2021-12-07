@@ -1,7 +1,7 @@
 
 	import {ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
-	import {contentImage, title, btnBack, btnList, btnUpdate, selPageLength, dataTable, btnClose,
+	import {title, btnBack, btnList, btnUpdate, selPageLength, dataTable, btnClose,
 		sponsor, promotionDate, createDate} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {historyBack, onErrorImage, initPageLength,} from "../modules/common.js";
@@ -50,7 +50,7 @@
 
 	function buildDetail(data)
 	{
-		const { promotion_image_url, nickname, start_date, end_date, start_time, end_time, created, state } = data.data;
+		const { nickname, start_date, end_date, start_time, end_time, created, state } = data.data;
 
 		if (state === '진행중') btnClose.show();
 		if (state === '종료')
@@ -61,7 +61,6 @@
 
 		title.html(buildTitle(data));
 		sponsor.text(nickname);
-		// contentImage.attr('src', promotion_image_url);
 		promotionDate.text(`${start_date} ${start_time} ~ ${end_date} ${end_time}`);
 		createDate.text(created.substring(0, 10));
 
@@ -112,7 +111,7 @@
 					const param = {
 						"promotion_uuid" : g_promotion_uuid,
 						"page" : (d.start / d.length) + 1,
-						"limit" : d.length
+						"limit" : Number(selPageLength.val())
 					}
 
 					return JSON.stringify(param);

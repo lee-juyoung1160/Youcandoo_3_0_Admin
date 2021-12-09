@@ -235,6 +235,7 @@
 				url: api.bannerList,
 				type: "POST",
 				headers: headers,
+				global: false,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
 					if (isSuccessResp(json))
@@ -251,7 +252,12 @@
 					return JSON.stringify(json);
 				},
 				data: function (d) {
-					return JSON.stringify({ "banner_open_type" : "before" });
+					const param = {
+						"banner_open_type" : "before",
+						"limit" : d.length,
+						"page" : (d.start / d.length) + 1
+					}
+					return JSON.stringify(param);
 				},
 				error: function (request, status) {
 					sweetError(label.list+message.ajaxLoadError);
@@ -278,7 +284,8 @@
 				}
 			],
 			serverSide: true,
-			paging: false,
+			paging: true,
+			pageLength: 10,
 			select: false,
 			destroy: true,
 			initComplete: function () {

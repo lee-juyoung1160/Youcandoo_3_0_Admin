@@ -51,6 +51,7 @@
 
 	let g_event_uuid;
 	let g_event_type;
+	let g_is_popup_event;
 	function buildDetail(data)
 	{
 		const {
@@ -70,6 +71,7 @@
 
 		g_event_uuid = event_uuid;
 		g_event_type = event_type;
+		g_is_popup_event = is_popup_event;
 
 		toggleComponent(event_type);
 
@@ -136,6 +138,7 @@
 				"start_date" : dateFrom.val(),
 				"end_date" : dateTo.val(),
 				"is_exposure" : $('input:radio[name=radio-exposure]:checked').val(),
+				"is_popup_event" : g_is_popup_event
 			}
 
 			if (!isEmpty(data))

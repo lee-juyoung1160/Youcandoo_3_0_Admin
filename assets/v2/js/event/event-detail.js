@@ -2,7 +2,7 @@
 	import {ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import { api } from '../modules/api-url.js';
 	import { btnBack, btnList, btnUpdate, btnDelete, eventType, eventTitle, link, content, contentImage, eventNotice,
-		thumbnailImage, eventDate, isExposure} from '../modules/elements.js';
+		thumbnailImage, eventDate, isExposure, customEvent} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import { historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse,} from "../modules/utils.js";
@@ -42,7 +42,20 @@
 	let g_event_uuid;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
+		const {
+			event_uuid,
+			event_type,
+			title,
+			contents,
+			notice,
+			start_date,
+			end_date,
+			link_url,
+			image_url,
+			thumbnail_image_url,
+			is_exposure,
+			is_popup_event
+		} = data.data;
 
 		switch (event_type) {
 			case '이벤트' :
@@ -68,6 +81,7 @@
 		contentImage.attr('src', image_url);
 		thumbnailImage.attr('src', thumbnail_image_url);
 		eventDate.text(`${start_date} ~ ${end_date}`);
+		customEvent.text(is_popup_event);
 		isExposure.text(is_exposure);
 
 		onErrorImage();

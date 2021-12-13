@@ -111,7 +111,7 @@
 					const param = {
 						"promotion_uuid" : g_promotion_uuid,
 						"page" : (d.start / d.length) + 1,
-						"limit" : Number(selPageLength.val())
+						"limit" : d.length
 					}
 
 					return JSON.stringify(param);

@@ -440,7 +440,8 @@
     export const eventDate = $("#eventDate");
     export const thumbnailImage = $("#thumbnailImage");
     export const eventContentThumbnail= $("#eventContentThumbnail");
-    export const eventThumbnail= $("#eventThumbnail");
+    export const eventThumbnail = $("#eventThumbnail");
+    export const customEvent = $("#customEvent");
     /** 상품 **/
     export const price = $("#price");
     export const selHour = $("#selHour");

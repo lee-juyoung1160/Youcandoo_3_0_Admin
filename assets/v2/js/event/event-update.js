@@ -2,7 +2,7 @@
 	import {ajaxRequestWithFile, ajaxRequestWithJson, invalidResp, isSuccessResp} from "../modules/ajax-request.js";
 	import {api, fileApiV2} from '../modules/api-url.js';
 	import {lengthInput, contentImage, thumbnailImage, dateFrom, btnSubmit, eventTitle, content, link, eventNotice, dateTo,
-		eventContentThumbnail, eventThumbnail, rdoExposure, eventType} from '../modules/elements.js';
+		eventContentThumbnail, eventThumbnail, rdoExposure, eventType, customEvent} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
 	import {
 		calculateInputLength,
@@ -53,7 +53,20 @@
 	let g_event_type;
 	function buildDetail(data)
 	{
-		const { event_uuid, event_type, title, contents, notice, start_date, end_date, link_url, image_url, thumbnail_image_url, is_exposure } = data.data;
+		const {
+			event_uuid,
+			event_type,
+			title,
+			contents,
+			notice,
+			start_date,
+			end_date,
+			link_url,
+			image_url,
+			thumbnail_image_url,
+			is_exposure,
+			is_popup_event
+		} = data.data;
 
 		g_event_uuid = event_uuid;
 		g_event_type = event_type;
@@ -69,6 +82,7 @@
 		eventThumbnail.attr('src', thumbnail_image_url);
 		dateFrom.val(start_date);
 		dateTo.val(end_date);
+		customEvent.text(is_popup_event);
 		rdoExposure.each(function () {
 			$(this).prop('checked', $(this).val() === is_exposure);
 		})

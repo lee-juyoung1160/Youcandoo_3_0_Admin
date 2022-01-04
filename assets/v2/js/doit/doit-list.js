@@ -8,7 +8,7 @@
 		onClickDateRangeBtn,
 		initDayBtn,
 		initSearchDatepicker,
-		initSearchDateRangeMonths,
+		initSearchDateRangeAll,
 		initMaxDateMonths,
 		initPageLength,
 		initSelectOption,
@@ -16,7 +16,7 @@
 		onChangeSearchDateTo,
 		atLeastChecked,
 		getDoitStatusName,
-		moveToMemberDetail
+		moveToMemberDetail,
 	} from "../modules/common.js";
 	import {
 		initTableDefaultConfig,
@@ -56,7 +56,7 @@
 	{
 		initDayBtn();
 		initMaxDateMonths()
-		initSearchDateRangeMonths();
+		initSearchDateRangeAll();
 		initSelectOption();
 		keyword.val('');
 		chkStatus.prop('checked', true);

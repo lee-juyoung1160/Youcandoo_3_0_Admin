@@ -1511,7 +1511,7 @@
                         </table>
 
                         <div class="comment-wrap row">
-                            <div class="col-8 comment-list" id="actionCommentWrap">
+                            <div class="col-7 comment-list" id="actionCommentWrap">
                                 <!--<div class="card">
                                     <p class="message">작성된 댓글이 없습니다.</p>
                                 </div>-->
@@ -1524,17 +1524,22 @@
                                             <button type="button" class="btn-xs btn-danger">삭제</button>
                                         </div>
                                     </div>
-                                    <div class="detail-data">
-                                        대박사건... 인증계를 뒤집어놓으셨다...!
+
+                                    <div class="emoticon-view-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
                                     </div>
 
-                                    &lt;!&ndash;<div class="img-wrap">
+                                    <div class="img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="">
-                                    </div>&ndash;&gt;
+                                    </div>
 
                                     <audio controls="controls">
                                         <source src="/assets/v2/img/audio_test.m4a"/>
                                     </audio>
+
+                                    <div class="detail-data">
+                                        대박사건... 인증계를 뒤집어놓으셨다...!
+                                    </div>
 
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
@@ -1674,7 +1679,7 @@
                             </div>
 
                             <!-- 댓글달기창 -->
-                            <div class="col-4 comment-creat" id="createCommentWrap">
+                            <div class="col-5 comment-creat" id="createCommentWrap">
                                 <div class="card clearfix">
                                     <p class="title">댓글달기</p>
                                 </div>
@@ -1691,22 +1696,110 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <!--<tr>
+                                        <!---------- s:2022-1-4 이모티콘/첨부파일 추가---------->
+                                        <tr class="emoticon-wrap">
                                             <th>
                                                 첨부파일
                                             </th>
                                             <td>
-                                                <div class="file-wrap preview-image">
-                                                    <input class="upload-name" value="파일선택" disabled="disabled">
-                                                    <label for="commentActionImage">업로드</label>
-                                                    <input type="file" id="commentActionImage" class="upload-hidden">
+                                                <div class="radio-wrap file-value">
+                                                    <input id="r76" type="radio" name="radio-attach-type" value="" checked>
+                                                    <label for="r76"><span></span>첨부파일 없음</label>
+
+                                                    <input id="r77" type="radio" name="radio-attach-type" value="image">
+                                                    <label for="r77"><span></span>사진</label>
+
+                                                    <input id="r78" type="radio" name="radio-attach-type" value="video">
+                                                    <label for="r78"><span></span>영상</label>
+
+                                                    <input id="r79" type="radio" name="radio-attach-type" value="audio">
+                                                    <label for="r79"><span></span>음성</label>
+                                                    <!-- 이모티콘 추가 버튼 -->
+                                                    <i class="far fa-smile emoticon-open_btn"></i>
                                                 </div>
-                                                <div class="detail-img-wrap">
-                                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                                <div id="">
+                                                    <!--이미지-->
+                                                    <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+                                                    <div class="file-wrap preview-image">
+                                                        <input class="upload-name" value="파일선택" disabled="disabled">
+                                                        <label for="">업로드</label>
+                                                        <input type="file" class="upload-hidden" data-width="650" data-compare="이상">
+                                                    </div>
+                                                    <div class="detail-img-wrap">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                                    </div>-->
+
+
+                                                    <!--영상-->
+                                                    <!--
+                                                    <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+                                                    <div class="file-wrap preview-image">
+                                                        <input class="upload-name" value="파일선택" disabled="disabled">
+                                                        <label for="">업로드</label>
+                                                        <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                                    </div>
+                                                    <div class="detail-img-wrap">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                                    </div>
+
+                                                    <p class="desc-sub">영상</p>
+                                                    <div class="file-wrap preview-image">
+                                                        <input class="upload-name" value="파일선택" disabled="disabled">
+                                                        <label for="">업로드</label>
+                                                        <input type="file" class="upload-hidden">
+                                                    </div>
+                                                    -->
+
+                                                    <!--음성-->
+                                                    <!--
+                                                    <p class="desc-sub">음성</p>
+                                                    <div class="file-wrap preview-image">
+                                                        <input class="upload-name" value="파일선택" disabled="disabled">
+                                                        <label for="">업로드</label>
+                                                        <input type="file" class="upload-hidden">
+                                                    </div>
+                                                    -->
+                                                </div>
+
+                                                <!-- 이모티콘 선택 모달 -->
+                                                <div class="emoticon-modal-wrap" style="display: none;">
+                                                    <ul class="emoticon-tab">
+                                                        <li class="active"><i class="far fa-clock"></i></li>
+                                                        <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘1"></li>
+                                                        <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘2"></li>
+                                                        <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘3"></li>
+                                                    </ul>
+                                                    <div class="emoticon-list">
+                                                        <img class="active" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_2">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_3">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_4">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_5">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_6">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_7">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_8">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_9">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_10">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_11">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_12">
+                                                        <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_13">
+                                                    </div>
                                                 </div>
                                             </td>
-                                        </tr>-->
+                                        </tr>
+                                        <!-- 선택한 이모티콘 미리보기 -->
                                         <tr>
+                                            <th></th>
+                                            <td>
+                                                <div class="emoticon-view-wrap">
+                                                    <img class="emoticon-view" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                    <i class="fas fa-times-circle icon-delete-attach"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!---------- e:2022-1-4 이모티콘/첨부파일 추가---------->
+
+                                         <tr>
                                             <td colspan="2">
                                                 <div class="right-wrap">
                                                     <button id="btnSubmitCommentAction" type="button" class="btn-sm btn-primary">등록</button>
@@ -1903,7 +1996,7 @@
                         </table>
 
                         <div class="comment-wrap row">
-                            <div class="col-8 comment-list" id="talkCommentWrap">
+                            <div class="col-7 comment-list" id="talkCommentWrap">
                                 <!--<div class="card">
                                     <p class="message">작성된 댓글이 없습니다.</p>
                                 </div>
@@ -1920,9 +2013,19 @@
                                     <div class="detail-data">
                                         대박사건... 인증계를 뒤집어놓으셨다...!
                                     </div>
+
+                                    <div class="emoticon-view-wrap">
+                                        <img src="/assets/v2/img/profile-1.png" alt="">
+                                    </div>
+
                                     <div class="img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="">
                                     </div>
+
+                                    <audio controls="controls">
+                                        <source src="/assets/v2/img/audio_test.m4a"/>
+                                    </audio>
+
                                     <div class="bottom">
                                         <span><i class="fas fa-heart"></i> 111</span>
                                         <span><i class="fas fa-comments"></i> 111</span>
@@ -1980,6 +2083,19 @@
                                                         ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
                                                     </p>
                                                 </div>
+
+                                                <div class="emoticon-view-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                                </div>
+
+                                                <div class="img-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                                </div>
+
+                                                <audio controls="controls">
+                                                    <source src="/assets/v2/img/audio_test.m4a"/>
+                                                </audio>
+
                                                 <div class="detail-data">
                                                     대박사건... 인증계를 뒤집어놓으셨다...!
                                                 </div>
@@ -2004,7 +2120,109 @@
                                                                             <p class="length-count-wrap"><span class="count-input">0</span>/200</p>
                                                                         </div>
                                                                     </td>
-                                                                </tr>
+                                                                </tr>-->
+
+                                                                <!-------------------s: 2022-1-4 답글: 이모티콘/첨부파일 추가 ------------------->
+                                                                <!--tr class="emoticon-wrap">
+                                                                    <th>
+                                                                        첨부파일
+                                                                    </th>
+                                                                    <td>
+                                                                        <div class="radio-wrap file-value">
+                                                                            <input id="r74" type="radio" name="radio-attach-type" value="" checked>
+                                                                            <label for="r74"><span></span>첨부파일 없음</label>
+
+                                                                            <input id="r75" type="radio" name="radio-attach-type" value="image">
+                                                                            <label for="r75"><span></span>사진</label>
+
+                                                                            <input id="r76" type="radio" name="radio-attach-type" value="video">
+                                                                            <label for="r76"><span></span>영상</label>
+
+                                                                            <input id="r77" type="radio" name="radio-attach-type" value="audio">
+                                                                            <label for="r77"><span></span>음성</label>
+
+                                                                            <i class="far fa-smile emoticon-open_btn"></i>
+                                                                        </div>
+                                                                        div id="">
+                                                                        이미지-->
+                                                                        <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+                                                                        <div class="file-wrap preview-image">
+                                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                                            <label for="">업로드</label>
+                                                                            <input type="file" class="upload-hidden" data-width="650" data-compare="이상">
+                                                                        </div>
+                                                                        <div class="detail-img-wrap">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="">
+                                                                        </div>-->
+
+
+                                                                        <!--영상-->
+                                                                        <!--
+                                                                        <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+                                                                        <div class="file-wrap preview-image">
+                                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                                            <label for="">업로드</label>
+                                                                            <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                                                        </div>
+                                                                        <div class="detail-img-wrap">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                                                        </div>
+
+                                                                        <p class="desc-sub">영상</p>
+                                                                        <div class="file-wrap preview-image">
+                                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                                            <label for="">업로드</label>
+                                                                            <input type="file" class="upload-hidden">
+                                                                        </div>
+
+                                                                        <p class="desc-sub">음성</p>
+                                                                        <div class="file-wrap preview-image">
+                                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                                            <label for="">업로드</label>
+                                                                            <input type="file" class="upload-hidden">
+                                                                        </div>
+
+                                                                    </div-->
+
+                                                                    <!-- 이모티콘 선택 모달 -->
+                                                                    <!--div class="emoticon-modal-wrap" style="display: none;">
+                                                                        <ul class="emoticon-tab">
+                                                                            <li class="active"><i class="far fa-clock"></i></li>
+                                                                            <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘1"></li>
+                                                                            <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘2"></li>
+                                                                            <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘3"></li>
+                                                                        </ul>
+                                                                        <div class="emoticon-list">
+                                                                            <img class="active" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_2">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_3">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_4">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_5">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_6">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_7">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_8">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_9">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_10">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_11">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_12">
+                                                                            <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_13">
+                                                                        </div>
+                                                                    </div>
+                                                                    </td>
+                                                                    </tr-->
+                                                                    <!-- 선택한 이모티콘 미리보기 -->
+                                                                    <!--tr>
+                                                                        <th></th>
+                                                                        <td>
+                                                                            <div class="emoticon-view-wrap">
+                                                                                <img class="emoticon-view" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                                                <i class="fas fa-times-circle icon-delete-attach"></i>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr-->
+                                                                <!-------------------e: 2022-1-4 답글: 이모티콘/첨부파일 추가 ------------------->
+
+                                                                <!--
                                                                 <tr>
                                                                     <td colspan="2">
                                                                         <div class="right-wrap">
@@ -2140,7 +2358,7 @@
                             </div>
 
                             <!-- 댓글달기창 -->
-                            <div class="col-4 comment-creat" id="createTalkCommentWrap">
+                            <div class="col-5 comment-creat" id="createTalkCommentWrap">
                                 <div class="card clearfix">
                                     <p class="title">댓글달기</p>
                                 </div>
@@ -2157,21 +2375,109 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!--<tr>
+
+                                    <!---------- s:2022-1-4 이모티콘/첨부파일 추가---------->
+                                    <tr class="emoticon-wrap">
                                         <th>
                                             첨부파일
                                         </th>
                                         <td>
-                                            <div class="file-wrap preview-image">
-                                                <input class="upload-name" value="파일선택" disabled="disabled">
-                                                <label for="commentTalkImage">업로드</label>
-                                                <input type="file" id="commentTalkImage" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                            <div class="radio-wrap file-value">
+                                                <input id="r70" type="radio" name="radio-attach-type" value="" checked>
+                                                <label for="r70"><span></span>첨부파일 없음</label>
+
+                                                <input id="r71" type="radio" name="radio-attach-type" value="image">
+                                                <label for="r71"><span></span>사진</label>
+
+                                                <input id="r72" type="radio" name="radio-attach-type" value="video">
+                                                <label for="r72"><span></span>영상</label>
+
+                                                <input id="r73" type="radio" name="radio-attach-type" value="audio">
+                                                <label for="r73"><span></span>음성</label>
+                                                <!-- 이모티콘 추가 버튼 -->
+                                                <i class="far fa-smile emoticon-open_btn"></i>
                                             </div>
-                                            <div class="detail-img-wrap">
-                                                <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                            <div id="">
+                                                <!--이미지-->
+                                                <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+                                                <div class="file-wrap preview-image">
+                                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                                    <label for="">업로드</label>
+                                                    <input type="file" class="upload-hidden" data-width="650" data-compare="이상">
+                                                </div>
+                                                <div class="detail-img-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="">
+                                                </div>-->
+
+
+                                                <!--영상-->
+                                                <!--
+                                                <p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+                                                <div class="file-wrap preview-image">
+                                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                                    <label for="">업로드</label>
+                                                    <input type="file" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+                                                </div>
+                                                <div class="detail-img-wrap">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                                                </div>
+
+                                                <p class="desc-sub">영상</p>
+                                                <div class="file-wrap preview-image">
+                                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                                    <label for="">업로드</label>
+                                                    <input type="file" class="upload-hidden">
+                                                </div>
+                                                -->
+
+                                                <!--음성-->
+                                                <!--
+                                                <p class="desc-sub">음성</p>
+                                                <div class="file-wrap preview-image">
+                                                    <input class="upload-name" value="파일선택" disabled="disabled">
+                                                    <label for="">업로드</label>
+                                                    <input type="file" class="upload-hidden">
+                                                </div>
+                                                -->
+                                            </div>
+
+                                            <!-- 이모티콘 선택 모달 -->
+                                            <div class="emoticon-modal-wrap" style="display: none;">
+                                                <ul class="emoticon-tab">
+                                                    <li class="active"><i class="far fa-clock"></i></li>
+                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘1"></li>
+                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘2"></li>
+                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘3"></li>
+                                                </ul>
+                                                <div class="emoticon-list">
+                                                    <img class="active" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_2">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_3">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_4">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_5">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_6">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_7">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_8">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_9">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_10">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_11">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_12">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_13">
+                                                </div>
                                             </div>
                                         </td>
-                                    </tr>-->
+                                    </tr>
+                                    <!-- 선택한 이모티콘 미리보기 -->
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <div class="emoticon-view-wrap">
+                                                <img class="emoticon-view" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                <i class="fas fa-times-circle icon-delete-attach"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!---------- e:2022-1-4 이모티콘/첨부파일 추가---------->
                                     <tr>
                                         <td colspan="2">
                                             <div class="right-wrap">
@@ -2820,7 +3126,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- 차단목록 > 메모 등록 -->
         <div class="modal-content" id="modalMemo">

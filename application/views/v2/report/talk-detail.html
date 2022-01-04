@@ -94,12 +94,24 @@
                                 <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
                             </div>
                         </div>
-                        <div class="detail-data">
-                            대박사건... 인증계를 뒤집어놓으셨다...!
+
+                        //2022-1-4 이모티콘/첨부파일 추가
+                        <div class="emoticon-view-wrap">
+                             <img src="/assets/v2/img/profile-1.png" alt="">
                         </div>
+
                         <div class="img-wrap">
                             <img src="/assets/v2/img/profile-1.png" alt="">
                         </div>
+
+                        <audio controls="controls">
+                            <source src="/assets/v2/img/audio_test.m4a"/>
+                        </audio>
+
+                        <div class="detail-data">
+                            대박사건... 인증계를 뒤집어놓으셨다...!
+                        </div>
+
                         <div class="bottom">
                             <span><i class="fas fa-heart"></i> 111</span>
                             <span><i class="fas fa-comments"></i> 111</span>
@@ -116,67 +128,24 @@
                                             <button type="button" class="btn-xs btn-orange"><i class="fas fa-eye"></i> 블라인드 해제</button>
                                         </div>
                                     </div>
-                                    <div class="detail-data">
-                                        대박사건... 인증계를 뒤집어놓으셨다...!
+
+                                    //2022-1-4 이모티콘/첨부파일 추가
+                                    <div class="emoticon-view-wrap">
+                                         <img src="/assets/v2/img/profile-1.png" alt="">
                                     </div>
+
                                     <div class="img-wrap">
                                         <img src="/assets/v2/img/profile-1.png" alt="">
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="top clearfix">
-                                        <p class="title">
-                                            ㄴ 깐깐찡어 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                        </p>
-                                        <div class="right-wrap">
-                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                                        </div>
-                                    </div>
+
+                                    <audio controls="controls">
+                                        <source src="/assets/v2/img/audio_test.m4a"/>
+                                    </audio>
+
                                     <div class="detail-data">
                                         대박사건... 인증계를 뒤집어놓으셨다...!
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <div class="card">
-                        <div class="top clearfix">
-                            <p class="title">
-                                유캔두 <span class="desc-sub">2020-02-02 00:00:00</span>
-                            </p>
-                            <div class="right-wrap">
-                                <button id="" type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                            </div>
-                        </div>
-                        <div class="detail-data">
-                            대박사건... 인증계를 뒤집어놓으셨다...!
-                        </div>
-                        <div class="img-wrap">
-                            <img src="/assets/v2/img/profile-1.png" alt="">
-                        </div>
-                        <div class="bottom">
-                            <span><i class="fas fa-heart"></i> 111</span>
-                            <span><i class="fas fa-comments"></i> 111</span>
-                        </div>
-
-                        <div class="comments-wrap">
-                            <ul>
-                                <li>
-                                    <div class="top clearfix">
-                                        <p class="title">
-                                            ㄴ 베리네모카 <span class="desc-sub">2020-02-02 00:00:00</span>
-                                        </p>
-                                        <div class="right-wrap">
-                                            <button type="button" class="btn-xs btn-warning"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>
-                                        </div>
-                                    </div>
-                                    <div class="detail-data">
-                                        대박사건... 인증계를 뒤집어놓으셨다...!
-                                    </div>
-                                    <div class="img-wrap">
-                                        <img src="/assets/v2/img/profile-1.png" alt="">
-                                    </div>
                                 </li>
                                 <li>
                                     <div class="top clearfix">
@@ -194,11 +163,39 @@
                             </ul>
                         </div>
                     </div>-->
+
+
                     <!--<button type="button" class="btn-more">더보기 <i class="fas fa-sort-down"></i></button>-->
                 </div>
 
 
             </div>
+        </div>
+
+        <div class="modal-wrap">
+            <!-- 파일 상세 -->
+            <div class="modal-content talk-file-modal" id="modalAttach">
+                <div class="modal-header clearfix">
+                    <h5>상세</h5>
+                    <i class="modal-close">×</i>
+                </div>
+                <div class="modal-body">
+                    <div class="card" id="modalAttachContentWrap">
+                        <!--<div class="image-wrap">
+                            <img src="https://youcandoo.yanadoocdn.com/qna/836a2aac7ec61f4db04549ee8b6c5df4/48b342c89a51798fc327242567492a5b.jpg" alt="">
+                        </div>-->
+                        <!--<div class="video-wrap">
+                            <video poster="" controls>
+                                <source src="" type="video/mp4"/>
+                            </video>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn modal-close">닫기</button>
+                </div>
+            </div>
+            <div class="modal-bg"></div>
         </div>
 
         <div class="footer-btn-wrap">

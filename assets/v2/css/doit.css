@@ -66,13 +66,12 @@
 	height: 40px;
 	border-left: 1px solid rgba(0,0,0,.1);
 	cursor: pointer;
-	opacity: .7;
 }
 .emoticon-tab li .fa-clock {
 	font-size: 20px;
 }
 .emoticon-tab li:hover, .emoticon-tab li.active {
-	opacity: 1;
+	background-color: #d9d9d9;
 }
 .emoticon-tab li:first-child {
 	border-left: none;
@@ -88,8 +87,9 @@
 	display: inline-block;
 	width: 70px;
 	height: 70px;
+	padding: 5px;
 	cursor: pointer;
-	opacity: .6;
+	opacity: .7;
 }
 .emoticon-list img:hover, .emoticon-list img.active {
 	opacity: 1;

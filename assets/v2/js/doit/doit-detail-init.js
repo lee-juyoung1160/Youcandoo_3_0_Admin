@@ -98,8 +98,8 @@
 		btnRefreshOngoingRank,
 		btnRefreshTotalRank,
 		chkNoticeType,
-		chkNoticeTalk,
-		chkUpdateNoticeTalk, btnReward, btnSubmitMemo
+		chkNoticeTalk, btnCommentEmoji,
+		chkUpdateNoticeTalk, btnReward, btnSubmitMemo, btnCancelCommentEmoji, rdoCommentAttachType
 	} from '../modules/elements.js';
 	import {
 		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -156,7 +156,8 @@
 		buildTalkTable, onClickBtnCreateTalk, initSearchTalkForm, showTalkListForm, onClickBtnUpdateTalk,
 		onChangeAttachType, onSubmitSearchTalk, onSubmitTalk, onSubmitTalkComment, onSubmitDeleteTalk,
 		onChangeUpdateAttachType, onSubmitUpdateTalk, showTalkDetailForm, onSubmitBlindTalk,
-		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo, onClickChkNoticeTalk, onClickChkUpdateNoticeTalk
+		onChangeSearchTalkDateFrom, onChangeSearchTalkDateTo, onClickChkNoticeTalk, onClickChkUpdateNoticeTalk,
+		onClickBtnCommentEmoji, onClickBtnCancelCommentEmoji, onChangeCommentAttachType
 	} from "./doit-detail-talk.js";
 	import {api} from "../modules/api-url.js";
 	import {message} from "../modules/message.js";
@@ -284,6 +285,9 @@
 		btnSubmitUpdateTalk.on('click', function () { onSubmitUpdateTalk(); });
 		btnBlindTalk.on('click', function () { onSubmitBlindTalk(this); });
 		btnDisplayTalk.on('click', function () { onSubmitBlindTalk(this); });
+		btnCommentEmoji.on('click', function () { onClickBtnCommentEmoji(); });
+		btnCancelCommentEmoji.on('click', function () { onClickBtnCancelCommentEmoji(); });
+		rdoCommentAttachType.on('change', function () { onChangeCommentAttachType() });
 	});
 
 	function onClickTab(selectedTab)

@@ -304,6 +304,13 @@
     export const btnSubmitCommentAction = $("#btnSubmitCommentAction");
     export const selReason = $("#selReason");
     export const btnSubmitSendWarning = $("#btnSubmitSendWarning");
+    export const rdoCommentAttachType = $("input[name=radio-comment-attach-type]");
+    export const commentAttachmentWrap = $("#commentAttachmentWrap");
+    export const btnCommentEmoji = $("#btnCommentEmoji");
+    export const commentEmojiWrap = $("#commentEmojiWrap");
+    export const commentEmojiCategory = $("#commentEmojiCategory");
+    export const previewEmoji = $("#previewEmoji");
+    export const btnCancelCommentEmoji = $("#btnCancelCommentEmoji");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const modalCreateTalk = $("#modalCreateTalk");

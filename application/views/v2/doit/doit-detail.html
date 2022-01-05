@@ -2383,21 +2383,21 @@
                                         </th>
                                         <td>
                                             <div class="radio-wrap file-value">
-                                                <input id="r70" type="radio" name="radio-attach-type" value="" checked>
+                                                <input id="r70" type="radio" name="radio-comment-attach-type" value="" checked>
                                                 <label for="r70"><span></span>첨부파일 없음</label>
 
-                                                <input id="r71" type="radio" name="radio-attach-type" value="image">
+                                                <input id="r71" type="radio" name="radio-comment-attach-type" value="image">
                                                 <label for="r71"><span></span>사진</label>
 
-                                                <input id="r72" type="radio" name="radio-attach-type" value="video">
+                                                <input id="r72" type="radio" name="radio-comment-attach-type" value="video">
                                                 <label for="r72"><span></span>영상</label>
 
-                                                <input id="r73" type="radio" name="radio-attach-type" value="audio">
+                                                <input id="r73" type="radio" name="radio-comment-attach-type" value="audio">
                                                 <label for="r73"><span></span>음성</label>
                                                 <!-- 이모티콘 추가 버튼 -->
-                                                <i class="far fa-smile emoticon-open_btn"></i>
+                                                <i class="far fa-smile emoticon-open_btn" id="btnCommentEmoji"></i>
                                             </div>
-                                            <div id="">
+                                            <div id="commentAttachmentWrap">
                                                 <!--이미지-->
                                                 <!--<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
                                                 <div class="file-wrap preview-image">
@@ -2442,15 +2442,14 @@
                                             </div>
 
                                             <!-- 이모티콘 선택 모달 -->
-                                            <div class="emoticon-modal-wrap" style="display: none;">
-                                                <ul class="emoticon-tab">
-                                                    <li class="active"><i class="far fa-clock"></i></li>
-                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘1"></li>
+                                            <div class="emoticon-modal-wrap" style="display: none;" id="commentEmojiWrap">
+                                                <ul class="emoticon-tab" id="commentEmojiCategory">
+                                                    <!--<li class="active"><img src="/assets/v2/img/profile-1.png" alt="이모티콘1"></li>
                                                     <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘2"></li>
-                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘3"></li>
+                                                    <li><img src="/assets/v2/img/profile-1.png" alt="이모티콘3"></li>-->
                                                 </ul>
                                                 <div class="emoticon-list">
-                                                    <img class="active" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
+                                                    <!--<img class="active" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_2">
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_3">
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_4">
@@ -2462,18 +2461,18 @@
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_10">
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_11">
                                                     <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_12">
-                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_13">
+                                                    <img src="/assets/v2/img/profile-1.png" alt="이모티콘1_13">-->
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <!-- 선택한 이모티콘 미리보기 -->
-                                    <tr>
+                                    <tr id="previewEmoji" style="display: none;">
                                         <th></th>
                                         <td>
                                             <div class="emoticon-view-wrap">
-                                                <img class="emoticon-view" src="/assets/v2/img/profile-1.png" alt="이모티콘1_1">
-                                                <i class="fas fa-times-circle icon-delete-attach"></i>
+                                                <img class="emoticon-view" src="" alt="이모티콘 미리보기">
+                                                <i class="fas fa-times-circle icon-delete-attach" id="btnCancelCommentEmoji"></i>
                                             </div>
                                         </td>
                                     </tr>

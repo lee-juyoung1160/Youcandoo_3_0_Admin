@@ -311,6 +311,13 @@
     export const commentEmojiCategory = $("#commentEmojiCategory");
     export const previewEmoji = $("#previewEmoji");
     export const btnCancelCommentEmoji = $("#btnCancelCommentEmoji");
+    export const rdoActionAttachType = $("input[name=radio-action-attach-type]");
+    export const actionAttachmentWrap = $("#actionAttachmentWrap");
+    export const btnActionEmoji = $("#btnActionEmoji");
+    export const actionEmojiWrap = $("#actionEmojiWrap");
+    export const actionEmojiCategory = $("#actionEmojiCategory");
+    export const previewActionEmoji = $("#previewActionEmoji");
+    export const btnCancelActionEmoji = $("#btnCancelActionEmoji");
 
     export const btnCreateTalk   = $("#btnCreateTalk");
     export const modalCreateTalk = $("#modalCreateTalk");

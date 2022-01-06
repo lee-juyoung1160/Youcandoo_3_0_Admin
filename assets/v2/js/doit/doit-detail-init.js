@@ -98,8 +98,15 @@
 		btnRefreshOngoingRank,
 		btnRefreshTotalRank,
 		chkNoticeType,
-		chkNoticeTalk, btnCommentEmoji,
-		chkUpdateNoticeTalk, btnReward, btnSubmitMemo, btnCancelCommentEmoji, rdoCommentAttachType
+		chkNoticeTalk,
+		btnCommentEmoji,
+		chkUpdateNoticeTalk,
+		btnReward,
+		btnSubmitMemo,
+		btnCancelCommentEmoji,
+		rdoCommentAttachType,
+		btnActionEmoji,
+		btnCancelActionEmoji, rdoActionAttachType
 	} from '../modules/elements.js';
 	import {
 		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -150,7 +157,7 @@
 	import {
 		initSearchActionForm, showActionListForm, getMissionListForAction, onClickModalWarnOpen,
 		onSubmitSearchActions, onSubmitSendWarning, onSubmitActionComment, onChangeSearchActionDateFrom,
-		onChangeSearchActionDateTo
+		onChangeSearchActionDateTo, onClickBtnCancelActionEmoji, onChangeActionAttachType, onClickBtnActionEmoji
 	} from "./doit-detail-action.js";
 	import {
 		buildTalkTable, onClickBtnCreateTalk, initSearchTalkForm, showTalkListForm, onClickBtnUpdateTalk,
@@ -263,6 +270,9 @@
 		btnSendWarnings.on('click', function () { onClickModalWarnOpen(this); });
 		btnSubmitSendWarning.on('click', function () { onSubmitSendWarning(); });
 		btnSubmitCommentAction.on('click', function () { onSubmitActionComment(); } );
+		btnActionEmoji.on('click', function () { onClickBtnActionEmoji(); });
+		btnCancelActionEmoji.on('click', function () { onClickBtnCancelActionEmoji(); });
+		rdoActionAttachType.on('change', function () { onChangeActionAttachType(); });
 		/** 두잇톡탭 **/
 		initPageLength(selTalkPageLength);
 		chkNoticeTalk.on('click', function () { onClickChkNoticeTalk(); });

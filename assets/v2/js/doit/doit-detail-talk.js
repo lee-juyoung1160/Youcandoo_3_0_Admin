@@ -1,45 +1,48 @@
 
 	import {
-		modalCreateTalk,
-		modalBackdrop,
-		talkDetailForm,
-		talkListForm,
-		talkUpdateForm,
-		talk,
-		searchTalkDateFrom,
-		searchTalkDateTo,
-		modalAttach,
-		modalAttachContentWrap,
-		talkAttachmentWrap,
-		rdoAttachType,
-		selTalkDateType,
-		selTalkPageLength,
-		talkTable,
-		chkNoticeTalk,
-		infoTalkNickname,
-		infoTalkCommentCount,
-		infoTalkLikeCount,
-		infoTalkContent,
-		infoTalkCreated,
-		infoTalkIsBlind,
-		infoTalkAttachWrap,
-		talkCommentWrap,
-		commentTalk,
-		updateTalk,
-		rdoUpdateAttachType,
-		chkUpdateNoticeTalk,
-		updateTalkAttachWrap,
-		btnBlindTalk,
-		btnDisplayTalk,
-		btnDeleteTalk,
-		btnUpdateTalk,
-		isDel,
-		chkNoticeType,
-		chkSpecialNoticeTalk,
-		chkUpdateSpecialNoticeTalk,
-		commentEmojiWrap,
-		commentEmojiCategory, commentAttachmentWrap, previewEmoji, rdoCommentAttachType
-	} from "../modules/elements.js";
+	modalCreateTalk,
+	modalBackdrop,
+	talkDetailForm,
+	talkListForm,
+	talkUpdateForm,
+	talk,
+	searchTalkDateFrom,
+	searchTalkDateTo,
+	modalAttach,
+	modalAttachContentWrap,
+	talkAttachmentWrap,
+	rdoAttachType,
+	selTalkDateType,
+	selTalkPageLength,
+	talkTable,
+	chkNoticeTalk,
+	infoTalkNickname,
+	infoTalkCommentCount,
+	infoTalkLikeCount,
+	infoTalkContent,
+	infoTalkCreated,
+	infoTalkIsBlind,
+	infoTalkAttachWrap,
+	talkCommentWrap,
+	commentTalk,
+	updateTalk,
+	rdoUpdateAttachType,
+	chkUpdateNoticeTalk,
+	updateTalkAttachWrap,
+	btnBlindTalk,
+	btnDisplayTalk,
+	btnDeleteTalk,
+	btnUpdateTalk,
+	isDel,
+	chkNoticeType,
+	chkSpecialNoticeTalk,
+	chkUpdateSpecialNoticeTalk,
+	commentEmojiWrap,
+	commentEmojiCategory,
+	commentAttachmentWrap,
+	previewEmoji,
+	rdoCommentAttachType, actionAttachmentWrap,
+} from "../modules/elements.js";
 	import {
 		overflowHidden, onErrorImage, onChangeValidateImage, onChangeValidationVideo,
 		onChangeValidationAudio, fadeoutModal, initDayBtn, limitInputLength, calculateInputLength
@@ -50,7 +53,7 @@
 	import {label} from "../modules/label.js";
 	import {message} from "../modules/message.js";
 	import {buildTotalCount, toggleBtnPreviousAndNextOnTable} from "../modules/tables.js";
-	import {isDisplay, isEmpty, numberWithCommas} from "../modules/utils.js";
+	import {isDisplay, isEmpty, numberWithCommas, uuidv4} from "../modules/utils.js";
 	import {ajaxRequestWithFile, ajaxRequestWithJson, headers, isSuccessResp, invalidResp} from "../modules/ajax-request.js";
 
 	export function showTalkListForm()
@@ -446,6 +449,8 @@
 		$('.btn-display-comment').on('click', function () { onClickBtnBlindComment(this); });
 		$('.btn-viewmore-reply').on('click', function () { onClickBtnViewMoreReply(this); });
 		$('.comment-attach-wrap').on('click', function () { onClickAttachComment(this); });
+		$('.rdo-reply-attach-type').on('change', function () { onChangeReplyAttachType(this); });
+		$('.btn-reply-emoji').on('click', function () { onClickBtnReplyEmoji(this); });
 	}
 
 	function buildCommentBody(comment)
@@ -520,15 +525,15 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_del, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body} = obj;
+			const {comment_uuid, is_del, is_blind, is_company, parent_comment_uuid, created, nickname, profile_uuid, comment_body, emoticon, attach} = obj;
 
 			const isDel = is_del === 'Y';
 			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 			const isBlindReply = is_blind === 'Y';
-			const btnBlindReply = isDel ?  delComment : isBlindReply
+			const btnBlindReply = isDel ? delComment : isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const btnDeleteReply = isDel ? delComment : `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
 			const lastIdx = recomment_data[arr.length - 1].idx;
 
 			if (comment_cnt > 5 && index ===0)
@@ -550,9 +555,9 @@
 							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 						</div>
 					</div>
-					<div class="detail-data">
-						${comment_body}
-					</div>
+					${buildReplyEmoticon(emoticon)}
+					${buildReplyAttachment(attach)}
+					${buildReplyBody(comment_body)}
 					<div class="add-comments">
 						${isSponsorDoit ? buildCreateReply({parent_comment_uuid, profile_uuid, nickname, is_company}) : ''}
 					</div>
@@ -560,6 +565,36 @@
 		})
 
 		return repliesEl;
+	}
+
+	function buildReplyBody(comment)
+	{
+		return isEmpty(comment) ? '' : `<div class="detail-data">${comment}</div>`;
+	}
+
+	function buildReplyEmoticon(emoticon)
+	{
+		let emojiElement = '';
+		if (!isEmpty(emoticon) && emoticon.length > 0)
+			emoticon.map(obj => emojiElement += `<div class="emoticon-view-wrap"><img src="${obj.emoticon_file_url}" alt="이모티콘"></div>`);
+
+		return emojiElement;
+	}
+
+	function buildReplyAttachment(attach)
+	{
+		let attachElement = '';
+		if (!isEmpty(attach) && attach.length > 0)
+		{
+			attach.map(obj => {
+				const {contents_type, contents_url, thumbnail_url} = obj;
+				attachElement += contents_type === label.audio
+					? `<audio controls="controls"><source src="${contents_url}"/></audio>`
+					: `<div class="img-wrap comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일"></div>`;
+			})
+		}
+
+		return attachElement;
 	}
 
 	let appendReplyTarget;
@@ -584,14 +619,14 @@
 	{
 		let appendReplyEl = ''
 		data.data.slice(0).reverse().map(obj => {
-			const {comment_uuid, is_del, is_blind, is_company, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_del, is_blind, is_company, created, nickname, comment_body, emoticon, attach} = obj;
 			const isDel = is_del === 'Y';
 			const delComment = '<p class="text-danger">삭제된 댓/답글입니다.</p>';
 			const isBlindReply = is_blind === 'Y';
 			const btnBlindReply = isDel ? delComment : isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
 				: `<button type="button" class="btn-xs btn-warning btn-blind-comment" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye-slash"></i> 블라인드 처리</button>`;
-			const btnDeleteReply = `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
+			const btnDeleteReply = isDel ? delComment : `<button type="button" class="btn-xs btn-danger btn-delete-talk-comment" data-uuid="${comment_uuid}">삭제</button>`;
 
 			appendReplyEl +=
 				`<li>
@@ -604,9 +639,9 @@
 							${is_company === 'Y' ? btnDeleteReply : btnBlindReply}
 						</div>
 					</div>
-					<div class="detail-data">
-						${comment_body}
-					</div>
+					${buildReplyEmoticon(emoticon)}
+					${buildReplyAttachment(attach)}
+					${buildReplyBody(comment_body)}
 				</li>`
 		})
 
@@ -619,6 +654,7 @@
 
 	function buildCreateReply({parent_comment_uuid, profile_uuid, nickname, is_company})
 	{
+		const uuid = uuidv4();
 		return (
 			`<a class="link btn-reply-talk">답글달기</a>
 				<!-- 답글달기 -->
@@ -641,11 +677,57 @@
 									</div>
 								</td>
 							</tr>
+							<tr class="emoticon-wrap">
+								<th>
+									첨부파일
+								</th>
+								<td>
+									<div class="radio-wrap file-value">
+										<input id="r${uuid}a" type="radio" class="rdo-reply-attach-type" name="${uuid}" value="" checked>
+										<label for="r${uuid}a"><span></span>첨부파일 없음</label>
+	
+										<input id="r${uuid}b" type="radio" class="rdo-reply-attach-type" name="${uuid}" value="image">
+										<label for="r${uuid}b"><span></span>사진</label>
+	
+										<input id="r${uuid}c" type="radio" class="rdo-reply-attach-type" name="${uuid}" value="video">
+										<label for="r${uuid}c"><span></span>영상</label>
+	
+										<input id="r${uuid}d" type="radio" class="rdo-reply-attach-type" name="${uuid}" value="audio">
+										<label for="r${uuid}d"><span></span>음성</label>
+	
+										<i class="far fa-smile emoticon-open_btn btn-reply-emoji"
+											data-radio="${uuid}"
+											data-emoji="${uuid}Emoji"
+											data-preview="${uuid}Preview"
+											data-cancel="${uuid}Cancel"></i>
+									</div>
+									<div class="reply-attachment-wrap"></div>
+								</div>
+	
+								<div class="emoticon-modal-wrap" style="display: none;" id="${uuid}Emoji">
+									<ul class="emoticon-tab">
+									</ul>
+									<div class="emoticon-list">
+									</div>
+								</div>
+								</td>
+							</tr>
+							<tr class="preview-reply-emoji" style="display: none;" id="${uuid}Preview">
+								<th></th>
+								<td>
+									<div class="emoticon-view-wrap">
+										<img class="emoticon-view" src="" alt="이모티콘 미리보기">
+										<i class="fas fa-times-circle icon-delete-attach" id="${uuid}Cancel"></i>
+									</div>
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2">
 									<div class="right-wrap">
 										<button type="button" 
 												class="btn-sm btn-primary btn-submit-reply-talk"
+												data-radio="${uuid}"
+												data-preview="${uuid}Preview"
 												data-parent="${parent_comment_uuid}"
 												data-profile="${profile_uuid}"
 												data-company="${is_company}"
@@ -677,6 +759,8 @@
 	let g_talk_reply_target_nickname;
 	let g_talk_reply_value;
 	let g_talk_reply_company;
+	let replyFileElement;
+	let paramReplyAttachType = '';
 	function onSubmitTalkReply(obj)
 	{
 		const replyEl = $(obj).parents('.reply-talk-table');
@@ -686,16 +770,62 @@
 		g_talk_reply_company = $(obj).data('company');
 		g_talk_reply_value = $(replyEl).find('.reply-talk').val();
 
-		if (isEmpty(g_talk_reply_value))
+		const rdoAttachElement = $(`input[name=${$(obj).data('radio')}]`);
+		paramReplyAttachType = $(`input[name=${$(obj).data('radio')}]:checked`).val();
+		const replyAttachWrap = $(rdoAttachElement).parent().siblings('.reply-attachment-wrap');
+		replyFileElement = $(replyAttachWrap).find('input[type=file]');
+		previewReplyEmojiWrap = $(`#${$(obj).data('preview')}`);
+
+		let fileCount = 0;
+		if (replyFileElement.length > 0)
 		{
-			sweetToast(`답글은 ${message.required}`);
+			replyFileElement.each(function (index, element) {
+				fileCount += element.files.length;
+			})
+		}
+
+		if (replyFileElement.length !== fileCount)
+		{
+			sweetToast(`파일을 ${message.addOn}`);
 			return;
 		}
 
-		sweetConfirm(message.create, createReplyTalkCommentReq);
+		if (isEmpty(g_talk_reply_value) && !isDisplay(previewReplyEmojiWrap) && fileCount === 0)
+		{
+			sweetToast(`답글 또는 이모티콘/첨부파일은 ${message.required}`);
+			return;
+		}
+
+		const callback = isEmpty(paramReplyAttachType) ? createReplyTalkCommentReq : createTalkReplyAttachReq;
+		sweetConfirm(message.create, callback);
 	}
 
-	function createReplyTalkCommentReq()
+	function createTalkReplyAttachReq()
+	{
+		let param  = new FormData();
+		switch (replyFileElement.length) {
+			case 1 :
+				replyFileElement.each(function (index, element) {
+					param.append('main_attach', $(element)[0].files[0]);
+				})
+				break;
+			case 2 :
+				replyFileElement.each(function (index, element) {
+					if (index === 0) param.append('sub_attach', $(element)[0].files[0]);
+					if (index === 1) param.append('main_attach', $(element)[0].files[0]);
+				})
+				break;
+			default :
+
+		}
+		ajaxRequestWithFile(true, fileApiV2.double, param)
+			.then( async function( data, textStatus, jqXHR ) {
+				isSuccessResp(data) ? createReplyTalkCommentReq(data) : sweetToast(invalidResp(data));
+			})
+			.catch(reject => sweetError(`첨부파일 등록${message.ajaxError}`));
+	}
+
+	function createReplyTalkCommentReq(data)
 	{
 		const param = {
 			"doit_uuid" : g_doit_uuid,
@@ -703,6 +833,29 @@
 			"comment" : g_talk_reply_company === 'Y' ? g_talk_reply_value.trim() : `@${g_talk_reply_target_nickname} ${g_talk_reply_value.trim()}`,
 			"mention" : [{ "profile_uuid": g_talk_reply_target_profile_uuid, "nickname": g_talk_reply_target_nickname}],
 			"parent_comment_uuid" : g_talk_reply_parent_uuid,
+		}
+
+		if (!isEmpty(data))
+		{
+			const talkAttachObj = {
+				"contents_type" : paramReplyAttachType,
+				"path" : data.image_urls.main_attach
+			}
+
+			if (paramReplyAttachType === label.video)
+				talkAttachObj['thumbnail_path'] = data.image_urls.sub_attach;
+
+			param["attach"] = [talkAttachObj];
+		}
+
+		if (isDisplay(previewReplyEmojiWrap))
+		{
+			const targetPreview = $(previewReplyEmojiWrap).find('.emoticon-view');
+			param["emoticon"] = [{
+				"category_id": targetPreview.data('category'),
+				"emoticon_id": targetPreview.data('imojiid'),
+				"emoticon_file_url": targetPreview.data('url'),
+			}]
 		}
 
 		ajaxRequestWithJson(true, api.createTalkComment, JSON.stringify(param))
@@ -817,14 +970,14 @@
 		onChangeCommentAttachType();
 		rdoCommentAttachType.prop('disabled', true);
 		commentEmojiWrap.show();
-		getEmoji()
+		getEmoji(buildEmojis)
 	}
 
-	function getEmoji()
+	function getEmoji(callback)
 	{
 		ajaxRequestWithJson(false, api.emojiList, null)
 			.then( async function( data, textStatus, jqXHR ) {
-				isSuccessResp(data) ? buildEmojis(data) : sweetToast(invalidResp(data));
+				isSuccessResp(data) ? callback(data) : sweetToast(invalidResp(data));
 			})
 			.catch(reject => sweetError(`이모티콘 목록${message.ajaxLoadError}`));
 	}
@@ -902,17 +1055,141 @@
 		targetPreview.attr('data-url', '')
 	}
 
+	let replyEmojiCategoryElement;
+	let rdoReplyAttachType;
+	let replyEmojiWrap;
+	let previewReplyEmojiWrap;
+	let btnCancelPreviewReplyEmoji;
+	function onClickBtnReplyEmoji(obj)
+	{
+		rdoReplyAttachType = $(`input[name=${$(obj).data('radio')}]`);
+		replyEmojiWrap = $(`#${$(obj).data('emoji')}`);
+		previewReplyEmojiWrap = $(`#${$(obj).data('preview')}`);
+		btnCancelPreviewReplyEmoji = $(`#${$(obj).data('cancel')}`);
+		replyEmojiCategoryElement = replyEmojiWrap.children('.emoticon-tab');
+
+		if (isDisplay(replyEmojiWrap))
+		{
+			replyEmojiWrap.hide();
+			rdoReplyAttachType.prop('disabled', false);
+		}
+		else
+		{
+			const replyAttachWrap = $(obj).parent().siblings('.reply-attachment-wrap');
+			const fileElement = $(replyAttachWrap).find('input[type=file]');
+
+			let hasFile = false;
+			if (fileElement.length > 0)
+			{
+				fileElement.each(function (index, element) {
+					if (element.files.length > 0) hasFile = true;
+				})
+			}
+
+			hasFile ? sweetConfirm( '첨부 파일을 삭제하고 이모티콘을 추가합니다.', openReplyEmoji) : openReplyEmoji();
+		}
+	}
+
+	function openReplyEmoji()
+	{
+		rdoReplyAttachType.eq(0).prop('checked', true);
+		onChangeReplyAttachType(rdoReplyAttachType);
+		rdoReplyAttachType.prop('disabled', true);
+		replyEmojiWrap.show();
+		getEmoji(buildReplyEmojis)
+	}
+
+	function buildReplyEmojis(data)
+	{
+		if (!isEmpty(data) && data.data.length > 0)
+		{
+			replyEmojiCategoryElement.empty();
+			data.data.map((category, index) => {
+				const {category_id, category_image_url, category_title, emoticon} = category;
+				const liElement = `<li class="${index === 0 ? 'active': ''}" data-category="${category_id}"><img src="${category_image_url}" alt="${category_title}"></li>`;
+				replyEmojiCategoryElement.append(liElement);
+				commentEmojis.push({
+					"category_id" : category_id,
+					"emojis" : emoticon
+				})
+			})
+
+			onClickReplyEmojiCategory(replyEmojiCategoryElement.children().eq(0));
+			replyEmojiCategoryElement.children().off().on('click', function () { onClickReplyEmojiCategory(this); });
+		}
+		else
+			commentEmojis = [];
+	}
+
+	function onClickReplyEmojiCategory(obj)
+	{
+		replyEmojiCategoryElement.children().removeClass('active');
+		$(obj).addClass('active');
+
+		const targetElement = replyEmojiCategoryElement.siblings('.emoticon-list');
+		const categoryId = $(obj).data('category');
+
+		targetElement.empty();
+		if (commentEmojis.length > 0)
+		{
+			commentEmojis.map(emojiData => {
+				const {category_id, emojis} = emojiData
+				if (categoryId == category_id && emojis.length > 0)
+				{
+					emojis.map(emoji => {
+						const {emoticon_id, emoticon_thumb_url, emoticon_file_url} = emoji;
+						targetElement.append(`<img data-category="${category_id}" data-imojiid="${emoticon_id}" data-url="${emoticon_file_url}" src="${emoticon_thumb_url}" alt="이모티콘">`);
+					})
+
+					targetElement.children().off().on('click', function () { onClickReplyEmoji(this); });
+				}
+			})
+		}
+	}
+
+	function onClickReplyEmoji(obj)
+	{
+		replyEmojiWrap.hide();
+		const targetPreview = $(previewReplyEmojiWrap).find('.emoticon-view');
+		targetPreview.attr('src', $(obj).data('url'));
+		targetPreview.attr('data-imojiid', $(obj).data('imojiid'));
+		targetPreview.attr('data-category', $(obj).data('category'));
+		targetPreview.attr('data-url', $(obj).data('url'));
+		previewReplyEmojiWrap.show();
+		btnCancelPreviewReplyEmoji.off().on('click', function () { onClickBtnCancelPreviewReplyEmoji(); });
+	}
+
+	function onClickBtnCancelPreviewReplyEmoji()
+	{
+		rdoReplyAttachType.eq(0).prop('checked', true);
+		onChangeReplyAttachType();
+		rdoReplyAttachType.prop('disabled', false);
+		previewReplyEmojiWrap.hide();
+		const targetPreview = $(previewReplyEmojiWrap).find('.emoticon-view');
+		targetPreview.attr('src', '');
+		targetPreview.attr('data-imojiid', '')
+		targetPreview.attr('data-category', '')
+		targetPreview.attr('data-url', '')
+	}
+
 	export function onSubmitTalkComment()
 	{
-		const commentAttachThumbnail = $("#commentAttachThumbnail");
-		if (getCommentAttachType() === label.video && commentAttachThumbnail[0].files.length === 0)
+		const fileElement = commentAttachmentWrap.find("input[type=file]");
+		let fileCount = 0;
+		if (fileElement.length > 0)
 		{
-			sweetToast(`영상 썸네일은 ${message.required}`);
-			return false;
+			fileElement.each(function (index, element) {
+				fileCount += element.files.length;
+			})
 		}
 
-		const commentAttachment = $("#commentAttachment");
-		if (isEmpty(commentTalk.val()) && !isDisplay(previewEmoji) && commentAttachment[0].files.length === 0)
+		if (fileElement.length !== fileCount)
+		{
+			sweetToast(`파일을 ${message.addOn}`);
+			return;
+		}
+
+		if (isEmpty(commentTalk.val()) && !isDisplay(previewEmoji) && fileCount === 0)
 		{
 			sweetToast(`댓글 또는 이모티콘/첨부파일은 ${message.required}`);
 			return false;
@@ -1435,6 +1712,59 @@
 				break;
 			default :
 				commentAttachmentWrap.html(attachEl);
+		}
+	}
+
+	function onChangeReplyAttachType(obj)
+	{
+		const uuid = uuidv4();
+		const radioName = $(obj).attr('name');
+		const attachType = $(`input[name=${radioName}]:checked`).val();
+		const replyAttachmentWrap = $(obj).parent().siblings('.reply-attachment-wrap');
+		let attachEl = '';
+		switch (attachType) {
+			case label.image :
+				attachEl =
+					`<p class="desc-sub">이미지 ( 크기 : 650 이상 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="${uuid}">업로드</label>
+						<input type="file" id="${uuid}" class="upload-hidden" data-width="650" data-compare="이상">
+					</div>`;
+				replyAttachmentWrap.html(attachEl);
+				$(`#${uuid}`).on('change', function () { onChangeValidateImage(this); });
+				break;
+			case label.video :
+				attachEl =
+					`<p class="desc-sub">썸네일 ( 크기 : 650 * 650 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="${uuid}Thumbnail">업로드</label>
+						<input type="file" id="${uuid}Thumbnail" class="upload-hidden" data-width="650" data-height="650" data-compare="같음">
+					</div>
+					<p class="desc-sub">영상 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="${uuid}">업로드</label>
+						<input type="file" id="${uuid}" class="upload-hidden">
+					</div>`;
+				replyAttachmentWrap.html(attachEl);
+				$(`#${uuid}Thumbnail`).on('change', function () { onChangeValidateImage(this); });
+				$(`#${uuid}`).on('change', function () { onChangeValidationVideo(this); });
+				break;
+			case label.audio :
+				attachEl =
+					`<p class="desc-sub">음성 ( 파일 크기 : 10M 이하 )</p>
+					<div class="file-wrap preview-image">
+						<input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="${uuid}">업로드</label>
+						<input type="file" id="${uuid}" class="upload-hidden">
+					</div>`;
+				replyAttachmentWrap.html(attachEl);
+				$(`#${uuid}`).on('change', function () { onChangeValidationAudio(this); });
+				break;
+			default :
+				replyAttachmentWrap.html(attachEl);
 		}
 	}
 

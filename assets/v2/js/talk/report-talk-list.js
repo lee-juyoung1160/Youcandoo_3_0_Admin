@@ -132,7 +132,8 @@
 					render: function (data, type, row, meta) {
 						const talkType = $("input[name=radio-type]:checked").val();
 						const detailUrl = talkType === 'talk' ? page.detailTalk : page.detailActionTalk;
-						return `<a class="line-clamp-1" style="max-width: 300px;" href="${detailUrl}${row.board_idx}">${data}</a>`;
+						const contentType = row.is_attached === 'Y' ? '[첨부파일]' : row.is_emoticon === 'Y' ? '[이모티콘]' : '';
+						return `<a class="line-clamp-1" style="max-width: 300px;" href="${detailUrl}${row.board_idx}">${contentType} ${data}</a>`;
 					}
 				}
 				,{title: "댓글수", 		data: "comment_cnt",	width: "4%",

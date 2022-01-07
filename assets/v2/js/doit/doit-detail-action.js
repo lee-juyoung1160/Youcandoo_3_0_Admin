@@ -970,6 +970,7 @@
 	{
 		if (!isEmpty(data) && data.data.length > 0)
 		{
+			commentEmojis = [];
 			actionEmojiCategory.empty();
 			data.data.map((category, index) => {
 				const {category_id, category_image_url, category_title, emoticon} = category;

@@ -389,7 +389,12 @@ input.input-copy {
 	width: 100%;
 	height: auto;
 }
-
+/* 이모티콘 이미지 사이즈 */
+.emoticon-view-wrap {
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
 /* only 이미지 파일 업로드 */
 .img-file-wrap {
 	overflow: hidden;

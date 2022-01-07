@@ -395,6 +395,10 @@ input.input-copy {
 	width: 100px;
 	height: 100px;
 }
+.talk-file-modal .modal-body {
+	overflow-y: scroll;
+	max-height: 700px;
+}
 /* only 이미지 파일 업로드 */
 .img-file-wrap {
 	overflow: hidden;

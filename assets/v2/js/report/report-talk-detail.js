@@ -235,9 +235,11 @@
 		{
 			attach.map(obj => {
 				const {contents_type, contents_url, thumbnail_url} = obj;
+				const iconVideo = contents_type === label.video ? '<i class="fas fa-play-circle"></i>' : '';
+				const classNameVideo = contents_type === label.video ? 'video-thumbnail-wrap' : '';
 				attachElement += contents_type === label.audio
 					? `<audio controls="controls"><source src="${contents_url}"/></audio>`
-					: `<div class="img-wrap comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일"></div>`;
+					: `<div class="img-wrap ${classNameVideo} comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일">${iconVideo}</div>`;
 			})
 		}
 

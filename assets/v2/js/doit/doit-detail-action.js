@@ -381,9 +381,11 @@
 		{
 			attach.map(obj => {
 				const {contents_type, contents_url, thumbnail_url} = obj;
+				const iconVideo = contents_type === label.video ? '<i class="fas fa-play-circle"></i>' : '';
+				const classNameVideo = contents_type === label.video ? 'video-thumbnail-wrap' : '';
 				attachElement += contents_type === label.audio
 					? `<audio controls="controls"><source src="${contents_url}"/></audio>`
-					: `<div class="img-wrap action-comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일"></div>`;
+					: `<div class="img-wrap ${classNameVideo} action-comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일">${iconVideo}</div>`;
 			})
 		}
 
@@ -494,9 +496,11 @@
 		{
 			attach.map(obj => {
 				const {contents_type, contents_url, thumbnail_url} = obj;
+				const iconVideo = contents_type === label.video ? '<i class="fas fa-play-circle"></i>' : '';
+				const classNameVideo = contents_type === label.video ? 'video-thumbnail-wrap' : '';
 				attachElement += contents_type === label.audio
 					? `<audio controls="controls"><source src="${contents_url}"/></audio>`
-					: `<div class="img-wrap action-comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일"></div>`;
+					: `<div class="img-wrap ${classNameVideo} action-comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일">${iconVideo}</div>`;
 			})
 		}
 
@@ -935,7 +939,7 @@
 		if (isDisplay(actionEmojiWrap))
 		{
 			actionEmojiWrap.hide();
-			rdoActionAttachType.prop('disabled', false);
+			rdoActionAttachType.prop('disabled', isDisplay(previewActionEmoji));
 		}
 		else
 		{
@@ -1055,7 +1059,7 @@
 		if (isDisplay(actionReplyEmojiWrap))
 		{
 			actionReplyEmojiWrap.hide();
-			rdoActionReplyAttachType.prop('disabled', false);
+			rdoActionReplyAttachType.prop('disabled', isDisplay(previewActionReplyEmojiWrap));
 		}
 		else
 		{

@@ -386,7 +386,15 @@
                 img.onload = function() {
                     const infoMessage = `업로드 가능한 이미지 사이즈를 확인해주세요.<br>
                                          선택한 이미지 사이즈: ${this.width} x ${this.height}<br>
-                                         업로드 가능한 이미지 사이즈: ${requiredWidth} x ${requiredHeight}`;
+                                         업로드 가능한 이미지 사이즈: ${requiredWidth} x ${requiredHeight}<br>
+                                         * 최대 3250 x 3250 *`;
+
+                    if (this.width > 3250 || this.height > 3250)
+                    {
+                        sweetError(infoMessage);
+                        emptyFile(obj);
+                        return;
+                    }
 
                     if (compare === '같음' && (this.width !== requiredWidth || this.height !== requiredHeight))
                     {

@@ -3,10 +3,10 @@
 	import { api } from '../modules/api-url.js';
 	import {
 		btnBack, btnList, commentCount, likeCount, talkAttachWrap, talkCreated, userNickname,
-		content, talkCommentWrap, doitTitle,
+		content, talkCommentWrap, doitTitle, modalAttachContentWrap, modalClose, modalBackdrop,
 	} from '../modules/elements.js';
 	import {sweetToast, sweetToastAndCallback, sweetConfirm, sweetError} from '../modules/alert.js';
-	import { historyBack, onErrorImage} from "../modules/common.js";
+	import {fadeinModal, fadeoutModal, historyBack, onErrorImage} from "../modules/common.js";
 	import { getPathName, splitReverse, isEmpty } from "../modules/utils.js";
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
@@ -19,8 +19,10 @@
 		/** 상세 불러오기 **/
 		getDetail();
 		/** 이벤트 **/
-		btnBack	 .on('click', function () { historyBack(); });
-		btnList	 .on('click', function () { goListPage(); });
+		btnBack.on('click', function () { historyBack(); });
+		btnList.on('click', function () { goListPage(); });
+		modalClose.on("click", function () { fadeoutModal(); });
+		modalBackdrop.on("click", function () { fadeoutModal(); });
 	});
 
 	function getDetail()
@@ -104,7 +106,7 @@
 			g_talk_comment_page_size = Math.ceil(Number(data.count)/g_talk_comment_page_length);
 
 			data.data.map((obj, index, arr) => {
-				const {idx, comment_uuid, created, nickname, is_company, is_blind, comment_body, comment_cnt, recomment_data } = obj;
+				const {idx, comment_uuid, created, nickname, is_company, is_blind, comment_body, comment_cnt, recomment_data, emoticon, attach} = obj;
 
 				if (arr.length - 1 === index)
 					g_talk_comment_last_idx = idx;
@@ -127,9 +129,9 @@
 								${is_company === 'Y' ? '' : btnBlindComment}
 							</div>
 						</div>
-						<div class="detail-data">
-							${comment_body}
-						</div>
+						${buildCommentEmoticon(emoticon)}
+						${buildCommentAttachment(attach)}
+						${buildCommentBody(comment_body)}
 						<div class="bottom">
 							<span><i class="fas fa-comments"></i> ${comment_cnt}</span>
 						</div>
@@ -150,7 +152,38 @@
 			$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
 			$('.btn-display').on('click', function () { onClickBtnBlind(this); });
 			$('.btn-viewmore-reply').on('click', function () { onClickBtnViewMoreReply(this); });
+			$('.comment-attach-wrap').off().on('click', function () { onClickAttachment(this); });
 		}
+	}
+
+	function buildCommentBody(comment)
+	{
+		return isEmpty(comment) ? '' : `<div class="detail-data">${comment}</div>`;
+	}
+
+	function buildCommentEmoticon(emoticon)
+	{
+		let emojiElement = '';
+		if (!isEmpty(emoticon) && emoticon.length > 0)
+			emoticon.map(obj => emojiElement += `<div class="emoticon-view-wrap"><img src="${obj.emoticon_file_url}" alt="이모티콘"></div>`);
+
+		return emojiElement;
+	}
+
+	function buildCommentAttachment(attach)
+	{
+		let attachElement = '';
+		if (!isEmpty(attach) && attach.length > 0)
+		{
+			attach.map(obj => {
+				const {contents_type, contents_url, thumbnail_url} = obj;
+				attachElement += contents_type === label.audio
+					? `<audio controls="controls"><source src="${contents_url}"/></audio>`
+					: `<div class="img-wrap comment-attach-wrap" data-type="${contents_type}" data-url="${contents_url}"><img src="${thumbnail_url}" alt="첨부 파일"></div>`;
+			})
+		}
+
+		return attachElement;
 	}
 
 	function buildPagination()
@@ -165,6 +198,22 @@
 		talkCommentWrap.append(btnViewMoreEl);
 	}
 
+	function onClickAttachment(obj)
+	{
+		fadeinModal();
+		let contentEl = ''
+		switch ($(obj).data('type')) {
+			case label.image :
+				contentEl = `<div class="image-wrap"><img src="${$(obj).data('url')}" alt=""></div>`;
+				break;
+			case label.video :
+				contentEl = `<div class="video-wrap"><video controls><source src="${$(obj).data('url')}"></video></div>`;
+				break;
+		}
+		modalAttachContentWrap.html(contentEl);
+		onErrorImage();
+	}
+
 	function onClickViewMore()
 	{
 		g_talk_comment_page_num++
@@ -175,7 +224,7 @@
 	{
 		let repliesEl = ''
 		recomment_data.slice(0).reverse().map((obj, index, arr) => {
-			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_blind, is_company, parent_comment_uuid, created, nickname, comment_body, emoticon, attach} = obj;
 			const btnBlindReply = is_blind === 'Y'
 				? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}">
 							 <i class="fas fa-eye"></i> 블라인드 해제
@@ -204,9 +253,9 @@
 							${is_company === 'Y' ? '' : btnBlindReply}
 						</div>
 					</div>
-					<div class="detail-data">
-						${comment_body}
-					</div>
+					${buildCommentEmoticon(emoticon)}
+					${buildCommentAttachment(attach)}
+					${buildCommentBody(comment_body)}
 				</li>`
 		})
 
@@ -235,7 +284,7 @@
 	{
 		let appendReplyEl = ''
 		data.data.slice(0).reverse().map(obj => {
-			const {comment_uuid, is_blind, is_company, created, nickname, comment_body} = obj;
+			const {comment_uuid, is_blind, is_company, created, nickname, comment_body, emoticon, attach} = obj;
 			const isBlindReply = is_blind === 'Y';
 			const btnBlindReply = isBlindReply
 				? `<button type="button" class="btn-xs btn-orange btn-display" id="${comment_uuid}" data-uuid="${comment_uuid}"><i class="fas fa-eye"></i> 블라인드 해제</button>`
@@ -252,9 +301,9 @@
 							${is_company === 'Y' ? '' : btnBlindReply}
 						</div>
 					</div>
-					<div class="detail-data">
-						${comment_body}
-					</div>
+					${buildCommentEmoticon(emoticon)}
+					${buildCommentAttachment(attach)}
+					${buildCommentBody(comment_body)}
 				</li>`
 		})
 
@@ -262,6 +311,7 @@
 		appendReplyTarget.remove();
 		$('.btn-blind').on('click', function () { onClickBtnBlind(this); });
 		$('.btn-display').on('click', function () { onClickBtnBlind(this); });
+		$('.comment-attach-wrap').off().on('click', function () { onClickAttachment(this); });
 	}
 
 	let g_is_blind;

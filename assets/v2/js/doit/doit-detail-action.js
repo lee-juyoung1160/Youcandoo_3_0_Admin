@@ -904,9 +904,9 @@
 		{
 			const targetPreview = previewActionEmoji.find('.emoticon-view');
 			param["emoticon"] = [{
-				"category_id": targetPreview.data('category'),
-				"emoticon_id": targetPreview.data('imojiid'),
-				"emoticon_file_url": targetPreview.data('url'),
+				"category_id": targetPreview.attr('data-category'),
+				"emoticon_id": targetPreview.attr('data-imojiid'),
+				"emoticon_file_url": targetPreview.attr('data-url')
 			}]
 		}
 

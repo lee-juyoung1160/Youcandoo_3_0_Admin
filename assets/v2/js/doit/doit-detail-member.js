@@ -25,10 +25,21 @@
 		modalBan,
 		chkBlock,
 		rdoReason,
-		banReason, modalMemo, memo,
-		banReasonWrap, blockMemberForm, blockMemberTable, selBlockMemberPageLength,
+		banReason,
+		modalMemo,
+		memo,
+		banReasonWrap,
+		blockMemberForm,
+		blockMemberTable,
+		selBlockMemberPageLength,
+		searchMemberFrom,
+		searchMemberTo,
 	} from "../modules/elements.js";
-	import {fadeoutModal, initSelectOption, overflowHidden,} from "../modules/common.js";
+	import {
+		fadeoutModal, initDayBtn,
+		initSelectOption,
+		overflowHidden,
+	} from "../modules/common.js";
 	import {api} from "../modules/api-url.js";
 	import {g_doit_uuid, isSponsorDoit, doitIdx} from "./doit-detail-info.js";
 	import {sweetError, sweetToast, sweetToastAndCallback, sweetConfirm} from "../modules/alert.js";
@@ -69,9 +80,24 @@
 
 	export function initSearchMemberForm()
 	{
+		searchMemberFrom.datepicker("setDate", "2021-07-01");
+		searchMemberTo.datepicker("setDate", "today");
 		keyword.val('');
 		actionCount.val(0);
 		initSelectOption();
+		initDayBtn();
+	}
+
+	export function onChangeSearchMemberDateFrom()
+	{
+		searchMemberTo.datepicker("option", "minDate", new Date(searchMemberFrom.datepicker("getDate")));
+		initDayBtn();
+	}
+
+	export function onChangeSearchMemberDateTo()
+	{
+		searchMemberFrom.datepicker("option", "maxDate", new Date(searchMemberTo.datepicker("getDate")));
+		initDayBtn();
 	}
 
 	function countMember()
@@ -141,6 +167,8 @@
 				data: function (d) {
 					const param = {
 						"doit_uuid" : g_doit_uuid,
+						"from_date" : searchMemberFrom.val(),
+						"to_date" : searchMemberTo.val(),
 						"search_type" : selSearchType.val(),
 						"keyword" : keyword.val(),
 						"mission_uuid" : selMissions.val(),

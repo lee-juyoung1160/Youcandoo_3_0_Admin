@@ -106,7 +106,7 @@
 		btnCancelCommentEmoji,
 		rdoCommentAttachType,
 		btnActionEmoji,
-		btnCancelActionEmoji, rdoActionAttachType
+		btnCancelActionEmoji, rdoActionAttachType, searchMemberFrom, searchMemberTo
 	} from '../modules/elements.js';
 	import {
 		historyBack, limitInputLength, fadeoutModal, initSearchDatepicker, onChangeSearchDateTo,
@@ -141,8 +141,14 @@
 		onClickBtnApproval,
 		onClickBtnReject,
 		onChangeChkBlock,
-		onChangeRdoReason, onSubmitMemo,
-		onSubmitBan, showBlockMemberForm, searchBlockMember, onClickBtnCancelBlock, onClickBtnSaveUcd,
+		onChangeRdoReason,
+		onSubmitMemo,
+		onSubmitBan,
+		showBlockMemberForm,
+		searchBlockMember,
+		onClickBtnCancelBlock,
+		onClickBtnSaveUcd,
+		onChangeSearchMemberDateFrom, onChangeSearchMemberDateTo,
 	} from "./doit-detail-member.js";
 	import {onClickSearchTab, refreshOngoingRank, refreshTotalRank, initMemberRankForm} from "./doit-detail-rank.js";
 	import {
@@ -225,6 +231,8 @@
 		btnSearch.on('click', function () { searchJoinMember(); });
 		btnReset.on('click', function () { initSearchMemberForm(); });
 		actionCount.on("propertychange change keyup paste input", function () { initInputNumberWithZero(this); });
+		searchMemberFrom.on('change', function () { onChangeSearchMemberDateFrom(); });
+		searchMemberTo.on('change', function () { onChangeSearchMemberDateTo(); });
 		selJoinMemberPageLength.on('change', function () { searchJoinMember(); });
 		selSort.on('change', function () { searchJoinMember(); });
 		btnSaveUcd.on('click', function () { onClickBtnSaveUcd(); });
@@ -315,6 +323,7 @@
 				break;
 			case '#tabDoitMember' :
 				showJoinMemberForm();
+				initSearchMemberForm();
 				break;
 			case '#tabDoitMemberRanking' :
 				initMemberRankForm(searchTab[0])

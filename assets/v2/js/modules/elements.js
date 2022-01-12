@@ -206,7 +206,8 @@
     export const banMemberCount = $(".ban-member-count");
     export const selMissions = $("#selMissions");
     export const selMemberFilter = $("#selMemberFilter");
-    export const rdoActionCount = $("input[name=radio-action-count]");
+    export const searchMemberFrom = $("#searchMemberFrom");
+    export const searchMemberTo = $("#searchMemberTo");
     export const actionCount = $("#actionCount");
     export const selJoinMemberPageLength = $("#selJoinMemberPageLength");
     export const selApplyMemberPageLength = $("#selApplyMemberPageLength");

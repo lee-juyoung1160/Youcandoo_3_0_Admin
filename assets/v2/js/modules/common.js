@@ -194,7 +194,7 @@
 
     export function initSearchDateRangeAll()
     {
-        dateFrom.val("2020-07-01");
+        dateFrom.val("2021-07-01");
         dateTo.val(getTodayStr());
     }
 

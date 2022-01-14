@@ -5,7 +5,7 @@
 	import {sweetError, sweetToast} from '../modules/alert.js';
 	import {
 		onClickDateRangeBtn, initDayBtn, initSearchDatepicker, initMaxDateToday, moveToMemberDetail,
-		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, initSearchDateRangeAll
+		initPageLength, initSelectOption, onChangeSearchDateFrom, onChangeSearchDateTo, getTodayStr
 	} from "../modules/common.js";
 	import { initTableDefaultConfig, buildTotalCount, toggleBtnPreviousAndNextOnTable, getCurrentPage, redrawPage } from '../modules/tables.js';
 	import { setHistoryParam, getHistoryParam, isBackAction } from "../modules/history.js";
@@ -37,9 +37,10 @@
 	{
 		initDayBtn();
 		initMaxDateToday();
-		initSearchDateRangeAll();
 		initSelectOption();
 		keyword.val('');
+		dateFrom.val("2020-07-01");
+		dateTo.val(getTodayStr());
 	}
 
 	function setHistoryForm()

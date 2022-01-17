@@ -16,6 +16,7 @@
 
         getProfile : baseApiUrl + 'admin/get',
         updatePassword : baseApiUrl + 'admin/update/pwd',
+        updatePasswordLater : baseApiUrl + 'admin/update/setPasswordUpdated',
 
         memberList : baseApiUrl + 'profile/get/list',
         detailMember : baseApiUrl + 'profile/get/detail/info',

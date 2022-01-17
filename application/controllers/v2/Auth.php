@@ -38,12 +38,12 @@ class Auth extends CI_Controller {
     {
         $UserID = $this->input->post("userid");
         $Password = $this->input->post("password");
-        if($UserID == "") {
-            alert("ID 값이 입력되지 않았습니다", "/v2/login");
+        if ($UserID == "") {
+            alert("ID 값이 입력되지 않았습니다", "/v2/main/login");
             return;
         }
-        if($Password == "") {
-            alert("Password 값이 입력되지 않았습니다", "/v2/login");
+        if ($Password == "") {
+            alert("Password 값이 입력되지 않았습니다", "/v2/main/login");
             return;
         }
 
@@ -66,7 +66,7 @@ class Auth extends CI_Controller {
             return;
         }
 
-        if($UserData->mfa_yn=="Y"){
+        if ($UserData->mfa_yn=="Y") {
             if($UserData->status=="승인대기"){
                 alert("승인되지 않은 사용자입니다", "/v2/main/login");
                 return;
@@ -77,7 +77,6 @@ class Auth extends CI_Controller {
 
             $this->load->view('/v2/login/mfa',array(
                 "secret"=>$secret,
-//                "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
                 "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $secret),
                 "type"=>"login",
                 "userid"=>$UserID
@@ -123,6 +122,15 @@ class Auth extends CI_Controller {
         $this->session->set_userdata("user_data", $UserData);
         $_SESSION["user"] = $UserData;
 
+        $PasswordExpired = $UserData->password_need_change;
+        if ($PasswordExpired == "Y") {
+            $this->load->view('/v2/login/login',array(
+                "userid"=>$UserID,
+                "password_expired"=>$PasswordExpired
+            ));
+            return;
+        }
+
         if(get_cookie('referer'))
         {
             $ReferPage='/'.get_cookie('referer');
@@ -133,7 +141,6 @@ class Auth extends CI_Controller {
         {
             redirect('/v2', 'refresh');
         }
-
     }
 
     public function join()
@@ -176,7 +183,6 @@ class Auth extends CI_Controller {
             "password"=>hash("sha512",$Password),
             "username"=>$UserName,
             "useremail"=>$UserEmail,
-//            "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $secret),
             "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $secret),
             "secret"=>$secret,
             "type"=>"join"
@@ -213,7 +219,6 @@ class Auth extends CI_Controller {
 
             $this->load->view('/v2/login/mfa',array(
                 "secret"=>$Secret,
-//                "qrcode_url"=>$ga->getQRCodeGoogleUrl('YOUCANDOO', $Secret),
                 "qrcode_url"=>$this->GetQRCode($this->config->item("otp_name"), $Secret),
                 "type"=>$Type,
                 "userid"=>$UserID,

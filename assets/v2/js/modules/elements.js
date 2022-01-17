@@ -94,6 +94,12 @@
     export const btnLogin   = $("#btnLogin");
     export const btnJoin    = $("#btnJoin");
     export const btnSignIn    = $("#btnSignIn");
+    export const currentPassword = $("#currentPassword");
+    export const changePassword = $("#changePassword");
+    export const changePasswordCheck = $("#changePasswordCheck");
+    export const passwordExpired = $("#passwordExpired");
+    export const passwordChangeId = $("#passwordChangeId");
+    export const btnChangeLater = $("#btnChangeLater");
 
     /** 카테고리 **/
     export const updateTable    = $("#updateTable");

@@ -195,18 +195,23 @@
 					}
 				}
 				,{title: "프로필 ID", 		data: "profile_uuid",		width: "24%"}
-				,{title: "등급",    			data: "member_type",  		width: "8%" }
-				,{title: "누적 인증",   		data: "total_action",  		width: "8%",
+				,{title: "등급",    			data: "member_type",  		width: "5%" }
+				,{title: "전체 누적 인증",   	data: "total_action",  		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "현재 연속 인증",   	data: "ongoing_action",  		width: "8%",
+				,{title: "미션 누적 인증",   	data: "mission_action",  	width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}
 				}
-				,{title: "최근 7일 인증",   	data: "day7_action",  			width: "8%",
+				,{title: "현재 연속 인증",   	data: "ongoing_action",  	width: "8%",
+					render: function (data) {
+						return numberWithCommas(data);
+					}
+				}
+				,{title: "최근 7일 인증",   	data: "day7_action",  		width: "8%",
 					render: function (data) {
 						return numberWithCommas(data);
 					}

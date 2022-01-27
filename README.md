@@ -1,6 +1,5 @@
 
 # 유캔두 어드민
-유캔두 어드민
 
 ## Plugins
 [jQuery3.3.1](https://jquery.com/)
@@ -107,26 +106,26 @@ getHistoryParam : 목록 페이지에서 이전 검색 조건을 localStorage부
     "build": "webpack"
   }
 ```
-```javascript
-6. 폴더 최상위 레벨에 webpack.config.js 파일 생성 및 아래 내용 추가
-const path = require('path');
+```bash
+  6. 폴더 최상위 레벨에 webpack.config.js 파일 생성 및 아래 내용 추가
+  const path = require('path');
 
-module.exports = {
-  entry: {
-    menu: './src/menu.js',
-  },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-};
+  module.exports = {
+    entry: {
+      menu: './src/menu.js',
+    },
+    output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+  };
 
-// entry : bundle 대상이 될 파일 위치 및 이름 설정
-// output : bundle 파일이 생설될 위치 및 파일 이름에 대한 설정
-output.filename : bundle 파일이름
-output.path : bundle 파일이 생성될 위치(위 예제에선 폴더 최상위 레벨 dist라는 폴더에 생성됨)
+  // entry : bundle 대상이 될 파일 위치 및 이름 설정
+  // output : bundle 파일이 생설될 위치 및 파일 이름에 대한 설정
+  output.filename : bundle 파일이름
+  output.path : bundle 파일이 생성될 위치(위 예제에선 폴더 최상위 레벨 dist라는 폴더에 생성됨)
 
-위 예시 에서 output.filename의 [name]부분은 entry의 menu에 해당 됨.
+  위 예시 에서 output.filename의 [name]부분은 entry의 menu에 해당 됨.
 ```
 ```bash
   7. 모든 설정이 완료되면 아래 명렬어로 bundling

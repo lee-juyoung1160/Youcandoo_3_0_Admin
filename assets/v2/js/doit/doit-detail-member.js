@@ -114,9 +114,9 @@
 	function buildCountMember(data)
 	{
 		const {totalMemberCnt, totalApplyMemberCnt, totalBanMemberCnt} = data.data;
-		totalMemberCount.text(totalMemberCnt);
-		applyMemberCount.text(totalApplyMemberCnt);
-		banMemberCount.text(totalBanMemberCnt);
+		totalMemberCount.text(numberWithCommas(totalMemberCnt));
+		applyMemberCount.text(numberWithCommas(totalApplyMemberCnt));
+		banMemberCount.text(numberWithCommas(totalBanMemberCnt));
 	}
 
 	function getMissionListForMember()

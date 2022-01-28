@@ -321,15 +321,14 @@
 		infoActionExampleWrap.html(buildExample(data.data));
 		infoActionExampleDesc.text(mission_description);
 		infoPromise.text(isEmpty(promise_description) ? label.dash : promise_description);
-
 		/** 수정폼 **/
 		updateMissionTitle.val(mission_title);
-		updateMissionStartDate.val(start_date);
-		updateMissionEndDate.val(end_date);
 		updateMissionStartDate.datepicker("option", "minDate", start_date);
 		updateMissionEndDate.datepicker("option", "minDate", start_date);
+		updateMissionStartDate.val(start_date);
+		updateMissionEndDate.val(end_date);
 		chkUpdatePermanent.prop('checked', end_date === '9999-12-31');
-		onChangeUpdateCheckPermanent(chkUpdatePermanent);
+		updateMissionEndDate.prop('disabled', end_date === '9999-12-31');
 		selUpdateStartHour.val(start_time.slice(0, 2));
 		selUpdateStartMinute.val(start_time.slice(3, 5));
 		selUpdateEndHour.val(end_time.slice(0, 2));

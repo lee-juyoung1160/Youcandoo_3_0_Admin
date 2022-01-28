@@ -1,16 +1,79 @@
-
 # 유캔두 어드민
 
 ## Plugins
-[jQuery3.3.1](https://jquery.com/)
+[jQuery3.3.1](https://jquery.com)
 
-[dataTables](https://datatables.net/)
+[dataTables](https://datatables.net)
 
-[SheetJS](https://sheetjs.com/)
+[SheetJS](https://sheetjs.com)
 
-[chartjs](https://www.chartjs.org/)
+[chartjs](https://www.chartjs.org)
 
-[sweetalert2](https://sweetalert2.github.io/)
+[sweetalert2](https://sweetalert2.github.io)
+
+[swiper](http://swiperjs.com)
+
+[crypto-js](https://code.google.com/archive/p/crypto-js)
+
+## 주요 폴더 구조 및 설명
+```bash
+application
+├── controllers
+│   └── v2 : 컨트롤러(페이지 매핑)
+├── views
+│   └── v2 : 페이지 마크업(html)
+│       ├── admin : 관리자
+│       ├── biz : 비즈
+│       ├── doit : 두잇
+│       ├── gift : 상품
+│       ├── layout : 레이아웃 템플릿
+│       ├── login : 로그인, 관리자등록, otp 인증, 마이페이지
+│       ├── marketing : 마케팅
+│       ├── member : 회원
+│       ├── operate : 운영
+│       ├── promotion : 프로모션
+│       ├── report : 신고
+│       ├── service : 고객센터
+│       ├── ucd : UCD
+│       └── main-dashboard.html : 메인 대시보드
+├── assets
+│   └── v2
+│       └── css : 페이지 스타일(css)
+│       └── js : 페이지 기능(js)
+│           ├── admin : 관리자
+│           ├── badge : 회원 > 뱃지 관리
+│           ├── banner : 마케팅 > 배너 관리
+│           ├── biz : 비즈
+│           ├── bundles : 번들링 된 파일 모음. 실제 페이지에서 load 되는 파일.
+│           ├── category : 두잇 > 카테고리 관리
+│           ├── custom-event : 마케팅 > 참여이벤트 관리
+│           ├── doit : 두잇 > 두잇 관리, 신규등록
+│           ├── encryption : 운영 > 암/복호화 처리
+│           ├── error-message : 운영 > 오류 관리
+│           ├── event : 마케팅 > 이벤트 관리
+│           ├── faq : 고객센터 > FAQ
+│           ├── gift : 상품
+│           ├── inquiry : 고객센터 > 1:1 문의
+│           ├── invite : 마케팅 > 친구초대 현황
+│           ├── keyword : 두잇 > 추천 검색어
+│           ├── login : 로그인, 관리자등록, opt 인증, 마이페이지
+│           ├── logs : 운영 > 로그 관리
+│           ├── member : 회원 > 회원 정보 조회
+│           ├── modules : 자주 사용되는 로직을 모듈화 시켜놓은 파일 모음
+│           ├── notice : 고객센터 > 공지사항
+│           ├── pick : 두잇 > 유캔두 픽 두잇관리
+│           ├── plugins : third party 라이브러리 모음
+│           ├── popup : 마케팅 > 팝업 관리
+│           ├── promotion : 프로모션
+│           ├── push : 마케팅 > 푸시 관리
+│           ├── rank : 두잇 > 유캔두 픽 랭킹관리
+│           ├── report : 신고
+│           ├── story : 마케팅 > 유캔두 스토리 
+│           ├── ucd : UCD
+│           ├── version : 운영 > 앱 버전관리
+│           ├── main-dashboard.js : 메인 대시보드
+│           └── menu.js : 사이드 메뉴
+```
 
 ## Modules 폴더의 파일 및 주요 function 설명
 
@@ -85,7 +148,7 @@ getHistoryParam : 목록 페이지에서 이전 검색 조건을 localStorage부
 설명 생략.
 ```
 ## js 파일 Bundle
-* js파일을 모듈로 구현했기 때문에 bundle 후 사용을 권장.(필수는 아님)
+* js파일 bundling 후 html에서 load.
 * 라이브러리 : [webpack](https://webpack.js.org/)
 * nodejs LTS 버전 설치 필수
 ```bash

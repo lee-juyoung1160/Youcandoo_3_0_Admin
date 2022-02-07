@@ -4,7 +4,7 @@
 	import {
 		body, dateButtons, dataTable, dateFrom, dateTo, btnCancel, keyword, selPageLength, btnSearch,
 		btnReset, selSearchType, memo, btnSubmitMemo, rdoType, chkStatus, modalBackdrop, modalDetail,
-		modalClose, selDateType, modalDetailContent, modalCancel, btnSubmit,
+		modalClose, selDateType, modalDetailContent, modalCancel, btnSubmit, balance
 	} from '../modules/elements.js';
 	import {sweetError, sweetToast, sweetConfirm, sweetToastAndCallback} from '../modules/alert.js';
 	import {
@@ -85,6 +85,9 @@
 				headers: headers,
 				dataFilter: function(data){
 					let json = JSON.parse(data);
+
+					balance.text(`${numberWithCommas(json.totalUCD)} UCD`);
+
 					if (isSuccessResp(json))
 					{
 						json.recordsTotal = json.count;

@@ -1,0 +1,64 @@
+<section class="detail-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">이모티콘 수정</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <table class="detail-table">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tr>
+                        <th>기업명 *</th>
+                        <td>
+                            <p class="detail-data" id="title"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사업자 번호 *</th>
+                        <td>
+                            <p class="detail-data" id="bizNo"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>프로필 이미지 *</th>
+                        <td>
+                            <div class="file-wrap preview-image">
+                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                <label for="contentImage">업로드</label>
+                                <input type="file" id="contentImage" class="upload-hidden" accept="image/png, image/jpg, image/jpeg">
+                            </div>
+                            <div class="detail-img-wrap">
+                                <img id="thumbnail" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>홈페이지 *</th>
+                        <td>
+                            <input id="bizWeb" type="text" placeholder="https://를 포함하여 입력해주세요">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기업 소개 *</th>
+                        <td>
+                            <div class="textarea-wrap">
+                                <textarea id="content" class="length-input" maxlength="100" rows="4" placeholder="내용을 입력해주세요."></textarea>
+                                <p class="length-count-wrap"><span class="count-input">0</span>/100</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer-btn-wrap">
+            <button id="btnSubmit" type="button" class="btn btn-primary">수정 완료</button>
+        </div>
+    </div>
+
+</section>

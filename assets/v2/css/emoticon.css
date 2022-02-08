@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+/* 이모티콘 */
+.flex-wrap {
+    display: flex;
+}
+/* 이미지 업로드 커스텀 */
+.emoticon-file-upload {
+    position: relative;
+    width: 120px;
+    margin: 5px;
+    background-color: #fafafa;
+}
+.design_comm {
+    display: block;
+    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    padding: 1px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.file-name {
+    width: 120px;
+    margin: 5px;
+    padding: 3px;
+    color: #888;
+    font-size: 11px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #999;
+}
+/* 이미지 업로드 전 스타일 */
+.emoticon-file-upload.upload_design .design_comm {
+    background-image: url(/assets/v2/img/img_upload_bg.png);
+    background-position: 50% 42px;
+    background-size: 32px 25px;
+    background-repeat: no-repeat;
+}
+/* 이미지 업로드 마우스 오버 시 */
+.emoticon-file-upload.upload_design:hover .hover-content {
+    display: block;
+}
+.hover-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.3);
+}
+/* 파일 업로드 */
+.btn_upload {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 96px;
+    height: 31px;
+    color: #00327e;
+    margin-left: -46px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 30px;
+    z-index: 9;
+    background: #ccdffc;
+    cursor: pointer;
+}
+.emoticon-upload-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.emoticon-upload-list li {
+    position: relative;
+    width: 30%;
+    margin-bottom: 30px;
+}
+.emoticon-upload-list li .fa-times {
+    position: absolute;
+    top:0;
+    left: 240px;
+    font-size: 14px;
+}
+.emoticon-upload-list li:first-child .fa-times {
+    display: none;
+}
+.list-num {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+}

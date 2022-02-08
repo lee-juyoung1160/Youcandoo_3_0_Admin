@@ -1,0 +1,126 @@
+<section class="list-page">
+    <div class="inner">
+
+        <div class="main-top clearfix">
+            <h2 class="main-title">이모티콘 목록</h2>
+            <a href="/v2/emoticon/create"><i class="fas fa-plus"></i>이모티콘 등록</a>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-12">
+                <ul class="card">
+                    <li>
+                        <p class="search-title">날짜</p>
+                        <div class="form-box">
+                            <select id="selDateType" class="select-box">
+                                <option value="created">생성일</option>
+                                <option value="opened">오픈일</option>
+                            </select>
+                            <div class="date-wrap">
+                                <input type="text" class="datepicker date-from" readonly>
+                                <span class="date-text"> ~ </span>
+                                <input type="text" class="datepicker date-to" readonly>
+                            </div>
+                            <div class="date-btn">
+                                <button type="button" class="btn today">오늘</button>
+                                <button type="button" class="btn week">1주일</button>
+                                <button type="button" class="btn month">1개월</button>
+                                <button type="button" class="btn">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="search-title">검색어</p>
+                        <div class="form-box clearfix">
+                            <select id="selSearchType" class="select-box">
+                                <option value="">제목</option>
+                                <option value="">카테고리 번호</option>
+                            </select>
+                            <div class="search-txt-wrap">
+                                <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-wrap row">
+            <div class="col-3">
+                <div class="card clearfix">
+                    <p class="search-title">유형</p>
+                    <select id="" class="select-box">
+                        <option value="">전체</option>
+                        <option value="">멈춰있는 이모티콘</option>
+                        <option value="">움직이는 이모티콘</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-btn row">
+            <button id="btnSearch" type="submit" class="btn btn-primary">검색</button>
+            <button id="btnReset" type="reset" class="btn btn-outline-primary">초기화</button>
+        </div>
+
+        <div class="table-wrap row">
+            <div class="top clearfix">
+                <div class="left-wrap clearfix">
+                    <div class="form-box">
+                        <p>Total <strong class="data-num"></strong></p>
+                        <select id="selPageLength" class="select-box">
+                        </select>
+                        <select id="" class="select-box">
+                            <option value="">생성일 최신 순</option>
+                            <option value="">생성일 최신 역 순</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="dataTable">
+                <thead>
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                    <col style="width: 20%;">
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>썸네일</th>
+                    <th>카테고리 번호</th>
+                    <th>제목</th>
+                    <th>유형</th>
+                    <th>생성일</th>
+                    <th>오픈일</th>
+                    <th>오픈여부</th>
+                    <th>수정</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="list-img-wrap">
+                            <img src="/assets/v2/img/profile-1.png" alt="프로필이미지">
+                        </div>
+                    </td>
+                    <td>000001</td>
+                    <td><a href="/v2/biz/detail">나두나두</a></td>
+                    <td>움직이는 이모티콘</td>
+                    <td>2020-04-01</td>
+                    <td>2020-04-01</td>
+                    <td>Y</td>
+                    <td><button type="button" class="btn-xs btn-teal">수정</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>

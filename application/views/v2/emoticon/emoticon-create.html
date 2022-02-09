@@ -47,9 +47,10 @@
                     </tr>
                     <tr>
                         <th>대표 이미지 *</th>
-                        <td>
+                        <td colspan="3">
                             <span class="desc-sub">업로드 형식 : png(투명배경)  |  이미지 사이즈: 360X360(px)</span>
                             <div>
+                                <!-- 업로드 후 미리보기 이미지 생성 시 .upload_design 클래스 없애주세용 (이모티콘 내 모든 업로드 동일) -->
                                 <div class="emoticon-file-upload upload_design">
                                     <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
                                     <div class="hover-content">
@@ -97,6 +98,15 @@
                                 움직이는 이모티콘 이미지 형식: webp  |  이미지 사이즈: 360X360(px)<br>
                                 멈춰있는 이모티콘 이미지 형식: png(투명배경)  |  이미지 사이즈: 360X360(px)
                             </p>
+                            <div class="add-btn-wrap">
+                                <p class="sub-tit">썸네일/이미지 업로드 영역 추가</p>
+                                <div class="btn-wrap">
+                                    <button type="button"> + 1개</button>
+                                    <button type="button"> + 5개</button>
+                                    <button type="button"> + 10개</button>
+                                    <button type="button"> + 23개</button>
+                                </div>
+                            </div>
                             <ul class="emoticon-upload-list">
                                 <li>
                                     <p class="list-num">01</p>
@@ -207,7 +217,7 @@
                     </tr>
                     <tr>
                         <th>오픈 여부 *</th>
-                        <td>
+                        <td colspan="3">
                             <div class="radio-wrap">
                                 <input id="r1" type="radio" name="radio-public-type" value="N" checked>
                                 <label for="r1"><span></span>N</label>
@@ -215,6 +225,7 @@
                                 <input  id="r2" type="radio" name="radio-public-type" value="Y">
                                 <label for="r2"><span></span>Y</label>
                             </div>
+                             <p class="desc-sub-danger"><i class="fas fa-exclamation-circle"></i> 오픈 여부 Y로 설정하면 즉시 반영되고, 다시 N으로 되돌릴 수 없습니다.</p>
                         </td>
                     </tr>
                 </table>

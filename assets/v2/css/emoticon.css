@@ -20,6 +20,11 @@
     text-align: center;
     box-sizing: border-box;
 }
+.design_comm_view {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+}
 .file-name {
     width: 120px;
     margin: 5px;
@@ -90,4 +95,18 @@
     font-size: 14px;
     font-weight: 600;
     color: #666;
+}
+.add-btn-wrap {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #f3f3f3;
+    border-bottom: 1px solid #f3f3f3;
+}
+.add-btn-wrap p {
+    margin-right: 30px;
+}
+.add-btn-wrap button {
+    padding: 6px 8px;
 }

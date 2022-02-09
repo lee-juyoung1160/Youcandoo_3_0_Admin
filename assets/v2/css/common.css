@@ -113,6 +113,12 @@
 	font-size: 13px;
 	line-height: 1.3em;
 }
+.desc-sub-danger {
+	padding: 5px 0;
+	color: red;
+	font-size: 13px;
+	line-height: 1.3em;
+}
 .title {
 	font-size: 16px;
 	font-weight: 600;

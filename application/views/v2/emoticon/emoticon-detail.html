@@ -1,14 +1,10 @@
-<link rel="stylesheet" href="/assets/v2/css/biz.css?version=<?php echo $this->config->item('version');?>">
+<link rel="stylesheet" href="/assets/v2/css/emoticon.css?version=<?php echo $this->config->item('version');?>">
+
 <section class="detail-page">
     <div class="inner">
 
         <div class="main-top clearfix">
             <h2 class="main-title">이모티콘 상세</h2>
-            <div class="right-wrap">
-                <button id="btnSupportDoit" type="button" class="btn-sm btn-outline-warning"><i class="fas fa-hand-holding-usd"></i> 두잇 후원</button>
-                <button id="btnSupportLeader" type="button" class="btn-sm btn-outline-orange"><i class="fas fa-hand-holding-usd"></i> 리더 후원</button>
-                <button id="btnSaveUcd" type="button" class="btn-sm btn-outline-success modal-btn"><i class="fas fa-coins"></i> 기업 UCD 충전</button>
-            </div>
         </div>
 
         <div class="row">
@@ -17,152 +13,130 @@
                 <table class="detail-table">
                     <colgroup>
                         <col style="width: 15%;">
+                        <col style="width: 35%;">
                         <col style="width: 15%;">
-                        <col style="width: 70%;">
+                        <col style="width: 35%;">
                     </colgroup>
                     <tr>
-                        <th rowspan="5">
-                            <div class="biz-img-wrap">
-                                <img src="" alt="" id="contentImage">
-                            </div>
-                        </th>
-                        <th>기업명</th>
+                        <th>카테고리 번호</th>
                         <td>
-                            <p class="detail-data" id="title"></p>
+                            000000001
+                        </td>
+                        <th>생성일</th>
+                        <td>
+                            2022-02-22
                         </td>
                     </tr>
                     <tr>
-                        <th>사업자 번호</th>
-                        <td>
-                            <p class="detail-data" id="bizNo"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>홈페이지</th>
-                        <td>
-                            <p class="detail-data" id="bizWeb"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>기업 소개</th>
-                        <td>
-                            <p class="detail-data" id="content"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>보유 UCD</th>
-                        <td>
-                            <p class="detail-data"><span id="balance">0</span> UCD</p>
-                        </td>
-                    </tr>
-                    <tr>
+                        <th>유형 *</th>
                         <td colspan="3">
-                            <div class="right-wrap">
-                                <button id="btnUpdate" type="button" class="btn-sm btn-teal">수정</button>
+                            <p class="detail-data" id="">움직이는 이모티콘</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이모티콘명 *</th>
+                        <td colspan="3">
+                            <p class="detail-data" id="">나두나두</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>대표 이미지 *</th>
+                        <td colspan="3">
+                            <div>
+                                <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                <div class="file-name">profile-1.png</div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>카테고리 이미지 *</th>
+                        <td colspan="3">
+                            <div class="flex-wrap">
+                                <div>
+                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                    <div class="file-name">profile-1.png</div>
+                                </div>
+                                <div>
+                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                    <div class="file-name">profile-1.png</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>썸네일/<br>이모티콘 이미지 *</th>
+                        <td colspan="3">
+                            <ul class="emoticon-upload-list">
+                                <li>
+                                    <p class="list-num">01</p>
+                                    <div class="flex-wrap">
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p class="list-num">02</p>
+                                    <div class="flex-wrap">
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p class="list-num">03</p>
+                                    <i class="fas fa-times"></i>
+                                    <div class="flex-wrap">
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p class="list-num">04</p>
+                                    <div class="flex-wrap">
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                        <div>
+                                            <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
+                                            <div class="file-name">profile-1.png</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>오픈 여부 *</th>
+                        <td colspan="3">
+                            <p class="detail-data" id="">Y</p>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-
-        <ul class="tab biz-detail-teb clearfix" id="tabUl">
-            <li class="active" data-target="#tabDoitInfo">두잇 정보</li>
-            <li data-target="#tabUcdInfo">UCD 정보</li>
-        </ul>
-
-        <!-- 두잇정보 -->
-        <div class="biz-doit-info table-wrap tab-contents" id="tabDoitInfo">
-            <div class="top clearfix">
-                <div class="left-wrap clearfix">
-                    <div class="form-box">
-                        <p>Total <strong class="data-num">0</strong></p>
-                        <select id="selPageLengthDoit" class="select-box">
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <table id="doitTable">
-                <!--<colgroup>
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
-                    <col style="width: 40%;">
-                    <col style="width: 10%;">
-                    <col style="width: 10%;">
-                    <col style="width: 10%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>카테고리</th>
-                    <th>세부 카테고리</th>
-                    <th>두잇명</th>
-                    <th>개설일</th>
-                    <th>참여인원</th>
-                    <th>상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>운동</td>
-                    <td>필라테스</td>
-                    <td><a href="v2/doit/detail">두잇며어어어어엉</a></td>
-                    <td>2020-04-01</td>
-                    <td>1000</td>
-                    <td>진행중</td>
-                </tr>
-                </tbody>-->
-            </table>
-        </div>
-
-        <!-- ucd정보 -->
-        <div class="biz-ucd-info table-wrap tab-contents" style="display: none;" id="tabUcdInfo">
-            <div class="top clearfix">
-                <div class="left-wrap clearfix">
-                    <div class="form-box">
-                        <p>Total <strong class="data-num"></strong></p>
-                        <select id="selPageLengthUcd" class="select-box">
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <table id="ucdInfoTable">
-                <!--<colgroup>
-                    <col style="width: 10%;">
-                    <col style="width: 10%;">
-                    <col style="width: 10%;">
-                    <col style="width: 15%;">
-                    <col style="width: 40%;">
-                    <col style="width: 15%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>유형</th>
-                    <th>구분</th>
-                    <th>금액</th>
-                    <th>제목</th>
-                    <th>내용</th>
-                    <th>일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>유형</td>
-                    <td>구분</td>
-                    <td>10,000</td>
-                    <td>제목제목제목제목</td>
-                    <td>내용내용내용내용내용내용</td>
-                    <td>2020-04-01 00:00:00</td>
-                </tr>
-                </tbody>-->
-            </table>
-        </div>
-
-
         <div class="footer-btn-wrap">
             <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
             <button id="btnList" type="button" class="btn btn-primary">목록</button>
+            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
         </div>
     </div>
-
 
 </section>

@@ -35,6 +35,10 @@
         ,createRank : rootContext + 'doit/rank/create'
         ,updateRank : rootContext + 'doit/rank/update/'
 
+        ,listEmoticon: rootContext + 'emoticon'
+        ,detailEmoticon: rootContext + 'emoticon/detail/'
+        ,updateEmoticon: rootContext + 'emoticon/update/'
+
         ,listNotice : rootContext + 'service/notice'
         ,detailNotice : rootContext + 'service/notice/detail/'
         ,updateNotice : rootContext + 'service/notice/update/'

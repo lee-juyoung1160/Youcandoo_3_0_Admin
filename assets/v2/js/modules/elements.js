@@ -566,6 +566,18 @@
     export const createDate = $("#createDate");
     export const promotionStatus = $("#promotionStatus");
 
+    /** 이모티콘 **/
+    export const categoryId = $("#categoryId");
+    export const emoticonTitle = $("#emoticonTitle");
+    export const emoticonType = $("#emoticonType");
+    export const categoryImage = $("#categoryImage");
+    export const categoryImageOn = $("#categoryImageOn");
+    export const categoryImageOff = $("#categoryImageOff");
+    export const emoticonWrap = $("#emoticonWrap");
+    export const categoryImageName = $("#categoryImageName");
+    export const categoryImageOnName = $("#categoryImageOnName");
+    export const categoryImageOffName = $("#categoryImageOffName");
+
     /** 메인 대시보드 **/
     export const dateFromSummary = $("#dateFromSummary");
     export const dateToSummary = $("#dateToSummary");

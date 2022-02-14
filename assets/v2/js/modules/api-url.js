@@ -267,6 +267,9 @@
         promotionProceedList : baseApiUrl + 'promotion/get/proceed/list',
         setDoitPromotion : baseApiUrl + 'promotion/set/doit',
         cancelDoitPromotion : baseApiUrl + 'promotion/set/release',
+
+        emoticonList : baseApiUrl + 'emoticon/list',
+        detailEmoticon : baseApiUrl + 'emoticon/get',
     }
 
     const fileUploadBaseUrlV2 = 'https://fileuploader.youcandoo.co.kr/';

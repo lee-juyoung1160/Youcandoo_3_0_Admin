@@ -36,11 +36,9 @@
 		initSearchDateRangeWeek();
 		initSelectOption();
 		keyword.val('');
-		const chkType = $("input[name=chk-type]");
-		chkType.eq(0).prop('checked', true);
-		chkType.eq(1).prop('checked', true);
-		chkType.eq(2).prop('checked', true);
-		chkType.eq(3).prop('checked', true);
+		$("input[name=chk-type]").each(function (index, element) {
+			$(element).prop('checked', true);
+		})
 		rdoStatus.eq(0).prop('checked', true);
 	}
 

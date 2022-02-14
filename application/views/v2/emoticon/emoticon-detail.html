@@ -19,32 +19,31 @@
                     </colgroup>
                     <tr>
                         <th>카테고리 번호</th>
-                        <td>
+                        <td id="categoryId">
                             000000001
                         </td>
                         <th>생성일</th>
-                        <td>
-                            2022-02-22
+                        <td id="createDate">
                         </td>
                     </tr>
                     <tr>
                         <th>유형 *</th>
                         <td colspan="3">
-                            <p class="detail-data" id="">움직이는 이모티콘</p>
+                            <p class="detail-data" id="emoticonType">움직이는 이모티콘</p>
                         </td>
                     </tr>
                     <tr>
                         <th>이모티콘명 *</th>
                         <td colspan="3">
-                            <p class="detail-data" id="">나두나두</p>
+                            <p class="detail-data" id="emoticonTitle">나두나두</p>
                         </td>
                     </tr>
                     <tr>
                         <th>대표 이미지 *</th>
                         <td colspan="3">
                             <div>
-                                <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
-                                <div class="file-name">profile-1.png</div>
+                                <img class="design_comm_view" src="" alt="대표 이미지" id="categoryImage">
+                                <div class="file-name" id="categoryImageName"></div>
                             </div>
                         </td>
                     </tr>
@@ -53,12 +52,12 @@
                         <td colspan="3">
                             <div class="flex-wrap">
                                 <div>
-                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
-                                    <div class="file-name">profile-1.png</div>
+                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="카테고리 이미지 온" id="categoryImageOn">
+                                    <div class="file-name" id="categoryImageOnName"></div>
                                 </div>
                                 <div>
-                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="이미지 미리보기">
-                                    <div class="file-name">profile-1.png</div>
+                                    <img class="design_comm_view" src="/assets/v2/img/profile-1.png" alt="카테고리 이미지 오프" id="categoryImageOff">
+                                    <div class="file-name" id="categoryImageOffName"></div>
                                 </div>
                             </div>
                         </td>
@@ -66,8 +65,8 @@
                     <tr>
                         <th>썸네일/<br>이모티콘 이미지 *</th>
                         <td colspan="3">
-                            <ul class="emoticon-upload-list">
-                                <li>
+                            <ul class="emoticon-upload-list" id="emoticonWrap">
+                                <!--<li>
                                     <p class="list-num">01</p>
                                     <div class="flex-wrap">
                                         <div>
@@ -119,14 +118,14 @@
                                             <div class="file-name">profile-1.png</div>
                                         </div>
                                     </div>
-                                </li>
+                                </li>-->
                             </ul>
                         </td>
                     </tr>
                     <tr>
                         <th>오픈 여부 *</th>
                         <td colspan="3">
-                            <p class="detail-data" id="">Y</p>
+                            <p class="detail-data" id="isExposure"></p>
                         </td>
                     </tr>
                 </table>
@@ -135,8 +134,8 @@
         <div class="footer-btn-wrap">
             <button id="btnBack" type="button" class="btn btn-outline-primary">이전</button>
             <button id="btnList" type="button" class="btn btn-primary">목록</button>
-            <button id="btnUpdate" type="button" class="btn btn-teal">수정</button>
         </div>
     </div>
 
 </section>
+<script type="module" src="/assets/v2/js/bundles/emoticon-detail.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

@@ -136,6 +136,10 @@
                 accessiblePages.push(_auth + '/detail_talk');
                 accessiblePages.push(_auth + '/detail_action');
                 break;
+            case '/v2/emoticon' :
+                accessiblePages.push(_auth + '/detail');
+                accessiblePages.push(_auth + '/update');
+                break;
             default :
                 if (defaultAccessiblePages.indexOf(_auth) > -1)
                 {

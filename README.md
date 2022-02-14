@@ -26,6 +26,7 @@ application
 │       ├── biz : 비즈
 │       ├── doit : 두잇
 │       ├── gift : 상품
+│       ├── emoticon : 이모티콘
 │       ├── layout : 레이아웃 템플릿
 │       ├── login : 로그인, 관리자등록, otp 인증, 마이페이지
 │       ├── marketing : 마케팅
@@ -48,6 +49,7 @@ application
 │           ├── category : 두잇 > 카테고리 관리
 │           ├── custom-event : 마케팅 > 참여이벤트 관리
 │           ├── doit : 두잇 > 두잇 관리, 신규등록
+│           ├── emoticon : 이모티콘
 │           ├── encryption : 운영 > 암/복호화 처리
 │           ├── error-message : 운영 > 오류 관리
 │           ├── event : 마케팅 > 이벤트 관리

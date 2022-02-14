@@ -14,7 +14,6 @@
                         <div class="form-box">
                             <select id="selDateType" class="select-box">
                                 <option value="created">생성일</option>
-                                <option value="opened">오픈일</option>
                             </select>
                             <div class="date-wrap">
                                 <input type="text" class="datepicker date-from" readonly>
@@ -33,8 +32,8 @@
                         <p class="search-title">검색어</p>
                         <div class="form-box clearfix">
                             <select id="selSearchType" class="select-box">
-                                <option value="">제목</option>
-                                <option value="">카테고리 번호</option>
+                                <option value="category_title">이모티콘명</option>
+                                <option value="category_id">카테고리 아이디</option>
                             </select>
                             <div class="search-txt-wrap">
                                 <input id="keyword" type="search" placeholder="검색어를 입력해주세요.">
@@ -50,8 +49,8 @@
             <div class="col-3">
                 <div class="card clearfix">
                     <p class="search-title">유형</p>
-                    <select id="" class="select-box">
-                        <option value="">전체</option>
+                    <select id="selType" class="select-box">
+                        <option value="all">전체</option>
                         <option value="">멈춰있는 이모티콘</option>
                         <option value="">움직이는 이모티콘</option>
                     </select>
@@ -124,3 +123,4 @@
 
 </section>
 <script src="/assets/v2/js/plugins/jquery.dataTables.min.js"></script>
+<!--<script type="module" src="/assets/v2/js/emoticon/emoticon-list.js?version=<?php echo $this->config->item('version');?>"></script>-->

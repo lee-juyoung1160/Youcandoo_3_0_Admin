@@ -20,17 +20,16 @@
                     <tr>
                         <th>카테고리 번호</th>
                         <td>
-                            000000001
+                            -
                         </td>
                         <th>생성일</th>
-                        <td>
-                            2022-02-22
+                        <td id="createDate">
                         </td>
                     </tr>
                     <tr>
                         <th>유형 *</th>
                         <td colspan="3">
-                            <select id="" class="select-box">
+                            <select id="selType" class="select-box">
                                 <option value="">움직이는 이모티콘</option>
                                 <option value="">멈춰있는 이모티콘</option>
                             </select>
@@ -40,7 +39,7 @@
                         <th>이모티콘명 *</th>
                         <td colspan="3">
                             <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" maxlength="20" placeholder="이모티콘명을 입력해주세요.(한글,영문,숫자,특수문자 사용가능)">
+                                <input id="title" type="text" class="length-input" maxlength="20" placeholder="이모티콘명을 입력해주세요.(한글,영문,숫자,특수문자 사용가능)">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                             </div>
                         </td>
@@ -237,3 +236,4 @@
     </div>
 
 </section>
+<!--<script type="module" src="/assets/v2/js/emoticon/emoticon-create.js?version=<?php echo $this->config->item('version');?>"></script>-->

@@ -61,26 +61,26 @@
 		emoticonTitle.text(category_title);
 		emoticonType.text(category_type === 'dynamic' ? '움직이는 이모티콘' : '멈춰있는 이모티콘');
 		categoryImage.attr('src', category_image_url);
-		categoryImageName.text(isEmpty(category_image_url) ? label.dash : getFileName(category_image_url));
+		categoryImageName.text(getFileName(category_image_url));
 		categoryImageOn.attr('src', category_icon_on_url);
 		categoryImageOff.attr('src', category_icon_off_url);
-		categoryImageOnName.text(isEmpty(category_icon_on_url) ? label.dash : getFileName(category_icon_on_url));
-		categoryImageOffName.text(isEmpty(category_icon_off_url) ? label.dash : getFileName(category_icon_off_url));
+		categoryImageOnName.text(getFileName(category_icon_on_url));
+		categoryImageOffName.text(getFileName(category_icon_off_url));
 		if (!isEmpty(emoticon) &&  emoticon.length > 0)
 		{
 			emoticon.map((obj, index) => {
-				const {emoticon_file_url, emoticon_thumb_url} = obj;
+				const {emoticon_file_url, emoticon_thumb_url, emoticon_id} = obj;
 				const emoticonElement =
 					`<li>
-						<p class="list-num">${index + 1}</p>
+						<p class="list-num">${Number(emoticon_id) > 9 ? Number(emoticon_id) : `0${Number(emoticon_id)}`}</p>
 						<div class="flex-wrap">
 							<div>
 								<img class="design_comm_view" src="${emoticon_thumb_url}" alt="이미지 미리보기">
-								<div class="file-name">${isEmpty(emoticon_thumb_url) ? label.dash : getFileName(emoticon_thumb_url)}</div>
+								<div class="file-name">${getFileName(emoticon_thumb_url)}</div>
 							</div>
 							<div>
 								<img class="design_comm_view" src="${emoticon_file_url}" alt="이미지 미리보기">
-								<div class="file-name">${isEmpty(emoticon_file_url) ? label.dash : getFileName(emoticon_file_url)}</div>
+								<div class="file-name">${getFileName(emoticon_file_url)}</div>
 							</div>
 						</div>
 					</li>`
@@ -94,11 +94,11 @@
 
 	function goListPage()
 	{
-		location.href = page.listNotice;
+		location.href = page.listEmoticon;
 	}
 
 	function getFileName(url)
 	{
-		return url.split('/').reverse()[0];
+		return isEmpty(url) || isEmpty(url.split('/').reverse()[0]) ? label.dash : url.split('/').reverse()[0];
 	}
 

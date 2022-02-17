@@ -26,7 +26,7 @@
 		,invalidFile : '지원하지 않는 파일 형식입니다.'
 		,invalidBrowser : '지원하지 않는 브라우져입니다.'
 		,overFileSize : '10MB 이하의 파일을 선택해주세요.'
-		,maxJoinPromo : '최대 5회까지 등록 가능합니다.'
+		,maxAddEmoticon : '이모티콘은 최대 24개 등록 가능합니다.'
 		,maxAddTen : '최대 10개까지 등록 가능합니다.'
 		,maxAddSix : '최대 6개까지 등록 가능합니다.'
 		,maxAddFive : '최대 5개까지 등록 가능합니다.'

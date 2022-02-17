@@ -269,6 +269,7 @@
         cancelDoitPromotion : baseApiUrl + 'promotion/set/release',
 
         emoticonList : baseApiUrl + 'emoticon/list',
+        createEmoticon : baseApiUrl + 'emoticon/set/create',
         detailEmoticon : baseApiUrl + 'emoticon/get',
     }
 
@@ -277,4 +278,5 @@
         single : fileUploadBaseUrlV2+'single'
         ,multi : fileUploadBaseUrlV2+'multi'
         ,double : fileUploadBaseUrlV2+'double'
+        ,emoticon : fileUploadBaseUrlV2+'emoticon'
     }

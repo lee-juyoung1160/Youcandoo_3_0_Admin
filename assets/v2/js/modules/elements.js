@@ -23,7 +23,6 @@
     export const dateTo         = $(".date-to");
     export const selDateType    = $("#selDateType");
     export const selSearchType  = $("#selSearchType");
-    export const chkType    = $("input[name=chk-type]");
     export const chkStatus  = $("input[name=chk-status]");
     export const rdoType    = $("input[name=radio-type]");
     export const rdoStatus  = $("input[name=radio-status]");
@@ -440,7 +439,6 @@
     export const rdoTargetPageType = $("input[name=radio-target-page-type]");
     export const targetPage = $("#targetPage");
     export const rdoReceiveType = $("input[name=radio-receive-type]");
-    export const rdoCategory = $("input[name=radio-category]");
     export const rdoIconType = $("input[name=radio-icon-type]");
     export const rdoTargetMemberType = $("input[name=radio-target-member-type]");
     export const modalTargetPage = $("#modalTargetPage");

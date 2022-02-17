@@ -25,14 +25,15 @@
 		initSelectOption,
 		onChangeSearchDateFrom,
 		onChangeSearchDateTo,
-		initSearchDateRangeAll
+		initSearchDateRangeAll,
+		onErrorImage
 	} from "../modules/common.js";
 	import {
-	initTableDefaultConfig,
-	buildTotalCount,
-	toggleBtnPreviousAndNextOnTable,
-	getCurrentPage, redrawPage, tableReloadAndStayCurrentPage,
-} from '../modules/tables.js';
+		initTableDefaultConfig,
+		buildTotalCount,
+		toggleBtnPreviousAndNextOnTable,
+		getCurrentPage, redrawPage, tableReloadAndStayCurrentPage,
+	} from '../modules/tables.js';
 	import { label } from "../modules/label.js";
 	import { message } from "../modules/message.js";
 	import {getHistoryParam, setHistoryParam, isBackAction} from "../modules/history.js";
@@ -178,6 +179,7 @@
 				toggleBtnPreviousAndNextOnTable(this);
 				$(".btn-update-emoticon").off().on('click', function () { location.href = page.updateEmoticon + $(this).data('id'); });
 				$(".btn-open").off().on('click', function () { onClickBtnOpen(this); });
+				onErrorImage();
 			}
 		});
 	}

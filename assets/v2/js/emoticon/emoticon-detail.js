@@ -88,6 +88,7 @@
 				emoticonWrap.append(emoticonElement);
 			})
 		}
+		else emoticonWrap.html(label.dash);
 		isExposure.text(is_exposure);
 		onErrorImage();
 	}

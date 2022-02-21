@@ -43,8 +43,9 @@
 	{
 		const increase = $(obj).data('increase');
 		const exist = emoticonWrap.children().length;
+		const maxAddCount = 24;
 
-		if ((exist + Number(increase)) > 24)
+		if ((exist + Number(increase)) > maxAddCount)
 		{
 			sweetToast(message.maxAddEmoticon);
 			return;
@@ -162,7 +163,14 @@
 		}
 
 		if (!isEmpty(data))
-			Object.assign(param, data.results);
+		{
+			if (data.results.emoticon && data.results.emoticon.length > 0)
+			{
+				data.results.emoticon.map(obj => delete obj.group_id);
+
+				Object.assign(param, data.results);
+			}
+		}
 
 		ajaxRequestWithJson(true, api.createEmoticon, JSON.stringify(param))
 			.then( async function( data, textStatus, jqXHR ) {
@@ -173,7 +181,7 @@
 
 	function createSuccess()
 	{
-		// location.href = page.listEmoticon;
+		location.href = page.listEmoticon;
 	}
 
 	function onChangeImage(obj)

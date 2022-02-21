@@ -19,20 +19,18 @@
                     </colgroup>
                     <tr>
                         <th>카테고리 번호</th>
-                        <td>
-                            000000001
+                        <td id="categoryId">
                         </td>
                         <th>생성일</th>
-                        <td>
-                            2022-02-22
+                        <td id="createDate">
                         </td>
                     </tr>
                     <tr>
                         <th>유형 *</th>
                         <td colspan="3">
-                            <select id="" class="select-box">
-                                <option value="">움직이는 이모티콘</option>
-                                <option value="">멈춰있는 이모티콘</option>
+                            <select id="selType" class="select-box">
+                                <option value="dynamic">움직이는 이모티콘</option>
+                                <option value="static">멈춰있는 이모티콘</option>
                             </select>
                         </td>
                     </tr>
@@ -40,7 +38,7 @@
                         <th>이모티콘명 *</th>
                         <td colspan="3">
                             <div class="input-wrap">
-                                <input id="doitTitle" type="text" class="length-input" maxlength="20" placeholder="이모티콘명을 입력해주세요.(한글,영문,숫자,특수문자 사용가능)">
+                                <input id="emoticonTitle" type="text" class="length-input" maxlength="20" placeholder="이모티콘명을 입력해주세요.(한글,영문,숫자,특수문자 사용가능)">
                                 <p class="length-count-wrap"><span class="count-input">0</span>/20</p>
                             </div>
                         </td>
@@ -53,11 +51,11 @@
                                 <div class="emoticon-file-upload upload_design">
                                     <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
                                     <div class="hover-content">
-                                        <label class="btn_upload" for="uploadTitleImg">변경하기<button type="button" class="inp_file"></button></label>
-                                        <input type="file" id="uploadTitleImg" style="display: none;"/>
+                                        <label class="btn_upload" for="categoryImage">변경하기<button type="button" class="inp_file"></button></label>
+                                        <input type="file" id="categoryImage" style="display: none;" accept="image/png" data-width="360" data-height="360"/>
                                     </div>
                                 </div>
-                                <div class="file-name">이모티콘 대표 이미지</div>
+                                <div class="file-name" id="categoryImageName"></div>
                             </div>
                         </td>
                     </tr>
@@ -70,21 +68,21 @@
                                     <div class="emoticon-file-upload upload_design">
                                         <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
                                         <div class="hover-content">
-                                            <label class="btn_upload" for="uploadCategoryImg1">변경하기<button type="button" class="inp_file"></button></label>
-                                            <input type="file" id="uploadCategoryImg1" style="display: none;"/>
+                                            <label class="btn_upload" for="categoryImageOn">변경하기<button type="button" class="inp_file"></button></label>
+                                            <input type="file" id="categoryImageOn" style="display: none;" accept="image/png" data-width="78" data-height="78"/>
                                         </div>
                                     </div>
-                                    <div class="file-name">아이콘 클릭 시 (컬러)</div>
+                                    <div class="file-name" id="categoryImageOnName"></div>
                                 </div>
                                 <div>
                                     <div class="emoticon-file-upload upload_design">
                                         <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
                                         <div class="hover-content">
-                                            <label class="btn_upload" for="uploadCategoryImg2">변경하기<button type="button" class="inp_file"></button></label>
-                                            <input type="file" id="uploadCategoryImg2" style="display: none;"/>
+                                            <label class="btn_upload" for="categoryImageOff">변경하기<button type="button" class="inp_file"></button></label>
+                                            <input type="file" id="categoryImageOff" style="display: none;" accept="image/png" data-width="78" data-height="78"/>
                                         </div>
                                     </div>
-                                    <div class="file-name">아이콘 클릭 전 (흑백)</div>
+                                    <div class="file-name" id="categoryImageOffName"></div>
                                 </div>
                             </div>
                         </td>
@@ -99,21 +97,21 @@
                             </p>
                             <div class="add-btn-wrap">
                                 <p class="sub-tit">썸네일/이미지 업로드 영역 추가</p>
-                                <div class="btn-wrap">
-                                    <button type="button"> + 1개</button>
-                                    <button type="button"> + 5개</button>
-                                    <button type="button"> + 10개</button>
-                                    <button type="button"> + 23개</button>
+                                <div class="btn-wrap" id="btnAdd">
+                                    <button type="button" data-increase="1"> + 1개</button>
+                                    <button type="button" data-increase="5"> + 5개</button>
+                                    <button type="button" data-increase="10"> + 10개</button>
+                                    <button type="button" data-increase="23"> + 23개</button>
                                 </div>
                             </div>
-                            <ul class="emoticon-upload-list">
-                                <li>
+                            <ul class="emoticon-upload-list" id="emoticonWrap">
+                                <!--<li>
                                     <p class="list-num">01</p>
                                     <i class="fas fa-times"></i>
                                     <div class="flex-wrap">
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadThumbImg1">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadThumbImg1" style="display: none;"/>
@@ -123,7 +121,7 @@
                                         </div>
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadEmoticonImg1">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadEmoticonImg1" style="display: none;"/>
@@ -139,7 +137,7 @@
                                     <div class="flex-wrap">
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadThumbImg2">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadThumbImg2" style="display: none;"/>
@@ -149,7 +147,7 @@
                                         </div>
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadEmoticonImg2">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadEmoticonImg2" style="display: none;"/>
@@ -165,7 +163,7 @@
                                     <div class="flex-wrap">
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadThumbImg3">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadThumbImg3" style="display: none;"/>
@@ -175,7 +173,7 @@
                                         </div>
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadEmoticonImg3">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadEmoticonImg3" style="display: none;"/>
@@ -191,7 +189,7 @@
                                     <div class="flex-wrap">
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadThumbImg4">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadThumbImg4" style="display: none;"/>
@@ -201,7 +199,7 @@
                                         </div>
                                         <div>
                                             <div class="emoticon-file-upload upload_design">
-                                                <div class="design_comm"><!--img id="View" alt="이미지 미리보기"--></div>
+                                                <div class="design_comm">&lt;!&ndash;img id="View" alt="이미지 미리보기"&ndash;&gt;</div>
                                                 <div class="hover-content">
                                                     <label class="btn_upload" for="uploadEmoticonImg4">찾아보기<button type="button" class="inp_file"></button></label>
                                                     <input type="file" id="uploadEmoticonImg4" style="display: none;"/>
@@ -210,7 +208,7 @@
                                             <div class="file-name">이모티콘 이미지</div>
                                         </div>
                                     </div>
-                                </li>
+                                </li>-->
                             </ul>
                         </td>
                     </tr>
@@ -223,3 +221,4 @@
     </div>
 
 </section>
+<script type="module" src="/assets/v2/js/bundles/emoticon-update.bundle.js?version=<?php echo $this->config->item('version');?>"></script>

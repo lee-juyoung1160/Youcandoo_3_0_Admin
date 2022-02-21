@@ -15,7 +15,7 @@
 		selSearchType,
 		selType,
 	} from '../modules/elements.js';
-	import {sweetConfirm, sweetError, sweetToast} from '../modules/alert.js';
+	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
 		onClickDateRangeBtn,
 		initDayBtn,
@@ -224,12 +224,11 @@
 
 	function openRequest()
 	{
-		console.log(g_category_id)
-		// ajaxRequestWithJson(true, api., JSON.stringify({'category_id' : g_category_id}))
-		// 	.then( async function( data, textStatus, jqXHR ) {
-		// 		await sweetToastAndCallback(data, openSuccess);
-		// 	})
-		// 	.catch(reject => sweetError(`이모티콘 오픈${message.ajaxError}`));
+		ajaxRequestWithJson(true, api.openEmoticon, JSON.stringify({'category_id' : g_category_id}))
+			.then( async function( data, textStatus, jqXHR ) {
+				sweetToastAndCallback(data, openSuccess);
+			})
+			.catch(reject => sweetError(`이모티콘 오픈${message.ajaxError}`));
 	}
 
 	function openSuccess()

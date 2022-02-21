@@ -271,6 +271,8 @@
         emoticonList : baseApiUrl + 'emoticon/list',
         createEmoticon : baseApiUrl + 'emoticon/set/create',
         detailEmoticon : baseApiUrl + 'emoticon/get',
+        updateEmoticon : baseApiUrl + 'emoticon/set/update',
+        openEmoticon : baseApiUrl + 'emoticon/set/open',
     }
 
     const fileUploadBaseUrlV2 = 'https://fileuploader.youcandoo.co.kr/';

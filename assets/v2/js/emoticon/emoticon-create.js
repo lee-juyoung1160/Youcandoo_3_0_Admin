@@ -37,6 +37,50 @@
 	function onChangeSelType()
 	{
 		emoticonWrap.empty();
+		const acceptType = selType.val() === 'dynamic' ? 'image/webp' : 'image/png';
+		const element =
+			`<li>
+				<p class="list-num">01</p>
+				<i class="fas fa-times"></i>
+				<div class="flex-wrap">
+					<div>
+						<div class="emoticon-file-upload upload_design">
+							<div class="design_comm"></div>
+							<div class="hover-content">
+								<label class="btn_upload" for="thumbnail_1">찾아보기<button type="button" class="inp_file"></button></label>
+								<input type="file"
+										class="emoticon-file-input" 
+									   	id="thumbnail_1"
+									   	name="emoticon_thumb_url.1"
+									   	style="display: none;"
+									   	accept="image/png"
+									   	data-width="360" data-height="360"/>
+							</div>
+						</div>
+						<div class="file-name" data-text="썸네일 이미지">썸네일 이미지</div>
+					</div>
+					<div>
+						<div class="emoticon-file-upload upload_design">
+							<div class="design_comm"></div>
+							<div class="hover-content">
+								<label class="btn_upload" for="emoticon_1">찾아보기<button type="button" class="inp_file"></button></label>
+								<input type="file"
+										class="emoticon-file-input" 
+									   	id="emoticon_1"
+									   	name="emoticon_file_url.1"
+									   	style="display: none;"
+									   	accept="${acceptType}"
+									   	data-width="360" data-height="360"/>
+							</div>
+						</div>
+						<div class="file-name" data-text="이모티콘 이미지">이모티콘 이미지</div>
+					</div>
+				</div>
+			</li>`
+
+		emoticonWrap.html(element);
+
+		$('.emoticon-file-input').off().on('change', function () { onChangeImage(this); });
 	}
 
 	function onClickBtnAdd(obj)
@@ -51,7 +95,7 @@
 			return;
 		}
 
-		const acceptType = selType.val() === 'dynamic' ? 'image/webp' : 'image/png'
+		const acceptType = selType.val() === 'dynamic' ? 'image/webp' : 'image/png';
 		for (let i=0; i<Number(increase); i++)
 		{
 			const elementNum = exist + (i + 1);

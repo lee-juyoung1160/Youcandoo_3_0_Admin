@@ -9,7 +9,7 @@
 		createDate,
 		emoticonTitle,
 		emoticonWrap,
-		categoryImageName, categoryImageOnName, categoryImageOffName, lengthInput, selType, btnSubmit, btnAdd
+		categoryImageName, categoryImageOnName, categoryImageOffName, lengthInput, btnSubmit, btnAdd, emoticonType
 	} from '../modules/elements.js';
 	import {
 		sweetToast,
@@ -44,13 +44,7 @@
 		categoryImageOn.on('change', function () { onChangeImage(this); });
 		categoryImageOff.on('change', function () { onChangeImage(this); });
 		btnAdd.children().on('click', function () { onClickBtnAdd(this); });
-		selType.on('change', function () { onChangeSelType(); });
 	});
-
-	function onChangeSelType()
-	{
-		emoticonWrap.empty();
-	}
 
 	function getDetail()
 	{
@@ -61,6 +55,7 @@
 			.catch(reject => sweetError(label.detailContent + message.ajaxLoadError));
 	}
 
+	let g_emoticon_type;
 	function buildDetail(data)
 	{
 		const {
@@ -81,7 +76,9 @@
 		categoryId.text(category_id);
 		createDate.text(created.slice(0, 10));
 		emoticonTitle.val(category_title);
-		selType.val(category_type);
+		emoticonType.text(category_type === 'dynamic' ? '움직이는 이모티콘' : '멈춰있는 이모티콘');
+		g_emoticon_type = category_type;
+
 		if (!isEmpty(category_image_url))
 		{
 			storedCategoryImage = category_image_url;
@@ -107,7 +104,7 @@
 		if (!isEmpty(emoticon) &&  emoticon.length > 0)
 		{
 			storedEmoticons = emoticon;
-			const acceptType = selType.val() === 'dynamic' ? 'image/webp' : 'image/png';
+			const acceptType = g_emoticon_type === 'dynamic' ? 'image/webp' : 'image/png';
 			const lastId = emoticon[emoticon.length - 1].emoticon_id;
 			for (let i=0; i<Number(lastId); i++)
 			{
@@ -177,7 +174,7 @@
 			return;
 		}
 
-		const acceptType = selType.val() === 'dynamic' ? 'image/webp' : 'image/png'
+		const acceptType = g_emoticon_type === 'dynamic' ? 'image/webp' : 'image/png'
 		for (let i=0; i<Number(increase); i++)
 		{
 			const elementNum = exist + (i + 1);
@@ -285,7 +282,7 @@
 	{
 		const param = {
 			"category_id" : categoryId.text().trim(),
-			"category_type" : selType.val(),
+			"category_type" : g_emoticon_type,
 			"category_title" : emoticonTitle.val().trim(),
 		}
 
@@ -401,18 +398,17 @@
 				const storedEmoticon = getStoredEmoticon(elementNum);
 				if (elementId.includes('thumbnail'))
 				{
-					imageElement = isEmpty(storedEmoticon[0].emoticon_thumb_url) ? '' : `<img src="${storedEmoticon[0].emoticon_thumb_url}" alt="이미지"/>`;
-					imageName = getFileName(storedEmoticon[0].emoticon_thumb_url);
+					imageElement = isEmpty(storedEmoticon) || isEmpty(storedEmoticon[0].emoticon_thumb_url) ? '' : `<img src="${storedEmoticon[0].emoticon_thumb_url}" alt="이미지"/>`;
+					imageName = isEmpty(storedEmoticon) ? '썸네일 이미지' : getFileName(storedEmoticon[0].emoticon_thumb_url);
 				}
 				else
 				{
-					imageElement = isEmpty(storedEmoticon[0].emoticon_file_url) ? '' : `<img src="${storedEmoticon[0].emoticon_file_url}" alt="이미지"/>`;
-					imageName = getFileName(storedEmoticon[0].emoticon_file_url);
+					imageElement = isEmpty(storedEmoticon) || isEmpty(storedEmoticon[0].emoticon_file_url) ? '' : `<img src="${storedEmoticon[0].emoticon_file_url}" alt="이미지"/>`;
+					imageName = isEmpty(storedEmoticon) ? '이모티콘 이미지' : getFileName(storedEmoticon[0].emoticon_file_url);
 				}
 		}
 		$(obj).parent().siblings('.design_comm').html(imageElement);
 		$(nameTarget).text(imageName);
-		// $(obj).parent().siblings('.design_comm').empty();
 		$(obj).val(null);
 	}
 

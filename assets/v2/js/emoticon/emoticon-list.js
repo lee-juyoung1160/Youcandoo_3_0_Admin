@@ -13,7 +13,7 @@
 		btnSearch,
 		btnReset,
 		selSearchType,
-		selType,
+		selType, selSort,
 	} from '../modules/elements.js';
 	import {sweetConfirm, sweetError, sweetToast, sweetToastAndCallback} from '../modules/alert.js';
 	import {
@@ -62,6 +62,7 @@
 		btnSearch 	.on("click", function () { onSubmitSearch(); });
 		btnReset	.on("click", function () { initSearchForm(); });
 		dateButtons	.on("click", function () { onClickDateRangeBtn(this); });
+		selSort		.on('change', function () { onSubmitSearch(); });
 	});
 
 	function initSearchForm()
@@ -83,6 +84,7 @@
 		selDateType.val(historyParams.date_type);
 		selSearchType.val(historyParams.search_type);
 		selType.val(historyParams.type);
+		selSort.val(historyParams.order_by);
 		selPageLength.val(historyParams.limit);
 		_currentPage = historyParams.page;
 	}
@@ -193,6 +195,7 @@
 			"search_type": selSearchType.val(),
 			"keyword" : keyword.val().trim(),
 			"type" : selType.val(),
+			"order_by" : selSort.val(),
 			"page": _currentPage,
 			"limit": selPageLength.val(),
 		}

@@ -150,9 +150,10 @@ getHistoryParam : 목록 페이지에서 이전 검색 조건을 localStorage부
 설명 생략.
 ```
 ## js 파일 Bundle
-* js파일 bundling 후 html에서 load.
+* js파일 bundling 후 bundle 파일을 html에서 load.
 * 라이브러리 : [webpack](https://webpack.js.org/)
 * nodejs LTS 버전 설치 필수
+* local pc에서 진행
 ```bash
   1. 임의의 경로에 임의의 폴더를 하나 생성한다.
   mkdir webpack-demo
@@ -193,10 +194,11 @@ getHistoryParam : 목록 페이지에서 이전 검색 조건을 localStorage부
   위 예시 에서 output.filename의 [name]부분은 entry의 menu에 해당 됨.
 ```
 ```bash
-  7. 모든 설정이 완료되면 아래 명렬어로 bundling
+  7. 모든 설정이 완료되면 아래 명령로 bundling
   - npm 사용할 경우 : npm run build
   - yarn 사용할 경우 : yarn build
 
   8. output에 설정한 폴더에서 최종 결과물 확인
-  9. bundle 된 파일을 html에 사용
+  9. bundle 된 파일을 프로젝트 내 assets > js > bundle 폴더로 복사
+  10. 파일을 html에서 load
 ```

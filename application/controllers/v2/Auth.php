@@ -57,18 +57,21 @@ class Auth extends CI_Controller {
         }
 
         if ($UserData->is_active == "N") {
-            alert("로그인 할수 없습니다.", "/v2/main/login");
+//            alert("로그인 할수 없습니다.", "/v2/main/login");
+            alert("로그인에 실패하였습니다.", "/v2/main/login");
             return;
         }
 
         if (!empty($UserData->company_idx)) {
-            alert("기업 계정으로 로그인할 수 없습니다.", "/v2/main/login");
+//            alert("기업 계정으로 로그인할 수 없습니다.", "/v2/main/login");
+            alert("로그인에 실패하였습니다.", "/v2/main/login");
             return;
         }
 
         if ($UserData->mfa_yn=="Y") {
             if($UserData->status=="승인대기"){
-                alert("승인되지 않은 사용자입니다", "/v2/main/login");
+//                alert("승인되지 않은 사용자입니다", "/v2/main/login");
+                alert("로그인에 실패하였습니다.", "/v2/main/login");
                 return;
             }
             require_once APPPATH.'third_party/PHPGangsta/GoogleAuthenticator.php';

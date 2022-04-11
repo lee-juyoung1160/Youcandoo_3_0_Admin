@@ -139,6 +139,7 @@ class Auth extends CI_Controller {
         }
         else
         {
+            delete_cookie('referer', '.youcandoo.co.kr', '/v2');
             redirect('/v2', 'refresh');
         }
     }

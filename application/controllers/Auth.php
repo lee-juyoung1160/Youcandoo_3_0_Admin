@@ -45,12 +45,14 @@ class Auth extends CI_Controller {
 
         if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
-            alert("비밀번호가 일치하지 않습니다", "/main/login");
+//            alert("비밀번호가 일치하지 않습니다", "/main/login");
+            alert("로그인에 실패하였습니다.", "/main/login");
             return;
         }
 
         if ($UserData->is_active == "N") {
-            alert("로그인 할수 없습니다", "/main/login");
+//            alert("로그인 할수 없습니다", "/main/login");
+            alert("로그인에 실패하였습니다.", "/main/login");
             return;
         }
 
@@ -189,12 +191,14 @@ class Auth extends CI_Controller {
                     "secret"=>$Secret
                 );
                 if($this->curl($Body, "/admin/create")){
-                    alert("회원가입 되었습니다.","/main/login");
+//                    alert("회원가입 되었습니다.","/main/login");
+                    alert("정상적으로 처리되었습니다.","/main/login");
                 }
             }
 
         } else {
-            alert("인증번호를 확인해주세요");
+//            alert("인증번호를 확인해주세요");
+            alert("로그인에 실패하였습니다.", "/main/login");
         }
     }
 

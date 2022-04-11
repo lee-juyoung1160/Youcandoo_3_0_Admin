@@ -52,7 +52,7 @@ class Auth extends CI_Controller {
 
         if ($Password != $UserData->password) {
             $this->updateFailCount($UserID, 1);
-            alert("비밀번호가 일치하지 않습니다.", "/v2/main/login");
+            alert("로그인에 실패하였습니다.", "/v2/main/login");
             return;
         }
 
